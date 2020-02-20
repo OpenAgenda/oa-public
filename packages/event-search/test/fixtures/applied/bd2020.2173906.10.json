@@ -1,0 +1,1766 @@
+{
+  "events": [
+    {
+      "uid": 32287070,
+      "ownerUid": 79075927,
+      "creatorUid": 79075927,
+      "slug": "rencontre-avec-desiree-et-alain-frappier",
+      "title": {
+        "fr": "Rencontre avec Désirée et Alain Frappier",
+        "en": "Meeting with Désirée and Alain Frappier"
+      },
+      "description": {
+        "fr": "Désirée et Alain Frappier construisent une oeuvre humaniste et très documentée sur la complexité du monde social et politique.",
+        "en": "Désirée and Alain Frappier build a humanistic and well-documented work on the complexity of the social and political world."
+      },
+      "longDescription": {
+        "fr": "En faisant le choix de confronter des histoires intimes aux soubresauts de l’Histoire, tout en ayant pour but de redonner une place à ses acteurs·trices invisibles et engagé·e·s, Désirée et Alain Frappier construisent une oeuvre humaniste et très documentée sur la complexité du monde social et politique. _Là où se termine la terre_ et _Le Temps des humbles_, une série de deux romans graphiques, se consacrent à l’histoire du Chili, à ses luttes, et à sa jeunesse désillusionnée.\n\nLe premier a été réalisé à partir du témoignage de Pedro, réfugié chilien en France et témoin engagé, autour du basculement qu’a constitué l’accession d’Allende au pouvoir. C’est à travers ses yeux d’enfant que l’on revit le bouillonnement d’un quart de siècle d’histoire chilienne, rythmé par la Guerre froide, la révolution cubaine et les espoirs qui accompagnent cette élection.\n\nLe second tome, qui paraîtra fin avril 2020 et que les Frappier présenteront lors de cette rencontre, se concentre principalement sur les trois années de pouvoir qu’a exercé Allende, jusqu’au coup d’État mené par Pinochet et l’instauration de la dictature. Il sera ici question de Soledad, enfant des favelas et adolescente de 15 ans, prise dans la tourmente d’un pays à la dérive.\n\n### L’invité\n\n**Désirée** et **Alain Frappier** forment un duo d’auteurs de bande dessinée : elle est journaliste et écrivaine, lui illustrateur et peintre. Ils ont publié ensemble quatre romans graphiques : _Dans l’ombre de Charonne_ (Ed. du Mauconduit, 2012), _La Vie sans mode d’emploi, putain d’années 80 !_ (Mauconduit, 2014), _Le Choix_ (La Ville brûle, 2015) et _Là où se termine la terre_ (Steinkis, 2017).",
+        "en": "By choosing to confront intimate histories with the ups and downs of history, while aiming to restore a place for its invisible and committed actors, Désirée and Alain Frappier build a humanistic and well-documented work on the complexity of the social and political world. _Where the land ends_ and _The Time of the Humble_, a series of two graphic novels, dedicate themselves to the history of Chile, its struggles, and its disillusioned youth.\nThe first was made on the basis of the testimony of Pedro, a Chilean refugee in France and a committed witness, around the change that constituted Allende’s accession to power. It is through his childhood eyes that we relive the bubbling of a quarter of a century of Chilean history, punctuated by the Cold War, the Cuban revolution and the hopes that accompany this election.\nThe second volume, which will appear at the end of April 2020 and which the Frappiers will present at this meeting, focuses mainly on the three years of power exercised by Allende, until the coup d'état led by Pinochet and the establishment of the dictatorship. It will be about Soledad, a child of the favelas and a 15-year-old girl, caught in the turmoil of a drifting country.\n### The guest\n**Désirée** and **Alain Frappier** form a duo of comic book authors: she is a journalist and writer, illustrator and painter. Together they published four graphic novels: _Dans l'ombre de Charonne_ (Ed. du Mauconduit, 2012), _La Vie sans mode d'emploi, putain d'années 80!_ (Mauconduit, 2014) , _Choice (The_ City Burns, 2015) and _Where the Land Ends_ (Steinkis, 2017)."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "199d3d215e204b00ad61956fa9e222aa.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "199d3d215e204b00ad61956fa9e222aa.full.image.jpg",
+            "size": {
+              "height": 4500,
+              "width": 8000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "199d3d215e204b00ad61956fa9e222aa.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-03T17:00:00.000Z",
+          "end": "2020-04-03T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T11:12:28.000Z",
+      "createdAt": "2020-02-14T11:05:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13976903,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "https://www.hors-limites.fr/edition/edition-2020/rencontre-avec-dsire-et-alain-frappier/03-04-2020-19-00/"
+      ],
+      "location": {
+        "uid": 13976903,
+        "slug": "mediatheque-georges-wolinski325",
+        "name": "Médiathèque Georges-Wolinski",
+        "address": "36 rue de la République 93160 Noisy-le-Grand",
+        "city": "Noisy-le-Grand",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93160",
+        "insee": "93051",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.846067,
+        "longitude": 2.553069,
+        "updatedAt": "2019-11-22T12:28:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Dans le cadre de BD 2020 : la France aime le 9e art, un programme initié par le ministère de la Culture, soutenu par le Centre national du livre et la Cité internationale de la bande dessinée et de l’image",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 79075927,
+        "custom": {
+          "organization": "Association Bibliothèques en Seine-Saint-Denis",
+          "contactName": "Hélène Loupias",
+          "contactNumber": "0148459552",
+          "contactPosition": "Chargée de coordination de projets",
+          "email": "helene.loupias@bibliotheques93.fr"
+        }
+      }
+    },
+    {
+      "uid": 94746663,
+      "ownerUid": 79075927,
+      "creatorUid": 79075927,
+      "slug": "rencontre-avec-laurent-maffre-and-jerome-berthaut",
+      "title": {
+        "fr": "Rencontre avec Laurent Maffre & Jérôme Berthaut",
+        "en": "Meeting with Laurent Maffre & Jérôme Berthaut"
+      },
+      "description": {
+        "fr": "Rencontre avec les auteurs",
+        "en": "Meeting with the authors"
+      },
+      "longDescription": {
+        "fr": "Que peut la bande dessinée lorsqu’elle croise les champs de la sociologie et de l’Histoire ? Et comment s’approprie-t-elle des sujets aussi complexes que celui de la banlieue et ses territoires périphériques ?\n\nCes questions seront le fil conducteur d’une rencontre croisée entre Laurent Maffre, auteur-dessinateur, et Jérôme Berthaut, sociologue.\n\nAvec deux romans graphiques intitulés _Demain, demain_ – l’un consacré à l’histoire du bidonville « La Folie » de Nanterre, et l’autre à la cité de transit « Le Port » de Gennevilliers construite en 1971 pour abriter des milliers de familles immigrées délogées du bidonville de Nanterre, Laurent Maffre fait ressurgir une histoire méconnue et sombre de la France postcoloniale, du traitement de son immigration et de l’émergence de ses banlieues.\n\nAdaptée en bande dessinée en 2016, _La banlieue_ du « 20 heures » est une enquête de terrain menée initialement en 2013 par Jérôme Berthaut, qui tente de donner une explication sociologique à la permanence des représentations caricaturales véhiculées par certains médias à ce sujet.\n\nDu docu-fiction à l’enquête, la bande dessinée n’hésite pas à renouveler son genre et à sortir des cases.\n\n### Les invités\n\nSociologue, maître de conférences à l’université de Bourgogne et membre du Ciméos, **Jérôme Berthaut** est chercheur associé au laboratoire « Migrations et société » (URMIS-CNRS).\n\n**Laurent Maffre** est professeur agrégé et enseigne les Arts appliqués à Paris. _Demain, demain_ (Actes Sud BD / Arte éditions), est un roman graphique en deux tomes à la croisée du documentaire et de la fiction.",
+        "en": "What can comic books do when they cross the fields of sociology and history? And how does it appropriate such complex subjects as that of the suburbs and its peripheral territories?\nThese questions will be the main theme of a meeting between author-cartoonist Laurent Maffre and sociologist Jérôme Berthaut.\nWith two graphic novels entitled _Tomorrow, Tomorrow_ – one dedicated to the history of the slum \"La Folie\" of Nanterre, and the other to the transit city \"Le Port\" of Gennevilliers built in 1971 to house thousands of displaced immigrant families from the slum of Nanterre, Laurent Maffre brings to life an unknown and dark history of post-colonial France, the treatment of its immigration and the emergence of its suburbs.\nAdapted for comic strips in 2016, _La banlieue_ du «20 heures» is a field survey conducted initially in 2013 by Jérôme Berthaut, who tries to give a sociological explanation to the permanence of caricatural representations conveyed by some media on this subject.\nFrom docu-fiction to investigation, the comic book does not hesitate to renew its genre and to get out of the boxes.\n### The guests\nSociologist, lecturer at the University of Burgundy and member of the Ciméos, **Jérôme Berthaut** is an associate researcher at the laboratory «Migrations et société» (URMIS-CNRS).\n**Laurent Maffre** is an associate professor and teaches Applied Arts in Paris. _Demain, demain_ (Actes Sud BD/ Arte éditions), is a graphic novel in two volumes at the crossroads of documentary and fiction."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4486cd7c0e834194ab95aaed7ae89ac5.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4486cd7c0e834194ab95aaed7ae89ac5.full.image.jpg",
+            "size": {
+              "height": 4500,
+              "width": 8000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4486cd7c0e834194ab95aaed7ae89ac5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T17:00:00.000Z",
+          "end": "2020-03-21T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T12:12:30.000Z",
+      "createdAt": "2020-02-14T11:15:39.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84981228,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.hors-limites.fr/edition/edition-2020/rencontre-avec-laurent-maffre-jrme-berthaut/21-03-2020-18-00/"
+      ],
+      "location": {
+        "uid": 84981228,
+        "slug": "3-rue-jean-jaures",
+        "name": "3 rue Jean-Jaurès",
+        "address": "Noisy-le-Sec",
+        "city": "Noisy-le-Sec",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93130",
+        "insee": "93053",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.889775,
+        "longitude": 2.451606,
+        "updatedAt": "2020-02-14T11:08:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "En partenariat avec Formula Bula, festival de bande dessinée et plus si affinités produit par Ferraille",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 79075927,
+        "custom": {
+          "organization": "Association Bibliothèques en Seine-Saint-Denis",
+          "contactName": "Hélène Loupias",
+          "contactNumber": "0148459552",
+          "contactPosition": "Chargée de coordination de projets",
+          "email": "helene.loupias@bibliotheques93.fr"
+        }
+      }
+    },
+    {
+      "uid": 96965103,
+      "ownerUid": 20475062,
+      "creatorUid": 20475062,
+      "slug": "expositions-le-laboratoire-de-bd-et-les-secrets-de-la-bd",
+      "title": {
+        "fr": "Expositions \"Le laboratoire de bd\" et \"Les secrets de la bd\"",
+        "en": "Exhibitions \"Le laboratoire de bd\" and \"Les secrets de la bd\""
+      },
+      "description": {
+        "fr": "Expositions \"Le laboratoire de bande dessinée\" (jeunesse) et \"Les secrets de la bande dessinée\" (adulte)",
+        "en": "Exhibitions \"The comic book laboratory\" (youth) and \"The secrets of comic books\" (adult)"
+      },
+      "longDescription": {
+        "fr": "_**Le laboratoire de bande dessinée (jeunesse)**_ :\n\nExposition jeunesse de panneaux interactifs qui explique les codes de la bande dessinée de façon simple et ludique. Toutes les explications sont suivies d'exercices et de jeux. C'est vraiment le monde de la bande dessinée qui devient tout à coup très accessible ! L'exposition est basée sur l'univers graphique de Riff Reb's et en particulier sur la bande dessinée jeunesse La Carotte aux étoiles (éd. de la Gouttière)\n\n_**Les secrets de la bande dessinée (adulte) :**_\n\nLa diversité et la richesse d'inspiration des auteurs du 9ème art est si grande qu'il faut désormais parler de bandes dessinées au pluriel. C'est ce que démontre cette exposition, en s'efforçant de décoder les différentes étapes de la conception d'une bande dessinée : un secret si bien gardé qu'il en devient presque aussi mystérieux que la recette de la potion magique",
+        "en": "_**The comic book laboratory (youth)**_:\nYouth exhibition of interactive panels that explains comic book codes in a simple and playful way. All the explanations are followed by exercises and games. It is really the world of comics that suddenly becomes very accessible! The exhibition is based on the graphic universe of Riff Reb’s and in particular on the comic strip La Carotte aux étoiles (éd. de la Gouttière)\n_**The secrets of comic books (adult):**_\nThe diversity and richness of inspiration of the authors of the 9th art is so great that it is now necessary to speak of comic books in the plural. This is what this exhibition demonstrates, by trying to decode the different stages of the design of a comic book: a secret so well kept that it becomes almost as mysterious as the recipe of the magic potion"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4a8e06c2f53d4e9ca1d1e18d06705bab.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 495,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4a8e06c2f53d4e9ca1d1e18d06705bab.full.image.jpg",
+            "size": {
+              "height": 794,
+              "width": 1123
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4a8e06c2f53d4e9ca1d1e18d06705bab.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-03T14:00:00.000Z",
+          "end": "2020-03-03T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T14:00:00.000Z",
+          "end": "2020-03-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T09:00:00.000Z",
+          "end": "2020-03-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T14:00:00.000Z",
+          "end": "2020-03-06T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T14:00:00.000Z",
+          "end": "2020-03-10T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T14:00:00.000Z",
+          "end": "2020-03-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T09:00:00.000Z",
+          "end": "2020-03-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T14:00:00.000Z",
+          "end": "2020-03-13T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T14:00:00.000Z",
+          "end": "2020-03-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T14:00:00.000Z",
+          "end": "2020-03-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T09:00:00.000Z",
+          "end": "2020-03-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T14:00:00.000Z",
+          "end": "2020-03-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T14:00:00.000Z",
+          "end": "2020-03-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T14:00:00.000Z",
+          "end": "2020-03-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T09:00:00.000Z",
+          "end": "2020-03-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T14:00:00.000Z",
+          "end": "2020-03-27T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T14:13:47.000Z",
+      "createdAt": "2020-02-14T13:21:22.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93354402,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediatheque@mairie-montmerle.fr"
+      ],
+      "location": {
+        "uid": 93354402,
+        "slug": "mediatheque-de-montmerle-sur-saone577",
+        "name": "Médiathèque de Montmerle sur Saône",
+        "address": "35 rue de lyon 01090 montmerle sur saone",
+        "city": "Montmerle-sur-Saône",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ain",
+        "postalCode": "01090",
+        "insee": "01263",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.07918,
+        "longitude": 4.759322,
+        "updatedAt": "2020-02-14T13:07:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 20475062,
+        "custom": {
+          "organization": "Médiathèque de Montmerle sur Saône",
+          "contactName": "Emilie MONNET",
+          "contactNumber": "0474062754",
+          "contactPosition": "Responsable",
+          "email": "mediatheque@mairie-montmerle.fr"
+        }
+      }
+    },
+    {
+      "uid": 23688720,
+      "ownerUid": 20475062,
+      "creatorUid": 20475062,
+      "slug": "atelier-ddessin-manga",
+      "title": {
+        "fr": "Atelier ddessin - Manga",
+        "en": "Workshop ddessin - Manga"
+      },
+      "description": {
+        "fr": "Atelier dessin Manga",
+        "en": "Manga drawing workshop"
+      },
+      "longDescription": {
+        "fr": "Pendant 2h venez vous initier ou perfectionner au dessin manga\n\nAnimation animée par Pierre-Yves GADAIS.",
+        "en": "For 2h come and learn or perfect manga drawing\nAnimated by Pierre-Yves GADAIS."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "54777c49e5984b4aa39911e5442e059e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 495,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "54777c49e5984b4aa39911e5442e059e.full.image.jpg",
+            "size": {
+              "height": 794,
+              "width": 1123
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "54777c49e5984b4aa39911e5442e059e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T13:30:00.000Z",
+          "end": "2020-03-05T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T14:13:45.000Z",
+      "createdAt": "2020-02-14T13:26:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93354402,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediatheque@mairie-montmerle.fr"
+      ],
+      "location": {
+        "uid": 93354402,
+        "slug": "mediatheque-de-montmerle-sur-saone577",
+        "name": "Médiathèque de Montmerle sur Saône",
+        "address": "35 rue de lyon 01090 montmerle sur saone",
+        "city": "Montmerle-sur-Saône",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ain",
+        "postalCode": "01090",
+        "insee": "01263",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.07918,
+        "longitude": 4.759322,
+        "updatedAt": "2020-02-14T13:07:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Adhérents médiathèque : gratuit / Non-adhérents : 3€",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 20475062,
+        "custom": {
+          "organization": "Médiathèque de Montmerle sur Saône",
+          "contactName": "Emilie MONNET",
+          "contactNumber": "0474062754",
+          "contactPosition": "Responsable",
+          "email": "mediatheque@mairie-montmerle.fr"
+        }
+      }
+    },
+    {
+      "uid": 77965920,
+      "ownerUid": 20475062,
+      "creatorUid": 20475062,
+      "slug": "conference-comment-lire-une-bande-dessinee",
+      "title": {
+        "fr": "Conférence \"Comment lire une bande dessinée\"",
+        "en": "Lecture \"How to read a comic book\""
+      },
+      "description": {
+        "fr": "Conférence \"Comment lire une bande dessinée\"",
+        "en": "Lecture \"How to read a comic book\""
+      },
+      "longDescription": {
+        "fr": "La structure d'une bd est spécifique, alors que vous soyez un dévoreur de bd ou au contraire un novice, Didier MEKERKE vous rappelera ou donnera les règles et astuces pour bien lire et apprécier une bande dessinée.",
+        "en": "The structure of a comic is specific, whereas you are a comic devourer or a novice, Didier MEKERKE will remind you or give you the rules and tricks to read well and enjoy a comic."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre",
+        "en": "Free entry"
+      },
+      "image": {
+        "filename": "983b0990307f4f83a81a5f74272059e8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 495,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "983b0990307f4f83a81a5f74272059e8.full.image.jpg",
+            "size": {
+              "height": 794,
+              "width": 1123
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "983b0990307f4f83a81a5f74272059e8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-20T19:00:00.000Z",
+          "end": "2020-03-20T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T14:13:59.000Z",
+      "createdAt": "2020-02-14T13:34:55.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93354402,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediatheque@mairie-montmerle.fr"
+      ],
+      "location": {
+        "uid": 93354402,
+        "slug": "mediatheque-de-montmerle-sur-saone577",
+        "name": "Médiathèque de Montmerle sur Saône",
+        "address": "35 rue de lyon 01090 montmerle sur saone",
+        "city": "Montmerle-sur-Saône",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ain",
+        "postalCode": "01090",
+        "insee": "01263",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.07918,
+        "longitude": 4.759322,
+        "updatedAt": "2020-02-14T13:07:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 20475062,
+        "custom": {
+          "organization": "Médiathèque de Montmerle sur Saône",
+          "contactName": "Emilie MONNET",
+          "contactNumber": "0474062754",
+          "contactPosition": "Responsable",
+          "email": "mediatheque@mairie-montmerle.fr"
+        }
+      }
+    },
+    {
+      "uid": 40438593,
+      "ownerUid": 79104280,
+      "creatorUid": 79104280,
+      "slug": "atelier-bd-avec-lea-maze",
+      "title": {
+        "fr": "Atelier BD avec Léa Mazé",
+        "en": "Comic book workshop with Léa Mazé"
+      },
+      "description": {
+        "fr": "Léa Mazé propose un atelier dessiné pour découvrir son univers",
+        "en": "Léa Mazé proposes a designed workshop to discover her universe"
+      },
+      "longDescription": {
+        "fr": "Léa Mazé écrit et dessine pour le public jeunesse. Après avoir illustré l'épopée fantastique Elma, une vie d'ours, elle réalise la bande dessinée Les Croques dont deux tomes sont aujourd'hui parus. Bienvenue dans le monde mystérieux des jumeaux Céline et Colin qui mènent une enquête au cœur du cimetière familial... En attendant le troisième tome, Léa Mazé propose un atelier dessiné pour découvrir son univers.",
+        "en": "Léa Mazé writes and draws for the youth audience. After illustrating the fantastic epic Elma, a bear’s life, she created the comic book Les Croques, two of which have now been published. Welcome to the mysterious world of twins Celine and Colin conducting an investigation in the heart of the family cemetery... While waiting for the third volume, Léa Mazé proposes a workshop designed to discover her universe."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 02 99 87 49 49",
+        "en": "On registration at 02 99 87 49 49"
+      },
+      "image": {
+        "filename": "dc0192ed413b44cba8d155fe4da28e8a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 468,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dc0192ed413b44cba8d155fe4da28e8a.full.image.jpg",
+            "size": {
+              "height": 474,
+              "width": 709
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dc0192ed413b44cba8d155fe4da28e8a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-11T13:30:00.000Z",
+          "end": "2020-03-11T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T15:14:24.000Z",
+      "createdAt": "2020-02-14T14:37:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26883999,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 12
+      },
+      "registration": [
+        "0299874949"
+      ],
+      "location": {
+        "uid": 26883999,
+        "slug": "le-grand-cordel-mjc",
+        "name": "Le Grand Cordel Mjc",
+        "address": "18 rue des plantes 35700 Rennes",
+        "city": "Rennes",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35700",
+        "insee": "35238",
+        "countryCode": "FR",
+        "district": "Quartiers Nord-Est",
+        "latitude": 48.122012,
+        "longitude": -1.648133,
+        "updatedAt": "2020-02-14T14:37:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 67,
+      "tarif": "5€",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Rue des Livres, Rennes",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Le Grand Cordel Mjc",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 79104280,
+        "custom": {
+          "organization": "Festival Rue des Livres",
+          "contactName": "Association Rue des Livres",
+          "contactNumber": "0299382825",
+          "contactPosition": "Chargée de médiation",
+          "email": "mediationruedeslivres@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 87605861,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-concours-de-dessin-bd",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Concours de dessin BD",
+        "en": "TOUS EN BULLES! - Comic Strip Drawing Contest"
+      },
+      "description": {
+        "fr": "Concours de dessin : quel personnage de BD es-tu?",
+        "en": "Drawing contest: What comic book character are you?"
+      },
+      "longDescription": {
+        "fr": "Le concours de dessins BD est ouvert à tout dessinateur non professionnel, à partir de 6 ans. La participation à ce concours est gratuite.\n\nLes dessins reçus seront répartis, en fonction de l’âge des participants, dans l’une des trois catégories suivantes :\n\n• Catégorie 1 : 6 à 9 ans\n\n• Catégorie 2 : 10 à 14 ans\n\n• Catégorie 3 : + 15 ans\n\nCe concours respectera le calendrier suivant :\n\n• 17 février 2020 : Ouverture du concours\n\n• 28 mars 2020 : Clôture de la remise des dessins\n\n• 1er avril 2020 : Vote du jury et diffusion de la liste des gagnants sur la page Facebook de la bibliothèque\n\n• 4 avril à 11h30 : Remise des prix pour les gagnants de chaque catégorie\n\nLe thème est : « Quel personnage de BD es-tu ? »\n\nLe dessinateur se représente sous la forme d’un autoportrait en personnage BD (héros, super-héros, anti-héros, caricature…)\n\nDans chaque catégorie, le vainqueur se verra remettre un lot de cadeaux qui sera remis lors du vernissage de l’exposition BD du samedi 4 avril à 11h30 à la médiathèque de Vittel. Les gagnants seront individuellement informés par téléphone. Pour les personnes résidents hors du département, les lots pourront être envoyés par la poste.\n\nLes lots sont composés de BD, de coffrets dessin et de billets d’entrée au cinéma Alhambra de Vittel. Des goodies seront également offerts aux participants du concours présents au vernissage de l’exposition.\n\nConditions et réglement complet sur ce lien : [https://vittel.bibli.fr/](https://vittel.bibli.fr/ajax.php?module=cms&categ=document&action=render&id=54)\n\nA vos crayons !",
+        "en": "The comic strip contest is open to all non-professional cartoonists, from the age of 6\\. Participation in this contest is free of charge.\nThe drawings received will be divided, according to the age of the participants, into one of the following three categories:\n• Category 1: 6 to 9 years\n• Category 2: 10 to 14 years\n• Category 3: + 15 years\nThis competition will meet the following schedule:\n• February 17, 2020: Contest Opening\n• March 28, 2020: Drawing Closing\n• April 1, 2020: Jury vote and list of winners on the library’s Facebook page\n• April 4 at 11:30 am: Winners of each category\nThe theme is, \"What comic book character are you?\"\nThe cartoonist represents himself in the form of a self-portrait in comic book character (hero, superhero, anti-hero, caricature, etc.)\nIn each category, the winner will be given a lot of gifts which will be presented at the opening of the comic strip exhibition on Saturday 4 April at 11.30 at the Vittel media library. Winners will be informed individually by telephone. For residents outside the department, lots can be sent by post.\nThe prizes are composed of comic books, drawing boxes and entrance tickets to the Alhambra de Vittel cinema. Goodies will also be offered to contest participants attending the opening of the exhibition.\nConditions and full regulations on this link: [https://vittel.bibli.fr/](https://vittel.bibli.fr/ajax.php?module=cms&categ=document&action=render&id=54)\nHere’s to your pencils!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "04827634d2b948f39ca5c60642b2b509.base.image.jpg",
+        "credits": "Pixabay libre de droit",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "04827634d2b948f39ca5c60642b2b509.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "04827634d2b948f39ca5c60642b2b509.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T13:00:00.000Z",
+          "end": "2020-03-02T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T14:00:00.000Z",
+          "end": "2020-03-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T13:00:00.000Z",
+          "end": "2020-03-03T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T14:00:00.000Z",
+          "end": "2020-03-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T14:00:00.000Z",
+          "end": "2020-03-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T14:00:00.000Z",
+          "end": "2020-03-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T14:00:00.000Z",
+          "end": "2020-03-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T14:00:00.000Z",
+          "end": "2020-03-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T13:00:00.000Z",
+          "end": "2020-03-08T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T14:00:00.000Z",
+          "end": "2020-03-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T23:00:00.000Z",
+          "end": "2020-03-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T23:00:00.000Z",
+          "end": "2020-03-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T23:00:00.000Z",
+          "end": "2020-03-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T23:00:00.000Z",
+          "end": "2020-03-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-16T23:00:00.000Z",
+          "end": "2020-03-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T23:00:00.000Z",
+          "end": "2020-03-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T23:00:00.000Z",
+          "end": "2020-03-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T23:00:00.000Z",
+          "end": "2020-03-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T23:00:00.000Z",
+          "end": "2020-03-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T23:00:00.000Z",
+          "end": "2020-03-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T23:00:00.000Z",
+          "end": "2020-03-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-23T23:00:00.000Z",
+          "end": "2020-03-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T23:00:00.000Z",
+          "end": "2020-03-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T23:00:00.000Z",
+          "end": "2020-03-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T23:00:00.000Z",
+          "end": "2020-03-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T23:00:00.000Z",
+          "end": "2020-03-28T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T17:14:47.000Z",
+      "createdAt": "2020-02-14T16:53:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 98374376,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-concert-dessine",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Concert dessiné",
+        "en": "TOUS EN BULLES! - Cartoon concert"
+      },
+      "description": {
+        "fr": "Concert dessiné Aude Picault et Bastien Lallemant",
+        "en": "Aude Picault and Bastien Lallemant"
+      },
+      "longDescription": {
+        "fr": "Ce concert dessiné est à la croisée du monde graphique d’Aude Picault et de l’univers musical de Bastien Lallemant.\n\nAude Picault\n\nDessinant à la plume, jouant des pleins et déliés, Aude Picault cherche l’expression juste d’un trait minimaliste. Évoluant en fonction des projets et des formats, elle a publié une vingtaine d’albums, du récit autobiographique à la fiction en passant par le carnet de voyage et les histoires pour enfant. Pour les concerts dessinés, elle expérimente en couleurs, mélangeant aquarelles et encres.\n\nBastien Lallemant\n\nD’office, nous pensons à Gainsbourg, époque Melody Nelson, pour le timbre grave, la diction distinguée et nonchalante, les ponctuations musicales à la Jean-Claude Vannier. Un peu aussi à Dominique A et à Bertrand Belin, pour la monochromie de la voix et les ambiances énigmatiques. Si Bastien Lallemant ne se limite pas à ces deux bornes-là, au moins permettent-elles de le situer.\n\nDans ce minimalisme musical subtil, on percevra des clins d’oeil délibérés au rock américain et des arrangements d’autant plus riches qu’ils ne haussent jamais le ton mais réservent des surprises presqu’à chaque virage. Bastien Lallemant, lui, nous parle droit dans les yeux. De nos amours. La fresque est intime : le pouls en cinémascope, branché sur le coeur.\n\nLe principe de la rencontre repose sur un concert dessiné (45 minutes) et un échange avec le public à la suite de la performance. Bastien jouera ses chansons, Aude apportera la dimension dessinée de la rencontre en direct. Une salle à l’écart des espaces de rayonnage de la médiathèque est nécessaire pour le bon déroulement de cette lecture musicale. \\[texte Association 45 tours)",
+        "en": "This designed concert is at the crossroads of the graphic world of Aude Picault and the musical universe of Bastien Lallemant.\nAude Picault\nDrawing with pen, playing full and loose, Aude Picault seeks the expression of a minimalist line. Evolving according to projects and formats, she has published some twenty albums, from autobiographical narrative to fiction, to the travel diary and children’s stories. For the designed concerts, she experiments in colours, mixing watercolours and inks.\nBastien Lallemant\nWe think of Gainsbourg, the Melody Nelson era, for the serious timbre, the distinguished and nonchalant diction, the musical punctuations of Jean-Claude Vannier. A little also to Dominique A and Bertrand Belin, for the monochromy of the voice and the enigmatic ambiances. If Bastien Lallemant is not limited to these two boundaries, at least they allow him to be located.\nIn this subtle musical minimalism, one will perceive deliberate winks to American rock and arrangements all the richer since they never raise the tone but reserve surprises almost at each turn. Bastien Lallemant speaks to us straight in the eyes. Of our loves. The fresco is intimate: the pulse in cinemascope, connected to the heart.\nThe principle of the meeting is based on a drawn concert (45 minutes) and an exchange with the public following the performance. Bastien will play his songs, Aude will bring the drawn dimension of the meeting live. A room away from the shelving spaces of the media library is necessary for the smooth running of this musical reading. [text Association 45 turns)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "cadfac47d0d94e43b73c9e8e192aea50.base.image.jpg",
+        "credits": "Association 45 tours",
+        "size": {
+          "height": 475,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cadfac47d0d94e43b73c9e8e192aea50.full.image.jpg",
+            "size": {
+              "height": 160,
+              "width": 236
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cadfac47d0d94e43b73c9e8e192aea50.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T16:00:00.000Z",
+          "end": "2020-04-01T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T17:15:01.000Z",
+      "createdAt": "2020-02-14T17:00:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Concert dessiné",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Casino de Vittel - Association 45 tours",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 42147435,
+      "ownerUid": 63804710,
+      "creatorUid": 63804710,
+      "slug": "rencontre-dun-ou-une-mangaka",
+      "title": {
+        "fr": "Rencontre d'un ou une mangaka",
+        "en": "Meeting of a mangaka"
+      },
+      "description": {
+        "fr": "Rencontre avec un auteur de mangaka",
+        "en": "Interview with a mangaka author"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre du prix Mangavore organisé par le réseau des médiathèques de Valence Romans Agglo de janvier à avril 2020 où tu votes pour ton manga préféré dans la sélection des 10 mangas proposés, une rencontre est organisée avec un ou une mangaka le 18 avril à 14h à la médiathèque Simone de Beauvoir à Romans.",
+        "en": "As part of the Mangavore prize organised by the Valencia Media Library Network Romans Agglo from January to April 2020 where you vote for your favorite manga in the selection of the 10 proposed mangas, a meeting is organised with a mangaka on 18 April at 2 pm at the Simone de Beauvoir media library in Romans."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "53ff44f075ea45ccace042111d351be8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "53ff44f075ea45ccace042111d351be8.full.image.jpg",
+            "size": {
+              "height": 4961,
+              "width": 3508
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "53ff44f075ea45ccace042111d351be8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T17:14:58.000Z",
+      "createdAt": "2020-02-14T17:05:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 76293902,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 11,
+        "max": 18
+      },
+      "registration": [
+        "http://mediatheques.valenceromansagglo.fr/index/index/id_profil/1"
+      ],
+      "location": {
+        "uid": 76293902,
+        "slug": "mediatheque-simone-de-beauvoir457",
+        "name": "Médiathèque Simone de Beauvoir",
+        "address": "rue Sabaton 26 100 Romans",
+        "city": "Romans-sur-Isère",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Drôme",
+        "postalCode": "26100",
+        "insee": "26281",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.042493,
+        "longitude": 5.051412,
+        "updatedAt": "2020-02-14T16:57:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 63804710,
+        "custom": {
+          "organization": "Réseau des médiathèques de Valence Romans Agglomération",
+          "contactName": "Martine Villeton Pachot",
+          "contactNumber": "04 75 79 21 25",
+          "contactPosition": "Directrice adjointe",
+          "email": "martine.villeton-pachot@valenceromansagglo.fr"
+        }
+      }
+    },
+    {
+      "uid": 84770907,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-jeux-bd",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Jeux BD",
+        "en": "TOUS EN BULLES! - Comics Games"
+      },
+      "description": {
+        "fr": "Quand la bande dessinée rencontre le jeu...",
+        "en": "When the comic book meets the game..."
+      },
+      "longDescription": {
+        "fr": "Toute l'après-midi, venez découvrir des jeux de société, quiz, applications, jeux vidéo autour de la BD\n\nOuvert à tous",
+        "en": "All afternoon, come and discover board games, quizzes, applications, video games around comics\nOpen to all"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c8a2c17752e44242a0f7b70c482fe5e9.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 561,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c8a2c17752e44242a0f7b70c482fe5e9.full.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 251
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c8a2c17752e44242a0f7b70c482fe5e9.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:47.000Z",
+      "createdAt": "2020-02-15T11:28:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2174882
+}

@@ -1,0 +1,97 @@
+{
+  "structure-partenaire": "Université Paul Valéry - Montpellier 3",
+  "prix-pass-culture": null,
+  "keywords": {},
+  "dateRange": {
+    "ar": "١٦ - ٢٢ مارس",
+    "de": "16 - 22 März",
+    "en": "16 - 22 March",
+    "fr": "16 - 22 mars",
+    "es": "16 - 22 March"
+  },
+  "timezone": "Europe/Paris",
+  "originAgenda": {
+    "uid": 13988937,
+    "image": "agenda13988937.jpg",
+    "title": "BD 2020"
+  },
+  "title": {
+    "en": "Exhibition of strips",
+    "fr": "Exposition de strips"
+  },
+  "type-de-structure": 621,
+  "siret": null,
+  "si-autre-precisez": null,
+  "url-pass-culture": null,
+  "uid": 96490567,
+  "tarif": null,
+  "timings": [
+    {
+      "begin": "2020-03-16T09:00:00+01:00",
+      "end": "2020-03-16T17:00:00+01:00"
+    },
+    {
+      "begin": "2020-03-17T09:00:00+01:00",
+      "end": "2020-03-17T17:00:00+01:00"
+    },
+    {
+      "begin": "2020-03-18T09:00:00+01:00",
+      "end": "2020-03-18T17:00:00+01:00"
+    },
+    {
+      "begin": "2020-03-19T09:00:00+01:00",
+      "end": "2020-03-19T17:00:00+01:00"
+    },
+    {
+      "begin": "2020-03-20T09:00:00+01:00",
+      "end": "2020-03-20T17:00:00+01:00"
+    },
+    {
+      "begin": "2020-03-21T09:00:00+01:00",
+      "end": "2020-03-21T17:00:00+01:00"
+    },
+    {
+      "begin": "2020-03-22T09:00:00+01:00",
+      "end": "2020-03-22T17:00:00+01:00"
+    }
+  ],
+  "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+    616
+  ],
+  "type-devenement": 686,
+  "gratuite": 66,
+  "animation-accessible-aux-publics-empeches": 741,
+  "slug": "exposition-de-strips-alliance-francaise-montpellier",
+  "image": {
+    "filename": null,
+    "size": {
+      "width": null,
+      "height": null
+    },
+    "credits": null,
+    "variants": [],
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "particularites": [
+    776
+  ],
+  "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+  "type-de-public-concerne": 760,
+  "type-de-public-empeche": null,
+  "location": {
+    "address": "17 rue Marceau 34000 Montpellier",
+    "latitude": 43.606669,
+    "name": "Alliance française de Montpellier",
+    "longitude": 3.872583
+  },
+  "autre-type-devenement": null,
+  "diffusion-sur-le-pass-culture": [],
+  "lastTiming": {
+    "begin": "2020-03-22T09:00:00+01:00",
+    "end": "2020-03-22T17:00:00+01:00"
+  },
+  "nextTiming": {
+    "begin": "2020-03-16T09:00:00+01:00",
+    "end": "2020-03-16T17:00:00+01:00"
+  }
+}

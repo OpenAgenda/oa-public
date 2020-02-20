@@ -12,6 +12,7 @@ const instanciateSearchStream = require('./utils/instanciateSearchStream');
 const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
+const filterByAccess = require('./utils/filterByAccess');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
@@ -44,7 +45,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     formSchema,
     aggregations: requestedAggregations,
     monolingual,
-    first
+    first,
+    access
   } = validateOptions(options);
 
   const index = getIndexName(set, defaultIndex);
@@ -78,7 +80,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     scrollId
   } = await postDSL(_.pick(config, ['client']), index, cleanDSL, cleanNav.scroll ? cleanNav : {});
 
-  const eventParsers = _buildEventParsers({ detailed, monolingual }, aggregationResults);
+  const eventParsers = _buildEventParsers({ detailed, monolingual, formSchema, access }, aggregationResults);
 
   const parsedEvents = _parseEvents(eventParsers, events);
 
@@ -121,7 +123,7 @@ module.exports = (config, set) => {
 }
 
 
-function _parseEvents( parsers, events ) {
+function _parseEvents(parsers, events) {
   return events.map(e => {
     parsers.forEach( p => {
       e = p( e );
@@ -138,14 +140,18 @@ function _defineIncludes({ baseSearchIncludes, detailedSearchIncludes }, { detai
   ) : includes;
 }
 
-function _buildEventParsers({ detailed, monolingual }, aggregations) {
-  return [
+function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggregations) {
+  const parsers = [
     convertToLocalTimezone,
     appendNextAndLastTiming
-  ].concat(
-    detailed ? [] : e => ih(e, { $unset: ['timings', 'timezone'] })
-  ).concat(
-    monolingual ? monolingualize.bind(null, [
+  ];
+
+  if (!detailed) {
+    parsers.push(e => ih(e, { $unset: ['timings', 'timezone'] }));
+  }
+
+  if (monolingual) {
+    parsers.push(monolingualize.bind(null, [
       'title',
       'description',
       'keywords',
@@ -154,6 +160,12 @@ function _buildEventParsers({ detailed, monolingual }, aggregations) {
       'longDescription',
       'country',
       'location.description'
-    ], monolingual) : []);
+    ], monolingual));
+  }
 
+  if (access && formSchema) {
+    parsers.push(e => filterByAccess(formSchema, access, e));
+  }
+
+  return parsers;
 }

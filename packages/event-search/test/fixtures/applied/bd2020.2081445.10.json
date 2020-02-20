@@ -1,0 +1,1521 @@
+{
+  "events": [
+    {
+      "uid": 47984079,
+      "ownerUid": 84139730,
+      "creatorUid": 84139730,
+      "slug": "sdl16-les-rendez-vous-de-la-bulle-des-lecteurs-sandrine-revel-tom-thomson-a-la-mediatheque-de-la-rochefoucauld",
+      "title": {
+        "fr": "SDL16 - Les rendez-vous de La bulle des lecteurs : Sandrine Revel \"Tom Thomson\" à la médiathèque de La Rochefoucauld",
+        "en": "SDL16 - The meetings of La bulle des lecteurs: Sandrine Revel \"Tom Thomson\" at the media library of La Rochefoucauld"
+      },
+      "description": {
+        "fr": "Rencontre avec Sandrine Revel, autrice du livre Tom Thomson suivie d'une séance de dédicaces",
+        "en": "Meeting with Sandrine Revel, author of the book Tom Thomson followed by a signing session"
+      },
+      "longDescription": {
+        "fr": "Pour la 4e année, le **Service départemental de la lecture de Charente (SDL)** et la **Cité internationale de la bande dessinée et de l’image** organisent le prix **La Bulle des lecteurs**.\n\nVenez à la rencontre des auteurs de la sélection et faites dédicacer votre bande dessinée !\n\n#LaBulleDesLecteurs",
+        "en": "For the fourth year, **the Departmental Reading Service of Charente (SDL)** and the **Cité internationale de la bande dessinée et de l'image are** organizing the Prix **La Bulle des lecteurs**.\nMeet the authors of the selection and have your comic book dedicated!\n#Labulledeslectors"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "970b6f89d6f348a1a5a6badd675ba8d9.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 985,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "970b6f89d6f348a1a5a6badd675ba8d9.full.image.jpg",
+            "size": {
+              "height": 5032,
+              "width": 3579
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "970b6f89d6f348a1a5a6badd675ba8d9.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-14T13:30:00.000Z",
+          "end": "2020-03-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:03.000Z",
+      "createdAt": "2019-11-21T15:05:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 72659765,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 45 63 09 85"
+      ],
+      "location": {
+        "uid": 72659765,
+        "slug": "mediatheque-de-la-rochefoucauld-en-angoumois",
+        "name": "Médiathèque de La Rochefoucauld-en-Angoumois",
+        "address": "1 rue des Tanneurs 16110 La Rochefoucauld-en-Angoumois",
+        "city": "La Rochefoucauld-en-Angoumois",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16110",
+        "insee": "16281",
+        "countryCode": "FR",
+        "district": "La Rochefoucauld",
+        "latitude": 45.738744,
+        "longitude": 0.382132,
+        "updatedAt": "2019-11-21T15:26:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cité internationale de la bande dessinée et de l'image",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 84139730,
+        "custom": {
+          "organization": "Service départemental de la lecture de Charente",
+          "contactName": "Marie-Line Favroul",
+          "contactNumber": "0516095014",
+          "contactPosition": "Bibliothécaire référente Bande Dessinée",
+          "email": "mlfavroul@lacharente.fr"
+        }
+      }
+    },
+    {
+      "uid": 60918614,
+      "ownerUid": 84139730,
+      "creatorUid": 84139730,
+      "slug": "sdl16-les-rendez-vous-de-la-bulle-des-lecteurs-lucas-varela-lhumain-a-la-mediatheque-de-vars",
+      "title": {
+        "fr": "SDL16 - Les rendez-vous de La bulle des lecteurs : Lucas Varela, illustrateur de L’Humain à la médiathèque de Vars",
+        "en": "SDL16 - Meetings of The Reader’s Bubble: Lucas Varela, illustrator of The Human at the Vars Media Library"
+      },
+      "description": {
+        "fr": "Rencontre avec Lucas Varela, illustrateur du livre L’Humain suivie d'une séance de dédicaces",
+        "en": "Meeting with Lucas Varela, illustrator of the book L'Humain followed by a signing session"
+      },
+      "longDescription": {
+        "fr": "Pour la 4e année, le **Service départemental de la lecture de Charente (SDL)** et la **Cité internationale de la bande dessinée et de l’image** organisent le prix **La Bulle des lecteurs**.\n\nVenez à la rencontre des auteurs de la sélection et faites dédicacer votre bande dessinée !\n\n#LaBulleDesLecteurs",
+        "en": "For the fourth year, **the Departmental Reading Service of Charente (SDL)** and the **Cité internationale de la bande dessinée et de l'image are** organizing the Prix **La Bulle des lecteurs**.\nMeet the authors of the selection and have your comic book dedicated!\n#Labulledeslectors"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ab497e8e95524b09ab5b44a2964824ee.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 985,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ab497e8e95524b09ab5b44a2964824ee.full.image.jpg",
+            "size": {
+              "height": 5032,
+              "width": 3579
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ab497e8e95524b09ab5b44a2964824ee.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-20T17:30:00.000Z",
+          "end": "2020-03-20T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:49.000Z",
+      "createdAt": "2019-11-21T15:14:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 50919023,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 45 39 82 84"
+      ],
+      "location": {
+        "uid": 50919023,
+        "slug": "mediatheque-de-vars",
+        "name": "Médiathèque de Vars",
+        "address": "25 rue de la Gare 16330 Vars",
+        "city": "Vars",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16330",
+        "insee": "16393",
+        "countryCode": "FR",
+        "district": "Le Messelin",
+        "latitude": 45.762917,
+        "longitude": 0.128107,
+        "updatedAt": "2019-11-21T15:27:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cité internationale de la bande dessinée et de l'image",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 84139730,
+        "custom": {
+          "organization": "Service départemental de la lecture de Charente",
+          "contactName": "Marie-Line Favroul",
+          "contactNumber": "0516095014",
+          "contactPosition": "Bibliothécaire référente Bande Dessinée",
+          "email": "mlfavroul@lacharente.fr"
+        }
+      }
+    },
+    {
+      "uid": 98629994,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "heros-et-super-heros-de-la-bd_291874",
+      "title": {
+        "fr": "Héros et super-héros de la BD : atelier avec l'auteur Serge Carrère, dessinateur du célèbre Léo Loden le détective privé marseillais",
+        "en": "Hero and superhero of the comic book: workshop with the author Serge Carrère, cartoonist of the famous Léo Loden the Marseillais private det"
+      },
+      "description": {
+        "fr": "Atelier BD",
+        "en": "Atelier BD"
+      },
+      "longDescription": {
+        "fr": "Atelier BD avec l'auteur Serge Carrère, dessinateur du célèbre Léo Loden le détective privé marseillais !",
+        "en": "Comic book workshop with author Serge Carrère, cartoonist of the famous Léo Loden the Marseillais private detective!"
+      },
+      "keywords": {
+        "fr": [
+          "allauch",
+          "atelier bd",
+          "serge carrere"
+        ]
+      },
+      "conditions": {
+        "fr": "Nombre limité, inscription obligatoire",
+        "en": "Limited number, registration required"
+      },
+      "image": {
+        "filename": "4733506528264806acafb3cb4cc8569b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 514,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4733506528264806acafb3cb4cc8569b.full.image.jpg",
+            "size": {
+              "height": 1228,
+              "width": 1674
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4733506528264806acafb3cb4cc8569b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T16:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:47.000Z",
+      "createdAt": "2019-11-21T15:49:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77146706,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 60
+      },
+      "registration": [
+        "04.91.10.49.30",
+        "bibliotheque@allauch.com"
+      ],
+      "location": {
+        "uid": 77146706,
+        "slug": "bibliotheque-bernard-monge",
+        "name": "Bibliothèque Bernard Monge",
+        "address": "32 rue Fernand Rambert 13190 Allauch",
+        "city": "Allauch",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13190",
+        "insee": "13002",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.334829,
+        "longitude": 5.482711,
+        "updatedAt": "2019-11-21T15:44:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Association Allauch BD",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 4227572,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "heros-et-super-heros-de-la-bd-concours-de-costumes_139531",
+      "title": {
+        "fr": "Héros et super-héros de la BD : concours de costumes",
+        "en": "Heroes and Comic Book Superheroes: Costume Contest"
+      },
+      "description": {
+        "fr": "Concours de costumes",
+        "en": "Costume Contest"
+      },
+      "longDescription": {
+        "fr": "Concours de costumes sur le thème des héros et super-héros de la BD :\n\nLuky Luke, Albator, Popeye, Superman, Batman, Obélix, Wonder Woman, Mortel Adèle, Tintin etc...\n\nTous les costumes provenant du monde de la BD, des comics ou encore des mangas seront acceptés, faits main ou pas !",
+        "en": "Costume contest on the theme of heroes and superheroes of comic books:\nLuky Luke, Albator, Popeye, Superman, Batman, Obelix, Wonder Woman, Mortel Adèle, Tintin etc...\nAll costumes from the world of comics, comics or mangas will be accepted, hand made or not!"
+      },
+      "keywords": {
+        "fr": [
+          "cosplay",
+          "concours de déguisement",
+          "bd costumes"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "bf5b96a1b8dd452788fffdada7b18f8d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 514,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bf5b96a1b8dd452788fffdada7b18f8d.full.image.jpg",
+            "size": {
+              "height": 1228,
+              "width": 1674
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bf5b96a1b8dd452788fffdada7b18f8d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T19:00:00.000Z",
+          "end": "2020-01-17T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:49.000Z",
+      "createdAt": "2019-11-21T15:52:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77146706,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 15
+      },
+      "registration": [],
+      "location": {
+        "uid": 77146706,
+        "slug": "bibliotheque-bernard-monge",
+        "name": "Bibliothèque Bernard Monge",
+        "address": "32 rue Fernand Rambert 13190 Allauch",
+        "city": "Allauch",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13190",
+        "insee": "13002",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.334829,
+        "longitude": 5.482711,
+        "updatedAt": "2019-11-21T15:44:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Association Allauch BD, Association de Cosplayeurs",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 29621455,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T11:30:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:56.000Z",
+      "createdAt": "2019-11-21T16:55:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30019904,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 30019904,
+        "slug": "mediatheque-musicale-de-paris593",
+        "name": "Médiathèque musicale de Paris",
+        "address": "8 porte Saint-Eustache 75001 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75001",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.856697,
+        "longitude": 2.351462,
+        "updatedAt": "2019-11-21T21:17:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 61407391,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris_281008",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-04T12:30:00.000Z",
+          "end": "2020-01-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:42.000Z",
+      "createdAt": "2019-11-21T17:01:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26518039,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 26518039,
+        "slug": "bibliotheque-forney375",
+        "name": "Bibliothèque Forney",
+        "address": "1 rue du Figuier 75004 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75004",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 4e Arrondissement",
+        "latitude": 48.853426,
+        "longitude": 2.359192,
+        "updatedAt": "2019-11-21T21:18:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 68997657,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris_836398",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T11:30:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:39.000Z",
+      "createdAt": "2019-11-21T17:03:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87593292,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 87593292,
+        "slug": "bibliotheque-marguerite-audoux844",
+        "name": "Bibliothèque Marguerite Audoux",
+        "address": "10 rue Portefoin 75003 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75003",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 3e Arrondissement",
+        "latitude": 48.863696,
+        "longitude": 2.359965,
+        "updatedAt": "2019-11-21T21:19:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 43983731,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris_315313",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T11:30:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:46.000Z",
+      "createdAt": "2019-11-21T17:05:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11785078,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 11785078,
+        "slug": "bibliotheque-charlotte-delbo",
+        "name": "Bibliothèque Charlotte Delbo",
+        "address": "2 passage des Petits Pères 75002 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75002",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 2e Arrondissement",
+        "latitude": 48.866502,
+        "longitude": 2.340424,
+        "updatedAt": "2019-11-21T21:17:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 85097472,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris_604145",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T11:30:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:48.000Z",
+      "createdAt": "2019-11-21T17:06:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 1129374,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 1129374,
+        "slug": "bibliotheque-arthur-rimbaud277",
+        "name": "Bibliothèque Arthur Rimbaud",
+        "address": "2 place Baudoyer 75004 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75004",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 4e Arrondissement",
+        "latitude": 48.856053,
+        "longitude": 2.356322,
+        "updatedAt": "2019-11-21T21:20:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 83274946,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris_759816",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T11:30:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:40.000Z",
+      "createdAt": "2019-11-21T17:08:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 46511872,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 46511872,
+        "slug": "mediatheque-de-la-canopee",
+        "name": "Médiathèque de la Canopée",
+        "address": "10 passage de la Canopée 75001 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75001",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 1er Arrondissement",
+        "latitude": 48.862449,
+        "longitude": 2.34682,
+        "updatedAt": "2019-11-21T21:20:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2081650
+}

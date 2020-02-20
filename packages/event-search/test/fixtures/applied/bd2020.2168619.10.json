@@ -1,0 +1,1677 @@
+{
+  "events": [
+    {
+      "uid": 93531985,
+      "ownerUid": 2794580,
+      "creatorUid": 2794580,
+      "slug": "concours-bd",
+      "title": {
+        "fr": "Concours BD",
+        "en": "Comic book contest"
+      },
+      "description": {
+        "fr": "Concours de création de planche BD - Le Climat",
+        "en": "Comic Strip Creation Contest - Le Climat"
+      },
+      "longDescription": {
+        "fr": "Concours BD : le climat\n-----------------------\n\n### Le concours de planches du Festival BD est lancé ! Thème de cette année : le climat. Vous avez jusqu'au 14 mars. A vous de jouer !\n\nLe thème du climat est d'actualité. Et la Médiathèque du Bassin d'Aurillac espère qu'il sera source d'inspiration pour les dessinateurs amateurs ! En pleine préparation de son Festival BD - dont la 7e édition se tiendra les 28 et 29 mars -, elle lance son désormais traditionnel concours de création de planches.\n\nVous avez entre 6 et 99 ans, une âme d'artiste et le souhait de mettre vos talents de dessinateur à l'épreuve ? Alors vous avez jusqu'au 14 mars pour composer une planche de BD (sans oublier la thématique du climat !). L'histoire que vous créerez devra se limiter à une planche. Toutes les techniques sont acceptées, mais le format portrait est imposé : A4 (21 x 29,7 cm) ou, pour les 16 ans et plus uniquement, A3 (29,7 x 42 cm).\n\nTrois catégories de participants sont définies pour ce concours : 6-10 ans, 11-15 ans et 16 ans et plus. Les inscriptions sont gratuites et les œuvres doivent être déposées à l'accueil de la Médiathèque au plus tard le samedi 14 mars à 17 h, accompagnées de la fiche de renseignements. Vos planches seront exposées lors du Festival, les 28 et 29 mars.\n\nRécompenses aux gagnants\n\nLe 29 mars, plusieurs prix seront décernés par catégorie, accompagnés de lots :\n\n\\- un \"grand prix\" pour la planche réunissant le meilleur travail graphique et scénaristique ;\n\n\\- un \"prix du public\" pour la planche recueillant le plus de suffrages pendant le Festival ;\n\n\\- d'éventuels \"prix coups de cœur\" du jury.\n\nLe grand prix de la catégorie 16 ans et plus pourra faire l'objet d'une publication dans le quotidien La Montagne. Les auteurs des planches primées se verront remettre divers lots.\n\nA vous de jouer !",
+        "en": "## Comic Strip Contest: Climate\n### The Comic Strip Festival Board Contest is launched! This year’s theme is climate. You have until March 14\\. It’s up to you!\nThe climate theme is topical. And the Aurillac Basin Media Library hopes it will be a source of inspiration for amateur designers! In preparation for its Comic Strip Festival - the 7th edition of which will be held on 28 and 29 March -, it is launching its now traditional plank creation competition.\nAre you between 6 and 99 years old, an artist’s soul and a desire to put your drawing skills to the test? So you have until March 14th to compose a comic strip (without forgetting the climate theme!). The story you create will have to be limited to one board. All techniques are accepted, but the portrait format is required: A4 (21 x 29.7 cm) or, for 16 years and older only, A3 (29.7 x 42 cm).\nThree categories of participants are defined for this competition: 6-10 years, 11-15 years and 16 years and older. Registration is free and the works must be deposited at the reception of the Media Library no later than Saturday, March 14, at 5 p.m., accompanied by the information sheet. Your plates will be on display at the Festival on March 28 and 29.\nAwards to the winners\nOn March 29, several prizes will be awarded by category, with prizes:\n- a \"grand prize\" for the board combining the best graphic and screenplay work;\n- a \"public prize\" for the most popular plate during the Festival;\n- any \"favourite prizes\" of the jury.\nThe grand prize in the 16 years and over category will be published in the daily newspaper La Montagne. The authors of the award-winning plates will be awarded various prizes.\nIt’s up to you!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Renseignements et dépôt des oeuvres auprès de la Médiathèque du Bassin d'Aurillac",
+        "en": "Information and deposit of works with the Aurillac Basin Library"
+      },
+      "image": {
+        "filename": "b2bc5f2358524a6dbe0d98a1896eb14d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 993,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b2bc5f2358524a6dbe0d98a1896eb14d.full.image.jpg",
+            "size": {
+              "height": 2088,
+              "width": 1473
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b2bc5f2358524a6dbe0d98a1896eb14d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T23:00:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T23:00:00.000Z",
+          "end": "2020-03-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T23:00:00.000Z",
+          "end": "2020-03-14T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T12:05:13.000Z",
+      "createdAt": "2020-02-13T12:00:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84252639,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "https://mediatheque.caba.fr/"
+      ],
+      "location": {
+        "uid": 84252639,
+        "slug": "mediatheque-du-bassin-daurillac844",
+        "name": "Médiathèque du Bassin d'Aurillac",
+        "address": "Rue du 139e Régiment d'Infanterie",
+        "city": "Aurillac",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Cantal",
+        "postalCode": "15000",
+        "insee": "15014",
+        "countryCode": "FR",
+        "district": "Les Plots",
+        "latitude": 44.924521,
+        "longitude": 2.443329,
+        "updatedAt": "2020-02-13T11:29:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Journal La Montagne, Ministère de la Culture (DRAC Auvergne-Rhône-Alpes), Région Auvergne-Rhône-Alpes, SOFIA",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2794580,
+        "custom": {
+          "organization": "Médiathèque du Bassin d'Aurillac",
+          "contactName": "SEGURA Julien",
+          "contactNumber": "04 71 46 86 36",
+          "contactPosition": "Directeur adjoint",
+          "email": "j.segura@caba.fr"
+        }
+      }
+    },
+    {
+      "uid": 27880775,
+      "ownerUid": 23582649,
+      "creatorUid": 23582649,
+      "slug": "salon-du-vin-et-de-la-bande-dessinee",
+      "title": {
+        "fr": "Salon du Vin et de la Bande Dessinée",
+        "en": "Wine and Comic Book Fair"
+      },
+      "description": {
+        "fr": "Salon regroupe auteurs Bd et de viticulteurs",
+        "en": "Comic Strip authors and wine growers"
+      },
+      "longDescription": {
+        "fr": "Salon qui aura lieu dans la salle des Fêtes de Beblenheim ( et non plus, comme les autres années dans la salle du Petit-Château ) les 14 et 15 mars prochain .\n\nEntrée gratuite .\n\nAvec plusieurs thèmes :\n\nLe principal : Les 60 ans de Tanguy et laverdure :\n\nAvec une exposition spécifique ( objets divers ayant thème Tanguy et Laverdure, divers originaux etc...)\n\nLa présence de 2 des auteurs actuels de Tanguy et Laverdure ( Sébastien Philippe et Yvan Fernandez)\n\nLa présence de Philippe Charlier ( Fils de Jean-Michel Charlier le scénariste de la série )\n\nL’Aviation et l’Histoire :\n\nAvec la présence de :\n\nFrancis Bergèse ( Buck Danny )\n\nLucio Perinotto ( Dessin d’avions )\n\nMichel Koeniguer ( Misty Mission )\n\nLe 75 eme anniversaire de la bataille des Ardennes avec ( sous réserve ) la présence de Philippe Jarbinet (Airborne 44 ) ,HaroldL.Williamson ( BD La Bataille des Ardennes ) et ( sous réserve , mais quasi certaine ) la présence de Madame Patton , la petite fille du Gl Patton .\n\nL’Alsace et ses caricaturistes :\n\nAvec les auteurs de Bugatti “ Pour la beauté du Geste “ Uniquement dimanche .\n\nPhil : caricaturistes des DNA\n\nSans oublier tous les autres auteurs et dessinateurs .\n\nFranck Thuillier : BD sur Mark Knopfler (dire Strait )\n\nPatrick Schoeny : BD La Cuisine Facile\n\nEt tous les autres auteurs et dessinateurs locaux .\n\nAinsi que des viticulteurs de plusieurs régions de France ( Alsace,Beaujolais,bourgogne,Bordeaux, Cahors , Jurancon ) et des vins de Géorgie et de Hongrie",
+        "en": "Exhibition that will take place in the Festival Hall of Beblenheim ( and no longer, like the other years in the Petit-Château Hall ) on 14 and 15 March .\nFree admission .\nWith several themes:\nThe main one: Tanguy’s 60th birthday and laverdure:\nWith a specific exhibition (various objects with Tanguy and Laverdure theme, various originals etc...)\nThe presence of 2 of the current authors of Tanguy and Laverdure ( Sébastien Philippe and Yvan Fernandez)\nThe presence of Philippe Charlier ( Son of Jean-Michel Charlier the screenwriter of the series )\nAviation and History:\nWith the presence of:\nFrancis Bergèse ( Buck Danny )\nLucio Perinotto ( Aircraft Drawing )\nMichel Koeniguer ( Misty Mission )\nThe 75th anniversary of the Battle of the Ardennes with the presence of Philippe Jarbinet (Airborne 44), Haroldl.Williamson (Bd La Bataille des Ardennes) and ( subject to , but almost certain ) the presence of Madame Patton , the little girl of the Patton .\nAlsace and its caricaturists:\nWith the authors of Bugatti “ Pour la beauté du Geste “ Only on Sunday .\nPhil: DNA cartoonists\nNot to mention all the other authors and cartoonists .\nFranck Thuillier: BD on Mark Knopfler (dire Strait )\nPatrick Schoeny: BD La Cuisine Facile\nAnd all the other local writers and cartoonists.\nAs well as wine growers from several regions of France ( Alsace,Beaujolais,burgundy,Bordeaux, Cahors , Jurancon ) and wines from Georgia and Hungary"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "6965a67a96f84f5b9188f3c209142b32.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6965a67a96f84f5b9188f3c209142b32.full.image.jpg",
+            "size": {
+              "height": 2304,
+              "width": 3072
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6965a67a96f84f5b9188f3c209142b32.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T07:00:00.000Z",
+          "end": "2020-02-15T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T12:00:00.000Z",
+          "end": "2020-02-15T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T12:00:00.000Z",
+          "end": "2020-03-14T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T18:00:00.000Z",
+          "end": "2020-03-14T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T18:30:00.000Z",
+          "end": "2020-03-14T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T09:00:00.000Z",
+          "end": "2020-03-15T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T18:00:00.000Z",
+          "end": "2020-03-15T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T18:30:00.000Z",
+          "end": "2020-03-15T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T13:05:24.000Z",
+      "createdAt": "2020-02-13T12:58:40.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13492070,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "registration": [
+        "contact@domaine-mauler.fr"
+      ],
+      "location": {
+        "uid": 13492070,
+        "slug": "salle-des-fetes244",
+        "name": "Salle des Fêtes",
+        "address": "Beblenheim",
+        "city": "Beblenheim",
+        "region": "Grand Est",
+        "department": "Haut-Rhin",
+        "postalCode": "68980",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.15864,
+        "longitude": 7.325747,
+        "updatedAt": "2020-02-13T12:52:19.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 772,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 23582649,
+        "custom": {
+          "organization": "Sarl Mauler Andre",
+          "contactName": "mauler Christian",
+          "contactNumber": "0389479050",
+          "contactPosition": "gerant",
+          "email": "contact@domaine-mauler.fr"
+        }
+      }
+    },
+    {
+      "uid": 42179818,
+      "ownerUid": 28162896,
+      "creatorUid": 28162896,
+      "slug": "la-chasse-au-tresor-de-tintin",
+      "title": {
+        "fr": "La chasse au trésor de Tintin",
+        "en": "The treasure hunt of Tintin"
+      },
+      "description": {
+        "fr": "Une chasse au trésor dans tout le village sur les traces des aventures de Tintin !",
+        "en": "A treasure hunt throughout the village in the footsteps of Tintin’s adventures!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Réservation conseillée",
+        "en": "Recommended booking"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-11T12:00:00.000Z",
+          "end": "2020-07-11T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T14:05:36.000Z",
+      "createdAt": "2020-02-13T13:13:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19486464,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "06.23.32.71.39",
+        "animation.stedl@gmail.com"
+      ],
+      "location": {
+        "uid": 19486464,
+        "slug": "mairie-de-saint-etienne-de-lugdares",
+        "name": "mairie de Saint Etienne de Lugdarès",
+        "address": "07590",
+        "city": "Saint-Étienne-de-Lugdarès",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ardèche",
+        "postalCode": "07590",
+        "insee": "07232",
+        "countryCode": "FR",
+        "district": "Les Salmes",
+        "latitude": 44.646802,
+        "longitude": 3.982537,
+        "updatedAt": "2020-02-13T13:11:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28162896,
+        "custom": {
+          "organization": "Bibliothèque municipale",
+          "contactName": "Béatrice Baud",
+          "contactNumber": "06.23.32.71.39",
+          "contactPosition": "Bibliothèque",
+          "email": "animation.stedl@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 22543164,
+      "ownerUid": 28162896,
+      "creatorUid": 28162896,
+      "slug": "spiderman-new-generation",
+      "title": {
+        "fr": "Spiderman New Generation",
+        "en": "Spiderman New Generation"
+      },
+      "description": {
+        "fr": "A découvrir dans l'ancienne chapelle du couvent ce film récent de 2018. Oscarisé le meilleur film d'animation, un petit bijoux à découvrir!",
+        "en": "To discover in the old chapel of the convent this recent film of 2018\\. Oscarisé the best animated film, a small jewel to discover!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-11T19:00:00.000Z",
+          "end": "2020-07-11T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T14:05:34.000Z",
+      "createdAt": "2020-02-13T13:19:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19486464,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "06.23.32.71.39",
+        "animation.stedl@gmail.com"
+      ],
+      "location": {
+        "uid": 19486464,
+        "slug": "mairie-de-saint-etienne-de-lugdares",
+        "name": "mairie de Saint Etienne de Lugdarès",
+        "address": "07590",
+        "city": "Saint-Étienne-de-Lugdarès",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ardèche",
+        "postalCode": "07590",
+        "insee": "07232",
+        "countryCode": "FR",
+        "district": "Les Salmes",
+        "latitude": 44.646802,
+        "longitude": 3.982537,
+        "updatedAt": "2020-02-13T13:11:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28162896,
+        "custom": {
+          "organization": "Bibliothèque municipale",
+          "contactName": "Béatrice Baud",
+          "contactNumber": "06.23.32.71.39",
+          "contactPosition": "Bibliothèque",
+          "email": "animation.stedl@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 68803200,
+      "ownerUid": 28162896,
+      "creatorUid": 28162896,
+      "slug": "jeux-de-societe-escape-game-autour-de-la-bande-dessinee",
+      "title": {
+        "fr": "Jeux de société, escape game autour de la Bande dessinée!",
+        "en": "Board games, escape game around the Cartoon!"
+      },
+      "description": {
+        "fr": "Escape game sur Lucky Luke, Escape game sur Blake et Mortimer, des jeux de société, des BD à disposition! Une journée incontournable en famille ou entre amis. Restauration sur place.",
+        "en": "Escape game on Lucky Luke, Escape game on Blake and Mortimer, board games, comics available! A must-have day with family or friends. Catering on site."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-11T08:00:00.000Z",
+          "end": "2020-07-11T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T14:05:33.000Z",
+      "createdAt": "2020-02-13T13:22:33.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19486464,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "animation.stedl@gmail.com",
+        "06.23.32.71.39"
+      ],
+      "location": {
+        "uid": 19486464,
+        "slug": "mairie-de-saint-etienne-de-lugdares",
+        "name": "mairie de Saint Etienne de Lugdarès",
+        "address": "07590",
+        "city": "Saint-Étienne-de-Lugdarès",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ardèche",
+        "postalCode": "07590",
+        "insee": "07232",
+        "countryCode": "FR",
+        "district": "Les Salmes",
+        "latitude": 44.646802,
+        "longitude": 3.982537,
+        "updatedAt": "2020-02-13T13:11:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28162896,
+        "custom": {
+          "organization": "Bibliothèque municipale",
+          "contactName": "Béatrice Baud",
+          "contactNumber": "06.23.32.71.39",
+          "contactPosition": "Bibliothèque",
+          "email": "animation.stedl@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 9387769,
+      "ownerUid": 28162896,
+      "creatorUid": 28162896,
+      "slug": "concours-de-bande-dessinee_448792",
+      "title": {
+        "fr": "Concours de Bande dessinée",
+        "en": "Comic Book Contest"
+      },
+      "description": {
+        "fr": "Une seule règle : Présenter en groupe ou seul une seule planche de BD en noir et blanc ou couleur sur le thème que vous voulez! Le résultat du concours se fera à la fin de la journée.",
+        "en": "One rule only: Present a single black and white or colour comic strip on the theme you want! The result of the contest will be at the end of the day."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "La planche de Bande dessinée doit être ramenée avant le vendredi 3 juillet, au moulin de Masméjean.",
+        "en": "The comic strip must be brought back before Friday, July 3, at the Masméjean mill."
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-12T08:00:00.000Z",
+          "end": "2020-07-12T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T14:05:46.000Z",
+      "createdAt": "2020-02-13T13:25:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19486464,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "animation.stedl@gmail.com",
+        "06.23.32.71.39"
+      ],
+      "location": {
+        "uid": 19486464,
+        "slug": "mairie-de-saint-etienne-de-lugdares",
+        "name": "mairie de Saint Etienne de Lugdarès",
+        "address": "07590",
+        "city": "Saint-Étienne-de-Lugdarès",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ardèche",
+        "postalCode": "07590",
+        "insee": "07232",
+        "countryCode": "FR",
+        "district": "Les Salmes",
+        "latitude": 44.646802,
+        "longitude": 3.982537,
+        "updatedAt": "2020-02-13T13:11:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28162896,
+        "custom": {
+          "organization": "Bibliothèque municipale",
+          "contactName": "Béatrice Baud",
+          "contactNumber": "06.23.32.71.39",
+          "contactPosition": "Bibliothèque",
+          "email": "animation.stedl@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 65112503,
+      "ownerUid": 28162896,
+      "creatorUid": 28162896,
+      "slug": "concours-de-deguisement-de-bande-dessinee",
+      "title": {
+        "fr": "Concours de déguisement de Bande déssinée",
+        "en": "Band Disguise Contest Designed"
+      },
+      "description": {
+        "fr": "Déguise toi en groupe ou tout seul et viens nous présenter ton plus beau déguisement tiré de l'univers de la bande déssinée.",
+        "en": "Disguise yourself as a group or by yourself and come and present your most beautiful disguise taken from the universe of the destitute band."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-12T08:00:00.000Z",
+          "end": "2020-07-12T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T14:05:43.000Z",
+      "createdAt": "2020-02-13T13:37:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19486464,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "06.23.32.71.39",
+        "animation.stedl@gmail.com"
+      ],
+      "location": {
+        "uid": 19486464,
+        "slug": "mairie-de-saint-etienne-de-lugdares",
+        "name": "mairie de Saint Etienne de Lugdarès",
+        "address": "07590",
+        "city": "Saint-Étienne-de-Lugdarès",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ardèche",
+        "postalCode": "07590",
+        "insee": "07232",
+        "countryCode": "FR",
+        "district": "Les Salmes",
+        "latitude": 44.646802,
+        "longitude": 3.982537,
+        "updatedAt": "2020-02-13T13:11:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28162896,
+        "custom": {
+          "organization": "Bibliothèque municipale",
+          "contactName": "Béatrice Baud",
+          "contactNumber": "06.23.32.71.39",
+          "contactPosition": "Bibliothèque",
+          "email": "animation.stedl@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 88859102,
+      "ownerUid": 62076718,
+      "creatorUid": 62076718,
+      "slug": "exposition-et-vernissage-de-lexposition-polar-and-autres-rejouissances-de-ludivine-stock",
+      "title": {
+        "fr": "Exposition et Vernissage de l'exposition \"Polar &  autres réjouissances\" de Ludivine Stock",
+        "en": "Exhibition and Opening of the exhibition \"Polar & autres réjouissances\" by Ludivine Stock"
+      },
+      "description": {
+        "fr": "Exposition Polar et autres réjouissances du 13 mars 2020 au 11 mai 2020",
+        "en": "Polar exhibition and other celebrations from 13 March 2020 to 11 May 2020"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9ed548db550b462ca5d3a1530513a80f.base.image.jpg",
+        "credits": "Ludivine Stock",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9ed548db550b462ca5d3a1530513a80f.full.image.jpg",
+            "size": {
+              "height": 424,
+              "width": 300
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9ed548db550b462ca5d3a1530513a80f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-13T18:00:00.000Z",
+          "end": "2020-03-13T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T15:06:12.000Z",
+      "createdAt": "2020-02-13T14:23:03.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22299570,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 78 39 45 04"
+      ],
+      "location": {
+        "uid": 22299570,
+        "slug": "librairie-la-bande-dessinee",
+        "name": "Librairie La bande Dessinée",
+        "address": "50 grande rue de la croix rousse",
+        "city": "Lyon",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Métropole de Lyon",
+        "postalCode": "69004",
+        "insee": "69123",
+        "countryCode": "FR",
+        "district": "Lyon 4e Arrondissement",
+        "latitude": 45.778837,
+        "longitude": 4.832321,
+        "updatedAt": "2020-02-13T14:03:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62076718,
+        "custom": {
+          "organization": "Librairie La BD",
+          "contactName": "Valérie boudier",
+          "contactNumber": "0478394504",
+          "contactPosition": "Libraire",
+          "email": "librairie@labd.net"
+        }
+      }
+    },
+    {
+      "uid": 63156305,
+      "ownerUid": 89474372,
+      "creatorUid": 89474372,
+      "slug": "rencontre-dedicace-avec-theo-grosjean",
+      "title": {
+        "fr": "Rencontre dédicace avec Théo Grosjean",
+        "en": "Dedication meeting with Theo Grosjean"
+      },
+      "description": {
+        "fr": "Rencontre dédicace avec Théo Grosjean  à l'occasion de la parution de sa nouvelle bande dessinée, L'Homme le plus flippé du monde (éd. Delcourt, avril 2020)",
+        "en": "Dedication meeting with Théo Grosjean on the occasion of the publication of his new comic, L'Homme le plus flippé du monde (ed. Delcourt, April 2020)"
+      },
+      "longDescription": {
+        "fr": "Théo Grosjean, jeune auteur lyonnais, nous avait déjà rendu visite pour son excellent Gentil Orc Sauvage. Nous le suivons depuis sur son compte instagram où il poste régulièrement ses histoires courtes de L'Homme le plus flippé du monde. Ses histoires vont enfin être regroupées dans cette BD ! Théo viendra nous parler de ses angoisses et dédicacer ses BD !",
+        "en": "Theo Grosjean, a young Lyon writer, had already visited us for his excellent Gentil Orc Sauvage. We follow him from his Instagram account where he regularly posts his short stories of The Most Freaked Man in the World. His stories will finally be grouped in this comic! Théo will come to tell us about his anxieties and dedicate his comics!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "entre 15h30 et 18h30 à la librairie La Virevolte, 4 rue Octavio Mey, 69005 Lyon",
+        "en": "between 15.30 and 18.30 at the bookstore La Virevolte, 4 rue Octavio Mey, 69005 Lyon"
+      },
+      "image": {
+        "filename": "ac1bb8d5ec474d0983b8ec463f836aa8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ac1bb8d5ec474d0983b8ec463f836aa8.full.image.jpg",
+            "size": {
+              "height": 4961,
+              "width": 3508
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ac1bb8d5ec474d0983b8ec463f836aa8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T13:30:00.000Z",
+          "end": "2020-05-16T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T14:00:00.000Z",
+          "end": "2020-05-16T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T15:06:10.000Z",
+      "createdAt": "2020-02-13T14:32:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 25409839,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "librairie@lavirevolte.com"
+      ],
+      "location": {
+        "uid": 25409839,
+        "slug": "librairie-la-virevolte",
+        "name": "librairie La Virevolte",
+        "address": "4 rue Octavio mey, 69005 Lyon",
+        "city": "Lyon",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Métropole de Lyon",
+        "postalCode": "69005",
+        "insee": "69123",
+        "countryCode": "FR",
+        "district": "Lyon 5e Arrondissement",
+        "latitude": 45.766211,
+        "longitude": 4.828125,
+        "updatedAt": "2020-02-13T14:28:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 89474372,
+        "custom": {
+          "organization": "Librairie La Virevolte",
+          "contactName": "Sophie Agraphioty",
+          "contactNumber": "0478394157",
+          "contactPosition": "libraire",
+          "email": "librairie@lavirevolte.com"
+        }
+      }
+    },
+    {
+      "uid": 37642364,
+      "ownerUid": 46479456,
+      "creatorUid": 46479456,
+      "slug": "un-dimance-sous-les-poiriers",
+      "title": {
+        "fr": "Un dimanche sous les poiriers",
+        "en": "A Sunday under pears"
+      },
+      "description": {
+        "fr": "Au cours d'une journée sous les poiriers centenaires en fleur, venez vous initier au flip-book et à la bande-dessinée, avec Maxime Belloche dessinateur normand et talentueux !",
+        "en": "During a day under the hundred-year-old pear trees in bloom, come and learn about flip-books and comic books, with Maxime Belloche, a talented Norman cartoonist!"
+      },
+      "longDescription": {
+        "fr": "Venez profiter d'une journée d'animation en famille au coeur des vergers de pommiers et de poiriers ! Le musée vous propose des activités autour de la floraison des poiriers, des ateliers, des démonstrations, et des animations culturelles : fabrication participative d'une cabane-poire en osier, ateliers bande-dessinée et flip-book dans le cadre de l'année de la BD, ateliers d'écriture, balade vélo-patrimoine, cuisson de pain au feu de bois, visite du musée et de l’exposition \"Chut ! une histoire de la fraude\"… Et pour le plus grand plaisir musical des petits et des grands le groupe Olifan viendra vous présenter son 3e album lors d'un concert en plein-air. N'hésitez pas à venir pique-niquer sur place!",
+        "en": "Come and enjoy a fun day with your family in the heart of apple and pear orchards! The museum offers activities around the flowering of pears, workshops, demonstrations, and cultural activities: participatory manufacture of a wicker pear hut, comic book workshops and flip-book as part of the comic book year, writing workshops, bike-heritage walk, baking bread with wood burning, visit to the museum and the exhibition \"Chut! a history of fraud\"… And for the greatest musical pleasure of young and old, the band Olifan will come to present his third album during an open-air concert. Don’t hesitate to come picnic on site!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "ac7bddb9bac34bdebab94cacc39f7743.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ac7bddb9bac34bdebab94cacc39f7743.full.image.jpg",
+            "size": {
+              "height": 3000,
+              "width": 4000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ac7bddb9bac34bdebab94cacc39f7743.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-26T08:00:00.000Z",
+          "end": "2020-04-26T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T16:06:37.000Z",
+      "createdAt": "2020-02-13T16:02:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 55244542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 33 59 56 22",
+        "museedupoire@parc-normandie-maine.fr"
+      ],
+      "location": {
+        "uid": 55244542,
+        "slug": "musee-du-poire779",
+        "name": "Musée du Poiré",
+        "address": "La Logeraie, Barenton",
+        "city": "Barenton",
+        "region": "Normandie",
+        "department": "Manche",
+        "postalCode": "50720",
+        "insee": "50029",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.587452,
+        "longitude": -0.806637,
+        "updatedAt": "2020-02-13T15:58:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 46479456,
+        "custom": {
+          "organization": "Musée du Poiré",
+          "contactName": "Bérengère JEHAN",
+          "contactNumber": "02 33 59 56 22",
+          "contactPosition": "Responsable du Musée",
+          "email": "museedupoire@parc-normandie-maine.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2173480
+}

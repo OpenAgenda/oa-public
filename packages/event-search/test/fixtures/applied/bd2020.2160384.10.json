@@ -1,0 +1,1416 @@
+{
+  "events": [
+    {
+      "uid": 17753422,
+      "ownerUid": 48460579,
+      "creatorUid": 48460579,
+      "slug": "escale-en-famille",
+      "title": {
+        "fr": "Escale en famille",
+        "en": "Stopover with family"
+      },
+      "description": {
+        "fr": "Présentation par le café Manga-T d'objets insolites et originaux en provenance du Japon. L'animation sera suivie de la création d'un arbre à souhait.",
+        "en": "Presentation by the café Manga-T of unusual and original objects from Japan. The animation will be followed by the creation of a tree to wish."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "Upon registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-21T12:30:00.000Z",
+          "end": "2020-04-21T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:20:25.000Z",
+      "createdAt": "2020-02-08T15:13:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20828189,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 20828189,
+        "slug": "mediatheque-du-sablon132",
+        "name": "Médiathèque du Sablon",
+        "address": "4-6 rue des Robert 57000 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57000",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Le Sablon",
+        "latitude": 49.099298,
+        "longitude": 6.174378,
+        "updatedAt": "2020-02-10T08:51:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 48460579,
+        "custom": {
+          "organization": "Médiathèque",
+          "contactName": "Emeline Lamotte",
+          "contactNumber": "03-87-68-25-35",
+          "contactPosition": "bibliothécaire",
+          "email": "elamotte@mairie-metz.fr"
+        }
+      }
+    },
+    {
+      "uid": 8220018,
+      "ownerUid": 48460579,
+      "creatorUid": 48460579,
+      "slug": "rencontre-dauteur-bd",
+      "title": {
+        "fr": "Rencontre avec Charlie Zanello, auteur BD",
+        "en": "Meeting with Charlie Zanello, Comic Book Author"
+      },
+      "description": {
+        "fr": "Rencontre avec Charlie Zanello",
+        "en": "Meeting with Charlie Zanello"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Charlie Zanello, auteur de la BD _Dedans le Centre Pompidou_ afin de découvrir les coulisses du musée.",
+        "en": "Meeting with Charlie Zanello, author of the comic book _Dans le Centre Pompidou_ to discover behind the scenes of the museum."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-24T16:00:00.000Z",
+          "end": "2020-04-24T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:25:09.000Z",
+      "createdAt": "2020-02-08T15:18:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20828189,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 20828189,
+        "slug": "mediatheque-du-sablon132",
+        "name": "Médiathèque du Sablon",
+        "address": "4-6 rue des Robert 57000 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57000",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Le Sablon",
+        "latitude": 49.099298,
+        "longitude": 6.174378,
+        "updatedAt": "2020-02-10T08:51:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 48460579,
+        "custom": {
+          "organization": "Médiathèque",
+          "contactName": "Emeline Lamotte",
+          "contactNumber": "03-87-68-25-35",
+          "contactPosition": "bibliothécaire",
+          "email": "elamotte@mairie-metz.fr"
+        }
+      }
+    },
+    {
+      "uid": 23731470,
+      "ownerUid": 48460579,
+      "creatorUid": 48460579,
+      "slug": "rencontre-atelier-avec-un-mangaka",
+      "title": {
+        "fr": "Rencontre et atelier avec Abdesselam Boutadjine, mangaka",
+        "en": "Meeting and workshop with Abdesselam Boutadjine, a mangaka"
+      },
+      "description": {
+        "fr": "Île aux junior : rencontre avec Abdesselam Boutadjine pour parler du métier de mangaka et créer son propre personnage de manga",
+        "en": "Île aux Junior: meeting with Abdesselam Boutadjine to talk about the job of mangaka and create his own manga character"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-25T08:30:00.000Z",
+          "end": "2020-04-25T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:27:49.000Z",
+      "createdAt": "2020-02-08T15:21:08.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20828189,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 11
+      },
+      "registration": [],
+      "location": {
+        "uid": 20828189,
+        "slug": "mediatheque-du-sablon132",
+        "name": "Médiathèque du Sablon",
+        "address": "4-6 rue des Robert 57000 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57000",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Le Sablon",
+        "latitude": 49.099298,
+        "longitude": 6.174378,
+        "updatedAt": "2020-02-10T08:51:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 48460579,
+        "custom": {
+          "organization": "Médiathèque",
+          "contactName": "Emeline Lamotte",
+          "contactNumber": "03-87-68-25-35",
+          "contactPosition": "bibliothécaire",
+          "email": "elamotte@mairie-metz.fr"
+        }
+      }
+    },
+    {
+      "uid": 10127441,
+      "ownerUid": 48460579,
+      "creatorUid": 48460579,
+      "slug": "atelier-rencontre-avec-un-magaka",
+      "title": {
+        "fr": "Atelier et rencontre avec Abdesselam Boutadjine, magaka",
+        "en": "Workshop and meeting with Abdesselam Boutadjine, magaka"
+      },
+      "description": {
+        "fr": "Île aux junior : rencontre avec Abdesselam Boutadjine pour parler du métier de mangaka et créer son propre personnage de manga",
+        "en": "Île aux Junior: meeting with Abdesselam Boutadjine to talk about the job of mangaka and create his own manga character"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-25T13:00:00.000Z",
+          "end": "2020-04-25T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:29:42.000Z",
+      "createdAt": "2020-02-08T15:23:22.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20828189,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 18
+      },
+      "registration": [],
+      "location": {
+        "uid": 20828189,
+        "slug": "mediatheque-du-sablon132",
+        "name": "Médiathèque du Sablon",
+        "address": "4-6 rue des Robert 57000 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57000",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Le Sablon",
+        "latitude": 49.099298,
+        "longitude": 6.174378,
+        "updatedAt": "2020-02-10T08:51:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 48460579,
+        "custom": {
+          "organization": "Médiathèque",
+          "contactName": "Emeline Lamotte",
+          "contactNumber": "03-87-68-25-35",
+          "contactPosition": "bibliothécaire",
+          "email": "elamotte@mairie-metz.fr"
+        }
+      }
+    },
+    {
+      "uid": 88164351,
+      "ownerUid": 84390420,
+      "creatorUid": 84390420,
+      "slug": "festival-angers-bd",
+      "title": {
+        "fr": "Festival Angers BD",
+        "en": "Festival Angers BD"
+      },
+      "description": {
+        "fr": "22e festival Angers BD",
+        "en": "22nd Angers BD festival"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a17511de59df475489318bf24b38e734.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1045,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a17511de59df475489318bf24b38e734.full.image.jpg",
+            "size": {
+              "height": 1024,
+              "width": 686
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a17511de59df475489318bf24b38e734.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-12-05T09:00:00.000Z",
+          "end": "2020-12-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-06T09:00:00.000Z",
+          "end": "2020-12-06T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:32:20.000Z",
+      "createdAt": "2020-02-09T07:59:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 59781883,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 59781883,
+        "slug": "centre-de-congres-angers328",
+        "name": "Centre de Congrès Jean Monnier",
+        "address": "33 boulevard Carnot 49100 Angers",
+        "city": "Angers",
+        "region": "Pays de la Loire",
+        "department": "Maine-et-Loire",
+        "postalCode": "49100",
+        "insee": "49007",
+        "countryCode": "FR",
+        "district": "Le Port de l'Île",
+        "latitude": 47.474489,
+        "longitude": -0.545948,
+        "updatedAt": "2020-02-10T08:52:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "6 € la journée, 10 € les deux jours",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 84390420,
+        "custom": {
+          "organization": "Festival ANGERS BD",
+          "contactName": "JEAN-PIERRE HOORNE",
+          "contactNumber": "0679310893",
+          "contactPosition": "Organisateur",
+          "email": "jipe.hoorne@wanadoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 51242983,
+      "ownerUid": 72037566,
+      "creatorUid": 72037566,
+      "slug": "sieste-litteraire-musicale-et-dessinee",
+      "title": {
+        "fr": "Sieste littéraire, musicale et dessinée",
+        "en": "Literary, musical and drawn siesta"
+      },
+      "description": {
+        "fr": "Une sieste acoustique, littéraire et dessinée",
+        "en": "An acoustic, literary and drawn siesta"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre du Salon international de l'édition et du livre de Casablanca (SIEL), l’Institut français de Casablanca vous propose une expérience unique : une sieste acoustique, littéraire et dessinée.\n\nLaissez-vous bercer par la voix d’Albin de la Simone. Plongez dans les mélodies de Bastien Lallemant et le trait de Charles Berberian. L’occasion de rêver !\n\nLe public est invité à s’étendre pour écouter les musiciens jouant au centre de la salle, enchaînant musiques, récits, fictions…sans qu’aucun applaudissement ne vienne rompre le charme. Ces siestes sont l’occasion pour Bastien Lallemant d’inviter des amis, et de faire avec eux une musique improvisée, inspirée du répertoire de chacun. Laboratoires musicaux et acoustiques, les siestes sont imprévisibles et durent environ une heure. Il est conseillé d’apporter son oreiller ! Privé des ressorts d’un show traditionnel (micros, amplificateurs et applaudissements sont prohibés), le cérémonial scénique recouvre tout son pouvoir d’envoûtement, et invite l’imprévu à toutes les représentations.\n\n\"Pour ne pas réveiller les dormeurs, les musiciens sont éclairés par une poignée d’ampoules de faible intensité, suspendues à un fil…derrière leur ténébreuse intimité, luisent des songes d’une sidérante inventivité\", _Le Monde_",
+        "en": "As part of the Casablanca International Book and Publishing Fair (SIEL), the French Institute in Casablanca offers you a unique experience: an acoustic, literary and drawn siesta.\nLet yourself be lulled by the voice of Albin de la Simone. Immerse yourself in the melodies of Bastien Lallemant and the trait of Charles Berberian. A chance to dream!\nThe audience is invited to expand to listen to the musicians playing in the centre of the hall, combining music, stories, fictions… without any applause breaking the spell. These naps are the occasion for Bastien Lallemant to invite friends, and to make with them an improvised music, inspired by each one’s repertoire. Musical and acoustic laboratories, naps are unpredictable and last about an hour. It is advisable to bring your pillow! Deprived of the springs of a traditional show (microphones, amplifiers and applause are prohibited), the scenic ceremonial regains all its enchanting power, and invites the unexpected to all performances.\n\"In order not to wake up the sleepers, the musicians are illuminated by a handful of light bulbs of low intensity, suspended on a wire… behind their dark intimacy, shines dreams of a dazzling inventiveness\", _Le Monde_"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "acd980156bef4f0c98d353f03e51f19c.base.image.jpg",
+        "credits": "Charles Berberian",
+        "size": {
+          "height": 453,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "acd980156bef4f0c98d353f03e51f19c.full.image.jpg",
+            "size": {
+              "height": 1526,
+              "width": 2362
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "acd980156bef4f0c98d353f03e51f19c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Africa/Casablanca",
+      "timings": [
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T19:30:00.000Z",
+          "end": "2020-02-15T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T11:27:46.000Z",
+      "createdAt": "2020-02-10T08:45:15.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66936572,
+      "accessibility": {
+        "mi": false,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 121
+      },
+      "registration": [],
+      "location": {
+        "uid": 66936572,
+        "slug": "institut-francais-de-casablanca",
+        "name": "Institut français de Casablanca",
+        "address": "121 boulevard Zerktouni, Casablanca",
+        "city": "Casablanca",
+        "region": null,
+        "department": "Préfecture de Casablanca",
+        "postalCode": "20060",
+        "insee": null,
+        "countryCode": "MA",
+        "district": "arrondissement d'El Maarif",
+        "latitude": 33.583713,
+        "longitude": -7.626523,
+        "updatedAt": "2020-02-07T14:40:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Africa/Casablanca",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "60 dhs / 80 dhs",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon international de l'édition et du livre de Casablanca (SIEL)",
+      "type-de-structure": 629,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 72037566,
+        "custom": {
+          "organization": "Institut français de Casablanca",
+          "contactName": "Sofiane Benkhassala",
+          "contactNumber": "+212633998815",
+          "contactPosition": "Chargé de mission action culturelle",
+          "email": "sofiane.benkhassala@institutfrancais-maroc.com"
+        }
+      }
+    },
+    {
+      "uid": 89739037,
+      "ownerUid": 72037566,
+      "creatorUid": 72037566,
+      "slug": "rencontre-autour-de-la-microedition",
+      "title": {
+        "fr": "Rencontre autour de la microédition",
+        "en": "Meeting on micropublishing"
+      },
+      "description": {
+        "fr": "Rencontre autour de la microédition",
+        "en": "Meeting on micropublishing"
+      },
+      "longDescription": {
+        "fr": "Afin de faire découvrir la microédition, Merieme Mesfioui, illustratrice, graphiste et autrice de bande dessinée parlera de cette pratique qu’elle colporte depuis plusieurs années, notamment lors du festival SPIN OFF qu’elle coorganise.\n\nCette rencontre sera également l’occasion de découvrir ce que les participant·e·s de l’atelier création de fanzines, animé par notre invitée, ont réalisé.",
+        "en": "Merieme Mesfioui, illustrator, graphic designer and comic book author, will share her story of this practice, which she has been co-hosting for several years, especially during the SPIN OFF festival.\nThis meeting will also be an opportunity to discover what the participants of the fanzines creation workshop, led by our guest, have achieved."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "7dbf04b2bb354f24bf58562778697029.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7dbf04b2bb354f24bf58562778697029.full.image.jpg",
+            "size": {
+              "height": 1333,
+              "width": 2000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7dbf04b2bb354f24bf58562778697029.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Africa/Casablanca",
+      "timings": [
+        {
+          "begin": "2020-02-08T16:00:00.000Z",
+          "end": "2020-02-08T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T11:51:00.000Z",
+      "createdAt": "2020-02-10T08:53:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66936572,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 66936572,
+        "slug": "institut-francais-de-casablanca",
+        "name": "Institut français de Casablanca",
+        "address": "121 boulevard Zerktouni, Casablanca",
+        "city": "Casablanca",
+        "region": null,
+        "department": "Préfecture de Casablanca",
+        "postalCode": "20060",
+        "insee": null,
+        "countryCode": "MA",
+        "district": "arrondissement d'El Maarif",
+        "latitude": 33.583713,
+        "longitude": -7.626523,
+        "updatedAt": "2020-02-07T14:40:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Africa/Casablanca",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon International de l'Edition et du Livre (SIEL)",
+      "type-de-structure": 629,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 72037566,
+        "custom": {
+          "organization": "Institut français de Casablanca",
+          "contactName": "Sofiane Benkhassala",
+          "contactNumber": "+212633998815",
+          "contactPosition": "Chargé de mission action culturelle",
+          "email": "sofiane.benkhassala@institutfrancais-maroc.com"
+        }
+      }
+    },
+    {
+      "uid": 37037145,
+      "ownerUid": 72037566,
+      "creatorUid": 72037566,
+      "slug": "atelier-de-creation-de-fanzines",
+      "title": {
+        "fr": "Atelier de création de fanzines",
+        "en": "Workshop for the creation of fanzines"
+      },
+      "description": {
+        "fr": "Atelier de création de fanzines",
+        "en": "Workshop for the creation of fanzines"
+      },
+      "longDescription": {
+        "fr": "Pendant trois jours, la cafétéria de l’Institut français de Casablanca sera transformée en atelier : Merieme Mesfioui, illustratrice, graphiste, autrice de bande dessinée et cofondatrice de SPIN OFF - festival indépendant de microédition et musique alternative à Angoulême – et d’autres professionnel·le·s du domaine, accompagneront des jeunes amateur·rice·s de bande dessinée et d’illustration, dans la création de fanzines.\n\nSur inscription, contacter : nadia.bouissehak@institutfrancais-maroc.com",
+        "en": "For three days, the cafeteria of the French Institute of Casablanca will be transformed into a workshop: Merieme Mesfioui, illustrator, graphic designer, cartoonist and co-founder of SPIN OFF - An independent micropublishing and alternative music festival in Angoulême – and other professionals in the field, will accompany young cartoon and illustration enthusiasts in the creation of fanzines.\nUpon registration, contact: [nadia.bouissehak@institutfrancais-maroc.com](mailto:nadia.bouissehak@institutfrancais-maroc.com)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "916f20f4253b4646a7a0021640a53a0a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "916f20f4253b4646a7a0021640a53a0a.full.image.jpg",
+            "size": {
+              "height": 396,
+              "width": 528
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "916f20f4253b4646a7a0021640a53a0a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Africa/Casablanca",
+      "timings": [
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T08:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:49:20.000Z",
+      "createdAt": "2020-02-10T08:58:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66936572,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "nadia.bouissehak@institutfrancais-maroc.com"
+      ],
+      "location": {
+        "uid": 66936572,
+        "slug": "institut-francais-de-casablanca",
+        "name": "Institut français de Casablanca",
+        "address": "121 boulevard Zerktouni, Casablanca",
+        "city": "Casablanca",
+        "region": null,
+        "department": "Préfecture de Casablanca",
+        "postalCode": "20060",
+        "insee": null,
+        "countryCode": "MA",
+        "district": "arrondissement d'El Maarif",
+        "latitude": 33.583713,
+        "longitude": -7.626523,
+        "updatedAt": "2020-02-07T14:40:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Africa/Casablanca",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon international de l'édition et du livre (SIEL)",
+      "type-de-structure": 629,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 72037566,
+        "custom": {
+          "organization": "Institut français de Casablanca",
+          "contactName": "Sofiane Benkhassala",
+          "contactNumber": "+212633998815",
+          "contactPosition": "Chargé de mission action culturelle",
+          "email": "sofiane.benkhassala@institutfrancais-maroc.com"
+        }
+      }
+    },
+    {
+      "uid": 89105149,
+      "ownerUid": 72037566,
+      "creatorUid": 72037566,
+      "slug": "nocturne-raconter-le-monde-en-bande-dessinee",
+      "title": {
+        "fr": "Nocturne \"Raconter le monde en bande dessinée\"",
+        "en": "Nocturne \"Telling the world in comic books\""
+      },
+      "description": {
+        "fr": "Discussion avec : KHP et Frédéric Debomy",
+        "en": "Discussion with: KHP and Frédéric Debomy"
+      },
+      "longDescription": {
+        "fr": "Raconter des histoires réelles à travers le dessin est une pratique aussi ancienne que l’humanité elle-même. Regroupant l’art et les faits, la bande-dessinée documentaire permet aux lecteurs de voir non seulement le monde tel qu’il est, mais de se voir eux-mêmes tels qu’ils sont.",
+        "en": "Telling real stories through drawing is a practice as ancient as humanity itself. Combining art and facts, the documentary comic book allows readers to see not only the world as it is, but to see themselves as they are."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2756f4509deb4e45897f04b58489579b.base.image.jpg",
+        "credits": "KHP",
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2756f4509deb4e45897f04b58489579b.full.image.jpg",
+            "size": {
+              "height": 256,
+              "width": 512
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2756f4509deb4e45897f04b58489579b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Africa/Casablanca",
+      "timings": [
+        {
+          "begin": "2020-02-08T18:30:00.000Z",
+          "end": "2020-02-08T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:51:04.000Z",
+      "createdAt": "2020-02-10T09:04:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66936572,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 66936572,
+        "slug": "institut-francais-de-casablanca",
+        "name": "Institut français de Casablanca",
+        "address": "121 boulevard Zerktouni, Casablanca",
+        "city": "Casablanca",
+        "region": null,
+        "department": "Préfecture de Casablanca",
+        "postalCode": "20060",
+        "insee": null,
+        "countryCode": "MA",
+        "district": "arrondissement d'El Maarif",
+        "latitude": 33.583713,
+        "longitude": -7.626523,
+        "updatedAt": "2020-02-07T14:40:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Africa/Casablanca",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon international de l'édition et du livre (SIEL)",
+      "type-de-structure": 629,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 72037566,
+        "custom": {
+          "organization": "Institut français de Casablanca",
+          "contactName": "Sofiane Benkhassala",
+          "contactNumber": "+212633998815",
+          "contactPosition": "Chargé de mission action culturelle",
+          "email": "sofiane.benkhassala@institutfrancais-maroc.com"
+        }
+      }
+    },
+    {
+      "uid": 40644972,
+      "ownerUid": 76823447,
+      "creatorUid": 76823447,
+      "slug": "faire-de-la-bande-dessinee-avec-fabrice-erre",
+      "title": {
+        "en": "\"Making comics\" with Fabrice Erre",
+        "fr": "\"Faire de la bande dessinée\" avec Fabrice Erre"
+      },
+      "description": {
+        "en": "Participants are invited to discover the 9th art and create sequences from a text written in French, in order to tell an anecdote related to their experiences in France.",
+        "fr": "Il est proposé aux participants de découvrir le 9e art et de créer des séquences à partir d’un texte écrit en cours de français, afin de raconter une anecdote liée à leurs expériences en France."
+      },
+      "longDescription": {
+        "en": "This comic book creation workshop offers to discover the 9th art and to practice it simply. He is open to all, regardless of his mastery in drawing. The idea is to build a comic strip (three boxes or vignettes) from a text written in French, in order to tell an anecdote related to his experience of life in France. So each participant makes their own sequence of three boxes, writes the dialogues and makes the drawings.\nThe workshop takes place in two stages. The first session consists in learning the general principles of comic book storytelling: what are the particularities of its language? How does a comic book read? What graphic elements can be used by the author? Finally, it is proposed to make a breakdown (it is necessary to determine what each box contains) of the history of each participant and to sketch the first sketches. The second session is devoted to the graphic realization of the \"strip\": work on the drawing, tricks of the comic book, passage to the ink.\nThe sequences made will be the subject of an exhibition, or even a small publication at the premises of the Alliance française de Montpellier.",
+        "fr": "Cet atelier de création BD propose de découvrir le 9e art et de le pratiquer simplement. Il est ouvert à tous, indépendamment de sa maîtrise en dessin. Il s’agit de construire un \"strip\" de bande dessinée (trois cases ou vignettes) à partir d’un texte écrit en cours de français, afin de raconter une anecdote liée à son expérience de vie en France. Donc, chaque participant réalise sa propre séquence de trois cases, écrit les dialogues et fait les dessins.\n\nL’atelier se déroule en deux temps. La première séance consiste à prendre connaissances des principes généraux du récit de bande dessinée : quels sont les particularités de son langage ? Comment se lit une bande dessinée ? Quels sont les éléments graphiques utilisables par l’auteur ? Finalement, il est proposé de réaliser un découpage (il s'agit de déterminer ce que chaque case comporte) de l’histoire de chaque participant et esquisser les premiers croquis. La deuxième séance se consacre à la réalisation graphique du \"strip\" : travail sur le dessin, astuces de la BD, passage à l’encre.\n\nLes séquences réalisées feront l’objet d’une exposition, voire une petite publication dans les locaux de l'Alliance française de Montpellier."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f876259a9cb149d58c2057c1313e59ae.base.image.jpg",
+        "credits": "Alliance française de Montpellier",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f876259a9cb149d58c2057c1313e59ae.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f876259a9cb149d58c2057c1313e59ae.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-11T14:30:00.000Z",
+          "end": "2020-03-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T14:30:00.000Z",
+          "end": "2020-03-12T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T10:53:53.000Z",
+      "createdAt": "2020-02-10T09:36:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48937868,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 48937868,
+        "slug": "alliance-francaise-montpellier988",
+        "name": "Alliance française de Montpellier",
+        "address": "17 rue Marceau 34000 Montpellier",
+        "city": "Montpellier",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34000",
+        "insee": "34172",
+        "countryCode": "FR",
+        "district": "Centre",
+        "latitude": 43.606669,
+        "longitude": 3.872583,
+        "updatedAt": "2020-02-10T09:37:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        616
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Université Paul Valéry - Montpellier 3",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76823447,
+        "custom": {
+          "organization": "Alliance Française Montpellier",
+          "contactName": "Flavio Paredes",
+          "contactNumber": "0981330103",
+          "contactPosition": "Coordinateur culturel",
+          "email": "culture.afmontpellier@gmail.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2164324
+}

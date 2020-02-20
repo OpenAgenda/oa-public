@@ -1,0 +1,2502 @@
+{
+  "events": [
+    {
+      "uid": 3095857,
+      "ownerUid": 84475603,
+      "creatorUid": 84475603,
+      "slug": "made-in-comics",
+      "title": {
+        "fr": "Made in Comics",
+        "en": "Made in Comics"
+      },
+      "description": {
+        "fr": "Made in Comics est un festival BD dédié aux comics : auteurs, exposants, animations et conférences sont au programme de cet événement accessible à tous !",
+        "en": "Made in Comics is a comic book festival dedicated to comics: authors, exhibitors, animations and conferences are on the program of this event accessible to all!"
+      },
+      "longDescription": {
+        "fr": "Créé par un passionné des comics, le festival se destine à tous types de publics, aussi bien aux aficionados qu’aux néophytes et aux curieux. Cet événement a pour vocation de provoquer des rencontres et de permettre aux visiteurs d’échanger avec les artistes et autres acteurs du milieu du comics.\n\nLa volonté du festival est aussi de mettre en avant les auteurs de comics : dessinateurs, scénaristes, coloristes, encreurs… Faire de la BD, c’est certes une passion, mais c’est aussi un vrai métier qui n’est pas toujours très valorisé.",
+        "en": "Created by a comic book enthusiast, the festival is aimed at all types of audiences, both aficionados and neophytes. This event is intended to provoke encounters and allow visitors to exchange with artists and other actors in the comic book world.\nThe festival’s will is also to highlight comic writers: cartoonists, screenwriters, colorists, inkers… Comic books are certainly a passion, but they are also a real profession that is not always highly valued."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9ad7aaf3eb91410fbad8bd4a3141841a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9ad7aaf3eb91410fbad8bd4a3141841a.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9ad7aaf3eb91410fbad8bd4a3141841a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T08:00:00.000Z",
+          "end": "2020-04-05T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:18.000Z",
+      "createdAt": "2019-11-20T08:13:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 92392838,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://madeincomics.com/"
+      ],
+      "location": {
+        "uid": 92392838,
+        "slug": "salle-jules-fromont",
+        "name": "Salle Jules Fromont",
+        "address": "1 rue Jules Ferry 59552 Lambres-lez-Douai",
+        "city": "Lambres-lez-Douai",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59552",
+        "insee": "59329",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.353151,
+        "longitude": 3.064236,
+        "updatedAt": "2019-11-20T11:09:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 84475603,
+        "custom": {
+          "organization": "NorthStar Comics",
+          "contactName": "Jeff Breitenbach",
+          "contactNumber": "0679195319",
+          "contactPosition": "Président",
+          "email": "cable@northstarcomics.com"
+        }
+      }
+    },
+    {
+      "uid": 39093031,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "concourt-de-strips",
+      "title": {
+        "fr": "Concours de strips",
+        "en": "Contest of strips"
+      },
+      "description": {
+        "fr": "Concours de strips, ouvert à tous, du 4 février au 31 mars",
+        "en": "Strip contest, open to all, from February 4 to March 31"
+      },
+      "longDescription": {
+        "fr": "« 3 cases, 1 ligne »\n\nPour fêter l'année de la BD, avec la complicité de la librairie Bulles en vrac, les bibliothèques Buffon, l'Heure joyeuse, Mohammed Arkoun et Rainer Maria Rilke organisent un concours créatif de strips.\n\nUn strip est une « bande dessinée de quelques cases sur une ligne, en forme de gag ou d’histoire à suivre, publiée dans un quotidien.» Source : Larousse.\n\nLe thème est libre, cependant votre bande dessinée devra tenir au maximum dans un format A3 et ne contenir que 3 cases sur une ligne. Les créations devront nous parvenir au plus tard le 31 mars 2020. Elles seront ensuite exposées dans la bibliothèque où vous les aurez déposées.\n\nLe concours est ouvert à toutes et à tous ! Bonne chance et belle créativité !",
+        "en": "“3 boxes, 1 line”\nTo celebrate the year of comics, with the complicity of the bookstore Bulles en vrac, the libraries Buffon, l'Heure joyeuse, Mohammed Arkoun and Rainer Maria Rilke organize a creative contest of strips.\nA strip is a “comic strip of a few boxes on a line, in the form of a gag or a story to follow, published in a daily newspaper.” Source: Larousse.\nThe theme is free, however your comic will have to fit to the maximum in an A3 format and contain only 3 boxes on a line. The creations must reach us by March 31, 2020\\. They will then be exhibited in the library where you have deposited them.\nThe contest is open to all! Good luck and great creativity!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Participation jusqu'au 31 mars",
+        "en": "Participation until 31 March"
+      },
+      "image": {
+        "filename": "7e4977081b3746c7aa64cfd851b1d2ab.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 392,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.full.image.jpg",
+            "size": {
+              "height": 433,
+              "width": 775
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:00:00.000Z",
+          "end": "2020-02-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T12:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:00:00.000Z",
+          "end": "2020-02-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:00:00.000Z",
+          "end": "2020-02-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:00:00.000Z",
+          "end": "2020-02-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T12:00:00.000Z",
+          "end": "2020-02-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T12:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T12:00:00.000Z",
+          "end": "2020-02-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T12:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T09:00:00.000Z",
+          "end": "2020-03-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T12:00:00.000Z",
+          "end": "2020-03-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T12:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T09:00:00.000Z",
+          "end": "2020-03-10T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T12:00:00.000Z",
+          "end": "2020-03-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T12:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T09:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T12:00:00.000Z",
+          "end": "2020-03-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T12:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T09:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T12:00:00.000Z",
+          "end": "2020-03-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T12:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T08:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:21.000Z",
+      "createdAt": "2019-11-20T13:47:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 12306661,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://quefaire.paris.fr/94364/concours-de-strips"
+      ],
+      "location": {
+        "uid": 12306661,
+        "slug": "bibliotheque-buffon720",
+        "name": "Bibliothèque Buffon",
+        "address": "15 bis rue Buffon 75005 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75005",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 5e Arrondissement",
+        "latitude": 48.842101,
+        "longitude": 2.359538,
+        "updatedAt": "2019-11-20T13:49:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèques Rainer Maria Rilke, l'Heure Joyeuse et Mohammed Arkoun",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 712964,
+      "ownerUid": 84139730,
+      "creatorUid": 84139730,
+      "slug": "les-rendez-vous-de-la-bulle-des-lecteurs-rencontre-avec-witko-autour-du-livre-el-chipo",
+      "title": {
+        "fr": "SDL16 - Les rendez-vous de La bulle des lecteurs - Nikola Witko \"El Chipo\" à la Bibliothèque de la CIBDI Angoulême",
+        "en": "SDL16 - Meetings of The Reader’s Bubble - Nikola Witko \"El Chipo\" at the Library of the CIBDI Angoulême"
+      },
+      "description": {
+        "fr": "Rencontre avec Nikola Witko, auteur du livre \"El Chipo\", suivie d'une séance de dédicaces",
+        "en": "Meeting with Nikola Witko, author of the book \"El Chipo\", followed by a signing session"
+      },
+      "longDescription": {
+        "fr": "Pour la 4e année, le **Service départemental de la lecture de Charente (SDL)** et la **Cité internationale de la bande dessinée et de l’image** organisent le prix **La Bulle des lecteurs**.\n\nVenez à la rencontre des auteurs de la sélection et faites dédicacer votre bande dessinée !\n\n#LaBulleDesLecteurs",
+        "en": "For the fourth year, **the Departmental Reading Service of Charente (SDL)** and the **Cité internationale de la bande dessinée et de l'image are** organizing the Prix **La Bulle des lecteurs**.\nMeet the authors of the selection and have your comic book dedicated!\n#Labulledeslectors"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "7e01ccc9892a4a16b898917864cd8588.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 985,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7e01ccc9892a4a16b898917864cd8588.full.image.jpg",
+            "size": {
+              "height": 5032,
+              "width": 3579
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7e01ccc9892a4a16b898917864cd8588.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T17:00:00.000Z",
+          "end": "2020-03-06T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:04.000Z",
+      "createdAt": "2019-11-20T14:17:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 68236007,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "+33 5 45 38 65 65"
+      ],
+      "location": {
+        "uid": 68236007,
+        "slug": "bibliotheque-de-la-cite-internationale-de-la-bande-dessinee-et-de-limage",
+        "name": "Bibliothèque de la Cité internationale de la bande dessinée et de l'image",
+        "address": "121 rue de Bordeaux 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.652895,
+        "longitude": 0.150069,
+        "updatedAt": "2019-11-20T14:45:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix La bulle des lecteurs 2019/2020",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cité internationale de la bande dessinée et de l'image",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 84139730,
+        "custom": {
+          "organization": "Service départemental de la lecture de Charente",
+          "contactName": "Marie-Line Favroul",
+          "contactNumber": "0516095014",
+          "contactPosition": "Bibliothécaire référente Bande Dessinée",
+          "email": "mlfavroul@lacharente.fr"
+        }
+      }
+    },
+    {
+      "uid": 87638086,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "aude-picault-et-bastien-lallemant-concert-dessine",
+      "title": {
+        "fr": "Aude Picault et Bastien Lallemant : concert dessiné",
+        "en": "Aude Picault and Bastien Lallemant: cartoon concert"
+      },
+      "description": {
+        "fr": "Concert dessiné est à la croisée du monde graphique d’Aude Picault et de l’univers musical de Bastien Lallemant",
+        "en": "Designed concert is at the crossroads of the graphic world of Aude Picault and the musical universe of Bastien Lallemant"
+      },
+      "longDescription": {
+        "fr": "Aude Picault croque de son regard tendre et humoristique le quotidien, ses contemporains ou les paysages. C’est toujours vif, piqué, et pertinent. Auteure, illustratrice, elle dessine aussi bien pour les adultes que pour les enfants. L’occasion de (re)découvrir son talent.\n\nBastien Lallemant évoque à lui seul Serge Gainsbourg, époque Melody Nelson, pour le timbre grave, la diction distinguée et nonchalante, les ponctuations musicales à la Jean-Claude Vannier. Un peu aussi à Dominique A et à Bertrand Belin, pour la monochromie de la voix et les ambiances énigmatiques.\n\nDans ce minimalisme musical subtil, on percevra des clins d’oeil délibérés au rock américain et des arrangements d’autant plus riches qu’ils ne haussent jamais le ton mais réservent des surprises presqu’à chaque virage. Bastien Lallemant, lui, nous parle droit dans les yeux. De nos amours. La fresque est intime : le pouls en cinémascope, branché sur le coeur.",
+        "en": "Aude Picault takes a tender and humorous look at everyday life, its contemporaries and its landscapes. It is always lively, sharp, and relevant. Author, illustrator, she draws for both adults and children. The opportunity to (re)discover her talent.\nBastien Lallemant alone evokes Serge Gainsbourg, Melody Nelson era, for the serious timbre, the distinguished and nonchalant diction, the musical punctuations to the Jean-Claude Vannier. A little also to Dominique A and Bertrand Belin, for the monochromy of the voice and the enigmatic ambiances.\nIn this subtle musical minimalism, one will perceive deliberate winks to American rock and arrangements all the richer since they never raise the tone but reserve surprises almost at each turn. Bastien Lallemant speaks to us straight in the eyes. Of our loves. The fresco is intimate: the pulse in cinemascope, connected to the heart."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 01 44 78 80 50",
+        "en": "On registration at 01 44 78 80 50"
+      },
+      "image": {
+        "filename": "dee277f51916443f885a04e488efbbdd.base.image.jpg",
+        "credits": "Aude Picault",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dee277f51916443f885a04e488efbbdd.full.image.jpg",
+            "size": {
+              "height": 393,
+              "width": 699
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dee277f51916443f885a04e488efbbdd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-11T17:00:00.000Z",
+          "end": "2020-06-11T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:29.000Z",
+      "createdAt": "2019-11-20T16:12:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3114859,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3114859,
+        "slug": "mediatheque-francoise-sagan795",
+        "name": "Médiathèque Françoise Sagan",
+        "address": "8 rue Léon Schwartzenberg 75010 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75010",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 10e Arrondissement",
+        "latitude": 48.875637,
+        "longitude": 2.353757,
+        "updatedAt": "2019-11-07T09:50:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Françoise Sagan",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 78515327,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-bal-des-bourglouts",
+      "title": {
+        "fr": "Le Bal des Bourglout's",
+        "en": "Le Bal des Bourglout’s"
+      },
+      "description": {
+        "fr": "Le Bal des Bourglout’s est une exposition tirée du Premier Bal d’Emma de Sophie Dutertre et Donatien Mary, paru aux éd. 2024.",
+        "en": "Le Bal des Bourglout’s is an exhibition taken from Emma’s First Ball by Sophie Dutertre and Donatien Mary, published in ed. 2024."
+      },
+      "longDescription": {
+        "fr": "_Le Bal des Bourglout’s_ est une exposition tirée du _Premier Bal d’Emma_ de Sophie Dutertre et Donatien Mary, paru aux éd. 2024. Cette bande dessinée met en scène un bestiaire des plus cocasses. Citons dans le désordre : un tigre, Lord Pudding, le Baron, des Bourglout’s, une paire de flics, des oiseaux mécaniques... Le visiteur suit par ordre alphabétique les composantes de cette symphonie pour Bourglout’s au clair de Lune. L’exposition tous publics a pour thématique les monstres et présente des originaux mêlant diverses techniques : tampons, plume, collages. Trois étonnants automates motorisés incluant son et lumière complètent ce joyeux carnaval.\n\nScénographie : éditions 2024",
+        "en": "_Le Bal des Bourglout’s_ is an exhibition taken _from Emma’s First Ball_ by Sophie Dutertre and Donatien Mary, published in Eds. 2024\\. This comic strip depicts a funniest bestiary. Let us quote in disorder: a tiger, Lord Pudding, the Baron, Bourglout’s, a pair of cops, mechanical birds... The visitor follows in alphabetical order the components of this symphony for Bourglout’s in the Moonlight. The exhibition has as theme monsters and presents originals mixing various techniques: stamps, pen, collages. Three amazing motorized automatons including sound and light complete this joyful carnival.\nSet design: éditions 2024"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3f8badb9b62245d3858af5a78c76183c.base.image.jpg",
+        "credits": "Dutertre/Mary éd. 2024",
+        "size": {
+          "height": 438,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3f8badb9b62245d3858af5a78c76183c.full.image.jpg",
+            "size": {
+              "height": 625,
+              "width": 1000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3f8badb9b62245d3858af5a78c76183c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-16T11:00:00.000Z",
+          "end": "2020-06-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T11:00:00.000Z",
+          "end": "2020-06-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T11:00:00.000Z",
+          "end": "2020-06-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T11:00:00.000Z",
+          "end": "2020-06-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T11:00:00.000Z",
+          "end": "2020-06-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:00:00.000Z",
+          "end": "2020-06-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T11:00:00.000Z",
+          "end": "2020-06-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T11:00:00.000Z",
+          "end": "2020-06-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T11:00:00.000Z",
+          "end": "2020-06-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-30T11:00:00.000Z",
+          "end": "2020-06-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T08:00:00.000Z",
+          "end": "2020-07-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T11:00:00.000Z",
+          "end": "2020-07-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T11:00:00.000Z",
+          "end": "2020-07-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T08:00:00.000Z",
+          "end": "2020-07-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-05T11:00:00.000Z",
+          "end": "2020-07-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-07T11:00:00.000Z",
+          "end": "2020-07-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T08:00:00.000Z",
+          "end": "2020-07-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T11:00:00.000Z",
+          "end": "2020-07-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T11:00:00.000Z",
+          "end": "2020-07-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T08:00:00.000Z",
+          "end": "2020-07-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-12T11:00:00.000Z",
+          "end": "2020-07-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-14T11:00:00.000Z",
+          "end": "2020-07-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T08:00:00.000Z",
+          "end": "2020-07-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T11:00:00.000Z",
+          "end": "2020-07-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T11:00:00.000Z",
+          "end": "2020-07-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T08:00:00.000Z",
+          "end": "2020-07-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T11:00:00.000Z",
+          "end": "2020-07-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-21T11:00:00.000Z",
+          "end": "2020-07-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T08:00:00.000Z",
+          "end": "2020-07-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T11:00:00.000Z",
+          "end": "2020-07-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T11:00:00.000Z",
+          "end": "2020-07-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T08:00:00.000Z",
+          "end": "2020-07-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T11:00:00.000Z",
+          "end": "2020-07-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-28T11:00:00.000Z",
+          "end": "2020-07-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T08:00:00.000Z",
+          "end": "2020-07-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T11:00:00.000Z",
+          "end": "2020-07-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T11:00:00.000Z",
+          "end": "2020-07-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T08:00:00.000Z",
+          "end": "2020-08-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T11:00:00.000Z",
+          "end": "2020-08-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-04T11:00:00.000Z",
+          "end": "2020-08-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T08:00:00.000Z",
+          "end": "2020-08-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T11:00:00.000Z",
+          "end": "2020-08-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T11:00:00.000Z",
+          "end": "2020-08-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T08:00:00.000Z",
+          "end": "2020-08-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T11:00:00.000Z",
+          "end": "2020-08-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-11T11:00:00.000Z",
+          "end": "2020-08-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T08:00:00.000Z",
+          "end": "2020-08-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T11:00:00.000Z",
+          "end": "2020-08-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T11:00:00.000Z",
+          "end": "2020-08-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T08:00:00.000Z",
+          "end": "2020-08-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T11:00:00.000Z",
+          "end": "2020-08-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-18T11:00:00.000Z",
+          "end": "2020-08-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T08:00:00.000Z",
+          "end": "2020-08-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T11:00:00.000Z",
+          "end": "2020-08-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T11:00:00.000Z",
+          "end": "2020-08-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T08:00:00.000Z",
+          "end": "2020-08-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T11:00:00.000Z",
+          "end": "2020-08-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-25T11:00:00.000Z",
+          "end": "2020-08-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T08:00:00.000Z",
+          "end": "2020-08-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T11:00:00.000Z",
+          "end": "2020-08-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T11:00:00.000Z",
+          "end": "2020-08-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T08:00:00.000Z",
+          "end": "2020-08-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T11:00:00.000Z",
+          "end": "2020-08-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-01T11:00:00.000Z",
+          "end": "2020-09-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-02T08:00:00.000Z",
+          "end": "2020-09-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-03T11:00:00.000Z",
+          "end": "2020-09-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-04T11:00:00.000Z",
+          "end": "2020-09-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-05T08:00:00.000Z",
+          "end": "2020-09-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-06T11:00:00.000Z",
+          "end": "2020-09-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-08T11:00:00.000Z",
+          "end": "2020-09-08T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:12.000Z",
+      "createdAt": "2019-11-20T16:27:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3114859,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3114859,
+        "slug": "mediatheque-francoise-sagan795",
+        "name": "Médiathèque Françoise Sagan",
+        "address": "8 rue Léon Schwartzenberg 75010 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75010",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 10e Arrondissement",
+        "latitude": 48.875637,
+        "longitude": 2.353757,
+        "updatedAt": "2019-11-07T09:50:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        731
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Françoise Sagan",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 86532868,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "bd-et-immigration-un-siecle-dhistoires",
+      "title": {
+        "fr": "BD et immigration : un siècle d'histoire(s)",
+        "en": "BD and immigration: a century of history(s)"
+      },
+      "description": {
+        "fr": "De Mac Manus à Bilal, en passant par Hugo Pratt, Uderzo et Goscinny, l’immigration apparaît comme un thème majeur du 9e art",
+        "en": "From Mac Manus to Bilal, via Hugo Pratt, Uderzo and Goscinny, immigration appears as a major theme of the 9th art"
+      },
+      "longDescription": {
+        "fr": "La bande dessinée présente une multitude d’approches créatives et esthétiques. À travers le monde, nombre d’auteurs ont placé le thème de l’immigration au cœur de leur œuvre ou ont connu eux-mêmes des trajectoires migratoires. De Mac Manus à Bilal, en passant par Hugo Pratt, Uderzo et Goscinny, l’immigration apparaît ainsi comme un thème majeur du 9e art.\n\nLa bande dessinée apparaît autant comme un objet d’art nourri de la mobilité des hommes que comme un témoignage des représentations passées et présentes sur l’immigration. Au-delà de la seule approche artistique et historique, elle appelle à changer nos regards sur les migrants et sur l’histoire de l’immigration en France.\n\nConçue par le Musée national de l’histoire de l’immigration\n\nPour tous les publics dès 10 ans",
+        "en": "The comic book presents a multitude of creative and aesthetic approaches. Around the world, many authors have placed the theme of immigration at the heart of their work or have experienced migration trajectories themselves. From Mac Manus to Bilal, via Hugo Pratt, Uderzo and Goscinny, immigration appears as a major theme of the 9th art.\nThe comic book appears as an object of art nourished by the mobility of men as a testimony of past and present representations on immigration. Beyond the artistic and historical approach alone, it calls for a change in our outlook on migrants and on the history of immigration in France.\nDesigned by the National Museum of Immigration History\nFor all audiences from 10 years old"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "fab654aad2eb4f39939356a0d4fd5423.base.image.jpg",
+        "credits": "Musée national de l'histoire de l'immigration",
+        "size": {
+          "height": 667,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "fab654aad2eb4f39939356a0d4fd5423.full.image.jpg",
+            "size": {
+              "height": 866,
+              "width": 910
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "fab654aad2eb4f39939356a0d4fd5423.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-02T08:30:00.000Z",
+          "end": "2020-06-02T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:30:00.000Z",
+          "end": "2020-06-03T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T08:30:00.000Z",
+          "end": "2020-06-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:30:00.000Z",
+          "end": "2020-06-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:30:00.000Z",
+          "end": "2020-06-06T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T08:30:00.000Z",
+          "end": "2020-06-09T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:30:00.000Z",
+          "end": "2020-06-10T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T08:30:00.000Z",
+          "end": "2020-06-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T08:30:00.000Z",
+          "end": "2020-06-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:30:00.000Z",
+          "end": "2020-06-13T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T08:30:00.000Z",
+          "end": "2020-06-16T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:30:00.000Z",
+          "end": "2020-06-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T08:30:00.000Z",
+          "end": "2020-06-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T08:30:00.000Z",
+          "end": "2020-06-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:30:00.000Z",
+          "end": "2020-06-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T08:30:00.000Z",
+          "end": "2020-06-23T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:30:00.000Z",
+          "end": "2020-06-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T08:30:00.000Z",
+          "end": "2020-06-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T08:30:00.000Z",
+          "end": "2020-06-26T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:37.000Z",
+      "createdAt": "2019-11-20T17:00:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30496667,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 30496667,
+        "slug": "bibliotheque-saint-simon433",
+        "name": "Bibliothèque Saint-Simon",
+        "address": "116 rue de Grenelle 75007 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75007",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 7e Arrondissement",
+        "latitude": 48.85686,
+        "longitude": 2.320033,
+        "updatedAt": "2019-11-21T07:54:07.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Saint-Simon",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 61003673,
+      "ownerUid": 90768564,
+      "creatorUid": 90768564,
+      "slug": "fete-du-livre-special-bd",
+      "title": {
+        "fr": "Fête du livre spécial BD",
+        "en": "Special Comic Book Party"
+      },
+      "description": {
+        "fr": "Rencontre avec des auteurs de BD et des éditeurs",
+        "en": "Meeting with comic book authors and publishers"
+      },
+      "longDescription": {
+        "fr": "Samedi à 16h : présentation du travail de la BD par un éditeur des éditions La Gouttière et Jonathan Garnier et Amélie Fléchais, et le dimanche à 16h rencontre avec Dawid.",
+        "en": "Saturday at 4pm: presentation of the work of the comic book by an editor of the editions La Gouttière and Jonathan Garnier and Amélie Fléchais, and on Sunday at 4pm meeting with Dawid."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 0160269210",
+        "en": "On registration at 0160269210"
+      },
+      "image": {
+        "filename": "21ab649a1bf04b5aa1bac5eb880fe721.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 989,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "21ab649a1bf04b5aa1bac5eb880fe721.full.image.jpg",
+            "size": {
+              "height": 1760,
+              "width": 1246
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "21ab649a1bf04b5aa1bac5eb880fe721.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T15:00:00.000Z",
+          "end": "2020-03-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T15:00:00.000Z",
+          "end": "2020-03-08T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:04.000Z",
+      "createdAt": "2019-11-20T17:02:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84050672,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediatheque-orangerie@mairie-claye-souilly.fr"
+      ],
+      "location": {
+        "uid": 84050672,
+        "slug": "mediatheque-de-lorangerie787",
+        "name": "Médiathèque de l'Orangerie",
+        "address": "4 allée André Benoist 77410 Claye-Souilly",
+        "city": "Claye-Souilly",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77410",
+        "insee": "77118",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.948014,
+        "longitude": 2.68653,
+        "updatedAt": "2019-11-21T07:54:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90768564,
+        "custom": {
+          "organization": "Médiathèque de l'Orangerie",
+          "contactName": "Muriel Rivage",
+          "contactNumber": "0160269210",
+          "contactPosition": "Directrice",
+          "email": "m.rivage@claye-souilly.fr"
+        }
+      }
+    },
+    {
+      "uid": 87732334,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "concours-de-strips_932123",
+      "title": {
+        "fr": "Concours de strips",
+        "en": "Contest of strips"
+      },
+      "description": {
+        "fr": "Concours de strips, ouvert à tous, du 4 février au 31 mars",
+        "en": "Strip contest, open to all, from February 4 to March 31"
+      },
+      "longDescription": {
+        "fr": "« 3 cases, 1 ligne »\n\nPour fêter l'année de la BD, avec la complicité de la librairie Bulles en vrac, les bibliothèques Buffon, l'Heure joyeuse, Mohammed Arkoun et Rainer Maria Rilke organisent un concours créatif de strips.\n\nUn strip est une « bande dessinée de quelques cases sur une ligne, en forme de gag ou d’histoire à suivre, publiée dans un quotidien.» Source : Larousse.\n\nLe thème est libre, cependant votre bande dessinée devra tenir au maximum dans un format A3 et ne contenir que 3 cases sur une ligne. Les créations devront nous parvenir au plus tard le 31 mars 2020. Elles seront ensuite exposées dans la bibliothèque où vous les aurez déposées.\n\nLe concours est ouvert à toutes et à tous ! Bonne chance et belle créativité !",
+        "en": "“3 boxes, 1 line”\nTo celebrate the year of comics, with the complicity of the bookstore Bulles en vrac, the libraries Buffon, l'Heure joyeuse, Mohammed Arkoun and Rainer Maria Rilke organize a creative contest of strips.\nA strip is a “comic strip of a few boxes on a line, in the form of a gag or a story to follow, published in a daily newspaper.” Source: Larousse.\nThe theme is free, however your comic book should fit to the maximum in an A3 format and contain only 3 boxes on a line. The creations must reach us by March 31, 2020\\. They will then be exhibited in the library where you have deposited them.\nThe contest is open to all! Good luck and great creativity!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Participation jusqu'au 31 mars",
+        "en": "Participation until 31 March"
+      },
+      "image": {
+        "filename": "7e4977081b3746c7aa64cfd851b1d2ab.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 392,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.full.image.jpg",
+            "size": {
+              "height": 433,
+              "width": 775
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-04T15:00:00.000Z",
+          "end": "2020-02-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T15:00:00.000Z",
+          "end": "2020-02-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T15:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T15:00:00.000Z",
+          "end": "2020-02-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T15:00:00.000Z",
+          "end": "2020-02-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T15:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T15:00:00.000Z",
+          "end": "2020-02-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T15:00:00.000Z",
+          "end": "2020-02-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T15:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T15:00:00.000Z",
+          "end": "2020-02-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T15:00:00.000Z",
+          "end": "2020-02-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T15:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T15:00:00.000Z",
+          "end": "2020-03-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T15:00:00.000Z",
+          "end": "2020-03-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T15:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T15:00:00.000Z",
+          "end": "2020-03-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T15:00:00.000Z",
+          "end": "2020-03-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T15:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T15:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T15:00:00.000Z",
+          "end": "2020-03-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T15:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T15:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T15:00:00.000Z",
+          "end": "2020-03-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T15:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T14:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:15.000Z",
+      "createdAt": "2019-11-21T08:20:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4967929,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://quefaire.paris.fr/94364/concours-de-strips"
+      ],
+      "location": {
+        "uid": 4967929,
+        "slug": "bibliotheque-lheure-joyeuse934",
+        "name": "Bibliothèque L'Heure joyeuse",
+        "address": "6-12 rue des Prêtres Saint-Séverin 75005 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75005",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 5e Arrondissement",
+        "latitude": 48.852062,
+        "longitude": 2.345217,
+        "updatedAt": "2019-11-21T08:16:19.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèques Rainer Maria Rilke, l'Heure Joyeuse et Mohammed Arkoun",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 3449166,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "concours-de-strips_362841",
+      "title": {
+        "fr": "Concours de strips",
+        "en": "Contest of strips"
+      },
+      "description": {
+        "fr": "Concours de strips, ouvert à tous, du 4 février au 31 mars",
+        "en": "Strip contest, open to all, from February 4 to March 31"
+      },
+      "longDescription": {
+        "fr": "« 3 cases, 1 ligne »\n\nPour fêter l'année de la BD, avec la complicité de la librairie Bulles en vrac, les bibliothèques Buffon, l'Heure joyeuse, Mohammed Arkoun et Rainer Maria Rilke organisent un concours créatif de strips.\n\nUn strip est une « bande dessinée de quelques cases sur une ligne, en forme de gag ou d’histoire à suivre, publiée dans un quotidien.» Source : Larousse.\n\nLe thème est libre, cependant votre bande dessinée devra tenir au maximum dans un format A3 et ne contenir que 3 cases sur une ligne. Les créations devront nous parvenir au plus tard le 31 mars 2020. Elles seront ensuite exposées dans la bibliothèque où vous les aurez déposées.\n\nLe concours est ouvert à toutes et à tous ! Bonne chance et belle créativité !",
+        "en": "“3 boxes, 1 line”\nTo celebrate the year of comics, with the complicity of the bookstore Bulles en vrac, the libraries Buffon, l'Heure joyeuse, Mohammed Arkoun and Rainer Maria Rilke organize a creative contest of strips.\nA strip is a “comic strip of a few boxes on a line, in the form of a gag or a story to follow, published in a daily newspaper.” Source: Larousse.\nThe theme is free, however your comic book should fit to the maximum in an A3 format and contain only 3 boxes on a line. The creations must reach us by March 31, 2020\\. They will then be exhibited in the library where you have deposited them.\nThe contest is open to all! Good luck and great creativity!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Participation jusqu'au 31 mars",
+        "en": "Participation until 31 March"
+      },
+      "image": {
+        "filename": "7e4977081b3746c7aa64cfd851b1d2ab.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 392,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.full.image.jpg",
+            "size": {
+              "height": 433,
+              "width": 775
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T13:00:00.000Z",
+          "end": "2020-02-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T13:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:00:00.000Z",
+          "end": "2020-02-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T13:00:00.000Z",
+          "end": "2020-02-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T13:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:00:00.000Z",
+          "end": "2020-02-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T13:00:00.000Z",
+          "end": "2020-02-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T09:00:00.000Z",
+          "end": "2020-03-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T09:00:00.000Z",
+          "end": "2020-03-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T13:00:00.000Z",
+          "end": "2020-03-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T13:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T09:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T09:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T08:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:22.000Z",
+      "createdAt": "2019-11-21T08:24:19.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20846715,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://quefaire.paris.fr/94364/concours-de-strips"
+      ],
+      "location": {
+        "uid": 20846715,
+        "slug": "bibliotheque-mohammed-arkoun461",
+        "name": "Bibliothèque Mohammed Arkoun",
+        "address": "74 rue Mouffetard 75005 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75005",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 5e Arrondissement",
+        "latitude": 48.842493,
+        "longitude": 2.349687,
+        "updatedAt": "2019-11-21T08:22:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèques Rainer Maria Rilke, l'Heure Joyeuse et Mohammed Arkoun",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 72672442,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "concours-de-strips_573347",
+      "title": {
+        "fr": "Concours de strips",
+        "en": "Contest of strips"
+      },
+      "description": {
+        "fr": "Concours de strips, ouvert à tous, du 4 février au 31 mars",
+        "en": "Strip contest, open to all, from February 4 to March 31"
+      },
+      "longDescription": {
+        "fr": "« 3 cases, 1 ligne »\n\nPour fêter l'année de la BD, avec la complicité de la librairie Bulles en vrac, les bibliothèques Buffon, l'Heure joyeuse, Mohammed Arkoun et Rainer Maria Rilke organisent un concours créatif de strips.\n\nUn strip est une « bande dessinée de quelques cases sur une ligne, en forme de gag ou d’histoire à suivre, publiée dans un quotidien.» Source : Larousse.\n\nLe thème est libre, cependant votre bande dessinée devra tenir au maximum dans un format A3 et ne contenir que 3 cases sur une ligne. Les créations devront nous parvenir au plus tard le 31 mars 2020. Elles seront ensuite exposées dans la bibliothèque où vous les aurez déposées.\n\nLe concours est ouvert à toutes et à tous ! Bonne chance et belle créativité !",
+        "en": "“3 boxes, 1 line”\nTo celebrate the year of comics, with the complicity of the bookstore Bulles en vrac, the libraries Buffon, l'Heure joyeuse, Mohammed Arkoun and Rainer Maria Rilke organize a creative contest of strips.\nA strip is a “comic strip of a few boxes on a line, in the form of a gag or a story to follow, published in a daily newspaper.” Source: Larousse.\nThe theme is free, however your comic book should fit to the maximum in an A3 format and contain only 3 boxes on a line. The creations must reach us by March 31, 2020\\. They will then be exhibited in the library where you have deposited them.\nThe contest is open to all! Good luck and great creativity!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Participation jusqu'au 31 mars",
+        "en": "Participation until 31 March"
+      },
+      "image": {
+        "filename": "7e4977081b3746c7aa64cfd851b1d2ab.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 392,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.full.image.jpg",
+            "size": {
+              "height": 433,
+              "width": 775
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7e4977081b3746c7aa64cfd851b1d2ab.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-04T12:00:00.000Z",
+          "end": "2020-02-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:00:00.000Z",
+          "end": "2020-02-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T12:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T12:00:00.000Z",
+          "end": "2020-02-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:00:00.000Z",
+          "end": "2020-02-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T12:00:00.000Z",
+          "end": "2020-02-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T12:00:00.000Z",
+          "end": "2020-02-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T12:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T12:00:00.000Z",
+          "end": "2020-02-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T12:00:00.000Z",
+          "end": "2020-02-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T12:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T12:00:00.000Z",
+          "end": "2020-03-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T12:00:00.000Z",
+          "end": "2020-03-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T12:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T12:00:00.000Z",
+          "end": "2020-03-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T12:00:00.000Z",
+          "end": "2020-03-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T12:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T12:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T12:00:00.000Z",
+          "end": "2020-03-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T12:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T12:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T12:00:00.000Z",
+          "end": "2020-03-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T12:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T11:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:30.000Z",
+      "createdAt": "2019-11-21T08:29:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 23575266,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://quefaire.paris.fr/94364/concours-de-strips"
+      ],
+      "location": {
+        "uid": 23575266,
+        "slug": "bibliotheque-rainer-maria-rilke624",
+        "name": "Bibliothèque Rainer Maria Rilke",
+        "address": "88 ter boulevard de Port Royal 75005 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75005",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 5e Arrondissement",
+        "latitude": 48.836936,
+        "longitude": 2.350586,
+        "updatedAt": "2019-11-20T14:45:58.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Bibliothèque Buffon",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèques Rainer Maria Rilke, l'Heure Joyeuse et Mohammed Arkoun",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2080847
+}

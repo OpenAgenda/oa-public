@@ -1,0 +1,3739 @@
+{
+  "events": [
+    {
+      "uid": 94955297,
+      "ownerUid": 41651866,
+      "creatorUid": 41651866,
+      "slug": "exposition-cicatrices-de-guerres_903411",
+      "title": {
+        "fr": "Exposition \"Cicatrices de guerre(s)\"",
+        "en": "Exhibition \"War scars(s)\""
+      },
+      "description": {
+        "fr": "\"Cicatrices de guerre(s)\", ce sont quatorze histoires ayant un thème commun, la Grande Guerre, qui touche de manière différente et pour différentes raisons les auteurs de ce collectif",
+        "en": "\"Scars of war(s)\", these are fourteen stories having a common theme, the Great War, which touches in different ways and for different reasons the authors of this collective"
+      },
+      "longDescription": {
+        "fr": "Chacun d’entre eux nous livre, avec sa sensibilité et son style graphique, sa représentation de cette période sombre. Pour allier Art et Histoire, chacun de ces récits est enrichi par des documents (souvent inédits) extraits du fonds documentaire de l’Historial de la Grande Guerre à Péronne. Réunir ces deux aspects, c’est témoigner de cette cicatrice qui marque l’his­toire de notre pays.",
+        "en": "Each of them gives us, with its sensitivity and graphic style, its representation of this dark period. To combine Art and History, each of these stories is enriched by documents (often unpublished) taken from the documentary collection of the Historial de la Grande Guerre in Péronne. Bringing these two aspects together is a testament to the scar that marks our country’s history."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "332458209ad64f17abc17a8a765eefbf.base.image.jpg",
+        "credits": "La Bulle Expositions",
+        "size": {
+          "height": 953,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "332458209ad64f17abc17a8a765eefbf.full.image.jpg",
+            "size": {
+              "height": 5071,
+              "width": 3726
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "332458209ad64f17abc17a8a765eefbf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T08:30:00.000Z",
+          "end": "2020-02-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T12:00:00.000Z",
+          "end": "2020-02-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T08:30:00.000Z",
+          "end": "2020-02-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T08:30:00.000Z",
+          "end": "2020-02-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T08:30:00.000Z",
+          "end": "2020-02-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T08:30:00.000Z",
+          "end": "2020-02-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T08:30:00.000Z",
+          "end": "2020-02-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T12:00:00.000Z",
+          "end": "2020-03-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T08:30:00.000Z",
+          "end": "2020-03-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T08:30:00.000Z",
+          "end": "2020-03-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T08:30:00.000Z",
+          "end": "2020-03-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T08:30:00.000Z",
+          "end": "2020-03-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T08:30:00.000Z",
+          "end": "2020-03-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T12:00:00.000Z",
+          "end": "2020-03-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T08:30:00.000Z",
+          "end": "2020-03-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T08:30:00.000Z",
+          "end": "2020-03-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T08:30:00.000Z",
+          "end": "2020-03-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T08:30:00.000Z",
+          "end": "2020-03-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T08:30:00.000Z",
+          "end": "2020-03-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T12:00:00.000Z",
+          "end": "2020-03-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-16T08:30:00.000Z",
+          "end": "2020-03-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T08:30:00.000Z",
+          "end": "2020-03-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T08:30:00.000Z",
+          "end": "2020-03-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T08:30:00.000Z",
+          "end": "2020-03-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T08:30:00.000Z",
+          "end": "2020-03-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T12:00:00.000Z",
+          "end": "2020-03-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-23T08:30:00.000Z",
+          "end": "2020-03-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T08:30:00.000Z",
+          "end": "2020-03-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T08:30:00.000Z",
+          "end": "2020-03-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T08:30:00.000Z",
+          "end": "2020-03-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T08:30:00.000Z",
+          "end": "2020-03-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T11:00:00.000Z",
+          "end": "2020-03-29T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-30T07:30:00.000Z",
+          "end": "2020-03-30T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T07:30:00.000Z",
+          "end": "2020-04-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T07:30:00.000Z",
+          "end": "2020-04-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T07:30:00.000Z",
+          "end": "2020-04-03T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T07:30:00.000Z",
+          "end": "2020-04-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T11:00:00.000Z",
+          "end": "2020-04-05T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T07:30:00.000Z",
+          "end": "2020-04-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T07:30:00.000Z",
+          "end": "2020-04-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T07:30:00.000Z",
+          "end": "2020-04-09T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T07:30:00.000Z",
+          "end": "2020-04-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T07:30:00.000Z",
+          "end": "2020-04-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T11:00:00.000Z",
+          "end": "2020-04-12T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T07:30:00.000Z",
+          "end": "2020-04-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T07:30:00.000Z",
+          "end": "2020-04-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T07:30:00.000Z",
+          "end": "2020-04-16T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T07:30:00.000Z",
+          "end": "2020-04-17T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T07:30:00.000Z",
+          "end": "2020-04-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T11:00:00.000Z",
+          "end": "2020-04-19T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T07:30:00.000Z",
+          "end": "2020-04-20T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T07:30:00.000Z",
+          "end": "2020-04-22T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T07:30:00.000Z",
+          "end": "2020-04-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T07:30:00.000Z",
+          "end": "2020-04-24T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T07:30:00.000Z",
+          "end": "2020-04-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T11:00:00.000Z",
+          "end": "2020-04-26T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T07:30:00.000Z",
+          "end": "2020-04-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T07:30:00.000Z",
+          "end": "2020-04-29T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T07:30:00.000Z",
+          "end": "2020-04-30T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T07:30:00.000Z",
+          "end": "2020-05-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T07:30:00.000Z",
+          "end": "2020-05-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T11:00:00.000Z",
+          "end": "2020-05-03T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T07:30:00.000Z",
+          "end": "2020-05-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T07:30:00.000Z",
+          "end": "2020-05-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T07:30:00.000Z",
+          "end": "2020-05-07T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T07:30:00.000Z",
+          "end": "2020-05-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T07:30:00.000Z",
+          "end": "2020-05-09T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T11:00:00.000Z",
+          "end": "2020-05-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T07:30:00.000Z",
+          "end": "2020-05-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T07:30:00.000Z",
+          "end": "2020-05-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T07:30:00.000Z",
+          "end": "2020-05-14T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T07:30:00.000Z",
+          "end": "2020-05-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T07:30:00.000Z",
+          "end": "2020-05-16T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T11:00:00.000Z",
+          "end": "2020-05-17T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T07:30:00.000Z",
+          "end": "2020-05-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T07:30:00.000Z",
+          "end": "2020-05-20T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T07:30:00.000Z",
+          "end": "2020-05-21T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T07:30:00.000Z",
+          "end": "2020-05-22T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T07:30:00.000Z",
+          "end": "2020-05-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T11:00:00.000Z",
+          "end": "2020-05-24T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-25T07:30:00.000Z",
+          "end": "2020-05-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T07:30:00.000Z",
+          "end": "2020-05-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T07:30:00.000Z",
+          "end": "2020-05-28T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T07:30:00.000Z",
+          "end": "2020-05-29T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T07:30:00.000Z",
+          "end": "2020-05-30T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T11:00:00.000Z",
+          "end": "2020-05-31T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-01T07:30:00.000Z",
+          "end": "2020-06-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T07:30:00.000Z",
+          "end": "2020-06-03T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T07:30:00.000Z",
+          "end": "2020-06-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T07:30:00.000Z",
+          "end": "2020-06-05T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T07:30:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T11:00:00.000Z",
+          "end": "2020-06-07T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-08T07:30:00.000Z",
+          "end": "2020-06-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T07:30:00.000Z",
+          "end": "2020-06-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T07:30:00.000Z",
+          "end": "2020-06-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T07:30:00.000Z",
+          "end": "2020-06-12T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T07:30:00.000Z",
+          "end": "2020-06-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-15T08:00:00.000Z",
+          "end": "2020-06-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T08:00:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T08:00:00.000Z",
+          "end": "2020-06-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T08:00:00.000Z",
+          "end": "2020-06-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-22T08:00:00.000Z",
+          "end": "2020-06-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:00:00.000Z",
+          "end": "2020-06-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T08:00:00.000Z",
+          "end": "2020-06-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T08:00:00.000Z",
+          "end": "2020-06-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T08:00:00.000Z",
+          "end": "2020-06-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-29T08:00:00.000Z",
+          "end": "2020-06-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T08:00:00.000Z",
+          "end": "2020-07-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T08:00:00.000Z",
+          "end": "2020-07-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T08:00:00.000Z",
+          "end": "2020-07-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T08:00:00.000Z",
+          "end": "2020-07-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-05T08:00:00.000Z",
+          "end": "2020-07-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-06T08:00:00.000Z",
+          "end": "2020-07-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T08:00:00.000Z",
+          "end": "2020-07-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T08:00:00.000Z",
+          "end": "2020-07-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T08:00:00.000Z",
+          "end": "2020-07-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T08:00:00.000Z",
+          "end": "2020-07-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-12T08:00:00.000Z",
+          "end": "2020-07-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-13T08:00:00.000Z",
+          "end": "2020-07-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T08:00:00.000Z",
+          "end": "2020-07-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T08:00:00.000Z",
+          "end": "2020-07-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T08:00:00.000Z",
+          "end": "2020-07-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T08:00:00.000Z",
+          "end": "2020-07-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T08:00:00.000Z",
+          "end": "2020-07-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-20T08:00:00.000Z",
+          "end": "2020-07-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T08:00:00.000Z",
+          "end": "2020-07-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T08:00:00.000Z",
+          "end": "2020-07-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T08:00:00.000Z",
+          "end": "2020-07-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T08:00:00.000Z",
+          "end": "2020-07-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T08:00:00.000Z",
+          "end": "2020-07-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-27T08:00:00.000Z",
+          "end": "2020-07-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T08:00:00.000Z",
+          "end": "2020-07-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T08:00:00.000Z",
+          "end": "2020-07-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T08:00:00.000Z",
+          "end": "2020-07-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T08:00:00.000Z",
+          "end": "2020-08-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T08:00:00.000Z",
+          "end": "2020-08-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-03T08:00:00.000Z",
+          "end": "2020-08-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T08:00:00.000Z",
+          "end": "2020-08-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T08:00:00.000Z",
+          "end": "2020-08-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T08:00:00.000Z",
+          "end": "2020-08-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T08:00:00.000Z",
+          "end": "2020-08-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T08:00:00.000Z",
+          "end": "2020-08-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-10T08:00:00.000Z",
+          "end": "2020-08-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T08:00:00.000Z",
+          "end": "2020-08-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T08:00:00.000Z",
+          "end": "2020-08-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T08:00:00.000Z",
+          "end": "2020-08-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T08:00:00.000Z",
+          "end": "2020-08-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T08:00:00.000Z",
+          "end": "2020-08-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-17T08:00:00.000Z",
+          "end": "2020-08-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T08:00:00.000Z",
+          "end": "2020-08-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T08:00:00.000Z",
+          "end": "2020-08-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T08:00:00.000Z",
+          "end": "2020-08-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T08:00:00.000Z",
+          "end": "2020-08-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T08:00:00.000Z",
+          "end": "2020-08-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-24T08:00:00.000Z",
+          "end": "2020-08-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T08:00:00.000Z",
+          "end": "2020-08-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T08:00:00.000Z",
+          "end": "2020-08-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T08:00:00.000Z",
+          "end": "2020-08-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T08:00:00.000Z",
+          "end": "2020-08-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T08:00:00.000Z",
+          "end": "2020-08-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-31T08:00:00.000Z",
+          "end": "2020-08-31T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:58.000Z",
+      "createdAt": "2020-01-08T11:03:46.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 63087260,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 63087260,
+        "slug": "musee-de-la-resistance590",
+        "name": "Musée de la Résistance",
+        "address": "7 rue Neuve Saint-Etienne 87000 Limoges",
+        "city": "Limoges",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87000",
+        "insee": "87085",
+        "countryCode": "FR",
+        "district": "Carnot-Marceau",
+        "latitude": 45.830119,
+        "longitude": 1.265911,
+        "updatedAt": "2019-11-22T13:01:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Entrée du musée: 4 euros (accès aux collections permanentes et temporaires)",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 41651866,
+        "custom": {
+          "organization": "Musée de la Résistance",
+          "contactName": "Alexandra Moreau",
+          "contactNumber": "05 55 44 84 44",
+          "contactPosition": "Responsable administrative",
+          "email": "alexandra.moreau@limoges.fr"
+        }
+      }
+    },
+    {
+      "uid": 72858027,
+      "ownerUid": 71476639,
+      "creatorUid": 71476639,
+      "slug": "prix-bd-des-cp",
+      "title": {
+        "en": "CP BD Award",
+        "fr": "Prix BD des CP"
+      },
+      "description": {
+        "en": "CP BD Award",
+        "fr": "Prix BD des CP"
+      },
+      "longDescription": {
+        "en": "Project carried out by the media libraries of Abbeville in partnership with the association On a Marché sur la Bulle towards the CP classes of the schools of the Communauté d'Agglomération Baie de Somme.\nFor this fourth edition, 4 comic books were selected:\n_Hugo et Cagoule_ (Scriptwriter: Loïc Dauvillier - Designer: Marc Lizano)\n_Passe Passe_ (Scriptwriter: Delphine Cuveele - Designer: Dawid)\n_Linette_ (Scriptwriter: Catherine Romat - Cartoonist: Jean-Philippe Peyraud)\n_Lili Crochette_ (Writer: Joris Chamblain - Cartoonist: Olivier Supiot)\nThe children will meet Marc Lizano.",
+        "fr": "Projet porté par les médiathèques d'Abbeville en partenariat avec l'association On a Marché sur la Bulle en direction des classes de CP des écoles de la Communauté d'Agglomération Baie de Somme.\n\nPour cette quatrième édition, 4 bandes dessinées ont été sélectionnées :\n\n_Hugo et Cagoule_ (Scénariste : Loïc Dauvillier - Dessinateur : Marc Lizano)\n\n_Passe Passe_ (Scénariste : Delphine Cuveele - Dessinateur : Dawid)\n\n_Linette_ (Scénariste : Catherine Romat - Dessinateur : Jean-Philippe Peyraud)\n\n_Lili Crochette_ (Scénariste : Joris Chamblain - Dessinateur : Olivier Supiot)\n\nLes enfants rencontreront Marc Lizano."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Schools - CP",
+        "fr": "Écoles - CP"
+      },
+      "image": {
+        "filename": "7c8c5727896a4994bb3d0097cd068af5.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7c8c5727896a4994bb3d0097cd068af5.full.image.jpg",
+            "size": {
+              "height": 2245,
+              "width": 1587
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7c8c5727896a4994bb3d0097cd068af5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-06T07:00:00.000Z",
+          "end": "2020-01-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T07:00:00.000Z",
+          "end": "2020-01-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T07:00:00.000Z",
+          "end": "2020-01-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T07:00:00.000Z",
+          "end": "2020-01-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T07:00:00.000Z",
+          "end": "2020-01-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T07:00:00.000Z",
+          "end": "2020-01-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T07:00:00.000Z",
+          "end": "2020-01-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T07:00:00.000Z",
+          "end": "2020-01-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T07:00:00.000Z",
+          "end": "2020-02-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T07:00:00.000Z",
+          "end": "2020-02-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T09:00:00.000Z",
+          "end": "2020-03-08T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T12:34:44.000Z",
+      "createdAt": "2020-01-08T11:19:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 86893187,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 6
+      },
+      "registration": [],
+      "location": {
+        "uid": 86893187,
+        "slug": "ville-dabbeville",
+        "name": "Ville d'Abbeville",
+        "address": "80100 Abbeville",
+        "city": "Abbeville",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80100",
+        "insee": "80001",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.106084,
+        "longitude": 1.833703,
+        "updatedAt": "2020-01-08T13:32:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "On a marché sur la Bulle",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71476639,
+        "custom": {
+          "organization": "Médiathèques d'Abbeville",
+          "contactName": "Pecqueur Jessica",
+          "contactNumber": "03  22 24 04 69",
+          "contactPosition": "Coordinatrice jeunesse",
+          "email": "jessica.pecqueur@abbeville.fr"
+        }
+      }
+    },
+    {
+      "uid": 37726017,
+      "ownerUid": 50611826,
+      "creatorUid": 50611826,
+      "slug": "exposition-bd-la-difference-nempeche-pas-le-talent",
+      "title": {
+        "fr": "Exposition \"La différence n'empêche pas le talent\"",
+        "en": "Exhibition \"Difference does not prevent talent\""
+      },
+      "description": {
+        "fr": "Exposition BD des dessins du sarthois Xavier Philippet du 18 janvier au 8 février 2020",
+        "en": "BD exhibition of drawings by Sarthois Xavier Philippet from 18 January to 8 February 2020"
+      },
+      "longDescription": {
+        "fr": "Dessins du sarthois Xavier Philippet, plusieurs fois lauréat de l'Hippocampe d'Or au Festival international de la bande dessinée d'Angoulême, concours à destination des personnes en situation de handicap.",
+        "en": "Drawings by Sarthois Xavier Philippet, several times winner of the Hippocampe d'Or at the Angoulême International Comic Strip Festival, competition for people with disabilities."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b31cd37a720945a3bfc9a8d913eec607.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b31cd37a720945a3bfc9a8d913eec607.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b31cd37a720945a3bfc9a8d913eec607.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T09:00:00.000Z",
+          "end": "2020-01-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T12:30:00.000Z",
+          "end": "2020-01-23T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T09:00:00.000Z",
+          "end": "2020-01-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T09:00:00.000Z",
+          "end": "2020-01-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T12:30:00.000Z",
+          "end": "2020-01-30T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:30:00.000Z",
+          "end": "2020-02-06T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T09:00:00.000Z",
+          "end": "2020-02-07T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:55.000Z",
+      "createdAt": "2020-01-08T14:26:51.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 42673830,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 42673830,
+        "slug": "mediatheque-louis-aragon209",
+        "name": "Médiathèque Louis-Aragon",
+        "address": "54 rue du Port 72000 Le Mans",
+        "city": "Le Mans",
+        "region": "Pays de la Loire",
+        "department": "Sarthe",
+        "postalCode": "72000",
+        "insee": "72181",
+        "countryCode": "FR",
+        "district": "Le Buisson",
+        "latitude": 48.002776,
+        "longitude": 0.193616,
+        "updatedAt": "2020-01-08T14:21:53.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 50611826,
+        "custom": {
+          "organization": "Médiathèques du Mans",
+          "contactName": "Pauline Chauvat",
+          "contactNumber": "02 43 47 48 74",
+          "contactPosition": "Chargée de communication numérique",
+          "email": "pauline.chauvat@lemans.fr"
+        }
+      }
+    },
+    {
+      "uid": 48120624,
+      "ownerUid": 7152169,
+      "creatorUid": 7152169,
+      "slug": "498661",
+      "title": {
+        "fr": "Exposition \"La science peut-elle être à la fois ouverte et fermée ?\"",
+        "en": "Exhibition: \"Can science be both open and closed?\""
+      },
+      "description": {
+        "fr": "\"La science ouverte, tout le monde est pour…\" Pas si simple ! La recherche constitue un enjeu politique et économique. Alors, la science peut-elle être à la fois ouverte et fermée ?",
+        "en": "\"Open science, everyone is for…\" Not so simple! Research is a political and economic issue. So can science be both open and closed?"
+      },
+      "longDescription": {
+        "fr": "Au fait, **qu’est-ce que la science ouverte ?** L’accès libre et gratuit aux résultats publiés de la recherche, mais aussi l’ouverture de toutes les étapes de la démarche scientifique : la discussion partagée des idées, la formulation en ligne des hypothèses, la mise à disposition des données brutes, les logiciels libres…\n\nVoici une exposition itinérante en 11 dessins sur les enjeux de la science ouverte, afin d’informer les chercheurs, les étudiants et les personnels universitaires. L'exposition sera visible à la bibliothèque des Grands Moulins (Université de Paris) du 7 janvier au 7 février 2020.\n\nPlus d'infos [ici](http://blog.scd.univ-paris-diderot.fr/archives/1592)",
+        "en": "By the way**, what is open science?** Free and open access to published research results, as well as the opening of all stages of the scientific process: the shared discussion of ideas, the online formulation of hypotheses, the availability of raw data, free software, etc.\nHere is a travelling exhibition in 11 drawings on the issues of open science, to inform researchers, students and university staff. The exhibition will be visible at the library of the Grands Moulins (Université de Paris) from January 7 to February 7, 2020.\nMore info [here](http://blog.scd.univ-paris-diderot.fr/archives/1592)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4859c22c1c91476083ed03f1621d89c4.base.image.jpg",
+        "credits": "cop. Dupuis / Dargaud-Lombard, 2019",
+        "size": {
+          "height": 704,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4859c22c1c91476083ed03f1621d89c4.full.image.jpg",
+            "size": {
+              "height": 1203,
+              "width": 1197
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4859c22c1c91476083ed03f1621d89c4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-07T08:00:00.000Z",
+          "end": "2020-01-07T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T08:00:00.000Z",
+          "end": "2020-01-08T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T08:00:00.000Z",
+          "end": "2020-01-09T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T08:00:00.000Z",
+          "end": "2020-01-10T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T10:00:00.000Z",
+          "end": "2020-01-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T08:00:00.000Z",
+          "end": "2020-01-14T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T08:00:00.000Z",
+          "end": "2020-01-15T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T08:00:00.000Z",
+          "end": "2020-01-16T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T08:00:00.000Z",
+          "end": "2020-01-17T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T10:00:00.000Z",
+          "end": "2020-01-18T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T08:00:00.000Z",
+          "end": "2020-01-21T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T08:00:00.000Z",
+          "end": "2020-01-22T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T08:00:00.000Z",
+          "end": "2020-01-23T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T08:00:00.000Z",
+          "end": "2020-01-24T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T10:00:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T08:00:00.000Z",
+          "end": "2020-01-28T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T08:00:00.000Z",
+          "end": "2020-01-29T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T08:00:00.000Z",
+          "end": "2020-01-30T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T08:00:00.000Z",
+          "end": "2020-01-31T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T10:00:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T08:00:00.000Z",
+          "end": "2020-02-04T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T10:00:00.000Z",
+          "end": "2020-02-08T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:53.000Z",
+      "createdAt": "2019-12-14T18:19:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 80019724,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 80019724,
+        "slug": "bibliotheque-des-grands-moulins",
+        "name": "Bibliothèque des Grands Moulins",
+        "address": "5 rue Thomas Mann 75013 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75013",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 13e Arrondissement",
+        "latitude": 48.830267,
+        "longitude": 2.381297,
+        "updatedAt": "2019-12-16T08:57:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 624,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 7152169,
+        "custom": {
+          "organization": "Université de Paris, Service commun de la documentation",
+          "contactName": "Claire Tirefort",
+          "contactNumber": "01 57 27 66 57",
+          "contactPosition": "Responsable des animations culturelles et scientifiques",
+          "email": "claire.tirefort@univ-paris-diderot.fr"
+        }
+      }
+    },
+    {
+      "uid": 56782995,
+      "ownerUid": 77494446,
+      "creatorUid": 77494446,
+      "slug": "prix-manga-moe",
+      "title": {
+        "fr": "Prix mangas des collégiens \"Manga Moe\"",
+        "en": "\"Manga Moe\" High School Manga Award"
+      },
+      "description": {
+        "fr": "Création d’un prix de mangas décerné par des collégiens",
+        "en": "Creation of a manga prize awarded by students"
+      },
+      "longDescription": {
+        "fr": "Est créé le prix inter-collèges \"Manga Moe\" des collèges Jules Verne et Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher et Albert Camus de Vierzon.\n\nCe prix a pour objectifs de faire découvrir aux collégiens des mangas de qualité et de développer l’esprit critique par l’argumentation et le débat. Il permet aussi la rencontre entre élèves d’établissements scolaires différents, la découverte de pays asiatiques représentés dans les mangas et la sensibilisation aux métiers du dessin.\n\nÀ la suite d’une présélection par la librairie partenaire Kimshoten, est proposée aux élèves une liste de 6 à 7 mangas de genres et classifications variés.\n\nLes élèves du prix \"Manga Moe\" s’engagent à lire au moins 4 de ces ouvrages et à voter en fin d’année pour leur manga préféré selon le calendrier associé. Ce vote doit s’accompagner d’une courte fiche critique argumentée portant sur le dessin, l’histoire, les personnages.\n\nCalendrier 2019-2020 : lancement du prix au plus tard en octobre, échanges (par mails, tweets, blog, forum, courriers, rencontres...) entre établissements de décembre à février (jusqu’au 15 février 2020), votes en mars (jusqu’au 6 mars 2020), annonce des résultats le 12 mars 2020.\n\nTitres sélectionnés pour 2019-2020 :\n\n_My hero académia_\n\n_Black clover_\n\n_Dr Stone_\n\n_Psyren_\n\n_Moi quand je me réincarne en slime_\n\n_Fire force_\n\n_Hermine Murgia, le 1er juillet 2019_",
+        "en": "The inter-college prize \"Manga Moe\" is created by the colleges Jules Verne and Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher and Albert Camus de Vierzon.\nThe aim of this prize is to introduce students to quality mangas and to develop critical thinking through argumentation and debate. It also makes it possible to meet students from different schools, to discover Asian countries represented in mangas and to raise awareness about drawing professions.\nFollowing a pre-selection by the partner bookstore Kimshoten, students are offered a list of 6 to 7 mangas of various genres and classifications.\nThe students of the \"Manga Moe\" prize undertake to read at least 4 of these books and to vote at the end of the year for their favorite manga according to the associated calendar. This vote must be accompanied by a short, well-reasoned review of the drawing, the story and the characters.\n2019-2020 calendar: launch of the prize by October, exchanges (by email, tweets, blog, forum, letters, meetings...) between institutions from December to February (until February 15, 2020), votes in March (until March 6, 2020), announcement of results on March 12, 2020.\nSelected products for 2019-2020:\n_My hero académia_\n_Black clover_\n_Dr Stone_\n_Psyren_\n_Me when I reincarnate in slime_\n_Fire force_\n_Hermine Murgia, July 1, 2019_"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.full.image.jpg",
+            "size": {
+              "height": 345,
+              "width": 345
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T23:00:00.000Z",
+          "end": "2020-02-15T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T23:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:50.000Z",
+      "createdAt": "2020-01-08T20:16:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 44170877,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 15
+      },
+      "registration": [
+        "hermine.murgia@ac-orleans-tours.fr"
+      ],
+      "location": {
+        "uid": 44170877,
+        "slug": "college-jules-verne-18000-bourges",
+        "name": "Collège Jules Verne",
+        "address": "3 allée des Collèges 18000 Bourges",
+        "city": "Bourges",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18000",
+        "insee": "18033",
+        "countryCode": "FR",
+        "district": "Bourges Nord",
+        "latitude": 47.099982,
+        "longitude": 2.423887,
+        "updatedAt": "2020-01-09T09:12:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": "Rencontres inter-collèges",
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Bourges",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77494446,
+        "custom": {
+          "organization": "CDI COLLÈGE JULES VERNE",
+          "contactName": "Hermine Murgia",
+          "contactNumber": "0248271460",
+          "contactPosition": "Professeure documentaliste",
+          "email": "hermine.murgia@ac-orleans-tours.fr"
+        }
+      }
+    },
+    {
+      "uid": 23047996,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "prix-mangas-des-collegiens-manga-moe",
+      "title": {
+        "fr": "Prix mangas des collégiens \"Manga Moe\"",
+        "en": "\"Manga Moe\" High School Manga Award"
+      },
+      "description": {
+        "fr": "Création d’un prix de mangas décerné par des collégiens",
+        "en": "Creation of a manga prize awarded by students"
+      },
+      "longDescription": {
+        "fr": "Est créé le prix inter-collèges \"Manga Moe\" des collèges Jules Verne et Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher et Albert Camus de Vierzon.\n\nCe prix a pour objectifs de faire découvrir aux collégiens des mangas de qualité et de développer l’esprit critique par l’argumentation et le débat. Il permet aussi la rencontre entre élèves d’établissements scolaires différents, la découverte de pays asiatiques représentés dans les mangas et la sensibilisation aux métiers du dessin.\n\nÀ la suite d’une présélection par la librairie partenaire Kimshoten, est proposée aux élèves une liste de 6 à 7 mangas de genres et classifications variés.\n\nLes élèves du prix \"Manga Moe\" s’engagent à lire au moins 4 de ces ouvrages et à voter en fin d’année pour leur manga préféré selon le calendrier associé. Ce vote doit s’accompagner d’une courte fiche critique argumentée portant sur le dessin, l’histoire, les personnages.\n\nCalendrier 2019-2020 : lancement du prix au plus tard en octobre, échanges (par mails, tweets, blog, forum, courriers, rencontres...) entre établissements de décembre à février (jusqu’au 15 février 2020), votes en mars (jusqu’au 6 mars 2020), annonce des résultats le 12 mars 2020.\n\nTitres sélectionnés pour 2019-2020 :\n\n_My hero académia_\n\n_Black clover_\n\n_Dr Stone_\n\n_Psyren_\n\n_Moi quand je me réincarne en slime_\n\n_Fire force_\n\n_Hermine Murgia, le 1er juillet 2019_",
+        "en": "The inter-college prize \"Manga Moe\" is created by the colleges Jules Verne and Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher and Albert Camus de Vierzon.\nThe aim of this prize is to introduce students to quality mangas and to develop critical thinking through argumentation and debate. It also makes it possible to meet students from different schools, to discover Asian countries represented in mangas and to raise awareness about drawing professions.\nFollowing a pre-selection by the partner bookstore Kimshoten, students are offered a list of 6 to 7 mangas of various genres and classifications.\nThe students of the \"Manga Moe\" prize undertake to read at least 4 of these books and to vote at the end of the year for their favorite manga according to the associated calendar. This vote must be accompanied by a short, well-reasoned review of the drawing, the story and the characters.\n2019-2020 calendar: launch of the prize by October, exchanges (by email, tweets, blog, forum, letters, meetings...) between institutions from December to February (until February 15, 2020), votes in March (until March 6, 2020), announcement of results on March 12, 2020.\nSelected products for 2019-2020:\n_My hero académia_\n_Black clover_\n_Dr Stone_\n_Psyren_\n_Me when I reincarnate in slime_\n_Fire force_\n_Hermine Murgia, July 1, 2019_"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.full.image.jpg",
+            "size": {
+              "height": 345,
+              "width": 345
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T23:00:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:46.000Z",
+      "createdAt": "2020-01-09T08:17:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 61444392,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 15
+      },
+      "registration": [
+        "hermine.murgia@ac-orleans-tours.fr"
+      ],
+      "location": {
+        "uid": 61444392,
+        "slug": "college-victor-hugo725",
+        "name": "Collège Victor Hugo",
+        "address": "83 rue Louise Michel 18000 Bourges",
+        "city": "Bourges",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18000",
+        "insee": "18033",
+        "countryCode": "FR",
+        "district": "Bourges Nord",
+        "latitude": 47.106877,
+        "longitude": 2.405706,
+        "updatedAt": "2020-01-09T08:14:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": "Rencontres inter-collèges",
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Bourges",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 89131876,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "prix-mangas-des-collegiens-manga-moe_28211",
+      "title": {
+        "fr": "Prix mangas des collégiens \"Manga Moe\"",
+        "en": "\"Manga Moe\" High School Manga Award"
+      },
+      "description": {
+        "fr": "Création d’un prix de mangas décerné par des collégiens",
+        "en": "Creation of a manga prize awarded by students"
+      },
+      "longDescription": {
+        "fr": "Est créé le prix inter-collèges \"Manga Moe\" des collèges Jules Verne et Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher et Albert Camus de Vierzon.\n\nCe prix a pour objectifs de faire découvrir aux collégiens des mangas de qualité et de développer l’esprit critique par l’argumentation et le débat. Il permet aussi la rencontre entre élèves d’établissements scolaires différents, la découverte de pays asiatiques représentés dans les mangas et la sensibilisation aux métiers du dessin.\n\nÀ la suite d’une présélection par la librairie partenaire Kimshoten, est proposée aux élèves une liste de 6 à 7 mangas de genres et classifications variés.\n\nLes élèves du prix \"Manga Moe\" s’engagent à lire au moins 4 de ces ouvrages et à voter en fin d’année pour leur manga préféré selon le calendrier associé. Ce vote doit s’accompagner d’une courte fiche critique argumentée portant sur le dessin, l’histoire, les personnages.\n\nCalendrier 2019-2020 : lancement du prix au plus tard en octobre, échanges (par mails, tweets, blog, forum, courriers, rencontres...) entre établissements de décembre à février (jusqu’au 15 février 2020), votes en mars (jusqu’au 6 mars 2020), annonce des résultats le 12 mars 2020.\n\nTitres sélectionnés pour 2019-2020 :\n\n_My hero académia_\n\n_Black clover_\n\n_Dr Stone_\n\n_Psyren_\n\n_Moi quand je me réincarne en slime_\n\n_Fire force_\n\n_Hermine Murgia, le 1er juillet 2019_",
+        "en": "The inter-college prize \"Manga Moe\" is created by the colleges Jules Verne and Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher and Albert Camus de Vierzon.\nThe aim of this prize is to introduce students to quality mangas and to develop critical thinking through argumentation and debate. It also makes it possible to meet students from different schools, to discover Asian countries represented in mangas and to raise awareness about drawing professions.\nFollowing a pre-selection by the partner bookstore Kimshoten, students are offered a list of 6 to 7 mangas of various genres and classifications.\nThe students of the \"Manga Moe\" prize undertake to read at least 4 of these books and to vote at the end of the year for their favorite manga according to the associated calendar. This vote must be accompanied by a short, well-reasoned review of the drawing, the story and the characters.\n2019-2020 calendar: launch of the prize by October, exchanges (by email, tweets, blog, forum, letters, meetings...) between institutions from December to February (until February 15, 2020), votes in March (until March 6, 2020), announcement of results on March 12, 2020.\nSelected products for 2019-2020:\n_My hero académia_\n_Black clover_\n_Dr Stone_\n_Psyren_\n_Me when I reincarnate in slime_\n_Fire force_\n_Hermine Murgia, July 1, 2019_"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.full.image.jpg",
+            "size": {
+              "height": 345,
+              "width": 345
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T23:00:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T23:00:00.000Z",
+          "end": "2020-03-13T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:30.000Z",
+      "createdAt": "2020-01-09T08:20:46.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 47748616,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 15
+      },
+      "registration": [
+        "hermine.murgia@ac-orleans-tours.fr"
+      ],
+      "location": {
+        "uid": 47748616,
+        "slug": "college-irene-joliot-curie",
+        "name": "Collège Irène Joliot-Curie",
+        "address": "6 boulevard de la Liberté 18500 Mehun-sur-Yèvre",
+        "city": "Mehun-sur-Yèvre",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18500",
+        "insee": "18141",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.143137,
+        "longitude": 2.205301,
+        "updatedAt": "2020-01-09T08:19:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": "Rencontres inter-collèges",
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Bourges",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 95856482,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "prix-mangas-des-collegiens-manga-moe_473706",
+      "title": {
+        "fr": "Prix mangas des collégiens \"Manga Moe\"",
+        "en": "\"Manga Moe\" High School Manga Award"
+      },
+      "description": {
+        "fr": "Création d’un prix de mangas décerné par des collégiens",
+        "en": "Creation of a manga prize awarded by students"
+      },
+      "longDescription": {
+        "fr": "Est créé le prix inter-collèges \"Manga Moe\" des collèges Jules Verne et Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher et Albert Camus de Vierzon.\n\nCe prix a pour objectifs de faire découvrir aux collégiens des mangas de qualité et de développer l’esprit critique par l’argumentation et le débat. Il permet aussi la rencontre entre élèves d’établissements scolaires différents, la découverte de pays asiatiques représentés dans les mangas et la sensibilisation aux métiers du dessin.\n\nÀ la suite d’une présélection par la librairie partenaire Kimshoten, est proposée aux élèves une liste de 6 à 7 mangas de genres et classifications variés.\n\nLes élèves du prix \"Manga Moe\" s’engagent à lire au moins 4 de ces ouvrages et à voter en fin d’année pour leur manga préféré selon le calendrier associé. Ce vote doit s’accompagner d’une courte fiche critique argumentée portant sur le dessin, l’histoire, les personnages.\n\nCalendrier 2019-2020 : lancement du prix au plus tard en octobre, échanges (par mails, tweets, blog, forum, courriers, rencontres...) entre établissements de décembre à février (jusqu’au 15 février 2020), votes en mars (jusqu’au 6 mars 2020), annonce des résultats le 12 mars 2020.\n\nTitres sélectionnés pour 2019-2020 :\n\n_My hero académia_\n\n_Black clover_\n\n_Dr Stone_\n\n_Psyren_\n\n_Moi quand je me réincarne en slime_\n\n_Fire force_\n\n_Hermine Murgia, le 1er juillet 2019_",
+        "en": "The inter-college prize \"Manga Moe\" is created by the colleges Jules Verne and Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher and Albert Camus de Vierzon.\nThe aim of this prize is to introduce students to quality mangas and to develop critical thinking through argumentation and debate. It also makes it possible to meet students from different schools, to discover Asian countries represented in mangas and to raise awareness about drawing professions.\nFollowing a pre-selection by the partner bookstore Kimshoten, students are offered a list of 6 to 7 mangas of various genres and classifications.\nThe students of the \"Manga Moe\" prize undertake to read at least 4 of these books and to vote at the end of the year for their favorite manga according to the associated calendar. This vote must be accompanied by a short, well-reasoned review of the drawing, the story and the characters.\n2019-2020 calendar: launch of the prize by October, exchanges (by email, tweets, blog, forum, letters, meetings...) between institutions from December to February (until February 15, 2020), votes in March (until March 6, 2020), announcement of results on March 12, 2020.\nSelected products for 2019-2020:\n_My hero académia_\n_Black clover_\n_Dr Stone_\n_Psyren_\n_Me when I reincarnate in slime_\n_Fire force_\n_Hermine Murgia, July 1, 2019_"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.full.image.jpg",
+            "size": {
+              "height": 345,
+              "width": 345
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T23:00:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:37.000Z",
+      "createdAt": "2020-01-09T08:23:15.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 99024924,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 15
+      },
+      "registration": [
+        "hermine.murgia@ac-orleans-tours.fr"
+      ],
+      "location": {
+        "uid": 99024924,
+        "slug": "college-voltaire833",
+        "name": "Collège Voltaire",
+        "address": "Rue du Berry 18400 Saint-Florent-sur-Cher",
+        "city": "Saint-Florent-sur-Cher",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18400",
+        "insee": "18207",
+        "countryCode": "FR",
+        "district": "Les Baguettes",
+        "latitude": 46.999617,
+        "longitude": 2.257161,
+        "updatedAt": "2020-01-09T08:22:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": "Rencontres inter-collèges",
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Bourges",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 91718128,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "prix-mangas-des-collegiens-manga-moe_259297",
+      "title": {
+        "fr": "Prix mangas des collégiens \"Manga Moe\"",
+        "en": "\"Manga Moe\" High School Manga Award"
+      },
+      "description": {
+        "fr": "Création d’un prix de mangas décerné par des collégiens",
+        "en": "Creation of a manga prize awarded by students"
+      },
+      "longDescription": {
+        "fr": "Est créé le prix inter-collèges \"Manga Moe\" des collèges Jules Verne et Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher et Albert Camus de Vierzon.\n\nCe prix a pour objectifs de faire découvrir aux collégiens des mangas de qualité et de développer l’esprit critique par l’argumentation et le débat. Il permet aussi la rencontre entre élèves d’établissements scolaires différents, la découverte de pays asiatiques représentés dans les mangas et la sensibilisation aux métiers du dessin.\n\nÀ la suite d’une présélection par la librairie partenaire Kimshoten, est proposée aux élèves une liste de 6 à 7 mangas de genres et classifications variés.\n\nLes élèves du prix \"Manga Moe\" s’engagent à lire au moins 4 de ces ouvrages et à voter en fin d’année pour leur manga préféré selon le calendrier associé. Ce vote doit s’accompagner d’une courte fiche critique argumentée portant sur le dessin, l’histoire, les personnages.\n\nCalendrier 2019-2020 : lancement du prix au plus tard en octobre, échanges (par mails, tweets, blog, forum, courriers, rencontres...) entre établissements de décembre à février (jusqu’au 15 février 2020), votes en mars (jusqu’au 6 mars 2020), annonce des résultats le 12 mars 2020.\n\nTitres sélectionnés pour 2019-2020 :\n\n_My hero académia_\n\n_Black clover_\n\n_Dr Stone_\n\n_Psyren_\n\n_Moi quand je me réincarne en slime_\n\n_Fire force_\n\n_Hermine Murgia, le 1er juillet 2019_",
+        "en": "The inter-college prize \"Manga Moe\" is created by the colleges Jules Verne and Victor Hugo de Bourges, Irène Joliot-Curie de Mehun-sur-Yèvre, Voltaire de Saint-Florent-sur-Cher and Albert Camus de Vierzon.\nThe aim of this prize is to introduce students to quality mangas and to develop critical thinking through argumentation and debate. It also makes it possible to meet students from different schools, to discover Asian countries represented in mangas and to raise awareness about drawing professions.\nFollowing a pre-selection by the partner bookstore Kimshoten, students are offered a list of 6 to 7 mangas of various genres and classifications.\nThe students of the \"Manga Moe\" prize undertake to read at least 4 of these books and to vote at the end of the year for their favorite manga according to the associated calendar. This vote must be accompanied by a short, well-reasoned review of the drawing, the story and the characters.\n2019-2020 calendar: launch of the prize by October, exchanges (by email, tweets, blog, forum, letters, meetings...) between institutions from December to February (until February 15, 2020), votes in March (until March 6, 2020), announcement of results on March 12, 2020.\nSelected products for 2019-2020:\n_My hero académia_\n_Black clover_\n_Dr Stone_\n_Psyren_\n_Me when I reincarnate in slime_\n_Fire force_\n_Hermine Murgia, July 1, 2019_"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.full.image.jpg",
+            "size": {
+              "height": 345,
+              "width": 345
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef97fba393c548d3a6a1ea68c9ea0a66.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T23:00:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:33.000Z",
+      "createdAt": "2020-01-09T08:25:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84645737,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 15
+      },
+      "registration": [
+        "hermine.murgia@ac-orleans-tours.fr"
+      ],
+      "location": {
+        "uid": 84645737,
+        "slug": "college-albert-camus613",
+        "name": "Collège Albert Camus",
+        "address": "Rue d'Héry 18100 Vierzon",
+        "city": "Vierzon",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18100",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Les Grandes Crèles",
+        "latitude": 47.212754,
+        "longitude": 2.071156,
+        "updatedAt": "2020-01-09T08:24:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": "Rencontres inter-collèges",
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Bourges",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 45875613,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "festival-bulles-en-val-exposition-creer-une-bd-avec-gaspard",
+      "title": {
+        "fr": "Festival \"Bulles en Val\" - Exposition \"Créer une BD avec Gaspard\"",
+        "en": "Festival \"Bulles en Val\" - Exhibition \"Create a comic with Gaspard\""
+      },
+      "description": {
+        "fr": "19e festival \"Bulles en Val\" à la médiathèque de la Loire",
+        "en": "19th \"Bulles en Val\" festival at the Media Library of the Loire"
+      },
+      "longDescription": {
+        "fr": "**À la médiathèque de la Loire**\n\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\n\n**Exposition \"Créer une BD avec Gaspard\" par BD BOUM du 13 au 30 janvier.**\n\nSamedi 1er février à 10h, café BD avec présentation de coups de cœur BD et auteurs de Bulles en Val.\n\nMardi 18 février à 15h, atelier manga par Christophe Cointault (à partir de 9 ans sur inscription).\n\nMardi 25 février à 14h, atelier « Viens créer ton masque manga » (à partir de 6 ans sur inscription).\n\n4 mars à 16h, contes illustrés de la cie Troll avec Mickael Roux.",
+        "en": "**At the Media Library of the Loire**\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\n**Exhibition \"Create a comic book with Gaspard\" by BD BOUM from 13 to 30 January.**\nSaturday 1 February at 10 am, comic strip café with a presentation of comic book favourites and authors of Bulles en Val.\nTuesday 18 February at 3 pm, manga workshop by Christophe Cointault (from 9 years old on registration).\nTuesday 25 February at 14h, workshop «Viens créer ton masque manga» (from 6 years on registration).\nMarch 4th at 4pm, illustrated tales of the cie Troll with Mickael Roux."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c1f90f0ffbd24f11aa020b02e605cce8.base.image.jpg",
+        "credits": "Laurent Astier - Bulles en Val",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.full.image.jpg",
+            "size": {
+              "height": 1240,
+              "width": 877
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-13T14:00:00.000Z",
+          "end": "2020-01-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T14:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T14:00:00.000Z",
+          "end": "2020-01-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T14:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T14:00:00.000Z",
+          "end": "2020-01-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T14:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T14:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T14:00:00.000Z",
+          "end": "2020-01-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T14:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:13.000Z",
+      "createdAt": "2020-01-09T08:35:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75629239,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "bullesenval@free.fr",
+        "https://www.facebook.com/bullesenval/",
+        "07 68 40 17 37"
+      ],
+      "location": {
+        "uid": 75629239,
+        "slug": "mediatheque-de-la-loire680",
+        "name": "Médiathèque de la Loire",
+        "address": "260 rue des Écoles 45560 Saint-Denis-en-Val",
+        "city": "Saint-Denis-en-Val",
+        "region": "Centre-Val de Loire",
+        "department": "Loiret",
+        "postalCode": "45560",
+        "insee": "45274",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.879653,
+        "longitude": 1.956645,
+        "updatedAt": "2020-01-08T08:29:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2122449
+}

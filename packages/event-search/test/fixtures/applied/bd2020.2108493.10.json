@@ -1,0 +1,2246 @@
+{
+  "events": [
+    {
+      "uid": 71723737,
+      "ownerUid": 77512574,
+      "creatorUid": 77512574,
+      "slug": "bd-concert_907457",
+      "title": {
+        "fr": "BD-concert",
+        "en": "BD-concert"
+      },
+      "description": {
+        "fr": "Un peu de bois et d'acier de Chabouté",
+        "en": "A bit of wood and steel from Chabouté"
+      },
+      "longDescription": {
+        "fr": "Le premier pari : un piano, une batterie, une BD réunis sur scène. Deuxième pari de taille lui aussi : mettre en scène un banc. Comme le piano et la batterie, le héros singulier de la BD de Chabouté est vêtu de bois et d’acier. Le credo de Sébastien Troendle : créer du lien entre la musique et d’autres formes artistiques. Et c’est avec son admirable bagage éclectique, combiné de danse, de théâtre et de cirque, que ce musicien au travail acharné va nous accompagner dans le voyage que représente cet ex- ceptionnel BD-concert.",
+        "en": "The first bet: a piano, a drums, a comic book brought together on stage. Second bet of size also: to stage a bench. Like the piano and drums, the singular hero of Chabouté’s comic book is dressed in wood and steel. Sébastien Troendle’s creed: creating a link between music and other artistic forms. And it is with his admirable eclectic background, combined of dance, theatre and circus, that this hard-working musician will accompany us on the journey that this ex ceptional BD-concert represents."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "af4b7b011cf342de83eac2a378ee64cf.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 497,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "af4b7b011cf342de83eac2a378ee64cf.full.image.jpg",
+            "size": {
+              "height": 5197,
+              "width": 7323
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "af4b7b011cf342de83eac2a378ee64cf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-08T15:30:00.000Z",
+          "end": "2020-03-08T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:49.000Z",
+      "createdAt": "2019-12-17T10:24:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19536782,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 19536782,
+        "slug": "cinema-majestic508",
+        "name": "Cinéma Majestic",
+        "address": "7 rue au Char 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14100",
+        "insee": "14303",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.144785,
+        "longitude": 0.228584,
+        "updatedAt": "2019-12-17T10:27:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Association Pour le Cinéma de Lisieux",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77512574,
+        "custom": {
+          "organization": "Pôle Lecture Publique",
+          "contactName": "Karen LEMIRE",
+          "contactNumber": "02 31 48 41 00",
+          "contactPosition": "Chargée de communication du Pôle Lecture Publique",
+          "email": "klemire@agglo-lisieux.fr"
+        }
+      }
+    },
+    {
+      "uid": 95778099,
+      "ownerUid": 71407929,
+      "creatorUid": 71407929,
+      "slug": "souvenirs-de-films",
+      "title": {
+        "fr": "Exposition \"Souvenirs de films\"",
+        "en": "Exhibition \"Souvenirs de films\""
+      },
+      "description": {
+        "fr": "38 dessinateurs revisitent les affiches de films ayant compté pour eux",
+        "en": "38 cartoonists revisit the movie posters that have mattered to them"
+      },
+      "longDescription": {
+        "fr": "Du classique du septième art au film oublié, du western au documentaire, de Tati à Kurosawa, ce sont 38 affiches à découvrir et autant de souvenirs de films à partager avec les bédéphiles, les cinéphiles et tous les autres.",
+        "en": "From the classic of seventh art to forgotten film, from western to documentary, from Tati to Kurosawa, these are 38 posters to discover and as many memories of films to share with the Bédéphiles, the cinephiles and all the others."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1e014cba2b4047ae98ccde80dfc64821.base.image.jpg",
+        "credits": "Quai des bulles",
+        "size": {
+          "height": 925,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1e014cba2b4047ae98ccde80dfc64821.full.image.jpg",
+            "size": {
+              "height": 1321,
+              "width": 1000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1e014cba2b4047ae98ccde80dfc64821.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-28T14:00:00.000Z",
+          "end": "2020-01-28T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T14:00:00.000Z",
+          "end": "2020-02-04T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T14:00:00.000Z",
+          "end": "2020-02-11T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T14:00:00.000Z",
+          "end": "2020-02-18T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T14:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T14:00:00.000Z",
+          "end": "2020-02-25T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T14:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:58.000Z",
+      "createdAt": "2019-12-17T10:45:14.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 67217308,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 67217308,
+        "slug": "mediatheque-lucien-herr386",
+        "name": "Médiathèque Lucien Herr",
+        "address": "18 cours Camille Claudel 35136 Saint-Jacques-de-la-Lande",
+        "city": "Saint-Jacques-de-la-Lande",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35136",
+        "insee": "35281",
+        "countryCode": "FR",
+        "district": "La Morinais",
+        "latitude": 48.080969,
+        "longitude": -1.713974,
+        "updatedAt": "2019-12-17T10:48:32.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Lucien Herr",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71407929,
+        "custom": {
+          "organization": "Médiathèque Lucien Herr",
+          "contactName": "Nathalie Fétiveau",
+          "contactNumber": "02 99 31 18 08",
+          "contactPosition": "Responsable BD adulte",
+          "email": "n.fetiveau@mediatheque-lucien-herr.fr"
+        }
+      }
+    },
+    {
+      "uid": 14556872,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "presentation-du-prix-regard-9-par-eric-audebert_651563",
+      "title": {
+        "fr": "Présentation des BD sélectionnées pour le prix Regard 9 par Eric Audebert",
+        "en": "Presentation of the comics selected for the Regard 9 prize by Eric Audebert"
+      },
+      "description": {
+        "fr": "À l'occasion du café BD de la bibliothèque Saint-Michel du mois de janvier, présentation par Eric Audebert des BD sélectionnées pour le prix Regard 9",
+        "en": "On the occasion of the comic book café of the Saint-Michel library in January, presentation by Eric Audebert of the comic books selected for the Regard 9 prize"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:58.000Z",
+      "createdAt": "2019-12-16T16:11:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 15090465,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 15090465,
+        "slug": "bibliotheque-saint-michel219",
+        "name": "Bibliothèque Saint-Michel",
+        "address": "10-12 place des Capucins 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.83018,
+        "longitude": -0.567083,
+        "updatedAt": "2019-12-17T08:36:07.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": "Café BD",
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 59370260,
+      "ownerUid": 71407929,
+      "creatorUid": 71407929,
+      "slug": "grosse-betise-mode-demploi",
+      "title": {
+        "fr": "Exposition \"Grosse bêtise, mode d’emploi\"",
+        "en": "Exhibition \"Big mistake, instructions for use\""
+      },
+      "description": {
+        "fr": "Exposition pédagogique et ludique expliquant les techniques de la bande dessinée",
+        "en": "Pedagogical and playful exhibition explaining the techniques of comic books"
+      },
+      "longDescription": {
+        "fr": "\"Grosse bêtise, mode d'emploi\" permet d'expliquer les techniques de la bande dessinée à travers des jeux interactifs et ludiques accessibles aux plus jeunes. Avec Suzie, l'héroïne de... _Petite souris, grosse bêtise_, une petite fille comme les autres mais dont les dents n’ont pas commencé à tomber, les enfants jouent, dessinent, manipulent en apprenant les bases de la création d'une BD.",
+        "en": "\"Big mistake, how to use it\" explains the techniques of comic books through interactive games and games accessible to the youngest. With Suzie, the heroine of... _Little mouse, big stupidity_, a little girl like the others but whose teeth did not start to fall, children play, draw, manipulate by learning the basics of creating a comic book."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "39f43ee235a74a0dbf284ecd53668061.base.image.jpg",
+        "credits": "Loïc Dauvillier et Alain Kokor",
+        "size": {
+          "height": 1000,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "39f43ee235a74a0dbf284ecd53668061.full.image.jpg",
+            "size": {
+              "height": 857,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "39f43ee235a74a0dbf284ecd53668061.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T14:00:00.000Z",
+          "end": "2020-01-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T14:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:30:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T14:00:00.000Z",
+          "end": "2020-01-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:30:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T14:00:00.000Z",
+          "end": "2020-01-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:30:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T14:00:00.000Z",
+          "end": "2020-02-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T14:00:00.000Z",
+          "end": "2020-02-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:30:00.000Z",
+          "end": "2020-02-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T14:00:00.000Z",
+          "end": "2020-02-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T14:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:30:00.000Z",
+          "end": "2020-02-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T14:00:00.000Z",
+          "end": "2020-02-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T14:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:56.000Z",
+      "createdAt": "2019-12-17T10:50:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 67217308,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 67217308,
+        "slug": "mediatheque-lucien-herr386",
+        "name": "Médiathèque Lucien Herr",
+        "address": "18 cours Camille Claudel 35136 Saint-Jacques-de-la-Lande",
+        "city": "Saint-Jacques-de-la-Lande",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35136",
+        "insee": "35281",
+        "countryCode": "FR",
+        "district": "La Morinais",
+        "latitude": 48.080969,
+        "longitude": -1.713974,
+        "updatedAt": "2019-12-17T10:48:32.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Lucien Herr",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque départementale d'Ille-et-Vilaine",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71407929,
+        "custom": {
+          "organization": "Médiathèque Lucien Herr",
+          "contactName": "Nathalie Fétiveau",
+          "contactNumber": "02 99 31 18 08",
+          "contactPosition": "Responsable BD adulte",
+          "email": "n.fetiveau@mediatheque-lucien-herr.fr"
+        }
+      }
+    },
+    {
+      "uid": 49047033,
+      "ownerUid": 21126697,
+      "creatorUid": 21126697,
+      "slug": "le-gout-des-autres-ravel-un-imaginaire-musical-karol-beffa",
+      "title": {
+        "fr": "Le Goût des Autres - Ravel, un imaginaire musical de Karol Beffa",
+        "en": "The Taste of Others - Ravel, a musical imagination by Karol Beffa",
+        "es": "El gusto de los Otros - Ravel, un imaginario musical de Karol Beffa",
+        "de": "Der Geschmack der Anderen - Ravel, eine musikalische Vorstellung von Karol Beffa",
+        "it": "Il Gusto degli Altri - Ravel, un immaginario musicale di Karol Beffa"
+      },
+      "description": {
+        "fr": "Rencontre - BD",
+        "en": "Meeting - BD",
+        "es": "Encuentro - BD",
+        "de": "Meeting - BD",
+        "it": "Incontro - BD"
+      },
+      "longDescription": {
+        "fr": "Une bande dessinée, musicale ? Et pourquoi pas ? Nous sommes en 1936. Ravel entreprend de conter son histoire à son fidèle ami et disciple Roland-Manuel. On assiste à la création de Gaspard de la nuit, de Daphnis et Chloé, du Concerto pour la main gauche et du Boléro. Le musicien se lance dans une évocation bigarrée de sa vie, tissée d’amitiés indéfectibles et de fulgurances musicales, où l’on croise Debussy, Fauré, Ida Rubinstein ou Colette. Le pianiste Karol Beffa, Guillaume Métayer et Aleksi Cavaillez composent le portrait d’un Ravel espiègle et passionné, et plantent le décor d’une modernité artistique qui s’invente. Compositeur, pianiste et musicologue, Karol Beffa, né en 1973, est un acteur incontournable de la scène musicale contemporaine. Il a mené parallèlement études générales et\n\nmusicales, après avoir été enfant acteur dans une quinzaine de films. C’est à cette personnalité hors normes que le Collège de France a confié la chaire annuelle de création artistique pour l’année 2012-2013.\n\nAnimée par Karine PAPILLAUD\n\nRetrouvez Karol Beffa en dédicace à la Librairie La Galerne.\n\nÀ lire : Karol Beffa, Guillaume Métayer (scénario) et Aleksi Cavaillez (illustrations, couleurs), _Ravel, un imaginaire musical_, Delcourt",
+        "en": "A comic, musical? And why not? It’s 1936\\. Ravel begins to tell his story to his faithful friend and disciple Roland-Manuel. Gaspard de la nuit, Daphnis et Chloé, the Concerto pour la main gauche and Boléro were created. The musician embarks on a colourful evocation of his life, woven with unfailing friendships and musical explosions, where one meets Debussy, Fauré, Ida Rubinstein or Colette. Pianist Karol Beffa, Guillaume Métayer and Aleksi Cavaillez compose the portrait of a playful and passionate Ravel, and plant the decor of an artistic modernity that is invented. Composer, pianist and musicologist, Karol Beffa, born in 1973, is a key player in the contemporary music scene. It has carried out in parallel general studies and\nafter having been a child actor in about fifteen films. It is to this exceptional personality that the Collège de France has entrusted the annual chair of artistic creation for the year 2012-2013.\nModerated by Karine PAPILLAUD\nFind Karol Beffa at the Librairie La Galerne.\nRead also: Karol Beffa, Guillaume Métayer (screenplay) and Aleksi Cavaillez (illustrations, colours), _Ravel, un imaginaire musical_, Delcourt",
+        "es": "¿Un cómic musical? ¿Por qué no? Estamos en 1936\\. Ravel comienza a contar su historia a su fiel amigo y discípulo Roland-Manuel. Asistimos a la creación de Gaspard de la nuit, de Daphnis y Chloe, del Concierto para la Mano Izquierda y del Bolero. El músico se lanza a una evocación abigarrada de su vida, tejida de amistades indefectibles y fulgurancias musicales, donde se cruzan Debussy, Fauré, Ida Rubinstein o Colette. El pianista Karol Beffa, Guillaume métayer y Aleksi Cavaillez componen el retrato de un Ravel travieso y apasionado, y plantan el decorado de una modernidad artística que se inventa. Compositor, pianista y musicólogo, Karol Beffa, nacido en 1973, es un actor imprescindible en la escena musical contemporánea. Ha realizado paralelamente estudios generales y\nmusicales, después de haber sido niño actor en una quincena de películas. A esta personalidad fuera de normas el Colegio de Francia confió la cátedra anual de creación artística para el año 2012-2013.\nAnimada por Karine PAPILLAUD\nEncuéntrate con Karol Beffa en la librería La Galerne.\nPara leer: Karol Beffa, Guillaume metayer (guión) y Aleksi Cavaillez (ilustraciones, colores), _Ravel, un imaginario musical_, Delcourt",
+        "de": "Ein musikalischer Comic? Warum nicht? Wir schreiben 1936\\. Ravel versucht, seine Geschichte seinem treuen Freund und Schüler Roland-Manuel zu erzählen. Wir sehen die Entstehung von Gaspard der Nacht, von Daphnis und Chloe, von Concerto für die linke Hand und von Bolero. Der Musiker beginnt mit einer bunten Erinnerung an sein Leben, die sich aus unerschütterlichen Freundschaften und musikalischen Fulguranzen zusammensetzt, wo man Debussy, Fauré, Ida Rubinstein oder Colette begegnet. Der Pianist Karol Beffa, Guillaume Metayer und Aleksi Cavaillez bilden das Porträt eines verspielten und leidenschaftlichen Ravels und prägen die Kulisse einer neu erfundenen künstlerischen Modernität. Der 1973 geborene Karol Beffa, Komponist, Pianist und Musiker, ist ein wichtiger Akteur in der modernen Musikszene. Er hat parallel dazu allgemeine\nMusikalische Filme, nachdem ich als Kind 15 Filme gedreht habe. Dieser nicht normgerechten Persönlichkeit übertrug das Collège de France den jährlichen Lehrstuhl für künstlerisches Schaffen für den Zeitraum 2012-2013.\nAnimiert von Karine PAPILLAUD\nIch möchte, dass Sie Karol Beffa in der Bibliothek La Galerne treffen.\nZu lesen: Karol Beffa, Guillaume Metayer (Drehbuch) und Aleksi Cavaillez (Illustrationen, Farben), Ravel, eine _musikalische_ Fantasie_, Delcourt_",
+        "it": "Un fumetto, musicale? E perché no? Siamo nel 1936\\. Ravel inizia a raccontare la sua storia al suo fedele amico e discepolo Roland-Manuel. Assistiamo alla creazione di Gaspard della notte, di Daphnis e Chloe, del Concerto per la mano sinistra e del Bolero. Il musicista si lancia in un variopinto ricordo della sua vita, intrecciato di amicizie indefettibili e di folgorazioni musicali, dove si incontra Debussy, Fauré, Ida Rubinstein o Colette. Il pianista Karol Beffa, Guillaume métayer e Aleksi Cavaille compongono il ritratto di un Ravel malizioso e appassionato, e creano lo scenario di una modernità artistica che si inventa. Compositore, pianista e musicologo, Karol Beffa, nato nel 1973, è un attore indispensabile della scena musicale contemporanea. Parallelamente ha condotto studi generali e\nDopo aver recitato in una quindicina di film. È a questa personalità fuori norma che il Collegio di Francia ha affidato la cattedra annuale di creazione artistica per l’anno 2012-2013.\nAnimata da Karine PAPILLAUD\nTrova Karol Beffa mentre firmi per la Libreria La Galerne.\nLeggi: Karol Beffa, Guillaume metayer (sceneggiatura) e Aleksi Cavaille z (illustrazioni, colori), Ravel, un immaginario _musicale, Delcourt_"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Dans la limite des places disponibles",
+        "en": "Within available places",
+        "es": "Dentro de los límites de las plazas disponibles",
+        "de": "Solange Platz vorhanden ist",
+        "it": "Nei limiti dei posti disponibili"
+      },
+      "image": {
+        "filename": "9212db037a064ac4a9556b0330994677.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 930,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9212db037a064ac4a9556b0330994677.full.image.jpg",
+            "size": {
+              "height": 3106,
+              "width": 2338
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9212db037a064ac4a9556b0330994677.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T11:35:20.000Z",
+      "createdAt": "2019-12-15T17:55:53.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 29481251,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 29481251,
+        "slug": "librairie-la-galerne209",
+        "name": "Librairie La Galerne",
+        "address": "148 rue Victor Hugo 76600 Le Havre",
+        "city": "Le Havre",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "76600",
+        "insee": "76351",
+        "countryCode": "FR",
+        "district": "Saint-François",
+        "latitude": 49.491613,
+        "longitude": 0.108717,
+        "updatedAt": "2019-12-17T11:02:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 27132039,
+      "ownerUid": 71407929,
+      "creatorUid": 71407929,
+      "slug": "atelier-creation-bd",
+      "title": {
+        "fr": "Atelier de création de BD",
+        "en": "BD Creation Workshop"
+      },
+      "description": {
+        "fr": "Atelier BD animé par Thierry Nouveau",
+        "en": "Comic book workshop led by Thierry Nouveau"
+      },
+      "longDescription": {
+        "fr": "L’illustrateur rennais Thierry Nouveau spécialisé dans la presse et la bande dessinée jeunesse présentera son métier et ses créations avant d’inviter les participants à réaliser leur planche de BD à partir d’un scénario donné ou inventé. Deux ateliers se succèderont entrecoupés d’une pause goûter et clôturés par une vente dédicace de BD.",
+        "en": "Rennes illustrator Thierry Nouveau, who specialises in the press and comic strip, will present his work and his creations before inviting participants to create their comic strip based on a given or invented scenario. Two workshops will take place, interspersed with a snack break and closed with a comic book signing sale."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 02 99 31 18 08",
+        "en": "On registration at 02 99 31 18 08"
+      },
+      "image": {
+        "filename": "2b5448a09089429d8af207e5b1412bf7.base.image.jpg",
+        "credits": "Atelier",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2b5448a09089429d8af207e5b1412bf7.full.image.jpg",
+            "size": {
+              "height": 1365,
+              "width": 2047
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2b5448a09089429d8af207e5b1412bf7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T15:00:00.000Z",
+          "end": "2020-02-15T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:53.000Z",
+      "createdAt": "2019-12-17T11:03:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 67217308,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 9
+      },
+      "registration": [
+        "02 99 31 18 08"
+      ],
+      "location": {
+        "uid": 67217308,
+        "slug": "mediatheque-lucien-herr386",
+        "name": "Médiathèque Lucien Herr",
+        "address": "18 cours Camille Claudel 35136 Saint-Jacques-de-la-Lande",
+        "city": "Saint-Jacques-de-la-Lande",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35136",
+        "insee": "35281",
+        "countryCode": "FR",
+        "district": "La Morinais",
+        "latitude": 48.080969,
+        "longitude": -1.713974,
+        "updatedAt": "2019-12-17T10:48:32.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Lucien Herr",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71407929,
+        "custom": {
+          "organization": "Médiathèque Lucien Herr",
+          "contactName": "Nathalie Fétiveau",
+          "contactNumber": "02 99 31 18 08",
+          "contactPosition": "Responsable BD adulte",
+          "email": "n.fetiveau@mediatheque-lucien-herr.fr"
+        }
+      }
+    },
+    {
+      "uid": 57894801,
+      "ownerUid": 98613742,
+      "creatorUid": 98613742,
+      "slug": "lescale-mediatheque-fete-la-bd-en-2020",
+      "title": {
+        "fr": "Exposition \"Anuki\"",
+        "en": "Exhibition \"Anuki\""
+      },
+      "description": {
+        "fr": "\"Anuki\", l'exposition de bande dessinée des tout-petits",
+        "en": "\"Anuki\", the children’s comic book exhibition"
+      },
+      "longDescription": {
+        "fr": "_**Anuki, l'exposition de bande dessinée des tout-petits**_\n\n_Cette exposition est composée de 11 panneaux sur lesquels ont peut écrire, dessiner au feutre lavable ou positionner des images pour comprendre comment se construit une bande dessinée._\n\n_Amusement garanti!_",
+        "en": "_**Anuki, the children’s comic book exhibition**_\n_This exhibition consists of 11 panels on which you can write, draw with washable felt or position images to understand how a comic strip is built._\n_Fun guaranteed!_"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "86ed40e549af442ea64e1f3302954c99.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 490,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "86ed40e549af442ea64e1f3302954c99.full.image.jpg",
+            "size": {
+              "height": 496,
+              "width": 709
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "86ed40e549af442ea64e1f3302954c99.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-28T15:00:00.000Z",
+          "end": "2020-01-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T15:00:00.000Z",
+          "end": "2020-01-29T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T15:00:00.000Z",
+          "end": "2020-01-30T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T15:00:00.000Z",
+          "end": "2020-01-31T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T15:00:00.000Z",
+          "end": "2020-02-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T15:00:00.000Z",
+          "end": "2020-02-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T15:00:00.000Z",
+          "end": "2020-02-06T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T15:00:00.000Z",
+          "end": "2020-02-07T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T15:00:00.000Z",
+          "end": "2020-02-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T15:00:00.000Z",
+          "end": "2020-02-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T15:00:00.000Z",
+          "end": "2020-02-13T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T15:00:00.000Z",
+          "end": "2020-02-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T15:00:00.000Z",
+          "end": "2020-02-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T15:00:00.000Z",
+          "end": "2020-02-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T15:00:00.000Z",
+          "end": "2020-02-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T15:00:00.000Z",
+          "end": "2020-02-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T15:00:00.000Z",
+          "end": "2020-02-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T15:00:00.000Z",
+          "end": "2020-02-26T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T15:00:00.000Z",
+          "end": "2020-02-27T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T15:00:00.000Z",
+          "end": "2020-02-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T15:00:00.000Z",
+          "end": "2020-03-03T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T15:00:00.000Z",
+          "end": "2020-03-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T15:00:00.000Z",
+          "end": "2020-03-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T15:00:00.000Z",
+          "end": "2020-03-06T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:07.000Z",
+      "createdAt": "2019-12-17T11:26:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 74279882,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 8
+      },
+      "registration": [
+        "0235131018"
+      ],
+      "location": {
+        "uid": 74279882,
+        "slug": "mediatheque-lescale818",
+        "name": "L'Escale médiathèque",
+        "address": "10 bis rue Charles de Gaulle 76280 Saint-Jouin-Bruneval",
+        "city": "Saint-Jouin-Bruneval",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "76280",
+        "insee": "76167",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.642683,
+        "longitude": 0.162961,
+        "updatedAt": "2019-12-17T14:20:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 98613742,
+        "custom": {
+          "organization": "Médiathèque l'Escale",
+          "contactName": "Kerscaven Clothilde",
+          "contactNumber": "0235131018",
+          "contactPosition": "Adjoint du patrimoine",
+          "email": "mediatheque@st-jouin-bruneval.fr"
+        }
+      }
+    },
+    {
+      "uid": 89865711,
+      "ownerUid": 71407929,
+      "creatorUid": 71407929,
+      "slug": "prix-en-bulles-2020",
+      "title": {
+        "fr": "Prix en bulles 2020",
+        "en": "Price in bubbles 2020"
+      },
+      "description": {
+        "fr": "Prix des lecteurs BD adulte",
+        "en": "Adult BD Reader Award"
+      },
+      "longDescription": {
+        "fr": "Prix en bulles vous invite à élire un titre parmi une sélection de dix bandes dessinées parues récemment. La sélection est établie par les médiathèques de Rennes Métropole participantes et privilégie l’originalité et la variété des scénarios et des illustrations.",
+        "en": "Price in bubbles invites you to elect a title from a selection of ten recently published comic books. The selection is made by the participating Rennes Métropole media libraries and favours the originality and variety of the scripts and illustrations."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "7caaa4de1f3c41058cc75022ab3cd72a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 986,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7caaa4de1f3c41058cc75022ab3cd72a.full.image.jpg",
+            "size": {
+              "height": 877,
+              "width": 623
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7caaa4de1f3c41058cc75022ab3cd72a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-01T09:00:00.000Z",
+          "end": "2020-01-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-01T13:00:00.000Z",
+          "end": "2020-01-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T14:00:00.000Z",
+          "end": "2020-01-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T09:00:00.000Z",
+          "end": "2020-01-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T14:00:00.000Z",
+          "end": "2020-01-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T13:00:00.000Z",
+          "end": "2020-01-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T14:00:00.000Z",
+          "end": "2020-01-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T14:00:00.000Z",
+          "end": "2020-01-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T14:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T14:00:00.000Z",
+          "end": "2020-01-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T14:00:00.000Z",
+          "end": "2020-01-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T14:00:00.000Z",
+          "end": "2020-02-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T14:00:00.000Z",
+          "end": "2020-02-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T14:00:00.000Z",
+          "end": "2020-02-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T14:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T14:00:00.000Z",
+          "end": "2020-02-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T14:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T14:00:00.000Z",
+          "end": "2020-03-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T14:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T14:00:00.000Z",
+          "end": "2020-03-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T14:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T14:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T14:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T14:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:51.000Z",
+      "createdAt": "2019-12-17T12:45:57.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 67217308,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 67217308,
+        "slug": "mediatheque-lucien-herr386",
+        "name": "Médiathèque Lucien Herr",
+        "address": "18 cours Camille Claudel 35136 Saint-Jacques-de-la-Lande",
+        "city": "Saint-Jacques-de-la-Lande",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35136",
+        "insee": "35281",
+        "countryCode": "FR",
+        "district": "La Morinais",
+        "latitude": 48.080969,
+        "longitude": -1.713974,
+        "updatedAt": "2019-12-17T10:48:32.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Lucien Herr",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71407929,
+        "custom": {
+          "organization": "Médiathèque Lucien Herr",
+          "contactName": "Nathalie Fétiveau",
+          "contactNumber": "02 99 31 18 08",
+          "contactPosition": "Responsable BD adulte",
+          "email": "n.fetiveau@mediatheque-lucien-herr.fr"
+        }
+      }
+    },
+    {
+      "uid": 56058038,
+      "ownerUid": 21413151,
+      "creatorUid": 21413151,
+      "slug": "lomig-un-dessinateur-rennais-a-la-une-du-ndegree48-de-la-revue-pages-de-bretagne",
+      "title": {
+        "fr": "Lomig, un dessinateur rennais à la Une du n°48 de la revue Pages de Bretagne",
+        "en": "Lomig, a Rennes cartoonist on the front page of the magazine Pages de Bretagne"
+      },
+      "description": {
+        "fr": "Portrait de pro - Lomig, à fleur de peau",
+        "en": "Pro Portrait - Lomig"
+      },
+      "longDescription": {
+        "fr": "Portrait de pro - Lomig, à fleur de peau Rennais, originaire du Finistère, le très sensible Guillaume Fournier, alias Lomig, a sorti en août dernier \"Dans la forêt\", une superbe adaptation en BD du roman de Jean Hegland. Un jalon d’importance dans une carrière qui ne fait que débuter.",
+        "en": "Portrait de pro - Lomig, à fleur de peau Rennais, originaire du Finistère, le très sensible Guillaume Fournier, alias Lomig, a sorti en août dernier \"Dans la forêt\", une superbe adaptation en BD du roman de Jean Hegland. A milestone in a career that is just beginning."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b0c16796e45e4870b2706e375ef1ef58.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 919,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b0c16796e45e4870b2706e375ef1ef58.full.image.jpg",
+            "size": {
+              "height": 1261,
+              "width": 961
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b0c16796e45e4870b2706e375ef1ef58.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-31T23:30:00.000Z",
+          "end": "2020-01-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-01T23:30:00.000Z",
+          "end": "2020-01-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-02T23:30:00.000Z",
+          "end": "2020-01-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T23:30:00.000Z",
+          "end": "2020-01-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T23:30:00.000Z",
+          "end": "2020-01-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T14:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T14:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T14:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T14:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T14:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T14:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T14:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T14:30:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T14:30:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T14:30:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T14:30:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T14:30:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T14:30:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T14:30:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T14:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T14:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T14:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T14:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T14:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T14:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T14:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T14:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T14:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T14:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T14:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T14:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T14:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T14:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T14:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T14:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T14:30:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T14:30:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T14:30:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T14:30:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:30:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T14:30:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T14:30:00.000Z",
+          "end": "2020-02-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T14:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T14:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T14:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T14:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T14:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T14:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T14:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T14:00:00.000Z",
+          "end": "2020-02-24T22:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T14:00:00.000Z",
+          "end": "2020-02-25T22:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T14:00:00.000Z",
+          "end": "2020-02-26T22:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T14:00:00.000Z",
+          "end": "2020-02-27T22:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T14:00:00.000Z",
+          "end": "2020-02-28T22:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T14:00:00.000Z",
+          "end": "2020-02-29T22:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T14:00:00.000Z",
+          "end": "2020-03-01T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:43:36.000Z",
+      "createdAt": "2019-12-17T10:54:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39431870,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.livrelecturebretagne.fr/livre-et-lecture-en-bretagne/notre-actualite/voir-notre-actualite/?evt_id=6300"
+      ],
+      "location": {
+        "uid": 39431870,
+        "slug": "rennes589",
+        "name": "Pages de Bretagne",
+        "address": "https://www.livrelecturebretagne.fr/livre-et-lecture-en-bretagne/nos-publications/",
+        "city": "Rennes",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": null,
+        "insee": "35238",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.111339,
+        "longitude": -1.68002,
+        "updatedAt": "2020-02-10T09:43:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Etablissement public de coopération culturelle Livre et lecture en Bretagne",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 21413151,
+        "custom": {
+          "organization": "Livre et lecture en Bretagne",
+          "contactName": "Marie-Joëlle Letourneur",
+          "contactNumber": "0299377752",
+          "contactPosition": "Chargée de mission vie littéraire",
+          "email": "mj.letourneur@livrelecturebretagne.fr"
+        }
+      }
+    },
+    {
+      "uid": 92490877,
+      "ownerUid": 8090929,
+      "creatorUid": 8090929,
+      "slug": "25es-rendez-vous-de-la-bande-dessinee-damiens",
+      "title": {
+        "fr": "25es Rendez-vous de la bande dessinée d'Amiens",
+        "en": "25th Rendez-vous of the comic book of Amiens"
+      },
+      "description": {
+        "fr": "Festival de bande dessinée à Amiens",
+        "en": "Comic Strip Festival in Amiens"
+      },
+      "longDescription": {
+        "fr": "Événement majeur du 9e art en région Hauts-de-France depuis 25 ans, les Rendez-vous de la bande dessinée d’Amiens s’installent dans la ville chaque année lors du premier week-end de juin pour un mois de festivités.\n\nAvec près de 90 auteurs invités, le festival multiplie les formats de rencontres innovants : ateliers, projections de dessins en direct, rencontres en expositions, dédicaces, conférences, etc.\n\nPour cette 25e édition, qui aura lieu les 7 et 8 juin 2020, quelques expositions sont déjà confirmées : une exposition sur la cathédrale d’Amiens, vue par près d’une cinquantaine d’auteurs de bande dessinée, une exposition sur le manga _Blue Giant_ de Shinichi Ishizuka ou encore une exposition mêlant bande dessinée et archéologie, en partenariat avec Le Louvre et le Musée de Picardie.\n\nToutes les infos à venir sur notre site internet : [www.rdvbdamiens.com](http://www.rdvbdamiens.com)",
+        "en": "Major event of the 9th art in the Hauts-de-France region for 25 years, the Rendez-vous de la bande dessinée d'Amiens settle in the city every year during the first weekend of June for a month of festivities.\nWith nearly 90 invited authors, the festival is multiplying innovative meeting formats: workshops, live drawing screenings, exhibitions, dedications, conferences, etc.\nFor this 25th edition, which will take place on 7 and 8 June 2020, some exhibitions are already confirmed: an exhibition on the cathedral of Amiens, seen by nearly fifty authors of comic books, an exhibition on the _Blue Giant_ manga by Shinichi Ishizuka or an exhibition combining comic books and archaeology, in partnership with Le Louvre and the Picardie Museum.\nAll the information to come on our website: [www.rdvbdamiens.com](http://www.rdvbdamiens.com)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "bb9ba19b5faf49a6aef11b7932f6a5fb.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bb9ba19b5faf49a6aef11b7932f6a5fb.full.image.jpg",
+            "size": {
+              "height": 2504,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bb9ba19b5faf49a6aef11b7932f6a5fb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T08:00:00.000Z",
+          "end": "2020-06-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T08:00:00.000Z",
+          "end": "2020-06-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T08:00:00.000Z",
+          "end": "2020-06-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T08:00:00.000Z",
+          "end": "2020-06-28T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:49.000Z",
+      "createdAt": "2019-12-13T13:04:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 31892742,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "0322721874",
+        "bd@amiens.com",
+        "http://www.rdvbdamiens.com"
+      ],
+      "location": {
+        "uid": 31892742,
+        "slug": "halle-freyssinet-damiens",
+        "name": "Halle Freyssinet d'Amiens",
+        "address": "Rue de la Vallée 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.891229,
+        "longitude": 2.311865,
+        "updatedAt": "2019-12-17T14:05:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3 €, gratuit pour les moins de 25 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 8090929,
+        "custom": {
+          "organization": "Association On a Marché sur la Bulle",
+          "contactName": "Elise Devigne",
+          "contactNumber": "0322721874",
+          "contactPosition": "Chargée de communication",
+          "email": "elise.amiens@orange.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2108627
+}

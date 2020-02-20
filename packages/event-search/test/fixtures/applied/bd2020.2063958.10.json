@@ -1,0 +1,1875 @@
+{
+  "events": [
+    {
+      "uid": 49838536,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "forum-de-la-bd-sur-le-plateau-des-antiques",
+      "title": {
+        "fr": "Forum de la BD - Sur le plateau des Antiques",
+        "en": "Comic Strip Forum - Sur le plateau des Antiques"
+      },
+      "description": {
+        "fr": "Le forum de la BD a pour ambition de mettre en avant l’Antiquité sous l’angle de la bande dessinée. Rencontres-dédicaces avec les auteurs, ateliers pédagogiques et animations rythment ces 3 journées.",
+        "en": "The aim of the comic book forum is to highlight antiquity from a comic book perspective. Meetings-dedication with authors, pedagogical workshops and animations punctuate these 3 days."
+      },
+      "longDescription": {
+        "fr": "Cette manifestation a pour but de mettre en lumière des auteurs de bande dessinée ayant créé des albums traitant de l’Antiquité. Elle s’adresse à tous les publics : aux amateurs de bande dessinée qui ont l’occasion de rencontrer leurs auteurs favoris évidemment, mais aussi aux amateurs de l’histoire antique qui ont la possibilité de découvrir une approche différente de cette période, aux familles (la BD s’adresse à tous les âges et des ateliers pédagogiques sont organisés pour les enfants) et, enfin, aux visiteurs de passage qui découvrent sur place, par hasard, le « Forum de la BD » et qui, après avoir profité des animations (reconstitutions historiques), sont tout heureux de pouvoir ramener un souvenir de leur journée sous la forme d’une (ou plusieurs) bande dessinée dédicacée.",
+        "en": "The event aims to highlight comic book authors who have created albums dealing with antiquity. It is aimed at all audiences: comic strip lovers who have the opportunity to meet their favorite authors obviously, but also fans of ancient history who have the opportunity to discover a different approach to this period, families (the comic book is intended for all ages and educational workshops are organized for children) and, finally, for visiting visitors who discover on the spot, by chance, the «Comic Strip Forum» and who, after enjoying the animations (historical re-enactments), are happy to be able to bring back a memory of their day in the form of one (or more) autographed comic book."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "ab799ad806e148d8af1307be2e788c64.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ab799ad806e148d8af1307be2e788c64.full.image.jpg",
+            "size": {
+              "height": 1944,
+              "width": 2592
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ab799ad806e148d8af1307be2e788c64.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-16T08:00:00.000Z",
+          "end": "2020-08-16T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:53.000Z",
+      "createdAt": "2019-11-06T13:43:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 92851345,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "jean-luc.thouvenin@monuments-nationaux.fr"
+      ],
+      "location": {
+        "uid": 92851345,
+        "slug": "plateau-des-antiques",
+        "name": "Plateau des Antiques",
+        "address": "Route de Baux de Provence 13210 Saint-Rémy-de-Provence",
+        "city": "Saint-Rémy-de-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13210",
+        "insee": "13100",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.788578,
+        "longitude": 4.83175,
+        "updatedAt": "2019-11-06T12:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Arelate, journées romaines d'Arles",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Municipalité de Saint-Rémy-de-Provence et Centre des monuments nationaux",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 17838782,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "forum-de-la-bd-site-de-glanum",
+      "title": {
+        "fr": "Forum de la BD - Site de Glanum",
+        "en": "Comic Strip Forum - Glanum’s website"
+      },
+      "description": {
+        "fr": "Le forum de la BD a pour ambition de mettre en avant l’Antiquité sous l’angle de la bande dessinée. Rencontres-dédicaces avec les auteurs, ateliers pédagogiques et animations rythment ces 3 journées.",
+        "en": "The aim of the comic book forum is to highlight antiquity from a comic book perspective. Meetings-dedication with authors, pedagogical workshops and animations punctuate these 3 days."
+      },
+      "longDescription": {
+        "fr": "Cette manifestation a pour but de mettre en lumière des auteurs de bande dessinée ayant créé des albums traitant de l’Antiquité. Elle s’adresse à tous les publics : aux amateurs de bande dessinée qui ont l’occasion de rencontrer leurs auteurs favoris évidemment, mais aussi aux amateurs de l’histoire antique qui ont la possibilité de découvrir une approche différente de cette période, aux familles (la BD s’adresse à tous les âges et des ateliers pédagogiques sont organisés pour les enfants) et, enfin, aux visiteurs de passage qui découvrent sur place, par hasard, le « Forum de la BD » et qui, après avoir profité des animations (reconstitutions historiques), sont tout heureux de pouvoir ramener un souvenir de leur journée sous la forme d’une (ou plusieurs) bande dessinée dédicacée.",
+        "en": "The event aims to highlight comic book authors who have created albums dealing with antiquity. It is aimed at all audiences: comic strip lovers who have the opportunity to meet their favorite authors obviously, but also fans of ancient history who have the opportunity to discover a different approach to this period, families (the comic book is intended for all ages and educational workshops are organized for children) and, finally, for visiting visitors who discover on the spot, by chance, the «Comic Strip Forum» and who, after enjoying the animations (historical re-enactments), are happy to be able to bring back a memory of their day in the form of one (or more) autographed comic book."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "df852ea2393f46868ff13d1eadeddb22.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "df852ea2393f46868ff13d1eadeddb22.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3888
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "df852ea2393f46868ff13d1eadeddb22.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-17T08:00:00.000Z",
+          "end": "2020-08-17T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:58.000Z",
+      "createdAt": "2019-11-06T13:45:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30015611,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "jean-luc.thouvenin@monuments-nationaux.fr"
+      ],
+      "location": {
+        "uid": 30015611,
+        "slug": "site-de-glanum",
+        "name": "Site de Glanum",
+        "address": "Avenue Vincent Van Gogh 13210 Saint-Rémy-de-Provence",
+        "city": "Saint-Rémy-de-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13210",
+        "insee": "13100",
+        "countryCode": "FR",
+        "district": "Mas de Gros",
+        "latitude": 43.779704,
+        "longitude": 4.831697,
+        "updatedAt": "2019-11-06T12:45:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Arelate, journées romaines d'Arles",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Municipalité de Saint-Rémy-de-Provence et Centre des monuments nationaux",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 18839658,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-lewis-trondheim",
+      "title": {
+        "fr": "Exposition Lewis Trondheim",
+        "en": "Lewis Trondheim Exhibition"
+      },
+      "description": {
+        "fr": "Exposition ludique sur Lewis Trondheim à la Cité internationale de la bande dessinée d'Angoulême",
+        "en": "Lewis Trondheim at the Cité internationale de la bande dessinée d'Angoulême"
+      },
+      "longDescription": {
+        "fr": "« 2020, année de la bande dessinée » s’ouvrira à la Cité de la bande dessinée d'Angoulême avec une grande exposition consacrée à LEWIS TRONDHEIM du 29 janvier au 10 mai 2020.\n\nLewis Trondheim est l’auteur de l’une des œuvres les plus vastes et protéiformes de la bande dessinée moderne, avec quelque 180 albums à son actif comme scénariste ou auteur complet.\n\nLudique et accessible à tous, l’exposition Lewis Trondheim fait des histoires présentera plus de 150 originaux (planches, illustrations, carnets) dans un parcours scénographié abordant une dizaine de thématiques : l’apprentissage du dessin, l’autoreprésentation, la carrière de son personnage fétiche Lapinot, les monstres, robots et aliens, la série d’heroïc fantasy Ralph Azham, le travail en collaboration, la BD jeunesse, l’expérimentation formelle, les angoisses du créateur et du citoyen, etc.",
+        "en": "«2020, year of the comic» will open at the Cité de la bande dessinée d'Angoulême with a large exhibition dedicated to LEWIS TRONDHEIM from January 29 to May 10, 2020.\nLewis Trondheim is the author of one of the largest and most important works of modern comic books, with some 180 albums to his credit as screenwriter or full author.\nPlayful and accessible to all, the exhibition Lewis Trondheim makes stories will present more than 150 originals (plates, illustrations, notebooks) in a scenography course covering ten themes: learning drawing, self-representation, the career of his fetish character Lapinot, the monsters, robots and aliens, the heroic fantasy series Ralph Azham, the collaborative work, the youth comics, the formal experimentation, the anxieties of the creator and the citizen, etc."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4ef646ab1418445cb6a140ca5e74f61a.base.image.jpg",
+        "credits": "© DR",
+        "size": {
+          "height": 897,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4ef646ab1418445cb6a140ca5e74f61a.full.image.jpg",
+            "size": {
+              "height": 1553,
+              "width": 1212
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4ef646ab1418445cb6a140ca5e74f61a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T13:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T09:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T09:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T13:00:00.000Z",
+          "end": "2020-02-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T09:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T09:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T13:00:00.000Z",
+          "end": "2020-02-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T09:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T09:00:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T13:00:00.000Z",
+          "end": "2020-02-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T09:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T09:00:00.000Z",
+          "end": "2020-02-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T13:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T09:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T09:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T09:00:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T13:00:00.000Z",
+          "end": "2020-03-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T09:00:00.000Z",
+          "end": "2020-03-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T09:00:00.000Z",
+          "end": "2020-03-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T09:00:00.000Z",
+          "end": "2020-03-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T13:00:00.000Z",
+          "end": "2020-03-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T09:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T09:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T09:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T13:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T09:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T09:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T09:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T12:00:00.000Z",
+          "end": "2020-03-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T08:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T12:00:00.000Z",
+          "end": "2020-04-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T08:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T12:00:00.000Z",
+          "end": "2020-04-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T08:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T12:00:00.000Z",
+          "end": "2020-04-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T08:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T12:00:00.000Z",
+          "end": "2020-04-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T08:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T08:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T08:00:00.000Z",
+          "end": "2020-05-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T12:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T12:00:00.000Z",
+          "end": "2020-05-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T08:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T08:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T08:00:00.000Z",
+          "end": "2020-05-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T12:00:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T12:00:00.000Z",
+          "end": "2020-05-10T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:54.000Z",
+      "createdAt": "2019-11-06T14:47:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 89126825,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.citebd.org"
+      ],
+      "location": {
+        "uid": 89126825,
+        "slug": "cite-de-la-bande-dessinee-dangouleme",
+        "name": "Cité internationale de la bande dessinée et de l'image",
+        "address": "Quai de la Charente 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.655024,
+        "longitude": 0.148598,
+        "updatedAt": "2019-11-06T14:28:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Plein tarif : 8 € - Tarif réduit : 5 € - Gratuit pour les moins de 18 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Cité internationale de la bande dessinée et de l'image",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 26065947,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "bede-cine-festival-international-de-la-bande-dessinee",
+      "title": {
+        "fr": "Bédéciné - Festival international de la bande dessinée",
+        "en": "Bédéciné - International Comic Strip Festival"
+      },
+      "description": {
+        "fr": "Bédé ciné - Festival international de la bande dessinée accueillera de nombreuses manifestations",
+        "en": "Bédé ciné - International Comic Strip Festival will host many events"
+      },
+      "longDescription": {
+        "fr": "Depuis plus de 20 ans, à Illzach, tous les inconditionnels de la BD se donnent rendez-vous le 2e week-end de novembre à l'Espace 110 où dans une atmosphère conviviale se croisent dans les allées animées petits et grands , auteurs, dessinateurs , amateurs et artistes en tout genre.",
+        "en": "For more than 20 years, in Illzach, all the fans of the comic strip meet each other on the 2nd weekend of November at the Espace 110 where in a friendly atmosphere meet in the lively alleys, young and old, authors, cartoonists, amateurs and artists of all kinds."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a4c854f8e71b4177a376875a43253257.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 794,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a4c854f8e71b4177a376875a43253257.full.image.jpg",
+            "size": {
+              "height": 528,
+              "width": 466
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a4c854f8e71b4177a376875a43253257.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-11-14T09:00:00.000Z",
+          "end": "2020-11-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T09:00:00.000Z",
+          "end": "2020-11-15T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:56.000Z",
+      "createdAt": "2019-11-06T15:25:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 40958733,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 40958733,
+        "slug": "espace-110-centre-culturel-dlllzach",
+        "name": "Espace 110 - Centre culturel d'lllzach",
+        "address": "1 avenue des Rives de l'Ill 68110 Illzach",
+        "city": "Illzach",
+        "region": "Grand Est",
+        "department": "Haut-Rhin",
+        "postalCode": "68110",
+        "insee": "68154",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.777811,
+        "longitude": 7.353839,
+        "updatedAt": "2019-11-06T15:03:45.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://www.espace110.org",
+        "email": null,
+        "phone": "03 89 52 18 81",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "6 € - Pass 2 jours : 10 € -  6-15 ans : 3 € - Gratuit pour les moins de 6 ans - Pass pour 2 adultes et 2 enfants à 15 euros",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ville d'lllzac",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 72781617,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-batman-la-construction-dun-mythe",
+      "title": {
+        "fr": "Exposition : Batman, la construction d'un mythe",
+        "en": "Exhibition: Batman, the construction of a myth"
+      },
+      "description": {
+        "fr": "Les gadgets préférés du super-héros, ses alliés, ses ennemis, la Justice League et les arcanes de Gotham n’auront plus de secrets pour vous !",
+        "en": "The superhero’s favorite gadgets, his allies, his enemies, the Justice League and Gotham’s arcades will have no more secrets for you!"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "Comics BD Batman"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "445f5be19bb04aaf9c234513277bf1ce.base.image.jpg",
+        "credits": "Miika Laaksonen",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "445f5be19bb04aaf9c234513277bf1ce.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "445f5be19bb04aaf9c234513277bf1ce.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:53.000Z",
+      "createdAt": "2019-11-06T15:54:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43924013,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43924013,
+        "slug": "mediatheque-du-ru-de-nesles592",
+        "name": "Médiathèque du Ru de Nesles",
+        "address": "15 avenue des Pyramides 77420 Champs-sur-Marne",
+        "city": "Champs-sur-Marne",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77420",
+        "insee": "77083",
+        "countryCode": "FR",
+        "district": "Cité Descartes",
+        "latitude": 48.850916,
+        "longitude": 2.585525,
+        "updatedAt": "2019-11-06T15:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 65127842,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-giant-plongee-dans-le-new-york-des-annees-1930",
+      "title": {
+        "fr": "Exposition \"Giant\" : plongée dans le New-York des années 1930",
+        "en": "\"Giant\" exhibition: diving in New York from the 1930s"
+      },
+      "description": {
+        "fr": "À travers les séries de l’auteur-illustrateur Mickaël, découvrez la vie des immigrés étrangers à New-York et les coulisses de la Mafia.",
+        "en": "Through the series of the author-illustrator Mickaël, discover the life of foreign immigrants in New York and the backstage of the Mafia."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD",
+          "New-York"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "c4f44e0648f440ed8064cb9d0a9d8588.base.image.jpg",
+        "credits": "Miika Laasonen",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c4f44e0648f440ed8064cb9d0a9d8588.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c4f44e0648f440ed8064cb9d0a9d8588.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:51.000Z",
+      "createdAt": "2019-11-06T15:58:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43924013,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43924013,
+        "slug": "mediatheque-du-ru-de-nesles592",
+        "name": "Médiathèque du Ru de Nesles",
+        "address": "15 avenue des Pyramides 77420 Champs-sur-Marne",
+        "city": "Champs-sur-Marne",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77420",
+        "insee": "77083",
+        "countryCode": "FR",
+        "district": "Cité Descartes",
+        "latitude": 48.850916,
+        "longitude": 2.585525,
+        "updatedAt": "2019-11-06T15:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 63511255,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-le-journal-de-spirou",
+      "title": {
+        "fr": "Exposition \"Le Journal de Spirou\"",
+        "en": "Exhibition \"Le Journal de Spirou\""
+      },
+      "description": {
+        "fr": "Retrouvez les grands noms de la maison d’édition Dupuis et les séries phares du Journal de Spirou : Gaston, Spirou et Fantasio, Cédric, Mélusine, Seuls, Dad, Les Nombrils...",
+        "en": "Find the great names of the publishing house Dupuis and the flagship series of the Journal de Spirou: Gaston, Spirou and Fantasio, Cédric, Mélusine, Seuls, Dad, Les Nombrils..."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD",
+          "Spirou"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "c898ce816dd7478193fa281d12aa5cf3.base.image.jpg",
+        "credits": "Miika Laaksonen",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c898ce816dd7478193fa281d12aa5cf3.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c898ce816dd7478193fa281d12aa5cf3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:38.000Z",
+      "createdAt": "2019-11-06T16:05:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43924013,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43924013,
+        "slug": "mediatheque-du-ru-de-nesles592",
+        "name": "Médiathèque du Ru de Nesles",
+        "address": "15 avenue des Pyramides 77420 Champs-sur-Marne",
+        "city": "Champs-sur-Marne",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77420",
+        "insee": "77083",
+        "countryCode": "FR",
+        "district": "Cité Descartes",
+        "latitude": 48.850916,
+        "longitude": 2.585525,
+        "updatedAt": "2019-11-06T15:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 51461475,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "nos-heros-de-bandes-dessinees-exposition-anuki-la-bd-des-tout-petits",
+      "title": {
+        "fr": "Nos héros de bandes dessinées : exposition Anuki, la BD des tout-petits",
+        "en": "Our comic book heroes: Anuki exhibition, the comic book of toddlers"
+      },
+      "description": {
+        "fr": "Prolongez l’aventure du petit indien et de ses amis avec une exposition dédiée",
+        "en": "Extend the adventure of the little Indian and his friends with a dedicated exhibition"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "626fcbf057534051aee04624e80985ca.base.image.jpg",
+        "credits": "Miika Laaksonen",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "626fcbf057534051aee04624e80985ca.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "626fcbf057534051aee04624e80985ca.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:47.000Z",
+      "createdAt": "2019-11-06T16:09:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43924013,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43924013,
+        "slug": "mediatheque-du-ru-de-nesles592",
+        "name": "Médiathèque du Ru de Nesles",
+        "address": "15 avenue des Pyramides 77420 Champs-sur-Marne",
+        "city": "Champs-sur-Marne",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77420",
+        "insee": "77083",
+        "countryCode": "FR",
+        "district": "Cité Descartes",
+        "latitude": 48.850916,
+        "longitude": 2.585525,
+        "updatedAt": "2019-11-06T15:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque départementale de Seine-et-Marne",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 60377936,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "concours-de-deguisements-de-supers-heros-de-bandes-dessinees",
+      "title": {
+        "fr": "Concours de déguisements de supers héros de bandes dessinées",
+        "en": "Comic Book Hero Costume Contest"
+      },
+      "description": {
+        "fr": "Déguisez-vous et défendez votre héros de BD préféré lors d’un défilé.",
+        "en": "Dress up and defend your favorite comic book hero in a parade."
+      },
+      "longDescription": {
+        "fr": "Déguisez-vous et défendez votre héros de BD préféré lors d’un défilé. Les trois premiers de chaque catégorie seront récompensés.\n\n*   De 6 à 14 ans : à 19h\n\n*   Ados / adultes : à 19h30",
+        "en": "Dress up and defend your favourite comic book hero during a parade. The first three in each category will be rewarded.\n*   From 6 to 14 years: at 7pm\n*   Teens/ adults: 7:30 pm"
+      },
+      "keywords": {
+        "fr": [
+          "Concours déguisements"
+        ]
+      },
+      "conditions": {
+        "fr": "Inscriptions directement à la bibliothèque ou par téléphone.",
+        "en": "Registration directly at the library or by telephone."
+      },
+      "image": {
+        "filename": "c3ff407e48bd4d9b9de29290110b8666.base.image.jpg",
+        "credits": "Miika Laaksonen",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c3ff407e48bd4d9b9de29290110b8666.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c3ff407e48bd4d9b9de29290110b8666.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:00:00.000Z",
+          "end": "2020-01-18T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T18:30:00.000Z",
+          "end": "2020-01-18T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:32.000Z",
+      "createdAt": "2019-11-06T16:15:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43924013,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "01 60 0 5 60 55"
+      ],
+      "location": {
+        "uid": 43924013,
+        "slug": "mediatheque-du-ru-de-nesles592",
+        "name": "Médiathèque du Ru de Nesles",
+        "address": "15 avenue des Pyramides 77420 Champs-sur-Marne",
+        "city": "Champs-sur-Marne",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77420",
+        "insee": "77083",
+        "countryCode": "FR",
+        "district": "Cité Descartes",
+        "latitude": 48.850916,
+        "longitude": 2.585525,
+        "updatedAt": "2019-11-06T15:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 25258260,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "atelier-de-creation-avec-nos-heros-de-bandes-dessinees",
+      "title": {
+        "fr": "Atelier de création avec nos héros de bandes dessinées",
+        "en": "Creation workshop with our comic book heroes"
+      },
+      "description": {
+        "fr": "Nous vous proposons un atelier créatif sur le thème des héros de BD : Petit Poilu, Marsupilami, Astérix… Durée 30 mn.",
+        "en": "We offer you a creative workshop on the theme of comic heroes: Petit Poilu, Marsupilami, Asterix… Duration 30 mn."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "Atelier créatif"
+        ]
+      },
+      "conditions": {
+        "fr": "Inscriptions directement à la bibliothèque ou par téléphone.",
+        "en": "Registration directly at the library or by telephone."
+      },
+      "image": {
+        "filename": "16a67613a36345368d6d0a5e9ae2c93e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "16a67613a36345368d6d0a5e9ae2c93e.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "16a67613a36345368d6d0a5e9ae2c93e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:30:00.000Z",
+          "end": "2020-01-18T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:34.000Z",
+      "createdAt": "2019-11-06T16:18:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43924013,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01 60 0 5 60 55"
+      ],
+      "location": {
+        "uid": 43924013,
+        "slug": "mediatheque-du-ru-de-nesles592",
+        "name": "Médiathèque du Ru de Nesles",
+        "address": "15 avenue des Pyramides 77420 Champs-sur-Marne",
+        "city": "Champs-sur-Marne",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77420",
+        "insee": "77083",
+        "countryCode": "FR",
+        "district": "Cité Descartes",
+        "latitude": 48.850916,
+        "longitude": 2.585525,
+        "updatedAt": "2019-11-06T15:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2070007
+}

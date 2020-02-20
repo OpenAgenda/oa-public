@@ -1,0 +1,2176 @@
+{
+  "events": [
+    {
+      "uid": 2319305,
+      "ownerUid": 60649694,
+      "creatorUid": 60649694,
+      "slug": "exposition-chasseurs-de-tresors-bande-dessinee-and-archeologie-au-musee-de-picardie",
+      "title": {
+        "fr": "Exposition \"Chasseurs de trésors. Bande dessinée et archéologie\" au musée de Picardie",
+        "en": "Exhibition \"Treasure hunters. Comic book and archaeology\" at the Picardy Museum"
+      },
+      "description": {
+        "fr": "S’appuyant sur l’importante collection archéologique du musée et bénéficiant de prêts exceptionnels, l’exposition offrira un éclairage didactique, précis et ludique",
+        "en": "Building on the museum’s extensive archaeological collection and benefiting from exceptional loans, the exhibition will offer didactic, precise and playful lighting"
+      },
+      "longDescription": {
+        "fr": "Organisée en 2018 au musée du Louvre, l’exposition \"L’archéologie en bulles\" a fait dialoguer de façon audacieuse et pertinente l’archéologie et la bande dessinée.\n\nDans le cadre du Festival de la bande dessinée d’Amiens 2020, l’association On a marché sur la bulle s’est associée au service d’archéologie préventive d’Amiens Métropole pour reprendre cette exposition et en décliner le propos dans une version adaptée au territoire picard.\n\nLe musée de Picardie propose donc un deuxième volet de cette exposition.\n\nS’appuyant sur l’importante collection archéologique du musée et bénéficiant de prêts exceptionnels provenant du site de Suse en Iran et du Trésor de Boscoreale, l’exposition offrira un éclairage didactique, précis et ludique, sur cette discipline.",
+        "en": "Organized in 2018 at the Louvre Museum, the exhibition \"Archaeology in Bubbles\" engaged archaeology and comic books in a bold and relevant way.\nAs part of the Festival de la bande dessinée d'Amiens 2020, the association On a marché sur la bulle has teamed up with the preventive archaeology service of Amiens Métropole to take up this exhibition and translate its content into a version adapted to the Picard territory.\nThe museum of Picardy proposes a second part of this exhibition.\nDrawing on the museum’s extensive archaeological collection and benefiting from exceptional loans from the Suse site in Iran and the Treasury of Boscoreale, the exhibition will offer a precise and playful didactic lighting on this discipline."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e3e74fd8211a49ad9d2254c33d52d948.base.image.jpg",
+        "credits": "Irwin Leullier/Musée de Picardie",
+        "size": {
+          "height": 1395,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e3e74fd8211a49ad9d2254c33d52d948.full.image.jpg",
+            "size": {
+              "height": 1181,
+              "width": 593
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e3e74fd8211a49ad9d2254c33d52d948.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-02T07:30:00.000Z",
+          "end": "2020-06-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T07:30:00.000Z",
+          "end": "2020-06-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T07:30:00.000Z",
+          "end": "2020-06-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T07:30:00.000Z",
+          "end": "2020-06-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T09:00:00.000Z",
+          "end": "2020-06-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T09:00:00.000Z",
+          "end": "2020-06-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T07:30:00.000Z",
+          "end": "2020-06-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T07:30:00.000Z",
+          "end": "2020-06-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T07:30:00.000Z",
+          "end": "2020-06-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T07:30:00.000Z",
+          "end": "2020-06-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T09:00:00.000Z",
+          "end": "2020-06-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T09:00:00.000Z",
+          "end": "2020-06-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T07:30:00.000Z",
+          "end": "2020-06-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T07:30:00.000Z",
+          "end": "2020-06-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T07:30:00.000Z",
+          "end": "2020-06-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T07:30:00.000Z",
+          "end": "2020-06-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T09:00:00.000Z",
+          "end": "2020-06-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T09:00:00.000Z",
+          "end": "2020-06-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T07:30:00.000Z",
+          "end": "2020-06-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T07:30:00.000Z",
+          "end": "2020-06-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T07:30:00.000Z",
+          "end": "2020-06-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T07:30:00.000Z",
+          "end": "2020-06-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T09:00:00.000Z",
+          "end": "2020-06-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T09:00:00.000Z",
+          "end": "2020-06-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-30T07:30:00.000Z",
+          "end": "2020-06-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T07:30:00.000Z",
+          "end": "2020-07-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T07:30:00.000Z",
+          "end": "2020-07-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T07:30:00.000Z",
+          "end": "2020-07-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T09:00:00.000Z",
+          "end": "2020-07-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-05T09:00:00.000Z",
+          "end": "2020-07-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-07T07:30:00.000Z",
+          "end": "2020-07-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T07:30:00.000Z",
+          "end": "2020-07-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T07:30:00.000Z",
+          "end": "2020-07-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T07:30:00.000Z",
+          "end": "2020-07-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T09:00:00.000Z",
+          "end": "2020-07-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-12T09:00:00.000Z",
+          "end": "2020-07-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-14T07:30:00.000Z",
+          "end": "2020-07-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T07:30:00.000Z",
+          "end": "2020-07-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T07:30:00.000Z",
+          "end": "2020-07-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T07:30:00.000Z",
+          "end": "2020-07-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T09:00:00.000Z",
+          "end": "2020-07-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T09:00:00.000Z",
+          "end": "2020-07-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-21T07:30:00.000Z",
+          "end": "2020-07-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T07:30:00.000Z",
+          "end": "2020-07-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T07:30:00.000Z",
+          "end": "2020-07-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T07:30:00.000Z",
+          "end": "2020-07-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T09:00:00.000Z",
+          "end": "2020-07-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T09:00:00.000Z",
+          "end": "2020-07-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-28T07:30:00.000Z",
+          "end": "2020-07-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T07:30:00.000Z",
+          "end": "2020-07-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T07:30:00.000Z",
+          "end": "2020-07-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T07:30:00.000Z",
+          "end": "2020-07-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T09:00:00.000Z",
+          "end": "2020-08-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T09:00:00.000Z",
+          "end": "2020-08-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-04T07:30:00.000Z",
+          "end": "2020-08-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T07:30:00.000Z",
+          "end": "2020-08-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T07:30:00.000Z",
+          "end": "2020-08-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T07:30:00.000Z",
+          "end": "2020-08-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T09:00:00.000Z",
+          "end": "2020-08-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T09:00:00.000Z",
+          "end": "2020-08-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-11T07:30:00.000Z",
+          "end": "2020-08-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T07:30:00.000Z",
+          "end": "2020-08-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T07:30:00.000Z",
+          "end": "2020-08-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T07:30:00.000Z",
+          "end": "2020-08-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T09:00:00.000Z",
+          "end": "2020-08-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T09:00:00.000Z",
+          "end": "2020-08-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-18T07:30:00.000Z",
+          "end": "2020-08-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T07:30:00.000Z",
+          "end": "2020-08-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T07:30:00.000Z",
+          "end": "2020-08-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T07:30:00.000Z",
+          "end": "2020-08-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T09:00:00.000Z",
+          "end": "2020-08-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T09:00:00.000Z",
+          "end": "2020-08-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-25T07:30:00.000Z",
+          "end": "2020-08-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T07:30:00.000Z",
+          "end": "2020-08-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T07:30:00.000Z",
+          "end": "2020-08-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T07:30:00.000Z",
+          "end": "2020-08-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T09:00:00.000Z",
+          "end": "2020-08-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T09:00:00.000Z",
+          "end": "2020-08-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-01T07:30:00.000Z",
+          "end": "2020-09-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-02T07:30:00.000Z",
+          "end": "2020-09-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-03T07:30:00.000Z",
+          "end": "2020-09-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-04T07:30:00.000Z",
+          "end": "2020-09-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-05T09:00:00.000Z",
+          "end": "2020-09-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-06T09:00:00.000Z",
+          "end": "2020-09-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-08T07:30:00.000Z",
+          "end": "2020-09-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-09T07:30:00.000Z",
+          "end": "2020-09-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-10T07:30:00.000Z",
+          "end": "2020-09-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-11T07:30:00.000Z",
+          "end": "2020-09-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-12T09:00:00.000Z",
+          "end": "2020-09-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-13T09:00:00.000Z",
+          "end": "2020-09-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-15T07:30:00.000Z",
+          "end": "2020-09-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-16T07:30:00.000Z",
+          "end": "2020-09-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-17T07:30:00.000Z",
+          "end": "2020-09-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-18T07:30:00.000Z",
+          "end": "2020-09-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-19T09:00:00.000Z",
+          "end": "2020-09-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-20T09:00:00.000Z",
+          "end": "2020-09-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-22T07:30:00.000Z",
+          "end": "2020-09-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-23T07:30:00.000Z",
+          "end": "2020-09-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-24T07:30:00.000Z",
+          "end": "2020-09-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-25T07:30:00.000Z",
+          "end": "2020-09-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-26T09:00:00.000Z",
+          "end": "2020-09-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-27T09:00:00.000Z",
+          "end": "2020-09-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-29T07:30:00.000Z",
+          "end": "2020-09-29T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:26.000Z",
+      "createdAt": "2020-01-06T16:12:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 37450992,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "resa.mp@amiens-metropole.com",
+        "03 22 97 14 00"
+      ],
+      "location": {
+        "uid": 37450992,
+        "slug": "musee-de-picardie575",
+        "name": "Musée de Picardie",
+        "address": "2 rue Puvis de Chavannes 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.890555,
+        "longitude": 2.294187,
+        "updatedAt": "2020-01-07T09:28:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Site de Suse en Iran - Musée du Louvre",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 60649694,
+        "custom": {
+          "organization": "Musée de Picardie",
+          "contactName": "Julie Jacques",
+          "contactNumber": "03 22 97 14 00",
+          "contactPosition": "Assistant de communication",
+          "email": "j.jacques@amiens-metropole.com"
+        }
+      }
+    },
+    {
+      "uid": 65708875,
+      "ownerUid": 34596851,
+      "creatorUid": 34596851,
+      "slug": "bourgeon-le-romancier-de-la-bd",
+      "title": {
+        "fr": "Projection du documentaire sur François Bourgeon et rencontre avec le réalisateur Christian Lejalé",
+        "en": "Screening of the documentary about François Bourgeon and meeting with director Christian Lejalé"
+      },
+      "description": {
+        "fr": "Projection du documentaire Bourgeon, le romancier de la BD",
+        "en": "Screening of the documentary Bourgeon, the comic novelist"
+      },
+      "longDescription": {
+        "fr": "Scénariste inspiré, dessinateur génial, rêveur, penseur, innovateur, l’auteur de la série _Les Passagers du vent_ qui, depuis 1980, fascine des millions de lecteurs, est aussi le plus secret des auteurs célèbres de la BD.\n\nŒuvre unique en son genre, le documentaire _Bourgeon, le romancier_\n\n_de la BD_ nous entraîne dans un voyage émouvant à la rencontre d’un auteur dessinateur singulier.\n\nLa projection sera suivie d’une rencontre avec le réalisateur Christian Lejalé.",
+        "en": "Inspired screenwriter, brilliant cartoonist, dreamer, thinker, innovator, the author of the series _Les Passagers du vent_ which, since 1980, fascinates millions of readers, is also the most secret of the famous authors of comics.\nUnique work in its genre, the documentary _Bourgeon, the novelist_\n_from the comic strip takes_ us on a moving journey to meet a singular cartoonist author.\nThe screening will be followed by a meeting with director Christian Lejalé."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "4abac84555ca422b9bf824f705aa441a.base.image.jpg",
+        "credits": "Zoom Bretagne",
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4abac84555ca422b9bf824f705aa441a.full.image.jpg",
+            "size": {
+              "height": 250,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4abac84555ca422b9bf824f705aa441a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-07T18:00:00.000Z",
+          "end": "2020-02-07T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:21.000Z",
+      "createdAt": "2020-01-10T14:49:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 56354339,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 97 01 62 69",
+        "http://mediatheque.mairie-vannes.fr"
+      ],
+      "location": {
+        "uid": 56354339,
+        "slug": "mediatheques-du-palais-des-arts",
+        "name": "Médiathèques du palais des Arts",
+        "address": "Place de Bretagne 56000 Vannes",
+        "city": "Vannes",
+        "region": "Bretagne",
+        "department": "Morbihan",
+        "postalCode": "56000",
+        "insee": "56260",
+        "countryCode": "FR",
+        "district": "Nord - Gare",
+        "latitude": 47.661204,
+        "longitude": -2.760949,
+        "updatedAt": "2020-01-10T14:14:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 34596851,
+        "custom": {
+          "organization": "Médiathèques de Vannes",
+          "contactName": "Françoise Le Viavant",
+          "contactNumber": "02 97 01 62 69",
+          "contactPosition": "Directrice du réseau des médiathèques de Vannes",
+          "email": "mediatheque@mairie-vannes.fr"
+        }
+      }
+    },
+    {
+      "uid": 47494676,
+      "ownerUid": 34596851,
+      "creatorUid": 34596851,
+      "slug": "apero-bd-linstant-convivial",
+      "title": {
+        "fr": "Apéro BD - L'instant convivial",
+        "en": "Apéro BD - L'instant convivial"
+      },
+      "description": {
+        "fr": "Partage des coups de cœur du public et des bibliothécaires",
+        "en": "Sharing the hearts of the public and librarians"
+      },
+      "longDescription": {
+        "fr": "Romans graphiques, comics, mangas… les formes du 9e art sont nombreuses. Venez partagez vos coups de cœur et découvrez ceux des bibliothécaires autour d’un verre !",
+        "en": "Graphic novels, comics, mangas… the forms of the 9th art are numerous. Come and share your favourites and discover those of the librarians over a drink!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "8705683ecef546038ec8928532c66e47.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8705683ecef546038ec8928532c66e47.full.image.jpg",
+            "size": {
+              "height": 250,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8705683ecef546038ec8928532c66e47.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-07T17:00:00.000Z",
+          "end": "2020-01-07T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:17.000Z",
+      "createdAt": "2020-01-10T14:56:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 56354339,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 97 01 62 69",
+        "http://mediatheque.mairie-vannes.fr"
+      ],
+      "location": {
+        "uid": 56354339,
+        "slug": "mediatheques-du-palais-des-arts",
+        "name": "Médiathèques du palais des Arts",
+        "address": "Place de Bretagne 56000 Vannes",
+        "city": "Vannes",
+        "region": "Bretagne",
+        "department": "Morbihan",
+        "postalCode": "56000",
+        "insee": "56260",
+        "countryCode": "FR",
+        "district": "Nord - Gare",
+        "latitude": 47.661204,
+        "longitude": -2.760949,
+        "updatedAt": "2020-01-10T14:14:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 34596851,
+        "custom": {
+          "organization": "Médiathèques de Vannes",
+          "contactName": "Françoise Le Viavant",
+          "contactNumber": "02 97 01 62 69",
+          "contactPosition": "Directrice du réseau des médiathèques de Vannes",
+          "email": "mediatheque@mairie-vannes.fr"
+        }
+      }
+    },
+    {
+      "uid": 32368185,
+      "ownerUid": 45613817,
+      "creatorUid": 45613817,
+      "slug": "la-doc-de-sciences-po-grenoble-a-lheure-dangouleme",
+      "title": {
+        "fr": "La Doc' de Sciences Po Grenoble à l'heure d'Angoulême",
+        "en": "The Doc' of Sciences Po Grenoble at the time of Angoulême"
+      },
+      "description": {
+        "fr": "Venez lire notre sélection et votez pour votre coup de cœur !",
+        "en": "Come read our selection and vote for your favourite!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d373be96de3e4341af31cd169313f5c8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 716,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d373be96de3e4341af31cd169313f5c8.full.image.jpg",
+            "size": {
+              "height": 2536,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d373be96de3e4341af31cd169313f5c8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-06T07:00:00.000Z",
+          "end": "2020-01-06T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T07:00:00.000Z",
+          "end": "2020-01-07T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T07:00:00.000Z",
+          "end": "2020-01-08T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T07:00:00.000Z",
+          "end": "2020-01-09T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T07:00:00.000Z",
+          "end": "2020-01-10T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T07:00:00.000Z",
+          "end": "2020-01-13T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T07:00:00.000Z",
+          "end": "2020-01-14T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T07:00:00.000Z",
+          "end": "2020-01-15T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T07:00:00.000Z",
+          "end": "2020-01-16T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T07:00:00.000Z",
+          "end": "2020-01-17T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T07:00:00.000Z",
+          "end": "2020-01-20T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T07:00:00.000Z",
+          "end": "2020-01-21T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T07:00:00.000Z",
+          "end": "2020-01-22T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T07:00:00.000Z",
+          "end": "2020-01-23T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T07:00:00.000Z",
+          "end": "2020-01-24T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T07:00:00.000Z",
+          "end": "2020-01-27T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T07:00:00.000Z",
+          "end": "2020-01-28T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T07:00:00.000Z",
+          "end": "2020-01-29T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T07:00:00.000Z",
+          "end": "2020-01-30T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T07:00:00.000Z",
+          "end": "2020-01-31T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T07:00:00.000Z",
+          "end": "2020-02-03T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T07:00:00.000Z",
+          "end": "2020-02-04T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T07:00:00.000Z",
+          "end": "2020-02-05T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T07:00:00.000Z",
+          "end": "2020-02-06T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T07:00:00.000Z",
+          "end": "2020-02-07T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:15.000Z",
+      "createdAt": "2020-01-10T14:56:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 70706642,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 70706642,
+        "slug": "centre-de-documentation-sciences-po-grenoble892",
+        "name": "Centre de documentation de Sciences Po Grenoble",
+        "address": "1030 avenue Centrale 38400 Saint-Martin d'Hères",
+        "city": "Saint-Martin-d'Hères",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38400",
+        "insee": "38421",
+        "countryCode": "FR",
+        "district": "Domaine Universitaire de Grenoble",
+        "latitude": 45.190966,
+        "longitude": 5.770202,
+        "updatedAt": "2020-01-10T15:01:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Centre de documentation d'enseignement supérieur",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 45613817,
+        "custom": {
+          "organization": "Sciences Po Grenoble",
+          "contactName": "Aurélie Fichot",
+          "contactNumber": "0476826080",
+          "contactPosition": "Directrice du centre de documentation",
+          "email": "aurelie.fichot@iepg.fr"
+        }
+      }
+    },
+    {
+      "uid": 83915495,
+      "ownerUid": 76250979,
+      "creatorUid": 76250979,
+      "slug": "salon-du-livre-jeunesse-les-petites-pages-chatillonnaises",
+      "title": {
+        "fr": "Salon du livre jeunesse - Les petites pages châtillonnaises",
+        "en": "Salon du livre jeunesse - Les petites pages châtillonnaises"
+      },
+      "description": {
+        "fr": "Salon du livre jeunesse avec 50 auteurs et illustrateurs en dédicaces et de nombreuses animations tout au long de la journée",
+        "en": "Youth book fair with 50 authors and illustrators in dedication and numerous activities throughout the day"
+      },
+      "longDescription": {
+        "fr": "Après trois éditions réussies, de par l’affluence (1 500 visiteurs en 2019) et la qualité des ouvrages et des auteurs proposés, le salon des « petites pages châtillonnaises » se voit devenir un **événement culturel important** de notre territoire. Pour cette 4e édition, l’équipe organisatrice souhaite travailler sur trois axes ambitieux :\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n### Un ancrage historique et local\n\nC’est pour se souvenir de Philibert Commerson, célèbre médecin naturaliste chatillonnais du XVIIIe siècle parti vers les terres australes sur le voilier de Bougainville, que le thème du salon 2020 mettra le cap sur l’aventure !\n\nDurant toute une journée, seront ainsi mises à l’honneur des histoires pour tous les âges, historiques ou futuristes, illustrées ou non, policières ou humoristiques. L’équipe a ainsi sélectionné 50 auteurs et illustrateurs, qui viendront présenter leur travail, discuter avec leurs lecteurs et dédicacer leurs ouvrages.\n\nCette journée déjà très riche sera, comme chaque année, précédée d’interventions et de travaux en milieu scolaire. Nous poursuivons ainsi notre investissement au profit des enfants des écoles Commerson puisque chaque classe, de la grande section de maternelle au CM2, soit 300 élèves, bénéficieront d’une intervention d’un auteur ou illustrateur en classe. Si les équipes enseignantes utilisent depuis 2016 ces interventions comme support pédagogique, elles font désormais partie intégrante du projet d’école.\n\n### La littérature en pratique\n\nLe salon sera le théâtre de la remise du « Prix Ado », aventure littéraire proposée par les collèges E.Dubois, St Charles et la médiathèque municipale à deux classes. Les jeunes lecteurs vont ainsi devoir débattre et départager trois romans récents d’auteurs régionaux, présents le jour du salon. Cette remise de prix sera l’occasion pour les adolescents d’exposer\n\nleurs arguments et de présenter l’ouvrage primé au public présent.\n\nL’équipe organise également un concours jeunesse de bande dessinée. Enfants et adolescents de la communauté de communes de la Dombes pourront ainsi s’essayer à crayonner cases, bandes, bulles et autres cartouches ! Le salon sera l’occasion d’une remise de prix pour valoriser les lauréats et leurs talents de dessinateurs et/ou de scénaristes.\n\nLe salon, dont l’entrée restera gratuite, sera aussi l’occasion pour les jeunes lecteurs de participer à de nombreux ateliers proposés par les auteurs et nos partenaires (histoire contée en langue des signes, fabrication BD, reliure traditionnelle d’un carnet, dictée enfants, travail d’illustration,...). Pour mettre en pratique notre volonté d’une culture pour tous, ces ateliers seront également gratuits.\n\n### De la littérature aussi le samedi !\n\nLe salon sera, cette année, précédé d’un samedi culturel particulièrement riche. Au programme une dictée adultes en partenariat avec le Rotary Club Vonnas Châtillon, une conférence autour des codes de la BD par Jean-Yves Mitton, créateur de super-héros Marvel, une animation multimédia avec une battle BD et enfin une visite de l’exposition Philibert Commerson commentée par la responsable du musée Tradition et Vie.\n\nÉvidemment les champions en orthographe seront récompensés par des lots de livres issus des auteurs présents au salon et les dessinateurs pourront proposer leurs ouvrages en dédicace en fin de journée et/ou le lendemain, jour de salon.\n\nL’occasion pour l’équipe des « petites pages » de mettre en scène grandeur nature différentes animations autour des mots et du dessin. Une rampe de lancement pour la journée de rencontres et d’échanges du lendemain.\n\nAlors lisez jeunesse !\n----------------------",
+        "en": "## After three successful editions, due to the influx (1,500 visitors in 2019) and the quality of the works and authors proposed, the “Little Pages of Punishment” exhibition is becoming an **important cultural event** in our territory. For this 4th edition, the organizing team wishes to work on three ambitious axes:\n### A historical and local anchorage\nIt is to remember Philibert Commerson, famous Chatillonnais naturalist doctor of the eighteenth century who left for the southern lands on the sailboat of Bougainville, that the theme of the exhibition 2020 will set the course for the adventure!\nThroughout the day, stories for all ages, historical or futuristic, illustrated or not, police or humorous, will be highlighted. The team has thus selected 50 authors and illustrators, who will present their work, discuss with their readers and dedicate their works.\nThis already very rich day will, as every year, be preceded by interventions and work in schools. In this way, we continue to invest in the children of Commerson schools, since each class, from the large kindergarten to the fourth grade, or 300 students, will benefit from an intervention by an author or illustrator in class. Although the teaching teams have been using these interventions as teaching aids since 2016, they are now an integral part of the school project.\n### Literature in practice\nThe Salon will be the venue for the presentation of the “Ado Prize”, a literary adventure proposed by E.Dubois College, St Charles College and the Municipal Two-Class Media Library. Young readers will thus have to debate and distinguish three recent novels of regional authors, present on the day of the show. This award ceremony will be an opportunity for teenagers to exhibit\ntheir arguments and to present the award-winning book to the present audience.\nThe team also organizes a youth cartoon competition. Children and teenagers from the community of communes of Dombes will be able to try to pencil boxes, strips, bubbles and other cartridges! The fair will be an opportunity to present prizes to highlight the winners and their talents as draftsmen and/or screenwriters.\nThe fair, which will remain free of charge, will also be an opportunity for young readers to participate in numerous workshops offered by authors and our partners (history told in sign language, comic book making, traditional bookbinding, dictating children, illustration work,...). To put into practice our desire for a culture for all, these workshops will also be free.\n### Literature on Saturdays too!\nThis year’s fair will be preceded by a particularly rich cultural Saturday. On the program an adult dictation in partnership with the Rotary Club Vonnas Châtillon, a conference around comic book codes by Jean-Yves Mitton, creator of super-Marvel hero, a multimedia animation with a comic strip battle and finally a visit to the exhibition Philibert Commerson commented by the head of the museum Tradition et Vie.\nObviously the spelling champions will be rewarded with lots of books from the authors present at the show and the draftsmen will be able to propose their works in dedication at the end of the day and/or the next day, the day of the show.\nThe opportunity for the team of «small pages» to stage life-size various animations around words and drawing. A launch pad for the day of meetings and exchanges the next day.\n## So read it when you’re young!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b7fcf686fe904a5aa4e0a20ab7b9579b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 720,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b7fcf686fe904a5aa4e0a20ab7b9579b.full.image.jpg",
+            "size": {
+              "height": 5097,
+              "width": 4961
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b7fcf686fe904a5aa4e0a20ab7b9579b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-22T09:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:53.000Z",
+      "createdAt": "2019-12-26T16:17:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 27123959,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 0,
+        "max": 15
+      },
+      "registration": [
+        "https://www.lespetitespageschatillonnaises.com/",
+        "petitespages.chatillon@gmail.com",
+        "https://www.facebook.com/lespetitespageschatillonnaises/"
+      ],
+      "location": {
+        "uid": 27123959,
+        "slug": "espace-bel-air614",
+        "name": "Espace Bel Air",
+        "address": "Avenue Charles de Gaulle 01400 Châtillon-sur-Chalaronne",
+        "city": "Châtillon-sur-Chalaronne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ain",
+        "postalCode": "01400",
+        "insee": "01093",
+        "countryCode": "FR",
+        "district": "Les Communaux",
+        "latitude": 46.128215,
+        "longitude": 4.963637,
+        "updatedAt": "2019-12-30T09:49:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76250979,
+        "custom": {
+          "organization": "Les petites pages châtillonnaises",
+          "contactName": "Vincent MANUEL",
+          "contactNumber": "0681506954",
+          "contactPosition": "Vice-Président",
+          "email": "v.manuel@laposte.net"
+        }
+      }
+    },
+    {
+      "uid": 47358227,
+      "ownerUid": 57870733,
+      "creatorUid": 57870733,
+      "slug": "rencontre-avec-olivier-supiot-auteur-de-bd",
+      "title": {
+        "fr": "Rencontre avec Olivier Supiot, auteur de BD",
+        "en": "Interview with Olivier Supiot, comic book writer"
+      },
+      "description": {
+        "fr": "Dans le cadre du prix BD jeunesse de la médiathèque, venez rencontrer Olivier Supiot, scénariste et illustrateur de bande dessinée",
+        "en": "As part of the media library’s BD jeunesse prize, come and meet Olivier Supiot, screenwriter and cartoonist"
+      },
+      "longDescription": {
+        "fr": "Olivier Supiot fut révélé à Angoulême en 1997. Après des études d'arts graphiques à Tours, quelques-unes de ses planches sont publiées dans _Fluide Glacial_, puis en 1998, les Éditions du Cycliste éditent son premier album : _Erzurum_. En 1999, il débute _Marie Frisson_ qui rencontre un très bon accueil. Il a réalisé _Le Dérisoire_ en compagnie d'Éric Omond pour la collection Carrément BD, un ouvrage magnifique dans lequel il montre qu'il est également à l'aise dans la BD adulte. Avec cet album il a remporté le prestigieux prix du meilleur dessin au Festival d'Angoulême 2003. Toujours dans la même collection, il a aussi publié une aventure mêlant Vikings et Inuits : _Féroce_. Puis à partir de 2006, il travaille sur une trilogie inspirée des aventures du baron de Münchhausen chez Vents d'Ouest dans la collection Équinoxe. Pour la série d’aventures _Le Narval,_ il est scénariste sur un dessin de Boris Beuzelin. Il prépare par ailleurs un nouvel opus en solo dans la collection Mille Feuilles de Glénat, un roman graphique de 120 pages en couleurs dans un univers steampunk (sortie prévue en 2011).\n\nTexte © Glénat",
+        "en": "Olivier Supiot was revealed in Angoulême in 1997\\. After studying graphic arts in Tours, some of his plates are published in _Fluide Glacial_, then in 1998, Éditions du Cycliste publishes his first album: _Erzurum_. In 1999, he started _Marie Frisson_ who met a very good welcome. He directed _Le Dérisoire_ with Éric Omond for the collection Carrément BD, a magnificent book in which he shows that he is also at ease in adult comics. With this album he won the prestigious award for best drawing at the 2003 Angoulême Festival. Still in the same collection, he also published an adventure combining Vikings and Inuit: _Ferocious_. Then from 2006, he worked on a trilogy inspired by the adventures of Baron de Münchhausen at Vents d'Ouest in the Équinoxe collection. For the adventure series _The Narval,_ he is a screenwriter on a drawing by Boris Beuzelin. He is also preparing a new solo opus in Glénat’s Mille Feuilles collection, a 120-page graphic novel in a steampunk universe (due to be released in 2011).[End of translation]\nTexte © Glénat"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d312cb35e34e49748589d3b40eb324fd.base.image.jpg",
+        "credits": "Babelio",
+        "size": {
+          "height": 585,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d312cb35e34e49748589d3b40eb324fd.full.image.jpg",
+            "size": {
+              "height": 167,
+              "width": 200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d312cb35e34e49748589d3b40eb324fd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-12T16:30:00.000Z",
+          "end": "2020-06-12T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:01.000Z",
+      "createdAt": "2020-01-11T08:52:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64707160,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 64707160,
+        "slug": "mediatheque900",
+        "name": "Médiathèque de Saint-Hilaire-de-Riez",
+        "address": "Rue de l'Égalité  85270 Saint-Hilaire-de-Riez",
+        "city": "Saint-Hilaire-de-Riez",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85270",
+        "insee": "85226",
+        "countryCode": "FR",
+        "district": "La Petite Baisse",
+        "latitude": 46.720282,
+        "longitude": -1.945316,
+        "updatedAt": "2020-01-13T09:24:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix BD jeunesse de la médiathèque de Saint-Hilaire-de-Riez",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "La mystérieuse librairie nantaise",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 57870733,
+        "custom": {
+          "organization": "Médiathèque de Saint Hilaire de Riez",
+          "contactName": "Pierre-Olivier Marot",
+          "contactNumber": "02 51 59 94 55",
+          "contactPosition": "Responsable",
+          "email": "mediatheque@sainthilairederiez.fr"
+        }
+      }
+    },
+    {
+      "uid": 17056574,
+      "ownerUid": 76250979,
+      "creatorUid": 76250979,
+      "slug": "concours-de-planche-bd-les-petites-grenouilles-dor",
+      "title": {
+        "fr": "Concours de planche BD - Les petites grenouilles d'or",
+        "en": "Comic Board Competition - Little Golden Frogs"
+      },
+      "description": {
+        "fr": "Les petites pages châtillonnaises vous proposent, dans le cadre du salon du livre jeunesse du 22 mars 2020, de participer au concours \"Les petites grenouilles d'or\"",
+        "en": "As part of the Youth Book Fair on March 22, 2020, the small punishing pages invite you to participate in the contest \"Little Golden Frogs\""
+      },
+      "longDescription": {
+        "fr": "Avec nos partenaires, [Le journal de Spirou](https://www.spirou.com/) et la revue [Les rues de Lyon](https://www.epiceriesequentielle.com/actu/les-rues-de-lyon-le-journal/), nous vous proposons de participer au concours BD 2020 !\n-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n### Tente de gagner de nombreux prix (15 gagnants, 400 € de lots)\n\nCOMMENT PARTICIPER :\n\n*   avoir entre **6 et 15 ans**\n*   créer une BD sur **une ou deux planches** recto maximum au format A4\n*   un titre\n*   une histoire avec un début et une fin\n*   la première case devra faire apparaître un **bateau**\n*   à toi d'inventer l'**aventure** qui suit\n\nLe règlement complet et le bulletin de participation sont disponibles sur le site du salon du livre [Les petites pages châtillonnaises](https://www.lespetitespageschatillonnaises.com/concours-bd.html).\n\n### À vos crayons !",
+        "en": "## With our partners, [Le journal de Spirou](https://www.spirou.com/) and the magazine [Les rues de Lyon](https://www.epiceriesequentielle.com/actu/les-rues-de-lyon-le-journal/), we invite you to participate in the BD 2020 contest!\n### Tries to win many prizes (15 winners, 400 € in prizes)\nHOW TO PARTICIPATE:\n*   be between **6 and 15 years old**\n*   Create a DB on **one or two double**-sided sheets in A4 format\n*   a title\n*   a story with a beginning and an end\n*   the first box must show a **boat**\n*   It’s up to you to invent the **adventure** that follows\nThe full rules and the participation bulletin are available on the website of the book fair [Les petites pages châtillonnaises](https://www.lespetitespageschatillonnaises.com/concours-bd.html).\n### Here’s to your pencils!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "848ef3dd652148f780419613cf770835.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "848ef3dd652148f780419613cf770835.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1748
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "848ef3dd652148f780419613cf770835.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T23:00:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T23:00:00.000Z",
+          "end": "2020-02-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T23:00:00.000Z",
+          "end": "2020-02-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T23:00:00.000Z",
+          "end": "2020-02-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T23:00:00.000Z",
+          "end": "2020-02-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T23:00:00.000Z",
+          "end": "2020-02-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T23:00:00.000Z",
+          "end": "2020-02-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T23:00:00.000Z",
+          "end": "2020-02-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T23:00:00.000Z",
+          "end": "2020-02-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T23:00:00.000Z",
+          "end": "2020-02-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T23:00:00.000Z",
+          "end": "2020-02-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T23:00:00.000Z",
+          "end": "2020-02-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T23:00:00.000Z",
+          "end": "2020-02-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T23:00:00.000Z",
+          "end": "2020-02-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T23:00:00.000Z",
+          "end": "2020-03-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T23:00:00.000Z",
+          "end": "2020-03-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T23:00:00.000Z",
+          "end": "2020-03-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T23:00:00.000Z",
+          "end": "2020-03-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T23:00:00.000Z",
+          "end": "2020-03-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T23:00:00.000Z",
+          "end": "2020-03-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T23:00:00.000Z",
+          "end": "2020-03-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T23:00:00.000Z",
+          "end": "2020-03-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T23:00:00.000Z",
+          "end": "2020-03-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T23:00:00.000Z",
+          "end": "2020-03-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T23:00:00.000Z",
+          "end": "2020-03-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T23:00:00.000Z",
+          "end": "2020-03-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T23:00:00.000Z",
+          "end": "2020-03-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T23:00:00.000Z",
+          "end": "2020-03-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T23:00:00.000Z",
+          "end": "2020-03-15T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:46.000Z",
+      "createdAt": "2020-01-11T13:28:43.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11385332,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 15
+      },
+      "registration": [
+        "https://www.lespetitespageschatillonnaises.com/concours-bd.html"
+      ],
+      "location": {
+        "uid": 11385332,
+        "slug": "16-rue-des-peupliers-01400-chatillon-sur-chalaronne",
+        "name": "École maternelle",
+        "address": "16 rue des Peupliers 01400 Châtillon-sur-Chalaronne",
+        "city": "Châtillon-sur-Chalaronne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ain",
+        "postalCode": "01400",
+        "insee": "01093",
+        "countryCode": "FR",
+        "district": "Robelinges",
+        "latitude": 46.115693,
+        "longitude": 4.959929,
+        "updatedAt": "2020-01-13T09:26:07.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon du livre jeunesse - Les petites pages châtillonnaises",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76250979,
+        "custom": {
+          "organization": "Les petites pages châtillonnaises",
+          "contactName": "Vincent MANUEL",
+          "contactNumber": "0681506954",
+          "contactPosition": "Vice-Président",
+          "email": "v.manuel@laposte.net"
+        }
+      }
+    },
+    {
+      "uid": 67636092,
+      "ownerUid": 75477526,
+      "creatorUid": 75477526,
+      "slug": "festival-bd-et-livres-jeunesse-de-naucelle-aveyron",
+      "title": {
+        "fr": "Festival BD et livres jeunesse de Naucelle",
+        "en": "Naucelle Comic Strip and Youth Books Festival"
+      },
+      "description": {
+        "fr": "Festival de la BD, livres jeunesse, manga et caricatures - Dédicaces, expositions, conférences, ateliers...",
+        "en": "Festival de la BD, livres jeunesse, manga et caricatures - Dédicaces, expositions, conférences, ateliers..."
+      },
+      "longDescription": {
+        "fr": "### 3e Festival de la BD et du livre jeunesse à Naucelle en Aveyron les 29 et 30 août 2020\n\n### BD, livres jeunesses, caricatures et manga\n\nVenez rencontrer les artistes de ces disciplines, à travers des dédicaces, des ateliers d'initiation à la création d'une BD, des expositions de dessins et d'affiches, de conférences sur des thèmes variés.\n\nAnimations sur les deux jours, tombola et ventes aux enchères d'œuvres réalisées en direct.",
+        "en": "### 3rd Comic Strip and Book Festival in Naucelle in Aveyron on 29 and 30 August 2020\n### Comics, young books, cartoons and manga\nCome and meet the artists of these disciplines, through dedications, initiation workshops to the creation of a comic book, exhibitions of drawings and posters, conferences on various themes.\nTwo-day entertainment, raffle and auctions of live works."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "4057bfe4325e416fb6792fb92cde3f60.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4057bfe4325e416fb6792fb92cde3f60.full.image.jpg",
+            "size": {
+              "height": 787,
+              "width": 1575
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4057bfe4325e416fb6792fb92cde3f60.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-29T08:00:00.000Z",
+          "end": "2020-08-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T08:00:00.000Z",
+          "end": "2020-08-30T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:52.000Z",
+      "createdAt": "2020-01-11T22:05:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 99399407,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 4,
+        "max": 99
+      },
+      "registration": [
+        "naucellebd@free.fr"
+      ],
+      "location": {
+        "uid": 99399407,
+        "slug": "vallon-des-sports-12800-naucelle",
+        "name": "Complexe sportif vallon des sports",
+        "address": "Place Frédéric Mistral 12800 Naucelle",
+        "city": "Naucelle",
+        "region": "Occitanie",
+        "department": "Aveyron",
+        "postalCode": "12800",
+        "insee": "12169",
+        "countryCode": "FR",
+        "district": "Les Quatre Chemins",
+        "latitude": 44.198758,
+        "longitude": 2.339416,
+        "updatedAt": "2020-01-13T09:50:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "W1221010",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 75477526,
+        "custom": {
+          "organization": "Naucelle Actions",
+          "contactName": "Christian COUDERC",
+          "contactNumber": "0652135761",
+          "contactPosition": "Coordonnateur Festival",
+          "email": "naucellebd@free.fr"
+        }
+      }
+    },
+    {
+      "uid": 90122486,
+      "ownerUid": 12286158,
+      "creatorUid": 12286158,
+      "slug": "cest-party-pour-les-histoire-soiree-lecture-bilingue-bd",
+      "title": {
+        "fr": "C'est party pour les histoire - Soirée lecture bilingue BD",
+        "en": "It’s party for history - Soirée lecture bilingue BD"
+      },
+      "description": {
+        "fr": "C'est party pour les histoires !",
+        "en": "It’s time for stories!"
+      },
+      "longDescription": {
+        "fr": "Lecture bilingue et parcours de la création du dernier album de l'illustratrice et créatrice de BD, Maria Surducan.\n\nSon album _Le bal des 12 princesses_ a été publié en 2019 chez Les aventuriers de l'étrange.",
+        "en": "Bilingual reading and background on the creation of the latest album by comic book designer Maria Surducan.\nHis album _Le bal des 12 princesses_ was published in 2019 by Les aventuriers de l'étrange."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription : mediatheque.cluj@institutfrancais.ro",
+        "en": "Upon registration: [mediatheque.cluj@institutfrancais.ro](mailto:mediatheque.cluj@institutfrancais.ro)"
+      },
+      "image": {
+        "filename": "d247a697d5f545c69bbfa653c3263032.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d247a697d5f545c69bbfa653c3263032.full.image.jpg",
+            "size": {
+              "height": 1200,
+              "width": 800
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d247a697d5f545c69bbfa653c3263032.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Bucharest",
+      "timings": [
+        {
+          "begin": "2020-01-13T14:30:00.000Z",
+          "end": "2020-01-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T17:30:00.000Z",
+          "end": "2020-01-13T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:43.000Z",
+      "createdAt": "2020-01-13T08:21:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93971405,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 12
+      },
+      "registration": [
+        "luiza.rus@institutfrancais.ro"
+      ],
+      "location": {
+        "uid": 93971405,
+        "slug": "institut-francais-de-cluj-napoca",
+        "name": "Institut français de Cluj-Napoca",
+        "address": "Cluj-Napoca",
+        "city": "Cluj-Napoca",
+        "region": null,
+        "department": null,
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "RO",
+        "district": null,
+        "latitude": 46.769379,
+        "longitude": 23.589954,
+        "updatedAt": "2020-01-13T09:26:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Bucharest",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 12286158,
+        "custom": {
+          "organization": "Institut Français de Cluj-Napoca",
+          "contactName": "Luiza Rus",
+          "contactNumber": "+40745199750",
+          "contactPosition": "responsable médiathèque",
+          "email": "luiza.rus@institutfrancais.ro"
+        }
+      }
+    },
+    {
+      "uid": 74507785,
+      "ownerUid": 9414374,
+      "creatorUid": 9414374,
+      "slug": "les-comics-de-la-bd-avant-tout",
+      "title": {
+        "fr": "Les comics : de la BD avant tout !",
+        "en": "Comics: comic books first!"
+      },
+      "description": {
+        "fr": "Conférence sur Marvel Comics",
+        "en": "Marvel Comics Conference"
+      },
+      "longDescription": {
+        "fr": "Venez re-découvrir Spider-man, les X-men, Captain Marvel, Jack Kirby...et tous les autres!!",
+        "en": "Come and discover Spider-man, the X-men, Captain Marvel, Jack Kirby...and all the others!!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "9c2e059dfe664f5fae9f3fc15be6e8bb.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9c2e059dfe664f5fae9f3fc15be6e8bb.full.image.jpg",
+            "size": {
+              "height": 2000,
+              "width": 1414
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9c2e059dfe664f5fae9f3fc15be6e8bb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T15:00:00.000Z",
+          "end": "2020-01-25T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T15:30:00.000Z",
+          "end": "2020-01-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T16:00:00.000Z",
+          "end": "2020-01-25T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:37.000Z",
+      "createdAt": "2020-01-13T08:22:39.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26074487,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 26074487,
+        "slug": "mediatheque-de-jaude-clermont-auvergne-metropole519",
+        "name": "Médiathèque de Jaude",
+        "address": "9 place Louis Aragon 63000 Clermont-Ferrand",
+        "city": "Clermont-Ferrand",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63000",
+        "insee": "63113",
+        "countryCode": "FR",
+        "district": "Les Salins",
+        "latitude": 45.774862,
+        "longitude": 3.083979,
+        "updatedAt": "2020-01-08T10:43:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Mediathèque de Jaude",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 9414374,
+        "custom": {
+          "organization": "Clermont Culture BD 63",
+          "contactName": "Florence BAIRROS",
+          "contactNumber": "0623807278",
+          "contactPosition": "Animatrice",
+          "email": "Floflo.07@live.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2125182
+}

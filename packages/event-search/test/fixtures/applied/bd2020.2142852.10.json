@@ -1,0 +1,1886 @@
+{
+  "events": [
+    {
+      "uid": 79620481,
+      "ownerUid": 85402023,
+      "creatorUid": 85402023,
+      "slug": "mise-en-pli-3-salon-de-la-microedition",
+      "title": {
+        "en": "Mise en pli #3",
+        "fr": "\"Mise en pli\" #3, salon de la microédition"
+      },
+      "description": {
+        "en": "Some sixty national and international artists and publishers present the time of a weekend books, multiples, magazines, comics, serigraphs, objects",
+        "fr": "Une soixantaine d’artistes et éditeurs nationaux et internationaux présentent le temps d’un week-end livres, multiples, revues, bandes dessinées, sérigraphies, objets"
+      },
+      "longDescription": {
+        "en": "Mise en pli, biennial dedicated to micropublishing, aims to bring together national and international artists and publishers. An extensive laboratory of experimentation for artists since the 1960s, micropublishing is still today the preferred medium of contemporary publishing. Books, multiples, magazines, comics, silkscreens, objects… the print is here the support of the work.\nThe BD 2020 event is an opportunity to find a selection of artists and workshops using this medium.\nSince its creation in 2016, the fair \"Mise en pli\" has been engaging with some sixty artists-editors by providing them with free stands during a weekend. Registrations can be made online on the Frac website from March 11 to May 3, 2020\\. A committee will then select the selected participants in May.\n[**www.frac-provence-alpes-cotedazur.org**](http://www.frac-provence-alpes-cotedazur.org)",
+        "fr": "Mise en pli, biennale dédiée à la microédition, a vocation à réunir artistes et éditeurs nationaux et internationaux. Vaste laboratoire d’expérimentations pour les artistes depuis les années 1960, la microédition est aujourd’hui encore le medium privilégié de l’édition contemporaine. Livres, multiples, revues, bandes dessinées, sérigraphies, objets… l’imprimé est ici le support de l’œuvre.\n\nLe rendez-vous BD 2020 est l’occasion de retrouver une sélection d’artistes et des ateliers utilisant ce médium.\n\nDepuis sa création en 2016, le salon \"Mise en pli\" s’engage auprès d’une soixantaine d’artistes-éditeurs en leur mettant à disposition des stands gratuits le temps d’un week-end. Les inscriptions pourront se faire en ligne sur le site du Frac du 11 mars au 3 mai 2020. Un comité sélectionnera ensuite les participants retenus courant mai.\n\n[**www.frac-provence-alpes-cotedazur.org**](http://www.frac-provence-alpes-cotedazur.org)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "fd21b688179a4882b6969c703541aa8b.base.image.jpg",
+        "credits": "Mise en pli #2; novembre 2018. © Frac Provence-Alpes-Côte d'Azur",
+        "size": {
+          "height": 464,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "fd21b688179a4882b6969c703541aa8b.full.image.jpg",
+            "size": {
+              "height": 1002,
+              "width": 1512
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "fd21b688179a4882b6969c703541aa8b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-11-07T10:00:00.000Z",
+          "end": "2020-11-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-11-08T10:00:00.000Z",
+          "end": "2020-11-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:54:00.000Z",
+      "createdAt": "2020-01-29T09:07:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30653729,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 30653729,
+        "slug": "frac-provence-alpes-cote-dazur936",
+        "name": "Frac Provence-Alpes-Côte d'Azur",
+        "address": "20 boulevard de Dunkerque 13002 Marseille",
+        "city": "Marseille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13002",
+        "insee": "13055",
+        "countryCode": "FR",
+        "district": "Marseille 2e Arrondissement",
+        "latitude": 43.305277,
+        "longitude": 5.367796,
+        "updatedAt": "2020-01-29T13:45:00.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 85402023,
+        "custom": {
+          "organization": "Frac Provence-Alpes-Côte d'Azur",
+          "contactName": "Gwénola Ménou",
+          "contactNumber": "04 91 90 30 47",
+          "contactPosition": "Communication",
+          "email": "gwenola.menou@fracpaca.org"
+        }
+      }
+    },
+    {
+      "uid": 20546725,
+      "ownerUid": 5161429,
+      "creatorUid": 5161429,
+      "slug": "la-grosse-boule_596180",
+      "title": {
+        "fr": "La Grosse Boule",
+        "en": "The Big Ball"
+      },
+      "description": {
+        "fr": "Performance participative de dessins contraints",
+        "en": "Participatory performance of forced drawings"
+      },
+      "longDescription": {
+        "fr": "Une performance participative de dessins contraints, avec un arbitre intraitable qui défie public et dessinateurs. Il faudra être fort pour que vos dessins ne finissent pas dans la Grosse Boule !",
+        "en": "A participative performance of forced drawings, with an intractable referee who defies public and cartoonists. You’ll have to be strong to keep your drawings from ending up in the Big Ball!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "50f12d5ac95940daa115a2e59fc52f8f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 671,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "50f12d5ac95940daa115a2e59fc52f8f.full.image.jpg",
+            "size": {
+              "height": 728,
+              "width": 760
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "50f12d5ac95940daa115a2e59fc52f8f.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-02T14:00:00.000Z",
+          "end": "2020-02-02T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T14:21:07.000Z",
+      "createdAt": "2020-01-29T10:12:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 40455594,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 40455594,
+        "slug": "mediatheque-floresca-guepin984",
+        "name": "Médiathèque Floresca Guépin",
+        "address": "15 rue de la Haluchère 44000 Nantes",
+        "city": "Nantes",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44300",
+        "insee": "44109",
+        "countryCode": "FR",
+        "district": "Doulon - Bottière",
+        "latitude": 47.240816,
+        "longitude": -1.512822,
+        "updatedAt": "2020-01-28T17:00:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Performance participative de dessins contraints",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Maison Fumetti",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 5161429,
+        "custom": {
+          "organization": "Bibliothèque municipale de Nantes",
+          "contactName": "VINCELET Lionel",
+          "contactNumber": "02 40 41 95 95",
+          "contactPosition": "Assistant Communication",
+          "email": "lionel.vincelet@mairie-nantes.fr"
+        }
+      }
+    },
+    {
+      "uid": 72674261,
+      "ownerUid": 73225152,
+      "creatorUid": 73225152,
+      "slug": "atelier-creation-dun-personnage-et-dune-courte-bande-dessinee",
+      "title": {
+        "en": "Workshop to create a character and a short comic",
+        "fr": "Atelier de création d'un personnage et d'une courte bande dessinée"
+      },
+      "description": {
+        "en": "This workshop is proposed by the editions Le 9e élément with Camille Maestracci author of Dryodes",
+        "fr": "Cet atelier est proposé par les éditions Le 9e élément avec Camille Maestracci auteure de Dryodes"
+      },
+      "longDescription": {
+        "en": "This workshop proposes to approach the creation of a character and a short comic, as part of a story where each participant will have his or her role to play.",
+        "fr": "Cet atelier propose d'aborder la création d'un personnage et d'une courte BD, dans le cadre d'une histoire où chaque participant aura son rôle à jouer."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "On registration at 04 67 43 23 45",
+        "fr": "Sur inscription au 04 67 43 23 45"
+      },
+      "image": {
+        "filename": "b04aab20047f4e008f4eea9fda5e6fc1.base.image.jpg",
+        "credits": "Le 9e élément",
+        "size": {
+          "height": 930,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b04aab20047f4e008f4eea9fda5e6fc1.full.image.jpg",
+            "size": {
+              "height": 797,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b04aab20047f4e008f4eea9fda5e6fc1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:53:58.000Z",
+      "createdAt": "2020-01-29T11:13:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 91409962,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 18
+      },
+      "registration": [
+        "04 67 43 26 45"
+      ],
+      "location": {
+        "uid": 91409962,
+        "slug": "mediatheque-de-balaruc-les-bains973",
+        "name": "Médiathèque de Balaruc-les-Bains",
+        "address": "Résidence Sévigné Thermal 34540 Balaruc-les-Bains",
+        "city": "Balaruc-les-Bains",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34540",
+        "insee": "34023",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.439326,
+        "longitude": 3.677255,
+        "updatedAt": "2020-02-01T09:17:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 73225152,
+        "custom": {
+          "organization": "Médiathèque de Balaruc-Les-Bains",
+          "contactName": "Valérie Pascaud",
+          "contactNumber": "04 67 43 23 45",
+          "contactPosition": "Responsable",
+          "email": "v.pascaud@agglopole.fr"
+        }
+      }
+    },
+    {
+      "uid": 1863297,
+      "ownerUid": 75379881,
+      "creatorUid": 75379881,
+      "slug": "reliure-restauration-et-bande-dessinee",
+      "title": {
+        "en": "Binding, restoration and comic book",
+        "fr": "Reliure, restauration et bande dessinée"
+      },
+      "description": {
+        "en": "Binding, restoration and comic book",
+        "fr": "Reliure, restauration et bande dessinée"
+      },
+      "longDescription": {
+        "en": "BOOKBINDING book opens the doors of its workshop, discover the different steps to revive a book, the tools and materials used, how to restore a comic book. The BINDING book workshop is dedicated to the creation, binding and restoration of your works, thesis, drawings, register, family booklet, manuscript, book, book, artist’s book...\nLeather binding, half leather, nerves, wedges, hand sliced, canvas, half canvas, bradel, stationery limited series, white book, travel diary, Japanese notebook, photo album, document holder,\nchoose leather, canvas, paper...\n“I am grateful for the binders… In my library, the series of Greek texts goes in pieces, the pages retained by elastics. Only those who had been connected with all my toil remained proud. Anyone who loves books likes to see them well dressed, as if they were ready to go into the future. I also have respect for bookbinders”… “I could only admire this beautiful craftsmanship where the taste of perfection was recognized…” Jacqueline de Romilly, in Le geste et la parole des métiers d'art, edited by Renaud Dutreil and Erik Orsenna, 2004.",
+        "fr": "RELIURE book ouvre les portes de son atelier, venez découvrir les différentes étapes pour redonner vie à un livre, les outils et les matières utilisés, comment restaurer une bande dessinée. L'atelier RELIURE book est dédié à la création, la reliure et la restauration de vos ouvrages, thèse, dessins, registre, livret de famille, manuscrit, book, livre, livre d'artiste...\n\nReliure cuir, demi cuir, à nerfs, à coins, tranchefiles main, toile, demi-toile, bradel, papeterie série limitée, livre blanc, carnet de voyage, carnet japonais, album photos, porte documents,\n\nchoisissez le cuir, la toile, le papier...\n\n« J’éprouve de la reconnaissance pour les relieurs… Dans ma bibliothèque, la série des textes grecs s’en va en morceaux, les pages retenues par des élastiques. Seuls subsistent tout fiers ceux qui avaient été reliés résistant à tout mon labeur. Quiconque aime les livres aime les voir ainsi bien habillés, comme parés pour entrer dans la durée. J’éprouve aussi du respect pour les relieurs »… « je ne pouvais qu’admirer ce beau travail d’artisan où se reconnaissait le goût de la perfection… » Jacqueline de Romilly, in Le geste et la parole des métiers d’art, sous la direction de Renaud Dutreil et Erik Orsenna, 2004."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "24ad306cadfa426e87cbc779410c5cb3.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 700
+        },
+        "variants": [
+          {
+            "filename": "24ad306cadfa426e87cbc779410c5cb3.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1818,
+              "height": 1818
+            }
+          },
+          {
+            "filename": "24ad306cadfa426e87cbc779410c5cb3.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "© corinne coutaz",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:30:00.000Z",
+          "end": "2020-03-05T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T14:00:00.000Z",
+          "end": "2020-03-05T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T14:30:00.000Z",
+          "end": "2020-03-05T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T15:00:00.000Z",
+          "end": "2020-03-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T15:30:00.000Z",
+          "end": "2020-03-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T16:00:00.000Z",
+          "end": "2020-03-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T16:30:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:30:00.000Z",
+          "end": "2020-03-06T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T14:00:00.000Z",
+          "end": "2020-03-06T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T14:30:00.000Z",
+          "end": "2020-03-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T15:00:00.000Z",
+          "end": "2020-03-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T15:30:00.000Z",
+          "end": "2020-03-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T16:00:00.000Z",
+          "end": "2020-03-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T16:30:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:30:00.000Z",
+          "end": "2020-03-07T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T14:00:00.000Z",
+          "end": "2020-03-07T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T14:30:00.000Z",
+          "end": "2020-03-07T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T15:00:00.000Z",
+          "end": "2020-03-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T15:30:00.000Z",
+          "end": "2020-03-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T16:00:00.000Z",
+          "end": "2020-03-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T16:30:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T12:52:28.000Z",
+      "createdAt": "2020-01-28T11:23:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 62422929,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "reliurebook@gmail.com",
+        "http://www.reliurebook.com"
+      ],
+      "location": {
+        "uid": 62422929,
+        "slug": "atelier-reliurebook",
+        "name": "Atelier RELIUREbook",
+        "address": "83 rue Gustave Eyglument 13200 Arles",
+        "city": "Arles",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13200",
+        "insee": "13004",
+        "countryCode": "FR",
+        "district": "Trinquetaille",
+        "latitude": 43.681585,
+        "longitude": 4.60714,
+        "updatedAt": "2020-01-29T13:46:00.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Arles se livre 2020",
+      "type-de-structure": 636,
+      "si-autre-precisez": "Relieur",
+      "structure-partenaire": "Arles se livre",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 75379881,
+        "custom": {
+          "organization": "RELIURE BOOK",
+          "contactName": "corinne coutaz",
+          "contactNumber": "0617754793",
+          "contactPosition": "Reliure et restauration",
+          "email": "reliurebook@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 22301256,
+      "ownerUid": 44838003,
+      "creatorUid": 44838003,
+      "slug": "rencontre-avec-lequipe-de-culottees",
+      "title": {
+        "en": "Meeting with the Culottées team",
+        "fr": "Rencontre avec l'équipe de Culottées"
+      },
+      "description": {
+        "en": "From Comics to Series: The Keys to Success",
+        "fr": "Culottées, de la BD à la série : les clés du succès"
+      },
+      "longDescription": {
+        "en": "As part of BD 2020 and the 47th Angoulême Comic Strip Festival, the Centre national du cinéma et de l'image animée (CNC) is organizing a round table with the team of the animation series _Culottées_, in collaboration with the Cité internationale de la bande dessinée et de l'image (CIBDI), _Causette_ magazine and Silex Films.\nThis meeting offers you to dive into the heart of the creation of the animation series _Culottées_ adapted from the famous comic strip by Pénélope Bagieu, broadcast in March on the screens of France Télévisions.\nWill be present on this occasion: Pénélope Bagieu (author of the comic), Mai Nguyen and Charlotte Cambon (directors), Emilie Valentin and Elise Benroubi (screenwriters), Priscilla Bertin and Judith Nora (producers) and Joseph Jacquet, head of R&D at the Direction des jeunes publics et animation of France Télévisions.",
+        "fr": "Dans le cadre de BD 2020 et du 47e Festival de la bande dessinée d’Angoulême, le Centre national du cinéma et de l’image animée (CNC) organise une table ronde avec l’équipe de la série d’animation _Culottées_, en collaboration avec la Cité internationale de la bande dessinée et de l’image (CIBDI), du magazine _Causette_ et de Silex Films.\n\nCette rencontre vous propose de plonger au cœur de la création de la série d’animation _Culottées_ adaptée de la célèbre BD de Pénélope Bagieu, diffusée en mars sur les écrans de France Télévisions.\n\nSeront présentes à cette occasion : Pénélope Bagieu (auteure de la BD), Mai Nguyen et Charlotte Cambon (réalisatrices), Emilie Valentin et Elise Benroubi (scénaristes), Priscilla Bertin et Judith Nora (productrices) et Joseph Jacquet, responsable de la R&D à la direction des jeunes publics et animation de France Télévisions."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Free entry",
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "23998c8f3a1e42789df57dda90feef42.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 214,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "23998c8f3a1e42789df57dda90feef42.full.image.jpg",
+            "size": {
+              "height": 1654,
+              "width": 5433
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "23998c8f3a1e42789df57dda90feef42.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:53:46.000Z",
+      "createdAt": "2020-01-29T15:36:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 68236007,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 68236007,
+        "slug": "bibliotheque-de-la-cite-internationale-de-la-bande-dessinee-et-de-limage",
+        "name": "Bibliothèque de la Cité internationale de la bande dessinée et de l'image",
+        "address": "121 rue de Bordeaux 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.652895,
+        "longitude": 0.150069,
+        "updatedAt": "2019-11-20T14:45:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Institution publique",
+      "structure-partenaire": "Cité internationale de la bande dessinée et de l'image",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 44838003,
+        "custom": {
+          "organization": "CNC",
+          "contactName": "Vivien Plagnol",
+          "contactNumber": "014434343476",
+          "contactPosition": "Responsable relation publique",
+          "email": "vivien.plagnol@cnc.fr"
+        }
+      }
+    },
+    {
+      "uid": 49988617,
+      "ownerUid": 36904439,
+      "creatorUid": 36904439,
+      "slug": "comics-trip",
+      "title": {
+        "fr": "Exposition \"Comics Trip !\""
+      },
+      "description": {
+        "fr": "Exposition sur les liens entre l’art contemporain et l'esthétique des comics et du dessin narratif"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de l’année de la bande dessinée, la collection Lambert organise une exposition intitulée \"Comics Trip !\" dans laquelle sont interrogés les liens entretenus par les artistes avec l’esthétique des comics et du dessin narratif ainsi que les dialogues noués avec certains auteurs de bande dessinée à la pratique radicale. L’exposition montre comment depuis les années 1960 plusieurs générations d’artistes ont déconstruit nos relations au goût en abolissant les frontières entre les disciplines issues du grand art et des cultures populaires, en développant une esthétique fondée sur des gestes nourris aux différentes subcultures et contrecultures issues de la bande dessinée, des comics et plus largement du dessin narratif. Mais si l’art contemporain le plus établi a su accueillir ces différents travaux, la bande dessinée elle-même est aussi devenue le terrain de jeu d’auteurs radicaux qui en se détournant des dispositifs traditionnels de la discipline et en évitant notamment la donnée commerciale, ont produit des travaux singuliers qui ont eux aussi participé à la porosité des formes et des espaces qui leurs sont dédiés."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "24ec021651354ca4b33305d04577315a.base.image.jpg",
+        "credits": "Daniel Johnston",
+        "size": {
+          "height": 897,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "24ec021651354ca4b33305d04577315a.full.image.jpg",
+            "size": {
+              "height": 1601,
+              "width": 1250
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "24ec021651354ca4b33305d04577315a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-24T09:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T09:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T09:00:00.000Z",
+          "end": "2020-04-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T09:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T09:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T09:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T09:00:00.000Z",
+          "end": "2020-05-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T09:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T09:00:00.000Z",
+          "end": "2020-05-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T09:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T09:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T09:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T09:00:00.000Z",
+          "end": "2020-05-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T09:00:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T09:00:00.000Z",
+          "end": "2020-05-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T09:00:00.000Z",
+          "end": "2020-05-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T09:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T09:00:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T09:00:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T09:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T09:00:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T09:00:00.000Z",
+          "end": "2020-05-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T09:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T09:00:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T09:00:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T09:00:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T09:00:00.000Z",
+          "end": "2020-05-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T09:00:00.000Z",
+          "end": "2020-05-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T09:00:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T09:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T09:00:00.000Z",
+          "end": "2020-05-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T09:00:00.000Z",
+          "end": "2020-05-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T09:00:00.000Z",
+          "end": "2020-05-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T09:00:00.000Z",
+          "end": "2020-06-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T09:00:00.000Z",
+          "end": "2020-06-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T09:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T09:00:00.000Z",
+          "end": "2020-06-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T09:00:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T09:00:00.000Z",
+          "end": "2020-06-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T09:00:00.000Z",
+          "end": "2020-06-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T09:00:00.000Z",
+          "end": "2020-06-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T09:00:00.000Z",
+          "end": "2020-06-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T09:00:00.000Z",
+          "end": "2020-06-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T09:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T09:00:00.000Z",
+          "end": "2020-06-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:19:13.000Z",
+      "createdAt": "2020-01-29T17:08:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 61227169,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://collectionlambert.com"
+      ],
+      "location": {
+        "uid": 61227169,
+        "slug": "collection-lambert-avignon112",
+        "name": "Collection Lambert",
+        "address": "5 rue Violette 84000 Avignon",
+        "city": "Avignon",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Vaucluse",
+        "postalCode": "84000",
+        "insee": "84007",
+        "countryCode": "FR",
+        "district": "Quartier Nord Rocade",
+        "latitude": 43.944953,
+        "longitude": 4.80418,
+        "updatedAt": "2020-02-01T09:17:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "10 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "43015982200013",
+      "prix-pass-culture": 10,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 36904439,
+        "custom": {
+          "organization": "Collection Lambert",
+          "contactName": "Stéphane Ibars",
+          "contactNumber": "0490165620",
+          "contactPosition": "Responsable de la programmation artistique",
+          "email": "stephane.ibars@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 42389314,
+      "ownerUid": 86423028,
+      "creatorUid": 86423028,
+      "slug": "exposition-autour-de-la-bd-2eme-edition",
+      "title": {
+        "en": "Exhibition autour de la BD #2e édition",
+        "fr": "Exposition autour de la BD #2e édition"
+      },
+      "description": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins"
+      },
+      "longDescription": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings.\nUllcer (comic book author, illustrator and storyboard writer), Matthieu Degreff (colorist and graphic designer), Loïc Chevallier (comic book author, illustrator and graphic designer), Greg Lofé (illustrator, colorist), Annelise Sauvêtre (illustrator and colorist), Giovanni (author of comic books and illustrators), Matthieu Bollot (illustrator), Stéphanie Lezziero (illustrator, graphic designer).",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins.\n\nUllcer (auteur de bandes dessinées, illustrateur et storyboarder), Matthieu Degreff (coloriste et graphiste), Loïc Chevallier (auteur de bandes dessinées, illustrateur et graphiste), Greg Lofé (illustrateur, coloriste), Annelise Sauvêtre (illustratrice et coloriste), Giovanni (auteur de bandes dessinées et illustrateurs), Matthieu Bollot (illustrateur), Stéphanie Lezziero (illustratrice, graphiste)."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Free admission to the opening hours of the Media Library",
+        "fr": "Entrée libre aux horaires d'ouverture de la Médiathèque"
+      },
+      "image": {
+        "filename": "d51e9de683d0406585f63e861855237e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 937,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d51e9de683d0406585f63e861855237e.full.image.jpg",
+            "size": {
+              "height": 911,
+              "width": 681
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d51e9de683d0406585f63e861855237e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-07T09:00:00.000Z",
+          "end": "2020-02-07T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T13:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T13:00:00.000Z",
+          "end": "2020-02-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:00:00.000Z",
+          "end": "2020-02-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T13:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T13:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T09:00:00.000Z",
+          "end": "2020-02-14T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T13:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T13:00:00.000Z",
+          "end": "2020-02-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:00:00.000Z",
+          "end": "2020-02-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T13:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T09:00:00.000Z",
+          "end": "2020-02-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T13:00:00.000Z",
+          "end": "2020-02-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T13:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T09:00:00.000Z",
+          "end": "2020-02-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T13:00:00.000Z",
+          "end": "2020-03-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T09:00:00.000Z",
+          "end": "2020-03-03T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T13:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:53:51.000Z",
+      "createdAt": "2020-01-30T09:46:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11872104,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "https://www.facebook.com/events/1011659502523368/",
+        "02 47 43 17 43",
+        "https://www.ville-chambray-les-tours.fr/evenement/autour-de-la-bd-exposition-2eme-edition/"
+      ],
+      "location": {
+        "uid": 11872104,
+        "slug": "mediatheque-de-chambray-les-tours692",
+        "name": "Médiathèque de Chambray-lès-Tours",
+        "address": "Place Võru 37170 Chambray-lès-Tours",
+        "city": "Chambray-lès-Tours",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37170",
+        "insee": "37050",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.343836,
+        "longitude": 0.707409,
+        "updatedAt": "2020-02-01T09:18:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 86423028,
+        "custom": {
+          "organization": "Médiathèque de Chambray-lès-Tours",
+          "contactName": "Noëmie BIGOT",
+          "contactNumber": "02 47 43 17 43",
+          "contactPosition": "Service communication",
+          "email": "nbigot@ville-chambray-les-tours.fr"
+        }
+      }
+    },
+    {
+      "uid": 20785535,
+      "ownerUid": 86423028,
+      "creatorUid": 86423028,
+      "slug": "atelier-avec-matthieu-bollot-autour-de-la-bd-2eme-edition",
+      "title": {
+        "en": "Workshop with Matthieu Bollot autour de la BD #2e édition",
+        "fr": "Atelier avec Matthieu Bollot autour de la BD #2e édition"
+      },
+      "description": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a free workshop",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à un atelier gratuit"
+      },
+      "longDescription": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a free workshop: \"Imagine the end of the story\" with the illustrator Matthieu Bollot.\nPencil and felt kits are welcome.\nSales and dedication will be organised at the end of the workshop.",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à un atelier gratuit : \"Imaginez la fin de l'histoire\" avec l'illustrateur Matthieu Bollot.\n\nTrousses de crayons et feutres seront les bienvenus.\n\nDes ventes-dédicaces seront organisées à l’issue de l'atelier."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d51e9de683d0406585f63e861855237e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 937,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d51e9de683d0406585f63e861855237e.full.image.jpg",
+            "size": {
+              "height": 911,
+              "width": 681
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d51e9de683d0406585f63e861855237e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:53:49.000Z",
+      "createdAt": "2020-01-30T09:54:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11872104,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 17
+      },
+      "registration": [
+        "https://www.facebook.com/events/1011659502523368/",
+        "02 47 43 17 43",
+        "https://www.ville-chambray-les-tours.fr/evenement/autour-de-la-bd-atelier-2eme-edition/"
+      ],
+      "location": {
+        "uid": 11872104,
+        "slug": "mediatheque-de-chambray-les-tours692",
+        "name": "Médiathèque de Chambray-lès-Tours",
+        "address": "Place Võru 37170 Chambray-lès-Tours",
+        "city": "Chambray-lès-Tours",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37170",
+        "insee": "37050",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.343836,
+        "longitude": 0.707409,
+        "updatedAt": "2020-02-01T09:18:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 86423028,
+        "custom": {
+          "organization": "Médiathèque de Chambray-lès-Tours",
+          "contactName": "Noëmie BIGOT",
+          "contactNumber": "02 47 43 17 43",
+          "contactPosition": "Service communication",
+          "email": "nbigot@ville-chambray-les-tours.fr"
+        }
+      }
+    },
+    {
+      "uid": 48720216,
+      "ownerUid": 86423028,
+      "creatorUid": 86423028,
+      "slug": "atelier-avec-stephanie-lezziero-autour-de-la-bd-2eme-edition",
+      "title": {
+        "en": "Workshop with Stéphanie Lezziero autour de la BD #2e édition",
+        "fr": "Atelier avec Stéphanie Lezziero autour de la BD #2e édition"
+      },
+      "description": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a free workshop",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à un atelier gratuit"
+      },
+      "longDescription": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a free workshop: \"Create comic book characters/ manga\" with illustrator/graphic designer Stéphanie Lezziero.\nPencil and felt kits are welcome.\nSales and dedication will be organised at the end of the workshop.",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à un atelier gratuit : \"Créer des personnages de BD / manga\" avec l'illustratrice/graphiste Stéphanie Lezziero.\n\nTrousses de crayons et feutres seront les bienvenus.\n\nDes ventes-dédicaces seront organisées à l’issue de l'atelier."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Free on registration: 02 47 43 17 43",
+        "fr": "Gratuit sur inscription : 02 47 43 17 43"
+      },
+      "image": {
+        "filename": "d51e9de683d0406585f63e861855237e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 937,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d51e9de683d0406585f63e861855237e.full.image.jpg",
+            "size": {
+              "height": 911,
+              "width": 681
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d51e9de683d0406585f63e861855237e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:53:39.000Z",
+      "createdAt": "2020-01-30T09:58:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11872104,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 17
+      },
+      "registration": [
+        "https://www.facebook.com/events/1011659502523368/",
+        "02 47 43 17 43",
+        "https://www.ville-chambray-les-tours.fr/evenement/autour-de-la-bd-atelier-2eme-edition-2/"
+      ],
+      "location": {
+        "uid": 11872104,
+        "slug": "mediatheque-de-chambray-les-tours692",
+        "name": "Médiathèque de Chambray-lès-Tours",
+        "address": "Place Võru 37170 Chambray-lès-Tours",
+        "city": "Chambray-lès-Tours",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37170",
+        "insee": "37050",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.343836,
+        "longitude": 0.707409,
+        "updatedAt": "2020-02-01T09:18:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 86423028,
+        "custom": {
+          "organization": "Médiathèque de Chambray-lès-Tours",
+          "contactName": "Noëmie BIGOT",
+          "contactNumber": "02 47 43 17 43",
+          "contactPosition": "Service communication",
+          "email": "nbigot@ville-chambray-les-tours.fr"
+        }
+      }
+    },
+    {
+      "uid": 94069491,
+      "ownerUid": 86423028,
+      "creatorUid": 86423028,
+      "slug": "masterclass-avec-ullcer-autour-de-la-bd-2eme-edition",
+      "title": {
+        "en": "Masterclass with Ullcer autour de la BD #2e édition",
+        "fr": "Masterclass avec Ullcer autour de la BD #2e édition"
+      },
+      "description": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a masterclass",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à une masterclass"
+      },
+      "longDescription": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a masterclass: \"The different stages of comic strip, from creation to publication\" with the author of comic strip, illustrator and boarder Ullcer.\nSales and dedication will be organised at the end of the masterclass.",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à une masterclass : \"Les différentes étapes de la BD, de la création à la publication \" avec l'auteur de BD, illustrateur et storyboarder Ullcer.\n\nDes ventes-dédicaces seront organisées à l’issue de la masterclass."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Free on registration: 02 47 43 17 43",
+        "fr": "Gratuit sur inscription : 02 47 43 17 43"
+      },
+      "image": {
+        "filename": "d51e9de683d0406585f63e861855237e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 937,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d51e9de683d0406585f63e861855237e.full.image.jpg",
+            "size": {
+              "height": 911,
+              "width": 681
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d51e9de683d0406585f63e861855237e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-28T17:30:00.000Z",
+          "end": "2020-02-28T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:53:44.000Z",
+      "createdAt": "2020-01-30T10:04:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11872104,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 17,
+        "max": 99
+      },
+      "registration": [
+        "https://www.facebook.com/events/1011659502523368/",
+        "02 47 43 17 43",
+        "https://www.ville-chambray-les-tours.fr/evenement/autour-de-la-bd-atelier-2eme-edition-3/"
+      ],
+      "location": {
+        "uid": 11872104,
+        "slug": "mediatheque-de-chambray-les-tours692",
+        "name": "Médiathèque de Chambray-lès-Tours",
+        "address": "Place Võru 37170 Chambray-lès-Tours",
+        "city": "Chambray-lès-Tours",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37170",
+        "insee": "37050",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.343836,
+        "longitude": 0.707409,
+        "updatedAt": "2020-02-01T09:18:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 771,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 86423028,
+        "custom": {
+          "organization": "Médiathèque de Chambray-lès-Tours",
+          "contactName": "Noëmie BIGOT",
+          "contactNumber": "02 47 43 17 43",
+          "contactPosition": "Service communication",
+          "email": "nbigot@ville-chambray-les-tours.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2144361
+}

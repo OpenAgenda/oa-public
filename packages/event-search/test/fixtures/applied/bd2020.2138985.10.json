@@ -1,0 +1,1955 @@
+{
+  "events": [
+    {
+      "uid": 45105748,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "journees-de-la-bd",
+      "title": {
+        "fr": "Journées de la BD à Saint-Saturnin-lès-Avignon",
+        "en": "Comic Strip Days in Saint-Saturnin-lès-Avignon"
+      },
+      "description": {
+        "fr": "12es Journées de la BD à Saint-Saturnin-lès-Avignon",
+        "en": "12th Comic Strip Days in Saint-Saturnin-lès-Avignon"
+      },
+      "longDescription": {
+        "fr": "Retrouvez l'ensemble du programme des 12es journées de la BD par ici : [https://www.facebook.com/Journ%C3%A9es-de-la-BD-Saint-Sat-84-739436992734382/](https://www.facebook.com/Journ%C3%A9es-de-la-BD-Saint-Sat-84-739436992734382/)",
+        "en": "Find the full program of the 12th Comic Strip Days here: [https://www.facebook.com/Journ%C3%A9es-de-la-BD-Saint-Sat-84-739436992734382/](https://www.facebook.com/Journ%C3%A9es-de-la-BD-Saint-Sat-84-739436992734382/)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "547ccfc398584fde9089d3650c224622.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 500,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "547ccfc398584fde9089d3650c224622.full.image.jpg",
+            "size": {
+              "height": 685,
+              "width": 960
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "547ccfc398584fde9089d3650c224622.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T09:00:00.000Z",
+          "end": "2020-02-09T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:58.000Z",
+      "createdAt": "2020-01-23T20:15:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 98434253,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 98434253,
+        "slug": "salle-des-fetes-la-pastourelle",
+        "name": "Salle des fêtes La Pastourelle",
+        "address": "Avenue du Général de Gaulle 84450 Saint-Saturnin-lès-Avignon",
+        "city": "Saint-Saturnin-lès-Avignon",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Vaucluse",
+        "postalCode": "84450",
+        "insee": "84119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.959947,
+        "longitude": 4.928608,
+        "updatedAt": "2020-01-23T16:25:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ville de Saint-Saturnin-lès-Avignon",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": "48896087300039",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 23417514,
+      "ownerUid": 58076267,
+      "creatorUid": 58076267,
+      "slug": "michel-une-expo-edm-interim",
+      "title": {
+        "fr": "\"Michel\", une exposition E.D.M Intérim",
+        "en": "\"Michel\", an E.D.M Interim exhibition"
+      },
+      "description": {
+        "fr": "Exposition tirée de la série de bande dessinée Michel de Pierre Maurel chez L'Employé du Moi",
+        "en": "Exhibition from the comic book series Michel by Pierre Maurel at L'Employé du Moi"
+      },
+      "longDescription": {
+        "fr": "L’exposition \"Michel\" se déroule dans la mise en scène d’une fausse agence d’intérim : “EDM Intérim”. Un bureau d’accueil, des affiches sur la sécurité au travail, des annonces d’emploi typiques de la nouvelle économie, et même un film promotionnel EDM Intérim !\n\nMontée pour la première fois lors du festival de BD de Colomiers en novembre 2019, elle est construite à partir de la trilogie de bande dessinée de Pierre Maurel : _Michel et les temps modernes_, _Michel, fils des âges farouches_ (nominé par le festival d'Angoulême en 2020) et _Michel et le grand schisme_, à paraître au printemps 2020 et disponible en avant-première lors du vernissage de l’exposition \"Michel\" à En traits libres ! Nous aurons en effet la chance d’avoir avec nous pour le vernissage l’auteur lui-même, présent et en dédicace !",
+        "en": "The exhibition \"Michel\" takes place in the setting up of a fake agency: “EDM Interim”. A reception desk, workplace safety posters, job advertisements typical of the new economy, and even a promotional film EDM Interim!\nBuilt for the first time during the comic strip festival of Colomiers in November 2019, it is built from the comic strip trilogy of Pierre Maurel: _Michel et les temps modernes_, _Michel, fils des âges farouches_ (nominated by the festival of Angoulême in 2020) and _Michel et le grand schisme_, to be published in spring 2020 and available in preview at the opening of the exhibition \"Michel\" in En traits libres! We will indeed have the chance to have with us for the opening the author himself, present and dedicated!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "405f0c7e3d26418096aec92ce67482fd.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 345,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "405f0c7e3d26418096aec92ce67482fd.full.image.jpg",
+            "size": {
+              "height": 1062,
+              "width": 2161
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "405f0c7e3d26418096aec92ce67482fd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-27T17:00:00.000Z",
+          "end": "2020-03-27T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T08:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T08:00:00.000Z",
+          "end": "2020-04-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:00:00.000Z",
+          "end": "2020-04-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:00:00.000Z",
+          "end": "2020-04-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T08:00:00.000Z",
+          "end": "2020-04-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:00:00.000Z",
+          "end": "2020-04-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:00:00.000Z",
+          "end": "2020-04-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:00:00.000Z",
+          "end": "2020-04-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T08:00:00.000Z",
+          "end": "2020-04-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T08:00:00.000Z",
+          "end": "2020-04-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:00:00.000Z",
+          "end": "2020-04-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T08:00:00.000Z",
+          "end": "2020-04-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T08:00:00.000Z",
+          "end": "2020-05-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:04.000Z",
+      "createdAt": "2020-01-24T13:00:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13319566,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "entraitslibres@gmail.com"
+      ],
+      "location": {
+        "uid": 13319566,
+        "slug": "en-traits-libres",
+        "name": "En traits libres",
+        "address": "2 rue du Bayle 34000 Montpellier",
+        "city": "Montpellier",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34062",
+        "insee": "34172",
+        "countryCode": "FR",
+        "district": "Centre",
+        "latitude": 43.61062,
+        "longitude": 3.875067,
+        "updatedAt": "2020-02-11T15:14:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Éditions l'Employé Du Moi",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 58076267,
+        "custom": {
+          "organization": "6 pieds sous terre",
+          "contactName": "Zelda Hadener",
+          "contactNumber": "0659291699",
+          "contactPosition": "éditrice",
+          "email": "zeldahadener@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 83722428,
+      "ownerUid": 74100836,
+      "creatorUid": 74100836,
+      "slug": "la-radio-des-suds-en-hiver",
+      "title": {
+        "fr": "Émission sur la Radio des Suds spéciale mangas et bande dessinée",
+        "en": "Show on the Radio des Suds special mangas and comic book"
+      },
+      "description": {
+        "fr": "Autour des mangas et de la bande dessinée, de jeunes Arlésiens orchestrent interviews, reportages et micro-trottoirs… le temps d’une émission spéciale, en direct et en public !",
+        "en": "Around mangas and comics, young Arlesians orchestrate interviews, reports and micro-sidewalks… Time for a special, live and in public!"
+      },
+      "longDescription": {
+        "fr": "Parenthèse hivernale pour l’antenne éphémère des SUDS, dirigée par Antoine Chao ([_C’est bientôt demain_](https://www.franceinter.fr/emissions/c-est-bientot-demain) - France inter) !\n\nInitialement créée en 2000 pour offrir aux détenus de la Maison centrale d’Arles une ouverture sur la ville et le monde avec le festival Les SUDS, à ARLES, la [Radio des Suds](http://www.suds-arles.com/fr/2020/actions-culturelles?c=la-radio-des-suds) est, depuis 2003, animée par de jeunes Arlésiens de 11 à 19 ans.\n\nPour cette émission spéciale en direct et dans le cadre de la 3e édition du festival [Arles se livre](http://www.arles-se-livre.fr/), de jeunes adolescents du quartier de Barriol, formés dans le cadre d’un stage par le journaliste Éric Besatti, baladent leurs micros à Marseille, dans les couloirs de la [Japan Expo Sud 2020](https://www.japan-expo-sud.com/fr/), et se penchent sur l’univers des **mangas**, de la **bande dessinée** et des **films animés.**\n\n_Émission à réécouter en léger différé sur_ [_Soleil FM_](http://www.soleilfm.com/soleil-fm-en-direct/)_._\n\n\\_\\_\n\nCoréalisé par SUDS, à ARLES et le Conservatoire de Musique, Les Suds, en Hiver se déploie du 1er au 8 mars 2020 sur l’ensemble du Pays d’Arles : [www.suds-arles.com](http://www.suds-arles.com/fr/2020/les-suds-en-hiver-1650).\n\nCet événement s'inscrit également dans le cadre du festival [Arles se Livre](http://www.arles-se-livre.fr/).",
+        "en": "Winter parenthesis for the ephemeral antenna of SUDS, directed by Antoine Chao ([_It’s soon tomorrow_](https://www.franceinter.fr/emissions/c-est-bientot-demain) - France inter)!\nOriginally created in 2000 to offer the inmates of the Central House of Arles an opening on the city and the world with the festival Les SUDS, in ARLES, the [Radio des Suds](http://www.suds-arles.com/fr/2020/actions-culturelles?c=la-radio-des-suds) is, since 2003, animated by young Arlesians from 11 to 19 years.\nFor this special program live and as part of the 3rd edition of [the Arles](http://www.arles-se-livre.fr/) festival, young teenagers from the district of Barriol, trained as part of an internship by the journalist Éric Besatti, walk their microphones in Marseille, in the corridors of the [Japan Expo Sud 2020](https://www.japan-expo-sud.com/fr/), and look at the world of **mangas**, **comics** and **animated films.**\n_Program to be replayed on_ [_Soleil FM_](http://www.soleilfm.com/soleil-fm-en-direct/)_._\n__\nCo-directed by SUDS, in ARLES and the Conservatoire de Musique, Les Suds, in Winter unfolds from 1 to 8 March 2020 throughout the Pays d'Arles: [www.suds-arles.com](http://www.suds-arles.com/fr/2020/les-suds-en-hiver-1650).\nThis event is also part of the [Arles se Livre](http://www.arles-se-livre.fr/) festival."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre dans la limite des places disponibles",
+        "en": "Free admission within the space available"
+      },
+      "image": {
+        "filename": "d6281fcda9c6453288a6e6acb813a01a.base.image.jpg",
+        "credits": "© Stéphane Barbier",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d6281fcda9c6453288a6e6acb813a01a.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d6281fcda9c6453288a6e6acb813a01a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T13:30:00.000Z",
+          "end": "2020-03-07T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:40.000Z",
+      "createdAt": "2020-01-24T14:17:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 54067257,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 54067257,
+        "slug": "espace-van-gogh-13200-arles",
+        "name": "Espace Van Gogh",
+        "address": "Place Félix Rey 13200 Arles",
+        "city": "Arles",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13200",
+        "insee": "13004",
+        "countryCode": "FR",
+        "district": "Centre-Ville",
+        "latitude": 43.67593,
+        "longitude": 4.626194,
+        "updatedAt": "2019-12-10T09:19:53.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Émission de radio",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival \"Arles se Livre\" (ville d'Arles), festival \"Les Suds, en Hiver\" (SUDS à Arles))",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 74100836,
+        "custom": {
+          "organization": "SUDS, à ARLES",
+          "contactName": "Laura Boury",
+          "contactNumber": "04 90 96 06 27",
+          "contactPosition": "Responsable de la communication",
+          "email": "l.boury@suds-arles.com"
+        }
+      }
+    },
+    {
+      "uid": 98108124,
+      "ownerUid": 8768371,
+      "creatorUid": 8768371,
+      "slug": "stage-de-bande-dessinee-creation-dune-fiction-en-image",
+      "title": {
+        "fr": "Stage de bande dessinée - Création d'une fiction en image",
+        "en": "Comic Strip Course - Creation of an image fiction"
+      },
+      "description": {
+        "fr": "Découvrez l'art de la bande dessinée en compagnie de Fati Kabuika, en créant en image des textes écrits dans le cadre de la Caravane des 10 mots",
+        "en": "Discover the art of comic books in the company of Fati Kabuika, creating images of texts written as part of the Caravan of 10 words"
+      },
+      "longDescription": {
+        "fr": "Durant la Semaine de la langue française et de la francophonie en mars, l'écrivain guinéen Hakim Bah va mener une série d'ateliers avec de jeunes mineurs non-accompagnés scolarisés à Cahors.\n\nAvec les textes issues de ces ateliers, un groupe de jeunes cadurciens auront l'occasion de suivre un stage de réalisation de bande dessinée en compagnie de Fati Kabuika, dessinateur de BD du Congo Kinshasa installé dans le Lot.\n\nLes planches ainsi réalisées seront ensuite exposée au Théâtre de Cahors puis dans différents lieux culturels de la Ville, partageant avec le plus grand nombre ces histoires et destins singulier.e.s.\n\nCe projet est mené dans le cadre de la Caravane des 10 mots en Occitanie.",
+        "en": "During French Language and Francophonie Week in March, Guinean writer Hakim Bah will conduct a series of workshops with unaccompanied young minors attending school in Cahors.\nWith the texts resulting from these workshops, a group of young Cadurcians will have the opportunity to follow a course of realization of comic book in the company of Fati Kabuika, cartoonist of Congo Kinshasa installed in the Lot.\nThe plates thus made will then be exhibited at the Theatre of Cahors and then in various cultural places of the City, sharing with the greatest number these stories and singular destinies.e.s.\nThis project is being carried out within the framework of the Caravan of 10 Words in Occitania."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription auprès de la compagnie. Le stage a lieu aux Docks à Cahors",
+        "en": "Upon registration with the company. The internship takes place at the Docks in Cahors"
+      },
+      "image": {
+        "filename": "01d4348bc7f34e908f178cff2c1b3ea6.base.image.jpg",
+        "credits": "laBDprendlairacajarc",
+        "size": {
+          "height": 703,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "01d4348bc7f34e908f178cff2c1b3ea6.full.image.jpg",
+            "size": {
+              "height": 1043,
+              "width": 1039
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "01d4348bc7f34e908f178cff2c1b3ea6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-13T07:00:00.000Z",
+          "end": "2020-04-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T07:00:00.000Z",
+          "end": "2020-04-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T07:00:00.000Z",
+          "end": "2020-04-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T07:00:00.000Z",
+          "end": "2020-04-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T07:00:00.000Z",
+          "end": "2020-04-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T07:00:00.000Z",
+          "end": "2020-04-18T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:24.000Z",
+      "createdAt": "2020-01-24T16:13:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87521858,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 13,
+        "max": 18
+      },
+      "registration": [
+        "cieacetes@gmail.com"
+      ],
+      "location": {
+        "uid": 87521858,
+        "slug": "les-docks711",
+        "name": "Les Docks",
+        "address": "430 allée des Soupirs 46000 Cahors",
+        "city": "Cahors",
+        "region": "Occitanie",
+        "department": "Lot",
+        "postalCode": "46000",
+        "insee": "46042",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.44468,
+        "longitude": 1.433016,
+        "updatedAt": "2020-01-25T09:51:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        616
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "E.A.T-Occitanie, service jeunesse de Cahors, Théâtre de Cahors, Docks - SMAC du Lot, médiathèque intercommunale du grand Cahors",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 8768371,
+        "custom": {
+          "organization": "Cie Acétés",
+          "contactName": "Cédric Brossard",
+          "contactNumber": "0652099597",
+          "contactPosition": "Metteur en scène",
+          "email": "cieacetes@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 20365976,
+      "ownerUid": 14261026,
+      "creatorUid": 14261026,
+      "slug": "dedicace-de-phil-vandaele",
+      "title": {
+        "fr": "Rencontre avec Phil Vandaele et dédicace",
+        "en": "Meeting with Phil Vandaele and dedication"
+      },
+      "description": {
+        "fr": "Apéro-dédicace",
+        "en": "Apéro-dédicace"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e5a4b9fa2d634942b8a76e0460b29c58.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 331,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e5a4b9fa2d634942b8a76e0460b29c58.full.image.jpg",
+            "size": {
+              "height": 340,
+              "width": 720
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e5a4b9fa2d634942b8a76e0460b29c58.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:33.000Z",
+      "createdAt": "2020-01-24T16:14:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66486438,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "04 86 63 68 79"
+      ],
+      "location": {
+        "uid": 66486438,
+        "slug": "librairie-arles-bd234",
+        "name": "Librairie Arles BD",
+        "address": "19 rue du Pont 13200 Arles",
+        "city": "Arles",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13200",
+        "insee": "13004",
+        "countryCode": "FR",
+        "district": "Centre-Ville",
+        "latitude": 43.677885,
+        "longitude": 4.624161,
+        "updatedAt": "2020-01-07T09:30:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Alès BD",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 14261026,
+        "custom": {
+          "organization": "Librairie Arles BD",
+          "contactName": "FREDERIC Julian",
+          "contactNumber": "04 86 63 68 79",
+          "contactPosition": "Librairie PDG",
+          "email": "arlesbd@canalbd.net"
+        }
+      }
+    },
+    {
+      "uid": 13903138,
+      "ownerUid": 5685951,
+      "creatorUid": 5685951,
+      "slug": "dedicace-bd-marie-jaffredo-yuan-journal-dune-adoption-aux-editions-vents-douest",
+      "title": {
+        "fr": "Rencontre avec Marie Jaffredo, auteur de Yuan, journal d'une adoption aux éditions Vents d'Ouest et dédicace",
+        "en": "Meeting with Marie Jaffredo, author of Yuan, journal of an adoption by Vents d'Ouest editions and dedication"
+      },
+      "description": {
+        "fr": "Rencontre avec Marie Jaffredo",
+        "en": "Meeting with Marie Jaffredo"
+      },
+      "longDescription": {
+        "fr": "Marie Jaffredo nous fera le plaisir de venir dédicacer son dernier album _Yuan, journal d'une adoption_ aux éditions Vents d'Ouest.\n\nSi cette rencontre vous intéresse, vous pouvez nous envoyer un mail à tout moment sur : [lettre.informations@critic.fr](mailto:lettre.informations@critic.fr), ou bien venir nous voir à la librairie ou attendre notre mail d'annonce via la liste de diffusion.\n\nNous prenons les inscriptions jusqu'à une semaine avant la date de la rencontre par l'une des trois propositions ci-dessus.\n\nS'il y a beaucoup de demandes, un tirage au sort sera effectué.\n\nEnsuite, pour que l’événement se déroule dans les meilleures conditions possibles, nous mettons en place un planning de passage pour les heureux élus qui bénéficieront ainsi d'un vrai moment privilégié avec l'auteur.",
+        "en": "Marie Jaffredo will be pleased to come and dedicate her latest album _Yuan, journal of an adoption_ to Vents d'Ouest editions.\nIf you are interested in this meeting, you can send us an email at any time at: [lettre.informations@critic.fr](mailto:lettre.informations@critic.fr), or come to the bookstore or wait for our announcement email via the mailing list.\nWe take registrations up to a week before the date of the meeting by one of the three proposals above.\nIf there are many applications, a draw will be made.\nThen, in order for the event to take place in the best possible conditions, we put in place a passage schedule for the happy elect who will benefit from a real privileged moment with the author."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription, librairie Critic",
+        "en": "Upon registration, bookstore Critic"
+      },
+      "image": {
+        "filename": "624e1a1ab1d443eb9b6fc2229d83ed5c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 274,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "624e1a1ab1d443eb9b6fc2229d83ed5c.full.image.jpg",
+            "size": {
+              "height": 320,
+              "width": 818
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "624e1a1ab1d443eb9b6fc2229d83ed5c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T13:30:00.000Z",
+          "end": "2020-01-31T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:20.000Z",
+      "createdAt": "2020-01-25T07:46:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30483199,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "lettre.informations@critic.fr"
+      ],
+      "location": {
+        "uid": 30483199,
+        "slug": "librairie-critic",
+        "name": "Librairie Critic",
+        "address": "19 rue Hoche 35000 Rennes",
+        "city": "Rennes",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35000",
+        "insee": "35238",
+        "countryCode": "FR",
+        "district": "Quartiers Centre",
+        "latitude": 48.114697,
+        "longitude": -1.677421,
+        "updatedAt": "2020-01-25T09:52:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 5685951,
+        "custom": {
+          "organization": "Librairie - CRITIC - éditions",
+          "contactName": "Eric Marcelin",
+          "contactNumber": "+33631482035",
+          "contactPosition": "Gérant",
+          "email": "eric.marcelin@critic.fr"
+        }
+      }
+    },
+    {
+      "uid": 50712544,
+      "ownerUid": 5685951,
+      "creatorUid": 5685951,
+      "slug": "arnaud-poitevin-nous-fera-le-plaisir-de-venir-dedicacer-les-spectaculaires-t04-les-spectaculaires-depassent-les-bornes-ed-rue-de-sevres",
+      "title": {
+        "fr": "Rencontre avec Arnaud Poitevin, auteur de Les spectaculaires dépassent les bornes\"aux éditions Rue de Sèvres",
+        "en": "Interview with Arnaud Poitevin, author of Les spectacuacuacus transcends the boundaries\", published by Rue de Sèvres"
+      },
+      "description": {
+        "fr": "Rencontre avec Arnaud Poitevin",
+        "en": "Meeting with Arnaud Poitevin"
+      },
+      "longDescription": {
+        "fr": "Arnaud Poitevin nous fera le plaisir de venir dédicacer le nouveau tome des aventures des _Spectaculaires_. _Les Spectaculaires_, l'une de nos séries fétiches à Critic, n°1 des ventes jeunesse pour 2019 à la librairie ! Si vous ne connaissez pas encore voici une bonne occasion de vous y mettre !\n\n_Les spectaculaires dépassent les bornes_ d'Arnaud Poitevin et Régis Hautière aux éditions Rue de Sèvres.\n\nSi cette rencontre vous intéresse, vous pouvez nous envoyer un mail à tout moment sur : [lettre.informations@critic.fr](mailto:lettre.informations@critic.fr), ou bien venir nous voir à la librairie ou attendre notre mail d'annonce via la liste de diffusion.\n\nNous prenons les inscriptions jusqu'à 1 semaine avant la date de la rencontre par l'une des trois propositions ci-dessus.\n\nS'il y a beaucoup de demandes, un tirage au sort sera effectué.\n\nEnsuite, pour que l’événement se déroule dans les meilleures conditions possibles, nous mettons en place un planning de passage pour les heureux élus qui bénéficieront ainsi d'un vrai moment privilégié avec l'auteur.",
+        "en": "Arnaud Poitevin will give us the pleasure of coming to dedicate the new volume of the adventures of _the Spectaculars. The Spectaculars_, one of our favourite series at Critic, #1 youth sales for 2019 at the bookstore! If you do not know yet here is a good opportunity to get started!\n_The spectacular ones go beyond the boundaries_ of Arnaud Poitevin and Régis Hautière at editions Rue de Sèvres.\nIf you are interested in this meeting, you can send us an email at any time at: [lettre.informations@critic.fr](mailto:lettre.informations@critic.fr), or come to the bookstore or wait for our announcement email via the mailing list.\nWe take registrations up to 1 week before the date of the meeting by one of the three proposals above.\nIf there are many applications, a draw will be made.\nThen, in order for the event to take place in the best possible conditions, we put in place a passage schedule for the happy elect who will benefit from a real privileged moment with the author."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "91af968081e64f51bd8d802e76997885.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 274,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "91af968081e64f51bd8d802e76997885.full.image.jpg",
+            "size": {
+              "height": 320,
+              "width": 818
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "91af968081e64f51bd8d802e76997885.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:17.000Z",
+      "createdAt": "2020-01-25T07:51:55.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30483199,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "lettre.informations@critic.fr"
+      ],
+      "location": {
+        "uid": 30483199,
+        "slug": "librairie-critic",
+        "name": "Librairie Critic",
+        "address": "19 rue Hoche 35000 Rennes",
+        "city": "Rennes",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35000",
+        "insee": "35238",
+        "countryCode": "FR",
+        "district": "Quartiers Centre",
+        "latitude": 48.114697,
+        "longitude": -1.677421,
+        "updatedAt": "2020-01-25T09:52:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 5685951,
+        "custom": {
+          "organization": "Librairie - CRITIC - éditions",
+          "contactName": "Eric Marcelin",
+          "contactNumber": "+33631482035",
+          "contactPosition": "Gérant",
+          "email": "eric.marcelin@critic.fr"
+        }
+      }
+    },
+    {
+      "uid": 89538206,
+      "ownerUid": 27830147,
+      "creatorUid": 27830147,
+      "slug": "bd-et-immigration",
+      "title": {
+        "fr": "Exposition \"Bande dessinée et immigrations : un siècle d’histoire(s)\"",
+        "en": "Exhibition \"Comic strip and immigration: a century of history(s)\""
+      },
+      "description": {
+        "fr": "À travers le monde, nombre d’auteurs de bandes dessinées ont placé le thème de l’immigration au cœur de leur œuvre. Présentation de la thématique dans le 9e art",
+        "en": "Around the world, many comic book authors have placed the theme of immigration at the heart of their work. Presentation of the theme in the 9th art"
+      },
+      "longDescription": {
+        "fr": "Née au XIXe siècle, la bande dessiné est une forme d’expression aujourd’hui reconnue comme le 9e Art. Elle présente une multitude d’approches créatives et esthétiques. À travers le monde, nombre d’auteurs ont placé le thème de l’immigration au cœur de leur œuvre, ou ont connu eux-mêmes des trajectoires migratoires.\n\nDe Mac Manus à Bilal, en passant par Hugo Pratt, Uderzo et Goscinny, l’immigration apparaît ainsi comme un thème majeur du 9e Art.\n\nLe Musée national de l’histoire de l’immigration propose de mettre en regard la richesse de l’histoire de la BD dans une exposition itinérante 'Bande dessinée et immigrations : un siècle d’histoire(s)\".\n\nÀ travers une quarantaine de reproductions d’œuvres, la bande dessinée y apparaît autant comme un objet d’art nourri de la mobilité des hommes que comme un témoignage des représentations passées et présentes sur l’immigration.",
+        "en": "Born in the 19th century, comic books are a form of expression today recognized as the 9th Art. It presents a multitude of creative and aesthetic approaches. Around the world, many authors have placed the theme of immigration at the heart of their work, or have experienced migration trajectories themselves.\nFrom Mac Manus to Bilal, via Hugo Pratt, Uderzo and Goscinny, immigration appears as a major theme of the 9th Art.\nThe National Museum of the History of Immigration proposes to put in perspective the richness of the history of the comic strip in a travelling exhibition 'Comic books and immigrants: a century of history(s)\".\nThrough some forty reproductions of works, the comic book appears there as an object of art nourished by the mobility of men as well as a testimony of past and present representations on immigration."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sans réservation",
+        "en": "Without reservation"
+      },
+      "image": {
+        "filename": "f44be470cb5a4c1aa1b9360583052866.base.image.jpg",
+        "credits": "Zeina Abirached, Le piano oriental – Casterman 2015",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f44be470cb5a4c1aa1b9360583052866.full.image.jpg",
+            "size": {
+              "height": 3307,
+              "width": 2339
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f44be470cb5a4c1aa1b9360583052866.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T11:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T11:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T11:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T11:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T11:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T11:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T11:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T11:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T11:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T11:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T11:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:14.000Z",
+      "createdAt": "2020-01-25T10:51:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 37587230,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.mediatheques.granville-terre-mer.fr",
+        "mediatheque@ville-granville.fr",
+        "02 33 50 34 09"
+      ],
+      "location": {
+        "uid": 37587230,
+        "slug": "mediatheque-charles-de-la-morandiere807",
+        "name": "Médiathèque Charles de la Morandière",
+        "address": "Rue Clément-Desmaisons 50400 Granville",
+        "city": "Granville",
+        "region": "Normandie",
+        "department": "Manche",
+        "postalCode": "50400",
+        "insee": "50218",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.837267,
+        "longitude": -1.597835,
+        "updatedAt": "2019-12-09T07:49:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 27830147,
+        "custom": {
+          "organization": "Médiathèque de Granville",
+          "contactName": "Marlène TURGIS",
+          "contactNumber": "0233503409",
+          "contactPosition": "communication",
+          "email": "mediatheque@ville-granville.fr"
+        }
+      }
+    },
+    {
+      "uid": 72441158,
+      "ownerUid": 27830147,
+      "creatorUid": 27830147,
+      "slug": "la-petite-histoire-de-la-bd",
+      "title": {
+        "fr": "Exposition \"La petite histoire de la BD\"",
+        "en": "Exhibition \"La petite histoire de la BD\""
+      },
+      "description": {
+        "fr": "Promenez-vous donc dans les grands pans de l’art passionnant de la BD",
+        "en": "Take a stroll through the great parts of the fascinating art of comics"
+      },
+      "longDescription": {
+        "fr": "L’idée est un peu déraisonnable mais attirante : raconter l’histoire mondiale de la bande dessinée à travers l’œuvre d’un artiste (et de quelques autres bien sûr) dont la singularité fut de créer dans différents titres mythiques (_Pif_, _Pilote_, _L’Echo des savanes_…) avec une démarche atypique, décalée, philosophique et aussi écologiste en inventant le premier super-héros végétal. Promenez-vous donc dans les grands pans de cet art passionnant et hybride.\n\nComme pour les livres sur le cinéma montrant des images arrêtées de films, cette exposition présente des parties de planches et d’histoires : elles sont des évocations incitant à aller découvrir les œuvres complètes !\n\nAllez plus loin avec toutes nos suggestions de livres et d’auteurs, dont la meilleure synthèse généraliste à ce jour : Pascal Ory, Laurent Martin, Sylvain Venayre, Jean-Pierre Mercier (dir.), L’Art de la bande dessinée, Paris, Citadelles et Mazenod, 2012. Car bien sûr cette petite synthèse, très parcellaire, est destinée avant tout à aller découvrir une forme d’expression passionnante, toujours en train de s’inventer et de la restituer dans son époque et en interaction avec d’autres formes d’expression.\n\nExposition réalisée par la Ligue de l’enseignement et l’Institut des images (decryptimages.net) et avec le concours du musée du Vivant (museeduvivant.fr), des Rencontres-promenades d’Argentat-sur-Dordogne (histoiresdepassages.com), Nuage Vert-musée mobile Vallée de la Dordogne.\n\nLe scénariste et dessinateur Nikita Mandryka y a apporté son concours en nous permettant avec générosité de reproduire gratuitement ses dessins.\n\nLa plupart des images reproduites proviennent des collections du musée du Vivant-AgroParisTech. Merci aux collectionneurs qui ont complété l’iconographie.\n\nConception : Laurent Gervereau avec la collaboration d’Aurélie Utzeri (musée du Vivant). Maquette : Gérard Ségard. Réalisation : Pierre Kandel",
+        "en": "The idea is a bit unreasonable but attractive: to tell the world story of the comic book through the work of an artist (and of course some others) whose singularity was to create in various mythical titles (_Pif_, _Pilote_, _L'Echo des savanes_…) with an atypical, quirky, philosophical approach and also ecologist by inventing the first vegetal superhero. So take a stroll through the great parts of this exciting and hybrid art.\nAs for the books on cinema showing still images of films, this exhibition presents parts of plates and stories: they are inciting evocations to go and discover the complete works!\nGo further with all our suggestions for books and authors, including the best generalist synthesis to date: Pascal Ory, Laurent Martin, Sylvain Venayre, Jean-Pierre Mercier (eds.), L'Art de la bande dessinée, Paris, Citadelles and Mazenod, 2012\\. For of course this little synthesis, very fragmentary, is intended above all to discover a form of exciting expression, always inventing itself and restoring it in its time and in interaction with other forms of expression.\nExhibition by the League of Education and the Institute of Images (decryptimages.net) and with the help of the Musée du Vivant (museeduvivant.fr), Rencontres-promenades d'Argentat-sur-Dordogne (histoiresdepassages.com), Nuage Vert-musée mobile Vallée de la Dordogne.\nScreenwriter and cartoonist Nikita Mandryka helped by generously allowing us to reproduce her drawings for free.\nMost of the images reproduced come from the collections of the Musée du Vivant-Agroparistech. Thanks to the collectors who completed the iconography.\nDesign: Laurent Gervereau with the collaboration of Aurélie Utzeri (musée du Vivant). Model: Gérard Ségard. Director: Pierre Kandel"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "dffbbd444c0b457eace21f4666ea3e92.base.image.jpg",
+        "credits": "Laurent Gervereau avec la collaboration d’Aurélie Utzeri",
+        "size": {
+          "height": 982,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dffbbd444c0b457eace21f4666ea3e92.full.image.jpg",
+            "size": {
+              "height": 10167,
+              "width": 7250
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dffbbd444c0b457eace21f4666ea3e92.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-29T08:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T11:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T11:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T11:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T11:00:00.000Z",
+          "end": "2020-05-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T08:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T11:00:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T11:00:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T11:00:00.000Z",
+          "end": "2020-05-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T11:00:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:00:00.000Z",
+          "end": "2020-05-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T11:00:00.000Z",
+          "end": "2020-05-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:00:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T11:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T11:00:00.000Z",
+          "end": "2020-05-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T11:00:00.000Z",
+          "end": "2020-06-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:00:00.000Z",
+          "end": "2020-06-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T11:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T11:00:00.000Z",
+          "end": "2020-06-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T11:00:00.000Z",
+          "end": "2020-06-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:00:00.000Z",
+          "end": "2020-06-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T11:00:00.000Z",
+          "end": "2020-06-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T11:00:00.000Z",
+          "end": "2020-06-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T11:00:00.000Z",
+          "end": "2020-06-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T11:00:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T11:00:00.000Z",
+          "end": "2020-06-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T11:00:00.000Z",
+          "end": "2020-06-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:00:00.000Z",
+          "end": "2020-06-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T11:00:00.000Z",
+          "end": "2020-06-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T11:00:00.000Z",
+          "end": "2020-06-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:10.000Z",
+      "createdAt": "2020-01-25T12:44:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 37587230,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.mediatheques.granville-terre-mer.fr",
+        "mediatheque@ville-granville.fr",
+        "02 33 50 34 09"
+      ],
+      "location": {
+        "uid": 37587230,
+        "slug": "mediatheque-charles-de-la-morandiere807",
+        "name": "Médiathèque Charles de la Morandière",
+        "address": "Rue Clément-Desmaisons 50400 Granville",
+        "city": "Granville",
+        "region": "Normandie",
+        "department": "Manche",
+        "postalCode": "50400",
+        "insee": "50218",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.837267,
+        "longitude": -1.597835,
+        "updatedAt": "2019-12-09T07:49:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 27830147,
+        "custom": {
+          "organization": "Médiathèque de Granville",
+          "contactName": "Marlène TURGIS",
+          "contactNumber": "0233503409",
+          "contactPosition": "communication",
+          "email": "mediatheque@ville-granville.fr"
+        }
+      }
+    },
+    {
+      "uid": 8474010,
+      "ownerUid": 45840998,
+      "creatorUid": 45840998,
+      "slug": "les-carnets-de-cerise-exposition-interactive",
+      "title": {
+        "fr": "Exposition interactive \"Les Carnets de Cerise\"",
+        "en": "Interactive exhibition \"Les Carnets de Cerise\""
+      },
+      "description": {
+        "fr": "Une exposition qui invite les visiteurs à se glisser dans la peau d’un inspecteur en herbe",
+        "en": "An exhibition that invites visitors to slip into the shoes of a budding inspector"
+      },
+      "longDescription": {
+        "fr": "Basée sur l’univers de la série de BD _Les Carnets de Cerise_, l'exposition invite les visiteurs à se glisser dans la peau d’un inspecteur en herbe en faisant appel à leur sens de l’analyse et leur logique.",
+        "en": "Based on the universe of the comic book series _Les Carnets de Cerise_, the exhibition invites visitors to slip into the skin of a budding inspector by appealing to their sense of analysis and their logic."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-09T12:00:00.000Z",
+          "end": "2020-10-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-10T08:00:00.000Z",
+          "end": "2020-10-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-13T12:00:00.000Z",
+          "end": "2020-10-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-14T08:00:00.000Z",
+          "end": "2020-10-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-14T12:00:00.000Z",
+          "end": "2020-10-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-16T12:00:00.000Z",
+          "end": "2020-10-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-17T08:00:00.000Z",
+          "end": "2020-10-17T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-20T12:00:00.000Z",
+          "end": "2020-10-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-21T08:00:00.000Z",
+          "end": "2020-10-21T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-21T12:00:00.000Z",
+          "end": "2020-10-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-23T12:00:00.000Z",
+          "end": "2020-10-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-24T08:00:00.000Z",
+          "end": "2020-10-24T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-27T13:00:00.000Z",
+          "end": "2020-10-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-28T09:00:00.000Z",
+          "end": "2020-10-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-28T13:00:00.000Z",
+          "end": "2020-10-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-30T13:00:00.000Z",
+          "end": "2020-10-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-31T09:00:00.000Z",
+          "end": "2020-10-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-03T13:00:00.000Z",
+          "end": "2020-11-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-04T09:00:00.000Z",
+          "end": "2020-11-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-04T13:00:00.000Z",
+          "end": "2020-11-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-06T13:00:00.000Z",
+          "end": "2020-11-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-07T09:00:00.000Z",
+          "end": "2020-11-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-10T13:00:00.000Z",
+          "end": "2020-11-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-11T09:00:00.000Z",
+          "end": "2020-11-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-11T13:00:00.000Z",
+          "end": "2020-11-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-13T13:00:00.000Z",
+          "end": "2020-11-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T09:00:00.000Z",
+          "end": "2020-11-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-17T13:00:00.000Z",
+          "end": "2020-11-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-18T09:00:00.000Z",
+          "end": "2020-11-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-18T13:00:00.000Z",
+          "end": "2020-11-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-20T13:00:00.000Z",
+          "end": "2020-11-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-21T09:00:00.000Z",
+          "end": "2020-11-21T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:26:07.000Z",
+      "createdAt": "2020-01-25T13:57:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49112464,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://biblideols.wordpress.com",
+        "0254273276"
+      ],
+      "location": {
+        "uid": 49112464,
+        "slug": "bibliotheque-municipale-eugene-hubert",
+        "name": "Bibliothèque municipale Eugène Hubert",
+        "address": "Avenue Paul Langevin 36130 Déols",
+        "city": "Déols",
+        "region": "Centre-Val de Loire",
+        "department": "Indre",
+        "postalCode": "36130",
+        "insee": "36063",
+        "countryCode": "FR",
+        "district": "La Tristerie",
+        "latitude": 46.824629,
+        "longitude": 1.70537,
+        "updatedAt": "2020-01-25T15:16:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque Départementale de l'Indre",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 45840998,
+        "custom": {
+          "organization": "Bibliothèque Municipale Eugène Hubert - Déols",
+          "contactName": "Véronique Lottaz",
+          "contactNumber": "02 54 27 32 76",
+          "contactPosition": "responsable bibliothèque",
+          "email": "mediatheque@ville-deols.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2139961
+}

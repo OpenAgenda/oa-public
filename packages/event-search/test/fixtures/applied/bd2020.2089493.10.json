@@ -1,0 +1,1846 @@
+{
+  "events": [
+    {
+      "uid": 95876535,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "semaine-de-la-bd-exposition-des-eleves-de-lecole-dart-plastique-de-mezidon-sur-le-theme-de-la-bd",
+      "title": {
+        "fr": "Semaine de la BD - Animations autour du dessin par la compagnie Grafouniages",
+        "en": "Comic Strip Week - Animations around drawing by the company Grafouniages"
+      },
+      "description": {
+        "fr": "Animations autour du dessin par la compagnie Grafouniages",
+        "en": "Animations around the drawing by the company Grafouniages"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de l'année de la BD, semaine sur la BD avec au programme : exposition des élèves de l'école d'art plastique de Mézidon sur le thème de la BD, **dessin de doudou, animation \"quel animal dessine l'auteur\" puis dessin à la demande le mercredi 12 février avec la participation de la compagnie Grafouniages** et atelier abécédaire pour finir une séance de dédicaces des auteurs. Pour clôturer cette semaine le vendredi 14 février, la bibliothèque offre le gouter aux enfants et propose une animation autour de la BD. Surprise !!!",
+        "en": "As part of the comic book year, comic book week with the program: exhibition of the students of the plastic art school of Mézidon on the theme of comic **book, doudou drawing, animation \"what animal draws the author\" then drawing on request on Wednesday 12 February with the participation of the company Grafouniages** and abécédaire workshop to finish a signing session of the authors. To close this week on Friday, February 14th, the library offers children a taste and offers animation around the comic book. Surprise!!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscriprion",
+        "en": "On inscriprion"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:43:12.000Z",
+      "createdAt": "2019-12-03T10:07:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32778783,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "bibliotheque-mezidon@agglo-lisieux.fr",
+        "02 31 20 14 20"
+      ],
+      "location": {
+        "uid": 32778783,
+        "slug": "bibliotheque-de-mezidon",
+        "name": "Bibliothèque de Mézidon",
+        "address": "128 rue Jules Guesde 14270 Mézidon Vallée d'Auge",
+        "city": "Mézidon Vallée d'Auge",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14270",
+        "insee": "14431",
+        "countryCode": "FR",
+        "district": "Mézidon-Canon",
+        "latitude": 49.081058,
+        "longitude": -0.057395,
+        "updatedAt": "2019-11-30T13:13:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 34880358,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "semaine-de-la-bd-exposition-des-eleves-de-lecole-dart-plastique-de-mezidon-sur-le-theme-de-la-bd_755803",
+      "title": {
+        "fr": "Semaine de la BD - Animations de la bibliothèque autour de la BD",
+        "en": "Semaine de la BD - Library activities around the BD"
+      },
+      "description": {
+        "fr": "Animation de la bibliothèque autour de la BD",
+        "en": "Animation of the library around comics"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de l'année de la BD, semaine sur la BD avec au programme : exposition des élèves de l'école d'art plastique de Mézidon sur le thème de la BD, dessin de doudou, animation \"quel animal dessine l'auteur\" puis dessin à la demande le mercredi 12 février avec la participation de la compagnie Grafouniages et atelier abécédaire pour finir une séance de dédicaces des auteurs. **Pour clôturer cette semaine le vendredi 14 février, la bibliothèque offre le gouter aux enfants et propose une animation autour de la BD. Surprise !!!**",
+        "en": "As part of the comic book year, comic book week with the program: exhibition of the students of the plastic art school of Mézidon on the theme of comic book, doudou drawing, animation \"what animal draws the author\" then drawing on request on Wednesday 12 February with the participation of the company Grafouniages and abécédaire workshop to finish a signing session of the authors. **To close this week on Friday, February 14th, the library offers children a taste and offers animation around the comic book. Surprise!!**"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-14T15:30:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:43:09.000Z",
+      "createdAt": "2019-12-03T10:09:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32778783,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "bibliotheque-mezidon@agglo-lisieux.fr",
+        "02 31 20 14 20"
+      ],
+      "location": {
+        "uid": 32778783,
+        "slug": "bibliotheque-de-mezidon",
+        "name": "Bibliothèque de Mézidon",
+        "address": "128 rue Jules Guesde 14270 Mézidon Vallée d'Auge",
+        "city": "Mézidon Vallée d'Auge",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14270",
+        "insee": "14431",
+        "countryCode": "FR",
+        "district": "Mézidon-Canon",
+        "latitude": 49.081058,
+        "longitude": -0.057395,
+        "updatedAt": "2019-11-30T13:13:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 69262581,
+      "ownerUid": 11784028,
+      "creatorUid": 11784028,
+      "slug": "portraits-dheroines",
+      "title": {
+        "fr": "Exposition \"Portraits d'héroïnes\" par Catel et Bocquet",
+        "en": "Exhibition \"Portraits of heroines\" by Catel et Bocquet"
+      },
+      "description": {
+        "fr": "Une exposition qui invite à découvrir quelques héroïnes !",
+        "en": "An exhibition that invites you to discover some heroines!"
+      },
+      "longDescription": {
+        "fr": "L'exposition \"Portraits d'héroïnes\" par Catel et Bocquetne est l'occasion de découvrir le portrait de quelques femmes qui, par leur combats politiques, citoyens et/ou personnels, ont permis aux femmes d'aujourd'hui de mener une vie libre et indépendante.",
+        "en": "The exhibition \"Portraits of Heroines\" by Catel and Bocquetne is an opportunity to discover the portrait of a few women who, through their political struggles, citizens and/or personal, have enabled today’s women to lead a free and independent life."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "873794bab85849d1887d865fd5587c30.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "873794bab85849d1887d865fd5587c30.full.image.jpg",
+            "size": {
+              "height": 2609,
+              "width": 1844
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "873794bab85849d1887d865fd5587c30.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-10T14:00:00.000Z",
+          "end": "2020-03-10T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T12:30:00.000Z",
+          "end": "2020-03-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T14:00:00.000Z",
+          "end": "2020-03-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T14:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T08:30:00.000Z",
+          "end": "2020-03-14T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T14:00:00.000Z",
+          "end": "2020-03-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T12:30:00.000Z",
+          "end": "2020-03-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T14:00:00.000Z",
+          "end": "2020-03-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T14:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T08:30:00.000Z",
+          "end": "2020-03-21T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T14:00:00.000Z",
+          "end": "2020-03-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T12:30:00.000Z",
+          "end": "2020-03-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T14:00:00.000Z",
+          "end": "2020-03-26T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T14:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T08:30:00.000Z",
+          "end": "2020-03-28T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T13:00:00.000Z",
+          "end": "2020-03-31T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T11:30:00.000Z",
+          "end": "2020-04-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T13:00:00.000Z",
+          "end": "2020-04-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T13:00:00.000Z",
+          "end": "2020-04-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T07:30:00.000Z",
+          "end": "2020-04-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T13:00:00.000Z",
+          "end": "2020-04-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T11:30:00.000Z",
+          "end": "2020-04-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T13:00:00.000Z",
+          "end": "2020-04-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T13:00:00.000Z",
+          "end": "2020-04-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T07:30:00.000Z",
+          "end": "2020-04-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:00:00.000Z",
+          "end": "2020-04-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T13:00:00.000Z",
+          "end": "2020-04-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T11:30:00.000Z",
+          "end": "2020-04-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T13:00:00.000Z",
+          "end": "2020-04-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T13:00:00.000Z",
+          "end": "2020-04-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T07:30:00.000Z",
+          "end": "2020-04-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T13:00:00.000Z",
+          "end": "2020-04-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T11:30:00.000Z",
+          "end": "2020-04-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T13:00:00.000Z",
+          "end": "2020-04-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T13:00:00.000Z",
+          "end": "2020-04-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T07:30:00.000Z",
+          "end": "2020-04-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:00:00.000Z",
+          "end": "2020-04-25T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T13:00:00.000Z",
+          "end": "2020-04-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T11:30:00.000Z",
+          "end": "2020-04-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T13:00:00.000Z",
+          "end": "2020-04-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T13:00:00.000Z",
+          "end": "2020-05-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T07:30:00.000Z",
+          "end": "2020-05-02T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T12:00:00.000Z",
+          "end": "2020-05-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T13:00:00.000Z",
+          "end": "2020-05-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T11:30:00.000Z",
+          "end": "2020-05-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T13:00:00.000Z",
+          "end": "2020-05-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T13:00:00.000Z",
+          "end": "2020-05-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T07:30:00.000Z",
+          "end": "2020-05-09T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T12:00:00.000Z",
+          "end": "2020-05-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T13:00:00.000Z",
+          "end": "2020-05-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T11:30:00.000Z",
+          "end": "2020-05-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T13:00:00.000Z",
+          "end": "2020-05-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T13:00:00.000Z",
+          "end": "2020-05-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T07:30:00.000Z",
+          "end": "2020-05-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T12:00:00.000Z",
+          "end": "2020-05-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T13:00:00.000Z",
+          "end": "2020-05-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T11:30:00.000Z",
+          "end": "2020-05-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T13:00:00.000Z",
+          "end": "2020-05-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T13:00:00.000Z",
+          "end": "2020-05-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T07:30:00.000Z",
+          "end": "2020-05-23T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T12:00:00.000Z",
+          "end": "2020-05-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T13:00:00.000Z",
+          "end": "2020-05-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T11:30:00.000Z",
+          "end": "2020-05-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T13:00:00.000Z",
+          "end": "2020-05-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T13:00:00.000Z",
+          "end": "2020-05-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T07:30:00.000Z",
+          "end": "2020-05-30T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T12:00:00.000Z",
+          "end": "2020-05-30T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T13:00:00.000Z",
+          "end": "2020-06-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T11:30:00.000Z",
+          "end": "2020-06-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T13:00:00.000Z",
+          "end": "2020-06-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T13:00:00.000Z",
+          "end": "2020-06-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T07:30:00.000Z",
+          "end": "2020-06-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T12:00:00.000Z",
+          "end": "2020-06-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T13:00:00.000Z",
+          "end": "2020-06-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T11:30:00.000Z",
+          "end": "2020-06-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T13:00:00.000Z",
+          "end": "2020-06-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T13:00:00.000Z",
+          "end": "2020-06-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T07:30:00.000Z",
+          "end": "2020-06-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T12:00:00.000Z",
+          "end": "2020-06-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T13:00:00.000Z",
+          "end": "2020-06-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T11:30:00.000Z",
+          "end": "2020-06-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T13:00:00.000Z",
+          "end": "2020-06-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T13:00:00.000Z",
+          "end": "2020-06-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T07:30:00.000Z",
+          "end": "2020-06-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T12:00:00.000Z",
+          "end": "2020-06-20T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T13:00:00.000Z",
+          "end": "2020-06-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T11:30:00.000Z",
+          "end": "2020-06-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T13:00:00.000Z",
+          "end": "2020-06-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T13:00:00.000Z",
+          "end": "2020-06-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T07:30:00.000Z",
+          "end": "2020-06-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T12:00:00.000Z",
+          "end": "2020-06-27T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-30T13:00:00.000Z",
+          "end": "2020-06-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T11:30:00.000Z",
+          "end": "2020-07-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T13:00:00.000Z",
+          "end": "2020-07-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T13:00:00.000Z",
+          "end": "2020-07-03T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:43:15.000Z",
+      "createdAt": "2019-12-03T10:27:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 79135143,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 79135143,
+        "slug": "mediatheque-jean-loup-trassard-1-esplanade-francois-mitterrand-53100-mayenne",
+        "name": "Médiathèque Jean-Loup Trassard - Pôle culturel Le Grand Nord",
+        "address": "Esplanade François Mitterrand 53100 Mayenne",
+        "city": "Mayenne",
+        "region": "Pays de la Loire",
+        "department": "Mayenne",
+        "postalCode": "53100",
+        "insee": "53147",
+        "countryCode": "FR",
+        "district": "Résidence Montana",
+        "latitude": 48.298119,
+        "longitude": -0.611061,
+        "updatedAt": "2019-12-03T10:38:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 11784028,
+        "custom": {
+          "organization": "Médiathèque Jean-Loup Trassard",
+          "contactName": "Audrey Lévêque",
+          "contactNumber": "02 43 11 19 71",
+          "contactPosition": "Assistante de conservation",
+          "email": "audrey.leveque@mayennecommunaute.fr"
+        }
+      }
+    },
+    {
+      "uid": 22970322,
+      "ownerUid": 11784028,
+      "creatorUid": 11784028,
+      "slug": "reflets-du-cinema",
+      "title": {
+        "fr": "Reflets du cinéma - Projection d'Aya de Yopougon et rencontre avec Marguerite Abouet",
+        "en": "Reflections of cinema - Projection of Aya de Yopougon and meeting with Marguerite Abouet"
+      },
+      "description": {
+        "fr": "Projection d'Aya de Yopougon de Marguerite Abouet et Clément Oubrerie",
+        "en": "Projection of Aya de Yopougon by Marguerite Abouet and Clément Oubrerie"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre des Reflets des cinémas africains, Atmosphères 53 propose une carte blanche de la médiathèque Jean-Loup Trassard. La projection du film _Aya de Yopougon_ relate l'Afrique des années 1970, à travers le regard d'Aya, jeune ivoirienne de 19 ans.\n\n**Cette séance sera présentée et accompagnée par Marguerite Abouet, réalisatrice du film et autrice de la bande dessinée du même nom. Elle sera suivie d'une dédicace et d'une vente de livres, en présence de la librairie du Marais**",
+        "en": "As part of the Reflets des cinémas africains, Atmosphères 53 offers a carte blanche of the Jean-Loup Trassard media library. The screening of the film _Aya de Yopougon_ tells the story of Africa in the 1970s, through the eyes of Aya, a 19-year-old Ivorian girl.\n**This session will be presented and accompanied by Marguerite Abouet, director of the film and author of the comic book of the same name. It will be followed by a dedication and a book sale, in the presence of the Marais bookstore**"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "671246d0eae04f86aa9822f578b833a3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 372,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "671246d0eae04f86aa9822f578b833a3.full.image.jpg",
+            "size": {
+              "height": 850,
+              "width": 1600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "671246d0eae04f86aa9822f578b833a3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-15T13:00:00.000Z",
+          "end": "2020-03-15T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:43:07.000Z",
+      "createdAt": "2019-12-03T10:35:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90033925,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 13,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 90033925,
+        "slug": "le-vox-mayenne",
+        "name": "Cinéma Le Vox",
+        "address": "16 place Juhel 53100 Mayenne",
+        "city": "Mayenne",
+        "region": "Pays de la Loire",
+        "department": "Mayenne",
+        "postalCode": "53100",
+        "insee": "53147",
+        "countryCode": "FR",
+        "district": "Résidence Montana",
+        "latitude": 48.302353,
+        "longitude": -0.620405,
+        "updatedAt": "2019-12-03T10:38:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Tarif du festival",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Reflets du cinéma - Atmosphères 53",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Atmosphères 53",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 11784028,
+        "custom": {
+          "organization": "Médiathèque Jean-Loup Trassard",
+          "contactName": "Audrey Lévêque",
+          "contactNumber": "02 43 11 19 71",
+          "contactPosition": "Assistante de conservation",
+          "email": "audrey.leveque@mayennecommunaute.fr"
+        }
+      }
+    },
+    {
+      "uid": 78401484,
+      "ownerUid": 11784028,
+      "creatorUid": 11784028,
+      "slug": "rencontre-avec-claire-bouilhac",
+      "title": {
+        "fr": "Rencontre avec Claire Bouilhac",
+        "en": "Meeting with Claire Bouilhac"
+      },
+      "description": {
+        "fr": "Rencontre-dédicace avec Claire Bouilhac",
+        "en": "Signing meeting with Claire Bouilhac"
+      },
+      "longDescription": {
+        "fr": "Claire Bouilhac est une dessinatrice de bande dessinée (Journal de Spirou, Fluide Glacial, Francis Blaireau Farceur...) qui collabore depuis quelques années avec Catel autour d'un thème qui leur est cher : le féminisme. De passage à Mayenne pour rencontrer des élèves elle sera également à la médiathèque pour parler de l'exposition et de son travail.",
+        "en": "Claire Bouilhac is a cartoonist (Journal de Spirou, Fluide Glacial, Francis Blaireau Farceur...) who has been collaborating with Catel for several years on a theme that is dear to them: feminism. While in Mayenne to meet students she will also be at the media library to talk about the exhibition and her work."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58e22e6d0c814e3fa58c432f76a909e3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58e22e6d0c814e3fa58c432f76a909e3.full.image.jpg",
+            "size": {
+              "height": 2609,
+              "width": 1844
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58e22e6d0c814e3fa58c432f76a909e3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-29T13:30:00.000Z",
+          "end": "2020-04-29T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:43:12.000Z",
+      "createdAt": "2019-12-03T10:39:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 79135143,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 79135143,
+        "slug": "mediatheque-jean-loup-trassard-1-esplanade-francois-mitterrand-53100-mayenne",
+        "name": "Médiathèque Jean-Loup Trassard - Pôle culturel Le Grand Nord",
+        "address": "Esplanade François Mitterrand 53100 Mayenne",
+        "city": "Mayenne",
+        "region": "Pays de la Loire",
+        "department": "Mayenne",
+        "postalCode": "53100",
+        "insee": "53147",
+        "countryCode": "FR",
+        "district": "Résidence Montana",
+        "latitude": 48.298119,
+        "longitude": -0.611061,
+        "updatedAt": "2019-12-03T10:38:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 11784028,
+        "custom": {
+          "organization": "Médiathèque Jean-Loup Trassard",
+          "contactName": "Audrey Lévêque",
+          "contactNumber": "02 43 11 19 71",
+          "contactPosition": "Assistante de conservation",
+          "email": "audrey.leveque@mayennecommunaute.fr"
+        }
+      }
+    },
+    {
+      "uid": 85101271,
+      "ownerUid": 9401155,
+      "creatorUid": 9401155,
+      "slug": "rencontre-bd-avec-joel-allesandra",
+      "title": {
+        "fr": "Rencontre BD avec Joël Allesandra",
+        "en": "Comic book interview with Joël Allesandra"
+      },
+      "description": {
+        "fr": "Joël Alessandra nous fait voyager de par le monde à travers ses carnets de voyages et ses récits de vie. Rencontre proposée dans le cadre du prix BD Fernand Pelloutier 2020",
+        "en": "Joël Alessandra makes us travel around the world through his travel notebooks and his life stories. Meeting proposed in the framework of the BD Fernand Pelloutier Prize 2020"
+      },
+      "longDescription": {
+        "fr": "Joël Alessandra nous fait voyager de par le monde à travers ses carnets de voyages et ses récits de vie. Avec « **Lady Whisky** » (éd. Casterman), il nous emmène en Ecosse, pour une enquête sur les traces d’Helen Arthur, grande critique de Whisky, aujourd’hui disparue.\n\nRencontre proposée dans le cadre du prix **BD Fernand Pelloutier 2020** « Deux mille vins et spiritueux » initié par le CCP (Centre de Culture Populaire de Saint-Nazaire).\n\nLa rencontre sera suivie d’une séance de **vente-dédicaces.**\n\nDurée : 1h 30",
+        "en": "Joël Alessandra makes us travel around the world through his travel notebooks and his life stories. With «**Lady Whisky**» (ed. Casterman), he takes us to Scotland, for an investigation into the footsteps of Helen Arthur, a great critic of Whisky, now missing.\nMeeting proposed as part of the **BD Fernand Pelloutier Prize 2020** «Two thousand wines and spirits» initiated by the CCP (Centre de Culture Populaire de Saint-Nazaire).\nThe meeting will be followed by a **sale-dedication session.**\nRunning time: 1h 30"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Accès gratuit. Réservation conseillée au 02 44 73 45 60",
+        "en": "Free access. Recommended reservation at 02 44 73 45 60"
+      },
+      "image": {
+        "filename": "8fa23a094a7c4df9b8da8452d7639e53.base.image.jpg",
+        "credits": "© éd. Casterman",
+        "size": {
+          "height": 939,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8fa23a094a7c4df9b8da8452d7639e53.full.image.jpg",
+            "size": {
+              "height": 1694,
+              "width": 1263
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8fa23a094a7c4df9b8da8452d7639e53.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T17:00:00.000Z",
+          "end": "2020-03-05T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:42:58.000Z",
+      "createdAt": "2019-12-03T11:05:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48795388,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "02 44 73 45 60"
+      ],
+      "location": {
+        "uid": 48795388,
+        "slug": "mediatheque-etienne-caux46",
+        "name": "Médiathèque Étienne Caux",
+        "address": "6 rue Auguste Baptiste Lechat 44600 Saint-Nazaire",
+        "city": "Saint-Nazaire",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44600",
+        "insee": "44184",
+        "countryCode": "FR",
+        "district": "Toutes-Aides",
+        "latitude": 47.279418,
+        "longitude": -2.217629,
+        "updatedAt": "2019-12-03T11:11:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 9401155,
+        "custom": {
+          "organization": "Médiathèque de Saint-Nazaire",
+          "contactName": "Elsa Cluet",
+          "contactNumber": "02 44 73 45 55",
+          "contactPosition": "reponsable Communication",
+          "email": "cluete@mairie-saintnazaire.fr"
+        }
+      }
+    },
+    {
+      "uid": 41819295,
+      "ownerUid": 9401155,
+      "creatorUid": 9401155,
+      "slug": "rencontre-avec-isabelle-mandrou-illustratrice-bd",
+      "title": {
+        "fr": "Rencontre avec Isabelle Mandrou, illustratrice BD",
+        "en": "Meeting with Isabelle Mandrou, comic book illustrator"
+      },
+      "description": {
+        "fr": "Isabelle Mandrou, alias Miss Prickly, est l’illustratrice de la bande dessinée jeunesse « Les cochons dingues » (éd. Delcourt). Elle a également illustré les séries « A cheval » et « Animal Jack »",
+        "en": "Isabelle Mandrou, aka Miss Prickly, is the illustrator of the youth comic book «Les cochons dingues» (ed. Delcourt). She also illustrated the series «A cheval» and «Animal Jack»"
+      },
+      "longDescription": {
+        "fr": "Isabelle Mandrou, alias **Miss Prickly**, est l’illustratrice de la bande dessinée jeunesse « **Les cochons dingues** » (éd. Delcourt). Elle a également illustré les séries « **A cheval** » (éd. Delcourt) et « **Animal Jack** » (éd. Dupuis).\n\nCette rencontre sera l’occasion d’en apprendre plus sur le métier d’illustratrice, sur son parcours et d’échanger avec elle.\n\nUne vente-dédicace sera proposée à l’issue de cette rencontre.\n\nAnimation proposée dans le cadre du prix « Bulles en fureur », prix piloté par la Protection judicaire de la jeunesse.\n\nDurée : 1h",
+        "en": "Isabelle Mandrou, aka **Miss Prickly**, is the illustrator of the youth comic book «**Les cochons dingues**» (ed. Delcourt). She also illustrated the series «**A cheval**» (ed. Delcourt) and «**Animal Jack**» (ed. Dupuis).\nThis meeting will be an opportunity to learn more about the profession of illustrator, on its journey and to exchange with her.\nA sale and dedication will be proposed at the end of this meeting.\nAnimation proposed as part of the prize «Bubbles in Fury», award led by the Protection judicaire de la jeunesse.\nDuration: 1 hour"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Accès gratuit. Réservation conseillée au 02 44 73 45 60.",
+        "en": "Free access. Recommended reservation at 02 44 73 45 60."
+      },
+      "image": {
+        "filename": "51daa21d466d47e09a4849bf67a2790c.base.image.jpg",
+        "credits": "© Hachette",
+        "size": {
+          "height": 622,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "51daa21d466d47e09a4849bf67a2790c.full.image.jpg",
+            "size": {
+              "height": 1332,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "51daa21d466d47e09a4849bf67a2790c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-11T13:00:00.000Z",
+          "end": "2020-04-11T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:42:54.000Z",
+      "createdAt": "2019-12-03T12:07:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48795388,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "02 44 73 45 60",
+        "mediatheque@mairie-saintnazaire.fr"
+      ],
+      "location": {
+        "uid": 48795388,
+        "slug": "mediatheque-etienne-caux46",
+        "name": "Médiathèque Étienne Caux",
+        "address": "6 rue Auguste Baptiste Lechat 44600 Saint-Nazaire",
+        "city": "Saint-Nazaire",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44600",
+        "insee": "44184",
+        "countryCode": "FR",
+        "district": "Toutes-Aides",
+        "latitude": 47.279418,
+        "longitude": -2.217629,
+        "updatedAt": "2019-12-03T11:11:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 9401155,
+        "custom": {
+          "organization": "Médiathèque de Saint-Nazaire",
+          "contactName": "Elsa Cluet",
+          "contactNumber": "02 44 73 45 55",
+          "contactPosition": "reponsable Communication",
+          "email": "cluete@mairie-saintnazaire.fr"
+        }
+      }
+    },
+    {
+      "uid": 94339921,
+      "ownerUid": 9401155,
+      "creatorUid": 9401155,
+      "slug": "la-lecon-de-bd-demmanuel-guibert",
+      "title": {
+        "fr": "La leçon de BD d'Emmanuel Guibert",
+        "en": "Emmanuel Guibert’s comic book lesson"
+      },
+      "description": {
+        "fr": "L’auteur de « La guerre d’Alan », du « Photographe » ou encore d’ « Ariol », ouvre les portes de son atelier au public le temps d’une rencontre.",
+        "en": "The author of “Alan’s War”, “Photographer” or “Ariol”, opens the doors of his workshop to the public during a meeting."
+      },
+      "longDescription": {
+        "fr": "L’auteur de « **La guerre d’Alan** », du « **Photographe** » ou encore d’ « **Ariol** », ouvre les portes de son atelier au public le temps d’une rencontre.\n\nEmmanuel Guibert, lauréat du prix René-Goscinny au Festival BD d’Angoulême 2017, présentera son approche de la bande dessinée et ses techniques de travail. Une « master class » qui vous permettra d’en savoir un peu plus sur les coulisses de la création d’un album.\n\nDurée : 1h30 environ.",
+        "en": "The author **of “Alan’s War**”, “**Photographe**r” or “**Ariol**”, opens the doors of his workshop to the public during a meeting.\nEmmanuel Guibert, winner of the René-Goscinny Prize at the 2017 Angoulême BD Festival, will present his approach to comic books and his working techniques. A \"master class\" that will allow you to learn a little more about the background of the creation of an album.\nDuration: 1h30 approx."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Réservation conseillée au 02 44 73 45 60",
+        "en": "Recommended reservation at 02 44 73 45 60"
+      },
+      "image": {
+        "filename": "c04047771b7d4f0a857fd480727f6c83.base.image.jpg",
+        "credits": "© Emmanuel Guibert",
+        "size": {
+          "height": 533,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c04047771b7d4f0a857fd480727f6c83.full.image.jpg",
+            "size": {
+              "height": 2281,
+              "width": 3000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c04047771b7d4f0a857fd480727f6c83.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-04T09:30:00.000Z",
+          "end": "2020-01-04T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:43:02.000Z",
+      "createdAt": "2019-12-03T13:11:00.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48795388,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "02 44 73 45 60",
+        "mediatheque@mairie-saintnazaire.fr"
+      ],
+      "location": {
+        "uid": 48795388,
+        "slug": "mediatheque-etienne-caux46",
+        "name": "Médiathèque Étienne Caux",
+        "address": "6 rue Auguste Baptiste Lechat 44600 Saint-Nazaire",
+        "city": "Saint-Nazaire",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44600",
+        "insee": "44184",
+        "countryCode": "FR",
+        "district": "Toutes-Aides",
+        "latitude": 47.279418,
+        "longitude": -2.217629,
+        "updatedAt": "2019-12-03T11:11:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 771,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 9401155,
+        "custom": {
+          "organization": "Médiathèque de Saint-Nazaire",
+          "contactName": "Elsa Cluet",
+          "contactNumber": "02 44 73 45 55",
+          "contactPosition": "reponsable Communication",
+          "email": "cluete@mairie-saintnazaire.fr"
+        }
+      }
+    },
+    {
+      "uid": 70704533,
+      "ownerUid": 9401155,
+      "creatorUid": 9401155,
+      "slug": "466179",
+      "title": {
+        "fr": "Rencontre-dédicace avec l'auteur de BD Emmanuel Guibert",
+        "en": "Signing meeting with comic book author Emmanuel Guibert"
+      },
+      "description": {
+        "fr": "Un rendez-vous pour aborder l’œuvre d’Emmanuel Guibert, notamment son amitié avec Alan Ingram Cope, un ancien vétéran américain qui lui inspira cinq albums aux éditions de L'association",
+        "en": "A rendezvous to discuss Emmanuel Guibert’s work, including his friendship with Alan Ingram Cope, a former American veteran who inspired him with five albums in L'Association editions"
+      },
+      "longDescription": {
+        "fr": "À l’occasion de l’exposition « **Emmanuel Guibert**, le dessin pour mémoire » (du 1er octobre au 4 janvier 2020), la médiathèque E. Caux propose de rencontrer cet auteur emblématique ayant marqué sa génération.\n\nCe rendez-vous sera l'occasion d'aborder l’œuvre d’Emmanuel Guibert, notamment son amitié avec **Alan Ingram Cope**, un vétéran américain qui lui inspira cinq albums aux éditions de L'association.\n\nIl évoquera également son parcours, ses travaux en cours et ses projets.\n\nRencontre animée par la Mystérieuse Librairie Nantaise.",
+        "en": "On the occasion of the exhibition «**Emmanuel Guibert**, le dessin pour mémoire» (from October 1 to January 4, 2020), the media library E. Caux proposes to meet this emblematic author who has marked his generation.\nThis event will be an opportunity to discuss Emmanuel Guibert’s work, including his friendship with **Alan Ingram Cope**, an American veteran who inspired him with five albums in L'association editions.\nHe will also discuss his background, current work and projects.\nMeeting hosted by the Mysterious Bookstore of Nantes."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Réservation conseillée au 02 44 73 45 60",
+        "en": "Recommended reservation at 02 44 73 45 60"
+      },
+      "image": {
+        "filename": "875848c60b9140f48d4ae1a161666e47.base.image.jpg",
+        "credits": "© Emmanuel Guibert - L'enfance d'Alan (éd. L'association)",
+        "size": {
+          "height": 760,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "875848c60b9140f48d4ae1a161666e47.full.image.jpg",
+            "size": {
+              "height": 3458,
+              "width": 3187
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "875848c60b9140f48d4ae1a161666e47.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-04T14:00:00.000Z",
+          "end": "2020-01-04T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:43:00.000Z",
+      "createdAt": "2019-12-03T13:18:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48795388,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "02 44 73 45 60",
+        "mediatheque@mairie-saintnazaire.fr"
+      ],
+      "location": {
+        "uid": 48795388,
+        "slug": "mediatheque-etienne-caux46",
+        "name": "Médiathèque Étienne Caux",
+        "address": "6 rue Auguste Baptiste Lechat 44600 Saint-Nazaire",
+        "city": "Saint-Nazaire",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44600",
+        "insee": "44184",
+        "countryCode": "FR",
+        "district": "Toutes-Aides",
+        "latitude": 47.279418,
+        "longitude": -2.217629,
+        "updatedAt": "2019-12-03T11:11:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "La Mystérieuse Librairie Nantaise",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 9401155,
+        "custom": {
+          "organization": "Médiathèque de Saint-Nazaire",
+          "contactName": "Elsa Cluet",
+          "contactNumber": "02 44 73 45 55",
+          "contactPosition": "reponsable Communication",
+          "email": "cluete@mairie-saintnazaire.fr"
+        }
+      }
+    },
+    {
+      "uid": 88476824,
+      "ownerUid": 71345224,
+      "creatorUid": 71345224,
+      "slug": "le-coin-de-la-bd",
+      "title": {
+        "fr": "Le coin de la BD - Rétrospective 2019",
+        "en": "Le coin de la BD - Retrospective 2019"
+      },
+      "description": {
+        "fr": "Rétrospective 2019 : venez découvrir une sélection des bandes dessinées les plus captivantes, drôles et émouvantes de l'année 2019",
+        "en": "2019 Retrospective: Discover a selection of the most captivating, funny and moving cartoons of the year 2019"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1b92a2735203472eb8c7a5748f665a5b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 392,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1b92a2735203472eb8c7a5748f665a5b.full.image.jpg",
+            "size": {
+              "height": 752,
+              "width": 1344
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1b92a2735203472eb8c7a5748f665a5b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T17:00:00.000Z",
+          "end": "2020-01-21T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:42:56.000Z",
+      "createdAt": "2019-12-03T13:33:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 70554203,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 70554203,
+        "slug": "mediatheque-le-singuliers669",
+        "name": "Médiathèque Le Singuliers",
+        "address": "3 boulevard Joseph Rosselli 69220 Belleville-en-Beaujolais",
+        "city": "Belleville-en-Beaujolais",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Rhône",
+        "postalCode": "69220",
+        "insee": "69019",
+        "countryCode": "FR",
+        "district": "Belleville",
+        "latitude": 46.106371,
+        "longitude": 4.746996,
+        "updatedAt": "2019-12-03T13:44:19.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71345224,
+        "custom": {
+          "organization": "Médiathèque Le SingulierS",
+          "contactName": "Bruno Moulary",
+          "contactNumber": "0474061114",
+          "contactPosition": "bibliothécaire en charge du rayon BD ado-adulte",
+          "email": "b.moulary@lesinguliers.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2089733
+}

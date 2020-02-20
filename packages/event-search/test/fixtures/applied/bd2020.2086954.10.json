@@ -1,0 +1,3072 @@
+{
+  "events": [
+    {
+      "uid": 3964189,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "detournement-de-bandes-dessinees_309757",
+      "title": {
+        "fr": "Détournement de bandes dessinées",
+        "en": "Hijacking of comic books"
+      },
+      "description": {
+        "fr": "Détournement de bandes dessinées",
+        "en": "Hijacking of comic books"
+      },
+      "longDescription": {
+        "fr": "Détournement de bandes dessinées : à vous de faire parler vos personnages de bande dessinée préférés. À partir de 12 ans",
+        "en": "Comic Book Hijacking: It’s up to you to make your favorite comic book characters talk. From 12 years old"
+      },
+      "keywords": {
+        "fr": [
+          "bd",
+          "bande dessinée",
+          "personnages"
+        ]
+      },
+      "conditions": {
+        "fr": "Dans la limite des places disponibles.",
+        "en": "Within the space available."
+      },
+      "image": {
+        "filename": "6a5f417e33e84eb7b76e226078dd56cc.base.image.jpg",
+        "credits": "CASA",
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6a5f417e33e84eb7b76e226078dd56cc.full.image.jpg",
+            "size": {
+              "height": 1600,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6a5f417e33e84eb7b76e226078dd56cc.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:15.000Z",
+      "createdAt": "2019-11-29T10:22:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 45211223,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 45211223,
+        "slug": "mediatheque-sonia-delaunay",
+        "name": "Médiathèque Sonia Delaunay",
+        "address": "4 chemin Neuf 06410 Biot",
+        "city": "Biot",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06410",
+        "insee": "06018",
+        "countryCode": "FR",
+        "district": "Saint-Philippe",
+        "latitude": 43.628014,
+        "longitude": 7.096062,
+        "updatedAt": "2019-11-29T10:23:14.000Z",
+        "image": null,
+        "description": {
+          "fr": "1 000 m² construits dans l’ancienne poterie, patrimoine du village de Biot.\nPôles d’excellence : les arts du feu, l’art du XXe siècle, le design industriel et les technologies de l’information et de la communication.\nEspaces :\n• Jeunesse,\n• Adultes & Documentation Commune,\n• Musiques et cinéma avec jeux vidéo en accès libre,\n• Salle d'action culturelle,\n• Espace café, presse,\n• Un patio offre une salle de lecture en extérieur.\n\nHoraires :\nMardi : 10h - 13h / 14h - 18h\nMercredi : 10h - 13h / 14h - 18h\nJeudi : 15h - 18h\nVendredi : 15h - 18h\nSamedi : 10h - 13h / 14h - 18h"
+        },
+        "website": "http://www.ma-mediatheque.net/",
+        "email": null,
+        "phone": "04 83 88 10 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 89983406,
+      "ownerUid": 80291850,
+      "creatorUid": 80291850,
+      "slug": "exposition-le-laboratoire-de-la-bd",
+      "title": {
+        "fr": "Exposition \"Le laboratoire de la BD\"",
+        "en": "Exhibition \"The Comic Strip Laboratory\""
+      },
+      "description": {
+        "fr": "Découverte de la BD au travers d'une exposition intéractive",
+        "en": "Discovery of comics through an interactive exhibition"
+      },
+      "longDescription": {
+        "fr": "Exposition jeunesse de panneaux interactifs qui explique les codes de la bande dessinée de façon simple et ludique. Toutes les explications sont suivies d’exercices et de jeux. C’est vraiment le monde de la bande dessinée qui devient tout à coup très accessible !\n\nL’exposition est basée sur l’univers graphique de Riff Reb’s et en particulier sur la bande dessinée jeunesse _La Carotte aux étoiles_ (éditions de la Gouttière).",
+        "en": "Youth exhibition of interactive panels that explains comic book codes in a simple and playful way. All the explanations are followed by exercises and games. It is really the world of comics that suddenly becomes very accessible!\nThe exhibition is based on the graphic universe of Riff Reb’s and in particular on the comic strip _La Carotte aux étoiles_ (editions de la Gouttière)."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2468695f2b3041378f3314a64b7c4426.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1000,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2468695f2b3041378f3314a64b7c4426.full.image.jpg",
+            "size": {
+              "height": 857,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2468695f2b3041378f3314a64b7c4426.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-06T07:00:00.000Z",
+          "end": "2020-05-06T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T12:30:00.000Z",
+          "end": "2020-05-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T07:00:00.000Z",
+          "end": "2020-05-07T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T07:00:00.000Z",
+          "end": "2020-05-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T12:30:00.000Z",
+          "end": "2020-05-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T07:00:00.000Z",
+          "end": "2020-05-09T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T07:00:00.000Z",
+          "end": "2020-05-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T07:00:00.000Z",
+          "end": "2020-05-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T12:30:00.000Z",
+          "end": "2020-05-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T07:00:00.000Z",
+          "end": "2020-05-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T07:00:00.000Z",
+          "end": "2020-05-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T12:30:00.000Z",
+          "end": "2020-05-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T07:00:00.000Z",
+          "end": "2020-05-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T07:00:00.000Z",
+          "end": "2020-05-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T07:00:00.000Z",
+          "end": "2020-05-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T12:30:00.000Z",
+          "end": "2020-05-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T07:00:00.000Z",
+          "end": "2020-05-21T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T07:00:00.000Z",
+          "end": "2020-05-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T12:30:00.000Z",
+          "end": "2020-05-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T07:00:00.000Z",
+          "end": "2020-05-23T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:17.000Z",
+      "createdAt": "2019-11-29T10:33:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 92589980,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 16
+      },
+      "registration": [],
+      "location": {
+        "uid": 92589980,
+        "slug": "mediatheque-de-barbentane864",
+        "name": "Médiathèque de Barbentane",
+        "address": "2 chemin de la Glaciere 13570 Barbentane",
+        "city": "Barbentane",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13570",
+        "insee": "13010",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.900147,
+        "longitude": 4.751902,
+        "updatedAt": "2019-11-29T10:32:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 80291850,
+        "custom": {
+          "organization": "Médiathèque de Barbentane",
+          "contactName": "Christine Dettling",
+          "contactNumber": "04 32 60 16 21",
+          "contactPosition": "Responsable",
+          "email": "mediatheque@barbentane.fr"
+        }
+      }
+    },
+    {
+      "uid": 4191193,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "atelier-decriture-et-echanges-avec-mickael-roux-auteur-de-bd",
+      "title": {
+        "fr": "Atelier d'écriture et échanges avec Mickaël Roux, auteur de BD",
+        "en": "Writing workshop and exchanges with Mickaël Roux, comic book author"
+      },
+      "description": {
+        "fr": "Rencontrer et jouer avec l'auteur de BD Mickaël Roux !",
+        "en": "Meet and play with comic book author Mickaël Roux!"
+      },
+      "longDescription": {
+        "fr": "La bibliothèque intercommunale et le collège André Duchesne accueilleront l'auteur Mickael Roux vendredi 17 janvier.\n\n**Un atelier d'écriture et un échange avec l'auteur est prévu sur le temps scolaire de 14h à 16h30 au collège de L'Ile Bouchard.**\n\nEnsuite un temps tout public, au Cube à Panzoult de18h à 20h, aura lieu pour échanger autour du métier d'auteur de BD puis un grand jeu sera animé par Mickaël Roux \"Dessiné c'est gagné\" suivi d'un verre de l'amitié et d'une séquence dédicace-vente d'albums de l'auteur.",
+        "en": "The intercommunal library and the college André Duchesne will welcome the author Mickael Roux Friday, January 17.\n**A writing workshop and an exchange with the author is planned on school time from 2 to 4:30 pm at the Collège de L'Ile Bouchard.**\nThen a public time, at the Cube in Panzoult from 6pm to 20h, will take place to exchange around the job of comic book author then a great game will be animated by Mickaël Roux \"Dessiné c'est gagné\" followed by a glass of friendship and a dedication-sale sequence of albums of the author."
+      },
+      "keywords": {
+        "fr": [
+          "auteur BD",
+          "jeu dessiné c'est gagné",
+          "Mickaël Roux",
+          "décidace auteur"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "cfaf0bb74e6b45ddbb47fdfb3d16f16f.base.image.jpg",
+        "credits": "Mickael ROUX",
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cfaf0bb74e6b45ddbb47fdfb3d16f16f.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cfaf0bb74e6b45ddbb47fdfb3d16f16f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:24.000Z",
+      "createdAt": "2019-11-29T10:37:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64804994,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0247952009",
+        "biblio-bouchardais@cc-tvv.fr"
+      ],
+      "location": {
+        "uid": 64804994,
+        "slug": "college-andre-duchesne915",
+        "name": "Collège André Duchesne",
+        "address": "4 rue du Collège 37220 L'Île-Bouchard",
+        "city": "L'Île-Bouchard",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37220",
+        "insee": "37119",
+        "countryCode": "FR",
+        "district": "Le Prieuré de Saint-Léonard",
+        "latitude": 47.115949,
+        "longitude": 0.430222,
+        "updatedAt": "2019-11-29T10:33:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Collège de L'Ile Bouchard et la librairie Bédélire",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 2861519,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "rencontre-avec-mickael-roux-dedicace-grand-jeu-dessine-cest-gagne",
+      "title": {
+        "fr": "Rencontre avec Mickaël Roux, dédicace, grand jeu \"Dessiné c'est gagné\"",
+        "en": "Meeting with Mickaël Roux, dedication, great game \"Dessiné c'est gagné\""
+      },
+      "description": {
+        "fr": "Rencontrer et jouer avec l'auteur de BD Mickaël Roux !",
+        "en": "Meet and play with comic book author Mickaël Roux!"
+      },
+      "longDescription": {
+        "fr": "La bibliothèque intercommunale et le collège André Duchesne accueilleront l'auteur Mickael Roux vendredi 17 janvier.\n\nUn atelier d'écriture et un échange avec l'auteur est prévu sur le temps scolaire de 14h à 16h30 au collège de L'Ile Bouchard.\n\n**Ensuite un temps tout public, au Cube à Panzoult de18h à 20h, aura lieu pour échanger autour du métier d'auteur de BD puis un grand jeu sera animé par Mickaël Roux \"Dessiné c'est gagné\" suivi d'un verre de l'amitié et d'une séquence dédicace-vente d'albums de l'auteur.**",
+        "en": "The intercommunal library and the college André Duchesne will welcome the author Mickael Roux Friday, January 17.\nA writing workshop and an exchange with the author is planned on school time from 2 to 4:30 pm at the Collège de L'Ile Bouchard.\n**Then a public time, at the Cube in Panzoult from 6pm to 20h, will take place to exchange around the job of comic book author then a great game will be animated by Mickaël Roux \"Dessiné c'est gagné\" followed by a glass of friendship and a dedication-sale sequence of albums of the author.**"
+      },
+      "keywords": {
+        "fr": [
+          "auteur BD",
+          "jeu dessiné c'est gagné",
+          "Mickaël Roux",
+          "décidace auteur"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "cfaf0bb74e6b45ddbb47fdfb3d16f16f.base.image.jpg",
+        "credits": "Mickael ROUX",
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cfaf0bb74e6b45ddbb47fdfb3d16f16f.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cfaf0bb74e6b45ddbb47fdfb3d16f16f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T17:00:00.000Z",
+          "end": "2020-01-17T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:21.000Z",
+      "createdAt": "2019-11-29T10:44:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84770565,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "0247952009",
+        "biblio-bouchardais@cc-tvv.fr"
+      ],
+      "location": {
+        "uid": 84770565,
+        "slug": "le-cube236",
+        "name": "Le Cube",
+        "address": "14 route de Chinon 37220 Panzoult",
+        "city": "Panzoult",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37220",
+        "insee": "37178",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.146301,
+        "longitude": 0.401499,
+        "updatedAt": "2019-11-29T10:40:03.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://www.cc-tvv.fr/",
+        "email": null,
+        "phone": "02 47 95 20 09",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Collège de L'Ile Bouchard et la librairie Bédélire",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 69069143,
+      "ownerUid": 96519412,
+      "creatorUid": 96519412,
+      "slug": "les-peintres-et-leurs-tableaux-en-bd-rencontre-dedicace-avec-jean-dytar-dans-le-cadre-de-bdgreaterecouvertes",
+      "title": {
+        "fr": "BD>ECOUVERTES : les peintres et leurs tableaux en BD, rencontre-dédicace avec Jean Dytar",
+        "en": "BD>ECOUVERTES: the painters and their paintings in BD, meeting-dedication with Jean Dytar"
+      },
+      "description": {
+        "fr": "Rencontre/dédicace avec Jean Dytar en compagnie d'Emmanuelle Loizeau, historienne de l'art",
+        "en": "Meeting/dedication with Jean Dytar with Emmanuelle Loizeau, art historian"
+      },
+      "longDescription": {
+        "fr": "Comment contribuer au rayonnement d’une œuvre d’art par le biais d’une histoire racontée en images ? Comment représenter les peintres et leurs tableaux dans une BD ? Dans son album \"La vision de Bacchus\", Jean Dytar met en scène les peintres : Bellini, Antonello da Messina et Giorgione. De manière originale, il nous donne à voir les tableaux : \"Portrait d'homme\", \"Le Christ à la colonne\" d'Antonello da Messina, \"Vénus endormie\", \"La vieille\" de Giorgione. Invité d’honneur de Bd>couvertes, le dessinateur Jean Dytar nous propose un dialogue stimulant avec l’historienne de l’art Emmanuelle Loizeau.\n\nLa rencontre sera suivie du vernissage de l’exposition \"Du Louvre à Venise avec Jean Dytar\" et d’une séance de dédicaces.",
+        "en": "How to contribute to the influence of a work of art through a story told in pictures? How to represent painters and their paintings in a comic book? In his album \"La vision de Bacchus\", Jean Dytar directs the painters: Bellini, Antonello da Messina and Giorgione. In an original way, he gives us to see the paintings: \"Portrait of a man\", \"Christ in the column\" by Antonello da Messina, \"Sleeping Venus\", \"The old one\" by Giorgione. Guest of honor of Bd>couverts, the cartoonist Jean Dytar offers us a stimulating dialogue with the art historian Emmanuelle Loizeau.\nThe meeting will be followed by the opening of the exhibition \"From the Louvre in Venice with Jean Dytar\" and a signing session."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre dans la lmite des places disponibles",
+        "en": "Free admission to the hotel"
+      },
+      "image": {
+        "filename": "ac12082120774ba7ba496b3f36c3d786.base.image.jpg",
+        "credits": "Jean Dytar",
+        "size": {
+          "height": 930,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ac12082120774ba7ba496b3f36c3d786.full.image.jpg",
+            "size": {
+              "height": 1859,
+              "width": 1400
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ac12082120774ba7ba496b3f36c3d786.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T15:30:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:10.000Z",
+      "createdAt": "2019-11-29T10:32:59.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39582956,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://mediatheques.saintgermainenlaye.fr"
+      ],
+      "location": {
+        "uid": 39582956,
+        "slug": "mediatheque-du-jardin-des-arts-saint-germain-en-laye",
+        "name": "Médiathèque du jardin des arts",
+        "address": "9 rue Henri IV 78100 Saint-Germain-en-Laye",
+        "city": "Saint-Germain-en-Laye",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78100",
+        "insee": "78551",
+        "countryCode": "FR",
+        "district": "Saint-Germain-en-Laye",
+        "latitude": 48.896497,
+        "longitude": 2.097253,
+        "updatedAt": "2019-11-29T10:24:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Gibert-Joseph de Saint-Germain-en-Laye",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96519412,
+        "custom": {
+          "organization": "Médiathèques de Saint-germain-en-Laye",
+          "contactName": "MARC FONTANA",
+          "contactNumber": "+33170464000",
+          "contactPosition": "Directeur",
+          "email": "marc.fontana@saintgermainenlaye.fr"
+        }
+      }
+    },
+    {
+      "uid": 76442325,
+      "ownerUid": 96519412,
+      "creatorUid": 96519412,
+      "slug": "battle-de-dessins_835628",
+      "title": {
+        "fr": "BD>ECOUVERTES : battle de dessins",
+        "en": "BD>ECOUVERTES: battle of drawings"
+      },
+      "description": {
+        "fr": "Battle de dessins animée par le Collectif de dessinateurs Nékomix",
+        "en": "Battle of drawings animated by the Nékomix Cartoonist Collective"
+      },
+      "longDescription": {
+        "fr": "Deux dessinateurs, deux équipes pour les encourager, et des thèmes plus farfelus les uns que les autres ! Vous ne rêvez pas, cette battle sera un vrai cauchemar pour Nekomix, mais un super moment pour toute la famille.\n\nBattle de dessins animée par le Collectif de dessinateurs Nékomix.",
+        "en": "Two draughtsmen, two teams to encourage them, and more wacky themes than each other! You are not dreaming, this battle will be a real nightmare for Nekomix, but a great moment for the whole family.\nBattle of drawings animated by the Collectif de dessinateurs Nékomix."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T16:00:00.000Z",
+          "end": "2020-01-18T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:18.000Z",
+      "createdAt": "2019-11-29T10:40:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39582956,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://mediatheques.saintgermainenlaye.fr"
+      ],
+      "location": {
+        "uid": 39582956,
+        "slug": "mediatheque-du-jardin-des-arts-saint-germain-en-laye",
+        "name": "Médiathèque du jardin des arts",
+        "address": "9 rue Henri IV 78100 Saint-Germain-en-Laye",
+        "city": "Saint-Germain-en-Laye",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78100",
+        "insee": "78551",
+        "countryCode": "FR",
+        "district": "Saint-Germain-en-Laye",
+        "latitude": 48.896497,
+        "longitude": 2.097253,
+        "updatedAt": "2019-11-29T10:24:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96519412,
+        "custom": {
+          "organization": "Médiathèques de Saint-germain-en-Laye",
+          "contactName": "MARC FONTANA",
+          "contactNumber": "+33170464000",
+          "contactPosition": "Directeur",
+          "email": "marc.fontana@saintgermainenlaye.fr"
+        }
+      }
+    },
+    {
+      "uid": 76565722,
+      "ownerUid": 55053538,
+      "creatorUid": 55053538,
+      "slug": "il-etait-une-fois-dans-louest-lucky-luke-sur-les-pas-de-bartholdi_688956",
+      "title": {
+        "fr": "Il était une fois dans l'ouest, Lucky-Luke sur les pas de Bartholdi",
+        "en": "Once upon a time in the West, Lucky-Luke followed in Bartholdi’s footsteps"
+      },
+      "description": {
+        "fr": "En partenariat avec l'association \"L'Esprit BD\", le musée Bartholdi propose dans le cadre du Festival du livre de Colmar une exposition autour de la bande dessinée : \"Un cow boy à Paris\".",
+        "en": "In partnership with the association \"L'Esprit BD\", the Bartholdi Museum proposes in the framework of the Colmar Book Festival an exhibition around the comic book: \"A cow boy in Paris\"."
+      },
+      "longDescription": {
+        "fr": "Créée par Achdé et Jul, d'après Morris, ces nouvelles aventures de Lucky Luke nous font découvrir le sculpteur Auguste Bartholdi et l'histoire de son grand projet de la Statue de la Liberté. Le musée présente des documents d'époque qui ont inspiré les deux auteurs ainsi que des aquarelles originales que Bartholdi a peintes lors de son voyage dans le Far West.",
+        "en": "Created by Achdé and Jul, according to Morris, these new adventures of Lucky Luke make us discover the sculptor Auguste Bartholdi and the history of his great project of the Statue of Liberty. The museum presents period documents that inspired both authors as well as original watercolours that Bartholdi painted during his trip to the Wild West."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "07e3d55855694ee894cbee6bb368394e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "07e3d55855694ee894cbee6bb368394e.full.image.jpg",
+            "size": {
+              "height": 1754,
+              "width": 1240
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "07e3d55855694ee894cbee6bb368394e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-01T09:00:00.000Z",
+          "end": "2020-03-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T13:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T09:00:00.000Z",
+          "end": "2020-03-02T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T13:00:00.000Z",
+          "end": "2020-03-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T09:00:00.000Z",
+          "end": "2020-03-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T09:00:00.000Z",
+          "end": "2020-03-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T09:00:00.000Z",
+          "end": "2020-03-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T13:00:00.000Z",
+          "end": "2020-03-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T09:00:00.000Z",
+          "end": "2020-03-09T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T13:00:00.000Z",
+          "end": "2020-03-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T09:00:00.000Z",
+          "end": "2020-03-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T13:00:00.000Z",
+          "end": "2020-03-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T09:00:00.000Z",
+          "end": "2020-03-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T13:00:00.000Z",
+          "end": "2020-03-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T09:00:00.000Z",
+          "end": "2020-03-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T13:00:00.000Z",
+          "end": "2020-03-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-16T09:00:00.000Z",
+          "end": "2020-03-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-16T13:00:00.000Z",
+          "end": "2020-03-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T09:00:00.000Z",
+          "end": "2020-03-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T09:00:00.000Z",
+          "end": "2020-03-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T09:00:00.000Z",
+          "end": "2020-03-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T13:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-23T09:00:00.000Z",
+          "end": "2020-03-23T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-23T13:00:00.000Z",
+          "end": "2020-03-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T09:00:00.000Z",
+          "end": "2020-03-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T09:00:00.000Z",
+          "end": "2020-03-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T08:00:00.000Z",
+          "end": "2020-03-29T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T12:00:00.000Z",
+          "end": "2020-03-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-30T08:00:00.000Z",
+          "end": "2020-03-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-30T12:00:00.000Z",
+          "end": "2020-03-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T12:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T12:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T08:00:00.000Z",
+          "end": "2020-04-05T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T12:00:00.000Z",
+          "end": "2020-04-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T08:00:00.000Z",
+          "end": "2020-04-06T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T12:00:00.000Z",
+          "end": "2020-04-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:00:00.000Z",
+          "end": "2020-04-09T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T12:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:00:00.000Z",
+          "end": "2020-04-10T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T08:00:00.000Z",
+          "end": "2020-04-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T12:00:00.000Z",
+          "end": "2020-04-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T08:00:00.000Z",
+          "end": "2020-04-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T12:00:00.000Z",
+          "end": "2020-04-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:00:00.000Z",
+          "end": "2020-04-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T12:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:00:00.000Z",
+          "end": "2020-04-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T12:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T08:00:00.000Z",
+          "end": "2020-04-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T12:00:00.000Z",
+          "end": "2020-04-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T08:00:00.000Z",
+          "end": "2020-04-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T12:00:00.000Z",
+          "end": "2020-04-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T08:00:00.000Z",
+          "end": "2020-04-23T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T12:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T12:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T08:00:00.000Z",
+          "end": "2020-04-26T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T12:00:00.000Z",
+          "end": "2020-04-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T08:00:00.000Z",
+          "end": "2020-04-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T12:00:00.000Z",
+          "end": "2020-04-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:00:00.000Z",
+          "end": "2020-04-29T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T12:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T08:00:00.000Z",
+          "end": "2020-04-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T12:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T08:00:00.000Z",
+          "end": "2020-05-01T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T12:00:00.000Z",
+          "end": "2020-05-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T12:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T08:00:00.000Z",
+          "end": "2020-05-03T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T12:00:00.000Z",
+          "end": "2020-05-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T08:00:00.000Z",
+          "end": "2020-05-04T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T12:00:00.000Z",
+          "end": "2020-05-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:00:00.000Z",
+          "end": "2020-05-06T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T12:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T08:00:00.000Z",
+          "end": "2020-05-07T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T12:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T08:00:00.000Z",
+          "end": "2020-05-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T12:00:00.000Z",
+          "end": "2020-05-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T12:00:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T08:00:00.000Z",
+          "end": "2020-05-10T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T12:00:00.000Z",
+          "end": "2020-05-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T08:00:00.000Z",
+          "end": "2020-05-11T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T12:00:00.000Z",
+          "end": "2020-05-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T08:00:00.000Z",
+          "end": "2020-05-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T12:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T08:00:00.000Z",
+          "end": "2020-05-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T12:00:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T08:00:00.000Z",
+          "end": "2020-05-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T12:00:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T12:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:00:00.000Z",
+          "end": "2020-05-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T12:00:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T08:00:00.000Z",
+          "end": "2020-05-18T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T12:00:00.000Z",
+          "end": "2020-05-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:00:00.000Z",
+          "end": "2020-05-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T12:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T08:00:00.000Z",
+          "end": "2020-05-21T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T12:00:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T08:00:00.000Z",
+          "end": "2020-05-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T12:00:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:00:00.000Z",
+          "end": "2020-05-23T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T12:00:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T08:00:00.000Z",
+          "end": "2020-05-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T12:00:00.000Z",
+          "end": "2020-05-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-25T08:00:00.000Z",
+          "end": "2020-05-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-25T12:00:00.000Z",
+          "end": "2020-05-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:00:00.000Z",
+          "end": "2020-05-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T12:00:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T08:00:00.000Z",
+          "end": "2020-05-28T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T12:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T08:00:00.000Z",
+          "end": "2020-05-29T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T12:00:00.000Z",
+          "end": "2020-05-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T08:00:00.000Z",
+          "end": "2020-05-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T12:00:00.000Z",
+          "end": "2020-05-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T08:00:00.000Z",
+          "end": "2020-05-31T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T12:00:00.000Z",
+          "end": "2020-05-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-01T08:00:00.000Z",
+          "end": "2020-06-01T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-01T12:00:00.000Z",
+          "end": "2020-06-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:00:00.000Z",
+          "end": "2020-06-03T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T12:00:00.000Z",
+          "end": "2020-06-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T08:00:00.000Z",
+          "end": "2020-06-04T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T12:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:00:00.000Z",
+          "end": "2020-06-05T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T12:00:00.000Z",
+          "end": "2020-06-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T12:00:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T08:00:00.000Z",
+          "end": "2020-06-07T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T12:00:00.000Z",
+          "end": "2020-06-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-08T08:00:00.000Z",
+          "end": "2020-06-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-08T12:00:00.000Z",
+          "end": "2020-06-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:00:00.000Z",
+          "end": "2020-06-10T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T12:00:00.000Z",
+          "end": "2020-06-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T08:00:00.000Z",
+          "end": "2020-06-11T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T12:00:00.000Z",
+          "end": "2020-06-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T08:00:00.000Z",
+          "end": "2020-06-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T12:00:00.000Z",
+          "end": "2020-06-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T12:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T08:00:00.000Z",
+          "end": "2020-06-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T12:00:00.000Z",
+          "end": "2020-06-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-15T08:00:00.000Z",
+          "end": "2020-06-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-15T12:00:00.000Z",
+          "end": "2020-06-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T12:00:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T08:00:00.000Z",
+          "end": "2020-06-18T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T12:00:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T08:00:00.000Z",
+          "end": "2020-06-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T12:00:00.000Z",
+          "end": "2020-06-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T12:00:00.000Z",
+          "end": "2020-06-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T08:00:00.000Z",
+          "end": "2020-06-21T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T12:00:00.000Z",
+          "end": "2020-06-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-22T08:00:00.000Z",
+          "end": "2020-06-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-22T12:00:00.000Z",
+          "end": "2020-06-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:00:00.000Z",
+          "end": "2020-06-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T12:00:00.000Z",
+          "end": "2020-06-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T08:00:00.000Z",
+          "end": "2020-06-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T12:00:00.000Z",
+          "end": "2020-06-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T08:00:00.000Z",
+          "end": "2020-06-26T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T12:00:00.000Z",
+          "end": "2020-06-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T12:00:00.000Z",
+          "end": "2020-06-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T08:00:00.000Z",
+          "end": "2020-06-28T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T12:00:00.000Z",
+          "end": "2020-06-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-29T08:00:00.000Z",
+          "end": "2020-06-29T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-29T12:00:00.000Z",
+          "end": "2020-06-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T08:00:00.000Z",
+          "end": "2020-07-01T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T12:00:00.000Z",
+          "end": "2020-07-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T08:00:00.000Z",
+          "end": "2020-07-02T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T12:00:00.000Z",
+          "end": "2020-07-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T08:00:00.000Z",
+          "end": "2020-07-03T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T12:00:00.000Z",
+          "end": "2020-07-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T08:00:00.000Z",
+          "end": "2020-07-04T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T12:00:00.000Z",
+          "end": "2020-07-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-05T08:00:00.000Z",
+          "end": "2020-07-05T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-05T12:00:00.000Z",
+          "end": "2020-07-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-06T08:00:00.000Z",
+          "end": "2020-07-06T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-06T12:00:00.000Z",
+          "end": "2020-07-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T08:00:00.000Z",
+          "end": "2020-07-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T12:00:00.000Z",
+          "end": "2020-07-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T08:00:00.000Z",
+          "end": "2020-07-09T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T12:00:00.000Z",
+          "end": "2020-07-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T08:00:00.000Z",
+          "end": "2020-07-10T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T12:00:00.000Z",
+          "end": "2020-07-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T08:00:00.000Z",
+          "end": "2020-07-11T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T12:00:00.000Z",
+          "end": "2020-07-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-12T08:00:00.000Z",
+          "end": "2020-07-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-12T12:00:00.000Z",
+          "end": "2020-07-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-13T08:00:00.000Z",
+          "end": "2020-07-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-13T12:00:00.000Z",
+          "end": "2020-07-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T08:00:00.000Z",
+          "end": "2020-07-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T12:00:00.000Z",
+          "end": "2020-07-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T08:00:00.000Z",
+          "end": "2020-07-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T12:00:00.000Z",
+          "end": "2020-07-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T08:00:00.000Z",
+          "end": "2020-07-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T12:00:00.000Z",
+          "end": "2020-07-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T08:00:00.000Z",
+          "end": "2020-07-18T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T12:00:00.000Z",
+          "end": "2020-07-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T08:00:00.000Z",
+          "end": "2020-07-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T12:00:00.000Z",
+          "end": "2020-07-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-20T08:00:00.000Z",
+          "end": "2020-07-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-20T12:00:00.000Z",
+          "end": "2020-07-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T08:00:00.000Z",
+          "end": "2020-07-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T12:00:00.000Z",
+          "end": "2020-07-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T08:00:00.000Z",
+          "end": "2020-07-23T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T12:00:00.000Z",
+          "end": "2020-07-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T08:00:00.000Z",
+          "end": "2020-07-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T12:00:00.000Z",
+          "end": "2020-07-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T08:00:00.000Z",
+          "end": "2020-07-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T12:00:00.000Z",
+          "end": "2020-07-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T08:00:00.000Z",
+          "end": "2020-07-26T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T12:00:00.000Z",
+          "end": "2020-07-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-27T08:00:00.000Z",
+          "end": "2020-07-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-27T12:00:00.000Z",
+          "end": "2020-07-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T08:00:00.000Z",
+          "end": "2020-07-29T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T12:00:00.000Z",
+          "end": "2020-07-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T08:00:00.000Z",
+          "end": "2020-07-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T12:00:00.000Z",
+          "end": "2020-07-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T08:00:00.000Z",
+          "end": "2020-07-31T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T12:00:00.000Z",
+          "end": "2020-07-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T08:00:00.000Z",
+          "end": "2020-08-01T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T12:00:00.000Z",
+          "end": "2020-08-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T08:00:00.000Z",
+          "end": "2020-08-02T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T12:00:00.000Z",
+          "end": "2020-08-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-03T08:00:00.000Z",
+          "end": "2020-08-03T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-03T12:00:00.000Z",
+          "end": "2020-08-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T08:00:00.000Z",
+          "end": "2020-08-05T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T12:00:00.000Z",
+          "end": "2020-08-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T08:00:00.000Z",
+          "end": "2020-08-06T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T12:00:00.000Z",
+          "end": "2020-08-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T08:00:00.000Z",
+          "end": "2020-08-07T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T12:00:00.000Z",
+          "end": "2020-08-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T08:00:00.000Z",
+          "end": "2020-08-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T12:00:00.000Z",
+          "end": "2020-08-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T08:00:00.000Z",
+          "end": "2020-08-09T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T12:00:00.000Z",
+          "end": "2020-08-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-10T08:00:00.000Z",
+          "end": "2020-08-10T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-10T12:00:00.000Z",
+          "end": "2020-08-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T08:00:00.000Z",
+          "end": "2020-08-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T12:00:00.000Z",
+          "end": "2020-08-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T08:00:00.000Z",
+          "end": "2020-08-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T12:00:00.000Z",
+          "end": "2020-08-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T08:00:00.000Z",
+          "end": "2020-08-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T12:00:00.000Z",
+          "end": "2020-08-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T08:00:00.000Z",
+          "end": "2020-08-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T12:00:00.000Z",
+          "end": "2020-08-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T08:00:00.000Z",
+          "end": "2020-08-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T12:00:00.000Z",
+          "end": "2020-08-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-17T08:00:00.000Z",
+          "end": "2020-08-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-17T12:00:00.000Z",
+          "end": "2020-08-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T08:00:00.000Z",
+          "end": "2020-08-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T12:00:00.000Z",
+          "end": "2020-08-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T08:00:00.000Z",
+          "end": "2020-08-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T12:00:00.000Z",
+          "end": "2020-08-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T08:00:00.000Z",
+          "end": "2020-08-21T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T12:00:00.000Z",
+          "end": "2020-08-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T08:00:00.000Z",
+          "end": "2020-08-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T12:00:00.000Z",
+          "end": "2020-08-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T08:00:00.000Z",
+          "end": "2020-08-23T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T12:00:00.000Z",
+          "end": "2020-08-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-24T08:00:00.000Z",
+          "end": "2020-08-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-24T12:00:00.000Z",
+          "end": "2020-08-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T08:00:00.000Z",
+          "end": "2020-08-26T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T12:00:00.000Z",
+          "end": "2020-08-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T08:00:00.000Z",
+          "end": "2020-08-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T12:00:00.000Z",
+          "end": "2020-08-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T08:00:00.000Z",
+          "end": "2020-08-28T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T12:00:00.000Z",
+          "end": "2020-08-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T08:00:00.000Z",
+          "end": "2020-08-29T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T12:00:00.000Z",
+          "end": "2020-08-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T08:00:00.000Z",
+          "end": "2020-08-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T12:00:00.000Z",
+          "end": "2020-08-30T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:03.000Z",
+      "createdAt": "2019-11-28T10:54:15.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77478212,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 77478212,
+        "slug": "musee-barthold",
+        "name": "Musée Barthold",
+        "address": "30 rue des Marchands 68000 Colmar",
+        "city": "Colmar",
+        "region": "Grand Est",
+        "department": "Haut-Rhin",
+        "postalCode": "68000",
+        "insee": "68066",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.076609,
+        "longitude": 7.357482,
+        "updatedAt": "2019-11-28T10:52:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "4,50 à 6,50€",
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        617
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 55053538,
+        "custom": {
+          "organization": "Musée Bartholdi",
+          "contactName": "Catherine Berdal",
+          "contactNumber": "03 89 49 57 43",
+          "contactPosition": "Assistante du Conservateur",
+          "email": "sec.mbartholdi@colmar.fr"
+        }
+      }
+    },
+    {
+      "uid": 10812699,
+      "ownerUid": 96519412,
+      "creatorUid": 96519412,
+      "slug": "bdgreaterecouvertes-le-tableau-un-film-de-jean-francois-laguionie",
+      "title": {
+        "fr": "BD>ECOUVERTES : \"Le tableau\", un film d'animation de Jean-François Laguionie",
+        "en": "BD>ECOUVERTES: \"Le tableau\", an animated film by Jean-François Laguionie"
+      },
+      "description": {
+        "fr": "Un château, des jardins fleuris, une forêt menaçante, voilà ce qu’un peintre, pour des raisons mystérieuses, a laissé inachevé…\"Le tableau\", un film de Jean-François Laguionie",
+        "en": "A castle, flowered gardens, a threatening forest, this is what a painter, for mysterious reasons, left unfinished…\" The Painting\", a film by Jean-François Laguionie"
+      },
+      "longDescription": {
+        "fr": "Un château, des jardins fleuris, une forêt menaçante, voilà ce qu’un peintre, pour des raisons mystérieuses, a laissé inachevé… Dans ce tableau vivent les Toupins, les personnages entièrement peints, les Pafinis auxquels il manque quelques couleurs et les Reufs qui ne sont que des esquisses. S'estimant supérieurs, les Toupins prennent le pouvoir, chassent les Pafinis du château et asservissent les Reufs ! Persuadés que seul le Peintre peut ramener l’harmonie en finissant le tableau, Ramo, Lola et Plume décident de partir à sa recherche.\n\nUn film d’animation de Jean-François Laguionie, 2011\n\nDurée : 1h16\n\nPublic : enfants, dès 6 ans",
+        "en": "A castle, flowered gardens, a threatening forest, this is what a painter, for mysterious reasons, left unfinished… In this painting live the Toupins, the fully painted characters, the Pafinis to which some colors are missing and the Reufs which are only sketches. Believing themselves superior, the Toupins take power, drive the Pafinis out of the castle and enslave the Reufs! Convinced that only the Painter can restore harmony by finishing the painting, Ramo, Lola and Plume decide to go looking for him.\nAn animated film by Jean-François Laguionie, 2011\nDuration: 1h16\nAudience: children, from 6 years"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre dans la limite des places disponibles",
+        "en": "Free admission within the space available"
+      },
+      "image": {
+        "filename": "d529edaeaec9426ea4f148202ceae5aa.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 474,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d529edaeaec9426ea4f148202ceae5aa.full.image.jpg",
+            "size": {
+              "height": 993,
+              "width": 1469
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d529edaeaec9426ea4f148202ceae5aa.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:05.000Z",
+      "createdAt": "2019-11-29T11:07:21.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39582956,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 39582956,
+        "slug": "mediatheque-du-jardin-des-arts-saint-germain-en-laye",
+        "name": "Médiathèque du jardin des arts",
+        "address": "9 rue Henri IV 78100 Saint-Germain-en-Laye",
+        "city": "Saint-Germain-en-Laye",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78100",
+        "insee": "78551",
+        "countryCode": "FR",
+        "district": "Saint-Germain-en-Laye",
+        "latitude": 48.896497,
+        "longitude": 2.097253,
+        "updatedAt": "2019-11-29T10:24:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96519412,
+        "custom": {
+          "organization": "Médiathèques de Saint-germain-en-Laye",
+          "contactName": "MARC FONTANA",
+          "contactNumber": "+33170464000",
+          "contactPosition": "Directeur",
+          "email": "marc.fontana@saintgermainenlaye.fr"
+        }
+      }
+    },
+    {
+      "uid": 24857423,
+      "ownerUid": 96519412,
+      "creatorUid": 96519412,
+      "slug": "bdgreaterecouvertes-les-bd-du-louvre",
+      "title": {
+        "fr": "BD>ECOUVERTES : Les BD du Louvre",
+        "en": "BD>ECOUVERTES: Les BD du Louvre"
+      },
+      "description": {
+        "fr": "Le Louvre souhaite valoriser ses œuvres par la BD et l’idée a séduit des éditeurs comme Delcourt et Futuropolis. Lax, Taniguchi, Davodeau ou encore Isabelle Dethan",
+        "en": "The Louvre wants to promote its works through comics and the idea has seduced publishers like Delcourt and Futuropolis. Lax, Taniguchi, Davodeau or Isabelle Dethan"
+      },
+      "longDescription": {
+        "fr": "Plusieurs musées ont décidé de valoriser leurs œuvres par la bande dessinée. Utiliser cet art populaire par excellence pour donner l’envie d’entrer au Louvre, l’idée a séduit des éditeurs comme Delcourt et Futuropolis. Lax, Taniguchi, Davodeau ou encore Isabelle Dethan, se sont vus confier les clés du musée pour inventer une histoire à la hauteur de leur talent. Cette exposition présente des reproductions de titres phares pour les grands et les petits, à lire dans nos médiathèques !",
+        "en": "Several museums have decided to promote their works through comic books. Using this popular art par excellence to make people want to enter the Louvre, the idea attracted publishers like Delcourt and Futuropolis. Lax, Taniguchi, Davodeau and Isabelle Dethan have been given the keys to the museum to invent a story that matches their talent. This exhibition presents reproductions of key titles for adults and children, to be read in our media libraries!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Accès libre aux heures d'ouverture de la médiathèque",
+        "en": "Free access to the opening hours of the media library"
+      },
+      "image": {
+        "filename": "3a1340abaa6544d8b6ed787f0b301060.base.image.jpg",
+        "credits": "Delcourt",
+        "size": {
+          "height": 924,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3a1340abaa6544d8b6ed787f0b301060.full.image.jpg",
+            "size": {
+              "height": 3520,
+              "width": 2669
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3a1340abaa6544d8b6ed787f0b301060.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T14:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:30:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T14:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T13:30:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T14:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:30:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:30:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T14:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:30:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:30:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T14:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:30:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:30:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T14:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:30:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:30:00.000Z",
+          "end": "2020-02-15T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:13.000Z",
+      "createdAt": "2019-11-29T11:23:03.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 42277361,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://mediatheques.saintgermainenlaye.fr"
+      ],
+      "location": {
+        "uid": 42277361,
+        "slug": "mediatheque-george-sand-saint-germain-en-laye",
+        "name": "Médiathèque George-Sand",
+        "address": "44 rue de l'Aurore 78100 Saint-Germain-en-Laye",
+        "city": "Saint-Germain-en-Laye",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78100",
+        "insee": "78551",
+        "countryCode": "FR",
+        "district": "Saint-Germain-en-Laye",
+        "latitude": 48.894257,
+        "longitude": 2.070208,
+        "updatedAt": "2019-11-29T11:23:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96519412,
+        "custom": {
+          "organization": "Médiathèques de Saint-germain-en-Laye",
+          "contactName": "MARC FONTANA",
+          "contactNumber": "+33170464000",
+          "contactPosition": "Directeur",
+          "email": "marc.fontana@saintgermainenlaye.fr"
+        }
+      }
+    },
+    {
+      "uid": 590694,
+      "ownerUid": 66400917,
+      "creatorUid": 66400917,
+      "slug": "exposition-des-illustrations-originales-de-fred-bernard",
+      "title": {
+        "fr": "Exposition des illustrations originales de Fred Bernard",
+        "en": "Exhibition of original illustrations by Fred Bernard"
+      },
+      "description": {
+        "fr": "Dans le cadre de BD 2020, zoom sur Fred Bernard , auteur-illustrateur",
+        "en": "As part of BD 2020, focus on Fred Bernard , author-illustrator"
+      },
+      "longDescription": {
+        "fr": "Exposition des illustrations originales de l'auteur-illustrateur Fred Bernard\n-----------------------------------------------------------------------------\n\n### Du 3 mars au 5 avril 2020\n\nAuteur de bandes dessinées, de récits pour la jeunesse et illustrateur français, Fred Bernard expose à la médiathèque ses illustrations originales issues de ses bandes dessinées.\n\nVous y retrouverez notamment son héroïne Jeanne Picquigny et son univers qui lui est si singulier, empreint d'aventure et de récits de voyages.",
+        "en": "## Exhibition of original illustrations by author-illustrator Fred Bernard\n### March 3 to April 5, 2020\nAuthor of comic books, youth stories and French illustrator, Fred Bernard exhibits in the media library his original illustrations from his comic books.\nYou will find there his heroine Jeanne Picquigny and her universe which is so singular, full of adventure and travel stories."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d4d69d7a6d674f339b21c7b8a465374b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 576,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d4d69d7a6d674f339b21c7b8a465374b.full.image.jpg",
+            "size": {
+              "height": 204,
+              "width": 248
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d4d69d7a6d674f339b21c7b8a465374b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-03T11:00:00.000Z",
+          "end": "2020-03-03T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T15:00:00.000Z",
+          "end": "2020-03-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T11:00:00.000Z",
+          "end": "2020-03-06T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T15:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T13:30:00.000Z",
+          "end": "2020-03-08T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T11:00:00.000Z",
+          "end": "2020-03-10T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T15:00:00.000Z",
+          "end": "2020-03-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T11:00:00.000Z",
+          "end": "2020-03-13T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T15:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T13:30:00.000Z",
+          "end": "2020-03-15T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T11:00:00.000Z",
+          "end": "2020-03-17T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T15:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T11:00:00.000Z",
+          "end": "2020-03-20T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T15:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T13:30:00.000Z",
+          "end": "2020-03-22T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T11:00:00.000Z",
+          "end": "2020-03-24T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T15:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T11:00:00.000Z",
+          "end": "2020-03-27T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T15:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T12:30:00.000Z",
+          "end": "2020-03-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T10:00:00.000Z",
+          "end": "2020-03-31T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T14:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T10:00:00.000Z",
+          "end": "2020-04-03T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T14:00:00.000Z",
+          "end": "2020-04-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:45:59.000Z",
+      "createdAt": "2019-11-29T13:15:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65760774,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "0251064343",
+        "mediatheque.calliope@terresdemontaigu.fr",
+        "http://www.terresdemontaigu.fr"
+      ],
+      "location": {
+        "uid": 65760774,
+        "slug": "mediatheque-calliope6",
+        "name": "Médiathèque Calliopé",
+        "address": "Parc des Rochettes, 35 avenue Villebois Mareuil 85600 Montaigu-Vendée",
+        "city": "Montaigu-Vendée",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85600",
+        "insee": "85146",
+        "countryCode": "FR",
+        "district": "Montaigu",
+        "latitude": 46.981531,
+        "longitude": -1.317392,
+        "updatedAt": "2019-11-29T10:31:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 66400917,
+        "custom": {
+          "organization": "Médiathèque",
+          "contactName": "Claire Weber",
+          "contactNumber": "0251064343",
+          "contactPosition": "Médiatrice du livre",
+          "email": "c.weber@terresdemontaigu.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2087037
+}
