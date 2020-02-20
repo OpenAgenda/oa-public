@@ -25,6 +25,7 @@ const defaults = {
 window.hook( options => {
   const { initialState } = _.merge( {}, defaults, options );
   const extraProps = {
+    user: initialState.user,
     agenda: initialState.agenda,
     ...options.extraProps
   };
