@@ -27,7 +27,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     returnPayload,
     detailed
   } = {
-    internal: false, // load internal use fields ( id )
+    internal: false, // deprecated, use "access":"internal" - load internal use fields ( id )
     lang: null,
     load: {
       event: true,
@@ -86,6 +86,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   }
 
   const result = await payload.getResponse('event', { access, load });
+
   return returnPayload ? result : result.event;
 }
 
