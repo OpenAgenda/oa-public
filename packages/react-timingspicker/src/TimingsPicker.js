@@ -68,6 +68,7 @@ export default class TimingsPicker extends Component {
   static defaultProps = {
     value: null,
     onChange: null,
+    editOnClick: true,
     timingLimit: ONE_DAY,
     classNamePrefix: 'rtp__',
     breakpoints: {
@@ -218,7 +219,11 @@ export default class TimingsPicker extends Component {
 
   render() {
     const {
-      timingLimit, allowedTimings, classNamePrefix, locale
+      timingLimit,
+      allowedTimings,
+      classNamePrefix,
+      editOnClick,
+      locale
     } = this.props;
     const {
       value,
@@ -269,6 +274,7 @@ export default class TimingsPicker extends Component {
             breakpoint={breakpoint}
             classNamePrefix={classNamePrefix}
             valueToHighlight={valueToHighlight}
+            editOnClick={editOnClick}
           />
         </div>
       </IntlProvider>

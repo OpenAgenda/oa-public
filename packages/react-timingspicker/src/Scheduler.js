@@ -79,7 +79,8 @@ class Scheduler extends Component {
     step: 60 * 60,
     timingFormat: 'HH:mm',
     cellHeight: 40,
-    timingLimit: ONE_DAY
+    timingLimit: ONE_DAY,
+    editOnClick: true
   };
 
   schedulerRef = React.createRef();
@@ -465,6 +466,7 @@ class Scheduler extends Component {
       cellHeight,
       timingLimit,
       allowedTimings,
+      editOnClick,
       breakpoint,
       classNamePrefix,
       intl
@@ -510,6 +512,7 @@ class Scheduler extends Component {
               value={value}
               onChange={onChange}
               openEditModal={this.openEditModal}
+              editOnClick={editOnClick}
               cellHeight={cellHeight}
               step={step}
               selectableStep={step / 2}

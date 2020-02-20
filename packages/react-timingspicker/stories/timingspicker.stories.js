@@ -76,4 +76,5 @@ storiesOf('App', module)
         }
       ]}
     />
-  ));
+  ))
+  .add('disable editOnClick', () => <TimingsPicker editOnClick={false} />);
