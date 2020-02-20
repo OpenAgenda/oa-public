@@ -1279,6 +1279,11 @@
     events "^3.1.0"
     uberproto "^2.0.4"
 
+"@feathersjs/hooks@^0.4.0-alpha.0":
+  version "0.4.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@feathersjs/hooks/-/hooks-0.4.0-alpha.0.tgz#b05b1a31f415f09bc8bb672a9667a79b481977ef"
+  integrity sha512-ZWK4j+Vvpxru8oSIXJgLswm9K8V97WlUqXR+OulJs7/B0amuMph0TuWnsFADNy29Nr+E4Mb/avr8Uuln26RFBQ==
+
 "@formatjs/intl-displaynames@^1.2.0":
   version "1.2.0"
   resolved "https://registry.npmjs.org/@formatjs/intl-displaynames/-/intl-displaynames-1.2.0.tgz#b89935e232a454d113c7a6684c01ae391682a46d"
@@ -1765,11 +1770,6 @@
   integrity sha1-PvxTXBC2u3tCLLZ/8VRKtIYsDfM=
   dependencies:
     lodash "^4.17.4"
-
-"@openagenda/hooks@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/@openagenda/hooks/-/hooks-0.3.3.tgz#9d05787ae50e0a6f4a2badad4105b78282e05e83"
-  integrity sha512-/WRjkxqZoDWdzfxiRyliyT/WizMm/R00XhAAPI/MXjYiN2S4YTgTJlQEcd+YOb8rF5vxhc1G3htfif8nTJUoWw==
 
 "@openagenda/image-upload@^1.0.8":
   version "1.0.8"
@@ -9710,9 +9710,9 @@ final-form-set-field-data@^1.0.2:
   resolved "https://registry.npmjs.org/final-form-set-field-data/-/final-form-set-field-data-1.0.2.tgz#ce19095af5d607148c1e6ce3403d75d40223d848"
   integrity sha512-gAnENimyQ5GW3OEGca5pbwm4lYshW2orzfBlPUYqzcm7ZxkQrVO8FqCAgEcCM+Rq9U1OU0q+D+UkqETvvDY6jw==
 
-final-form@^4.18.6:
+final-form@4.18.6, final-form@^4.18.6:
   version "4.18.6"
-  resolved "https://registry.npmjs.org/final-form/-/final-form-4.18.6.tgz#3539c53d04e6603a0cc11c78dc830755add986d4"
+  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.18.6.tgz#3539c53d04e6603a0cc11c78dc830755add986d4"
   integrity sha512-LssWTXTGkoNv5WxowFTTUyC86oLYlEHH2glARBxOq8RpjiQdOyUyVG7qfPaCeOwoOw7Y5wrhSWdePyOydqSrCw==
   dependencies:
     "@babel/runtime" "^7.3.1"
@@ -18825,9 +18825,9 @@ react-docgen@^5.0.0:
     node-dir "^0.1.10"
     strip-indent "^3.0.0"
 
-react-dom@^16.12.0, react-dom@^16.8.3:
+react-dom@16.12.0, react-dom@^16.12.0, react-dom@^16.8.3:
   version "16.12.0"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
   dependencies:
     loose-envify "^1.1.0"
@@ -19373,9 +19373,9 @@ react-waypoint@^9.0.2:
     prop-types "^15.0.0"
     react-is "^16.6.3"
 
-react@^16.12.0, react@^16.8.3:
+react@16.12.0, react@^16.12.0, react@^16.8.3:
   version "16.12.0"
-  resolved "https://registry.npmjs.org/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
   dependencies:
     loose-envify "^1.1.0"

@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const { hooks } = require('@openagenda/hooks');
+const { hooks } = require('@feathersjs/hooks');
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const errors = require('@feathersjs/errors');

@@ -1,4 +1,4 @@
-const { HookContext } = require('@openagenda/hooks');
+const { HookContext } = require('@feathersjs/hooks');
 const errors = require('@feathersjs/errors');
 const { omit } = require('@feathersjs/commons')._;
 const log = require('@openagenda/logs')('services/users/getHandler');
