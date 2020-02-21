@@ -4,9 +4,9 @@ const should = require( 'should' );
 
 const parseTagSet = require( '../server/legacy/parseTagSet' );
 
-describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
+describe('form-schemas -09- unit (server): legacy tag sets', function() {
 
-  it( 'takes a form schema, a tag set and returns a form schema with the tag set groups added as fields', () => {
+  it('takes a form schema, a tag set and returns a form schema with the tag set groups added as fields', () => {
 
     const tagSet = {
       "groups": [ {

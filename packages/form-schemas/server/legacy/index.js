@@ -8,8 +8,8 @@ const parseTagSet = require('./parseTagSet');
 
 module.exports = ({ client, schemas, service }) => {
   return {
-    get: get.bind(null, { client, schema }),
-    transfer: transfer.bind(null, { client, schema, service }),
+    get: get.bind(null, { client, schemas }),
+    transfer: transfer.bind(null, { client, schemas, service }),
   }
 }
 
@@ -113,6 +113,6 @@ function _queryStore(client, schema, id, key) {
   return client(schema)
     .first('store')
     .where({ id })
-    .then(r => r && r.store ? JSON.parse(storeString) : null)
+    .then(r => r && r.store ? JSON.parse(r.store) : null)
     .then(store => store && key ? store[key] : store);
 }

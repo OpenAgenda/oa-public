@@ -51,7 +51,7 @@ module.exports = Object.assign(config => {
 
   return {
     ...svc,
-    legacy: legacy.bind(null, { ...c, service: svc })
+    legacy: legacy({ ...c, service: svc })
   }
 }, {
   utils
