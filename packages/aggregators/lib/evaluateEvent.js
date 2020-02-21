@@ -5,7 +5,7 @@ const Log = require('../utils/Log')('evaluateEvent');
 
 const evaluateRules = require('../utils/rules');
 const paths = require('../utils/paths');
-const pickSchemaValues = require('../utils/pickSchemaValues');
+const pickReferenceValues = require('../utils/pickReferenceValues');
 
 module.exports = async ({
   getMergedSchema,
@@ -76,11 +76,11 @@ module.exports = async ({
     );
   }
 
-  const schemaValues = pickSchemaValues(aggregatorSchema, evaluateResult);
+  const refValues = pickReferenceValues(aggregatorSchema, evaluateResult);
   const {
     errors,
     success
-  } = await referenceEvent(aggregatorAgendaUid, event.uid, schemaValues, {
+  } = await referenceEvent(aggregatorAgendaUid, event.uid, refValues, {
     batched,
     paths: paths.getAmended([], event.sourcePaths, sourceAgenda.uid),
     sourceAgenda
