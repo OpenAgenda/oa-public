@@ -1,5 +1,6 @@
 'use strict';
 
+const { parsePath } = require('history');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
@@ -14,15 +15,10 @@ const {
 
 module.exports = async ({ services, config }, req, res, next) => {
   const {
-    sessions,
+    sessions
   } = services;
 
   const agendaLink = `/${req.agenda.slug}`;
-
-  if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
-    sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
-    return res.redirect(302, agendaLink);
-  }
 
   const lang = req.lang || 'fr';
   const staticContext = {};
