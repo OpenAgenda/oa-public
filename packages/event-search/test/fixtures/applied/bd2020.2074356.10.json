@@ -1,0 +1,1518 @@
+{
+  "events": [
+    {
+      "uid": 76582166,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-la-bande-dessinee-de-science-fiction_334047",
+      "title": {
+        "fr": "Exposition \"La bande dessinée de science-fiction\"",
+        "en": "Exhibition \"The comic strip of science fiction\""
+      },
+      "description": {
+        "fr": "Rétrospective de la bande dessinée de science fiction présentant œuvres et dessinateurs majeurs.",
+        "en": "Retrospective of the comic strip of science fiction presenting works and major draughtsmen."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "bande-dessinée",
+          "science-fiction",
+          "exposition",
+          "dystopie"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T18:00:00.000Z",
+          "end": "2020-01-16T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:09.000Z",
+      "createdAt": "2019-11-13T14:52:46.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 50397659,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 50397659,
+        "slug": "conservatoire-a-rayonnement-departemental997",
+        "name": "Conservatoire à rayonnement départemental",
+        "address": "87 rue Jean-Teillac 91400 Orsay",
+        "city": "Orsay",
+        "region": "Île-de-France",
+        "department": "Essonne",
+        "postalCode": "91400",
+        "insee": "91471",
+        "countryCode": "FR",
+        "district": "Corbeville",
+        "latitude": 48.699489,
+        "longitude": 2.177635,
+        "updatedAt": "2019-11-13T14:50:33.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Université Paris-Saclay",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 69319134,
+      "ownerUid": 18009146,
+      "creatorUid": 18009146,
+      "slug": "exposition-scenario-noir-et-encre-rouge",
+      "title": {
+        "fr": "Exposition \"Scénario noir et encre rouge\"",
+        "en": "Exhibition \"Black and red ink scenario\""
+      },
+      "description": {
+        "fr": "L'exposition \"Scénario noir et encre rouge\" se penche sur l’un des genres littéraires les plus appréciés du grand public : le polar.",
+        "en": "The exhibition \"Black Script and Red Ink\" focuses on one of the literary genres most appreciated by the general public: the thriller."
+      },
+      "longDescription": {
+        "fr": "L'exposition \"Scénario noir et encre rouge\" se penche sur l’un des genres littéraires les plus appréciés du grand public : le polar. Elle propose aux visiteurs de découvrir 8 séries et albums de bande dessinée, créations originales ou adaptation de grands classiques du genre, qui sauront les tenir en haleine autant par leur richesse scénaristique que graphique.",
+        "en": "The exhibition \"Black Script and Red Ink\" focuses on one of the literary genres most appreciated by the general public: the thriller. It invites visitors to discover 8 series and comic book albums, original creations or adaptation of great classics of the genre, which will keep them in suspense as much by their richness of script as graphic."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "679aaae1fe704af2a4e8740873b8ed64.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1001,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "679aaae1fe704af2a4e8740873b8ed64.full.image.jpg",
+            "size": {
+              "height": 5906,
+              "width": 4134
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "679aaae1fe704af2a4e8740873b8ed64.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-04T08:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:00:00.000Z",
+          "end": "2020-06-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:00:00.000Z",
+          "end": "2020-06-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T08:00:00.000Z",
+          "end": "2020-06-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T08:00:00.000Z",
+          "end": "2020-06-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T08:00:00.000Z",
+          "end": "2020-06-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T08:00:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:08.000Z",
+      "createdAt": "2019-11-13T15:48:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 55328780,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://culture.legrandnarbonne.com/671-salon-du-livre.html",
+        "https://fr-fr.facebook.com/SalonDuLivreDuGrandNarbonne/",
+        "m.savreux@legrandnarbonne.com",
+        "04 68 58 14 63"
+      ],
+      "location": {
+        "uid": 55328780,
+        "slug": "mediatheque-du-grand-narbonne316",
+        "name": "Médiathèque du Grand Narbonne",
+        "address": "1 boulevard Frédéric Mistral 11100 Narbonne",
+        "city": "Narbonne",
+        "region": "Occitanie",
+        "department": "Aude",
+        "postalCode": "11100",
+        "insee": "11262",
+        "countryCode": "FR",
+        "district": "Domaine Saint-Charles",
+        "latitude": 43.190164,
+        "longitude": 3.0055,
+        "updatedAt": "2019-11-13T15:44:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 18009146,
+        "custom": {
+          "organization": "Salon du livre du Grand Narbonne",
+          "contactName": "Marine Savreux",
+          "contactNumber": "04 68 58 14 63",
+          "contactPosition": "Coordinatrice du salon",
+          "email": "m.savreux@legrandnarbonne.com"
+        }
+      }
+    },
+    {
+      "uid": 78239818,
+      "ownerUid": 18009146,
+      "creatorUid": 18009146,
+      "slug": "exposition-les-quatre-de-baker-street",
+      "title": {
+        "fr": "Exposition \"Les Quatre de Baker Street\"",
+        "en": "Exhibition \"The Four of Baker Street\""
+      },
+      "description": {
+        "fr": "Suis \"Les Quatre de Baker Street\" dans les coulisses du polar en BD !",
+        "en": "Follow \"The Baker Street Four\" behind the scenes of comic fiction!"
+      },
+      "longDescription": {
+        "fr": "\"Les Quatre de Baker Street\", volet jeunesse de l’exposition \"Scénario noir et encre rouge\", propose d'expliquer aux plus jeunes les techniques utilisées par la bande dessinée pour construire une intrigue policière. Tout au long de l'exposition, mêlant explications pédagogique et jeux, ils suivront Billy, Charlie, Black Tom et Watson, les héros de la série Les Quatre de Baker Street (éditions Vents d'Ouest). Et avec le livret de l'exposition, ils pourront essayer de réaliser une planche de bande dessinée mettant en scène une courte enquête.",
+        "en": "\"Les Quatre de Baker Street\", youth component of the exhibition \"Black Script and Red Ink\", proposes to explain to the youngest the techniques used by the comic strip to build a police plot. Throughout the exhibition, mixing pedagogical explanations and games, they will follow Billy, Charlie, Black Tom and Watson, the heroes of the series The Four of Baker Street (editions Vents d'Ouest). And with the booklet of the exhibition, they can try to make a comic strip board staging a short investigation."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1a1ca57abeb8433db6933bceddb0496e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1001,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1a1ca57abeb8433db6933bceddb0496e.full.image.jpg",
+            "size": {
+              "height": 5906,
+              "width": 4134
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1a1ca57abeb8433db6933bceddb0496e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-04T08:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:00:00.000Z",
+          "end": "2020-06-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T08:00:00.000Z",
+          "end": "2020-06-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:00:00.000Z",
+          "end": "2020-06-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T08:00:00.000Z",
+          "end": "2020-06-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T08:00:00.000Z",
+          "end": "2020-06-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T08:00:00.000Z",
+          "end": "2020-06-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T08:00:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:53.000Z",
+      "createdAt": "2019-11-13T15:55:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 55328780,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://culture.legrandnarbonne.com/671-salon-du-livre.html",
+        "https://fr-fr.facebook.com/SalonDuLivreDuGrandNarbonne/",
+        "m.savreux@legrandnarbonne.com",
+        "04 68 58 14 63"
+      ],
+      "location": {
+        "uid": 55328780,
+        "slug": "mediatheque-du-grand-narbonne316",
+        "name": "Médiathèque du Grand Narbonne",
+        "address": "1 boulevard Frédéric Mistral 11100 Narbonne",
+        "city": "Narbonne",
+        "region": "Occitanie",
+        "department": "Aude",
+        "postalCode": "11100",
+        "insee": "11262",
+        "countryCode": "FR",
+        "district": "Domaine Saint-Charles",
+        "latitude": 43.190164,
+        "longitude": 3.0055,
+        "updatedAt": "2019-11-13T15:44:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 18009146,
+        "custom": {
+          "organization": "Salon du livre du Grand Narbonne",
+          "contactName": "Marine Savreux",
+          "contactNumber": "04 68 58 14 63",
+          "contactPosition": "Coordinatrice du salon",
+          "email": "m.savreux@legrandnarbonne.com"
+        }
+      }
+    },
+    {
+      "uid": 66433866,
+      "ownerUid": 7083405,
+      "creatorUid": 7083405,
+      "slug": "festival-bd-bulleberry-de-bourges",
+      "title": {
+        "fr": "Festival BD BulleBerry",
+        "en": "Festival BD Bulleberry"
+      },
+      "description": {
+        "fr": "Dédicaces, expositions, animations, ateliers et concours scolaire...",
+        "en": "Dedications, exhibitions, animations, workshops and school competitions..."
+      },
+      "longDescription": {
+        "fr": "Festival de BD BulleBerry\n\nL'affiche d'Eric Herenguel sera dévoilée en fin de premier trimestre 2020.\n\nLe thème sera \"BD 2020 : l'enfance de l'art\" (susceptible d'être modifié)\n\nPlus d'Infos tout au long de l'année 2020!",
+        "en": "Bulleberry Comic Strip Festival\nEric Herenguel’s poster will be unveiled at the end of the first quarter of 2020.\nThe theme will be \"BD 2020: l'enfance de l'art\" (subject to change)\nMore Info throughout the year 2020!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-03T08:00:00.000Z",
+          "end": "2020-10-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-04T08:00:00.000Z",
+          "end": "2020-10-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:01:43.000Z",
+      "createdAt": "2019-11-13T20:40:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 54310573,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 54310573,
+        "slug": "salle-du-duc-jean-de-lhotel-du-departement-de-bourges",
+        "name": "Salle du Duc Jean de l'hôtel du département de Bourges",
+        "address": "Place Marcel Plaisant 18000 Bourges",
+        "city": "Bourges",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18000",
+        "insee": "18033",
+        "countryCode": "FR",
+        "district": "Port-Sec Nord",
+        "latitude": 47.08185,
+        "longitude": 2.395419,
+        "updatedAt": "2019-11-14T09:49:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 7083405,
+        "custom": {
+          "organization": "ASSOCIATION BULLEBERRY",
+          "contactName": "Joël Martinat",
+          "contactNumber": "0248703804",
+          "contactPosition": "Président",
+          "email": "joel.martinat@wanadoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 11190746,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "la-laitiere-et-le-pot-au-lait-en-petite-bd_182651",
+      "title": {
+        "fr": "La Laitière et le Pot au lait en petite BD",
+        "en": "La Laitière and the Milk Pot in small comics"
+      },
+      "description": {
+        "fr": "Fable de la Fontaine \"La Laitière et le Pot au Lait\" en petite BD - Introduction musicale de l'atelier par \"d'où venez-vous Perrette ...\" Chanté",
+        "en": "Fable de la Fontaine \"La Laitière et le Pot au Lait\" en petite BD - Introduction musicale de l'atelier par \"où vous venez-vous Perrette ...\" Sung"
+      },
+      "longDescription": {
+        "fr": "Les participants dessineront la fable après l'avoir écoutée à 2 voix.\n\nChacun disposera de 3 vignettes, dans lesquelles ils dessineront le cours de l'histoire qui leur sera attribuée, ou qu'ils auront choisie afin de reconstituer toute la fable, à la fin de cette B.D. et permettre son exposition à la vue du public.",
+        "en": "Participants will draw the fable after listening to it in 2 voices.\nEveryone will have 3 vignettes, in which they will draw the course of the history which will be attributed to them, or which they will have chosen in order to reconstruct all the fable, at the end of this B.D. and allow its exposure to the public."
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "Atelier",
+          "Fables",
+          "La Fontaine"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "32f91d238b994774adda69a73fa133ea.base.image.jpg",
+        "credits": "animation BD Bibliothèque d'Ornaisons Avril 2017 atelier découverte",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "32f91d238b994774adda69a73fa133ea.full.image.jpg",
+            "size": {
+              "height": 2448,
+              "width": 3264
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "32f91d238b994774adda69a73fa133ea.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T19:00:00.000Z",
+          "end": "2020-01-18T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:02.000Z",
+      "createdAt": "2019-11-14T09:56:43.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64906404,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 64906404,
+        "slug": "mjc-bibliotheque-municipale-dornaisons",
+        "name": "MJC - Bibliothèque municipale d'Ornaisons",
+        "address": "7 rue du Foyer 11200 Ornaisons",
+        "city": "Ornaisons",
+        "region": "Occitanie",
+        "department": "Aude",
+        "postalCode": "11200",
+        "insee": "11267",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.180967,
+        "longitude": 2.838092,
+        "updatedAt": "2019-11-18T11:14:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 13486174,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "atelier-de-mise-en-bd-dun-conte_807897",
+      "title": {
+        "fr": "Atelier de mise en BD d'un conte",
+        "en": "Comic Book Storytelling Workshop"
+      },
+      "description": {
+        "fr": "L'atelier vise, pour les élèves participant, à adapter en bande dessinée un conte lu au préalable lors du club \"conte et création\" du collège..",
+        "en": "The workshop aims, for the participating students, to adapt in comic strip a tale read beforehand during the club \"storytelling and creation\" of the college."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "atelier",
+          "bd",
+          "conte"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T14:30:00.000Z",
+          "end": "2020-01-16T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:47.000Z",
+      "createdAt": "2019-11-14T10:17:36.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 52666291,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 11,
+        "max": 15
+      },
+      "registration": [],
+      "location": {
+        "uid": 52666291,
+        "slug": "college-daniel-mayer576",
+        "name": "Collège Daniel Mayer",
+        "address": "2 place Hébert 75018 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75018",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 18e Arrondissement",
+        "latitude": 48.893106,
+        "longitude": 2.36382,
+        "updatedAt": "2019-11-18T11:15:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 10133805,
+      "ownerUid": 52269659,
+      "creatorUid": 52269659,
+      "slug": "anuki-lecture-dessinee",
+      "title": {
+        "fr": "Anuki, lecture dessinée",
+        "en": "Anuki, reading drawn"
+      },
+      "description": {
+        "fr": "Stéphane Sénégas et Frédéric Maupomé nous proposent d’entrer dans leur univers autour de la création en direct d’une aventure de leur héros de bande dessinée, Anuki.",
+        "en": "Stéphane Sénégas and Frédéric Maupomé invite us to enter their universe around the creation live of an adventure of their comic book hero, Anuki."
+      },
+      "longDescription": {
+        "fr": "Stéphane Sénégas et Frédéric Maupomé nous proposent d’entrer dans leur univers autour de la création en direct d’une aventure de leur héros de bande dessinée, Anuki. La lecture commence tranquillement, le lecteur lit, le dessinateur dessine, puis, petit à petit le lecteur/ scénariste s’emballe. Il demande à son dessinateur des images de plus en plus irréalisables, lui tend des pièges, sous l’œil complice des spectateurs...\n\nUne lecture dessinée est un spectacle durant lequel le dessinateur dessine en direct l’histoire contée par le lecteur, les dessins étant projetées sur un écran afin que les spectateurs puissent les voir.",
+        "en": "Stéphane Sénégas and Frédéric Maupomé invite us to enter their universe around the creation live of an adventure of their comic book hero, Anuki. The reading begins quietly, the reader reads, the cartoonist draws, and then, little by little, the reader/writer gets excited. He asks his cartoonist for more and more unrealistic images, offers him traps, under the complicit eye of the spectators...\nA drawn reading is a performance in which the cartoonist draws live the story told by the reader, the drawings being projected on a screen so that the spectators can see them."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a360d308cbaf46dcbc8a65d2d519807d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 342,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a360d308cbaf46dcbc8a65d2d519807d.full.image.jpg",
+            "size": {
+              "height": 342,
+              "width": 700
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a360d308cbaf46dcbc8a65d2d519807d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:45.000Z",
+      "createdAt": "2019-11-15T07:40:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 16697452,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 16697452,
+        "slug": "mediatheque-grand-m-toulouse",
+        "name": "Médiathèque Grand M",
+        "address": "Rue Raymond Lizop 31100 Toulouse",
+        "city": "Toulouse",
+        "region": "Occitanie",
+        "department": "Haute-Garonne",
+        "postalCode": "31100",
+        "insee": "31555",
+        "countryCode": "FR",
+        "district": "Toulouse Ouest",
+        "latitude": 43.566823,
+        "longitude": 1.400601,
+        "updatedAt": "2019-11-18T11:12:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Festival du Livre de Jeunesse Occitanie",
+      "structure-partenaire": "Médiathèque Grand M",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 52269659,
+        "custom": {
+          "organization": "Festival du Livre de Jeunesse Occitanie",
+          "contactName": "Katell GABRIEL-ABGRALL",
+          "contactNumber": "0534639883",
+          "contactPosition": "Coordinatrice",
+          "email": "contact@festival-livre-jeunesse.fr"
+        }
+      }
+    },
+    {
+      "uid": 52833798,
+      "ownerUid": 52269659,
+      "creatorUid": 52269659,
+      "slug": "rencontre-croisee-avec-stephane-senegas-et-frederic-maupome",
+      "title": {
+        "fr": "Rencontre croisée avec Stéphane Sénégas et Frédéric Maupomé",
+        "en": "Meeting with Stéphane Sénégas and Frédéric Maupomé"
+      },
+      "description": {
+        "fr": "Rencontre croisée et dédicaces avec Frédéric Maupomé et Stéphane Sénégas.Rencontre autour d’une collaboration de plus de 10 ans entre un scénariste et dessinateur.",
+        "en": "Meeting and dedication with Frédéric Maupomé and Stéphane Sénégas.Meeting around a collaboration of more than 10 years between a screenwriter and cartoonist."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "0768ad5614ac4751ac5a4a716816bb3d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 466,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0768ad5614ac4751ac5a4a716816bb3d.full.image.jpg",
+            "size": {
+              "height": 183,
+              "width": 275
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0768ad5614ac4751ac5a4a716816bb3d.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T10:00:00.000Z",
+          "end": "2020-01-18T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:54.000Z",
+      "createdAt": "2019-11-15T07:54:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 47643794,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 47643794,
+        "slug": "librairie-louie-lire",
+        "name": "Librairie L'Ouïe Lire",
+        "address": "5 rue Léon Gambetta 31000 Toulouse",
+        "city": "Toulouse",
+        "region": "Occitanie",
+        "department": "Haute-Garonne",
+        "postalCode": "31000",
+        "insee": "31555",
+        "countryCode": "FR",
+        "district": "Toulouse Centre",
+        "latitude": 43.602905,
+        "longitude": 1.441575,
+        "updatedAt": "2019-11-18T11:12:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Festival du Livre de Jeunesse Occitanie",
+      "structure-partenaire": "Librairie L'Ouï Lire",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 52269659,
+        "custom": {
+          "organization": "Festival du Livre de Jeunesse Occitanie",
+          "contactName": "Katell GABRIEL-ABGRALL",
+          "contactNumber": "0534639883",
+          "contactPosition": "Coordinatrice",
+          "email": "contact@festival-livre-jeunesse.fr"
+        }
+      }
+    },
+    {
+      "uid": 26388578,
+      "ownerUid": 52269659,
+      "creatorUid": 52269659,
+      "slug": "atelier-bd-avec-stephane-senegas",
+      "title": {
+        "fr": "Atelier BD avec Stéphane Sénégas",
+        "en": "Comic book workshop with Stéphane Sénégas"
+      },
+      "description": {
+        "fr": "Crée ton héro de bande dessinée avec Stéphane Sénégas",
+        "en": "Create your comic book hero with Stéphane Sénégas"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "a105012b58904247aa36c1baac5168e2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a105012b58904247aa36c1baac5168e2.full.image.jpg",
+            "size": {
+              "height": 675,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a105012b58904247aa36c1baac5168e2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-26T13:30:00.000Z",
+          "end": "2020-01-26T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:52.000Z",
+      "createdAt": "2019-11-15T08:03:22.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22729956,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 10
+      },
+      "registration": [],
+      "location": {
+        "uid": 22729956,
+        "slug": "festival-du-livre-de-jeunesse-occitanie-lycee-pierre-paul-riquet",
+        "name": "Festival du livre de jeunesse Occitanie - Lycée Pierre Paul Riquet",
+        "address": "Avenue de Revel 31650 Saint-Orens de Gameville",
+        "city": "Saint-Orens-de-Gameville",
+        "region": "Occitanie",
+        "department": "Haute-Garonne",
+        "postalCode": "31650",
+        "insee": "31506",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.543735,
+        "longitude": 1.541167,
+        "updatedAt": "2019-11-18T11:11:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Festival du livre de jeunesse Occitanie",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 52269659,
+        "custom": {
+          "organization": "Festival du Livre de Jeunesse Occitanie",
+          "contactName": "Katell GABRIEL-ABGRALL",
+          "contactNumber": "0534639883",
+          "contactPosition": "Coordinatrice",
+          "email": "contact@festival-livre-jeunesse.fr"
+        }
+      }
+    },
+    {
+      "uid": 38103106,
+      "ownerUid": 51399242,
+      "creatorUid": 51399242,
+      "slug": "apprenez-langlais-avec-asterix-le-gaulois",
+      "title": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois",
+        "en": "Learn English with Asterix the Gaul"
+      },
+      "description": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois à travers ses BD en français et en anglais",
+        "en": "Learn English with Astérix le Gaulois through his comics in French and English"
+      },
+      "longDescription": {
+        "fr": "Les cours commenceront le jeudi 28 novembre après inscription au comptoir à 19h30. Ils auront lieu tous les jeudis à 20h à la bibliothèque de Saint-Priest-Ligoure (hors vacances scolaires).",
+        "en": "Classes will begin on Thursday, November 28 after registration at the counter at 7:30 pm. They will be held every Thursday at 8:00 pm at the library of Saint-Priest-Ligoure (excluding school holidays)."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "76b19d462f5244a386ea9a1127aa3289.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 606,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.full.image.jpg",
+            "size": {
+              "height": 263,
+              "width": 304
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-09T19:00:00.000Z",
+          "end": "2020-01-09T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:51.000Z",
+      "createdAt": "2019-11-15T11:50:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90098254,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 90098254,
+        "slug": "bibliotheque-de-saint-priest-ligoure526",
+        "name": "Bibliothèque de Saint-Priest-Ligoure",
+        "address": "Rue Cécile Sabourdy 87800 Saint-Priest-Ligoure",
+        "city": "Saint-Priest-Ligoure",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87800",
+        "insee": "87039",
+        "countryCode": "FR",
+        "district": "La Planche",
+        "latitude": 45.650644,
+        "longitude": 1.291398,
+        "updatedAt": "2019-11-18T11:10:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": "Cours d'anglais rigolo",
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3.50 euros l'heure",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 51399242,
+        "custom": {
+          "organization": "Association Culture et Loisirs",
+          "contactName": "Marie-Agnès Costa",
+          "contactNumber": "0687405814",
+          "contactPosition": "présidente",
+          "email": "ma.costa@me.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2077383
+}

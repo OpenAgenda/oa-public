@@ -1,0 +1,1778 @@
+{
+  "events": [
+    {
+      "uid": 38672931,
+      "ownerUid": 6501697,
+      "creatorUid": 6501697,
+      "slug": "estivales-de-la-bd-de-montalivet",
+      "title": {
+        "fr": "Estivales de la BD de Montalivet",
+        "en": "Summer of Montalivet’s comic book"
+      },
+      "description": {
+        "fr": "Salon de bande dessinée",
+        "en": "Living room of comic book"
+      },
+      "longDescription": {
+        "fr": "Estivales de la BD\n\n### Du 17 au 19 juillet à Vendays-Montalivet en Gironde\n\nLes Estivales de la BD de Montalivet s'adressent à tous les publics. Des libraires indépendants sont présents, des bouquinistes et des petites maisons d'éditions. Il y a également des animations en direction des plus jeunes (création de Bd en direct avec des dessinateurs) comme des adultes avec un jeu (DédiKatz où il faut trouver ce que dessine l'artiste-personnage, film, événement historique...)\n\nUn concert dessiné ouvre le salon le vendredi soir, à la salle culturelle de Vendays.",
+        "en": "Summer of the comic book\n### From 17 to 19 July in Vendays-Montalivet in Gironde\nLes Estivales de la BD de Montalivet is for all audiences. Independent booksellers are present, booksellers and small publishing houses. There are also animations directed towards the youngest (creation of Bd live with cartoonists) as adults with a game (Dédikatz where it is necessary to find what the artist-character draws, film, historical event...)\nA designed concert opens the lounge on Friday evening, in the cultural hall of Vendays."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b157742d4afc4e5784078a7d66bb3196.base.image.jpg",
+        "credits": "© Guillaume Bouzard",
+        "size": {
+          "height": 847,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b157742d4afc4e5784078a7d66bb3196.full.image.jpg",
+            "size": {
+              "height": 1659,
+              "width": 1372
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b157742d4afc4e5784078a7d66bb3196.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-17T19:00:00.000Z",
+          "end": "2020-07-17T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T08:00:00.000Z",
+          "end": "2020-07-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T08:00:00.000Z",
+          "end": "2020-07-19T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:18.000Z",
+      "createdAt": "2019-10-29T11:06:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 89955462,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "bdmedoc33@gmail.com",
+        "06 83 49 04 86"
+      ],
+      "location": {
+        "uid": 89955462,
+        "slug": "salle-des-sports941",
+        "name": "Salle des sports",
+        "address": "Avenue de l'Europe 33930 Vendays-Montalivet",
+        "city": "Vendays-Montalivet",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33930",
+        "insee": "33540",
+        "countryCode": "FR",
+        "district": "Montalivet-les-Bains",
+        "latitude": 45.37438,
+        "longitude": -1.144498,
+        "updatedAt": "2019-10-29T11:10:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 6501697,
+        "custom": {
+          "organization": "BDM33",
+          "contactName": "Jacques Pavot",
+          "contactNumber": "06 83 49 04 86",
+          "contactPosition": "Président",
+          "email": "bdmedoc33@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 56202696,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "croqueurs-de-bulles_645454",
+      "title": {
+        "fr": "Croqueurs de bulles",
+        "en": "Bubble Eaters"
+      },
+      "description": {
+        "fr": "Cercle de lecteurs autour du 9e art.",
+        "en": "Circle of readers around the 9th art."
+      },
+      "longDescription": {
+        "fr": "Les Croqueurs de bulles se retrouvent une fois par trimestre, le vendredi soir à 19h dans une ambiance conviviale.\n\nIls échangent alors leurs impressions sur une liste de 6 titres de BD, mangas ou comics.\n\nIls décortiquent alors le scénario, les illustrations, la mise en page… qu’ils aient apprécié la lecture ou non !\n\nTous les amateurs du genre sont les bienvenus à ces réunions, qui sont avant-tout l’occasion de découvrir des trésors du 9e art et de partager des coups de coeur.\n\nAvec les Croqueurs de bulles, on croque des bandes dessinées, mais aussi des petites douceurs à boire et à manger apportées par chacun…",
+        "en": "The Bubble Eaters meet once a quarter, on Friday evening at 7pm in a friendly atmosphere.\nThey then exchange their impressions on a list of 6 comic books, mangas or comics.\nThey then unpack the script, the illustrations, the layout… whether they enjoyed reading or not!\nAll lovers of the genre are welcome to attend these meetings, which are first and foremost the opportunity to discover treasures of the 9th art and to share a heartbeat.\nWith the Bubble Eaters, you will not only have comic books, but also small sweets to drink and eat brought by everyone…"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "9e5233f376f6453a864eec44f87c8c1c.base.image.jpg",
+        "credits": "© Ville d'Hennebont",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9e5233f376f6453a864eec44f87c8c1c.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1754
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9e5233f376f6453a864eec44f87c8c1c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-03T17:00:00.000Z",
+          "end": "2020-04-03T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:28.000Z",
+      "createdAt": "2019-10-29T13:31:40.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 14607074,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bm-hennebont.fr/",
+        "https://www.facebook.com/MediathequedHennebont/",
+        "0297365302"
+      ],
+      "location": {
+        "uid": 14607074,
+        "slug": "mediatheque-eugene-guillevic",
+        "name": "Médiathèque Eugène Guillevic",
+        "address": "15 rue Gabriel Péri 56700 Hennebont",
+        "city": "Hennebont",
+        "region": "Bretagne",
+        "department": "Morbihan",
+        "postalCode": "56700",
+        "insee": "56083",
+        "countryCode": "FR",
+        "district": "Milin Glas",
+        "latitude": 47.80824,
+        "longitude": -3.275125,
+        "updatedAt": "2019-10-21T08:07:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": "Cercle de lecteurs BD",
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 39661124,
+      "ownerUid": 70211133,
+      "creatorUid": 70211133,
+      "slug": "prix-bd-bulles-docean",
+      "title": {
+        "fr": "Prix BD Bulles d'Océan",
+        "en": "Prix BD Bulles d'Océan"
+      },
+      "description": {
+        "fr": "Ce prix a pour ambition de faire découvrir aux enfants, comme aux adultes, la diversité de l’offre éditoriale francophone récente à travers 12 ouvrages sélectionnés",
+        "en": "The aim of this prize is to introduce children and adults alike to the diversity of the recent French-language editorial offering through 12 selected books"
+      },
+      "longDescription": {
+        "fr": "Le réseau des médiathèques Rochefort Océan, en partenariat avec les établissements scolaires du territoire et la librairie Bulles en cavale, propose pour la quatrième édition le Prix BD Bulles d’Océan.\n\nCe prix a pour ambition de faire découvrir aux enfants, comme aux adultes, la diversité de l’offre éditoriale francophone récente à travers 12 ouvrages sélectionnés par les bibliothécaires et les professeurs documentalistes sur trois différentes tranches d’âge. Le prix récompense ensuite un ouvrage par tranche d’âge.\n\nLa sélection est à la disposition de tous dans chacun des sites concernés, d’octobre 2019 à mai 2020. Les lecteurs peuvent ainsi, à l’aide d’un bulletin de vote mis à leur disposition, voter pour leur BD préférée. Outre ce vote, le prix sera également ponctué de rencontres d’auteurs et d’ateliers de création qui s’échelonneront sur 2020.\n\nCette année, le prix BD est parrainé par Thibaut Lambert, auteur/illustrateur basé à Marennes. Influencé par son pays natal la Belgique, il est comme ainsi dire né dans une bulle. Tout l’inspire, l’amour, les voyages, la maladies, les rencontres… En tant que parrain, Thibaut Lambert a réalisé l’affiche de cette édition et sera présent lors de la remise des prix, le samedi 13 juin à la Médiathèque de Rochefort.",
+        "en": "The network of Rochefort Ocean media libraries, in partnership with the local schools and the bookstore Bulles en cavale, proposes for the fourth edition the Prix BD Bulles d'Océan.\nThe aim of this prize is to introduce children and adults alike to the diversity of the recent French-language editorial offering through 12 books selected by librarians and documentalist teachers over three different age groups. The prize then rewards one book per age group.\nThe selection is available to everyone at each of the sites concerned, from October 2019 to May 2020\\. Readers can thus vote for their favourite comic book using a ballot available to them. In addition to this vote, the prize will also be punctuated by meetings of authors and creative workshops that will take place over 2020.\nThis year, the comic book prize is sponsored by Thibaut Lambert, author/illustrator based in Marennes. Influenced by his native country of Belgium, he is as it were born in a bubble. Everything inspires him, love, travel, disease, encounters… As sponsor, Thibaut Lambert created the poster for this edition and will be present at the awards ceremony on Saturday, June 13 at the Médiathèque de Rochefort."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Rendez-vous dans les 7 bibliothèques participantes : Rochefort, Tonnay-Charente, Echillais, Saint-Agnant, Fouras-les-Bains, Breuil-Magné, Saint-Nazaire sur Charente",
+        "en": "Appointment in the 7 participating libraries: Rochefort, Tonnay-Charente, Echillais, Saint-Agnant, Fouras-les-Bains, Breuil-Magné, Saint-Nazaire sur Charente"
+      },
+      "image": {
+        "filename": "132aa3e4a15c4f2fa8831a2f71a024db.base.image.jpg",
+        "credits": "© Thibaut Lambert",
+        "size": {
+          "height": 1027,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "132aa3e4a15c4f2fa8831a2f71a024db.full.image.jpg",
+            "size": {
+              "height": 2598,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "132aa3e4a15c4f2fa8831a2f71a024db.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T15:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T15:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T15:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T14:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T14:00:00.000Z",
+          "end": "2020-05-18T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:25.000Z",
+      "createdAt": "2019-10-30T13:51:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 98140805,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "http://mediatheques.rochefortocean.fr/index.php",
+        "0516843551",
+        "c.couturier@agglo-rochefortocean.fr"
+      ],
+      "location": {
+        "uid": 98140805,
+        "slug": "rochefort823",
+        "name": "Réseau des médiathèques Rochefort Océan",
+        "address": "3 avenue Maurice Chupin 17300 Rochefort",
+        "city": "Rochefort",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente-Maritime",
+        "postalCode": "17300",
+        "insee": "17299",
+        "countryCode": "FR",
+        "district": "Avant-Garde Martrou Les Fourriers",
+        "latitude": 45.926971,
+        "longitude": -0.951607,
+        "updatedAt": "2019-10-30T14:20:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": "Rencontre d'auteurs",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Bulles en cavale et les établissements scolaires",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 70211133,
+        "custom": {
+          "organization": "Réseau des médiathèques Rochefort Océan",
+          "contactName": "Charlotte Couturier",
+          "contactNumber": "0516843551",
+          "contactPosition": "Chargée de mission",
+          "email": "c.couturier@agglo-rochefortocean.fr"
+        }
+      }
+    },
+    {
+      "uid": 77816464,
+      "ownerUid": 70211133,
+      "creatorUid": 70211133,
+      "slug": "remise-des-prix-prix-bd-bulles-docean",
+      "title": {
+        "fr": "Remise des prix - Prix BD Bulles d'Océan",
+        "en": "Awards ceremony - Prix BD Bulles d'Océan"
+      },
+      "description": {
+        "fr": "Ce prix a pour ambition de faire découvrir aux enfants, comme aux adultes, la diversité de l’offre éditoriale francophone récente à travers 12 ouvrages sélectionnés",
+        "en": "The aim of this prize is to introduce children and adults alike to the diversity of the recent French-language editorial offering through 12 selected books"
+      },
+      "longDescription": {
+        "fr": "Le réseau des médiathèques Rochefort Océan, en partenariat avec les établissements scolaires du territoire et la librairie Bulles en cavale, propose pour la quatrième édition le Prix BD Bulles d’Océan.\n\nCe prix a pour ambition de faire découvrir aux enfants, comme aux adultes, la diversité de l’offre éditoriale francophone récente à travers 12 ouvrages sélectionnés par les bibliothécaires et les professeurs documentalistes sur trois différentes tranches d’âge. Le prix récompense ensuite un ouvrage par tranche d’âge.\n\nLa sélection est à la disposition de tous dans chacun des sites concernés, d’octobre 2019 à mai 2020. Les lecteurs peuvent ainsi, à l’aide d’un bulletin de vote mis à leur disposition, voter pour leur BD préférée. Outre ce vote, le prix sera également ponctué de rencontres d’auteurs et d’ateliers de création qui s’échelonneront sur 2020.\n\nCette année, le prix BD est parrainé par Thibaut Lambert, auteur/illustrateur basé à Marennes. Influencé par son pays natal la Belgique, il est comme ainsi dire né dans une bulle. Tout l’inspire, l’amour, les voyages, la maladies, les rencontres… En tant que parrain, Thibaut Lambert a réalisé l’affiche de cette édition et sera présent lors de la remise des prix, le samedi 13 juin à la Médiathèque de Rochefort.",
+        "en": "The network of Rochefort Ocean media libraries, in partnership with the local schools and the bookstore Bulles en cavale, proposes for the fourth edition the Prix BD Bulles d'Océan.\nThe aim of this prize is to introduce children and adults alike to the diversity of the recent French-language editorial offering through 12 books selected by librarians and documentalist teachers over three different age groups. The prize then rewards one book per age group.\nThe selection is available to everyone at each of the sites concerned, from October 2019 to May 2020\\. Readers can thus vote for their favourite comic book using a ballot available to them. In addition to this vote, the prize will also be punctuated by meetings of authors and creative workshops that will take place over 2020.\nThis year, the comic book prize is sponsored by Thibaut Lambert, author/illustrator based in Marennes. Influenced by his native country of Belgium, he is as it were born in a bubble. Everything inspires him, love, travel, disease, encounters… As sponsor, Thibaut Lambert created the poster for this edition and will be present at the awards ceremony on Saturday, June 13 at the Médiathèque de Rochefort."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Rendez-vous dans les 7 bibliothèques participantes : Rochefort, Tonnay-Charente, Echillais, Saint-Agnant, Fouras-les-Bains, Breuil-Magné, Saint-Nazaire sur Charente",
+        "en": "Appointment in the 7 participating libraries: Rochefort, Tonnay-Charente, Echillais, Saint-Agnant, Fouras-les-Bains, Breuil-Magné, Saint-Nazaire sur Charente"
+      },
+      "image": {
+        "filename": "132aa3e4a15c4f2fa8831a2f71a024db.base.image.jpg",
+        "credits": "© Thibaut Lambert",
+        "size": {
+          "height": 1027,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "132aa3e4a15c4f2fa8831a2f71a024db.full.image.jpg",
+            "size": {
+              "height": 2598,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "132aa3e4a15c4f2fa8831a2f71a024db.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-13T14:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:21.000Z",
+      "createdAt": "2019-10-30T13:53:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 28286917,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "http://mediatheques.rochefortocean.fr/index.php",
+        "0516843551",
+        "c.couturier@agglo-rochefortocean.fr"
+      ],
+      "location": {
+        "uid": 28286917,
+        "slug": "mediatheque-de-rochefort804",
+        "name": "Médiathèque de Rochefort",
+        "address": "Passage des Amériques Royale 17312 Rochefort",
+        "city": "Rochefort",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente-Maritime",
+        "postalCode": "17300",
+        "insee": "17299",
+        "countryCode": "FR",
+        "district": "Centre Ville",
+        "latitude": 45.939653,
+        "longitude": -0.956572,
+        "updatedAt": "2019-11-26T13:34:58.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": "Rencontre d'auteurs",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Bulles en cavale et les établissements scolaires",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 70211133,
+        "custom": {
+          "organization": "Réseau des médiathèques Rochefort Océan",
+          "contactName": "Charlotte Couturier",
+          "contactNumber": "0516843551",
+          "contactPosition": "Chargée de mission",
+          "email": "c.couturier@agglo-rochefortocean.fr"
+        }
+      }
+    },
+    {
+      "uid": 12606884,
+      "ownerUid": 78247025,
+      "creatorUid": 78247025,
+      "slug": "28eme-festival-bd-de-martel",
+      "title": {
+        "fr": "Festival de BD de Martel",
+        "en": "Martel Comic Strip Festival"
+      },
+      "description": {
+        "fr": "Dédicaces d'auteur(e)s, expositions et animations",
+        "en": "Author’s autographs, exhibitions and animations"
+      },
+      "longDescription": {
+        "fr": "**28e édition du festival de BD de Martel**\n\n28 auteur(e)s en dédicaces sous la halle\n\n3 expositions au palais de la Raymondie\n\nUne performance d'artiste\n\nUne conférence\n\nDes animations jeune public",
+        "en": "**28th edition of the Martel Comic Strip Festival**\n28 author(e)s in dedication under the hall\n3 exhibitions at the Palais de la Raymondie\nAn artist’s performance\nA conference\nAnimations for young audiences"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a75fa63550d74f8ba8649d833aac9a58.base.image.jpg",
+        "credits": "© DR",
+        "size": {
+          "height": 857,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a75fa63550d74f8ba8649d833aac9a58.full.image.jpg",
+            "size": {
+              "height": 1464,
+              "width": 1197
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a75fa63550d74f8ba8649d833aac9a58.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-19T08:00:00.000Z",
+          "end": "2020-07-19T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T08:30:00.000Z",
+          "end": "2020-07-19T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T09:00:00.000Z",
+          "end": "2020-07-19T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T09:30:00.000Z",
+          "end": "2020-07-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T10:00:00.000Z",
+          "end": "2020-07-19T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T10:30:00.000Z",
+          "end": "2020-07-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T11:00:00.000Z",
+          "end": "2020-07-19T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T11:30:00.000Z",
+          "end": "2020-07-19T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T12:00:00.000Z",
+          "end": "2020-07-19T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T12:30:00.000Z",
+          "end": "2020-07-19T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T13:00:00.000Z",
+          "end": "2020-07-19T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T13:30:00.000Z",
+          "end": "2020-07-19T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T14:00:00.000Z",
+          "end": "2020-07-19T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T14:30:00.000Z",
+          "end": "2020-07-19T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T15:00:00.000Z",
+          "end": "2020-07-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T15:30:00.000Z",
+          "end": "2020-07-19T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:05.000Z",
+      "createdAt": "2019-10-30T15:41:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 29533270,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.facebook.com/Les-fêlés-de-la-BD-Martel-2303039373106326/",
+        "http://opalebd.com/festivals/details/99",
+        "bdmartel46@gmail.com",
+        "0613666084"
+      ],
+      "location": {
+        "uid": 29533270,
+        "slug": "halle-and-palais-de-la-raymondie",
+        "name": "Halle et palais de la Raymondie",
+        "address": "46600 Martel",
+        "city": "Martel",
+        "region": "Occitanie",
+        "department": "Lot",
+        "postalCode": "46600",
+        "insee": "46086",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.937327,
+        "longitude": 1.609628,
+        "updatedAt": "2019-10-30T15:56:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 78247025,
+        "custom": {
+          "organization": "28ème Festival BD de Martel",
+          "contactName": "Charles SOUBEYRAN",
+          "contactNumber": "06 13 66 60 84",
+          "contactPosition": "Président",
+          "email": "bdmartel46@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 97423017,
+      "ownerUid": 26191524,
+      "creatorUid": 26191524,
+      "slug": "salon-contre-bande-dessinee",
+      "title": {
+        "fr": "Salon contre-bande-dessinée",
+        "en": "Salon contre-bande-dessinée"
+      },
+      "description": {
+        "fr": "Festival de bande dessinée du château de Voltaire",
+        "en": "Voltaire Castle Comic Strip Festival"
+      },
+      "longDescription": {
+        "fr": "Deux jours de rencontres pour les passionnés et les amateurs autour d'auteurs et d'éditeurs.\n\nExposition de planches originales, ateliers de création de personnages, jeux de société...",
+        "en": "Two days of meetings for enthusiasts and amateurs around authors and publishers.\nExhibition of original plates, workshops of creation of characters, board games..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d6a5d4be22884943b408406efef5a323.base.image.jpg",
+        "credits": "© Didier Plowy – Centre des monuments nationaux",
+        "size": {
+          "height": 468,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d6a5d4be22884943b408406efef5a323.full.image.jpg",
+            "size": {
+              "height": 1577,
+              "width": 2362
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d6a5d4be22884943b408406efef5a323.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:00:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:12.000Z",
+      "createdAt": "2019-11-05T11:59:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4258258,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "chateau-de-voltaire@monuments-nationaux.fr"
+      ],
+      "location": {
+        "uid": 4258258,
+        "slug": "chateau-de-voltaire-01210-ferney-voltaire",
+        "name": "Château de Voltaire",
+        "address": "Allée du Château 01210 Ferney-Voltaire",
+        "city": "Ferney-Voltaire",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Ain",
+        "postalCode": "01210",
+        "insee": "01160",
+        "countryCode": "FR",
+        "district": "Moëns",
+        "latitude": 46.258261,
+        "longitude": 6.103123,
+        "updatedAt": "2019-11-05T12:57:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": "Ateliers, exposition de planches, dédicaces, rencontres avec 30 auteurs.",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": "En partenariat avec le Centre des monuments nationaux et avec le soutien de la ville de Ferney-Voltaire",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "18004601300017",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 26191524,
+        "custom": {
+          "organization": "Centre des monuments nationaux château de Voltaire",
+          "contactName": "François-Xavier VERGER",
+          "contactNumber": "0450405321",
+          "contactPosition": "Administrateur du château de Voltaire",
+          "email": "francois-xavier.verger@monuments-nationaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 89167935,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "travail-autour-de-la-bd-par-des-eleves-a-nogent",
+      "title": {
+        "fr": "Travail autour de la BD par des élèves de Nogent",
+        "en": "Work around the comic book by students from Nogent"
+      },
+      "description": {
+        "fr": "Travail autour de la BD par des élèves de Nogent",
+        "en": "Work around the comic book by students from Nogent"
+      },
+      "longDescription": {
+        "fr": "La ville de Nogent (par l’intermédiaire de ses 3 services culturels : médiathèque, musée, salle de spectacles) participe à BD 2020 !\n\nCe projet s’articule autour de la bande dessinée et s’adresse au public scolaire avec notamment 4 classes de l’école primaire de Nogent (cycle 3) et une classe de 4e du collège de Nogent. Celui-ci se déroulera au cours de l’année scolaire 2019/20.\n\nL’objectif est de faire découvrir aux élèves le monde de la bande dessinée en travaillant avec un dessinateur afin qu’ils créent, par la suite, leur propre bande dessinée. Sylvain Aimes, artiste chaumontais, sera en charge dudit projet ; il réalise notamment des bandes dessinées dans le style « ligne claire » à la manière des aventures deTintin.\n\nVisite du musée : septembre/octobre 2019\n\nTravail d’écriture pour l’invention (au cours des premières séances au musée et/ou en classe par la suite) : octobre/novembre 2019 ;\n\n1re séance avec le dessinateur à la médiathèque : « Qu’est-ce qu’une BD et comment celle-ci se réalise ? » : novembre 2019 ;\n\n4 interventions en classe avec le dessinateur pour apprendre à créer une BD (un personnel de la médiathèque accompagnera ces ateliers) : décembre 2019/janvier/février 2020 ;\n\nRestitution du travail le 14/02/2020. Une bande dessinée au format A4 regroupant les 5 histoires des 5 classes retenues pour le projet autour d’un même héros sera imprimée. Chaque élève recevra en cadeau à la fin de ce projet une bande dessinée.",
+        "en": "The city of Nogent (through its 3 cultural services: media library, museum, theatre) participates in BD 2020!\nThis project is based on comic books and is aimed at the school public, including 4 classes from Nogent Primary School (Cycle 3) and a 4th class from Nogent College. This will take place during the 2019/20 school year.\nThe goal is to introduce students to the world of comic books by working with a cartoonist to create their own comic book afterwards. Sylvain Aimes, a Chaumontais artist, will be in charge of this project; he produces comic books in the «clear line» style, like the adventures of Intin.\nMuseum Visit: September/October 2019\nWriting work for the invention (during the first sessions in the museum and/or in class afterwards): October/November 2019;\n1st session with the cartoonist at the media library: «What is a comic strip and how it is realized?»: November 2019;\n4 classroom interventions with the cartoonist to learn how to create a comic book (media library staff will accompany these workshops): December 2019/January/February 2020;\nRestitution of work on 14/02/2020\\. A comic strip in A4 format containing the 5 stories from the 5 classes selected for the project around the same hero will be printed. Each student will receive a comic book as a gift at the end of this project."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1f9a7ac89d71437ab0b9d11d300a1356.base.image.jpg",
+        "credits": "© Ville de Nogent",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1f9a7ac89d71437ab0b9d11d300a1356.full.image.jpg",
+            "size": {
+              "height": 1512,
+              "width": 2016
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1f9a7ac89d71437ab0b9d11d300a1356.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-31T23:00:00.000Z",
+          "end": "2020-01-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-01T23:00:00.000Z",
+          "end": "2020-01-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-02T23:00:00.000Z",
+          "end": "2020-01-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T23:00:00.000Z",
+          "end": "2020-01-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T23:00:00.000Z",
+          "end": "2020-01-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:02.000Z",
+      "createdAt": "2019-11-05T13:28:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 52088395,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 52088395,
+        "slug": "centre-socio-culturel-robert-henry",
+        "name": "Centre socio-culturel Robert Henry",
+        "address": "Rue de la Piscine 52800 Nogent",
+        "city": "Nogent",
+        "region": "Grand Est",
+        "department": "Haute-Marne",
+        "postalCode": "52800",
+        "insee": "52353",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.038465,
+        "longitude": 5.345994,
+        "updatedAt": "2019-10-23T09:31:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 95572500,
+      "ownerUid": 64557296,
+      "creatorUid": 64557296,
+      "slug": "japan-tours-festival-2020",
+      "title": {
+        "fr": "Japan Tours festival 2020",
+        "en": "Japan Tours festival 2020"
+      },
+      "description": {
+        "fr": "Tradition - Manga - Geek - Jeux vidéos - Jeux de société - Esport - Comics",
+        "en": "Tradition - Manga - Geek - Jeux vidéos - Jeux de société - Esport - Comics"
+      },
+      "longDescription": {
+        "fr": "Le Japan Tours festival, organisé par Tours Evénements, est le plus grand festival de culture japonaise et geek de la Région Centre-Val de Loire.\n\nCet événement propose des univers riches et variés comme la tradition japonaise, l’univers du Manga, l’univers musical japonais, le cosplay, la culture geek, les jeux de société, le jeux vidéo, l’e-sport, les comics…\n\nC’est aussi l’occasion pour les visiteurs de rencontrer des invités d’exception, participer à des ateliers et des conférences, et découvrir les exposants présents.\n\nEn 2019, le Japan Tours festival a établi ses quartiers au parc des expositions de Tours. L’enjeu était de taille : plus de place, d’invités, d’animations et d’exposants pour tous les fans de la culture nippone. Le défi est relevé : 19 135 visiteurs ont fait le déplacement (+20% par rapport à 2018) !\n\nProchaine édition du 28 février au 1er mars 2020 !",
+        "en": "The Japan Tours festival, organized by Tours Evénements, is the largest festival of Japanese culture and geek of the Loire Valley Region.\nThis event offers rich and varied universes such as Japanese tradition, the world of Manga, the Japanese musical universe, cosplay, geek culture, board games, video games, e-sport, comics…\nIt is also an opportunity for visitors to meet exceptional guests, participate in workshops and conferences, and discover the exhibitors present.\nIn 2019, the Japan Tours festival established its headquarters at the Tours Exhibition Centre. The stakes were high: more space, guests, entertainment and exhibitors for all fans of Japanese culture. The challenge has been met: 19,135 visitors made the trip (+20% compared to 2018)!\nNext edition from 28 February to 1 March 2020!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e2e012418e044315bfa9e8c8b47f4389.base.image.jpg",
+        "credits": "@shiitake",
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e2e012418e044315bfa9e8c8b47f4389.full.image.jpg",
+            "size": {
+              "height": 3543,
+              "width": 2362
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e2e012418e044315bfa9e8c8b47f4389.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-28T09:00:00.000Z",
+          "end": "2020-01-28T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:58.000Z",
+      "createdAt": "2019-11-05T15:21:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20053022,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 77
+      },
+      "registration": [
+        "https://japantours-tickets.eventgenius.co.uk/events/Japan-Tours-Fe-1/index.html"
+      ],
+      "location": {
+        "uid": 20053022,
+        "slug": "parc-expo-de-tours405",
+        "name": "Parc exposition de Tours",
+        "address": "Avenue Camille Chautemps 37000 Tours",
+        "city": "Tours",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37700",
+        "insee": "37261",
+        "countryCode": "FR",
+        "district": "Rochepinard",
+        "latitude": 47.378802,
+        "longitude": 0.726779,
+        "updatedAt": "2019-11-05T15:55:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "14 € - 1 jour 32 € - 3 jours  49 € Pass famille (2 adultes + 2 enfants) 59 € - Pass VIP",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "SAEM Evénementielle",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64557296,
+        "custom": {
+          "organization": "TOURS EVENEMENTS",
+          "contactName": "JULIEN DUMAS",
+          "contactNumber": "0247326045",
+          "contactPosition": "RESPONSABLE COMMUNICATION JAPAN TOURS FESTIVAL",
+          "email": "jdumas@tours-evenements.com"
+        }
+      }
+    },
+    {
+      "uid": 7038699,
+      "ownerUid": 96876025,
+      "creatorUid": 96876025,
+      "slug": "le-forum-de-la-bd-arelate-hors-les-murs",
+      "title": {
+        "fr": "Forum de la BD",
+        "en": "Forum de la BD"
+      },
+      "description": {
+        "fr": "Le forum de la BD a pour ambition de mettre en avant l’Antiquité sous l’angle de la bande dessinée. Rencontres-dédicaces avec les auteurs, ateliers pédagogiques et animations rythment ces 3 journées.",
+        "en": "The aim of the comic book forum is to highlight antiquity from a comic book perspective. Meetings-dedication with authors, pedagogical workshops and animations punctuate these 3 days."
+      },
+      "longDescription": {
+        "fr": "Cette manifestation a pour but de mettre en lumière des auteurs de bande dessinée ayant créé des albums traitant de l’Antiquité. Elle s’adresse à tous les publics : aux amateurs de bande dessinée qui ont l’occasion de rencontrer leurs auteurs favoris évidemment, mais aussi aux amateurs de l’histoire antique qui ont la possibilité de découvrir une approche différente de cette période, aux familles (la BD s’adresse à tous les âges et des ateliers pédagogiques sont organisés pour les enfants) et, enfin, aux visiteurs de passage qui découvrent sur place, par hasard, le « Forum de la BD » et qui, après avoir profité des animations (reconstitutions historiques), sont tout heureux de pouvoir ramener un souvenir de leur journée sous la forme d’une (ou plusieurs) bande dessinée dédicacée.",
+        "en": "The event aims to highlight comic book authors who have created albums dealing with antiquity. It is aimed at all audiences: comic strip lovers who have the opportunity to meet their favorite authors obviously, but also fans of ancient history who have the opportunity to discover a different approach to this period, families (the comic book is intended for all ages and educational workshops are organized for children) and, finally, for visiting visitors who discover on the spot, by chance, the «Comic Strip Forum» and who, after enjoying the animations (historical re-enactments), are happy to be able to bring back a memory of their day in the form of one (or more) autographed comic book."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f7fa0078716c4624b92a400a8eee0409.base.image.jpg",
+        "credits": "Affiche édition 2019",
+        "size": {
+          "height": 987,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f7fa0078716c4624b92a400a8eee0409.full.image.jpg",
+            "size": {
+              "height": 1409,
+              "width": 1000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f7fa0078716c4624b92a400a8eee0409.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-15T11:30:00.000Z",
+          "end": "2020-08-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T08:00:00.000Z",
+          "end": "2020-08-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-17T08:00:00.000Z",
+          "end": "2020-08-17T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:07.000Z",
+      "createdAt": "2019-11-06T12:09:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57238166,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "jean-luc.thouvenin@monuments-nationaux.fr"
+      ],
+      "location": {
+        "uid": 57238166,
+        "slug": "saint-remy-de-provence562",
+        "name": "Ville de Saint-Rémy-de-Provence",
+        "address": "Avenue des Baux de Provence 13210 Saint-Rémy-de-Provence",
+        "city": "Fontvieille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13990",
+        "insee": "13038",
+        "countryCode": "FR",
+        "district": "Château d'Estoublon - Mogador",
+        "latitude": 43.727882,
+        "longitude": 4.714429,
+        "updatedAt": "2019-11-06T12:41:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Arelate, journées romaines d'Arles",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Municipalité de Saint-Rémy-de-Provence et Centre des monuments nationaux",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96876025,
+        "custom": {
+          "organization": "Centre des Monuments Nationaux (Glanum)",
+          "contactName": "Jean-Luc Thouvenin",
+          "contactNumber": "0432606405",
+          "contactPosition": "Ingénieur des Services Culturels",
+          "email": "jean-luc.thouvenin@monuments-nationaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 12918311,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "forum-de-la-bd-a-la-bibliotheque-joseph-roumanille",
+      "title": {
+        "fr": "Forum de la BD - À la bibliothèque Joseph-Roumanille",
+        "en": "Comic Strip Forum - At the Joseph-Roumanille Library"
+      },
+      "description": {
+        "fr": "Le forum de la BD a pour ambition de mettre en avant l’Antiquité sous l’angle de la bande dessinée. Rencontres-dédicaces avec les auteurs, ateliers pédagogiques et animations rythment ces 3 journées.",
+        "en": "The aim of the comic book forum is to highlight antiquity from a comic book perspective. Book-signing meetings with authors, pedagogical workshops and animations punctuate these 3 days."
+      },
+      "longDescription": {
+        "fr": "Cette manifestation a pour but de mettre en lumière des auteurs de bande dessinée ayant créé des albums traitant de l’Antiquité. Elle s’adresse à tous les publics : aux amateurs de bande dessinée qui ont l’occasion de rencontrer leurs auteurs favoris évidemment, mais aussi aux amateurs de l’histoire antique qui ont la possibilité de découvrir une approche différente de cette période, aux familles (la BD s’adresse à tous les âges et des ateliers pédagogiques sont organisés pour les enfants) et, enfin, aux visiteurs de passage qui découvrent sur place, par hasard, le « Forum de la BD » et qui, après avoir profité des animations (reconstitutions historiques), sont tout heureux de pouvoir ramener un souvenir de leur journée sous la forme d’une (ou plusieurs) bande dessinée dédicacée.",
+        "en": "The event aims to highlight comic book authors who have created albums dealing with antiquity. It is aimed at all audiences: comic strip lovers who have the opportunity to meet their favorite authors obviously, but also fans of ancient history who have the opportunity to discover a different approach to this period, families (the comic book is intended for all ages and educational workshops are organized for children) and, finally, for visiting visitors who discover on the spot, by chance, the «Comic Strip Forum» and who, after enjoying the animations (historical re-enactments), are happy to be able to bring back a memory of their day in the form of one (or more) autographed comic book."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c4cdc04034f546d28eecd1b9ad57b2b1.base.image.jpg",
+        "credits": "Affiche édition 2019",
+        "size": {
+          "height": 469,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c4cdc04034f546d28eecd1b9ad57b2b1.full.image.jpg",
+            "size": {
+              "height": 1370,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c4cdc04034f546d28eecd1b9ad57b2b1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-15T12:00:00.000Z",
+          "end": "2020-08-15T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:50.000Z",
+      "createdAt": "2019-11-06T13:40:55.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 61623545,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "jean-luc.thouvenin@monuments-nationaux.fr"
+      ],
+      "location": {
+        "uid": 61623545,
+        "slug": "bibliotheque-joseph-roumanille44",
+        "name": "Bibliothèque Joseph-Roumanille",
+        "address": "Boulevard Gambetta 13210 Saint-Rémy-de-Provence",
+        "city": "Saint-Rémy-de-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13210",
+        "insee": "13100",
+        "countryCode": "FR",
+        "district": "Château des Alpilles",
+        "latitude": 43.790353,
+        "longitude": 4.831436,
+        "updatedAt": "2019-11-06T12:42:42.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Arelate, journées romaines d'Arles",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Municipalité de Saint-Rémy-de-Provence et Centre des monuments nationaux",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2063958
+}

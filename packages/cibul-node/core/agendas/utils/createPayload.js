@@ -67,10 +67,11 @@ function makeGetResponse(services, data) {
 }
 
 function getFormSchema(agenda, access = null) {
+  const cleanAccess = access ? (access === 'internal' ? null : access) : null;
   return merge.schemasWithEvent(
     _.get(agenda, 'network.formSchema'),
     _.get(agenda, 'formSchema'),
-    access !== null ? { read: access } : null
+    cleanAccess !== null ? { read: cleanAccess } : null
   );
 }
 

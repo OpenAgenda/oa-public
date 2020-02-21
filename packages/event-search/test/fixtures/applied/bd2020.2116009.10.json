@@ -1,0 +1,1580 @@
+{
+  "events": [
+    {
+      "uid": 72310596,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "presentation-du-prix-regard-9-par-eric-audebert",
+      "title": {
+        "fr": "Présentation du prix Regard 9 par Éric Audebert",
+        "en": "Presentation of the Regard 9 Prize by Éric Audebert"
+      },
+      "description": {
+        "fr": "Présentation du prix Regard 9 par Éric Audebert à l'occasion du café BD de février à la bibliothèque Pierre Veilletet",
+        "en": "Presentation of the Regard 9 prize by Éric Audebert on the occasion of the February comic strip café at the Pierre Veilletet library"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T10:00:00.000Z",
+          "end": "2020-02-15T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:30.000Z",
+      "createdAt": "2019-12-16T16:03:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 62061806,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 62061806,
+        "slug": "bibliotheque-pierre-veilletet",
+        "name": "Bibliothèque Pierre Veilletet",
+        "address": "21 rue Domion 33200 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.857621,
+        "longitude": -0.623204,
+        "updatedAt": "2019-12-17T08:35:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 36111011,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "cafe-bd-autour-du-prix-metropolitain_940427",
+      "title": {
+        "fr": "Café BD autour du prix Métropolitain",
+        "en": "Café BD around the Metropolitan Prize"
+      },
+      "description": {
+        "fr": "Café BD autour du prix Métropolitain à la bibliothèque de La Bastide",
+        "en": "Café BD around the Metropolitan Prize at the library of La Bastide"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Rendez-vous à la bibliothèque de La Bastide",
+        "en": "Go to the library of La Bastide"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-17T08:30:00.000Z",
+          "end": "2020-10-17T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:40.000Z",
+      "createdAt": "2019-12-16T15:55:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 21282325,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 21282325,
+        "slug": "bibliotheque-de-la-bastide",
+        "name": "Bibliothèque de la Bastide",
+        "address": "18-22 rue Alexander Fleming 33100 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "La Bastide",
+        "latitude": 44.845271,
+        "longitude": -0.542064,
+        "updatedAt": "2019-12-17T08:16:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 43172366,
+      "ownerUid": 39155648,
+      "creatorUid": 39155648,
+      "slug": "exposition-anuki",
+      "title": {
+        "fr": "Exposition \"Anuki\"",
+        "en": "Exhibition \"Anuki\""
+      },
+      "description": {
+        "fr": "Exposition autour de la BD Anuki, l'occasion de s'immerger dans le monde de la BD dès le plus jeune âge",
+        "en": "Exhibition around the Anuki comic strip, the opportunity to immerse oneself in the world of comics from the earliest age"
+      },
+      "longDescription": {
+        "fr": "Anuki est un petit indien héros d’une série de bandes dessinées sans paroles produite à l’attention du très jeune public. L’exposition entièrement muette a été conçue pour les enfants qui ne savent pas encore lire. Des jeux adaptés, avec plusieurs niveaux de difficulté, leur permettant de travailler leur sens de l’observation, de la couleur, des formes. Autant d’exercices qui constituent une première sensibilisation à la bande dessinée. Elle est accompagnée d’une sélection de BD sans paroles pour aller plus loin dans la découverte du genre.",
+        "en": "Anuki is a little Indian hero from a series of nonspoken comic books produced for the very young audience. The entirely silent exhibition was designed for children who do not yet know how to read. Games adapted, with several levels of difficulty, allowing them to work their sense of observation, color, shapes. All these exercises constitute a first awareness of comic books. It is accompanied by a selection of comics without words to go further in the discovery of the genre."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "364497314cdc41c389274b3230276785.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 465,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "364497314cdc41c389274b3230276785.full.image.jpg",
+            "size": {
+              "height": 265,
+              "width": 399
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "364497314cdc41c389274b3230276785.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T15:00:00.000Z",
+          "end": "2020-01-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T15:00:00.000Z",
+          "end": "2020-01-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T13:00:00.000Z",
+          "end": "2020-01-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T15:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T15:00:00.000Z",
+          "end": "2020-01-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T15:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T15:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T15:00:00.000Z",
+          "end": "2020-01-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T15:00:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T15:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T15:00:00.000Z",
+          "end": "2020-01-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T15:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T15:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T15:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T15:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T15:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T15:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T15:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T15:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T15:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T15:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T15:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:38.000Z",
+      "createdAt": "2020-01-02T12:56:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 23617105,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 4,
+        "max": 7
+      },
+      "registration": [
+        "https://bibliothequetremeven.blogspot.com/",
+        "02-98-09-91-16",
+        "biblio.tremeven@gmail.com"
+      ],
+      "location": {
+        "uid": 23617105,
+        "slug": "mediatheque-l-passerelle",
+        "name": "Médiathèque L@ Passerelle",
+        "address": "Place de l'Église 29300 Tréméven",
+        "city": "Tréméven",
+        "region": "Bretagne",
+        "department": "Finistère",
+        "postalCode": "29300",
+        "insee": "29297",
+        "countryCode": "FR",
+        "district": "Le Bourg Lost Ar Hocq",
+        "latitude": 47.898629,
+        "longitude": -3.533461,
+        "updatedAt": "2020-01-02T12:48:14.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 39155648,
+        "custom": {
+          "organization": "Médiathèque L@ Passerelle",
+          "contactName": "Béatrice Dizès",
+          "contactNumber": "02 98 09 91 16",
+          "contactPosition": "Responsable médiathèque",
+          "email": "biblio.tremeven@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 81854794,
+      "ownerUid": 81052962,
+      "creatorUid": 81052962,
+      "slug": "la-bd-lorigine-du-monde-de-liv-stromquist-adaptee-au-theatre-par-le-groupe-wanda",
+      "title": {
+        "fr": "\"L'origine du monde\", une bande dessinée de Liv Strömquist adaptée au théâtre par le Groupe Wanda",
+        "en": "\"The Origin of the World\", a comic book by Liv Strömquist adapted for theatre by the Wanda Group"
+      },
+      "description": {
+        "fr": "Le Groupe Wanda adapte au théâtre \"L'Origine du Monde\" de Liv Strömquist : une BD extraordinaire et nécessaire, source d'informations capitales sur le sexe de la femme et pleine d'humour !",
+        "en": "The Wanda Group adapts to the theatre \"L'Origine du Monde\" by Liv Strömquist: an extraordinary and necessary comic, source of vital information on the sex of the woman and full of humor!"
+      },
+      "longDescription": {
+        "fr": "Au départ, on s'est retrouvées sur un plateau de théâtre pour parler, échanger, chanter, danser, improviser, sur un thème : la femme, la féminité. Des pensées, des réflexions, puis des questions. Beaucoup de questions sans réponses. Alors on a cherché, on a creusé, lu, et on a commencé à trouver de plus en plus d'auteur.e.s qui devenaient pour nous de véritables phares dans la nuit. Petit à petit, on a eu le sentiment d'y voir plus clair, de mettre enfin la lumière sur des sujets tabous, des situations qui, depuis des années, nous semblaient curieuses, gênantes et/ou parfois profondément injustes.\n\nParmi ces auteurs, il y avait Liv Strömquist et sa génialissime BD : L'origine du monde.\n\n« Le fruit de la connaissance ». Une claque. Une claque qui nous a réveillées et nous a donné des informations capitales sur le sexe de la femme. Des informations dissimulées, passées sous silence bien trop longtemps. On a ressenti de la colère et une profonde indignation. Les femmes ont subi pendant des siècles et subissent encore des violences morales et physiques insupportables parce que... parce qu'elles sont des femmes.\n\nMais heureusement, face à cette rage, un autre sentiment nous a envahit : la joie. La joie de la découverte, la joie de parler, de s'exprimer et de comprendre. Enfin. Celle de jouer, de mettre en scène cette BD truffée de données minutieusement recherchées par l'autrice qui nous offre son regard cru, impertinent et infiniment drôle. La joie de transmettre ce que les manuels scolaires ont encore du mal à enseigner, l'anatomie du sexe féminin dans son entièreté. Avec cet organe là... vous savez le oui mais oui vous voyez de quoi on parle... celui là même qui est uniquement dédié au plaisir...oui oui : le Clitoris, le corps du Clitoris ! Et il y a tellement d'autres choses...\n\nPour la scénographie on s'est associées à la très talentueuse designeuse Fanny Prudhomme qui a inventé une mallette dans laquelle se trouve le sexe féminin en kit, à monter !\n\nNotre spectacle, créé en juin 2019 à Job (en Haute-Garonne), démarre sa tournée 2020 à Saint-Étienne en janvier, puis il ira à Toulouse et Cherbourg en mars, Avignon en juillet pour tout le festival, avant de revenir à Toulouse pour 10 jours en octobre.\n\nOn vous attend, on vous espère nombreu.x.ses !\n\nLe Groupe Wanda",
+        "en": "At the beginning, we met on a stage to talk, exchange, sing, dance, improvise, on a theme: woman, femininity. Thoughts, thoughts, then questions. Lots of unanswered questions. So we searched, we dug, we read, and we began to find more and more authors who became for us real lighthouses in the night. Little by little, we had the feeling of seeing things more clearly, of finally shedding light on taboo subjects, situations which, for years, seemed curious, embarrassing and/or sometimes profoundly unjust.\nAmong these authors was Liv Strömquist and her brilliant comic: The Origin of the World.\n“The Fruit of Knowledge”. A slap. A slap that woke us up and gave us vital information about women’s sex. Information that has been hidden for far too long. There has been anger and profound indignation. Women have endured for centuries and are still subjected to unbearable moral and physical violence because... because they are women.\nBut fortunately, in the face of this rage, another feeling invaded us: joy. The joy of discovery, the joy of speaking, expressing oneself and understanding. Finally. To play, to stage this comic strip full of data meticulously researched by the author who offers us his raw, impertinent and infinitely funny look. The joy of transmitting what the textbooks still struggle to teach, the anatomy of the female sex in its entirety. With this organ there... you know the yes but yes you see what we’re talking about... the same one that is dedicated to pleasure...yes yes: the Clitoris, the body of the Clitoris! And there are so many other things...\nFor the scenography we have teamed up with the very talented designer Fanny Prudhomme who invented a suitcase in which the female sex is in kit, to be mounted!\nOur show, created in June 2019 in Job (in Haute-Garonne), starts its tour 2020 in Saint-Étienne in January, then it will go to Toulouse and Cherbourg in March, Avignon in July for the whole festival, before returning to Toulouse for 10 days in October.[End of translation]\nOn vous attend, on vous espère nombreu.x.ses !\nLe Groupe Wanda"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation",
+        "en": "By reservation"
+      },
+      "image": {
+        "filename": "20f234497d9045ae9ec443671dabe78c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1047,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "20f234497d9045ae9ec443671dabe78c.full.image.jpg",
+            "size": {
+              "height": 1079,
+              "width": 722
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "20f234497d9045ae9ec443671dabe78c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-23T19:00:00.000Z",
+          "end": "2020-01-23T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T13:00:00.000Z",
+          "end": "2020-01-24T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T19:00:00.000Z",
+          "end": "2020-01-24T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:30.000Z",
+      "createdAt": "2020-01-02T15:05:15.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 45520652,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 13,
+        "max": 99
+      },
+      "registration": [
+        "http://choktheatre.com/reservations/",
+        "04 77 25 39 32",
+        "https://www.facebook.com/pages/category/Theatrical-Play/Lorigine-du-monde-par-le-groupe-Wanda-418946568903193/"
+      ],
+      "location": {
+        "uid": 45520652,
+        "slug": "chok-theatre510",
+        "name": "Chok théâtre",
+        "address": "24 rue Bernard Palissy 42100 Saint-Étienne",
+        "city": "Saint-Étienne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Loire",
+        "postalCode": "42100",
+        "insee": "42218",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.438028,
+        "longitude": 4.405822,
+        "updatedAt": "2020-01-02T15:54:34.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "De 8 à 12 euros",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81052962,
+        "custom": {
+          "organization": "Groupe Wanda",
+          "contactName": "Jeanne Vimal",
+          "contactNumber": "06 07 96 91 82",
+          "contactPosition": "Comédienne",
+          "email": "jeannevimal@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 29977521,
+      "ownerUid": 81052962,
+      "creatorUid": 81052962,
+      "slug": "la-bd-lorigine-du-monde-de-liv-stromquist-adaptee-au-theatre-par-le-groupe-wanda_980488",
+      "title": {
+        "fr": "\"L'origine du monde\", une bande dessinée de Liv Strömquist adaptée au théâtre par le Groupe Wanda",
+        "en": "\"The Origin of the World\", a comic book by Liv Strömquist adapted for theatre by the Wanda Group"
+      },
+      "description": {
+        "fr": "Le Groupe Wanda adapte au théâtre \"L'Origine du Monde\" de Liv Strömquist : une BD extraordinaire et nécessaire, source d'informations capitales sur le sexe de la femme et pleine d'humour !",
+        "en": "The Wanda Group adapts to the theatre \"L'Origine du Monde\" by Liv Strömquist: an extraordinary and necessary comic, source of vital information on the sex of the woman and full of humor!"
+      },
+      "longDescription": {
+        "fr": "Au départ, on s'est retrouvées sur un plateau de théâtre pour parler, échanger, chanter, danser, improviser, sur un thème : la femme, la féminité. Des pensées, des réflexions, puis des questions. Beaucoup de questions sans réponses. Alors on a cherché, on a creusé, lu, et on a commencé à trouver de plus en plus d'auteur.e.s qui devenaient pour nous de véritables phares dans la nuit. Petit à petit, on a eu le sentiment d'y voir plus clair, de mettre enfin la lumière sur des sujets tabous, des situations qui, depuis des années, nous semblaient curieuses, gênantes et/ou parfois profondément injustes.\n\nParmi ces auteurs, il y avait Liv Strömquist et sa génialissime BD : L'origine du monde.\n\n« Le fruit de la connaissance ». Une claque. Une claque qui nous a réveillées et nous a donné des informations capitales sur le sexe de la femme. Des informations dissimulées, passées sous silence bien trop longtemps. On a ressenti de la colère et une profonde indignation. Les femmes ont subi pendant des siècles et subissent encore des violences morales et physiques insupportables parce que... parce qu'elles sont des femmes.\n\nMais heureusement, face à cette rage, un autre sentiment nous a envahit : la joie. La joie de la découverte, la joie de parler, de s'exprimer et de comprendre. Enfin. Celle de jouer, de mettre en scène cette BD truffée de données minutieusement recherchées par l'autrice qui nous offre son regard cru, impertinent et infiniment drôle. La joie de transmettre ce que les manuels scolaires ont encore du mal à enseigner, l'anatomie du sexe féminin dans son entièreté. Avec cet organe là... vous savez le oui mais oui vous voyez de quoi on parle... celui là même qui est uniquement dédié au plaisir...oui oui : le Clitoris, le corps du Clitoris ! Et il y a tellement d'autres choses...\n\nPour la scénographie on s'est associées à la très talentueuse designeuse Fanny Prudhomme qui a inventé une mallette dans laquelle se trouve le sexe féminin en kit, à monter !\n\nNotre spectacle, créé en juin 2019 à Job (en Haute-Garonne), démarre sa tournée 2020 à Saint-Étienne en janvier, puis il ira àToulouse et Cherbourg en mars, Avignon en juillet pour tout le festival, avant de revenir à Toulouse pour 10 jours en octobre.\n\nOn vous attend, on vous espère nombreu.x.ses !\n\nLe Groupe Wanda",
+        "en": "At the beginning, we met on a stage to talk, exchange, sing, dance, improvise, on a theme: woman, femininity. Thoughts, thoughts, then questions. Lots of unanswered questions. So we searched, we dug, we read, and we began to find more and more authors who became for us real lighthouses in the night. Little by little, we had the feeling of seeing things more clearly, of finally shedding light on taboo subjects, situations which, for years, seemed curious, embarrassing and/or sometimes profoundly unjust.\nAmong these authors was Liv Strömquist and her brilliant comic: The Origin of the World.\n“The Fruit of Knowledge”. A slap. A slap that woke us up and gave us vital information about women’s sex. Information that has been hidden for far too long. There has been anger and profound indignation. Women have endured for centuries and are still subjected to unbearable moral and physical violence because... because they are women.\nBut fortunately, in the face of this rage, another feeling invaded us: joy. The joy of discovery, the joy of speaking, expressing oneself and understanding. Finally. To play, to stage this comic strip full of data meticulously researched by the author who offers us his raw, impertinent and infinitely funny look. The joy of transmitting what the textbooks still struggle to teach, the anatomy of the female sex in its entirety. With this organ there... you know the yes but yes you see what we’re talking about... the same one that is dedicated to pleasure...yes yes: the Clitoris, the body of the Clitoris! And there are so many other things...\nFor the scenography we have teamed up with the very talented designer Fanny Prudhomme who invented a suitcase in which the female sex is in kit, to be mounted!\nOur show, created in June 2019 in Job (in Haute-Garonne), starts its tour 2020 in Saint-Étienne in January, then it will go to Toulouse and Cherbourg in March, Avignon in July for the whole festival, before returning to Toulouse for 10 days in October.[End of translation]\nOn vous attend, on vous espère nombreu.x.ses !\nLe Groupe Wanda"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation",
+        "en": "By reservation"
+      },
+      "image": {
+        "filename": "c191e3b87d304f8a88f840740af91d44.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1047,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c191e3b87d304f8a88f840740af91d44.full.image.jpg",
+            "size": {
+              "height": 1079,
+              "width": 722
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c191e3b87d304f8a88f840740af91d44.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-18T20:00:00.000Z",
+          "end": "2020-03-18T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T20:00:00.000Z",
+          "end": "2020-03-19T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T20:00:00.000Z",
+          "end": "2020-03-20T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:25.000Z",
+      "createdAt": "2020-01-02T19:02:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 81245304,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 13,
+        "max": 99
+      },
+      "registration": [
+        "https://cavepoesie.festik.net/groupe-wanda-l-origine-du-monde/1",
+        "05 61 23 62 00",
+        "https://www.facebook.com/pages/category/Theatrical-Play/Lorigine-du-monde-par-le-groupe-Wanda-418946568903193/"
+      ],
+      "location": {
+        "uid": 81245304,
+        "slug": "la-cave-poesie-rene-gouzenne",
+        "name": "La cave poésie René Gouzenne",
+        "address": "71 rue du Taur 31000 Toulouse",
+        "city": "Toulouse",
+        "region": "Occitanie",
+        "department": "Haute-Garonne",
+        "postalCode": "31000",
+        "insee": "31555",
+        "countryCode": "FR",
+        "district": "Toulouse Centre",
+        "latitude": 43.607055,
+        "longitude": 1.440891,
+        "updatedAt": "2020-01-05T17:19:32.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "De 9,80€ à 14,10€",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Féminins pluriels… Masculin singulier ?",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81052962,
+        "custom": {
+          "organization": "Groupe Wanda",
+          "contactName": "Jeanne Vimal",
+          "contactNumber": "06 07 96 91 82",
+          "contactPosition": "Comédienne",
+          "email": "jeannevimal@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 39008387,
+      "ownerUid": 65011417,
+      "creatorUid": 65011417,
+      "slug": "bdconcert",
+      "title": {
+        "fr": "BD-concert adapté de \"Là où vont nos pères\" de Shaun Tan",
+        "en": "BD-concert adapted from \"Where Our Fathers Go\" by Shaun Tan"
+      },
+      "description": {
+        "fr": "BD-concert",
+        "en": "BD-concert"
+      },
+      "longDescription": {
+        "fr": "Un BD-concert est un spectacle qui associe la projection d'un \"BD-rama\",\n\n(soit une bande dessinée montée en long-métrage sous forme de diaporama) à de la musique live.\n\nLe spectacle s'appuie sur le roman graphique _Là où vont nos pères_\n\nde l'auteur australien Shaun Tan, publié en 2007 chez Dargaud et prix du meilleur album au festival d'Angoulême en 2008, et sur une création musicale originale composée et interprétée par le duo Lovla, Martin Mor & Olivier Vauquelin, deux musiciens multi instrumentistes.\n\nIl raconte l'histoire d'un homme quittant sa famille vers une terre inconnue, de l'autre côté de l'océan.\n\nUne histoire intemporelle, qui aborde avec finesse certains enjeux émotionnels et culturels de la question migratoire.",
+        "en": "A BD-concert is a show that combines the projection of a \"BD-rama\",\n(or a comic strip mounted in a full-length slideshow) to live music.\nThe show is based on the graphic novel _Where Our Fathers Go_\nby the Australian author Shaun Tan, published in 2007 by Dargaud and awarded the best album at the Angoulême festival in 2008, and on an original musical creation composed and performed by the duo Lovla, Martin Mor & Olivier Vauquelin, two multi-instrumentalist musicians.\nHe tells the story of a man leaving his family to an unknown land on the other side of the ocean.\nA timeless history, which finely addresses some of the emotional and cultural issues of migration."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Spectacle tout public à partir de 9 ans",
+        "en": "Show for all audiences from 9 years old"
+      },
+      "image": {
+        "filename": "76caba44924b4f508fb8a580ce4c446f.base.image.jpg",
+        "credits": "LOVLA",
+        "size": {
+          "height": 653,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "76caba44924b4f508fb8a580ce4c446f.full.image.jpg",
+            "size": {
+              "height": 1027,
+              "width": 1101
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "76caba44924b4f508fb8a580ce4c446f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-23T16:00:00.000Z",
+          "end": "2020-02-23T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:09.000Z",
+      "createdAt": "2020-01-06T09:21:33.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 89619033,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 89619033,
+        "slug": "cinema-la-tomette-salernes",
+        "name": "Cinéma La tomette",
+        "address": "83690 Salernes",
+        "city": "Salernes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83690",
+        "insee": "83121",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.564007,
+        "longitude": 6.232571,
+        "updatedAt": "2020-01-06T09:42:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "De 8 à 15 €",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ligue de l'Enseignement du Var",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65011417,
+        "custom": {
+          "organization": "Le Plancher des Chèvres",
+          "contactName": "Romain Chaffard",
+          "contactNumber": "0494706513",
+          "contactPosition": "Administrateur",
+          "email": "asso.plancherdeschevres@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 4886927,
+      "ownerUid": 65011417,
+      "creatorUid": 65011417,
+      "slug": "concert-dessine-baudoinmontanaro",
+      "title": {
+        "fr": "Concert dessiné avec Edmond Baudoin et Miqueù Montanaro",
+        "en": "Designed concert with Edmond Baudoin and Miqueù Montanaro"
+      },
+      "description": {
+        "fr": "Concert dessiné",
+        "en": "Concert dessiné"
+      },
+      "longDescription": {
+        "fr": "Concert dessiné avec l'auteur Edmond Baudoin et le musicien Miqueù Montanaro. Evénement organisé en soutien à la librairie coopérative Caractères Libres à Aups.",
+        "en": "Concert drawn with the author Edmond Baudoin and the musician Miqueù Montanaro. Event organized in support of the cooperative bookshop Free Characters in Aups."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a2542a67046e492c91af2b56672e5fab.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a2542a67046e492c91af2b56672e5fab.full.image.jpg",
+            "size": {
+              "height": 576,
+              "width": 1024
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a2542a67046e492c91af2b56672e5fab.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T18:00:00.000Z",
+          "end": "2020-02-22T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:17.000Z",
+      "createdAt": "2020-01-06T09:31:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 44992732,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 44992732,
+        "slug": "83630-aups-centre-culturel",
+        "name": "Centre culturel",
+        "address": "83630 Aups",
+        "city": "Aups",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83630",
+        "insee": "83139",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.62838,
+        "longitude": 6.225317,
+        "updatedAt": "2020-01-06T09:42:34.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Prix libre",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Caractères Libres",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65011417,
+        "custom": {
+          "organization": "Le Plancher des Chèvres",
+          "contactName": "Romain Chaffard",
+          "contactNumber": "0494706513",
+          "contactPosition": "Administrateur",
+          "email": "asso.plancherdeschevres@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 63441436,
+      "ownerUid": 46849675,
+      "creatorUid": 46849675,
+      "slug": "bd-de-poesie-et-bd-romanesque-avec-alexandre-balcaen",
+      "title": {
+        "fr": "Conférence \"BD de poésie et BD romanesque\" avec Alexandre Balcaen",
+        "en": "Lecture \"BD de poésie et BD romanesque\" with Alexandre Balcaen"
+      },
+      "description": {
+        "fr": "Créateur des éditions Adverse et auteur d’un manifeste pour une bande dessinée de poésie, Alexandre Balcaen présente sa nouvelle revue critique et théorique sur la BD",
+        "en": "Creator of the editions Adverse and author of a manifesto for a comic book of poetry, Alexandre Balcaen presents his new critical and theoretical review on comics"
+      },
+      "longDescription": {
+        "fr": "Créateur des éditions Adverse, ancien compagnon de route de The Hoochie Coochie et auteur d’un manifeste pour une bande dessinée de poésie, Alexandre Balcaen nous présente le deuxième numéro de sa nouvelle revue critique et théorique sur la bande-dessinée, intitulée _À partir de_.",
+        "en": "Creator of the editions Adverse, former travel companion of The Hoochie Coochie and author of a manifesto for a comic strip of poetry, Alexandre Balcaen presents the second issue of his new critical and theoretical review on comic strip, entitled _From_."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T15:00:00.000Z",
+          "end": "2020-02-08T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:34:46.000Z",
+      "createdAt": "2020-01-06T11:32:57.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39380983,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 39380983,
+        "slug": "musee-dart-et-dhistoire-paul-eluard",
+        "name": "Musée d'art et d'histoire Paul Eluard",
+        "address": "22 bis rue Gabriel Péri 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.932336,
+        "longitude": 2.355796,
+        "updatedAt": "2020-01-06T19:10:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Avec le département de la Seine-Saint-Denis",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 46849675,
+        "custom": {
+          "organization": "musée d'art et d'histoire Paul Eluard",
+          "contactName": "Lucile Chastre",
+          "contactNumber": "0183722457",
+          "contactPosition": "responsable du service des publics",
+          "email": "lucile.chastre@ville-saint-denis.fr"
+        }
+      }
+    },
+    {
+      "uid": 50635677,
+      "ownerUid": 46849675,
+      "creatorUid": 46849675,
+      "slug": "borges-et-la-bande-dessinee-avec-thomas-gosselin",
+      "title": {
+        "fr": "Conférence \"Borges et la bande dessinée\" avec Thomas Gosselin",
+        "en": "Lecture \"Borges et la bande dessinée\" with Thomas Gosselin"
+      },
+      "description": {
+        "fr": "Thomas Gosselin nous explique son processus de création et son rapport avec l’œuvre du grand poète argentin Jorge Luis Borges à travers les thèmes du hasard, du labyrinthe et du livre",
+        "en": "Thomas Gosselin explains his creative process and his relationship with the work of the great Argentinean poet Jorge Luis Borges through the themes of chance, the labyrinth and the book"
+      },
+      "longDescription": {
+        "fr": "Thomas Gosselin est un prolifique auteur de bandes dessinées. Il revendique l’influence de Jorge Luis Borges (1899-1986) dans son travail. Il nous explique, à la lumière de ses ouvrages, son processus de création et son rapport avec l’œuvre du grand poète argentin à travers les thèmes du hasard, du labyrinthe et du livre.",
+        "en": "Thomas Gosselin is a prolific comic writer. He claims the influence of Jorge Luis Borges (1899-1986) in his work. He explains, in the light of his works, his creative process and his relationship with the work of the great Argentine poet through the themes of chance, the labyrinth and the book."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sans inscription",
+        "en": "Without registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-14T15:00:00.000Z",
+          "end": "2020-03-14T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:34:43.000Z",
+      "createdAt": "2020-01-06T11:36:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39380983,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 39380983,
+        "slug": "musee-dart-et-dhistoire-paul-eluard",
+        "name": "Musée d'art et d'histoire Paul Eluard",
+        "address": "22 bis rue Gabriel Péri 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.932336,
+        "longitude": 2.355796,
+        "updatedAt": "2020-01-06T19:10:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Avec le département de la Seine-Saint-Denis",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 46849675,
+        "custom": {
+          "organization": "musée d'art et d'histoire Paul Eluard",
+          "contactName": "Lucile Chastre",
+          "contactNumber": "0183722457",
+          "contactPosition": "responsable du service des publics",
+          "email": "lucile.chastre@ville-saint-denis.fr"
+        }
+      }
+    },
+    {
+      "uid": 62588948,
+      "ownerUid": 46849675,
+      "creatorUid": 46849675,
+      "slug": "ladaptation-de-poesies-en-bande-dessinee-avec-gerald-auclin-dans-le-cadre-du-festival-hors-limites",
+      "title": {
+        "fr": "Festival Hors limites - Conférence \"L’adaptation de poésies en bande dessinée\"  avec Gérald Auclin",
+        "en": "Festival Hors limites - Lecture \"L'adaptation de poésies en bande dessinée\" avec Gérald Auclin"
+      },
+      "description": {
+        "fr": "Gérald Auclin nous parle de la façon dont il envisage le rapport entre poésie et bande dessinée et de sa proximité avec Lev Youdine (1903-1941), un illustrateur soviétique",
+        "en": "Gérald Auclin talks about how he sees the relationship between poetry and comic books and his proximity to Lev Youdine (1903-1941), a Soviet illustrator"
+      },
+      "longDescription": {
+        "fr": "Gérald Auclin, compagnon de route de The Hoochie Coochie, est l’auteur de plusieurs ouvrages, dont _Incidents_, inspiré des poèmes de Daniil Harms (1905-1942), poète et conteur russe. Il nous parle de la façon dont il envisage le rapport entre poésie et bande dessinée et de sa proximité avec Lev Youdine (1903-1941), un illustrateur soviétique.",
+        "en": "Gérald Auclin, a travelling companion of The Hoochie Coochie, is the author of several books, including _Incidents_, inspired by the poems of Daniil Harms (1905-1942), a Russian poet and storyteller. He talks about how he sees the relationship between poetry and comic books and his proximity to Lev Youdine (1903-1941), a Soviet illustrator."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sans inscription",
+        "en": "Without registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T14:00:00.000Z",
+          "end": "2020-04-04T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:01.000Z",
+      "createdAt": "2020-01-06T11:39:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39380983,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 39380983,
+        "slug": "musee-dart-et-dhistoire-paul-eluard",
+        "name": "Musée d'art et d'histoire Paul Eluard",
+        "address": "22 bis rue Gabriel Péri 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.932336,
+        "longitude": 2.355796,
+        "updatedAt": "2020-01-06T19:10:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Département de la Seine-Saint-Denis",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 46849675,
+        "custom": {
+          "organization": "musée d'art et d'histoire Paul Eluard",
+          "contactName": "Lucile Chastre",
+          "contactNumber": "0183722457",
+          "contactPosition": "responsable du service des publics",
+          "email": "lucile.chastre@ville-saint-denis.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2118622
+}

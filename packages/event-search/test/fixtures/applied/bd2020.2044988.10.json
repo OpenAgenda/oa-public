@@ -1,0 +1,1727 @@
+{
+  "events": [
+    {
+      "uid": 20252064,
+      "ownerUid": 9636477,
+      "creatorUid": 9636477,
+      "slug": "rencontre-avec-johann-g-louis-auteur-illustrateur-de-la-bd-frehel",
+      "title": {
+        "fr": "Rencontre avec Johann G. Louis, auteur-illustrateur de la BD Fréhel",
+        "en": "Meeting with Johann G. Louis, author-illustrator of the Fréhel comic book"
+      },
+      "description": {
+        "fr": "Rencontre et dédicace avec Johann G. Louis, auteur-illustrateur de la BD : Fréhel",
+        "en": "Meeting and dedication with Johann G. Louis, comic book illustrator: Fréhel"
+      },
+      "longDescription": {
+        "fr": "Figure incontournable de la Belle époque et des Années folles, Fréhel est l’« inoubliable inoubliée ». Bien avant Edith Piaf, elle contribua à populariser la chanson réaliste et marquera des générations d’artistes : Charles Trenet, Serge Gainsbourg, Mano Solo, Les Garçons Bouchers ou Les Hurlements de Léo.\n\nDans ce roman graphique, Johann G. Louis redonne vie à cette artiste majeure qui brûla la vie par tous les bouts, se consumant dans l’amour, la fête, l’alcool et la coco. Plongez avec elle dans le Paris canaille, entre scène de music-hall et plateau de cinéma, caf’conc’ et voyage au pays des paradis artificiels.",
+        "en": "A key figure of the Belle époque and the Années folles, Fréhel is the «unforgettable unpublished». Long before Edith Piaf, she helped popularize the realistic song and will mark generations of artists: Charles Trenet, Serge Gainsbourg, Mano Solo, Les Garçons Bouchers or Les Hurlements de Léo.\nIn this graphic novel, Johann G. Louis revives this major artist who burned life at every end, consuming herself in love, celebration, alcohol and coconut. Dive with her into the rogue Paris, between music-hall stage and movie set, caf'conc' and travel to the land of artificial paradise."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c7cae380412a426eb7376b58e64b14d6.base.image.jpg",
+        "credits": "Nada éditions",
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c7cae380412a426eb7376b58e64b14d6.full.image.jpg",
+            "size": {
+              "height": 720,
+              "width": 480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c7cae380412a426eb7376b58e64b14d6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-11T16:00:00.000Z",
+          "end": "2020-04-11T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:47.000Z",
+      "createdAt": "2019-10-22T07:58:15.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 12029125,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "0143863783"
+      ],
+      "location": {
+        "uid": 12029125,
+        "slug": "bibliotheque-municipale-de-valenton",
+        "name": "Bibliothèque municipale de Valenton",
+        "address": "Place Paul Vaillant Couturier 94460 Valenton",
+        "city": "Valenton",
+        "region": "Île-de-France",
+        "department": "Val-de-Marne",
+        "postalCode": "94460",
+        "insee": "94074",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.745795,
+        "longitude": 2.469532,
+        "updatedAt": "2019-10-22T14:23:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 9636477,
+        "custom": {
+          "organization": "Bibliothèque municipale de Valenton",
+          "contactName": "THIERRY VANDENNIEUWEMBROUCK",
+          "contactNumber": "0143863783",
+          "contactPosition": "Responsable-adjoint",
+          "email": "thierry.vandennieu@ville-valenton.fr"
+        }
+      }
+    },
+    {
+      "uid": 55180666,
+      "ownerUid": 11074858,
+      "creatorUid": 11074858,
+      "slug": "festival_450212",
+      "title": {
+        "fr": "Festival BD de Colomiers",
+        "en": "Festival BD de Colomiers"
+      },
+      "description": {
+        "fr": "Festival dédié à la BD et l'illustration : éditeurs, auteurs, expos, rencontres, animations, spectacles, films...",
+        "en": "Festival dedicated to comics and illustration: publishers, authors, expos, meetings, animations, shows, films..."
+      },
+      "longDescription": {
+        "fr": "Festival BD de Colomiers\n------------------------\n\nLe festival BD de Colomiers, un événement qui mixe l'illustration et les autres arts.\n\nLa programmation est axée sur :\n\n*   La mise en valeur du caractère interdisciplinaire de la bande dessinée ;\n    \n*   Le soutien à l’édition « indépendante » et à la jeune création ;\n    \n*   Le développement du réseau des partenaires européens et internationaux ;\n    \n*   Des actions à l’année : résidence d’artiste, Prix lycéen et collégien de la BD, EAC, Promenades dessinées…\n    \n\nQuelques chiffres clés :\n\n*   10 lieux dans Colomiers et Toulouse\n    \n*   12 expositions\n    \n*   60 éditeurs\n    \n*   200 auteurs\n    \n*   14 000 visiteurs",
+        "en": "## Festival BD de Colomiers\nThe Colomiers comic strip festival, an event that mixes illustration and other arts.\nProgramming is focused on:\n*   Highlighting the interdisciplinary character of comic books;\n*   Support for \"independent\" publishing and young creation;\n*   The development of the network of European and international partners;\n*   Year-round actions: artist’s residency, Prix lycéen et collégien de la BD, EAC, Promenades dessinées…\nA few key figures:\n*   10 places in Colomiers and Toulouse\n*   12 exhibitions\n*   60 publishers\n*   200 authors\n*   14,000 visitors"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "317cf245d3d04716a0f9a6446ad13adb.base.image.jpg",
+        "credits": "Festival BD de Colomiers - Affiche de l'édition 2019",
+        "size": {
+          "height": 1028,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "317cf245d3d04716a0f9a6446ad13adb.full.image.jpg",
+            "size": {
+              "height": 1259,
+              "width": 858
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "317cf245d3d04716a0f9a6446ad13adb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-11-13T13:00:00.000Z",
+          "end": "2020-11-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T09:00:00.000Z",
+          "end": "2020-11-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T09:00:00.000Z",
+          "end": "2020-11-15T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:55.000Z",
+      "createdAt": "2019-10-22T13:59:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 99094900,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bdcolomiers.com"
+      ],
+      "location": {
+        "uid": 99094900,
+        "slug": "ville-de-colomiers",
+        "name": "Ville de Colomiers",
+        "address": "Place Alex-Raymond 31772 Colomiers",
+        "city": "Colomiers",
+        "region": "Occitanie",
+        "department": "Haute-Garonne",
+        "postalCode": "31770",
+        "insee": "31149",
+        "countryCode": "FR",
+        "district": "Plein Centre",
+        "latitude": 43.610182,
+        "longitude": 1.334518,
+        "updatedAt": "2019-10-22T14:25:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3 € ( Gratuit pour les moins de 18 ans, étudiants et porteurs de la carte Pastel Tisséo)",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 11074858,
+        "custom": {
+          "organization": "Festival BD de Colomiers",
+          "contactName": "Hélène Picot",
+          "contactNumber": "0561152382",
+          "contactPosition": "Chargée de communication",
+          "email": "helene.picot@mairie-colomiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 14319605,
+      "ownerUid": 67167132,
+      "creatorUid": 67167132,
+      "slug": "la-bd-a-nogent",
+      "title": {
+        "fr": "Exposition de planches de bandes dessinées réalisées par des élèves de Nogent",
+        "en": "Exhibition of comic strips by students from Nogent"
+      },
+      "description": {
+        "fr": "Exposition des créations par les élèves",
+        "en": "Exhibition of creations by students"
+      },
+      "longDescription": {
+        "fr": "Après le travail débuté en septembre 2019, exposition des planches originales réalisées par les élèves organisée à la salle de spectacles du 2 au 15 mars 2020. Cette exposition sera inaugurée en présence des parents.",
+        "en": "After the work started in September 2019, exhibition of the original plates created by the students organized at the auditorium from March 2 to 15, 2020\\. This exhibition will be inaugurated in the presence of the parents."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1f9a7ac89d71437ab0b9d11d300a1356.base.image.jpg",
+        "credits": "Ville de Nogent",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1f9a7ac89d71437ab0b9d11d300a1356.full.image.jpg",
+            "size": {
+              "height": 1512,
+              "width": 2016
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1f9a7ac89d71437ab0b9d11d300a1356.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-02T17:30:00.000Z",
+          "end": "2020-03-02T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T12:30:00.000Z",
+          "end": "2020-03-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T12:30:00.000Z",
+          "end": "2020-03-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T12:30:00.000Z",
+          "end": "2020-03-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T12:30:00.000Z",
+          "end": "2020-03-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T12:30:00.000Z",
+          "end": "2020-03-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T12:30:00.000Z",
+          "end": "2020-03-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T12:30:00.000Z",
+          "end": "2020-03-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T12:30:00.000Z",
+          "end": "2020-03-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T12:30:00.000Z",
+          "end": "2020-03-13T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:53.000Z",
+      "createdAt": "2019-10-22T15:59:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 52088395,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 52088395,
+        "slug": "centre-socio-culturel-robert-henry",
+        "name": "Centre socio-culturel Robert Henry",
+        "address": "Rue de la Piscine 52800 Nogent",
+        "city": "Nogent",
+        "region": "Grand Est",
+        "department": "Haute-Marne",
+        "postalCode": "52800",
+        "insee": "52353",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.038465,
+        "longitude": 5.345994,
+        "updatedAt": "2019-10-23T09:31:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 67167132,
+        "custom": {
+          "organization": "Musée de la coutellerie",
+          "contactName": "Angéline MICHELOT",
+          "contactNumber": "0325318921",
+          "contactPosition": "Médiatrice culturelle",
+          "email": "accueil-musee@villedenogent52.com"
+        }
+      }
+    },
+    {
+      "uid": 19799468,
+      "ownerUid": 84694864,
+      "creatorUid": 84694864,
+      "slug": "festival-bande-dessinee",
+      "title": {
+        "fr": "Festival Tousenbd",
+        "en": "Tousenbd Festival"
+      },
+      "description": {
+        "fr": "Festival Tousenbd",
+        "en": "Tousenbd Festival"
+      },
+      "longDescription": {
+        "fr": "Expositions, rencontres, dédicaces, bouquinistes...",
+        "en": "Exhibitions, meetings, dedications, booksellers..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "beb053c3028d47b8b3eee8d99c0d5e80.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 403,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "beb053c3028d47b8b3eee8d99c0d5e80.full.image.jpg",
+            "size": {
+              "height": 690,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "beb053c3028d47b8b3eee8d99c0d5e80.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T08:00:00.000Z",
+          "end": "2020-05-10T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:33.000Z",
+      "createdAt": "2019-10-22T16:45:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20454432,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "festivaltousenbd@gmail.com"
+      ],
+      "location": {
+        "uid": 20454432,
+        "slug": "saint-beauzire",
+        "name": "Ville de Saint-Beauzire",
+        "address": "63360 Saint-Beauzire",
+        "city": "Saint-Beauzire",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63360",
+        "insee": "63322",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.851633,
+        "longitude": 3.179006,
+        "updatedAt": "2019-10-23T09:41:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3 euros les 2 jours",
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 84694864,
+        "custom": {
+          "organization": "festival tousenbd st beauzire",
+          "contactName": "serge louis",
+          "contactNumber": "0783047489",
+          "contactPosition": "président",
+          "email": "festivaltousenbd@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 78248027,
+      "ownerUid": 32673887,
+      "creatorUid": 32673887,
+      "slug": "bdandvin",
+      "title": {
+        "fr": "Festival BD & Vin",
+        "en": "BD & Vin Festival"
+      },
+      "description": {
+        "fr": "BD&VIN est un moment privilégié de convivialité avec des rencontres d'auteurs BD et des dégustations de vins",
+        "en": "BD&VIN is a privileged moment of conviviality with meetings of comic book authors and wine tastings"
+      },
+      "longDescription": {
+        "fr": "La bande dessinée et le vin ont été associés, le temps d’un week-end, dans le cadre unique de la cour du château Lacouture. Au fil des ans, grâce à sa convivialité et sa diversité, le festival BD & Vin s’est fait connaître et reconnaître auprès des auteurs, dessinateurs, scénaristes, coloristes et éditeurs mais aussi du public, qu’il soit amateur de bandes dessinées ou de bonne chère.\n\nEn plus des traditionnelles rencontres et dédicaces avec les auteurs, BD & Vin s’anime chaque année au mois de mai autour de ses exposants qui permettent à chaque visiteur de profiter de la richesse des produits du terroir.\n\nVous pouvez également déjeuner en compagnie de nos invités chaque midi sur inscription.",
+        "en": "The comic book and the wine were associated, for a weekend, in the unique setting of the courtyard of the Lacouture castle. Over the years, thanks to its conviviality and diversity, the BD & Vin festival has become known and recognized by authors, cartoonists, screenwriters, colorists and publishers, as well as by the public, whether they are fans of comic books or good food.\nIn addition to the traditional meetings and dedications with the authors, BD & Vin comes alive every year in May around its exhibitors who allow each visitor to enjoy the richness of local products.\nYou can also have lunch with our guests every noon upon registration."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3160c2428c44414baa7f45f4603737ae.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3160c2428c44414baa7f45f4603737ae.full.image.jpg",
+            "size": {
+              "height": 1827,
+              "width": 1293
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3160c2428c44414baa7f45f4603737ae.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:00:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:51.000Z",
+      "createdAt": "2019-10-23T12:11:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 79610086,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bd-et-vin.fr",
+        "bdetvin@yahoo.fr",
+        "0662108231"
+      ],
+      "location": {
+        "uid": 79610086,
+        "slug": "chateau-lacouture",
+        "name": "Château Lacouture",
+        "address": "3 route du Fronton 33710 Gauriac",
+        "city": "Gauriac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33710",
+        "insee": "33182",
+        "countryCode": "FR",
+        "district": "Moulin de Grenet",
+        "latitude": 45.069545,
+        "longitude": -0.606161,
+        "updatedAt": "2019-10-23T09:57:19.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association BD&VIN",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "82110095500011",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 32673887,
+        "custom": {
+          "organization": "1978",
+          "contactName": "Romain SOU",
+          "contactNumber": "0662108231",
+          "contactPosition": "Président d'honneur",
+          "email": "chateaulacouture@orange.fr"
+        }
+      }
+    },
+    {
+      "uid": 69663268,
+      "ownerUid": 32555018,
+      "creatorUid": 32555018,
+      "slug": "bulles-en-seyne-12eme-edition",
+      "title": {
+        "fr": "Bulles en Seyne, 12e édition",
+        "en": "Bubbles in Seyne, 12th edition"
+      },
+      "description": {
+        "fr": "12e festival de la bande dessinée et illustration jeunesse",
+        "en": "12th Comic Strip Festival and Youth Illustration"
+      },
+      "longDescription": {
+        "fr": "Du samedi 13 juin au dimanche 14 juin 2020, une trentaine d'auteurs vous donne rendez-vous au parc de la Navale à La Seyne-sur-Mer. En plus des dédicaces et des rencontres avec ces auteurs, vous pourrez aussi assister à des conférences, des quiz, des expositions, des jeux dessinés, des concerts dessinés...\n\nCette année, des auteurs internationaux (Canada, Italie, Corée...) se retrouveront pour vous faire partager leur métier.",
+        "en": "From Saturday, June 13 to Sunday, June 14, 2020, some thirty authors will meet you at the Naval Park in La Seyne-sur-Mer. In addition to dedications and meetings with these authors, you can also attend conferences, quizzes, exhibitions, games drawn, concerts drawn...\nThis year, international authors (Canada, Italy, Korea...) will meet to share their work with you."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription auprès de l'organisation pour tous les auteurs ou acteurs du livre. Participation gratuite pour le salon, les expositions, les concerts dessinés, les conférences...",
+        "en": "Registration with the organisation for all authors or actors of the book. Free participation for the show, exhibitions, designed concerts, conferences..."
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-13T09:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T09:00:00.000Z",
+          "end": "2020-06-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:32.000Z",
+      "createdAt": "2019-10-23T15:52:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 59425285,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "autourdelabd@orange.fr",
+        "06 66 06 75 94"
+      ],
+      "location": {
+        "uid": 59425285,
+        "slug": "parc-de-la-navale-83500-la-seyne-sur-mer",
+        "name": "Parc de la Navale",
+        "address": "142-216 cours Toussaint Merle Maire 83500 La Seyne-sur-Mer",
+        "city": "La Seyne-sur-Mer",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83500",
+        "insee": "83126",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.100771,
+        "longitude": 5.878895,
+        "updatedAt": "2019-10-24T08:22:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "commune de La Seyne-sur-Mer",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "509 841 201 00031",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 32555018,
+        "custom": {
+          "organization": "AU TOUR DE LA BD - BULLES EN SEYNE",
+          "contactName": "Frank CAMOUS",
+          "contactNumber": "06 66 06 75 94",
+          "contactPosition": "Président",
+          "email": "famillecamous@free.fr"
+        }
+      }
+    },
+    {
+      "uid": 42577539,
+      "ownerUid": 82582323,
+      "creatorUid": 82582323,
+      "slug": "festival-bd6ne",
+      "title": {
+        "fr": "Festival BD6Né",
+        "en": "Festival Bd6né"
+      },
+      "description": {
+        "fr": "Bande dessinée et cinéma",
+        "en": "Comic book and cinema"
+      },
+      "longDescription": {
+        "fr": "Entièrement consacré aux liens entre bande dessinée et cinéma, le festival BD6Né célèbre en 2020 sa 7e édition à Paris : projections, rencontres avec auteurs/autrices, animations, expositions et séances spéciales seront au programme.\n\nLors des éditions précédentes, le festival BD6Né a eu l'honneur d'inviter : Bill Plympton, Jean-Claude Mézières, François Boucq, Benoît Peeters, Chantal Montellier, Jean-Marc Rochette, Anne Simon, Mathieu Sapin, Alfred, Fanny Michaëlis et beaucoup d'autres !",
+        "en": "Entirely dedicated to the links between comic books and cinema, the Bd6né festival celebrates its 7th edition in Paris in 2020: screenings, meetings with authors/autrices, animations, exhibitions and special screenings will be on the programme.\nIn previous editions, the Bd6né festival had the honour of inviting: Bill Plympton, Jean-Claude Mézières, François Boucq, Benoît Peeters, Chantal Montellier, Jean-Marc Rochette, Anne Simon, Mathieu Sapin, Alfred, Fanny Michaëlis and many others!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "ebfc35c2e0bc455196c64061ae1df98b.base.image.jpg",
+        "credits": "© Julie Rocheleau",
+        "size": {
+          "height": 981,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ebfc35c2e0bc455196c64061ae1df98b.full.image.jpg",
+            "size": {
+              "height": 5079,
+              "width": 3626
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ebfc35c2e0bc455196c64061ae1df98b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-22T16:00:00.000Z",
+          "end": "2020-05-22T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T12:00:00.000Z",
+          "end": "2020-05-23T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T12:00:00.000Z",
+          "end": "2020-05-24T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:03.000Z",
+      "createdAt": "2019-10-23T20:18:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77858632,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bd6ne.blogspot.com/",
+        "festivalbd6ne@gmail.com"
+      ],
+      "location": {
+        "uid": 77858632,
+        "slug": "mediatheque-marguerite-duras470",
+        "name": "Médiathèque Marguerite Duras",
+        "address": "115 rue de Bagnolet 75020 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75020",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 20e Arrondissement",
+        "latitude": 48.859878,
+        "longitude": 2.40314,
+        "updatedAt": "2019-10-24T08:19:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 82582323,
+        "custom": {
+          "organization": "Festival BD6Né - 7e édition",
+          "contactName": "Julien Savès",
+          "contactNumber": "06 77 84 71 58",
+          "contactPosition": "Directeur du Festival",
+          "email": "festivalbd6ne@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 71151754,
+      "ownerUid": 76516082,
+      "creatorUid": 76516082,
+      "slug": "27eme-festival-bd-de-perros-guirec",
+      "title": {
+        "fr": "27e festival BD de Perros-Guirec",
+        "en": "27th BD Festival of Perros-Guirec"
+      },
+      "description": {
+        "fr": "27e édition du festival BD de Perros-Guirec",
+        "en": "27th edition of the Perros-Guirec comic strip festival"
+      },
+      "longDescription": {
+        "fr": "Festival comprenant des rencontres avec les auteurs, espaces de dédicaces, animations diverses (jeux, maquillages, ateliers, musique), expositions en divers lieux de la ville, vente de BD neuves et d'occasion, stands d'éditeurs...",
+        "en": "Festival including meetings with authors, dedication spaces, various animations (games, make-up, workshops, music), exhibitions in various places of the city, sale of new and used comics, publishers' stands..."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Palais des congrès, maison des Traouïéro et divers sites",
+        "en": "Palais des congrès, Traouéro house and various sites"
+      },
+      "image": {
+        "filename": "ccdb017f5a0e4cea8acc7c7b2b0b3cbb.base.image.jpg",
+        "credits": "Illustration de Jean Solé, invité d'honneur du 27ème Festival BD de Perros-Guirec",
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ccdb017f5a0e4cea8acc7c7b2b0b3cbb.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1748
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ccdb017f5a0e4cea8acc7c7b2b0b3cbb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T08:00:00.000Z",
+          "end": "2020-04-19T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:41.000Z",
+      "createdAt": "2019-10-25T12:21:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 27822984,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://Www.bdperros.com",
+        "https://fr-fr.facebook.com/festivalbdperrosguirec",
+        "https://twitter.com/BDPerros"
+      ],
+      "location": {
+        "uid": 27822984,
+        "slug": "palais-des-congres-22700-perros-guirec",
+        "name": "Palais des congrès",
+        "address": "Rue du maréchal Foch 22700 Perros-Guirec",
+        "city": "Perros-Guirec",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22700",
+        "insee": "22168",
+        "countryCode": "FR",
+        "district": "Crec'h Guégan",
+        "latitude": 48.815539,
+        "longitude": -3.448257,
+        "updatedAt": "2019-10-25T13:28:14.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "4 € la journée, 6 € le week-end",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76516082,
+        "custom": {
+          "organization": "Festival BD de Perros-Guirec",
+          "contactName": "Jérémy Senabre",
+          "contactNumber": "0698231419",
+          "contactPosition": "Président",
+          "email": "contact@bdperros.com"
+        }
+      }
+    },
+    {
+      "uid": 47344632,
+      "ownerUid": 76516082,
+      "creatorUid": 76516082,
+      "slug": "concours-jeunes-talents-le-telegramme",
+      "title": {
+        "fr": "Concours jeunes talents - Le Télégramme",
+        "en": "Young Talent Competition - The Telegram"
+      },
+      "description": {
+        "fr": "Concours jeunes talents - Le Télégramme",
+        "en": "Young Talent Competition - The Telegram"
+      },
+      "longDescription": {
+        "fr": "Règlement du concours\n---------------------\n\n### Article 1\n\nLe concours jeunes talents Le Télégramme, organisé par le festival BD de Perros-Guirec, est ouvert à tous les dessinateurs amateurs (non publiés) de plus de 15 ans.\n\n### Article 2\n\nLe thème du concours 2020 est \"Ô Solé Mio\".\n\n### Article 3\n\nÀ partir de ce thème, les concurrents devront réaliser une planche (une seule planche) de format A3 (297 x 420 mm), en couleur ou en noir et blanc.\n\nLe choix du style est libre : fantastique, humoristique, policier, poétique, historique, science-fiction...\n\nLe choix de la technique également : aquarelle, peinture, numérique...\n\n### Article 4\n\nLes trois premiers seront récompensés.\n\nLa planche du premier prix sera publiée dans le journal Le Télégramme.\n\nLe meilleur scénario sera récompensé. Le jury se réserve le droit de décerner d’autres prix. Les résultats seront communiqués par courrier, sur Facebook et sur le site internet du festival à partir du 25 mars.\n\nLes prix seront à retirer pendant le festival.\n\n### Article 5\n\nLes dessins devront obligatoirement être déposés ou expédiés à l'adresse suivante :\n\nMairie de Perros-Guirec\n\nService culture, vie associative et communication\n\n12 rue des 7 Îles\n\nBP 147\n\n22700 Perros-Guirec\n\nAu plus tard le 14 février 2020, le cachet de la poste faisant foi. Il sera indiqué lisiblement au dos et au centre de la planche les : nom, prénom, âge, adresse, téléphone, mail du ou des auteurs, ainsi que l’adresse de l’établissement scolaire concerné.\n\n### Article 6\n\nLe jury du concours, constitué de professionnels, désignera les gagnants selon les critères suivants : qualité graphique, originalité du scénario, respect du thème et respect du règlement et des consignes de présentation.\n\n### Article 7\n\nLes planches des concurrents seront exposées lors du festival. La remise des prix aura lieu pendant le festival au Palais des Congrès de Perros-Guirec. Toutes les planches seront retournées à leurs auteurs à l’issue du festival.\n\n### Article 8\n\nLe simple fait de participer à ce concours entraîne l’acceptation pleine et entière du présent règlement.",
+        "en": "## Rules of the contest\n### Article 1\nThe young talent competition Le Télégramme, organized by the Perros-Guirec comic strip festival, is open to all (unpublished) amateur cartoonists over the age of 15.\n### Article 2\nThe theme of the 2020 competition is \"Ô Solé Mio\".\n### Article 3\nFrom this theme, the competitors will have to create a A3 (297 x 420 mm) sheet in colour or in black and white.\nThe choice of style is free: fantastic, humorous, police, poetic, historical, science fiction...\nThe choice of technique also: watercolour, painting, digital...\n### Article 4\nThe first three will be rewarded.\nThe first prize board will be published in the newspaper Le Télégramme.\nThe best screenplay will be rewarded. The jury reserves the right to award further prizes. The results will be communicated by mail, on Facebook and on the festival website from 25 March.\nPrizes will be collected during the festival.\n### Article 5\nThe drawings must be filed or sent to the following address:\nPerros-Guirec Town Hall\nService culture, associative life and communication\n12 rue des 7 Îles\nPO 147\n22700 Perros-Guirec\nBy 14 February 2020, as evidenced by the postmark. It will be legibly indicated on the back and centre of the sheet: name, first name, age, address, telephone, e-mail of the author or authors, as well as the address of the school concerned.\n### Article 6\nThe jury of the competition, made up of professionals, will select the winners according to the following criteria: graphic quality, originality of the script, respect of the theme and respect of the rules and presentation instructions.\n### Article 7\nThe plates of the competitors will be exhibited during the festival. The awards ceremony will take place during the festival at the Palais des Congrès in Perros-Guirec. All the plates will be returned to their authors at the end of the festival.\n### Article 8\nThe mere fact of participating in this contest entails the full acceptance of this Policy."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Règlement spécifiant les conditions : envoi d'une planche de BD au format A3, pour tout dessinateur amateur de plus de 15 ans non publié, avant le 14 février 2020",
+        "en": "Regulation specifying the conditions: sending a comic strip in A3 format, for any unpublished amateur cartoonist over 15 years old, before 14 February 2020"
+      },
+      "image": {
+        "filename": "60d3d1edc1a149b49f39a1dd066e7591.base.image.jpg",
+        "credits": "Illustration réalisée par André Morvan",
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "60d3d1edc1a149b49f39a1dd066e7591.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1748
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "60d3d1edc1a149b49f39a1dd066e7591.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-31T23:00:00.000Z",
+          "end": "2020-01-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-01T23:00:00.000Z",
+          "end": "2020-01-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-02T23:00:00.000Z",
+          "end": "2020-01-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T23:00:00.000Z",
+          "end": "2020-01-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T23:00:00.000Z",
+          "end": "2020-01-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:37.000Z",
+      "createdAt": "2019-10-25T14:12:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 86924866,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bdperros.com",
+        "animation@perros-guirec.com",
+        "02 96 49 02 45"
+      ],
+      "location": {
+        "uid": 86924866,
+        "slug": "service-culture-vie-associative-et-communication",
+        "name": "Service culture, vie associative et communication",
+        "address": "Place de l'Hôtel de Ville 22700 Perros-Guirec",
+        "city": "Perros-Guirec",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22700",
+        "insee": "22168",
+        "countryCode": "FR",
+        "district": "Crec'h Guégan",
+        "latitude": 48.815946,
+        "longitude": -3.444194,
+        "updatedAt": "2019-11-18T09:50:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association Festival BD de Perros-Guirec pour le 27ème Festival BD de Perros-Guirec",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Journal Le Télégramme",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76516082,
+        "custom": {
+          "organization": "Festival BD de Perros-Guirec",
+          "contactName": "Jérémy Senabre",
+          "contactNumber": "0698231419",
+          "contactPosition": "Président",
+          "email": "contact@bdperros.com"
+        }
+      }
+    },
+    {
+      "uid": 587839,
+      "ownerUid": 53619636,
+      "creatorUid": 53619636,
+      "slug": "salon-de-la-bande-dessinee-de-saint-gaudens",
+      "title": {
+        "fr": "Salon de la bande dessinée de Saint-Gaudens",
+        "en": "Salon de la bande dessinée de Saint-Gaudens"
+      },
+      "description": {
+        "fr": "Depuis 2004, l’association BD COMMINGES organise chaque année un salon de la BD où elle réunit auteurs, dessinateurs, scénaristes, coloristes, connus au plan national et international.",
+        "en": "Since 2004, the association BD COMMINGES organizes each year a comic show where it brings together authors, cartoonists, screenwriters, colorists, known nationally and internationally."
+      },
+      "longDescription": {
+        "fr": "Depuis 2004, l’association BD COMMINGES organise chaque année un salon de la bande dessinée, où elle réunit auteurs, dessinateurs, scénaristes, coloristes, connus au plan national, voire international, ainsi que des auteurs semi-professionnels et amateurs, et des artistes évoluant dans le domaine des arts appliqués.\n\nCette manifestation se veut familiale, culturelle, pédagogique et festive. Elle a pour but de proposer une ouverture sur le monde de la bande dessinée :\n\n• découverte des univers des dessinateurs, de scénaristes : création de personnages, de paysages, de mondes nouveaux\n\n• présentation des techniques utilisées : les croquis, la création du mouvement, le story-board, le crayonné, l’encrage, la colorisation…\n\n• et la recherche qui les entoure, par le biais de rencontres avec les auteurs présents.\n\nMais ce salon est également l'occasion de proposer au public des jeux, des stands, des activités diverses et variées suivant les années : jeux de rôles, origami, jeux de société, lecture, concours, dessin, bouquiniste et libraire, et notre traditionnel concert gratuit du samedi soir !\n\nLe salon 2020, prévu courant mars, renouvellera un grand moment festif qui rassemblera public et auteurs autour d’émotions nouvelles.",
+        "en": "Since 2004, the association BD COMMINGES organizes every year a comic strip fair, where it brings together authors, cartoonists, screenwriters, colorists, known nationally, even internationally, as well as semi-professional and amateur authors, and artists in the field of applied arts.\nThis event is intended to be family, cultural, educational and festive. Its aim is to offer an opening to the world of comics:\n• discovering the worlds of cartoonists, writers: creation of characters, landscapes, new worlds\n• presentation of the techniques used: sketches, creation of movement, storyboard, pencil, inking, coloring…\n• and the research that surrounds them, through meetings with the authors present.\nBut this fair is also the opportunity to offer to the public games, stands, various activities according to the years: role-playing, origami, board games, reading, contest, drawing, bookseller and bookseller, and our traditional free concert on Saturday night!\nThe 2020 fair, scheduled for March, will renew a great festive moment that will bring together audiences and authors around new emotions."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "6214919fcfcc44deaff35e2999c1548b.base.image.jpg",
+        "credits": "© Pascal Croci",
+        "size": {
+          "height": 1051,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6214919fcfcc44deaff35e2999c1548b.full.image.jpg",
+            "size": {
+              "height": 7087,
+              "width": 4724
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6214919fcfcc44deaff35e2999c1548b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T08:00:00.000Z",
+          "end": "2020-03-29T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:56:22.000Z",
+      "createdAt": "2019-10-27T20:20:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 58271480,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 77
+      },
+      "registration": [
+        "https://www.facebook.com/SalonBdComminges",
+        "http://www.bd-comminges.org",
+        "contact@bd-comminges.org"
+      ],
+      "location": {
+        "uid": 58271480,
+        "slug": "le-cube-grande-halle",
+        "name": "Le Cube",
+        "address": "5 place du Foirail 31800 Saint-Gaudens",
+        "city": "Saint-Gaudens",
+        "region": "Occitanie",
+        "department": "Haute-Garonne",
+        "postalCode": "31800",
+        "insee": "31483",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.109997,
+        "longitude": 0.723686,
+        "updatedAt": "2019-10-28T09:10:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "2 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 53619636,
+        "custom": {
+          "organization": "BD Comminges",
+          "contactName": "Yves Bocquel",
+          "contactNumber": "0674461296",
+          "contactPosition": "Secrétaire",
+          "email": "contact@bd-comminges.org"
+        }
+      }
+    }
+  ],
+  "lastId": 2049861
+}

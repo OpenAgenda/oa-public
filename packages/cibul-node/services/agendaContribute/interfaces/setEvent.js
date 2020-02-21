@@ -36,9 +36,11 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
     });
   }
 
+  const memberRole = await _getMemberRoleSlug(members, agenda, user);
+
   // define which state the event should take
 
-  if (!isNew && !isDraft && await _shouldBeModerated(members, agenda, user)) {
+  if (!isNew && !isDraft && await _shouldBeModerated(memberRole, agenda, user)) {
     log('event is not new and not a draft and should be moderated on change');
 
     transforms.state = { $set: 0 };
@@ -78,7 +80,8 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
         formSchemaDataFormat: true,
         context: {
           userUid: user.uid
-        }
+        },
+        access: memberRole || 'public'
       });
 
       return {
@@ -106,33 +109,32 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
   }
 }
 
-async function _shouldBeModerated(members, agenda, user) {
-
+async function _shouldBeModerated(memberRole, agenda, user) {
   try {
-
-    const shouldBeModeratedCodes = _.get(
+    const shouldBeModeratedBy = _.get(
       agenda,
       'settings.contribution.moderateOnChangeBy',
       []
-    ).map( members.utils.getRoleCode );
+    );
 
-    if ( !shouldBeModeratedCodes.length ) return false;
+    if (!shouldBeModeratedBy.length) return false;
 
-    const member = await members.get( {
-      agendaUid: agenda.uid,
-      userUid: user.uid
-    } );
+    if (!memberRole) throw new Error('Member not found');
 
-    if ( !member ) throw new Error( 'Member not found' );
+    return shouldBeModeratedBy.includes(memberRole);
 
-    return shouldBeModeratedCodes.includes( member.role );
-
-  } catch ( e ) {
-
-    log( 'error', 'Could not determine role of user %s in agenda %s', user.uid, agenda.uid, e );
+  } catch (e) {
+    log('error', 'Could not determine role of user %s in agenda %s', user.uid, agenda.uid, e);
 
     return true;
-
   }
+}
 
+async function _getMemberRoleSlug(members, agenda, user) {
+  const member = await members.get({
+    agendaUid: agenda.uid,
+    userUid: user.uid
+  });
+
+  return member ? members.utils.getRoleSlug(member.role) : null;
 }

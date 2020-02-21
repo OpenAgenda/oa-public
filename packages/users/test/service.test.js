@@ -120,6 +120,8 @@ describe('methods', () => {
       expect(user).toHaveProperty('hasLocalAccount');
       expect(user).not.toHaveProperty('isRemoved');
       expect(user).not.toHaveProperty('isActivated');
+      expect(user).not.toHaveProperty('apiKey');
+      expect(user).not.toHaveProperty('apiSecret');
     });
 
     it('get inexistent user', async () => {
@@ -133,6 +135,8 @@ describe('methods', () => {
 
       expect(user).toHaveProperty('isRemoved');
       expect(user).toHaveProperty('isActivated');
+      expect(user).toHaveProperty('apiKey');
+      expect(user).toHaveProperty('apiSecret');
     });
 
     it('get user with internal option', async () => {
@@ -159,7 +163,10 @@ describe('methods', () => {
     });
 
     it('returns apiKey and secretKey', async () => {
-      const user = await service.get(99999999, { provider: 'rest' });
+      const user = await service.get(99999999, {
+        provider: 'rest',
+        detailed: true
+      });
 
       expect(user.apiKey).toBe('317e316466a629c8dacd4aa81f39c930');
       expect(user.apiSecret).toBeNull();
@@ -260,7 +267,8 @@ describe('methods', () => {
       const user = await service.findOne({
         query: {
           key
-        }
+        },
+        detailed: true
       });
 
       expect(user.apiKey).toBe(key);
@@ -570,7 +578,8 @@ describe('methods', () => {
     it('generate new api public key', async () => {
       const user = await service.generateApiKey(17133001, {
         publicKey: true,
-        secretKey: true
+        secretKey: true,
+        detailed: true
       });
 
       expect(user.apiSecret).toBeTruthy();

@@ -246,9 +246,12 @@ function Dashboard({
     }
 
     (async () => {
-      const _agenda = await apiClient
-        .get(res.getAgenda.replace(':slug', query.addSource))
-        .catch(() => null);
+      const [_agenda, schema] = await Promise.all([
+        apiClient.get(res.getAgenda.replace(':slug', query.addSource)),
+        apiClient.get(`/${query.addSource}/settings/schema`)
+      ]).catch(() => []);
+
+      _agenda.schema = schema;
 
       if (_agenda?.uid) {
         dispatch(

@@ -5,7 +5,7 @@ const should = require('should');
 
 const convertFieldOptionIdsToLabels = require('../utils/rules/convertFieldOptionIdsToLabels');
 const determineAggregationAction = require('../utils/determineAggregationAction');
-const pickSchemaValues = require('../utils/pickSchemaValues');
+const pickReferenceValues = require('../utils/pickReferenceValues');
 const cleanRule = require('../utils/rules/clean');
 const rules = require('../utils/rules');
 
@@ -34,10 +34,10 @@ describe('05 - utils', () => {
 
   });
 
-  describe('pickSchemaValues', () => {
+  describe('pickReferenceValues', () => {
 
     it('returns values belonging to provided schema', () => {
-      const picked = pickSchemaValues(fixtures.jepOToJEP.aggregatorSchema, {
+      const picked = pickReferenceValues(fixtures.jepOToJEP.aggregatorSchema, {
         location: 'dqfdq',
         tags: ['Atelier / Démonstration / Savoir-faire'],
         'types-devenement': 3,
@@ -50,6 +50,12 @@ describe('05 - utils', () => {
         'conditions-de-participation': [ 14 ],
         'diffusion-sur-le-pass-culture': [ 1 ]
       });
+    });
+
+    it('state is returned when set', () => {
+      const picked = pickReferenceValues(fixtures.jepOToJEP.aggregatorSchema, { state: 1 });
+
+      picked.should.eql({ state: 1 });
     });
 
   });

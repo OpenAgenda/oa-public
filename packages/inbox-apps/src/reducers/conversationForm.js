@@ -41,11 +41,11 @@ export function closeConversationForm() {
   };
 }
 
-export function createConversation( data ) {
+export function createConversation( data, agenda ) {
   return {
     types: [ CREATE_CONVERSATION, CREATE_CONVERSATION_SUCCESS, CREATE_CONVERSATION_FAIL ],
     promise: ( { client }, { getState } ) => {
-      const { res, agenda, event } = getState();
+      const { res, event } = getState();
 
       return client.post(
         res.conversations.create

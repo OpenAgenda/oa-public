@@ -6,9 +6,6 @@ const VError = require( 'verror' );
 
 const addContributor = require( './addContributor' );
 const { agendaIsOpen, userIsNotMember } = addContributor;
-const legacy = require( '../../../services/legacy' );
-const aggregators = require('../../../services/aggregators');
-const legacyEventSearch = require('../../../services/elasticsearch');
 const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
 const merge = require('./merge');
@@ -20,10 +17,13 @@ module.exports = async (services, payload, clean, options = {}) => {
   const event = payload.getEvent();
 
   const {
+    aggregators,
     agendaEvents,
     eventSearch,
     custom,
-    tracker
+    tracker,
+    elasticsearch: legacyEventSearch,
+    legacy
   } = services;
 
   log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);

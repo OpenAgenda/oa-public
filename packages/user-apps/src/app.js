@@ -10,6 +10,7 @@ const defaults = {
       apiRoot: 'http://localhost:3000'
     },
     userSettings: {
+      loading: true,
       modal: {},
       successMessagesDisplayed: {}
     }

@@ -38,6 +38,7 @@ raw.push(knex('event_2').insert([{
   id: 1,
   owner_uid: 1,
   agenda_uid: 1,
+  creator_uid: 1,
   slug: 'event-1',
   uid: 1,
   draft: 0,
@@ -60,6 +61,7 @@ raw.push(knex('event_2').insert([{
 }, {
   id: 2,
   owner_uid: 1,
+  creator_uid: 1,
   agenda_uid: 1,
   slug: 'event-2',
   uid: 2,

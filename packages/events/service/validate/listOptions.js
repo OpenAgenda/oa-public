@@ -29,7 +29,7 @@ module.exports = schema( {
     options: [ true, false, null ],
     unique: true
   },
-  useDetaultImage: {
+  useDefaultImage: {
     type: 'boolean',
     default: false
   },

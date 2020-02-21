@@ -1,0 +1,1834 @@
+{
+  "events": [
+    {
+      "uid": 30347707,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "atelier-autour-de-la-bd",
+      "title": {
+        "en": "Workshop around the comic strip",
+        "fr": "Atelier autour de la BD"
+      },
+      "description": {
+        "en": "Comic Strip Awareness Workshop",
+        "fr": "Atelier de sensibilisation à la bande dessinée"
+      },
+      "longDescription": {
+        "en": "Accompanied by Charlotte Melly, cartoonist and comic book writer, and performer of the show \"Noire\". Participants make a board or strip, from pencil to ink.\nWorkshop organized by the Department of Cultural Development of Melun.",
+        "fr": "En compagnie de Charlotte Melly, dessinatrice et auteure de BD, et interprète du spectacle \"Noire\". Les participants réalisent une planche ou un strip, depuis le crayonné jusqu'à l'encrage.\n\nAtelier organisé par le service du développement culturel de Melun."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "On registration",
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "f0193e1d643e4251ad361cf99e7484b1.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 420,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f0193e1d643e4251ad361cf99e7484b1.full.image.jpg",
+            "size": {
+              "height": 120,
+              "width": 200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f0193e1d643e4251ad361cf99e7484b1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T13:00:00.000Z",
+          "end": "2020-04-04T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:03.000Z",
+      "createdAt": "2019-12-19T14:18:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "odrozd@ville-melun.fr",
+        "01-64-52-10-95"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48 h BD",
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Service des actions culturelles",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 70519430,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "et-le-petit-lit",
+      "title": {
+        "en": "And the little bed",
+        "fr": "Et le petit lit"
+      },
+      "description": {
+        "en": "In connection with the comic book and the animated film \"Mr Blaireau et Mme Renarde\"",
+        "fr": "En lien avec la BD et le film d'animation \"Mr Blaireau et Mme Renarde\""
+      },
+      "longDescription": {
+        "en": "Viewing of a short film and reading of albums. Rhymes and moment danced around the theme of the recomposed family and differences.",
+        "fr": "Visionnage d'un court métrage et lectures d'albums. Comptines et moment dansé autour du thème de la famille recomposée et des différences."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "814db125016d4374a53b4f69d77f5f3d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 420,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "814db125016d4374a53b4f69d77f5f3d.full.image.jpg",
+            "size": {
+              "height": 144,
+              "width": 240
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "814db125016d4374a53b4f69d77f5f3d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T08:30:00.000Z",
+          "end": "2020-04-04T09:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:05.000Z",
+      "createdAt": "2019-12-19T16:10:21.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 4
+      },
+      "registration": [
+        "01-60-56-04-70"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 3598885,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "quand-les-bd-sechappent-du-papier",
+      "title": {
+        "fr": "Quand les BD s'échappent du papier...",
+        "en": "When comic books escape from paper..."
+      },
+      "description": {
+        "fr": "Découvrez une sélection de BD interactives, sur tablettes ou ordinateurs",
+        "en": "Discover a selection of interactive comics, on tablets or computers"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9da31ad38c274a16afdea446adaf5d41.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9da31ad38c274a16afdea446adaf5d41.full.image.jpg",
+            "size": {
+              "height": 225,
+              "width": 225
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9da31ad38c274a16afdea446adaf5d41.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-31T10:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T10:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T10:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T10:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T10:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T10:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T10:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T10:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T10:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T10:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T10:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T10:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T12:00:00.000Z",
+          "end": "2020-04-26T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T11:44:48.000Z",
+      "createdAt": "2019-12-19T14:32:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "01-60-56-04-70"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48 h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 38736976,
+      "ownerUid": 14072621,
+      "creatorUid": 14072621,
+      "slug": "leurope-de-tintin-entre-limaginaire-et-le-reel",
+      "title": {
+        "en": "Tintin’s Europe, between the imaginary and the real",
+        "fr": "L'Europe de Tintin, entre l'imaginaire et le réel"
+      },
+      "description": {
+        "en": "Tintin’s Europe between the imaginary and the real",
+        "fr": "L'Europe de Tintin entre l'imaginaire et le réél"
+      },
+      "longDescription": {
+        "en": "As part of the year of the comic book (BD 2020) and of the Fête de l'Europe 2020, we receive in Bordeaux one of the best specialists of Tintin, Renaud Nattiez, former student of the ENA, author of the _Mystère Tintin_, the reasons for a universal success.\nA tasting of Belgian beers will be offered following the conference. Free admission.\nLimited places.\nRecommended reservations.",
+        "fr": "Dans le cadre de l'année de la bande dessinée (BD 2020) et de la Fête de l'Europe 2020, nous recevons à Bordeaux l'un des meilleurs spécialistes de Tintin, Renaud Nattiez, ancien élève de l'ENA, auteur du _Mystère Tintin_, les raisons d'un succès universel.\n\nUne dégustation de bières belges sera offerte à la suite de la conférence. Entrée libre et gratuite.\n\nPlaces limitées.\n\nRéservations recommandées."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Limited places. Recommended reservations: [g.lamarque@europe-bordeaux.eu](mailto:g.lamarque@europe-bordeaux.eu)",
+        "fr": "Places limitées. Réservations recommandées : g.lamarque@europe-bordeaux.eu"
+      },
+      "image": {
+        "filename": "157f939aed604aee876260b53e22effa.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 494,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "157f939aed604aee876260b53e22effa.full.image.jpg",
+            "size": {
+              "height": 790,
+              "width": 1121
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "157f939aed604aee876260b53e22effa.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-18T17:00:00.000Z",
+          "end": "2020-05-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T14:18:52.000Z",
+      "createdAt": "2020-02-07T11:57:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 17185453,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "g.lamarque@europe-bordeaux.eu"
+      ],
+      "location": {
+        "uid": 17185453,
+        "slug": "cap-sciences43",
+        "name": "Cap Sciences",
+        "address": "Hangar 20, quai de Bacalan 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Maritime",
+        "latitude": 44.857564,
+        "longitude": -0.558886,
+        "updatedAt": "2020-02-07T13:37:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Fête de l'Europe 2020",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cap Sciences",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "51779186900012",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 14072621,
+        "custom": {
+          "organization": "Maison de l'Europe de Bordeaux",
+          "contactName": "gwenael lamarque",
+          "contactNumber": "0524570501",
+          "contactPosition": "directeur",
+          "email": "g.lamarque@europe-bordeaux.eu"
+        }
+      }
+    },
+    {
+      "uid": 69721620,
+      "ownerUid": 29358266,
+      "creatorUid": 29358266,
+      "slug": "441746",
+      "title": {
+        "en": "The history of comic books through the collections of the heritage library",
+        "fr": "L’histoire de la bande dessinée à travers les collections de la bibliothèque du patrimoine"
+      },
+      "description": {
+        "en": "The history of comic books through the collections of the heritage library",
+        "fr": "L’histoire de la bande dessinée à travers les collections de la bibliothèque du patrimoine"
+      },
+      "longDescription": {
+        "en": "The comic book hatched in its sequential form in the 19th century, thanks to the growth of the rotary press. This graphic and narrative art inherited from prehistory, was created in Europe and truly popularized in the United States in the 20th century.\nFrom the image of Épinal to the comic book to the modern screen prints of superheroes, the heritage library offers you through its collections to retrace the history of comic books.",
+        "fr": "La bande dessinée a éclos dans sa forme séquentiel au XIXe siècle, grâce à l’essor de la presse rotative. Cet art graphique et narratif hérité de la préhistoire, a été créé en Europe et véritablement popularisé aux États-Unis au XXe siècle.\n\nDe l’image d’Épinal au comic book en passant par les sérigraphies modernes de super-héros, la bibliothèque du patrimoine vous propose à travers ses collections de retracer l’histoire de la bande dessinée."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d80effa1e6cd4836a68833a39f8d6cc3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 993,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d80effa1e6cd4836a68833a39f8d6cc3.full.image.jpg",
+            "size": {
+              "height": 4525,
+              "width": 3190
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d80effa1e6cd4836a68833a39f8d6cc3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-27T07:00:00.000Z",
+          "end": "2020-04-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T07:00:00.000Z",
+          "end": "2020-04-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T07:00:00.000Z",
+          "end": "2020-04-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T07:00:00.000Z",
+          "end": "2020-04-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T07:00:00.000Z",
+          "end": "2020-05-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T07:00:00.000Z",
+          "end": "2020-05-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T07:00:00.000Z",
+          "end": "2020-05-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T07:00:00.000Z",
+          "end": "2020-05-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T07:00:00.000Z",
+          "end": "2020-05-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T07:00:00.000Z",
+          "end": "2020-05-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T07:00:00.000Z",
+          "end": "2020-05-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T07:00:00.000Z",
+          "end": "2020-05-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T07:00:00.000Z",
+          "end": "2020-05-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T07:00:00.000Z",
+          "end": "2020-05-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T07:00:00.000Z",
+          "end": "2020-05-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T07:00:00.000Z",
+          "end": "2020-05-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T07:00:00.000Z",
+          "end": "2020-05-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T07:00:00.000Z",
+          "end": "2020-05-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T07:00:00.000Z",
+          "end": "2020-05-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T07:00:00.000Z",
+          "end": "2020-05-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T07:00:00.000Z",
+          "end": "2020-05-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T07:00:00.000Z",
+          "end": "2020-05-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T07:00:00.000Z",
+          "end": "2020-05-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T07:00:00.000Z",
+          "end": "2020-05-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-25T07:00:00.000Z",
+          "end": "2020-05-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T07:00:00.000Z",
+          "end": "2020-05-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T07:00:00.000Z",
+          "end": "2020-05-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T07:00:00.000Z",
+          "end": "2020-05-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T07:00:00.000Z",
+          "end": "2020-05-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T07:00:00.000Z",
+          "end": "2020-05-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-01T07:00:00.000Z",
+          "end": "2020-06-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T07:00:00.000Z",
+          "end": "2020-06-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T07:00:00.000Z",
+          "end": "2020-06-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T07:00:00.000Z",
+          "end": "2020-06-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T07:00:00.000Z",
+          "end": "2020-06-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T07:00:00.000Z",
+          "end": "2020-06-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-08T07:00:00.000Z",
+          "end": "2020-06-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T07:00:00.000Z",
+          "end": "2020-06-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T07:00:00.000Z",
+          "end": "2020-06-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T07:00:00.000Z",
+          "end": "2020-06-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T07:00:00.000Z",
+          "end": "2020-06-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T07:00:00.000Z",
+          "end": "2020-06-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-15T07:00:00.000Z",
+          "end": "2020-06-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T07:00:00.000Z",
+          "end": "2020-06-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T07:00:00.000Z",
+          "end": "2020-06-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T07:00:00.000Z",
+          "end": "2020-06-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T07:00:00.000Z",
+          "end": "2020-06-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T07:00:00.000Z",
+          "end": "2020-06-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-22T07:00:00.000Z",
+          "end": "2020-06-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T07:00:00.000Z",
+          "end": "2020-06-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T07:00:00.000Z",
+          "end": "2020-06-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T07:00:00.000Z",
+          "end": "2020-06-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T07:00:00.000Z",
+          "end": "2020-06-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T07:00:00.000Z",
+          "end": "2020-06-27T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T14:18:52.000Z",
+      "createdAt": "2020-02-07T12:37:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84860984,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 84860984,
+        "slug": "bibliotheque-du-patrimoine-de-clermont-ferrand",
+        "name": "Bibliothèque du patrimoine de Clermont-Ferrand",
+        "address": "17 rue Bardoux 63000 Clermont-Ferrand",
+        "city": "Clermont-Ferrand",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63000",
+        "insee": "63113",
+        "countryCode": "FR",
+        "district": "Les Bughes",
+        "latitude": 45.77399,
+        "longitude": 3.088339,
+        "updatedAt": "2020-02-07T13:44:22.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 29358266,
+        "custom": {
+          "organization": "Bibliothèque du Patrimoine Clermont Auvergne Métropole",
+          "contactName": "Rachel BRAULT",
+          "contactNumber": "04 63 66 95 53",
+          "contactPosition": "Bibliothécaire",
+          "email": "rbrault@clermontmetropole.eu"
+        }
+      }
+    },
+    {
+      "uid": 56322303,
+      "ownerUid": 97134716,
+      "creatorUid": 97134716,
+      "slug": "concours-de-bd-sur-internet",
+      "title": {
+        "fr": "Concours de BD sur internet",
+        "en": "Online comic book contest"
+      },
+      "description": {
+        "fr": "Concours international de BD sur internet",
+        "en": "International online comic strip contest"
+      },
+      "longDescription": {
+        "fr": "Le concours international de bande dessinée est ouvert à toutes les classes, collèges et universités. Le thème du concours est \"Symboles du pays\".\n\nLes participants devront réaliser une bande dessinée sur le thème donné (10 photos maximum), de format A4, en couleur.\n\nLes participants devront présenter une bande dessinée de quelques symboles de son pays.\n\nIl sera indiqué les nom, prénom, âge, l'établissement et pays.\n\nEn plus il sera ajouté les noms des symboles et un petit commentaire.\n\nEnsuite on postera sur facebook avec\n\n#concoursdebd2020 #symbolesdupays2020\n\nLe jury du concours désignera les gagnants selon les critères suivants: respect du thème, respect du règlement et originalités des BD.\n\nLes BD des concurrents seront imprimées et exposées au mois d'avril (en plein air).\n\nIl sera préparé un clip-vidéo avec les BD.",
+        "en": "The international comic book contest is open to all classes, colleges and universities. The theme of the contest is \"Symbols of the country\".\nParticipants will have to make a comic strip on the given theme (10 photos maximum), A4 format, in color.\nParticipants will present a comic strip of some of his country’s symbols.\nThe name, first name, age, establishment and country will be indicated.\nIn addition it will be added the names of the symbols and a small comment.\nThen we’ll post on facebook with\n#contesursdebd2020 #symbolesdupays2020\nThe jury of the contest will select the winners according to the following criteria: respect of the theme, respect of the rules and originality of the comics.\nThe competitors' comics will be printed and exhibited in April (in the open air).\nIt will be prepared a video clip with comics."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "cb10f68fd50d4d83a0d4d1ad8679db15.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cb10f68fd50d4d83a0d4d1ad8679db15.full.image.jpg",
+            "size": {
+              "height": 3000,
+              "width": 4000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cb10f68fd50d4d83a0d4d1ad8679db15.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Asia/Tashkent",
+      "timings": [
+        {
+          "begin": "2020-02-10T03:00:00.000Z",
+          "end": "2020-02-10T03:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T05:00:00.000Z",
+          "end": "2020-03-10T07:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T05:00:00.000Z",
+          "end": "2020-04-10T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T14:18:50.000Z",
+      "createdAt": "2020-02-07T13:29:14.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20444012,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 24
+      },
+      "registration": [
+        "eukkiyev@gmail.com"
+      ],
+      "location": {
+        "uid": 20444012,
+        "slug": "region-de-tachkent-boustanlik",
+        "name": "Région de Tachkent. Boustanlik",
+        "address": "Humson",
+        "city": "Xumsan",
+        "region": "Province de Tachkent",
+        "department": null,
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "UZ",
+        "district": null,
+        "latitude": 41.695723,
+        "longitude": 69.939047,
+        "updatedAt": "2020-02-07T13:38:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Asia/Tashkent",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        616
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ecole n'14",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "Ecole n'19",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 1,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 97134716,
+        "custom": {
+          "organization": "Cercle de conversation en français. Ecole n'19",
+          "contactName": "Elyor Ukkiyev",
+          "contactNumber": "+998942142412",
+          "contactPosition": "Professeur",
+          "email": "fransuz-tili@umail.uz"
+        }
+      }
+    },
+    {
+      "uid": 73484228,
+      "ownerUid": 72037566,
+      "creatorUid": 72037566,
+      "slug": "f-comme-fanzine",
+      "title": {
+        "fr": "F comme fanzine",
+        "en": "F as a fanzine"
+      },
+      "description": {
+        "fr": "Une exposition pour découvrir et décortiquer la #microédition.",
+        "en": "An exhibition to discover and unpack the #microedition."
+      },
+      "longDescription": {
+        "fr": "Plongez dans la fascinante histoire du #fanzine et venez découvrir son histoire, comprendre les étapes de sa fabrication, en apprendre plus sur les techniques de production et de diffusion… Articulée pour analyser et promouvoir cette pratique de passionnés, cette exposition fera peut-être naître en vous l’envie de passer à l’action…en créant votre propre fanzine !",
+        "en": "Immerse yourself in the fascinating history of #fanzine and discover its history, understand its manufacturing stages, learn more about production and dissemination techniques… Articulated to analyze and promote this passionate practice, this exhibition may spark in you the desire to take action… by creating your own fanzine!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f56f5e550cc04654894c0bc36dc1d582.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f56f5e550cc04654894c0bc36dc1d582.full.image.jpg",
+            "size": {
+              "height": 1536,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f56f5e550cc04654894c0bc36dc1d582.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Africa/Casablanca",
+      "timings": [
+        {
+          "begin": "2020-02-08T08:00:00.000Z",
+          "end": "2020-02-08T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T08:00:00.000Z",
+          "end": "2020-02-09T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T08:00:00.000Z",
+          "end": "2020-02-10T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T08:00:00.000Z",
+          "end": "2020-02-11T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:00:00.000Z",
+          "end": "2020-02-12T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T08:00:00.000Z",
+          "end": "2020-02-13T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T08:00:00.000Z",
+          "end": "2020-02-14T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T08:00:00.000Z",
+          "end": "2020-02-15T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T08:00:00.000Z",
+          "end": "2020-02-16T13:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T15:19:02.000Z",
+      "createdAt": "2020-02-07T14:18:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66936572,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 66936572,
+        "slug": "institut-francais-de-casablanca",
+        "name": "Institut français de Casablanca",
+        "address": "121 boulevard Zerktouni, Casablanca",
+        "city": "Casablanca",
+        "region": null,
+        "department": "Préfecture de Casablanca",
+        "postalCode": "20060",
+        "insee": null,
+        "countryCode": "MA",
+        "district": "arrondissement d'El Maarif",
+        "latitude": 33.583713,
+        "longitude": -7.626523,
+        "updatedAt": "2020-02-07T14:40:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Africa/Casablanca",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon International de l'Edition et du Livre de Casablanca",
+      "type-de-structure": 629,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 72037566,
+        "custom": {
+          "organization": "Institut français de Casablanca",
+          "contactName": "Sofiane Benkhassala",
+          "contactNumber": "+212633998815",
+          "contactPosition": "Chargé de mission action culturelle",
+          "email": "sofiane.benkhassala@institutfrancais-maroc.com"
+        }
+      }
+    },
+    {
+      "uid": 27880099,
+      "ownerUid": 69477562,
+      "creatorUid": 69477562,
+      "slug": "la-bd-francophone-un-art-engage",
+      "title": {
+        "fr": "La BD francophone, un art engagé"
+      },
+      "description": {
+        "fr": "À l'occasion de la Semaine de la langue française et de la francophonie et du mois de la francophonie 2020, venez célébrer le 9e art !"
+      },
+      "longDescription": {
+        "fr": "Chaque année, dans le cadre de la célébration de la Semaine de langue française et de la francophonie et du mois de la francophonie, les représentations francophones aux Pays-Bas organisent un événement commun pour célébrer la richesse et la diversité des cultures francophones. En 2019, c’est le thème de la mode et du développement durable qui avait été retenu, attirant plus de 350 invités à La Haye.\n\n**2020, l’année de la bande dessinée**\n--------------------------------------\n\nFaisant écho au souhait du ministère de la Culture français de faire de l’année 2020 une année dédiée à la bande dessinée, les ambassades francophones des Pays-Bas, l’Institut français des Pays-Bas, l’Alliance française de La Haye et le lycée français Vincent van Gogh, avec le soutien de TV5 Monde, s’associeront pour présenter leur événement sur la thématique \"La BD francophone : un art engagé\". La soirée aura lieu le jeudi 5 mars de 18h à 20h au Pathé Buitenhof de la Haye. Elle sera suivie d’un buffet francophone dans le foyer du cinéma de 20h à 21h30.\n\n### **La bande dessinée: vitalité, richesse et diversité de la création francophone**\n\nLe 9e art connait depuis plus de 20 ans une créativité exceptionnelle notamment dans le monde francophone (Maghreb, Moyen Orient, Amérique du Nord). Il représente une pratique culturelle de plus en plus importante faisant écho à des thématiques diverses et variées. Grâce à la présence d’auteurs de renom invités par les ambassades francophones, la soirée sera l’occasion de rencontres et de débats visant à mettre en valeur cette forme d’expression trop longtemps considérée comme un art mineur.\n\nPour l’illustrer, nos invités francophones - bédéistes, journalistes ou experts issus du monde francophone - présenteront leur travail et leur démarche intellectuelle et artistique. La soirée sera l’occasion de mettre à l’honneur BD et engagement à travers deux tables rondes :\n\n**La BD, regards sur l’histoire et devoir de mémoire**\n\n**La BD, témoin de la réalité**\n\nAvec :\n\n\\- Judith Vanistendael (Belgique)\n\n\\- Émilie Plateau (France)\n\n\\- Zeina Abirached (Liban)\n\n\\- Mayro Comics (Arménie)\n\n\\- Guy Delisle (Quebec/Canada)\n\n\\- Émile Bravo (France)\n\n\\- Jean Auquier, ancien directeur du centre belge de la BD à Bruxelles (Belgique)\n\n\\- Émile Bravo, dessinateur de Spirou, parrain de l’événement (France)\n\nModération : Sonia Déchamps"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "75c6180ce33d4442b9ad366a5a18da2f.base.image.jpg",
+        "credits": "© Emile Bravo",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "75c6180ce33d4442b9ad366a5a18da2f.full.image.jpg",
+            "size": {
+              "height": 858,
+              "width": 607
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "75c6180ce33d4442b9ad366a5a18da2f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Amsterdam",
+      "timings": [
+        {
+          "begin": "2020-03-05T17:00:00.000Z",
+          "end": "2020-03-05T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T15:23:54.000Z",
+      "createdAt": "2020-02-07T15:16:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65497749,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.eventbrite.fr/e/billets-la-bd-francophone-un-art-engage-89948549533"
+      ],
+      "location": {
+        "uid": 65497749,
+        "slug": "pathe-buitenhof815",
+        "name": "Pathé Buitenhof",
+        "address": "Buitenhof 20, 2513 AG Den Haag",
+        "city": "La Haye",
+        "region": "Hollande-Méridionale",
+        "department": null,
+        "postalCode": "2513AG",
+        "insee": null,
+        "countryCode": "NL",
+        "district": "Den Haag",
+        "latitude": 52.078575,
+        "longitude": 4.31086,
+        "updatedAt": "2020-02-07T15:12:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Amsterdam",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        616
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 629,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 69477562,
+        "custom": {
+          "organization": "Institut francais des Pays-Bas",
+          "contactName": "karim HOUALI",
+          "contactNumber": "2252102048",
+          "contactPosition": "attache de cooperation educative",
+          "email": "kh.cgnola@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 81931047,
+      "ownerUid": 75268387,
+      "creatorUid": 75268387,
+      "slug": "les-mots-et-les-images-masterclass-dadaptation-en-bande-dessinee-7-a-liut-de-saint-denis-avec-gerald-auclin-1_761446",
+      "title": {
+        "en": "\"Les mots et les images\", masterclass d'adaptation en bande dessinée #7 à l'IUT de Saint-Denis avec Gérald Auclin",
+        "fr": "\"Les mots et les images\", masterclass d'adaptation en bande dessinée #7 à l'IUT de Saint-Denis avec Gérald Auclin"
+      },
+      "description": {
+        "en": "You are invited to two sessions of a free module during which students learn about adaptation in comic strip, first as readers, then as creators and publishers",
+        "fr": "Vous êtes invités à deux séances d’un module libre pendant lequel les étudiants s’initient à l'adaptation en bande dessinée, d’abord en tant que lecteurs, puis dans le rôle de créateurs et d’éditeurs"
+      },
+      "longDescription": {
+        "en": "After Alphonse Allais ([http://livrelibre.hypotheses.org/185](http://livrelibre.hypotheses.org/185)), Charles Baudelaire, Paul Verlaine, Gérard de Nerval ([https://livrelibre.hypotheses.org/438](https://livrelibre.hypotheses.org/438)), Guillaume Apollinaire and Théophile Gautier, in the work of which author will we draw to propose a text to \"cut\" and \"set up\" this year? The surprise is always reserved for you for this 7th edition of the master class of adaptation of literary texts in comic strip proposed by PLEIADE and MEDIALECT to the students of the IUT of Saint-Denis.\nThe working sessions during which management students will try themselves as authors and self-publishers are open to all interested persons (teachers of arts and humanities; sociologists and psychologists of reading; students in literature, languages and civilizations; candidates for aggregation or CAPES, etc.)\nYou will be able to observe how the link between written text and comic books is made from the point of view of creativity, among students for whom literature and art are not at the centre of the university career.\nOn 26/02/2020 from 13.30 to 16.30: familiarization with the short literary text to be adapted and the first half-day of work animated by the invited comic book writer to realize, in small groups, the cutting and sketches;\nOn 04/03/2020 from 9h to 12h, then from 13h30 to 16h30: full day dedicated to the layout and printing of the self-published comic book.\nThe students will be involved in all the preparatory steps for the realization of a comic strip adaptation; the public will be able to observe the creative process, ask questions and exchange comments during the discussions.",
+        "fr": "Après Alphonse Allais ([http://livrelibre.hypotheses.org/185](http://livrelibre.hypotheses.org/185)), Charles Baudelaire, Paul Verlaine, Gérard de Nerval ([https://livrelibre.hypotheses.org/438](https://livrelibre.hypotheses.org/438)), Guillaume Apollinaire et Théophile Gautier, dans l'œuvre de quel auteur puiserons-nous pour proposer un texte à \"découper\" et à \"mettre en cases\" cette année ? La surprise vous est toujours réservée pour cette 7e édition de la master class d’adaptation de textes littéraires en bande dessinée proposé par PLEIADE et MEDIALECT aux étudiants de l’IUT de Saint-Denis.\n\nLes séances de travail pendant lesquelles les étudiants en gestion s’essayeront en tant qu’auteurs et auto-éditeurs sont ouvertes à toutes les personnes intéressées (enseignants des lettres et des arts ; sociologues et psychologues de la lecture ; étudiants en littérature, langues et civilisations ; candidats à l’agrégation ou au CAPES, etc.)\n\nVous pourrez observer comment se fait le lien entre le texte écrit et la bande dessinée sous l’angle de la créativité, chez les étudiants pour qui la littérature et l’art ne sont pas au centre du parcours universitaire.\n\nLe 26/02/2020 de 13h30 à 16h30 : prise de connaissance du court texte littéraire à adapter et première demi-journée de travail animée par le bédéiste invité pour réaliser, en petits groupes, le découpage et les esquisses ;\n\nLe 04/03/2020 de 9h à 12h, puis de 13h30 à 16h30 : journée complète consacrée à la mise en page et à l’impression de la plaquette de bande dessinée autoéditée.\n\nLes étudiants seront ainsi engagés dans toutes les étapes préparatoires à la réalisation d’une adaptation en bande dessinée ; le public sera en mesure d’observer le processus créatif, de poser des questions et d’échanger des remarques lors des discussions."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Upon registration by mail: [elina.absalyamova@univ-paris13.fr](mailto:elina.absalyamova@univ-paris13.fr)",
+        "fr": "Sur inscription par mail : elina.absalyamova@univ-paris13.fr"
+      },
+      "image": {
+        "filename": "0b6c85d10af345749e9d94ef8d522d89.base.image.jpg",
+        "credits": "Gérald Auclin",
+        "size": {
+          "height": 1086,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0b6c85d10af345749e9d94ef8d522d89.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 619
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0b6c85d10af345749e9d94ef8d522d89.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-29T12:30:00.000Z",
+          "end": "2020-01-29T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:38:03.000Z",
+      "createdAt": "2020-02-08T00:48:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48188032,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "elina.absalyamova@univ-paris13.fr"
+      ],
+      "location": {
+        "uid": 48188032,
+        "slug": "iut-de-saint-denis811",
+        "name": "IUT de Saint-Denis",
+        "address": "Place du 8 mai 1945 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.939336,
+        "longitude": 2.355874,
+        "updatedAt": "2020-02-10T08:50:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 771,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": "Université (IUT)",
+      "structure-partenaire": "Laboratoire Pléiade, structure fédérative Medialect",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "19931238000017",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 75268387,
+        "custom": {
+          "organization": "Université Sorbonne Paris Nord (Paris 13)",
+          "contactName": "Elina Absalyamova",
+          "contactNumber": "0616598076",
+          "contactPosition": "MCF",
+          "email": "elina.absalyamova@univ-paris13.fr"
+        }
+      }
+    },
+    {
+      "uid": 52864618,
+      "ownerUid": 75268387,
+      "creatorUid": 75268387,
+      "slug": "les-mots-et-les-images-masterclass-dadaptation-en-bande-dessinee-7-a-liut-de-saint-denis-avec-gerald-auclin-2",
+      "title": {
+        "en": "\"Les mots et les images\", masterclass d'adaptation en bande dessinée #7 à l'IUT de Saint-Denis avec Gérald Auclin",
+        "fr": "\"Les mots et les images\", masterclass d'adaptation en bande dessinée #7 à l'IUT de Saint-Denis avec Gérald Auclin"
+      },
+      "description": {
+        "en": "You are invited to two sessions of a free module during which students learn about adaptation in comic strip, first as readers, then as creators and publishers",
+        "fr": "Vous êtes invités à deux séances d’un module libre pendant lequel les étudiants s’initient à l'adaptation en bande dessinée, d’abord en tant que lecteurs, puis dans le rôle de créateurs et d’éditeurs"
+      },
+      "longDescription": {
+        "en": "After Alphonse Allais ([http://livrelibre.hypotheses.org/185](http://livrelibre.hypotheses.org/185)), Charles Baudelaire, Paul Verlaine, Gérard de Nerval ([https://livrelibre.hypotheses.org/438](https://livrelibre.hypotheses.org/438)), Guillaume Apollinaire and Théophile Gautier, in the work of which author will we draw to propose a text to \"cut\" and \"set up\" this year? The surprise is always reserved for you for this 7th edition of the master class of adaptation of literary texts in comic strip proposed by PLEIADE and MEDIALECT to the students of the IUT of Saint-Denis.\nThe working sessions during which management students will try themselves as authors and self-publishers are open to all interested persons (teachers of arts and humanities; sociologists and psychologists of reading; students in literature, languages and civilizations; candidates for aggregation or CAPES, etc.)\nYou will be able to observe how the link between written text and comic books is made from the point of view of creativity, among students for whom literature and art are not at the centre of the university career.\nOn 26/02/2020 from 13.30 to 16.30: familiarization with the short literary text to be adapted and the first half-day of work animated by the invited comic book writer to realize, in small groups, the cutting and sketches;\nOn 04/03/2020 from 9h to 12h, then from 13h30 to 16h30: full day dedicated to the layout and printing of the self-published comic book.\nThe students will be involved in all the preparatory steps for the realization of a comic strip adaptation; the public will be able to observe the creative process, ask questions and exchange comments during the discussions.",
+        "fr": "Après Alphonse Allais ([http://livrelibre.hypotheses.org/185](http://livrelibre.hypotheses.org/185)), Charles Baudelaire, Paul Verlaine, Gérard de Nerval ([https://livrelibre.hypotheses.org/438](https://livrelibre.hypotheses.org/438)), Guillaume Apollinaire et Théophile Gautier, dans l'oeuvre de quel auteur puiserons-nous pour proposer un texte à \"découper\" et à \"mettre en cases\" cette année ? La surprise vous est toujours réservée pour cette 7e édition de la master class d’adaptation de textes littéraires en bande dessinée proposé par PLEIADE et MEDIALECT aux étudiants de l’IUT de Saint-Denis.\n\nLes séances de travail pendant lesquelles les étudiants en gestion s’essayeront en tant qu’auteurs et auto-éditeurs sont ouvertes à toutes les personnes intéressées (enseignants des lettres et des arts ; sociologues et psychologues de la lecture ; étudiants en littérature, langues et civilisations ; candidats à l’agrégation ou au CAPES, etc.)\n\nVous pourrez observer comment se fait le lien entre le texte écrit et la bande dessinée sous l’angle de la créativité, chez les étudiants pour qui la littérature et l’art ne sont pas au centre du parcours universitaire.\n\nLe 26/02/2020 de 13h30 à 16h30 : prise de connaissance du court texte littéraire à adapter et première demi-journée de travail animée par le bédéiste invité pour réaliser, en petits groupes, le découpage et les esquisses ;\n\nLe 04/03/2020 de 9h à 12h, puis de 13h30 à 16h30 : journée complète consacrée à la mise en page et à l’impression de la plaquette de bande dessinée autoéditée.\n\nLes étudiants seront ainsi engagés dans toutes les étapes préparatoires à la réalisation d’une adaptation en bande dessinée ; le public sera en mesure d’observer le processus créatif, de poser des questions et d’échanger des remarques lors des discussions."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Upon registration by mail: [elina.absalyamova@univ-paris13.fr](mailto:elina.absalyamova@univ-paris13.fr)",
+        "fr": "Sur inscription par mail : elina.absalyamova@univ-paris13.fr"
+      },
+      "image": {
+        "filename": "735f8a44f9df47169d4f1e2aa7e41d3e.base.image.jpg",
+        "credits": "Gérald Auclin",
+        "size": {
+          "height": 1086,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "735f8a44f9df47169d4f1e2aa7e41d3e.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 619
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "735f8a44f9df47169d4f1e2aa7e41d3e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-04T08:30:00.000Z",
+          "end": "2020-03-04T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:38:00.000Z",
+      "createdAt": "2020-02-08T00:53:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48188032,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "elina.absalyamova@univ-paris13.fr"
+      ],
+      "location": {
+        "uid": 48188032,
+        "slug": "iut-de-saint-denis811",
+        "name": "IUT de Saint-Denis",
+        "address": "Place du 8 mai 1945 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.939336,
+        "longitude": 2.355874,
+        "updatedAt": "2020-02-10T08:50:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 771,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": "Université (IUT)",
+      "structure-partenaire": "Laboratoire Pléiade, structure fédérative Medialect",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "19931238000017",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 75268387,
+        "custom": {
+          "organization": "Université Sorbonne Paris Nord (Paris 13)",
+          "contactName": "Elina Absalyamova",
+          "contactNumber": "0616598076",
+          "contactPosition": "MCF",
+          "email": "elina.absalyamova@univ-paris13.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2160384
+}

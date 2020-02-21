@@ -1,0 +1,1487 @@
+{
+  "events": [
+    {
+      "uid": 7496473,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris_426745",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T11:30:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:31.000Z",
+      "createdAt": "2019-11-21T17:13:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 73188963,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 73188963,
+        "slug": "bibliotheque-francois-truffaut989",
+        "name": "Bibliothèque François Truffaut",
+        "address": "4 rue du Cinéma 75001 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75001",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 1er Arrondissement",
+        "latitude": 48.86234,
+        "longitude": 2.344691,
+        "updatedAt": "2019-11-21T21:25:32.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 51100421,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "le-jeu-de-piste-des-bibliotheques-du-centre-de-paris_75530",
+      "title": {
+        "fr": "Le jeu de piste des bibliothèques du centre de Paris",
+        "en": "The library track game in the centre of Paris"
+      },
+      "description": {
+        "fr": "Jeu de piste des bibliothèques du centre de Paris",
+        "en": "Library track game in the centre of Paris"
+      },
+      "longDescription": {
+        "fr": "Les bibliothèques du centre de Paris vous invitent à une grande après-midi jeu de piste autour de la bande dessinée. Un parcours qui vous conduira de bibliothèque en bibliothèque et terminera par un goûter convivial.",
+        "en": "The libraries of the center of Paris invite you to a great afternoon track game around the comic book. A journey that will take you from library to library and end with a friendly snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "edb3cbe929064c98834de15937da3706.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 357,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "edb3cbe929064c98834de15937da3706.full.image.jpg",
+            "size": {
+              "height": 1758,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "edb3cbe929064c98834de15937da3706.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T11:00:00.000Z",
+          "end": "2020-06-06T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:26.000Z",
+      "createdAt": "2019-11-21T17:16:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49827708,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 44 78 80 50"
+      ],
+      "location": {
+        "uid": 49827708,
+        "slug": "bibliotheque-historique-de-la-ville-de-paris462",
+        "name": "Bibliothèque historique de la Ville de Paris",
+        "address": "24 rue Pavée 75004 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75004",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 4e Arrondissement",
+        "latitude": 48.85687,
+        "longitude": 2.361922,
+        "updatedAt": "2019-11-21T21:21:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Jeu de piste",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliocité",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 98698172,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "zones-commerciales-et-centre-ville-conference-dessinee-de-jean-luc-loyer-et-xavier-betaucourt-en-presence-de-david-lestout-consultant",
+      "title": {
+        "fr": "\"Zones commerciales et centre-ville\", conférence dessinée de Jean Luc Loyer et Xavier Bétaucourt, en présence de David Lestout, consultant",
+        "en": "\"Shopping Areas and Downtown\", designed lecture by Jean Luc Loyer and Xavier Bétaucourt, in the presence of David Lestout, consultant"
+      },
+      "description": {
+        "fr": "\"Zones commerciales et centre-ville\", conférence dessinée de Jean Luc Loyer et Xavier Bétaucourt, en présence de David Lestout, consultant",
+        "en": "\"Shopping Areas and Downtown\", designed lecture by Jean Luc Loyer and Xavier Bétaucourt, in the presence of David Lestout, consultant"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "0c76e7a33d374a81884f42f8ebe92d06.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 952,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0c76e7a33d374a81884f42f8ebe92d06.full.image.jpg",
+            "size": {
+              "height": 889,
+              "width": 654
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0c76e7a33d374a81884f42f8ebe92d06.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-06T16:30:00.000Z",
+          "end": "2020-05-06T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:51:58.000Z",
+      "createdAt": "2019-11-22T10:00:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 70476206,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "autour-de-logicomix",
+      "title": {
+        "fr": "Autour de Logicomix",
+        "en": "Around Logicomix"
+      },
+      "description": {
+        "fr": "Rencontre avec Alecos Papadatos",
+        "en": "Meeting with Alecos Papadatos"
+      },
+      "longDescription": {
+        "fr": "Venez rencontrer Alecos Papadacos le concepteur des personnages et des dessins de [_Logicomix_](http://www.logicomix.com/fr/index8be8.html?option=com_content&view=frontpage&Itemid=53), un roman graphique sur la fabuleuse quête des fondements des mathématiques.\n\nAvec Apóstolos K. Doxiàdis et Annie Di Donna, ils sont parvenu à raconter en image la révolution de la Logique survenue au début du XXe siècle.\n\nLa rencontre est préparée et animée par un groupe d'étudiants de l'IUT Lyon.",
+        "en": "Come and meet Alecos Papadacos, the designer of the characters and drawings of [_Logicomix_](http://www.logicomix.com/fr/index8be8.html?option=com_content&view=frontpage&Itemid=53), a graphic novel about the fabulous quest for the foundations of mathematics.\nTogether with Apóstolos K. Doxiàdis and Annie Di Donna, they were able to portray the revolution of Logic at the beginning of the 20th century.\nThe meeting is prepared and facilitated by a group of students from IUT Lyon."
+      },
+      "keywords": {
+        "fr": [
+          "Mathématiques",
+          "Histoire des sciences",
+          "Bandes dessinées",
+          "Logique",
+          "Bertrand Russell"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "4a46ed6b7434414e820cfdb0b5c8a79e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 953,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4a46ed6b7434414e820cfdb0b5c8a79e.full.image.jpg",
+            "size": {
+              "height": 475,
+              "width": 349
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4a46ed6b7434414e820cfdb0b5c8a79e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T17:00:00.000Z",
+          "end": "2020-01-16T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:24.000Z",
+      "createdAt": "2019-11-22T10:08:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 59947214,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 59947214,
+        "slug": "bu-sciences-lyon1556",
+        "name": "BU sciences Lyon1",
+        "address": "20 avenue Gaston Berger 69100 Villeurbanne",
+        "city": "Villeurbanne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Métropole de Lyon",
+        "postalCode": "69100",
+        "insee": "69266",
+        "countryCode": "FR",
+        "district": "Croix-Luizet",
+        "latitude": 45.781961,
+        "longitude": 4.870489,
+        "updatedAt": "2019-11-22T10:04:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 624,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 20522170,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "olivier-balez-dessine-babyfaces-de-marie-desplechin-et-aude-soleilhac-dessine-une-histoire-sans-fin-de-michael-ende",
+      "title": {
+        "fr": "Olivier Balez dessine Babyfaces de Marie Desplechin et Aude Soleilhac dessine Une histoire sans fin de Michael Ende",
+        "en": "Olivier Balez draws Babyfaces by Marie Desplechin and Aude Soleilhac draws An endless story by Michael Ende"
+      },
+      "description": {
+        "fr": "Olivier Balez dessine Babyfaces de Marie Desplechin et Aude Soleilhac dessine Une histoire sans fin de Michael Ende, lectures dessinées pour enfants.",
+        "en": "Olivier Balez draws Babyfaces by Marie Desplechin and Aude Soleilhac draws An Endless Story by Michael Ende, designed readings for children."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation – A partir de 8 ans",
+        "en": "By reservation – From 8 years"
+      },
+      "image": {
+        "filename": "f3e8806ad01b44c2911915969a55bbf3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 451,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f3e8806ad01b44c2911915969a55bbf3.full.image.jpg",
+            "size": {
+              "height": 709,
+              "width": 1102
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f3e8806ad01b44c2911915969a55bbf3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-13T13:00:00.000Z",
+          "end": "2020-05-13T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:01.000Z",
+      "createdAt": "2019-11-22T10:09:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 9352197,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "creation-de-fresques-performatives-par-mai-li-bernardsamir-et-yunbo",
+      "title": {
+        "fr": "Création de fresques performatives",
+        "en": "Creation of performative frescoes"
+      },
+      "description": {
+        "fr": "Réalisation de fresques performatives et participatives",
+        "en": "Creation of performative and participatory frescoes"
+      },
+      "longDescription": {
+        "fr": "Réalisation de fresques sur _L’architecture et le reflet d’Angoulême_ de Mai-Li Bernard et autour de la littérature de Samir Dahmani et Yunbo.",
+        "en": "Creation of frescoes on _the architecture and reflection of Angoulême_ by Mai-Li Bernard and around the literature of Samir Dahmani and Yunbo."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4af3c9169fb141b786d1b8379892700b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 311,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4af3c9169fb141b786d1b8379892700b.full.image.jpg",
+            "size": {
+              "height": 399,
+              "width": 900
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4af3c9169fb141b786d1b8379892700b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T12:30:00.000Z",
+          "end": "2020-05-16T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:15.000Z",
+      "createdAt": "2019-11-22T10:17:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 75474228,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "heros-et-super-heros-de-la-bd-rencontre-dauteurs-et-dedicace_558645",
+      "title": {
+        "fr": "Héros et super-héros de la BD, rencontre d'auteurs et dédicace",
+        "en": "Heroes and superheroes of the comic book, meeting of authors and dedication"
+      },
+      "description": {
+        "fr": "Rencontre d'auteurs BD et dédicaces",
+        "en": "Meeting of comic book authors and dedications"
+      },
+      "longDescription": {
+        "fr": "Rencontre d'auteurs et dédicaces autour de la BD avec Jérôme Alquié, Serge Carrère, Emilie Harel, Layla Benabid et Didier Axl.",
+        "en": "Meeting of authors and dedications around comics with Jérôme Alquié, Serge Carrère, Emilie Harel, Layla Benabid and Didier Axl."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "874bd82150aa48bdb98cb61de02beee7.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 514,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "874bd82150aa48bdb98cb61de02beee7.full.image.jpg",
+            "size": {
+              "height": 1228,
+              "width": 1674
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "874bd82150aa48bdb98cb61de02beee7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T17:00:00.000Z",
+          "end": "2020-01-17T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:22.000Z",
+      "createdAt": "2019-11-22T10:18:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 76703477,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 76703477,
+        "slug": "espace-francois-mitterrand454",
+        "name": "Espace François Mitterrand",
+        "address": "Traverse Chapelle des Filles 13190 Allauch",
+        "city": "Allauch",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13190",
+        "insee": "13002",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.334741,
+        "longitude": 5.482447,
+        "updatedAt": "2019-11-22T10:15:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Prado-Paradis et association Allauch BD",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 69226275,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "cinema-et-bande-dessinee-julien-maffre-illustre-le-western",
+      "title": {
+        "fr": "Cinéma et bande dessinée, Julien Maffre illustre le western",
+        "en": "Cinema and comics, Julien Maffre illustrates the western"
+      },
+      "description": {
+        "fr": "Cinéma et bande dessinée, Julien Maffre illustre le western à l'auditorium",
+        "en": "Cinema and comics, Julien Maffre illustrates the western in the auditorium"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ae4ed5e6593e4dae98a331c781c7db29.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ae4ed5e6593e4dae98a331c781c7db29.full.image.jpg",
+            "size": {
+              "height": 3787,
+              "width": 2841
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ae4ed5e6593e4dae98a331c781c7db29.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-22T16:30:00.000Z",
+          "end": "2020-05-22T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:16.000Z",
+      "createdAt": "2019-11-22T10:19:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 23173483,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "dedicace-et-vente-de-livres",
+      "title": {
+        "fr": "Rencontres d'auteurs et dédicaces",
+        "en": "Authors' meetings and dedications"
+      },
+      "description": {
+        "fr": "Auteurs présents : Olivier Balez, Golo, Giorgio Marras, Lucas Methé, Yoon Sun Park, Aude Soleihac, Yunbo, Samir Dahmani, Mai-Li Bernard, Julien Maffre, Nathalie Ferlut, Elric Dufau et Delphine Rieu",
+        "en": "Authors present: Olivier Balez, Golo, Giorgio Marras, Lucas Methé, Yoon Sun Park, Aude Soleihac, Yunbo, Samir Dahmani, Mai-Li Bernard, Julien Maffre, Nathalie Ferlut, Elric Dufau and Delphine Rieu"
+      },
+      "longDescription": {
+        "fr": "Rencontres et dédicaces. Auteurs présents : Olivier Balez, Golo, Giorgio Marras, Lucas Methé, Yoon Sun Park, Aude Soleihac, Yunbo, Samir Dahmani, Mai-Li Bernard, Julien Maffre, Nathalie Ferlut, Elric Dufau et Delphine Rieu.",
+        "en": "Meetings and dedications. Authors present: Olivier Balez, Golo, Giorgio Marras, Lucas Methé, Yoon Sun Park, Aude Soleihac, Yunbo, Samir Dahmani, Mai-Li Bernard, Julien Maffre, Nathalie Ferlut, Elric Dufau and Delphine Rieu."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1eb0576602994ee39293fa67a1c705a0.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1eb0576602994ee39293fa67a1c705a0.full.image.jpg",
+            "size": {
+              "height": 542,
+              "width": 814
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1eb0576602994ee39293fa67a1c705a0.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-30T12:30:00.000Z",
+          "end": "2020-05-30T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:20.000Z",
+      "createdAt": "2019-11-22T10:21:33.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 54047006,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "rock-et-bande-dessinee-elric-dufau-dessine-le-groupe-ending-satellites-lors-dun-concert-dessine",
+      "title": {
+        "fr": "Rock et bande dessinée : Elric Dufau dessine le groupe Ending Satellites lors d’un concert dessiné",
+        "en": "Rock and Comic: Elric Dufau draws the band Ending Satellites during a cartoon concert"
+      },
+      "description": {
+        "fr": "Elric Dufau dessine le groupe Ending Satellites lors d’un concert dessiné",
+        "en": "Elric Dufau draws the band Ending Satellites during a cartoon concert"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "1d068c36d7d3402daeab706bc3f1b278.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 964,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1d068c36d7d3402daeab706bc3f1b278.full.image.jpg",
+            "size": {
+              "height": 1181,
+              "width": 858
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1d068c36d7d3402daeab706bc3f1b278.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-03T16:30:00.000Z",
+          "end": "2020-06-03T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:06.000Z",
+      "createdAt": "2019-11-22T10:23:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2082122
+}

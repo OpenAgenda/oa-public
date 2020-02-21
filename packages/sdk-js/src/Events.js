@@ -41,10 +41,8 @@ export default class Events {
       .accept( 'json' )
       .query( { key: this.sdk.params.publicKey } )
       .set( 'access-token', this.sdk.accessToken )
-      .set( 'nonce', _.random( Math.pow( 10, 6 ) ) )
+      .set( 'nonce', this.sdk.getNonce() )
       .field( {
-        access_token: this.sdk.accessToken,
-        nonce: _.random( Math.pow( 10, 6 ) ),
         data: JSON.stringify( data )
       } )
       .then( parseJsonResponse )
@@ -59,10 +57,8 @@ export default class Events {
       .accept( 'json' )
       .query( { key: this.sdk.params.publicKey } )
       .set( 'access-token', this.sdk.accessToken )
-      .set( 'nonce', _.random( Math.pow( 10, 6 ) ) )
+      .set( 'nonce', this.sdk.getNonce() )
       .field( {
-        access_token: this.sdk.accessToken,
-        nonce: _.random( Math.pow( 10, 6 ) ),
         data: JSON.stringify( data )
       } )
       .then( parseJsonResponse )
@@ -78,7 +74,7 @@ export default class Events {
       .accept( 'json' )
       .query( { key: this.sdk.params.publicKey } )
       .set( 'access-token', this.sdk.accessToken )
-      .set( 'nonce', _.random( Math.pow( 10, 6 ) ) )
+      .set( 'nonce', this.sdk.getNonce() )
       .then( parseJsonResponse )
       .then( v => v.body );
   }

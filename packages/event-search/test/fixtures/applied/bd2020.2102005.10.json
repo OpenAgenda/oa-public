@@ -1,0 +1,1690 @@
+{
+  "events": [
+    {
+      "uid": 57472531,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "les-super-heros-de-lantiquite_293803",
+      "title": {
+        "fr": "Exposition \"Les (super) héros de l’antiquité\"",
+        "en": "Exhibition \"The (super) heroes of antiquity\""
+      },
+      "description": {
+        "fr": "Pas de cape ou de costume moulant pour ces héros, pourtant leur mythe a su traverser les siècles. Alors, qui est le plus fort : Wolverine ou Ulysse ? Batman ou Héraclès ?",
+        "en": "No cloak or tight suit for these heroes, yet their myth knew how to cross the centuries. So, who is the strongest: Wolverine or Ulysses? Batman or Heracles, huh?"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "ef2c1711db104c4eae54f19d0d2ffd0d.base.image.jpg",
+        "credits": "bmi d'Épinal",
+        "size": {
+          "height": 548,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef2c1711db104c4eae54f19d0d2ffd0d.full.image.jpg",
+            "size": {
+              "height": 2052,
+              "width": 2622
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef2c1711db104c4eae54f19d0d2ffd0d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T12:00:00.000Z",
+          "end": "2020-01-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T12:00:00.000Z",
+          "end": "2020-01-16T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T12:00:00.000Z",
+          "end": "2020-01-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T13:00:00.000Z",
+          "end": "2020-01-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T12:00:00.000Z",
+          "end": "2020-01-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T12:00:00.000Z",
+          "end": "2020-01-23T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T12:00:00.000Z",
+          "end": "2020-01-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T13:00:00.000Z",
+          "end": "2020-01-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T12:00:00.000Z",
+          "end": "2020-01-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T12:00:00.000Z",
+          "end": "2020-01-30T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T12:00:00.000Z",
+          "end": "2020-01-31T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T13:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T12:00:00.000Z",
+          "end": "2020-02-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:00:00.000Z",
+          "end": "2020-02-06T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T12:00:00.000Z",
+          "end": "2020-02-07T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T13:00:00.000Z",
+          "end": "2020-02-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T12:00:00.000Z",
+          "end": "2020-02-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:00:00.000Z",
+          "end": "2020-02-13T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:00:00.000Z",
+          "end": "2020-02-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T13:00:00.000Z",
+          "end": "2020-02-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T12:00:00.000Z",
+          "end": "2020-02-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T12:00:00.000Z",
+          "end": "2020-02-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T12:00:00.000Z",
+          "end": "2020-02-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T13:00:00.000Z",
+          "end": "2020-02-23T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:59.000Z",
+      "createdAt": "2019-12-11T11:00:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19727425,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "0329399820"
+      ],
+      "location": {
+        "uid": 19727425,
+        "slug": "bibliotheque-multimedia-intercommunale-depinal",
+        "name": "Bibliothèque multimédia intercommunale d'Épinal",
+        "address": "48 rue Saint-Michel 88000 Épinal",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.177805,
+        "longitude": 6.458702,
+        "updatedAt": "2019-12-12T15:11:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 73231193,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "le-patrimoine-sort-des-reserves-les-super-heros-de-lantiquite",
+      "title": {
+        "fr": "Atelier \"Le patrimoine sort des réserves : les (super) héros de l’antiquité\"",
+        "en": "Workshop \"Heritage leaves the reserves: the (super) heroes of antiquity\""
+      },
+      "description": {
+        "fr": "Pas de cape ou de costume moulant pour ces héros, pourtant leur mythe a su traverser les siècles. Alors, qui est le plus fort : Wolverine ou Ulysse ? Batman ou Héraclès ?",
+        "en": "No cloak or tight suit for these heroes, yet their myth knew how to cross the centuries. So, who is the strongest: Wolverine or Ulysses? Batman or Heracles, huh?"
+      },
+      "longDescription": {
+        "fr": "Pas de cape ou de costume moulant pour ces héros, pourtant leur mythe a su traverser les siècles. Alors, qui est le plus fort : Wolverine ou Ulysse ? Batman ou Héraclès ?",
+        "en": "No cloak or tight suit for these heroes, yet their myth knew how to cross the centuries. So, who is the strongest: Wolverine or Ulysses? Batman or Heracles, huh?"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "ef2c1711db104c4eae54f19d0d2ffd0d.base.image.jpg",
+        "credits": "bmi d'Épinal",
+        "size": {
+          "height": 548,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef2c1711db104c4eae54f19d0d2ffd0d.full.image.jpg",
+            "size": {
+              "height": 2052,
+              "width": 2622
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef2c1711db104c4eae54f19d0d2ffd0d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-23T16:00:00.000Z",
+          "end": "2020-01-23T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:30:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:57.000Z",
+      "createdAt": "2019-12-11T11:02:58.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19727425,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "0329399820"
+      ],
+      "location": {
+        "uid": 19727425,
+        "slug": "bibliotheque-multimedia-intercommunale-depinal",
+        "name": "Bibliothèque multimédia intercommunale d'Épinal",
+        "address": "48 rue Saint-Michel 88000 Épinal",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.177805,
+        "longitude": 6.458702,
+        "updatedAt": "2019-12-12T15:11:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 97532600,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "les-super-heros_494402",
+      "title": {
+        "fr": "Exposition \"Les super-héros\"",
+        "en": "Exhibition \"The Superheroes\""
+      },
+      "description": {
+        "fr": "Qu’est-ce qu’un super-héros ? Quand sont-ils apparus ? Découvre l’histoire de ces personnages en costume, les périodes phares et les auteurs incontournables",
+        "en": "What is a superhero? When did they appear? Discover the history of these characters in costume, the key periods and the key authors"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c3af0d0acaa144c19a91e014c58ab32d.base.image.jpg",
+        "credits": "Exposika",
+        "size": {
+          "height": 584,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c3af0d0acaa144c19a91e014c58ab32d.full.image.jpg",
+            "size": {
+              "height": 250,
+              "width": 300
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c3af0d0acaa144c19a91e014c58ab32d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-07T13:00:00.000Z",
+          "end": "2020-01-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T13:00:00.000Z",
+          "end": "2020-01-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T09:00:00.000Z",
+          "end": "2020-01-10T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T13:00:00.000Z",
+          "end": "2020-01-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T13:00:00.000Z",
+          "end": "2020-01-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T13:00:00.000Z",
+          "end": "2020-01-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:00:00.000Z",
+          "end": "2020-01-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T09:00:00.000Z",
+          "end": "2020-01-17T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T13:00:00.000Z",
+          "end": "2020-01-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T09:00:00.000Z",
+          "end": "2020-01-24T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T13:00:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:53.000Z",
+      "createdAt": "2019-12-11T11:06:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11444904,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 11444904,
+        "slug": "mediatheque-de-bains-les-bains264",
+        "name": "Médiathèque de Bains-les-Bains",
+        "address": "5 rue du Général Leclerc 88240 Bains-les-Bains",
+        "city": "La Vôge-les-Bains",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88240",
+        "insee": "88029",
+        "countryCode": "FR",
+        "district": "Bains-les-Bains",
+        "latitude": 48.002723,
+        "longitude": 6.264101,
+        "updatedAt": "2019-12-11T19:47:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 96121490,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "heure-du-conte-nos-petits-super-heros_523631",
+      "title": {
+        "fr": "Heure du conte : nos petits (super) héros",
+        "en": "Storytime: our little (super) heroes"
+      },
+      "description": {
+        "fr": "Des histoires spéciales de (super) héros pour les petites oreilles à partir de 3 ans",
+        "en": "Special stories of (super) heroes for small ears from 3 years old"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "59853fb7e9a54252bd7f988f24744e24.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "59853fb7e9a54252bd7f988f24744e24.full.image.jpg",
+            "size": {
+              "height": 1688,
+              "width": 3000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "59853fb7e9a54252bd7f988f24744e24.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-08T15:30:00.000Z",
+          "end": "2020-01-08T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:03.000Z",
+      "createdAt": "2019-12-11T11:08:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11444904,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 6
+      },
+      "registration": [
+        "mediathequebainslesbains@bmi.agglo-epinal.fr",
+        "0329366922"
+      ],
+      "location": {
+        "uid": 11444904,
+        "slug": "mediatheque-de-bains-les-bains264",
+        "name": "Médiathèque de Bains-les-Bains",
+        "address": "5 rue du Général Leclerc 88240 Bains-les-Bains",
+        "city": "La Vôge-les-Bains",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88240",
+        "insee": "88029",
+        "countryCode": "FR",
+        "district": "Bains-les-Bains",
+        "latitude": 48.002723,
+        "longitude": 6.264101,
+        "updatedAt": "2019-12-11T19:47:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 57156413,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "heure-du-conte-nos-petits-super-heros_498574",
+      "title": {
+        "fr": "Heure du conte : nos petits (super) héros",
+        "en": "Storytime: our little (super) heroes"
+      },
+      "description": {
+        "fr": "Des histoires spéciales de (super) héros pour les petites oreilles à partir de 3 ans",
+        "en": "Special stories of (super) heroes for small ears from 3 years old"
+      },
+      "longDescription": {
+        "fr": ".",
+        "en": "."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "59853fb7e9a54252bd7f988f24744e24.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "59853fb7e9a54252bd7f988f24744e24.full.image.jpg",
+            "size": {
+              "height": 1688,
+              "width": 3000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "59853fb7e9a54252bd7f988f24744e24.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T09:30:00.000Z",
+          "end": "2020-01-18T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:58.000Z",
+      "createdAt": "2019-12-11T11:09:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19727425,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 6
+      },
+      "registration": [],
+      "location": {
+        "uid": 19727425,
+        "slug": "bibliotheque-multimedia-intercommunale-depinal",
+        "name": "Bibliothèque multimédia intercommunale d'Épinal",
+        "address": "48 rue Saint-Michel 88000 Épinal",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.177805,
+        "longitude": 6.458702,
+        "updatedAt": "2019-12-12T15:11:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 66971886,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "heure-du-conte-nos-petits-super-heros_262376",
+      "title": {
+        "fr": "Heure du conte : nos petits (super) héros",
+        "en": "Storytime: our little (super) heroes"
+      },
+      "description": {
+        "fr": "Des histoires spéciales de (super) héros pour les petites oreilles à partir de 3 ans",
+        "en": "Special stories of (super) heroes for small ears from 3 years old"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "59853fb7e9a54252bd7f988f24744e24.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "59853fb7e9a54252bd7f988f24744e24.full.image.jpg",
+            "size": {
+              "height": 1688,
+              "width": 3000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "59853fb7e9a54252bd7f988f24744e24.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T09:30:00.000Z",
+          "end": "2020-02-01T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:01.000Z",
+      "createdAt": "2019-12-11T11:10:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43238691,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 6
+      },
+      "registration": [],
+      "location": {
+        "uid": 43238691,
+        "slug": "mediatheque-de-deyvillers579",
+        "name": "Médiathèque de Deyvillers",
+        "address": "2 rue des Acacias 88000 Deyvillers",
+        "city": "Deyvillers",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88132",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.201812,
+        "longitude": 6.514289,
+        "updatedAt": "2019-12-12T15:11:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 35362195,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "pause-cafe-speciale-heros-au-quotidien",
+      "title": {
+        "fr": "Pause-café spéciale héros au quotidien",
+        "en": "Special coffee break daily hero"
+      },
+      "description": {
+        "fr": "Envie de découvrir de nouvelles BD, de nouveaux livres ou DVD avec des héros au quotidien ? Les bibliothécaires partagent leurs coups de cœur autour d’un café ou d’un thé.",
+        "en": "Want to discover new comics, books or Dvds with everyday heroes? Librarians share their favourites over coffee or tea."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "caa9ee4f00674510ba5a560007f1ab7e.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 503,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "caa9ee4f00674510ba5a560007f1ab7e.full.image.jpg",
+            "size": {
+              "height": 1736,
+              "width": 2417
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "caa9ee4f00674510ba5a560007f1ab7e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-11T14:00:00.000Z",
+          "end": "2020-01-11T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:48.000Z",
+      "createdAt": "2019-12-11T11:17:14.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13188246,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "0329290203"
+      ],
+      "location": {
+        "uid": 13188246,
+        "slug": "mediatheque-de-thaon-les-vosges615",
+        "name": "Médiathèque de Thaon-les-Vosges",
+        "address": "6 bis rue du Marché 88150 Thaon-les-Vosges",
+        "city": "Capavenir-Vosges",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88150",
+        "insee": "88465",
+        "countryCode": "FR",
+        "district": "Thaon-les-Vosges",
+        "latitude": 48.252469,
+        "longitude": 6.420783,
+        "updatedAt": "2019-12-12T15:10:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 57374366,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "ptit-dejeuner-litteraire-special-bandes-dessinees",
+      "title": {
+        "fr": "P’tit déjeuner littéraire spécial bandes dessinées",
+        "en": "Little literary lunch special comic books"
+      },
+      "description": {
+        "fr": "Autour d’une tasse de café et en toute simplicité, les bibliothécaires présentent une dizaine de BD, comics et mangas",
+        "en": "Around a cup of coffee and in all simplicity, the librarians present a dozen comics, comics and mangas"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "caa9ee4f00674510ba5a560007f1ab7e.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 503,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "caa9ee4f00674510ba5a560007f1ab7e.full.image.jpg",
+            "size": {
+              "height": 1736,
+              "width": 2417
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "caa9ee4f00674510ba5a560007f1ab7e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T09:15:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:25:09.000Z",
+      "createdAt": "2019-12-11T11:18:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19727425,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 19727425,
+        "slug": "bibliotheque-multimedia-intercommunale-depinal",
+        "name": "Bibliothèque multimédia intercommunale d'Épinal",
+        "address": "48 rue Saint-Michel 88000 Épinal",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.177805,
+        "longitude": 6.458702,
+        "updatedAt": "2019-12-12T15:11:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 1114853,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "samedi-cine-le-film-de-super-heros",
+      "title": {
+        "fr": "Samedi ciné : le film de super-héros",
+        "en": "Saturday Movie: The Superhero Movie"
+      },
+      "description": {
+        "fr": "Aujourd’hui omniprésent, le film de super-héros n’a cessé de faire question au fil de son évolution",
+        "en": "Today omnipresent, the movie of superheroes has not ceased to question as it evolves"
+      },
+      "longDescription": {
+        "fr": "En partenariat avec les Cinés Palace et la Boîte à Films.\n\nAujourd’hui omniprésent, le film de super-héros n’a cessé de faire question au fil de son évolution : répond-il à une logique de divertissement consensuel ou bien fournit-il un discours plus critique ? Quel lien entretient-il avec les comics d’origine et, en retour, comment se positionne la bande dessinée face à cette hégémonie ? Camille Baurin, spécialiste des comics, abordera l’histoire de ce genre, ses traits caractéristiques, mais aussi les défis qui s’imposent à lui aujourd’hui.\n\nLa conférence sera suivie de la projection des films _Batman : le Défi_ et _Batman Forever_ de Tim Burton à partir de 19h aux Cinés Palace.",
+        "en": "In partnership with the Cinés Palace and the Film Box.\nToday omnipresent, the movie of superheroes has not ceased to question as it evolves: does it answer a logic of consensual entertainment or does it provide a more critical discourse? What connection does it have with the original comics and, in return, how does the comic book position itself in the face of this hegemony? Camille Baurin, a comic book specialist, will discuss the history of this genre, its characteristic features, but also the challenges facing him today.\nThe conference will be followed by the screening of Tim Burton’s _Batman: The Challenge_ and _Batman Forever_ movies starting at 7pm at the Cinés Palace."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4d61a0edb2534d94bd838741faf743d0.base.image.jpg",
+        "credits": "Camille Baurin",
+        "size": {
+          "height": 903,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4d61a0edb2534d94bd838741faf743d0.full.image.jpg",
+            "size": {
+              "height": 1579,
+              "width": 1225
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4d61a0edb2534d94bd838741faf743d0.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T16:00:00.000Z",
+          "end": "2020-01-25T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:45.000Z",
+      "createdAt": "2019-12-11T11:21:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19727425,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "0329399820"
+      ],
+      "location": {
+        "uid": 19727425,
+        "slug": "bibliotheque-multimedia-intercommunale-depinal",
+        "name": "Bibliothèque multimédia intercommunale d'Épinal",
+        "address": "48 rue Saint-Michel 88000 Épinal",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.177805,
+        "longitude": 6.458702,
+        "updatedAt": "2019-12-12T15:11:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cinés Palace d'Épinal et la Boîte à films",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 33522314,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "un-jeu-dont-vous-etes-le-heros_287259",
+      "title": {
+        "fr": "Un jeu dont vous êtes le héros",
+        "en": "A game of which you are the hero"
+      },
+      "description": {
+        "fr": "Initiation au jeu de rôle sur table, avec des BD et des livres empruntables à la bmi, animée par des maîtres de jeu.",
+        "en": "Introduction to role-playing on the table, with comics and books borrowed from the bmi, animated by game masters."
+      },
+      "longDescription": {
+        "fr": "Initiation au jeu de rôle sur table, avec des livres empruntables à la bmi, animée par des maîtres de jeu.\n\nEn partenariat avec l'association Le Signe Jaune",
+        "en": "Introduction to role-playing on the table, with books borrowable from the bmi, animated by game masters.\nIn partnership with the association Le Signe Jaune"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "85fd1778922d401288c3224031391017.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "85fd1778922d401288c3224031391017.full.image.jpg",
+            "size": {
+              "height": 2587,
+              "width": 3881
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "85fd1778922d401288c3224031391017.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:30:00.000Z",
+          "end": "2020-01-18T21:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T15:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:39.000Z",
+      "createdAt": "2019-12-11T11:26:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19727425,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "0329399820"
+      ],
+      "location": {
+        "uid": 19727425,
+        "slug": "bibliotheque-multimedia-intercommunale-depinal",
+        "name": "Bibliothèque multimédia intercommunale d'Épinal",
+        "address": "48 rue Saint-Michel 88000 Épinal",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.177805,
+        "longitude": 6.458702,
+        "updatedAt": "2019-12-12T15:11:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2102057
+}

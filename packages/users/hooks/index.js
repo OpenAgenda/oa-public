@@ -7,6 +7,8 @@ const changeEmailFromStore = require('./changeEmailFromStore');
 const checkUnicity = require('./checkUnicity');
 const coerce = require('./coerce');
 const compareFields = require('./compareFields');
+const createActivationToken = require('./createActivationToken');
+const createTokenIfNotExist = require('./createTokenIfNotExist');
 const detailedParamHook = require('./detailedParamHook');
 const error = require('./error');
 const formatStore = require('./formatStore');
@@ -18,6 +20,7 @@ const generateUniqueToken = require('./generateUniqueToken');
 const hashPassword = require('./hashPassword');
 const includeImagePathParamHook = require('./includeImagePathParamHook');
 const isValidToken = require('./isValidToken');
+const keepFields = require('./keepFields');
 const parseStore = require('./parseStore');
 const populateAccountTypes = require('./populateAccountTypes');
 const removedParamHook = require('./removedParamHook');
@@ -28,7 +31,9 @@ const snakeCase = require('./snakeCase');
 const snakeCaseQuery = require('./snakeCaseQuery');
 const softDelete = require('./softDelete');
 const stashBefore = require('./stashBefore');
+const transformTokenType = require('./transformTokenType');
 const validate = require('./validate');
+const validateCreate = require('./validateCreate');
 const verifyPassword = require('./verifyPassword');
 
 module.exports = {
@@ -39,6 +44,8 @@ module.exports = {
   checkUnicity,
   coerce,
   compareFields,
+  createActivationToken,
+  createTokenIfNotExist,
   detailedParamHook,
   error,
   formatStore,
@@ -50,6 +57,7 @@ module.exports = {
   hashPassword,
   includeImagePathParamHook,
   isValidToken,
+  keepFields,
   parseStore,
   populateAccountTypes,
   removedParamHook,
@@ -60,6 +68,8 @@ module.exports = {
   snakeCaseQuery,
   softDelete,
   stashBefore,
+  transformTokenType,
   validate,
+  validateCreate,
   verifyPassword
 };

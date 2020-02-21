@@ -129,8 +129,12 @@ describe('02 - event search - functional: search', function() {
     });
 
     it('all fields are returned when detailed option is true', async () => {
-
-      let { events, total } = await service('simple_search').search({ uid: 6 }, null, { detailed: true });
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: 6 }, null, {
+        detailed: true
+      });
 
       Object.keys(events[0]).should.eql([
         'longDescription',
@@ -160,7 +164,6 @@ describe('02 - event search - functional: search', function() {
         'lastTiming',
         'nextTiming'
       ]);
-
     });
 
     it('open search one or more words', async () => {

@@ -1,0 +1,1453 @@
+{
+  "events": [
+    {
+      "uid": 65093263,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "cafe-bd-autour-du-prix-metropolitain-a-la-fabrique-pola",
+      "title": {
+        "fr": "Café BD autour du prix Métropolitain à la fabrique Pola",
+        "en": "Café BD around the Metropolitan Prize at the Pola factory"
+      },
+      "description": {
+        "fr": "Café BD de la bibliothèque de la Bastide autour du prix Métropolitain, se tenant exceptionnellement à la fabrique Pola, dans les locaux des éditions Cornélius",
+        "en": "Café BD de la bibliothèque de la Bastide around the Metropolitan Prize, exceptionally held at the Pola factory, in the premises of Cornélius editions"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Café organisé par la bibliothèque de la Bastide mais se tenant exceptionnellement à la fabrique POLA, dans les locaux des Editions Cornélius",
+        "en": "Café organized by the library of La Bastide but held exceptionally at the factory POLA, in the premises of Editions Cornélius"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T18:00:00.000Z",
+          "end": "2020-02-12T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:04.000Z",
+      "createdAt": "2019-12-16T15:47:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11626288,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 11626288,
+        "slug": "fabrique-pola245",
+        "name": "Fabrique Pola",
+        "address": "10 quai de Brazza 33100 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "La Bastide",
+        "latitude": 44.852564,
+        "longitude": -0.555313,
+        "updatedAt": "2019-12-17T08:16:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Éditions Cornélius, fabrique Pola",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 8164656,
+      "ownerUid": 8298250,
+      "creatorUid": 8298250,
+      "slug": "bd-occas",
+      "title": {
+        "fr": "BD occasion",
+        "en": "BD occasion"
+      },
+      "description": {
+        "fr": "Vente de BD d'occasion",
+        "en": "Sale of used comics"
+      },
+      "longDescription": {
+        "fr": "Cette vente de BD d'occasion est ouverte aux professionnels et aux particuliers.",
+        "en": "This used comic book sale is open to professionals and individuals."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription obligatoire",
+        "en": "Compulsory registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-05T07:30:00.000Z",
+          "end": "2020-04-05T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:34:31.000Z",
+      "createdAt": "2019-12-30T17:27:13.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77154959,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "info@bdlezoux.fr"
+      ],
+      "location": {
+        "uid": 77154959,
+        "slug": "lezoux298",
+        "name": "Maison du peuple",
+        "address": "17 rue du Maréchal Leclerc 63190 Lezoux",
+        "city": "Lezoux",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63190",
+        "insee": "63195",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.827532,
+        "longitude": 3.379332,
+        "updatedAt": "2019-12-31T09:16:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Bourse BD d'occasion",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 8298250,
+        "custom": {
+          "organization": "BD Lezoux",
+          "contactName": "Michel Mourot",
+          "contactNumber": "0608328631",
+          "contactPosition": "Président",
+          "email": "Info@bdlezoux.fr"
+        }
+      }
+    },
+    {
+      "uid": 9246213,
+      "ownerUid": 43941556,
+      "creatorUid": 43941556,
+      "slug": "exposition-la-bande-dessinee",
+      "title": {
+        "fr": "Exposition \"La bande dessinée\"",
+        "en": "Exhibition \"The comic book\""
+      },
+      "description": {
+        "fr": "Exposition comportant 19 panneaux descriptifs, une centaine de BD, des figurines de vos personnages préférés...",
+        "en": "Exhibition featuring 19 descriptive panels, a hundred comic books, figurines of your favorite characters..."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9369c13c4b0e49c583e577d9af3857f0.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 584,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9369c13c4b0e49c583e577d9af3857f0.full.image.jpg",
+            "size": {
+              "height": 250,
+              "width": 300
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9369c13c4b0e49c583e577d9af3857f0.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-15T07:30:00.000Z",
+          "end": "2020-01-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T08:00:00.000Z",
+          "end": "2020-01-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T08:00:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T08:00:00.000Z",
+          "end": "2020-01-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T08:00:00.000Z",
+          "end": "2020-01-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T08:00:00.000Z",
+          "end": "2020-02-03T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T08:00:00.000Z",
+          "end": "2020-02-10T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:48.000Z",
+      "createdAt": "2019-12-31T08:39:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 12880348,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "0553904460"
+      ],
+      "location": {
+        "uid": 12880348,
+        "slug": "mediatheque-jean-mace481",
+        "name": "Médiatheque Jean Macé",
+        "address": "6 place Saint-Apre 24350 Tocane-Saint-Apre",
+        "city": "Tocane-Saint-Apre",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Dordogne",
+        "postalCode": "24350",
+        "insee": "24553",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.254812,
+        "longitude": 0.495904,
+        "updatedAt": "2019-12-31T09:17:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Jean Macé",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque départementale Dordogne Périgord (BDDP)",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 43941556,
+        "custom": {
+          "organization": "Exposition BD",
+          "contactName": "Clothilde Eloy",
+          "contactNumber": "0553904460",
+          "contactPosition": "Responsable Bibliothèque",
+          "email": "mediatheque.jeanmace@tocanesaintapre.fr"
+        }
+      }
+    },
+    {
+      "uid": 26227964,
+      "ownerUid": 96087131,
+      "creatorUid": 96087131,
+      "slug": "atelier-rencontre",
+      "title": {
+        "fr": "Atelier \"En suivant le fil de Myrmidon\" avec Thierry Martin",
+        "en": "Workshop \"En suivant le fil de Myrmidon\" with Thierry Martin"
+      },
+      "description": {
+        "fr": "Comme Myrmidon, viens dessiner le personnage que tu voudrais devenir !",
+        "en": "Like Myrmidon, come draw the character you want to become!"
+      },
+      "longDescription": {
+        "fr": "**Atelier rencontre**\n\nViens révéler tes rêves secrets! **Thierry Martin**, le dessinateur de **Myrmidon**, te fera entrer dans le monde merveilleux de la bande dessinée pour faire de toi le héros d'une histoire.",
+        "en": "**Workshop meets**\nCome reveal your secret dreams! **Thierry Martin**, the cartoonist from **Myrmidon**, will get you into the wonderful world of comic books to make you the hero of a story."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription en médiathèque",
+        "en": "Upon registration in the media library"
+      },
+      "image": {
+        "filename": "0a0a4356000446fc959030829cfe517d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0a0a4356000446fc959030829cfe517d.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1748
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0a0a4356000446fc959030829cfe517d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T14:00:00.000Z",
+          "end": "2020-02-15T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:47.000Z",
+      "createdAt": "2019-12-31T10:46:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 7026317,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 11
+      },
+      "registration": [
+        "0483083040"
+      ],
+      "location": {
+        "uid": 7026317,
+        "slug": "mediatheque-dagglomeration-pole-culturel-chabran",
+        "name": "Médiathèque d'agglomération Pôle culturel Chabran",
+        "address": "660 boulevard John Kennedy 83300 Draguignan",
+        "city": "Draguignan",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83300",
+        "insee": "83050",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.535428,
+        "longitude": 6.475438,
+        "updatedAt": "2019-12-19T07:49:42.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96087131,
+        "custom": {
+          "organization": "Réseau de lecture publique de Dracénie Provence Verdon agglomération",
+          "contactName": "Marie HEDON",
+          "contactNumber": "0483083011",
+          "contactPosition": "Responsable du pôle BD",
+          "email": "marie.hedon@dracenie.com"
+        }
+      }
+    },
+    {
+      "uid": 52089387,
+      "ownerUid": 96087131,
+      "creatorUid": 96087131,
+      "slug": "atelier-rencontre-avec-thierry-martin",
+      "title": {
+        "fr": "Atelier \"En suivant le fil de Myrmidon\" avec Thierry Martin",
+        "en": "Workshop \"En suivant le fil de Myrmidon\" with Thierry Martin"
+      },
+      "description": {
+        "fr": "Comme Myrmidon, viens dessiner le héros que tu voudrais être!",
+        "en": "Like Myrmidon, come draw the hero you want to be!"
+      },
+      "longDescription": {
+        "fr": "**Atelier rencontre**\n\nViens révéler tes rêves secrets! **Thierry Martin**, le dessinateur de **Myrmidon**, te fera entrer dans le monde merveilleux de la bande dessinée pour faire de toi le héros d'une histoire.",
+        "en": "**Workshop meets**\nCome reveal your secret dreams! **Thierry Martin**, the cartoonist from **Myrmidon**, will get you into the wonderful world of comic books to make you the hero of a story."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription en médiathèque",
+        "en": "Upon registration in the media library"
+      },
+      "image": {
+        "filename": "20abc07fb3e9498a82bc13b6ba754786.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "20abc07fb3e9498a82bc13b6ba754786.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1748
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "20abc07fb3e9498a82bc13b6ba754786.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:39.000Z",
+      "createdAt": "2019-12-31T10:51:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 86702674,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 11
+      },
+      "registration": [
+        "0483083033"
+      ],
+      "location": {
+        "uid": 86702674,
+        "slug": "mediatheque-du-muy110",
+        "name": "Médiathèque du Muy",
+        "address": "200 avenue Sainte Anne 83490 Le Muy",
+        "city": "Le Muy",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83490",
+        "insee": "83086",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.473809,
+        "longitude": 6.562721,
+        "updatedAt": "2019-12-31T13:19:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96087131,
+        "custom": {
+          "organization": "Réseau de lecture publique de Dracénie Provence Verdon agglomération",
+          "contactName": "Marie HEDON",
+          "contactNumber": "0483083011",
+          "contactPosition": "Responsable du pôle BD",
+          "email": "marie.hedon@dracenie.com"
+        }
+      }
+    },
+    {
+      "uid": 34387088,
+      "ownerUid": 96087131,
+      "creatorUid": 96087131,
+      "slug": "atelier-rencontre_221892",
+      "title": {
+        "fr": "Atelier \"En suivant le fil de Myrmidon\" avec Thierry Martin",
+        "en": "Workshop \"En suivant le fil de Myrmidon\" with Thierry Martin"
+      },
+      "description": {
+        "fr": "Comme Myrmidon, viens dessiner le héros que tu voudrais être!",
+        "en": "Like Myrmidon, come draw the hero you want to be!"
+      },
+      "longDescription": {
+        "fr": "**Atelier rencontre**\n\nViens révéler tes rêves secrets! **Thierry Martin**, le dessinateur de **Myrmidon**, te fera entrer dans le monde merveilleux de la bande dessinée pour faire de toi le héros d'une histoire.",
+        "en": "**Workshop meets**\nCome reveal your secret dreams! **Thierry Martin**, the cartoonist from **Myrmidon**, will get you into the wonderful world of comic books to make you the hero of a story."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription en médiathèque",
+        "en": "Upon registration in the media library"
+      },
+      "image": {
+        "filename": "20080328f2f04bd0b473f62623b8eeb3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "20080328f2f04bd0b473f62623b8eeb3.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1748
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "20080328f2f04bd0b473f62623b8eeb3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T14:00:00.000Z",
+          "end": "2020-02-12T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:37.000Z",
+      "createdAt": "2019-12-31T10:56:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4363996,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 11
+      },
+      "registration": [],
+      "location": {
+        "uid": 4363996,
+        "slug": "mediatheque-de-salernes",
+        "name": "Médiathèque de Salernes",
+        "address": "1 bis cours Théodore Bouge 83690 Salernes",
+        "city": "Salernes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83690",
+        "insee": "83121",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.564007,
+        "longitude": 6.232571,
+        "updatedAt": "2019-12-31T13:20:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96087131,
+        "custom": {
+          "organization": "Réseau de lecture publique de Dracénie Provence Verdon agglomération",
+          "contactName": "Marie HEDON",
+          "contactNumber": "0483083011",
+          "contactPosition": "Responsable du pôle BD",
+          "email": "marie.hedon@dracenie.com"
+        }
+      }
+    },
+    {
+      "uid": 20795712,
+      "ownerUid": 38691723,
+      "creatorUid": 38691723,
+      "slug": "pre-en-bulles",
+      "title": {
+        "fr": "Festival \"Pré en Bulles\"",
+        "en": "Festival \"Pré en Bulles\""
+      },
+      "description": {
+        "fr": "Festival de bande dessinée avec animations, spectacles, expositions et débats",
+        "en": "Comic strip festival with entertainment, shows, exhibitions and debates"
+      },
+      "longDescription": {
+        "fr": "\"Pré en Bulles\", pour la douzième année, accueillera à Bédée plus de 50 auteurs et autrices, et développera des actions culturelles et une programmation artistique autour de la lecture et plus particulièrement de la bande dessinée. Un projet de création artistique est reconduit avec le centre d'art contemporain avec une résidence d’artiste (autrice ou auteur de BD).\n\n« Nos futurs » sera le thème de cette année, mêlant diverses disciplines artistiques du spectacle vivant et de la littérature BD.\n\nDébats, programmation de spectacles, animations sur le lieu du festival, nous conservons pour les visiteurs une formule appréciée et enrichie année après année.\n\nNos partenariats avec le réseau des bibliothèques, le cinéma, et bien d’autres acteurs du territoire, nous permettent de créer autour de la bande dessinée des échanges en amont et en aval du festival.\n\nNotre souhait de promouvoir l’accès à la lecture à travers la bande dessinée se concrétise par une présence de \"Pré en Bulles\" dans le Pays de Brocéliande, et bien au delà.",
+        "en": "\"Pré en Bulles\", for the twelfth year, will welcome in Bédée more than 50 authors, and will develop cultural actions and artistic programming around reading and more particularly comic books. An artistic creation project is carried forward with the contemporary art centre with an artist’s residence (author or comic book author).\n“Our Future” will be the theme of this year’s event, bringing together various artistic disciplines of live performance and comic book literature.\nDebates, programme of shows, entertainment on the venue of the festival, we keep for visitors a formula appreciated and enriched year after year.\nOur partnerships with the network of libraries, the cinema, and many other actors of the territory, allow us to create exchanges upstream and downstream of the festival around the comic strip.\nOur desire to promote access to reading through the comic book is concretized by a presence of \"Pré en Bulles\" in the Pays de Brocéliande, and beyond."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "10f61a24d3f04e33b6925f2d5490dac0.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 503,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "10f61a24d3f04e33b6925f2d5490dac0.full.image.jpg",
+            "size": {
+              "height": 2552,
+              "width": 3553
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "10f61a24d3f04e33b6925f2d5490dac0.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-06T06:00:00.000Z",
+          "end": "2020-09-06T06:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-20T08:00:00.000Z",
+          "end": "2020-09-20T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:56.000Z",
+      "createdAt": "2019-12-31T15:42:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43303016,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.preenbulles.fr"
+      ],
+      "location": {
+        "uid": 43303016,
+        "slug": "bedee-complexe-sportif",
+        "name": "Complexe sportif Edmond Blanchet",
+        "address": "10 rue de Bretagne 35137 Bédée",
+        "city": "Bédée",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35137",
+        "insee": "35023",
+        "countryCode": "FR",
+        "district": "Le Housset",
+        "latitude": 48.180528,
+        "longitude": -1.938491,
+        "updatedAt": "2019-12-31T15:51:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "6 €, gratuit pour les moins de 18 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "514 538 453 000 10",
+      "prix-pass-culture": 6,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 38691723,
+        "custom": {
+          "organization": "Association Le Chantier",
+          "contactName": "Sylvie Poizat",
+          "contactNumber": "0681341398",
+          "contactPosition": "Présidente",
+          "email": "preenbulles.bedee@free.fr"
+        }
+      }
+    },
+    {
+      "uid": 96824345,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "rencontre-avec-un-auteur-dans-le-cadre-du-festival-regard-9",
+      "title": {
+        "fr": "Rencontre avec un auteur dans le cadre du festival Regard 9",
+        "en": "Meeting with an author during the Regard 9 festival"
+      },
+      "description": {
+        "fr": "Rencontre d'un auteur dans le cadre du festival de BD Regard 9 (précisions à venir)",
+        "en": "An author meets at the Regard 9 comic strip festival (details to come)"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-05T16:30:00.000Z",
+          "end": "2020-06-05T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:48.000Z",
+      "createdAt": "2019-12-16T15:51:55.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 21282325,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 21282325,
+        "slug": "bibliotheque-de-la-bastide",
+        "name": "Bibliothèque de la Bastide",
+        "address": "18-22 rue Alexander Fleming 33100 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "La Bastide",
+        "latitude": 44.845271,
+        "longitude": -0.542064,
+        "updatedAt": "2019-12-17T08:16:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 32656904,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "battle-de-dessins_714541",
+      "title": {
+        "fr": "Battle de dessins",
+        "en": "Battle of drawings"
+      },
+      "description": {
+        "fr": "Battle de dessins entre deux auteurs BD, défis ludiques tout au long de la séance !",
+        "en": "Battle of drawings between two comics authors, playful challenges throughout the session!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:34.000Z",
+      "createdAt": "2019-12-16T16:05:36.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 62061806,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 62061806,
+        "slug": "bibliotheque-pierre-veilletet",
+        "name": "Bibliothèque Pierre Veilletet",
+        "address": "21 rue Domion 33200 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.857621,
+        "longitude": -0.623204,
+        "updatedAt": "2019-12-17T08:35:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 6605809,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "cafe-bd-autour-du-prix-metropolitain",
+      "title": {
+        "fr": "Café BD autour du prix Métropolitain",
+        "en": "Café BD around the Metropolitan Prize"
+      },
+      "description": {
+        "fr": "Café BD à la bibliothèque de la Bastide autour du prix Métropolitain",
+        "en": "Comic strip café at the Bastide library around the Metropolitan Prize"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Rendez-vous à la bibliothèque de La Bastide",
+        "en": "Go to the library of La Bastide"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-18T08:30:00.000Z",
+          "end": "2020-04-18T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:32.000Z",
+      "createdAt": "2019-12-16T15:50:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 21282325,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 21282325,
+        "slug": "bibliotheque-de-la-bastide",
+        "name": "Bibliothèque de la Bastide",
+        "address": "18-22 rue Alexander Fleming 33100 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "La Bastide",
+        "latitude": 44.845271,
+        "longitude": -0.542064,
+        "updatedAt": "2019-12-17T08:16:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2116009
+}

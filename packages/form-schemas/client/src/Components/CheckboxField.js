@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 
 module.exports = props => {
-
   const {
     options,
     field: name,
@@ -14,9 +13,9 @@ module.exports = props => {
   const checked = [].concat( value || defaultChecked );
 
   return <Fragment>
-    {options.map( o => <div
+    {options.filter(o => o.display).map( o => <div
       className="checkbox"
-      key={[ name, o.value ].join('.')} >
+      key={[name, o.value].join('.')} >
       <label>
         <input
           type="checkbox"
@@ -27,5 +26,4 @@ module.exports = props => {
       </label>
     </div> )}
   </Fragment>
-
 }

@@ -1,0 +1,1618 @@
+{
+  "events": [
+    {
+      "uid": 87952006,
+      "ownerUid": 40844008,
+      "creatorUid": 40844008,
+      "slug": "residence-dartistes",
+      "title": {
+        "fr": "Résidence d'artistes",
+        "en": "Residency of artists"
+      },
+      "description": {
+        "fr": "Résidence de jeunes artiste sous forme d'atelier collaboratif",
+        "en": "Residency for young artists in the form of a collaborative workshop"
+      },
+      "longDescription": {
+        "fr": "Le but de cette résidence d'artistes est de céer et publier une BD.",
+        "en": "The purpose of this artists' residence is to create and publish a comic book."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "b9897ec72aa040839957b34496af557c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 523,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b9897ec72aa040839957b34496af557c.full.image.jpg",
+            "size": {
+              "height": 194,
+              "width": 260
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b9897ec72aa040839957b34496af557c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "America/Port_of_Spain",
+      "timings": [
+        {
+          "begin": "2020-02-29T19:00:00.000Z",
+          "end": "2020-02-29T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:43.000Z",
+      "createdAt": "2019-12-27T19:25:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 38208763,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 38208763,
+        "slug": "mediatheque-ernest-j-pepin-de-lamentin",
+        "name": "Médiathèque Ernest J. Pépin",
+        "address": "Rue de la Mutualité 97129 Lamentin",
+        "city": "Lamentin",
+        "region": "Guadeloupe",
+        "department": null,
+        "postalCode": "97129",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 16.271591,
+        "longitude": -61.633552,
+        "updatedAt": "2019-12-30T09:42:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "America/Port_of_Spain",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 1,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 40844008,
+        "custom": {
+          "organization": "Médiathèque Ernest J. PEPIN de Lamentin (Guadeloupe)",
+          "contactName": "Alexandra CITADELLE",
+          "contactNumber": "0590253648",
+          "contactPosition": "Directrice",
+          "email": "brigitte.plumain@ville-lamentin.fr"
+        }
+      }
+    },
+    {
+      "uid": 87618420,
+      "ownerUid": 40844008,
+      "creatorUid": 40844008,
+      "slug": "rencontre-avec-jessica-oublie",
+      "title": {
+        "fr": "Rencontre avec Jessica Oublié",
+        "en": "Meeting with Jessica Oublié"
+      },
+      "description": {
+        "fr": "Présentation d'une BD de Jessica Oublié",
+        "en": "Presentation of a comic book by Jessica Oublié"
+      },
+      "longDescription": {
+        "fr": "Présentation de la BD _Tropiques toxiques_ de Jessica Oublié, traitant de la chlordécone.",
+        "en": "Presentation of the _Toxic Tropics_ comic book by Jessica Oublié, dealing with chlordecon."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c648f0907e894502b5c729777a7f4e45.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 998,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c648f0907e894502b5c729777a7f4e45.full.image.jpg",
+            "size": {
+              "height": 268,
+              "width": 188
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c648f0907e894502b5c729777a7f4e45.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "America/Port_of_Spain",
+      "timings": [
+        {
+          "begin": "2020-12-05T20:00:00.000Z",
+          "end": "2020-12-05T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:52.000Z",
+      "createdAt": "2019-12-27T19:16:43.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 38208763,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 38208763,
+        "slug": "mediatheque-ernest-j-pepin-de-lamentin",
+        "name": "Médiathèque Ernest J. Pépin",
+        "address": "Rue de la Mutualité 97129 Lamentin",
+        "city": "Lamentin",
+        "region": "Guadeloupe",
+        "department": null,
+        "postalCode": "97129",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 16.271591,
+        "longitude": -61.633552,
+        "updatedAt": "2019-12-30T09:42:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "America/Port_of_Spain",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 40844008,
+        "custom": {
+          "organization": "Médiathèque Ernest J. PEPIN de Lamentin (Guadeloupe)",
+          "contactName": "Alexandra CITADELLE",
+          "contactNumber": "0590253648",
+          "contactPosition": "Directrice",
+          "email": "brigitte.plumain@ville-lamentin.fr"
+        }
+      }
+    },
+    {
+      "uid": 89695215,
+      "ownerUid": 76865479,
+      "creatorUid": 76865479,
+      "slug": "prix-du-jeune-auteur-de-bande-dessinee-2020",
+      "title": {
+        "fr": "HistoryBoards - Prix du jeune auteur de bande dessinée 2020",
+        "en": "Historyboards - 2020 Young Cartoonist Award"
+      },
+      "description": {
+        "fr": "Prix du jeune auteur de bande dessinée 2020 : appel à participation",
+        "en": "2020 Young Cartoon Author Award: Call for Entries"
+      },
+      "longDescription": {
+        "fr": "HistoryBoards, projet européen soutenu par le programme \"Europe Créative\" s’intéresse à la BD comme outil de citoyenneté et de résistance à la montée des extrêmes et à l’engrenage de la violence. [http://www.historyboards.org](http://www.historyboards.org)\n\nComment résister ? L’art peut-il y contribuer ?\n\n**Vous êtes…**\n\nVous êtes étudiant d’une école de BD et d’art graphique ou un jeune auteur de moins de 30 ans résidant en Europe ou sur le pourtour du Bassin Méditerranéen \n\nParticipez à notre prix du jeune auteur de bande dessinée 2020\n\n**Votre création…**\n\nVous illustrez, en 2 planches BD, une situation de résistance individuelle ou collective à des actes de violence, au travers d’un récit fictionnel ou inspiré de l’actualité récente.\n\nVous avez le choix d’utiliser un ou plusieurs personnages, de raconter une situation imaginaire ou de vous inspirer d’événements réels, mais le récit doit se situer dans la période qui va de 2010 à 2020. Votre récit consiste à illustrer un épisode de résistance citoyenne face à la tentation de la violence.",
+        "en": "Historyboards, a European project supported by the \"Creative Europe\" programme, is interested in comics as a tool for citizenship and resistance to the rise of extremes and the spiral of violence. [http://www.historyboards.org](http://www.historyboards.org)\nHow to resist? Can art contribute to this?\n**You are—**\nYou are a student of a school of comics and graphic art or a young author under 30 years of age residing in Europe or around the Mediterranean Basin\nParticipate in our 2020 Young Cartoon Author Award\n**Your creation…**\nYou illustrate, in 2 comic strips, a situation of individual or collective resistance to acts of violence, through a fictional narrative or inspired by recent news.\nYou have the choice to use one or more characters, to tell an imaginary situation or to be inspired by real events, but the story must be in the period from 2010 to 2020\\. Your story is to illustrate an episode of citizen resistance to the temptation of violence."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur soumission de deux planches BD",
+        "en": "On submission of two comic strips"
+      },
+      "image": {
+        "filename": "dd3caa0d4f154c2aa071b9dd7347bfa5.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 627,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dd3caa0d4f154c2aa071b9dd7347bfa5.full.image.jpg",
+            "size": {
+              "height": 306,
+              "width": 342
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dd3caa0d4f154c2aa071b9dd7347bfa5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-31T23:30:00.000Z",
+          "end": "2020-01-01T00:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T16:30:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:34:35.000Z",
+      "createdAt": "2019-12-28T17:40:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13036544,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 18,
+        "max": 30
+      },
+      "registration": [
+        "http://historyboards.org/prix_jeune_auteur_bd_2020/"
+      ],
+      "location": {
+        "uid": 13036544,
+        "slug": "universite854",
+        "name": "Campus Aix-quartier des facultés",
+        "address": "Rue Schuman 13617 Aix-en-Provence",
+        "city": "Aix-en-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13617",
+        "insee": "13001",
+        "countryCode": "FR",
+        "district": "Cuques",
+        "latitude": 43.515248,
+        "longitude": 5.44591,
+        "updatedAt": "2019-12-30T09:41:00.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Collectif HistoryBoards Projet Europe creative",
+      "type-de-structure": 636,
+      "si-autre-precisez": "Collectif HistoryBoards Aix Marseille Université-Fondation du camp des Milles-Made in la Boate",
+      "structure-partenaire": "Éditions Apollonia (Tunis) - Scuola Italiana di comix (Naples)",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76865479,
+        "custom": {
+          "organization": "Made in la Boate",
+          "contactName": "Martine Sousse",
+          "contactNumber": "0677046597",
+          "contactPosition": "Dir nouvelles ecritures",
+          "email": "martine@laboate.com"
+        }
+      }
+    },
+    {
+      "uid": 38611591,
+      "ownerUid": 76865479,
+      "creatorUid": 76865479,
+      "slug": "historyboards-projet-transmedia-expo-interactive-et-rencontre-avec-les-auteurs",
+      "title": {
+        "fr": "HistoryBoards - Table-ronde autour de l'exposition interactive et des bandes dessinées print et augmentée",
+        "en": "Historyboards - Round table on interactive exhibition and print and augmented comics"
+      },
+      "description": {
+        "fr": "Table-ronde autour de l'exposition interactive et des bandes dessinées print et augmentée",
+        "en": "Round table on interactive exhibition and printed and expanded comics"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre du projet HistoryBoards soutenu par le programme \"Europe Créative', et abordant, sous l’angle historique et par le relais artistique (une BD papier, une BD augmentée et une exposition interactive) la question de la montée des extrémismes et de la résistance aux violences de tous bords.\n\nAvec Seif Nechi (auteur, _De plomb et de sang_, Tunis), François Begnez (auteur, _Moh Palestinien mais presque_, Marseille), Martine Sousse (conceptrice nouvelles écritures, _Made in La Boate_, Marseille) et Prune Lieutier (productrice nouvelles écritures, Montréal).\n\nLes intervenants abordent la question de l’engagement citoyen via la BD et la thématique des nouvelles écritures (support numérique, tablette, interaction, adaptation/convergence des médias).\n\nÀ la fin de la table ronde,séance de signature pour Seif Nechi et François Begnez.",
+        "en": "As part of the Historyboards project supported by the \"Creative Europe', and addressing, from the historical angle and through the artistic relay (a paper BD, an augmented BD and an interactive exhibition) the issue of the rise of extremism and resistance to violence on all sides.\nWith Seif Nechi (author, _De plomb et de sang_, Tunis), François Begnez (author, _Moh Palestinien mais presque_, Marseille), Martine Sousse (designer of new writings, _Made in La Boate_, Marseille) and Prune Lieutier (producer of new writings, Montreal).\nSpeakers addressed the issue of citizen engagement via the comic book and the theme of new writing (digital support, tablet, interaction, adaptation/convergence of media).\nAt the end of the round table, signing session for Seif Nechi and François Begnez."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "537b9081426f4b3a8dd883875cba741c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 234,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "537b9081426f4b3a8dd883875cba741c.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "537b9081426f4b3a8dd883875cba741c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-14T16:00:00.000Z",
+          "end": "2020-05-14T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:46.000Z",
+      "createdAt": "2019-12-28T17:51:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 55194813,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "martine@laboate.com"
+      ],
+      "location": {
+        "uid": 55194813,
+        "slug": "bibliotheque-mejanes545",
+        "name": "Bibliothèque Méjanes",
+        "address": "8 rue des Allumettes 13100 Aix-en-Provence",
+        "city": "Aix-en-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13627",
+        "insee": "13001",
+        "countryCode": "FR",
+        "district": "Cuques",
+        "latitude": 43.525216,
+        "longitude": 5.440375,
+        "updatedAt": "2019-11-08T13:53:52.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Collectif Historyboards - Projet Europe creative",
+      "type-de-structure": 636,
+      "si-autre-precisez": "Collectif Historyboards - Aix Marseille Université - Fondation du camp des Milles -Made in la boate",
+      "structure-partenaire": "Éditions Apollonia (Tunis) - Scuila italiana di comix (Naples)",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76865479,
+        "custom": {
+          "organization": "Made in la Boate",
+          "contactName": "Martine Sousse",
+          "contactNumber": "0677046597",
+          "contactPosition": "Dir nouvelles ecritures",
+          "email": "martine@laboate.com"
+        }
+      }
+    },
+    {
+      "uid": 51822608,
+      "ownerUid": 76865479,
+      "creatorUid": 76865479,
+      "slug": "expo-interactive-en-appui-des-bandes-dessinees-print-et-augmentee-de-plomb-et-de-sang",
+      "title": {
+        "fr": "HistoryBoards - Exposition interactive en appui des bandes dessinées print et augmentée",
+        "en": "Historyboards - Interactive exhibition in support of print and augmented comics"
+      },
+      "description": {
+        "fr": "Visite interactive de l’exposition HistoryBoards : création transmedia autour de la bande dessinée et de la citoyenneté avec le soutien du programme \"Europe Créative\"",
+        "en": "Interactive visit of the exhibition Historyboards: transmedia creation around comic strip and citizenship with the support of the program \"Creative Europe\""
+      },
+      "longDescription": {
+        "fr": "Visite interactive de l’exposition pour le grand public dans le cadre du dispositif de création transmedia autour de la bande dessinée et de la citoyenneté avec le soutien du programme \"Europe Créative\", en co-production avec Aix Marseille Université, La Fondation du Camp des Milles, Mémoire et Education, Chaire Unesco, la Scuola di Comix de Naples et les éditions Apollonia à Tunis.\n\nCe projet vise à faire réfléchir les jeunes sur les sociétés d’hier et d’aujourd’hui en abordant, sous l’angle historique et par le relais artistique (une BD papier, une BD augmentée et une exposition interactive) la question de la montée des extrémismes et de la résistance aux violences de tous bords.\n\n[http://historyboards.org/](http://historyboards.org/)",
+        "en": "Interactive visit of the exhibition for the general public within the framework of the transmedia creation device around comic strip and citizenship with the support of the program \"Creative Europe\", in co-production with Aix Marseille Université, La Fondation du Camp des Milles, Memory and Education, Unesco Chair, the Scuola di Comix of Naples and the Apollonia editions in Tunis.\nThis project aims to make young people think about the societies of yesterday and today by addressing, from the historical angle and through the artistic relay (a paper comic book, an augmented comic and an interactive exhibition) the issue of the rise of extremism and resistance to violence on all sides.\n[http://historyboards.org/](http://historyboards.org/)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "48db72396dd64bfaad0dba912e48678d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "48db72396dd64bfaad0dba912e48678d.full.image.jpg",
+            "size": {
+              "height": 225,
+              "width": 300
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "48db72396dd64bfaad0dba912e48678d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-12T08:00:00.000Z",
+          "end": "2020-05-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T13:00:00.000Z",
+          "end": "2020-05-12T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T08:00:00.000Z",
+          "end": "2020-05-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T13:00:00.000Z",
+          "end": "2020-05-14T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T13:00:00.000Z",
+          "end": "2020-05-20T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T13:00:00.000Z",
+          "end": "2020-05-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T13:00:00.000Z",
+          "end": "2020-05-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T13:00:00.000Z",
+          "end": "2020-05-30T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:31.000Z",
+      "createdAt": "2019-12-28T17:59:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 55194813,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "martine@laboate.com"
+      ],
+      "location": {
+        "uid": 55194813,
+        "slug": "bibliotheque-mejanes545",
+        "name": "Bibliothèque Méjanes",
+        "address": "8 rue des Allumettes 13100 Aix-en-Provence",
+        "city": "Aix-en-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13627",
+        "insee": "13001",
+        "countryCode": "FR",
+        "district": "Cuques",
+        "latitude": 43.525216,
+        "longitude": 5.440375,
+        "updatedAt": "2019-11-08T13:53:52.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Collectif HistoryBoards - Programme Europe creative",
+      "structure-partenaire": "Collectif HistoryBoards - Aix Marseille Université - Fondation du camp des milles - Made in la Boate",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76865479,
+        "custom": {
+          "organization": "Made in la Boate",
+          "contactName": "Martine Sousse",
+          "contactNumber": "0677046597",
+          "contactPosition": "Dir nouvelles ecritures",
+          "email": "martine@laboate.com"
+        }
+      }
+    },
+    {
+      "uid": 7577150,
+      "ownerUid": 88569189,
+      "creatorUid": 88569189,
+      "slug": "bobigny-greater-angouleme-dun-trait",
+      "title": {
+        "fr": "Exposition \"Bobigny > Angoulême d'un trait\"",
+        "en": "Exhibition \"Bobigny > Angoulême d'un trait\""
+      },
+      "description": {
+        "fr": "Planches BD, vidéo d'Angoulême 2020, carnets de croquis",
+        "en": "Comics, video of Angoulême 2020, sketchbooks"
+      },
+      "longDescription": {
+        "fr": "Au retour d'un voyage au festival d'Angoulême, des étudiants de l'association MMI Corp de l'Iut de Bobigny et le service culturel vous proposent de découvrir leurs créations réalisées en parcours infographie et audiovisuel : BD, carnet de croquis et vidéos : des rencontres lors du festival, _making off_ et fictions…\n\nAvec le concours de l'IUT de Bobigny, du FSDIE, du Crous.",
+        "en": "After returning from a trip to the Angoulême festival, students from the MMI Corp association of the Iut de Bobigny and the cultural department invite you to discover their creations realized in infographic and audiovisual: comic strip, sketchbook and videos: meetings during the festival, _making off_ and fictions…\nWith the assistance of the IUT of Bobigny, the FSDIE, the Crous."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "bf58c9ef7974474db1724821a28d3731.base.image.jpg",
+        "credits": "jm.fessol",
+        "size": {
+          "height": 1046,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bf58c9ef7974474db1724821a28d3731.full.image.jpg",
+            "size": {
+              "height": 2432,
+              "width": 1628
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bf58c9ef7974474db1724821a28d3731.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-24T13:00:00.000Z",
+          "end": "2020-02-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T08:30:00.000Z",
+          "end": "2020-02-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T08:30:00.000Z",
+          "end": "2020-02-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T08:30:00.000Z",
+          "end": "2020-02-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T08:30:00.000Z",
+          "end": "2020-02-28T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T08:30:00.000Z",
+          "end": "2020-03-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T08:30:00.000Z",
+          "end": "2020-03-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T08:30:00.000Z",
+          "end": "2020-03-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T08:30:00.000Z",
+          "end": "2020-03-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T08:30:00.000Z",
+          "end": "2020-03-06T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:39.000Z",
+      "createdAt": "2019-12-29T13:52:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 96847469,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "iutbob@outlook.fr",
+        "jeanmichel.fessol@univ-paris13.fr"
+      ],
+      "location": {
+        "uid": 96847469,
+        "slug": "service-culturel-iut-de-bobigny",
+        "name": "IUT de Bobigny - Service culturel",
+        "address": "1 rue de Chablis 93000 Bobigny",
+        "city": "Bobigny",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93000",
+        "insee": "93008",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.91277,
+        "longitude": 2.419028,
+        "updatedAt": "2019-12-30T09:38:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "MMI Corp - Service culturel Université Paris13",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 88569189,
+        "custom": {
+          "organization": "Iut de Bobigny",
+          "contactName": "jean-michel fessol",
+          "contactNumber": "0681479471",
+          "contactPosition": "prof d'infographie",
+          "email": "jm.fessol@aliceadsl.fr"
+        }
+      }
+    },
+    {
+      "uid": 29406107,
+      "ownerUid": 22562913,
+      "creatorUid": 22562913,
+      "slug": "journee-de-dedicaces-avec-sylvain-aimes",
+      "title": {
+        "fr": "Journée de rencontre avec Sylvain Aimès",
+        "en": "Meeting with Sylvain Aimès"
+      },
+      "description": {
+        "fr": "Une journée de rencontre avec Sylvain Aimès",
+        "en": "A day meeting with Sylvain Aimès"
+      },
+      "longDescription": {
+        "fr": "**Sylvain Aimès sera en dédicace toute la journée pour** _**Les aventures d'Elias**_ **!**",
+        "en": "**Sylvain Aimès will be signing all day for** _**Les aventures d'Elias**_**!**"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "1 dédicace = 1 Bd achetée dans la librairie",
+        "en": "1 dedication = 1 Bd purchased in the bookstore"
+      },
+      "image": {
+        "filename": "d92feab6a81049a4b36d4337d0836d28.base.image.jpg",
+        "credits": "@sylvain.aimès",
+        "size": {
+          "height": 1001,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d92feab6a81049a4b36d4337d0836d28.full.image.jpg",
+            "size": {
+              "height": 3520,
+              "width": 2464
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d92feab6a81049a4b36d4337d0836d28.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T10:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:25.000Z",
+      "createdAt": "2019-12-29T16:39:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 80270300,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [
+        "https://www.canalbd.net/la-tete-a-toto_catalogue_evenementdetail_Journee-de-dedicaces-avec-Sylvain-AIMES--8345",
+        "01 42 36 79 52",
+        "lateteatoto@canalbd.net",
+        "https://www.facebook.com/librairie.lateteatoto/",
+        "https://www.instagram.com/librairie_la_tete_a_toto/?hl=fr",
+        "https://twitter.com/la_tete_a_toto"
+      ],
+      "location": {
+        "uid": 80270300,
+        "slug": "librairie-la-tete-a-toto",
+        "name": "Librairie La Tête à Toto",
+        "address": "22 rue Poissonnière 75002 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75002",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 2e Arrondissement",
+        "latitude": 48.869541,
+        "longitude": 2.347904,
+        "updatedAt": "2019-12-30T09:37:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 22562913,
+        "custom": {
+          "organization": "La Tête à Toto",
+          "contactName": "Anthony RESARD",
+          "contactNumber": "01 42 36 79 52",
+          "contactPosition": "Gérant",
+          "email": "lateteatoto@canalbd.net"
+        }
+      }
+    },
+    {
+      "uid": 51461756,
+      "ownerUid": 73003538,
+      "creatorUid": 73003538,
+      "slug": "exposition-le-laboratoire-de-la-bande-dessinee",
+      "title": {
+        "fr": "Exposition \"Le laboratoire de la bande dessinée\"",
+        "en": "Exhibition \"The Comic Book Laboratory\""
+      },
+      "description": {
+        "fr": "Exposition ludique et pédagogique pour découvrir les codes de la BD",
+        "en": "Fun and educational exhibition to discover comic book codes"
+      },
+      "longDescription": {
+        "fr": "Cette exposition ludique vous plonge dans l’univers de _La Carotte aux étoiles_ de Régis Lejonc et Riff Reb’s. Publiée en 2010 aux éditions de la Gouttière, elle raconte la genèse d’un album. Toutes les explications sont suivies d’exercices et de jeux. C’est vraiment le monde de la bande dessinée qui devient tout à coup très accessible !\n\nDestinée au jeune public, l’exposition est composée de panneaux interactifs qui expliquent les codes de la bande dessinée de façon simple et ludique. Elle nous dévoile toutes les étapes de la création d’une bande dessinée, les différents styles graphiques, le rythme des histoires, le découpage, le choix des plans, la mise en couleurs… les recettes de fabrication n’auront plus de secret ! L’interactivité étant un gage d’apprentissage réussi avec les enfants, ceux-ci sont invités à participer après chaque thème évoqué, en répondant à des questions grâce à des magnets, ou en dessinant eux-mêmes au feutre. Les plus jeunes se régaleront avec cette exposition. Quant aux plus grands, elle leur permettra de réviser leurs classiques.",
+        "en": "This playful exhibition immerses you in the universe of _La Carotte aux étoiles_ by Régis Lejonc and Riff Reb’s. Published in 2010 by Editions de la Gouttière, it tells the genesis of an album. All explanations are followed by exercises and games. It is really the world of comics that suddenly becomes very accessible!\nAimed at young audiences, the exhibition consists of interactive panels that explain comic book codes in a simple and playful way. She shows us all the steps of creating a comic book, the different graphic styles, the rhythm of the stories, the cutting, the choice of the plans, the color setting… The recipes will no longer have secrets! Since interactivity is a guarantee of successful learning with children, they are invited to participate after each theme, by answering questions through magnets, or by drawing themselves with felt. The younger ones will enjoy this exhibition. As for the older ones, it will allow them to revise their classics."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Les classes doivent s'inscrire auprès de l'association (lesamisdeslivres87500[at]lilo.org)",
+        "en": "Classes must register with the association (friends of needs87500[at]lilo.org)"
+      },
+      "image": {
+        "filename": "56d800fc2e654b248a5567b5352492cf.base.image.jpg",
+        "credits": "https://www.labulleexpositions.com/",
+        "size": {
+          "height": 328,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "56d800fc2e654b248a5567b5352492cf.full.image.jpg",
+            "size": {
+              "height": 533,
+              "width": 1140
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "56d800fc2e654b248a5567b5352492cf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-04T08:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T08:00:00.000Z",
+          "end": "2020-02-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T08:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:34.000Z",
+      "createdAt": "2019-12-29T16:50:36.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84130141,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "lesamisdeslivres87500@lilo.org",
+        "https://lyrieixvous.wordpress.com/",
+        "https://www.facebook.com/LYrieix-vous-Salon-du-livre-jeunesse-de-St-Yrieix-la-Perche-1428546747174078/"
+      ],
+      "location": {
+        "uid": 84130141,
+        "slug": "college-plaisance",
+        "name": "Collège Plaisance",
+        "address": "Rue de Plaisance 24270 Lanouaille",
+        "city": "Lanouaille",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Dordogne",
+        "postalCode": "24270",
+        "insee": "24322",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.391226,
+        "longitude": 1.137739,
+        "updatedAt": "2019-12-30T09:36:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Collège Plaisance de Lanouaille (24)",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 73003538,
+        "custom": {
+          "organization": "Les Amis des Livres",
+          "contactName": "Amandine BARASCUT",
+          "contactNumber": "0555095228",
+          "contactPosition": "secrétaire",
+          "email": "lesoiseauxlivres@orange.fr"
+        }
+      }
+    },
+    {
+      "uid": 7619310,
+      "ownerUid": 73003538,
+      "creatorUid": 73003538,
+      "slug": "exposition-le-laboratoire-de-la-bande-dessinee_630950",
+      "title": {
+        "fr": "Exposition \"Le laboratoire de la bande dessinée\"",
+        "en": "Exhibition \"The Comic Book Laboratory\""
+      },
+      "description": {
+        "fr": "Exposition ludique et pédagogique pour découvrir les codes de la BD",
+        "en": "Fun and educational exhibition to discover comic book codes"
+      },
+      "longDescription": {
+        "fr": "Cette exposition ludique vous plonge dans l’univers de _La Carotte aux étoiles_ de Régis Lejonc et Riff Reb’s. Publiée en 2010 aux éditions de la Gouttière, elle raconte la genèse d’un album. Toutes les explications sont suivies d’exercices et de jeux. C’est vraiment le monde de la bande dessinée qui devient tout à coup très accessible !\n\nDestinée au jeune public, l’exposition est composée de panneaux interactifs qui expliquent les codes de la bande dessinée de façon simple et ludique. Elle nous dévoile toutes les étapes de la création d’une bande dessinée, les différents styles graphiques, le rythme des histoires, le découpage, le choix des plans, la mise en couleurs… les recettes de fabrication n’auront plus de secret ! L’interactivité étant un gage d’apprentissage réussi avec les enfants, ceux-ci sont invités à participer après chaque thème évoqué, en répondant à des questions grâce à des magnets, ou en dessinant eux-mêmes au feutre. Les plus jeunes se régaleront avec cette exposition. Quant aux plus grands, elle leur permettra de réviser leurs classiques.",
+        "en": "This playful exhibition immerses you in the universe of _La Carotte aux étoiles_ by Régis Lejonc and Riff Reb’s. Published in 2010 by Editions de la Gouttière, it tells the genesis of an album. All explanations are followed by exercises and games. It is really the world of comics that suddenly becomes very accessible!\nAimed at young audiences, the exhibition consists of interactive panels that explain comic book codes in a simple and playful way. She shows us all the steps of creating a comic book, the different graphic styles, the rhythm of the stories, the cutting, the choice of the plans, the color setting… The recipes will no longer have secrets! Since interactivity is a guarantee of successful learning with children, they are invited to participate after each theme, by answering questions through magnets, or by drawing themselves with felt. The younger ones will enjoy this exhibition. As for the older ones, it will allow them to revise their classics."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre - visite de classes possibles, sur inscription",
+        "en": "Free admission - visits to possible classes, upon registration"
+      },
+      "image": {
+        "filename": "56d800fc2e654b248a5567b5352492cf.base.image.jpg",
+        "credits": "https://www.labulleexpositions.com/",
+        "size": {
+          "height": 328,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "56d800fc2e654b248a5567b5352492cf.full.image.jpg",
+            "size": {
+              "height": 533,
+              "width": 1140
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "56d800fc2e654b248a5567b5352492cf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-14T08:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T08:00:00.000Z",
+          "end": "2020-02-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T08:00:00.000Z",
+          "end": "2020-02-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T08:00:00.000Z",
+          "end": "2020-02-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T08:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T08:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T08:00:00.000Z",
+          "end": "2020-02-22T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:31.000Z",
+      "createdAt": "2019-12-29T16:54:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 81537097,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "lesamisdeslivres87500@lilo.org",
+        "https://lyrieixvous.wordpress.com/",
+        "https://www.facebook.com/LYrieix-vous-Salon-du-livre-jeunesse-de-St-Yrieix-la-Perche-1428546747174078/"
+      ],
+      "location": {
+        "uid": 81537097,
+        "slug": "mediatheque-de-saint-yrieix",
+        "name": "Médiathèque de Saint-Yrieix-la-Perche",
+        "address": "6 avenue du Maréchal de Lattre de Tassigny 87500 Saint-Yrieix-la-Perche",
+        "city": "Saint-Yrieix-la-Perche",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87500",
+        "insee": "87187",
+        "countryCode": "FR",
+        "district": "Le Moulin de Caillaux",
+        "latitude": 45.511817,
+        "longitude": 1.206581,
+        "updatedAt": "2019-12-30T09:37:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Saint Yrieix la Perche (87500)",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 73003538,
+        "custom": {
+          "organization": "Les Amis des Livres",
+          "contactName": "Amandine BARASCUT",
+          "contactNumber": "0555095228",
+          "contactPosition": "secrétaire",
+          "email": "lesoiseauxlivres@orange.fr"
+        }
+      }
+    },
+    {
+      "uid": 53100270,
+      "ownerUid": 73003538,
+      "creatorUid": 73003538,
+      "slug": "a-la-decouverte-de-la-bd-avec-marek",
+      "title": {
+        "fr": "\"À la découverte de la BD\" avec le dessinateur Marek - Journée de restitution",
+        "en": "\"À la découverte de la BD\" with cartoonist Marek - Day of restitution"
+      },
+      "description": {
+        "fr": "Journée de restitution sur le compagnonnage \"À la découverte de la BD\" avec le dessinateur Marek",
+        "en": "Presentation day on the \"Discovering the comic book\" accompaniment with the cartoonist Marek"
+      },
+      "longDescription": {
+        "fr": "De janvier à mai 2020, 2 classes du collège Plaisance à Lanouaille (24), 2 classes de CAP du lycée professionnel Darnet à Saint-Yrieix-la-Perche (87) et 1 groupe de jeunes de la mission locale de Thiviers (24) travaillent avec le dessinateur bédéiste Marek Charlier à la réalisation de BD.\n\nLe jeudi 28 mai de 15h à 18h aura lieu la restitution du projet : présentation des travaux réalisés et échanges avec les élèves, les enseignants et les financeurs.",
+        "en": "From January to May 2020, 2 classes of the Collège Plaisance in Lanouaille (24), 2 CAP classes of the Lycée professionnel Darnet in Saint-Yrieix-la-Perche (87) and 1 group of young people from the local mission of Thiviers (24) work with cartoonist Marek Charlier in the production of comics.\nOn Thursday 28 May, from 3 pm to 6 pm, the presentation of the project will take place: presentation of the work carried out and exchanges with students, teachers and funders."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "5 classes déjà inscrites",
+        "en": "5 classes already enrolled"
+      },
+      "image": {
+        "filename": "9d3b0bb2f951480fa01a1b47d0c9f30e.base.image.jpg",
+        "credits": "http://marek-bdblog.blogspot.com/",
+        "size": {
+          "height": 392,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9d3b0bb2f951480fa01a1b47d0c9f30e.full.image.jpg",
+            "size": {
+              "height": 565,
+              "width": 1010
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9d3b0bb2f951480fa01a1b47d0c9f30e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-28T13:00:00.000Z",
+          "end": "2020-05-28T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:36:25.000Z",
+      "createdAt": "2019-12-29T17:42:19.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 83943286,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 11,
+        "max": 20
+      },
+      "registration": [],
+      "location": {
+        "uid": 83943286,
+        "slug": "librairie-les-oiseaux-livres206",
+        "name": "Librairie Les Oiseaux Livres",
+        "address": "3 place du Marché 87500 Saint-Yrieix-la-Perche",
+        "city": "Saint-Yrieix-la-Perche",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87500",
+        "insee": "87187",
+        "countryCode": "FR",
+        "district": "Le Moulin de Caillaux",
+        "latitude": 45.514564,
+        "longitude": 1.201011,
+        "updatedAt": "2019-12-30T09:36:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Restitution du projet \"À la découverte de la BD\"",
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Les Oiseaux Livres",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 73003538,
+        "custom": {
+          "organization": "Les Amis des Livres",
+          "contactName": "Amandine BARASCUT",
+          "contactNumber": "0555095228",
+          "contactPosition": "secrétaire",
+          "email": "lesoiseauxlivres@orange.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2115213
+}

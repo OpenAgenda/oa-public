@@ -1,0 +1,1597 @@
+{
+  "events": [
+    {
+      "uid": 30944205,
+      "ownerUid": 17863735,
+      "creatorUid": 17863735,
+      "slug": "conference-dessinee-comment-et-pourquoi-les-plantes-parlent-entre-elles",
+      "title": {
+        "fr": "Conférence dessinée \"Comment et pourquoi les plantes parlent entre elles ?\"",
+        "en": "\"How and why do plants talk to each other?\""
+      },
+      "description": {
+        "fr": "Conférence dessinée \"Comment et pourquoi les plantes parlent entre elles ?\" par Jean-Christophe Gueguen, docteur en pharmacie et naturaliste, illustrée en direct par Tommy dessine",
+        "en": "\"How and why do plants talk to each other?\" by Jean-Christophe Gueguen, doctor of pharmacy and naturalist, illustrated live by Tommy dessine"
+      },
+      "longDescription": {
+        "fr": "**L'association Stimuli présente une conférence dessinée sur les végétaux à la médiathèque de Neuilly-sur-Seine dans le cadre de \"La Science se livre 2020\".**\n\nDepuis près de trois milliards d’années, bactéries, animaux et plantes se livrent une guerre sans merci pour survivre dans leur écosystème. L’adaptation et la survie des espèces passent par une communication où interviennent souvent des molécules aux effets et conséquences surprenantes. La Nature ne nous a pas attendus pour inventer la guerre chimique. Des équipes pluridisciplinaires travaillent depuis près d’un demi-siècle pour essayer de comprendre les mécanismes de communication dans le Vivant. Ces messagers chimiques permettent à chaque individu de repousser les prédateurs, d’alerter d’un danger potentiel, d’attirer un partenaire sexuel. **Jean-Christophe Gueguen**, docteur en pharmacie, enseignant universitaire, naturaliste et illustrateur scientifique montrera en quoi l’étude de ces signaux chimiques a eu d’importantes retombées dans le domaine agricole, phytosanitaire, alimentaire ou pharmaceutique, en somme pour l’écologie chimique.**Tommy dessine**, dessinateur de presse et d'évènements en direct (du Muséum d'histoire naturelle du Havre à la Fondation Nicolas Hulot en passant par Reporterre), ne manquera pas de jouer avec nos idées reçues et de nous interpeller par ses illustrations réalisées sans filet à cette occasion.",
+        "en": "**The Stimuli association is presenting a designed conference on plants at the Neuilly-sur-Seine Media Library as part of \"La Science se livre 2020\".**\nFor nearly three billion years, bacteria, animals and plants have waged a merciless war to survive in their ecosystem. The adaptation and survival of species requires communication, often involving molecules with surprising effects and consequences. Nature didn’t wait for us to invent chemical warfare. Multidisciplinary teams have been working for nearly half a century to try to understand the mechanisms of communication in the Alive. These chemical messengers allow each individual to fend off predators, warn of a potential danger, attract a sexual partner. **Jean-Christophe Gueguen**, doctor of pharmacy, university teacher, naturalist and scientific illustrator will show how the study of these chemical signals has had important repercussions in the agricultural, phytosanitary, food or pharmaceutical field, in short for chemical ecology.Tommy **draws**, cartoonist of press and events live (from the Natural History Museum of Le Havre to the Nicolas Hulot Foundation and Reporter), will not fail to play with our received ideas and to challenge us with his illustrations made without a net on this occasion."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription à la médiathèque",
+        "en": "Upon registration to the media library"
+      },
+      "image": {
+        "filename": "e4fc3f02e21f4476ad22d158cf49287f.base.image.jpg",
+        "credits": "@ Stimuli",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.full.image.jpg",
+            "size": {
+              "height": 2657,
+              "width": 2657
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-07T17:30:00.000Z",
+          "end": "2020-02-07T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:35.000Z",
+      "createdAt": "2019-12-22T17:28:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 53830666,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "lamediatheque@ville-neuillysurseine.fr",
+        "01 55 62 61 00"
+      ],
+      "location": {
+        "uid": 53830666,
+        "slug": "neuilly-sur-seine438",
+        "name": "Médiathèque Longchamp",
+        "address": "68 rue de Longchamp 92200 Neuilly-sur-Seine",
+        "city": "Neuilly-sur-Seine",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92200",
+        "insee": "92051",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.879634,
+        "longitude": 2.253146,
+        "updatedAt": "2019-12-30T10:10:14.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Neuilly-sur-Seine",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 17863735,
+        "custom": {
+          "organization": "Association Stimuli",
+          "contactName": "Laurence Bordenave",
+          "contactNumber": "0613979300",
+          "contactPosition": "présidente",
+          "email": "bordenave@stimuli-asso.com"
+        }
+      }
+    },
+    {
+      "uid": 80164585,
+      "ownerUid": 45140597,
+      "creatorUid": 45140597,
+      "slug": "exposition-bande-dessinee-et-immigrations-un-siecle-dhistoires",
+      "title": {
+        "fr": "Exposition \"Bande dessinée et immigrations, un siècle d’histoire(s)\"",
+        "en": "Exhibition \"Comic book and immigrants, a century of history(s)\""
+      },
+      "description": {
+        "fr": "La bibliothèque universitaire de l'Université Paris Nanterre présente l'exposition \"Bande-dessinée et immigrations. Un siècle d'histoire(s)\" du musée national de l'histoire de l'immigration",
+        "en": "The University Library of the University of Paris Nanterre presents the exhibition \"Comic strip and immigration. A Century of History(s)\" of the National Museum of Immigration History"
+      },
+      "longDescription": {
+        "fr": "**Le musée national de l'histoire de l'immigration a pour mission, à travers son offre culturelle, de contribuer à faire évoluer le regard porté sur l'immigration. À cette fin, il diffuse plusieurs expositions itinérantes sur tout le territoire et à l'étranger. C'est dans ce cadre qu'est présentée, à la bibliothèque universitaire de l'Université Paris Nanterre, l'exposition \"Bande-dessinée et immigrations. Un siècle d'histoire(s)\".**\n\n\"La bande dessinée (BD) est une forme d’expression récente. Née au XIXe siècle, aujourd’hui reconnue comme le 9e art, elle est marquée par une multitude d’approches créatives et esthétiques.\n\nDepuis ses débuts, son histoire est liée aux migrations. À travers le monde, nombre d’auteurs ont placé le thème de l’immigration au cœur de leur œuvre. De Mac Manus à Bilal, en passant par Hugo Pratt , Uderzo et Goscinny, l’immigration apparaît comme un thème majeur du 9e art.\n\nBande dessinée et immigrations donne à voir ce croisement méconnu. Conçue par le Musée national de l’histoire de l’immigration, cette exposition itinérante présente une quarantaine d’œuvres. La bande dessinée y apparaît autant comme un objet d’art nourri de la mobilité des hommes que comme un témoignage des représentations passées et présentes sur l’immigration. Au-delà de la seule approche artistique et historique, elle appelle à changer nos regards sur les migrants et sur l’histoire de l’immigration en France.\n\nDédiée aux néophytes comme aux bédéphiles, cette exposition itinérante composée de 15 panneaux, s’adresse à tous les publics dès 10 ans. Elle est diffusée gratuitement par un réseau de partenaires jusqu’en 2020.",
+        "en": "**The mission of the National Museum of the History of Immigration, through its cultural offer, is to contribute to changing the outlook on immigration. To this end, it broadcasts several travelling exhibitions throughout the country and abroad. It is in this context that the exhibition \"Bande-dessinée et immigrations\" is presented at the university library of the University of Paris Nanterre. A century of history(s)\".**\n\"Comic books (comics) are a form of recent expression. Born in the 19th century, today recognized as the 9th art, it is marked by a multitude of creative and aesthetic approaches.\nSince its inception, its history has been linked to migration. Throughout the world, many authors have placed the theme of immigration at the heart of their work. From Mac Manus to Bilal, passing by Hugo Pratt , Uderzo and Goscinny, immigration appears as a major theme of the 9th art.\nComic books and immigrants show this little-known cross. Designed by the National Museum of Immigration History, this travelling exhibition presents some 40 works. The comic book appears there as an object of art nourished by the mobility of men as a testimony of past and present representations on immigration. Beyond the artistic and historical approach alone, it calls for a change in our outlook on migrants and on the history of immigration in France.\nDedicated to both neophytes and bédéphiles, this travelling exhibition composed of 15 panels, is aimed at all audiences from 10 years old. It is distributed free of charge by a network of partners until 2020."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "754c40fe49bb437696eac35e7b518b11.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1050,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "754c40fe49bb437696eac35e7b518b11.full.image.jpg",
+            "size": {
+              "height": 465,
+              "width": 310
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "754c40fe49bb437696eac35e7b518b11.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T07:30:00.000Z",
+          "end": "2020-02-10T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T07:30:00.000Z",
+          "end": "2020-02-11T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T07:30:00.000Z",
+          "end": "2020-02-12T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T07:30:00.000Z",
+          "end": "2020-02-13T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T07:30:00.000Z",
+          "end": "2020-02-14T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T07:30:00.000Z",
+          "end": "2020-02-17T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T07:30:00.000Z",
+          "end": "2020-02-18T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T07:30:00.000Z",
+          "end": "2020-02-19T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T07:30:00.000Z",
+          "end": "2020-02-20T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T07:30:00.000Z",
+          "end": "2020-02-21T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T07:30:00.000Z",
+          "end": "2020-02-24T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T07:30:00.000Z",
+          "end": "2020-02-25T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T07:30:00.000Z",
+          "end": "2020-02-26T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T07:30:00.000Z",
+          "end": "2020-02-27T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T07:30:00.000Z",
+          "end": "2020-02-28T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:43.000Z",
+      "createdAt": "2019-12-23T11:54:59.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77085868,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 77085868,
+        "slug": "universite-paris-nanterre-campus-nanterre",
+        "name": "Université Paris Nanterre - Campus Nanterre",
+        "address": "200 avenue de la République 92000 Nanterre",
+        "city": "Nanterre",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92000",
+        "insee": "92050",
+        "countryCode": "FR",
+        "district": "Quartier de la République",
+        "latitude": 48.904227,
+        "longitude": 2.213952,
+        "updatedAt": "2019-12-30T10:05:58.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 624,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Musée national de l'histoire de l'immigration",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 45140597,
+        "custom": {
+          "organization": "[Exposition] Bande dessinée et immigrations, un siècle d’histoire(s)",
+          "contactName": "Aurélie Delaigue",
+          "contactNumber": "0140974966",
+          "contactPosition": "Responsable Communication, Action culturelle SCD Univ. Paris Nanterre",
+          "email": "adelaigue@parisnanterre.fr"
+        }
+      }
+    },
+    {
+      "uid": 93952109,
+      "ownerUid": 3636528,
+      "creatorUid": 3636528,
+      "slug": "2eme-festival-international-de-la-bande-dessinee-en-tunisie-sousse-evenement-francophone",
+      "title": {
+        "fr": "2e festival international de la bande dessinée en Tunisie",
+        "en": "2nd International Comic Strip Festival in Tunisia"
+      },
+      "description": {
+        "fr": "Evénement culturel francophone sur la bande dessinée et l'image",
+        "en": "Francophone cultural event on comic books and images"
+      },
+      "longDescription": {
+        "fr": "Événement culturel francophone sur la bande dessinée et l'image pour promouvoir, populariser la BD francophone en Tunisie avec des ateliers ludiques pour apprendre la langue française.",
+        "en": "Francophone cultural event on comic strip and image to promote, popularize the French comic strip in Tunisia with fun workshops to learn the French language."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "e1e69010bf0e4979b7a3dfe776ab09cf.base.image.jpg",
+        "credits": "2e festival international de la bande dessinée en Tunisie - Sousse",
+        "size": {
+          "height": 958,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e1e69010bf0e4979b7a3dfe776ab09cf.full.image.jpg",
+            "size": {
+              "height": 5084,
+              "width": 3717
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e1e69010bf0e4979b7a3dfe776ab09cf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Africa/Tunis",
+      "timings": [
+        {
+          "begin": "2020-04-02T09:00:00.000Z",
+          "end": "2020-04-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T09:00:00.000Z",
+          "end": "2020-04-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T09:00:00.000Z",
+          "end": "2020-04-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T09:00:00.000Z",
+          "end": "2020-04-05T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:28.000Z",
+      "createdAt": "2019-12-23T09:56:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49580246,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "ufe.sousse@gmail.com",
+        "0021624980117",
+        "http://www.bdtunisie.com",
+        "https://www.facebook.com/Festival.international.bd.Tunisie/?modal=admin_todo_tour",
+        "https://www.facebook.com/profile.php?id=100008192682099"
+      ],
+      "location": {
+        "uid": 49580246,
+        "slug": "musee-archeologique-de-sousse254",
+        "name": "Musée archéologique de Sousse",
+        "address": "Rue Abou Kacem Echabi, Sousse, Tunisie",
+        "city": "Sousse",
+        "region": "Sousse",
+        "department": "Sousse Medina",
+        "postalCode": "4003",
+        "insee": null,
+        "countryCode": "TN",
+        "district": "Cité Riadh",
+        "latitude": 35.818144,
+        "longitude": 10.636844,
+        "updatedAt": "2019-12-30T09:57:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Africa/Tunis",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        616
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cité internationale de la bande dessinée et de l'image d'Angoulême et mairie d'Angoulême",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3636528,
+        "custom": {
+          "organization": "Festival International de la Bande Dessinée en Tunisie - SOUSSE",
+          "contactName": "ROSELYNE CORDIN",
+          "contactNumber": "00021624980117",
+          "contactPosition": "Présidente fondatrice du Festival International de la B.D. en Tunisie - SOUSSE",
+          "email": "ufe.sousse@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 60709747,
+      "ownerUid": 67090457,
+      "creatorUid": 67090457,
+      "slug": "visites-ateliers-thematiques-autour-de-la-bande-dessinee-et-la-collection-du-musee",
+      "title": {
+        "fr": "Ateliers thématiques autour de la bande dessinée et la collection du musée",
+        "en": "Thematic workshops on comic books and the museum’s collection"
+      },
+      "description": {
+        "fr": "Ateliers autour de la bande dessinée et de la collection permanente",
+        "en": "Workshops on comic books and the permanent collection"
+      },
+      "longDescription": {
+        "fr": "**Au musée Cantini, musée d'art moderne de Marseille, a**teliers autour de la bande dessinée et de la collection permanente\n\nAvec Bruno Bessadi, professeur à l’École Axe Sud, auteur de la bande dessinée _Amazing Grace_ parue aux éditions Glénat.\n\nAvec Maxime Corrao, École Axe Sud",
+        "en": "**At the Cantini Museum, Museum of Modern Art in Marseilles, workshops** on comic books and the permanent collection\nWith Bruno Bessadi, professor at École Axe Sud, author of the comic book _Amazing Grace_ published by Glénat editions.\nWith Maxime Corrao, École Axe Sud"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 04 91 54 77 75",
+        "en": "On registration at 04 91 54 77 75"
+      },
+      "image": {
+        "filename": "7ded7201dde84d48b59c88f8ac1b2318.base.image.jpg",
+        "credits": "© Musée Cantini,  Nuit des musées 2019, par les étudiants de l'École Axe Sud",
+        "size": {
+          "height": 505,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7ded7201dde84d48b59c88f8ac1b2318.full.image.jpg",
+            "size": {
+              "height": 337,
+              "width": 468
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7ded7201dde84d48b59c88f8ac1b2318.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-21T14:30:00.000Z",
+          "end": "2020-02-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T14:30:00.000Z",
+          "end": "2020-02-26T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:36.000Z",
+      "createdAt": "2019-12-24T08:10:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49898285,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "04 91 54 77 75",
+        "musee-cantini@marseille.fr"
+      ],
+      "location": {
+        "uid": 49898285,
+        "slug": "musee-cantini116",
+        "name": "Musée Cantini",
+        "address": "19 rue Grignan 13006 Marseille",
+        "city": "Marseille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13006",
+        "insee": "13055",
+        "countryCode": "FR",
+        "district": "Marseille 6e Arrondissement",
+        "latitude": 43.292072,
+        "longitude": 5.376627,
+        "updatedAt": "2019-12-30T09:56:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Tarifs : adultes plein 9 €/ réduit : 5 € - enfants : gratuite + 4 € pour l’atelier (-de 5 ans : 1,50 €).",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 67090457,
+        "custom": {
+          "organization": "Musées de la Ville de Marseille",
+          "contactName": "Marie-Laure Brémond",
+          "contactNumber": "04 91 14 58 23",
+          "contactPosition": "Assistante aux projets de développement des publics",
+          "email": "mbremond@marseille.fr"
+        }
+      }
+    },
+    {
+      "uid": 20019401,
+      "ownerUid": 67090457,
+      "creatorUid": 67090457,
+      "slug": "travail-des-eleves-autour-de-la-bande-dessinee",
+      "title": {
+        "fr": "Création des élèves autour de la bande dessinée dans le cadre de \"La classe, l'œuvre !\"",
+        "en": "Creation of students around the comic strip as part of \"The class, the work!\""
+      },
+      "description": {
+        "fr": "Le projet consiste à réaliser un manga à partir des collections du musée. Les œuvres réalisées par les élèves seront exposées et commentées par eux-même durant la Nuit européenne des musées",
+        "en": "The project consists in producing a manga from the museum’s collections. The works created by the students will be exposed and commented by themselves during the European Night of Museums"
+      },
+      "longDescription": {
+        "fr": "Les égyptiens sont les premiers à associer dessins et écriture, notamment dans le livre des morts, les premières BD de l'humanité !\n\nC'est donc une réactualisation de ce livre, version manga que nous allons entreprendre.\n\nC'est le regard, (visage de profil et oeil de face pour les égyptiens et oeil globuleux de face pour les mangas) qui caractérise les formes de dessin.",
+        "en": "The Egyptians are the first to associate drawings and writing, especially in the book of the dead, the first comic books of humanity!\nSo it is a updating of this book, manga version that we will undertake.\nIt is the gaze (profile face and face eye for Egyptians and globular face eye for mangas) that characterizes the drawing forms."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T16:00:00.000Z",
+          "end": "2020-05-16T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:34.000Z",
+      "createdAt": "2019-12-24T08:20:08.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 62027655,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "04 91 14 58 97",
+        "museearcheologie@marseille.fr"
+      ],
+      "location": {
+        "uid": 62027655,
+        "slug": "musee-darcheologie-mediterraneenne319",
+        "name": "Musée d'archéologie méditerranéenne",
+        "address": "2 rue de la Charité 13002 Marseille",
+        "city": "Marseille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13002",
+        "insee": "13055",
+        "countryCode": "FR",
+        "district": "Marseille 2e Arrondissement",
+        "latitude": 43.30025,
+        "longitude": 5.367808,
+        "updatedAt": "2019-12-30T09:54:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        617,
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La classe, l'oeuvre ! (ministère de la Culture)",
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 67090457,
+        "custom": {
+          "organization": "Musées de la Ville de Marseille",
+          "contactName": "Marie-Laure Brémond",
+          "contactNumber": "04 91 14 58 23",
+          "contactPosition": "Assistante aux projets de développement des publics",
+          "email": "mbremond@marseille.fr"
+        }
+      }
+    },
+    {
+      "uid": 36858449,
+      "ownerUid": 74650788,
+      "creatorUid": 74650788,
+      "slug": "festival-du-livre-de-mouans-sartoux",
+      "title": {
+        "fr": "Festival du livre de Mouans-Sartoux",
+        "en": "Mouans-Sartoux Book Festival"
+      },
+      "description": {
+        "fr": "Le 33e festival du livre de Mouans-Sartoux vous accueille les 2, 3 et 4 octobre 2020 avec un nouvel espace dédié à la bande dessinée ! Au programme : dédicaces, rencontres, jeux... et plus encore !",
+        "en": "The 33rd book festival of Mouans-Sartoux welcomes you on 2, 3 and 4 October 2020 with a new space dedicated to comics! On the program: autographs, meetings, games... and more!"
+      },
+      "longDescription": {
+        "fr": "**Lumière sur la bande dessiné**\n\nPour sa 33e édition, le festival du livre de Mouans-Sartoux mettra la BD à l'honneur en proposant un tout nouvel espace dédié.\n\nLe festival accueil chaque année une vingtaine d'auteurs et illustrateurs BD. S'établissant depuis de nombreuses année sur deux espaces - espace Littérature-BD et Jeunesse - 2020 aura pour objectif la création d'un nouvel espace accueillant l'intégralité de la BD, pour tout âge et de tout genre.\n\nBédéphiles, amateurs et néophytes pourront retrouver ou découvrir tous les albums présents sur le festival et rencontrer les auteurs invités.\n\nAu programme : entretiens, dédicaces, rencontres scolaires, jeux, lithographie, échanges avec tous les acteurs de la chaîne du livre (auteurs, illustrateurs, éditeurs, libraires...)\n\n**Présentation générale**\n\nLe festival du livre de Mouans-Sartoux c'est 3 jours de fêtes, d'expo, de cinéma, de rencontres, de musique, de spectacles vivants, sur un espace de 8 000 m². Tout le village et une équipe de 270 motivés se mobilisent pour accueillir les artistes et les visiteurs ! Lieu d’échange vivant et d’expression libre, ce festival éclectique, populaire, exigeant et citoyen est réputé pour la liberté des voix qui s'y expriment, la ferveur de ses 60 000 visiteurs, la place laissée à l'expression des mots et des idées, du roman à la chanson, en passant par le cinéma et la bande dessinée.\n\nDepuis 32 ans, la richesse de programmation est le point fort de la manifestation. Des rencontres toujours fortes et pertinentes, des dédicaces respecteuses du confort des auteurs et du plaisir des visiteur, des buvettes écoresponsables avec un objectif zéro plastique et une sensibilisation au tri et au recyclage pour assurer un espace propre et un mimum d'impact environnemental. Un engagement affirmé pour l'égalité homme-femme, le climat et plus généralement le respect de chacun, pour un Festival humaniste.\n\nDésireux de nourrir, développer, ou donner le goût du livre aux plus jeunes, le festival du livre de Mouans-Sartoux propose une programmation adaptée aux élèves de la maternelle au lycée. Quinze jours avant la manifestation, des artistes partent à la rencontre d'élèves au sein même de leurs établissements. Puis, le vendredi du festival, ce sont les classes qui se déplacent jusqu'à Mouans-Sartoux pour bénéficier de cette programmation : entretiens, atelier (d'écriture, initiation à l'illustration, sensoriels...), projection-rencontres, conférences, théâtre, répétition commentée d'orchestre... L'ensemble des animations est entièrement gratuit, offert par le festival du livre avec la communauté d'agglomération du Pays de Grasse, la CCAS (Caisse centrale d’activités sociales) et la DAAC (Délégation académique aux arts et à la culture).\n\nLe festival du livre de Mouans-Sartoux se renouvelle par le thème qui guide une partie de la programmation, parmi lesquels \"Au-delà des murs, l'humanité\", \"Écouter, voir la fureur du monde\", \"Résistances, l’origine du futur ?\", \"Où allons-nous si vite ?\", \"Et si on rallumait les étoiles ?\", \"Même pas peur\", \"Où vont nos rêves ?\", \"L’Autre comme moi\", \"Vivre !\", \"Aller à l’idéal\", \"À nous, à nous la liberté\", et en 2019 : \"À bras le cœur\".",
+        "en": "**Light on the cartoon**\nFor its 33rd edition, the Mouans-Sartoux book festival will put comic books in the spotlight by proposing a brand new dedicated space.\nThe festival welcomes every year about twenty authors and comic illustrators. Establishing itself for many years on two spaces - space Literature-BD and Youth - 2020 will aim the creation of a new space hosting the entire comic book, for all ages and all kinds.\nBédéphiles, amateurs and neophytes can find or discover all the albums present on the festival and meet the guest authors.\nOn the program: interviews, dedications, school meetings, games, lithography, exchanges with all the actors of the book chain (authors, illustrators, publishers, booksellers...)\n**General presentation**\nThe book festival of Mouans-Sartoux is 3 days of festivities, exhibitions, cinema, meetings, music, live shows, on a space of 8,000 m². The whole village and a team of 270 motivated mobilize to welcome artists and visitors! A place of lively exchange and free expression, this eclectic, popular, demanding and citizen festival is renowned for the freedom of the voices that express themselves, the fervour of its 60,000 visitors, the place given to the expression of words and ideas, from novel to song, through movies and comic books.\nFor 32 years, the richness of programming has been the highlight of the event. Always strong and relevant meetings, respectful dedication to the comfort of authors and the pleasure of visitors, Eco-friendly snack bars with a zero plastic goal and awareness of sorting and recycling to ensure a clean space and a mimum of environmental impact. A strong commitment to gender equality, climate and more generally respect for everyone, for a Humanist Festival.\nEager to feed, develop, or give young people a taste for books, the Mouans-Sartoux Book Festival offers programming adapted to students from kindergarten to high school. Fifteen days before the event, artists meet students in their schools. Then, on Friday of the festival, classes travel to Mouans-Sartoux to benefit from this program: interviews, workshop (writing, initiation to illustration, sensory...), screening-meetings, conferences, theatre, orchestra rehearsal with commentary... All the activities are completely free, offered by the book festival with the Pays de Grasse agglomeration community, the CCAS (Caisse centrale d'activités sociales) and the DAAC (Academic Delegation for Arts and Culture).\nThe festival of the book of Mouans-Sartoux is renewed by the theme that guides part of the programming, among which \"Beyond the walls, humanity\", \"Listen, see the fury of the world\", \"Resistances, the origin of the future?\" , \"Where are we going so fast?\" , \"What if we rekindle the stars?\", \"Not even scared\", \"Where are our dreams?\", \"The Other like me\", \"Live!\" , \"Go to the ideal\", \"To us, to us freedom\", and in 2019: \"With arms the heart\"."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Gratuit pour les – 18 ans, étudiants, enseignants et demandeurs d’emploi.  L’accès aux débats est gratuit dans la limite des places disponibles.",
+        "en": "Free for 18-year-olds, students, teachers and job seekers. Access to debates is free within available spaces."
+      },
+      "image": {
+        "filename": "f516c0a7fd024dc5a26e6a6bf488eeca.base.image.jpg",
+        "credits": "Kid Toussaint, Aurélie Guarino, Gorobeï, Jean-Luc Deglin",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f516c0a7fd024dc5a26e6a6bf488eeca.full.image.jpg",
+            "size": {
+              "height": 3456,
+              "width": 4608
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f516c0a7fd024dc5a26e6a6bf488eeca.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-02T08:00:00.000Z",
+          "end": "2020-10-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-03T08:00:00.000Z",
+          "end": "2020-10-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-04T08:00:00.000Z",
+          "end": "2020-10-04T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:31.000Z",
+      "createdAt": "2019-12-17T10:52:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 21994003,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.lefestivaldulivre.fr/",
+        "bdfestival@mouans-sartoux.net",
+        "0492924370"
+      ],
+      "location": {
+        "uid": 21994003,
+        "slug": "mouans-sartoux120",
+        "name": "Ville de Mouans-Sartoux",
+        "address": "06370 Mouans-Sartoux",
+        "city": "Mouans-Sartoux",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06370",
+        "insee": "06084",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.620385,
+        "longitude": 6.970399,
+        "updatedAt": "2019-12-17T10:28:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "5 € les trois jours (sur présentation du ticket)",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 74650788,
+        "custom": {
+          "organization": "Festival du Livre de Mouans-Sartoux",
+          "contactName": "Laura-Lisa Chami",
+          "contactNumber": "0492924370",
+          "contactPosition": "Chargée de programmation Bande-Dessinée",
+          "email": "bdfestival@mouans-sartoux.net"
+        }
+      }
+    },
+    {
+      "uid": 37215982,
+      "ownerUid": 87153820,
+      "creatorUid": 87153820,
+      "slug": "festival-bd-lagrasse-la-foire-aux-images",
+      "title": {
+        "fr": "La Foire aux images - Festival BD Lagrasse",
+        "en": "The Image Fair - Festival BD Lagrasse"
+      },
+      "description": {
+        "fr": "Pour la 5e édition, le programme mijote, suspens... Autour de deux invités d'honneur : 20 auteurs, conférences, expositions, libraire et bouquinistes, espace lecture - dessin - jeunesse",
+        "en": "For the 5th edition, the program simmers, suspense... Around two guests of honor: 20 authors, lectures, exhibitions, bookseller and booksellers, reading space - drawing - youth"
+      },
+      "longDescription": {
+        "fr": "### **La Foire aux images ? Une association**\n\nPlafonds peints médiévaux lagrassiens, parois ornées des grottes, graffitis antiques… : des dessins, des images… Des histoires ? L’Histoire ? Des livres ! Les lecteurs de tous âges, petits et grands, passionnés, néophytes… sont invités à la curiosité… à La Foire aux images, quoi ! Pas un grand bazar, mais un moment de rencontres avec les auteurs de notre époque. La diversité des mondes de la bande dessinée et de l’image est à explorer, c’est l’occasion d’en faire un bout de chemin.\n\nCe festival est imaginé et organisé par des passionnés de la BD et des professionnels de la BD, de l’image et du patrimoine. Il associe BD et histoire des patrimoines graphiques.\n\n### **Le festival BD La Foire aux images**\n\nEn zone rurale, dans une ambiance conviviale et simple, l'association souhaite proposer en proximité ces rencontres avec les auteurs.\n\n**Jean-François Charles et Maryse Charles,** invités d’honneur en 2020 et passionnés de patrimoine, ont accepté de venir dans le beau village de Lagrasse.\n\nLa programmation est en cours et à suivre sur notre [site web](https://bdlagrasse.wordpress.com/) et [page Facebook](https://www.facebook.com/bd.lagrasse/) :\n\n– Rencontres et dédicaces avec 20 auteurs\n\n– Deux rencontres discussions et/ou conférences\n\n– Espace lecture et dessin grands et petits\n\n– Expositions de planches originales des invités\n\n– Libraire spécialisé BD & Cie (Narbonne)\n\n– Bouquinistes\n\n...\n\nL’association est partenaire de la [bibliothèque municipale de Lagrasse](https://lagrasse.bibli.fr/index.php), de la [bibliothèque départementale de l’Aude](http://audealaculture.fr/livre-medias), de la [Maison du Banquet et des générations](http://www.lamaisondubanquet.fr/), abbaye de Lagrasse.\n\nMembre d'[Occitanie Livre et Lecture](http://www.occitanielivre.fr/).\n\nSignataire de la Charte des manifestations littéraires en région.\n\nEntrée gratuite\n\n[Site Web Commune](http://www.lagrasse.fr/) - [Site Web Tourisme](http://lagrasse.com/) - [Blog Plafonds peints](http://rcppm.org/blog/)",
+        "en": "### **The Image Fair? An association**\nMedieval Lagrassian painted ceilings, walls adorned with caves, ancient graffiti…: drawings, images… Stories? History? Books! Readers of all ages, young and old, passionate, neophytes… are invited to curiosity… at La Foire aux images, what! Not a big bazaar, but a moment of encounters with the authors of our time. The diversity of the worlds of comics and images is to be explored, it is the opportunity to make a bit of a journey.\nThis festival is conceived and organised by comic strip enthusiasts and comic strip, image and heritage professionals. It combines comics and history of graphic heritage.\n### **The comic strip festival La Foire aux images**\nIn rural areas, in a friendly and simple atmosphere, the association wishes to propose these meetings with authors in close proximity.\n**Jean-François Charles and Maryse Charles,** guests of honour in 2020 and heritage enthusiasts, have agreed to come to the beautiful village of Lagrasse.\nProgramming is underway and to be followed on our [website](https://bdlagrasse.wordpress.com/) and [Facebook page](https://www.facebook.com/bd.lagrasse/):\n– Meetings and dedications with 20 authors\n– Two discussions and/or conferences\n– Large and small reading and drawing space\n– Guest Original Plate Exhibitions\n– BD & Cie Specialist Bookseller (Narbonne)\n– Booksellers\n...\nThe association is a partner of the [municipal library of Lagrasse](https://lagrasse.bibli.fr/index.php), the [departmental library of Aude, the](http://audealaculture.fr/livre-medias) [Maison du Banquet and generations, abbey of](http://www.lamaisondubanquet.fr/) Lagrasse.\nMember of [Occitania Book and Reading](http://www.occitanielivre.fr/).\nSignatory of the Charter of literary events in the region.\nFree admission\nCommon [Website - Tourism Website](http://lagrasse.com/) - [Blog Painted ceilings](http://rcppm.org/blog/)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b90c84ea6fea4d09b1e3950ea8f0ff3f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 496,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b90c84ea6fea4d09b1e3950ea8f0ff3f.full.image.jpg",
+            "size": {
+              "height": 5847,
+              "width": 8268
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b90c84ea6fea4d09b1e3950ea8f0ff3f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-10T08:00:00.000Z",
+          "end": "2020-10-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-11T08:00:00.000Z",
+          "end": "2020-10-11T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:15.000Z",
+      "createdAt": "2019-12-14T16:44:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 34997204,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://bdlagrasse.wordpress.com/",
+        "https://www.facebook.com/bd.lagrasse/",
+        "festivalbdlagrasse@gmail.com",
+        "0695087843"
+      ],
+      "location": {
+        "uid": 34997204,
+        "slug": "salle-polyvalente-route-de-ribaute-lagrasse-11220",
+        "name": "Salle polyvalente",
+        "address": "Route de Ribaute 11220 Lagrasse",
+        "city": "Lagrasse",
+        "region": "Occitanie",
+        "department": "Aude",
+        "postalCode": "11220",
+        "insee": "11185",
+        "countryCode": "FR",
+        "district": "Borde Rouge",
+        "latitude": 43.089993,
+        "longitude": 2.622525,
+        "updatedAt": "2019-12-16T08:56:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 87153820,
+        "custom": {
+          "organization": "Association La Foire aux Images",
+          "contactName": "Philippe DESCROIX",
+          "contactNumber": "06 95 08 78 43",
+          "contactPosition": "président",
+          "email": "festivalbdlagrasse@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 95224974,
+      "ownerUid": 87153820,
+      "creatorUid": 87153820,
+      "slug": "la-foire-aux-images-journee-scolaire",
+      "title": {
+        "fr": "La Foire aux images - Journée scolaire",
+        "en": "Image Fair - School Day"
+      },
+      "description": {
+        "fr": "Journée découverte autour des narrations graphiques pour le public scolaire",
+        "en": "Discovery day around graphic narrations for the school public"
+      },
+      "longDescription": {
+        "fr": "### **Journée scolaire**\n\norganisée en préambule au [festival de BD La Foire aux images.](https://openagenda.com/bd2020/events/festival-bd-lagrasse-la-foire-aux-images)\n\nElle est destinée à sensibiliser les jeunes à la diversité des expressions et narrations graphiques.\n\nLe village médiéval de Lagrasse abrite une collection exceptionnelle de\n\nplafonds peints médiévaux dont certains sont de mini strips.\n\n[Blog Plafonds peints.](http://rcppm.org/blog/)\n\nRaconter, dessiner, lire, écouter ... sont au programme\n\nLes programmes des journées scolaires des années précédentes sont sur notre [site web](https://bdlagrasse.wordpress.com/festival-2018/scolaires/).\n\nLa programmation 2020 est en cours.\n\n### **Activités gratuites :**\n\n\\- Deux ateliers différents avec des intervenants professionnels.\n\n\\- Visite libre de l'exposition [Images oubliées du Moyen Âge](http://audealaculture.fr/content/images-oubliees-du-moyen-age-exposition) à la Maison du patrimoine.\n\n\\- Kamishibaïs avec les animatrices de la bibliothèque municipale.\n\nCes activités sont planifiées pour permettre à tous d'en bénéficier. Un bénévole de l'association accompagne chaque groupe sur les lieux des activités.\n\n**Activités complémentaires :**\n\nà organiser en harmonie avec le planning établi.\n\nListe et contacts :\n\n[Bureau informations touristiques 04 68 43 11 56](http://lagrasse.com/)\n\n[Mairie de Lagrasse](http://www.lagrasse.fr/)\n\nVisite de l’abbaye, du village, artisans d’art, artistes,...\n\nNe sont pas pris en charge : déplacement et repas.\n\nEn cas de mauvais temps, nous trouverons une solution à l’abri.\n\nPlaces limitées - Prendre contact avant les vacances d'été ou dès la rentrée.",
+        "en": "### **School day**\norganized as a preamble [to the comic book festival La Foire aux images.](https://openagenda.com/bd2020/events/festival-bd-lagrasse-la-foire-aux-images)\nIt is intended to make young people aware of the diversity of graphic expressions and narrations.\nThe medieval village of Lagrasse houses an exceptional collection of\nMedieval painted ceilings some of which are mini strips.\n[Blog Painted ceilings.](http://rcppm.org/blog/)\nStorytelling, drawing, reading, listening ... are on the program\nThe programs of the school days of previous years are on our [website](https://bdlagrasse.wordpress.com/festival-2018/scolaires/).\n2020 programming is underway.\n### **Free activities:**\n- Two different workshops with professional stakeholders.\n- Free visit of the exhibition [Forgotten Images of the Middle Ages](http://audealaculture.fr/content/images-oubliees-du-moyen-age-exposition) at the Heritage House.\n- Kamishibaïs with Public Library facilitators.\nThese activities are planned to benefit everyone. A volunteer from the association accompanies each group on the site of the activities.\n**Complementary activities:**\nto organize in harmony with the established schedule.\nList and contacts:\n[Tourist information office 04 68 43 11 56](http://lagrasse.com/)\n[Lagrasse Town Hall](http://www.lagrasse.fr/)\nVisit of the abbey, of the village, artisans of art, artists,...\nNot covered: travel and meals.\nIn case of bad weather, we will find a safe solution.\nLimited places - Make contact before the summer holidays or as soon as you return."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription.",
+        "en": "On registration."
+      },
+      "image": {
+        "filename": "63a78e91bf0a42fd963dc2cd0afd2f0d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 496,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "63a78e91bf0a42fd963dc2cd0afd2f0d.full.image.jpg",
+            "size": {
+              "height": 5847,
+              "width": 8268
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "63a78e91bf0a42fd963dc2cd0afd2f0d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-09T08:00:00.000Z",
+          "end": "2020-10-09T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-09T12:00:00.000Z",
+          "end": "2020-10-09T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:24.000Z",
+      "createdAt": "2019-12-24T16:19:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 34997204,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://bdlagrasse.wordpress.com/festival-2018/scolaires/",
+        "festivalbdlagrasse@gmail.com",
+        "0695087843"
+      ],
+      "location": {
+        "uid": 34997204,
+        "slug": "salle-polyvalente-route-de-ribaute-lagrasse-11220",
+        "name": "Salle polyvalente",
+        "address": "Route de Ribaute 11220 Lagrasse",
+        "city": "Lagrasse",
+        "region": "Occitanie",
+        "department": "Aude",
+        "postalCode": "11220",
+        "insee": "11185",
+        "countryCode": "FR",
+        "district": "Borde Rouge",
+        "latitude": 43.089993,
+        "longitude": 2.622525,
+        "updatedAt": "2019-12-16T08:56:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 87153820,
+        "custom": {
+          "organization": "Association La Foire aux Images",
+          "contactName": "Philippe DESCROIX",
+          "contactNumber": "06 95 08 78 43",
+          "contactPosition": "président",
+          "email": "festivalbdlagrasse@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 34535946,
+      "ownerUid": 87153820,
+      "creatorUid": 87153820,
+      "slug": "la-foire-aux-images-conference-table-ronde_29125",
+      "title": {
+        "fr": "La Foire aux images - Conférence et table-ronde du dimanche",
+        "en": "Image Fair - Sunday Conference and Round Table"
+      },
+      "description": {
+        "fr": "Conférence, rencontre et discussion - Des auteurs de BD sont invités à partager expérience, inspiration, pratiques avec le public",
+        "en": "Conference, meeting and discussion - Comic book authors are invited to share experience, inspiration, practices with the public"
+      },
+      "longDescription": {
+        "fr": "### **Conférence, rencontre et discussion**\n\nPendant le [festival de BD La Foire aux images.](https://openagenda.com/bd2020/events/festival-bd-lagrasse-la-foire-aux-images)\n\nSamedi et dimanche à 14 h 30, le public pourra découvrir les passions et les coulisses de la création en BD.\n\nLes thèmes et auteurs invités 2020 sont à définir.\n\nLa programmation 2020 est en cours, à suivre sur notre [site web](https://bdlagrasse.wordpress.com/festival-2018/scolaires/).\n\n**À Lagrasse, les livres et les images font bon ménage.**\n\n[La Maison du Banquet & des générations](https://www.lamaisondubanquet.fr/rencontres-avec-des-auteurs-de-bd/)\n\nCentre de rencontres et d’études autour du livre, de la pensée et de l’image, installé dans l’abbaye publique de Lagrasse, accueille ces rencontres avec le souhait réciproque de mêler les publics.\n\nNous y parlerons réalité, fiction, histoire, images, également passion, travail… bref... de littérature et de pensée.\n\nDominique Larroque-Laborde, ex-professeur de lettres classiques, anime chaque été un atelier « Civilisation grecque » au Banquet du livre de Lagrasse. Elle éprouve un penchant égal pour les langues anciennes et pour la BD, surtout franco-belge. C’est donc avec joie qu’elle animera ces rencontres.",
+        "en": "### **Conference, meeting and discussion**\nDuring the [comic book festival La Foire aux images.](https://openagenda.com/bd2020/events/festival-bd-lagrasse-la-foire-aux-images)\nSaturday and Sunday at 2:30 p.m., the public will be able to discover the passions and behind the scenes of comic book creation.\nThemes and invited authors 2020 are to be defined.\n2020 programming is underway, to be followed on our [website](https://bdlagrasse.wordpress.com/festival-2018/scolaires/).\n**In Lagrasse, books and pictures combine well.**\n[Banquet House & Generations](https://www.lamaisondubanquet.fr/rencontres-avec-des-auteurs-de-bd/)\nCentre for meetings and studies on books, thoughts and images, located in the public abbey of Lagrasse, welcomes these meetings with the mutual desire to mix audiences.\nWe will talk about reality, fiction, history, images, also passion, work… in short... of literature and thought.\nDominique Larroque-Laborde, former professor of classical letters, leads a workshop every summer «Greek civilization» at the Banquet of the book of Lagrasse. She has an equal penchant for ancient languages and for comics, especially Franco-Belgian. It is therefore with joy that she will animate these meetings."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "63a78e91bf0a42fd963dc2cd0afd2f0d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 496,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "63a78e91bf0a42fd963dc2cd0afd2f0d.full.image.jpg",
+            "size": {
+              "height": 5847,
+              "width": 8268
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "63a78e91bf0a42fd963dc2cd0afd2f0d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-11T12:30:00.000Z",
+          "end": "2020-10-11T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:24.000Z",
+      "createdAt": "2019-12-24T16:46:58.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77093892,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "festivalbdlagrasse@gmail.com",
+        "0695087843"
+      ],
+      "location": {
+        "uid": 77093892,
+        "slug": "maison-du-banquet-et-des-generations",
+        "name": "Maison du Banquet et des Générations",
+        "address": "Abbaye publique, 4 rive Gauche 11220 Lagrasse",
+        "city": "Lagrasse",
+        "region": "Occitanie",
+        "department": "Aude",
+        "postalCode": "11220",
+        "insee": "11185",
+        "countryCode": "FR",
+        "district": "Borde Rouge",
+        "latitude": 43.090664,
+        "longitude": 2.617188,
+        "updatedAt": "2019-12-30T09:54:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Maison du Banquet et des Générations",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 87153820,
+        "custom": {
+          "organization": "Association La Foire aux Images",
+          "contactName": "Philippe DESCROIX",
+          "contactNumber": "06 95 08 78 43",
+          "contactPosition": "président",
+          "email": "festivalbdlagrasse@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 23185973,
+      "ownerUid": 38511331,
+      "creatorUid": 38511331,
+      "slug": "steady-rollin-alan-robert-johnson-meets-alan-cope",
+      "title": {
+        "fr": "Époque, le salon des livres de Caen - \"Steady Rollin' Alan, Robert Johnson meets Alan Cope\"",
+        "en": "Époque, le salon des livres de Caen - \"Steady Rollin' Alan, Robert Johnson meets Alan Cope\""
+      },
+      "description": {
+        "fr": "Concert de jazz sur fond de projection de dessins tirés des différents volumes \"Alan\" (Emmanuel Guibert, L'association) qui donne autant à voir qu'à entendre.",
+        "en": "Jazz concert against a background of drawings taken from the different volumes \"Alan\" (Emmanuel Guibert, L'association) which gives as much to see as to hear."
+      },
+      "longDescription": {
+        "fr": "**Steady rollin' Alan**\n-----------------------\n\n### **Robert Johnson meets Alan Cope**\n\n### Concert de jazz\n\n### **Dans le cadre d**_**'Époque, le salon des livres de Caen**_\n\n### Avec **Philippe Mouratoglou** (guitare & chant) avec **Bruno Chevillon** (contrebasse) et **Jean-Marc Foltz** (clarinette)\n\nLe disque \"Steady rollin' man - Echoes of Robert Johnson\", paru en 2012, inaugurait à la fois la naissance du label discographique Vision Fugitive et un compagnonnage au long cours avec **Emmanuel Guibert** qui allait dès lors en dessiner toutes les pochettes. Cette association trouve son prolongement naturel dans le spectacle _**Steady rollin' Alan - Robert Johnson meets Alan Cope**_ , **concert sur fond de projection de dessins tirés des différents volumes \"Alan\" qui donne autant à voir qu'à entendre.**\n\nFondé par **Philippe Mouratoglou** (guitare & chant) avec **Bruno Chevillon** (contrebasse) e**t Jean-Marc Foltz** (clarinette), ce trio propose une relecture de quelques-uns des morceaux les plus marquants de Robert Johnson.\n\nComment jouer la musique de ce grand bluesman, mort il y a 80 ans, quand on est trois musiciens blancs vivant en France en 2020? Que faire aujourd'hui de ce blues rural, mythe fondateur du Rock n' Roll quand on pratique le jazz, les musiques improvisées et la musique classique ? Très peu interprétées par les jazzmen, ces chansons qui font pourtant partie de leur patrimoine culturel, trouvent ici une réappropriation à la fois extrêmement personnelle et éminemment respectueuse.\n\n\"Une œuvre personnelle, habitée, pour une musique inventive, fraîche, subtile, parfois empreinte de mélancolie.\" (Citizen jazz)\n\n\"Âpre et vibrant\" (Les Dernières Nouvelles du Jazz)\n\n\"Le plus bel hommage que l'on puisse rendre à un bluesman de légende\" (Guitarist acoustic)\n\n**Emmanuel Guibert** est l'invité d'_**Époque, le salon des livres de Caen**_ **i**l sera présent dès mercredi 13 mai à Caen avec son spectacle _Ariol's Show._",
+        "en": "## **Steady rollin' Alan**\n### **Robert Johnson meets Alan Cope**\n### Concert of jazz\n### As part _of Époque, the book fair of Caen_\n### With **Philippe Mouratoglou** (guitar & vocals) with **Bruno Chevillon** (double bass) and **Jean-Marc Foltz** (clarinet)\nThe disc \"Steady rollin' man - Echoes of Robert Johnson\", released in 2012, inaugurated both the birth of the record label Vision Fugitive and a long-term companion with **Emmanuel Guibert** who was going to draw all the covers. This association finds its natural extension in the show _**Steady rollin' Alan - Robert Johnson meets Alan Cope**_ , **concert against a background of drawings taken from the different volumes \"Alan\" that gives as much to see as to hear.**\nFounded by **Philippe Mouratoglou** (guitar & vocals) with **Bruno Chevillon** (double bass) **and Jean-Marc Foltz** (clarinet), this trio offers a rereading of some of Robert Johnson’s most striking pieces.\nHow to play the music of this great bluesman, who died 80 years ago, when we are three white musicians living in France in 2020? What to do today with this rural blues, the founding myth of Rock n' Roll when you practice jazz, improvised music and classical music? Very little interpreted by the jazzmen, these songs which are nevertheless part of their cultural heritage, find here a reappropriation both extremely personal and eminently respectful.\n\"A personal work, inhabited, for an inventive, fresh, subtle, sometimes melancholic music.\" (Citizen jazz)\n\"Bitter and Vibrant\" (Latest Jazz News)\n\"The most beautiful tribute one can pay to a legendary bluesman\" (Guitarist acoustic)\n**Emmanuel Guibert** is the guest of _**Époque, the book fair of Caen**_ **he** will be present from Wednesday, May 13 in Caen with his show _Ariol’s Show._"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "289a4e0fbe23482fac34336304955d83.base.image.jpg",
+        "credits": "Maxim François",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "289a4e0fbe23482fac34336304955d83.full.image.jpg",
+            "size": {
+              "height": 3840,
+              "width": 5760
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "289a4e0fbe23482fac34336304955d83.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T18:30:00.000Z",
+          "end": "2020-05-16T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:10.000Z",
+      "createdAt": "2019-12-26T10:29:57.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3299941,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3299941,
+        "slug": "conservatoire-de-caen-grand-auditorium",
+        "name": "Grand auditorium de Caen",
+        "address": "1 rue du Carel 14000 Caen",
+        "city": "Caen",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14000",
+        "insee": "14118",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.179882,
+        "longitude": -0.371211,
+        "updatedAt": "2019-12-30T09:53:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Époque, le salon des livres de Caen",
+      "type-de-structure": 632,
+      "si-autre-precisez": "Époque, le salon des livres de Caen",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 38511331,
+        "custom": {
+          "organization": "Époque salon des livres de Caen",
+          "contactName": "Angèle BARI",
+          "contactNumber": "0231304792",
+          "contactPosition": "chargée de logistique et de l'accueil",
+          "email": "a.bari@caen.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2114311
+}

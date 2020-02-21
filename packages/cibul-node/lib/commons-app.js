@@ -717,28 +717,7 @@ function https(req, res, next) {
 
 
 function requireSuperAdmin( req, res, next ) {
-
-  sessions.get( req, { detailed: true }, ( err, session ) => {
-
-    if ( err ) return next( err );
-
-    const id = session.id;
-
-    if ( config.superAdminIds.indexOf( parseInt( id ) ) !== -1 ) {
-
-      next();
-
-    } else {
-
-      sessions.setFlash( req, res, 'Eerrh nooo, no esta, nooo, bye bye.' );
-
-      res.redirect( 302, '/' );
-
-    }
-
-  } )
-
-
+  req.app.services.sessions.mw.requireSuperAdmin(req, res, next);
 }
 
 function checkAgendaCredential(name) {
@@ -859,22 +838,17 @@ function favoriteLinkHTML( uid ) {
  * middleware for loading an logger and shoving it in the request
  */
 
-function loadLogger( name ) {
-
-  return function ( req, res, next ) {
-
-    req.log = logger( 'req' );
-
-    req.log.loadMetadata( {
+function loadLogger(name) {
+  return function (req, res, next) {
+    req.log = logger('req', {
       module: name ? name : 'unknown',
       url: req.originalUrl,
-      ip: ( req.header( 'x-forwarded-for' ) || '' ).split( ', ' ).shift()
-    } );
+      ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
+      userUid: req.user && req.user.uid ? req.user.uid : null
+    });
 
-    if ( next ) next();
-
-  }
-
+    if (next) next();
+  };
 }
 
 function loadAgendaBy( param ) {

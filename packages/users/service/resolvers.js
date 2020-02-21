@@ -6,6 +6,10 @@ module.exports = {
       return;
     }
 
+    if (context.params.internal !== true && !context.params.detailed) {
+      return;
+    }
+
     const { config } = context.self;
 
     const result = await config.interfaces.keys.get({
@@ -17,6 +21,10 @@ module.exports = {
   },
   apiSecret: () => async (user, context) => {
     if (!user || !user.uid) {
+      return;
+    }
+
+    if (context.params.internal !== true && !context.params.detailed) {
       return;
     }
 

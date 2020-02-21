@@ -58,7 +58,7 @@ export default class ConversationFormApp extends Component {
   };
 
   render() {
-    const { opened, createConversation, closeConversationForm, initialValues } = this.props;
+    const { opened, createConversation, closeConversationForm, initialValues, agenda } = this.props;
     const { getLabel } = this;
     const { confirmationMessage } = this.state;
 
@@ -100,8 +100,9 @@ export default class ConversationFormApp extends Component {
         >
           {modalDescription && <p dangerouslySetInnerHTML={{ __html: modalDescription.replace( /\n/g, '<br />' ) }}></p>}
           <ConversationForm
+            agenda={agenda}
             initialValues={initialValues}
-            onSubmit={values => createConversation( values )
+            onSubmit={values => createConversation(values, agenda)
               .then( () => this.close() )
               .catch( () => this.close( true ) )}
             Wrapper={this.FormWrapper}

@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
-module.exports = async ( req, res, next ) => {
-  const remove = req.services.core.agendas(req.agenda.uid).events.remove;
+module.exports = async (req, res, next) => {
+  const remove = req.app.services.core.agendas(req.agenda.uid).events.remove;
 
   try {
     const event = await remove(req.event.uid, {
@@ -14,8 +14,8 @@ module.exports = async ( req, res, next ) => {
       }
     });
 
-    res.json( {
-      success,
+    res.json({
+      success: true,
       event
     });
   } catch (e) {

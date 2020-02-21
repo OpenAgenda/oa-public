@@ -1,0 +1,1736 @@
+{
+  "events": [
+    {
+      "uid": 20201298,
+      "ownerUid": 38256056,
+      "creatorUid": 38256056,
+      "slug": "b-d-bulles-les-coups-de-coeur-du-libraire",
+      "title": {
+        "fr": "Les coups de cœur BD du libraire",
+        "en": "Bookseller’s favourite comic books"
+      },
+      "description": {
+        "fr": "Un libraire de Page et Plume vient vous présenter ses coups de cœurs ados et adultes du 9e art. Avis aux croqueurs de bulles !",
+        "en": "Un libraire de Page et Plume vient vous présenter ses coups de coeur ados et adultes du 9e art. Avis aux croqueurs de bulles!"
+      },
+      "longDescription": {
+        "fr": "2020 est l’année de la bande dessinée en France. Pour célébrer le 9e art, la bibliothèque francophone multimédia de Landouge accueille un libraire de Page et Plume spécialisé dans la bande dessinée. Il vous proposera une sélection du meilleur de la BD ado et adulte. L’occasion aussi de revenir sur les prix du festival d’Angoulême. Avis aux croqueurs de bulles !",
+        "en": "2020 is the year of comic books in France. To celebrate the 9th art, the French multimedia library of Landouge welcomes a bookseller of Page et Plume specialized in comics. It will offer you a selection of the best of the teen and adult comic book. The opportunity also to return to the prizes of the festival of Angoulême. Notice to the bubble eaters!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f4bcdc233c1741ebb3f5ea422e366180.base.image.jpg",
+        "credits": "Bfm Landouge",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f4bcdc233c1741ebb3f5ea422e366180.full.image.jpg",
+            "size": {
+              "height": 2976,
+              "width": 3968
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f4bcdc233c1741ebb3f5ea422e366180.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-27T15:30:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:02.000Z",
+      "createdAt": "2019-12-21T10:50:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 74708397,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 74708397,
+        "slug": "bibliotheque-francophone-multimedia-landouge728",
+        "name": "Bibliothèque francophone multimédia Landouge",
+        "address": "Rue Jacques Brel 87100 Limoges",
+        "city": "Limoges",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87170",
+        "insee": "87085",
+        "countryCode": "FR",
+        "district": "La Lande Fournier",
+        "latitude": 45.839927,
+        "longitude": 1.204038,
+        "updatedAt": "2019-12-30T11:15:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Page et Plume de Limoges",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 38256056,
+        "custom": {
+          "organization": "Bibliothèque francophone multimédia - Landouge",
+          "contactName": "Pauline LOCHE",
+          "contactNumber": "05 55 05 29 81",
+          "contactPosition": "Bibliothècaire",
+          "email": "pauline.loche@limoges.fr"
+        }
+      }
+    },
+    {
+      "uid": 88805488,
+      "ownerUid": 72279791,
+      "creatorUid": 72279791,
+      "slug": "festival-bd-dambierle",
+      "title": {
+        "fr": "Festival BD d'Ambierle",
+        "en": "Ambierle Comic Strip Festival"
+      },
+      "description": {
+        "fr": "Le festival BD d'Ambierle fête son 10e anniversaire en 2020 avec une trentaine d'auteurs et des animations, des expositions, des ateliers, des conférences...",
+        "en": "The Ambierle Comic Strip Festival celebrates its 10th anniversary in 2020 with some thirty authors and activities, exhibitions, workshops, conferences..."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9b6c022325f840a1abe42d0f0290ad94.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9b6c022325f840a1abe42d0f0290ad94.full.image.jpg",
+            "size": {
+              "height": 3120,
+              "width": 4160
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9b6c022325f840a1abe42d0f0290ad94.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-26T12:00:00.000Z",
+          "end": "2020-09-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-27T08:00:00.000Z",
+          "end": "2020-09-27T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:11.000Z",
+      "createdAt": "2019-12-21T11:24:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 9994565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "jotaboulet@orange.fr"
+      ],
+      "location": {
+        "uid": 9994565,
+        "slug": "ambierle-salle-de-sport",
+        "name": "Salle de sport",
+        "address": "42820 Ambierle",
+        "city": "Ambierle",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Loire",
+        "postalCode": "42820",
+        "insee": "42003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.103757,
+        "longitude": 3.896238,
+        "updatedAt": "2019-12-30T11:16:00.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "2 € (gratuit pour les moins de 12 ans)",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 72279791,
+        "custom": {
+          "organization": "Village du Livre d'Ambierle",
+          "contactName": "Jo Taboulet",
+          "contactNumber": "0604148577",
+          "contactPosition": "Président",
+          "email": "jotaboulet@orange.fr"
+        }
+      }
+    },
+    {
+      "uid": 36322537,
+      "ownerUid": 17863735,
+      "creatorUid": 17863735,
+      "slug": "conference-dessinee-les-plantes-des-etres-intelligents",
+      "title": {
+        "fr": "Conférence dessinée \"Les plantes, des êtres intelligents ?\"",
+        "en": "Lecture drawn \"Plants, intelligent beings?\""
+      },
+      "description": {
+        "fr": "Conférence dessinée \"Les plantes, des êtres intelligents ?\" par François Bouteau chercheur au LIED de l’université de Paris, illustrée en direct par Barbara Govin",
+        "en": "Lecture drawn \"Plants, intelligent beings?\" by François Bouteau researcher at the LIED of the University of Paris, illustrated live by Barbara Govin"
+      },
+      "longDescription": {
+        "fr": "**L'association Stimuli présente une conférence dessinée sur les végétaux à la médiathèque de Fontenay-aux-Roses dans le cadre de \"La Science se livre 2020\".**\n\nLes plantes ont longtemps été considérées, à tort, comme des organismes tout juste vivants, et privés de sensibilité. Des recherches récentes montrent désormais que les plantes sont non seulement pourvues de différents sens mais que les mécanismes sous-jacents qui leur permettent de percevoir leur environnement ressemblent à ceux développés chez les animaux. Ces mécanismes leur permettent ainsi de recourir à des stratégies sophistiquées pour interagir avec leur environnement y compris les autres êtres vivants. En un mot, elles seraient non seulement sensibles mais aussi \"intelligentes\" ! La conférence de **François Bouteau,** enseignant-chercheur au LIED de l’université de Paris sera illustrée en direct par **Barbara Govin**, dessinatrice diplômée de l'École Estienne et de l'École supérieure des Arts décoratifs de Strasbourg, aguérrie à l'exercice périlleux du dessin en direct.",
+        "en": "**The Stimuli association is presenting a designed conference on plants at the Fontenay-aux-Roses media library as part of \"La Science se livre 2020\".**\nPlants have long been wrongly regarded as living organisms, and deprived of sensitivity. Recent research now shows that plants not only have different meanings but that the underlying mechanisms by which they perceive their environment resemble those developed in animals. These mechanisms allow them to use sophisticated strategies to interact with their environment, including other living beings. In a word, they would not only be sensitive but also \"intelligent\"! The lecture by **François Bouteau,** teacher-researcher at the LIED of the University of Paris will be illustrated live by **Barbara Govin**, graduate designer of the Ecole Estienne and the Ecole supérieure des Arts décoratifs de Strasbourg, Experience the perilous exercise of live drawing."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription à la médiathèque",
+        "en": "Upon registration to the media library"
+      },
+      "image": {
+        "filename": "530f36d4cfb14d31acf05b6c0561acd4.base.image.jpg",
+        "credits": "@ Stimuli",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "530f36d4cfb14d31acf05b6c0561acd4.full.image.jpg",
+            "size": {
+              "height": 2657,
+              "width": 2657
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "530f36d4cfb14d31acf05b6c0561acd4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T15:00:00.000Z",
+          "end": "2020-01-25T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:09.000Z",
+      "createdAt": "2019-12-21T13:16:59.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30769022,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01 86 63 13 10"
+      ],
+      "location": {
+        "uid": 30769022,
+        "slug": "fontenay-aux-roses298",
+        "name": "Médiathèque de Fontenay-aux-Roses",
+        "address": "6 place du Château Sainte-Barbe 92260 Fontenay-aux-Roses",
+        "city": "Fontenay-aux-Roses",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92260",
+        "insee": "92032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.789751,
+        "longitude": 2.291731,
+        "updatedAt": "2019-12-30T11:14:59.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Fontenay-aux-Roses",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 17863735,
+        "custom": {
+          "organization": "Association Stimuli",
+          "contactName": "Laurence Bordenave",
+          "contactNumber": "0613979300",
+          "contactPosition": "présidente",
+          "email": "bordenave@stimuli-asso.com"
+        }
+      }
+    },
+    {
+      "uid": 24090836,
+      "ownerUid": 17840135,
+      "creatorUid": 17840135,
+      "slug": "quand-la-bd-decryptelartiste",
+      "title": {
+        "fr": "Rencontre \"Quand la BD décrypte... l'artiste\"",
+        "en": "Encounter \"Quand la BD décrypte... l'artiste\""
+      },
+      "description": {
+        "fr": "Rencontre avec le jeune mangaka Seldon",
+        "en": "Meeting with the young mangaka Seldon"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec le jeune mangaka Seldon, auteur de _La Voie de Vincent_, un étonnant biopic de Vincent Van Gogh en version manga. Pur autodidacte, Seldon partagera son expérience de création : scénario, _story board_, esquisses... et reviendra sur son choix, à 19 ans, de s'attaquer à un monstre sacré de la peinture française pour son premier manga !\n\nLa rencontre est suivie d'une dédicace en partenariat avec la librairie Totem.",
+        "en": "Interview with the young mangaka Seldon, author _of Vincent’s Way_, an amazing biopic by Vincent Van Gogh in manga version. Pure self-taught, Seldon will share his experience of creation: script, _story board_, sketches... and will come back on his choice, at 19, to tackle a sacred monster of French painting for his first manga!\nThe meeting is followed by a dedication in partnership with the bookstore Totem."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription.",
+        "en": "On registration."
+      },
+      "image": {
+        "filename": "d6d907be4b84442eba8ba46e4093dc20.base.image.jpg",
+        "credits": "@Courdesboecklin-SELDON",
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d6d907be4b84442eba8ba46e4093dc20.full.image.jpg",
+            "size": {
+              "height": 1754,
+              "width": 1240
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d6d907be4b84442eba8ba46e4093dc20.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T14:30:00.000Z",
+          "end": "2020-02-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T15:00:00.000Z",
+          "end": "2020-02-01T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T15:30:00.000Z",
+          "end": "2020-02-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T16:00:00.000Z",
+          "end": "2020-02-01T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:54.000Z",
+      "createdAt": "2019-12-21T14:09:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 85330043,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "03 88 81 49 47",
+        "courdesboecklin@ville-bischheim.fr"
+      ],
+      "location": {
+        "uid": 85330043,
+        "slug": "cour-des-boecklin430",
+        "name": "Cour des Boecklin",
+        "address": "17 rue Nationale 67800 Bischheim",
+        "city": "Bischheim",
+        "region": "Grand Est",
+        "department": "Bas-Rhin",
+        "postalCode": "67800",
+        "insee": "67043",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.614687,
+        "longitude": 7.755177,
+        "updatedAt": "2019-12-30T11:13:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Cycle de rencontres \"Quand la BD décrypte...\"",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 17840135,
+        "custom": {
+          "organization": "Cour des Boecklin",
+          "contactName": "Aurélie Charnet",
+          "contactNumber": "03 88 81 49 47",
+          "contactPosition": "Bibliothécaire BD - Communication",
+          "email": "a.charnet@ville-bischheim.fr"
+        }
+      }
+    },
+    {
+      "uid": 54141800,
+      "ownerUid": 10627168,
+      "creatorUid": 10627168,
+      "slug": "faites-du-rock-avec-lucien",
+      "title": {
+        "fr": "Exposition \"Faites du rock avec Lucien !\"",
+        "en": "Exhibition \"Rock with Lucien!\""
+      },
+      "description": {
+        "fr": "Exposition de dessins de Franck Margerin",
+        "en": "Exhibition of drawings by Franck Margerin"
+      },
+      "longDescription": {
+        "fr": "Portée par l’association l’Empreinte du rock, l’expo \"Faites du rock avec Lucien\" réunit des planches, mais aussi des esquisses et des croquis inédits du célèbre dessinateur Frank Margerin, avec pour fil rouge l’une de ses grandes passions : le rock’n’roll, qui s’incarne à travers son personnage fétiche Lucien, le blouson noir coiffé de sa mythique banane.\n\nÀ la fois ludique et pédagogique, l’exposition s’adresse autant aux fans de l’auteur qu’à un public plus large.\n\nLe parcours invite à une immersion dans le travail de l’artiste pour mieux comprendre le processus d’élaboration d’une bande dessinée.\n\nVernissage le samedi 18 avril à 11h30, en présence de l’artiste.",
+        "en": "Worn by the association L'Empreinte du rock, the exhibition \"Faites du rock avec Lucien\" brings together boards, but also sketches and sketches of the famous cartoonist Frank Margerin, with one of his great passions: rock'n'roll, which is embodied through its fetish character Lucien, the black jacket with its mythical banana.\nBoth playful and educational, the exhibition is aimed at fans of the author as well as a wider audience.\nThe course invites an immersion in the artist’s work to better understand the process of drawing a comic book.\nOpening on Saturday 18 April at 11.30 am, in the presence of the artist."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "5e614a16c1124e80be2f9e8d15691c47.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "5e614a16c1124e80be2f9e8d15691c47.full.image.jpg",
+            "size": {
+              "height": 2245,
+              "width": 1587
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "5e614a16c1124e80be2f9e8d15691c47.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T08:00:00.000Z",
+          "end": "2020-04-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T12:00:00.000Z",
+          "end": "2020-04-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T12:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T08:00:00.000Z",
+          "end": "2020-04-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T12:00:00.000Z",
+          "end": "2020-04-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T08:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T12:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T08:00:00.000Z",
+          "end": "2020-05-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T08:00:00.000Z",
+          "end": "2020-05-03T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T12:00:00.000Z",
+          "end": "2020-05-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T08:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T12:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T08:00:00.000Z",
+          "end": "2020-05-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T08:00:00.000Z",
+          "end": "2020-05-10T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T12:00:00.000Z",
+          "end": "2020-05-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T08:00:00.000Z",
+          "end": "2020-05-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T08:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T12:00:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T08:00:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:00:00.000Z",
+          "end": "2020-05-17T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T12:00:00.000Z",
+          "end": "2020-05-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T08:00:00.000Z",
+          "end": "2020-05-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T12:00:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T08:00:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:00:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T08:00:00.000Z",
+          "end": "2020-05-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-25T12:00:00.000Z",
+          "end": "2020-05-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T08:00:00.000Z",
+          "end": "2020-05-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:00:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T12:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T08:00:00.000Z",
+          "end": "2020-05-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T08:00:00.000Z",
+          "end": "2020-05-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T08:00:00.000Z",
+          "end": "2020-05-31T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-01T12:00:00.000Z",
+          "end": "2020-06-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T08:00:00.000Z",
+          "end": "2020-06-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:00:00.000Z",
+          "end": "2020-06-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T12:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:00:00.000Z",
+          "end": "2020-06-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T08:00:00.000Z",
+          "end": "2020-06-07T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:51.000Z",
+      "createdAt": "2019-12-21T16:43:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 17997531,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 17997531,
+        "slug": "mediatheque-andre-labarrere482",
+        "name": "Médiathèque André-Labarrère",
+        "address": "Place Marguerite Laborde 64000 Pau",
+        "city": "Pau",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Pyrénées-Atlantiques",
+        "postalCode": "64000",
+        "insee": "64445",
+        "countryCode": "FR",
+        "district": "Centre Ville",
+        "latitude": 43.300133,
+        "longitude": -0.367295,
+        "updatedAt": "2019-12-30T11:11:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Rock This Town, cinéma Le Méliès de Pau",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival Rock This Town",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 10627168,
+        "custom": {
+          "organization": "Réseau des médiathèques de l'agglomération Pau Béarn Pyrénées",
+          "contactName": "Stéphane Andrieu",
+          "contactNumber": "06 13 83 14 89",
+          "contactPosition": "Chargé de l'action culturelle",
+          "email": "s.andrieu@agglo-pau.fr"
+        }
+      }
+    },
+    {
+      "uid": 25637737,
+      "ownerUid": 76479581,
+      "creatorUid": 76479581,
+      "slug": "concours-de-bande-dessinee",
+      "title": {
+        "fr": "Concours de la bande dessinée",
+        "en": "Contest of the comic"
+      },
+      "description": {
+        "fr": "Le concours de la BD au sein du collège Paul Symphor a pour but de permettre aux élèves de réaliser une bande dessinée dont le thème est libre",
+        "en": "The comic book contest at the Paul Symphor College aims to allow students to create a comic book with a free theme"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "660dc8747ef947d889d5788f4bbd19d6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 560,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "660dc8747ef947d889d5788f4bbd19d6.full.image.jpg",
+            "size": {
+              "height": 720,
+              "width": 900
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "660dc8747ef947d889d5788f4bbd19d6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "America/Martinique",
+      "timings": [
+        {
+          "begin": "2020-03-23T11:30:00.000Z",
+          "end": "2020-03-23T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T11:30:00.000Z",
+          "end": "2020-03-24T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T11:30:00.000Z",
+          "end": "2020-03-25T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T11:30:00.000Z",
+          "end": "2020-03-26T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T11:30:00.000Z",
+          "end": "2020-03-27T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T11:27:39.000Z",
+      "createdAt": "2019-12-22T04:31:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10551925,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 10551925,
+        "slug": "college-paul-symphor-1-avenue-paul-symphor-martinique",
+        "name": "Collège Paul Symphor",
+        "address": "1 avenue Paul Symphor 97231 Le Robert",
+        "city": "Le Robert",
+        "region": "Martinique",
+        "department": null,
+        "postalCode": "97231",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 14.677614,
+        "longitude": -60.939021,
+        "updatedAt": "2019-12-30T11:11:22.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "America/Martinique",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76479581,
+        "custom": {
+          "organization": "Etablissement scolaire",
+          "contactName": "MlleA.",
+          "contactNumber": "+596696973312",
+          "contactPosition": "Professeur",
+          "email": "elmire.aron@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 32458949,
+      "ownerUid": 59514958,
+      "creatorUid": 59514958,
+      "slug": "festival-bande-de-bulles",
+      "title": {
+        "fr": "Festival \"Bande de Bulles\"",
+        "en": "Festival \"Bande de Bulles\""
+      },
+      "description": {
+        "fr": "Festival de bande dessinée, une vingtaine d'auteurs en dédicace et des animations",
+        "en": "Comic book festival, about twenty authors in dedication and animations"
+      },
+      "longDescription": {
+        "fr": "Depuis maintenant 4 ans, la ville de Saint-Leonard de Noblat, dans la Haute-Vienne, accueille le festival \"Bande de Bulles\" dédié à la bande dessinée.\n\nCette année, le président d'honneur est Fabrice Meddour, une vingtaine d'auteurs devraient être présents, une concours de cosplay et des animations autour du manga devraient prendre place à l'occasion du festival.\n\nIl s'agit d'un festival à taille humaine, où les auteurs sont faciles d'accès.",
+        "en": "For 4 years now, the city of Saint-Leonard de Noblat, in the Haute-Vienne, has hosted the \"Bande de Bulles\" festival dedicated to comic books.\nThis year, the honorary president is Fabrice Meddour, about twenty authors are expected to be present, a cosplay contest and entertainment around manga should take place on the occasion of the festival.\nIt is a human-sized festival, where authors are easily accessible."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "94a773ebb3824853bda2846189c6d74f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 699,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "94a773ebb3824853bda2846189c6d74f.full.image.jpg",
+            "size": {
+              "height": 764,
+              "width": 766
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "94a773ebb3824853bda2846189c6d74f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-05T17:00:00.000Z",
+          "end": "2020-06-05T21:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T21:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T08:00:00.000Z",
+          "end": "2020-06-07T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:47.000Z",
+      "createdAt": "2019-12-22T10:52:00.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 25138129,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "festivalbdsaintleonard@gmail.com",
+        "http://www.bande-de-bulles.fr"
+      ],
+      "location": {
+        "uid": 25138129,
+        "slug": "saint-leonard-de-noblat-87",
+        "name": "Centre du bourg de Saint-Léonard-de-Noblat",
+        "address": "87400 Saint-Léonard-de-Noblat",
+        "city": "Saint-Léonard-de-Noblat",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87400",
+        "insee": "87161",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.837735,
+        "longitude": 1.492459,
+        "updatedAt": "2019-12-30T10:20:14.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Association Bande de Bulles",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "872010687",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 59514958,
+        "custom": {
+          "organization": "Bande de Bulles",
+          "contactName": "Gilles ETIENNE",
+          "contactNumber": "0614508321",
+          "contactPosition": "Vice-Président",
+          "email": "gillou87@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 24890493,
+      "ownerUid": 17863735,
+      "creatorUid": 17863735,
+      "slug": "conference-dessinee-le-sucre-des-plantes-dans-notre-quotidien",
+      "title": {
+        "fr": "Conférence dessinée \"Le sucre des plantes dans notre quotidien\"",
+        "en": "Conference \"The sugar of plants in our daily life\""
+      },
+      "description": {
+        "fr": "Conférence dessinée \"Le sucre des plantes dans notre quotidien\" par Rozenn Le Hir, biologiste végétale à l’INRA de Versailles, illustrée en direct par Guillaume Boutanox",
+        "en": "Lecture drawn \"The sugar of plants in our daily life\" by Rozenn Le Hir, plant biologist at the INRA in Versailles, illustrated live by Guillaume Boutanox"
+      },
+      "longDescription": {
+        "fr": "**L'association Stimuli présente une conférence dessinée sur les végétaux à la médiathèque de Suresnes dans le cadre de \"La Science se livre 2020\".**\n\nEnviron un quart du CO2 produit par l’homme est séquestré dans les écosystèmes végétaux terrestres. Les plantes utilisent pour cela un processus propre et renouvelable bien connu : la photosynthèse. Ce processus conduit à la production de sucres simples qui, après transformation, permettent la synthèse de sucres complexes. Ce sont ces sucres que l’Homme a su valoriser pour se nourrir, se chauffer, se loger, et même se vêtir. Qui sont-ils et comment sont-ils devenus indispensables à notre vie quotidienne ? C’est ce que **Rozenn Le Hir**, biologiste végétale à l’INRA de Versailles nous présentera à l’occasion de cette conférence dessinée en direct par **Guillaume Boutanox**, auteur d'albums aux éditions Comics Trip et gagman indubitable dont le coup de crayon saura à coup sûr nous amuser.",
+        "en": "**The Stimuli association is presenting a designed conference on plants at the Suresnes Media Library as part of \"La Science se livre 2020\".**\nAbout a quarter of the CO2 produced by man is sequestered in terrestrial plant ecosystems. Plants use a well-known clean and renewable process: photosynthesis. This process leads to the production of simple sugars which, after processing, allow the synthesis of complex sugars. It is these sugars that Man has been able to use to nourish himself, to heat himself, to lodge himself, and even to clothe himself. Who are they and how have they become indispensable to our daily life? This is what **Rozenn Le Hir**, plant biologist at the INRA of Versailles will present to us on the occasion of this conference drawn live by **Guillaume Boutanox**, author of albums at the editions Comics Trip and gagman indubitable whose pencil stroke will certainly amuse us."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription à la médiathèque",
+        "en": "Upon registration to the media library"
+      },
+      "image": {
+        "filename": "e4fc3f02e21f4476ad22d158cf49287f.base.image.jpg",
+        "credits": "@ Stimuli",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.full.image.jpg",
+            "size": {
+              "height": 2657,
+              "width": 2657
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-28T19:00:00.000Z",
+          "end": "2020-01-28T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:44.000Z",
+      "createdAt": "2019-12-22T16:50:59.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48365289,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediatheque@ville-suresnes.fr"
+      ],
+      "location": {
+        "uid": 48365289,
+        "slug": "suresnes913",
+        "name": "Médiathèque de Suresnes",
+        "address": "5 rue Ledru Rollin 92150 Suresnes",
+        "city": "Suresnes",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92150",
+        "insee": "92073",
+        "countryCode": "FR",
+        "district": "Quartier Centre-Ville",
+        "latitude": 48.870789,
+        "longitude": 2.228902,
+        "updatedAt": "2019-12-30T10:14:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Suresnes",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 17863735,
+        "custom": {
+          "organization": "Association Stimuli",
+          "contactName": "Laurence Bordenave",
+          "contactNumber": "0613979300",
+          "contactPosition": "présidente",
+          "email": "bordenave@stimuli-asso.com"
+        }
+      }
+    },
+    {
+      "uid": 13671350,
+      "ownerUid": 17863735,
+      "creatorUid": 17863735,
+      "slug": "conference-dessinee-les-plantes-leurs-bioagresseurs-et-les-engrais-le-bon-la-brute-et-le-truand",
+      "title": {
+        "fr": "Conférence dessinée \"Les plantes, leurs bioagresseurs et les engrais : le bon, la brute et le truand\"\"",
+        "en": "Conference \"Plants, their bioaggressors and fertilizers: the good, the bad and the bad\"\""
+      },
+      "description": {
+        "fr": "Conférence dessinée \"Les plantes, leurs bioagresseurs et les engrais : le bon, la brute et le truand\" par Mathilde Fagard, généticienne à l’INRA de Versailles, illustrée en direct par Grégory Mardon",
+        "en": "Lecture drawn \"Plants, their bioaggressors and fertilizers: the good, the bad and the ugly\" by Mathilde Fagard, geneticist at the INRA of Versailles, illustrated live by Grégory Mardon"
+      },
+      "longDescription": {
+        "fr": "**L'association Stimuli présente une conférence dessinée sur les végétaux à la médiathèque de Colombes dans le cadre de La Science se livre 2020.**\n\nLes plantes constituent un maillon essentiel, à la base de notre chaine alimentaire. Certaines maladies des plantes ont façonné l’histoire de l’humanité, comme c’est le cas de l’ergot de seigle qui provoqua plusieurs épidémies, et suspecté dans l’histoire des sorcières de Salem par exemple. C’est également le cas du mildiou de la pomme de terre qui provoqua une famine en Irlande au XIXème siècle. De nombreux bioagresseurs sont à l’origine de ces maladies, provoquant des pertes annuelles de rendement de 10 à 30 % en moyenne mais pouvant provoquer des pertes complètes de récolte à l’échelle d’une parcelle. Ces bioagresseurs appartiennent essentiellement à cinq catégories d’organismes : des virus, des bactéries, des champignons, des pseudochampignons (nommés oomycètes) et des nématodes. A travers quelques exemples, **Mathilde Fagard**, chercheuse en génétique moléculaire à l'INRA de Versailles, présentera les moyens utilisés par les bioagresseurs pour attaquer les plantes et ceux des plantes pour se défendre. La conférence sera illustrée en direct par **Grégory Mardon**, auteur de plusieurs albums de bande dessinée (Casterman, Dupuis, Futuropolis, Glénat).",
+        "en": "**The Stimuli association is presenting a designed conference on plants at the Colombes media library as part of La Science se livre 2020.**\nPlants are an essential link in our food chain. Some plant diseases have shaped the history of humanity, such as the case of rye ergot, which caused several epidemics, and was suspected in the history of the Salem witches, for example. This is also the case with potato blight, which caused famine in Ireland in the 19th century. Many bioaggressors are responsible for these diseases, causing annual yield losses of 10-30% on average but may cause complete field-scale harvest losses. These bioaggressors belong essentially to five categories of organisms: viruses, bacteria, fungi, pseudofungi (called oomycetes) and nematodes. With a few examples, **Mathilde Fagard**, a molecular genetics researcher at the INRA in Versailles, will present the means used by bioaggressors to attack plants and plants to defend themselves. The lecture will be illustrated live by **Grégory Mardon**, author of several comic books (Casterman, Dupuis, Futuropolis, Glénat)."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription à la médiathèque",
+        "en": "Upon registration to the media library"
+      },
+      "image": {
+        "filename": "e4fc3f02e21f4476ad22d158cf49287f.base.image.jpg",
+        "credits": "@ Stimuli",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.full.image.jpg",
+            "size": {
+              "height": 2657,
+              "width": 2657
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T18:00:00.000Z",
+          "end": "2020-01-31T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:55.000Z",
+      "createdAt": "2019-12-22T17:05:00.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 21134583,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01 47 84 85 46"
+      ],
+      "location": {
+        "uid": 21134583,
+        "slug": "colombes619",
+        "name": "Médiathèque Jacques Prévert",
+        "address": "6 passage Jacques Prévert 92700 Colombes",
+        "city": "Colombes",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92700",
+        "insee": "92025",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.922099,
+        "longitude": 2.252477,
+        "updatedAt": "2019-12-30T10:12:26.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque Jacques Prévert à Colombes",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 17863735,
+        "custom": {
+          "organization": "Association Stimuli",
+          "contactName": "Laurence Bordenave",
+          "contactNumber": "0613979300",
+          "contactPosition": "présidente",
+          "email": "bordenave@stimuli-asso.com"
+        }
+      }
+    },
+    {
+      "uid": 15114448,
+      "ownerUid": 17863735,
+      "creatorUid": 17863735,
+      "slug": "conference-dessinee-splendeurs-et-miseres-des-vegetaux-en-ville",
+      "title": {
+        "fr": "Conférence dessinée \"Splendeurs et misères des végétaux en ville\"",
+        "en": "Conference \"Splendors and miseries of plants in the city\""
+      },
+      "description": {
+        "fr": "Conférence dessinée \"Splendeurs et misères des végétaux en ville\" par Juliette Leymarie, professeure de physiologie végétale à l’Université Paris Est Créteil, illustrée en direct par Tommy dessine",
+        "en": "Lecture drawn \"Splendeurs et misères des plantes en ville\" by Juliette Leymarie, professor of plant physiology at the Université Paris Est Créteil, illustrated live by Tommy dessine"
+      },
+      "longDescription": {
+        "fr": "**L'association Stimuli présente une conférence dessinée sur les végétaux à la médiathèque de Montrouge dans le cadre de \"La Science se livre 2020\".**\n\nLongtemps peu valorisés, les végétaux sont de plus en plus appréciés en milieu urbain et leurs bienfaits et les services écosystémiques associés font dorénavant l’objet d’une médiatisation élogieuse. Cependant ces végétaux sont exposés à un milieu contraignant qui affecte leur physiologie. La conférence de **Juliette Leymarie**, professeure de physiologie végétale à l’UPEC et responsable d’une équipe de recherche de l’Institut d’Ecologie et des Sciences de l’Environnement de Paris (IEES Paris) montrera les effets du milieu urbain sur le fonctionnement des végétaux et la manière dont ces impacts pourraient minimiser les services écologiques, c’est-à-dire les bénéfices que nous pourrions en retirer. **Tommy dessine**, dessinateur de presse et d'évènements en direct (du Muséum d'histoire naturelle du Havre à la Fondation Nicolas Hulot en passant par Reporterre), ne manquera pas de jouer avec nos idées reçues et de nous interpeller par ses illustrations réalisées sans filet à cette occasion.",
+        "en": "**The Stimuli association is presenting a designed conference on plants at the Montrouge media library as part of \"La Science se livre 2020\".**\nFor a long time, plants are increasingly valued in urban areas, and their benefits and associated ecosystem services are now being well publicized. However, these plants are exposed to a binding environment that affects their physiology. Conference by **Juliette Leymarie**, professor of plant physiology at UPEC and head of a research team at the Institut d'Ecologie et des Sciences de l'Environnement de Paris (IEES Paris) show the effects of the urban environment on plant functioning and how these impacts could minimize ecological services, that is, the benefits we could derive from them. **Tommy draws**, cartoonist of press and events live (from the Natural History Museum of Le Havre to the Nicolas Hulot Foundation and Reporterre), will not fail to play with our received ideas and to challenge us with his illustrations made without a net on this occasion."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription à la médiathèque",
+        "en": "Upon registration to the media library"
+      },
+      "image": {
+        "filename": "e4fc3f02e21f4476ad22d158cf49287f.base.image.jpg",
+        "credits": "@ Stimuli",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.full.image.jpg",
+            "size": {
+              "height": 2657,
+              "width": 2657
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e4fc3f02e21f4476ad22d158cf49287f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:37:51.000Z",
+      "createdAt": "2019-12-22T17:18:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 42011083,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01 46 12 75 96"
+      ],
+      "location": {
+        "uid": 42011083,
+        "slug": "montrouge980",
+        "name": "Médiathèque de Montrouge",
+        "address": "32 rue Gabriel Péri 92120 Montrouge",
+        "city": "Montrouge",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92120",
+        "insee": "92049",
+        "countryCode": "FR",
+        "district": "Quartier Vieux Montrouge",
+        "latitude": 48.818423,
+        "longitude": 2.321118,
+        "updatedAt": "2019-12-30T10:10:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "La Science se livre 2020",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque de Montrouge",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 17863735,
+        "custom": {
+          "organization": "Association Stimuli",
+          "contactName": "Laurence Bordenave",
+          "contactNumber": "0613979300",
+          "contactPosition": "présidente",
+          "email": "bordenave@stimuli-asso.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2113565
+}

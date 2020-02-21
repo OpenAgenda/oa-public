@@ -1,0 +1,1551 @@
+{
+  "events": [
+    {
+      "uid": 6222952,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-avec-emilie-gleason-ted-drole-de-coco-editions-atrabile_585354",
+      "title": {
+        "fr": "Rencontre avec Émilie Gleason",
+        "en": "Meeting with Émilie Gleason"
+      },
+      "description": {
+        "fr": "Rencontre avec Émilie Gleason, auteure de Ted drôle de coco (éditions Atrabile)",
+        "en": "Interview with Émilie Gleason, author of Ted drôle de coco (éditions Atrabile)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Émilie Gleason, auteure de Ted drôle de coco (éditions Atrabile) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Émilie Gleason, author of Ted drôle de coco (Atrabile editions) as part of the Literary Prize for Students and Apprentices of the South Region"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "721045100b71443eb3d2e599bd3268d7.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 987,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "721045100b71443eb3d2e599bd3268d7.full.image.jpg",
+            "size": {
+              "height": 987,
+              "width": 700
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "721045100b71443eb3d2e599bd3268d7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T16:30:00.000Z",
+          "end": "2020-03-05T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:19.000Z",
+      "createdAt": "2019-11-13T09:28:43.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 36117519,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 13 94 82 10"
+      ],
+      "location": {
+        "uid": 36117519,
+        "slug": "bibliotheque-bonneveine404",
+        "name": "Bibliothèque Bonneveine",
+        "address": "124 avenue de Hambourg 13008 Marseille",
+        "city": "Marseille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13008",
+        "insee": "13055",
+        "countryCode": "FR",
+        "district": "Marseille 8e Arrondissement",
+        "latitude": 43.24906,
+        "longitude": 5.388274,
+        "updatedAt": "2019-11-13T09:29:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 26834034,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-avec-jacques-baujard-et-simon-geliot-codine-editions-la-boite-a-bulles_974604",
+      "title": {
+        "fr": "Rencontre avec Jacques Baujard et Simon Géliot",
+        "en": "Meeting with Jacques Baujard and Simon Géliot"
+      },
+      "description": {
+        "fr": "Rencontre avec Jacques Baujard et Simon Géliot, auteurs de la BD Codine (éditions La Boîte à bulles)",
+        "en": "Meeting with Jacques Baujard and Simon Géliot, authors of the Codine comic book (éditions La Boîte à bulles)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Jacques Baujard et Simon Géliot, auteurs de la BD Codine (éditions La Boîte à bulles) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Jacques Baujard and Simon Géliot, authors of the Codine comic strip (La Boîte à bulles editions) as part of the Literary Prize for Students and Apprentices of the South Region"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b1fb50acae514192996e471347e67e4e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 977,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b1fb50acae514192996e471347e67e4e.full.image.jpg",
+            "size": {
+              "height": 977,
+              "width": 700
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b1fb50acae514192996e471347e67e4e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T17:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:16.000Z",
+      "createdAt": "2019-11-13T09:32:15.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66901460,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 13 94 82 50"
+      ],
+      "location": {
+        "uid": 66901460,
+        "slug": "bibliotheque-des-cinq-avenues892",
+        "name": "Bibliothèque des Cinq-Avenues",
+        "address": "2 impasse de l'Abbé Charles Marie Joseph Fissiaux 13004 Marseille",
+        "city": "Marseille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13004",
+        "insee": "13055",
+        "countryCode": "FR",
+        "district": "Marseille 4e Arrondissement",
+        "latitude": 43.302465,
+        "longitude": 5.396926,
+        "updatedAt": "2019-11-18T14:02:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 53314715,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-avec-pierre-henry-gomont-serena-sarbacane",
+      "title": {
+        "fr": "Rencontre avec Pierre-Henry Gomont",
+        "en": "Meeting with Pierre-Henry Gomont"
+      },
+      "description": {
+        "fr": "Rencontre avec Pierre-Henry Gomont, auteur de Malaterre (éditions Dargaud)",
+        "en": "Meeting with Pierre-Henry Gomont, author of Malaterre (éditions Dargaud)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Pierre-Henry Gomont, auteur de Malaterre (éditions Dargaud) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Pierre-Henry Gomont, author of Malaterre (Dargaud editions) as part of the Literary Prize for Students and Apprentices of the Southern Region"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b9d2f4af9d6a43aa8f812153bdb720d2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 930,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b9d2f4af9d6a43aa8f812153bdb720d2.full.image.jpg",
+            "size": {
+              "height": 863,
+              "width": 650
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b9d2f4af9d6a43aa8f812153bdb720d2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-10T16:30:00.000Z",
+          "end": "2020-03-10T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:22.000Z",
+      "createdAt": "2019-11-13T09:35:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 31194561,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 91 55 90 00"
+      ],
+      "location": {
+        "uid": 31194561,
+        "slug": "bibliotheque-lalcazar866",
+        "name": "Bibliothèque L'Alcazar",
+        "address": "58 cours Belsunce 13001 Marseille",
+        "city": "Marseille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13001",
+        "insee": "13055",
+        "countryCode": "FR",
+        "district": "Marseille 1er Arrondissement",
+        "latitude": 43.298972,
+        "longitude": 5.37669,
+        "updatedAt": "2019-11-13T09:44:58.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 56284198,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-avec-pierre-henry-gomont-serena-sarbacane_387517",
+      "title": {
+        "fr": "Rencontre avec Pierre-Henry Gomont",
+        "en": "Meeting with Pierre-Henry Gomont"
+      },
+      "description": {
+        "fr": "Rencontre avec Pierre-Henry Gomont, auteur de Malaterre (éditions Dargaud)",
+        "en": "Meeting with Pierre-Henry Gomont, author of Malaterre (éditions Dargaud)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Pierre-Henry Gomont, auteur de Malaterre (éditions Dargaud) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Pierre-Henry Gomont, author of Malaterre (Dargaud editions) as part of the Literary Prize for Students and Apprentices of the Southern Region"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a0fc8ed352d84f688882c5b268c7ffe4.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 930,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a0fc8ed352d84f688882c5b268c7ffe4.full.image.jpg",
+            "size": {
+              "height": 863,
+              "width": 650
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a0fc8ed352d84f688882c5b268c7ffe4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-11T18:00:00.000Z",
+          "end": "2020-03-11T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:25.000Z",
+      "createdAt": "2019-11-13T09:38:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4015857,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 90 58 36 40"
+      ],
+      "location": {
+        "uid": 4015857,
+        "slug": "librairie-le-grenier-dabondance",
+        "name": "Librairie Le Grenier d'abondance",
+        "address": "38 rue Auguste Moutin 13300 Salon-de-Provence",
+        "city": "Salon-de-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13300",
+        "insee": "13103",
+        "countryCode": "FR",
+        "district": "Bel-Air",
+        "latitude": 43.640517,
+        "longitude": 5.099889,
+        "updatedAt": "2019-11-13T09:51:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 51897160,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-anne-caroline-pandolfo-et-terkel-risbjerg-serena-editions-sarbacane_452615",
+      "title": {
+        "fr": "Rencontre Anne-Caroline Pandolfo et Terkel Risbjerg",
+        "en": "Meet Anne-Caroline Pandolfo and Terkel Risbjerg"
+      },
+      "description": {
+        "fr": "Rencontre avec Anne-Caroline Pandolfo et Terkel Risbjerg, auteurs de Serena (Sarbacane)",
+        "en": "Interview with Anne-Caroline Pandolfo and Terkel Risbjerg, authors of Serena (Sarbacane)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Anne-Caroline Pandolfo et Terkel Risbjerg, auteurs de Serena (Sarbacane)",
+        "en": "Interview with Anne-Caroline Pandolfo and Terkel Risbjerg, authors of Serena (Sarbacane)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "10bad8d7ee684456b4e8f95d61c43958.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 949,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "10bad8d7ee684456b4e8f95d61c43958.full.image.jpg",
+            "size": {
+              "height": 949,
+              "width": 700
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "10bad8d7ee684456b4e8f95d61c43958.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-12T18:00:00.000Z",
+          "end": "2020-03-12T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:19.000Z",
+      "createdAt": "2019-11-13T09:43:13.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 9738340,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "09 73 62 11 47"
+      ],
+      "location": {
+        "uid": 9738340,
+        "slug": "librairie-la-reserve-a-bulles",
+        "name": "Librairie La réserve à bulles",
+        "address": "58 rue 3 Frères Barthélémy 13006 Marseille",
+        "city": "Marseille",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13006",
+        "insee": "13055",
+        "countryCode": "FR",
+        "district": "Marseille 6e Arrondissement",
+        "latitude": 43.292715,
+        "longitude": 5.384576,
+        "updatedAt": "2019-11-13T09:52:38.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 66668095,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-avec-pierre-henry-gomont-malaterre-dargaud",
+      "title": {
+        "fr": "Rencontre avec Pierre-Henry Gomont",
+        "en": "Meeting with Pierre-Henry Gomont"
+      },
+      "description": {
+        "fr": "Rencontre avec Pierre-Henry Gomont, auteur de Malaterre (éditions Dargaud)",
+        "en": "Meeting with Pierre-Henry Gomont, author of Malaterre (éditions Dargaud)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Pierre-Henry Gomont, auteur de Malaterre (éditions Dargaud) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Pierre-Henry Gomont, author of Malaterre (Dargaud editions) as part of the Literary Prize for Students and Apprentices of the Southern Region"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "85a126aa4cc74795882f7f70f5f61087.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 930,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "85a126aa4cc74795882f7f70f5f61087.full.image.jpg",
+            "size": {
+              "height": 863,
+              "width": 650
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "85a126aa4cc74795882f7f70f5f61087.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-12T16:30:00.000Z",
+          "end": "2020-03-12T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:58.000Z",
+      "createdAt": "2019-11-13T09:48:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 51459072,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 93 87 49 22"
+      ],
+      "location": {
+        "uid": 51459072,
+        "slug": "librairie-bd-fugue",
+        "name": "Librairie BD Fugue",
+        "address": "31 rue d'Angleterre 06000 Nice",
+        "city": "Nice",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06000",
+        "insee": "06088",
+        "countryCode": "FR",
+        "district": "Quartier Jean-Médecin",
+        "latitude": 43.704062,
+        "longitude": 7.264451,
+        "updatedAt": "2019-11-13T09:54:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 87071001,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-anne-caroline-pandolfo-et-terkel-risbjerg-serena-editions-sarbacane_701806",
+      "title": {
+        "fr": "Rencontre Anne-Caroline Pandolfo et Terkel Risbjerg",
+        "en": "Meet Anne-Caroline Pandolfo and Terkel Risbjerg"
+      },
+      "description": {
+        "fr": "Rencontre avec Anne-Caroline Pandolfo et Terkel Risbjerg, auteurs de Serena (Sarbacane)",
+        "en": "Interview with Anne-Caroline Pandolfo and Terkel Risbjerg, authors of Serena (Sarbacane)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Anne-Caroline Pandolfo et Terkel Risbjerg, auteurs de Serena (Sarbacane) dans le cadre du Prix des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Anne-Caroline Pandolfo and Terkel Risbjerg, authors of Serena (Sarbacane) as part of the Southern Region High School Students and Apprentices Award"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "315361fc3c564b998ffd344af8d37be2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 949,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "315361fc3c564b998ffd344af8d37be2.full.image.jpg",
+            "size": {
+              "height": 949,
+              "width": 700
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "315361fc3c564b998ffd344af8d37be2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-13T17:30:00.000Z",
+          "end": "2020-03-13T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:44.000Z",
+      "createdAt": "2019-11-13T09:51:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4410627,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 92 72 45 08"
+      ],
+      "location": {
+        "uid": 4410627,
+        "slug": "librairie-au-poivre-dane",
+        "name": "Librairie Au Poivre d'âne",
+        "address": "3 rue Arthur Robert 04100 Manosque",
+        "city": "Manosque",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-de-Haute-Provence",
+        "postalCode": "04100",
+        "insee": "04112",
+        "countryCode": "FR",
+        "district": "La Baronne",
+        "latitude": 43.833341,
+        "longitude": 5.782677,
+        "updatedAt": "2019-11-13T09:56:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 64547118,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-le-super-week-end-de-lespace",
+      "title": {
+        "fr": "Exposition \"Le Super Week end de l'espace\"",
+        "en": "Exhibition \"Super Space Week End\""
+      },
+      "description": {
+        "fr": "Exposition de Gaëlle Alméras, avec des planches originales, des étapes de travail et des recherches autour de sa BD.",
+        "en": "Exhibition by Gaëlle Alméras, with original plates, stages of work and research around her comic book."
+      },
+      "longDescription": {
+        "fr": "Exposition de Gaëlle Alméras, avec des planches originales, des étapes de travail et des recherches autour de sa BD.\n\n_Du 14 janvier au 28 janvier 2020_",
+        "en": "Exhibition by Gaëlle Alméras, with original plates, stages of work and research around her comic book.\n_From 14 January to 28 January 2020_"
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "Exposition",
+          "Illustratrice",
+          "planches originales",
+          "astronomie",
+          "bande dessinée"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre et gratuite",
+        "en": "Free and free admission"
+      },
+      "image": {
+        "filename": "8f3871d8bf5f4aafba6d67de3f4c4cb9.base.image.jpg",
+        "credits": "Gaëlle Alméras",
+        "size": {
+          "height": 867,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8f3871d8bf5f4aafba6d67de3f4c4cb9.full.image.jpg",
+            "size": {
+              "height": 12283,
+              "width": 9926
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8f3871d8bf5f4aafba6d67de3f4c4cb9.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T12:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T12:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T12:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T12:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T12:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:05.000Z",
+      "createdAt": "2019-11-13T13:13:08.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64108296,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 12
+      },
+      "registration": [],
+      "location": {
+        "uid": 64108296,
+        "slug": "mediatheque-le-trente650",
+        "name": "Médiathèque Le Trente",
+        "address": "30 avenue du Général Leclerc 38200 Vienne",
+        "city": "Vienne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38200",
+        "insee": "38544",
+        "countryCode": "FR",
+        "district": "La Balay",
+        "latitude": 45.514831,
+        "longitude": 4.865163,
+        "updatedAt": "2019-11-13T13:08:08.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://bibliotheques.vienne.fr",
+        "email": null,
+        "phone": "04 74 15 99 40",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 85652469,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "atelier-fabrique-ton-livre-de-lespace_349333",
+      "title": {
+        "fr": "Atelier « Fabrique ton livre de l'espace »",
+        "en": "Workshop «Make your space book»"
+      },
+      "description": {
+        "fr": "Atelier « Fabrique ton livre de l'espace » avec l'auteure-illustratrice Gaëlle Alméras.",
+        "en": "Atelier «Fabrique ton livre de l'espace» with author-illustrator Gaëlle Alméras."
+      },
+      "longDescription": {
+        "fr": "Atelier « Fabrique ton livre de l'espace » avec l'auteure-illustratrice Gaëlle Alméras.",
+        "en": "Atelier «Fabrique ton livre de l'espace» with author-illustrator Gaëlle Alméras."
+      },
+      "keywords": {
+        "fr": [
+          "atelier créatif",
+          "astronomie"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "81481fcad932476aaa581e43323d3782.base.image.jpg",
+        "credits": "Gaëlle Alméras",
+        "size": {
+          "height": 395,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "81481fcad932476aaa581e43323d3782.full.image.jpg",
+            "size": {
+              "height": 608,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "81481fcad932476aaa581e43323d3782.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:11.000Z",
+      "createdAt": "2019-11-13T13:18:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64108296,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 18
+      },
+      "registration": [],
+      "location": {
+        "uid": 64108296,
+        "slug": "mediatheque-le-trente650",
+        "name": "Médiathèque Le Trente",
+        "address": "30 avenue du Général Leclerc 38200 Vienne",
+        "city": "Vienne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38200",
+        "insee": "38544",
+        "countryCode": "FR",
+        "district": "La Balay",
+        "latitude": 45.514831,
+        "longitude": 4.865163,
+        "updatedAt": "2019-11-13T13:08:08.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://bibliotheques.vienne.fr",
+        "email": null,
+        "phone": "04 74 15 99 40",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Bulles de Vienne",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 48975192,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "rencontre-avec-lauteure-illustratrice-gaelle-almeras_822957",
+      "title": {
+        "fr": "Rencontre avec l'auteure-illustratrice Gaëlle Alméras",
+        "en": "Meeting with author-illustrator Gaëlle Alméras"
+      },
+      "description": {
+        "fr": "Rencontre avec l'auteure-illustratrice Gaëlle Alméras autour de son livre \"Le Super Week-end de l'espace\" suivie d'une dédicace.",
+        "en": "Meeting with author-illustrator Gaëlle Alméras around her book \"Le Super Week-end de l'espace\" followed by a dedication."
+      },
+      "longDescription": {
+        "fr": "Rencontre avec l'auteure-illustratrice Gaëlle Alméras autour de son livre \"Le Super Week-end de l'espace\" suivie d'une dédicace en partenariat avec la librairie Bulles de Vienne.",
+        "en": "Meeting with author-illustrator Gaëlle Alméras about her book \"Le Super Week-end de l'espace\" followed by a dedication in partnership with the bookstore Bulles de Vienne."
+      },
+      "keywords": {
+        "fr": [
+          "rencontre avec un auteur",
+          "échange",
+          "illustratrice",
+          "dédicace"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre dans la limite des places disponibles",
+        "en": "Free admission within the space available"
+      },
+      "image": {
+        "filename": "f7cbc26a54b74e5693f2d214c8448c18.base.image.jpg",
+        "credits": "Gaëlle Alméras",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f7cbc26a54b74e5693f2d214c8448c18.full.image.jpg",
+            "size": {
+              "height": 719,
+              "width": 719
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f7cbc26a54b74e5693f2d214c8448c18.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T16:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:02.000Z",
+      "createdAt": "2019-11-13T13:22:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64108296,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 64108296,
+        "slug": "mediatheque-le-trente650",
+        "name": "Médiathèque Le Trente",
+        "address": "30 avenue du Général Leclerc 38200 Vienne",
+        "city": "Vienne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38200",
+        "insee": "38544",
+        "countryCode": "FR",
+        "district": "La Balay",
+        "latitude": 45.514831,
+        "longitude": 4.865163,
+        "updatedAt": "2019-11-13T13:08:08.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://bibliotheques.vienne.fr",
+        "email": null,
+        "phone": "04 74 15 99 40",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Les Bulles de Vienne",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2074356
+}

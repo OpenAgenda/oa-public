@@ -6,13 +6,7 @@ import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import modalsReducer from '../reducers/modals';
 import sourcesReducer from '../reducers/sources';
-import localeFr from '../locales/fr.json';
-import localeEn from '../locales/en.json';
-
-const messages = {
-  fr: localeFr,
-  en: localeEn
-};
+import locales from '../locales';
 
 function App({
   route, agenda, agendaSchema, role
@@ -25,7 +19,7 @@ function App({
   );
 
   return (
-    <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
+    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
       <div className="aggregator-sources">{children}</div>
     </IntlProvider>
   );

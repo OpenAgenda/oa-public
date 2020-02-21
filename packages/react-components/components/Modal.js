@@ -125,7 +125,7 @@ export default class Modal extends Component {
       <div
         className={this.props.classNames.overlay}
         onKeyPress={this.onKeyPress}
-        ref={ref => this.overlayRef = ref}
+        ref={this.overlayRef}
       >
         <section ref={this.setModalRef}>
           {title ? (

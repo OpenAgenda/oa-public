@@ -14,14 +14,10 @@ module.exports = async (core, agendaOrUid, updatedFields) => {
   const {
     services
   } = core;
-
   const {
     formSchemas,
     agendas
   } = services;
-
-  const setAgenda = promisify(agendas.set);
-
   const config = core.getConfig();
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
@@ -30,28 +26,27 @@ module.exports = async (core, agendaOrUid, updatedFields) => {
 
   const fs = new FormSchema(agendaSchema);
 
-  fs.updateFields( updatedFields );
+  fs.updateFields(updatedFields);
 
-  if ( !agendaSchema ) {
+  if (!agendaSchema) {
+    log('no schema is associated with agenda, creating');
 
-    log( 'no schema is associated with agenda, creating' );
+    const { id } = await formSchemas.create(fs.getData());
 
-    const { id } = await formSchemas.create( fs.getData() );
+    await agendas.set({
+      uid: agenda.uid
+    }, { formSchemaId: id }, {
+      protected: false
+    });
 
-    await setAgenda( { uid: agenda.uid }, { formSchemaId: id }, { protected: false } );
-
-    _.set( agenda, 'formSchemaId', id );
-
+    agenda.formSchemaId = id;
   } else {
-
-    log( 'schema is associated with agenda, updating' );
+    log('schema is associated with agenda, updating');
 
     await formSchemas.update(agendaSchema.id, fs.getData());
-
   }
 
   await updateLegacy(core, agenda, true);
 
   return true;
-
 }

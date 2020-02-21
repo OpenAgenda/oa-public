@@ -255,7 +255,7 @@ class Inbox extends Component {
                 <ConversationForm
                   initialValues={initialValues}
                   Wrapper={this.FormWrapper}
-                  onSubmit={createConversation}
+                  onSubmit={values => createConversation(values, agenda)}
                   uploadEndpoint={res.messages.prepareAttachment.replace(
                     ':agendaUid',
                     agenda && agenda.uid

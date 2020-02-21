@@ -76,11 +76,11 @@ export default class PasswordSettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/password' ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/password', { fromUserApps: true } ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >

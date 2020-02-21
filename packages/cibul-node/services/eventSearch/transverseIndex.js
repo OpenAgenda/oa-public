@@ -16,7 +16,7 @@ module.exports = (services, eventSearch, queue) => {
   return searchIndex.search;
 }
 
-async function transverseIndexRemove(searchIndex, eventUid) {
+async function transverseIndexRemove(searchIndex, eventUid) {;
   log('removing event %s from transverse index', eventUid);
   return searchIndex.remove({ uid: eventUid });
 }
@@ -74,6 +74,8 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
         detailed: true,
         internal: true
       });
+
+      log('listed %s events for reindexing in transverse index (%s)', events.length, lastId);
 
       return {
         lastId: newLastId,

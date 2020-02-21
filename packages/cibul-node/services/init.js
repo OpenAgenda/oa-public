@@ -59,7 +59,6 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaEvents', require('./agendaEvents'));
   await init('agendaLocations', require('./agendaLocations'));
   await init('agendaMonitor', require('./agendaMonitor'));
-  await init('agendaSchema', require('./agendaSchema'));
   await init('agendaSearch', require('./agendaSearch'));
   await init('agendaSettings', require('./agendaSettings'));
   await init('agendaStatistics', require('./agendaStatistics'));
@@ -78,7 +77,6 @@ module.exports = async function (configObject, options = {}) {
   await init('genUrl', require('./genUrl'));
   await init('imageFiles', require('./imageFiles'));
   await init('images', require('./images'));
-  await init('inboxes', require('./inboxes'));
   await init('invitations', require('./invitations'));
   await init('keys', require('./keys'));
   await init('legacy', require('./legacy'));
@@ -90,9 +88,11 @@ module.exports = async function (configObject, options = {}) {
   await init('networks', require('./networks'));
   await init('newsletter', require('./newsletter'));
   await init('oembed', require('./oembed'));
+  await init('inboxes', require('./inboxes'));
   await init('portals', require('./portals'));
   await init('simpleCache', require('./simpleCache'));
   await init('unsubscribed', require('./unsubscribed'));
+  await init('agendaSchema', require('./agendaSchema'));
 
   const timeDiff = new Date().getTime() - t.getTime();
 
