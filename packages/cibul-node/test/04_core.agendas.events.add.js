@@ -89,7 +89,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
     before(async () => {
       result = await core.agendas(17026800).events.add(18992812, {
-        state: 2,
+        state: 1,
         'thematiques-metropolitaines': 3
       }, {
         paths: [[82910283, 17026855]],
@@ -104,6 +104,10 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
     it('agenda event reference stores agenda source uid', () => {
       result.event.sourcePaths.should.eql([[82910283, 17026855]]);
+    });
+
+    it('state taken is state provided', () => {
+      result.event.state.should.equal(1);
     });
   });
 
