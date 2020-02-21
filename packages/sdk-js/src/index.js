@@ -1,9 +1,10 @@
 import _ from 'lodash';
 import superagent from 'superagent';
-import parseJsonResponse from './utils/parseJsonResponse';
 import baseUrl from './baseUrl';
 import Events from './Events';
 import Locations from './Locations';
+import parseJsonResponse from './utils/parseJsonResponse';
+import reduceAccessToken from './utils/reduceAccessToken';
 
 
 export default class OaSdk {
@@ -43,6 +44,8 @@ export default class OaSdk {
     this.expiresIn = response.body.expires_in;
     this.requestTokenTime = time;
 
+    this.reducedAccessToken = reduceAccessToken(this.accessToken);
+
     return response;
   }
 
@@ -58,5 +61,11 @@ export default class OaSdk {
     }
 
     return new Date().getTime() > this.requestTokenTime + (this.expiresIn * 1000);
+  }
+
+  getNonce() {
+    const ms = new Date().getTime() - this.requestTokenTime;
+
+    return parseInt('' + _.random(Math.pow(10, 5)) + this.reducedAccessToken + ms, 10);
   }
 }
