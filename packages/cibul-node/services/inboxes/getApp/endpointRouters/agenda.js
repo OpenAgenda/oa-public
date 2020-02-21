@@ -1,44 +1,41 @@
-"use strict";
+'use strict';
 
-const express = require( 'express' );
-const VError = require( 'verror' );
-const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
-const agendasMw = require( '@openagenda/agendas/middleware' );
-const { mw: { load: oldAgendaLoad } } = require( '../services/agenda' );
-const errorLogger = require( '../services/errors' );
-const config = require( '../config' );
+const express = require('express');
+const inboxMw = require('@openagenda/inboxes/dist/middleware');
+const makeErrorHandler = require('./makeErrorHandler');
 
-const sessions = require( '../services/sessions' );
-const members = require( '../services/members' );
+module.exports = (config, services) => {
+  const {
+    sessions,
+    agendas,
+    members
+  } = services;
 
-const preMw = [
-  sessions.mw.loadOrRedirect,
-  ( req, res, next ) => {
-    req.type = 'agenda';
-    req.creatorInboxUser = { userUid: req.user.uid };
-    next();
-  },
-  oldAgendaLoad( 'agendaUid', 'uid' ),
-  members.mw.loadAndAuthorize( 'moderator' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { uid: 'params.agendaUid' } },
-    private: null
-  } ),
-  ( req, res, next ) => {
-    if ( !req.agenda ) {
-      res.status( 404 );
-      return next( new VError( 'Agenda %s not found', req.params.agendaUid ) );
+  const errorHandler = makeErrorHandler(services);
+
+  const preMw = [
+    sessions.mw.loadOrRedirect,
+    (req, res, next) => {
+      req.type = 'agenda';
+      req.creatorInboxUser = { userUid: req.user.uid };
+      next();
+    },
+    agendas.mw.loadBy({ path: 'params.agendaUid', field: 'uid' }),
+    members.mw.loadAndAuthorize('moderator'),
+    (req, res, next) => {
+      if (!req.agenda) {
+        res.status(404);
+        return next(new VError('Agenda %s not found', req.params.agendaUid));
+      }
+      next();
     }
-    next();
-  }
-];
+  ];
 
-module.exports = () => {
-  const agendaRouter = express.Router( { mergeParams: true } );
+  const router = express.Router({ mergeParams: true } );
 
-  agendaRouter.get( '/conversations/:conversationId/action/:code.json',
+  router.get( '/conversations/:conversationId/action/:code.json',
     preMw,
-    inboxMw.conversations.action( {
+    inboxMw.conversations.action({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -46,26 +43,26 @@ module.exports = () => {
         userUid: 'user.uid',
         code: 'params.code'
       }
-    } ),
+    }),
     errorHandler
   );
 
-  agendaRouter.get( '/conversations/:conversationId/resume.json',
+  router.get( '/conversations/:conversationId/resume.json',
     preMw,
-    inboxMw.conversations.resume( {
+    inboxMw.conversations.resume({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
         identifier: 'agenda.uid',
         userUid: 'user.uid'
       }
-    } ),
+    }),
     errorHandler
   );
 
-  agendaRouter.get( '/conversations/:conversationId/messages.json',
+  router.get( '/conversations/:conversationId/messages.json',
     preMw,
-    inboxMw.messages.list( {
+    inboxMw.messages.list({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -73,19 +70,19 @@ module.exports = () => {
         userUid: 'user.uid'
       },
       limit: 20
-    } ),
+    }),
     errorHandler
   );
 
-  agendaRouter.post( '/conversations/:conversationId/messages.json',
+  router.post( '/conversations/:conversationId/messages.json',
     preMw,
-    ( req, res, next ) => {
+    (req, res, next) => {
       req.options = {
         // createInboxUserOnNull: true
       };
       next();
     },
-    inboxMw.messages.create( {
+    inboxMw.messages.create({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -93,14 +90,14 @@ module.exports = () => {
         body: 'body.body',
         userUid: 'user.uid'
       }
-    } ),
+    }),
     errorHandler
   );
 
-  agendaRouter.get( '/conversations.json',
+  router.get( '/conversations.json',
     preMw,
     ( req, res, next ) => {
-      inboxMw.conversations.list( {
+      inboxMw.conversations.list({
         namespaces: {
           type: 'type',
           identifier: 'agenda.uid'
@@ -111,7 +108,7 @@ module.exports = () => {
     errorHandler
   );
 
-  agendaRouter.post( '/conversations.json',
+  router.post( '/conversations.json',
     preMw,
     ( req, res, next ) => {
       req.options = {
@@ -119,7 +116,7 @@ module.exports = () => {
       };
       next();
     },
-    inboxMw.conversations.create( {
+    inboxMw.conversations.create({
       namespaces: {
         type: 'type',
         identifier: 'agenda.uid',
@@ -130,13 +127,13 @@ module.exports = () => {
         message: 'body.message',
         creatorInboxUser: 'creatorInboxUser'
       }
-    } ),
+    }),
     errorHandler
   );
 
-  agendaRouter.use( '/conversations/:conversationId/prepare-attachment',
+  router.use( '/conversations/:conversationId/prepare-attachment',
     preMw,
-    inboxMw.messages.prepareAttachment( {
+    inboxMw.messages.prepareAttachment({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -160,13 +157,13 @@ module.exports = () => {
         secret: config.uppy.secret,
         debug: false
       }
-    } ),
+    }),
     errorHandler
   );
 
-  agendaRouter.use( '/conversations/:conversationId/add-attachment',
+  router.use( '/conversations/:conversationId/add-attachment',
     preMw,
-    inboxMw.messages.addAttachment( {
+    inboxMw.messages.addAttachment({
       namespaces: {
         conversationId: 'params.conversationId',
         type: 'type',
@@ -176,14 +173,14 @@ module.exports = () => {
         filename: 'query.filename',
         originalName: 'query.originalName'
       }
-    } ),
+    }),
     errorHandler
   );
 
-  agendaRouter.get( '/author.json',
+  router.get( '/author.json',
     preMw,
     ( req, res, next ) => {
-      inboxMw.inboxUser.get( {
+      inboxMw.inboxUser.get({
         namespaces: {
           type: 'type',
           identifier: 'agenda.uid'
@@ -197,23 +194,5 @@ module.exports = () => {
     errorHandler
   );
 
-  return agendaRouter;
+  return router;
 };
-
-/* error handler */
-
-function errorHandler( err, req, res, next ) {
-  if ( err ) {
-    if ( err.name === 'ValidationError' ) {
-      return res.status( 400 ).json( err );
-    }
-    if ( err.code ) {
-      res.status( err.code );
-      return next( err );
-    }
-
-    errorLogger( 'middleware', err );
-
-    res.status( res.statusCode === 200 ? 500 : res.statusCode ).json( err );
-  }
-}

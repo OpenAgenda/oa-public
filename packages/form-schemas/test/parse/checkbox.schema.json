@@ -29,7 +29,8 @@
           "label": {
             "fr": "Association / Fondation",
             "en": "Association / Foundation"
-          }
+          },
+          "display": true
         },
         {
           "id": 2,
@@ -37,7 +38,8 @@
           "label": {
             "fr": "CCI / Chambre des Métiers et de l'Artisanat",
             "en": "Chamber of professions and craftsmanship"
-          }
+          },
+          "display": true
         },
         {
           "id": 3,
@@ -45,7 +47,8 @@
           "label": {
             "fr": "Centre de recherche",
             "en": "Research center"
-          }
+          },
+          "display": true
         },
         {
           "id": 4,
@@ -53,7 +56,8 @@
           "label": {
             "fr": "Centre technique",
             "en": "Technical center"
-          }
+          },
+          "display": true
         },
         {
           "id": 5,
@@ -61,7 +65,8 @@
           "label": {
             "fr": "DIRECCTE",
             "en": "DIRECCTE"
-          }
+          },
+          "display": true
         },
         {
           "id": 6,
@@ -69,7 +74,8 @@
           "label": {
             "fr": "Etablissement d'enseignement scolaire",
             "en": "Teaching establishment"
-          }
+          },
+          "display": true
         },
         {
           "id": 7,
@@ -77,7 +83,8 @@
           "label": {
             "fr": "Etablissement d'enseignement supérieur",
             "en": "Superior studies establishment"
-          }
+          },
+          "display": true
         },
         {
           "id": 8,
@@ -85,7 +92,8 @@
           "label": {
             "fr": "Etablissement de formation professionnelle (lycées professionnels)",
             "en": "Professionnal training establishment"
-          }
+          },
+          "display": true
         },
         {
           "id": 9,
@@ -93,7 +101,8 @@
           "label": {
             "fr": "Entreprise",
             "en": "Company"
-          }
+          },
+          "display": true
         },
         {
           "id": 10,
@@ -101,7 +110,8 @@
           "label": {
             "fr": "Organisation professionnelle",
             "en": "Professionnal organization"
-          }
+          },
+          "display": true
         },
         {
           "id": 11,
@@ -109,7 +119,8 @@
           "label": {
             "fr": "Organisation syndicale",
             "en": "Syndicate"
-          }
+          },
+          "display": true
         },
         {
           "id": 12,
@@ -117,7 +128,8 @@
           "label": {
             "fr": "Pôle de compétitivité",
             "en": "Competitiveness Pole"
-          }
+          },
+          "display": true
         },
         {
           "id": 13,
@@ -125,7 +137,8 @@
           "label": {
             "fr": "Pôle de développement, de compétence",
             "en": "Development and skills pole"
-          }
+          },
+          "display": true
         },
         {
           "id": 14,
@@ -133,7 +146,8 @@
           "label": {
             "fr": "Pôle Emploi",
             "en": "Pôle Emploi ( employment agency )"
-          }
+          },
+          "display": true
         },
         {
           "id": 15,
@@ -141,7 +155,8 @@
           "label": {
             "fr": "Préfecture",
             "en": "Prefecture"
-          }
+          },
+          "display": true
         },
         {
           "id": 16,
@@ -149,7 +164,8 @@
           "label": {
             "fr": "Autre",
             "en": "Other"
-          }
+          },
+          "display": true
         }
       ],
       "fieldType": "checkbox",

@@ -121,8 +121,8 @@ describe( 'form-schemas -06- validateField', () => {
         optional: true,
         display: true,
         options: [
-          { id: null, value: '1', label: { fr: 'Un' } },
-          { id: null, value: '2', label: { fr: 'Deux' } }
+          { id: null, value: '1', label: { fr: 'Un' }, display: true },
+          { id: null, value: '2', label: { fr: 'Deux' }, display: true }
         ],
         fieldType: 'radio',
         origin: null,
@@ -153,11 +153,13 @@ describe( 'form-schemas -06- validateField', () => {
       } ).options.should.eql( [ {
           id: 1,
           value: '1',
-          label: { en: 'Un' }
+          label: { en: 'Un' },
+          display: true
         }, {
           id: 2,
           value: '2',
-          label: { en: 'Deux' }
+          label: { en: 'Deux' },
+          display: true
         } ] );
 
     } );

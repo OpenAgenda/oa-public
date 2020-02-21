@@ -5,8 +5,7 @@ module.exports = app => {
   require('./services/mails').plugApp(app);
   app.use('/events/search', app.services.eventSearch.getApp());
   require('./agenda/back')(app);
-  require('./inboxes/endpoints')(app);
-  require('./inboxes/pages')(app);
+  app.use('/', app.services.inboxes.getApp());
   require('./services/agendaContribute')(app);
   require('./services/agendaEvents')(app);
   require('./services/agendaSchema')(app);

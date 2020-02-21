@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const { default: inboxes } = require('@openagenda/inboxes');
 const inboxMw = require('@openagenda/inboxes/dist/middleware');
-const agendasSvc = require('@openagenda/agendas');
 const log = require('@openagenda/logs')('services/inboxes');
 const inboxesLabels = require('@openagenda/labels/inboxes');
 const filterAction = require('./filterAction');
@@ -12,14 +11,20 @@ const getUsersDetails = require('./getUsersDetails');
 const onAction = require('./onAction');
 const onInboxCreate = require('./onInboxCreate');
 const onMessageCreate = require('./onMessageCreate');
-const membersSvc = require('../members');
 const config = require('../../config');
 
 const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
 
 log.setConfig(loggerConfig);
 
+const getApp = require('./getApp');
+
 module.exports.init = async (c, services) => {
+  const {
+    members: membersSvc,
+    agendas: agendasSvc
+  } = services;
+
   const interfaces = {
     getUsersDetails: getUsersDetails.bind(null, services),
     onMessageCreate: onMessageCreate.bind(null, services),
@@ -183,5 +188,7 @@ module.exports.init = async (c, services) => {
 
   await inboxMw.init(_.merge({}, c, { interfaces, mw: { limit: 20 } }));
 
-  return inboxes;
+  return Object.assign(inboxes, {
+    getApp: getApp.bind(null, c, services)
+  });
 };

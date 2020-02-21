@@ -74,7 +74,9 @@ function createIndex() {
 
     'use strict';
 
-    ${dedent(LANGS.map(v => `const ${v} = require('./${v}.json');`).join('\n    '))}
+    ${dedent(
+    LANGS.map(v => `const ${v} = require('./${v}.json');`).join('\n    ')
+  )}
 
     module.exports = {
       ${LANGS.join(',\n      ')}

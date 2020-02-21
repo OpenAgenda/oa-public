@@ -10,9 +10,9 @@ const service = {
     loadOrRedirect: Object.assign(loadOrRedirect, {
       options: loadOrRedirectOptions
     }),
-    load: load
+    load
   }
-};
+}
 
 module.exports = service;
 
@@ -35,7 +35,9 @@ module.exports.init = (config, services) => {
     logger: config.getLogConfig( 'oa', 'sessions', false )
   } );
 
-  return Object.assign( service, sessions );
+  service.mw.requireSuperAdmin = _requireSuperAdmin(config);
+
+  return Object.assign(service, sessions);
 }
 
 function load(req, res, next) {
@@ -101,4 +103,22 @@ function getUser( services, imageBucketPath, query, cb ) {
 
     } );
 
+}
+
+function _requireSuperAdmin(config) {
+  return (req, res, next) => {
+    sessions.get(req, { detailed: true }, (err, session) => {
+      if (err) return next(err);
+
+      const id = session.id;
+
+      if (config.superAdminIds.indexOf( parseInt( id ) ) !== -1) {
+        next();
+      } else {
+        sessions.setFlash(req, res, 'Eerrh nooo, no esta, nooo, bye bye.');
+
+        res.redirect(302, '/');
+      }
+    });
+  }
 }

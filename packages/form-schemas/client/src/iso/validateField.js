@@ -327,6 +327,10 @@ function buildFieldSchema( type, options = {} ) {
             type: 'multilingual',
             optional: false,
             defaultLanguage: defaultLabelLanguage
+          },
+          display: {
+            type: 'boolean',
+            default: true
           }
         }
       }
