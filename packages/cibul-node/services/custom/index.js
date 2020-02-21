@@ -1,23 +1,24 @@
-"use strict";
+'use strict';
 
-const custom = require( '@openagenda/custom' );
-const formSchemas = require( '@openagenda/form-schemas' );
+const custom = require('@openagenda/custom');
 
-const interfaces = {
-  onCreate: require( './onCreate' ),
-  onUpdate: require( './onUpdate' ),
-  onRemove: require( './onRemove' ),
-  getValidator: formSchemas.getValidator
-}
+module.exports.init = (config, services) => {
+  const {
+    formSchemas
+  } = services;
 
-module.exports.init = config => {
   custom.init( {
     logger: config.getLogConfig( 'svc', 'custom' ),
     knex: config.knex,
     schemas: {
       custom: 'custom'
     },
-    interfaces,
+    interfaces: {
+      onCreate: () => {},
+      onUpdate: () => {},
+      onRemove: () => {},
+      getValidator: formSchemas.getValidator
+    },
     queue: {
       redis: config.redis,
       name: 'custom'
@@ -32,11 +33,9 @@ module.exports.init = config => {
         agendaTag: config.schemas.agendaTag
       },
       interfaces: {
-        getFormSchemaFields: async formSchemaId => {
-
-          return formSchemas.get( formSchemaId ).then( fs => fs ? fs.fields : [] );
-
-        }
+        getFormSchemaFields: formSchemaId => formSchemas
+          .get(formSchemaId)
+          .then(fs => fs ? fs.fields : [])
       }
     }
   } );
