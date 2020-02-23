@@ -203,7 +203,7 @@ describe('event-search - unit: utils', function() {
         end: _dateStrFromNow(2)
       }];
 
-      lastTimingEndsIn( { timings } ).should.greaterThan(4);
+      lastTimingEndsIn({ timings }).should.greaterThan(3);
 
     } );
 
