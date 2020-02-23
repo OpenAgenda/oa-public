@@ -3,6 +3,7 @@
 const _ = require('lodash');
 
 module.exports = (oembed, text, current = [] ) => {
+  if (!oembed) return []
   return oembed.fromMarkdown(_.keys(text).reduce((concatenated, lang) => [
     concatenated, _.get(text, lang)
   ].join('\n'), ''), {

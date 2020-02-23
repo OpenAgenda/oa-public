@@ -73,6 +73,14 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
   after(() => testConfig.knex.destroy());
 
+  after(async () => {
+    try {
+      await core.services.eventSearch.getConfig().client.indices.delete({
+        index: 'test'
+      });
+    } catch (e) {}
+  });
+
   describe('simple create', function() {
     let event;
 
@@ -203,6 +211,21 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           9661, // Administration (2.3)
           9662  // Aéronautique (2.4)
         ]);
+      });
+
+    });
+
+    describe('search', () => {
+      let result;
+
+      before(async () => {
+        result = await core.agendas(17026855).events.search({ uid: event.uid });
+      });
+
+      it('event is retrieved by its uid', async () => {
+        result.total.should.equal(1);
+
+        result.events[0].uid.should.equal(event.uid);
       });
 
     });

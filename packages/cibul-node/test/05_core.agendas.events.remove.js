@@ -11,28 +11,18 @@ const should = require('should');
 
 const api = require('../api');
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/006.sql');
 
 const Services = require('../services/init');
 const Core = require('../core');
 
 const testConfig = require('./testConfig');
+const loadFixtures = require('./fixtures/load');
 
 describe('core - functional (server): core agendas() events.remove()', function() {
   this.timeout(20000);
   let core;
 
-  before(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures);
-
-    con.end();
-  });
+  before(() => loadFixtures(testConfig.db, '006.sql'));
 
   before(() => assignClients(testConfig));
 
@@ -58,12 +48,26 @@ describe('core - functional (server): core agendas() events.remove()', function(
     });
 
     core = Core(services, testConfig);
+
+    console.log(await core.agendas(17026800).events.search.rebuild());;
   });
 
   after(() => testConfig.knex.destroy());
 
+  after(async () => {
+    try {
+      await core.services.eventSearch.getConfig().client.indices.delete({
+        index: 'test'
+      });
+    } catch (e) {}
+  });
+
   describe('remove from other agenda', () => {
-    let event;
+    let event, searchResultBefore;
+
+    before(async () => {
+      searchResultBefore = await core.agendas(17026800).events.search({ uid: 19201989 });
+    });
 
     before(async () => {
       event = await core.agendas(17026800).events.remove(19201989);
@@ -71,6 +75,15 @@ describe('core - functional (server): core agendas() events.remove()', function(
 
     it('result is removed event', () => {
       event.uid.should.equal(19201989);
+    });
+
+    it('event is removed from agenda search', async () => {
+      const {
+        total,
+        events
+      } = await core.agendas(17026800).events.search({ uid: 19201989 });
+      searchResultBefore.total.should.equal(1);
+      total.should.equal(0);
     });
   });
 

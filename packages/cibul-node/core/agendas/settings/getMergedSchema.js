@@ -2,18 +2,24 @@
 
 const _ = require('lodash');
 
+
 const getAgenda = require('../utils/getAgenda');
 const getNetwork = require('../utils/getNetwork');
+const merge = require('../utils/merge');
 
 module.exports = async (services, agendaOrUid, options = {}) => {
   const {
     formSchemas
   } = services;
 
-  const mergeSchemas = formSchemas.utils.merge;
-
-  const { preloadedNetwork } = {
+  const {
+    preloadedNetwork,
+    includeEvent,
+    access
+  } = {
     preloadedNetwork: null,
+    includeEvent: false,
+    access: 'public',
     ...options
   };
 
@@ -31,8 +37,11 @@ module.exports = async (services, agendaOrUid, options = {}) => {
 
   const networkSchema = network ? await formSchemas.get(_.get(network, 'formSchemaId')) : null;
 
-  // the network should come first.
-  return mergeSchemas(networkSchema, formSchema);
+  if (includeEvent) {
+    return merge.schemasWithEvent(formSchema, networkSchema, access);
+  }
+
+  return formSchemas.utils.merge(networkSchema, formSchema);
 }
 
 function _loadFormSchema(formSchemas, agendaId, formSchemaId, hasNetworkSchema = false ) {

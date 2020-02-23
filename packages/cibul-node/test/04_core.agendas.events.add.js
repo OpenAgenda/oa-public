@@ -10,7 +10,7 @@ const { promisify } = require('util');
 const should = require('should');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/005.sql');
+const loadFixtures = require('./fixtures/load');
 
 const Services = require('../services/init');
 const Core = require('../core');
@@ -21,17 +21,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
   this.timeout(20000);
   let core;
 
-  before(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures);
-
-    con.end();
-  });
+  before(() => loadFixtures(testConfig.db, '005.sql'));
 
   before(() => assignClients(testConfig));
 
@@ -57,9 +47,19 @@ describe('core - functional (server): core.agendas().events add()', function() {
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas(17026800).events.search.rebuild();
   });
 
   after(() => testConfig.knex.destroy());
+
+  after(async () => {
+    try {
+      await core.services.eventSearch.getConfig().client.indices.delete({
+        index: 'test'
+      });
+    } catch (e) {}
+  });
 
   describe('simple add', function() {
     let event;
@@ -80,6 +80,16 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
     it('destination agenda additional field value is in response', () => {
       event['thematiques-metropolitaines'].should.eql([3]);
+    });
+
+    it('event is indexed in agenda', async () => {
+      const {
+        total,
+        events
+      } = await core.agendas(17026800).events.search({ uid: 19201989 });
+
+      total.should.equal(1);
+      events[0].uid.should.equal(19201989);
     });
 
   });
