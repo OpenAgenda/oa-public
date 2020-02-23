@@ -49,6 +49,6 @@ module.exports = {
   },
   es75: {
     host: process.env.OA_ELASTICSEARCH_750_DEV_HOST,
-    port: process.env.OA_ELASTICSEARCH_750_DEV_PORT
+    defaultIndex: 'test'
   }
 }
