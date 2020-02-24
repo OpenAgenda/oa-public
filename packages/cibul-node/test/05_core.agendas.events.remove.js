@@ -49,7 +49,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
 
     core = Core(services, testConfig);
 
-    console.log(await core.agendas(17026800).events.search.rebuild());;
+    await core.agendas(17026800).events.search.rebuild();
   });
 
   after(() => testConfig.knex.destroy());

@@ -9,7 +9,10 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
     throw new Error('Not found');
   }
 
-  return core.services.eventSearch.agendas(agenda).search(query, nav, options);
+  return core.services.eventSearch.agendas(agenda).search(query, nav, {
+    ...options,
+    formSchema: agenda.schema
+  });
 }
 
 module.exports.rebuild = async (core, agendaUid) => {
