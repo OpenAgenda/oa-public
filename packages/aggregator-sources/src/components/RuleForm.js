@@ -886,7 +886,6 @@ const RequiredFieldPart = () => {
             name="required"
             type="checkbox"
             label={intl.formatMessage(messages.requiredFilter)}
-            defaultValue // true
           />
         </div>
       </div>
