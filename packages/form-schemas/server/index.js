@@ -1,257 +1,164 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
 const knex = require('knex');
 
-const logger = require( '@openagenda/logs' );
-const storeLib = require( '@openagenda/mysql-table-store' );
+const logger = require('@openagenda/logs');
+const log = logger('index');
 
-const FormSchema = require( '../iso/FormSchema' );
+const FormSchema = require('../iso/FormSchema');
 const merge = require('../iso/merge');
 const markdown = require('../iso/markdown');
-const legacy = require( './legacy' );
-const filesMw = require( './middleware/files' );
+const legacy = require('./legacy');
+const filesMw = require('./middleware/files');
 
-let client, log, config;
+const utils = {
+  merge,
+  markdown
+};
 
-module.exports = {
-  init,
-  get,
-  getMerged,
-  getValidator,
-  create,
-  update,
-  remove,
-  legacy,
-  shutdown,
-  utils: {
-    merge,
-    markdown
+module.exports = Object.assign(config => {
+  if (config.logger) {
+    logger.setModuleConfig(config.logger);
   }
-}
 
+  log( 'initializing' );
 
-async function getMerged( ids, options = {} ) {
+  const c = {
+    client: config.knex || knex({
+      client: 'mysql',
+      connection: config.mysql
+    }),
+    schemas: config.schemas
+  };
 
-  const { instanciate } = _.assign( {
+  filesMw.init({
+    tmpFolder: config.tmpFolder,
+    s3: config.s3
+  });
+
+  const svc = {
+    get: get.bind(null, c),
+    getMerged: getMerged.bind(null, c),
+    getValidator: getValidator.bind(null, c),
+    create: create.bind(null, c),
+    update: update.bind(null, c),
+    remove: remove.bind(null, c),
+    internals: {
+      client: c.client
+    },
+    utils
+  };
+
+  return {
+    ...svc,
+    legacy: legacy({ ...c, service: svc })
+  }
+}, {
+  utils
+});
+
+async function getMerged({ client, schemas }, ids, options = {}) {
+  const { instanciate } = {
     instanciate: false,
-  }, options );
+    ...options
+  };
 
-  const schemas = [];
+  const toBeMerged = [];
 
-  for ( const id of [].concat( ids ) ) {
-
-    schemas.push( await get( id ) );
-
+  for (const id of [].concat(ids)) {
+    toBeMerged.push(await get({ client, schemas }, id));
   }
 
-  const merged = merge.apply( null, schemas );
+  const merged = merge.apply(null, toBeMerged);
 
-  if ( instanciate ) return new FormSchema( merged );
-
-  return merged;
-
+  return instanciate ? new FormSchema(merged) : merged;
 }
 
-async function get( id, options = {} ) {
+async function get({ client, schemas }, id, options = {}) {
+  const store = await client(schemas.formSchema)
+    .first(['id', 'store'])
+    .where({ id })
+    .then(r => r && r.store ? {
+      ...JSON.parse(r.store),
+      id
+    } : null);
 
-  if ( !client ) {
-
-    throw new Error( 'db client not initialized' );
-
-  }
-
-  let store = await client( config.schemas.formSchema )
-
-    .where( { id } )
-
-    .then( rows => rows.length ? rows[ 0 ].store : null );
-
-  if ( store === null ) return null;
-
-  let parsed = JSON.parse( store );
-
-  parsed.id = id;
-
-  if ( options.instanciate ) {
-
-    return new FormSchema( _.assign( parsed, { id } ) );
-
-  }
-
-  return parsed;
-
-}
-
-async function getValidator( id, options = {} ) {
-
-  let data = await get( id );
-
-  if ( data === null ) {
-
+  if (!store) {
     return null;
-
   }
 
-  let fs = new FormSchema( data );
+  return options.instanciate ? new FormSchema(store) : store;
+}
 
-  return fs.getValidate( options );
+async function getValidator({ client, schemas }, id, options = {}) {
+  const data = await get({ client, schemas }, id);
 
+  return data ? (new FormSchema(data)).getValidate(options) : null;
 }
 
 
-async function create( data ) {
-
+async function create({ client, schemas }, data) {
   let clean;
-
   try {
-
-    clean = FormSchema.validate( data );
-
-  } catch ( errors ) {
-
-    log( 'failed creating form-schema', JSON.stringify( data ) );
+    clean = FormSchema.validate(data);
+  } catch (errors) {
+    log('failed creating form-schema', JSON.stringify(data));
 
     return {
       success: false,
       errors
     }
-
   }
 
-  let id = await client( config.schemas.formSchema )
+  const id = await client(schemas.formSchema).insert({
+    store: JSON.stringify(clean)
+  }).then(ids => ids[0]);
 
-    .insert( {
-      store: JSON.stringify( clean )
-    } )
-
-    .then( ids => ids[ 0 ] );
-
-  log( 'created form-schema %s', id );
+  log('created form-schema %s', id);
 
   return {
     success: true,
     id,
     formSchema: clean
   }
-
 }
 
-async function update( id, data ) {
-
+async function update({ client, schemas }, id, data) {
   let clean;
-
   try {
-
-    clean = FormSchema.validate( data );
-
-  } catch ( errors ) {
-
-    log( 'failed updating form-schema %s', id, JSON.stringify( data ) );
+    clean = FormSchema.validate(data);
+  } catch (errors) {
+    log('failed updating form-schema %s', id, JSON.stringify(data));
 
     return {
       id,
       success: false,
       errors
     }
-
   }
 
-  let updatedId = await client( config.schemas.formSchema )
+  const updatedId = await client(schemas.formSchema)
+    .update({
+      store: JSON.stringify(clean)
+    })
+    .where({ id });
 
-    .update( {
-      store: JSON.stringify( clean )
-    } )
-
-    .where( { id } );
-
-  log( 'updated form-schema %s', id );
+  log('updated form-schema %s', id);
 
   return {
     id,
     success: updatedId === id,
     formSchema: clean
-  }
-
+  };
 }
 
 
-async function remove( id ) {
-
-  let removedId = await client( config.schemas.formSchema )
-
-    .delete( { id } );
+async function remove({ client, schemas }, id) {
+  const removedId = await client(schemas.formSchema)
+    .delete({ id });
 
   return {
     success: true,
     id: removedId
   }
-
-}
-
-function init( c ) {
-
-  config = c;
-
-  if ( c.logger ) {
-
-    logger.setModuleConfig( c.logger );
-
-  }
-
-  log = logger( 'index' );
-
-  log( 'initializing' );
-
-  client = c.knex || knex( {
-    client: 'mysql',
-    connection: c.mysql
-  } );
-
-  legacy.init( c, {
-    create,
-    update,
-    get
-  } );
-
-  filesMw.init( _.pick( config, [
-    'tmpFolder',
-    's3'
-  ] ) );
-
-}
-
-function shutdown( cb ) {
-
-  client.destroy();
-
-  legacy.shutdown( cb );
-
-}
-
-
-function _cleanArguments( id, data, options ) {
-
-  // id, data
-  if ( !options && typeof id !== 'object' ) {
-
-    return {
-      id,
-      data,
-      options: {}
-    }
-
-  // data, options
-  } else if ( !options ) {
-
-    return {
-      id: null,
-      data: id,
-      options: data
-    }
-
-  }
-
-  return { id, data, options };
-
 }

@@ -191,19 +191,19 @@ describe('event-search - unit: utils', function() {
 
   } );
 
-  describe( 'lastTimingEndsIn', () => {
+  describe('lastTimingEndsIn', () => {
 
-    it( 'gives the number of days between now and the time the last timing ends', () => {
+    it('gives the number of days between now and the time the last timing ends', () => {
 
-      let timings = [ {
-        start: _dateStrFromNow( 4 ),
-        end: _dateStrFromNow( 5 )
+      let timings = [{
+        start: _dateStrFromNow(4),
+        end: _dateStrFromNow(5)
       }, {
-        start: _dateStrFromNow( 2 ),
-        end: _dateStrFromNow( 2 )
-      } ];
+        start: _dateStrFromNow(2),
+        end: _dateStrFromNow(2)
+      }];
 
-      lastTimingEndsIn( { timings } ).should.equal( 5 );
+      lastTimingEndsIn({ timings }).should.greaterThan(3);
 
     } );
 

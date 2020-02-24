@@ -9,10 +9,12 @@ module.exports = async (services, agendaUid, options = {}) => {
 
   const {
     detailed,
-    internal
+    internal,
+    includeEvent
   } = {
     detailed: false,
     internal: false,
+    includeEvent: false,
     ...options
   };
 
@@ -21,12 +23,12 @@ module.exports = async (services, agendaUid, options = {}) => {
     internal: true
   });
 
-  if (!detailed) {
+  if (!detailed && !includeEvent) {
     return internal ? agenda : agendas.utils.omitInternals(agenda)
   }
 
   return (internal ? a => a : agendas.utils.omitInternals)({
     ...agenda,
-    schema: await getMergedSchema(services, agenda)
+    schema: await getMergedSchema(services, agenda, { includeEvent })
   })
 }

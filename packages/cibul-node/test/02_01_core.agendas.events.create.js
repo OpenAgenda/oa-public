@@ -5,8 +5,6 @@ process.env.NODE_ENV = 'test';
 const _ = require('lodash');
 const axios = require('axios');
 const ih = require('immutability-helper');
-const mysql = require('mysql');
-const { promisify } = require('util');
 const should = require('should');
 const request = require('superagent');
 
@@ -14,10 +12,8 @@ const api = require('../api');
 const assignClients = require('./utils/assignClients');
 const Core = require('../core');
 const Services = require('../services/init');
-const fixtures = {
-  sql: require('./fixtures/002.sql'),
-  events: require('./fixtures/events')
-};
+const eventsFixtures = require('./fixtures/events');
+const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
 describe('02 - core - functional (server): core.agendas().events.create()', function() {
@@ -46,17 +42,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     accessibility: { sl: true }
   };
 
-  before(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures.sql);
-
-    con.end();
-  });
+  before(() => loadFixtures(testConfig.db, '002.sql'));
 
   before(() => assignClients(testConfig));
 
@@ -86,6 +72,14 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
   });
 
   after(() => testConfig.knex.destroy());
+
+  after(async () => {
+    try {
+      await core.services.eventSearch.getConfig().client.indices.delete({
+        index: 'test'
+      });
+    } catch (e) {}
+  });
 
   describe('simple create', function() {
     let event;
@@ -217,6 +211,21 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           9661, // Administration (2.3)
           9662  // Aéronautique (2.4)
         ]);
+      });
+
+    });
+
+    describe('search', () => {
+      let result;
+
+      before(async () => {
+        result = await core.agendas(17026855).events.search({ uid: event.uid });
+      });
+
+      it('event is retrieved by its uid', async () => {
+        result.total.should.equal(1);
+
+        result.events[0].uid.should.equal(event.uid);
       });
 
     });
@@ -578,7 +587,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         .set('access-token', accessToken)
         .set('nonce', _.random(Math.pow(10, 6)))
         .field({
-          data: JSON.stringify(fixtures.events[3])
+          data: JSON.stringify(eventsFixtures[3])
         });
 
       response.body.success.should.equal(true);

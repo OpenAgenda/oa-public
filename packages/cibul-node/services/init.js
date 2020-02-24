@@ -66,7 +66,6 @@ module.exports = async function (configObject, options = {}) {
   await init('agendas', require('./agendas'));
   await init('aggregators', require('./aggregators'));
   await init('cache', require('./cache'));
-  await init('custom', require('./custom'));
   await init('elasticsearch', require('./elasticsearch'));
   await init('emailStrategie', require('./emailStrategie'));
   await init('eventSearch', require('./eventSearch'));
@@ -74,6 +73,7 @@ module.exports = async function (configObject, options = {}) {
   await init('facebook', require('./facebook'));
   await init('files', require('./files'));
   await init('formSchemas', require('./formSchemas'));
+  await init('custom', require('./custom'));
   await init('genUrl', require('./genUrl'));
   await init('imageFiles', require('./imageFiles'));
   await init('images', require('./images'));

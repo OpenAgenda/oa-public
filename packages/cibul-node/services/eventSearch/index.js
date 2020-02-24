@@ -4,8 +4,6 @@ const _ = require('lodash');
 const EventSearch = require('@openagenda/event-search');
 const log = require('@openagenda/logs')('services/eventSearch');
 
-const buildSearchConfig = require('./lib/buildSearchConfig');
-
 const add = require('./add');
 const update = require('./update');
 const remove = require('./remove');
@@ -23,9 +21,18 @@ module.exports.init = async (config, services) => {
     core
   } = services;
 
-  const eventSearch = EventSearch(buildSearchConfig(config));
+  const node = _.get(config, 'es75.host', 'http://localhost:9200');
+  const defaultIndex = _.get(config, 'es75.defaultIndex', process.env.NODE_ENV === 'production' ? 'main' : 'dev');
 
-  await eventSearch.cluster.configure();
+  log('using elasticsearch node %s, default index %s', node, defaultIndex);
+
+  const eventSearch = EventSearch({
+    elasticsearch: {
+      node
+    },
+    defaultIndex,
+    logger: config.getLogConfig('svc', 'eventSearch')
+  });
 
   const queue = queues('eventSearch');
   const rebuildQueue = queues('eventSearch:rebuild');

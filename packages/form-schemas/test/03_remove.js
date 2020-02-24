@@ -1,51 +1,47 @@
-"use strict";
+'use strict';
 
 process.env.NODE_ENV = 'test';
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const knex = require( 'knex' );
-const should = require( 'should' );
+const should = require('should');
 
-const svc = require( './service' );
-
+const Service = require( '../');
+const fixtures = require('./service/fixtures');
 const config = require( '../testconfig' );
 
-describe( 'form-schemas -03- functional (server): remove', () => {
+describe('form-schemas -03- functional (server): remove', () => {
+  let svc;
 
-  before( done => {
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'form_schema.data.sql'
+    ]);
+  });
 
-    svc.initAndLoad( config, () => {
+  before(() => {
+    config.mysql.database = 'oatest_fs';
+    svc = Service(config);
+  });
 
-      done();
+  after(() => {
+    svc.internals.client.destroy();
+  });
 
-    } );
+  it('simple remove', async () => {
+    const client = svc.internals.client;
 
-  } );
+    const { id } = await svc.create({
+      data: true
+    });
 
-  after( () => {
+    (await client('form_schema').where({ id })).length.should.equal(1);
 
-    svc.shutdown();
-
-  } );
-
-  it( 'simple remove', async () => {
-
-    let client = knex( { client: 'mysql', connection: config.mysql } );
-
-    let { id } = await svc.create( { data: true } );
-
-    ( await client( 'form_schema' ).where( { id } ) ).length.should.equal( 1 );
-
-    ( await svc.remove( id ) ).should.eql( {
+    (await svc.remove(id) ).should.eql({
       success: true,
-      id: id
-    } );
+      id
+    });
 
-    ( await client( 'form_schema' ).where( { id } ) ).length.should.equal( 0 );
-
-    client.destroy();
-  
-  } );
+    (await client('form_schema').where({ id })).length.should.equal(0);
+  });
 
 } );

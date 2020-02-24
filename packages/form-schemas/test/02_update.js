@@ -1,42 +1,38 @@
-"use strict";
+'use strict';
 
-process.env.NODE_ENV = 'test';
+const fs = require('fs');
+const should = require('should');
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const should = require( 'should' );
-const svc = require( './service' );
+const Service = require( '../');
+const config = require('../testconfig');
+const fixtures = require('./service/fixtures');
 
-const config = require( '../testconfig' );
+const formSchemaData = require('./parse/integer.schema.json');
 
-describe( 'form-schemas -02- functional (server): update', () => {
+describe('form-schemas -02- functional (server): update', () => {
+  let svc;
 
-  before( done => {
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'form_schema.data.sql'
+    ]);
+  });
 
-    svc.initAndLoad( config, () => {
+  before(() => {
+    config.mysql.database = 'oatest_fs';
+    svc = Service(config);
+  });
 
-      done();
+  after(() => {
+    svc.internals.client.destroy();
+  });
 
-    } );
-
-  } );
-
-  after( () => {
-
-    svc.shutdown();
-
-  } );
-
-  it( 'simple update', async () => {
-
-    let formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.schema.json', 'utf-8' ) );
-
-    ( await svc.update( 1, formSchema ) ).should.eql( {
+  it('simple update', async () => {
+    (await svc.update(1, formSchemaData)).should.eql({
       id: 1,
       success: true,
-      formSchema
-    } );
-
-  } );
-
-} );
+      formSchema: formSchemaData
+    });
+  });
+});

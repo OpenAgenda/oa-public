@@ -1,81 +1,80 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const should = require( 'should' );
+const should = require('should');
 
-const config = require( '../testconfig' );
-const svc = require( './service' );
+const Service = require( '../');
+const fixtures = require('./service/fixtures');
+const config = require('../testconfig');
 
-describe( 'form-schemas -04- get', () => {
+const fx = {
+  schemas: {
+    integer: require('./parse/integer.schema.json'),
+    number: require('./parse/number.schema.json')
+  }
+};
 
-  const formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.schema.json', 'utf-8' ) );
-  const secondFormSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/number.schema.json', 'utf-8' ) );
-
+describe('form-schemas -04- functional (server): get', () => {
+  let svc;
   let id;
   let secondId;
 
-  before( done => {
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'form_schema.data.sql'
+    ]);
+  });
 
-    svc.initAndLoad( config, err => done() );
+  before(() => {
+    config.mysql.database = 'oatest_fs';
+    svc = Service(config);
+  });
 
-  } );
+  before(async () => {
+    id = (await svc.create(fx.schemas.integer)).id;
+    secondId = (await svc.create(fx.schemas.number)).id;
+  });
 
-  before( async () => {
+  after(() => {
+    svc.internals.client.destroy();
+  });
 
-    let result = await svc.create( formSchema );
+  it('simple get', async () => {
+    const result = await svc.get(id);
 
-    id = result.id;
+    result.should.eql({
+      ...fx.schemas.integer,
+      id
+    });
+  });
 
-    result = await svc.create( secondFormSchema );
+  it('get instanciated', async () => {
+    const fs = await svc.get(id, { instanciate: true });
 
-    secondId = result.id;
+    fs.isNew().should.equal(false);
+  });
 
-  } );
+  it('simple getValidator', async () => {
+    const validate = await svc.getValidator(id);
 
-  after( () => svc.shutdown() );
-
-  it( 'simple get', async () => {
-
-    ( await svc.get( id ) ).should.eql( _.assign( {}, formSchema, { id } ) );
-
-  } );
-
-  it( 'get instanciated', async () => {
-
-    const fs = await svc.get( id, { instanciate: true } );
-
-    fs.isNew().should.equal( false );
-
-  } );
-
-  it( 'simple getValidator', async () => {
-
-    let validate = ( await svc.getValidator( id ) );
-
-    validate( {
+    validate({
       participants: 1,
       someIgnoredField: 'lol'
-    } ).should.eql( {
+    }).should.eql({
       participants: 1
-    } );
+    });
+  });
 
-  } );
+  it('get merged schemas', async () => {
+    const fs = await svc.getMerged([id, secondId]);
 
-  it( 'get merged schemas', async () => {
+    fs.fields.length.should.equal(2);
+  });
 
-    const fs = await svc.getMerged( [ id, secondId ] );
+  it('get merged schemas, instanciated', async () => {
+    const fs = await svc.getMerged([id, secondId], { instanciate: true });
 
-    fs.fields.length.should.equal( 2 );
+    (typeof fs.getValidate()).should.equal('function');
+  });
 
-  } );
-
-  it( 'get merged schemas, instanciated', async () => {
-
-    const fs = await svc.getMerged( [ id, secondId ], { instanciate: true } );
-
-    ( typeof fs.getValidate() ).should.equal( 'function' );
-
-  } );
-
-} );
+});

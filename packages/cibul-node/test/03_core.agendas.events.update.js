@@ -12,24 +12,14 @@ const assignClients = require('./utils/assignClients');
 const api = require('../api');
 const Services = require('../services/init');
 const Core = require('../core');
-const fixtures = require('./fixtures/004.sql');
 const testConfig = require('./testConfig');
+const loadFixtures = require('./fixtures/load');
 
 describe('core - functional (server): core.agendas().events.update()', function() {
   this.timeout(20000);
   let core;
 
-  before(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures);
-
-    con.end();
-  });
+  before(() => loadFixtures(testConfig.db, '004.sql'));
 
   before(() => assignClients(testConfig));
 
@@ -56,9 +46,19 @@ describe('core - functional (server): core.agendas().events.update()', function(
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas(17026855).events.search.rebuild();
   });
 
   after(() => testConfig.knex.destroy());
+
+  after(async () => {
+    try {
+      await core.services.eventSearch.getConfig().client.indices.delete({
+        index: 'test'
+      });
+    } catch (e) {}
+  });
 
   describe('simple update', function() {
     let event;
@@ -124,6 +124,21 @@ describe('core - functional (server): core.agendas().events.update()', function(
         state.should.equal(0);
       });
 
+    });
+
+    describe('search', () => {
+      let result;
+
+      before(async () => {
+        result = await core.agendas(17026855).events.search({
+          uid: event.uid,
+          state: null
+        }, {}, { detailed: true });
+      });
+
+      it('indexed document is updated', () => {
+        result.events[0]['thematiques-bordeaux-metropole'].should.eql([3])
+      });
     });
 
     describe('fixes', () => {

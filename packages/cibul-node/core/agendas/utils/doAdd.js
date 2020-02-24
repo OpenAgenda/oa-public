@@ -1,11 +1,14 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
+const VError = require('verror');
 
-const addContributor = require( './addContributor' );
-const { agendaIsOpen, userIsNotMember } = addContributor;
+const addContributor = require('./addContributor');
+const {
+  agendaIsOpen,
+  userIsNotMember
+} = addContributor;
 const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
 const merge = require('./merge');
@@ -129,7 +132,7 @@ module.exports = async (services, payload, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', event.uid);
   }
 
-  const response = payload.getResponse('event', access);
+  const response = await payload.getResponse('event', access);
   const compiledEvent = await payload.getCompiledEvent(); // full access for internal use
   const formSchema = payload.getFormSchema(); // full access for internal use
   const { member } = response;

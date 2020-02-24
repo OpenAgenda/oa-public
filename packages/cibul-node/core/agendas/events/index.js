@@ -3,6 +3,7 @@
 const add = require('./add');
 const batch = require('./batch');
 const get = require('./get');
+const search = require('./search');
 const list = require('./list');
 const create = require('./create');
 const remove = require('./remove');
@@ -18,5 +19,8 @@ module.exports = (core, agendaUid) => ({
   update: update.bind(null, core.services, agendaUid),
   patch: update.patch.bind(null, core.services, agendaUid),
   validate: validate.bind(null, core.services, agendaUid),
-  batch: batch(core).bind(null, agendaUid)
+  batch: batch(core).bind(null, agendaUid),
+  search: Object.assign(search.bind(null, core, agendaUid), {
+    rebuild: search.rebuild.bind(null, core, agendaUid)
+  })
 });

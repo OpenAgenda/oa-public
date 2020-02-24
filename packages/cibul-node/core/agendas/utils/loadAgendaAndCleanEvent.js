@@ -4,7 +4,6 @@ const _ = require('lodash');
 const VError = require('verror');
 const { promisify } = require('util');
 
-const formSchemas = require( '@openagenda/form-schemas' );
 const FormSchema = require( '@openagenda/form-schemas/iso/FormSchema' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/events/validate' );

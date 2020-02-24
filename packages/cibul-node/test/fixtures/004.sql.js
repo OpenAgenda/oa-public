@@ -328,6 +328,7 @@ raw.push(knex('event_2').insert([{
 }]));
 
 raw.push(knex('agenda_event').insert([{
+  id: 1,
   event_uid: 19201989,
   agenda_uid: 17026855,
   user_uid: 63170203,
@@ -336,6 +337,7 @@ raw.push(knex('agenda_event').insert([{
   updated_at: new Date('2019-05-06T10:00:00'),
   can_edit: 1
 }, {
+  id: 2,
   event_uid: 19390293,
   agenda_uid: 92983929,
   user_uid: 63170203,
@@ -344,6 +346,7 @@ raw.push(knex('agenda_event').insert([{
   updated_at: new Date('2019-05-06T10:00:00'),
   can_edit: 1
 }, {
+  id: 3,
   event_uid: 19390294,
   agenda_uid: 92983929,
   user_uid: 63170203,

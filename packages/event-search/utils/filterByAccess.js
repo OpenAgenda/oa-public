@@ -8,7 +8,9 @@ module.exports = (formSchema, access = null, event) => {
     .map(f => f.field);
 
   return fields.reduce((filtered, field) => {
-    filtered[field] = event[field];
+    if (event[field] !== undefined) {
+      filtered[field] = event[field];
+    }
     return filtered;
   }, {});
 }

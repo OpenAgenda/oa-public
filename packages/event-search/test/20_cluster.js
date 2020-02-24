@@ -30,30 +30,4 @@ describe('20 - event-search - util: cluster', function() {
 
   });
 
-  describe('configure cluster', () => {
-    let response;
-    const maxShardsPerNode = '' + ((new Date).getTime() % 100000 + 1000);
-
-    before(async () => {
-
-      await service.cluster.configure();
-
-      response = await service.cluster.configure({
-        'cluster.max_shards_per_node': maxShardsPerNode
-      });
-    });
-
-    it('if cluster setting is different, an update is put', () => {
-      response.updated.should.equal(true);
-    });
-
-    it('if cluster setting is same, no update is put', async () => {
-      response = await service.cluster.configure({
-        'cluster.max_shards_per_node': maxShardsPerNode
-      });
-
-      response.updated.should.equal(false);
-    });
-
-  });
 });

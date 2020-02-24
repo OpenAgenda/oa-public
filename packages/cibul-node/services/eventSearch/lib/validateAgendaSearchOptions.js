@@ -13,19 +13,6 @@ module.exports = schema({
     type: 'boolean',
     default: false
   },
-  private: {
-    type: 'boolean',
-    default: false
-  },
-  includeCustom: {
-    type: 'boolean',
-    default: false
-  },
-  // if agenda data was loaded prior to search call, it can be reused here
-  agenda: {
-    type: 'pass',
-    default: null
-  },
   aggregations: {
     type: 'pass',
     default: null
