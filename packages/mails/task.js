@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
 const templater = require('./templater');
-const config = require('./config');
 
 const log = logs('mails/task');
 
@@ -11,11 +10,7 @@ function _sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const onError = (method, args, error) => {
-  log.error('Error on sending email in task', { args, error });
-};
-
-async function runFilterTask(params) {
+async function runFilterTask(config, params) {
   try {
     if (typeof config.sendFilter === 'function') {
       const allowed = await config.sendFilter(params);
@@ -42,10 +37,15 @@ async function runFilterTask(params) {
     Object.assign(params.data, config.defaults.data);
 
     const defaultLang = params.lang || config.defaults.lang;
-    const result = await templater.render(params.template, params.data, {
-      ..._.pick(params, 'disableHtml', 'disableText', 'disableSubject'),
-      lang: defaultLang
-    });
+    const result = await templater.render(
+      config,
+      params.template,
+      params.data,
+      {
+        ..._.pick(params, 'disableHtml', 'disableText', 'disableSubject'),
+        lang: defaultLang
+      }
+    );
 
     Object.assign(params, result);
 
@@ -55,7 +55,7 @@ async function runFilterTask(params) {
   }
 }
 
-async function runSendTask(params) {
+async function runSendTask(config, params) {
   try {
     const now = Date.now();
 
@@ -73,17 +73,7 @@ async function runSendTask(params) {
   }
 }
 
-module.exports = function task() {
-  if (!config.queues) {
-    return;
-  }
-
-  config.queues.prepareMails.register({ method: runFilterTask });
-  config.queues.sendMails.register({ method: runSendTask });
-
-  config.queues.prepareMails.on('error', onError);
-  config.queues.sendMails.on('error', onError);
-
-  config.queues.prepareMails.run();
-  config.queues.sendMails.run();
+module.exports = {
+  runFilterTask,
+  runSendTask
 };

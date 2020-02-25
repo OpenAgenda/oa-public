@@ -5,8 +5,7 @@ const _ = require('lodash');
 const nodemailer = require('nodemailer');
 const redis = require('redis');
 const Queues = require('@openagenda/queues');
-const mails = require('../index');
-const config = require('../config');
+const Mails = require('../index');
 
 const templatesDir = path.join(__dirname, '..', 'templates');
 
@@ -15,12 +14,14 @@ function _sleep(ms) {
 }
 
 describe('task', () => {
+  let mails;
+
   jest.setTimeout(30000);
 
   beforeAll(async () => {
     const account = await nodemailer.createTestAccount();
 
-    await config.init({
+    mails = new Mails({
       templatesDir,
       transport: {
         pool: true,
@@ -43,14 +44,19 @@ describe('task', () => {
         }
       },
       Queues: Queues.v2({
-        redis: redis.createClient(config.redis),
+        redis: redis.createClient({
+          host: 'localhost',
+          port: 6379
+        }),
         prefix: 'mails:'
       }),
       queueName: 'mailsTest-task'
     });
 
-    await config.queues.prepareMails.clear();
-    await config.queues.sendMails.clear();
+    await mails.init();
+
+    await mails.config.queues.prepareMails.clear();
+    await mails.config.queues.sendMails.clear();
 
     mails.task();
   });
@@ -74,9 +80,9 @@ describe('task', () => {
     ];
 
     const start = Date.now();
-    const spy = jest.spyOn(config.transporter, 'sendMail');
+    const spy = jest.spyOn(mails.config.transporter, 'sendMail');
 
-    const { results, errors } = await mails({
+    const { results, errors } = await mails.send({
       template: 'helloWorld',
       data: {
         username: 'unknown'
@@ -104,9 +110,9 @@ describe('task', () => {
   });
 
   it("send a mail with an error don't send anything", async () => {
-    const spy = jest.spyOn(config.transporter, 'sendMail');
+    const spy = jest.spyOn(mails.config.transporter, 'sendMail');
 
-    const { results, errors } = await mails({
+    const { results, errors } = await mails.send({
       template: 'helloWorld',
       to: 'kevin.bertho@@gmail'
     });

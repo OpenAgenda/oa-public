@@ -3,8 +3,7 @@
 const path = require('path');
 const _ = require('lodash');
 const nodemailer = require('nodemailer');
-const mails = require('../index');
-const config = require('../config');
+const Mails = require('../index');
 const makeLabelGetter = require('../utils/makeLabelGetter');
 
 const templatesDir = path.join(__dirname, '..', 'templates');
@@ -25,11 +24,13 @@ beforeAll(async () => {
 });
 
 describe('sendMail', () => {
+  let mails;
+
   jest.setTimeout(30000);
 
   describe('JSON transport', () => {
     beforeAll(async () => {
-      await config.init({
+      mails = new Mails({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -40,10 +41,12 @@ describe('sendMail', () => {
           }
         }
       });
+
+      await mails.init();
     });
 
     it('send email - helloWorld template', async () => {
-      const { results, errors } = await mails({
+      const { results, errors } = await mails.send({
         template: 'helloWorld',
         data: {
           username: 'bertho'
@@ -73,7 +76,7 @@ describe('sendMail', () => {
     });
 
     it('send a mail to an invalid email returns with errors', async () => {
-      const { errors } = await mails({
+      const { errors } = await mails.send({
         template: 'helloWorld',
         data: {
           username: 'bertho'
@@ -86,7 +89,7 @@ describe('sendMail', () => {
     });
 
     it("send a mail with an error don't send anything", async () => {
-      const { errors } = await mails({
+      const { errors } = await mails.send({
         template: 'helloWorld',
         to: 'kevin.bertho@@gmail'
       });
@@ -95,7 +98,7 @@ describe('sendMail', () => {
     });
 
     it('sendMail can not override the defaults', async () => {
-      const { results } = await mails({
+      const { results } = await mails.send({
         template: 'helloWorld',
         data: {
           domain: 'https://google.com',
@@ -116,7 +119,7 @@ describe('sendMail', () => {
     });
 
     it('sendMail with a missing template throw an error', () => expect(
-      mails({
+      mails.send({
         template: 'unknow',
         to: 'kevin.bertho@gmail.com',
         queue: false
@@ -126,7 +129,7 @@ describe('sendMail', () => {
 
   describe('Euthreal transport', () => {
     beforeAll(async () => {
-      await config.init({
+      mails = new Mails({
         templatesDir,
         transport: getEtherealTransport(),
         defaults: {
@@ -136,10 +139,12 @@ describe('sendMail', () => {
           }
         }
       });
+
+      await mails.init();
     });
 
     it('send email directly (without queue) - helloWorld template', async () => {
-      const { results, errors } = await mails({
+      const { results, errors } = await mails.send({
         template: 'helloWorld',
         data: {
           username: 'Bertho'
@@ -166,7 +171,7 @@ describe('sendMail', () => {
     it('override default "from" value', async () => {
       const from = 'admin@openagenda.com';
 
-      const { results, errors } = await mails({
+      const { results, errors } = await mails.send({
         template: 'helloWorld',
         from,
         to: [
@@ -196,7 +201,7 @@ describe('sendMail', () => {
 
   describe('translations', () => {
     it('take a default lang', async () => {
-      await config.init({
+      mails = new Mails({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -224,7 +229,9 @@ describe('sendMail', () => {
         }
       });
 
-      const { results, errors } = await mails({
+      await mails.init();
+
+      const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
         to: {
           address: 'kevin.bertho@gmail.com',
@@ -245,7 +252,7 @@ describe('sendMail', () => {
     });
 
     it('choose a lang per recipient', async () => {
-      await config.init({
+      mails = new Mails({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -273,7 +280,9 @@ describe('sendMail', () => {
         }
       });
 
-      const { results, errors } = await mails({
+      await mails.init();
+
+      const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
         to: {
           address: 'kevin.bertho@gmail.com',
