@@ -1,5 +1,6 @@
 'use strict';
 
+const { parsePath } = require('history');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
