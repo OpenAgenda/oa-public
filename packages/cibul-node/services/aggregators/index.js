@@ -76,7 +76,17 @@ module.exports.init = (config, services) => {
           aggregated: ae.aggregated
         } : null),
       listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)
-        .events.list({ state: 2, aggregated }, { lastId }, { load: { events: false, custom: false } }),
+        .events.list({
+          state: 2,
+          aggregated
+        }, { lastId }, {
+          load: {
+            events: false,
+            custom: false,
+            agendaEvent: true
+          },
+          returnPayload: true
+        }),
       loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)
         .events.get(eventUid, { detailed: true }),
       getAgendasByUidsAndSearch: (agendaUids, search = null) => agendas.list({
