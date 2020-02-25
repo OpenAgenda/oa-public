@@ -30,12 +30,15 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
   res: {
     list: '/sources.json',
     add: '/add',
+    update: '#',
     show: '#',
     remove: '/remove',
     search: '#',
     createAggregator: '#',
     agendaSearch: '/agendas.json',
-    slugSearch: '/:slug'
+    slugSearch: '/:slug',
+    getAggregator: '/:slug/admin/aggregator',
+    setAggregator: '/:slug/admin/aggregator'
   }
 });
 

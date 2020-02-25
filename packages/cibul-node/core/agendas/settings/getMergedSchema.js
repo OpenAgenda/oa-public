@@ -38,7 +38,7 @@ module.exports = async (services, agendaOrUid, options = {}) => {
   const networkSchema = network ? await formSchemas.get(_.get(network, 'formSchemaId')) : null;
 
   if (includeEvent) {
-    return merge.schemasWithEvent(formSchema, networkSchema, access);
+    return merge.schemasWithEvent(networkSchema, formSchema, access);
   }
 
   return formSchemas.utils.merge(networkSchema, formSchema);

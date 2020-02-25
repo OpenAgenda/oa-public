@@ -1827,7 +1827,17 @@
     {
       "id": 6086,
       "agendaUid": 11962028,
-      "rules": [],
+      "rules": [{
+        "query": {
+          "location" : ["Courbevoie"]
+        },
+        "required": true
+      }, {
+        "query": {
+          "tags" : ["Tag1"]
+        },
+        "required": true
+      }],
       "agenda": {
         "id": 16511,
         "uid": 11962028,
@@ -1839,7 +1849,12 @@
     {
       "id": 6087,
       "agendaUid": 61657848,
-      "rules": [],
+      "rules": [{
+        "query": {
+          "location" : ["Courbevoie"]
+        },
+        "required": true
+      }],
       "agenda": {
         "id": 16512,
         "uid": 61657848,

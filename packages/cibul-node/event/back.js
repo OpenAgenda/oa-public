@@ -106,7 +106,10 @@ module.exports = app => {
     '/agendas/:uid/events/suggestions',
     '/agendas/:uid/events/:eventUid/suggestions'
   ], sessions.mw.loadOrRedirect,
-    agendas.mw.loadBy({ path: 'params.uid', field: 'uid' }),
+    (req, res, next) => {
+      req.agenda = { uid: req.params.uid };
+      next();
+    },
     members.mw.load,
     (req, res, next) => {
       req.sample = Object.keys(req.query.sample).reduce((clean, field) => {
@@ -123,23 +126,21 @@ module.exports = app => {
         }
       }, {});
       req.agendaUid = req.params.uid;
-      req.exclude = (req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e));
-      req.app.services.core.agendas(req.params.uid).settings.get().then(formSchema => {
-        req.formSchema = formSchema;
-        next();
-      });
+      req.exclude = [].concat(req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e));
+      next();
     },
     (req, res, next) => {
-      req.app.services.eventSearch.agendas(req.agenda).search({
+      const memberRole = req.app.services.members.utils.getRoleSlug(req.member.role);
+      req.app.services.core.agendas(req.params.uid).events.search({
         date: {
-          gte: JSON.stringify(new Date()).split( 'T' )[0],
+          gte: JSON.stringify(new Date()).split('T')[0],
           timezone: 'Europe/Paris'
         },
         mlt: req.sample,
         boost: req.query.boost,
-        state: ['administrator', 'moderator'].includes(members.utils.getRoleSlug(req.member.role)) ? null : 2
+        state: ['administrator', 'moderator'].includes(memberRole) ? null : 2
       }, {}, {
-        formSchema: req.formSchema
+        access: memberRole
       }).then(({ events }) => {
         res.json({
           events: _monolingual(events

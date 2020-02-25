@@ -364,6 +364,9 @@ function _clean( query, params ) {
 
   });
 
+  if (clean.what) {
+    clean.what = clean.what.substr(0, 255);
+  }
 
   if ( query.uids && !query.from ) {
 
