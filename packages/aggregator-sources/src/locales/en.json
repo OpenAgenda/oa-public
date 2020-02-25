@@ -93,7 +93,7 @@
   "aggregator-sources.RulesSummary.noAction": "No action",
   "aggregator-sources.SlugSearch.enterLink": "Enter an agenda page link",
   "aggregator-sources.SourcesList.officialAgenda": "Official agenda",
-  "aggregator-sources.SourcesList.update": "Display aggregation rules",
+  "aggregator-sources.SourcesList.update": "{rulesCount, plural, =1 {See the aggregation rule} other {See the # aggregation rules}}",
   "aggregator-sources.SourcesList.remove": "Remove",
   "aggregator-sources.SourcesList.seeAgenda": "See agenda",
   "aggregator-sources.SourcesList.copy": "Copy",

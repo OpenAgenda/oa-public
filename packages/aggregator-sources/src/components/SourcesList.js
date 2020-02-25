@@ -8,7 +8,6 @@ import Image from '@openagenda/react-components/build/Image';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import * as modalsActions from '../reducers/modals';
-import RulesSummary from './RulesSummary';
 
 const messages = defineMessages({
   officialAgenda: {
@@ -33,7 +32,7 @@ const messages = defineMessages({
   }
 });
 
-function SourceItem({ source, aggregatorAgendaSchema }) {
+function SourceItem({ source }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
@@ -99,8 +98,6 @@ function SourceItem({ source, aggregatorAgendaSchema }) {
         </div>
 
         <p className="rules-summary">
-          <RulesSummary rules={source.rules} schema={aggregatorAgendaSchema} />
-
           {source.rules.length ? (
             <MoreInfo
               id="fourth-popover"
@@ -124,7 +121,9 @@ function SourceItem({ source, aggregatorAgendaSchema }) {
             onClick={showModalUpdate}
             className="btn btn-link-inline"
           >
-            {intl.formatMessage(messages.update)}
+            {intl.formatMessage(messages.update, {
+              rulesCount: source.rules.length
+            })}
           </button>{' '}
           <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
             {intl.formatMessage(messages.seeAgenda)}
