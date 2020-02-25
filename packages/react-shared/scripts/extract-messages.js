@@ -13,7 +13,7 @@ const MESSAGES_PATTERN = argv.messagesPattern || 'dist/messages/**/*.json';
 const LOCALES_DIR = argv.localesDir || 'src/locales';
 
 const DEFAULT_LANG = argv.defaultLang || 'en';
-let LANGS = ['en', 'fr', 'de', 'es', 'br'];
+let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br'];
 
 if (Array.isArray(argv.langs)) {
   LANGS = argv.langs;
@@ -75,11 +75,13 @@ function createIndex() {
     'use strict';
 
     ${dedent(
-    LANGS.map(v => `const ${v} = require('./${v}.json');`).join('\n    ')
+    LANGS.sort()
+      .map(v => `const ${v} = require('./${v}.json');`)
+      .join('\n    ')
   )}
 
     module.exports = {
-      ${LANGS.join(',\n      ')}
+      ${LANGS.sort().join(',\n      ')}
     };
     `}\n`
   );

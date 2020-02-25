@@ -4,16 +4,18 @@
 
 'use strict';
 
-const en = require('./en');
-const fr = require('./fr');
-const de = require('./de');
-const es = require('./es');
-const br = require('./br');
+const br = require('./br.json');
+const de = require('./de.json');
+const en = require('./en.json');
+const es = require('./es.json');
+const fr = require('./fr.json');
+const it = require('./it.json');
 
 module.exports = {
-  en,
-  fr,
+  br,
   de,
+  en,
   es,
-  br
+  fr,
+  it
 };
