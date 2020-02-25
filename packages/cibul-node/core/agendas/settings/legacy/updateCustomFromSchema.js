@@ -37,7 +37,7 @@ module.exports = async (core, agendaOrUid, force = false) => {
   const {
     customFields,
     messages
-  } = generateCustomSet(schema, true);
+  } = generateCustomSet(schema);
 
   const {
     id, store
