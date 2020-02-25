@@ -5,7 +5,8 @@ const should = require( 'should' );
 
 const generateCustomFields = require( '../lib/utils/generateCustomSet' );
 const fixtures = {
-  maisonDesAines: require('./fixtures/schemas/maison-des-aines.json')
+  maisonDesAines: require('./fixtures/schemas/maison-des-aines.json'),
+  reedexpo: require('./fixtures/schemas/reedexpo.json')
 }
 
 describe( '03 - utils - generateCustomSet', () => {
@@ -70,9 +71,16 @@ describe( '03 - utils - generateCustomSet', () => {
   });
 
   it('fix: maison des aines (villeneuve d\'ascq should see', () => {
-    const { customFields } = generateCustomFields(fixtures.maisonDesAines, true);
+    const { customFields } = generateCustomFields(fixtures.maisonDesAines);
 
     customFields.map( f => f.name ).should.eql( [ 'interetintercommunal', 'recurringevent' ] );
+  });
+
+  it.only('if origin is unspecified and field could be custom, field is included in custom fields', () => {
+
+    const { customFields } = generateCustomFields(fixtures.reedexpo);
+    customFields.filter(f => f.name === 'year').length.should.eql(1);
+
   });
 
 });

@@ -138,7 +138,7 @@
       "read": null,
       "optional": true,
       "display": true,
-      "origin": "custom",
+      "origin": null,
       "enableWith": null,
       "related": [],
       "min": null,

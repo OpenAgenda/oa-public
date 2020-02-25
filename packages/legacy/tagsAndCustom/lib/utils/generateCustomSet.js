@@ -22,14 +22,21 @@ const schemaToCustom = {
   radio: 'radio'
 }
 
-module.exports = ( schema, customOriginOnly = false ) => {
+function isLegacyCustom(field) {
+  if (!Object.keys(schemaToCustom).includes(field.fieldType)) {
+    return false;
+  }
+  if ((field.origin === 'custom') || !field.origin) {
+    return true;
+  }
+  return false;
+}
+
+module.exports = schema => {
   const messages = [];
   log('processing', JSON.stringify( schema, null, 2));
 
-  const customFields = schema.fields
-    .filter( f => _.keys( schemaToCustom ).includes( f.fieldType ) )
-    .filter( f => customOriginOnly ? f.origin === 'custom' : true )
-    .map( f => {
+  const customFields = schema.fields.filter(isLegacyCustom).map(f => {
 
       if ( !f.origin ) {
         messages.push( `${f.field}: field origin is not set` );
@@ -58,6 +65,8 @@ module.exports = ( schema, customOriginOnly = false ) => {
     messages
   }
 }
+
+module.exports.isLegacyCustom = isLegacyCustom;
 
 function _multilingualLabel( label ) {
   return _.isString( label ) ? {
