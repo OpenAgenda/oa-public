@@ -126,7 +126,7 @@ module.exports = app => {
         }
       }, {});
       req.agendaUid = req.params.uid;
-      req.exclude = (req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e));
+      req.exclude = [].concat(req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e));
       next();
     },
     (req, res, next) => {
