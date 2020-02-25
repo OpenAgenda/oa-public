@@ -1,11 +1,11 @@
 "use strict";
 
 const _ = require('lodash');
-const mails = require('@openagenda/mails');
 const agendasSvc = require('@openagenda/agendas');
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
 const usersSvc = require('../../users');
 const membersSvc = require('../../members');
+const mails = require('../../mails');
 
 const log = require('@openagenda/logs')(
   'agendaEvents/sendEventAddition'
@@ -69,7 +69,7 @@ module.exports = async ({ root }, { agendaEvent, user, context }) => {
     return;
   }
 
-  await mails( {
+  await mails.send( {
     template: 'myEventAddition',
     to: {
       address: creatorUser.email,
@@ -95,7 +95,7 @@ module.exports = async ({ root }, { agendaEvent, user, context }) => {
   } );
 
   if (!context.batched) {
-    await mails( {
+    await mails.send( {
       template: 'eventAddition',
       to: members
         .filter( member => member.user && member.user.uid !== creatorUser.uid )

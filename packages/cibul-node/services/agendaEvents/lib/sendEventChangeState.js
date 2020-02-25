@@ -5,8 +5,8 @@ const VError = require('verror');
 const marked = require('marked');
 
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
-const mails = require('@openagenda/mails');
 
+const mails = require('../../mails');
 const membersSvc = require('../../members');
 const usersSvc = require('../../users');
 
@@ -58,7 +58,7 @@ module.exports = async ({ root }, { agendaEvent, before, context, agenda, event 
     return;
   }
 
-  await mails( {
+  await mails.send( {
     template: 'eventChangeState',
     to: members
       .filter( member => member.id !== _.get( contributor, 'id' ) )
@@ -137,7 +137,7 @@ async function _sendToContributor( {
 
   if ( sendAgendaPublicationMessage ) {
 
-    await mails( {
+    await mails.send( {
       template: 'eventPublishContributor',
       to,
       data: {
@@ -152,7 +152,7 @@ async function _sendToContributor( {
 
   } else {
 
-    await mails( {
+    await mails.send( {
       template: 'myEventChangeState',
       to,
       data: {

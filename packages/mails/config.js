@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const _ = require('lodash');
 const nodemailer = require('nodemailer');
 const VError = require('verror');
 const logs = require('@openagenda/logs');
@@ -10,7 +9,7 @@ const makeLabelGetter = require('./utils/makeLabelGetter');
 const log = logs('mails/config');
 const logTransporter = logs('mails/transporter');
 
-const config = {
+const defaultConfig = {
   templatesDir:
     process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
   transport: {
@@ -27,20 +26,19 @@ const config = {
     labels: {},
     makeLabelGetter
   },
-  redis: {
-    host: 'localhost',
-    port: 6379
-  },
   queueName: 'mails',
-  disableVerify: false
+  disableVerify: false,
+  onTaskError(method, args, error) {
+    log.error('Error on sending email in task', { args, error });
+  }
 };
 
-async function init(c = {}) {
+async function createConfig(c = {}) {
   if (c.logger) {
     logs.setModuleConfig(c.logger);
   }
 
-  Object.assign(config, c);
+  const config = { ...defaultConfig, ...c };
 
   // Queue
   if (config.Queues) {
@@ -79,9 +77,8 @@ async function init(c = {}) {
       throw wrappedError;
     }
   }
+
+  return config;
 }
 
-module.exports = _.extend(config, {
-  init,
-  getConfig: () => config
-});
+module.exports = createConfig;

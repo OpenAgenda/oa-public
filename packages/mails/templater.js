@@ -9,13 +9,12 @@ const ejs = require('ejs');
 const VError = require('verror');
 const LRU = require('lru-cache');
 const log = require('@openagenda/logs')('mails/templater');
-const config = require('./config');
 
 const mjml2html = mjml.__esModule ? mjml.default : mjml;
 const cache = new LRU();
 const readFile = promisify(fs.readFile);
 
-function getCompiledRenderer(compiled, type, templateName, opts) {
+function getCompiledRenderer(config, compiled, type, templateName, opts) {
   if (opts[`disable${_.upperFirst(type)}`] || !compiled[type]) {
     return null;
   }
@@ -43,7 +42,7 @@ function getCompiledRenderer(compiled, type, templateName, opts) {
     };
 }
 
-async function compile(templateName, opts = {}) {
+async function compile(config, templateName, opts = {}) {
   const cacheKeyCompiled = JSON.stringify({
     compiled: true,
     templateName,
@@ -161,9 +160,15 @@ async function compile(templateName, opts = {}) {
   }
 
   const result = {
-    html: getCompiledRenderer(compiled, 'html', templateName, opts),
-    text: getCompiledRenderer(compiled, 'text', templateName, opts),
-    subject: getCompiledRenderer(compiled, 'subject', templateName, opts)
+    html: getCompiledRenderer(config, compiled, 'html', templateName, opts),
+    text: getCompiledRenderer(config, compiled, 'text', templateName, opts),
+    subject: getCompiledRenderer(
+      config,
+      compiled,
+      'subject',
+      templateName,
+      opts
+    )
   };
 
   cache.set(cacheKeyRaw, {
@@ -176,7 +181,7 @@ async function compile(templateName, opts = {}) {
   return result;
 }
 
-async function render(templateName, data = {}, opts = {}) {
+async function render(config, templateName, data = {}, opts = {}) {
   const cacheKey = JSON.stringify({
     raw: true,
     templateName,

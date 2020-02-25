@@ -3,13 +3,13 @@
 const _ = require('lodash');
 const { Inbox } = require('@openagenda/inboxes');
 const sessions = require('@openagenda/sessions');
-const mails = require('@openagenda/mails');
+const mails = require('../services/mails');
 const cmn = require('../lib/commons-app');
 
 function callToActionRequest(req, res) {
   const { subject, url, agenda, message } = _.pick(req.body, 'subject', 'url', 'agenda', 'message');
 
-  mails({
+  mails.send({
     template: 'callToAction',
     to: 'commercial@openagenda.com',
     data: {

@@ -4,11 +4,10 @@ const _ = require( 'lodash' );
 
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventUpdate' );
-const mails = require( '@openagenda/mails' );
 
+const mails = require( '../../mails' );
 const membersSvc = require( '../../members' );
 const usersSvc = require( '../../users' );
-const genUrl = require( '../../genUrl' );
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
@@ -54,7 +53,7 @@ module.exports = async ({ root }, { agendaEvent, context, agenda, event }) => {
     log( 'creator member was not found for user of uid % in agenda %s', event.creatorUid, agenda.slug );
   } else if (agendaEvent.agendaUid === event.agendaUid) {
 
-     await mails( {
+     await mails.send( {
       template: 'myEventUpdate',
       to: {
         address: creatorUser.email,
@@ -79,7 +78,7 @@ module.exports = async ({ root }, { agendaEvent, context, agenda, event }) => {
 
   }
 
-  await mails( {
+  await mails.send( {
     template: 'eventUpdate',
     to: members
       .filter( member => !!member.user )

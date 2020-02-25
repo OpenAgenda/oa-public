@@ -81,7 +81,7 @@ module.exports = (config, core, services) => {
 
   require( './services/activities' ).tasks.notifications.addActivity.task();
 
-  require( '@openagenda/mails' ).task();
+  require( './services/mails' ).task();
 
   require( './services/legacy' ).task();
 

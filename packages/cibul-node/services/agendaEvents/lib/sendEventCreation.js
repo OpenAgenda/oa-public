@@ -1,9 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const mails = require( '@openagenda/mails' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 
+const mails = require( '../../mails' );
 const membersSvc = require( '../../members' );
 const usersSvc = require( '../../users' );
 
@@ -51,7 +51,7 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
   const members = await listAdminMods(agenda.uid);
 
   if ( creatorMemberId ) {
-    await mails( {
+    await mails.send( {
       template: 'myEventCreation',
       to: {
         address: creatorUser.email,
@@ -75,7 +75,7 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
     } );
   }
 
-  await mails( {
+  await mails.send( {
     template: 'eventCreation',
     to: members
       .filter( member => member.user.uid !== creatorUser.uid )

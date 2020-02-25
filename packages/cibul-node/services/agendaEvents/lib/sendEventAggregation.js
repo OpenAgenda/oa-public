@@ -1,11 +1,11 @@
 "use strict";
 
 const _ = require('lodash');
-const mails = require('@openagenda/mails');
 const agendas = require('@openagenda/agendas');
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
 const membersSvc = require('../../members');
 const usersSvc = require('../../users');
+const mails = require('../../mails');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
@@ -50,7 +50,7 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
     || (!agenda.private && agendaEvent.state === agendaEventStates.PUBLISHED);
 
   if (visibleForCreator) {
-    await mails({
+    await mails.send({
       template: 'myEventAggregation',
       to: {
         address: creatorUser.email,
@@ -87,7 +87,7 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
 
   log('sending aggregation email to %s members', targettedMembers.length);;
 
-  await mails({
+  await mails.send({
     template: 'eventAggregation',
     to: targettedMembers.map(member => {
         const lang = member.user.culture || 'fr';

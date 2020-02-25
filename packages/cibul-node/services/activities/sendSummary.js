@@ -2,10 +2,10 @@
 
 const _ = require( 'lodash' );
 const moment = require( 'moment' );
-const mails = require( '@openagenda/mails' );
 const notificationFormatMaker = require( '@openagenda/activities/dist/formatNotification' );
 const notifLabels = require( '@openagenda/labels/activities/notifications' );
 const log = require( '@openagenda/logs' )( 'services/activities/sendSummary' );
+const mails = require( '../mails' );
 const config = require( '../../config' );
 
 require( 'moment/locale/fr' );
@@ -54,7 +54,7 @@ module.exports = async function sendSummary( { user, notifications } ) {
       }
     ).join( '\n***\n' );
 
-    await mails( {
+    await mails.send( {
       template: 'notificationsSummary',
       to: {
         address: user.email,
