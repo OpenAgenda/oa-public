@@ -1,6 +1,6 @@
 'use strict';
 
-const mails = require('@openagenda/mails');
+const mails = require('../../mails');
 const config = require('../../../config');
 
 module.exports = service => (req, res, next) => {
@@ -16,7 +16,7 @@ module.exports = service => (req, res, next) => {
 
         const link = `${config.root}/users/${user.uid}/confirmChangeEmail?token=${token}`;
 
-        mails({
+        mails.send({
           template: 'changeEmail',
           to: email,
           data: {

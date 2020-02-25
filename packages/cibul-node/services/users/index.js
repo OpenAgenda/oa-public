@@ -22,13 +22,7 @@ const setFlashChangeEmail = require('./middleware/setFlashChangeEmail');
 const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
 const getHandler = require('./getHandler');
 const svcHooks = require('./hooks.js');
-
-function walkProtoChain(obj, walker = Object.getOwnPropertyNames) {
-  const proto = Object.getPrototypeOf(obj);
-  const inherited = proto !== Object.prototype ? walkProtoChain(proto, walker) : [];
-
-  return [...new Set(walker(obj).concat(inherited))];
-}
+const walkProtoChain = require('../../lib/walkProtoChain');
 
 function replaceIdMe() {
   return async (context, next) => {

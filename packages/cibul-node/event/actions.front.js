@@ -6,7 +6,6 @@ const moment = require('moment-timezone');
 const VError = require('verror');
 
 const formSchemaDecorate = require('@openagenda/form-schemas/iso/getDecorate');
-const mails = require('@openagenda/mails');
 const range = require('@openagenda/date-range');
 
 const getActionLabel = require('@openagenda/labels')(
@@ -15,6 +14,7 @@ const getActionLabel = require('@openagenda/labels')(
 const log = require('@openagenda/logs')('event/actions');
 const agendaEventsSvc = require('@openagenda/agenda-events');
 
+const mails = require('../services/mails');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
@@ -293,7 +293,7 @@ async function eventMailSend(req, res, next) {
       end: new Date(t.end)
     })), req.lang, req.event.timezone);
 
-    await mails({
+    await mails.send({
       template: 'event',
       to: emails.map(email => ({
         address: email,

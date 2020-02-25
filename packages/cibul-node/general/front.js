@@ -31,8 +31,7 @@ const legacyPages = {
 
 const cmn = require( '../lib/commons-app' );
 const newsletter = require( '@openagenda/newsletter' );
-const mails = require( '@openagenda/mails' );
-const model = require( '../services/model' );
+const mails = require( '../services/mails' );
 const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
 
 const preMw = [
@@ -259,7 +258,7 @@ function newsletterSubscribe( req, res ) {
 
       res.redirect( 302, '/' );
 
-      mails( {
+      mails.send( {
         to: 'admin@openagenda.com',
         subject: 'Nouvel inscrit à la newsletter',
         text: `"${req.body.email}" a été ajouté à la newsletter.`

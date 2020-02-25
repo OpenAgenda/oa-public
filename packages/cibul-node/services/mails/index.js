@@ -4,7 +4,7 @@ const _ = require('lodash');
 const path = require('path');
 const sanitizeHtml = require('sanitize-html');
 
-const mails = require('@openagenda/mails');
+const Mails = require('@openagenda/mails');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const labels = require('@openagenda/labels/all').mails;
 
@@ -12,9 +12,10 @@ const unsubscription = require('./unsubscription');
 const beforeSend = require('./lib/beforeSend');
 const filterBouncingAndUnsubscribed = require('./lib/filterBouncingAndUnsubscribed');
 const incomingEmailsMw = require('./lib/incomingEmailsMw');
-let services;
-
 const Queues = require('../queues');
+const walkProtoChain = require('../../lib/walkProtoChain');
+
+let services;
 
 const stripHtml = html =>
   sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} });
@@ -28,7 +29,7 @@ module.exports.init = async (config, _services) => {
 
   unsubscription.init(config);
 
-  await mails.init({
+  const mails = new Mails({
     // Templating
     templatesDir: path.join(__dirname, 'templates'),
 
@@ -64,4 +65,14 @@ module.exports.init = async (config, _services) => {
     sendFilter: filterBouncingAndUnsubscribed.bind(null, services, config),
     beforeSend: beforeSend.bind(null, services, config)
   });
+
+  await mails.init();
+
+  for (const prop of walkProtoChain(mails)) {
+    module.exports[prop] = typeof mails[prop] === 'function'
+      ? mails[prop].bind(mails)
+      : mails[prop];
+  }
+
+  return mails;
 };

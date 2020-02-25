@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const qs = require( 'qs' );
 const log = require( '@openagenda/logs' )( 'services/users/sendToken' );
-const mails = require( '@openagenda/mails' );
+const mails = require( '../mails' );
 const genUrl = require( '../genUrl' );
 
 
@@ -30,7 +30,7 @@ module.exports = config => {
 
         log( `sending activation token - ${link}` );
 
-        await mails( {
+        await mails.send( {
           template: 'activateAccount',
           to: user.email,
           lang: user.culture,
@@ -46,7 +46,7 @@ module.exports = config => {
 
         log( `sending lost password token - ${link}` );
 
-        await mails( {
+        await mails.send( {
           template: 'resetPassword',
           to: user.email,
           lang: user.culture,

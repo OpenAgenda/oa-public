@@ -3,11 +3,11 @@
 const _ = require( 'lodash' );
 const qs = require( 'qs' );
 
-const mails = require( '@openagenda/mails' );
 const invitations = require( '@openagenda/invitations' );
 
 const log = require( '@openagenda/logs' )( 'services/members/messages' );
 
+const mails = require( '../../mails' );
 const agendaLogo = require( './agendaLogo' );
 const invitationContext = require( './invitationContext' );
 
@@ -65,7 +65,7 @@ async function _sendMessage( config, member, { message, agenda, lang, replyTo } 
     } )}`
     : `${config.root}/${agenda.slug}?lang=${appliedLang}`;
 
-  return mails( {
+  return mails.send( {
     template: 'memberMessage',
     to: {
       address: email,

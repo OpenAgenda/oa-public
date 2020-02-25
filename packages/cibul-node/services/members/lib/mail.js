@@ -2,9 +2,9 @@
 
 const _ = require('lodash');
 const invitations = require('@openagenda/invitations');
-const mails = require('@openagenda/mails');
 const members = require('@openagenda/members');
 const log = require('@openagenda/logs')('members/mail');
+const mails = require('../../mails');
 const activities = require('../../activities');
 const agendaLogo = require('./agendaLogo');
 const extractInvitationContext = require('./invitationContext');
@@ -80,7 +80,7 @@ function _send(config, { invitation, member, agenda, message, lang }) {
 
   log('sending link', link, message);
 
-  return mails({
+  return mails.send({
     template: 'memberInvitation',
     to: {
       address: member.custom.email,

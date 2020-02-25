@@ -3,8 +3,8 @@
 const { promisify } = require('util');
 const _ = require('lodash');
 const { Inbox, InboxUsers } = require('@openagenda/inboxes');
-const mails = require('@openagenda/mails');
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
+const mails = require('../mails');
 const genUrl = require('../genUrl');
 
 module.exports = async (services, conversation, message) => {
@@ -154,7 +154,7 @@ async function sendMail(services, { inboxUser, conversation, message }) {
   const agendaTitle = agenda ? agenda.title : null;
 
 
-  return mails({
+  return mails.send({
     template: 'inboxMessage',
     from: {
       name: senderName,
