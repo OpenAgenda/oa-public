@@ -3,6 +3,8 @@
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'set' );
 
+const isLegacyCustom = require('./utils/generateCustomSet').isLegacyCustom;
+
 module.exports = Object.assign( set, {
   loadAndSet
 } );
@@ -114,7 +116,7 @@ async function _setCustomValues( knex, eventId, fieldValueMap ) {
   log( 'setting custom values for event id %s', eventId );
 
   const legacyCustom = fieldValueMap
-    .filter( mapItem => mapItem.field.origin === 'custom' )
+    .filter(mapItem => isLegacyCustom(mapItem.field))
     .map( _labelizeOptionedCustomValues )
     .map( _mapFileCustomValues )
     .reduce( ( obj, mapItem ) => _.set( obj, mapItem.field.field, mapItem.value ), {} );
