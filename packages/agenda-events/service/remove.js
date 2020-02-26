@@ -1,12 +1,9 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const w = require( 'when' );
+const _ = require('lodash');
 
-const get = require( './get' );
-const legacyTransfer = require( './legacyTransfer' );
-const listByEventUid = require( './list' ).byEventUid;
-const validateOptions = require( './lib/validateOptions' );
+const legacyTransfer = require('./legacyTransfer');
+const validateOptions = require('./lib/validateOptions');
 
 let config, knex, queue;
 
@@ -23,39 +20,30 @@ module.exports = _.extend( remove, {
 } );
 
 
-async function remove( agendaUid, eventUid, options = {} ) {
-
-  return _remove( {
+module.exports = async ({ config, client, get }, agendaUid, eventUid, options = {} ) => {
+  return _remove({ config, client }, {
     event_uid: eventUid,
     agenda_uid: agendaUid,
-  }, await get( agendaUid, eventUid ), validateOptions( options ) );
-
+  }, await get(agendaUid, eventUid), validateOptions(options));
 }
 
 
-async function byEventUid( eventUid, options ) {
-
+async function byEventUid({ config, client, listByEventUid }, eventUid, options) {
   let events = [], offset = 0, limit = 20;
 
-  while ( ( events = ( await listByEventUid( eventUid, offset, limit ) ).items ).length ) {
-
-    events.forEach( e => queue( [ 'onRemove', e, options ? options.context : undefined ] ) );
-
+  while ((events = (await listByEventUid(eventUid, offset, limit)).items).length) {
+    events.forEach(e => queue(['onRemove', e, options ? options.context : undefined]));
     offset += limit;
-
   }
 
-  let removedRows = await knex( config.schemas.agendaEvent )
-
+  const removedRows = await client('agenda-event')
     .del()
-
-    .where( { event_uid: eventUid } );
+    .where({ event_uid: eventUid });
 
   return {
     success: removedRows >= 1,
     removed: removedRows
   }
-
 }
 
 
@@ -85,50 +73,34 @@ async function byLegacyId( agendaId = null, eventId = null ) {
 }
 
 
-async function _remove( where, current = null, params = null ) {
-
-  let success = false;
-
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
-
-  if ( current === null ) {
-
+async function _remove({ config, client }, where, current = null, params = null ) {
+  if (current === null) {
     return {
-      success,
+      success: false,
       code: 'not_found'
     }
-
   }
 
-  if ( config.interfaces.beforeRemove ) {
-
-    await config.interfaces.beforeRemove( current, params !== null ? params.context : null );
-
+  if (config.interfaces.beforeRemove ){
+    await config.interfaces.beforeRemove(current, params !== null ? params.context : null);
   }
 
-  let removedRows = await knex( config.schemas.agendaEvent )
-
+  const removedRows = await client('agenda_event')
     .del()
-
-    .where( where );
+    .where(where);
 
   success = removedRows == 1;
 
-  if ( success && config.interfaces.onRemove ) {
-
-    config.interfaces.onRemove( current, params !== null ? params.context : null );
-
+  if (success && config.interfaces.onRemove) {
+    config.interfaces.onRemove(current, params !== null ? params.context : null);
   }
 
-  if ( success && params.transferToLegacy ) {
-
-    await legacyTransfer.remove( current );
-
+  if (success && params.transferToLegacy) {
+    await legacyTransfer.remove(current);
   }
 
   return {
     success,
     removed: current
   }
-
 }

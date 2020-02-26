@@ -1,30 +1,15 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const log = require( '@openagenda/logs' )( 'update' );
+const log = require('@openagenda/logs')('update');
 
-const get = require( './get' );
-const legacyTransfer = require( './legacyTransfer' );
-const validate = require( '../iso/validate' );
-const validateOptions = require( './lib/validateOptions' );
+const legacyTransfer = require('./legacyTransfer');
+const validate = require('../iso/validate');
+const validateOptions = require('./lib/validateOptions');
 const utils = require('./lib/utils');
 
-let config, knex;
-
-module.exports = _.extend( update, {
-  init: ( c, k ) => {
-
-    config = c;
-
-    knex = k;
-
-  }
-} );
-
-async function update( agendaUid, eventUid, data, options = {} ) {
-
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+module.exports = async ({ config, client, get }, agendaUid, eventUid, data, options = {}) => {
 
   log('input for %s.%s', agendaUid, eventUid, data);
 
@@ -40,7 +25,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   let updated = null;
 
-  if ( current === null ) {
+  if (current === null) {
     return {
       success,
       code: 'not_found'
@@ -75,7 +60,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   log('db entry for %s.%s', agendaUid, eventUid, entry);
 
-  const result = await knex(config.schemas.agendaEvent)
+  const result = await client(config.schemas.agendaEvent)
     .update(entry)
     .where({
       agenda_uid: agendaUid,

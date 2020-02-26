@@ -6,8 +6,7 @@ const queueLib = require( '@openagenda/queue' );
 const logger = require( '@openagenda/logs' );
 
 const endpoints = {
-  list: require( './service/list' ),
-  listByLastId: require( './service/list' ).byLastId,
+  list: require('./service/list'),
   get: require( './service/get' ),
   create: require( './service/create' ),
   update: require( './service/update' ),
@@ -18,13 +17,59 @@ const endpoints = {
 
 const stats = require( './service/stats' );
 
-module.exports = agendaUid => {
+module.exports = c => {
+  const config = {
+    queueNames: {
+      interfaces: 'agendaEventInterfaces'
+    },
+    ...c
+  };
+
+  if (c.logger) {
+    logger.setModuleConfig(c.logger);
+  }
+
+  config.queues = {
+    interfaces: queueLib(config.queueNames.interfaces, { redis: config.redis })
+  }
+
+  const client = config.knex || knex({
+    client: 'mysql',
+    connection: config.mysql
+  });
+
+  const list = endpoints.list(config, client);
+  const get = endpoints.get(config, client);
+
+  return Object.assign(agendaUid => ({
+    list: list.bind(null, agendaUid),
+    get: get.bind(null, agendaUid),
+    create: endpoints.create.bind(null, { config, client, get }, agendaUid),
+    update: endpoints.update.bind(null, { config, client, get }, agendaUid),
+    listByLastId: list.byLastId.bind(null, agendaUid)
+  }), {
+    list: {
+      byEventUid: list.byEventUid,
+      byUserUid: list.byUserUid
+    },
+    get: {
+      byLegacyId: get.byLegacyId
+    },
+    remove: endpoints.remove.byEventUid.bind(null, {
+      config,
+      client,
+      listByEventUid: list.byEventUid
+    })
+  });
+}
+
+/*module.exports = agendaUid => {
 
   return _.assign( _.mapValues( endpoints, e => e.bind( null, agendaUid ) ), {
     stats: _.mapValues( stats, ( e, k ) => k !== 'init' ? e.bind( null, agendaUid ) : e )
   } );
 
-}
+}*/
 
 module.exports.states = require( './iso/states' );
 

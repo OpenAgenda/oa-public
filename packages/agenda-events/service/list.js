@@ -2,36 +2,31 @@
 
 const _ = require( 'lodash' );
 
-const VError = require( 'verror' );
+const VError = require('verror');
 
-const validate = require( '../iso/validate' );
+const validate = require('../iso/validate');
 
 const validateListQuery = require('./lib/validateListQuery');
 const extractListParameters = require('./lib/extractListParameters');
 const validateOptions = require('./lib/validateOptions');
 
-let config, knex;
+module.exports = (config, client) => Object.assign(list.bind(null, config, client), {
+  byUserUid: listByUserUid.bind(null, config, client),
+  byEventUid: listByEventUid.bind(null, config, client),
+  byLastId: listByLastId.bind(null, config, client)
+});
 
-module.exports = _.extend( list, {
-  init: ( c, k ) => { config = c; knex = k },
-  byUserUid: listByUserUid,
-  byEventUid: listByEventUid,
-  byLastId: listByLastId
-} );
-
-async function list(agendaUid, query, offset, limit, options) {
+async function list(config, knex, agendaUid, query, offset, limit, options) {
   const params = extractListParameters(agendaUid, query, offset, limit, options);
   const {
     decorate
   } = validateOptions(params.options);
-  if (!knex) {
-    throw new VError( 'agenda-events service is not configured' );
-  }
 
   const items = (await _list(
+    knex,
     params.query,
-    _.pick(params, ['offset', 'limit']))
-  ).map(validate);
+    _.pick(params, ['offset', 'limit'])
+  )).map(validate);
 
   if (decorate.includes('member') && _.get(config, 'interfaces.getMembers')) {
     const members = await config.interfaces.getMembers(items);
@@ -43,76 +38,64 @@ async function list(agendaUid, query, offset, limit, options) {
 
   return {
     items,
-    total: await _total(params.query)
+    total: await _total(knex, params.query)
   }
 }
 
-async function listByLastId( agendaUid, query, lastId, limit = 20 ) {
-
-  const cleanQuery = { agendaUid };
+async function listByLastId(config, knex, agendaUid, query, lastId, limit = 2) {
+  const cleanQuery = {
+    agendaUid
+  };
 
   const nav = {}
 
-  if ( !_.isObject( arguments[ 1 ] ) ) {
-
-    _.extend( cleanQuery, validateListQuery( {} ) );
-
-    _.extend( nav, { lastId: query, limit: lastId || 20 } );
-
+  if (!_.isObject(query)) {
+    Object.assign(cleanQuery, validateListQuery({}));
+    Object.assign(nav, { lastId: query, limit: lastId || 20 });
   } else {
-
-    _.extend( cleanQuery, validateListQuery( query ) );
-
-    _.extend( nav, { lastId, limit } );
-
+    Object.assign(cleanQuery, validateListQuery(query));
+    Object.assign(nav, { lastId, limit });
   }
 
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
-
-  const items = await _list( cleanQuery, nav );
+  const items = await _list(knex, cleanQuery, nav);
 
   return {
     items: items.map(validate),
-    total: await _total(cleanQuery),
+    total: await _total(knex, cleanQuery),
     lastId: _.get(_.last(items), 'id', -1)
   }
-
 }
 
-async function listByUserUid( userUid, offset, limit ) {
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
-
+async function listByUserUid(config, knex, userUid, offset, limit) {
   return {
-    items: ( await _list( { userUid }, { offset, limit } ) ).map( validate ),
-    total: await _total({ userUid })
+    items: (await _list(knex, { userUid }, { offset, limit })).map(validate),
+    total: await _total(knex, { userUid })
   }
 }
 
-async function listByEventUid(eventUid, ...args) {
-
+async function listByEventUid(config, knex, eventUid, ...args) {
   const offset = args.length === 2 ? args[0] : args[1];
   const limit = args.length === 2 ? args[1] : (args[2] || 20);
   const query = args.length === 3 ? { ...args[0], eventUid } : { eventUid };
 
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+  if (!knex) throw new VError( 'agenda-events service is not configured' );
 
   return {
-    items: ( await _list(query, { offset, limit } ) ).map( validate ),
-    total: await _total(query)
+    items: (await _list(knex, query, { offset, limit })).map(validate),
+    total: await _total(knex, query)
   }
 }
 
-function _total( query ) {
-  const k = knex( config.schemas.agendaEvent );
+function _total(knex, query) {
+  const k = knex('agenda_event');
 
-  _query( k, query );
+  _query(k, query);
 
-  return k.count( 'id as total' )
-
-    .then( rows => rows[ 0 ][ 'total' ] );
+  return k.count('id as total')
+    .then(rows => rows[0]['total']);
 }
 
-function _list(query, nav) {
+function _list(knex, query, nav) {
   const {
     limit,
     offset,
@@ -128,28 +111,27 @@ function _list(query, nav) {
     'legacy_id'
   ];
 
-  if ( lastId !== undefined ) {
-
-    fields.push( 'id' );
-
+  if (lastId !== undefined) {
+    fields.push('id');
   }
 
-  const k = knex( config.schemas.agendaEvent )
-    .select( fields );
+  const k = knex('agenda_event').select(fields);
 
   if (limit !== undefined) {
     k.limit(limit);
   }
 
-  if ( lastId !== undefined ) {
-    k.where( 'id', '>', lastId );
+  if (lastId !== undefined) {
+    k.where('id', '>', lastId);
   } else {
-    k.offset( offset );
+    k.offset(offset);
   }
 
-  _query( k, query );
+  _query(k, query);
 
-  return k.then( rows => rows.map( r => _.mapKeys( r, ( v, k ) => _.camelCase( k ) ) ) );
+  return k.then(rows => rows
+    .map(r => _.mapKeys(r, (v, k) => _.camelCase(k)))
+  );
 }
 
 function _query(k, query) {

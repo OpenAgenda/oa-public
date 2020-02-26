@@ -6,14 +6,14 @@ const utils = require('./lib/utils');
 const validate = require('../iso/validate');
 const validateOptions = require('./lib/validateOptions');
 
-let config, knex;
-
-module.exports = Object.assign(get, {
-  init: ( c, k ) => { config = c; knex = k },
-  byLegacyId
+module.exports = (config, client) => Object.assign(get.bind(null, config, client), {
+  byLegacyId: (agendaId, eventId) => _get(client, {
+    'legacy_id' : agendaId + '.' + eventId
+  })
 });
 
-async function get(agendaUid, eventUid, options = {}) {
+
+async function get(config, knex, agendaUid, eventUid, options = {}) {
   if (!agendaUid) throw new Error('Agenda uid is missing');
   if (!eventUid) throw new Error('Event uid is missing');
 
@@ -21,7 +21,7 @@ async function get(agendaUid, eventUid, options = {}) {
     decorate
   } = validateOptions(options);
 
-  const ae = await _get({
+  const ae = await _get(knex, {
     'agenda_uid': agendaUid,
     'event_uid': eventUid
   });
@@ -33,18 +33,8 @@ async function get(agendaUid, eventUid, options = {}) {
   return ae;
 }
 
-async function byLegacyId( agendaId, eventId ) {
-
-  return await _get( {
-    'legacy_id' : agendaId + '.' + eventId
-  } );
-
-}
-
-async function _get( where ) {
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
-
-  const entry = await knex(config.schemas.agendaEvent)
+async function _get(knex, where) {
+  const entry = await knex('agenda_event')
     .first([
       'agenda_uid',
       'event_uid',

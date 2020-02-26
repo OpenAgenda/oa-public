@@ -1,4 +1,4 @@
-create table if not exists `${schema}` (
+create table if not exists `agenda_event` (
   id bigint(20) not null auto_increment,
   agenda_uid bigint(20) not null,
   event_uid bigint(20) not null,
@@ -19,13 +19,13 @@ create table if not exists `${schema}` (
   primary key ( id )
 ) engine=InnoDB  default character set utf8 collate utf8_general_ci;
 
-INSERT INTO `${schema}` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `user_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
+INSERT INTO `agenda_event` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `user_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
 (435378, '42.24', 62792452, 10974548, 12312312, 1, 0, '2016-01-13 10:12:18', '2016-01-13 10:12:18');
 
-INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `user_uid`, `source_agenda_uid`, `state`, `featured`, `created_at`, `updated_at`, `aggregated`) VALUES
+INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `user_uid`, `source_agenda_uid`, `state`, `featured`, `created_at`, `updated_at`, `aggregated`) VALUES
 (437141, 62792452, 60059313, 1, '[11,[22],33]', 0, '2016-01-25 16:19:30', '2016-01-25 16:19:30', '2019-09-07 10:12:18', 1);
 
-INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`, `user_uid`) VALUES
+INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`, `user_uid`) VALUES
 (436064, 62792452, 53117383, 0, 0, '2016-01-19 13:52:59', '2016-01-19 13:52:59', null),
 (436091, 62792452, 16425580, 1, 0, '2016-01-19 16:04:30', '2016-01-19 16:04:30', null),
 (436099, 62792452, 34285341, 0, 0, '2016-01-19 16:14:36', '2016-01-19 16:14:36', null),
@@ -577,7 +577,7 @@ INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `
 (447796, 62792452, 2088492, 1, 0, '2016-02-25 16:59:23', '2016-02-25 16:59:23', null),
 (447808, 62792452, 42558069, 1, 0, '2016-02-25 17:21:38', '2016-02-25 17:21:38', null);
 
-INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
+INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
 (447810, 62792452, 22175636, 1, 0, '2016-02-25 17:28:25', '2016-02-25 17:28:25'),
 (447850, 62792452, 62367678, 1, 0, '2016-02-25 21:49:10', '2016-02-25 21:49:10'),
 (447894, 62792452, 1047649, 1, 0, '2016-02-26 08:50:54', '2016-02-26 08:50:54'),
@@ -1121,7 +1121,7 @@ INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `
 (466366, 62792452, 4158429, 1, 0, '2016-03-21 15:35:41', '2016-03-21 15:35:41'),
 (466375, 62792452, 58961384, 1, 0, '2016-03-21 15:47:27', '2016-03-21 15:47:27'),
 (466379, 62792452, 60475494, 1, 0, '2016-03-21 15:51:55', '2016-03-21 15:51:55');
-INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
+INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
 (466459, 62792452, 19411925, 1, 0, '2016-03-21 15:54:59', '2016-03-21 15:54:59'),
 (466465, 62792452, 46954796, 1, 0, '2016-03-21 15:59:12', '2016-03-21 15:59:12'),
 (466479, 62792452, 38063657, 1, 0, '2016-03-21 16:06:02', '2016-03-21 16:06:02'),
