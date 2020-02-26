@@ -237,6 +237,21 @@ describe('events -07- unit (iso): validation', () => {
 
   });
 
+  describe('draft', () => {
+
+    it('no exception is thrown when timings are not set', () => {
+      let thrownException = null;
+      try {
+        draftValidate();
+      } catch (e) {
+        exception = e;
+      }
+
+      should(thrownException).equal(null);
+    });
+
+  });
+
   describe('validateOptions', () => {
 
     it('fix - validates the list options', () => {

@@ -1,7 +1,8 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const validate = require( '../validate' );
+const _ = require('lodash');
+const VError = require('verror');
+const validate = require('../validate');
 
 module.exports = ( { target, log } ) => v => {
 
@@ -13,7 +14,13 @@ module.exports = ( { target, log } ) => v => {
 
   } catch( e ) {
 
-    if ( !_.isArray( e ) ) throw e;
+    if ( !_.isArray( e ) ) {
+      throw new VError({
+        name: 'MysticalError',
+        cause: e,
+        info: v[target],
+      }, 'validate exception for %s validate', v[target].draft ? 'draft' : 'regular');
+    }
 
     log( 'validation failed with %s errors', e.length );
 
