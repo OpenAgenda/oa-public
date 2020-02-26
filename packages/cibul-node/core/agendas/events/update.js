@@ -108,7 +108,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
   if (!result.valid) {
     log('error', 'update was not successful', result);
     throw new VError({
-      name: 'validationError',
+      name: 'ValidationError',
       info: {
         errors: result.errors
       }

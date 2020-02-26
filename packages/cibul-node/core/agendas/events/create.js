@@ -103,7 +103,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
 
   if (!result.valid) {
     throw new VError({
-      name: 'validationError',
+      name: 'ValidationError',
       info: {
         errors: result.errors
       }
