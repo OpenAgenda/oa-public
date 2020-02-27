@@ -45,7 +45,7 @@ module.exports = class TimingsComponent extends Component {
     value: null
   };
 
-  onTimingsChange = (timings = [], beginKey = 'begin') => {
+  onTimingsChange(timings = [], beginKey = 'begin') {
     this.props.onChange(timings.map(t => ({
       begin: {
         date: _extractDateString(t[beginKey]),
@@ -65,7 +65,7 @@ module.exports = class TimingsComponent extends Component {
 
     return (
       <TimingsPicker
-        onChange={this.onTimingsChange}
+        onChange={this.onTimingsChange.bind(this)}
         value={value}
         locale={lang}
         weekStartsOn={1}
