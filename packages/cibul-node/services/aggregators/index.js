@@ -43,11 +43,11 @@ module.exports.init = (config, services) => {
             eventUid,
             sourceAgenda.uid,
             aggregatorAgendaUid,
-            e.name === 'ValidationError' ? e.jse_info.errors : e
+            e.name === 'ValidationError' ? e.detail : e
           );
           return {
             success: false,
-            errors: e.name === 'ValidationError' ? e.jse_info.errors : e
+            errors: e.name === 'ValidationError' ? e.detail : e
           };
         }
       },
@@ -61,11 +61,11 @@ module.exports.init = (config, services) => {
           log('error', 'could not remove event %s from aggregator %s',
             eventUid,
             aggregatorAgendaUid,
-            e.name === 'ValidationError' ? e.jse_info.errors : e
+            e.name === 'ValidationError' ? e.detail : e
           );
           return {
             success: false,
-            errors: e.name === 'ValidationError' ? e.jse_info.errors : e
+            errors: e.name === 'ValidationError' ? e.detail : e
           };
         }
       },

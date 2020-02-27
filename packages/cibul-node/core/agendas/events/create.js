@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const VError = require('verror');
+const ValidationError = require('../../utils/ValidationError');
 
 const log = require('@openagenda/logs')('core/agendas/events/create');
 const {
@@ -102,12 +102,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   }
 
   if (!result.valid) {
-    throw new VError({
-      name: 'ValidationError',
-      info: {
-        errors: result.errors
-      }
-    });
+    throw new ValidationError(result.errors);
   } else {;
     payload.setItem('event', result.event);
   }
