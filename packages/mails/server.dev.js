@@ -10,10 +10,11 @@ const reload = require('reload');
 const walk = require('walk');
 const VError = require('verror');
 const htmlToText = require('html-to-text');
-const config = require('./config');
-const { render } = require('./');
+const Mails = require('./');
 
-config.init().catch(error => console.log('Initializing error:', error));
+const mails = new Mails();
+
+mails.init().catch(error => console.log('Initializing error:', error));
 
 function recursiveListPaths(base, type, filters) {
   const walker = walk.walk(base, {
@@ -90,11 +91,15 @@ app.use(
 
 app.get('/', async (req, res, next) => {
   try {
-    const paths = (await recursiveListPaths(
-      config.templatesDir,
-      'directory',
-      /^((?!fixtures).)*$/
-    )).filter(filepath => fs.existsSync(path.join(config.templatesDir, filepath, 'index.mjml')));
+    const paths = (
+      await recursiveListPaths(
+        mails.config.templatesDir,
+        'directory',
+        /^((?!fixtures).)*$/
+      )
+    ).filter(filepath => fs.existsSync(
+      path.join(mails.config.templatesDir, filepath, 'index.mjml')
+    ));
 
     res.send(
       [
@@ -120,7 +125,7 @@ app.get(/.mjml$/, async (req, res, next) => {
   }
 
   const templateName = req.path.slice(1, -5);
-  const templateDir = path.join(config.templatesDir, templateName);
+  const templateDir = path.join(mails.config.templatesDir, templateName);
   const fixturesDir = path.join(templateDir, 'fixtures');
   let fixturesPaths = [];
   let data;
@@ -145,21 +150,20 @@ app.get(/.mjml$/, async (req, res, next) => {
     data = {};
   }
 
-  Object.assign(data, config.defaults.data);
+  Object.assign(data, mails.config.defaults.data);
 
   const labels = data.$labels || {};
   const langs = getLangsFromLabels(labels);
-  const lang = req.query.lang || config.defaults.lang || langs[0];
-  const __ = (data.$makeLabelGetter || config.translations.makeLabelGetter)(
-    labels,
-    lang
-  );
+  const lang = req.query.lang || mails.config.defaults.lang || langs[0];
+  const __ = (
+    data.$makeLabelGetter || mails.config.translations.makeLabelGetter
+  )(labels, lang);
 
   let html;
   let text;
   let subject;
   try {
-    ({ html, text, subject } = await render(templateName, data, {
+    ({ html, text, subject } = await mails.render(templateName, data, {
       lang,
       __
     }));
@@ -204,8 +208,9 @@ app.get(/.mjml$/, async (req, res, next) => {
     '<head><title>Mails Editor 🎉</title></head>',
     '<body style="margin: 0">',
     '<script>',
-    '  function resizeIframe( obj ) {',
+    '  function resizeIframe(obj) {',
     "    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';",
+    '    setTimeout(() => resizeIframe(obj), 32)',
     '  }',
     '</script>',
     ...(langs.length

@@ -368,50 +368,85 @@ describe('core - functional (server): core.agendas().events.update()', function(
       }).then(r => r.data.access_token);
     });
 
-    before(async () => {
-      response = await axios({
-        method: 'post',
-        url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
-        headers: {
-          'access-token': accessToken,
-          nonce: 123,
-          'content-type': 'application/json'
-        },
-        data: {
-          state: 0,
-          featured: true,
-          title: {
-            fr: 'Un événement mis à jour via l\'api',
-            en: 'An updated event through the api'
+    describe('successful update', () => {
+
+      before(async () => {
+        response = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 123,
+            'content-type': 'application/json'
           },
-          description: {
-            fr: 'Une description',
-            en: 'A desc'
-          },
-          location: {
-            uid: 123
-          },
-          timings: [{
-            begin: new Date('2019-05-06T10:00:00'),
-            end: new Date('2019-05-06T11:00:00')
-          }, {
-            begin: new Date('2019-05-06T12:00:00'),
-            end: new Date('2019-05-06T13:00:00')
-          }],
-          'custom_description' : 'Meh',
-          'categories-agenda-metropolitain': 43,
-          'thematiques-bordeaux-metropole' : [3]
-        }
-      }).then(r => r.data);
+          data: {
+            state: 0,
+            featured: true,
+            title: {
+              fr: 'Un événement mis à jour via l\'api',
+              en: 'An updated event through the api'
+            },
+            description: {
+              fr: 'Une description',
+              en: 'A desc'
+            },
+            location: {
+              uid: 123
+            },
+            timings: [{
+              begin: new Date('2019-05-06T10:00:00'),
+              end: new Date('2019-05-06T11:00:00')
+            }, {
+              begin: new Date('2019-05-06T12:00:00'),
+              end: new Date('2019-05-06T13:00:00')
+            }],
+            'custom_description' : 'Meh',
+            'categories-agenda-metropolitain': 43,
+            'thematiques-bordeaux-metropole' : [3]
+          }
+        }).then(r => r.data);
+      });
+
+      it('response gives success key if update was a success', () => {
+        response.success.should.equal(true);
+      });
+
+      it('updated event is provided in event key', () => {
+        response.event.uid.should.equal(19201989);
+      });
+
     });
 
-    it('response gives success key if update was a success', () => {
-      response.success.should.equal(true);
+    describe('successful patch', () => {
+
+      before(async () => {
+        response = await axios({
+          method: 'patch',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 12345,
+            'content-type': 'application/json'
+          },
+          data: {
+            title: {
+              fr: 'Un événement mis à jour via l\'api',
+              en: 'An updated event through the api'
+            }
+          }
+        });
+      });
+
+      it('status is 200', () => {
+        response.status.should.equal(200);
+      });
+
+      it('body contains event', () => {
+        response.data.event.uid.should.equal(19201989);
+      });
+
     });
 
-    it('updated event is provided in event key', () => {
-      response.event.uid.should.equal(19201989);
-    });
   });
 
 });

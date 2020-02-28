@@ -178,10 +178,10 @@ export default class TimingsPicker extends Component {
   onChange = value => {
     const { onChange } = this.props;
 
-    this.setState({ value });
-
     if (typeof onChange === 'function') {
       onChange(value);
+    } else {
+      this.setState({ value });
     }
   };
 

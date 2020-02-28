@@ -1,24 +1,22 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const should = require( 'should' );
-const validate = require( '../service/validate' );
-const frontValidate = require( '../service/validate/front' );
-const draftValidate = require( '../service/validate' ).draft;
+const _ = require('lodash');
+const should = require('should');
+const validate = require('../service/validate');
+const frontValidate = require('../service/validate/front');
+const draftValidate = require('../service/validate').draft;
 const validateListOptions = require('../service/validate/listOptions');
 
 
-describe( 'events -07- unit (iso): validation', () => {
+describe('events -07- unit (iso): validation', () => {
 
-  describe( 'full', () => {
+  describe('full', () => {
 
-    it( 'only needs identifier fields, title, and timestamps to be set to declare an event valid', () => {
-
+    it('only needs identifier fields, title, and timestamps to be set to declare an event valid', () => {
       let clean, errors = [], d = new Date();
 
       try {
-
-        clean = validate( {
+        clean = validate({
           id: 1,
           uid: 123,
           slug: 'a-slug',
@@ -31,17 +29,14 @@ describe( 'events -07- unit (iso): validation', () => {
           } ],
           updatedAt: d,
           createdAt: d
-        } )
-
-      } catch ( e ) {
-
+        });
+      } catch (e) {
         errors = e;
-
       }
 
-      errors.length.should.equal( 0 );
+      errors.length.should.equal(0);
 
-      clean.should.eql( {
+      clean.should.eql({
         id: 1,
         uid: 123,
         slug: 'a-slug',
@@ -90,47 +85,32 @@ describe( 'events -07- unit (iso): validation', () => {
         updatedAt: d,
         createdAt: d,
         deletedAt: undefined
-      } );
+      });
 
-    } );
+    });
 
-  } );
+  });
 
-  describe( 'front', () => {
+  describe('front', () => {
 
-    it( 'public validation requires slug by default', () => {
-
+    it('public validation requires slug by default', () => {
       try {
-
-        frontValidate( {} );
-
-      } catch ( errors ) {
-
-        errors.filter( e => e.field === 'slug' ).length.should.equal( 1 );
-
+        frontValidate({});
+      } catch (errors) {
+        errors.filter(e => e.field === 'slug').length.should.equal(1);
       }
+    });
 
-    } );
-
-
-    it( 'public validation can be set to render slug optional', () => {
-
+    it('public validation can be set to render slug optional', () => {
       try {
-
-        frontValidate( {}, { optionalSlug: true } )
-
-      } catch ( errors ) {
-
-        errors.filter( e => e.field === 'slug' ).length.should.equal( 0 );
-
+        frontValidate({}, { optionalSlug: true })
+      } catch (errors) {
+        errors.filter(e => e.field === 'slug').length.should.equal(0);
       }
+    });
 
-    } );
-
-
-    it( 'public validation can be set to ignore slug', () => {
-
-      const clean = frontValidate( {
+    it('public validation can be set to ignore slug', () => {
+      const clean = frontValidate({
         title: {
           fr: 'Un titre'
         },
@@ -138,20 +118,16 @@ describe( 'events -07- unit (iso): validation', () => {
           begin: new Date(),
           end: new Date()
         } ]
-      }, { optionalSlug: true } );
+      }, { optionalSlug: true });
 
-      clean.title.fr.should.equal( 'Un titre' );
+      clean.title.fr.should.equal('Un titre');
+    });
 
-    } );
-
-
-    it( 'public validation needs title and slug and timings', () => {
-
+    it('public validation needs title and slug and timings', () => {
       let clean, errors = [], d = new Date();
 
       try {
-
-        clean = frontValidate( {
+        clean = frontValidate({
           slug: 'un-titre',
           title: {
             fr: 'Un titre'
@@ -160,17 +136,14 @@ describe( 'events -07- unit (iso): validation', () => {
             begin: d,
             end: d
           } ]
-        } );
-
-      } catch( e ) {
-
+        });
+      } catch(e) {
         errors = e;
-
       }
 
-      errors.length.should.equal( 0 );
+      errors.length.should.equal(0);
 
-      clean.should.eql( {
+      clean.should.eql({
         slug: 'un-titre',
         locationUid: null,
         title: {
@@ -210,78 +183,74 @@ describe( 'events -07- unit (iso): validation', () => {
           variants: []
         },
         timezone: 'Europe/Paris'
-      } );
+      });
+    });
 
-    } );
-
-    it( 'timings does not validate if is begin or end are null', () => {
-
+    it('timings does not validate if is begin or end are null', () => {
       let errors;
 
       try {
-
-        frontValidate( {
+        frontValidate({
           title: {
             fr: 'Un titre'
           },
           timings: [ { begin: null, end: null } ]
-        }, { optionalSlug: true } );
-
-      } catch ( err ) {
-
+        }, { optionalSlug: true });
+      } catch (err) {
         errors = err;
-
       }
 
-      errors.length.should.equal( 2 );
+      errors.length.should.equal(2);
+    });
 
-    } );
-
-    it( 'timings does not validate if is null', () => {
-
+    it('timings does not validate if is null', () => {
       let errors;
 
       try {
-
-        frontValidate( {
+        frontValidate({
           title: {
             fr: 'Un titre'
           },
           timings: null
-        }, { optionalSlug: true } );
-
-      } catch ( err ) {
-
+        }, { optionalSlug: true });
+      } catch (err) {
         errors = err;
-
       }
 
-      errors.length.should.equal( 1 );
+      errors.length.should.equal(1);
+    });
 
-    } );
-
-    it( 'timings does not validate if there are more than 800 timings', () => {
-
+    it('timings does not validate if there are more than 800 timings', () => {
       try {
-
-        frontValidate( {
+        frontValidate({
           title: {
             fr: 'Un titre'
           },
-          timings: _timings( new Date, 801 )
-        }, { optionalSlug: true } );
+          timings: _timings(new Date, 801)
+        }, { optionalSlug: true });
+      } catch (errors) {
+        errors.length.should.equal(1);
+        _.get(errors, '0.message').should.equal('list is too long');
+        _.get(errors, '0.field').should.equal('timings');
+      }
+    });
 
-      } catch ( errors ) {
+  });
 
-        errors.length.should.equal( 1 );
-        _.get( errors, '0.message' ).should.equal( 'list is too long' );
-        _.get( errors, '0.field' ).should.equal( 'timings' );
+  describe('draft', () => {
 
+    it('no exception is thrown when timings are not set', () => {
+      let thrownException = null;
+      try {
+        draftValidate();
+      } catch (e) {
+        exception = e;
       }
 
-    } );
+      should(thrownException).equal(null);
+    });
 
-  } );
+  });
 
   describe('validateOptions', () => {
 
@@ -301,26 +270,24 @@ describe( 'events -07- unit (iso): validation', () => {
 
   });
 
-} );
+});
 
 
-function _timings( start, count ) {
-
+function _timings(start, count) {
   const timings = [];
 
   let cursor = start;
 
-  for ( let i = 0; i<count; i++ ) {
+  for (let i = 0; i<count; i++) {
 
-    timings.push( {
+    timings.push({
       begin: cursor,
       end: cursor
-    } );
+    });
 
-    cursor.setDate( cursor.getDate() + 1 );
+    cursor.setDate(cursor.getDate() + 1);
 
   }
 
   return timings;
-
 }

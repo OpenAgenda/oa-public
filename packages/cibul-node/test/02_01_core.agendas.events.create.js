@@ -538,59 +538,113 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       }).then(r => r.data.access_token);
     });
 
-    before(async () => {
-      response = await axios({
-        method: 'post',
-        url: 'http://localhost:3000/v2/agendas/17026855/events',
-        headers: {
-          'access-token': accessToken,
-          nonce: 123,
-          'content-type': 'application/json'
-        },
-        data: {
-          title: {
-            fr: 'Un événement créé par API'
+    describe('successful create', () => {
+
+      before(async () => {
+        response = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/v2/agendas/17026855/events',
+          headers: {
+            'access-token': accessToken,
+            nonce: 123,
+            'content-type': 'application/json'
           },
-          description: {
-            fr: 'Un tout petit événement'
-          },
-          timings: [ {
-            begin: new Date( '2019-05-06T10:00:00' ),
-            end: new Date( '2019-05-06T11:00:00' )
-          } ],
-          keywords: {
-            fr: [ 'un', 'deux', 'trois' ]
-          },
-          location: {
-            uid: 123
-          },
-          'categories-agenda-metropolitain': 42,
-          'thematiques-bordeaux-metropole' : [3, 4],
-          accessibility: { sl: true }
-        }
-      }).then(r => r.data);
+          data: {
+            title: {
+              fr: 'Un événement créé par API'
+            },
+            description: {
+              fr: 'Un tout petit événement'
+            },
+            timings: [ {
+              begin: new Date( '2019-05-06T10:00:00' ),
+              end: new Date( '2019-05-06T11:00:00' )
+            } ],
+            keywords: {
+              fr: [ 'un', 'deux', 'trois' ]
+            },
+            location: {
+              uid: 123
+            },
+            'categories-agenda-metropolitain': 42,
+            'thematiques-bordeaux-metropole' : [3, 4],
+            accessibility: { sl: true }
+          }
+        }).then(r => r.data);
+      });
+
+      it('response gives success key at true if creation was a success', () => {
+        response.success.should.equal(true);
+      });
+
+      it('response provides created event in event key', () => {
+        response.event.slug.should.equal('un-evenement-cree-par-api');
+      });
+
+      it('create with superagent', async () => {
+        const response = await request.post('http://localhost:3000/v2/agendas/17026855/events')
+          .type('form')
+          .accept('json')
+          .query({ key: null })
+          .set('access-token', accessToken)
+          .set('nonce', _.random(Math.pow(10, 6)))
+          .field({
+            data: JSON.stringify(eventsFixtures[3])
+          });
+
+        response.body.success.should.equal(true);
+      });
+
     });
 
-    it('response gives success key at true if creation was a success', () => {
-      response.success.should.equal(true);
-    });
+    describe('unsuccessful create (invalid data)', () => {
+      let response;
 
-    it('response provides created event in event key', () => {
-      response.event.slug.should.equal('un-evenement-cree-par-api');
-    });
-
-    it('create with superagent', async () => {
-      const response = await request.post('http://localhost:3000/v2/agendas/17026855/events')
-        .type('form')
-        .accept('json')
-        .query({ key: null })
-        .set('access-token', accessToken)
-        .set('nonce', _.random(Math.pow(10, 6)))
-        .field({
-          data: JSON.stringify(eventsFixtures[3])
+      before(async () => {
+        await axios({
+          method: 'post',
+          url: 'http://localhost:3000/v2/agendas/17026855/events',
+          headers: {
+            'access-token': accessToken,
+            nonce: 1234,
+            'content-type': 'application/json'
+          },
+          data: {
+            title: {
+              fr: 'Un événement créé par API'
+            },
+            timings: [],
+            location: {
+              uid: 123
+            },
+            'categories-agenda-metropolitain': 42,
+            'thematiques-bordeaux-metropole' : [3, 4]
+          }
+        }).catch(e => {
+          response = e.response;
         });
+      });
 
-      response.body.success.should.equal(true);
+      it('response is 400', () => {
+        response.status.should.equal(400);
+      });
+
+      it('list of validation errors is provided in body', () => {
+        response.data.errors.should.eql([{
+          lang: 'fr',
+          field: 'description',
+          code: 'required',
+          message: 'a string is required',
+          origin: '',
+          step: 'validation'
+        }, {
+          code: 'timings.empty',
+          message: 'At least one timing is required',
+          field: 'timings',
+          step: 'validation'
+        }]);
+      });
+
     });
 
   });

@@ -59,7 +59,7 @@ function resetPassword( req, res ) {
 
   const { services } = req.app;
 
-  _verifyToken( services, { token: req.params.token } )
+  _verifyToken( services, { token: req.params.token, req } )
 
     .then( _ifValueIs( 'valid', true, _render( req, res, 'auth/resetPassword' ) ) )
 

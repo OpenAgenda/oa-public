@@ -1,10 +1,13 @@
 'use strict';
 
+const _ = require('lodash');
+
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 const ReactDOM = require('react-dom/server');
 const wrapApp = require('@openagenda/react-utils/dist/wrapApp');
+const { parsePath } = require('history');
 
 const cmn = require('../../../../lib/commons-app');
 

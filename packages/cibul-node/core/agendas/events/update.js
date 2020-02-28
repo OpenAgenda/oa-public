@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const VError = require('verror');
+const ValidationError = require('../../utils/ValidationError');
 
 const log = require('@openagenda/logs')('core/agendas/events/update');
 
@@ -107,12 +107,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   if (!result.valid) {
     log('error', 'update was not successful', result);
-    throw new VError({
-      name: 'validationError',
-      info: {
-        errors: result.errors
-      }
-    });
+    throw new ValidationError(result.errors);
   } else {
     payload.setItem('event', result.before, result.event);
   }
