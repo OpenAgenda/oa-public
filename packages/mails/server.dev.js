@@ -208,8 +208,9 @@ app.get(/.mjml$/, async (req, res, next) => {
     '<head><title>Mails Editor 🎉</title></head>',
     '<body style="margin: 0">',
     '<script>',
-    '  function resizeIframe( obj ) {',
+    '  function resizeIframe(obj) {',
     "    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';",
+    '    setTimeout(() => resizeIframe(obj), 32)',
     '  }',
     '</script>',
     ...(langs.length
