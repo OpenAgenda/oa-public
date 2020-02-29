@@ -1,17 +1,17 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
+const _ = require('lodash');
+const { promisify } = require('util');
 
-const ESNode = require( '@openagenda/es-node' );
+const ESNode = require('@openagenda/es-node');
 
-const coms = require( '../../lib/coms' );
-const refresh = require( './lib/refresh' );
-const resync = require( './lib/resync' );
-const updateEvent = require( './lib/updateEvent' );
-const updateReview = require( './lib/updateReview' );
-const removeEvent = require( './lib/removeEvent' );
-const removeReview = require( './lib/removeReview' );
+const coms = require('../../lib/coms');
+const refresh = require('./lib/refresh');
+const resync = require('./lib/resync');
+const updateEvent = require('./lib/updateEvent');
+const updateReview = require('./lib/updateReview');
+const removeEvent = require('./lib/removeEvent');
+const removeReview = require('./lib/removeReview');
 
 let legacyES;
 
@@ -24,51 +24,52 @@ module.exports = {
 
 function init(config, services) {
 
-  const legacyLib = ESNode( config.es );
+  const legacyLib = ESNode(config.es);
 
   legacyES = {
-    refreshIndex: promisify( legacyLib.refreshIndex ),
-    resetIndex: promisify( legacyLib.resetIndex ),
-    updateReview: updateReview( {
-      update: promisify( legacyLib.reviews().update ),
+    refreshIndex: promisify(legacyLib.refreshIndex),
+    resetIndex: promisify(legacyLib.resetIndex),
+    updateReview: updateReview({
+      update: promisify(legacyLib.reviews().update),
       knex: config.knex
-    } ),
-    removeReview: removeReview( {
-      remove: promisify( legacyLib.reviews().remove ),
+    }),
+    removeReview: removeReview({
+      remove: promisify(legacyLib.reviews().remove),
       knex: config.knex
-    } ),
-    updateEvent: updateEvent( {
-      remove: promisify( legacyLib.events().remove ),
-      update: promisify( legacyLib.events().update ),
+    }),
+    updateEvent: updateEvent({
+      remove: promisify(legacyLib.events().remove),
+      update: promisify(legacyLib.events().update),
       knex: config.knex,
       imageBasePath: config.aws.imageBucketPath
-    } ),
-    removeEvent: removeEvent( {
-      remove: promisify( legacyLib.events().remove ),
+    }),
+    removeEvent: removeEvent({
+      remove: promisify(legacyLib.events().remove),
       knex: config.knex
-    } ),
-    searchReviews: promisify( legacyLib.reviews().search ),
-    searchEvents: promisify( search.bind( null, legacyLib ) )
+    }),
+    searchReviews: promisify(legacyLib.reviews().search),
+    searchEvents: promisify(search.bind(null, legacyLib))
   }
 
-  return Object.assign( module.exports, {
-    agendas: agendas.bind( null, {
+  return Object.assign(module.exports, {
+    agendas: agendas.bind(null, {
+      services,
       legacyLib,
       channel: config.mainChannel
-    } ),
-    search: search.bind( null, legacyLib ),
-    searchAgendas: search.bind( null, legacyLib ),
-    resync: resync.bind( null, services, legacyES),
-    refresh: refresh.bind( null, legacyES ),
+    }),
+    search: search.bind(null, legacyLib),
+    searchAgendas: search.bind(null, legacyLib),
+    resync: resync.bind(null, services, legacyES),
+    refresh: refresh.bind(null, legacyES),
     updateEvent: legacyES.updateEvent,
     removeEvent: legacyES.removeEvent,
     updateAgenda: legacyES.updateReview,
     removeAgenda: legacyES.removeReview,
     ES: legacyLib
-  } )
+  })
 }
 
-function agendas( { legacyLib, channel }, agenda ) {
+function agendas({ services, legacyLib, channel }, agenda) {
 
   return {
     search: _search,
@@ -98,51 +99,51 @@ function agendas( { legacyLib, channel }, agenda ) {
     }, options), cb);
   }
 
-  function _resync( cb ) {
+  function _resync(cb) {
 
-    resync( legacyES, { agendaId: agenda.id }, err => {
+    resync(services, legacyES, { agendaId: agenda.id }, err => {
 
-      if ( err ) return cb( err );
+      if (err) return cb(err);
 
-      coms.publish( channel, {
+      coms.publish(channel, {
         name: 'agenda.update',
         values: {
           id: agenda.id,
           type: 'refresh'
         }
-      } );
+      });
 
       cb();
 
-    } );
+    });
 
   }
 
 }
 
 
-function searchAgendas( legacyLib, query, options, cb ) {
+function searchAgendas(legacyLib, query, options, cb) {
 
-  if ( arguments.length == 2 ) {
+  if (arguments.length == 2) {
     cb = options;
     options = {};
   }
 
-  _prepare( query, options, function( params, esQuery ) {
+  _prepare(query, options, function(params, esQuery) {
 
     esQuery.deep = true;
     esQuery.when = false;
 
-    legacyLib.reviews().search( esQuery, cb );
+    legacyLib.reviews().search(esQuery, cb);
 
   });
 
 }
 
 
-function aggregate( legacyLib, query, options, cb ) {
+function aggregate(legacyLib, query, options, cb) {
 
-  if ( arguments.length == 2 ) {
+  if (arguments.length == 2) {
 
     cb = options;
 
@@ -150,18 +151,18 @@ function aggregate( legacyLib, query, options, cb ) {
 
   }
 
-  _prepare( query, options, function( params, esQuery ) {
+  _prepare(query, options, function(params, esQuery) {
 
-    legacyLib.events().aggregate( esQuery, cb );
+    legacyLib.events().aggregate(esQuery, cb);
 
   });
 
 }
 
 
-function search( legacyLib, query, options, cb ) {
+function search(legacyLib, query, options, cb) {
 
-  if ( arguments.length == 2 ) {
+  if (arguments.length == 2) {
 
     cb = options;
 
@@ -169,45 +170,45 @@ function search( legacyLib, query, options, cb ) {
 
   }
 
-  _prepare( query, options, ( params, esQuery ) => {
+  _prepare(query, options, (params, esQuery) => {
 
-    legacyLib.events().search( esQuery, ( err, result ) => {
+    legacyLib.events().search(esQuery, (err, result) => {
 
-      if ( err ) return cb( err );
+      if (err) return cb(err);
 
-      cb( null, {
+      cb(null, {
         total: result.total,
         events: result.data
-      } );
+      });
 
-    } );
+    });
 
   });
 
 }
 
 
-function _prepare( query, options, cb ) {
+function _prepare(query, options, cb) {
 
-  const params = _.extend( {
+  const params = _.extend({
     limit: LIMIT,
     agendaId: false,
     showAll: false
-  }, options );
+  }, options);
 
   const esQuery = _buildESQuery(
-    _clean( query, params ),
+    _clean(query, params),
     params.limit,
     params.agendaId,
     params.showAll
-  );
+ );
 
-  cb( params, esQuery );
+  cb(params, esQuery);
 
 }
 
 
-function _buildESQuery( query, limit, agendaId, showAll ) {
+function _buildESQuery(query, limit, agendaId, showAll) {
 
   var when,
 
@@ -222,7 +223,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     }
   };
 
-  if ( agendaId ) {
+  if (agendaId) {
 
     esQuery.reviewId = agendaId;
 
@@ -247,39 +248,39 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     'uids',
     'excludedUids',
     'updatedAtAfter'
-  ].forEach( function( name ) {
+  ].forEach(function(name) {
 
-    if ( query[ name ] ) esQuery[ name ] = query[ name ];
+    if (query[ name ]) esQuery[ name ] = query[ name ];
 
   });
 
 
-  if ( query.featured !== undefined ) {
+  if (query.featured !== undefined) {
 
     esQuery.featured = !!query.featured;
 
   }
 
-  if ( query.when.length == 1 ) {
+  if (query.when.length == 1) {
 
     esQuery.when = {
       type: 'date',
-      value: new Date( _.get( query, 'when.0', '' ).replace( ' ', '+' ) ).toJSON(),
-      withTime: query.when[0].indexOf( 'T' ) !== -1
+      value: new Date(_.get(query, 'when.0', '').replace(' ', '+')).toJSON(),
+      withTime: query.when[0].indexOf('T') !== -1
     };
 
-  } else if ( query.when.length == 2 ) {
+  } else if (query.when.length == 2) {
 
     esQuery.when = {
       type: 'period',
       value: {
-        start: new Date( _.get( query, 'when.0', '' ).replace( ' ', '+' ) ).toJSON(),
-        end: new Date( _.get( query, 'when.1', '' ).replace( ' ', '+' ) ).toJSON(),
+        start: new Date(_.get(query, 'when.0', '').replace(' ', '+')).toJSON(),
+        end: new Date(_.get(query, 'when.1', '').replace(' ', '+')).toJSON(),
       },
-      withTime: query.when[0].indexOf( 'T' ) !== -1
+      withTime: query.when[0].indexOf('T') !== -1
     };
 
-  } else if ( query.passed || query.when === false ) {
+  } else if (query.passed || query.when === false) {
 
     delete esQuery.when;
 
@@ -288,25 +289,25 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   // where
 
-  if ( query.location ) {
+  if (query.location) {
 
     esQuery.location = query.location;
 
-  } else if ( query.locationExtId ) {
+  } else if (query.locationExtId) {
 
     esQuery.locationExtId = query.locationExtId;
 
-  } else if ( query.lat && query.lng && query.radius ) {
+  } else if (query.lat && query.lng && query.radius) {
 
     esQuery.where = {
       distance: query.radius + 'km',
       value: [
-        parseFloat( query.lng ),
-        parseFloat( query.lat )
+        parseFloat(query.lng),
+        parseFloat(query.lat)
       ]
     };
 
-  } else if ( _validLatitude( query.neLat ) && _validLongitude( query.neLng ) && _validLatitude( query.swLat ) && _validLongitude( query.swLng ) ) {
+  } else if (_validLatitude(query.neLat) && _validLongitude(query.neLng) && _validLatitude(query.swLat) && _validLongitude(query.swLng)) {
 
     esQuery.where = {
       neLat: query.neLat,
@@ -320,7 +321,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   // then "order"
 
-  if ( query.order ) {
+  if (query.order) {
 
     esQuery.options.order = [ query.order ];
 
@@ -340,11 +341,11 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
  * to building es query
  */
 
-function _clean( query, params ) {
+function _clean(query, params) {
 
-  if ( params.offset === undefined ) {
+  if (params.offset === undefined) {
 
-    params.offset = ( parseInt( params.page ? params.page : 1, 10 ) - 1 ) * params.limit;
+    params.offset = (parseInt(params.page ? params.page : 1, 10) - 1) * params.limit;
 
   }
 
@@ -354,11 +355,11 @@ function _clean( query, params ) {
   };
 
 
-  if ( !query ) return clean;
+  if (!query) return clean;
 
-  [ 'what', 'type', 'age', 'scope', 'slug', 'operator' ].forEach( k => {
+  [ 'what', 'type', 'age', 'scope', 'slug', 'operator' ].forEach(k => {
 
-    if ( !query[ k ] ) return;
+    if (!query[ k ]) return;
 
     clean[ k ] = query[ k ];
 
@@ -368,21 +369,21 @@ function _clean( query, params ) {
     clean.what = clean.what.substr(0, 255);
   }
 
-  if ( query.uids && !query.from ) {
+  if (query.uids && !query.from) {
 
     clean.when = false;
 
-  } else if ( query.from ) {
+  } else if (query.from) {
 
     clean.when = [ query.from ];
 
-    if ( query.to && ( query.to !== query.from ) ) {
+    if (query.to && (query.to !== query.from)) {
 
-      clean.when.push( query.to );
+      clean.when.push(query.to);
 
     }
 
-  } else if ( _isTruthy( query.passed ) ) {
+  } else if (_isTruthy(query.passed)) {
 
     clean.passed = true;
 
@@ -408,11 +409,11 @@ function _clean( query, params ) {
     clean[uidField] = uids.map(uid => parseInt(uid)).filter(uid => !!uid);
   });
 
-  if ( query.featured !== undefined ) {
+  if (query.featured !== undefined) {
 
-    clean.featured = parseInt( query.featured, 10 );
+    clean.featured = parseInt(query.featured, 10);
 
-    if ( isNaN( clean.featured ) ) {
+    if (isNaN(clean.featured)) {
 
       delete clean.featured;
 
@@ -421,16 +422,16 @@ function _clean( query, params ) {
   }
 
 
-  [ 'tags', 'accessibility', 'lang' ].forEach( k => {
+  [ 'tags', 'accessibility', 'lang' ].forEach(k => {
 
-    if ( !query[ k ] ) return;
+    if (!query[ k ]) return;
 
-    clean[ k ] = [].concat( query[ k ] );
+    clean[ k ] = [].concat(query[ k ]);
 
-  } );
+  });
 
 
-  if ( [ 'proximity', 'update', 'upcoming', 'latest' ].indexOf( query.order ) !== -1 ) {
+  if ([ 'proximity', 'update', 'upcoming', 'latest' ].indexOf(query.order) !== -1) {
 
     clean.order = query.order;
 
@@ -440,63 +441,63 @@ function _clean( query, params ) {
     'neLat', 'neLng', 'swLat', 'swLng',
     'category', 'location', 'locationExtId', 'org',
     'countryCode', 'lat', 'lng', 'radius', 'tagsOperator', 'updatedAtAfter'
-  ].forEach( function( name ) {
+  ].forEach(function(name) {
 
-    if ( query[ name ] ) clean[ name ] = query[ name ];
+    if (query[ name ]) clean[ name ] = query[ name ];
 
-  } );
+  });
 
   return clean;
 
 }
 
 
-function _validLatitude( lat ) {
+function _validLatitude(lat) {
 
-  if ( !_validCoord( lat ) ) return false;
+  if (!_validCoord(lat)) return false;
 
-  if ( parseFloat( lat ) > 90 ) return false;
+  if (parseFloat(lat) > 90) return false;
 
-  if ( parseFloat( lat ) < -90 ) return false;
-
-  return true;
-
-}
-
-function _validLongitude( lng ) {
-
-  if ( !_validCoord( lng ) ) return false;
-
-  if ( parseFloat( lng ) > 180 ) return false;
-
-  if ( parseFloat( lng ) < -180 ) return false;
+  if (parseFloat(lat) < -90) return false;
 
   return true;
 
 }
 
-function _validCoord( coord ) {
+function _validLongitude(lng) {
 
-  if ( typeof coord == 'undefined' ) return false;
+  if (!_validCoord(lng)) return false;
 
-  if ( !coord ) return false;
+  if (parseFloat(lng) > 180) return false;
 
-  if ( /,/.test( coord ) ) return false;
-
-  if ( isNaN( coord ) ) return false;
+  if (parseFloat(lng) < -180) return false;
 
   return true;
 
 }
 
-function _isTruthy( v ) {
+function _validCoord(coord) {
 
-  if ( typeof v === 'boolean' ) return v;
+  if (typeof coord == 'undefined') return false;
 
-  if ( typeof v === 'string' && v === 'true' ) return true;
+  if (!coord) return false;
 
-  if ( typeof v === 'string' && v === 'false' ) return false;
+  if (/,/.test(coord)) return false;
 
-  return !!parseInt( v );
+  if (isNaN(coord)) return false;
+
+  return true;
+
+}
+
+function _isTruthy(v) {
+
+  if (typeof v === 'boolean') return v;
+
+  if (typeof v === 'string' && v === 'true') return true;
+
+  if (typeof v === 'string' && v === 'false') return false;
+
+  return !!parseInt(v);
 
 }

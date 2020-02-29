@@ -139,6 +139,8 @@ async function _removeEventZombies(services, ES, agendaId) {
     agendaEvents
   } = services;
 
+  console.log(agendaEvents);
+
   log('info', agendaId ? 'removing zombie events of agenda id %s' : 'removing zombie events of entire index', agendaId);
 
   const agendaUid = await knex('review').first('uid').where('id', agendaId).then(r => r ? r.uid : null);
@@ -153,7 +155,7 @@ async function _removeEventZombies(services, ES, agendaId) {
 
     log('info', 'Checking %s events in index for zombies (offset %s)', indexedEvents.length, offset);
 
-    const serviceEventUids = await agendaEvents.list(agendaUid, {
+    const serviceEventUids = await agendaEvents(agendaUid).list({
       eventUid: indexedEvents.map(e => e.uid)
     }, 0, limit).then(({ items }) => items.map(ae => ae.eventUid));
 
