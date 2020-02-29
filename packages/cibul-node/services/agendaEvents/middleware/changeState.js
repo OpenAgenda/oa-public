@@ -1,5 +1,6 @@
-"use strict";
+'use strict';
 
+const base64 = require('@openagenda/utils/base64');
 const states = require('@openagenda/agenda-events/iso/states');
 const sessions = require('../../sessions');
 
@@ -27,15 +28,15 @@ const labels = {
 };
 
 module.exports = (req, res, next) => {
-  req.app.services.core.agendas( req.agenda.uid ).events.update( req.event.uid, {
+  req.app.services.core.agendas(req.agenda.uid).events.update(req.event.uid, {
     state: req.params.state
   }, {
     partial: true,
     context: {
       userUid: req.user.uid
     }
-  } ).then(result => {
-    res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
+  }).then(result => {
+    res.redirect(302, req.query.redirect ? base64.decode(req.query.redirect) : `/${req.agenda.slug}/events/${req.event.slug}`);
   }, next);
 }
 
