@@ -1,12 +1,13 @@
 "use strict";
 
-const agendaEventsSvc = require( '@openagenda/agenda-events' );
-const agendaEventsRemove = require( '@openagenda/agenda-events/service/remove' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/beforeRemove' );
 
 const legacyEventSearch = require( '../elasticsearch' );
 
-module.exports = async ( event, context, cb ) => {
+module.exports = async (services, event, context, cb) => {
+  const {
+    agendaEvents: agendaEventsSvc
+  } = services;
 
   log( 'will remove event %s', event.uid, { context } );
 
@@ -25,13 +26,7 @@ module.exports = async ( event, context, cb ) => {
       const { items: agendaEvents } = await agendaEventsSvc.list.byEventUid( event.uid, 0, 20 );
 
       for ( const agendaEvent of agendaEvents ) {
-
-        await agendaEventsRemove(
-          agendaEvent.agendaUid,
-          agendaEvent.eventUid,
-          { context: { ...context, deletion: true } }
-        );
-
+        await agendaEventsSvc(agendaEvent.agendaUid).remove(agendaEvent.eventUid, { context: { ...context, deletion: true } });
       }
 
       hasMore = agendaEvents.length

@@ -1,6 +1,5 @@
 "use strict";
 
-const agendaEvents = require( '@openagenda/agenda-events' );
 const events = require( '@openagenda/events' );
 
 const activities = require( '../../activities' );
@@ -8,7 +7,11 @@ const legacyEventSearch = require( '../../elasticsearch' );
 
 const log = require( '@openagenda/logs' )( 'services/members/transferEvent' );
 
-module.exports = async ( event, member ) => {
+module.exports = async (services, event, member) => {
+  const {
+    agendaEvents
+  } = services;
+
   log( 'processing event to member', event.uid, member.id );
 
   const previousOwnerUid = event.ownerUid;

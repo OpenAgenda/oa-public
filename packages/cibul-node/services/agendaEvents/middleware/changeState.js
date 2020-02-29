@@ -1,6 +1,6 @@
 "use strict";
 
-const states = require('@openagenda/agenda-events').states;
+const states = require('@openagenda/agenda-events/iso/states');
 const sessions = require('../../sessions');
 
 const actionLabels = require('@openagenda/labels')(

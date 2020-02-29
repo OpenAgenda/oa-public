@@ -5,7 +5,6 @@ const async = require( 'async' );
 const w = require( 'when' );
 
 const agendas = require( '@openagenda/agendas' );
-const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaEventsMw = require( '../services/agendaEvents' ).mw;
 const legacyEventSearch = require('../services/elasticsearch');
 const members = require( '../services/members' );
@@ -292,7 +291,10 @@ function actionShow( req, res ) {
  * added regardless of state.
  */
 
-function eventAdd( req, res ) {
+function eventAdd(req, res) {
+  const {
+    agendaEvents
+  } = req.app.services;
 
   req.agenda.getContributionSettings( ( err, contributionSettings ) => {
 
@@ -347,9 +349,12 @@ function eventAdd( req, res ) {
 }
 
 
-function eventRemove( req, res ) {
+function eventRemove(req, res) {
+  const {
+    agendaEvents
+  } = req.app.services;
 
-  req.agenda.removeEvent( req.event, req.user, async function( err ) {
+  req.agenda.removeEvent(req.event, req.user, async err => {
 
     if ( err ) {
 

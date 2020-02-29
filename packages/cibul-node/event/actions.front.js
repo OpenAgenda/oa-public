@@ -12,7 +12,6 @@ const getActionLabel = require('@openagenda/labels')(
   require('@openagenda/labels/event/actions')
 );
 const log = require('@openagenda/logs')('event/actions');
-const agendaEventsSvc = require('@openagenda/agenda-events');
 
 const mails = require('../services/mails');
 const agendaSvc = require('../services/agenda');
@@ -429,7 +428,7 @@ async function _agendasAction(req, res, next) {
   try {
     const originUid = req.event.agendaUid;
 
-    const { items: agendasSharing } = await agendaEventsSvc.list.byEventUid(req.event.uid);
+    const { items: agendasSharing } = await req.app.services.agendaEvents.list.byEventUid(req.event.uid);
     const members = req.user
       ? await readStream(membersSvc.stream(
         {

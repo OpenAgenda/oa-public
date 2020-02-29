@@ -52,7 +52,7 @@ function init(config, services) {
       imageFilesLoad: imageFiles.load,
       onCreate: onCreate.bind(null, services),
       onUpdate: onUpdate.bind(null, services),
-      beforeRemove,
+      beforeRemove: beforeRemove.bind(null, services),
       onRemove: onRemove.bind(null, services),
       getOriginAgendas,
       getLocations

@@ -1,38 +1,24 @@
-"use strict";
+'use strict';
 
-const legacy = require( './legacy' );
-const agendaEvents = require( '@openagenda/agenda-events' );
-const eventStates = require( '@openagenda/agendas/service/validate/eventStates' );
-const sessions = require( '../sessions' );
+const AgendaEvents = require('@openagenda/agenda-events');
+const eventStates = require('@openagenda/agendas/service/validate/eventStates');
 
-const members = require( '../members' );
-
+const beforeRemove = require('./beforeRemove');
 const getMembers = require('./getMembers');
-const onCreate = require( './onCreate' );
-const onUpdate = require( './onUpdate' );
-const onRemove = require( './onRemove' );
-const beforeRemove = require( './beforeRemove' );
+const onCreate = require('./onCreate');
+const onUpdate = require('./onUpdate');
+const onRemove = require('./onRemove');
 
 const mw = {
-  loadAgenda: require( '../members/middleware/loadAgenda' ),
-  loadEvent: require( '../members/middleware/loadEvent' ),
-  load: require( './middleware/load' ),
-  requireCanEdit: require( './middleware/requireCanEdit' ),
-  changeState: require( './middleware/changeState' )
+  loadAgenda: require('../members/middleware/loadAgenda'),
+  loadEvent: require('../members/middleware/loadEvent'),
+  load: require('./middleware/load'),
+  requireCanEdit: require('./middleware/requireCanEdit'),
+  changeState: require('./middleware/changeState')
 }
 
-module.exports = Object.assign( plugApp, {
-  init,
-  legacy,
-  mw: {
-    // make the variants load and loadOrFail
-    loadOrFail: mw.load
-  }
-} );
-
-function init(config, services) {
-
-  agendaEvents.init( {
+module.exports = Object.assign(plugApp, {
+  init: (config, services) => AgendaEvents({
     mysql: config.db,
     knex: config.knex,
     redis: config.redis,
@@ -58,24 +44,31 @@ function init(config, services) {
       beforeRemove,
       getMembers
     }
-  } );
+  }),
+  mw: {
+    // make the variants load and loadOrFail
+    loadOrFail: mw.load
+  }
+});
 
-  return agendaEvents;
 
-}
 
-function plugApp( parentApp ) {
+function plugApp(parentApp) {
+  const {
+    sessions,
+    members
+  } = parentApp.services;
 
-  parentApp.all( [
+  parentApp.all([
     '/:agendaSlug/events/:eventSlug/state/:state'
   ], [
-    sessions.middleware.ifUnlogged( ( req, res, next ) => next( {
+    sessions.middleware.ifUnlogged((req, res, next) => next({
       code: 403, error: 'requiredLogged', message: 'You need to be logged'
-    } ) ),
+    })),
     mw.loadAgenda,
     mw.loadEvent,
     mw.load
-  ] );
+  ]);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state',
     members.mw.loadAndAuthorize('moderator'),
@@ -88,5 +81,4 @@ function plugApp( parentApp ) {
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState.batched
   );
-
 }
