@@ -179,7 +179,10 @@ class DaysSelector extends Component {
     const { value, reducedAllowedTimings } = this.state;
 
     const filteredValue = value.filter(
-      v => !(v.begin === valueToUpdate.begin && v.end === valueToUpdate.end)
+      v => !(
+        dateFns.isEqual(v.begin, valueToUpdate.begin)
+          && dateFns.isEqual(v.end, valueToUpdate.end)
+      )
     );
     const isDisabled = isDisabledTiming(
       submittedValue,
@@ -189,10 +192,6 @@ class DaysSelector extends Component {
 
     if (!isDisabled) {
       const newValue = [...filteredValue, submittedValue];
-
-      this.setState({
-        value: newValue
-      });
 
       if (typeof onChange === 'function') {
         onChange(newValue);

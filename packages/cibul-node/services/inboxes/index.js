@@ -31,7 +31,7 @@ module.exports.init = async (c, services) => {
     getInboxesDetails: getInboxesDetails.bind(null, services),
     onInboxCreate,
     filterAction,
-    onAction
+    onAction: onAction.bind(null, services)
   };
 
   await inboxes.init(

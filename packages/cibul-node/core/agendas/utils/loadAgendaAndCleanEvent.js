@@ -8,10 +8,8 @@ const FormSchema = require( '@openagenda/form-schemas/iso/FormSchema' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/events/validate' );
 const validate = require( '@openagenda/events/service/validate' );
-const validateAgendaEvent = require( '@openagenda/agenda-events' ).validate;
 
 const eventSchema = require( '@openagenda/event-form/build/schema' );
-const members = require('@openagenda/members');
 const extractLanguages = require( '@openagenda/event-form/build/utils/extractLanguages' );
 const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
@@ -23,7 +21,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   const location = await _getLocation(services.agendaLocations, data);
 
   return {
-    clean: validateEvent({
+    clean: validateEvent(services, {
       formSchema: agenda.formSchema,
       networkFormSchema: _.get(agenda, 'network.formSchema'),
       location
@@ -32,7 +30,13 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   }
 }
 
-function validateEvent({ formSchema, networkFormSchema, location }, data, options = {}) {
+function validateEvent(services, { formSchema, networkFormSchema, location }, data, options = {}) {
+  const {
+    agendaEvents: {
+      validate: validateAgendaEvent
+    }
+  } = services;
+
   const {
     draft,
     partial,

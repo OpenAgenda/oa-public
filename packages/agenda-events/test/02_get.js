@@ -1,38 +1,45 @@
-"use strict";
+'use strict';
 
-process.env.NODE_ENV = 'test';
+const _ = require('lodash');
+const should = require('should');
 
-const _ = require( 'lodash' );
-const should = require( 'should' );
+const Service = require('../');
+const config = require('../testconfig');
 
-const svc = require( './service' );
-const get = require( '../service/get' );
-const config = require( '../testconfig' );
-
+const fixtures = require('./service/load');
 const membersFixtures = require('./service/membersFixtures.json');
 
-describe('agendaEvents - functional (server): get', function() {
+describe('agendaEvents - 02 - functional (server): get', function() {
+  let svc, get;
 
-  this.timeout( 5000 );
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'agenda_event.data.sql'
+    ]);
+  });
 
-  before( done => {
+  before(() => {
+    svc = Service({
+      ...config,
+      interfaces: {
+        ...config.interfaces,
+        getMembers: async aes => aes.map(ae => _.find(
+          membersFixtures, {
+            agendaUid: ae.agendaUid,
+            userUid: ae.userUid
+          }
+        ))
+      }
+    });
 
-    config.interfaces.getMembers = async aes => {
-      return aes.map(ae => _.find(
-        membersFixtures, {
-          agendaUid: ae.agendaUid,
-          userUid: ae.userUid
-        }
-      ));
-    };
-
-    svc.initAndLoad(config, done );
-  } );
+    get = svc.get;
+  });
 
   it('simple get', async () => {
-    const ref = await svc( 62792452 ).get( 10974548 );
+    const ref = await svc(62792452).get(10974548);
 
-    _.omit( ref, [ 'updatedAt', 'createdAt' ] ).should.eql( {
+    _.omit(ref, ['updatedAt', 'createdAt']).should.eql({
       agendaUid: 62792452,
       eventUid: 10974548,
       userUid: 12312312,
@@ -42,11 +49,13 @@ describe('agendaEvents - functional (server): get', function() {
       featured: false,
       canEdit: false,
       legacyId: '42.24'
-    } );
+    });
   });
 
   it('get with decorate to get member details', async () => {
-    const ref = await svc(62792452).get(10974548, { decorate: ['member'] });
+    const ref = await svc(62792452).get(10974548, {
+      decorate: ['member']
+    });
 
     ref.member.should.eql({ agendaUid: 62792452, userUid: 12312312, role: 1 });
   });
@@ -85,7 +94,7 @@ describe('agendaEvents - functional (server): get', function() {
 
 
   it( 'get by legacy id', async () => {
-    let ref = await get.byLegacyId( 42, 24 );
+    let ref = await get.byLegacyId(42, 24);
 
     _.omit(ref, ['updatedAt', 'createdAt']).should.eql( {
       eventUid: 10974548,

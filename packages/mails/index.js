@@ -19,10 +19,8 @@ class Mails {
   async init() {
     this.config = await createConfig(this._rawConfig);
 
-    this.templater = {
-      render: templater.render.bind(null, this.config),
-      compile: templater.compile.bind(null, this.config)
-    };
+    this.render = templater.render.bind(null, this.config);
+    this.compile = templater.compile.bind(null, this.config);
   }
 
   static recipientToArray(recipient) {
@@ -61,7 +59,7 @@ class Mails {
       ? options.queue
       : config.defaults.queue !== false && config.queues;
     const compiled = options.template && enqueue
-      ? await this.templater.compile(options.template, {
+      ? await this.compile(options.template, {
         ..._.pick(options, 'disableHtml', 'disableText', 'disableSubject'),
         lang: defaultLang
       })
@@ -138,7 +136,7 @@ class Mails {
           } else {
             Object.assign(
               params,
-              await this.templater.render(params.template, params.data, params)
+              await this.render(params.template, params.data, params)
             );
           }
         }

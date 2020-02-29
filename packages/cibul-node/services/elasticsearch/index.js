@@ -22,7 +22,7 @@ module.exports = {
   updateEvent: () => { throw new Error('Service is not initialized'); }
 }
 
-function init( config ) {
+function init(config, services) {
 
   const legacyLib = ESNode( config.es );
 
@@ -58,7 +58,7 @@ function init( config ) {
     } ),
     search: search.bind( null, legacyLib ),
     searchAgendas: search.bind( null, legacyLib ),
-    resync: resync.bind( null, legacyES ),
+    resync: resync.bind( null, services, legacyES),
     refresh: refresh.bind( null, legacyES ),
     updateEvent: legacyES.updateEvent,
     removeEvent: legacyES.removeEvent,

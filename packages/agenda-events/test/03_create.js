@@ -1,34 +1,29 @@
-"use strict";
+'use strict';
 
-process.env.NODE_ENV = 'test';
+const _ = require('lodash');
+const ih = require('immutability-helper');
+const should = require('should');
+const mysql = require('mysql');
 
-const svc = require( './service' );
+const Service = require('../');
+const config = require('../testconfig');
 
-const config = require( '../testconfig' );
+const fixtures = require('./service/load');
+const membersFixtures = require('./service/membersFixtures.json');
 
-const mysql = require( 'mysql' );
+describe('agendaEvents - 03 - functional (server): create', function() {
+  let svc;
 
-const _ = require( 'lodash' );
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'agenda_event.data.sql'
+    ]);
+  });
 
-const im = require( 'immutability-helper' );
-
-const should = require( 'should' );
-
-describe( 'agendaEvents - functional (server): create', function() {
-
-  this.timeout( 5000 );
-
-  before( done => {
-
-    svc.initAndLoad( config, done );
-
-  } );
-
-  afterEach( () => {
-
-    svc.init( config );
-
-  } );
+  before(() => {
+    svc = Service(config);
+  });
 
   describe('simple create', () => {
     let rows;
@@ -118,14 +113,12 @@ describe( 'agendaEvents - functional (server): create', function() {
 
   } );
 
-  it( 'context can be passed in options to be transfered to onCreate interface', done => {
-
-    svc.init( im( config, {
+  it('context can be passed in options to be transfered to onCreate interface', done => {
+    svc = Service(ih(config, {
       interfaces: {
         onCreate: {
-          $set: ( created, context ) => {
-
-            context.should.eql( {
+          $set: (created, context) => {
+            context.should.eql({
               userUid: 111,
               aggregated: false,
               agendaUid: null,
@@ -135,55 +128,50 @@ describe( 'agendaEvents - functional (server): create', function() {
               event: null,
               legacy: true,
               batched: false
-            } );
-
+            });
           }
         }
       }
-    } ) );
+    }));
 
-    svc( 1212 ).create( 3445, {}, {
+    svc(1212).create(3445, {}, {
       context: {
         userUid: 111
       }
-    } ).then( () => done() );
+    } ).then(() => done());
+  });
 
-  } );
 
-
-  it( 'when no context is passed, default context values are given', done => {
-
-    svc.init( im( config, {
+  it('when no context is passed, default context values are given', done => {
+    svc = Service(ih(config, {
       interfaces: {
         onCreate: {
-          $set: ( created, context ) => {
-
-            context.should.eql( {
+          $set: (created, context) => {
+            context.should.eql({
               userUid: null,
+              agendaUid: null,
               aggregated: false,
               sourceAgenda: null,
               transferToLegacy: false,
               agenda: null,
               event: null,
-              legacy: true
-            } );
-
+              legacy: true,
+              batched: false
+            });
           }
         }
       }
-    } ) )
+    }));
 
-    svc( 1212 ).create( 3445 ).then( () => done() );
+    svc(1212).create(3445).then(() => done());
+  });
 
-  } );
+  it('set canEdit to true in second create argument', async () => {
+    const {
+      created
+    } = await svc(1212).create(3446, { canEdit: true });
 
+    created.canEdit.should.equal(true);
+  });
 
-  it( 'set canEdit to true in second create argument', async () => {
-
-    const { created } = await svc( 1212 ).create( 3446, { canEdit: true } );
-
-    created.canEdit.should.equal( true );
-
-  } );
-
-} );
+});

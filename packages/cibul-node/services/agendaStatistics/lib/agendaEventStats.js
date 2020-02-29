@@ -1,9 +1,11 @@
-"use strict";
+'use strict';
 
-const agendaEvents = require( '@openagenda/agenda-events' );
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-module.exports = async agendaUid => {
+module.exports = async (services, agendaUid) => {
+  const {
+    agendaEvents
+  } = services;
 
   const totals = {
     total: ( await agendaEvents( agendaUid ).list( 0, 0 ) ).total,

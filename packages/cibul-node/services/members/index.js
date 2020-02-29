@@ -59,7 +59,7 @@ function init(c, services) {
     bulkThreshold: 10,
     logger: config.getLogConfig('svc', 'members'),
     interfaces: {
-      getEventCountByUserUid,
+      getEventCountByUserUid: getEventCountByUserUid.bind(null, services),
       getUsersByUid: getUsersByUid.bind(null, services),
       getUserByEmail: getUserByEmail.bind(null, services),
       getAgendasByUid: getAgendasByUid.bind(null, services),
@@ -233,7 +233,7 @@ function plugApp(parentApp) {
     mw.authorize.adminModOrEventOwner,
     mw.authorize.agendaHasCredential.bind(null, 'eventOwnershipTransfer'),
     mw.loadTarget.byEmail.bind(null, members),
-    (req, res, next) => transferEvent(req.event, req.targetMember).then(() => {
+    (req, res, next) => transferEvent(req.app.services, req.event, req.targetMember).then(() => {
       res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
     }, next)
   );

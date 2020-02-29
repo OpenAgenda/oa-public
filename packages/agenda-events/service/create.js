@@ -1,39 +1,26 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const log = require('@openagenda/logs')('create');
 
-const log = require( '@openagenda/logs' )( 'create' );
-
-const get = require( './get' );
-const legacyTransfer = require( './legacyTransfer' );
-const validate = require( '../iso/validate' );
-const validateOptions = require( './lib/validateOptions' );
+const validate = require('../iso/validate');
+const validateOptions = require('./lib/validateOptions');
 const utils = require('./lib/utils');
 
-let config, knex;
-
-module.exports = Object.assign(create, {
-  init: (c, k) => {
-
-    config = c;
-
-    knex = k;
-
-  }
-});
-
-async function create( agendaUid, eventUid, data = {}, options = {} ) {
+module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) => {
+  const {
+    config,
+    client,
+    get,
+    toLegacy
+  } = service;
 
   log('info', 'initiating create', { agendaUid, eventUid, data, options });
-
-  if (!knex) throw new VError('agenda-events service is not configured');
 
   const params = validateOptions(options, 'create');
 
   let clean;
-
   let success = false;
-
   let created = null;
 
   try {
@@ -44,8 +31,8 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
     if (!params.protected) {
       ['updatedAt', 'createdAt'].forEach(f => {
-        if ( data[ f ] ) values[ f ] = data[ f ];
-      } );
+        if (data[f]) values[f] = data[f];
+      });
     }
 
     clean = validate(values);
@@ -70,7 +57,7 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
     }
   }
 
-  if ( await get( agendaUid, eventUid ) ) {
+  if (await get(agendaUid, eventUid)) {
     return {
       success: false,
       valid: true,
@@ -78,7 +65,7 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
     }
   }
 
-  const insertIds = await knex( config.schemas.agendaEvent )
+  const insertIds = await client('agenda_event')
     .insert(utils.toEntry(clean));
 
   success = insertIds.length === 1;
@@ -91,23 +78,23 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
     log('info', 'transfering to legacy %j', created);
 
     try {
-     const updatedRef = await legacyTransfer.to( created );
-     log( 'info', 'successfully transferred to legacy', updatedRef );
+     const updatedRef = await toLegacy(created);
+     log('info', 'successfully transferred to legacy', updatedRef);
      created.legacyId = updatedRef.legacyId;
-    } catch ( e ) {
-      log( 'error', 'failed to transfer to legacy', e );
+    } catch (e) {
+      log('error', 'failed to transfer to legacy', e);
     }
   }
 
-  if ( success && config.interfaces.onCreate ) {
-    config.interfaces.onCreate( created, params.context );
+  if (success && config.interfaces.onCreate) {
+    config.interfaces.onCreate(created, params.context);
   }
 
-  log( 'info', 'done', { success, created, insertIds } );
+  log('info', 'done', { success, created, insertIds });
 
   return {
     success,
-    insertId: insertIds.length ? insertIds[ 0 ] : null,
+    insertId: insertIds.length ? insertIds[0] : null,
     created
   }
 }

@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const agendaEvents = require( '@openagenda/agenda-events' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const queue = require( '@openagenda/queue' );
 const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
@@ -35,7 +34,7 @@ module.exports = async (services, agendaUid) => {
   return {
     db: await db( agenda.id ),
     legacySearch: await legacySearch( agenda.id ),
-    agendaEvents: await agendaEventStats( agendaUid ),
+    agendaEvents: await agendaEventStats(services, agendaUid),
     search: await searchStats(services.eventSearch, agenda),
     hasFormSchema: !!agenda.form_schema_id,
     actions: {
@@ -94,7 +93,7 @@ module.exports.task = services => {
       case 'agendaEvents':
 
         log( 'resyncing agenda %d - agendaEvents resync', data.agendaUid );
-        agendaEvents.tasks.transferLegacyData( { agendaUid: data.agendaUid } );
+        services.agendaEvents.tasks.transferLegacyData( { agendaUid: data.agendaUid } );
         break;
 
       case 'legacySearch':
