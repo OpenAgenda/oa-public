@@ -1,9 +1,9 @@
-CREATE TABLE IF NOT EXISTS `${schema}` (
+CREATE TABLE IF NOT EXISTS `event` (
   `id` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=466592 DEFAULT CHARSET=utf8;
 
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `event` ( `id`, `uid` ) values
 (81296, 10974548),
 (81631, 53117383),
 (81652, 16425580),
@@ -249,7 +249,7 @@ insert into `${schema}` ( `id`, `uid` ) values
 (83195, 95121451),
 (83198, 11581321),
 (83200, 97309111);
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `event` ( `id`, `uid` ) values
 (83202, 72972305),
 (83203, 99034416),
 (83206, 22523445),
@@ -1446,7 +1446,7 @@ insert into `${schema}` ( `id`, `uid` ) values
 (91539, 62222912),
 (91543, 35129822),
 (91550, 3117938);
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `event` ( `id`, `uid` ) values
 (91554, 37425305),
 (91559, 8069613),
 (91562, 97753912),
@@ -2208,7 +2208,7 @@ insert into `${schema}` ( `id`, `uid` ) values
 (94751, 93991683),
 (94756, 64865599),
 (94762, 76208574);
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `event` ( `id`, `uid` ) values
 (94763, 3499952),
 (94766, 12687634),
 (94771, 48406988),
@@ -3054,7 +3054,7 @@ insert into `${schema}` ( `id`, `uid` ) values
 (102498, 15016477),
 (102500, 80194371),
 (102515, 67915946);
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `event` ( `id`, `uid` ) values
 (102519, 74945872),
 (102523, 79697122),
 (102526, 34751366),

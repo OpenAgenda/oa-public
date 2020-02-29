@@ -10,20 +10,18 @@ const validateListQuery = require('./lib/validateListQuery');
 const extractListParameters = require('./lib/extractListParameters');
 const validateOptions = require('./lib/validateOptions');
 
-module.exports = (config, client) => Object.assign(list.bind(null, config, client), {
-  byUserUid: listByUserUid.bind(null, config, client),
-  byEventUid: listByEventUid.bind(null, config, client),
-  byLastId: listByLastId.bind(null, config, client)
-});
 
-async function list(config, knex, agendaUid, query, offset, limit, options) {
+module.exports = async (service, agendaUid, query, offset, limit, options) => {
+  const { config, client } = service;
+
   const params = extractListParameters(agendaUid, query, offset, limit, options);
+
   const {
     decorate
   } = validateOptions(params.options);
 
   const items = (await _list(
-    knex,
+    client,
     params.query,
     _.pick(params, ['offset', 'limit'])
   )).map(validate);
@@ -38,11 +36,13 @@ async function list(config, knex, agendaUid, query, offset, limit, options) {
 
   return {
     items,
-    total: await _total(knex, params.query)
+    total: await _total(client, params.query)
   }
 }
 
-async function listByLastId(config, knex, agendaUid, query, lastId, limit = 2) {
+module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2) => {
+  const { config, client } = service;
+
   const cleanQuery = {
     agendaUid
   };
@@ -57,37 +57,38 @@ async function listByLastId(config, knex, agendaUid, query, lastId, limit = 2) {
     Object.assign(nav, { lastId, limit });
   }
 
-  const items = await _list(knex, cleanQuery, nav);
+  const items = await _list(client, cleanQuery, nav);
 
   return {
     items: items.map(validate),
-    total: await _total(knex, cleanQuery),
+    total: await _total(client, cleanQuery),
     lastId: _.get(_.last(items), 'id', -1)
   }
 }
 
-async function listByUserUid(config, knex, userUid, offset, limit) {
+module.exports.byUserUid = async (service, userUid, offset, limit) => {
+  const { config, client } = service;
   return {
-    items: (await _list(knex, { userUid }, { offset, limit })).map(validate),
-    total: await _total(knex, { userUid })
+    items: (await _list(client, { userUid }, { offset, limit })).map(validate),
+    total: await _total(client, { userUid })
   }
 }
 
-async function listByEventUid(config, knex, eventUid, ...args) {
+module.exports.byEventUid = async (service, eventUid, ...args) => {
+  const { config, client } = service;
+
   const offset = args.length === 2 ? args[0] : args[1];
   const limit = args.length === 2 ? args[1] : (args[2] || 20);
   const query = args.length === 3 ? { ...args[0], eventUid } : { eventUid };
 
-  if (!knex) throw new VError( 'agenda-events service is not configured' );
-
   return {
-    items: (await _list(knex, query, { offset, limit })).map(validate),
-    total: await _total(knex, query)
+    items: (await _list(client, query, { offset, limit })).map(validate),
+    total: await _total(client, query)
   }
 }
 
-function _total(knex, query) {
-  const k = knex('agenda_event');
+function _total(client, query) {
+  const k = client('agenda_event');
 
   _query(k, query);
 
@@ -95,7 +96,7 @@ function _total(knex, query) {
     .then(rows => rows[0]['total']);
 }
 
-function _list(knex, query, nav) {
+function _list(client, query, nav) {
   const {
     limit,
     offset,
@@ -115,7 +116,7 @@ function _list(knex, query, nav) {
     fields.push('id');
   }
 
-  const k = knex('agenda_event').select(fields);
+  const k = client('agenda_event').select(fields);
 
   if (limit !== undefined) {
     k.limit(limit);

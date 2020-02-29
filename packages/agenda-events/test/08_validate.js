@@ -1,40 +1,32 @@
-"use strict";
-
-process.env.NODE_ENV = 'test';
-
-const svc = require( '../' );
-
-const config = require( '../testconfig' );
+'use strict';
 
 const _ = require( 'lodash' );
-
 const should = require( 'should' );
 
-describe( 'agendaEvents - functional (server): validation', function() {
+const Service = require('../');
+const config = require('../testconfig');
 
-  before( () => {
+describe('agendaEvents - functional (server): validation', function() {
+  let svc;
 
-    svc.init( config );
+  before(() => {
+    svc = Service(config);
+  });
 
-  } );
-
-  it( 'base validate endpoint validates data part of an agendaEvent reference', () => {
-
+  it('base validate endpoint validates data part of an agendaEvent reference', () => {
     svc.validate( {
       state: 2,
       featured: true
-    } ).should.eql( {
+    }).should.eql( {
       state: 2,
       featured: true,
       userUid: null,
       sourcePaths: [],
       aggregated: false
-    } );
-
-  } );
+    });
+  });
 
   it('base validate endpoint has a field key as any validators validator would', () => {
-
     _.keys(svc.validate.fields).should.eql([
       'state',
       'featured',
@@ -42,11 +34,9 @@ describe( 'agendaEvents - functional (server): validation', function() {
       'sourcePaths',
       'aggregated'
     ]);
-
   });
 
   it('validate endpoint assigns default state value when it is unspecified', () => {
-
     svc.validate({
       featured: true
     }).should.eql( {
@@ -56,27 +46,22 @@ describe( 'agendaEvents - functional (server): validation', function() {
       sourcePaths: [],
       aggregated: false
     });
-
   });
 
-  it( 'validate endpoint does not include state if not provided and optional state option is set', () => {
-
+  it('validate endpoint does not include state if not provided and optional state option is set', () => {
     svc.validate({
       featured: true
     }, { optionalSecondaryFields: true }).should.eql({
       featured: true,
       userUid: null
     });
-
-  } );
+  });
 
   it('validate can do things partially', () => {
-
     svc.validate({
       state: 0
     }, { partial: true }).should.eql({
       state: 0
     });
   });
-
 });

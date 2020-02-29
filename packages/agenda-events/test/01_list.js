@@ -11,7 +11,7 @@ const fixtures = require('./service/load');
 
 const membersFixtures = require('./service/membersFixtures.json');
 
-describe('agendaEvents - functional (server): list', function() {
+describe('agendaEvents - 01 - functional (server): list', function() {
   let svc;
 
   before(async () => {

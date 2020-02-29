@@ -11,7 +11,7 @@ const config = require('../testconfig');
 const fixtures = require('./service/load');
 const membersFixtures = require('./service/membersFixtures.json');
 
-describe('agendaEvents - functional (server): create', function() {
+describe('agendaEvents - 03 - functional (server): create', function() {
   let svc;
 
   before(async () => {

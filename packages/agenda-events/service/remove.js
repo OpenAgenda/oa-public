@@ -2,33 +2,21 @@
 
 const _ = require('lodash');
 
-const legacyTransfer = require('./legacyTransfer');
 const validateOptions = require('./lib/validateOptions');
 
-let config, knex, queue;
-
-module.exports = _.extend( remove, {
-  init: ( c, k ) => {
-
-    config = c;
-    knex = k;
-    queue = config.queues.interfaces;
-
-  },
-  byLegacyId,
-  byEventUid
-} );
-
-
-module.exports = async ({ config, client, get }, agendaUid, eventUid, options = {} ) => {
-  return _remove({ config, client }, {
+module.exports = async (service, agendaUid, eventUid, options = {}) => {
+  const {
+    get
+  } = service;
+  return _remove(service, {
     event_uid: eventUid,
     agenda_uid: agendaUid,
   }, await get(agendaUid, eventUid), validateOptions(options));
 }
 
+module.exports.byEventUid = async (service, eventUid, options) => {
+  const { config, client, listByEventUid, queue } = service;
 
-async function byEventUid({ config, client, listByEventUid }, eventUid, options) {
   let events = [], offset = 0, limit = 20;
 
   while ((events = (await listByEventUid(eventUid, offset, limit)).items).length) {
@@ -36,7 +24,7 @@ async function byEventUid({ config, client, listByEventUid }, eventUid, options)
     offset += limit;
   }
 
-  const removedRows = await client('agenda-event')
+  const removedRows = await client('agenda_event')
     .del()
     .where({ event_uid: eventUid });
 
@@ -46,34 +34,35 @@ async function byEventUid({ config, client, listByEventUid }, eventUid, options)
   }
 }
 
+module.exports.byLegacyId = async (service, agendaId = null, eventId = null) => {
+  const { client, getByLegacyId } = service;
 
-async function byLegacyId( agendaId = null, eventId = null ) {
-
-  if ( !agendaId && !eventId ) {
-
-    throw new Error( 'Invalid request' );
-
+  if (!agendaId && !eventId) {
+    throw new Error('Invalid request');
   }
 
-  if ( agendaId === null || eventId === null ) {
-
-    let removedRows = await knex( config.schemas.agendaEvent ).del()
-      .where( 'legacy_id', 'like', '%' + ( agendaId || '' ) + '.' + ( eventId || '' ) + '%' );
-
-    return {
-      success: removedRows >= 1
-    }
-
+  if (agendaId && eventId) {
+    return _remove(service, {
+      legacy_id: [agendaId, eventId].join('.')
+    }, await getByLegacyId(agendaId, eventId), {});
   }
 
-  return _remove( {
-    legacy_id: [ agendaId, eventId ].join( '.' )
-  }, await get.byLegacyId(  agendaId, eventId ), {} );
+  const removedRows = await client('agenda_event').del()
+    .where('legacy_id', 'like', '%' + (agendaId || '') + '.' + (eventId || '') + '%');
 
+  return {
+    success: removedRows >= 1
+  }
 }
 
 
-async function _remove({ config, client }, where, current = null, params = null ) {
+async function _remove(service, where, current = null, params = null ) {
+  const {
+    config,
+    client,
+    removeLegacy
+  } = service;
+
   if (current === null) {
     return {
       success: false,
@@ -89,14 +78,14 @@ async function _remove({ config, client }, where, current = null, params = null 
     .del()
     .where(where);
 
-  success = removedRows == 1;
+  const success = removedRows == 1;
 
   if (success && config.interfaces.onRemove) {
     config.interfaces.onRemove(current, params !== null ? params.context : null);
   }
 
   if (success && params.transferToLegacy) {
-    await legacyTransfer.remove(current);
+    await removeLegacy(current);
   }
 
   return {

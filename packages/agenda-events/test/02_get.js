@@ -9,7 +9,7 @@ const config = require('../testconfig');
 const fixtures = require('./service/load');
 const membersFixtures = require('./service/membersFixtures.json');
 
-describe('agendaEvents - functional (server): get', function() {
+describe('agendaEvents - 02 - functional (server): get', function() {
   let svc, get;
 
   before(async () => {

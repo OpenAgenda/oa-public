@@ -4,12 +4,12 @@ const _ = require('lodash');
 
 const log = require('@openagenda/logs')('update');
 
-const legacyTransfer = require('./legacyTransfer');
 const validate = require('../iso/validate');
 const validateOptions = require('./lib/validateOptions');
 const utils = require('./lib/utils');
 
-module.exports = async ({ config, client, get }, agendaUid, eventUid, data, options = {}) => {
+module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
+  const { config, client, get, toLegacy } = service;
 
   log('input for %s.%s', agendaUid, eventUid, data);
 
@@ -20,9 +20,7 @@ module.exports = async ({ config, client, get }, agendaUid, eventUid, data, opti
   log('current for %s.%s', agendaUid, eventUid, current);
 
   let clean;
-
   let success = false;
-
   let updated = null;
 
   if (current === null) {
@@ -33,19 +31,19 @@ module.exports = async ({ config, client, get }, agendaUid, eventUid, data, opti
   }
 
   try {
-    const values = Object.assign( {}, current, data || {}, {
+    const values = Object.assign({}, current, data || {}, {
       updatedAt: new Date(),
       createdAt: current.createdAt,
       userUid: current.userUid
-    } );
+    });
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'userUid'].forEach( f => {
-        if ( data[ f ] ) values[ f ] = data[ f ];
-      } );
+      ['updatedAt', 'createdAt', 'userUid'].forEach(f => {
+        if (data[f]) values[f] = data[f];
+      });
     }
 
-    log( 'info', 'validating for %s.%s', agendaUid, eventUid, values );
+    log('info', 'validating for %s.%s', agendaUid, eventUid, values);
 
     clean = _.omit(validate(values), ['aggregated']);
   } catch (validationErrors) {
@@ -60,7 +58,7 @@ module.exports = async ({ config, client, get }, agendaUid, eventUid, data, opti
 
   log('db entry for %s.%s', agendaUid, eventUid, entry);
 
-  const result = await client(config.schemas.agendaEvent)
+  const result = await client('agenda_event')
     .update(entry)
     .where({
       agenda_uid: agendaUid,
@@ -76,7 +74,7 @@ module.exports = async ({ config, client, get }, agendaUid, eventUid, data, opti
   }
 
   if (success && params.transferToLegacy) {
-    await legacyTransfer.to(updated);
+    await toLegacy(updated);
   }
 
   if (success && config.interfaces.onUpdate) {

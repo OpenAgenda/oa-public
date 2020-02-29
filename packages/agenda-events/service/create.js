@@ -3,20 +3,24 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('create');
 
-const legacyTransfer = require('./legacyTransfer');
 const validate = require('../iso/validate');
 const validateOptions = require('./lib/validateOptions');
 const utils = require('./lib/utils');
 
-module.exports = async ({ config, client, get }, agendaUid, eventUid, data = {}, options = {}) => {
+module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) => {
+  const {
+    config,
+    client,
+    get,
+    toLegacy
+  } = service;
+
   log('info', 'initiating create', { agendaUid, eventUid, data, options });
 
   const params = validateOptions(options, 'create');
 
   let clean;
-
   let success = false;
-
   let created = null;
 
   try {
@@ -27,8 +31,8 @@ module.exports = async ({ config, client, get }, agendaUid, eventUid, data = {},
 
     if (!params.protected) {
       ['updatedAt', 'createdAt'].forEach(f => {
-        if ( data[ f ] ) values[ f ] = data[ f ];
-      } );
+        if (data[f]) values[f] = data[f];
+      });
     }
 
     clean = validate(values);
@@ -74,7 +78,7 @@ module.exports = async ({ config, client, get }, agendaUid, eventUid, data = {},
     log('info', 'transfering to legacy %j', created);
 
     try {
-     const updatedRef = await legacyTransfer.to(created);
+     const updatedRef = await toLegacy(created);
      log('info', 'successfully transferred to legacy', updatedRef);
      created.legacyId = updatedRef.legacyId;
     } catch (e) {

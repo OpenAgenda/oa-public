@@ -10,17 +10,18 @@ const Service = require('../');
 const config = require('../testconfig');
 const fixtures = require('./service/load');
 
-describe('agendaEvents - functional (server): remove', function() {
+describe('agendaEvents - 05 - functional (server): remove', function() {
+  this.timeout(10000);
   let svc;
 
-  before(async () => {
+  beforeEach(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
       'agenda_event.data.sql'
    ]);
   });
 
-  before(() => {
+  beforeEach(() => {
     svc = Service(config);
   });
 
@@ -48,7 +49,7 @@ describe('agendaEvents - functional (server): remove', function() {
 
   it('remove by legacyId', async () => {
     const before = await svc(62792452).get(10974548);
-    const result = await remove.byLegacyId(42, 24);
+    const result = await svc.remove.byLegacyId(42, 24);
     const after = await svc(62792452).get(10974548);
 
     result.success.should.equal(true);
@@ -59,7 +60,7 @@ describe('agendaEvents - functional (server): remove', function() {
 
   it('remove by legacyId with eventId only', async () => {
     const before = await svc(62792452).get(10974548);
-    const result = await remove.byLegacyId(null, 24);
+    const result = await svc.remove.byLegacyId(null, 24);
     const after = await svc(62792452).get(10974548);
 
     result.success.should.equal(true);
@@ -81,7 +82,7 @@ describe('agendaEvents - functional (server): remove', function() {
   it('when several references are removed', done => {
     let count = 0;
 
-    svc.init(im(config, {
+    const svc = Service(ih(config, {
       interfaces: {
         onRemove: {
           $set: (removed, context) => {
@@ -104,7 +105,7 @@ describe('agendaEvents - functional (server): remove', function() {
 
 
   it('context can be passed in options to be transfered to onRemove interface', done => {
-    svc = Service(ih(config, {
+    const svc = Service(ih(config, {
       interfaces: {
         onRemove: {
           $set: (removed, context) => {
@@ -134,7 +135,6 @@ describe('agendaEvents - functional (server): remove', function() {
         userUid: 111
       }
     });
-
   });
 
 });

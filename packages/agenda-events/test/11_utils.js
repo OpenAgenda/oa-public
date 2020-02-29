@@ -1,23 +1,23 @@
 'use strict';
 
-const _ = require( 'lodash' );
-const mysql = require( 'mysql' );
-const should = require( 'should' );
+const should = require('should');
 
-const svc = require( './service' );
-
-const config = require( '../testconfig' );
-
+const Service = require('../');
+const config = require('../testconfig');
+const fixtures = require('./service/load');
 
 describe('agendaEvents - functional (server): utils', function() {
-  this.timeout(5000);
+  let svc;
 
-  before(done => {
-    svc.initAndLoad(config, done);
-  } );
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'agenda_event.data.sql'
+   ]);
+  });
 
-  afterEach(() => {
-    svc.init(config);
+  before(() => {
+    svc = Service(config);
   });
 
   describe('setSourcePaths', () => {

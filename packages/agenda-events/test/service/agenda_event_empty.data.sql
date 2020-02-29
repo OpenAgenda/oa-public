@@ -1,4 +1,4 @@
-create table if not exists `${schema}` (
+create table if not exists `agenda_event` (
   id bigint(20) not null auto_increment,
   agenda_uid bigint(20) not null,
   event_uid bigint(20) not null,

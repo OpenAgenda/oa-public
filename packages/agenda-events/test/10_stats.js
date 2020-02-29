@@ -1,26 +1,29 @@
-"use strict";
+'use strict';
 
-process.env.NODE_ENV = 'test';
+const should = require('should');
 
-const svc = require( './service' );
-const config = require( '../testconfig' );
-const should = require( 'should' );
+const Service = require('../');
+const config = require('../testconfig');
+const fixtures = require('./service/load');
 
-describe( 'agendaEvents - functional (server): stats', function() {
+describe('agendaEvents - functional (server): stats', function() {
+  let svc;
 
-  this.timeout( 5000 );
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'agenda_event.data.sql'
+   ]);
+  });
 
-  before( done => {
+  before(() => {
+    svc = Service(config);
+  });
 
-    svc.initAndLoad( config, done );
+  it('countByUserUid (unrestricted)', async () => {
+    const counts = await svc(62792452).stats.countByUserUid();
 
-  } );
-
-  it( 'countByUserUid (unrestricted)', async () => {
-
-    const counts = await svc( 62792452 ).stats.countByUserUid();
-
-    counts.should.eql( [ {
+    counts.should.eql([{
       count: 2282, userUid: null
     }, {
       count: 1, userUid: 1
@@ -30,18 +33,16 @@ describe( 'agendaEvents - functional (server): stats', function() {
       count: 2, userUid: 456
     }, {
       count: 1, userUid: 12312312
-    } ] );
+    }]);
+  });
 
-  } );
-
-  it( 'countByUserUid (for specific user uids)', async () => {
-
+  it('countByUserUid (for specific user uids)', async () => {
     const counts = await svc( 62792452 ).stats.countByUserUid( [ 12312312 ] );
 
     counts.should.eql( [ {
       count: 1, userUid: 12312312
     } ] );
 
-  } );
+  });
 
 } );

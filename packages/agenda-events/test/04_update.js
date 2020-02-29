@@ -8,7 +8,7 @@ const Service = require('../');
 const config = require('../testconfig');
 const fixtures = require('./service/load');
 
-describe('agendaEvents - functional (server): update', function() {
+describe('agendaEvents - 04 - functional (server): update', function() {
   let svc;
 
   before(async () => {
