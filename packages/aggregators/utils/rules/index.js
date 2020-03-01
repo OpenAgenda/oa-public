@@ -1,22 +1,19 @@
 'use strict';
 
 const _ = require('lodash');
-const ih = require( 'immutability-helper' );
+const ih = require('immutability-helper');
 const evaluateRule = require('./evaluateRule');
 const cleanRule = require('./clean');
 const convertFieldOptionIdsToLabels = require('./convertFieldOptionIdsToLabels');
 
 module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
-  const actions = [];
+  const {
+    stop,
+    actions
+  } = evaluateRules(rules, sourceAgendaSchema, aggregatorAgendaSchema, data);
 
-  for (const rule of [].concat(rules)) {
-    const ruleActions = evaluateRule(cleanRule(rule), sourceAgendaSchema, aggregatorAgendaSchema, data);
-
-    if (ruleActions === false) {
-      return null;
-    } else if (ruleActions) {
-      ruleActions.forEach(a => actions.push(a));
-    }
+  if (stop) {
+    return null;
   }
 
   const actionsByField = actions.reduce((actionsByField, action) => {
@@ -115,4 +112,26 @@ function forceExplicitActionOperation(action, forceOperation = null) {
   }
 
   return action;
+}
+
+function evaluateRules(rules, sourceAgendaSchema, aggregatorAgendaSchema, data) {
+  const actions = [];
+
+  for (const rule of [].concat(rules)) {
+    const ruleActions = evaluateRule(cleanRule(rule), sourceAgendaSchema, aggregatorAgendaSchema, data);
+
+    if (ruleActions === false) {
+      return {
+        stop: true,
+        actions: []
+      }
+    } else if (ruleActions) {
+      ruleActions.forEach(a => actions.push(a));
+    }
+  }
+
+  return {
+    stop: false,
+    actions
+  }
 }

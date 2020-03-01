@@ -328,6 +328,24 @@ describe('05 - utils', () => {
         });
       });
 
+      it('if set is specified, previous values are overwritten', () => {
+        rules([{
+          actions: [{
+            thematiques: {
+              $push: 12
+            }
+          }, {
+            thematiques: {
+              $set: [13, 14]
+            }
+          }]
+        }], null, null, {
+          thematiques: 11
+        }).should.eql({
+          thematiques: [13, 14]
+        });
+      });
+
       it('$push operations are ignored when set in first action of given field', () => {
         rules([{
           actions: [{
