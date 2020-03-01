@@ -13,6 +13,7 @@ const mw = {
   loadAgenda: require('../members/middleware/loadAgenda'),
   loadEvent: require('../members/middleware/loadEvent'),
   load: require('./middleware/load'),
+  remove: require('./middleware/remove'),
   requireCanEdit: require('./middleware/requireCanEdit'),
   changeState: require('./middleware/changeState')
 }
@@ -60,7 +61,8 @@ function plugApp(parentApp) {
   } = parentApp.services;
 
   parentApp.all([
-    '/:agendaSlug/events/:eventSlug/state/:state'
+    '/:agendaSlug/events/:eventSlug/state/:state',
+    '/:agendaSlug/events/:eventSlug/remove'
   ], [
     sessions.middleware.ifUnlogged((req, res, next) => next({
       code: 403, error: 'requiredLogged', message: 'You need to be logged'
@@ -73,6 +75,11 @@ function plugApp(parentApp) {
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state',
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState
+  );
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/remove',
+    members.mw.load,
+    mw.remove
   );
 
   parentApp.post('/:agendaSlug/admin/events/states',

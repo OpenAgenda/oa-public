@@ -134,5 +134,8 @@ module.exports = async (services, agendaUid, eventUid, options) => {
 
   const result = await payload.getResponse('removed', access);
 
-  return returnPayload ? result : result.removed;
+  return returnPayload ? {
+    ...result,
+    deletion
+  } : result.removed;
 }

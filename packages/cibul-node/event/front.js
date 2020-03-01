@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const qs = require( 'qs' );
+const base64 = require('@openagenda/utils/base64');
 
 const agendaSvc = require( '@openagenda/agendas' );
 
@@ -261,6 +262,7 @@ async function agendaEventShow( req, res, next ) {
     userUid: req.user.uid
   } ) : null;
 
+
   cmn.render( req, res, 'event/show', {
     scriptParams: {
       contributor: member ? { uid: member.userUid } : null,
@@ -272,6 +274,8 @@ async function agendaEventShow( req, res, next ) {
     agendaId: req.agenda.id,
     private: req.agenda.private,
     adminNav: req.query.admin_nav,
+    isOriginAgenda: _.get(req, 'event.origin.uid') === req.agenda.uid,
+    removeRedirect: req.query.admin_nav ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.admin_nav)}`) : null,
     redirect: cmn.makeRedirect( req ),
     event: req.formatted,
     components: req.components,

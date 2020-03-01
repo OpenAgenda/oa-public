@@ -100,6 +100,10 @@ module.exports = {
     "es": "Eliminar",
     "br": "Dilemel"
   },
+  "remove": {
+    "en": "Remove from agenda",
+    "fr": "Retirer de l'agenda"
+  },
   "about": {
     "en": "About",
     "fr": "A propos",
