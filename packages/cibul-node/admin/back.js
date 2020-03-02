@@ -45,44 +45,7 @@ function index( req, res ) {
 
   log( 'rendering index' );
 
-  wn.call( _getTotals.bind(null, services) )
-
-    .spread( function ( rt, et, ut ) {
-
-      totals.reviews = rt;
-      totals.events = et;
-      totals.users = ut;
-
-      return wn.call( _getTotalsWeek.bind(null, services) );
-
-    } )
-
-    .spread( function ( rtw, etw, utw ) {
-
-      totalsWeek.reviews = rtw;
-      totalsWeek.events = etw;
-      totalsWeek.users = utw;
-
-      return wn.call( _getTotalsMonth.bind(null, services) );
-
-    } )
-
-    .spread( function ( rtm, etm, utm ) {
-
-      totalsMonth.reviews = rtm;
-      totalsMonth.events = etm;
-      totalsMonth.users = utm;
-
-      cmn.render( req, res, 'admin/index', _layoutData( totals, totalsWeek, totalsMonth ) );
-
-    } )
-
-    .catch( function ( err ) {
-
-      log( err.message );
-
-    } );
-
+  res.send(`<html><body><a href="/admin/agendas">Agendas</a> - <a href="/admin/users">Users</a></body></html>`);
 
 }
 
