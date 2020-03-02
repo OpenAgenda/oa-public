@@ -5662,7 +5662,7 @@ chai-as-promised@^7.1.1:
   dependencies:
     check-error "^1.0.2"
 
-chai-jest-diff@^1.0.1, chai-jest-diff@^1.0.2:
+chai-jest-diff@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/chai-jest-diff/-/chai-jest-diff-1.0.2.tgz#ac5ce4cef89997e7f1f27579e58b86df91f860c0"
   integrity sha512-n8ey/1fukyI4AO8JnBJ5vXmt8fYdqgT3PRdABbkaToYSEaqe4orws0avNcL4Gf6/bJIuxnRrPgYhFy39F/vi4g==

@@ -47,7 +47,7 @@ describe( 'InboxUser', () => {
 
       const inboxUser = await Inboxes( { type: 'agenda', identifier: 48959239 } ).users.add( { userUid: 12341234 } );
 
-      expect( inboxUser.toJSON() ).eql( { id: 10, inboxId: 1, userUid: 12341234, leftAt: null } );
+      expect( inboxUser.toJSON() ).toEqual({ id: 10, inboxId: 1, userUid: 12341234, leftAt: null });
 
     } );
 
@@ -55,7 +55,7 @@ describe( 'InboxUser', () => {
 
       const inboxUser = await Inboxes( { type: 'agenda', identifier: 48959239 } ).users.add( { userUid: 23456789 } );
 
-      expect( inboxUser.toJSON() ).eql( { id: 1, inboxId: 1, userUid: 23456789, leftAt: null } );
+      expect( inboxUser.toJSON() ).toEqual({ id: 1, inboxId: 1, userUid: 23456789, leftAt: null });
 
     } );
 
@@ -67,7 +67,7 @@ describe( 'InboxUser', () => {
 
       } catch ( e ) {
 
-        expect( e.message ).equal( 'Inbox { type: \'agenda\', identifier: 12345678 } not found' );
+        expect( e.message ).toBe('Inbox { type: \'agenda\', identifier: 12345678 } not found');
 
       }
 
@@ -77,8 +77,8 @@ describe( 'InboxUser', () => {
 
       const inboxUser = await Inboxes( 4 ).users.add( { userUid: 89216486 } );
 
-      expect( inboxUser.data.userUid ).eql( 89216486 );
-      expect( inboxUser.data.id ).eql( 4 );
+      expect( inboxUser.data.userUid ).toBe(89216486);
+      expect( inboxUser.data.id ).toBe(4);
 
     } );
 
@@ -92,7 +92,7 @@ describe( 'InboxUser', () => {
 
         const inboxUser = await Inboxes( 1 ).users.get( { userUid: 23456789 } );
 
-        expect( inboxUser.toJSON() ).eql( { id: 1, inboxId: 1, userUid: 23456789, leftAt: null } );
+        expect( inboxUser.toJSON() ).toEqual({ id: 1, inboxId: 1, userUid: 23456789, leftAt: null });
 
       } );
 
@@ -100,7 +100,7 @@ describe( 'InboxUser', () => {
 
         const inboxUser = await Inboxes( 1 ).users.get( 1 );
 
-        expect( inboxUser.toJSON() ).eql( { id: 1, inboxId: 1, userUid: 23456789, leftAt: null } );
+        expect( inboxUser.toJSON() ).toEqual({ id: 1, inboxId: 1, userUid: 23456789, leftAt: null });
 
       } );
 
@@ -108,7 +108,7 @@ describe( 'InboxUser', () => {
 
         const inboxUser = await Inboxes( 1 ).users.get( 1, { detailed: true } );
 
-        expect( inboxUser.toJSON() ).eql( {
+        expect( inboxUser.toJSON() ).toEqual({
           id: 1,
           inboxId: 1,
           userUid: 23456789,
@@ -116,7 +116,7 @@ describe( 'InboxUser', () => {
           avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
           uid: 23456789
-        } );
+        });
 
       } );
 
@@ -124,7 +124,7 @@ describe( 'InboxUser', () => {
 
         const inboxUser = await Inboxes( 1 ).users.get( 42 );
 
-        expect( inboxUser.toJSON() ).equal( null );
+        expect( inboxUser.toJSON() ).toBeNull();
 
       } );
 
@@ -136,7 +136,7 @@ describe( 'InboxUser', () => {
 
         const inboxUser = await new InboxUser( 1 ).get();
 
-        expect( inboxUser.toJSON() ).eql( { id: 1, inboxId: 1, userUid: 23456789, leftAt: null } );
+        expect( inboxUser.toJSON() ).toEqual({ id: 1, inboxId: 1, userUid: 23456789, leftAt: null });
 
       } );
 
@@ -144,7 +144,7 @@ describe( 'InboxUser', () => {
 
         const inboxUser = await new InboxUser( { inboxId: 2, userUid: 99999999 } ).get();
 
-        expect( inboxUser.toJSON() ).eql( { id: 2, inboxId: 2, userUid: 99999999, leftAt: null } );
+        expect( inboxUser.toJSON() ).toEqual({ id: 2, inboxId: 2, userUid: 99999999, leftAt: null });
 
       } );
 
@@ -156,7 +156,7 @@ describe( 'InboxUser', () => {
 
         } catch ( e ) {
 
-          expect( VError.info( e ).errors.inboxId.code ).equal( 'required' );
+          expect( VError.info( e ).errors.inboxId.code ).toBe('required');
 
         }
 
@@ -172,7 +172,7 @@ describe( 'InboxUser', () => {
 
       const inboxUsers = await Inboxes( 4 ).users.list();
 
-      expect( inboxUsers.data ).eql( [
+      expect( inboxUsers.data ).toEqual([
         {
           id: 3,
           inboxId: 4,
@@ -185,7 +185,7 @@ describe( 'InboxUser', () => {
           userUid: 89216486,
           leftAt: new Date( '2017-09-28T18:22:04.000Z' )
         }
-      ] );
+      ]);
 
     } );
 
@@ -193,14 +193,14 @@ describe( 'InboxUser', () => {
 
       const inboxUsers = await Inboxes( 4 ).users.list( { leftAt: false } );
 
-      expect( inboxUsers.toJSON() ).eql( [
+      expect( inboxUsers.toJSON() ).toEqual([
         {
           id: 3,
           inboxId: 4,
           userUid: 56484348,
           leftAt: null
         }
-      ] );
+      ]);
 
     } );
 
@@ -210,11 +210,11 @@ describe( 'InboxUser', () => {
         inboxId: [ 1, 2 ]
       } );
 
-      expect( inboxUsers.toJSON() ).eql( [
+      expect( inboxUsers.toJSON() ).toEqual([
         { id: 1, inboxId: 1, userUid: 23456789, leftAt: null },
         { id: 2, inboxId: 2, userUid: 99999999, leftAt: null },
         { id: 8, inboxId: 1, userUid: 32132112, leftAt: null }
-      ] );
+      ]);
 
     } );
 
@@ -224,10 +224,10 @@ describe( 'InboxUser', () => {
         userUid: 99999999
       } );
 
-      expect( inboxUsers.toJSON() ).eql( [
+      expect( inboxUsers.toJSON() ).toEqual([
         { id: 2, inboxId: 2, userUid: 99999999, leftAt: null },
         { id: 5, inboxId: 5, userUid: 99999999, leftAt: null }
-      ] );
+      ]);
 
     } );
 
@@ -239,7 +239,7 @@ describe( 'InboxUser', () => {
 
       } catch ( e ) {
 
-        expect( VError.info( e ).errors.inboxId.code ).equal( 'required' );
+        expect( VError.info( e ).errors.inboxId.code ).toBe('required');
 
       }
 
@@ -253,15 +253,15 @@ describe( 'InboxUser', () => {
 
       const user = await new Inboxes( 4 ).users.remove( { userUid: 56484348 } );
 
-      expect( user.toJSON().leftAt ).instanceof( Date );
+      expect( user.toJSON().leftAt ).toBeInstanceOf(Date);
 
       expect(
         _.omit( user.toJSON(), 'leftAt' )
-      ).eql( {
+      ).toEqual({
         id: 3,
         inboxId: 4,
         userUid: 56484348
-      } );
+      });
 
     } );
 

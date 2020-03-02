@@ -46,7 +46,7 @@ describe( 'Inbox', () => {
 
       const inbox = new Inboxes( 42 );
 
-      expect( inbox ).instanceof( Inboxes );
+      expect( inbox ).toBeInstanceOf(Inboxes);
 
     } );
 
@@ -54,7 +54,7 @@ describe( 'Inbox', () => {
 
       const inbox = Inboxes( 42 );
 
-      expect( inbox ).instanceof( Inboxes );
+      expect( inbox ).toBeInstanceOf(Inboxes);
 
     } );
 
@@ -63,8 +63,8 @@ describe( 'Inbox', () => {
       try {
         Inboxes( 'bad' );
       } catch ( err ) {
-        expect( VError.info( err ).errors.id.code ).equal( 'type.integer' );
-        expect( err.name ).equal( 'ValidationError' );
+        expect( VError.info( err ).errors.id.code ).toBe('type.integer');
+        expect( err.name ).toBe('ValidationError');
       }
 
     } );
@@ -74,9 +74,9 @@ describe( 'Inbox', () => {
       try {
         Inboxes( { type: 45, identifier: 'fezsf' } );
       } catch ( err ) {
-        expect( VError.info( err ).errors.type.code ).equal( 'type.string' );
-        expect( VError.info( err ).errors.identifier.code ).equal( 'type.integer' );
-        expect( err.name ).equal( 'ValidationError' );
+        expect( VError.info( err ).errors.type.code ).toBe('type.string');
+        expect( VError.info( err ).errors.identifier.code ).toBe('type.integer');
+        expect( err.name ).toBe('ValidationError');
       }
 
     } );
@@ -89,7 +89,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes().create( { type: 'agenda', identifier: 1245685 } );
 
-      expect( inbox.toJSON() ).eql( { id: 9, type: 'agenda', identifier: 1245685 } );
+      expect( inbox.toJSON() ).toEqual({ id: 9, type: 'agenda', identifier: 1245685 });
 
     } );
 
@@ -97,7 +97,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes().create( { type: 'user', identifier: 45645678 } );
 
-      expect( inbox.toJSON() ).eql( { id: 3, type: 'user', identifier: 45645678 } );
+      expect( inbox.toJSON() ).toEqual({ id: 3, type: 'user', identifier: 45645678 });
 
     } );
 
@@ -106,8 +106,8 @@ describe( 'Inbox', () => {
       try {
         await Inboxes().create( { type: 58, identifier: 99999999 } );
       } catch ( err ) {
-        expect( VError.info( err ).errors.type.code ).equal( 'type.string' );
-        expect( err.name ).equal( 'ValidationError' );
+        expect( VError.info( err ).errors.type.code ).toBe('type.string');
+        expect( err.name ).toBe('ValidationError');
       }
 
     } );
@@ -117,8 +117,8 @@ describe( 'Inbox', () => {
       try {
         await Inboxes().create( { type: 'agenda' } );
       } catch ( err ) {
-        expect( VError.info( err ).errors.identifier.code ).equal( 'required' );
-        expect( err.name ).equal( 'ValidationError' );
+        expect( VError.info( err ).errors.identifier.code ).toBe('required');
+        expect( err.name ).toBe('ValidationError');
       }
 
     } );
@@ -131,7 +131,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes( { type: 'agenda', identifier: 48959239 } ).remove();
 
-      expect( inbox.data ).eql( null );
+      expect( inbox.data ).toBe(null);
 
     } );
 
@@ -143,7 +143,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes( { type: 'agenda', identifier: 48959239 } ).get();
 
-      expect( inbox.toJSON() ).eql( { id: 1, type: 'agenda', identifier: 48959239 } );
+      expect( inbox.toJSON() ).toEqual({ id: 1, type: 'agenda', identifier: 48959239 });
 
     } );
 
@@ -151,7 +151,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes( 1 ).get();
 
-      expect( inbox.toJSON() ).eql( { id: 1, type: 'agenda', identifier: 48959239 } );
+      expect( inbox.toJSON() ).toEqual({ id: 1, type: 'agenda', identifier: 48959239 });
 
     } );
 
@@ -159,7 +159,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes( 42 ).get();
 
-      expect( inbox.toJSON() ).eql( null );
+      expect( inbox.toJSON() ).toBe(null);
 
     } );
 
@@ -167,7 +167,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes( { type: 'user', identifier: 678910 } ).get();
 
-      expect( inbox.toJSON() ).eql( { id: 9, type: 'user', identifier: 678910 } );
+      expect( inbox.toJSON() ).toEqual({ id: 9, type: 'user', identifier: 678910 });
 
     } );
 
@@ -179,13 +179,13 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes( 1 ).get();
 
-      expect( inbox.toJSON() ).eql( { id: 1, type: 'agenda', identifier: 48959239 } );
+      expect( inbox.toJSON() ).toEqual({ id: 1, type: 'agenda', identifier: 48959239 });
 
     } );
 
     test( 'toJSON return null when the Inbox is not getted', () => {
 
-      expect( Inboxes( 1 ).toJSON() ).eql( null );
+      expect( Inboxes( 1 ).toJSON() ).toBe(null);
 
     } );
 
@@ -197,7 +197,7 @@ describe( 'Inbox', () => {
 
       const inbox = Inboxes( 1 ).users;
 
-      expect( inbox ).instanceof( InboxUsers );
+      expect( inbox ).toBeInstanceOf(InboxUsers);
 
     } );
 
@@ -209,7 +209,7 @@ describe( 'Inbox', () => {
 
       const inbox = Inboxes( 1 ).conversations;
 
-      expect( inbox ).instanceof( Conversations );
+      expect( inbox ).toBeInstanceOf(Conversations);
 
     } );
 

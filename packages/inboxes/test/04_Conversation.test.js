@@ -65,7 +65,7 @@ describe( 'Conversation', () => {
         'fileKey',
         'id',
         'latestMessage.conversationId'
-      ) ).eql( {
+      ) ).toEqual({
         type: 'event',
         typeIdentifier: 456789,
         creatorInbox: {
@@ -132,7 +132,7 @@ describe( 'Conversation', () => {
           kind: 'success'
         } ],
         closedAt: null
-      } );
+      });
 
     } );
 
@@ -144,7 +144,7 @@ describe( 'Conversation', () => {
         params: {}
       } );
 
-      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey', 'id' ) ).eql( {
+      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey', 'id' ) ).toEqual({
         type: 'edition_request',
         typeIdentifier: null,
         creatorInbox: {
@@ -200,7 +200,7 @@ describe( 'Conversation', () => {
           kind: 'success'
         } ],
         closedAt: null
-      } );
+      });
 
     } );
 
@@ -220,7 +220,7 @@ describe( 'Conversation', () => {
         'fileKey',
         'id',
         'inboxes[1].id'
-      ) ).eql( {
+      ) ).toEqual({
         type: 'edition_request',
         typeIdentifier: null,
         creatorInbox: {
@@ -275,7 +275,7 @@ describe( 'Conversation', () => {
           kind: 'success'
         } ],
         closedAt: null
-      } );
+      });
 
     } );
 
@@ -300,7 +300,7 @@ describe( 'Conversation', () => {
           'fileKey',
           'id',
           'creatorInboxUser.id'
-        ) ).eql( {
+        ) ).toEqual({
           type: 'event',
           typeIdentifier: 456789,
           creatorInbox: {
@@ -346,7 +346,7 @@ describe( 'Conversation', () => {
             kind: 'success'
           } ],
           closedAt: null
-        } );
+        });
 
       }
     );
@@ -361,7 +361,7 @@ describe( 'Conversation', () => {
 
       expect(
         _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey' )
-      ).eql( {
+      ).toEqual({
         id: 3,
         type: 'contact_form',
         typeIdentifier: null,
@@ -416,7 +416,7 @@ describe( 'Conversation', () => {
           kind: 'success'
         } ],
         closedAt: null
-      } );
+      });
 
     } );
 
@@ -426,7 +426,7 @@ describe( 'Conversation', () => {
 
       expect(
         _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey' )
-      ).eql( {
+      ).toEqual({
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
@@ -503,7 +503,7 @@ describe( 'Conversation', () => {
           kind: 'danger'
         } ],
         closedAt: null
-      } );
+      });
 
     } );
 
@@ -511,7 +511,7 @@ describe( 'Conversation', () => {
 
       const conversation = await Inboxes( { type: 'user', identifier: 45645678 } ).conversations.get( 1 );
 
-      expect( conversation.toJSON() ).equal( null );
+      expect( conversation.toJSON() ).toBeNull();
 
     } );
 
@@ -543,7 +543,7 @@ describe( 'Conversation', () => {
 
       expect(
         _.omit( conversation.toJSON(), 'createdAt', 'latestMessage.createdAt', 'fileKey' )
-      ).eql( {
+      ).toEqual({
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
@@ -608,7 +608,7 @@ describe( 'Conversation', () => {
           }
         },
         actions: []
-      } );
+      });
 
     } );
 
@@ -617,7 +617,7 @@ describe( 'Conversation', () => {
       const conversation = await Inboxes( 4 )
         .conversations.update( 3, { params: { un: { nouveau: 'truc' } } }, { userUid: 89216486 } );
 
-      expect( conversation.data.store ).eql( { params: { un: { nouveau: 'truc' } } } );
+      expect( conversation.data.store ).toEqual({ params: { un: { nouveau: 'truc' } } });
 
     } );
 
@@ -632,7 +632,7 @@ describe( 'Conversation', () => {
       const result = conversations.toJSON()
         .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
 
-      expect( result ).eql( [ {
+      expect( result ).toEqual([ {
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
@@ -730,7 +730,7 @@ describe( 'Conversation', () => {
           name: 'L\'admin',
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
         } ]
-      } ] );
+      } ]);
 
     } );
 
@@ -740,7 +740,7 @@ describe( 'Conversation', () => {
 
       const { total, data: result } = conversations.toJSON();
 
-      expect( total ).to.be.equal( 6 );
+      expect( total ).toBe(6);
 
       expect(
         result
@@ -752,7 +752,7 @@ describe( 'Conversation', () => {
             'latestMessage.createdAt',
             'fileKey'
           ) )
-      ).eql( [
+      ).toEqual([
         {
           id: 5,
           type: 'contact_form',
@@ -1101,7 +1101,7 @@ describe( 'Conversation', () => {
             avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
           } ]
         }
-      ] );
+      ]);
 
     } );
 
@@ -1112,7 +1112,7 @@ describe( 'Conversation', () => {
       const result = conversations.toJSON()
         .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
 
-      expect( result ).eql( [
+      expect( result ).toEqual([
         {
           id: 4,
           type: 'contact_form',
@@ -1299,7 +1299,7 @@ describe( 'Conversation', () => {
             }
           }
         }
-      ] );
+      ]);
 
     } );
 
@@ -1311,7 +1311,7 @@ describe( 'Conversation', () => {
       const result = conversations.toJSON()
         .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
 
-      expect( result ).eql( [
+      expect( result ).toEqual([
         {
           id: 4,
           type: 'contact_form',
@@ -1365,7 +1365,7 @@ describe( 'Conversation', () => {
             }
           }
         },
-      ] );
+      ]);
 
     } );
 
@@ -1373,7 +1373,7 @@ describe( 'Conversation', () => {
 
       const conversations = await new Inboxes.user( 86286559 ).conversations.list();
 
-      expect( conversations.toJSON() ).eql( [] );
+      expect( conversations.toJSON() ).toEqual([]);
 
     } );
 
@@ -1433,7 +1433,7 @@ describe( 'Conversation', () => {
       try {
         await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 99999999 } );
       } catch ( e ) {
-        expect( e.message ).eql( 'InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }' );
+        expect( e.message ).toBe('InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }');
       }
 
       spy.restore();
@@ -1453,7 +1453,7 @@ describe( 'Conversation', () => {
 
       const conversation = await Inboxes( inboxId ).conversations.get( conversationId );
 
-      expect( conversation ).to.be.an.instanceof( Conversation );
+      expect( conversation ).toBeInstanceOf(Conversation);
 
     } );
 
@@ -1470,7 +1470,7 @@ describe( 'Conversation', () => {
         conversation_id: conversationId
       } );
 
-      expect( result ).to.be.an( 'array' ).that.has.lengthOf( 1 );
+      expect( result ).toHaveLength(1);
 
     } );
 
@@ -1487,7 +1487,7 @@ describe( 'Conversation', () => {
 
       const conversation = await Inboxes( inboxId ).conversations.get( conversationId );
 
-      expect( conversation.toJSON() ).to.be.null;
+      expect( conversation.toJSON() ).toBeNull();
 
     } );
 
@@ -1498,7 +1498,7 @@ describe( 'Conversation', () => {
     const conv = await Inboxes.user( 31046551 ).conversations.get( 6 );
     const msg = await conv.messages.get( 11 );
 
-    expect( msg.data.id ).to.equal( 11 );
+    expect( msg.data.id ).toBe(11);
 
   } );
 
@@ -1512,7 +1512,7 @@ describe( 'Conversation', () => {
       } )
     } ).get( 7 );
 
-    expect( conversation.toJSON() ).to.have.property( 'inboxUser' );
+    expect( conversation.toJSON() ).toHaveProperty('inboxUser');
 
   } );
 

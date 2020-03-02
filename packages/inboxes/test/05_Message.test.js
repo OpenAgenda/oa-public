@@ -51,7 +51,7 @@ describe( 'Message', () => {
         userUid: 23456789
       } );
 
-      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).eql( {
+      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).toEqual({
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite ! 🎉',
         attachments: [],
@@ -72,7 +72,7 @@ describe( 'Message', () => {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           uid: 48959239
         }
-      } );
+      });
 
     } );
 
@@ -83,7 +83,7 @@ describe( 'Message', () => {
         body: 'Salut toi, mets moi admin, et vite !'
       } );
 
-      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).eql( {
+      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).toEqual({
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
         attachments: [],
@@ -104,7 +104,7 @@ describe( 'Message', () => {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           uid: 99999999
         }
-      } );
+      });
 
     } );
 
@@ -117,7 +117,7 @@ describe( 'Message', () => {
           body: 'Salut toi, mets moi admin, et vite !'
         } );
       } catch ( err ) {
-        expect( VError.info( err ).errors.userUid.code ).equal( 'required' );
+        expect( VError.info( err ).errors.userUid.code ).toBe('required');
       }
 
     } );
@@ -132,7 +132,7 @@ describe( 'Message', () => {
           userUid: 23456790
         } );
       } catch ( err ) {
-        expect( err.message ).equal( 'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }' );
+        expect( err.message ).toBe('InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }');
       }
 
     } );
@@ -146,7 +146,7 @@ describe( 'Message', () => {
         userUid: 78945621
       }, { createInboxUserOnNull: true } );
 
-      expect( _.omit( message.toJSON(), 'createdAt', 'id', 'inboxUser.id' ) ).eql( {
+      expect( _.omit( message.toJSON(), 'createdAt', 'id', 'inboxUser.id' ) ).toEqual({
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
         attachments: [],
@@ -166,7 +166,7 @@ describe( 'Message', () => {
           name: 'La gargouille',
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
         }
-      } );
+      });
 
     } );
 
@@ -179,7 +179,7 @@ describe( 'Message', () => {
       const conversation = await Inboxes( 1 ).conversations.get( 1 );
       const message = await conversation.messages.get( 1 );
 
-      expect( _.omit( message.toJSON(), 'createdAt' ) ).eql( {
+      expect( _.omit( message.toJSON(), 'createdAt' ) ).toEqual({
         id: 1,
         conversationId: 1,
         body: 'Salut, ca marche pas ! comment qu\'on fé ?',
@@ -201,7 +201,7 @@ describe( 'Message', () => {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           uid: 48959239
         }
-      } );
+      });
 
     } );
 
@@ -216,7 +216,7 @@ describe( 'Message', () => {
 
       const result = messages.toJSON().map( v => _.omit( v, 'createdAt' ) );
 
-      expect( result ).eql( [
+      expect( result ).toEqual([
         {
           id: 2,
           conversationId: 1,
@@ -254,7 +254,7 @@ describe( 'Message', () => {
             uid: 48959239
           }
         }
-      ] );
+      ]);
 
     } );
 
@@ -265,7 +265,7 @@ describe( 'Message', () => {
 
       const result = messages.toJSON().map( v => _.omit( v, 'createdAt' ) );
 
-      expect( result ).eql( [
+      expect( result ).toEqual([
         {
           id: 2,
           conversationId: 1,
@@ -303,7 +303,7 @@ describe( 'Message', () => {
             uid: 48959239
           }
         }
-      ] );
+      ]);
 
     } );
 

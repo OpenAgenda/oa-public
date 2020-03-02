@@ -1,5 +1,5 @@
 import knexLib from 'knex';
-import { config, initAndLoad } from './service';
+import service, { config, initAndLoad } from './service';
 import testconfig from '../testconfig';
 
 const database = testconfig.mysql.database + '_service';
@@ -17,21 +17,21 @@ describe( 'service', () => {
 
     test( 'simple init', async () => {
 
-      await initAndLoad( {
+      await expect(initAndLoad( {
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
         logger: { namespace: 'test:' }
-      }, [] ).should.fulfilled;
+      }, [] )).resolves.toBeUndefined();
 
     } );
 
     test( 'init without migrations', async () => {
 
-      await initAndLoad( {
+      await expect(initAndLoad( {
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
         migrations: null
-      }, [] ).should.fulfilled;
+      }, [] )).resolves.toBeUndefined();
 
     } );
 
@@ -42,14 +42,14 @@ describe( 'service', () => {
         connection: { ...testconfig.mysql, database }
       } );
 
-      await initAndLoad( {
+      await expect(initAndLoad( {
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
         knex,
         migrations: {
           tableName: 'test_migrations'
         }
-      }, [] ).should.fulfilled;
+      }, [] )).resolves.toBeUndefined();
 
     } );
 

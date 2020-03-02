@@ -45,9 +45,6 @@
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/fixtures": "^2.0.1",
     "babel-jest": "^25.1.0",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "chai-jest-diff": "^1.0.1",
     "jest": "^25.1.0",
     "reload": "^3.0.4",
     "sinon": "^4.0.1"
