@@ -5,7 +5,7 @@ const React = require( 'react' );
 const ReactDom = require( 'react-dom' );
 const createReactClass = require( 'create-react-class' );
 const Modal = require( '@openagenda/react-components/build/Modal' );
-const labels = require( '@openagenda/labels/agenda-admin-events/list' );
+const labels = require( '@openagenda/labels/event/remove' );
 
 let warningThis, lang = 'en';
 
@@ -27,10 +27,10 @@ module.exports = ( canvas, elems, l ) => {
 
       setTimeout( () => {
 
-        warningThis.displayModal( true, elem.getAttribute( 'href' ) );
+        warningThis.displayModal( true, elem.getAttribute( 'href' ), !!elem.hasAttribute('data-delete') );
 
       }, 50 );
-      
+
     } );
 
   } );
@@ -51,24 +51,25 @@ const WarningModal = createReactClass( {
 
   },
 
-  displayModal: function( display, link = '#' ) {
+  displayModal: function( display, link = '#', isDelete = false ) {
 
     this.setState( {
       display,
-      link
+      link,
+      isDelete
     } );
 
   },
 
   render: function() {
+    const isDelete = this.state.isDelete;
 
-    return this.state.display ? <Modal onClose={() => this.displayModal( false )} title={labels.removeEventTitle[ lang ]}>
-      <p className="text-center margin-top-sm">{labels.removeEventDetails[lang]}</p>
+    return this.state.display ? <Modal onClose={() => this.displayModal( false )} title={labels[isDelete ? 'eventDeleteTitle' : 'eventRemoveTitle'][lang]}>
+      <p className="text-center margin-top-sm">{labels[isDelete ? 'eventDeleteDetails' : 'eventRemoveDetails'][lang]}</p>
       <div className="text-center margin-top-md">
-        <a className="btn btn-primary" href={this.state.link}>{labels.removeEventConfirm[lang]}</a>
+        <a className="btn btn-primary" href={this.state.link}>{labels.confirm[lang]}</a>
       </div>
     </Modal> : null;
-    
   }
 
-} );
+});

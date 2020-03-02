@@ -426,6 +426,10 @@ raw.push(knex('review_tag').insert([{
   slug: 'entree-libre'
 }]));
 
+const eventSets = [
+  JSON.parse(fs.readFileSync(__dirname + '/sql/eventSets/1.json'))
+]
+
 raw.push(knex('event').insert([{
   id: 1,
   uid: 19201989,
@@ -440,7 +444,7 @@ raw.push(knex('event').insert([{
   owner_id: 50304,
   created_at: '2019-12-14T10:00:00.000Z',
   updated_at: '2019-12-14T10:00:00.000Z'
-}]));
+}, eventSets[0].legacyEvent]));
 
 raw.push(knex('event_location').insert([{
   id: 1,
@@ -454,7 +458,7 @@ raw.push(knex('event_location').insert([{
   event_id: 2,
   created_at: '2019-12-14T10:00:00.000Z',
   updated_at: '2019-12-14T10:00:00.000Z'
-}]));
+}, eventSets[0].eventLocation]));
 
 raw.push(knex('occurrence').insert([{
   id: 1,
@@ -470,7 +474,7 @@ raw.push(knex('occurrence').insert([{
   date: '2019-05-06',
   time_start: '10:00:00',
   time_end: '11:00:00'
-}]));
+}].concat(eventSets[0].occurrences)));
 
 raw.push(knex('event_2').insert([{
   id: 12,
@@ -498,7 +502,7 @@ raw.push(knex('event_2').insert([{
   location_uid: 123,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
-}]));
+}, eventSets[0].event]));
 
 raw.push(knex('agenda_event').insert([{
   event_uid: 19201989,
@@ -516,7 +520,7 @@ raw.push(knex('agenda_event').insert([{
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
   can_edit: 1
-}]));
+}].concat(eventSets[0].agendaEvents)));
 
 raw.push(knex('review_article').insert([{
   id: 123,

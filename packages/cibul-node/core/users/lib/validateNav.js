@@ -15,7 +15,7 @@ const validate = schema({
   },
   limit: {
     type: 'integer',
-    max: 100,
+    max: 1000,
     default: 20
   }
 });

@@ -25,7 +25,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     batched,
     context,
     access,
-    returnPayload
+    returnPayload,
+    bypassAdditionalFieldValidation
   } = Object.assign({
     aggregated: false,
     paths: null,
@@ -33,7 +34,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     batched: false,
     context: {},
     access: 'public',
-    returnPayload: false
+    returnPayload: false,
+    bypassAdditionalFieldValidation: false
   }, options || {});
 
   const member = context.userUid ? await members.get({
@@ -46,6 +48,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     agenda
   } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
     evaluateEvent: false,
+    bypassAdditionalFieldValidation,
     paths,
     aggregated,
     member
