@@ -71,6 +71,7 @@
   "aggregator-sources.RuleForm.noOption": "No option",
   "aggregator-sources.RuleForm.createOption": "Add \"{value}\"",
   "aggregator-sources.RuleForm.selectValue": "Select a value",
+  "aggregator-sources.RuleForm.selectValueAutomaticMode": "Values are assigned automatically",
   "aggregator-sources.RuleForm.requiredFilter": "Aggregation only occurs if the event matches the criteria for this filter.",
   "aggregator-sources.RuleForm.addAnAction": "Add an action",
   "aggregator-sources.RuleForm.removeAction": "Remove action",

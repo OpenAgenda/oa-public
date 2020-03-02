@@ -1,0 +1,417 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 29,
+  "fields": [
+    {
+      "field": "languages",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image",
+      "label": "Visuel",
+      "info": "Chargez une image d'au moins 300 pixels de large",
+      "fieldType": "abstract",
+      "optional" : false
+    },
+    {
+      "field": "imageCredits",
+      "label": "Crédits",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "label": "Chapô",
+      "sub": null,
+      "placeholder": "Une courte description de votre événement",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "display": false,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "label": "Contenu",
+      "sub": "Le contenu de ce champ doit avoir une longueur d'au moins 250 caractères.",
+      "placeholder": "Saisissez une description détaillée de votre événement.",
+      "min": 250,
+      "optional" : false,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "type-devenement",
+      "label": "Type d'événement",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 1,
+          "value": "cinema-projection",
+          "label": {
+            "en": "Cinéma - projection"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 14,
+          "value": "concert",
+          "label": {
+            "en": "Concert"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 15,
+          "value": "evenement-sportif",
+          "label": {
+            "en": "Evénement sportif"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 16,
+          "value": "exposition",
+          "label": {
+            "en": "Exposition"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 17,
+          "value": "fete-festival",
+          "label": {
+            "en": "Fête / festival"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 18,
+          "value": "marche-braderie",
+          "label": {
+            "en": "Marché / braderie"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 19,
+          "value": "nature-environnement",
+          "label": {
+            "en": "Nature / environnement"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 20,
+          "value": "nocturne",
+          "label": {
+            "en": "Nocturne"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 21,
+          "value": "rencontre-conference-debat",
+          "label": {
+            "en": "Rencontre / conférence / débat"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 22,
+          "value": "salon-foire",
+          "label": {
+            "en": "Salon / foire"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 23,
+          "value": "spectacle",
+          "label": {
+            "en": "Spectacle"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 24,
+          "value": "stages-et-ateliers",
+          "label": {
+            "en": "Stages et ateliers"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 25,
+          "value": "visite",
+          "label": {
+            "en": "Visite"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "radio"
+    },
+    {
+      "field": "etiquette",
+      "label": "Etiquette",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": 26,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 26,
+          "value": "ouvert",
+          "label": {
+            "en": "Ouvert"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 27,
+          "value": "annule",
+          "label": {
+            "en": "Annulé"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 28,
+          "value": "complet",
+          "label": {
+            "en": "Complet"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "radio"
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "tarifs",
+      "label": "Détail des tarifs",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "languages": [],
+      "fieldType": "markdown"
+    },
+    {
+      "field": "location",
+      "default": {
+        "countryCode": "FR",
+        "city": "Lille",
+        "latitude": 50.6274961,
+        "longitude": 3.0653133
+      },
+      "fieldType": "abstract",
+      "legacy": {
+        "eventForm": {
+          "detailed": true
+        }
+      }
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "temps-fort-de-la-manifestation",
+      "label": "Temps fort de la manifestation",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": "Champ privé",
+      "placeholder": "(inauguration , remise de prix , discours, cocktail)",
+      "write": [
+        "administrator", "moderator"
+      ],
+      "read": [
+        "administrator", "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "nombre-personnes-attendues",
+      "label": "Nombre de personnes attendues",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": "Champ privé",
+      "placeholder": null,
+      "write": [
+        "administrator", "moderator"
+      ],
+      "read": [
+        "administrator", "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "integer"
+    },
+    {
+      "field": "organisateur-nom",
+      "label": "Organisateur ( Nom )",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": "Champ privé",
+      "placeholder": null,
+      "write": [
+        "administrator", "moderator"
+      ],
+      "read": [
+        "administrator", "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "organisateur-email",
+      "label": "Organisateur ( Email )",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": "Champ privé",
+      "placeholder": null,
+      "write": [
+        "administrator", "moderator"
+      ],
+      "read": [
+        "administrator", "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "email"
+    },
+    {
+      "field": "organisateur-telephone",
+      "label": "Organisateur ( Téléphone )",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": "Champ privé",
+      "placeholder": null,
+      "write": [
+        "administrator", "moderator"
+      ],
+      "read": [
+        "administrator", "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "phone"
+    },
+    {
+      "field": "presence-sollicitee-du-maire",
+      "label": "Présence sollicitée du Maire",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": "Champ privé",
+      "placeholder": null,
+      "write": [
+        "administrator", "moderator"
+      ],
+      "read": [
+        "administrator", "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "boolean"
+    }
+  ]
+}

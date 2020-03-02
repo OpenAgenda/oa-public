@@ -71,6 +71,7 @@
   "aggregator-sources.RuleForm.noOption": null,
   "aggregator-sources.RuleForm.createOption": null,
   "aggregator-sources.RuleForm.selectValue": null,
+  "aggregator-sources.RuleForm.selectValueAutomaticMode": null,
   "aggregator-sources.RuleForm.requiredFilter": null,
   "aggregator-sources.RuleForm.addAnAction": null,
   "aggregator-sources.RuleForm.removeAction": null,

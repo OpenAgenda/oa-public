@@ -1,0 +1,190 @@
+[
+  {
+    "query": {},
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          28
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 0,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 14
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          17
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {},
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "automatic": true
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 17
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          13
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 18
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          4
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 19
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          10
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 21
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          7
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 24
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          3
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 25
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          23
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  },
+  {
+    "query": {
+      "type-devenement": 1
+    },
+    "required": false,
+    "actions": [
+      {
+        "field": "categories-metropolitaines",
+        "values": [
+          6
+        ],
+        "automatic": false
+      },
+      {
+        "field": "state",
+        "values": 2,
+        "automatic": false
+      }
+    ]
+  }
+]
