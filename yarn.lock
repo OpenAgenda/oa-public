@@ -20997,7 +20997,7 @@ sinon@^3.2.0, sinon@^3.2.1:
     text-encoding "0.6.4"
     type-detect "^4.0.0"
 
-sinon@^4.0.1, sinon@^4.4.5:
+sinon@^4.4.5:
   version "4.5.0"
   resolved "https://registry.npmjs.org/sinon/-/sinon-4.5.0.tgz#427ae312a337d3c516804ce2754e8c0d5028cb04"
   integrity sha512-trdx+mB0VBBgoYucy6a9L7/jfQOmvGeaKZT4OOJ+lPAtI8623xyGr8wLiE4eojzBS8G9yXbhx42GHUOVLr4X2w==

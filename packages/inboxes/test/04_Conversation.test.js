@@ -1,4 +1,3 @@
-import sinon from 'sinon';
 import _ from 'lodash';
 import Inboxes, { config, initAndLoad, seed, init, Conversation } from './service';
 import testconfig from '../testconfig';
@@ -518,19 +517,6 @@ describe( 'Conversation', () => {
   } );
 
   describe( 'update', () => {
-
-    const now = new Date();
-
-    beforeEach( () => {
-      global.clock = sinon.useFakeTimers( { now: (now - now % 1000) } );
-
-    } );
-
-    afterEach( () => {
-
-      global.clock.restore();
-
-    } );
 
     test( 'update a conversation', async () => {
 
@@ -1411,32 +1397,23 @@ describe( 'Conversation', () => {
 
     it( 'trigger an action', async () => {
 
-      const spy = sinon.spy( config.interfaces, 'onAction' );
+      const spy = jest.spyOn( config.interfaces, 'onAction' );
 
       await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 89216486 } );
 
-      sinon.assert.calledOnce( spy );
-      sinon.assert.calledWith(
-        spy,
-        sinon.match( { id: 3 } ),
-        sinon.match( { code: 'accept' } )
-      );
-
-      spy.restore();
+      expect(spy.mock.calls).toHaveLength(1)
+      expect(spy.mock.calls[0]).toMatchObject([
+        { id: 3 },
+        { code: 'accept' }
+      ]);
 
     } );
 
-    it( 'trigger an action', async () => {
+    it( 'trigger another action', async () => {
 
-      const spy = sinon.spy( config.interfaces, 'onAction' );
-
-      try {
-        await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 99999999 } );
-      } catch ( e ) {
-        expect( e.message ).toBe('InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }');
-      }
-
-      spy.restore();
+      await expect(Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 99999999 } ))
+        .rejects
+        .toThrow('InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }')
 
     } );
 

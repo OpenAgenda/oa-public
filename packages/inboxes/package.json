@@ -46,7 +46,6 @@
     "@openagenda/fixtures": "^2.0.1",
     "babel-jest": "^25.1.0",
     "jest": "^25.1.0",
-    "reload": "^3.0.4",
-    "sinon": "^4.0.1"
+    "reload": "^3.0.4"
   }
 }
