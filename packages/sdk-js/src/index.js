@@ -31,14 +31,13 @@ export default class OaSdk {
     }
 
     const response = await this.agent
-      .post( `${baseUrl.v1}/requestAccessToken` )
-      .type( 'form' )
+      .post( `${baseUrl.v2}/requestAccessToken` )
       .accept( 'json' )
       .send( {
         'grant-type': 'authorization_code',
         code: secretKey || this.params.secretKey
       } )
-      .then( parseJsonResponse );
+      .then( parseJsonResponse )
 
     this.accessToken = response.body.access_token;
     this.expiresIn = response.body.expires_in;

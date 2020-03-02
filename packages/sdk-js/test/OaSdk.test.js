@@ -26,7 +26,7 @@ describe( 'connection', () => {
 
     await expect(
       oa.connect( 'inexistant' )
-    ).rejects.toThrow( 'Bad Request' );
+    ).rejects.toThrow( 'Forbidden' );
   } );
 } );
 
