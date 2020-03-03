@@ -3,13 +3,14 @@
 // Polyfill
 if (!('ListFormat' in Intl)) {
   require('intl-list-format');
-}
 
-require('intl-list-format/locale-data/en.js');
-require('intl-list-format/locale-data/fr.js');
-require('intl-list-format/locale-data/de.js');
-require('intl-list-format/locale-data/it.js');
-require('intl-list-format/locale-data/br.js');
+  require('intl-list-format/locale-data/br.js');
+  require('intl-list-format/locale-data/de.js');
+  require('intl-list-format/locale-data/en.js');
+  require('intl-list-format/locale-data/es.js');
+  require('intl-list-format/locale-data/fr.js');
+  require('intl-list-format/locale-data/it.js');
+}
 
 const merge = require('lodash/merge');
 const escape = require('lodash/escape');
