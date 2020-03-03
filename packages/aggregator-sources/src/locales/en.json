@@ -80,6 +80,8 @@
   "aggregator-sources.RuleForm.helpFilterTag": "Apply the rule to events associated with optional values whose labels correspond.",
   "aggregator-sources.RuleForm.automaticAssignment": "Automatic assignment",
   "aggregator-sources.RuleForm.automaticDescription": "The values of the field will be defined automatically according to the values read from the source.",
+  "aggregator-sources.RuleForm.clearAssignment": "Replace values set by previous rules",
+  "aggregator-sources.RuleForm.clearDescription": "Any value assigned to this field to a rule executed before the current rule is replaced by the value set here",
   "aggregator-sources.RuleForm.modeSimple": "Simple mode",
   "aggregator-sources.RuleForm.modeAdvanced": "Advanced mode",
   "aggregator-sources.RuleForm.useFilter": "Use an aggregation filter",

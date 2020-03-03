@@ -86,6 +86,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   const [valuesBeforeAutomatic, setValuesBeforeAutomatic] = useState(
     action?.values
   );
+
   const toggleAdvancedMode = useCallback(() => {
     if (!advancedMode) {
       setValuesBeforeAutomatic(action?.values);
@@ -94,7 +95,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     setAdvancedMode(!advancedMode);
   }, [action, advancedMode, form, name]);
 
-  const areAdvancedOptionsUsed = () => action?.automatic;
+  const areAdvancedOptionsUsed = () => action?.automatic || action?.set;
 
   useIsomorphicLayoutEffect(() => {
     if (prevFieldName && fieldName) {
@@ -153,20 +154,36 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
             isSearchable
           />
           {advancedMode ? (
-            <Field
-              key="automatic"
-              component={Radio}
-              name={`${name}.automatic`}
-              initialValue={initialAction?.automatic ?? true}
-              type="checkbox"
-              label={intl.formatMessage(messages.automaticAssignment)}
-              classNameGroup="checkbox"
-              helpBlock={(
-                <div className="radio-sub-block text-muted">
-                  {intl.formatMessage(messages.automaticDescription)}
-                </div>
-              )}
-            />
+            <>
+              <Field
+                key="automatic"
+                component={Radio}
+                name={`${name}.automatic`}
+                initialValue={initialAction?.automatic}
+                type="checkbox"
+                label={intl.formatMessage(messages.automaticAssignment)}
+                classNameGroup="checkbox"
+                helpBlock={(
+                  <div className="radio-sub-block text-muted">
+                    {intl.formatMessage(messages.automaticDescription)}
+                  </div>
+                )}
+              />
+              <Field
+                key="set"
+                component={Radio}
+                name={`${name}.set`}
+                initialValue={!!initialAction?.set}
+                type="checkbox"
+                label={intl.formatMessage(messages.clearAssignment)}
+                classNameGroup="checkbox"
+                helpBlock={(
+                  <div className="radio-sub-block text-muted">
+                    {intl.formatMessage(messages.clearDescription)}
+                  </div>
+                )}
+              />
+            </>
           ) : null}
         </>
       ) : null}

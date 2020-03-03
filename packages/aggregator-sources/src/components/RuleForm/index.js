@@ -6,12 +6,12 @@ import classNames from 'classnames';
 
 import messages from './messages';
 
+import ActionsFormPart from './ActionsFormPart';
 import ExtendedFormPart from './ExtendedFormPart';
 import LocationFormPart from './LocationFormPart';
 import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
 import TagsFormPart from './TagsFormPart';
-import ActionsFormPart from './ActionsFormPart';
 
 export default function RuleForm({
   SubmitButton,

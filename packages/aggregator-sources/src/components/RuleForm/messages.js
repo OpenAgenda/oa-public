@@ -102,6 +102,15 @@ export default defineMessages({
     defaultMessage:
       'The values of the field will be defined automatically according to the values read from the source.'
   },
+  clearAssignment: {
+    id: 'aggregator-sources.RuleForm.clearAssignment',
+    defaultMessage: 'Replace values set by previous rules'
+  },
+  clearDescription: {
+    id: 'aggregator-sources.RuleForm.clearDescription',
+    defaultMessage:
+      'Any value assigned to this field to a rule executed before the current rule is replaced by the value set here'
+  },
   modeSimple: {
     id: 'aggregator-sources.RuleForm.modeSimple',
     defaultMessage: 'Simple mode'
