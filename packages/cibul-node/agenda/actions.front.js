@@ -4,68 +4,29 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const w = require( 'when' );
 
-const agendas = require( '@openagenda/agendas' );
-const agendaEventsMw = require( '../services/agendaEvents' ).mw;
-const legacyEventSearch = require('../services/elasticsearch');
 const members = require( '../services/members' );
 const cbify = require( '@openagenda/utils/cbify' );
 const sessions = require( '@openagenda/sessions' );
 const keysSvc = require( '@openagenda/keys' );
 const agendaDocx = require( '@openagenda/agenda-docx' );
-const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) );
 const cmn = require( '../lib/commons-app' );
-const getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
-const eventSvc = require( '../services/event' );
 const agendaSvc = require( '../services/agenda' );
 const model = require( '../services/model' );
 
-const preMw = [
-  agendaSvc.mw.load( 'slug' ),
-  ( req, res, next ) => {
-    req.params.sourceAgendaUid = req.query.sourceAgendaUid;
-    next();
-  },
-  agendaSvc.mw.load( 'sourceAgendaUid', 'uid', { name: 'sourceAgenda', required: false, basicLoad: true } ),
-  cmn.loadLogger( 'actions front' )
-];
-
-
 module.exports = app => {
-
   app.get(
     '/:slug/actions',
-    preMw,
+    agendaSvc.mw.load( 'slug' ),
+    ( req, res, next ) => {
+      req.params.sourceAgendaUid = req.query.sourceAgendaUid;
+      next();
+    },
+    agendaSvc.mw.load( 'sourceAgendaUid', 'uid', { name: 'sourceAgenda', required: false, basicLoad: true } ),
     loadKey(),
     cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     _loadDocxPath,
     actionShow
   );
-
-  app.get(
-    '/:slug/actions/add/:eventUid',
-    preMw,
-    _verifyIP,
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-    eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
-    _getRedirect,
-    members.mw.loadOrFail,
-    _verifyAlreadyAdded,
-    eventAdd
-  );
-
-  app.get(
-    '/:slug/actions/remove/:eventUid',
-    preMw,
-    _verifyIP,
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    _getRedirect,
-    agendaEventsMw.loadOrFail,
-    members.mw.loadOrFail,
-    _isMemberSharer,
-    eventRemove
-  );
-
 };
 
 
@@ -287,198 +248,4 @@ function actionShow( req, res ) {
 }
 
 
-/**
- * added regardless of state.
- */
 
-function eventAdd(req, res) {
-  const {
-    agendaEvents
-  } = req.app.services;
-
-  req.agenda.getContributionSettings( ( err, contributionSettings ) => {
-
-    req.agenda.addEvent( req.event, {
-      stakeholder: req.user,
-      publish: contributionSettings.defaultState === 2 ? true : false
-    }, err => {
-
-      if ( err ) {
-
-        req.log( 'error', 'eventAdd: %s', err );
-
-        return _onActionComplete( req, res, false, getActionLabel( 'agendaShareError', { agenda: req.agenda.title }, req.lang ) );
-
-      }
-
-      agendaEvents.legacyTransfer( {
-        eventId: req.event.id,
-        agendaId: req.agenda.id
-      }, {
-        context: {
-          aggregated: false,
-          userUid: req.user.uid,
-          agendaUid: req.agenda.uid,
-          sourceAgenda: req.sourceAgenda
-        }
-      } ).then( async () => {
-
-        req.log( 'info', {
-          message: 'eventAdd added to agenda',
-          user: req.user,
-          eventUid: req.event.uid,
-          agendaUid: req.agenda.uid,
-          sourceAgenda: req.sourceAgenda
-        } );
-
-        try {
-          await legacyEventSearch.updateEvent(_.pick(req.event, ['uid']));
-        } catch ( e ) {
-          log('error', 'could not update legacy search for event %s', req.event.slug );
-        }
-
-      } );
-
-      return _onActionComplete( req, res, true, getActionLabel( contributionSettings.defaultState === 2 ? 'agendaSharePublished' : 'agendaShareToControl', { agenda: req.agenda.title }, req.lang ) );
-
-    } );
-
-  } );
-
-
-}
-
-
-function eventRemove(req, res) {
-  const {
-    agendaEvents
-  } = req.app.services;
-
-  req.agenda.removeEvent(req.event, req.user, async err => {
-
-    if ( err ) {
-
-      req.log( 'error', 'eventRemove: %s', err );
-
-      _onActionComplete( req, res, false, getActionLabel( 'agendaShareRemoveError', { agenda: req.agenda.title } , req.lang ) );
-
-    } else {
-
-      try {
-
-        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: {
-          userUid: req.user.uid,
-          agendaUid: req.agenda.uid,
-          deletion: req.agenda.uid === req.event.origin.uid
-        } } );
-
-      } catch ( e ) {
-
-        req.log( 'error', { message: 'could not remove agenda-events reference', error: e } );
-
-      }
-
-      _onActionComplete( req, res, true, getActionLabel( 'agendaShareRemoved', { agenda: req.agenda.title }, req.lang ) );
-
-    }
-
-  });
-
-}
-
-
-function _verifyIP( req, res, next ) {
-
-  agendas.get( req.agenda.id, { private: null }, ( err, agenda ) => {
-
-    if ( err ) return next( err );
-
-    if ( !agenda ) return next( new Error( 'agenda not found' ) );
-
-    if ( !agenda.settings.contribution.authorizedIpAddresses ) return next();
-
-    if ( !agenda.settings.contribution.authorizedIpAddresses.length ) return next();
-
-    if ( agenda.settings.contribution.authorizedIpAddresses.includes( req.header( 'x-forwarded-for' ) ) ) return next();
-
-    res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agenda.slug } ) );
-
-  } );
-
-}
-
-
-function _isMemberSharer( req, res, next ) {
-  if ( members.utils.compareRoles.isSuperiorTo( req.member.role, 'contributor' ) ) {
-    return next();
-  }
-
-  if ( req.agendaEvent.userUid === req.user.uid ) {
-    return next();
-  }
-
-  return _unauthorized( req, res );
-}
-
-function _unauthorized( req, res ) {
-
-  _onActionComplete( req, res, false, getActionLabel( 'agendaShareRemoveUnauthorized', { agenda: req.agenda.title } , req.lang ) )
-
-}
-
-
-function _getRedirect( req, res, next ) {
-
-  req.redirect = cmn.getRedirect( req );
-
-  next();
-
-}
-
-
-function _verifyAlreadyAdded( req, res, next ) {
-
-  req.agenda.hasEvent( req.event, function( err, has ) {
-
-    if ( has ) {
-
-      sessions.setFlash( req, res, __( 'eventAlreadyAdded', req.lang ) );
-
-      res.redirect( req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) );
-
-      return;
-
-    }
-
-    next();
-
-  } );
-
-}
-
-
-function _onActionComplete( req, res, success, message ) {
-
-  if ( req.xhr ) {
-
-    return cmn.renderJson( {
-      success,
-      message
-    } );
-
-  }
-
-  sessions.setFlash( req, res, message )
-
-  if ( req.redirect ) {
-
-    return res.redirect( 302, req.redirect );
-
-  }
-
-  res.redirect( 302, req.genUrl( 'agendaEventActionShow', {
-    slug: req.agenda.slug,
-    eventSlug: req.event.slug
-  } ) );
-
-}

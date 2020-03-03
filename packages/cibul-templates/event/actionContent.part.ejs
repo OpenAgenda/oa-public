@@ -19,13 +19,13 @@
 <% if ( agendas.length ) { /* OA agenda shares are displayed */ %>
 <div class="btn-adds">
 
-  <% agendas.forEach( function( a ) {  %>
-  <% if ( a.sharing ) { %>
-    <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaEventRemove', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
+<% agendas.forEach(function(a) {  %>
+  <% if (a.sharing) { %>
+    <a class="btn btn-default checked uncheckable" href="<%= `/${a.slug}/events/${event.slug}/remove?redirect=${a.redirect}` %>"><%= a.title %></a>
   <% } else { %>
-    <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
+    <a class="btn btn-default" href="<%= `/${agenda.slug}/events/${event.slug}/add/to/${a.slug}?redirect=${a.redirect}` %>"><%= a.title %></a>
   <% } %>
-  <% }); %>
+<% }); %>
 
 </div>
 <% } else { %>

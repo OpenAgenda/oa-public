@@ -1,5 +1,6 @@
 'use strict';
 
+const log = require('@openagenda/logs')('services/agendaEvents/middleware/remove');
 const base64 = require('@openagenda/utils/base64');
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event/remove'));
 
@@ -23,18 +24,37 @@ module.exports = [
   },
   (req, res, next) => {
     const redirect = req.query.redirect ? base64.decode(req.query.redirect) : null;
-    const sfPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : null;
 
     req.app.services.sessions.setFlash(req, res, getLabel(req.result.deletion ? 'eventDeleted' : 'eventRemoved', req.lang));
 
     if (redirect) {
-      return res.redirect(302, sfPrefix + redirect);
+      log('redirecting to %s', redirect);
+      return res.redirect(302, _appendPHPDefPrefix(redirect));
     }
 
     if (req.isAdminMod) {
-      return res.redirect(302, `${sfPrefix}/${req.agenda.slug}/admin`);
+      return res.redirect(302, _appendPHPDefPrefix(`${req.agenda.slug}/admin`));
     }
 
     res.redirect(302, `/${req.agenda.slug}`);
   }
 ]
+
+
+function _appendPHPDefPrefix(redirect) {
+  const sfPrefix = '/frontend_dev.php';
+
+  if (redirect.indexOf('/admin') === -1) {
+    return redirect;
+  }
+
+  if (process.env.NODE_ENV !== 'development') {
+    return redirect;
+  }
+
+  if (redirect.indexOf(sfPrefix) !== -1) {
+    return redirect;
+  }
+
+  return sfPrefix + redirect;
+}

@@ -119,7 +119,7 @@ export function valuesToRule(values, schema) {
       if (action.field === 'state') {
         return {
           field: 'state',
-          values: action.values,
+          values: { $set: action.values },
           automatic: false
         };
       }

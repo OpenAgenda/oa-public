@@ -14,6 +14,7 @@ const mw = {
   loadEvent: require('../members/middleware/loadEvent'),
   load: require('./middleware/load'),
   remove: require('./middleware/remove'),
+  add: require('./middleware/add'),
   requireCanEdit: require('./middleware/requireCanEdit'),
   changeState: require('./middleware/changeState')
 }
@@ -57,16 +58,24 @@ module.exports = Object.assign(plugApp, {
 function plugApp(parentApp) {
   const {
     sessions,
-    members
+    members,
+    agendas
   } = parentApp.services;
+
+  parentApp.all([
+    '/:agendaSlug/events/:eventSlug/state/:state',
+    '/:agendaSlug/events/:eventSlug/remove',
+    '/:agendaSlug/events/:eventSlug/add'
+  ], [
+    sessions.middleware.ifUnlogged((req, res, next) => next({
+      code: 403, error: 'requiredLogged', message: 'You need to be logged'
+    }))
+  ]);
 
   parentApp.all([
     '/:agendaSlug/events/:eventSlug/state/:state',
     '/:agendaSlug/events/:eventSlug/remove'
   ], [
-    sessions.middleware.ifUnlogged((req, res, next) => next({
-      code: 403, error: 'requiredLogged', message: 'You need to be logged'
-    })),
     mw.loadAgenda,
     mw.loadEvent,
     mw.load
@@ -80,6 +89,14 @@ function plugApp(parentApp) {
   parentApp.get('/:agendaSlug/events/:eventSlug/remove',
     members.mw.load,
     mw.remove
+  );
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/add/to/:targetAgendaSlug',
+    agendas.mw.loadBy({ path: 'params.targetAgendaSlug', field: 'slug', target: 'agenda' }),
+    agendas.mw.loadBy({ path: 'params.agendaSlug', field: 'slug', target: 'currentAgenda' }),
+    members.mw.loadAndAuthorize('contributor'),
+    mw.loadEvent.by({ agenda: 'currentAgenda' }),
+    mw.add
   );
 
   parentApp.post('/:agendaSlug/admin/events/states',

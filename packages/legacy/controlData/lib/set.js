@@ -10,7 +10,7 @@ module.exports = async ( { prefix, knex, redis }, agendaEvent, data ) => {
 
   const { eventUid, agendaUid } = agendaEvent;
 
-  const ctlData = await loadControlData( redis, prefix, agendaUid );
+  const ctlData = await loadControlData( redis, prefix, agendaUid, { parse: true, initialize: true });
 
   const eventIndex = _.findIndex( ctlData.ev, { u: eventUid } );
 
