@@ -9,24 +9,30 @@ import 'intl';
 
 if (!Intl.PluralRules) {
   require('@formatjs/intl-pluralrules/polyfill');
-  require('@formatjs/intl-pluralrules/dist/locale-data/en'); // Add locale data for en
-  require('@formatjs/intl-pluralrules/dist/locale-data/fr'); // Add locale data for fr
-  require('@formatjs/intl-pluralrules/dist/locale-data/de'); // Add locale data for de
   require('@formatjs/intl-pluralrules/dist/locale-data/br'); // Add locale data for br
+  require('@formatjs/intl-pluralrules/dist/locale-data/de'); // Add locale data for de
+  require('@formatjs/intl-pluralrules/dist/locale-data/en'); // Add locale data for en
+  require('@formatjs/intl-pluralrules/dist/locale-data/es'); // Add locale data for es
+  require('@formatjs/intl-pluralrules/dist/locale-data/fr'); // Add locale data for fr
+  require('@formatjs/intl-pluralrules/dist/locale-data/it'); // Add locale data for it
 }
 
 if (!Intl.RelativeTimeFormat) {
   require('@formatjs/intl-relativetimeformat/polyfill');
-  require('@formatjs/intl-relativetimeformat/dist/locale-data/en'); // Add locale data for en
-  require('@formatjs/intl-relativetimeformat/dist/locale-data/fr'); // Add locale data for fr
-  require('@formatjs/intl-relativetimeformat/dist/locale-data/de'); // Add locale data for de
   require('@formatjs/intl-relativetimeformat/dist/locale-data/br'); // Add locale data for br
+  require('@formatjs/intl-relativetimeformat/dist/locale-data/de'); // Add locale data for de
+  require('@formatjs/intl-relativetimeformat/dist/locale-data/en'); // Add locale data for en
+  require('@formatjs/intl-relativetimeformat/dist/locale-data/es'); // Add locale data for es
+  require('@formatjs/intl-relativetimeformat/dist/locale-data/fr'); // Add locale data for fr
+  require('@formatjs/intl-relativetimeformat/dist/locale-data/it'); // Add locale data for it
 }
 
 if (!Intl.ListFormat) {
   require('@formatjs/intl-listformat/polyfill');
-  require('@formatjs/intl-listformat/dist/locale-data/en'); // Add locale data for en
-  require('@formatjs/intl-listformat/dist/locale-data/fr'); // Add locale data for fr
-  require('@formatjs/intl-listformat/dist/locale-data/de'); // Add locale data for de
   require('@formatjs/intl-listformat/dist/locale-data/br'); // Add locale data for br
+  require('@formatjs/intl-listformat/dist/locale-data/de'); // Add locale data for de
+  require('@formatjs/intl-listformat/dist/locale-data/en'); // Add locale data for en
+  require('@formatjs/intl-listformat/dist/locale-data/es'); // Add locale data for es
+  require('@formatjs/intl-listformat/dist/locale-data/fr'); // Add locale data for fr
+  require('@formatjs/intl-listformat/dist/locale-data/it'); // Add locale data for it
 }
