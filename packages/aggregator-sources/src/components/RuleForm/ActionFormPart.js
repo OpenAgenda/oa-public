@@ -26,6 +26,9 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
   const prevFieldName = usePrevious(fieldName);
   const initialValues = useRef(initials).current;
 
+  const automatic = useMemoOne(() => !!action?.automatic, [action]);
+  const prevAutomatic = usePrevious(automatic);
+
   const initialAction = useMemo(
     () => initialValues?.actions?.find(v => v.field === fieldName),
     [fieldName, initialValues]
@@ -82,22 +85,25 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     }
   }, [fieldName, fieldSchema, intl]);
 
-  const [advancedMode, setAdvancedMode] = useState(action?.automatic);
+  const areAdvancedOptionsUsed = () => action?.automatic || action?.set;
+
+  const [advancedMode, setAdvancedMode] = useState(areAdvancedOptionsUsed());
   const [valuesBeforeAutomatic, setValuesBeforeAutomatic] = useState(
     action?.values
   );
 
   const toggleAdvancedMode = useCallback(() => {
-    if (!advancedMode) {
-      setValuesBeforeAutomatic(action?.values);
-      form.change(`${name}.values`, undefined);
-    }
     setAdvancedMode(!advancedMode);
-  }, [action, advancedMode, form, name]);
-
-  const areAdvancedOptionsUsed = () => action?.automatic || action?.set;
+  }, [advancedMode]);
 
   useIsomorphicLayoutEffect(() => {
+    if (automatic && !prevAutomatic) {
+      setValuesBeforeAutomatic(action?.values);
+      form.change(`${name}.values`, undefined);
+    } else if (prevAutomatic && !automatic) {
+      form.change(`${name}.values`, valuesBeforeAutomatic);
+    }
+
     if (prevFieldName && fieldName) {
       const haveAllOptions = []
         .concat(action?.values)
@@ -150,7 +156,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
             menuPosition="fixed"
             isMulti={fieldSchema?.fieldType === 'checkbox'}
             isDisabled={action?.automatic}
-            initialValue={action?.automatic ? null : valuesBeforeAutomatic}
+            initialValue={action?.values}
             isSearchable
           />
           {advancedMode ? (
