@@ -5,540 +5,810 @@ module.exports = {
     "fr": "Description",
     "en": "Description",
     "de": "Beschreibung",
-    "es": "Descripción"
+    "es": "Descripción",
+    "it": "Descrizione",
+    "pl": "",
+    "br": ""
   },
   "name": {
     "fr": "Nom",
     "en": "Name",
     "de": "Name",
-    "es": "Apellido"
+    "es": "Apellido",
+    "it": "Nome",
+    "pl": "",
+    "br": ""
   },
   "namePlaceholder": {
     "fr": "Mon organisation, mon festival, ma ville, autre",
     "en": "My organization, my festival, my city, other",
     "de": "Meine Organisation, mein Fest, meine Stadt, andere",
-    "es": "Mi organización, mi fiesta, mi ciudad, otra"
+    "es": "Mi organización, mi fiesta, mi ciudad, otra",
+    "it": "La mia organizzazione, il mio festival, la mia città, altri",
+    "pl": "",
+    "br": ""
   },
   "website": {
     "fr": "Site web",
     "en": "Website",
     "de": "Webseite",
-    "es": "Sitio web"
+    "es": "Sitio web",
+    "it": "Sito web",
+    "pl": "",
+    "br": ""
   },
   "websitePlaceholder": {
     "fr": "http://monsite.com",
     "en": "http://mywebsite.com",
     "de": "http://mywebsite.com",
-    "es": "http://monsite.com"
+    "es": "http://monsite.com",
+    "it": "http://monsite.com",
+    "pl": "",
+    "br": ""
   },
   "personalizedSlug": {
     "fr": "Adresse web personnalisée",
     "en": "Personalized web address",
     "de": "Personalisierte Web-Adresse",
-    "es": "Dirección web personalizada"
+    "es": "Dirección web personalizada",
+    "it": "Indirizzo web personalizzato",
+    "pl": "",
+    "br": ""
   },
   "contribution": {
     "fr": "Contribution",
     "en": "Contribution",
     "de": "Beitrag",
-    "es": "Contribución"
+    "es": "Contribución",
+    "it": "Contributo",
+    "pl": "",
+    "br": ""
   },
   "contribType": {
     "fr": "Qui peut ajouter des événements à cet agenda ?",
     "en": "Who can add events to this calendar ?",
     "de": "Wer kann Veranstaltungen in diesem Kalender hinzufügen?",
-    "es": "¿Quién puede añadir eventos a este agenda?"
+    "es": "¿Quién puede añadir eventos a este agenda?",
+    "it": "Chi può aggiungere eventi a questo calendario?",
+    "pl": "",
+    "br": ""
   },
   "contribTypeChoosen": {
     "fr": "Seulement des personnes choisies et moi",
     "en": "Only selected people and me",
     "de": "Nur ausgewählte Personen und ich",
-    "es": "Sólo las personas seleccionadas y yo"
+    "es": "Sólo las personas seleccionadas y yo",
+    "it": "Solo persone selezionate e io",
+    "pl": "",
+    "br": ""
   },
   "contribTypeAll": {
     "fr": "Tout le monde",
     "en": "Everybody",
     "de": "Jeder",
-    "es": "Todo el mundo"
+    "es": "Todo el mundo",
+    "it": "Tutti",
+    "pl": "",
+    "br": ""
   },
   "contribDefaultState": {
     "fr": "Statut par défaut des événements",
     "en": "Default status of events",
     "de": "Default-Zustand der Veranstaltungen",
-    "es": "Eventos de estado por defecto"
+    "es": "Eventos de estado por defecto",
+    "it": "Stato di default degli eventi",
+    "pl": "",
+    "br": ""
   },
   "contribDefaultStatePublished": {
     "fr": "Publiés",
     "en": "Published",
     "de": "Veröffentlicht",
-    "es": "Publicado"
+    "es": "Publicado",
+    "it": "Pubblicato",
+    "pl": "",
+    "br": ""
   },
   "contribDefaultStatePublishedText": {
     "fr": "vous pouvez modifier les événements ensuite",
     "en": "you can edit the events later",
     "de": "Du kannst die Veranstaltungen später bearbeiten",
-    "es": "Puede editar los eventos más adelante"
+    "es": "Puede editar los eventos más adelante",
+    "it": "è possibile modificare gli eventi in seguito",
+    "pl": "",
+    "br": ""
   },
   "contribDefaultStateUnpublished": {
     "fr": "Non-publiés",
     "en": "Unpublished",
     "de": "unveröffentlicht",
-    "es": "Inédito"
+    "es": "Inédito",
+    "it": "Inedito",
+    "pl": "",
+    "br": ""
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "les événements ne deviennent publics qu'après votre validation",
     "en": "events become public only after your validation",
     "de": "Veranstaltungen werden öffentlich erst nach Ihrer Bestätigung",
-    "es": "Eventos no se hacen públicas hasta después de su validación"
+    "es": "Eventos no se hacen públicas hasta después de su validación",
+    "it": "gli eventi diventano pubblici solo dopo la vostra convalida",
+    "pl": "",
+    "br": ""
   },
   "required": {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
-    "es": "Necesario"
+    "es": "Necesario",
+    "it": "Richiesto",
+    "pl": "",
+    "br": ""
   },
   "string.tooshort": {
     "fr": "La chaîne de caractères est trop courte",
     "en": "String is too short",
     "de": "String zu kurz",
-    "es": "La cadena es demasiado corta"
+    "es": "La cadena es demasiado corta",
+    "it": "La stringa è troppo corta",
+    "pl": "",
+    "br": ""
   },
   "string.toolong": {
     "fr": "La chaîne de caractères est trop longue",
     "en": "String is too long",
     "de": "String ist zu lang",
-    "es": "La cadena es demasiado larga"
+    "es": "La cadena es demasiado larga",
+    "it": "La stringa è troppo lunga",
+    "pl": "",
+    "br": ""
   },
   "link.invalid": {
     "fr": "Lien invalide",
     "en": "Invalid link",
     "de": "Ungültiger Link",
-    "es": "Vínculo no válido"
+    "es": "Vínculo no válido",
+    "it": "Collegamento non valido",
+    "pl": "",
+    "br": ""
   },
   "duplicate": {
     "fr": "Cette valeur est déjà prise par un autre agenda",
     "en": "Duplicate value found",
     "de": "Doppelter Wert gefunden",
-    "es": "Este valor esta siendo utilizado por otro agenda"
+    "es": "Este valor esta siendo utilizado por otro agenda",
+    "it": "Questo valore è già preso da un altro calendario",
+    "pl": "",
+    "br": ""
   },
   "toosmall": {
     "fr": "La chaîne de caractères est trop courte",
     "en": "String is too short",
     "de": "String zu kurz",
-    "es": "La cadena es demasiado corta"
+    "es": "La cadena es demasiado corta",
+    "it": "La stringa è troppo corta",
+    "pl": "",
+    "br": ""
   },
   "slug.invalid": {
     "fr": "Seuls les lettres minuscules, les chiffres et les tirets (-) sont autorisés",
     "en": "Only lowercase letters, digits and dashes (-) are allowed",
     "de": "Nur Kleinbuchstaben, Ziffern und Bindestriche (-) sind erlaubt",
-    "es": "Sólo letras minúsculas, números y guiones (-) están permitidos"
+    "es": "Sólo letras minúsculas, números y guiones (-) están permitidos",
+    "it": "Sono ammesse solo lettere minuscole, numeri e trattini (-).",
+    "pl": "",
+    "br": ""
   },
   "email.invalid": {
     "fr": "L'adresse email n'est pas valide",
     "en": "Invalid email address",
     "de": "Ungültige E-Mail-Adresse",
-    "es": "La dirección de correo electrónico no es válida"
+    "es": "La dirección de correo electrónico no es válida",
+    "it": "L'indirizzo e-mail non è valido",
+    "pl": "",
+    "br": ""
   },
   "saveModifications": {
     "fr": "Sauvegarder les modifications",
     "en": "Save changes",
     "de": "Änderungen speichern",
-    "es": "Guardar cambios"
+    "es": "Guardar cambios",
+    "it": "Salva le modifiche",
+    "pl": "",
+    "br": ""
   },
   "saving": {
     "fr": "Sauvegarde en cours",
     "en": "Saving...",
     "de": "Speichern ...",
-    "es": "Ahorro"
+    "es": "Ahorro",
+    "it": "Backup in corso",
+    "pl": "",
+    "br": ""
   },
   "saved": {
     "fr": "Modifications sauvegardées",
     "en": "Changes saved",
     "de": "Änderungen gespeichert",
-    "es": "Cambios guardan"
+    "es": "Cambios guardan",
+    "it": "Modifiche salvate",
+    "pl": "",
+    "br": ""
   },
   "agendaProfile": {
     "fr": "Profil de l'agenda",
     "en": "Agenda profile",
     "de": "Agenda Profil",
-    "es": "Perfil de la agenda"
+    "es": "Perfil de la agenda",
+    "it": "Profilo del diario",
+    "pl": "",
+    "br": ""
   },
   "yes": {
     "fr": "Oui",
     "en": "Yes",
     "de": "Ja",
-    "es": "Sí"
+    "es": "Sí",
+    "it": "Sì",
+    "pl": "",
+    "br": ""
   },
   "no": {
     "fr": "Non",
     "en": "No",
     "de": "Nein",
-    "es": "No"
+    "es": "No",
+    "it": "No",
+    "pl": "",
+    "br": ""
   },
   "contribUseFields": {
     "fr": "Inviter chaque membre à se présenter (organisation, téléphone, nom, prénom, fonction, email)",
     "en": "Invite members to present themselves (organization, phone, name, title, email)",
     "de": "Lade Mitglieder präsentieren sich (Organisation, Telefon, Name, Titel, E-Mail)",
-    "es": "Invite a cada miembro de que se presenten (organización, teléfono, nombre, título, correo electrónico)"
+    "es": "Invite a cada miembro de que se presenten (organización, teléfono, nombre, título, correo electrónico)",
+    "it": "Invitare ogni membro a presentarsi (organizzazione, telefono, cognome, nome, posizione, e-mail)",
+    "pl": "",
+    "br": ""
   },
   "removeAgenda": {
     "fr": "Supprimer l'agenda",
     "en": "Delete agenda",
     "de": "löschen Agenda",
-    "es": "Eliminar agenda"
+    "es": "Eliminar agenda",
+    "it": "Cancellare l'ordine del giorno",
+    "pl": "",
+    "br": ""
   },
   "removeAgendaWarning": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet agenda ?",
     "en": "Are you sure you want to remove this agenda ?",
     "de": "Bist du sicher, dass Sie dieseVerwaltungskalender entfernen?",
-    "es": "¿Está seguro de que desea eliminar este agenda?"
+    "es": "¿Está seguro de que desea eliminar este agenda?",
+    "it": "Sei sicuro di voler cancellare questo ordine del giorno?",
+    "pl": "",
+    "br": ""
   },
   "close": {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
-    "es": "Cerca"
+    "es": "Cerca",
+    "it": "Chiudere",
+    "pl": "",
+    "br": ""
   },
   "remove": {
     "fr": "Supprimer",
     "en": "Remove",
     "de": "Löschen",
-    "es": "Eliminar"
+    "es": "Eliminar",
+    "it": "Cancellare",
+    "pl": "",
+    "br": ""
   },
   "agendaRemoved": {
     "fr": "Votre agenda a bien été supprimé",
     "en": "Your agenda has been deleted",
     "de": "Ihre Agenda wurde gelöscht",
-    "es": "Su agenda ha sido eliminado"
+    "es": "Su agenda ha sido eliminado",
+    "it": "Il vostro agenda è stato cancellato",
+    "pl": "",
+    "br": ""
   },
   "keyNbr": {
     "fr": "Clé n°%nbr%",
     "en": "Key n°%nbr%",
     "de": "Key n °%nbr%",
-    "es": "llave #%nbr%"
+    "es": "llave #%nbr%",
+    "it": "Chiave n. %nbr",
+    "pl": "",
+    "br": ""
   },
   "generateKey": {
     "fr": "Générer une clé",
     "en": "Generate a key",
     "de": "Generiere einen Schlüssel",
-    "es": "Generar llave"
+    "es": "Generar llave",
+    "it": "Generare una chiave",
+    "pl": "",
+    "br": ""
   },
   "copy": {
     "fr": "Copier",
     "en": "Copy",
     "de": "Kopieren",
-    "es": "Copia"
+    "es": "Copia",
+    "it": "Copia",
+    "pl": "",
+    "br": ""
   },
   "copied": {
     "fr": "Copié",
     "en": "Copied",
     "de": "Kopierte",
-    "es": "Copiado"
+    "es": "Copiado",
+    "it": "Copiato",
+    "pl": "",
+    "br": ""
   },
   "save": {
     "fr": "Sauvegarder",
     "en": "Save",
     "de": "Sparen",
-    "es": "Guardar"
+    "es": "Guardar",
+    "it": "Salva",
+    "pl": "",
+    "br": ""
   },
   "cancel": {
     "fr": "Annuler",
     "en": "Cancel",
     "de": "Stornieren",
-    "es": "Anular"
+    "es": "Anular",
+    "it": "Annulla",
+    "pl": "",
+    "br": ""
   },
   "description.tooManyLines": {
     "fr": "La description ne doit pas dépasser 4 lignes",
     "en": "The description must not exceed 4 lines",
     "de": "Die Beschreibung darf nicht länger als 4 Zeilen",
-    "es": "La descripción no debe exceder de 4 líneas"
+    "es": "La descripción no debe exceder de 4 líneas",
+    "it": "La descrizione non deve superare le 4 righe",
+    "pl": "",
+    "br": ""
   },
   "advanced": {
     "fr": "Avancé",
     "en": "Advanced",
     "de": "fortgeschritten",
-    "es": "Avanzado"
+    "es": "Avanzado",
+    "it": "Avanzato",
+    "pl": "",
+    "br": ""
   },
   "accessKeys": {
     "fr": "Clés d'accés",
     "en": "Access keys",
     "de": "Zugriffstasten",
-    "es": "Acceso teclas"
+    "es": "Acceso teclas",
+    "it": "Tasti di accesso",
+    "pl": "",
+    "br": ""
   },
   "manageKeys": {
     "fr": "Gérez les clés",
     "en": "Manage keys",
     "de": "verwalten Tasten",
-    "es": "Administrar llave"
+    "es": "Administrar llave",
+    "it": "Gestire i tasti",
+    "pl": "",
+    "br": ""
   },
   "labeling": {
     "fr": "Labellisation",
     "en": "Labeling",
     "de": "Beschriftung",
-    "es": "Etiquetado"
+    "es": "Etiquetado",
+    "it": "Etichettatura",
+    "pl": "",
+    "br": ""
   },
   "officialAgenda": {
     "fr": "Agenda officiel",
     "en": "Official agenda",
     "de": "Offizielle Kalender",
-    "es": "Agenda"
+    "es": "Agenda",
+    "it": "agenda ufficiale",
+    "pl": "",
+    "br": ""
   },
   "nonOfficialAgenda": {
     "fr": "Agenda non-officiel",
     "en": "Unofficial agenda",
     "de": "Inoffizieller Agenda",
-    "es": "Eventos no oficiales"
+    "es": "Eventos no oficiales",
+    "it": "agenda non ufficiale",
+    "pl": "",
+    "br": ""
   },
   "requestOfficialAgenda": {
     "fr": "Demander un agenda officiel",
     "en": "Request a agenda official",
     "de": "Fordern Sie eineVerwaltungskalender offiziellen",
-    "es": "Solicitar agenda oficial"
+    "es": "Solicitar agenda oficial",
+    "it": "Richiedi un agenda ufficiale",
+    "pl": "",
+    "br": ""
   },
   "learnMore": {
     "fr": "En savoir plus",
     "en": "Learn more",
     "de": "Mehr erfahren",
-    "es": "Más información"
+    "es": "Más información",
+    "it": "Per saperne di più",
+    "pl": "",
+    "br": ""
   },
   "requestOfficialDescription": {
     "fr": "Afin de guider les réutilisateurs des événements publiés sur OpenAgenda, nous avons mis en place un contrôle des agendas un à un, afin de leur attribuer un label \"officiel\", afin d'attester qu'il s'agit bien d'une programmation authentique, éditée par l'organisateur lui-même. Ceci exclut notamment les agendas de test.\n\nUne icône bleue apparaît alors à côté du nom de l'agenda.\n\nPour être reconnu comme un agenda officiel, il faut",
     "en": "In order to guide the re-users of the events published on OpenAgenda, we have set up a control of the agendas one by one, in order to grant them an \"official\" label, in order to certify that it is indeed authentic programming, edited by the organizer himself. This excludes test agendas.\n\nA blue icon appears next to the agenda name.\n\nTo be recognized as an official agenda, you have to",
     "de": "Um die Wieder Nutzer der Veranstaltungen auf OpenAgenda veröffentlicht zu führen, haben wir eine Kontrolle der Kalenders eins nach dem anderen, um ihnen eine „offizielle“ Bezeichnung zu erteilen einzurichten, um zu bestätigen, dass es in der Tat authentisch Programmierung ist, bearbeitet sich durch den Veranstalter. Dies schließt Test Kalenders.\n\nEin blaues Symbol erscheint neben dem Programm-Namen.\n\nUm als offizielle Kalender zu erkennen, müssen Sie",
-    "es": "Para guiar a los reutilizadores de los eventos enumerados OpenAgenda, se ha implementado un agenda de control de uno en uno, para darles una etiqueta \"oficial\" para certificar que es de hecho una auténtica agendación editado por el propio organizador. Esto excluye incluyendo horarios de prueba.\n\nUn icono azul aparece junto al nombre del agenda.\n\nPara ser reconocido como un agenda oficial debe"
+    "es": "Para guiar a los reutilizadores de los eventos enumerados OpenAgenda, se ha implementado un agenda de control de uno en uno, para darles una etiqueta \"oficial\" para certificar que es de hecho una auténtica agendación editado por el propio organizador. Esto excluye incluyendo horarios de prueba.\n\nUn icono azul aparece junto al nombre del agenda.\n\nPara ser reconocido como un agenda oficial debe",
+    "it": "Per guidare i riutilizzatori degli eventi pubblicati su OpenAgenda, abbiamo impostato un controllo delle agende una ad una, per dare loro un'etichetta \"ufficiale\", per certificare che si tratta di una programmazione autentica, pubblicata dall'organizzatore stesso. Sono esclusi in particolare i diari di prova.  Un'icona blu appare quindi accanto al nome del programma.  Per essere riconosciuto come diario ufficiale, deve essere",
+    "pl": "",
+    "br": ""
   },
   "makeARequest": {
     "fr": "faire une demande",
     "en": "make a request",
     "de": "eine Anfrage stellen",
-    "es": "aplicar"
+    "es": "aplicar",
+    "it": "petizione",
+    "pl": "",
+    "br": ""
   },
   "privateAgenda": {
     "fr": "Agenda privé",
     "en": "Private agenda",
     "de": "Private Agenda",
-    "es": "Eventos privados"
+    "es": "Eventos privados",
+    "it": "Diario privato",
+    "pl": "",
+    "br": ""
   },
   "publicAgenda": {
     "fr": "Agenda public",
     "en": "Public agenda",
     "de": "öffentliche Agenda",
-    "es": "Agenda pública"
+    "es": "Agenda pública",
+    "it": "agenda pubblico",
+    "pl": "",
+    "br": ""
   },
   "visibility": {
     "fr": "Visibilité",
     "en": "Visibility",
     "de": "Sichtweite",
-    "es": "visibilidad"
+    "es": "visibilidad",
+    "it": "Visibilità",
+    "pl": "",
+    "br": ""
   },
   "requestPrivateAgenda": {
     "fr": "Demander un agenda privé",
     "en": "Request a private agenda",
     "de": "Fordern Sie eine private Verwaltungskalender",
-    "es": "Solicitar un agenda íntimo"
+    "es": "Solicitar un agenda íntimo",
+    "it": "Richiedi un'agenda privata",
+    "pl": "",
+    "br": ""
   },
   "requestPublicAgenda": {
     "fr": "Demander un agenda public",
     "en": "Request a public agenda",
     "de": "Fordern Sie eine öffentliche Verwaltungskalender",
-    "es": "Solicitar un agenda público"
+    "es": "Solicitar un agenda público",
+    "it": "Richiedi un agenda pubblico",
+    "pl": "",
+    "br": ""
   },
   "indexedAgenda": {
     "fr": "Agenda indexé",
     "en": "Indexed agenda",
     "de": "Indexed Agenda",
-    "es": "Agenda indexada"
+    "es": "Agenda indexada",
+    "it": "Diario indicizzato",
+    "pl": "",
+    "br": ""
   },
   "indexedAgendaDesc": {
     "fr": "Indexer l'agenda dans les moteurs de recherche (Un délai est requis pour que tout changement soit pris en compte)",
     "en": "Index the agenda in the search engines (The index will be updated after a while)",
     "de": "Index der Kalender in den Suchmaschinen (Der Index wird nach einer gewissen Zeit aktualisiert)",
-    "es": "Índice de la agenda en los motores de búsqueda (Se requiere un retardo para que los cambios tengan efecto)"
+    "es": "Índice de la agenda en los motores de búsqueda (Se requiere un retardo para que los cambios tengan efecto)",
+    "it": "Indicare l'agenda nei motori di ricerca (è necessario un ritardo per tener conto di eventuali modifiche)",
+    "pl": "",
+    "br": ""
   },
   "notIndexedAgenda": {
     "fr": "Agenda non indexé",
     "en": "Agenda not indexed",
     "de": "Agenda nicht indiziert",
-    "es": "Agenda unindexed"
+    "es": "Agenda unindexed",
+    "it": "Diario non indicizzato",
+    "pl": "",
+    "br": ""
   },
   "limitDates": {
     "fr": "Limitation des dates de saisies",
     "en": "Limitation of seizure dates",
     "de": "Begrenzung der Anfallsdaten",
-    "es": "La limitación de fechas convulsiones"
+    "es": "La limitación de fechas convulsiones",
+    "it": "Limitazione delle date di entrata",
+    "pl": "",
+    "br": ""
   },
   "requestLimitDates": {
     "fr": "Demander la limitation des dates",
     "en": "Request for dates limitation",
     "de": "Antrag auf Termine Einschränkung",
-    "es": "Solicitud de limitación de fechas"
+    "es": "Solicitud de limitación de fechas",
+    "it": "Limitazione della data di richiesta",
+    "pl": "",
+    "br": ""
   },
   "customMessage": {
     "fr": "Messages personnalisés",
     "en": "Customized messages",
     "de": "Customized Nachrichten",
-    "es": "ensajes personalizados"
+    "es": "ensajes personalizados",
+    "it": "Messaggi personalizzati",
+    "pl": "",
+    "br": ""
   },
   "requestCustomMessage": {
     "fr": "Demander d'activer la personnalisation des messages",
     "en": "Request to activate message customization",
     "de": "Anfordern Nachricht Anpassung aktivieren",
-    "es": "Solicitud permitir la personalización de los mensajes"
+    "es": "Solicitud permitir la personalización de los mensajes",
+    "it": "Richiesta di attivazione della personalizzazione del messaggio",
+    "pl": "",
+    "br": ""
   },
   "personalization": {
     "fr": "Personnalisation",
     "en": "Personalization",
     "de": "Personalisierung",
-    "es": "Personalización"
+    "es": "Personalización",
+    "it": "Personalizzazione",
+    "pl": "",
+    "br": ""
   },
   "editEventsDescription": {
     "fr": "Modifiez la description des événements",
     "en": "Edit the description of events",
     "de": "Bearbeite die Beschreibung der Veranstaltungen",
-    "es": "Cambiar la descripción de los acontecimientos"
+    "es": "Cambiar la descripción de los acontecimientos",
+    "it": "Modificare la descrizione dell'evento",
+    "pl": "",
+    "br": ""
   },
   "removeKey": {
     "fr": "Supprimer la clé",
     "en": "Remove key",
     "de": "Entfernen-Taste",
-    "es": "Eliminar llave"
+    "es": "Eliminar llave",
+    "it": "Tasto Cancella",
+    "pl": "",
+    "br": ""
   },
   "removeKeyWarning": {
     "fr": "Êtes-vous certain de vouloir supprimer cette clé ?",
     "en": "Are you sure you want to delete this key?",
     "de": "Bist du sicher, dass Sie diesen Schlüssel wirklich löschen?",
-    "es": "¿Está seguro de que desea eliminar esta llave?"
+    "es": "¿Está seguro de que desea eliminar esta llave?",
+    "it": "Siete sicuri di voler cancellare questa chiave?",
+    "pl": "",
+    "br": ""
   },
   "contribModerateOnChangeBy": {
     "fr": "Statut d'un événement après modification",
     "en": "Status of an event after modification",
     "de": "Der Zustand eines Veranstaltungens nach der Änderung",
-    "es": "Estado de un evento después de la modificación"
+    "es": "Estado de un evento después de la modificación",
+    "it": "Stato di un evento dopo la modifica",
+    "pl": "",
+    "br": ""
   },
   "contribModerateOnChangeByUnpublish": {
     "fr": "Dépublier l'événement afin qu'il soit contrôlé à nouveau",
     "en": "Unpublish the event so that it is checked again",
     "de": "Unpublish die Veranstaltung, so dass es erneut geprüft",
-    "es": "Anular la publicación del evento para que se comprueba de nuevo"
+    "es": "Anular la publicación del evento para que se comprueba de nuevo",
+    "it": "Sbloccare l'evento in modo che possa essere ricontrollato",
+    "pl": "",
+    "br": ""
   },
   "contributorsMessages": {
     "fr": "Messages aux contributeurs",
     "en": "Messages to contributors",
     "de": "Nachrichten an die Mitglieder",
-    "es": "Mensajes contribuyentes"
+    "es": "Mensajes contribuyentes",
+    "it": "Messaggi ai collaboratori",
+    "pl": "",
+    "br": ""
   },
   "consigne": {
     "fr": "Consigne de saisie",
     "en": "Event form instructions",
     "de": "Veranstaltungsform Anweisungen",
-    "es": "Entrada de consigna"
+    "es": "Entrada de consigna",
+    "it": "Istruzioni per l'immissione",
+    "pl": "",
+    "br": ""
   },
   "consigneSubLabel": {
     "fr": "La consigne s'affiche au début du formulaire de saisie d'événement",
     "en": "The guideline appears at the beginning of the event entry form",
     "de": "Die Richtlinie erscheint zu Beginn der Veranstaltung Teilnahmeformular",
-    "es": "El conjunto aparece al principio de la forma de entrada de evento"
+    "es": "El conjunto aparece al principio de la forma de entrada de evento",
+    "it": "Il setpoint viene visualizzato all'inizio del modulo di registrazione dell'evento.",
+    "pl": "",
+    "br": ""
   },
   "contributionMessageComplete": {
     "fr": "Message de fin de contribution",
     "en": "End of contribution message",
     "de": "Ende der Beitrags Nachricht",
-    "es": "Entrada de mensaje de fin"
+    "es": "Entrada de mensaje de fin",
+    "it": "Messaggio di fine contributo",
+    "pl": "",
+    "br": ""
   },
   "contributionMessageCompleteSubLabel": {
     "fr": "S'affiche lorsque le contributeur a soumi sa contribution",
     "en": "Appears when the contributor has submitted their contribution",
     "de": "Erscheint, wenn der Beitrag ihres Beitrags vorgelegt hat",
-    "es": "Se muestra cuando soumi la contribución del colaborador"
+    "es": "Se muestra cuando soumi la contribución del colaborador",
+    "it": "Appare quando il contribuente ha presentato il suo contributo",
+    "pl": "",
+    "br": ""
   },
   "contributionMessagePublication": {
     "fr": "Message de publication",
     "en": "Publication message",
     "de": "Veröffentlichung Nachricht",
-    "es": "Publicación de mensajes"
+    "es": "Publicación de mensajes",
+    "it": "Messaggio di pubblicazione",
+    "pl": "",
+    "br": ""
   },
   "contributionMessagePublicationSubLabel": {
     "fr": "Envoyé au contributeur lorsque son événement a été publié",
     "en": "Sent to the contributor when his event has been published",
     "de": "Gesendet an den Beitrag, wenn sein Fall wird veröffentlicht",
-    "es": "Enviado al contribuyente cuando se publicó el evento"
+    "es": "Enviado al contribuyente cuando se publicó el evento",
+    "it": "Inviato al collaboratore quando il suo evento è stato pubblicato",
+    "pl": "",
+    "br": ""
   },
   "inbox": {
     "fr": "Messagerie",
     "en": "Inbox",
     "de": "Posteingang",
-    "es": "Mensajería"
+    "es": "Mensajería",
+    "it": "Posta",
+    "pl": "",
+    "br": ""
   },
   "inboxTabDescription": {
     "fr": "Paramètres de la messagerie",
     "en": "Messaging settings",
     "de": "Messaging-Einstellungen",
-    "es": "La configuración de mensajería"
+    "es": "La configuración de mensajería",
+    "it": "Impostazioni di messaggistica",
+    "pl": "",
+    "br": ""
   },
   "enableMailtoDesc": {
     "fr": "Désactiver la messagerie: Remplacer les liens de la messagerie par un envoi par email",
     "en": "Disable email: Replace inbox links with email",
     "de": "Deaktiviere E-Mail: Ersetzen Posteingang Links mit E-Mail",
-    "es": "Deshabilitar el correo: Reemplazar los lazos de correo mediante el envío de correo electrónico"
+    "es": "Deshabilitar el correo: Reemplazar los lazos de correo mediante el envío de correo electrónico",
+    "it": "Disattivare l'e-mail: Sostituire i link presenti nell'e-mail con un messaggio e-mail.",
+    "pl": "",
+    "br": ""
   },
   "mailtoEmailDesc": {
     "fr": "Un lien \"mailto\" pointant sur cet email sera présent sur les pages de l'agenda.",
     "en": "A link \"mailto\" pointing to this email will be present on the pages of the agenda.",
     "de": "Ein Link „mailto“ zeigt auf diese E-Mail wird auf den Seiten der Kalender vorliegen.",
-    "es": "Un \"mailto\" enlace apuntando a este correo electrónico estará presente en las hojas del agenda."
+    "es": "Un \"mailto\" enlace apuntando a este correo electrónico estará presente en las hojas del agenda.",
+    "it": "Un link \"mailto\" che punta a questa e-mail sarà presente su",
+    "pl": "",
+    "br": ""
   },
   "receptionEmail": {
     "fr": "Email de réception",
     "en": "Reception email",
     "de": "Empfang E-Mail",
-    "es": "Recibir correo electrónico"
+    "es": "Recibir correo electrónico",
+    "it": "E-mail di ricezione",
+    "pl": "",
+    "br": ""
   },
   "emailPlaceholder": {
     "fr": "votre@email.com",
     "en": "your@email.com",
     "de": "your@email.com",
-    "es": "votre@email.com"
+    "es": "votre@email.com",
+    "it": "votre@email.com",
+    "pl": "",
+    "br": ""
   },
   "update": {
     "fr": "Mettre à jour",
     "en": "Update",
     "de": "Aktualisieren",
-    "es": "Guardar"
+    "es": "Guardar",
+    "it": "Aggiorna",
+    "pl": "",
+    "br": ""
   },
   "subjectLabel": {
     "fr": "Objet par défaut",
     "en": "Default subject",
     "de": "Standardfach",
-    "es": "Asunto predeterminado"
+    "es": "Asunto predeterminado",
+    "it": "Oggetto predefinito",
+    "pl": "",
+    "br": ""
   },
   "subjectDesc": {
     "fr": "Message envoyé depuis l'agenda 'La semaine de l'industrie'",
     "en": "Message sent from 'Industry Week' agenda",
     "de": "Nachricht wurde gesendet von ‚Industry Week‘ Agenda",
-    "es": "Mensaje enviado desde el agenda 'Semana de la industria'"
+    "es": "Mensaje enviado desde el agenda 'Semana de la industria'",
+    "it": "Messaggio inviato dall'agenda della \"Settimana dell'industria",
+    "pl": "",
+    "br": ""
   },
   "googleAnalyticsId": {
     "fr": "Identifiant de suivi Google Analytics",
     "en": "Google Analytics Tracking ID",
     "de": "Google Analytics-Tracking-ID",
-    "es": "Seguimiento de Google Analytics ID"
+    "es": "Seguimiento de Google Analytics ID",
+    "it": "ID di tracciamento di Google Analytics",
+    "pl": "",
+    "br": ""
   },
   "stats": {
     "fr": "Statistiques",
     "en": "Statistics",
     "de": "Statistiken",
-    "es": "Estadística"
+    "es": "Estadística",
+    "it": "Statistiche",
+    "pl": "",
+    "br": ""
   },
   "statsTabDescription": {
     "fr": "Paramètrez votre identifiant de suivi Google Analytics",
     "en": "Set your Google Analytics Tracking ID",
     "de": "Stelle Deine Google Analytics-Tracking-ID",
-    "es": "Configurar su ID de seguimiento de Google Analytics"
+    "es": "Configurar su ID de seguimiento de Google Analytics",
+    "it": "Imposta il tuo identificativo di tracciamento di Google Analytics",
+    "pl": "",
+    "br": ""
   },
   "statsDescription": {
     "fr": "Suivez l'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com",
     "en": "Follow the crowds of visitors on the public pages of your agenda on openagenda.com",
     "de": "Folge den Besucherandrang auf den öffentlichen Seiten deinerVerwaltungskalender auf openagenda.com",
-    "es": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com"
+    "es": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com",
+    "it": "Segui il flusso di visitatori sulle pagine pubbliche del tuo agenda su openagenda.com",
+    "pl": "",
+    "br": ""
   }
 }

@@ -5,6 +5,9 @@ module.exports = {
     "en": "Search",
     "fr": "Rechercher",
     "de": "Suche",
-    "es": "Buscar"
+    "es": "Buscar",
+    "it": "Ricerca",
+    "pl": "",
+    "br": ""
   }
 }

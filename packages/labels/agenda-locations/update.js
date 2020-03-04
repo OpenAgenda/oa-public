@@ -5,48 +5,72 @@ module.exports = {
     "fr": "Edition du lieu",
     "en": "Location edit",
     "de": "Ort bearbeiten",
-    "es": "Editar lugar"
+    "es": "Editar lugar",
+    "it": "Edizione del luogo",
+    "pl": "",
+    "br": ""
   },
   "info": {
     "fr": "Tous les événements liés à ce lieu seront mis à jour",
     "en": "All events attached to this location will be updated",
     "de": "Alle Veranstaltungen an diesem Ort angebracht werden aktualisiert",
-    "es": "Todos los eventos relacionados con este lugar se actualizarán"
+    "es": "Todos los eventos relacionados con este lugar se actualizarán",
+    "it": "Tutti gli eventi relativi a questa località saranno aggiornati.",
+    "pl": "",
+    "br": ""
   },
   "submit": {
     "fr": "Mettre à jour",
     "en": "Update",
     "de": "Aktualisieren",
-    "es": "Guardar"
+    "es": "Guardar",
+    "it": "Aggiorna",
+    "pl": "",
+    "br": ""
   },
   "submitError": {
     "fr": "Le lieu n'a pas pu être mis à jour",
     "en": "The location could not be updated",
     "de": "Die Lage könnte nicht aktualisiert werden",
-    "es": "El lugar no podría ser actualizado"
+    "es": "El lugar no podría ser actualizado",
+    "it": "La posizione non ha potuto essere aggiornata.",
+    "pl": "",
+    "br": ""
   },
   "singleSuggestionCount": {
     "fr": "Une modification a été suggérée pour ce lieu",
     "en": "A change has been suggested for this location",
     "de": "Eine Änderung wurde für diesen Standort vorgeschlagen",
-    "es": "Un cambio fue sugerido para este lugar"
+    "es": "Un cambio fue sugerido para este lugar",
+    "it": "Per questa località è stata suggerita una modifica",
+    "pl": "",
+    "br": ""
   },
   "suggestionCount": {
     "fr": "%count% modifications ont été suggérées pour ce lieu",
     "en": "%count% changes have been suggested for this location",
     "de": "%count% Änderungen wurden für diesen Standort vorgeschlagen",
-    "es": " %count% se sugirieron cambios para este lugar"
+    "es": " %count% se sugirieron cambios para este lugar",
+    "it": "Per questa località sono state suggerite%count % variazioni",
+    "pl": "",
+    "br": ""
   },
   "loadSuggestion": {
     "en": "See",
     "fr": "Voir",
     "de": "Sehen",
-    "es": "Ver"
+    "es": "Ver",
+    "it": "Vedi",
+    "pl": "",
+    "br": ""
   },
   "suggestionInstruction": {
     "en": "Changes were suggested by agenda contributors",
     "fr": "Des modifications ont été suggérées par des contributeurs de l'agenda",
     "de": "Änderungen wurden von der Kalender Mitwirkenden vorgeschlagen",
-    "es": "Los cambios fueron sugeridos por la agenda contribuyentes"
+    "es": "Los cambios fueron sugeridos por la agenda contribuyentes",
+    "it": "Le modifiche sono state suggerite da chi ha contribuito all'ordine del giorno",
+    "pl": "",
+    "br": ""
   }
 }

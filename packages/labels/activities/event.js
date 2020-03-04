@@ -9,62 +9,108 @@ module.exports = {
     "en": "{user} published {event} on {agenda}.",
     "fr": "{user} a publié {event} sur {agenda}.",
     "de": "{user} {event} auf {agenda} veröffentlicht.",
-    "es": "{user} registró {event} sobre el agenda {agenda}."
+    "es": "{user} registró {event} sobre el agenda {agenda}.",
+    "it": "{user} ha pubblicato {event} su {agenda}.",
+    "pl": "",
+    "br": ""
   },
   "agenda.unpublishEvent": {
     "en": "{user} unpublished {event} on {agenda}.",
     "fr": "{user} a dépublié {event} sur {agenda}.",
     "de": "{user} nicht veröffentlichtes {event} auf {agenda}.",
-    "es": "{user} ha cancellado la publicacion de {event} en la agenda  {agenda}."
+    "es": "{user} ha cancellado la publicacion de {event} en la agenda  {agenda}.",
+    "it": "{user} ha inedito {event} su {agenda}.",
+    "pl": "",
+    "br": ""
   },
   "agenda.removeEvent": {
     "en": "{user} removed {event} from {agenda}.",
     "fr": "{user} a retiré {event} de {agenda}.",
     "de": "{user} {event} von {agenda} entfernt.",
-    "es": "{user} {event} sobre el agenda {agenda} eliminado."
+    "es": "{user} {event} sobre el agenda {agenda} eliminado.",
+    "it": "{user} ha rimosso {event} de {agenda}.",
+    "pl": "",
+    "br": ""
   },
   "agenda.aggregateEvent": {
     "en": "{agenda} aggregated {event} from {sourceAgenda}.",
     "fr": "{agenda} a agrégé {event} à partir de {sourceAgenda}.",
     "de": "{agenda} {event} from {sourceAgenda} aggregiert.",
-    "es": "{event} del agenda agregada de {sourceAgenda}."
+    "es": "{event} del agenda agregada de {sourceAgenda}.",
+    "it": "{agenda} ha aggregato {event} da {sourceAgenda}.",
+    "pl": "",
+    "br": ""
   },
   "agenda.addEvent": {
     "en": "{user} added {event} from {sourceAgenda}.",
-    "fr": "{user} a ajouté {event} à partir de {sourceAgenda}."
+    "fr": "{user} a ajouté {event} à partir de {sourceAgenda}.",
+    "it": "{user} ha aggiunto {event} da {sourceAgenda}.",
+    "de": "",
+    "pl": "",
+    "br": "",
+    "es": ""
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",
     "fr": "{user} a créé {event} dans l''agenda {agenda}.",
     "de": "{user} Veranstaltung auf der Kalender {agenda} erstellt.",
-    "es": "{user} creado {event} en el agenda del {agenda}."
+    "es": "{user} creado {event} en el agenda del {agenda}.",
+    "it": "{user} ha creato {event} dans l''agenda {agenda}.",
+    "pl": "",
+    "br": ""
   },
   "event.update": {
     "en": "{user} updated {event} on {agenda}.",
     "fr": "{user} a mis à jour {event} sur {agenda}.",
     "de": "{user} {event} auf {agenda} aktualisiert.",
-    "es": "{user} ha actualizado {event} de {agenda}."
+    "es": "{user} ha actualizado {event} de {agenda}.",
+    "it": "{user} ha aggiornato {event} su {agenda}.",
+    "pl": "",
+    "br": ""
   },
-  'event.updateWithOneChange': {
+  "event.updateWithOneChange": {
     "en": "{user} updated the field {fields} of {event} on {agenda}.",
-    "fr": "{user} a mis à jour le champ {fields} de {event} sur {agenda}."
+    "fr": "{user} a mis à jour le champ {fields} de {event} sur {agenda}.",
+    "it": "{user} ha aggiornato il campo {fields} de {event} su {agenda}.",
+    "de": "",
+    "pl": "",
+    "br": "",
+    "es": ""
   },
-  'event.updateWithSomeChanges': {
+  "event.updateWithSomeChanges": {
     "en": "{user} updated {event} on {agenda}: {fields} have been changed.",
-    "fr": "{user} a mis à jour {event} sur {agenda}: {fields} ont été modifiés."
+    "fr": "{user} a mis à jour {event} sur {agenda}: {fields} ont été modifiés.",
+    "it": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
+    "de": "",
+    "pl": "",
+    "br": "",
+    "es": ""
   },
-  'event.updateWithLotOfChanges': {
+  "event.updateWithLotOfChanges": {
     "en": "{user} updated {event} on {agenda} ({fieldsCount} fields).",
-    "fr": "{user} a mis à jour {event} sur {agenda} ({fieldsCount} champs)."
+    "fr": "{user} a mis à jour {event} sur {agenda} ({fieldsCount} champs).",
+    "it": "{user} ha aggiornato {event} su {agenda} ({fieldsCount} champs).",
+    "de": "",
+    "pl": "",
+    "br": "",
+    "es": ""
   },
   "event.delete": {
     "en": "{user} deleted {event} on {agenda}.",
     "fr": "{user} a supprimé {event} sur {agenda}.",
     "de": "{user} {event} auf {agenda} gelöscht.",
-    "es": "{user} elimina eventos de la agenda {agenda}."
+    "es": "{user} elimina eventos de la agenda {agenda}.",
+    "it": "{user} ha cancellato {event} su {agenda}.",
+    "pl": "",
+    "br": ""
   },
   "unknownActivity": {
     "en": "Activity label missing for {verb}",
-    "fr": "Libellé d''activité manquant pour {verb}"
+    "fr": "Libellé d''activité manquant pour {verb}",
+    "it": "Etichetta di attività mancante per {verb}.",
+    "de": "",
+    "pl": "",
+    "br": "",
+    "es": ""
   }
 }

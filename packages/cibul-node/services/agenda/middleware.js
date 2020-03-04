@@ -467,7 +467,7 @@ function buildPdf( req, res, next ) {
 
     stream.pause();
 
-    eInst.exportable( { filter: req.query.oaq, services: req.app.services }, ( err, clean ) => {
+    eInst.exportable({ filter: req.query.oaq, services: req.app.services }, (err, clean) => {
 
       if (_handleExportableError('pdf', eventData, err)) {
         return stream.resume();

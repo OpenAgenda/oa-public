@@ -80,7 +80,7 @@
   "aggregator-sources.RuleForm.helpFilterTag": "Appliquer la règle aux événements associés à des valeurs à choix dont les étiquettes correspondent",
   "aggregator-sources.RuleForm.automaticAssignment": "Attribution automatique",
   "aggregator-sources.RuleForm.automaticDescription": "Les valeurs du champ seront définies automatiquement selon les valeurs lues sur la source.",
-  "aggregator-sources.RuleForm.clearAssignment": "Remplacer les valeurs des règles précédentes pour ce champ",
+  "aggregator-sources.RuleForm.clearAssignment": "Remplacer les valeurs des règles précédentes",
   "aggregator-sources.RuleForm.clearDescription": "Si des valeurs ont été assignées au champ par des règles définies en amont, celles ci seront remplacées par la valeur définie sur ce champ.",
   "aggregator-sources.RuleForm.modeSimple": "Mode simple",
   "aggregator-sources.RuleForm.modeAdvanced": "Mode avancé",

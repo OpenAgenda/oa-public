@@ -5,24 +5,36 @@ module.exports = {
     "en": "Administrator",
     "fr": "Administrateur",
     "de": "Administrator",
-    "es": "administrador"
+    "es": "administrador",
+    "it": "Direttore",
+    "pl": "",
+    "br": ""
   },
   "moderator": {
     "en": "Moderator",
     "fr": "Modérateur",
     "de": "Moderator",
-    "es": "moderador"
+    "es": "moderador",
+    "it": "Moderatore",
+    "pl": "",
+    "br": ""
   },
   "contributor": {
     "en": "Contributor",
     "fr": "Contributeur",
     "de": "Beiträger",
-    "es": "contribuyente"
+    "es": "contribuyente",
+    "it": "Collaboratore",
+    "pl": "",
+    "br": ""
   },
   "reader": {
     "en": "Reader",
     "fr": "Lecteur",
     "de": "Leser",
-    "es": "lector"
+    "es": "lector",
+    "it": "Lettore",
+    "pl": "",
+    "br": ""
   }
 }

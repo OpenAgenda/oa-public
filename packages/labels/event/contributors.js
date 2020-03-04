@@ -6,27 +6,35 @@ module.exports = {
     "fr": "Organisation",
     "de": "Organisation",
     "es": "organización",
-    "br": "Aozadur"
+    "br": "Aozadur",
+    "it": "Organizzazione",
+    "pl": ""
   },
   "contactNumber": {
     "en": "Contact number",
     "fr": "Numéro contact",
     "de": "Kontakt Nummer",
     "es": "número de contacto",
-    "br": "Niverenn an darempred"
+    "br": "Niverenn an darempred",
+    "it": "Numero di contatto",
+    "pl": ""
   },
   "contactName": {
     "en": "Contact name",
     "fr": "Nom du contact",
     "de": "Kontaktname",
     "es": "Nombre de Contacto",
-    "br": "Anv an darempred"
+    "br": "Anv an darempred",
+    "it": "Nome della persona di contatto",
+    "pl": ""
   },
   "contactPosition": {
     "en": "Contact position",
     "fr": "Fonction du contact",
     "de": "Kontaktposition",
     "es": "funcionamiento de los contactos",
-    "br": "Karg an darempred"
+    "br": "Karg an darempred",
+    "it": "Funzione del contatto",
+    "pl": ""
   }
 }

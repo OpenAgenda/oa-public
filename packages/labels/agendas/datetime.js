@@ -7,7 +7,8 @@ module.exports = {
     "es": "enero",
     "de": "januar",
     "it": "gennaio",
-    "br": "genver"
+    "br": "genver",
+    "pl": ""
   },
   "february": {
     "en": "february",
@@ -15,7 +16,8 @@ module.exports = {
     "es": "febrero",
     "de": "februar",
     "it": "febbraio",
-    "br": "c'hwevrer"
+    "br": "c'hwevrer",
+    "pl": ""
   },
   "march": {
     "en": "march",
@@ -23,7 +25,8 @@ module.exports = {
     "es": "marzo",
     "de": "märz",
     "it": "marzo",
-    "br": "meurzh"
+    "br": "meurzh",
+    "pl": ""
   },
   "april": {
     "en": "april",
@@ -31,7 +34,8 @@ module.exports = {
     "es": "abril",
     "de": "april",
     "it": "aprile",
-    "br": "ebrel"
+    "br": "ebrel",
+    "pl": ""
   },
   "may": {
     "en": "may",
@@ -39,7 +43,8 @@ module.exports = {
     "es": "mayo",
     "de": "mai",
     "it": "maggio",
-    "br": "mae"
+    "br": "mae",
+    "pl": ""
   },
   "june": {
     "en": "june",
@@ -47,7 +52,8 @@ module.exports = {
     "es": "junio",
     "de": "juni",
     "it": "giugno",
-    "br": "mezheven"
+    "br": "mezheven",
+    "pl": ""
   },
   "july": {
     "en": "july",
@@ -55,7 +61,8 @@ module.exports = {
     "es": "julio",
     "de": "juli",
     "it": "luglio",
-    "br": "gouere"
+    "br": "gouere",
+    "pl": ""
   },
   "august": {
     "en": "august",
@@ -63,7 +70,8 @@ module.exports = {
     "es": "agosto",
     "de": "august",
     "it": "agosto",
-    "br": "eost"
+    "br": "eost",
+    "pl": ""
   },
   "september": {
     "en": "september",
@@ -71,7 +79,8 @@ module.exports = {
     "es": "septiembre",
     "de": "september",
     "it": "settembre",
-    "br": "gwengolo"
+    "br": "gwengolo",
+    "pl": ""
   },
   "october": {
     "en": "october",
@@ -79,7 +88,8 @@ module.exports = {
     "es": "octubre",
     "de": "oktober",
     "it": "ottobre",
-    "br": "here"
+    "br": "here",
+    "pl": ""
   },
   "november": {
     "en": "november",
@@ -87,7 +97,8 @@ module.exports = {
     "es": "noviembre",
     "de": "november",
     "it": "novembre",
-    "br": "du"
+    "br": "du",
+    "pl": ""
   },
   "december": {
     "en": "december",
@@ -95,7 +106,8 @@ module.exports = {
     "es": "diciembre",
     "de": "dezember",
     "it": "dicembre",
-    "br": "kerzu"
+    "br": "kerzu",
+    "pl": ""
   },
   "monday": {
     "en": "monday",
@@ -103,7 +115,8 @@ module.exports = {
     "es": "lunes",
     "de": "montag",
     "it": "lunedì",
-    "br": "lun"
+    "br": "lun",
+    "pl": ""
   },
   "tuesday": {
     "en": "tuesday",
@@ -111,7 +124,8 @@ module.exports = {
     "es": "martes",
     "de": "dienstag",
     "it": "martedì",
-    "br": "meurzh"
+    "br": "meurzh",
+    "pl": ""
   },
   "wednesday": {
     "en": "wednesday",
@@ -119,7 +133,8 @@ module.exports = {
     "es": "miércoles",
     "de": "mittwoch",
     "it": "mercoledì",
-    "br": "merc'her"
+    "br": "merc'her",
+    "pl": ""
   },
   "thursday": {
     "en": "thursday",
@@ -127,7 +142,8 @@ module.exports = {
     "es": "jueves",
     "de": "donnerstag",
     "it": "giovedì",
-    "br": "yaou"
+    "br": "yaou",
+    "pl": ""
   },
   "friday": {
     "en": "friday",
@@ -135,7 +151,8 @@ module.exports = {
     "es": "viernes",
     "de": "freitag",
     "it": "venerdì",
-    "br": "gwener"
+    "br": "gwener",
+    "pl": ""
   },
   "saturday": {
     "en": "saturday",
@@ -143,7 +160,8 @@ module.exports = {
     "es": "sábado",
     "de": "samstag",
     "it": "sabato",
-    "br": "sadorn"
+    "br": "sadorn",
+    "pl": ""
   },
   "sunday": {
     "en": "sunday",
@@ -151,6 +169,7 @@ module.exports = {
     "es": "domingo",
     "de": "sonntag",
     "it": "domenica",
-    "br": "sul"
+    "br": "sul",
+    "pl": ""
   }
 }

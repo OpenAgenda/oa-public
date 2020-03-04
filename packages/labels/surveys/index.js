@@ -5,12 +5,18 @@ module.exports = {
     "fr": "Merci d'avoir participé!",
     "en": "Thank you for your contribution!",
     "de": "Danke für Ihren Beitrag!",
-    "es": "Gracias por participar!"
+    "es": "Gracias por participar!",
+    "it": "Grazie per aver partecipato!",
+    "pl": "",
+    "br": ""
   },
   "done": {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
-    "es": "cerca"
+    "es": "cerca",
+    "it": "Chiudere",
+    "pl": "",
+    "br": ""
   }
 }

@@ -167,6 +167,9 @@ module.exports = {
     "fr": "Langue",
     "en": "Language",
     "de": "Sprache",
-    "es": "Idioma"
+    "es": "Idioma",
+    "it": "Lingua",
+    "pl": "",
+    "br": ""
   }
 }

@@ -10,129 +10,170 @@ module.exports = {
     "en": "The number must be equal to or lower than %max%",
     "de": "Die Zahl muss gleich oder niedriger als %max%",
     "es": "El número debe ser menor o igual al %max%",
-    "br": "Arabat d'an niver bezañ ouzhpenn %max%"
+    "br": "Arabat d'an niver bezañ ouzhpenn %max%",
+    "it": "Il numero deve essere inferiore o uguale a %max%.",
+    "pl": ""
   },
   "multi-input.info": {
     "fr": "Saisissez une ou plusieurs valeurs",
     "en": "Type in one or multiple values",
     "de": "Geben Sie in einem oder mehreren Werten",
     "es": "Introduzca uno o más valores",
-    "br": "Skrivit un talvoud pe meur a hini"
+    "br": "Skrivit un talvoud pe meur a hini",
+    "it": "Inserire uno o più valori",
+    "pl": ""
   },
   "multi-input.error": {
     "fr": "Les saisies non valides ne seront pas sauvegardées",
     "en": "Invalid entries will not be saved",
     "de": "Ungültige Einträge werden nicht gespeichert",
     "es": "No se guardarán las entradas no válidas",
-    "br": "Ne vo ket enrollet an traoù direizh"
+    "br": "Ne vo ket enrollet an traoù direizh",
+    "it": "Le voci non valide non verranno salvate.",
+    "pl": ""
   },
   "string.tooshort": {
     "fr": "Le champ doit comporter au moins %min% caractères",
     "en": "The field must contain at least %min% caracters",
     "de": "Das Feld muss mindestens %min% enthalten caracters",
     "es": "Este campo debe tener al menos %min% caracteres",
-    "br": "Er vaezienn e rank bezañ %min% arouezenn d'an nebeutañ"
+    "br": "Er vaezienn e rank bezañ %min% arouezenn d'an nebeutañ",
+    "it": "Il campo deve contenere almeno %min% di caratteri.",
+    "pl": ""
   },
   "string.toolong": {
     "fr": "Le champ doit comporter au plus %max% caractères",
     "en": "The field must contain at must %max% caracters",
     "de": "Das Feld muss bei Most %max% caracters enthalten",
     "es": "Este campo no debe tener más de %max% caracteres",
-    "br": "Er vaezienn e rank bezañ %max% arouezenn d'ar muiañ"
+    "br": "Er vaezienn e rank bezañ %max% arouezenn d'ar muiañ",
+    "it": "Il campo non deve contenere più di %max% di caratteri.",
+    "pl": ""
   },
   "email.invalid": {
     "fr": "Un email valide doit être renseigné",
     "en": "A valid email must be input",
     "de": "Eine gültige E-Mail muss eingegeben werden",
     "es": "Un correo electrónico válido debe ser llenado",
-    "br": "Ret eo lakaat ur chomlec'h postel reizh"
+    "br": "Ret eo lakaat ur chomlec'h postel reizh",
+    "it": "Deve essere compilata un'e-mail valida",
+    "pl": ""
   },
   "phone.invalid": {
     "fr": "Un numéro de télephone valide doit être renseigné",
     "en": "A valid phone number must be input",
     "de": "Eine gültige Telefonnummer eingegeben werden muss",
     "es": "Un número de teléfono válido debe llenarse",
-    "br": "Ret eo lakaat un niverenn bellgomz reizh"
+    "br": "Ret eo lakaat un niverenn bellgomz reizh",
+    "it": "È necessario inserire un numero di telefono valido.",
+    "pl": ""
   },
   "link.invalid": {
     "fr": "Un lien valide doit être renseigné",
     "en": "A valid link must be input",
     "de": "Ein gültiger Link muss eingegeben werden",
     "es": "Una conexión válida debe llenarse",
-    "br": "Ret eo lakaat ul liamm reizh"
+    "br": "Ret eo lakaat ul liamm reizh",
+    "it": "Un link valido deve essere compilato",
+    "pl": ""
   },
   "number.invalid": {
     "fr": "Un nombre valide doit être renseigné",
     "en": "A valid number must be input",
     "de": "Eine gültige Nummer muss eingegeben werden",
     "es": "Un número válido debe llenarse",
-    "br": "Ret eo lakaat un niver reizh"
+    "br": "Ret eo lakaat un niver reizh",
+    "it": "Deve essere inserito un numero valido",
+    "pl": ""
   },
   "integer.invalid": {
     "fr": "Un entier valide doit être renseigné",
     "en": "A valid integer must be intput",
     "de": "Eine gültige ganze Zahl sein muss Intput",
     "es": "Una completa válida deben llenarse",
-    "br": "Ret eo lakaat un niver anterin reizh"
+    "br": "Ret eo lakaat un niver anterin reizh",
+    "it": "Deve essere inserito un numero intero valido",
+    "pl": ""
   },
   "integer.toobig": {
     "fr": "Cette valeur est trop grande",
     "en": "This value is too big",
     "de": "Dieser Wert ist zu groß",
     "es": "Este valor es demasiado alto",
-    "br": "Re vras eo an talvoud-mañ"
+    "br": "Re vras eo an talvoud-mañ",
+    "it": "Questo valore è troppo alto",
+    "pl": ""
   },
   "groupTags.required": {
     "fr": "Au moins un élément doit être sélectionné",
     "en": "At least one item must be selected",
     "de": "Mindestens ein Element muss ausgewählt werden",
     "es": "Al menos un elemento debe seleccionarse",
-    "br": "Ret eo diuzañ un elfenn da vihanañ"
+    "br": "Ret eo diuzañ un elfenn da vihanañ",
+    "it": "Almeno una voce deve essere selezionata",
+    "pl": ""
   },
   "required": {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
     "es": "necesario",
-    "br": "Rekis"
+    "br": "Rekis",
+    "it": "Richiesto",
+    "pl": ""
   },
   "choice.required": {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
     "es": "necesario",
-    "br": "Rekis"
+    "br": "Rekis",
+    "it": "Richiesto",
+    "pl": ""
   },
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
     "en": "There was trouble while saving the data, try again in a short while",
     "de": "Es gab Probleme, während die Daten zu speichern, wiederholen Sie den Vorgang in kurzer Zeit",
     "es": "Hubo una preocupación cuando se guarda, por favor, inténtelo de nuevo en un momento",
-    "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h"
+    "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
+    "it": "C'è stato un problema durante il backup, riprovare tra un attimo.",
+    "pl": ""
   },
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",
     "en": "This event is unavailable as it is not associated to any agenda.",
     "de": "Dieses Veranstaltung ist nicht verfügbar, weil sie nicht mit einem Veranstaltungskalender verknüpft ist.",
     "es": "Este evento no está disponible porque está asociado con ninguna agenda",
-    "br": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet"
+    "br": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet",
+    "it": "Questo evento non è disponibile perché non è associato ad alcun ordine del giorno.",
+    "pl": ""
   },
   "defaultBack": {
     "fr": "Revenir à l'accueil",
     "en": "Back to the home page",
     "de": "Zurück zur Startseite",
-    "es": "volver al inicio"
+    "es": "volver al inicio",
+    "it": "Torna alla home page",
+    "pl": "",
+    "br": ""
   },
   "defaultAgendaBack": {
     "fr": "Revenir à l'agenda",
     "en": "Back to the agenda page",
     "de": "Zurück zum Veranstaltungskalender",
-    "es": "Volver a la agenda"
+    "es": "Volver a la agenda",
+    "it": "Torna all'ordine del giorno",
+    "pl": "",
+    "br": ""
   },
   "pageDoesNotExist": {
     "fr": "La page que vous avez demandé n'existe pas",
     "en": "The page you requested does not exist",
     "de": "Die von Ihnen angeforderte Seite existiert nicht",
-    "es": "La página solicitada no existe"
+    "es": "La página solicitada no existe",
+    "it": "La pagina richiesta non esiste.",
+    "pl": "",
+    "br": ""
   }
 }

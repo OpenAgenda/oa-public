@@ -7,7 +7,8 @@ module.exports = {
     "it": "Informazione membro",
     "de": "Kontaktdaten",
     "br": "Restr ezel",
-    "es": "perfil de miembro"
+    "es": "perfil de miembro",
+    "pl": ""
   },
   "event": {
     "fr": "Mon événement",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "Il moi evento",
     "de": "Meine Veranstaltung",
     "br": "Ma darvoud",
-    "es": "mi evento"
+    "es": "mi evento",
+    "pl": ""
   },
   "confirmation": {
     "fr": "Confirmation",
@@ -23,6 +25,7 @@ module.exports = {
     "it": "Confermazione",
     "de": "Bestätigung",
     "br": "Kadarnaat",
-    "es": "confirmación"
+    "es": "confirmación",
+    "pl": ""
   }
 }
