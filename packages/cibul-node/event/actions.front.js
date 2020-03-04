@@ -427,6 +427,9 @@ function _calendarAction(req, res, next) {
 }
 
 async function _agendasAction(req, res, next) {
+  if (!req.user) {
+    return next();
+  }
   try {
     const originUid = req.event.agendaUid;
 
