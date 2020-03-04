@@ -103,7 +103,9 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     } else if (prevAutomatic && !automatic) {
       form.change(`${name}.values`, valuesBeforeAutomatic);
     }
+  }, [automatic, prevAutomatic, action, form, name, valuesBeforeAutomatic]);
 
+  useIsomorphicLayoutEffect(() => {
     if (prevFieldName && fieldName) {
       const haveAllOptions = []
         .concat(action?.values)
