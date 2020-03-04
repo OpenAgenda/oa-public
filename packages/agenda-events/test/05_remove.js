@@ -8,7 +8,7 @@ const queue = require('@openagenda/queue');
 
 const Service = require('../');
 const config = require('../testconfig');
-const fixtures = require('./service/load');
+const fixtures = require('./fixtures');
 
 describe('agendaEvents - 05 - functional (server): remove', function() {
   this.timeout(20000);
@@ -17,6 +17,7 @@ describe('agendaEvents - 05 - functional (server): remove', function() {
   beforeEach(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
+      'agenda_event.create.sql',
       'agenda_event.data.sql'
    ]);
   });

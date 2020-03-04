@@ -7,7 +7,7 @@ const queue = require('@openagenda/queue');
 
 const Service = require('../');
 const config = require('../testconfig');
-const fixtures = require('./service/load');
+const fixtures = require('./fixtures');
 
 describe('agendaEvents - 06 - transferLegacyData - sample', function() {
   let q;
@@ -18,7 +18,7 @@ describe('agendaEvents - 06 - transferLegacyData - sample', function() {
   beforeEach(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
-      'agenda_event_empty.data.sql',
+      'agenda_event.create.sql',
       'legacy_agenda_event.data.sql',
       'legacy_event_editor.data.sql',
       'legacy_agenda.data.sql',

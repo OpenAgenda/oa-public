@@ -4,7 +4,7 @@ const should = require('should');
 
 const Service = require('../');
 const config = require('../testconfig');
-const fixtures = require('./service/load');
+const fixtures = require('./fixtures');
 
 describe('agendaEvents - functional (server): utils', function() {
   let svc;
@@ -12,6 +12,7 @@ describe('agendaEvents - functional (server): utils', function() {
   before(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
+      'agenda_event.create.sql',
       'agenda_event.data.sql'
    ]);
   });

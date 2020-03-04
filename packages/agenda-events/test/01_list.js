@@ -7,9 +7,9 @@ const Service = require('../');
 const config = require('../testconfig');
 const states = require('../iso/states');
 
-const fixtures = require('./service/load');
+const fixtures = require('./fixtures');
 
-const membersFixtures = require('./service/membersFixtures.json');
+const membersFixtures = require('./fixtures/membersFixtures.json');
 
 describe('agendaEvents - 01 - functional (server): list', function() {
   let svc;
@@ -17,6 +17,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   before(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
+      'agenda_event.create.sql',
       'agenda_event.data.sql'
     ]);
   });

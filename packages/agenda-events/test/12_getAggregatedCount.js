@@ -5,7 +5,7 @@ const should = require('should');
 const Service = require('../');
 const config = require('../testconfig');
 
-const fixtures = require('./service/load');
+const fixtures = require('./fixtures');
 
 describe('agendaEvents - 12 - functional (server): getAggregatedCount', function() {
   let svc, get;

@@ -8,8 +8,8 @@ const mysql = require('mysql');
 const Service = require('../');
 const config = require('../testconfig');
 
-const fixtures = require('./service/load');
-const membersFixtures = require('./service/membersFixtures.json');
+const fixtures = require('./fixtures');
+const membersFixtures = require('./fixtures/membersFixtures.json');
 
 describe('agendaEvents - 03 - functional (server): create', function() {
   let svc;
@@ -17,6 +17,7 @@ describe('agendaEvents - 03 - functional (server): create', function() {
   before(async () => {
     await fixtures(config.mysql, [
       'reset.sql',
+      'agenda_event.create.sql',
       'agenda_event.data.sql'
     ]);
   });
