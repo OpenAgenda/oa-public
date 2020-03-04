@@ -163,6 +163,7 @@ function actionShow(req, res, next) {
         eventSlug: req.event.slug
       }
     },
+    redirect: base64.encode(req.url),
     agenda: req.agenda ? req.agenda : false
   };
 
