@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('services/agendaEvents/middleware/remove');
+const log = require('@openagenda/logs')('services/agendaEvents/middleware/add');
 const base64 = require('@openagenda/utils/base64');
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/event/actions'));
 

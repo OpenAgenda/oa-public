@@ -439,7 +439,7 @@ async function _agendasAction(req, res, next) {
       .map(userAgenda => ({
         ...userAgenda,
         sharing: agendaEvents.findIndex(a => a.agendaUid === userAgenda.uid) !== -1,
-        redirect: base64.encode(`/${req.agenda.slug}/events/${req.event.slug}/action`)
+        redirect: req.query.redirect || base64.encode(`/${req.agenda.slug}/events/${req.event.slug}/action`)
       }));
 
     next();

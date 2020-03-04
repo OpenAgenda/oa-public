@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const ih = require( 'immutability-helper' );
 const qs = require( 'qs' );
+const base64 = require('@openagenda/utils/base64');
 
 const agendas = require( '@openagenda/agendas' );
 const agendaSearch = require( '@openagenda/agenda-search' );
@@ -663,11 +664,13 @@ function _formatShowLinks( req, res, next ) {
 
     e.link = req.genUrl( 'agendaEventShow', params );
 
-    e.importUri = req.genUrl( 'agendaEventActionShow', {
+    /*e.importUri = req.genUrl('agendaEventActionShow', {
       slug: req.agenda.slug,
       eventSlug: e.slug,
-      back: req.genUrl( 'agendaShow', [ { slug: req.agenda.slug }, req.query || {} ])
-    } );
+      redirect:
+    });*/
+
+    e.importUri = `/${req.agenda.slug}/events/${e.slug}/action?redirect=${base64.encode(`/${req.agenda.slug}` + qs.stringify(req.query, { addQueryPrefix: true }))}`
 
   });
 
