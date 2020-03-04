@@ -7,6 +7,7 @@ const logger = require('@openagenda/logs');
 
 const list = require('./service/list');
 const get = require('./service/get');
+const getAggregatedCount = require('./service/getAggregatedCount');
 const create = require('./service/create');
 const update = require('./service/update');
 const set = require('./service/set');
@@ -48,6 +49,7 @@ module.exports = c => {
   Object.assign(service, {
     get: get.bind(null, service),
     getByLegacyId: get.byLegacyId.bind(null, service),
+    getAggregatedCount: getAggregatedCount.bind(null, service),
     create: create.bind(null, service),
     update: update.bind(null, service),
     set: set.bind(null, service),
@@ -70,6 +72,7 @@ module.exports = c => {
     list: service.list.bind(null, agendaUid),
     listByLastId: service.listByLastId.bind(null, agendaUid),
     get: service.get.bind(null, agendaUid),
+    getAggregatedCount: service.getAggregatedCount.bind(null, agendaUid),
     create: service.create.bind(null, agendaUid),
     update: service.update.bind(null, agendaUid),
     remove: service.remove.bind(null, agendaUid),

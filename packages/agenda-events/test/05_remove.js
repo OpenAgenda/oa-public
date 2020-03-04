@@ -11,7 +11,7 @@ const config = require('../testconfig');
 const fixtures = require('./service/load');
 
 describe('agendaEvents - 05 - functional (server): remove', function() {
-  this.timeout(10000);
+  this.timeout(20000);
   let svc;
 
   beforeEach(async () => {
