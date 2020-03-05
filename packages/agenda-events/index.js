@@ -1,75 +1,112 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const knex = require( 'knex' );
-const queueLib = require( '@openagenda/queue' );
-const logger = require( '@openagenda/logs' );
+const _ = require('lodash');
+const knex = require('knex');
+const queueLib = require('@openagenda/queue');
+const logger = require('@openagenda/logs');
 
-const endpoints = {
-  list: require( './service/list' ),
-  listByLastId: require( './service/list' ).byLastId,
-  get: require( './service/get' ),
-  create: require( './service/create' ),
-  update: require( './service/update' ),
-  set: require( './service/set' ),
-  remove: require( './service/remove' ),
-  validate: require( './iso/validate' )
-}
+const list = require('./service/list');
+const get = require('./service/get');
+const getAggregatedCount = require('./service/getAggregatedCount');
+const create = require('./service/create');
+const update = require('./service/update');
+const set = require('./service/set');
+const remove = require('./service/remove');
+const validate = require('./iso/validate');
+const legacy = require('./service/legacy');
+const stats = require('./service/stats');
+const interfacesTask = require('./tasks/interfaces');
+const transferLegacyDataTask = require('./tasks/transferLegacyData');
+const setSourcePaths = require('./utils/setSourcePaths');
+const states = require('./iso/states');
 
-const stats = require( './service/stats' );
-
-module.exports = agendaUid => {
-
-  return _.assign( _.mapValues( endpoints, e => e.bind( null, agendaUid ) ), {
-    stats: _.mapValues( stats, ( e, k ) => k !== 'init' ? e.bind( null, agendaUid ) : e )
-  } );
-
-}
-
-module.exports.states = require( './iso/states' );
-
-module.exports.tasks = require( './tasks' );
-
-module.exports.legacyTransfer = require( './service/legacyTransfer' );
-
-module.exports.remove = require( './service/remove' ).byEventUid;
-
-module.exports.list = require( './service/list' );
-
-module.exports.validate = endpoints.validate.validateData;
-
-module.exports.utils = {
-  setSourcePaths: require('./utils/setSourcePaths').bind(null, endpoints),
-}
-
-module.exports.init = c => {
-
-  const config = _.extend( {
+module.exports = c => {
+  const config = {
     queueNames: {
       interfaces: 'agendaEventInterfaces'
-    }
-  }, c );
-
-  if ( c.logger ) {
-
-    logger.setModuleConfig( c.logger );
-
-  }
-
-  config.queues = {
-    interfaces: queueLib( config.queueNames.interfaces, { redis: config.redis } )
+    },
+    ...c
   };
 
-  const client = config.knex || knex( {
-    client: 'mysql',
-    connection: config.mysql
-  } );
+  const {
+    interfaces
+  } = config;
 
-  Object.keys( endpoints ).forEach( e => endpoints[ e ].init ? endpoints[ e ].init( config, client, module.exports ) : null );
+  if (c.logger) {
+    logger.setModuleConfig(c.logger);
+  }
 
-  stats.init( config, client );
+  const service = {
+    config,
+    queue: queueLib(config.queueNames.interfaces, { redis: config.redis }),
+    legacyTransferQueue: queueLib('agendaEventTransfer', { redis: config.redis }),
+    client: config.knex || knex({
+      client: 'mysql',
+      connection: config.mysql
+    })
+  };
 
-  Object.keys( module.exports.tasks ).forEach( k => module.exports.tasks[ k ].init( config, client, module.exports ) );
+  Object.assign(service, {
+    get: get.bind(null, service),
+    getByLegacyId: get.byLegacyId.bind(null, service),
+    getAggregatedCount: getAggregatedCount.bind(null, service),
+    create: create.bind(null, service),
+    update: update.bind(null, service),
+    set: set.bind(null, service),
+    remove: remove.bind(null, service),
+    removeByEventUid: remove.byEventUid.bind(null, service),
+    removeByLegacyId: remove.byLegacyId.bind(null, service),
+    list: list.bind(null, service),
+    listByLastId: list.byLastId.bind(null, service),
+    listByUserUid: list.byUserUid.bind(null, service),
+    listByEventUid: list.byEventUid.bind(null, service),
+    toLegacy: legacy.to.bind(null, service),
+    fromLegacy: legacy.from.bind(null, service),
+    removeLegacy: legacy.remove.bind(null, service),
+    countByUserUid: stats.countByUserUid.bind(null, service),
+    interfacesTask: interfacesTask.bind(null, service),
+    transferLegacyDataTask: transferLegacyDataTask.bind(null, service)
+  });
 
-  module.exports.legacyTransfer.init( config, client, endpoints );
+  service.exposed = Object.assign(agendaUid => ({
+    list: service.list.bind(null, agendaUid),
+    listByLastId: service.listByLastId.bind(null, agendaUid),
+    get: service.get.bind(null, agendaUid),
+    getAggregatedCount: service.getAggregatedCount.bind(null, agendaUid),
+    create: service.create.bind(null, agendaUid),
+    update: service.update.bind(null, agendaUid),
+    remove: service.remove.bind(null, agendaUid),
+    set: service.set.bind(null, agendaUid),
+    stats: {
+      countByUserUid: service.countByUserUid.bind(null, agendaUid)
+    }
+  }), {
+    list: {
+      byEventUid: service.listByEventUid,
+      byUserUid: service.listByUserUid
+    },
+    get: {
+      byLegacyId: service.getByLegacyId
+    },
+    remove: Object.assign(service.removeByEventUid, {
+      byLegacyId: service.removeByLegacyId
+    }),
+    tasks: {
+      interfaces: service.interfacesTask,
+      transferLegacyData: service.transferLegacyDataTask
+    },
+    legacyTransfer: Object.assign(service.fromLegacy, {
+      to: service.toLegacy,
+      remove: service.removeLegacy
+    }),
+    validate: validate.validateData,
+    utils: {
+      setSourcePaths: setSourcePaths.bind(null, service)
+    },
+    states
+  });
+
+  return service.exposed;
 }
+
+module.exports.states = states;

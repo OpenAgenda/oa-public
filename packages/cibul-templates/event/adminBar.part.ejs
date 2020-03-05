@@ -77,8 +77,8 @@
         <li class="list-group-item js_admin_item js_role_event_editor">
           <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><%= __( 'duplicate' ) %></a>
         </li>
-        <li class="list-group-item js_admin_item js_role_event_editor w25">
-          <a class="item active js_message_confirm" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= genUrl( 'eventRemove', typeof uid !== 'undefined' ? { eventUid: event.uid, agendaUid: uid } : { eventUid: event.uid }) %>" rel="nofollow"><%= __( 'delete' ) %></a>
+        <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
+          <a class="item active <% if (isOriginAgenda) { %>js_message_confirm<% } %>" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= `/${slug}/events/${event.slug}/remove${removeRedirect ? '?redirect=' + removeRedirect : ''}` %>" rel="nofollow"><%= __(isOriginAgenda ? 'delete' : 'remove') %></a>
         </li>
       </ul>
     </li>

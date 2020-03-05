@@ -16,7 +16,7 @@ const config = {
     superAdminIds: [1, 2, 11258, 15453],
     jsVersion: 42,
     cssVersion: 2,
-    interfaceLanguages: [ 'fr', 'en', 'de', 'es', 'br' ],
+    interfaceLanguages: [ 'fr', 'en', 'de', 'es', 'it', 'br' ],
     versions: {
       // unused for now
       members: [ {

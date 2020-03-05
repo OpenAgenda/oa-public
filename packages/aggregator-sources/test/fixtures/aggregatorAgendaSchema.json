@@ -1,0 +1,308 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 29,
+  "fields": [
+    {
+      "field": "interetintercommunal",
+      "label": {
+        "fr": "Événement d'intérêt intercommunal",
+        "en": "Événement d'intérêt intercommunal"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 1,
+          "value": "true",
+          "label": {
+            "fr": "Événement d'intérêt intercommunal",
+            "en": "Événement d'intérêt intercommunal"
+          }
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "recurringevent",
+      "label": {
+        "fr": "Événement récurrent",
+        "en": "Événement récurrent"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 2,
+          "value": "true",
+          "label": {
+            "fr": "Événement récurrent",
+            "en": "Événement récurrent"
+          }
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "categories-metropolitaines",
+      "label": {
+        "fr": "Catégories Métropolitaines"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 3,
+          "value": "atelier",
+          "label": {
+            "fr": "Atelier"
+          }
+        },
+        {
+          "id": 4,
+          "value": "braderie-brocante",
+          "label": {
+            "fr": "Braderie - Brocante"
+          }
+        },
+        {
+          "id": 5,
+          "value": "ceremonie",
+          "label": {
+            "fr": "Cérémonie"
+          }
+        },
+        {
+          "id": 6,
+          "value": "cinema",
+          "label": {
+            "fr": "Cinéma"
+          }
+        },
+        {
+          "id": 7,
+          "value": "conference-rencontre",
+          "label": {
+            "fr": "Conférence - Rencontre"
+          }
+        },
+        {
+          "id": 8,
+          "value": "conseil-municipal",
+          "label": {
+            "fr": "Conseil Municipal"
+          }
+        },
+        {
+          "id": 9,
+          "value": "danse",
+          "label": {
+            "fr": "Danse"
+          }
+        },
+        {
+          "id": 10,
+          "value": "developpement-durable",
+          "label": {
+            "fr": "Développement durable"
+          }
+        },
+        {
+          "id": 11,
+          "value": "emploi",
+          "label": {
+            "fr": "Emploi"
+          }
+        },
+        {
+          "id": 12,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition"
+          }
+        },
+        {
+          "id": 13,
+          "value": "fete-festival",
+          "label": {
+            "fr": "Fête - Festival"
+          }
+        },
+        {
+          "id": 14,
+          "value": "formation",
+          "label": {
+            "fr": "Formation"
+          }
+        },
+        {
+          "id": 15,
+          "value": "lecture",
+          "label": {
+            "fr": "Lecture"
+          }
+        },
+        {
+          "id": 16,
+          "value": "mode",
+          "label": {
+            "fr": "Mode"
+          }
+        },
+        {
+          "id": 17,
+          "value": "musique",
+          "label": {
+            "fr": "Musique"
+          }
+        },
+        {
+          "id": 18,
+          "value": "reunion-publique",
+          "label": {
+            "fr": "Réunion publique"
+          }
+        },
+        {
+          "id": 19,
+          "value": "sante",
+          "label": {
+            "fr": "Santé"
+          }
+        },
+        {
+          "id": 20,
+          "value": "spectacle",
+          "label": {
+            "fr": "Spectacle"
+          }
+        },
+        {
+          "id": 21,
+          "value": "sport",
+          "label": {
+            "fr": "Sport"
+          }
+        },
+        {
+          "id": 22,
+          "value": "theatre",
+          "label": {
+            "fr": "Théâtre"
+          }
+        },
+        {
+          "id": 23,
+          "value": "visite-balade",
+          "label": {
+            "fr": "Visite - Balade"
+          }
+        },
+        {
+          "id": 28,
+          "value": "aucune",
+          "label": {
+            "fr": "Aucune catégorie"
+          },
+          "display" : false
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "label",
+      "label": {
+        "fr": "Label"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 24,
+          "value": "50-ans-de-la-mel",
+          "label": {
+            "fr": "50 ans de la MEL"
+          }
+        },
+        {
+          "id": 25,
+          "value": "design",
+          "label": {
+            "fr": "Design"
+          }
+        },
+        {
+          "id": 26,
+          "value": "grand-barouf",
+          "label": {
+            "fr": "Grand Barouf"
+          }
+        },
+        {
+          "id": 27,
+          "value": "journees-europeennes-du-patrimoine",
+          "label": {
+            "fr": "Journées Européennes du Patrimoine"
+          }
+        }
+      ],
+      "fieldType": "checkbox"
+    }
+  ]
+}

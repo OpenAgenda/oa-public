@@ -37,7 +37,7 @@ const params = {
 
 window.hook( function( options ) {
 
-  deepExtend( params, options );
+  deepExtend(params, options);
 
   ReactDom.render( <AdminEventsHeader
     terms={params.terms}
@@ -46,14 +46,14 @@ window.hook( function( options ) {
 
   _toggler( params.selectors.headControls.link, params.selectors.headControls.body );
 
-  removeEventWarning( du.el( params.selectors.headerCanvas ), du.els( params.selectors.removeEvent ), params.lang );
+  removeEventWarning(du.el(params.selectors.headerCanvas), du.els(params.selectors.removeEvent), params.lang);
 
-  spreadsheet( {
+  spreadsheet({
     lang: params.lang,
     languages: params.languages
-  } );
+  });
 
-} );
+});
 
 // show grouped actions on link click
 function _toggler( link, body ) {

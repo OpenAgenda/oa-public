@@ -94,6 +94,38 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
   });
 
+  describe('bypass schema validation', () => {
+
+    it('Attempt to add without specifying required value returns a validation error', async () => {
+      let error;
+
+      try {
+        await core.agendas(17026800).events.add(11111, {}, {
+          context: {
+            userUid: 63170203
+          }
+        });
+      } catch(e) {
+        error = e;
+      }
+
+      error.name.should.equal('ValidationError');
+    });
+
+    it('bypassAdditionalFieldValidation option makes it possible to add event regardless of additional field validation. Used for legacy share ONLY', async () => {
+      const result = await core.agendas(17026800).events.add(11111, {}, {
+        context: {
+          userUid: 63170203
+        },
+        returnPayload: true,
+        bypassAdditionalFieldValidation: true
+      });
+
+      result.success.should.equal(true);
+    });
+
+  });
+
   describe('aggregated add', function() {
     let result;
 

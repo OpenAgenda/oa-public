@@ -1,43 +1,54 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
+const should = require('should');
 
-const svc = require( './service' );
-const config = require( '../testconfig' );
-const should = require( 'should' );
-const states = require( '../iso/states' );
+const Service = require('../');
+const config = require('../testconfig');
+const states = require('../iso/states');
 
-const membersFixtures = require('./service/membersFixtures.json');
+const fixtures = require('./fixtures');
 
-describe( 'agendaEvents - functional (server): list', function() {
+const membersFixtures = require('./fixtures/membersFixtures.json');
 
-  this.timeout( 5000 );
+describe('agendaEvents - 01 - functional (server): list', function() {
+  let svc;
 
-  before( done => {
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'agenda_event.create.sql',
+      'agenda_event.data.sql'
+    ]);
+  });
 
-    config.interfaces.getMembers = async aes => {
-      return aes.map(ae => _.find(
-        membersFixtures, {
-          agendaUid: ae.agendaUid,
-          userUid: ae.userUid
+  before(() => {
+    svc = Service({
+      ...config,
+      interfaces: {
+        ...config.interfaces,
+        getMembers: async aes => {
+          return aes.map(ae => _.find(
+            membersFixtures, {
+              agendaUid: ae.agendaUid,
+              userUid: ae.userUid
+            }
+         )).filter(ae => !!ae);
         }
-      )).filter(ae => !!ae);
-    };
+      }
+    });
+  });
 
-    svc.initAndLoad( config, done );
+  it('simple list', async () => {
+    const result = await svc(62792452).list(100, 10);
 
-  } );
-
-  it( 'simple list', async () => {
-
-    const result = await svc( 62792452 ).list( 100, 10 );
-
-    Object.keys( result ).should.eql( [ 'items', 'total' ] );
-
-  } );
+    Object.keys(result).should.eql(['items', 'total']);
+  });
 
   it('list with member decorate provides members for each returned item', async () => {
-    const { items } = await svc(62792452).list(100, 10, { decorate: ['member'] });
+    const {
+      items
+    } = await svc(62792452).list(100, 10, { decorate: ['member'] });
 
     items.filter(i => i.member).length.should.equal(4);
 
@@ -48,33 +59,27 @@ describe( 'agendaEvents - functional (server): list', function() {
     });
   });
 
-  it( 'list filtered by state using code in query', async () => {
-
-    const result = await svc( 62792452 ).list( {
+  it('list filtered by state using code in query', async () => {
+    const result = await svc(62792452).list({
       state: states.PUBLISHED
-    }, 0, 10 );
+    }, 0, 10);
 
-    result.total.should.equal( 1 );
+    result.total.should.equal(1);
+  });
 
-  } );
-
-  it( 'query can be omitted', async () => {
-
-    const result = await svc( 62792452 ).list( 0, 10 );
+  it('query can be omitted', async () => {
+    const result = await svc(62792452).list(0, 10);
 
     result.items.length.should.equal(10);
+  });
 
-  } );
-
-  it( 'list filtered by state using string in query', async () => {
-
-    const result = await svc( 62792452 ).list( {
+  it('list filtered by state using string in query', async () => {
+    const result = await svc(62792452).list({
       state: 'published'
-    }, 0, 10 );
+    }, 0, 10);
 
-    result.total.should.equal( 1 );
-
-  } );
+    result.total.should.equal(1);
+  });
 
   it('list filtered by aggregated boolean', async () => {
     const result = await svc(62792452).list({ aggregated: true }, 0, 0);
@@ -82,37 +87,33 @@ describe( 'agendaEvents - functional (server): list', function() {
     result.total.should.equal(1);
   });
 
-  it( 'total gives an integer equal to the total number of items', async () => {
+  it('total gives an integer equal to the total number of items', async () => {
     const result = await svc(62792452).list(100, 10);
 
     result.total.should.equal(2288);
-  } );
+  });
 
-  it( 'list for several event uids', async () => {
-
-    const result = await svc( 62792452 ).list({
-      eventUid: [ 54434612, 28028226 ]
+  it('list for several event uids', async () => {
+    const result = await svc(62792452).list({
+      eventUid: [54434612, 28028226]
     });
 
     result.items.length.should.equal(2);
+  });
 
-  } );
+  it('listByLastId for faster list', async () => {
+    const result = await svc(62792452).listByLastId(0, 10);
 
-  it( 'listByLastId for faster list', async () => {
-
-    const result = await svc( 62792452 ).listByLastId( 0, 10 );
-
-    result.items.length.should.equal( 10 );
+    result.items.length.should.equal(10);
 
     const lastId = result.lastId;
 
-    const next = await svc( 62792452 ).listByLastId( lastId, 10 );
+    const next = await svc(62792452).listByLastId(lastId, 10);
 
-    lastId.should.equal( 437234 );
+    lastId.should.equal(437234);
 
-    next.lastId.should.equal( 437415 );
-
-  } );
+    next.lastId.should.equal(437415);
+  });
 
   it('list by event uid', async () => {
     const { items } = await svc.list.byEventUid(54434612, 0, 20);
@@ -142,8 +143,8 @@ describe( 'agendaEvents - functional (server): list', function() {
       'legacyId',
       'createdAt',
       'updatedAt'
-    ] );
+    ]);
 
-  } );
+  });
 
-} );
+});

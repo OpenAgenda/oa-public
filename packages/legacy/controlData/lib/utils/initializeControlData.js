@@ -2,7 +2,7 @@
 
 const log = require( '@openagenda/logs' )( 'controlData/initializeControlData' );
 
-module.exports = async () => {
+module.exports = () => {
 
   return {
     ev: [],

@@ -15,7 +15,8 @@ const {
 
 module.exports = async ({ services, config }, req, res, next) => {
   const {
-    sessions
+    sessions,
+    members
   } = services;
 
   if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {

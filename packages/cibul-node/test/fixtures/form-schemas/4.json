@@ -13,9 +13,6 @@
       "help": null,
       "helpLink": null,
       "helpContent": null,
-      "default": [
-        8
-      ],
       "info": {
         "fr": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)",
         "en": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)"

@@ -42,6 +42,7 @@ export default class ProfileSettings extends Component {
         <option value="en">English</option>
         <option value="de">Deutsch</option>
         <option value="es">Español</option>
+        <option value="it">Italiano</option>
         <option value="br">Brezhoneg</option>
       </select>
       {field.meta.touched && field.meta.error && (

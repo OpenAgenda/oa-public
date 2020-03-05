@@ -10,7 +10,7 @@ module.exports = (services, event, context) => {
     _unsetNewUser(services.users, event);
   }
 
-  _registerActivity(activities, event);
+  _registerActivity(services.activities, event);
 }
 
 async function _registerActivity(activitiesSvcevent) {

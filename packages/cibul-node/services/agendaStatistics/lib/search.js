@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const states = require('@openagenda/agenda-events').states;
+const states = require('@openagenda/agenda-events/iso/states');
 
 module.exports = async (eventSearch, agenda) => {
   const {

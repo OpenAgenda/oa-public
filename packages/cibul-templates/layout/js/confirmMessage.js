@@ -19,8 +19,8 @@ params = {
   classes: {
     lightbox: {
       frame: 'wsq lightbox-frame',
-      canvas: 'lightbox-canvas', 
-      buttonBox: 'lightbox-buttons', 
+      canvas: 'lightbox-canvas',
+      buttonBox: 'lightbox-buttons',
       body: 'noscroll'
     }
   }
@@ -40,14 +40,16 @@ module.exports = function() {
         button: false,
         buttons: {
           ok: {
+            className: 'btn btn-primary',
             label: linkElem.getAttribute( params.attributes.ok ),
             onClick: function() {
-              
+
               window.location.href = linkElem.getAttribute( 'href' );
 
             }
           },
           cancel: {
+            className: 'btn btn-default',
             label: linkElem.getAttribute( params.attributes.cancel )
           }
         }

@@ -162,11 +162,11 @@ _clear = function( classes ) {
   if ( cn.el( 'body' ).style.marginTop !== '0px' ) {
 
     cn.el( 'body' ).scrollTop = - cn.el( 'body' ).style.marginTop.replace( 'px','' );
-    
+
     cn.el( 'body' ).style.marginTop = 0;
 
   }
-  
+
 
   if ( onClose ) {
 

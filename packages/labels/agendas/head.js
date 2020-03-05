@@ -49,7 +49,7 @@ module.exports = {
   "showCalendar": {
     "en": "Display calendar view",
     "fr": "Afficher la vue calendrier",
-    "it": "Installare il Calendario a vista",
+    "it": "Installare il agenda a vista",
     "de": "Kalenderansicht anzeigen",
     "pl": "Wyświetl widok kalendarza",
     "es": "Mostrar vista del agenda",

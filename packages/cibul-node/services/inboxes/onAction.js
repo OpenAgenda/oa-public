@@ -1,11 +1,16 @@
 'use strict';
 
-const agendaEventsSvc = require('@openagenda/agenda-events');
 const log = require('@openagenda/logs')('services/inboxes');
-const membersSvc = require('../members');
 
 module.exports = async function onAction(services, conversation, action) {
-  const { Inbox, Conversation } = services.inboxes;
+  const {
+    agendaEvents: agendaEventsSvc,
+    members: membersSvc,
+    inboxes: {
+      Inbox,
+      Conversation
+    }
+  } = services;
 
   if (action.code === 'involveTechnicalSupport') {
     const supportInbox = await new Inbox({

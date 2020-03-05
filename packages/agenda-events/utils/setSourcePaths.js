@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = async (endpoints, agendaUid, eventUid, paths) => {
-  const ae = await endpoints.get(agendaUid, eventUid);
+module.exports = async (service, agendaUid, eventUid, paths) => {
+  const ae = await service.exposed(agendaUid).get(eventUid);
 
   if (!ae) throw new Error('reference not found');
 
-  return endpoints.update(agendaUid, eventUid, {
+  return service.exposed(agendaUid).update(eventUid, {
     sourcePaths: paths
   });
 }

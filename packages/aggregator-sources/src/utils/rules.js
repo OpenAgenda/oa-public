@@ -28,7 +28,9 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
         return;
       }
 
-      const ids = action.values?.$set !== undefined ? action.values.$set : action.values;
+      const hasSet = action.values?.$set !== undefined;
+
+      const ids = hasSet ? action.values.$set : action.values;
 
       if (action.field === 'state') {
         result.actions.push({
@@ -56,7 +58,8 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
           : {
             id: _.uniqueId(),
             field: fieldSchema.field,
-            values: ids
+            values: ids,
+            set: hasSet
           }
       );
     });
@@ -110,7 +113,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
   return result;
 }
 
-export function valuesToRule(values, schema) {
+export function valuesToRule(values, aggregatorAgendaSchema) {
   const { withActions, withFilter, required } = values;
 
   const actions = !withActions
@@ -119,12 +122,14 @@ export function valuesToRule(values, schema) {
       if (action.field === 'state') {
         return {
           field: 'state',
-          values: action.values,
+          values: { $set: action.values },
           automatic: false
         };
       }
 
-      const fieldSchema = schema.fields.find(v => v.field === action.field);
+      const fieldSchema = aggregatorAgendaSchema.fields.find(
+        v => v.field === action.field
+      );
 
       if (!fieldSchema) {
         return;
@@ -138,9 +143,11 @@ export function valuesToRule(values, schema) {
         };
       }
 
+      const actionValues = action.values;
+
       return {
         field: fieldSchema.field,
-        values: action.values,
+        values: action.set ? { $set: actionValues } : actionValues,
         automatic: false
       };
     });

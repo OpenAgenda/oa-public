@@ -1,9 +1,9 @@
-create table if not exists `${schema}` (
+create table if not exists `user` (
   id bigint(20),
   uid bigint(20)
 )engine=InnoDB  default character set utf8 collate utf8_general_ci;
 
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `user` ( `id`, `uid` ) values
 (1909, 98842070),
 (3079, 40960233),
 (3083, 7627883),
@@ -222,7 +222,7 @@ insert into `${schema}` ( `id`, `uid` ) values
 (9905, 22317629),
 (9908, 58426170),
 (9909, 68509185);
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `user` ( `id`, `uid` ) values
 (9910, 91152811),
 (9926, 1322439),
 (9927, 35048619),
@@ -442,7 +442,7 @@ insert into `${schema}` ( `id`, `uid` ) values
 (12672, 48833481),
 (12686, 89537716),
 (12708, 98282948);
-insert into `${schema}` ( `id`, `uid` ) values
+insert into `user` ( `id`, `uid` ) values
 (12710, 44388884),
 (12744, 67675739),
 (12754, 13376078),

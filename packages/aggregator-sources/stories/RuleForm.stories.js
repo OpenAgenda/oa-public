@@ -1,0 +1,48 @@
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
+
+import RuleForm from '../src/components/RuleForm';
+import { ruleToValues } from '../src/utils/rules';
+import ModalDecorator from './decorators/ModalDecorator';
+import IntlDecorator from './decorators/IntlDecorator';
+
+import villeDeLille from './mocks/villeDeLille.schema.json';
+import MEL from './mocks/MEL.schema.json';
+import villeDeLilleToMELRules from './mocks/villeDeLilleToMEL.rules.json';
+
+export default storiesOf('RuleForm', module)
+  .addDecorator(ModalDecorator)
+  .addDecorator(IntlDecorator)
+  .add('when the rule is new', () => (
+    <Form
+      component={RuleForm}
+      onSubmit={() => {}}
+      aggregatorAgendaSchema={{ fields: [] }}
+    />
+  ))
+  .add('when the rule has an action', () => (
+    <Form
+      initialValues={ruleToValues(villeDeLilleToMELRules[1], MEL)}
+      component={RuleForm}
+      onSubmit={() => {}}
+      mutators={{
+        ...arrayMutators
+      }}
+      sourceSchema={villeDeLille}
+      aggregatorAgendaSchema={MEL}
+    />
+  ))
+  .add('when the rule has an action with automatic field', () => (
+    <Form
+      initialValues={ruleToValues(villeDeLilleToMELRules[2], MEL)}
+      component={RuleForm}
+      onSubmit={() => {}}
+      mutators={{
+        ...arrayMutators
+      }}
+      sourceSchema={villeDeLille}
+      aggregatorAgendaSchema={MEL}
+    />
+  ));

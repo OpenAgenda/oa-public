@@ -7,6 +7,7 @@ module.exports = {
     "it": "Clicca e striscia sulla griglia per creare un nuovo orario.",
     "de": "Klicken und über das Raster ziehen, um eine neue Uhrzeit einzutragen.",
     "pl": "Kliknij i przeciągnij na siatce aby utworzyć nowy rozkład",
-    "es": "Haga clic y arrastre en la parrilla para crear un nuevo horario."
+    "es": "Haga clic y arrastre en la parrilla para crear un nuevo horario.",
+    "br": ""
   }
 }

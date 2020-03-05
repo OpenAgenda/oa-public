@@ -4,6 +4,7 @@ const async = require('async');
 const _ = require('lodash');
 const moment = require('moment-timezone');
 const VError = require('verror');
+const base64 = require('@openagenda/utils/base64');
 
 const formSchemaDecorate = require('@openagenda/form-schemas/iso/getDecorate');
 const range = require('@openagenda/date-range');
@@ -12,7 +13,6 @@ const getActionLabel = require('@openagenda/labels')(
   require('@openagenda/labels/event/actions')
 );
 const log = require('@openagenda/logs')('event/actions');
-const agendaEventsSvc = require('@openagenda/agenda-events');
 
 const mails = require('../services/mails');
 const agendaSvc = require('../services/agenda');
@@ -154,6 +154,7 @@ function actionShow(req, res, next) {
     actions: actions,
     event: {
       uid: req.event.uid,
+      slug: req.event.slug,
       title: getLocaleValue(req.event.title, req.lang),
       imports: [],
       url: `/${req.agenda.slug}/events/${req.event.slug}`,
@@ -162,6 +163,7 @@ function actionShow(req, res, next) {
         eventSlug: req.event.slug
       }
     },
+    redirect: base64.encode(req.url),
     agenda: req.agenda ? req.agenda : false
   };
 
@@ -426,32 +428,22 @@ function _calendarAction(req, res, next) {
 }
 
 async function _agendasAction(req, res, next) {
+  if (!req.user) {
+    return next();
+  }
   try {
     const originUid = req.event.agendaUid;
 
-    const { items: agendasSharing } = await agendaEventsSvc.list.byEventUid(req.event.uid);
-    const members = req.user
-      ? await readStream(membersSvc.stream(
-        {
-          userUid: req.user.uid,
-          role: ['contributor', 'moderator', 'administrator']
-        },
-        {},
-        { detailed: true }
-      ))
-      : [];
+    const { items: agendaEvents } = await req.app.services.agendaEvents.list.byEventUid(req.event.uid, {}, 0, 1000);
 
-    req.templateData.agendas = members
-      .filter(member => member.agendaUid !== originUid)
-      .map(member => ({
-        uid: member.agenda.uid,
-        slug: member.agenda.slug,
-        title: member.agenda.title,
-        sharing: agendasSharing.findIndex(a => a.uid === member.agenda.uid) !== -1,
-        redirect: Buffer.from(req.genUrl(
-          'agendaEventActionShow',
-          { slug: req.agenda.slug, eventSlug: req.event.slug }
-        )).toString('base64')
+    const { items: userAgendas } = await req.app.services.core.users(req.user).agendas.list({ limit: 1000 });
+
+    req.templateData.agendas = userAgendas
+      .filter(userAgenda => userAgenda.uid !== originUid)
+      .map(userAgenda => ({
+        ...userAgenda,
+        sharing: agendaEvents.findIndex(a => a.agendaUid === userAgenda.uid) !== -1,
+        redirect: req.query.redirect || base64.encode(`/${req.agenda.slug}/events/${req.event.slug}/action`)
       }));
 
     next();

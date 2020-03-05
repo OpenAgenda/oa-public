@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const agendaEvents = require( '@openagenda/agenda-events' );
 const getLabel = require( '@openagenda/labels/makeLabelGetter' )(
   require( '@openagenda/labels/agenda-contribute/authorization' )
 );
@@ -30,7 +29,11 @@ module.exports = ( req, res, next ) => {
 }
 
 
-module.exports.edit = ( req, res, next ) => {
+module.exports.edit = (req, res, next) => {
+  const {
+    agendaEvents
+  } = req.app.services;
+
   if ( req.event.draft ) {
     return _draft( req, res, next );
   }

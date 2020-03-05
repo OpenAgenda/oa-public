@@ -6,7 +6,6 @@ const _ = require( 'lodash' );
 const cmn = require( '../lib/commons-app' );
 const qs = require( 'qs' );
 
-const agendaEventsSvc = require( '../services/agendaEvents' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );
 const referencesSvc = require( '@openagenda/agenda-event-references' );
@@ -21,7 +20,6 @@ const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 
 const eventsSvc = require('../services/events');
 const customSvc = require( '@openagenda/custom' );
-const agendaEvents = require('@openagenda/agenda-events');
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
 
@@ -425,21 +423,15 @@ function apiGetCached( req, res, next ) {
 }
 
 
-async function _updateAgendaEvents( { eventId } ) {
+async function _updateAgendaEvents({ agendaEvents }, { eventId } ) {
 
   const refs = await config.knex( 'review_article' ).select( 'review_id' ).where( 'event_id', eventId );
 
-  for ( const ref of refs ) {
-
-    await agendaEventsSvc.legacy.evaluate( {
-      name: 'event.update',
-      values: {
-        id: eventId,
-        agendaId: ref.review_id,
-        force: true
-      }
-    } );
-
+  for (const ref of refs) {
+    await agendaEvents.legacyTransfer({
+      agendaId: ref.review_id,
+      eventId
+    });
   }
 
 }
@@ -455,7 +447,7 @@ async function apiSystem( req, res, next ) {
 
     if ( systemEvent === 'event.update' ) {
 
-      await _updateAgendaEvents( { eventId: values.id } );
+      await _updateAgendaEvents(req.app.services, { eventId: values.id });
 
     } else {
 
@@ -571,7 +563,7 @@ async function eventUpdate(req, res, next) {
   }
 
   try {
-    await _transferFromLegacy({
+    await _transferFromLegacy(req.app.services, {
       legacyEvent: req.event,
       agenda: req.agenda,
       userUid: req.query.userUid
@@ -594,7 +586,7 @@ async function eventCreate(req, res, next) {
   }
 
   try {
-    await _transferFromLegacy({
+    await _transferFromLegacy(req.app.services, {
       legacyEvent: req.event,
       agenda: req.agenda,
       userUid: req.query.userUid
@@ -607,7 +599,7 @@ async function eventCreate(req, res, next) {
   res.send('ok');
 }
 
-async function _transferFromLegacy({ legacyEvent, agenda, userUid }) {
+async function _transferFromLegacy(services, { legacyEvent, agenda, userUid }) {
   const {
     transferred,
     errors,
@@ -626,7 +618,7 @@ async function _transferFromLegacy({ legacyEvent, agenda, userUid }) {
   }
 
   log('creating agendaEvent from legacy', { agendaId: agenda.id, eventId: legacyEvent.id })
-  await agendaEvents.legacyTransfer({
+  await services.agendaEvents.legacyTransfer({
     agendaId: agenda.id,
     eventId: legacyEvent.id
   }, {

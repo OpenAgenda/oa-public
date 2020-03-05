@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `${schema}` (
+CREATE TABLE IF NOT EXISTS `review_article` (
   `id` bigint(20) NOT NULL,
   `review_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NULL,
@@ -16,10 +16,10 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
 ) ENGINE=InnoDB AUTO_INCREMENT=466592 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `${schema}`
+-- Dumping data for table `review_article`
 --
 
-INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
+INSERT INTO `review_article` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
 (435378, 4608, 3083, 81296, NULL, '2016-01-13 10:12:18', '2016-01-13 10:12:18', NULL, NULL, 0, NULL, NULL, 1, 0),
 (436064, 4608, 3079, 81631, NULL, '2016-01-19 13:52:59', '2016-01-19 13:52:59', NULL, NULL, 0, NULL, NULL, 1, 0),
 (436091, 4608, 3079, 81652, NULL, '2016-01-19 16:04:30', '2016-01-19 16:04:30', NULL, NULL, 0, NULL, NULL, 1, 0),
@@ -416,7 +416,7 @@ INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `c
 (439635, 4608, 7450, 83513, NULL, '2016-02-05 10:08:28', '2016-02-05 10:08:28', NULL, '{"firstPublicationFlag":true}', 0, NULL, NULL, 1, 0),
 (439636, 4608, 7349, 83514, NULL, '2016-02-05 10:08:56', '2016-02-05 10:08:56', NULL, NULL, 0, NULL, NULL, 1, 0),
 (439637, 4608, 7450, 83515, NULL, '2016-02-05 10:09:16', '2016-02-05 10:09:16', NULL, '{"firstPublicationFlag":true}', 0, NULL, NULL, 1, 0);
-INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
+INSERT INTO `review_article` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
 (439638, 4608, 7450, 83516, NULL, '2016-02-05 10:09:47', '2016-02-05 10:09:47', NULL, '{"firstPublicationFlag":true}', 0, NULL, NULL, 1, 0),
 (439639, 4608, 7349, 83517, NULL, '2016-02-05 10:10:08', '2016-02-05 10:10:08', NULL, NULL, 0, NULL, NULL, 1, 0),
 (439640, 4608, 7464, 83518, NULL, '2016-02-05 10:10:48', '2016-02-05 10:10:48', NULL, NULL, 0, NULL, NULL, 1, 0),
@@ -841,7 +841,7 @@ INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `c
 (449714, 4608, 7368, 87532, NULL, '2016-03-02 10:26:01', '2016-03-02 10:26:01', NULL, NULL, 0, NULL, NULL, NULL, 0),
 (449736, 4608, 10688, 87547, NULL, '2016-03-02 10:40:40', '2016-03-02 10:40:40', NULL, NULL, 0, NULL, NULL, 1, 0),
 (449781, 4608, 7368, 87564, NULL, '2016-03-02 10:59:23', '2016-03-02 10:59:23', NULL, NULL, 0, NULL, NULL, NULL, 0);
-INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
+INSERT INTO `review_article` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
 (449783, 4608, 10682, 87566, NULL, '2016-03-02 11:01:24', '2016-03-02 11:01:24', NULL, NULL, 0, NULL, NULL, NULL, 0),
 (449784, 4608, 10671, 87567, NULL, '2016-03-02 11:03:01', '2016-03-02 11:03:01', NULL, NULL, 0, NULL, NULL, 1, 0),
 (449789, 4608, 7368, 87570, NULL, '2016-03-02 11:08:39', '2016-03-02 11:08:39', NULL, NULL, 0, NULL, NULL, NULL, 0),
@@ -1280,7 +1280,7 @@ INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `c
 (464150, 4608, 10734, 90278, NULL, '2016-03-15 16:14:06', '2016-03-15 16:14:06', NULL, NULL, 0, NULL, NULL, 1, 0),
 (464159, 4608, 11053, 90281, NULL, '2016-03-15 16:17:55', '2016-03-15 16:17:55', NULL, NULL, 0, NULL, NULL, 1, 0),
 (464164, 4608, 11053, 90284, NULL, '2016-03-15 16:24:18', '2016-03-15 16:24:18', NULL, NULL, 0, NULL, NULL, 1, 0);
-INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
+INSERT INTO `review_article` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
 (464168, 4608, 11053, 90288, NULL, '2016-03-15 16:29:20', '2016-03-15 16:29:20', NULL, NULL, 0, NULL, NULL, 1, 0),
 (464262, 4608, 11639, 90316, NULL, '2016-03-15 21:19:48', '2016-03-15 21:19:48', NULL, NULL, 0, NULL, NULL, NULL, 0),
 (464264, 4608, 11171, 90318, NULL, '2016-03-16 07:37:16', '2016-03-16 07:37:16', NULL, NULL, 0, NULL, NULL, 1, 0),
@@ -1527,25 +1527,8 @@ INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `c
 (466577, 4608, 7448, 91414, NULL, '2016-03-21 17:07:20', '2016-03-21 17:07:20', NULL, NULL, 0, NULL, NULL, 1, 0),
 (466591, 4608, 8905, 91421, NULL, '2016-03-21 18:42:01', '2016-03-21 18:42:01', NULL, NULL, 0, NULL, NULL, NULL, 0);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `${schema}`
---
-ALTER TABLE `${schema}`
+ALTER TABLE `review_article`
  ADD PRIMARY KEY (`id`), ADD KEY `review_id_idx` (`review_id`), ADD KEY `user_id_idx` (`user_id`), ADD KEY `event_id_idx` (`event_id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `${schema}`
---
-ALTER TABLE `${schema}`
+ALTER TABLE `review_article`
 MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=466592;
---
--- Constraints for dumped tables
---

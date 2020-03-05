@@ -127,14 +127,8 @@ module.exports = (config, core, services) => {
 
   } );*/
 
-
-  // plug legacy plateform lifecycle event to agenda event service
-  require( './services/agendaEvents/legacy' ).task();
-
   // handle interfaces for grouped operations ( a remove of a 100 refs queues 100 onRemoves executions )
-  services.agendaEvents.tasks.interfaces( { interval: 10 } );
-
-  //require( '@openagenda/agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
+  services.agendaEvents.tasks.interfaces({ interval: 10 });
 
   //require('./tasks/createMissingEventsFromLegacy')(config, services);
 

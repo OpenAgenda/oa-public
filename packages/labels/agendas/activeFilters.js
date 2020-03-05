@@ -7,7 +7,8 @@ module.exports = {
     "es": "mapa",
     "it": "carta",
     "de": "karte",
-    "br": "kartenn"
+    "br": "kartenn",
+    "pl": ""
   },
   "passed": {
     "en": "past events",
@@ -15,7 +16,8 @@ module.exports = {
     "es": "eventos pasados",
     "it": "passato",
     "de": "vergangenheit",
-    "br": "darvoudoù tremenet"
+    "br": "darvoudoù tremenet",
+    "pl": ""
   },
   "location": {
     "en": "place",
@@ -23,7 +25,8 @@ module.exports = {
     "es": "lugar",
     "it": "luogo",
     "de": "platz",
-    "br": "lec'h"
+    "br": "lec'h",
+    "pl": ""
   },
   "fromTo": {
     "en": "from %start% to %end%",
@@ -31,6 +34,7 @@ module.exports = {
     "es": "% De% empezar a% end%",
     "it": "dal %start% al %end%",
     "de": "von %start% bis %end%",
-    "br": "eus an %start% d'an %end%"
+    "br": "eus an %start% d'an %end%",
+    "pl": ""
   }
 }

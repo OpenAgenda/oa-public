@@ -1,30 +1,15 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const log = require( '@openagenda/logs' )( 'update' );
+const log = require('@openagenda/logs')('update');
 
-const get = require( './get' );
-const legacyTransfer = require( './legacyTransfer' );
-const validate = require( '../iso/validate' );
-const validateOptions = require( './lib/validateOptions' );
+const validate = require('../iso/validate');
+const validateOptions = require('./lib/validateOptions');
 const utils = require('./lib/utils');
 
-let config, knex;
-
-module.exports = _.extend( update, {
-  init: ( c, k ) => {
-
-    config = c;
-
-    knex = k;
-
-  }
-} );
-
-async function update( agendaUid, eventUid, data, options = {} ) {
-
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
+  const { config, client, get, toLegacy } = service;
 
   log('input for %s.%s', agendaUid, eventUid, data);
 
@@ -35,12 +20,10 @@ async function update( agendaUid, eventUid, data, options = {} ) {
   log('current for %s.%s', agendaUid, eventUid, current);
 
   let clean;
-
   let success = false;
-
   let updated = null;
 
-  if ( current === null ) {
+  if (current === null) {
     return {
       success,
       code: 'not_found'
@@ -48,19 +31,19 @@ async function update( agendaUid, eventUid, data, options = {} ) {
   }
 
   try {
-    const values = Object.assign( {}, current, data || {}, {
+    const values = Object.assign({}, current, data || {}, {
       updatedAt: new Date(),
       createdAt: current.createdAt,
       userUid: current.userUid
-    } );
+    });
 
     if (!params.protected) {
-      ['updatedAt', 'createdAt', 'userUid'].forEach( f => {
-        if ( data[ f ] ) values[ f ] = data[ f ];
-      } );
+      ['updatedAt', 'createdAt', 'userUid'].forEach(f => {
+        if (data[f]) values[f] = data[f];
+      });
     }
 
-    log( 'info', 'validating for %s.%s', agendaUid, eventUid, values );
+    log('info', 'validating for %s.%s', agendaUid, eventUid, values);
 
     clean = _.omit(validate(values), ['aggregated']);
   } catch (validationErrors) {
@@ -75,7 +58,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   log('db entry for %s.%s', agendaUid, eventUid, entry);
 
-  const result = await knex(config.schemas.agendaEvent)
+  const result = await client('agenda_event')
     .update(entry)
     .where({
       agenda_uid: agendaUid,
@@ -91,7 +74,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
   }
 
   if (success && params.transferToLegacy) {
-    await legacyTransfer.to(updated);
+    await toLegacy(updated);
   }
 
   if (success && config.interfaces.onUpdate) {
