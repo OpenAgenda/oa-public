@@ -6,134 +6,104 @@ module.exports = {
     "fr": "festival",
     "de": "Festival",
     "es": "festival",
-    "it": "festival",
-    "pl": "",
-    "br": ""
+    "it": "festival"
   },
   "fair": {
     "en": "fair",
     "fr": "salon",
     "de": "Messe",
     "es": "espectáculo",
-    "it": "mostra",
-    "pl": "",
-    "br": ""
+    "it": "mostra"
   },
   "federation": {
     "en": "federation",
     "fr": "fédération",
     "de": "Föderation",
     "es": "federación",
-    "it": "federazione",
-    "pl": "",
-    "br": ""
+    "it": "federazione"
   },
   "theatre": {
     "en": "theatre",
     "fr": "théâtre",
     "de": "Theater",
     "es": "teatro",
-    "it": "teatro",
-    "pl": "",
-    "br": ""
+    "it": "teatro"
   },
   "city": {
     "en": "city",
     "fr": "ville",
     "de": "Stadt",
     "es": "ciudad",
-    "it": "città",
-    "pl": "",
-    "br": ""
+    "it": "città"
   },
   "association": {
     "en": "association",
     "fr": "association",
     "de": "Verband",
     "es": "asociación",
-    "it": "associazione",
-    "pl": "",
-    "br": ""
+    "it": "associazione"
   },
   "university": {
     "en": "university",
     "fr": "université",
     "de": "Universität",
     "es": "universidad",
-    "it": "Università",
-    "pl": "",
-    "br": ""
+    "it": "Università"
   },
   "company": {
     "en": "company",
     "fr": "entreprise",
     "de": "Unternehmen",
     "es": "negocios",
-    "it": "azienda",
-    "pl": "",
-    "br": ""
+    "it": "azienda"
   },
   "conventionCenter": {
     "en": "convention center",
     "fr": "palais des congrès",
     "de": "Kongresszentrum",
     "es": "Palacio de Congresos",
-    "it": "centro congressi",
-    "pl": "",
-    "br": ""
+    "it": "centro congressi"
   },
   "incubator": {
     "en": "incubator",
     "fr": "fablab",
     "de": "Inkubator",
     "es": "FabLab",
-    "it": "fablab",
-    "pl": "",
-    "br": ""
+    "it": "fablab"
   },
   "coworkingSpace": {
     "en": "coworking space",
     "fr": "tiers-lieu",
     "de": "Coworking space",
     "es": "el tercer puesto",
-    "it": "terza posizione",
-    "pl": "",
-    "br": ""
+    "it": "terza posizione"
   },
   "fireStation": {
     "en": "fire station",
     "fr": "caserne",
     "de": "Feuerwehr",
     "es": "barraca",
-    "it": "caserma",
-    "pl": "",
-    "br": ""
+    "it": "caserma"
   },
   "ministry": {
     "en": "ministry",
     "fr": "ministère",
     "de": "Ministerium",
     "es": "ministerio",
-    "it": "Ministero",
-    "pl": "",
-    "br": ""
+    "it": "Ministero"
   },
   "church": {
     "en": "church",
     "fr": "diocèse",
     "de": "Kirche",
     "es": "diócesis",
-    "it": "diocesi",
-    "pl": "",
-    "br": ""
+    "it": "diocesi"
   },
   "hospital": {
     "en": "hospital",
     "fr": "hôpital",
     "de": "Krankenhaus",
     "es": "hospital",
-    "it": "ospedale",
-    "pl": "",
-    "br": ""
+    "it": "ospedale"
   }
 }

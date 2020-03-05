@@ -6,44 +6,34 @@ module.exports = {
     "fr": "Fonctions",
     "de": "Eigenschaften",
     "es": "funciones",
-    "it": "Funzioni",
-    "pl": "",
-    "br": ""
+    "it": "Funzioni"
   },
   "layoutTestimonials": {
     "en": "Testimonials",
     "fr": "Références",
     "de": "Referenzen",
     "es": "referencias",
-    "it": "Riferimenti",
-    "pl": "",
-    "br": ""
+    "it": "Riferimenti"
   },
   "layoutPricing": {
     "en": "Pricing",
     "fr": "Tarifs",
     "de": "Preisgestaltung",
     "es": "Tarifas",
-    "it": "Tariffe",
-    "pl": "",
-    "br": ""
+    "it": "Tariffe"
   },
   "layoutSignup": {
     "en": "Sign up",
     "fr": "Créer un compte",
     "de": "Anmelden",
     "es": "Crear una cuenta",
-    "it": "Crea un conto",
-    "pl": "",
-    "br": ""
+    "it": "Crea un conto"
   },
   "layoutSignin": {
     "en": "Sign in",
     "fr": "Connexion",
     "de": "Einloggen",
     "es": "acceder",
-    "it": "Login",
-    "pl": "",
-    "br": ""
+    "it": "Login"
   }
 }

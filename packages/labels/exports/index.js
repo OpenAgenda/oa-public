@@ -6,8 +6,6 @@ module.exports = {
     "fr": "Voir plus",
     "de": "Mehr sehen",
     "es": "Ver más",
-    "it": "Vedere di più",
-    "pl": "",
-    "br": ""
+    "it": "Vedere di più"
   }
 }

@@ -16,8 +16,7 @@ module.exports = {
     "es": "ayer",
     "br": "dec'h",
     "it": "ieri",
-    "de": "gestern",
-    "pl": ""
+    "de": "gestern"
   },
   "tomorrow": {
     "fr": "Demain",
@@ -61,8 +60,7 @@ module.exports = {
     "es": "hace %count% %units%",
     "br": "pell zo %count% %units%",
     "it": "%count% %units% fa",
-    "de": "vor %count% %units%",
-    "pl": ""
+    "de": "vor %count% %units%"
   },
   "relativeToNowUpcoming": {
     "en": "in %count% %units%",
@@ -70,8 +68,7 @@ module.exports = {
     "es": "en %count% %units%",
     "de": "in %count% %units%",
     "it": "tra %count% %units%",
-    "br": "%count% %units%",
-    "pl": ""
+    "br": "%count% %units%"
   },
   "days": {
     "en": "days",
@@ -79,8 +76,7 @@ module.exports = {
     "de": "tagen",
     "it": "giorni",
     "es": "dias",
-    "br": "deizioù",
-    "pl": ""
+    "br": "deizioù"
   },
   "months": {
     "en": "months",
@@ -88,8 +84,7 @@ module.exports = {
     "de": "monat",
     "it": "mese",
     "es": "mes",
-    "br": "miz",
-    "pl": ""
+    "br": "miz"
   },
   "years": {
     "en": "years",
@@ -97,7 +92,6 @@ module.exports = {
     "es": "años",
     "de": "jahre",
     "it": "anni",
-    "br": "bloaz",
-    "pl": ""
+    "br": "bloaz"
   }
 }

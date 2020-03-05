@@ -7,8 +7,7 @@ module.exports = {
     "it": "Tutto il giorno",
     "de": "Den ganzen Tag",
     "pl": "Cały dzień",
-    "es": "Todo el día",
-    "br": ""
+    "es": "Todo el día"
   },
   "previous": {
     "en": "Previous",
@@ -16,8 +15,7 @@ module.exports = {
     "it": "Precedente",
     "de": "Vorherige",
     "pl": "Poprzedni",
-    "es": "anterior",
-    "br": ""
+    "es": "anterior"
   },
   "next": {
     "en": "Next",
@@ -25,8 +23,7 @@ module.exports = {
     "it": "Prossimo",
     "de": "Weiter",
     "pl": "Dalej",
-    "es": "Próximo",
-    "br": ""
+    "es": "Próximo"
   },
   "today": {
     "en": "Today",
@@ -34,8 +31,7 @@ module.exports = {
     "it": "Oggi",
     "de": "Heute",
     "pl": "Dziś",
-    "es": "hoy",
-    "br": ""
+    "es": "hoy"
   },
   "month": {
     "en": "Month",
@@ -43,8 +39,7 @@ module.exports = {
     "it": "Mese",
     "de": "Monat",
     "pl": "Miesiąc",
-    "es": "mes",
-    "br": ""
+    "es": "mes"
   },
   "week": {
     "en": "Week",
@@ -52,8 +47,7 @@ module.exports = {
     "it": "Settimana",
     "de": "Woche",
     "pl": "Tydzień",
-    "es": "semana",
-    "br": ""
+    "es": "semana"
   },
   "day": {
     "en": "Day",
@@ -61,8 +55,7 @@ module.exports = {
     "it": "Giorno",
     "de": "Tag",
     "pl": "Dzień",
-    "es": "Día",
-    "br": ""
+    "es": "Día"
   },
   "agenda": {
     "en": "Agenda",
@@ -70,8 +63,7 @@ module.exports = {
     "it": "agenda",
     "de": "Agenda",
     "pl": "Porządek obrad",
-    "es": "periódico",
-    "br": ""
+    "es": "periódico"
   },
   "date": {
     "en": "Date",
@@ -79,8 +71,7 @@ module.exports = {
     "it": "Data",
     "de": "Datum",
     "pl": "Data",
-    "es": "fecha",
-    "br": ""
+    "es": "fecha"
   },
   "time": {
     "en": "Time",
@@ -88,8 +79,7 @@ module.exports = {
     "it": "Tempo",
     "de": "Zeit",
     "pl": "Czas",
-    "es": "Hora",
-    "br": ""
+    "es": "Hora"
   },
   "event": {
     "en": "Event",
@@ -97,8 +87,7 @@ module.exports = {
     "it": "Evento",
     "de": "Veranstaltung",
     "pl": "Wydarzenie",
-    "es": "evento",
-    "br": ""
+    "es": "evento"
   },
   "more": {
     "en": "See all events",
@@ -106,7 +95,6 @@ module.exports = {
     "it": "Vedi tutti gli eventi",
     "de": "Alle Veranstaltungen ansehen",
     "pl": "Zobacz wszystkie wydarzenia",
-    "es": "Ver todos los eventos",
-    "br": ""
+    "es": "Ver todos los eventos"
   }
 }

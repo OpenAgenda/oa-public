@@ -6,44 +6,34 @@ module.exports = {
     "en": "Required field",
     "de": "Pflichtfeld",
     "es": "campo obligatorio",
-    "it": "Campo obbligatorio",
-    "pl": "",
-    "br": ""
+    "it": "Campo obbligatorio"
   },
   "groupErrorHeader": {
     "fr": "Certaines saisies doivent être corrigées",
     "en": "Some values need to be corrected",
     "de": "Einige Werte müssen korrigiert werden",
     "es": "Algunas entradas deben ser corregidos",
-    "it": "Alcune voci devono essere corrette",
-    "pl": "",
-    "br": ""
+    "it": "Alcune voci devono essere corrette"
   },
   "submit": {
     "fr": "Enregistrer",
     "en": "Submit",
     "de": "Rekord",
     "es": "Guardar",
-    "it": "Registrati",
-    "pl": "",
-    "br": ""
+    "it": "Registrati"
   },
   "help": {
     "fr": "Aide",
     "en": "Help",
     "de": "Hilfe",
     "es": "Ayuda",
-    "it": "Aiuto",
-    "pl": "",
-    "br": ""
+    "it": "Aiuto"
   },
   "noChoice": {
     "fr": "Aucun choix",
     "en": "No choice",
     "de": "Keine Wahl",
     "es": "otra opción",
-    "it": "Nessuna scelta",
-    "pl": "",
-    "br": ""
+    "it": "Nessuna scelta"
   }
 }

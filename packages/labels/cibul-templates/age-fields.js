@@ -6,44 +6,34 @@ module.exports = {
     "en": "year",
     "de": "Jahr",
     "es": "año",
-    "it": "un",
-    "pl": "",
-    "br": ""
+    "it": "un"
   },
   "years": {
     "fr": "ans",
     "en": "years",
     "de": "Jahre",
     "es": "años",
-    "it": "anni",
-    "pl": "",
-    "br": ""
+    "it": "anni"
   },
   "min": {
     "fr": "De",
     "en": "From",
     "de": "Von",
     "es": "de",
-    "it": "Da",
-    "pl": "",
-    "br": ""
+    "it": "Da"
   },
   "max": {
     "fr": "à",
     "en": "to",
     "de": "zu",
     "es": "para",
-    "it": "à",
-    "pl": "",
-    "br": ""
+    "it": "à"
   },
   "select": {
     "fr": "Sélectionner",
     "en": "Select",
     "de": "Wählen",
     "es": "seleccionar",
-    "it": "Selezionare",
-    "pl": "",
-    "br": ""
+    "it": "Selezionare"
   }
 }

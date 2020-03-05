@@ -6,26 +6,20 @@ module.exports = {
     "en": "Itinerary",
     "de": "Route",
     "es": "ruta",
-    "it": "Itinerario",
-    "pl": "",
-    "br": ""
+    "it": "Itinerario"
   },
   "register": {
     "fr": "Réservation",
     "en": "Registration",
     "de": "Anmeldung",
     "es": "reservación ",
-    "it": "Prenotazione",
-    "pl": "",
-    "br": ""
+    "it": "Prenotazione"
   },
   "accessibility": {
     "fr": "Accessibilité",
     "en": "Accessibility",
     "de": "Zugänglichkeit",
     "es": "accesibilidad",
-    "it": "Accessibilità",
-    "pl": "",
-    "br": ""
+    "it": "Accessibilità"
   }
 }
