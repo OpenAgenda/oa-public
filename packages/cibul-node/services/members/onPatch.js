@@ -3,11 +3,8 @@
 const _ = require( 'lodash' );
 
 const agendas = require( '@openagenda/agendas' );
-const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
 const log = require( '@openagenda/logs' )( 'services/members/onPatch' );
-
-const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const { sendInvitation } = require( './lib/mail' );
 
@@ -19,6 +16,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
   log('patched', member);
 
   const usersSvc = services.users;
+  const { Inbox } = services.inboxes;
 
   try {
     const agenda = await agendas.get({ uid: member.agendaUid }, {
@@ -132,6 +130,7 @@ module.exports = async ({ services, config, activityQueue }, before, member, con
 async function _onNewMember( { services, agenda, user, senderUser, context, member, activityQueue } ) {
 
   const usersSvc = services.users;
+  const activities = services.activities;
 
   if ( user.isNew ) {
     await usersSvc.setNewFlag( user.uid, { isNew: false } );

@@ -13,39 +13,41 @@ import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
 import populateDetails from './db/populateDetails';
 import { listSchema } from './validators/conversationSchemas';
-import { knex, schemas, types } from './config';
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );
 ajvKeywords( ajv, [ 'instanceof' ] );
 
 export default class Conversations {
-  constructor( options ) {
+  constructor( config, options ) {
+    this.config = config;
     this.inbox = options.inbox;
     this.userUid = options.userUid; // define if it's in context of a user or not
   }
 
   create( data, options ) {
-    return new Conversation( null, { inbox: this.inbox, userUid: this.userUid } )
+    return new Conversation( this.config, null, { inbox: this.inbox, userUid: this.userUid } )
       .create( data, options );
   }
 
   get( identifiers, options ) {
-    return new Conversation( identifiers, { inbox: this.inbox, userUid: this.userUid } )
+    return new Conversation( this.config, identifiers, { inbox: this.inbox, userUid: this.userUid } )
       .get( options );
   }
 
   update( identifiers, data, inboxUser, options ) {
-    return new Conversation( identifiers, { inbox: this.inbox, userUid: this.userUid } )
+    return new Conversation( this.config, identifiers, { inbox: this.inbox, userUid: this.userUid } )
       .update( data, inboxUser, options );
   }
 
   action( identifiers, code, inboxUser ) {
-    return new Conversation( identifiers, { inbox: this.inbox, userUid: this.userUid } )
+    return new Conversation( this.config, identifiers, { inbox: this.inbox, userUid: this.userUid } )
       .action( code, inboxUser );
   }
 
   async list( ...args ) {
+    const { knex, schemas } = this.config;
+
     await this._loadInbox();
 
     const { query, offset, limit, options } = parseListArguments( ...args );
@@ -153,11 +155,11 @@ export default class Conversations {
         )
       );
 
-    result = await populateDetails( result, this.inbox );
+    result = await populateDetails( this.config, result, this.inbox );
 
-    result = await populateLatestMessage( result, this.inbox );
+    result = await populateLatestMessage( this.config, result, this.inbox );
 
-    result = await populateParticipants( result );
+    result = await populateParticipants( this.config, result );
 
     this.data = result;
 

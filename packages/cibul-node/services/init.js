@@ -61,6 +61,7 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaMonitor', require('./agendaMonitor'));
   await init('agendaSearch', require('./agendaSearch'));
   await init('agendaSettings', require('./agendaSettings'));
+  await init('inboxes', require('./inboxes'));
   await init('agendaStatistics', require('./agendaStatistics'));
   await init('agendaTags', require('./agendaTags'));
   await init('agendas', require('./agendas'));
@@ -88,7 +89,6 @@ module.exports = async function (configObject, options = {}) {
   await init('networks', require('./networks'));
   await init('newsletter', require('./newsletter'));
   await init('oembed', require('./oembed'));
-  await init('inboxes', require('./inboxes'));
   await init('portals', require('./portals'));
   await init('simpleCache', require('./simpleCache'));
   await init('unsubscribed', require('./unsubscribed'));

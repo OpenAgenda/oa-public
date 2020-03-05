@@ -5,7 +5,6 @@ import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
 import uuid from 'uuid/v4';
 import logger from '@openagenda/logs';
-import { knex, schemas, types, interfaces, defaultAction } from './config';
 import mapper from './utils/mapper';
 import conversationFieldsMap from './db/conversationFieldsMap';
 import inboxUserFieldsMap from './db/inboxUserFieldsMap';
@@ -19,51 +18,59 @@ import populateDetails from './db/populateDetails';
 import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
 
-const log = logger( 'inboxes/Conversation' );
+const log = logger('inboxes/Conversation');
 
-const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
-ajvErrors( ajv );
-ajvKeywords( ajv, [ 'instanceof' ] );
+const ajv = new Ajv({ allErrors: true, jsonPointers: true, errorDataPath: 'property' });
+ajvErrors(ajv);
+ajvKeywords(ajv, ['instanceof']);
 
 export default class Conversation {
-  constructor( identifiers, options ) {
-    if ( typeof identifiers === 'number' ) {
+  constructor(config, identifiers, options) {
+    if (typeof identifiers === 'number') {
       identifiers = { id: identifiers };
     }
 
+    this.config = config;
     this.identifiers = identifiers;
     this.inbox = options && options.inbox;
     this.userUid = options && options.userUid;
-    this.messages = new Messages( { conversation: this, inbox: this.inbox, userUid: this.userUid } );
+    this.messages = new Messages(this.config, { conversation: this, inbox: this.inbox, userUid: this.userUid });
   }
 
-  static async link( { inboxId, conversationId } ) {
-    const link = await knex( schemas.inboxConversation ).select().where( {
-      inbox_id: inboxId,
-      conversation_id: conversationId
-    } );
+  static async link(config, { inboxId, conversationId }) {
+    const { knex, schemas } = config;
 
-    if ( link.length ) {
+    const link = await knex(schemas.inboxConversation)
+      .select().where({
+        inbox_id: inboxId,
+        conversation_id: conversationId
+      });
+
+    if (link.length) {
       return null;
     }
 
-    return knex( schemas.inboxConversation ).insert( {
+    return knex(schemas.inboxConversation).insert({
       inbox_id: inboxId,
       conversation_id: conversationId
-    } );
+    });
   }
 
-  static async unlink( { inboxId, conversationId } ) {
-    return knex( schemas.inboxConversation ).where( {
+  static async unlink(config, { inboxId, conversationId }) {
+    const { knex, schemas } = config;
+
+    return knex(schemas.inboxConversation).where({
       inbox_id: inboxId,
       conversation_id: conversationId
-    } ).del();
+    }).del();
   }
 
-  async create( data, options ) {
-    const params = _.merge( {
+  async create(data, options) {
+    const { knex, schemas, types } = this.config;
+
+    const params = _.merge({
       createInboxUserOnNull: false
-    }, options );
+    }, options);
 
     await this._loadInbox();
 
@@ -72,94 +79,102 @@ export default class Conversation {
       { inbox: this.inbox, createOnNull: params.createInboxUserOnNull }
     );
 
-    if ( !inboxUser.data ) {
-      throw new VError( 'Inbox user %j not found', inboxUser.identifiers );
+    if (!inboxUser.data) {
+      throw new VError('Inbox user %j not found', inboxUser.identifiers);
     }
 
-    const destinationInboxes = await Promise.all( [].concat( data.destinationInbox || [] )
-      .map( v => new Inbox( v ).get() ) );
-    const destinationNotFound = destinationInboxes.filter( v => !v.data );
+    const destinationInboxes = await Promise.all([].concat(data.destinationInbox || [])
+      .map(v => new Inbox(this.config, v).get()));
+    const destinationNotFound = destinationInboxes.filter(v => !v.data);
 
-    if ( destinationNotFound && destinationNotFound.length ) {
-      throw new VError( 'Destination Inbox(es) %j not found', destinationNotFound );
+    if (destinationNotFound && destinationNotFound.length) {
+      throw new VError('Destination Inbox(es) %j not found', destinationNotFound);
     }
 
-    validate( ajv, createSchema, _.omit( data, 'destinationInbox', 'creatorInboxUser' ) );
+    validate(ajv, createSchema, _.omit(data, 'destinationInbox', 'creatorInboxUser'));
 
-    if ( !types || !types[ data.type ] ) {
-      throw new VError( 'Unknow conversation type %s', data.type );
+    if (!types || !types[data.type]) {
+      throw new VError('Unknow conversation type %s', data.type);
     }
 
     const protectedData = {
       store: { params: data.params || {} },
-      ..._.pick( data, 'type', 'typeIdentifier' )
+      ..._.pick(data, 'type', 'typeIdentifier')
     };
 
-    data = _.omit( data, 'params', 'destinationInbox', 'creatorInboxUser' );
+    data = _.omit(data, 'params', 'destinationInbox', 'creatorInboxUser');
 
     const createdAt = new Date();
 
-    const [ insertedId ] = await knex( schemas.conversation )
-      .insert( {
-        ...mapper.toDb( conversationFieldsMap, 'insert', data, options ),
-        ...mapper.toDb( conversationFieldsMap, 'insert', protectedData, { protected: false } ),
+    const [insertedId] = await knex(schemas.conversation)
+      .insert({
+        ...mapper.toDb(conversationFieldsMap, 'insert', data, options),
+        ...mapper.toDb(conversationFieldsMap, 'insert', protectedData, { protected: false }),
         creator_inbox_user_id: inboxUser.data.id,
         created_at: createdAt,
         updated_at: createdAt,
-        file_key: uuid().replace( /\-/g, '' )
-      } );
+        file_key: uuid().replace(/\-/g, '')
+      });
 
     this.identifiers = { id: insertedId };
 
-    log.info( 'Conversation is created', { conversation: this.identifiers } );
+    log.info('Conversation is created', { conversation: this.identifiers });
 
-    await Conversation.link( {
-      inboxId: this.inbox.data.id,
-      conversationId: this.identifiers.id
-    } );
-
-    await Promise.all( destinationInboxes.map( async destinationInbox => {
-      if ( this.inbox.data.id !== destinationInbox.data.id ) {
-        await Conversation.link( {
-          inboxId: destinationInbox.data.id,
-          conversationId: this.identifiers.id
-        } );
+    await Conversation.link(
+      this.config,
+      {
+        inboxId: this.inbox.data.id,
+        conversationId: this.identifiers.id
       }
-    } ) );
+    );
 
-    if ( data.message ) {
-      await this.messages.create( {
+    await Promise.all(destinationInboxes.map(async destinationInbox => {
+      if (this.inbox.data.id !== destinationInbox.data.id) {
+        await Conversation.link(
+          this.config,
+          {
+            inboxId: destinationInbox.data.id,
+            conversationId: this.identifiers.id
+          }
+        );
+      }
+    }));
+
+    if (data.message) {
+      await this.messages.create({
         body: data.message,
         userUid: inboxUser.data.userUid
       }, {
         createdAt
-      } );
+      });
     }
 
-    return this.get( options );
+    return this.get(options);
   }
 
-  async get( options ) {
+  async get(options) {
+    const { knex, schemas } = this.config;
+
     await this._loadInbox();
 
-    validate( ajv, identifiersSchema, this.identifiers );
+    validate(ajv, identifiersSchema, this.identifiers);
 
-    const request = knex( schemas.conversation )
+    const request = knex(schemas.conversation)
       .first()
       .column(
-        mapper.listFields( conversationFieldsMap, 'select', 'db', options, true )
-          .map( v => `${schemas.conversation}.${v}` )
+        mapper.listFields(conversationFieldsMap, 'select', 'db', options, true)
+          .map(v => `${schemas.conversation}.${v}`)
       )
-      .column( `${schemas.inbox}.id as inboxContextId` )
+      .column(`${schemas.inbox}.id as inboxContextId`)
       .column(
-        mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'creatorInboxUser.' )
-          .map( v => `creatorInboxUser.${v}` )
+        mapper.listFields(inboxUserFieldsMap, 'select', 'db', options, true, 'creatorInboxUser.')
+          .map(v => `creatorInboxUser.${v}`)
       )
       .column(
-        mapper.listFields( inboxFieldsMap, 'select', 'db', options, true, 'creatorInbox.' )
-          .map( v => `creatorInbox.${v}` )
+        mapper.listFields(inboxFieldsMap, 'select', 'db', options, true, 'creatorInbox.')
+          .map(v => `creatorInbox.${v}`)
       )
-      .max( `${schemas.message}.id as latestMessageId` )
+      .max(`${schemas.message}.id as latestMessageId`)
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.inboxConversation}.conversation_id`,
@@ -187,63 +202,65 @@ export default class Conversation {
       )
       .where(
         _.mapKeys(
-          mapper.toDb( conversationFieldsMap, 'select', this.identifiers, options ),
-          ( v, key ) => `${schemas.conversation}.${key}`
+          mapper.toDb(conversationFieldsMap, 'select', this.identifiers, options),
+          (v, key) => `${schemas.conversation}.${key}`
         )
       )
-      .groupBy( `${schemas.conversation}.id` )
-      .orderByRaw( '(closedAt IS NOT NULL)' )
-      .orderByRaw( 'latestMessageId DESC' )
-      .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` );
+      .groupBy(`${schemas.conversation}.id`)
+      .orderByRaw('(closedAt IS NOT NULL)')
+      .orderByRaw('latestMessageId DESC')
+      .orderByRaw(`GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC`);
 
-    if ( this.userUid ) { // viewed by user endpoint
+    if (this.userUid) { // viewed by user endpoint
       request
         .column(
-          mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'inboxUser.' )
-            .map( v => `${schemas.inboxUser}.${v}` )
+          mapper.listFields(inboxUserFieldsMap, 'select', 'db', options, true, 'inboxUser.')
+            .map(v => `${schemas.inboxUser}.${v}`)
         )
         .leftJoin(
           schemas.inboxUser,
           join => join
-            .on( `${schemas.inboxUser}.inbox_id`, `${schemas.inboxConversation}.inbox_id` )
-            .onNull( `${schemas.inboxUser}.left_at` )
+            .on(`${schemas.inboxUser}.inbox_id`, `${schemas.inboxConversation}.inbox_id`)
+            .onNull(`${schemas.inboxUser}.left_at`)
         )
-        .where( `${schemas.inboxUser}.user_uid`, this.userUid );
+        .where(`${schemas.inboxUser}.user_uid`, this.userUid);
 
-      if ( this.inbox.data && this.inbox.data.id && this.inbox.data.type !== 'user' ) {
-        request.where( `${schemas.inboxUser}.inbox_id`, this.inbox.data.id );
+      if (this.inbox.data && this.inbox.data.id && this.inbox.data.type !== 'user') {
+        request.where(`${schemas.inboxUser}.inbox_id`, this.inbox.data.id);
       }
     } else { // viewed by inbox endpoint
-      request.where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
+      request.where(`${schemas.inboxConversation}.inbox_id`, this.inbox.data.id);
     }
 
     const row = await request;
 
-    if ( !row ) {
+    if (!row) {
       this.data = null;
       return this;
     }
 
     let result = _.reduce(
-      { ...row, ...mapper.toObj( conversationFieldsMap, row, options ) },
-      ( result, value, key ) => _.set( result, key, value ),
+      { ...row, ...mapper.toObj(conversationFieldsMap, row, options) },
+      (result, value, key) => _.set(result, key, value),
       {}
     );
 
-    result = await populateDetails( result, this.inbox );
+    result = await populateDetails(this.config, result, this.inbox);
 
-    result = await populateLatestMessage( result, this.inbox );
+    result = await populateLatestMessage(this.config, result, this.inbox);
 
-    result = await populateParticipants( result );
+    result = await populateParticipants(this.config, result);
 
-    result.actions = await this.getAvailableActions( result ); // TODO fix missing inboxUser
+    result.actions = await this.getAvailableActions(result); // TODO fix missing inboxUser
 
     this.data = result;
 
     return this;
   }
 
-  async update( data, inboxUser, options ) {
+  async update(data, inboxUser, options) {
+    const { knex, schemas } = this.config;
+
     await this._loadConversation();
 
     const _inboxUser = await this._getInboxUser(
@@ -251,25 +268,25 @@ export default class Conversation {
       { inbox: this.inbox }
     );
 
-    if ( !_inboxUser.data ) {
-      throw new VError( 'Inbox user %j not found', _inboxUser.identifiers );
+    if (!_inboxUser.data) {
+      throw new VError('Inbox user %j not found', _inboxUser.identifiers);
     }
 
-    if ( data.resolvedAt ) {
-      data.resolvedAt = new Date( data.resolvedAt );
+    if (data.resolvedAt) {
+      data.resolvedAt = new Date(data.resolvedAt);
     }
-    if ( data.closedAt ) {
-      data.closedAt = new Date( data.closedAt );
+    if (data.closedAt) {
+      data.closedAt = new Date(data.closedAt);
     }
 
-    validate( ajv, updateSchema, data );
+    validate(ajv, updateSchema, data);
 
-    if ( data.closedAt === null ) {
+    if (data.closedAt === null) {
       data.closedAt = null;
     }
 
     data = {
-      ..._.omit( data, 'params' ),
+      ..._.omit(data, 'params'),
       store: {
         ...this.data.store,
         params: _.merge(
@@ -280,11 +297,11 @@ export default class Conversation {
       }
     };
 
-    await knex( schemas.conversation )
-      .update( {
-        ...mapper.toDb( conversationFieldsMap, 'update', data, options ),
+    await knex(schemas.conversation)
+      .update({
+        ...mapper.toDb(conversationFieldsMap, 'update', data, options),
         updated_at: new Date()
-      } )
+      })
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.conversation}.id`,
@@ -292,15 +309,17 @@ export default class Conversation {
       )
       .where(
         _.mapKeys(
-          mapper.toDb( conversationFieldsMap, 'select', this.identifiers, options ),
-          ( v, key ) => `${schemas.conversation}.${key}`
+          mapper.toDb(conversationFieldsMap, 'select', this.identifiers, options),
+          (v, key) => `${schemas.conversation}.${key}`
         )
       );
 
     return this.get();
   }
 
-  async action( code, inboxUser ) {
+  async action(code, inboxUser) {
+    const { knex, schemas, interfaces, defaultAction } = this.config;
+
     await this._loadConversation();
 
     const _inboxUser = await this._getInboxUser(
@@ -308,14 +327,14 @@ export default class Conversation {
       { inbox: this.inbox }
     );
 
-    if ( !_inboxUser.data ) {
-      throw new VError( 'Inbox user %j not found', _inboxUser.identifiers );
+    if (!_inboxUser.data) {
+      throw new VError('Inbox user %j not found', _inboxUser.identifiers);
     }
 
-    const actions = await this.getAvailableActions( this.data );
-    const action = actions.find( v => v && v.code === code );
+    const actions = await this.getAvailableActions(this.data);
+    const action = actions.find(v => v && v.code === code);
 
-    if ( !action ) {
+    if (!action) {
       throw new VError(
         'This action (%s) doesn\'t exist for a conversation of type %s (%j)',
         code,
@@ -324,17 +343,17 @@ export default class Conversation {
       );
     }
 
-    if ( this.data.resolvedAt && code !== defaultAction.code ) {
-      throw new VError( 'You cannot resolve a conversation two times' );
+    if (this.data.resolvedAt && code !== defaultAction.code) {
+      throw new VError('You cannot resolve a conversation two times');
     }
 
     const data = (() => {
-      if ( code === defaultAction.code ) {
+      if (code === defaultAction.code) {
         return {
           closedAt: new Date(),
           updatedAt: new Date()
         };
-      } else if ( action.resolve === false ) {
+      } else if (action.resolve === false) {
         return {
           updatedAt: new Date()
         };
@@ -355,10 +374,10 @@ export default class Conversation {
       }
     })();
 
-    await knex( schemas.conversation )
-      .update( {
-        ...mapper.toDb( conversationFieldsMap, 'update', data, { protected: false } )
-      } )
+    await knex(schemas.conversation)
+      .update({
+        ...mapper.toDb(conversationFieldsMap, 'update', data, { protected: false })
+      })
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.conversation}.id`,
@@ -366,81 +385,83 @@ export default class Conversation {
       )
       .where(
         _.mapKeys(
-          mapper.toDb( conversationFieldsMap, 'select', this.identifiers ),
-          ( v, key ) => `${schemas.conversation}.${key}`
+          mapper.toDb(conversationFieldsMap, 'select', this.identifiers),
+          (v, key) => `${schemas.conversation}.${key}`
         )
       );
 
     try {
-      await interfaces.onAction( this.data, action );
-    } catch ( e ) {
-      log.error( new VError( {
+      await interfaces.onAction(this.data, action);
+    } catch (e) {
+      throw new VError({
           cause: e,
           info: { conversation: this, code }
         }, 'Error in onAction interface'
-      ) );
+      )
     }
 
     return this.get();
   }
 
   async _loadInbox() {
-    if ( !this.inbox.data ) {
+    if (!this.inbox.data) {
       await this.inbox.get();
     }
 
-    if ( !this.inbox.data ) {
-      throw new VError( 'Inbox %j not found', this.inbox.identifiers );
+    if (!this.inbox.data) {
+      throw new VError('Inbox %j not found', this.inbox.identifiers);
     }
   }
 
   async _loadConversation() {
-    if ( !this.data ) {
+    if (!this.data) {
       await this.get();
     }
 
-    if ( !this.data ) {
-      throw new VError( 'Conversation %j not found', this.identifiers );
+    if (!this.data) {
+      throw new VError('Conversation %j not found', this.identifiers);
     }
   }
 
-  async _getInboxUser( identifiers, { inbox, createOnNull = false } = {} ) {
-    const inboxUser = await new InboxUser( identifiers, { inbox } ).get( { createOnNull } );
+  async _getInboxUser(identifiers, { inbox, createOnNull = false } = {}) {
+    const inboxUser = await new InboxUser(this.config, identifiers, { inbox }).get({ createOnNull });
 
-    if ( !inboxUser.data ) {
-      throw new VError( 'InboxUser %j not found in Inbox %j', identifiers, this.inbox.identifiers );
+    if (!inboxUser.data) {
+      throw new VError('InboxUser %j not found in Inbox %j', identifiers, this.inbox.identifiers);
     }
 
     return inboxUser;
   }
 
-  async getAvailableActions( conversation ) {
+  async getAvailableActions(conversation) {
+    const { interfaces, defaultAction, types } = this.config;
+
     const inbox = this.inbox.data.id === conversation.inboxContextId
       ? this.inbox
-      : await new Inbox( conversation.inboxContextId ).get();
+      : await new Inbox(this.config, conversation.inboxContextId).get();
 
     const actions = conversation.closedAt || conversation.resolvedAt
       ? []
-      : await _.get( types, [ conversation.type, 'actions' ], [] )
-        .reduce( async ( result, action ) => {
-          const keep = await interfaces.filterAction( inbox.data, conversation, action );
+      : await _.get(types, [conversation.type, 'actions'], [])
+        .reduce(async (result, action) => {
+          const keep = await interfaces.filterAction(inbox.data, conversation, action);
 
-          if ( !keep ) {
+          if (!keep) {
             return result;
           }
 
-          return [ ...await result, action ];
-        }, [] );
+          return [...await result, action];
+        }, []);
 
-    if ( !actions.filter( v => v.resolve !== false ).length && !conversation.closedAt ) {
-      return [ ...actions, defaultAction ];
+    if (!actions.filter(v => v.resolve !== false).length && !conversation.closedAt) {
+      return [...actions, defaultAction];
     }
 
     return actions;
   }
 
   toJSON() {
-    if ( !this.data ) {
+    if (!this.data) {
       return null;
     }
 

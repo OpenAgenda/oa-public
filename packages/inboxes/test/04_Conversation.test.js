@@ -1,71 +1,83 @@
-import sinon from 'sinon';
 import _ from 'lodash';
-import Inboxes, { config, initAndLoad, seed, init, Conversation } from './service';
+import init, { initAndLoad, seed } from './service';
 import testconfig from '../testconfig';
-import Conversations from "../src/Conversations";
 
 const database = testconfig.mysql.database + '_Conversation';
-const tables = [ 'inbox', 'inboxUser', 'conversation', 'inboxConversation', 'message' ];
+const tables = [
+  'inbox',
+  'inboxUser',
+  'conversation',
+  'inboxConversation',
+  'message'
+];
 
-describe( 'Conversation', () => {
+describe('Conversation', () => {
+  let service;
+  let Inbox;
+  let InboxUsers;
+  let InboxUser;
+  let Conversations;
+  let Conversation;
 
-  beforeAll( async () => {
+  beforeAll(async () => {
+    service = await initAndLoad(
+      {
+        ...testconfig,
+        mysql: { ...testconfig.mysql, database }
+      },
+      []
+    );
 
-    await initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    }, [] );
+    ({ Inbox, InboxUsers, InboxUser, Conversations, Conversation } = service);
+  });
 
-  } );
-
-  beforeEach( async () => {
-
-    await config.knex.transaction( async trx => {
-      await trx.raw( `SET foreign_key_checks = 0` );
-      for ( const table of tables ) {
-        await trx( config.schemas[ table ] ).truncate();
+  beforeEach(async () => {
+    await service.config.knex.transaction(async trx => {
+      await trx.raw(`SET foreign_key_checks = 0`);
+      for (const table of tables) {
+        await trx(service.config.schemas[table]).truncate();
       }
-      await trx.raw( `SET foreign_key_checks = 1` );
-    } );
+      await trx.raw(`SET foreign_key_checks = 1`);
+    });
 
-    await seed( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    }, tables );
+    await seed(
+      {
+        ...testconfig,
+        mysql: { ...testconfig.mysql, database }
+      },
+      tables
+    );
+  });
 
-  } );
-
-  afterAll( async () => {
-
+  afterAll(async () => {
     // await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
-    await config.knex.destroy();
+    await service.config.knex.destroy();
+  });
 
-  } );
-
-  describe( 'create', () => {
-
-    test( 'create a conversation with a message - by inboxes endpoint', async () => {
-
-      const conversation = await Inboxes( 1 ).conversations.create( {
+  describe('create', () => {
+    test('create a conversation with a message - by inboxes endpoint', async () => {
+      const conversation = await new Inbox(1).conversations.create({
         destinationInbox: { type: 'user', identifier: 99999999 },
         type: 'event',
         typeIdentifier: 456789,
         params: { trucUtile: false },
         creatorInboxUser: { userUid: 23456789 },
-        message: 'Comment qu\'on contribute ?'
-      } );
+        message: "Comment qu'on contribute ?"
+      });
 
-      expect( _.omit(
-        conversation.toJSON(),
-        'createdAt',
-        'updatedAt',
-        'resolvedAt',
-        'latestMessage.id',
-        'latestMessage.createdAt',
-        'fileKey',
-        'id',
-        'latestMessage.conversationId'
-      ) ).eql( {
+      expect(
+        _.omit(
+          conversation.toJSON(),
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'latestMessage.id',
+          'latestMessage.createdAt',
+          'fileKey',
+          'id',
+          'latestMessage.conversationId'
+        )
+      ).toEqual({
         type: 'event',
         typeIdentifier: 456789,
         creatorInbox: {
@@ -77,33 +89,38 @@ describe( 'Conversation', () => {
           uid: 48959239
         },
         creatorInboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 1,
           inboxId: 1,
           leftAt: null,
           name: 'Jean-Roger Benbambou',
           userUid: 23456789,
-          uid: 23456789,
+          uid: 23456789
         },
         store: { params: { trucUtile: false } },
         inboxContextId: 1,
-        inboxes: [ {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          id: 1,
-          identifier: 48959239,
-          name: 'La gargouille',
-          type: 'agenda',
-          uid: 48959239
-        }, {
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-          id: 2,
-          identifier: 99999999,
-          name: 'L\'admin',
-          type: 'user',
-          uid: 99999999
-        } ],
+        inboxes: [
+          {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          },
+          {
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 2,
+            identifier: 99999999,
+            name: "L'admin",
+            type: 'user',
+            uid: 99999999
+          }
+        ],
         latestMessage: {
-          body: 'Comment qu\'on contribute ?',
+          body: "Comment qu'on contribute ?",
           attachments: [],
           inbox: {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
@@ -114,185 +131,213 @@ describe( 'Conversation', () => {
             uid: 48959239
           },
           inboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 1,
             inboxId: 1,
             leftAt: null,
             name: 'Jean-Roger Benbambou',
             userUid: 23456789,
-            uid: 23456789,
+            uid: 23456789
           }
         },
-        actions: [ {
-          code: 'defaultAction',
-          label: {
-            fr: 'Fermer',
-            en: 'Close'
-          },
-          kind: 'success'
-        } ],
+        actions: [
+          {
+            code: 'defaultAction',
+            label: {
+              fr: 'Fermer',
+              en: 'Close'
+            },
+            kind: 'success'
+          }
+        ],
         closedAt: null
-      } );
+      });
+    });
 
-    } );
-
-    test( 'create a conversation - by user endpoint', async () => {
-
-      const conversation = await Inboxes.user( 99999999 ).conversations.create( {
+    test('create a conversation - by user endpoint', async () => {
+      const conversation = await Inbox.user(99999999).conversations.create({
         destinationInbox: { type: 'agenda', identifier: 48959239 },
         type: 'edition_request',
         params: {}
-      } );
+      });
 
-      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey', 'id' ) ).eql( {
+      expect(
+        _.omit(
+          conversation.toJSON(),
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'fileKey',
+          'id'
+        )
+      ).toEqual({
         type: 'edition_request',
         typeIdentifier: null,
         creatorInbox: {
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          avatar:
+            'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
           identifier: 99999999,
-          name: 'L\'admin',
+          name: "L'admin",
           type: 'user',
           uid: 99999999
         },
         creatorInboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
           name: 'Jean-Roger Benbambou',
           userUid: 99999999,
-          uid: 99999999,
+          uid: 99999999
         },
         store: { params: {} },
         inboxContextId: 2,
         inboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
           name: 'Jean-Roger Benbambou',
           userUid: 99999999,
-          uid: 99999999,
-        },
-        inboxes: [ {
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-          id: 2,
-          identifier: 99999999,
-          name: 'L\'admin',
-          type: 'user',
           uid: 99999999
-        }, {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          id: 1,
-          identifier: 48959239,
-          name: 'La gargouille',
-          type: 'agenda',
-          uid: 48959239
-        } ],
-        latestMessage: null,
-        actions: [ {
-          code: 'defaultAction',
-          label: {
-            fr: 'Fermer',
-            en: 'Close'
+        },
+        inboxes: [
+          {
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 2,
+            identifier: 99999999,
+            name: "L'admin",
+            type: 'user',
+            uid: 99999999
           },
-          kind: 'success'
-        } ],
+          {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          }
+        ],
+        latestMessage: null,
+        actions: [
+          {
+            code: 'defaultAction',
+            label: {
+              fr: 'Fermer',
+              en: 'Close'
+            },
+            kind: 'success'
+          }
+        ],
         closedAt: null
-      } );
+      });
+    });
 
-    } );
-
-    test( 'create a conversation with an inexistant destinationInbox create the destinationInbox', async () => {
-
-      const conversation = await Inboxes.user( 99999999 ).conversations.create( {
+    test('create a conversation with an inexistant destinationInbox create the destinationInbox', async () => {
+      const conversation = await Inbox.user(99999999).conversations.create({
         destinationInbox: { type: 'agenda', identifier: 456 },
         type: 'edition_request',
         params: {}
-      } );
+      });
 
-      expect( _.omit(
-        conversation.toJSON(),
-        'createdAt',
-        'updatedAt',
-        'resolvedAt',
-        'fileKey',
-        'id',
-        'inboxes[1].id'
-      ) ).eql( {
+      expect(
+        _.omit(
+          conversation.toJSON(),
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'fileKey',
+          'id',
+          'inboxes[1].id'
+        )
+      ).toEqual({
         type: 'edition_request',
         typeIdentifier: null,
         creatorInbox: {
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          avatar:
+            'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
           identifier: 99999999,
-          name: 'L\'admin',
+          name: "L'admin",
           type: 'user',
           uid: 99999999
         },
         creatorInboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
           name: 'Jean-Roger Benbambou',
           userUid: 99999999,
-          uid: 99999999,
+          uid: 99999999
         },
         store: { params: {} },
         inboxContextId: 2,
         inboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
           name: 'Jean-Roger Benbambou',
           userUid: 99999999,
-          uid: 99999999,
-        },
-        inboxes: [ {
-          id: 2,
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-          identifier: 99999999,
-          name: 'L\'admin',
-          type: 'user',
           uid: 99999999
-        }, {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          identifier: 456,
-          name: 'La gargouille',
-          type: 'agenda',
-          uid: 456
-        } ],
-        latestMessage: null,
-        actions: [ {
-          code: 'defaultAction',
-          label: {
-            fr: 'Fermer',
-            en: 'Close'
+        },
+        inboxes: [
+          {
+            id: 2,
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            identifier: 99999999,
+            name: "L'admin",
+            type: 'user',
+            uid: 99999999
           },
-          kind: 'success'
-        } ],
+          {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            identifier: 456,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 456
+          }
+        ],
+        latestMessage: null,
+        actions: [
+          {
+            code: 'defaultAction',
+            label: {
+              fr: 'Fermer',
+              en: 'Close'
+            },
+            kind: 'success'
+          }
+        ],
         closedAt: null
-      } );
+      });
+    });
 
-    } );
-
-    test(
-      'create a conversation with an inexistant inboxUser and createInboxUserOnNull create the inboxUser',
-      async () => {
-
-        const conversation = await Inboxes( 1 ).conversations.create( {
+    test('create a conversation with an inexistant inboxUser and createInboxUserOnNull create the inboxUser', async () => {
+      const conversation = await new Inbox(1).conversations.create(
+        {
           destinationInbox: { type: 'user', identifier: 99999999 },
           type: 'event',
           typeIdentifier: 456789,
           creatorInboxUser: { userUid: 85878525 }
-        }, {
+        },
+        {
           createInboxUserOnNull: true
-        } );
+        }
+      );
 
-        expect( _.omit(
+      expect(
+        _.omit(
           conversation.toJSON(),
           'createdAt',
           'updatedAt',
@@ -300,10 +345,31 @@ describe( 'Conversation', () => {
           'fileKey',
           'id',
           'creatorInboxUser.id'
-        ) ).eql( {
-          type: 'event',
-          typeIdentifier: 456789,
-          creatorInbox: {
+        )
+      ).toEqual({
+        type: 'event',
+        typeIdentifier: 456789,
+        creatorInbox: {
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          id: 1,
+          identifier: 48959239,
+          name: 'La gargouille',
+          type: 'agenda',
+          uid: 48959239
+        },
+        creatorInboxUser: {
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          inboxId: 1,
+          leftAt: null,
+          name: 'Jean-Roger Benbambou',
+          userUid: 85878525,
+          uid: 85878525
+        },
+        store: { params: {} },
+        inboxContextId: 1,
+        inboxes: [
+          {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
             id: 1,
             identifier: 48959239,
@@ -311,57 +377,46 @@ describe( 'Conversation', () => {
             type: 'agenda',
             uid: 48959239
           },
-          creatorInboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-            inboxId: 1,
-            leftAt: null,
-            name: 'Jean-Roger Benbambou',
-            userUid: 85878525,
-            uid: 85878525,
-          },
-          store: { params: {} },
-          inboxContextId: 1,
-          inboxes: [ {
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            id: 1,
-            identifier: 48959239,
-            name: 'La gargouille',
-            type: 'agenda',
-            uid: 48959239
-          }, {
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          {
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             id: 2,
             identifier: 99999999,
-            name: 'L\'admin',
+            name: "L'admin",
             type: 'user',
             uid: 99999999
-          } ],
-          latestMessage: null,
-          actions: [ {
+          }
+        ],
+        latestMessage: null,
+        actions: [
+          {
             code: 'defaultAction',
             label: {
               fr: 'Fermer',
               en: 'Close'
             },
             kind: 'success'
-          } ],
-          closedAt: null
-        } );
+          }
+        ],
+        closedAt: null
+      });
+    });
+  });
 
-      }
-    );
-
-  } );
-
-  describe( 'get', () => {
-
-    test( 'get a conversation - by inboxes endpoint', async () => {
-
-      const conversation = await Inboxes( 4 ).conversations.get( 3 );
+  describe('get', () => {
+    test('get a conversation - by inboxes endpoint', async () => {
+      const conversation = await new Inbox(4).conversations.get(3);
 
       expect(
-        _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey' )
-      ).eql( {
+        _.omit(
+          conversation.toJSON(),
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'latestMessage.createdAt',
+          'fileKey'
+        )
+      ).toEqual({
         id: 3,
         type: 'contact_form',
         typeIdentifier: null,
@@ -382,7 +437,7 @@ describe( 'Conversation', () => {
             identifier: 7891011,
             name: 'La gargouille',
             type: 'agenda',
-            uid: 7891011,
+            uid: 7891011
           },
           {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
@@ -390,7 +445,7 @@ describe( 'Conversation', () => {
             identifier: 24681012,
             name: 'La gargouille',
             type: 'agenda',
-            uid: 24681012,
+            uid: 24681012
           }
         ],
         latestMessage: {
@@ -404,29 +459,36 @@ describe( 'Conversation', () => {
             identifier: 24681012,
             name: 'La gargouille',
             type: 'agenda',
-            uid: 24681012,
+            uid: 24681012
           }
         },
-        actions: [ {
-          code: 'defaultAction',
-          label: {
-            fr: 'Fermer',
-            en: 'Close'
-          },
-          kind: 'success'
-        } ],
+        actions: [
+          {
+            code: 'defaultAction',
+            label: {
+              fr: 'Fermer',
+              en: 'Close'
+            },
+            kind: 'success'
+          }
+        ],
         closedAt: null
-      } );
+      });
+    });
 
-    } );
-
-    test( 'get a conversation - by user endpoint', async () => {
-
-      const conversation = await Inboxes.user( 99999999 ).conversations.get( 1 );
+    test('get a conversation - by user endpoint', async () => {
+      const conversation = await Inbox.user(99999999).conversations.get(1);
 
       expect(
-        _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey' )
-      ).eql( {
+        _.omit(
+          conversation.toJSON(),
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'latestMessage.createdAt',
+          'fileKey'
+        )
+      ).toEqual({
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
@@ -441,7 +503,8 @@ describe( 'Conversation', () => {
         store: { params: {} },
         inboxContextId: 2,
         inboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
@@ -449,21 +512,25 @@ describe( 'Conversation', () => {
           uid: 99999999,
           userUid: 99999999
         },
-        inboxes: [ {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          id: 1,
-          identifier: 48959239,
-          name: 'La gargouille',
-          type: 'agenda',
-          uid: 48959239,
-        }, {
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-          id: 2,
-          identifier: 99999999,
-          name: 'L\'admin',
-          type: 'user',
-          uid: 99999999,
-        } ],
+        inboxes: [
+          {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          },
+          {
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 2,
+            identifier: 99999999,
+            name: "L'admin",
+            type: 'user',
+            uid: 99999999
+          }
+        ],
         latestMessage: {
           id: 2,
           body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
@@ -474,76 +541,72 @@ describe( 'Conversation', () => {
             inboxId: 2,
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
-            uid: 99999999,
+            uid: 99999999
           },
           inbox: {
             id: 2,
             type: 'user',
             identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999,
+            name: "L'admin",
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           }
         },
-        actions: [ {
-          code: 'accept',
-          label: {
-            fr: 'Accepter',
-            en: 'Accept'
+        actions: [
+          {
+            code: 'accept',
+            label: {
+              fr: 'Accepter',
+              en: 'Accept'
+            },
+            kind: 'success'
           },
-          kind: 'success'
-        }, {
-          code: 'refuse',
-          label: {
-            fr: 'Refuser',
-            en: 'Refuse'
-          },
-          kind: 'danger'
-        } ],
+          {
+            code: 'refuse',
+            label: {
+              fr: 'Refuser',
+              en: 'Refuse'
+            },
+            kind: 'danger'
+          }
+        ],
         closedAt: null
-      } );
+      });
+    });
 
-    } );
+    test("get a conversation that isn't in the inbox", async () => {
+      const conversation = await new Inbox({
+        type: 'user',
+        identifier: 45645678
+      }).conversations.get(1);
 
-    test( 'get a conversation that isn\'t in the inbox', async () => {
+      expect(conversation.toJSON()).toBeNull();
+    });
+  });
 
-      const conversation = await Inboxes( { type: 'user', identifier: 45645678 } ).conversations.get( 1 );
+  describe('update', () => {
+    test('update a conversation', async () => {
+      const conversation = await Inbox.user(99999999).conversations.get(1);
 
-      expect( conversation.toJSON() ).equal( null );
+      const date = new Date(parseInt(new Date().getTime().toString().slice(0, -3) + '000', 10));
 
-    } );
-
-  } );
-
-  describe( 'update', () => {
-
-    const now = new Date();
-
-    beforeEach( () => {
-      global.clock = sinon.useFakeTimers( { now: (now - now % 1000) } );
-
-    } );
-
-    afterEach( () => {
-
-      global.clock.restore();
-
-    } );
-
-    test( 'update a conversation', async () => {
-
-      const conversation = await Inboxes.user( 99999999 ).conversations.get( 1 );
-
-      await conversation.update( {
+      await conversation.update({
         params: { un: { nouveau: 'truc' } },
-        closedAt: new Date()
-      } );
+        closedAt: date
+      });
 
       expect(
-        _.omit( conversation.toJSON(), 'createdAt', 'latestMessage.createdAt', 'fileKey' )
-      ).eql( {
+        _.omit(
+          conversation.toJSON(),
+          'createdAt',
+          'latestMessage.createdAt',
+          'fileKey'
+        )
+      ).toEqual({
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
@@ -556,12 +619,13 @@ describe( 'Conversation', () => {
           uid: 48959239
         },
         store: { params: { un: { nouveau: 'truc' } } },
-        updatedAt: new Date(),
+        updatedAt: date,
         resolvedAt: null,
-        closedAt: new Date(),
+        closedAt: date,
         inboxContextId: 2,
         inboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
@@ -569,21 +633,25 @@ describe( 'Conversation', () => {
           uid: 99999999,
           userUid: 99999999
         },
-        inboxes: [ {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          id: 1,
-          identifier: 48959239,
-          name: 'La gargouille',
-          type: 'agenda',
-          uid: 48959239
-        }, {
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-          id: 2,
-          identifier: 99999999,
-          name: 'L\'admin',
-          type: 'user',
-          uid: 99999999
-        } ],
+        inboxes: [
+          {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          },
+          {
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 2,
+            identifier: 99999999,
+            name: "L'admin",
+            type: 'user',
+            uid: 99999999
+          }
+        ],
         latestMessage: {
           id: 2,
           body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
@@ -594,7 +662,8 @@ describe( 'Conversation', () => {
             inboxId: 2,
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
             uid: 99999999
           },
@@ -602,157 +671,189 @@ describe( 'Conversation', () => {
             id: 2,
             type: 'user',
             identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            name: "L'admin",
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             uid: 99999999
           }
         },
         actions: []
-      } );
+      });
+    });
 
-    } );
+    it('update params', async () => {
+      const conversation = await new Inbox(4).conversations.update(
+        3,
+        { params: { un: { nouveau: 'truc' } } },
+        { userUid: 89216486 }
+      );
 
-    it( 'update params', async () => {
+      expect(conversation.data.store).toEqual({
+        params: { un: { nouveau: 'truc' } }
+      });
+    });
+  });
 
-      const conversation = await Inboxes( 4 )
-        .conversations.update( 3, { params: { un: { nouveau: 'truc' } } }, { userUid: 89216486 } );
+  describe('list', () => {
+    test('list conversations of an inbox', async () => {
+      const conversations = await new Inbox({
+        type: 'agenda',
+        identifier: 48959239
+      }).conversations.list();
 
-      expect( conversation.data.store ).eql( { params: { un: { nouveau: 'truc' } } } );
-
-    } );
-
-  } );
-
-  describe( 'list', () => {
-
-    test( 'list conversations of an inbox', async () => {
-
-      const conversations = await Inboxes( { type: 'agenda', identifier: 48959239 } ).conversations.list();
-
-      const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
-
-      expect( result ).eql( [ {
-        id: 1,
-        type: 'contribution_request',
-        typeIdentifier: null,
-        store: { params: {} },
-        creatorInbox: {
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          id: 1,
-          identifier: 48959239,
-          name: 'La gargouille',
-          type: 'agenda',
-          uid: 48959239
-        },
-        creatorInboxUser: {
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-          id: 1,
-          inboxId: 1,
-          leftAt: null,
-          name: 'Jean-Roger Benbambou',
-          userUid: 23456789,
-          uid: 23456789,
-        },
-        inboxContextId: 1,
-        inboxes: [ {
-          id: 1,
-          type: 'agenda',
-          identifier: 48959239,
-          name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          uid: 48959239
-        }, {
-          id: 2,
-          type: 'user',
-          identifier: 99999999,
-          name: 'L\'admin',
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-          uid: 99999999
-        } ],
-        latestMessage: {
-          id: 2,
-          body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
-          conversationId: 1,
-          attachments: [],
-          inbox: {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          }
-        }
-      }, {
-        id: 7,
-        type: 'contact_form',
-        typeIdentifier: null,
-        store: { params: {} },
-        inboxContextId: 1,
-        creatorInboxUser: {
-          id: 1,
-          inboxId: 1,
-          userUid: 23456789,
-          leftAt: null,
-          uid: 23456789,
-          name: 'Jean-Roger Benbambou',
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
-        },
-        creatorInbox: {
-          id: 1,
-          type: 'agenda',
-          identifier: 48959239,
-          uid: 48959239,
-          name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
-        },
-        latestMessage: null,
-        inboxes: [ {
-          id: 1,
-          type: 'agenda',
-          identifier: 48959239,
-          uid: 48959239,
-          name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
-        }, {
-          id: 8,
-          type: 'support',
-          identifier: 1,
-          uid: 1,
-          name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
-        }, {
-          id: 2,
-          type: 'user',
-          identifier: 99999999,
-          uid: 99999999,
-          name: 'L\'admin',
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
-        } ]
-      } ] );
-
-    } );
-
-    test( 'list conversations of a user - with total', async () => {
-
-      const conversations = await Inboxes.user( 99999999 ).conversations.list( {}, { total: true } );
-
-      const { total, data: result } = conversations.toJSON();
-
-      expect( total ).to.be.equal( 6 );
-
-      expect(
-        result
-          .map( v => _.omit( v,
+      const result = conversations
+        .toJSON()
+        .map(v =>
+          _.omit(
+            v,
             'createdAt',
             'updatedAt',
             'resolvedAt',
             'closedAt',
             'latestMessage.createdAt',
             'fileKey'
-          ) )
-      ).eql( [
+          )
+        );
+
+      expect(result).toEqual([
+        {
+          id: 1,
+          type: 'contribution_request',
+          typeIdentifier: null,
+          store: { params: {} },
+          creatorInbox: {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          },
+          creatorInboxUser: {
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            id: 1,
+            inboxId: 1,
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            userUid: 23456789,
+            uid: 23456789
+          },
+          inboxContextId: 1,
+          inboxes: [
+            {
+              id: 1,
+              type: 'agenda',
+              identifier: 48959239,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 48959239
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            }
+          ],
+          latestMessage: {
+            id: 2,
+            body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
+            conversationId: 1,
+            attachments: [],
+            inbox: {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            }
+          }
+        },
+        {
+          id: 7,
+          type: 'contact_form',
+          typeIdentifier: null,
+          store: { params: {} },
+          inboxContextId: 1,
+          creatorInboxUser: {
+            id: 1,
+            inboxId: 1,
+            userUid: 23456789,
+            leftAt: null,
+            uid: 23456789,
+            name: 'Jean-Roger Benbambou',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+          },
+          creatorInbox: {
+            id: 1,
+            type: 'agenda',
+            identifier: 48959239,
+            uid: 48959239,
+            name: 'La gargouille',
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+          },
+          latestMessage: null,
+          inboxes: [
+            {
+              id: 1,
+              type: 'agenda',
+              identifier: 48959239,
+              uid: 48959239,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            },
+            {
+              id: 8,
+              type: 'support',
+              identifier: 1,
+              uid: 1,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              uid: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            }
+          ]
+        }
+      ]);
+    });
+
+    test('list conversations of a user - with total', async () => {
+      const conversations = await Inbox.user(99999999).conversations.list(
+        {},
+        { total: true }
+      );
+
+      const { total, data: result } = conversations.toJSON();
+
+      expect(total).toBe(6);
+
+      expect(
+        result.map(v =>
+          _.omit(
+            v,
+            'createdAt',
+            'updatedAt',
+            'resolvedAt',
+            'closedAt',
+            'latestMessage.createdAt',
+            'fileKey'
+          )
+        )
+      ).toEqual([
         {
           id: 5,
           type: 'contact_form',
@@ -772,36 +873,44 @@ describe( 'Conversation', () => {
             inboxId: 2,
             leftAt: null,
             userUid: 99999999,
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             name: 'Jean-Roger Benbambou',
             uid: 99999999
           },
-          inboxes: [ {
-            id: 6,
-            type: 'user',
-            identifier: 86286559,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 86286559
-          }, {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          } ],
+          inboxes: [
+            {
+              id: 6,
+              type: 'user',
+              identifier: 86286559,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            }
+          ],
           latestMessage: {
             id: 10,
-            body: 'Salut, j\'avais juste envie de vous dire que je vais supprimer mon compte !',
+            body:
+              "Salut, j'avais juste envie de vous dire que je vais supprimer mon compte !",
             conversationId: 5,
             attachments: [],
             inbox: {
               id: 6,
               type: 'user',
               identifier: 86286559,
-              name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
               uid: 86286559
             }
           }
@@ -813,10 +922,11 @@ describe( 'Conversation', () => {
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             id: 6,
             identifier: 86286559,
-            name: 'L\'admin',
+            name: "L'admin",
             type: 'user',
             uid: 86286559
           },
@@ -825,36 +935,43 @@ describe( 'Conversation', () => {
             inboxId: 2,
             userUid: 99999999,
             leftAt: null,
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             name: 'Jean-Roger Benbambou',
             uid: 99999999
           },
-          inboxes: [ {
-            id: 6,
-            type: 'user',
-            identifier: 86286559,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 86286559
-          }, {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          } ],
+          inboxes: [
+            {
+              id: 6,
+              type: 'user',
+              identifier: 86286559,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            }
+          ],
           latestMessage: {
             id: 9,
-            body: 'J\'en ai marre de vos gueules, j\'me tire d\'ici !',
+            body: "J'en ai marre de vos gueules, j'me tire d'ici !",
             conversationId: 4,
             attachments: [],
             inbox: {
               id: 6,
               type: 'user',
               identifier: 86286559,
-              name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
               uid: 86286559
             }
           }
@@ -874,7 +991,8 @@ describe( 'Conversation', () => {
             uid: 24681012
           },
           creatorInboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 5,
             inboxId: 5,
             leftAt: null,
@@ -883,7 +1001,8 @@ describe( 'Conversation', () => {
             userUid: 99999999
           },
           inboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 5,
             inboxId: 5,
             userUid: 99999999,
@@ -891,21 +1010,24 @@ describe( 'Conversation', () => {
             name: 'Jean-Roger Benbambou',
             uid: 99999999
           },
-          inboxes: [ {
-            id: 4,
-            type: 'agenda',
-            identifier: 7891011,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 7891011
-          }, {
-            id: 5,
-            type: 'agenda',
-            identifier: 24681012,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 24681012
-          } ],
+          inboxes: [
+            {
+              id: 4,
+              type: 'agenda',
+              identifier: 7891011,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 7891011
+            },
+            {
+              id: 5,
+              type: 'agenda',
+              identifier: 24681012,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 24681012
+            }
+          ],
           latestMessage: {
             id: 8,
             body: 'Tu pourrais me demander si je vais bien aussi, tss !',
@@ -920,13 +1042,14 @@ describe( 'Conversation', () => {
               uid: 24681012
             },
             inboxUser: {
-              avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+              avatar:
+                'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
               id: 5,
               inboxId: 5,
               leftAt: null,
               name: 'Jean-Roger Benbambou',
               uid: 99999999,
-              userUid: 99999999,
+              userUid: 99999999
             }
           }
         },
@@ -937,15 +1060,17 @@ describe( 'Conversation', () => {
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             id: 2,
             identifier: 99999999,
-            name: 'L\'admin',
+            name: "L'admin",
             type: 'user',
             uid: 99999999
           },
           creatorInboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 2,
             inboxId: 2,
             leftAt: null,
@@ -954,7 +1079,8 @@ describe( 'Conversation', () => {
             userUid: 99999999
           },
           inboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 2,
             inboxId: 2,
             userUid: 99999999,
@@ -962,21 +1088,25 @@ describe( 'Conversation', () => {
             uid: 99999999,
             leftAt: null
           },
-          inboxes: [ {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          }, {
-            id: 4,
-            type: 'agenda',
-            identifier: 7891011,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 7891011
-          } ],
+          inboxes: [
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            },
+            {
+              id: 4,
+              type: 'agenda',
+              identifier: 7891011,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 7891011
+            }
+          ],
           latestMessage: {
             id: 5,
             body: 'Mais voyons Francis, sois poli stp !',
@@ -1007,7 +1137,8 @@ describe( 'Conversation', () => {
             uid: 48959239
           },
           inboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 2,
             inboxId: 2,
             userUid: 99999999,
@@ -1015,21 +1146,25 @@ describe( 'Conversation', () => {
             uid: 99999999,
             leftAt: null
           },
-          inboxes: [ {
-            id: 1,
-            type: 'agenda',
-            identifier: 48959239,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 48959239
-          }, {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          } ],
+          inboxes: [
+            {
+              id: 1,
+              type: 'agenda',
+              identifier: 48959239,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 48959239
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            }
+          ],
           latestMessage: {
             id: 2,
             body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
@@ -1040,7 +1175,8 @@ describe( 'Conversation', () => {
               inboxId: 2,
               userUid: 99999999,
               name: 'Jean-Roger Benbambou',
-              avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+              avatar:
+                'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
               leftAt: null,
               uid: 99999999
             },
@@ -1048,8 +1184,9 @@ describe( 'Conversation', () => {
               id: 2,
               type: 'user',
               identifier: 99999999,
-              name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
               uid: 99999999
             }
           }
@@ -1075,44 +1212,62 @@ describe( 'Conversation', () => {
             leftAt: null,
             uid: 99999999,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
           },
           latestMessage: null,
-          inboxes: [ {
-            id: 1,
-            type: 'agenda',
-            identifier: 48959239,
-            uid: 48959239,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
-          }, {
-            id: 8,
-            type: 'support',
-            identifier: 1,
-            uid: 1,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
-          }, {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            uid: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
-          } ]
+          inboxes: [
+            {
+              id: 1,
+              type: 'agenda',
+              identifier: 48959239,
+              uid: 48959239,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            },
+            {
+              id: 8,
+              type: 'support',
+              identifier: 1,
+              uid: 1,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              uid: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            }
+          ]
         }
-      ] );
+      ]);
+    });
 
-    } );
+    test('list conversations with offset and limit', async () => {
+      const conversations = await Inbox.user(99999999).conversations.list(
+        1,
+        3
+      );
 
-    test( 'list conversations with offset and limit', async () => {
+      const result = conversations
+        .toJSON()
+        .map(v =>
+          _.omit(
+            v,
+            'createdAt',
+            'updatedAt',
+            'resolvedAt',
+            'closedAt',
+            'latestMessage.createdAt',
+            'fileKey'
+          )
+        );
 
-      const conversations = await Inboxes.user( 99999999 ).conversations.list( 1, 3 );
-
-      const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
-
-      expect( result ).eql( [
+      expect(result).toEqual([
         {
           id: 4,
           type: 'contact_form',
@@ -1120,10 +1275,11 @@ describe( 'Conversation', () => {
           store: { params: {} },
           inboxContextId: 2,
           creatorInbox: {
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             id: 6,
             identifier: 86286559,
-            name: 'L\'admin',
+            name: "L'admin",
             type: 'user',
             uid: 86286559
           },
@@ -1132,36 +1288,43 @@ describe( 'Conversation', () => {
             inboxId: 2,
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
             uid: 99999999
           },
-          inboxes: [ {
-            id: 6,
-            type: 'user',
-            identifier: 86286559,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 86286559
-          }, {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          } ],
+          inboxes: [
+            {
+              id: 6,
+              type: 'user',
+              identifier: 86286559,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            }
+          ],
           latestMessage: {
             id: 9,
-            body: 'J\'en ai marre de vos gueules, j\'me tire d\'ici !',
+            body: "J'en ai marre de vos gueules, j'me tire d'ici !",
             conversationId: 4,
             attachments: [],
             inbox: {
               id: 6,
               type: 'user',
               identifier: 86286559,
-              name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
               uid: 86286559
             }
           }
@@ -1170,7 +1333,7 @@ describe( 'Conversation', () => {
           id: 3,
           type: 'contact_form',
           typeIdentifier: null,
-          store: { 'params': {} },
+          store: { params: {} },
           inboxContextId: 5,
           creatorInbox: {
             id: 5,
@@ -1181,7 +1344,8 @@ describe( 'Conversation', () => {
             uid: 24681012
           },
           creatorInboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 5,
             inboxId: 5,
             leftAt: null,
@@ -1194,25 +1358,29 @@ describe( 'Conversation', () => {
             inboxId: 5,
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
             uid: 99999999
           },
-          inboxes: [ {
-            id: 4,
-            type: 'agenda',
-            identifier: 7891011,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 7891011
-          }, {
-            id: 5,
-            type: 'agenda',
-            identifier: 24681012,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 24681012
-          } ],
+          inboxes: [
+            {
+              id: 4,
+              type: 'agenda',
+              identifier: 7891011,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 7891011
+            },
+            {
+              id: 5,
+              type: 'agenda',
+              identifier: 24681012,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 24681012
+            }
+          ],
           latestMessage: {
             id: 8,
             body: 'Tu pourrais me demander si je vais bien aussi, tss !',
@@ -1227,13 +1395,14 @@ describe( 'Conversation', () => {
               uid: 24681012
             },
             inboxUser: {
-              avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+              avatar:
+                'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
               id: 5,
               inboxId: 5,
               leftAt: null,
               name: 'Jean-Roger Benbambou',
               uid: 99999999,
-              userUid: 99999999,
+              userUid: 99999999
             }
           }
         },
@@ -1247,12 +1416,14 @@ describe( 'Conversation', () => {
             id: 2,
             type: 'user',
             identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            name: "L'admin",
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             uid: 99999999
           },
           creatorInboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 2,
             inboxId: 2,
             leftAt: null,
@@ -1265,25 +1436,30 @@ describe( 'Conversation', () => {
             inboxId: 2,
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
             uid: 99999999
           },
-          inboxes: [ {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          }, {
-            id: 4,
-            type: 'agenda',
-            identifier: 7891011,
-            name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 7891011
-          } ],
+          inboxes: [
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            },
+            {
+              id: 4,
+              type: 'agenda',
+              identifier: 7891011,
+              name: 'La gargouille',
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 7891011
+            }
+          ],
           latestMessage: {
             id: 5,
             body: 'Mais voyons Francis, sois poli stp !',
@@ -1299,19 +1475,30 @@ describe( 'Conversation', () => {
             }
           }
         }
-      ] );
+      ]);
+    });
 
-    } );
+    test('list conversations filtered by typeIdentifier', async () => {
+      const conversations = await Inbox.user(99999999).conversations.list({
+        type: 'contact_form',
+        typeIdentifier: 456789
+      });
 
-    test( 'list conversations filtered by typeIdentifier', async () => {
+      const result = conversations
+        .toJSON()
+        .map(v =>
+          _.omit(
+            v,
+            'createdAt',
+            'updatedAt',
+            'resolvedAt',
+            'closedAt',
+            'latestMessage.createdAt',
+            'fileKey'
+          )
+        );
 
-      const conversations = await Inboxes.user( 99999999 )
-        .conversations.list( { type: 'contact_form', typeIdentifier: 456789 } );
-
-      const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
-
-      expect( result ).eql( [
+      expect(result).toEqual([
         {
           id: 4,
           type: 'contact_form',
@@ -1322,12 +1509,14 @@ describe( 'Conversation', () => {
             id: 6,
             type: 'user',
             identifier: 86286559,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            name: "L'admin",
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             uid: 86286559
           },
           inboxUser: {
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 2,
             inboxId: 2,
             leftAt: null,
@@ -1335,185 +1524,168 @@ describe( 'Conversation', () => {
             uid: 99999999,
             userUid: 99999999
           },
-          inboxes: [ {
-            id: 6,
-            type: 'user',
-            identifier: 86286559,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 86286559
-          }, {
-            id: 2,
-            type: 'user',
-            identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          } ],
+          inboxes: [
+            {
+              id: 6,
+              type: 'user',
+              identifier: 86286559,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
+            },
+            {
+              id: 2,
+              type: 'user',
+              identifier: 99999999,
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
+            }
+          ],
           latestMessage: {
             id: 9,
-            body: 'J\'en ai marre de vos gueules, j\'me tire d\'ici !',
+            body: "J'en ai marre de vos gueules, j'me tire d'ici !",
             conversationId: 4,
             attachments: [],
             inbox: {
               id: 6,
               type: 'user',
               identifier: 86286559,
-              name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              name: "L'admin",
+              avatar:
+                'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
               uid: 86286559
             }
           }
-        },
-      ] );
+        }
+      ]);
+    });
 
-    } );
+    test('list conversations of a deleted inbox user', async () => {
+      const conversations = await Inbox.user(
+        86286559
+      ).conversations.list();
 
-    test( 'list conversations of a deleted inbox user', async () => {
+      expect(conversations.toJSON()).toEqual([]);
+    });
+  });
 
-      const conversations = await new Inboxes.user( 86286559 ).conversations.list();
-
-      expect( conversations.toJSON() ).eql( [] );
-
-    } );
-
-  } );
-
-  describe( 'action', () => {
-
-    beforeAll( async () => {
-
-      await init( {
+  describe('action', () => {
+    beforeAll(async () => {
+      service = await init({
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
         types: {
           contact_form: {
-            actions: [ {
-              code: 'accept',
-              label: {
-                fr: 'Accepter',
-                en: 'Accept'
+            actions: [
+              {
+                code: 'accept',
+                label: {
+                  fr: 'Accepter',
+                  en: 'Accept'
+                },
+                kind: 'success'
               },
-              kind: 'success'
-            }, {
-              code: 'refuse',
-              label: {
-                fr: 'Refuser',
-                en: 'Refuse'
-              },
-              kind: 'danger'
-            } ]
+              {
+                code: 'refuse',
+                label: {
+                  fr: 'Refuser',
+                  en: 'Refuse'
+                },
+                kind: 'danger'
+              }
+            ]
           }
         }
-      } );
+      });
 
-    } );
+      ({ Inbox, InboxUsers, InboxUser, Conversations, Conversation } = service);
+    });
 
-    it( 'trigger an action', async () => {
+    it('trigger an action', async () => {
+      const spy = jest.spyOn(service.config.interfaces, 'onAction');
 
-      const spy = sinon.spy( config.interfaces, 'onAction' );
+      await new Inbox(4).conversations.action(3, 'accept', { userUid: 89216486 });
 
-      await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 89216486 } );
+      expect(spy.mock.calls).toHaveLength(1);
+      expect(spy.mock.calls[0]).toMatchObject([{ id: 3 }, { code: 'accept' }]);
+    });
 
-      sinon.assert.calledOnce( spy );
-      sinon.assert.calledWith(
-        spy,
-        sinon.match( { id: 3 } ),
-        sinon.match( { code: 'accept' } )
+    it('trigger another action', async () => {
+      await expect(
+        new Inbox(4).conversations.action(3, 'accept', { userUid: 99999999 })
+      ).rejects.toThrow(
+        'InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }'
       );
+    });
+  });
 
-      spy.restore();
-
-    } );
-
-    it( 'trigger an action', async () => {
-
-      const spy = sinon.spy( config.interfaces, 'onAction' );
-
-      try {
-        await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 99999999 } );
-      } catch ( e ) {
-        expect( e.message ).eql( 'InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }' );
-      }
-
-      spy.restore();
-
-    } );
-
-  } );
-
-  describe( 'link', () => {
-
-    it( 'link a conversation to an inbox', async () => {
-
+  describe('link', () => {
+    it('link a conversation to an inbox', async () => {
       const inboxId = 1;
       const conversationId = 4;
 
-      await Conversation.link( { inboxId, conversationId } );
+      await Conversation.link({ inboxId, conversationId });
 
-      const conversation = await Inboxes( inboxId ).conversations.get( conversationId );
+      const conversation = await new Inbox(inboxId).conversations.get(
+        conversationId
+      );
 
-      expect( conversation ).to.be.an.instanceof( Conversation );
+      expect(conversation).toBeInstanceOf(Conversation);
+    });
 
-    } );
-
-    it( 'cannot create double link', async () => {
-
+    it('cannot create double link', async () => {
       const inboxId = 1;
       const conversationId = 1;
 
-      await Conversation.link( { inboxId, conversationId } );
-      await Conversation.link( { inboxId, conversationId } );
+      await Conversation.link({ inboxId, conversationId });
+      await Conversation.link({ inboxId, conversationId });
 
-      const result = await config.knex( config.schemas.inboxConversation ).select().where( {
-        inbox_id: inboxId,
-        conversation_id: conversationId
-      } );
+      const result = await service.config
+        .knex(service.config.schemas.inboxConversation)
+        .select()
+        .where({
+          inbox_id: inboxId,
+          conversation_id: conversationId
+        });
 
-      expect( result ).to.be.an( 'array' ).that.has.lengthOf( 1 );
+      expect(result).toHaveLength(1);
+    });
+  });
 
-    } );
-
-  } );
-
-  describe( 'unlink', () => {
-
-    it( 'unlink a conversation to an inbox', async () => {
-
+  describe('unlink', () => {
+    it('unlink a conversation to an inbox', async () => {
       const inboxId = 1;
       const conversationId = 1;
 
-      await Conversation.unlink( { inboxId, conversationId } );
+      await Conversation.unlink({ inboxId, conversationId });
 
-      const conversation = await Inboxes( inboxId ).conversations.get( conversationId );
+      const conversation = await new Inbox(inboxId).conversations.get(
+        conversationId
+      );
 
-      expect( conversation.toJSON() ).to.be.null;
+      expect(conversation.toJSON()).toBeNull();
+    });
+  });
 
-    } );
+  it('get a conversation by the endpoint user when indirectly inboxUser, through an agenda', async () => {
+    const conv = await Inbox.user(31046551).conversations.get(6);
+    const msg = await conv.messages.get(11);
 
-  } );
+    expect(msg.data.id).toBe(11);
+  });
 
-  it( 'get a conversation by the endpoint user when indirectly inboxUser, through an agenda', async () => {
-
-    const conv = await Inboxes.user( 31046551 ).conversations.get( 6 );
-    const msg = await conv.messages.get( 11 );
-
-    expect( msg.data.id ).to.equal( 11 );
-
-  } );
-
-  it( 'support get a conversation in which it was added', async () => {
-
-    const conversation = await new Conversations( {
+  it('support get a conversation in which it was added', async () => {
+    const conversation = await new Conversations({
       userUid: 32132112,
-      inbox: new Inboxes( {
+      inbox: new Inbox({
         type: 'support',
-        identifier: 1,
-      } )
-    } ).get( 7 );
+        identifier: 1
+      })
+    }).get(7);
 
-    expect( conversation.toJSON() ).to.have.property( 'inboxUser' );
-
-  } );
-
-} );
+    expect(conversation.toJSON()).toHaveProperty('inboxUser');
+  });
+});

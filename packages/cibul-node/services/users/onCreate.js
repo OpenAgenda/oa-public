@@ -1,6 +1,6 @@
 const _ = require( 'lodash' );
-const { Inbox } = require( '@openagenda/inboxes' );
 const invitationsSvc = require( '@openagenda/invitations' );
+const { Inbox } = require( '../inboxes' );
 
 
 module.exports = function onCreate() {

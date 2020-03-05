@@ -3,10 +3,10 @@
 const _ = require('lodash');
 const agendas = require('@openagenda/agendas');
 const imageFiles = require('@openagenda/image-files');
-const { Inbox } = require('@openagenda/inboxes');
 const cmn = require('../../lib/commons-app');
 const controlDataSvc = require('../legacy').controlData;
 const activities = require('../activities');
+const { Inbox } = require('../inboxes');
 const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
 const middleware = require('./middleware');
 

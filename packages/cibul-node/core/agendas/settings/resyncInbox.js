@@ -1,13 +1,14 @@
 'use strict';
 
-const {
-  syncAgenda: syncAgendaInbox
-} = require('@openagenda/inboxes/dist/tasks/sync');
-
 module.exports = async (services, agendaUid) => {
   const {
-    agendas
+    agendas,
+    inboxes
   } = services;
+
+  const {
+    syncAgenda: syncAgendaInbox
+  } = inboxes.tasks.sync;
 
   const agenda = await agendas.get({ uid: agendaUid }, { private: null, internal: true });
   const stats = {};

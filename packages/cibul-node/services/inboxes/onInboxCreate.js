@@ -3,14 +3,13 @@
 const log = require('@openagenda/logs')('services/inboxes');
 const membersSvc = require('../members');
 
-module.exports = async function onInboxCreate(Inbox) {
-
-  switch (Inbox.data.type) {
+module.exports = async function onInboxCreate(inbox) {
+  switch (inbox.data.type) {
     case 'user': {
-      const inboxUser = await Inbox.users.add({ userUid: Inbox.data.identifier });
+      const inboxUser = await inbox.users.add({ userUid: inbox.data.identifier });
 
       if (!inboxUser.data) {
-        log('warn', 'Cannot get/create InboxUser (%j) on inbox (%j)', { userUid: Inbox.data.identifier }, Inbox.data);
+        log('warn', 'Cannot get/create InboxUser (%j) on inbox (%j)', { userUid: inbox.data.identifier }, inbox.data);
       }
 
       break;
@@ -25,7 +24,7 @@ module.exports = async function onInboxCreate(Inbox) {
       let result;
       const shList = () => membersSvc.list(
         {
-          agendaUid: Inbox.data.identifier,
+          agendaUid: inbox.data.identifier,
           role: ['administrator', 'moderator'],
           deletedUser: false
         },
@@ -40,7 +39,7 @@ module.exports = async function onInboxCreate(Inbox) {
       }
 
       for (const member of members) {
-        await Inbox.users.add({ userUid: member.userUid });
+        await inbox.users.add({ userUid: member.userUid });
       }
 
       break;

@@ -1,1 +1,1 @@
-export sync from './sync';
+export * as sync from './sync';

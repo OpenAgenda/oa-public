@@ -4,9 +4,7 @@ const _ = require( 'lodash' );
 const VError = require('verror');
 const agendas = require( '@openagenda/agendas' );
 const invitations = require( '@openagenda/invitations' );
-const { Inbox } = require( '@openagenda/inboxes' );
 const log = require( '@openagenda/logs' )( 'services/members/onCreate' );
-const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const {
   isSuperiorToOrEqual
@@ -52,19 +50,18 @@ module.exports = async ({ services, config, activityQueue }, member, context) =>
 async function _memberIsExistingUser( { services, config, activityQueue }, { member, user, agenda, context } ) {
   log( 'member is existing user', member );
 
+  const { Inbox } = services.inboxes;
+  const activities = services.activities;
+
   if ( user.isNew ) {
     await services.users.setNewFlag( user.uid, { isNew: false } );
   }
 
-  try {
-    controlDataSvc.memberSet( {
-      agendaUid: agenda.uid,
-      userUid: user.uid,
-      role: member.role
-    } );
-  } catch ( e ) {
-    log( 'error', 'could not set member in control data', member, e );
-  }
+  controlDataSvc.memberSet( {
+    agendaUid: agenda.uid,
+    userUid: user.uid,
+    role: member.role
+  } ).catch(e => log( 'error', 'could not set member in control data', member, e ));
 
   const isAdminMod = isSuperiorToOrEqual( member.role, 'moderator' );
   if ( isAdminMod ) {

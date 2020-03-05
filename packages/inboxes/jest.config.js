@@ -1,7 +1,4 @@
 module.exports = {
-  coveragePathIgnorePatterns: [ '/migrations/' ],
-  setupFilesAfterEnv: [
-    '<rootDir>/test/setup.js'
-  ],
+  coveragePathIgnorePatterns: [ '/node_modules/', '/migrations/' ],
   testURL: 'http://localhost/'
 };

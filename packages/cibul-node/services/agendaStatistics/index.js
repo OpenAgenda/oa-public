@@ -4,12 +4,11 @@ const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const formSchemas = require( '@openagenda/form-schemas' );
 const queue = require( '@openagenda/queue' );
-const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
 const logs = require('@openagenda/logs');
 
+const { syncAgenda } = require( '../inboxes' ).tasks.sync;
 const activitiesSvc = require( '../activities' );
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );

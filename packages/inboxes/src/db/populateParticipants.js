@@ -1,16 +1,17 @@
 import _ from 'lodash';
-import { knex, schemas, interfaces } from '../config';
 import mapper from '../utils/mapper';
 import populateDetails from './populateDetails';
 import inboxFieldsMap from './inboxFieldsMap';
 
-export default async function populateParticipants( entities ) {
+export default async function populateParticipants( config, entities ) {
+  const { knex, schemas } = config;
+
   if ( entities === null ) {
     return null;
   }
 
   if ( !Array.isArray( entities ) ) {
-    return (await populateParticipants( [ entities ] ))[ 0 ];
+    return (await populateParticipants( config, [ entities ] ))?.[ 0 ];
   }
 
   const ids = entities.map( v => v.id );
@@ -35,7 +36,7 @@ export default async function populateParticipants( entities ) {
       {}
     ) );
 
-  result = _.groupBy( await populateDetails( result ), 'conversationId' );
+  result = _.groupBy( await populateDetails( config, result ), 'conversationId' );
 
   return entities.map( v => (
     result[ v.id ] ? {

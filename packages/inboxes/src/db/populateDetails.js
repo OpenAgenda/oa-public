@@ -1,14 +1,15 @@
 import _ from 'lodash';
-import Inboxes from '../Inbox';
-import { interfaces, defaultImagePath } from '../config';
+import Inbox from '../Inbox';
 
-export default async function populateDetails( entities, inbox ) {
+export default async function populateDetails( config, entities, inbox ) {
+  const { interfaces, defaultImagePath } = config;
+
   if ( entities === null ) {
     return null;
   }
 
   if ( !Array.isArray( entities ) ) {
-    return (await populateDetails( [ entities ], inbox ))[ 0 ];
+    return (await populateDetails( config, [ entities ], inbox ))?.[ 0 ];
   }
 
   const result = await Promise.all( entities.map( async row => {
@@ -22,7 +23,7 @@ export default async function populateDetails( entities, inbox ) {
     if ( row.inboxUser && row.inboxUser.inboxId !== inbox.data.id ) {
       // check if the current user is in the entity inbox
       const inboxUser = inbox.data.type === 'user'
-        ? await new Inboxes( row.inboxUser.inboxId ).users.get( { userUid: inbox.data.identifier } )
+        ? await new Inbox( config, row.inboxUser.inboxId ).users.get( { userUid: inbox.data.identifier } )
         : null;
 
       if ( !inboxUser || !inboxUser.data ) {
@@ -33,7 +34,7 @@ export default async function populateDetails( entities, inbox ) {
     if ( row.creatorInboxUser && row.creatorInboxUser.inboxId !== inbox.data.id ) {
       // check if the current user is in the creator inbox of entity
       const creatorInboxUser = inbox.data.type === 'user'
-        ? await new Inboxes( row.creatorInboxUser.inboxId ).users.get( { userUid: inbox.data.identifier } )
+        ? await new Inbox( config, row.creatorInboxUser.inboxId ).users.get( { userUid: inbox.data.identifier } )
         : null;
 
       if ( !creatorInboxUser || !creatorInboxUser.data ) {

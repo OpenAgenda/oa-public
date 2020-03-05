@@ -1,13 +1,12 @@
-import _ from 'lodash';
 import parseJsonResponse from './utils/parseJsonResponse';
 import baseUrl from './baseUrl';
 
 export default class Locations {
-  constructor( sdk ) {
+  constructor(sdk) {
     this.sdk = sdk;
   }
 
-  async create( agendaUid, data ) {
+  async create(agendaUid, data) {
     /*
      * name
      * address
@@ -18,15 +17,15 @@ export default class Locations {
     await this.sdk.refreshToken();
 
     return this.sdk.agent
-      .post( `${baseUrl.v1}/locations` )
-      .type( 'form' )
-      .accept( 'json' )
-      .field( {
+      .post(`${baseUrl.v1}/locations`)
+      .type('form')
+      .accept('json')
+      .field({
         access_token: this.sdk.accessToken,
         nonce: this.sdk.getNonce(),
-        data: JSON.stringify( { ...data, agenda_uid: agendaUid } )
-      } )
-      .then( parseJsonResponse )
-      .then( v => v.body );
+        data: JSON.stringify({ ...data, agenda_uid: agendaUid })
+      })
+      .then(parseJsonResponse)
+      .then(v => v.body);
   }
 }
