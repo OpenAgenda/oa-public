@@ -85,12 +85,14 @@ describe('11 - event-search - unit: formatEvent', function() {
       en: 'France (Metropolitan)',
       fr: 'France (Métropole)',
       de: 'Frankreich (Metropolitan)',
-      es: 'Francia (Metropolitana)'
+      es: 'Francia (Metropolitana)',
+      it: 'Francia (continente)'
     });
   });
 
   it('_search_full_address_text key contains a strict with address-specific information', () => {
-    formatted['_search_full_address_text'].should.equal('8 rue Alice, 92400 Courbevoie Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana)');
+    formatted['_search_full_address_text']
+      .should.equal('8 rue Alice, 92400 Courbevoie Courbevoie Ile de France Hauts-de-Seine France (Metropolitan) France (Métropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente)');
   });
 
   it('_search_location contains coords', () => {

@@ -104,13 +104,13 @@ describe('02 - event search - functional: Applied search', function() {
       it('events can be filtered by member', async () => {
         const { events, total } = await service('bdx')
           .search({ memberUid: 75052324 }, {});
-        total.should.equal(208);
+        total.should.equal(207);
       });
 
       it('events can be filtered by multiple members', async () => {
         const { events, total } = await service('bdx')
           .search({ memberUid: [75052324, 65133249] }, {});
-        total.should.equal(219);
+        total.should.equal(218);
       });
 
       it('events can be filtered by origin agenda', async () => {
@@ -126,7 +126,7 @@ describe('02 - event search - functional: Applied search', function() {
           city: 'Bordeaux'
         }, {});
 
-        total.should.equal(94);
+        total.should.equal(93);
       });
 
       it('filter by department', async () => {
@@ -134,7 +134,7 @@ describe('02 - event search - functional: Applied search', function() {
           department: 'Gironde'
         }, {});
 
-        total.should.equal(334);
+        total.should.equal(333);
       });
 
       it('scroll through results', async () => {
@@ -182,7 +182,7 @@ describe('02 - event search - functional: Applied search', function() {
           'thematiques-bordeaux-metropole' : 9
         }, {}, { formSchema });
 
-        total.should.equal(112);
+        total.should.equal(111);
 
         for (const event of events) {
           event['thematiques-bordeaux-metropole']
@@ -384,17 +384,20 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('regions aggregation', () => {
           agg.regions.should.eql([
-            { key: 'Nouvelle-Aquitaine', eventCount: 339 },
+            { key: 'Nouvelle-Aquitaine', eventCount: 338 },
             { key: 'Île-de-France', eventCount: 1 }
           ]);
         });
 
         it('departments aggregation', () => {
-          agg.departments[0].should.eql({ key: 'Gironde', eventCount: 334 });
+          agg.departments[0].should.eql({ key: 'Gironde', eventCount: 333 });
         });
 
         it('cities aggregation', () => {
-          agg.cities[0].should.eql({ key: 'Bordeaux', eventCount: 94 });
+          agg.cities[0].should.eql({
+            key: 'Bordeaux',
+            eventCount: 93
+          });
         });
 
       });
@@ -419,7 +422,7 @@ describe('02 - event search - functional: Applied search', function() {
           agg[0].should.eql({
             key: '75052324',
             member: { uid: 75052324, name: 'Kaoré - OpenAgenda' },
-            eventCount: 208
+            eventCount: 207
           });
         });
 
@@ -454,6 +457,27 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
+      describe('pastAndUpcoming', () => {
+        let agg, total;
+
+        before(async () => {
+          const result = await service('bdx').search({ state: null }, { size: 0 }, {
+            aggregations: 'pastAndUpcoming'
+          });
+
+          agg = result.aggregations.pastAndUpcoming;
+          total = result.total;
+        });
+
+        it('provides two sets, one for past events, the other for upcoming', () => {
+          agg.map(s => s.key).should.eql(['past', 'upcoming']);
+        });
+
+        it('sum of past & upcoming matches total', () => {
+          agg.reduce((sum, { eventCount }) => sum+=eventCount, 0).should.equal(total);
+        });
+      });
+
       describe('timespan', () => {
         let timespanAggregation;
 
@@ -474,6 +498,32 @@ describe('02 - event search - functional: Applied search', function() {
           timespanAggregation.last.should.eql(
             new Date('2021-01-09T13:00:00.000Z')
           );
+        });
+      });
+
+      describe('states', () => {
+        let statesAggregation;
+
+        before(async () => {
+          const result = await service('bdx').search({ state: null }, { size: 0 }, {
+            detailed: true,
+            aggregations: 'states'
+          });
+
+          statesAggregation = result.aggregations.states;
+        });
+
+        it('provides count for each state', () => {
+          statesAggregation.should.eql([{
+            key: 2,
+            eventCount: 343
+          }, {
+            key: 0,
+            eventCount: 1
+          }, {
+            key: 1,
+            eventCount: 1
+          }]);
         });
       });
 
@@ -538,7 +588,7 @@ describe('02 - event search - functional: Applied search', function() {
             value: 'culture',
             label: { fr: 'Culture' },
             legacyId: null,
-            eventCount: 45
+            eventCount: 44
           });
         });
 

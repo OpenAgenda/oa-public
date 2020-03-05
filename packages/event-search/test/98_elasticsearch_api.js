@@ -6,7 +6,7 @@ const elasticsearch = require('@elastic/elasticsearch');
 const config = require('../testconfig').elasticsearch;
 
 describe('98 - event-search - unit: used elasticsearch api calls', function() {
-  this.timeout(10000);
+  this.timeout(20000);
 
   let client;
 
