@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-search",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -15,12 +15,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.0.0",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/date-range": "^2.1.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.2.2",
-    "@elastic/elasticsearch" : "^7.0.0",
     "axios": "^0.19.0",
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.4",
