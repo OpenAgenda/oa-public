@@ -13,7 +13,7 @@ const eventValidators = {
   references: require( './validators/references' )
 }
 
-const labels = require( '@openagenda/labels/event/form' );
+const labels = _fillInTheBlanks(require('@openagenda/labels/event/form'));
 
 const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
 
@@ -231,4 +231,16 @@ function _hasReferencesField( schemaExtensions ) {
   return !!_.flatten(
     schemaExtensions.filter(s => !!s && s.fields).map(s => s.fields)
   ).filter(f => f.field === 'references').length;
+}
+
+function _fillInTheBlanks(labels, defaultLang = 'en') {
+  Object.keys(labels).forEach(field => {
+    Object.keys(labels[field]).forEach(lang => {
+      if (!labels[field][lang].length) {
+        labels[field][lang] = labels[field][defaultLang];
+      }
+    });
+  });
+
+  return labels;
 }

@@ -13,9 +13,9 @@ module.exports = (event, formSchema = null) => {
   const transform = {};
 
   if (event.location) {
-    const country = _.get(countries,
+    const country = _clearEmptyLabels(_.get(countries,
       (_.get(event, 'location.countryCode') || '').toUpperCase()
-    , {});
+    , {}));
     transform.country = {
       $set: country
     };
@@ -142,3 +142,14 @@ function _searchFullAddressText(location, country) {
     .concat(Object.values(country))
     .join(' ');
 }
+
+function _clearEmptyLabels(labels) {
+  return Object.keys(labels)
+    .filter(lang => labels[lang].length)
+    .reduce((filtered, lang) => ({
+      ...filtered,
+      [lang]: labels[lang]
+    }), {});
+}
+
+

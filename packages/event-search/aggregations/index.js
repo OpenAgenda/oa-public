@@ -10,9 +10,11 @@ const aggregationTypes = {
   keywords: require('./keywords'),
   members: require('./members'),
   additionalFields: require('./additionalFields'),
+  states: require('./states'),
   regions: geo('region'),
   departments: geo('department'),
-  cities: geo('city')
+  cities: geo('city'),
+  pastAndUpcoming: require('./pastAndUpcoming')
 }
 
 module.exports = {
