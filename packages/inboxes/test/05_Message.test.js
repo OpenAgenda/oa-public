@@ -1,57 +1,69 @@
 import _ from 'lodash';
 import VError from 'verror';
-import Inboxes, { config, initAndLoad, seed } from './service';
+import { initAndLoad, seed } from './service';
 import testconfig from '../testconfig';
 
 const database = testconfig.mysql.database + '_Message';
-const tables = [ 'inbox', 'inboxUser', 'conversation', 'inboxConversation', 'message' ];
+const tables = [
+  'inbox',
+  'inboxUser',
+  'conversation',
+  'inboxConversation',
+  'message'
+];
 
-describe( 'Message', () => {
+describe('Message', () => {
+  let service;
+  let Inbox;
+  let InboxUsers;
+  let InboxUser;
+  let Conversations;
+  let Conversation;
 
-  beforeAll( async () => {
+  beforeAll(async () => {
+    service = await initAndLoad(
+      {
+        ...testconfig,
+        mysql: { ...testconfig.mysql, database }
+      },
+      []
+    );
 
-    await initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    }, [] );
+    ({ Inbox, InboxUsers, InboxUser, Conversations, Conversation } = service);
+  });
 
-  } );
-
-  beforeEach( async () => {
-
-    await config.knex.transaction( async trx => {
-      await trx.raw( `SET foreign_key_checks = 0` );
-      for ( const table of tables ) {
-        await trx( config.schemas[ table ] ).truncate();
+  beforeEach(async () => {
+    await service.config.knex.transaction(async trx => {
+      await trx.raw(`SET foreign_key_checks = 0`);
+      for (const table of tables) {
+        await trx(service.config.schemas[table]).truncate();
       }
-      await trx.raw( `SET foreign_key_checks = 1` );
-    } );
+      await trx.raw(`SET foreign_key_checks = 1`);
+    });
 
-    await seed( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    }, tables );
+    await seed(
+      {
+        ...testconfig,
+        mysql: { ...testconfig.mysql, database }
+      },
+      tables
+    );
+  });
 
-  } );
+  afterAll(async () => {
+    await service.config.knex.raw(`DROP DATABASE IF EXISTS ${database}`);
+    await service.config.knex.destroy();
+  });
 
-  afterAll( async () => {
-
-    await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
-    await config.knex.destroy();
-
-  } );
-
-  describe( 'create', () => {
-
-    test( 'create a message - by inboxes endpoint', async () => {
-
-      const conversation = await Inboxes( 1 ).conversations.get( 1 );
-      const message = await conversation.messages.create( {
+  describe('create', () => {
+    test('create a message - by inboxes endpoint', async () => {
+      const conversation = await new Inbox(1).conversations.get(1);
+      const message = await conversation.messages.create({
         body: 'Salut toi, mets moi admin, et vite ! 🎉',
         userUid: 23456789
-      } );
+      });
 
-      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).toEqual({
+      expect(_.omit(message.toJSON(), 'createdAt', 'id')).toEqual({
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite ! 🎉',
         attachments: [],
@@ -60,7 +72,8 @@ describe( 'Message', () => {
           inboxId: 1,
           userUid: 23456789,
           name: 'Jean-Roger Benbambou',
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
           uid: 23456789
         },
@@ -73,17 +86,15 @@ describe( 'Message', () => {
           uid: 48959239
         }
       });
+    });
 
-    } );
-
-    test( 'create a message - by user endpoint', async () => {
-
-      const conversation = await Inboxes.user( 99999999 ).conversations.get( 1 );
-      const message = await conversation.messages.create( {
+    test('create a message - by user endpoint', async () => {
+      const conversation = await Inbox.user(99999999).conversations.get(1);
+      const message = await conversation.messages.create({
         body: 'Salut toi, mets moi admin, et vite !'
-      } );
+      });
 
-      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).toEqual({
+      expect(_.omit(message.toJSON(), 'createdAt', 'id')).toEqual({
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
         attachments: [],
@@ -92,7 +103,8 @@ describe( 'Message', () => {
           inboxId: 2,
           userUid: 99999999,
           name: 'Jean-Roger Benbambou',
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
           uid: 99999999
         },
@@ -100,53 +112,55 @@ describe( 'Message', () => {
           id: 2,
           type: 'user',
           identifier: 99999999,
-          name: 'L\'admin',
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          name: "L'admin",
+          avatar:
+            'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           uid: 99999999
         }
       });
+    });
 
-    } );
-
-    test( 'create a message - by inboxes endpoint with missing userUid', async () => {
-
-      const conversation = await Inboxes( 1 ).conversations.get( 1 );
+    test('create a message - by inboxes endpoint with missing userUid', async () => {
+      const conversation = await new Inbox(1).conversations.get(1);
 
       try {
-        await conversation.messages.create( {
+        await conversation.messages.create({
           body: 'Salut toi, mets moi admin, et vite !'
-        } );
-      } catch ( err ) {
-        expect( VError.info( err ).errors.userUid.code ).toBe('required');
+        });
+      } catch (err) {
+        expect(VError.info(err).errors.userUid.code).toBe('required');
       }
+    });
 
-    } );
-
-    test( 'create a message - by inboxes endpoint with inexistant inboxUser', async () => {
-
-      const conversation = await Inboxes( 1 ).conversations.get( 1 );
+    test('create a message - by inboxes endpoint with inexistant inboxUser', async () => {
+      const conversation = await new Inbox(1).conversations.get(1);
 
       try {
-        await conversation.messages.create( {
+        await conversation.messages.create({
           body: 'Salut toi, mets moi admin, et vite !',
           userUid: 23456790
-        } );
-      } catch ( err ) {
-        expect( err.message ).toBe('InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }');
+        });
+      } catch (err) {
+        expect(err.message).toBe(
+          'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }'
+        );
       }
+    });
 
-    } );
+    test('create a message - createInboxUserOnNull option create the inexistant inboxUser', async () => {
+      const conversation = await new Inbox(1).conversations.get(1);
 
-    test( 'create a message - createInboxUserOnNull option create the inexistant inboxUser', async () => {
+      const message = await conversation.messages.create(
+        {
+          body: 'Salut toi, mets moi admin, et vite !',
+          userUid: 78945621
+        },
+        { createInboxUserOnNull: true }
+      );
 
-      const conversation = await Inboxes( 1 ).conversations.get( 1 );
-
-      const message = await conversation.messages.create( {
-        body: 'Salut toi, mets moi admin, et vite !',
-        userUid: 78945621
-      }, { createInboxUserOnNull: true } );
-
-      expect( _.omit( message.toJSON(), 'createdAt', 'id', 'inboxUser.id' ) ).toEqual({
+      expect(
+        _.omit(message.toJSON(), 'createdAt', 'id', 'inboxUser.id')
+      ).toEqual({
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
         attachments: [],
@@ -156,7 +170,8 @@ describe( 'Message', () => {
           leftAt: null,
           uid: 78945621,
           name: 'Jean-Roger Benbambou',
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
         },
         inbox: {
           id: 1,
@@ -167,29 +182,26 @@ describe( 'Message', () => {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
         }
       });
+    });
+  });
 
-    } );
+  describe('get', () => {
+    test('get a message by his id', async () => {
+      const conversation = await new Inbox(1).conversations.get(1);
+      const message = await conversation.messages.get(1);
 
-  } );
-
-  describe( 'get', () => {
-
-    test( 'get a message by his id', async () => {
-
-      const conversation = await Inboxes( 1 ).conversations.get( 1 );
-      const message = await conversation.messages.get( 1 );
-
-      expect( _.omit( message.toJSON(), 'createdAt' ) ).toEqual({
+      expect(_.omit(message.toJSON(), 'createdAt')).toEqual({
         id: 1,
         conversationId: 1,
-        body: 'Salut, ca marche pas ! comment qu\'on fé ?',
+        body: "Salut, ca marche pas ! comment qu'on fé ?",
         attachments: [],
         inboxUser: {
           id: 1,
           inboxId: 1,
           userUid: 23456789,
           name: 'Jean-Roger Benbambou',
-          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          avatar:
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
           uid: 23456789
         },
@@ -202,21 +214,17 @@ describe( 'Message', () => {
           uid: 48959239
         }
       });
+    });
+  });
 
-    } );
-
-  } );
-
-  describe( 'list', () => {
-
-    test( 'list messages of a conversation - by inboxes endpoint', async () => {
-
-      const conversation = await Inboxes( 1 ).conversations.get( 1 );
+  describe('list', () => {
+    test('list messages of a conversation - by inboxes endpoint', async () => {
+      const conversation = await new Inbox(1).conversations.get(1);
       const messages = await conversation.messages.list();
 
-      const result = messages.toJSON().map( v => _.omit( v, 'createdAt' ) );
+      const result = messages.toJSON().map(v => _.omit(v, 'createdAt'));
 
-      expect( result ).toEqual([
+      expect(result).toEqual([
         {
           id: 2,
           conversationId: 1,
@@ -226,22 +234,24 @@ describe( 'Message', () => {
             id: 2,
             type: 'user',
             identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            name: "L'admin",
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             uid: 99999999
           }
         },
         {
           id: 1,
           conversationId: 1,
-          body: 'Salut, ca marche pas ! comment qu\'on fé ?',
+          body: "Salut, ca marche pas ! comment qu'on fé ?",
           attachments: [],
           inboxUser: {
             id: 1,
             inboxId: 1,
             userUid: 23456789,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
             uid: 23456789
           },
@@ -255,17 +265,15 @@ describe( 'Message', () => {
           }
         }
       ]);
+    });
 
-    } );
-
-    test( 'list messages of a conversation - by user endpoint', async () => {
-
-      const conversation = await Inboxes.user( 99999999 ).conversations.get( 1 );
+    test('list messages of a conversation - by user endpoint', async () => {
+      const conversation = await Inbox.user(99999999).conversations.get(1);
       const messages = await conversation.messages.list();
 
-      const result = messages.toJSON().map( v => _.omit( v, 'createdAt' ) );
+      const result = messages.toJSON().map(v => _.omit(v, 'createdAt'));
 
-      expect( result ).toEqual([
+      expect(result).toEqual([
         {
           id: 2,
           conversationId: 1,
@@ -276,7 +284,8 @@ describe( 'Message', () => {
             inboxId: 2,
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
-            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            avatar:
+              'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
             uid: 99999999
           },
@@ -284,15 +293,16 @@ describe( 'Message', () => {
             id: 2,
             type: 'user',
             identifier: 99999999,
-            name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            name: "L'admin",
+            avatar:
+              'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
             uid: 99999999
           }
         },
         {
           id: 1,
           conversationId: 1,
-          body: 'Salut, ca marche pas ! comment qu\'on fé ?',
+          body: "Salut, ca marche pas ! comment qu'on fé ?",
           attachments: [],
           inbox: {
             id: 1,
@@ -304,9 +314,6 @@ describe( 'Message', () => {
           }
         }
       ]);
-
-    } );
-
-  } );
-
-} );
+    });
+  });
+});

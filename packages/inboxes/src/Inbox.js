@@ -3,7 +3,6 @@ import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import VError from 'verror';
 import logger from '@openagenda/logs';
-import { knex, schemas, interfaces } from './config';
 import mapper from './utils/mapper';
 import fieldsMap from './db/inboxFieldsMap';
 import validate from './utils/validate';
@@ -18,29 +17,32 @@ ajvErrors( ajv );
 
 
 export default class Inbox {
-  constructor( identifiers ) {
+  constructor( config, identifiers ) {
     if ( typeof identifiers === 'number' ) {
       identifiers = { id: identifiers };
     }
 
+    this.config = config;
     this.identifiers = identifiers;
-    this.users = new InboxUsers( { inbox: this } );
-    this.conversations = new Conversations( { inbox: this } );
+    this.users = new InboxUsers( config, { inbox: this } );
+    this.conversations = new Conversations( config, { inbox: this } );
   }
 
-  static user( userUid ) {
+  static user( config, userUid ) {
     return {
-      conversations: new Conversations( {
+      conversations: new Conversations( config, {
         userUid,
-        inbox: new Inbox( { type: 'user', identifier: userUid } )
+        inbox: new Inbox( config, { type: 'user', identifier: userUid } )
       } )
     };
   }
 
   async create( data, options ) {
+    const { knex, schemas, interfaces } = this.config;
+
     validate( ajv, createSchema, data );
 
-    const inbox = await new Inbox( data )._get( options );
+    const inbox = await new Inbox( this.config, data )._get( options );
     if ( inbox.data ) {
       return inbox;
     }
@@ -74,6 +76,8 @@ export default class Inbox {
   }
 
   async remove() {
+    const { knex, schemas } = this.config;
+
     await this.get();
 
     if ( !this.data ) {
@@ -91,6 +95,8 @@ export default class Inbox {
   }
 
   async _get( options ) {
+    const { knex, schemas } = this.config;
+
     validate( ajv, getIdentifiersSchema( this.identifiers ), this.identifiers );
 
     const data = await knex( schemas.inbox )

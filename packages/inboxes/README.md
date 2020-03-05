@@ -179,11 +179,11 @@ Users can be added and removed through an inbox
 
 Conversations of an inbox can be listed through the inbox endpoint:
 
-    const conversations = await inboxes( idOfTheInbox ).conversations( {filters}, offset, limit, {options} );
+    const conversations = await new Inbox( idOfTheInbox ).conversations( {filters}, offset, limit, {options} );
 
 A user with one identifier can be linked to several inboxes. It is possible to list conversations based on an external user identifier
 
-    const conversations = inboxes.user( { identifier } ).conversations( {filters}, offset, limit, {options} );
+    const conversations = new Inbox.user( { identifier } ).conversations( {filters}, offset, limit, {options} );
 
 See Model section for details on listing conversations
 

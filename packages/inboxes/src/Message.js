@@ -3,7 +3,6 @@ import VError from 'verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import logger from '@openagenda/logs';
-import { knex, schemas, interfaces } from './config';
 import mapper from './utils/mapper';
 import messageFieldsMap from './db/messageFieldsMap';
 import inboxUserFieldsMap from './db/inboxUserFieldsMap';
@@ -20,11 +19,12 @@ ajvErrors( ajv );
 
 
 export default class Message {
-  constructor( identifiers, options ) {
+  constructor( config, identifiers, options ) {
     if ( typeof identifiers === 'number' ) {
       identifiers = { id: identifiers };
     }
 
+    this.config = config;
     this.identifiers = identifiers;
     this.inbox = options.inbox;
     this.conversation = options.conversation;
@@ -32,6 +32,8 @@ export default class Message {
   }
 
   async create( data, options ) {
+    const { knex, schemas, interfaces } = this.config;
+
     const params = _.merge( {
       createInboxUserOnNull: false,
       createdAt: null
@@ -78,6 +80,8 @@ export default class Message {
   }
 
   async get( options ) {
+    const { knex, schemas } = this.config;
+
     await this._loadConversation();
 
     if ( !options || !options.latest ) {
@@ -129,14 +133,16 @@ export default class Message {
       row ? {} : null
     );
 
-    this.data = await populateDetails( result, this.inbox );
+    this.data = await populateDetails( this.config, result, this.inbox );
 
-    this.data = await populateAttachments( result );
+    this.data = await populateAttachments( this.config, result );
 
     return this;
   }
 
   async addAttachment( data ) {
+    const { knex, schemas } = this.config;
+
     await this.get();
 
     if ( !this.data ) {

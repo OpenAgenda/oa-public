@@ -3,7 +3,6 @@ import VError from 'verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import logger from '@openagenda/logs';
-import { knex, schemas } from './config';
 import mapper from './utils/mapper';
 import fieldsMap from './db/inboxUserFieldsMap';
 import validate from './utils/validate';
@@ -17,16 +16,19 @@ ajvErrors( ajv );
 
 
 export default class InboxUser {
-  constructor( identifiers, options ) {
+  constructor( config, identifiers, options ) {
     if ( typeof identifiers === 'number' ) {
       identifiers = { id: identifiers };
     }
 
+    this.config = config;
     this.identifiers = identifiers;
     this.inbox = options && options.inbox;
   }
 
   async create( data, options ) {
+    const { knex, schemas } = this.config;
+
     await this._loadInbox();
 
     data = {
@@ -36,7 +38,7 @@ export default class InboxUser {
 
     validate( ajv, createSchema, data );
 
-    const inboxUser = await new InboxUser( data, { inbox: this.inbox } ).get( options );
+    const inboxUser = await new InboxUser( this.config, data, { inbox: this.inbox } ).get( options );
 
     if ( inboxUser.data ) {
       this.identifiers = { ...this.identifiers, id: inboxUser.data.id };
@@ -65,6 +67,8 @@ export default class InboxUser {
   }
 
   async get( options ) {
+    const { knex, schemas } = this.config;
+
     const params = _.merge( {
       detailed: false,
       createOnNull: false
@@ -94,10 +98,13 @@ export default class InboxUser {
 
     this.data = do {
       if ( params.detailed && result ) {
-        await populateDetails( {
-          inboxUser: result,
-          inboxUserId: result.id,
-        }, this.inbox );
+        await populateDetails(
+          this.config,
+          {
+            inboxUser: result,
+            inboxUserId: result.id,
+          },
+          this.inbox );
       }
       result;
     };
@@ -106,6 +113,8 @@ export default class InboxUser {
   }
 
   async remove() {
+    const { knex, schemas } = this.config;
+
     await this.get();
 
     if ( !this.data ) {

@@ -1,12 +1,11 @@
-import { promisify, callbackify } from 'util';
+import { promisify } from 'util';
 import _ from 'lodash';
 import VError from 'verror';
 import queueLib from '@openagenda/queue';
 import logs from '@openagenda/logs';
-import { services, queues, redis } from '../config';
-import Inboxes from '../';
+import Inbox from '../Inbox';
 
-const log = logs( 'inboxes/tasks/sync' );
+const log = logs('inboxes/tasks/sync');
 
 /*
 * - sync route per agenda
@@ -14,8 +13,10 @@ const log = logs( 'inboxes/tasks/sync' );
 * - weekly complete task
 * */
 
-export default async function syncTask() {
-  const q = queueLib( queues.inboxesSync, { redis } );
+export default async function syncTask(config) {
+  const { queues, redis } = config;
+
+  const q = queueLib(queues.inboxesSync, { redis });
   const stats = {
     usersToSync: 0,
     agendasToSync: 0,
@@ -26,11 +27,11 @@ export default async function syncTask() {
     inboxUsersRemoved: 0
   };
 
-  if ( !await q.len() ) {
+  if (!await q.len()) {
     try {
-      await defineJob( q, stats );
-    } catch ( e ) {
-      return log( 'error', 'Error on jobs definition', e );
+      await defineJob(config, q, stats);
+    } catch (e) {
+      return log('error', 'Error on jobs definition', e);
     }
   }
 
@@ -38,106 +39,112 @@ export default async function syncTask() {
   let i = 0;
   const total = await q.len();
 
-  while ( data = await q.pop() ) {
+  while (data = await q.pop()) {
     try {
-      log( 'Process job n°%d/%d', i + 1, total );
-      await processJob( data, stats );
-    } catch ( e ) {
-      log( 'error', 'Error on sync process: job n°%d:\n%j', i + 1, data, VError.fullStack( e ) );
+      log('Process job n°%d/%d', i + 1, total);
+      await processJob(config, data, stats);
+    } catch (e) {
+      log('error', 'Error on sync process: job n°%d:\n%j', i + 1, data, VError.fullStack(e));
     }
 
     i++;
   }
 
-  log( 'info', stats );
+  log('info', stats);
 }
 
-export async function defineJob( q, stats ) {
+export async function defineJob(config, q, stats) {
+  const { services } = config;
+
   const agendasSvc = services.agendas();
   const usersSvc = services.users();
-  const agendasList = promisify( agendasSvc.list );
+  const agendasList = promisify(agendasSvc.list);
 
   const limit = 200;
   let pos = 0;
   let users;
 
-  while ( users = (await usersSvc.find( { query: { $skip: pos, $limit: limit } } )) ) {
-    if ( !users.length ) break;
+  while (users = (await usersSvc.find({ query: { $skip: pos, $limit: limit } }))) {
+    if (!users.length) break;
     pos = pos + users.length;
 
-    log( 'info', 'users %d-%d queued to sync', pos - users.length, pos );
+    log('info', 'users %d-%d queued to sync', pos - users.length, pos);
 
-    for ( const user of users ) {
-      upStats( stats, 'usersToSync' );
-      await q( { user } );
+    for (const user of users) {
+      upStats(stats, 'usersToSync');
+      await q({ user });
     }
   }
 
-  log( 'info', 'Total of %d users queued to sync', stats.usersToSync );
+  log('info', 'Total of %d users queued to sync', stats.usersToSync);
 
   pos = 0;
   let agendas;
 
-  while ( agendas = await agendasList( pos, limit, { private: null, internal: true } ) ) {
-    if ( !agendas.length ) break;
+  while (agendas = await agendasList(pos, limit, { private: null, internal: true })) {
+    if (!agendas.length) break;
     pos = pos + agendas.length;
 
-    log( 'info', 'agendas %d-%d queued to sync', pos - agendas.length, pos );
+    log('info', 'agendas %d-%d queued to sync', pos - agendas.length, pos);
 
-    for ( const agenda of agendas ) {
-      upStats( stats, 'agendasToSync' );
-      await q( { agenda } );
+    for (const agenda of agendas) {
+      upStats(stats, 'agendasToSync');
+      await q({ agenda });
     }
   }
 
-  log( 'info', 'Total of %d agendas queued to sync', stats.agendasToSync );
+  log('info', 'Total of %d agendas queued to sync', stats.agendasToSync);
 }
 
-export async function processJob( data, stats ) {
-  if ( data.user ) {
-    await syncUser( data.user, stats );
+export async function processJob(config, data, stats) {
+  if (data.user) {
+    await syncUser(config, data.user, stats);
   }
 
-  if ( data.agenda ) {
-    await syncAgenda( data.agenda, stats );
+  if (data.agenda) {
+    await syncAgenda(config, data.agenda, stats);
   }
 }
 
 
-export async function syncUser( user, stats ) {
-  // create Inbox
+export async function syncUser(config, user, stats) {
+  const { services, queues, redis } = config;
+
+  // create inbox
   const inboxIdentifiers = { type: 'user', identifier: user.uid };
-  const Inbox = await new Inboxes( inboxIdentifiers ).get( { createOnNull: false } );
+  const inbox = await new Inbox(config, inboxIdentifiers).get({ createOnNull: false });
 
-  if ( !Inbox.data ) {
-    await Inbox.create( inboxIdentifiers );
-    upStats( stats, 'userInboxesCreated' );
-    log( 'info', 'Inbox %j is created', inboxIdentifiers );
+  if (!inbox.data) {
+    await inbox.create(inboxIdentifiers);
+    upStats(stats, 'userInboxesCreated');
+    log('info', 'Inbox %j is created', inboxIdentifiers);
   }
 
   // add InboxUser
   const inboxUserIdentifiers = { userUid: user.uid };
-  const inboxUser = await Inbox.users.get( inboxUserIdentifiers );
+  const inboxUser = await inbox.users.get(inboxUserIdentifiers);
 
-  if ( !inboxUser.data ) {
-    await Inbox.users.add( { userUid: user.uid } );
-    upStats( stats, 'inboxUsersAdded' );
-    log( 'info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
+  if (!inboxUser.data) {
+    await inbox.users.add({ userUid: user.uid });
+    upStats(stats, 'inboxUsersAdded');
+    log('info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers);
   }
 }
 
-export async function syncAgenda( agenda, stats ) {
+export async function syncAgenda(config, agenda, stats) {
+  const { services } = config;
+
   const membersSvc = services.members();
   const usersSvc = services.users();
 
-  // create Inbox
+  // create inbox
   const inboxIdentifiers = { type: 'agenda', identifier: agenda.uid };
-  const Inbox = await new Inboxes( inboxIdentifiers ).get( { createOnNull: false } );
+  const inbox = await new Inbox(config, inboxIdentifiers).get({ createOnNull: false });
 
-  if ( !Inbox.data ) {
-    await Inbox.create( inboxIdentifiers );
-    upStats( stats, 'agendaInboxesCreated' );
-    log( 'info', 'Inbox %j is created', inboxIdentifiers );
+  if (!inbox.data) {
+    await inbox.create(inboxIdentifiers);
+    upStats(stats, 'agendaInboxesCreated');
+    log('info', 'Inbox %j is created', inboxIdentifiers);
   }
 
   // add InboxUsers
@@ -156,18 +163,18 @@ export async function syncAgenda( agenda, stats ) {
     // { detailed: true }
   );
 
-  while ( result = await shList() ) {
-    if ( !result.length ) break;
+  while (result = await shList()) {
+    if (!result.length) break;
     pos = pos + result.length;
 
-    Array.prototype.push.apply( members, result );
+    Array.prototype.push.apply(members, result);
   }
 
   pos = 0;
   const users = [];
-  const userUids = _.map( members, 'userUid' );
+  const userUids = _.map(members, 'userUid');
 
-  while ( result = (await usersSvc.find( {
+  while (result = (await usersSvc.find({
     query: {
       uid: {
         $in: userUids
@@ -176,41 +183,41 @@ export async function syncAgenda( agenda, stats ) {
       $limit: limit
     },
     removed: null
-  } )) ) {
-    if ( !result.length ) break;
+  }))) {
+    if (!result.length) break;
     pos = pos + limit;
 
-    Array.prototype.push.apply( users, result );
+    Array.prototype.push.apply(users, result);
   }
 
-  for ( const member of members ) {
+  for (const member of members) {
     const inboxUserIdentifiers = { userUid: member.userUid };
 
     if (!member.deletedUser && member.userUid) {
-      const inboxUser = await Inbox.users.get( inboxUserIdentifiers );
+      const inboxUser = await inbox.users.get(inboxUserIdentifiers);
       const isAdminMod = [2, 3].includes(parseInt(member.role, 10));
 
-      if ( isAdminMod && !inboxUser.data ) {
-        await Inbox.users.add( inboxUserIdentifiers );
-        upStats( stats, 'inboxUsersAdded' );
-        log( 'info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
+      if (isAdminMod && !inboxUser.data) {
+        await inbox.users.add(inboxUserIdentifiers);
+        upStats(stats, 'inboxUsersAdded');
+        log('info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers);
       } else if (isAdminMod && inboxUser.data && inboxUser.data.leftAt) {
-        await Inbox.users.remove( inboxUserIdentifiers );
-        await Inbox.users.add( inboxUserIdentifiers );
-        upStats( stats, 'inboxUsersUpdated' );
-        log( 'info', 'InboxUser %j is updated in inbox %j', inboxUserIdentifiers, inboxIdentifiers );
-      } else if ( !isAdminMod && inboxUser.data ) {
-        await Inbox.users.remove( inboxUserIdentifiers );
-        upStats( stats, 'inboxUsersRemoved' );
-        log( 'info', 'InboxUser %j is removed to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
+        await inbox.users.remove(inboxUserIdentifiers);
+        await inbox.users.add(inboxUserIdentifiers);
+        upStats(stats, 'inboxUsersUpdated');
+        log('info', 'InboxUser %j is updated in inbox %j', inboxUserIdentifiers, inboxIdentifiers);
+      } else if (!isAdminMod && inboxUser.data) {
+        await inbox.users.remove(inboxUserIdentifiers);
+        upStats(stats, 'inboxUsersRemoved');
+        log('info', 'InboxUser %j is removed to inbox %j', inboxUserIdentifiers, inboxIdentifiers);
       }
     }
   }
 }
 
 
-function upStats( stats, key ) {
-  if ( stats ) {
-    _.set( stats, key, _.get( stats, key, 0 ) + 1 );
+function upStats(stats, key) {
+  if (stats) {
+    _.set(stats, key, _.get(stats, key, 0) + 1);
   }
 }

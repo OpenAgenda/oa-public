@@ -4,7 +4,6 @@ const planer = require('planer');
 const { JSDOM } = require('jsdom');
 const TurndownService = require('turndown');
 const { addressParser } = require('@openagenda/mails');
-const Inboxes = require('@openagenda/inboxes').default;
 const log = require('@openagenda/logs')('service/mails/incomingEmails');
 
 const turndownService = new TurndownService();
@@ -19,6 +18,7 @@ const REFERENCE_REG = /inboxMessage\/(\d+)@mail\.openagenda\.com/i;
 module.exports = ({ services }) => async (req, res, next) => {
   try {
     const usersSvc = services.users;
+    const { Inbox } = services.inboxes;
 
     if (!req.body['X-Mailgun-Incoming']) {
       return res.sendStatus(200);
@@ -59,7 +59,7 @@ module.exports = ({ services }) => async (req, res, next) => {
       // throw new Error('User not found');
     }
 
-    const conversation = await Inboxes.user(user.uid).conversations.get(conversationId);
+    const conversation = await new Inbox.user(user.uid).conversations.get(conversationId);
 
     if (!conversation) {
       return res.sendStatus(200);

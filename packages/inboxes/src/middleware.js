@@ -4,25 +4,24 @@ import axios from 'axios';
 import mime from 'mime-types';
 import VError from 'verror';
 import logs from '@openagenda/logs';
-import Inboxes from './';
+import Inbox from './Inbox';
 import Conversations from './Conversations';
-import { aws, knex, schemas } from './config';
 
 const log = logs('inboxes/middleware');
 
 export let config;
 
-export function init( c ) {
+export function init(c) {
   config = c;
 }
 
 /* User enpoints */
 
-export function user( namespace ) {
+export function user(namespace) {
   return {
     conversations: {
-      list( options ) {
-        const { namespaces, ...params } = _.merge( {
+      list(options) {
+        const { namespaces, ...params } = _.merge({
           namespaces: {
             query: {
               typeIdentifier: 'query.typeIdentifier',
@@ -31,27 +30,27 @@ export function user( namespace ) {
             total: 'query.total'
           },
           limit: 20
-        }, options );
+        }, options);
 
-        return wrap( async ( req, res ) => {
-          const query = _.pickBy( {
-            type: _.get( req, namespaces.query.type ),
-            typeIdentifier: parseInt( _.get( req, namespaces.query.typeIdentifier ) )
-          } );
-          const limit = getLimit( config.mw.limit, params.limit );
-          const total = _.get( req, namespaces.total, false );
+        return wrap(async (req, res) => {
+          const query = _.pickBy({
+            type: _.get(req, namespaces.query.type),
+            typeIdentifier: parseInt(_.get(req, namespaces.query.typeIdentifier))
+          });
+          const limit = getLimit(config.mw.limit, params.limit);
+          const total = _.get(req, namespaces.total, false);
 
-          const conversations = await Inboxes
-            .user( _.get( req, namespace ) )
-            .conversations.list( query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, { total } );
+          const conversations = await Inbox
+            .user(config, _.get(req, namespace))
+            .conversations.list(query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, { total });
 
-          res.send( {
+          res.send({
             conversations: conversations.data || null,
             total: conversations.total || null,
             totalOpened: conversations.totalOpened || null,
             totalClosed: conversations.totalClosed || null
-          } );
-        } );
+          });
+        });
       }
     }
   };
@@ -60,50 +59,50 @@ export function user( namespace ) {
 /* Other enpoints */
 
 export const inboxUser = {
-  get( options ) {
-    const { namespaces, fallbackGetter } = _.merge( {
+  get(options) {
+    const { namespaces, fallbackGetter } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
         userUid: 'user.uid'
       },
       fallbackGetter: null
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
+    return wrap(async (req, res) => {
       const inboxIdentifiers = {
-        type: _.get( req, namespaces.type ),
-        identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        type: _.get(req, namespaces.type),
+        identifier: parseInt(_.get(req, namespaces.identifier)),
       };
-      const userUid = parseInt( _.get( req, namespaces.userUid ) );
+      const userUid = parseInt(_.get(req, namespaces.userUid));
 
-      let inbox = await Inboxes( inboxIdentifiers );
-      let inboxUser = await inbox.users.get( { userUid } );
+      let inbox = await new Inbox(config, inboxIdentifiers);
+      let inboxUser = await inbox.users.get({ userUid });
 
-      if ( inboxUser && inboxUser.data ) {
+      if (inboxUser && inboxUser.data) {
         inboxUser = Object.assign(
           {},
           inboxUser.toJSON(),
-          (await config.interfaces.getUsersDetails( [ inboxUser.data ] ))[ 0 ]
+          (await config.interfaces.getUsersDetails([inboxUser.data]))[0]
         );
-      } else if ( fallbackGetter ) {
-        inboxUser = await fallbackGetter( { req, inbox: inbox.data, userUid } );
+      } else if (fallbackGetter) {
+        inboxUser = await fallbackGetter({ req, inbox: inbox.data, userUid });
       }
 
       inbox = Object.assign(
         {},
         inbox.toJSON(),
-        (await config.interfaces.getInboxesDetails( [ inbox.data ] ))[ 0 ]
+        (await config.interfaces.getInboxesDetails([inbox.data]))[0]
       );
 
-      res.send( { inbox, inboxUser } );
-    } );
+      res.send({ inbox, inboxUser });
+    });
   }
 };
 
 export const conversations = {
-  create( options ) {
-    const { namespaces } = _.merge( {
+  create(options) {
+    const { namespaces } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
@@ -116,48 +115,51 @@ export const conversations = {
         options: 'options',
         userUid: 'user.uid'
       }
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
+    return wrap(async (req, res) => {
       const data = {
-        destinationInbox: _.get( req, namespaces.destinationInbox ),
-        type: _.get( req, namespaces.conversationType ),
-        params: _.get( req, namespaces.params ),
-        creatorInboxUser: _.get( req, namespaces.creatorInboxUser ),
-        message: _.get( req, namespaces.message )
+        destinationInbox: _.get(req, namespaces.destinationInbox),
+        type: _.get(req, namespaces.conversationType),
+        params: _.get(req, namespaces.params),
+        creatorInboxUser: _.get(req, namespaces.creatorInboxUser),
+        message: _.get(req, namespaces.message)
       };
 
-      const optionalData = _.pickBy( {
-        typeIdentifier: _.get( req, namespaces.conversationTypeIdentifier )
-      } );
+      const optionalData = _.pickBy({
+        typeIdentifier: _.get(req, namespaces.conversationTypeIdentifier)
+      });
 
-      const conversations = await new Conversations( {
-        userUid: parseInt( _.get( req, namespaces.userUid ) ),
-        inbox: await Inboxes( {
-          type: _.get( req, namespaces.type ),
-          identifier: parseInt( _.get( req, namespaces.identifier ) ),
-        } )
-      } );
+      const conversations = await new Conversations(config, {
+        userUid: parseInt(_.get(req, namespaces.userUid)),
+        inbox: await new Inbox(
+          config,
+          {
+            type: _.get(req, namespaces.type),
+            identifier: parseInt(_.get(req, namespaces.identifier)),
+          }
+        )
+      });
 
-      log.info( 'Middleware - conversation create', {
+      log.info('Middleware - conversation create', {
         ...data,
         ...optionalData
-      } );
+      });
 
       const conversation = await conversations.create(
         {
           ...data,
           ...optionalData
         },
-        _.get( req, namespaces.options )
+        _.get(req, namespaces.options)
       );
 
-      res.send( { conversation } );
-    } );
+      res.send({ conversation });
+    });
   },
 
-  list( options ) {
-    const { namespaces, ...params } = _.merge( {
+  list(options) {
+    const { namespaces, ...params } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
@@ -168,33 +170,36 @@ export const conversations = {
         total: 'query.total'
       },
       limit: 20
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
-      const query = _.pickBy( {
-        type: _.get( req, namespaces.query.type ),
-        typeIdentifier: parseInt( _.get( req, namespaces.query.typeIdentifier ) )
-      } );
-      const limit = getLimit( config.mw.limit, params.limit );
-      const total = _.get( req, namespaces.total, false );
+    return wrap(async (req, res) => {
+      const query = _.pickBy({
+        type: _.get(req, namespaces.query.type),
+        typeIdentifier: parseInt(_.get(req, namespaces.query.typeIdentifier))
+      });
+      const limit = getLimit(config.mw.limit, params.limit);
+      const total = _.get(req, namespaces.total, false);
 
-      const conversations = await new Inboxes( {
-        type: _.get( req, namespaces.type ),
-        identifier: parseInt( _.get( req, namespaces.identifier ) ),
-      } )
-        .conversations.list( query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, { total } );
+      const conversations = await new Inbox(
+        config,
+        {
+          type: _.get(req, namespaces.type),
+          identifier: parseInt(_.get(req, namespaces.identifier)),
+        }
+      )
+        .conversations.list(query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, { total });
 
-      res.send( {
+      res.send({
         conversations: conversations.data || null,
         total: conversations.total || null,
         totalOpened: conversations.totalOpened || null,
         totalClosed: conversations.totalClosed || null
-      } );
-    } );
+      });
+    });
   },
-/* options */
-  action( options ) {
-    const { namespaces } = _.merge( {
+  /* options */
+  action(options) {
+    const { namespaces } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
@@ -202,61 +207,61 @@ export const conversations = {
         userUid: 'user.uid',
         code: 'code'
       }
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
+    return wrap(async (req, res) => {
       try {
-        const conversation = await new Conversations( {
-          userUid: parseInt( _.get( req, namespaces.userUid ) ),
-          inbox: new Inboxes( {
-            type: _.get( req, namespaces.type ),
-            identifier: parseInt( _.get( req, namespaces.identifier ) ),
-          } )
-        } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+        const conversation = await new Conversations(config, {
+          userUid: parseInt(_.get(req, namespaces.userUid)),
+          inbox: new Inbox(config, {
+            type: _.get(req, namespaces.type),
+            identifier: parseInt(_.get(req, namespaces.identifier)),
+          })
+        }).get(parseInt(_.get(req, namespaces.conversationId)));
 
         await conversation.action(
-          _.get( req, namespaces.code ),
-          { userUid: parseInt( _.get( req, namespaces.userUid ) ) }
+          _.get(req, namespaces.code),
+          { userUid: parseInt(_.get(req, namespaces.userUid)) }
         );
 
-        return res.send( { conversation } );
-      } catch ( e ) {
-        if ( e.message === 'You cannot resolve a conversation two times' ) {
-          return res.status( 403 ).send( e );
+        return res.send({ conversation });
+      } catch (e) {
+        if (e.message === 'You cannot resolve a conversation two times') {
+          return res.status(403).send(e);
         }
       }
-    } );
+    });
   },
 
-  resume( options ) {
-    const { namespaces } = _.merge( {
+  resume(options) {
+    const { namespaces } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
         conversationId: 'conversation.id',
         userUid: 'user.uid'
       }
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
-      const conversation = await new Conversations( {
-        userUid: parseInt( _.get( req, namespaces.userUid ) ),
-        inbox: new Inboxes( {
-          type: _.get( req, namespaces.type ),
-          identifier: parseInt( _.get( req, namespaces.identifier ) ),
-        } )
-      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+    return wrap(async (req, res) => {
+      const conversation = await new Conversations(config, {
+        userUid: parseInt(_.get(req, namespaces.userUid)),
+        inbox: new Inbox(config, {
+          type: _.get(req, namespaces.type),
+          identifier: parseInt(_.get(req, namespaces.identifier)),
+        })
+      }).get(parseInt(_.get(req, namespaces.conversationId)));
 
-      await conversation.update( { closedAt: null }, { userUid: _.get( req, namespaces.userUid ) } );
+      await conversation.update({ closedAt: null }, { userUid: _.get(req, namespaces.userUid) });
 
-      res.send( { conversation } );
-    } );
+      res.send({ conversation });
+    });
   }
 };
 
 export const messages = {
-  list( options ) {
-    const { namespaces, ...params } = _.merge( {
+  list(options) {
+    const { namespaces, ...params } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
@@ -264,28 +269,28 @@ export const messages = {
         userUid: 'user.uid'
       },
       limit: 20
-    }, options );
+    }, options);
 
-    const limit = getLimit( config.mw.limit, params.limit );
+    const limit = getLimit(config.mw.limit, params.limit);
 
-    return wrap( async ( req, res ) => {
-      const conversation = await new Conversations( {
-        userUid: parseInt( _.get( req, namespaces.userUid ) ),
-        inbox: new Inboxes( {
-          type: _.get( req, namespaces.type ),
-          identifier: parseInt( _.get( req, namespaces.identifier ) ),
-        } )
-      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+    return wrap(async (req, res) => {
+      const conversation = await new Conversations(config, {
+        userUid: parseInt(_.get(req, namespaces.userUid)),
+        inbox: new Inbox(config, {
+          type: _.get(req, namespaces.type),
+          identifier: parseInt(_.get(req, namespaces.identifier)),
+        })
+      }).get(parseInt(_.get(req, namespaces.conversationId)));
 
       const messages = await conversation.messages
-        .list( (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, /* options */ );
+        .list((req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, /* options */);
 
-      res.send( { conversation, messages } );
-    } );
+      res.send({ conversation, messages });
+    });
   },
 
-  create( options ) {
-    const { namespaces } = _.merge( {
+  create(options) {
+    const { namespaces } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
@@ -294,32 +299,32 @@ export const messages = {
         body: 'body.body',
         options: 'options'
       }
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
-      const conversation = await new Conversations( {
-        userUid: parseInt( _.get( req, namespaces.userUid ) ),
-        inbox: new Inboxes( {
-          type: _.get( req, namespaces.type ),
-          identifier: parseInt( _.get( req, namespaces.identifier ) ),
-        } )
-      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+    return wrap(async (req, res) => {
+      const conversation = await new Conversations(config, {
+        userUid: parseInt(_.get(req, namespaces.userUid)),
+        inbox: new Inbox(config, {
+          type: _.get(req, namespaces.type),
+          identifier: parseInt(_.get(req, namespaces.identifier)),
+        })
+      }).get(parseInt(_.get(req, namespaces.conversationId)));
 
       const message = await conversation.messages
         .create(
           {
-            body: _.get( req, namespaces.body ),
-            userUid: _.get( req, namespaces.userUid )
+            body: _.get(req, namespaces.body),
+            userUid: _.get(req, namespaces.userUid)
           },
-          _.get( req, namespaces.options )
+          _.get(req, namespaces.options)
         );
 
-      res.send( { message } );
-    } );
+      res.send({ message });
+    });
   },
 
-  prepareAttachment( options ) {
-    const { namespaces, uppyOptions } = _.merge( {
+  prepareAttachment(options) {
+    const { namespaces, uppyOptions } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
@@ -345,40 +350,40 @@ export const messages = {
         secret: '***SECRET***',
         debug: false
       }
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
-      const messageId = parseInt( _.get( req, namespaces.messageId ) );
+    return wrap(async (req, res) => {
+      const messageId = parseInt(_.get(req, namespaces.messageId));
 
-      const conversation = await new Conversations( {
-        userUid: parseInt( _.get( req, namespaces.userUid ) ),
-        inbox: new Inboxes( {
-          type: _.get( req, namespaces.type ),
-          identifier: parseInt( _.get( req, namespaces.identifier ) ),
-        } )
-      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+      const conversation = await new Conversations(config, {
+        userUid: parseInt(_.get(req, namespaces.userUid)),
+        inbox: new Inbox(config, {
+          type: _.get(req, namespaces.type),
+          identifier: parseInt(_.get(req, namespaces.identifier)),
+        })
+      }).get(parseInt(_.get(req, namespaces.conversationId)));
 
-      const message = await conversation.messages.get( messageId );
+      const message = await conversation.messages.get(messageId);
 
-      if ( !message || !message.data ) {
-        res.status( 400 );
-        throw new VError( 'Message doesn\'t exist' );
+      if (!message || !message.data) {
+        res.status(400);
+        throw new VError('Message doesn\'t exist');
       }
 
       const { filename: originalName } = req.query;
       const conversationFileKey = conversation.data.fileKey;
-      const extension = originalName.split( '.' ).pop();
+      const extension = originalName.split('.').pop();
 
       const foreignFilename = `conv.${conversationFileKey}.msg.${messageId}${extension ? '.' + extension : ''}`;
 
       req.filename = foreignFilename;
 
-      uppy.app( uppyOptions )( req, res );
-    } );
+      uppy.app(uppyOptions)(req, res);
+    });
   },
 
-  addAttachment( options ) {
-    const { namespaces } = _.merge( {
+  addAttachment(options) {
+    const { namespaces } = _.merge({
       namespaces: {
         type: 'type',
         identifier: 'identifier',
@@ -388,101 +393,101 @@ export const messages = {
         filename: 'filename',
         originalName: 'originalName'
       }
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res ) => {
-      const messageId = parseInt( _.get( req, namespaces.messageId ) );
+    return wrap(async (req, res) => {
+      const messageId = parseInt(_.get(req, namespaces.messageId));
 
-      const conversation = await new Conversations( {
-        userUid: parseInt( _.get( req, namespaces.userUid ) ),
-        inbox: new Inboxes( {
-          type: _.get( req, namespaces.type ),
-          identifier: parseInt( _.get( req, namespaces.identifier ) ),
-        } )
-      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+      const conversation = await new Conversations(config, {
+        userUid: parseInt(_.get(req, namespaces.userUid)),
+        inbox: new Inbox(config, {
+          type: _.get(req, namespaces.type),
+          identifier: parseInt(_.get(req, namespaces.identifier)),
+        })
+      }).get(parseInt(_.get(req, namespaces.conversationId)));
 
-      const message = await conversation.messages.get( messageId );
+      const message = await conversation.messages.get(messageId);
 
-      if ( !message || !message.data ) {
-        res.status( 400 );
-        throw new VError( 'Message doesn\'t exist' );
+      if (!message || !message.data) {
+        res.status(400);
+        throw new VError('Message doesn\'t exist');
       }
 
-      const originalName = _.get( req, namespaces.originalName );
-      const filename = _.get( req, namespaces.filename );
+      const originalName = _.get(req, namespaces.originalName);
+      const filename = _.get(req, namespaces.filename);
 
-      await conversation.messages.addAttachment( messageId, {
+      await conversation.messages.addAttachment(messageId, {
         originalName,
         filename
-      } );
+      });
 
-      res.send( { message: await message.get() } );
-    } );
+      res.send({ message: await message.get() });
+    });
   },
 
-  downloadAttachment( options ) {
-    const { namespaces } = _.merge( {
+  downloadAttachment(options) {
+    const { namespaces } = _.merge({
       namespaces: {
         id: 'attachment.id',
         filename: 'attachment.filename'
       }
-    }, options );
+    }, options);
 
-    return wrap( async ( req, res, next ) => {
-      const filename = _.get( req, namespaces.filename, null );
+    return wrap(async (req, res, next) => {
+      const filename = _.get(req, namespaces.filename, null);
 
-      const attachment = await knex( schemas.messageAttachment )
+      const attachment = await config.knex(config.schemas.messageAttachment)
         .select()
         .first()
-        .where( {
-          id: parseInt( _.get( req, namespaces.id, null ) ),
+        .where({
+          id: parseInt(_.get(req, namespaces.id, null)),
           filename
-        } )
-        .then( v => _.mapKeys( v, ( value, key ) => _.camelCase( key ) ) );
+        })
+        .then(v => _.mapKeys(v, (value, key) => _.camelCase(key)));
 
       try {
 
-        const { data, headers } = await axios( {
+        const { data, headers } = await axios({
           method: 'get',
-          url: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${filename}`,
+          url: `https://s3.${config.aws.region}.amazonaws.com/${config.aws.bucket}/${filename}`,
           responseType: 'stream'
-        } );
+        });
 
         res.set(
           'Content-Type',
-          headers[ 'content-type' ] || mime.contentType( filename ) || 'application/octet-stream'
+          headers['content-type'] || mime.contentType(filename) || 'application/octet-stream'
         );
 
         res.set(
           'Content-Disposition',
-          /\.(jpeg|jpg|gif|png|svg|bmp)$/i.test( filename )
+          /\.(jpeg|jpg|gif|png|svg|bmp)$/i.test(filename)
             ? 'inline'
             : `attachment; filename=${attachment ? attachment.originalName : filename}`
         );
 
-        data.pipe( res );
+        data.pipe(res);
 
-      } catch ( error ) {
+      } catch (error) {
 
-        res.status( 403 );
+        res.status(403);
 
-        next( new VError( error.response || error, 'Cannot download the attachment' ) );
+        next(new VError(error.response || error, 'Cannot download the attachment'));
 
       }
-    } );
+    });
   }
 };
 
 /* Utils */
 
-function wrap( fn ) {
-  return ( req, res, next ) => fn( req, res, next ).catch( next );
+function wrap(fn) {
+  return (req, res, next) => fn(req, res, next).catch(next);
 }
 
-function getLimit( max, limit ) {
-  limit = parseInt( limit );
+function getLimit(max, limit) {
+  limit = parseInt(limit);
 
-  if ( !limit ) {
+  if (!limit) {
     return max;
   }
 

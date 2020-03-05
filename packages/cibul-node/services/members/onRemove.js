@@ -2,18 +2,17 @@
 
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
-const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
 const { isSuperiorToOrEqual } = require( '@openagenda/members' ).utils.compareRoles;
 const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
-
-const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 
 module.exports = async ( { services, members, activityQueue }, member, context ) => {
   log( 'removed', member );
 
   const usersSvc = services.users;
+  const { Inbox } = services.inboxes;
+  const activities = services.activities;
 
   try {
 

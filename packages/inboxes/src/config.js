@@ -3,17 +3,16 @@ import path from 'path';
 import knexLib from 'knex';
 import logger from '@openagenda/logs';
 
-const config = {
-  knex: null
-};
+export default async function makeConfig(c) {
+  const config = {
+    knex: null
+  };
 
-module.exports = _.extend( config, { init } );
+  if (c.logger) {
+    logger.setModuleConfig(c.logger);
+  }
 
-async function init( c ) {
-
-  if ( c.logger ) logger.setModuleConfig( c.logger );
-
-  _.merge( config, _.pick( c, [
+  _.merge(config, _.pick(c, [
     'mysql',
     'schemas',
     'cache',
@@ -26,23 +25,25 @@ async function init( c ) {
     'defaultImagePath',
     'domain',
     'aws'
-  ] ) );
+  ]));
 
-  const knexConfig = getKnexConfig( c );
-  config.knex = knexLib( knexConfig );
+  const knexConfig = getKnexConfig(c);
+  config.knex = knexLib(knexConfig);
 
-  if ( c.migrations ) {
+  if (c.migrations) {
     await config.knex.migrate.latest();
   }
+
+  return config;
 }
 
-function getKnexConfig( c ) {
+function getKnexConfig(c) {
   let knexConfig;
 
-  if ( c.knex ) {
+  if (c.knex) {
     knexConfig = {
       ...c.knex.client.config,
-      pool: _.pick( c.knex.client.pool, 'min', 'max' ),
+      pool: _.pick(c.knex.client.pool, 'min', 'max'),
       schemas: {
         ...c.knex.client.config.schemas,
         ...c.schemas
@@ -56,12 +57,12 @@ function getKnexConfig( c ) {
     };
   }
 
-  if ( c.migrations ) {
+  if (c.migrations) {
     knexConfig.migrations = {
       ...(c.knex ? c.knex.client.config.migrations : {}),
       ...c.migrations,
-      directory: path.resolve( path.dirname( __dirname ), 'migrations' )
-    }
+      directory: path.resolve(path.dirname(__dirname), 'migrations')
+    };
   }
 
   return knexConfig;

@@ -1,13 +1,14 @@
 import _ from 'lodash';
-import { knex, schemas, aws } from '../config';
 
-export default async function populateAttachments( entities ) {
+export default async function populateAttachments( config, entities ) {
+  const { knex, schemas, aws } = config;
+
   if ( entities === null ) {
     return null;
   }
 
   if ( !Array.isArray( entities ) ) {
-    return (await populateAttachments( [ entities ] ))[ 0 ];
+    return (await populateAttachments( config, [ entities ] ))?.[ 0 ];
   }
 
   const messageIds = _.map( entities, 'id' );

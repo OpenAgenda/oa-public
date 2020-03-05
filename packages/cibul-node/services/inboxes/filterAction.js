@@ -3,7 +3,6 @@
 const membersSvc = require('../members');
 
 module.exports = async function filterAction(inbox, conversation, action) {
-
   if (action.code === 'involveTechnicalSupport') {
     if (inbox.type !== 'agenda') {
       return false;

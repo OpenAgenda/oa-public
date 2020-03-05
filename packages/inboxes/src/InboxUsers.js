@@ -13,23 +13,26 @@ const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'prop
 ajvErrors( ajv );
 
 export default class InboxUsers {
-  constructor( options ) {
+  constructor( config, options ) {
+    this.config = config;
     this.inbox = options && options.inbox;
   }
 
   add( data, options ) {
-    return new InboxUser( null, { inbox: this.inbox } ).create( data, options );
+    return new InboxUser( this.config, null, { inbox: this.inbox } ).create( data, options );
   }
 
   get( identifiers, options ) {
-    return new InboxUser( identifiers, { inbox: this.inbox } ).get( options );
+    return new InboxUser( this.config, identifiers, { inbox: this.inbox } ).get( options );
   }
 
   remove( identifiers ) {
-    return new InboxUser( identifiers, { inbox: this.inbox } ).remove();
+    return new InboxUser( this.config, identifiers, { inbox: this.inbox } ).remove();
   }
 
   async list( ...args ) {
+    const { knex, schemas } = this.config;
+
     if ( this.inbox ) {
       await this._loadInbox();
     }

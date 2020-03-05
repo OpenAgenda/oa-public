@@ -2,7 +2,6 @@ import _ from 'lodash';
 import VError from 'verror';
 import parseListArguments from '@openagenda/service-utils/parseListArguments';
 import Message from './Message';
-import { knex, schemas, interfaces } from './config';
 import mapper from './utils/mapper';
 import messageFieldsMap from './db/messageFieldsMap';
 import inboxUserFieldsMap from './db/inboxUserFieldsMap';
@@ -11,28 +10,31 @@ import populateDetails from './db/populateDetails';
 import populateAttachments from './db/populateAttachments';
 
 export default class Messages {
-  constructor( options ) {
+  constructor( config, options ) {
+    this.config = config;
     this.inbox = options.inbox;
     this.userUid = options.userUid; // define if it's in context of a user or not
     this.conversation = options.conversation;
   }
 
   create( data, options ) {
-    return new Message( null, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
+    return new Message( this.config, null, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
       .create( data, options );
   }
 
   get( identifiers, options ) {
-    return new Message( identifiers, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
+    return new Message( this.config, identifiers, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
       .get( options );
   }
 
   addAttachment( identifiers, data ) {
-    return new Message( identifiers, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
+    return new Message( this.config, identifiers, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
       .addAttachment( data );
   }
 
   async list( ...args ) {
+    const { knex, schemas } = this.config;
+
     const { query, offset, limit, options } = parseListArguments( ...args );
 
     if ( !query || !query.id ) {
@@ -83,9 +85,9 @@ export default class Messages {
       )
     );
 
-    this.data = await populateDetails( result, this.inbox );
+    this.data = await populateDetails( this.config, result, this.inbox );
 
-    this.data = await populateAttachments( result );
+    this.data = await populateAttachments( this.config, result );
 
     return this;
   }

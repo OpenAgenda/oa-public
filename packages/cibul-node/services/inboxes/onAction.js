@@ -1,14 +1,14 @@
 'use strict';
 
-const { default: inboxes, Conversation } = require('@openagenda/inboxes');
 const agendaEventsSvc = require('@openagenda/agenda-events');
 const log = require('@openagenda/logs')('services/inboxes');
 const membersSvc = require('../members');
 
-module.exports = async function onAction(conversation, action) {
+module.exports = async function onAction(services, conversation, action) {
+  const { Inbox, Conversation } = services.inboxes;
 
   if (action.code === 'involveTechnicalSupport') {
-    const supportInbox = await inboxes({
+    const supportInbox = await new Inbox({
       type: 'support',
       identifier: 1
     }).get();
@@ -17,7 +17,7 @@ module.exports = async function onAction(conversation, action) {
   }
 
   if (action.code === 'removeTechnicalSupport') {
-    const supportInbox = await inboxes({
+    const supportInbox = await new Inbox({
       type: 'support',
       identifier: 1
     }).get();
@@ -27,13 +27,9 @@ module.exports = async function onAction(conversation, action) {
 
   switch (conversation.type) {
     case 'request_contribute': {
-
       if (action.code === 'accept') {
-
         if (conversation.creatorInbox && conversation.creatorInbox.type === 'user') {
-
           try {
-
             const userUid = conversation.creatorInbox.identifier;
             const agendaUid = conversation.typeIdentifier;
 
@@ -43,7 +39,6 @@ module.exports = async function onAction(conversation, action) {
             });
 
             if (!sh) {
-
               const newMember = await membersSvc.create(
                 {
                   agendaUid,
@@ -52,28 +47,17 @@ module.exports = async function onAction(conversation, action) {
                 },
                 { requireCustom: false }
               );
-
               log('info', 'Contribution request accepted', { member: newMember });
-
             }
-
           } catch (err) {
-
             log('error', 'Cannot accept a contribution request', err);
-
           }
-
         }
-
       }
-
     }
     case 'edition_request': {
-
       if (action.code === 'accept') {
-
         try {
-
           await agendaEventsSvc(conversation.store.params.agendaUid)
             .update(
               conversation.typeIdentifier,
@@ -85,15 +69,10 @@ module.exports = async function onAction(conversation, action) {
             agendaUid: conversation.store.params.agendaUid,
             eventUid: conversation.typeIdentifier
           });
-
         } catch (err) {
-
           log('error', 'Cannot accept an edition rights request', err);
-
         }
-
       }
-
     }
   }
 };

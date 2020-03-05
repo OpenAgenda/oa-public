@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const { default: inboxes } = require('@openagenda/inboxes');
+const inboxes = require('@openagenda/inboxes');
 const inboxMw = require('@openagenda/inboxes/dist/middleware');
 const log = require('@openagenda/logs')('services/inboxes');
 const inboxesLabels = require('@openagenda/labels/inboxes');
@@ -29,12 +29,12 @@ module.exports.init = async (c, services) => {
     getUsersDetails: getUsersDetails.bind(null, services),
     onMessageCreate: onMessageCreate.bind(null, services),
     getInboxesDetails: getInboxesDetails.bind(null, services),
+    onAction: onAction.bind(null, services),
     onInboxCreate,
-    filterAction,
-    onAction
+    filterAction
   };
 
-  await inboxes.init(
+  const service = await inboxes(
     _.merge(
       _.pick(c, [
         'mysql',
@@ -186,9 +186,13 @@ module.exports.init = async (c, services) => {
     )
   );
 
-  await inboxMw.init(_.merge({}, c, { interfaces, mw: { limit: 20 } }));
+  await inboxMw.init(_.merge({}, service.config, { interfaces, mw: { limit: 20 } }));
 
-  return Object.assign(inboxes, {
+  Object.assign(service, {
     getApp: getApp.bind(null, c, services)
   });
+
+  Object.assign(module.exports, service);
+
+  return service;
 };

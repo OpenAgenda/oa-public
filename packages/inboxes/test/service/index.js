@@ -1,17 +1,9 @@
 import fixtures from '@openagenda/fixtures';
-import Inbox from '../../src';
+import createService from '../../src';
 
-export default Inbox;
+export default createService;
 
-export {
-  init,
-  config,
-  Inbox,
-  InboxUsers,
-  InboxUser,
-  Conversations,
-  Conversation
-} from '../../src';
+export * from '../../src';
 
 const allowedTables = [ 'inbox', 'inboxUser', 'conversation', 'inboxConversation', 'message' ];
 const defaultFiles = [ 'inbox', 'inboxUser', 'conversation', 'inboxConversation', 'message' ];
@@ -52,8 +44,6 @@ export function initAndLoad( config, files, options ) {
 
       }
 
-      await Inbox.init( config );
-
       fixtures(
         allowedTables.map( tableName => ({
           table: config.schemas[ tableName ],
@@ -63,7 +53,7 @@ export function initAndLoad( config, files, options ) {
         err => {
 
           if ( err ) return reject( err );
-          resolve();
+          resolve(createService( config ));
 
         } );
 

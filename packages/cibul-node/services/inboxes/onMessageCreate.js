@@ -75,7 +75,7 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
     agendas: agendasSvc
   } = services;
 
-  const conv = await Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
+  const conv = await new Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
   const msg = await conv.messages.get(message.id);
 
   if (msg.data.inboxUser) {

@@ -1,58 +1,71 @@
 import knexLib from 'knex';
-import service, { config, initAndLoad } from './service';
+import { initAndLoad } from './service';
 import testconfig from '../testconfig';
 
 const database = testconfig.mysql.database + '_service';
 
-describe( 'service', () => {
+const serviceShape = {
+  Inbox: expect.any(Function),
+  InboxUsers: expect.any(Function),
+  InboxUser: expect.any(Function),
+  Conversations: expect.any(Function),
+  Conversation: expect.any(Function),
+  tasks: {
+    sync: expect.any(Function)
+  }
+};
 
-  afterEach( async () => {
+describe('service', () => {
+  let config;
 
-    await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
+  afterEach(async () => {
+    await config.knex.raw(`DROP DATABASE IF EXISTS ${database}`);
     await config.knex.destroy();
+  });
 
-  } );
-
-  describe( 'init', () => {
-
-    test( 'simple init', async () => {
-
-      await expect(initAndLoad( {
+  describe('init', () => {
+    test('simple init', async () => {
+      const service = initAndLoad({
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
         logger: { namespace: 'test:' }
-      }, [] )).resolves.toBeUndefined();
+      }, []);
 
-    } );
+      await expect(service).resolves.toMatchObject(serviceShape);
 
-    test( 'init without migrations', async () => {
+      ({ config } = await service);
+    });
 
-      await expect(initAndLoad( {
+    test('init without migrations', async () => {
+      const service = initAndLoad({
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
         migrations: null
-      }, [] )).resolves.toBeUndefined();
+      }, []);
 
-    } );
+      await expect(service).resolves.toMatchObject(serviceShape);
 
-    test( 'init with knex instance', async () => {
+      ({ config } = await service);
+    });
 
-      const knex = knexLib( {
+    test('init with knex instance', async () => {
+      const knex = knexLib({
         client: 'mysql',
         connection: { ...testconfig.mysql, database }
-      } );
+      });
 
-      await expect(initAndLoad( {
+      const service = initAndLoad({
         ...testconfig,
         mysql: { ...testconfig.mysql, database },
         knex,
         migrations: {
           tableName: 'test_migrations'
         }
-      }, [] )).resolves.toBeUndefined();
+      }, []);
 
-    } );
+      await expect(service).resolves.toMatchObject(serviceShape);
 
-  } );
-
-} );
+      ({ config } = await service);
+    });
+  });
+});
