@@ -2,7 +2,6 @@
 
 const { promisify } = require('util');
 const _ = require('lodash');
-const { Inbox, InboxUsers } = require('@openagenda/inboxes');
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
 const mails = require('../mails');
 const genUrl = require('../genUrl');
@@ -15,8 +14,8 @@ module.exports = async (services, conversation, message) => {
     const [inboxesAgenda, inboxesUser] = _.partition(conversation.inboxes, ['type', 'user']);
 
     const inboxUsersToNotify = _([
-      ...await inboxIdsToInboxUsers(conversation.inboxes, _.map(inboxesAgenda, 'id')),
-      ...await inboxIdsToInboxUsers(conversation.inboxes, _.map(inboxesUser, 'id'))
+      ...await inboxIdsToInboxUsers(services, conversation.inboxes, _.map(inboxesAgenda, 'id')),
+      ...await inboxIdsToInboxUsers(services, conversation.inboxes, _.map(inboxesUser, 'id'))
     ]).reject(['userUid', message.inboxUser.userUid]).uniqBy('userUid').value();
 
     log('sending mails to %d users to notify new message', inboxUsersToNotify.length);
@@ -62,7 +61,9 @@ module.exports = async (services, conversation, message) => {
 
 };
 
-async function inboxIdsToInboxUsers(inboxes, ids) {
+async function inboxIdsToInboxUsers(services, inboxes, ids) {
+  const { InboxUsers } = services.inboxes;
+
   return _.map((await new InboxUsers().list({
     inboxId: ids,
     leftAt: false
@@ -74,6 +75,7 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
     users: usersSvc,
     agendas: agendasSvc
   } = services;
+  const { Inbox } = services.inboxes;
 
   const conv = await new Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
   const msg = await conv.messages.get(message.id);
