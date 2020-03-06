@@ -1,19 +1,22 @@
 import _ from 'lodash';
-import Messages from '../Messages';
 
-export default async function populateLatestMessage(config, entities, inbox) {
+export default async function populateLatestMessage(svc, entities, inbox) {
+  const { Messages } = svc;
+
   if (entities === null) {
     return null;
   }
 
   if (!Array.isArray(entities)) {
-    return (await populateLatestMessage(config, [entities], inbox))?.[0];
+    return (await populateLatestMessage(svc, [entities], inbox))?.[0];
   }
 
   // console.log( 'POPULATE LATEST MESSAGE ==>', inbox );
 
-  const messages = await new Messages(config, { inbox })
-    .list({ id: _.uniq(entities.map(v => v.latestMessageId)) }, { latest: true });
+  const messages = await new Messages({ inbox }).list(
+    { id: _.uniq(entities.map(v => v.latestMessageId)) },
+    { latest: true }
+  );
 
   return entities.map(row => {
     const id = row.latestMessageId;
@@ -23,6 +26,5 @@ export default async function populateLatestMessage(config, entities, inbox) {
       ...row,
       latestMessage: _.find(messages.data, { id }) || null
     };
-
   });
 }

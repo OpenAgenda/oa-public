@@ -1,15 +1,17 @@
 export const identifiersSchema = {
-  required: [ 'id' ],
+  type: 'object',
+  required: ['id'],
   additionalProperties: false,
   properties: {
     id: {
-      type: 'integer',
+      type: 'integer'
     }
   }
 };
 
 export const createSchema = {
-  required: [ 'type' ],
+  type: 'object',
+  required: ['type'],
   additionalProperties: false,
   properties: {
     type: {
@@ -23,11 +25,12 @@ export const createSchema = {
     },
     message: {
       type: 'string'
-    },
+    }
   }
 };
 
 export const listSchema = {
+  type: 'object',
   additionalProperties: false,
   properties: {
     type: {
@@ -35,11 +38,12 @@ export const listSchema = {
     },
     typeIdentifier: {
       type: 'integer'
-    },
+    }
   }
 };
 
 export const updateSchema = {
+  type: 'object',
   additionalProperties: false,
   properties: {
     updatedAt: {
@@ -49,10 +53,7 @@ export const updateSchema = {
       instanceof: 'Date'
     },
     closedAt: {
-      oneOf: [
-        { type: 'null' },
-        { instanceof: 'Date' }
-      ]
+      oneOf: [{ type: 'null' }, { instanceof: 'Date' }]
     },
     params: {
       type: 'object'

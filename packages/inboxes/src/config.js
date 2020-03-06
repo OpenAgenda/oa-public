@@ -1,41 +1,7 @@
-import _ from 'lodash';
 import path from 'path';
+import _ from 'lodash';
 import knexLib from 'knex';
 import logger from '@openagenda/logs';
-
-export default async function makeConfig(c) {
-  const config = {
-    knex: null
-  };
-
-  if (c.logger) {
-    logger.setModuleConfig(c.logger);
-  }
-
-  _.merge(config, _.pick(c, [
-    'mysql',
-    'schemas',
-    'cache',
-    'services',
-    'interfaces',
-    'types',
-    'defaultAction',
-    'redis',
-    'queues',
-    'defaultImagePath',
-    'domain',
-    'aws'
-  ]));
-
-  const knexConfig = getKnexConfig(c);
-  config.knex = knexLib(knexConfig);
-
-  if (c.migrations) {
-    await config.knex.migrate.latest();
-  }
-
-  return config;
-}
 
 function getKnexConfig(c) {
   let knexConfig;
@@ -66,4 +32,42 @@ function getKnexConfig(c) {
   }
 
   return knexConfig;
+}
+
+export default async function makeConfig(c) {
+  const config = {
+    knex: null
+  };
+
+  if (c.logger) {
+    logger.setModuleConfig(c.logger);
+  }
+
+  _.merge(
+    config,
+    _.pick(c, [
+      'mysql',
+      'schemas',
+      'cache',
+      'services',
+      'interfaces',
+      'types',
+      'defaultAction',
+      'redis',
+      'queues',
+      'defaultImagePath',
+      'domain',
+      'aws',
+      'mw'
+    ])
+  );
+
+  const knexConfig = getKnexConfig(c);
+  config.knex = knexLib(knexConfig);
+
+  if (c.migrations) {
+    await config.knex.migrate.latest();
+  }
+
+  return config;
 }

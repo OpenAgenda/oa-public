@@ -1,4 +1,6 @@
-const config = require( './testconfig' );
+'use strict';
+
+const config = require('./testconfig');
 
 module.exports = {
   client: 'mysql',

@@ -1836,10 +1836,10 @@
     lodash "^4.17.5"
     node-mailjet "^3.2.1"
 
-"@openagenda/pdf@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/@openagenda/pdf/-/pdf-0.1.1.tgz#6c2e363fb35bdc27af1f7c928563e804fbc41b39"
-  integrity sha512-U/4PbPwwpVgC1qvqPwdUA54vdGWSJ5d3LsGM3/W+3vPwSuRGWNHvfr7We1mOG5LPqUbxf7Ui5seH7p3YooU9nQ==
+"@openagenda/pdf@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@openagenda/pdf/-/pdf-0.1.2.tgz#03dbb6eb46a5254770028e1725b144ff024e76fa"
+  integrity sha512-ICFaTR95kJrDT2/YvNomDMqgPvcF2evKD1yjQfe2AcuXe0bR47NfhJH6UXy2dhAV0S9HRuP7IahGTCYtL5RQ6A==
   dependencies:
     async "^1.5.0"
     gm "^1.17.0"

@@ -1,11 +1,12 @@
-export function getIdentifiersSchema( identifiers ) {
-  if ( identifiers && identifiers.id ) {
+export function getIdentifiersSchema(identifiers) {
+  if (identifiers && identifiers.id) {
     return {
-      required: [ 'id' ],
+      type: 'object',
+      required: ['id'],
       additionalProperties: false,
       properties: {
         id: {
-          type: 'integer',
+          type: 'integer'
         },
         type: {
           type: 'string'
@@ -18,7 +19,8 @@ export function getIdentifiersSchema( identifiers ) {
   }
 
   return {
-    required: [ 'type', 'identifier' ],
+    type: 'object',
+    required: ['type', 'identifier'],
     additionalProperties: false,
     properties: {
       type: {
@@ -28,11 +30,12 @@ export function getIdentifiersSchema( identifiers ) {
         type: 'integer'
       }
     }
-  }
+  };
 }
 
 export const createSchema = {
-  required: [ 'type', 'identifier' ],
+  type: 'object',
+  required: ['type', 'identifier'],
   additionalProperties: false,
   properties: {
     type: {

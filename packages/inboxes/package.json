@@ -15,10 +15,19 @@
     "lib": "dist"
   },
   "scripts": {
-    "build": "babel src -d dist -s",
-    "test": "jest --coverage --forceExit --detectOpenHandles",
-    "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "prepublish": "yarn build"
+    "build": "babel --copy-files src -d dist -s",
+    "test": "jest --forceExit --detectOpenHandles",
+    "clean": "rimraf dist",
+    "prepublish": "yarn clean && yarn build",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc"
+    ]
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
@@ -43,9 +52,13 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/eslint-config": "^1.0.0",
     "@openagenda/fixtures": "^2.0.1",
     "babel-jest": "^25.1.0",
+    "eslint": "^6.8.0",
     "jest": "^25.1.0",
-    "reload": "^3.0.4"
+    "lint-staged": "^10.0.7",
+    "prettier-eslint-cli": "^5.0.0",
+    "rimraf": "^3.0.1"
   }
 }

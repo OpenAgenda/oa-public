@@ -1,15 +1,17 @@
 export const identifiersSchema = {
-  required: [ 'id' ],
+  type: 'object',
+  required: ['id'],
   additionalProperties: false,
   properties: {
     id: {
-      type: 'integer',
+      type: 'integer'
     }
   }
 };
 
 export const createSchema = {
-  required: [ 'conversationId', 'inboxUserId', 'body' ],
+  type: 'object',
+  required: ['conversationId', 'inboxUserId', 'body'],
   additionalProperties: false,
   properties: {
     conversationId: {

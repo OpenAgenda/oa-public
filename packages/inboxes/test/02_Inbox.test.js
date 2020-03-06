@@ -1,8 +1,7 @@
-import VError from 'verror';
-import { initAndLoad, seed } from './service';
 import testconfig from '../testconfig';
+import { initAndLoad, seed } from './service';
 
-const database = testconfig.mysql.database + '_Inbox';
+const database = `${testconfig.mysql.database}_Inbox`;
 const tables = ['inbox'];
 
 describe('Inbox', () => {
@@ -12,27 +11,33 @@ describe('Inbox', () => {
   let Conversations;
 
   beforeAll(async () => {
-    service = await initAndLoad({
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    }, []);
+    service = await initAndLoad(
+      {
+        ...testconfig,
+        mysql: { ...testconfig.mysql, database }
+      },
+      []
+    );
 
     ({ Inbox, InboxUsers, Conversations } = service);
   });
 
   beforeEach(async () => {
     await service.config.knex.transaction(async trx => {
-      await trx.raw(`SET foreign_key_checks = 0`);
+      await trx.raw('SET foreign_key_checks = 0');
       for (const table of tables) {
         await trx(service.config.schemas[table]).truncate();
       }
-      await trx.raw(`SET foreign_key_checks = 1`);
+      await trx.raw('SET foreign_key_checks = 1');
     });
 
-    await seed({
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    }, tables);
+    await seed(
+      {
+        ...testconfig,
+        mysql: { ...testconfig.mysql, database }
+      },
+      tables
+    );
   });
 
   afterAll(async () => {
@@ -47,64 +52,102 @@ describe('Inbox', () => {
       expect(inbox).toBeInstanceOf(Inbox);
     });
 
-    test('instanciate Inbox with bad id type throw a validation error', () => {
-      try {
-        new Inbox('bad');
-      } catch (err) {
-        expect(VError.info(err).errors.id.code).toBe('type.integer');
-        expect(err.name).toBe('ValidationError');
-      }
+    test('instanciate Inbox with bad id type throw a validation error', async () => {
+      await expect(new Inbox('bad').get()).rejects.toMatchObject({
+        name: 'ValidationError',
+        jse_info: {
+          errors: {
+            id: {
+              code: 'type.integer'
+            }
+          }
+        }
+      });
     });
 
-    test('instanciate Inbox with bad identifiers format throw a validation error', () => {
-      try {
-        new Inbox({ type: 45, identifier: 'fezsf' });
-      } catch (err) {
-        expect(VError.info(err).errors.type.code).toBe('type.string');
-        expect(VError.info(err).errors.identifier.code).toBe('type.integer');
-        expect(err.name).toBe('ValidationError');
-      }
+    test('instanciate Inbox with bad identifiers format throw a validation error', async () => {
+      await expect(
+        new Inbox({ type: 45, identifier: 'fezsf' }).get()
+      ).rejects.toMatchObject({
+        name: 'ValidationError',
+        jse_info: {
+          errors: {
+            type: {
+              code: 'type.string'
+            },
+            identifier: {
+              code: 'type.integer'
+            }
+          }
+        }
+      });
     });
-
   });
 
   describe('create', () => {
-
     test('create an inbox', async () => {
-      const inbox = await new Inbox().create({ type: 'agenda', identifier: 1245685 });
+      const inbox = await new Inbox().create({
+        type: 'agenda',
+        identifier: 1245685
+      });
 
-      expect(inbox.toJSON()).toEqual({ id: 9, type: 'agenda', identifier: 1245685 });
+      expect(inbox.toJSON()).toEqual({
+        id: 9,
+        type: 'agenda',
+        identifier: 1245685
+      });
     });
 
     test('create an inbox that already exist', async () => {
-      const inbox = await new Inbox().create({ type: 'user', identifier: 45645678 });
+      const inbox = await new Inbox().create({
+        type: 'user',
+        identifier: 45645678
+      });
 
-      expect(inbox.toJSON()).toEqual({ id: 3, type: 'user', identifier: 45645678 });
+      expect(inbox.toJSON()).toEqual({
+        id: 3,
+        type: 'user',
+        identifier: 45645678
+      });
     });
 
     test('create an inbox with invalid type', async () => {
-      try {
-        await new Inbox().create({ type: 58, identifier: 99999999 });
-      } catch (err) {
-        expect(VError.info(err).errors.type.code).toBe('type.string');
-        expect(err.name).toBe('ValidationError');
-      }
+      await expect(
+        new Inbox().create({ type: 58, identifier: 99999999 })
+      ).rejects.toMatchObject({
+        name: 'ValidationError',
+        jse_info: {
+          errors: {
+            type: {
+              code: 'type.string'
+            }
+          }
+        }
+      });
     });
 
     test('create an inbox with missing identifier', async () => {
-      try {
-        await new Inbox().create({ type: 'agenda' });
-      } catch (err) {
-        console.log(err);
-        expect(VError.info(err).errors.identifier.code).toBe('required');
-        expect(err.name).toBe('ValidationError');
-      }
+      await expect(
+        new Inbox().create({ type: 'agenda' })
+      ).rejects.toMatchObject({
+        name: 'ValidationError',
+        jse_info: {
+          errors: {
+            identifier: {
+              code: 'required'
+            }
+          }
+        }
+      });
     });
   });
 
   describe('remove', () => {
     test('remove an inbox', async () => {
-      const inbox = await new Inbox({ type: 'agenda', identifier: 48959239 }).remove();
+      const inbox = await new Inbox({
+        type: 'agenda',
+        identifier: 48959239
+      }).remove();
 
       expect(inbox.data).toBe(null);
     });
@@ -112,36 +155,54 @@ describe('Inbox', () => {
 
   describe('get', () => {
     test('get an inbox by identifiers', async () => {
-      const inbox = await new Inbox({ type: 'agenda', identifier: 48959239 }).get();
+      const inbox = await new Inbox({
+        type: 'agenda',
+        identifier: 48959239
+      }).get();
 
-      expect(inbox.toJSON()).toEqual({ id: 1, type: 'agenda', identifier: 48959239 });
+      expect(inbox.toJSON()).toEqual({
+        id: 1,
+        type: 'agenda',
+        identifier: 48959239
+      });
     });
 
     test('get an inbox by id', async () => {
       const inbox = await new Inbox(1).get();
 
-      expect(inbox.toJSON()).toEqual({ id: 1, type: 'agenda', identifier: 48959239 });
+      expect(inbox.toJSON()).toEqual({
+        id: 1,
+        type: 'agenda',
+        identifier: 48959239
+      });
     });
 
-    test('get an inbox that doesn\'t exist', async () => {
+    test("get an inbox that doesn't exist", async () => {
       const inbox = await new Inbox(42).get();
 
       expect(inbox.toJSON()).toBe(null);
     });
 
-    test('get an inbox that doesn\'t exist but can be created', async () => {
+    test("get an inbox that doesn't exist but can be created", async () => {
       const inbox = await new Inbox({ type: 'user', identifier: 678910 }).get();
 
-      expect(inbox.toJSON()).toEqual({ id: 9, type: 'user', identifier: 678910 });
+      expect(inbox.toJSON()).toEqual({
+        id: 9,
+        type: 'user',
+        identifier: 678910
+      });
     });
-
   });
 
   describe('toJSON', () => {
     test('toJSON return data', async () => {
       const inbox = await new Inbox(1).get();
 
-      expect(inbox.toJSON()).toEqual({ id: 1, type: 'agenda', identifier: 48959239 });
+      expect(inbox.toJSON()).toEqual({
+        id: 1,
+        type: 'agenda',
+        identifier: 48959239
+      });
     });
 
     test('toJSON return null when the Inbox is not getted', () => {
