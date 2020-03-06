@@ -7,10 +7,7 @@ module.exports = {
     "he": "%day%, %times%",
     "ar": "%day%, %times%",
     "de": "%day%, %times%",
-    "it": "%day%, %times%",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "%day%, %times%"
   },
   "twoDates": {
     "en": "%firstDate% and %lastDate%",
@@ -18,10 +15,7 @@ module.exports = {
     "he": "%firstDate% וגם %lastDate% ",
     "ar": "%firstDate% و %lastDate% ",
     "de": "%firstDate% und %lastDate%",
-    "it": "%firstDate% et %lastDate%",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "%firstDate% et %lastDate%"
   },
   "moreDates": {
     "en": "%firstDate% - %lastDate%",
@@ -29,10 +23,7 @@ module.exports = {
     "he": "%firstDate% - %lastDate%",
     "ar": "%firstDate% - %lastDate%",
     "de": "%firstDate% - %lastDate%",
-    "it": "%firstDate% - %lastDate%",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "%firstDate% - %lastDate%"
   },
   "noDates": {
     "en": "no dates available",
@@ -40,10 +31,7 @@ module.exports = {
     "he": "אין תאריך זמין",
     "ar": "لا يتوفر أي تاريخ",
     "de": "keine Termine vorhanden%",
-    "it": "Nessun data disponible",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "Nessun data disponible"
   },
   "months": {
     "0": {
@@ -132,11 +120,7 @@ module.exports = {
     },
     "fr": "",
     "en": "",
-    "it": "",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": ""
   },
   "minuteSeparator": {
     "en": ":",
@@ -144,10 +128,7 @@ module.exports = {
     "he": ":",
     "ar": ":",
     "de": ":",
-    "it": ":",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": ":"
   },
   "prefix": {
     "en": "on",
@@ -155,10 +136,7 @@ module.exports = {
     "he": "במועדים",
     "ar": "في",
     "de": "am",
-    "it": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": ""
   },
   "weekdays": {
     "0": {
@@ -212,10 +190,6 @@ module.exports = {
     },
     "fr": "",
     "en": "",
-    "it": "",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": ""
   }
 }

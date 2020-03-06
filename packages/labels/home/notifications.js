@@ -7,8 +7,7 @@ module.exports = {
     "de": "Du hast dich erfolgreich abgemeldet.",
     "es": "Ahora está no suscritas (e)",
     "br": "Digoumanantet oc'h",
-    "it": "Ora non sei più iscritto",
-    "pl": ""
+    "it": "Ora non sei più iscritto"
   },
   "unsubscribedFail": {
     "en": "A problem occurred. Please retry shortly or contact support",
@@ -16,8 +15,7 @@ module.exports = {
     "de": "Ist ein Problem aufgetreten. Bitte versuchen Sie es in Kürze oder Support",
     "es": "Se produjo un problema. Por favor, inténtelo de nuevo pronto o contactar con el soporte",
     "br": "Un diaester zo bet. Esaeit adarre a-benn nebeut pe kit e darempred gant ur skoazeller, mar plij.",
-    "it": "È sorto un problema. Si prega di riprovare presto o di contattare il supporto.",
-    "pl": ""
+    "it": "È sorto un problema. Si prega di riprovare presto o di contattare il supporto."
   },
   "unsubscribeFromNotification": {
     "en": "Unsubscribe me from notifications of this type",
@@ -25,8 +23,7 @@ module.exports = {
     "de": "Abmelden mich von Mitteilungen dieser Art",
     "es": "Me darse de baja de este tipo de notificaciones",
     "br": "Digoumanantiñ ac'hanon diouzh ar c'hemennoù seurt-se",
-    "it": "Cancellatemi da tali notifiche",
-    "pl": ""
+    "it": "Cancellatemi da tali notifiche"
   },
   "unsubscribeFromAllNotifications": {
     "en": "Unsubscribe me from this agenda",
@@ -34,8 +31,7 @@ module.exports = {
     "de": "Abmelden von diesem Veranstaltungskalender",
     "es": "notificaciones Darse de baja de esta agenda",
     "br": "Digoumanantiñ ac'hanon diouzh an deiziataer-mañ",
-    "it": "Cancellatemi dalle notifiche di questo calendario",
-    "pl": ""
+    "it": "Cancellatemi dalle notifiche di questo calendario"
   },
   "notificationTitle": {
     "en": "Notification",
@@ -43,8 +39,7 @@ module.exports = {
     "de": "Benachrichtigung",
     "es": "notificación",
     "br": "Kemenn",
-    "it": "Notifica",
-    "pl": ""
+    "it": "Notifica"
   },
   "seeAgenda": {
     "en": "See the agenda",
@@ -52,8 +47,7 @@ module.exports = {
     "de": "Veranstaltungskalender anzeigen",
     "es": "Ver la agenda",
     "br": "Gwelet an deiziataer",
-    "it": "Vedi l'agenda",
-    "pl": ""
+    "it": "Vedi l'agenda"
   },
   "seeEvent": {
     "en": "See the event",
@@ -61,8 +55,7 @@ module.exports = {
     "de": "Siehe die Veranstaltung",
     "es": "Ver evento",
     "br": "Gwelet an darvoud",
-    "it": "Vedi l'evento",
-    "pl": ""
+    "it": "Vedi l'evento"
   },
   "agendaEventPublished": {
     "en": "%user% published %event%.",
@@ -70,8 +63,7 @@ module.exports = {
     "de": "%user% Veranstaltung veröffentlicht.",
     "es": "%user% registró %event%.",
     "br": "%user% en/he deus embannet %event%.",
-    "it": "%user% ha pubblicato %event%.",
-    "pl": ""
+    "it": "%user% ha pubblicato %event%."
   },
   "agendaEventSubmitModeration": {
     "en": "%user% has submitted %event% to %agenda% for moderation",
@@ -79,8 +71,7 @@ module.exports = {
     "de": "%user% hat zur Mäßigung auf %agenda% Veranstaltung eingereicht",
     "es": "%user% presentó %event% al agenda del %agenda% para la moderación",
     "br": "%user% en/he deus kaset %event% da %agenda% evit bezañ habaskaet",
-    "it": "%user% ha presentato %event% a %agenda% per moderazione",
-    "pl": ""
+    "it": "%user% ha presentato %event% a %agenda% per moderazione"
   },
   "userNewContributor": {
     "en": "You are now a contributor of the agenda %agenda%.",
@@ -88,8 +79,7 @@ module.exports = {
     "de": "Du bist jetzt ein Teilnehmer des Veranstaltungskalenders %agenda%.",
     "es": "Ahora se encuentra colaborador agenda %agenda%.",
     "br": "Ur c'hendaoler eus an deiziataer %agenda% oc'h bremañ.",
-    "it": "Ora sei un contributore di %agenda%.",
-    "pl": ""
+    "it": "Ora sei un contributore di %agenda%."
   },
   "agendaNewContributor": {
     "en": "%user% is now contributor of the agenda %agenda%.",
@@ -97,8 +87,7 @@ module.exports = {
     "de": " %user% ist jetzt Teilnehmer des Veranstaltungskalenders %agenda%.",
     "es": "%user% es ahora colaborador agenda %agenda%.",
     "br": "%user% a gendaol d'an deiziataer %agenda% bremañ.",
-    "it": "%user% è ora un collaboratore dell'agenda %agenda%.",
-    "pl": ""
+    "it": "%user% è ora un collaboratore dell'agenda %agenda%."
   },
   "agendaNewAdministrator": {
     "en": "%user% is now administrator of the agenda %agenda%.",
@@ -106,8 +95,7 @@ module.exports = {
     "de": " %user% ist jetzt Administrator des Veranstaltungskalenders %agenda%.",
     "es": "%user% es ahora director de la agenda %agenda%.",
     "br": "%user% zo ur merour eus an deiziataer %agenda% bremañ.",
-    "it": "%user% è ora amministratore dell'agenda %agenda%.",
-    "pl": ""
+    "it": "%user% è ora amministratore dell'agenda %agenda%."
   },
   "userEventUpdate": {
     "en": "%user% made changes on %event%.",
@@ -115,8 +103,7 @@ module.exports = {
     "de": "%user% vorgenommenen Änderungen auf %event% .",
     "es": "%user% hizo cambios en %event%.",
     "br": "%user% en/he deus graet cheñchamantoù e %event%.",
-    "it": "%user% ha apportato modifiche a %event%.",
-    "pl": ""
+    "it": "%user% ha apportato modifiche a %event%."
   },
   "userNewAdministrator": {
     "en": "You are now an administrator of the agenda %agenda%.",
@@ -124,8 +111,7 @@ module.exports = {
     "de": "Du bist jetzt ein Administrator des Veranstaltungskalenders %agenda%.",
     "es": "Ahora eres administrador de la libreta %agenda%.",
     "br": "Ur merour eus an deiziataer %agenda% oc'h bremañ.",
-    "it": "Lei è ora amministratore dell'agenda %agenda%.",
-    "pl": ""
+    "it": "Lei è ora amministratore dell'agenda %agenda%."
   },
   "userNewModerator": {
     "en": "You are now a moderator of the agenda %agenda%.",
@@ -133,8 +119,7 @@ module.exports = {
     "de": "Du bist jetzt ein Moderator des Veranstaltungskalenders %agenda%.",
     "es": "Ahora está moderando el agenda %agenda%.",
     "br": "Un habaskaer eus an deiziataer %agenda% oc'h bremañ.",
-    "it": "Lei è ora il moderatore dell'agenda %agenda%.",
-    "pl": ""
+    "it": "Lei è ora il moderatore dell'agenda %agenda%."
   },
   "agendaNewModerator": {
     "en": "%user% is now moderator of the agenda %agenda%.",
@@ -142,8 +127,7 @@ module.exports = {
     "de": " %user% ist jetzt Moderator des Veranstaltungskalenders %agenda%.",
     "es": "%user% es ahora moderador agenda %agenda%.",
     "br": "%user% zo un habaskaer eus an deiziataer  %agenda% bremañ.",
-    "it": "%user% è ora un moderatore dell'agenda %agenda%.",
-    "pl": ""
+    "it": "%user% è ora un moderatore dell'agenda %agenda%."
   },
   "agendaNewAggregator": {
     "en": "%aggregator% is now importing the events of your agenda %agenda%.",
@@ -151,8 +135,7 @@ module.exports = {
     "de": "%aggregator% importiert nun die Veranstaltungen Deines Veranstaltungskalenders %agenda%.",
     "es": "%aggregator% de eventos importantes ahora en su agenda %agenda%.",
     "br": "Hiviziken e enporzh %aggregator% an darvoudoù diwar ho teiziataer %agenda%.",
-    "it": "%aggregator% ora importa gli eventi dalla vostra agenda %agenda%.",
-    "pl": ""
+    "it": "%aggregator% ora importa gli eventi dalla vostra agenda %agenda%."
   },
   "agendaEventUpdate": {
     "en": "%agenda%: the event %event% has been updated by %user%.",
@@ -160,7 +143,6 @@ module.exports = {
     "de": "%agenda%: das Veranstaltung %event% wurde von %user% aktualisiert.",
     "es": " %agenda%: %event% evento ha sido actualizado por %user%.",
     "br": "%agenda% : Hizivaet eo bet an darvoud  %event% gant %user%.",
-    "it": "%agenda%: l'evento %event% è stato aggiornato da %user%.",
-    "pl": ""
+    "it": "%agenda%: l'evento %event% è stato aggiornato da %user%."
   }
 }

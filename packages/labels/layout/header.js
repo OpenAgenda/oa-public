@@ -6,62 +6,44 @@ module.exports = {
     "en": "Sign in",
     "de": "Einloggen",
     "es": "Conectarse",
-    "it": "Accesso",
-    "pl": "",
-    "br": ""
+    "it": "Accesso"
   },
   "search": {
     "fr": "Rechercher",
     "en": "Search",
     "de": "Suchen",
     "es": "Buscar",
-    "it": "Ricerca",
-    "pl": "",
-    "br": ""
+    "it": "Ricerca"
   },
   "help": {
     "fr": "Aide",
     "en": "Help",
     "de": "Hilfe",
     "es": "Ayuda",
-    "it": "Aiuto",
-    "pl": "",
-    "br": ""
+    "it": "Aiuto"
   },
   "en": {
     "fr": "Anglais",
     "en": "English",
     "es": "inglés",
-    "it": "Italiano",
-    "de": "",
-    "pl": "",
-    "br": ""
+    "it": "Italiano"
   },
   "de": {
     "fr": "Allemand",
     "en": "German",
     "es": "Aleman",
-    "it": "Tedesco",
-    "de": "",
-    "pl": "",
-    "br": ""
+    "it": "Tedesco"
   },
   "fr": {
     "fr": "Français",
     "en": "French",
     "es": "Francès",
-    "it": "Francese",
-    "de": "",
-    "pl": "",
-    "br": ""
+    "it": "Francese"
   },
   "es": {
     "fr": "Espagnol",
     "en": "Spanish",
     "es": "Español",
-    "it": "Spagnolo",
-    "de": "",
-    "pl": "",
-    "br": ""
+    "it": "Spagnolo"
   }
 }

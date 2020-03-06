@@ -6,17 +6,13 @@ module.exports = {
     "en": "Thank you for your contribution!",
     "de": "Danke für Ihren Beitrag!",
     "es": "Gracias por participar!",
-    "it": "Grazie per aver partecipato!",
-    "pl": "",
-    "br": ""
+    "it": "Grazie per aver partecipato!"
   },
   "done": {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
     "es": "cerca",
-    "it": "Chiudere",
-    "pl": "",
-    "br": ""
+    "it": "Chiudere"
   }
 }

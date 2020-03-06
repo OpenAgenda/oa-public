@@ -6,26 +6,20 @@ module.exports = {
     "en": "Activate your OpenAgenda account",
     "de": "Aktivieren Sie Ihr Konto OpenAgenda",
     "es": "Restablecimiento de la contraseña",
-    "it": "Reimpostazione della password",
-    "pl": "",
-    "br": ""
+    "it": "Reimpostazione della password"
   },
   "description": {
     "fr": "Cliquez sur le bouton suivant pour réinitialiser votre mot de passe:",
     "en": "Click the following button to reset your password:",
     "de": "Klicken Sie auf die folgende Schaltfläche zum Zurücksetzen des Passworts:",
     "es": "Haga clic en el botón de abajo para restablecer la contraseña:",
-    "it": "Cliccare il seguente pulsante per reimpostare la password:",
-    "pl": "",
-    "br": ""
+    "it": "Cliccare il seguente pulsante per reimpostare la password:"
   },
   "actionDescription": {
     "fr": "Réinitialiser le mot de passe",
     "en": "Reset password",
     "de": "Passwort zurücksetzen",
     "es": "restablecimiento de contraseña",
-    "it": "Reimposta la password",
-    "pl": "",
-    "br": ""
+    "it": "Reimposta la password"
   }
 }

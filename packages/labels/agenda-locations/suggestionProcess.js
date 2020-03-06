@@ -6,107 +6,83 @@ module.exports = {
     "en": "Validate a suggestion",
     "de": "Validate einen Vorschlag",
     "es": "Validar una sugerencia",
-    "it": "Convalidare un suggerimento",
-    "pl": "",
-    "br": ""
+    "it": "Convalidare un suggerimento"
   },
   "info": {
     "fr": "Les modifications proposées par le contributeur sont chargées dans les champs actifs. Editez-les avant de les valider.",
     "en": "The changes suggested by the contributor are loaded in the active fields. Edit them before saving the form.",
     "de": "Durch die Änderungen des Bewerters vorgeschlagen werden in den aktiven Feldern geladen. Bearbeite sie, bevor Sie das Formular zu speichern.",
     "es": "Los cambios propuestos por el contribuyente se cargan en los campos activos. Editarlas antes de comprometerse.",
-    "it": "Le modifiche proposte dal collaboratore vengono caricate nei campi attivi. Modificarli prima di convalidarli.",
-    "pl": "",
-    "br": ""
+    "it": "Le modifiche proposte dal collaboratore vengono caricate nei campi attivi. Modificarli prima di convalidarli."
   },
   "submit": {
     "fr": "Valider",
     "en": "Validate",
     "de": "Bestätigen",
     "es": "validar",
-    "it": "Convalida",
-    "pl": "",
-    "br": ""
+    "it": "Convalida"
   },
   "submitError": {
     "fr": "La suggestion n'a pas pu être traitée. Veuillez retenter dans un instant",
     "en": "The suggestion could not be processed. Please retry in a few moments",
     "de": "Der Vorschlag kann nicht verarbeitet werden. Bitte versuche es in ein paar Minuten Zeit",
     "es": "La sugerencia no se pudo procesar. Por favor, inténtelo de nuevo en un momento",
-    "it": "Il suggerimento non ha potuto essere accolto. Riprovare tra un attimo",
-    "pl": "",
-    "br": ""
+    "it": "Il suggerimento non ha potuto essere accolto. Riprovare tra un attimo"
   },
   "previous": {
     "fr": "Précédent",
     "en": "Previous",
     "de": "Bisherige",
     "es": "anterior",
-    "it": "Precedente",
-    "pl": "",
-    "br": ""
+    "it": "Precedente"
   },
   "next": {
     "fr": "Suivant",
     "en": "Next",
     "de": "Nächster",
     "es": "Próximo",
-    "it": "Avanti",
-    "pl": "",
-    "br": ""
+    "it": "Avanti"
   },
   "suggestionCount": {
     "fr": "Suggestion %current%/%total%",
     "en": "Suggestion %current%/%total%",
     "de": "Vorschlag %current% / %total%",
     "es": "Sugerencias% actual% /% Total%",
-    "it": "Suggerimento %current%/%total%",
-    "pl": "",
-    "br": ""
+    "it": "Suggerimento %current%/%total%"
   },
   "suggestionFrom": {
     "fr": "Suggestion de %stakeholder%",
     "en": "Suggestion from %stakeholder%",
     "de": "Vorschlag von %stakeholder%",
     "es": "Sugerido% de las partes interesadas%",
-    "it": "Suggerimento di %stakeholder%",
-    "pl": "",
-    "br": ""
+    "it": "Suggerimento di %stakeholder%"
   },
   "currentValue": {
     "fr": "Au lieu de",
     "en": "Instead of",
     "de": "Anstatt",
     "es": "En lugar de",
-    "it": "Invece di",
-    "pl": "",
-    "br": ""
+    "it": "Invece di"
   },
   "suggestionUnknownFrom": {
     "fr": "Suggestion d'un ancien contributeur",
     "en": "Suggestion from a previous contributor",
     "de": "Vorschlag von einem vorherigen Beitrag",
     "es": "Sugerencia de un ex colaborador",
-    "it": "Suggerimento di un ex collaboratore",
-    "pl": "",
-    "br": ""
+    "it": "Suggerimento di un ex collaboratore"
   },
   "suggestionDiscard": {
     "fr": "Ignorer cette suggestion",
     "en": "Ignore this suggestion",
     "de": "Ignoriere diesen Vorschlag",
     "es": "Ignorar esta sugerencia",
-    "it": "Ignora questo suggerimento",
-    "pl": "",
-    "br": ""
+    "it": "Ignora questo suggerimento"
   },
   "back": {
     "fr": "Retour",
     "en": "Back",
     "de": "Zurück",
     "es": "regreso",
-    "it": "Indietro",
-    "pl": "",
-    "br": ""
+    "it": "Indietro"
   }
 }

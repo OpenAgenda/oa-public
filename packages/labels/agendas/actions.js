@@ -7,8 +7,7 @@ module.exports = {
     "it": "La sua azione e' in corso di elaborazione. Gli eventi nello stato %oldstate% saranno a breve modificati in %newstate%.",
     "de": "Ihre Aktion wird bearbeitet. Die Veranstaltungen im Staat %oldstate% werden in Kürze in %newstate% geändert.",
     "pl": "Twoja akcja jest przetwarzana. Wydarzenia w stanie %oldstate% zostaną wkrótce zmienione na %newstate%.",
-    "es": "Su petición se está procesando. Los eventos con la condición de estado viejo aumentan a NewState% en breve.",
-    "br": ""
+    "es": "Su petición se está procesando. Los eventos con la condición de estado viejo aumentan a NewState% en breve."
   },
   "ownershipTransfered": {
     "en": "The ownership of the event has successfully been transfered",
@@ -16,8 +15,7 @@ module.exports = {
     "it": "La proprietà dell'evento è stata trasferita con successo.",
     "de": "Das Eigentum an der Veranstaltung wurde erfolgreich übertragen.",
     "pl": "Własność wydarzenia została pomyślnie przeniesiona",
-    "es": "La propiedad del evento fue transferido con éxito",
-    "br": ""
+    "es": "La propiedad del evento fue transferido con éxito"
   },
   "spreadsheetTitle": {
     "en": "Download",
@@ -25,8 +23,7 @@ module.exports = {
     "it": "Scaricare",
     "de": "Herunterladen",
     "pl": "Pobieranie",
-    "es": "descargar",
-    "br": ""
+    "es": "descargar"
   },
   "allLanguages": {
     "en": "All languages",
@@ -34,8 +31,7 @@ module.exports = {
     "it": "Tutte le lingue",
     "de": "Alle Sprachen",
     "pl": "Wszystkie języki",
-    "es": "todos los idiomas",
-    "br": ""
+    "es": "todos los idiomas"
   },
   "spreadsheetDescription": {
     "en": "Limit downloaded content to specified languages",
@@ -43,7 +39,6 @@ module.exports = {
     "it": "Limitare il contenuto scaricato alle lingue specificate",
     "de": "Beschränkung heruntergeladener Inhalte auf bestimmte Sprachen",
     "pl": "Ogranicz pobraną zawartość do określonych języków",
-    "es": "Limitar datos descargados algunos idiomas",
-    "br": ""
+    "es": "Limitar datos descargados algunos idiomas"
   }
 }

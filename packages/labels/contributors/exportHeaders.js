@@ -6,80 +6,61 @@ module.exports = {
     "fr": "Nom",
     "de": "Name",
     "es": "Apellido",
-    "it": "Nome",
-    "pl": "",
-    "br": ""
+    "it": "Nome"
   },
   "email": {
     "en": "Email",
     "fr": "Email",
     "de": "Email",
     "es": "Email",
-    "it": "Invia un'e-mail a",
-    "pl": "",
-    "br": ""
+    "it": "Invia un'e-mail a"
   },
   "organization": {
     "en": "Organization",
     "fr": "Organisation",
     "de": "Organisation",
     "es": "Organización",
-    "it": "Organizzazione",
-    "pl": "",
-    "br": ""
+    "it": "Organizzazione"
   },
   "phone": {
     "en": "Phone",
     "fr": "Téléphone",
     "de": "Telefon",
     "es": "Teléfono",
-    "it": "Telefono",
-    "pl": "",
-    "br": ""
+    "it": "Telefono"
   },
   "position": {
     "en": "Position",
     "fr": "Fonction",
     "de": "Position",
     "es": "Función",
-    "it": "Funzione",
-    "pl": "",
-    "br": ""
+    "it": "Funzione"
   },
   "contributions": {
     "en": "Contributed events",
     "fr": "Evénements contribués",
     "de": "Hinzugefügte Events",
     "es": "eventos contribudos",
-    "it": "Eventi collaterali",
-    "pl": "",
-    "br": ""
+    "it": "Eventi collaterali"
   },
   "credential": {
     "en": "Role",
     "fr": "Rôle",
     "de": "Rolle",
     "es": "Role",
-    "it": "Ruolo",
-    "pl": "",
-    "br": ""
+    "it": "Ruolo"
   },
   "role": {
     "en": "Role",
     "fr": "Rôle",
     "de": "Rolle",
     "es": "Role",
-    "it": "Ruolo",
-    "pl": "",
-    "br": ""
+    "it": "Ruolo"
   },
   "state": {
     "en": "State",
     "es": "Estado",
     "fr": "Statut",
-    "it": "Stato",
-    "de": "",
-    "pl": "",
-    "br": ""
+    "it": "Stato"
   }
 }

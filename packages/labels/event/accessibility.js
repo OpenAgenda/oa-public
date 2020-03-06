@@ -7,8 +7,7 @@ module.exports = {
     "de": "motorische Beeinträchtigung",
     "es": "discapacidad motora",
     "br": "dalc'het en o c'heflusk",
-    "it": "handicap fisico",
-    "pl": ""
+    "it": "handicap fisico"
   },
   "hearingImpairment": {
     "en": "hearing impairment",
@@ -16,8 +15,7 @@ module.exports = {
     "de": "schwerhörig",
     "es": "discapacidad auditiva",
     "br": "pounnerglev",
-    "it": "problemi di udito",
-    "pl": ""
+    "it": "problemi di udito"
   },
   "mentalImpairment": {
     "en": "mental impairment",
@@ -25,8 +23,7 @@ module.exports = {
     "de": "geistige Behinderung",
     "es": "discapacidad mental",
     "br": "dalc'het en o spered",
-    "it": "disabilità psichica",
-    "pl": ""
+    "it": "disabilità psichica"
   },
   "visualImpairment": {
     "en": "visual impairment",
@@ -34,8 +31,7 @@ module.exports = {
     "de": "Sehbehinderung",
     "es": "discapacitados visuales",
     "br": "na wel ket mat",
-    "it": "deficit visivo",
-    "pl": ""
+    "it": "deficit visivo"
   },
   "signLanguage": {
     "en": "Sign language",
@@ -43,8 +39,7 @@ module.exports = {
     "de": "Zeichensprache",
     "es": "Lenguaje de Señas",
     "br": "Yezh ar sinoù",
-    "it": "Lingua dei segni",
-    "pl": ""
+    "it": "Lingua dei segni"
   },
   "mi": {
     "en": "Motor impairment",
@@ -52,8 +47,7 @@ module.exports = {
     "de": "motorische Beeinträchtigung",
     "es": "Discapacidad física",
     "br": "Dalc'het en o c'heflusk",
-    "it": "Incapacità motoria",
-    "pl": ""
+    "it": "Incapacità motoria"
   },
   "hi": {
     "en": "Hearing impairment",
@@ -61,8 +55,7 @@ module.exports = {
     "de": "Schwerhörig",
     "es": "la discapacidad auditiva",
     "br": "Pounnerglev",
-    "it": "Disabilità uditiva",
-    "pl": ""
+    "it": "Disabilità uditiva"
   },
   "pi": {
     "en": "Mental impairment",
@@ -70,8 +63,7 @@ module.exports = {
     "de": "Geistige Behinderung",
     "es": "discapacidad mental",
     "br": "Dalc'het en o spered",
-    "it": "Invalidità psichica",
-    "pl": ""
+    "it": "Invalidità psichica"
   },
   "vi": {
     "en": "Visual impairment",
@@ -79,8 +71,7 @@ module.exports = {
     "de": "Sehbehinderung",
     "es": "discapacidad visual",
     "br": "Na wel ket mat",
-    "it": "Invalidità visiva",
-    "pl": ""
+    "it": "Invalidità visiva"
   },
   "sl": {
     "en": "Sign language",
@@ -88,8 +79,7 @@ module.exports = {
     "de": "Zeichensprache",
     "es": "Lenguaje de Señas",
     "br": "Yezh ar sinoù",
-    "it": "Lingua dei segni",
-    "pl": ""
+    "it": "Lingua dei segni"
   },
   "input": {
     "en": "This event has amenities to facilitate accessibility",
@@ -97,7 +87,6 @@ module.exports = {
     "de": "Dieses Veranstaltung verfügt über Annehmlichkeiten Zugänglichkeit zu erleichtern",
     "es": "Este evento incluye las mejoras a la accesibilidad",
     "br": "En darvoud-mañ ez eus aveadurioù da aesaat ar vonedusted",
-    "it": "Questo evento include alloggi per l'accessibilità",
-    "pl": ""
+    "it": "Questo evento include alloggi per l'accessibilità"
   }
 }

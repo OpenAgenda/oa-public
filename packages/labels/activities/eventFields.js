@@ -4,55 +4,31 @@ module.exports = {
   "title": {
     "fr": "titre",
     "en": "title",
-    "it": "titolo",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "titolo"
   },
   "description": {
     "fr": "description",
     "en": "description",
-    "it": "descrizione",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "descrizione"
   },
   "longDescription": {
     "fr": "description longue",
     "en": "long description",
-    "it": "descrizione lunga",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "descrizione lunga"
   },
   "timings": {
     "fr": "horaires",
     "en": "timings",
-    "it": "orari",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "orari"
   },
   "location": {
     "fr": "lieu",
     "en": "location",
-    "it": "posto",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "posto"
   },
   "image": {
     "fr": "image",
     "en": "image",
-    "it": "immagine",
-    "de": "",
-    "pl": "",
-    "br": "",
-    "es": ""
+    "it": "immagine"
   }
 }

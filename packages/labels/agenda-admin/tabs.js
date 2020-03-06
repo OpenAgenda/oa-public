@@ -6,197 +6,153 @@ module.exports = {
     "fr": "Evénements",
     "de": "Veranstaltungen",
     "es": "Eventos",
-    "it": "Eventi",
-    "pl": "",
-    "br": ""
+    "it": "Eventi"
   },
   "contributors": {
     "en": "Contributors",
     "fr": "Contributeurs",
     "de": "Mitwirkende",
     "es": "Colaboradores",
-    "it": "Collaboratori",
-    "pl": "",
-    "br": ""
+    "it": "Collaboratori"
   },
   "moderators": {
     "en": "Moderators",
     "fr": "Modérateurs",
     "de": "Moderatoren",
     "es": "Moderadores",
-    "it": "Moderatori",
-    "pl": "",
-    "br": ""
+    "it": "Moderatori"
   },
   "members": {
     "en": "Members",
     "fr": "Membres",
     "de": "Mitglieder",
     "es": "Miembros",
-    "it": "Membri",
-    "pl": "",
-    "br": ""
+    "it": "Membri"
   },
   "activities": {
     "en": "Activities",
     "fr": "Activités",
     "de": "Aktivitäten",
     "es": "Actividades",
-    "it": "Attività",
-    "pl": "",
-    "br": ""
+    "it": "Attività"
   },
   "newTab": {
     "en": "New !",
     "fr": "Nouveau !",
     "de": "Neu !",
     "es": "Nuevo!",
-    "it": "Nuovo!",
-    "pl": "",
-    "br": ""
+    "it": "Nuovo!"
   },
   "locations": {
     "en": "Locations",
     "fr": "Lieux",
     "de": "Standorte",
     "es": "Lugares",
-    "it": "Sedi",
-    "pl": "",
-    "br": ""
+    "it": "Sedi"
   },
   "categories": {
     "en": "Categories and Tags",
     "fr": "Catégories et Tags",
     "de": "Kategorien und Schlagwörter",
     "es": "Categorías y Etiquetas",
-    "it": "Categorie e Tag",
-    "pl": "",
-    "br": ""
+    "it": "Categorie e Tag"
   },
   "inbox": {
     "en": "Inbox",
     "fr": "Messagerie",
     "de": "Posteingang",
     "es": "Mensajería",
-    "it": "Posta",
-    "pl": "",
-    "br": ""
+    "it": "Posta"
   },
   "customized": {
     "en": "Customized fields",
     "fr": "Champs personnalisés",
     "de": "Angepasste Felder",
     "es": "Campos personalizados",
-    "it": "Campi personalizzati",
-    "pl": "",
-    "br": ""
+    "it": "Campi personalizzati"
   },
   "sources": {
     "en": "Sources",
     "fr": "Sources",
     "de": "Quellen",
     "es": "fuentes",
-    "it": "Fonti",
-    "pl": "",
-    "br": ""
+    "it": "Fonti"
   },
   "facebook": {
     "en": "Facebook",
     "fr": "Facebook",
     "de": "Facebook",
     "es": "Facebook",
-    "it": "Facebook",
-    "pl": "",
-    "br": ""
+    "it": "Facebook"
   },
   "swapcard": {
     "en": "Swapcard",
     "fr": "Swapcard",
     "de": "Swapcard",
     "es": "Swapcard",
-    "it": "Swapcard",
-    "pl": "",
-    "br": ""
+    "it": "Swapcard"
   },
   "web": {
     "en": "Web Integration",
     "fr": "Intégration Web",
     "de": "Web-Integration",
     "es": "Integración web",
-    "it": "Integrazione web",
-    "pl": "",
-    "br": ""
+    "it": "Integrazione web"
   },
   "indesign": {
     "en": "Indesign - Xml",
     "fr": "Indesign - Xml",
     "de": "Indesign - Xml",
     "es": "InDesign - XML",
-    "it": "Indesign - Xml",
-    "pl": "",
-    "br": ""
+    "it": "Indesign - Xml"
   },
   "emailstrategie": {
     "en": "EmailStrategie",
     "fr": "EmailStrategie",
     "de": "EmailStrategie",
     "es": "EmailStrategie",
-    "it": "EmailStrategia",
-    "pl": "",
-    "br": ""
+    "it": "EmailStrategia"
   },
   "administrators": {
     "en": "Administrators",
     "fr": "Administrateurs",
     "de": "Administratoren",
     "es": "Administradores",
-    "it": "Amministratori",
-    "pl": "",
-    "br": ""
+    "it": "Amministratori"
   },
   "settings": {
     "en": "Settings",
     "fr": "Paramètres",
     "de": "Die Einstellungen",
     "es": "Configuraciones",
-    "it": "Impostazioni",
-    "pl": "",
-    "br": ""
+    "it": "Impostazioni"
   },
   "settings_profile": {
     "en": "Profile",
     "fr": "Profil",
     "de": "Profil",
     "es": "Perfil",
-    "it": "Profilo",
-    "pl": "",
-    "br": ""
+    "it": "Profilo"
   },
   "schema": {
     "en": "Form",
     "fr": "Formulaire",
     "de": "Bilden",
     "es": "Formulario",
-    "it": "Modulo",
-    "pl": "",
-    "br": ""
+    "it": "Modulo"
   },
   "settings_contribution": {
     "en": "Contribution",
     "fr": "Contribution",
     "de": "Beitrag",
     "es": "Contribución",
-    "it": "Contributo",
-    "pl": "",
-    "br": ""
+    "it": "Contributo"
   },
   "settings_advanced": {
     "en": "Advanced",
     "fr": "Avancé",
     "de": "Fortgeschritten",
     "es": "Avanzado",
-    "it": "Avanzato",
-    "pl": "",
-    "br": ""
+    "it": "Avanzato"
   }
 }
