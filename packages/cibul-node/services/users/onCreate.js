@@ -1,10 +1,11 @@
 const _ = require( 'lodash' );
 const invitationsSvc = require( '@openagenda/invitations' );
-const { Inbox } = require( '../inboxes' );
 
 
 module.exports = function onCreate() {
   return async context => {
+    const { Inbox } = context.services.inboxes;
+
     const user = context.result;
     const { optionals } = context.params;
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const { hooks } = require('@feathersjs/hooks');
+const { hooks, registerContextUpdater, withProps } = require('@feathersjs/hooks');
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const errors = require('@feathersjs/errors');
@@ -38,7 +38,7 @@ function replaceIdMe() {
 
     await next();
   };
-};
+}
 
 module.exports = {
   init,
@@ -157,7 +157,7 @@ async function init(config, services) {
       beforeCreate,
       onCreate,
       onGenerateApiKey,
-      onActivation: onActivation.bind(null, services),
+      onActivation,
       sendToken: sendToken.bind(null, config),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
       keys: {
@@ -168,6 +168,8 @@ async function init(config, services) {
     },
     logger: config.getLogConfig('svc', 'users', false)
   });
+
+  registerContextUpdater(service, withProps({ services }));
 
   hooks(service, [
     replaceIdMe()
