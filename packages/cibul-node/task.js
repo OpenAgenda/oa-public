@@ -46,7 +46,7 @@ module.exports = (config, core, services) => {
     time: '08:00'
   } );
 
-  tfy( require( './services/inboxes' ).tasks.sync, {
+  tfy( services.inboxes.tasks.sync, {
     // bootOffset: 5000,
     period: 'weekly',
     day: 'sunday',
@@ -106,7 +106,7 @@ module.exports = (config, core, services) => {
 
   // require( './services/agendaStatistics' ).task.resyncLegacySearch();
 
-  // require( './services/inboxes' ).tasks.sync();
+  // services.inboxes.tasks.sync();
 
   //require( '@openagenda/events' ).tasks.slowTransfer( { force: true, interval: 500 } );
 
