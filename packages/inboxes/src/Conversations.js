@@ -2,8 +2,8 @@ import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
+import VError from 'verror';
 import parseListArguments from '@openagenda/service-utils/parseListArguments';
-import Conversation from './Conversation';
 import mapper from './utils/mapper';
 import validate from './utils/validate';
 import conversationFieldsMap from './db/conversationFieldsMap';
@@ -14,66 +14,108 @@ import populateLatestMessage from './db/populateLatestMessage';
 import populateDetails from './db/populateDetails';
 import { listSchema } from './validators/conversationSchemas';
 
-const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
-ajvErrors( ajv );
-ajvKeywords( ajv, [ 'instanceof' ] );
+const ajv = new Ajv({
+  allErrors: true,
+  jsonPointers: true,
+  errorDataPath: 'property'
+});
+ajvErrors(ajv);
+ajvKeywords(ajv, ['instanceof']);
 
 export default class Conversations {
-  constructor( config, options ) {
-    this.config = config;
+  constructor(svc, options) {
+    this.svc = svc;
     this.inbox = options.inbox;
     this.userUid = options.userUid; // define if it's in context of a user or not
   }
 
-  create( data, options ) {
-    return new Conversation( this.config, null, { inbox: this.inbox, userUid: this.userUid } )
-      .create( data, options );
+  create(data, options) {
+    const { Conversation } = this.svc;
+
+    return new Conversation(null, {
+      inbox: this.inbox,
+      userUid: this.userUid
+    }).create(data, options);
   }
 
-  get( identifiers, options ) {
-    return new Conversation( this.config, identifiers, { inbox: this.inbox, userUid: this.userUid } )
-      .get( options );
+  get(identifiers, options) {
+    const { Conversation } = this.svc;
+
+    return new Conversation(identifiers, {
+      inbox: this.inbox,
+      userUid: this.userUid
+    }).get(options);
   }
 
-  update( identifiers, data, inboxUser, options ) {
-    return new Conversation( this.config, identifiers, { inbox: this.inbox, userUid: this.userUid } )
-      .update( data, inboxUser, options );
+  update(identifiers, data, inboxUser, options) {
+    const { Conversation } = this.svc;
+
+    return new Conversation(identifiers, {
+      inbox: this.inbox,
+      userUid: this.userUid
+    }).update(data, inboxUser, options);
   }
 
-  action( identifiers, code, inboxUser ) {
-    return new Conversation( this.config, identifiers, { inbox: this.inbox, userUid: this.userUid } )
-      .action( code, inboxUser );
+  action(identifiers, code, inboxUser) {
+    const { Conversation } = this.svc;
+
+    return new Conversation(identifiers, {
+      inbox: this.inbox,
+      userUid: this.userUid
+    }).action(code, inboxUser);
   }
 
-  async list( ...args ) {
-    const { knex, schemas } = this.config;
+  async list(...args) {
+    const { knex, schemas } = this.svc.config;
 
     await this._loadInbox();
 
-    const { query, offset, limit, options } = parseListArguments( ...args );
+    const {
+      query, offset, limit, options
+    } = parseListArguments(...args);
 
-    const params = _.assign( {
-      total: false
-    }, options );
+    const params = _.assign(
+      {
+        total: false
+      },
+      options
+    );
 
-    validate( ajv, listSchema, query );
+    validate(ajv, listSchema, query);
 
-    const request = knex( schemas.conversation )
+    const request = knex(schemas.conversation)
       .select()
       .column(
-        mapper.listFields( conversationFieldsMap, 'select', 'db', options, true )
-          .map( v => `${schemas.conversation}.${v}` )
+        mapper
+          .listFields(conversationFieldsMap, 'select', 'db', options, true)
+          .map(v => `${schemas.conversation}.${v}`)
       )
-      .column( `${schemas.inbox}.id as inboxContextId` )
+      .column(`${schemas.inbox}.id as inboxContextId`)
       .column(
-        mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'creatorInboxUser.' )
-          .map( v => `creatorInboxUser.${v}` )
+        mapper
+          .listFields(
+            inboxUserFieldsMap,
+            'select',
+            'db',
+            options,
+            true,
+            'creatorInboxUser.'
+          )
+          .map(v => `creatorInboxUser.${v}`)
       )
       .column(
-        mapper.listFields( inboxFieldsMap, 'select', 'db', options, true, 'creatorInbox.' )
-          .map( v => `creatorInbox.${v}` )
+        mapper
+          .listFields(
+            inboxFieldsMap,
+            'select',
+            'db',
+            options,
+            true,
+            'creatorInbox.'
+          )
+          .map(v => `creatorInbox.${v}`)
       )
-      .max( `${schemas.message}.id as latestMessageId` )
+      .max(`${schemas.message}.id as latestMessageId`)
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.inboxConversation}.conversation_id`,
@@ -91,52 +133,67 @@ export default class Conversations {
       )
       .leftJoin(
         `${schemas.inboxUser} as creatorInboxUser`,
-        `creatorInboxUser.id`,
+        'creatorInboxUser.id',
         `${schemas.conversation}.creator_inbox_user_id`
       )
       .leftJoin(
         `${schemas.inbox} as creatorInbox`,
-        `creatorInbox.id`,
-        `creatorInboxUser.inbox_id`
+        'creatorInbox.id',
+        'creatorInboxUser.inbox_id'
       )
       .where(
         _.mapKeys(
-          mapper.toDb( conversationFieldsMap, 'select', query, options ),
-          ( v, key ) => `${schemas.conversation}.${key}`
+          mapper.toDb(conversationFieldsMap, 'select', query, options),
+          (v, key) => `${schemas.conversation}.${key}`
         )
       )
-      .groupBy( `${schemas.conversation}.id` )
-      .orderByRaw( '(closedAt IS NOT NULL)' )
-      .orderByRaw( `latestMessageId DESC` )
-      .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` );
+      .groupBy(`${schemas.conversation}.id`)
+      .orderByRaw('(closedAt IS NOT NULL)')
+      .orderByRaw('latestMessageId DESC')
+      .orderByRaw(
+        `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC`
+      );
 
-    if ( this.userUid ) { // viewed by user endpoint
+    if (this.userUid) {
+      // viewed by user endpoint
       request
         .column(
-          mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'inboxUser.' )
-            .map( v => `${schemas.inboxUser}.${v}` )
+          mapper
+            .listFields(
+              inboxUserFieldsMap,
+              'select',
+              'db',
+              options,
+              true,
+              'inboxUser.'
+            )
+            .map(v => `${schemas.inboxUser}.${v}`)
         )
-        .leftJoin(
-          schemas.inboxUser,
-          join => join
-            .on( `${schemas.inboxUser}.inbox_id`, `${schemas.inboxConversation}.inbox_id` )
-            .onNull( `${schemas.inboxUser}.left_at` )
-        )
-        .where( `${schemas.inboxUser}.user_uid`, this.userUid );
-    } else { // viewed by inbox endpoint
-      request.where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
+        .leftJoin(schemas.inboxUser, join => join
+          .on(
+            `${schemas.inboxUser}.inbox_id`,
+            `${schemas.inboxConversation}.inbox_id`
+          )
+          .onNull(`${schemas.inboxUser}.left_at`))
+        .where(`${schemas.inboxUser}.user_uid`, this.userUid);
+    } else {
+      // viewed by inbox endpoint
+      request.where(
+        `${schemas.inboxConversation}.inbox_id`,
+        this.inbox.data.id
+      );
     }
 
-    if ( params.total ) {
+    if (params.total) {
       const countResult = await knex
-        .count( 'cnt.id AS total' )
+        .count('cnt.id AS total')
         .first()
-        .from( request.clone().as( 'cnt' ) );
+        .from(request.clone().as('cnt'));
       const countOpenedResult = await knex
-        .count( 'cnt.id AS total' )
-        .whereNull( 'closedAt' )
+        .count('cnt.id AS total')
+        .whereNull('closedAt')
         .first()
-        .from( request.clone().as( 'cnt' ) );
+        .from(request.clone().as('cnt'));
       this.total = countResult.total || 0;
       this.totalOpened = countOpenedResult.total || 0;
       this.totalClosed = countResult.total - countOpenedResult.total;
@@ -145,21 +202,19 @@ export default class Conversations {
     }
 
     let result = await request
-      .offset( offset )
-      .limit( limit )
-      .map( row =>
-        _.reduce(
-          { ...row, ...mapper.toObj( conversationFieldsMap, row, options ) },
-          ( result, value, key ) => _.set( result, key, value ),
-          {}
-        )
-      );
+      .offset(offset)
+      .limit(limit)
+      .map(row => _.reduce(
+        { ...row, ...mapper.toObj(conversationFieldsMap, row, options) },
+        (accu, value, key) => _.set(accu, key, value),
+        {}
+      ));
 
-    result = await populateDetails( this.config, result, this.inbox );
+    result = await populateDetails(this.svc, result, this.inbox);
 
-    result = await populateLatestMessage( this.config, result, this.inbox );
+    result = await populateLatestMessage(this.svc, result, this.inbox);
 
-    result = await populateParticipants( this.config, result );
+    result = await populateParticipants(this.svc, result);
 
     this.data = result;
 
@@ -167,23 +222,23 @@ export default class Conversations {
   }
 
   async _loadInbox() {
-    if ( !this.inbox.data ) {
+    if (!this.inbox.data) {
       await this.inbox.get();
     }
 
-    if ( !this.inbox.data ) {
-      throw new VError( 'Inbox %j not found', this.inbox.identifiers );
+    if (!this.inbox.data) {
+      throw new VError('Inbox %j not found', this.inbox.identifiers);
     }
   }
 
   toJSON() {
-    if ( typeof this.total === "number" ) {
+    if (typeof this.total === 'number') {
       return {
         total: this.total,
         totalOpened: this.totalOpened,
         totalClosed: this.totalClosed,
         data: this.data || null
-      }
+      };
     }
 
     return this.data || null;

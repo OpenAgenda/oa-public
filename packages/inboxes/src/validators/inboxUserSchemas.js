@@ -1,10 +1,11 @@
-export function getIdentifiersSchema( identifiers ) {
+export function getIdentifiersSchema(identifiers) {
   return {
-    required: identifiers && identifiers.id ? [ 'id' ] : [ 'inboxId', 'userUid' ],
+    type: 'object',
+    required: identifiers && identifiers.id ? ['id'] : ['inboxId', 'userUid'],
     additionalProperties: false,
     properties: {
       id: {
-        type: 'integer',
+        type: 'integer'
       },
       inboxId: {
         type: 'integer'
@@ -14,11 +15,12 @@ export function getIdentifiersSchema( identifiers ) {
       }
     }
   };
-};
+}
 
-export function getListSchema( query ) {
+export function getListSchema(query) {
   return {
-    required: [ query.userUid ? 'userUid' : 'inboxId' ],
+    type: 'object',
+    required: [query.userUid ? 'userUid' : 'inboxId'],
     additionalProperties: false,
     properties: {
       inboxId: {
@@ -33,7 +35,8 @@ export function getListSchema( query ) {
 }
 
 export const createSchema = {
-  required: [ 'inboxId', 'userUid' ],
+  type: 'object',
+  required: ['inboxId', 'userUid'],
   additionalProperties: false,
   properties: {
     inboxId: {

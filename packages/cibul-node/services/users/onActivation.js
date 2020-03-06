@@ -1,13 +1,12 @@
 'use strict';
 
-module.exports = function onActivation(services) {
-  const {
-    invitations,
-    activities,
-    users
-  } = services;
-
+module.exports = function onActivation() {
   return async context => {
+    const {
+      invitations,
+      activities,
+      users
+    } = context.services;
     const user = context.result;
 
     if (!user) {

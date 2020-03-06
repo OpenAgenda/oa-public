@@ -3,34 +3,40 @@ import InboxUsers from './InboxUsers';
 import InboxUser from './InboxUser';
 import Conversations from './Conversations';
 import Conversation from './Conversation';
+import Messages from './Messages';
+import Message from './Message';
 import * as tasks from './tasks';
 import makeConfig from './config';
 
 export default async function createService(conf) {
   const config = await makeConfig(conf);
 
-  const svc = {
+  const svc = {};
+
+  Object.assign(svc, {
     config,
-    Inbox: Inbox.bind(null, config),
-    InboxUsers: InboxUsers.bind(null, config),
-    InboxUser: InboxUser.bind(null, config),
-    Conversations: Conversations.bind(null, config),
-    Conversation: Conversation.bind(null, config),
+    Inbox: Inbox.bind(null, svc),
+    InboxUsers: InboxUsers.bind(null, svc),
+    InboxUser: InboxUser.bind(null, svc),
+    Conversations: Conversations.bind(null, svc),
+    Conversation: Conversation.bind(null, svc),
+    Messages: Messages.bind(null, svc),
+    Message: Message.bind(null, svc),
     tasks: {
-      sync: Object.assign(tasks.sync.default.bind(null, config), {
-        syncTask: tasks.sync.default.bind(null, config),
-        defineJob: tasks.sync.defineJob.bind(null, config),
-        processJob: tasks.sync.processJob.bind(null, config),
-        syncUser: tasks.sync.syncUser.bind(null, config),
-        syncAgenda: tasks.sync.syncAgenda.bind(null, config)
+      sync: Object.assign(tasks.sync.default.bind(null, svc), {
+        syncTask: tasks.sync.default.bind(null, svc),
+        defineJob: tasks.sync.defineJob.bind(null, svc),
+        processJob: tasks.sync.processJob.bind(null, svc),
+        syncUser: tasks.sync.syncUser.bind(null, svc),
+        syncAgenda: tasks.sync.syncAgenda.bind(null, svc)
       })
     }
-  };
+  });
 
   // bind statics
-  svc.Inbox.user = Inbox.user.bind(null, config);
-  svc.Conversation.link = Conversation.link.bind(null, config);
-  svc.Conversation.unlink = Conversation.unlink.bind(null, config);
+  svc.Inbox.user = Inbox.user.bind(null, svc);
+  svc.Conversation.link = Conversation.link.bind(null, svc);
+  svc.Conversation.unlink = Conversation.unlink.bind(null, svc);
 
   return svc;
-};
+}

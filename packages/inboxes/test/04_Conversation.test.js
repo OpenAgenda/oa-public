@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import init, { initAndLoad, seed } from './service';
 import testconfig from '../testconfig';
+import init, { initAndLoad, seed } from './service';
 
-const database = testconfig.mysql.database + '_Conversation';
+const database = `${testconfig.mysql.database}_Conversation`;
 const tables = [
   'inbox',
   'inboxUser',
@@ -14,8 +14,6 @@ const tables = [
 describe('Conversation', () => {
   let service;
   let Inbox;
-  let InboxUsers;
-  let InboxUser;
   let Conversations;
   let Conversation;
 
@@ -28,16 +26,16 @@ describe('Conversation', () => {
       []
     );
 
-    ({ Inbox, InboxUsers, InboxUser, Conversations, Conversation } = service);
+    ({ Inbox, Conversations, Conversation } = service);
   });
 
   beforeEach(async () => {
     await service.config.knex.transaction(async trx => {
-      await trx.raw(`SET foreign_key_checks = 0`);
+      await trx.raw('SET foreign_key_checks = 0');
       for (const table of tables) {
         await trx(service.config.schemas[table]).truncate();
       }
-      await trx.raw(`SET foreign_key_checks = 1`);
+      await trx.raw('SET foreign_key_checks = 1');
     });
 
     await seed(
@@ -50,7 +48,7 @@ describe('Conversation', () => {
   });
 
   afterAll(async () => {
-    // await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
+    await service.config.knex.raw(`DROP DATABASE IF EXISTS ${database}`);
     await service.config.knex.destroy();
   });
 
@@ -592,7 +590,15 @@ describe('Conversation', () => {
     test('update a conversation', async () => {
       const conversation = await Inbox.user(99999999).conversations.get(1);
 
-      const date = new Date(parseInt(new Date().getTime().toString().slice(0, -3) + '000', 10));
+      const date = new Date(
+        parseInt(
+          `${new Date()
+            .getTime()
+            .toString()
+            .slice(0, -3)}000`,
+          10
+        )
+      );
 
       await conversation.update({
         params: { un: { nouveau: 'truc' } },
@@ -703,17 +709,15 @@ describe('Conversation', () => {
 
       const result = conversations
         .toJSON()
-        .map(v =>
-          _.omit(
-            v,
-            'createdAt',
-            'updatedAt',
-            'resolvedAt',
-            'closedAt',
-            'latestMessage.createdAt',
-            'fileKey'
-          )
-        );
+        .map(v => _.omit(
+          v,
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'closedAt',
+          'latestMessage.createdAt',
+          'fileKey'
+        ));
 
       expect(result).toEqual([
         {
@@ -842,17 +846,15 @@ describe('Conversation', () => {
       expect(total).toBe(6);
 
       expect(
-        result.map(v =>
-          _.omit(
-            v,
-            'createdAt',
-            'updatedAt',
-            'resolvedAt',
-            'closedAt',
-            'latestMessage.createdAt',
-            'fileKey'
-          )
-        )
+        result.map(v => _.omit(
+          v,
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'closedAt',
+          'latestMessage.createdAt',
+          'fileKey'
+        ))
       ).toEqual([
         {
           id: 5,
@@ -1248,24 +1250,19 @@ describe('Conversation', () => {
     });
 
     test('list conversations with offset and limit', async () => {
-      const conversations = await Inbox.user(99999999).conversations.list(
-        1,
-        3
-      );
+      const conversations = await Inbox.user(99999999).conversations.list(1, 3);
 
       const result = conversations
         .toJSON()
-        .map(v =>
-          _.omit(
-            v,
-            'createdAt',
-            'updatedAt',
-            'resolvedAt',
-            'closedAt',
-            'latestMessage.createdAt',
-            'fileKey'
-          )
-        );
+        .map(v => _.omit(
+          v,
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'closedAt',
+          'latestMessage.createdAt',
+          'fileKey'
+        ));
 
       expect(result).toEqual([
         {
@@ -1486,17 +1483,15 @@ describe('Conversation', () => {
 
       const result = conversations
         .toJSON()
-        .map(v =>
-          _.omit(
-            v,
-            'createdAt',
-            'updatedAt',
-            'resolvedAt',
-            'closedAt',
-            'latestMessage.createdAt',
-            'fileKey'
-          )
-        );
+        .map(v => _.omit(
+          v,
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'closedAt',
+          'latestMessage.createdAt',
+          'fileKey'
+        ));
 
       expect(result).toEqual([
         {
@@ -1564,9 +1559,7 @@ describe('Conversation', () => {
     });
 
     test('list conversations of a deleted inbox user', async () => {
-      const conversations = await Inbox.user(
-        86286559
-      ).conversations.list();
+      const conversations = await Inbox.user(86286559).conversations.list();
 
       expect(conversations.toJSON()).toEqual([]);
     });
@@ -1601,13 +1594,15 @@ describe('Conversation', () => {
         }
       });
 
-      ({ Inbox, InboxUsers, InboxUser, Conversations, Conversation } = service);
+      ({ Inbox, Conversations, Conversation } = service);
     });
 
     it('trigger an action', async () => {
       const spy = jest.spyOn(service.config.interfaces, 'onAction');
 
-      await new Inbox(4).conversations.action(3, 'accept', { userUid: 89216486 });
+      await new Inbox(4).conversations.action(3, 'accept', {
+        userUid: 89216486
+      });
 
       expect(spy.mock.calls).toHaveLength(1);
       expect(spy.mock.calls[0]).toMatchObject([{ id: 3 }, { code: 'accept' }]);

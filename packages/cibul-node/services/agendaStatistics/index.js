@@ -8,7 +8,6 @@ const queue = require( '@openagenda/queue' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
 const logs = require('@openagenda/logs');
 
-const { syncAgenda } = require( '../inboxes' ).tasks.sync;
 const activitiesSvc = require( '../activities' );
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
@@ -62,6 +61,8 @@ module.exports.init = c => {
 module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaUid, type } );
 
 module.exports.task = services => {
+
+  const { syncAgenda } = services.inboxes.tasks.sync;
 
   q.setConsumer( ( data, cb ) => {
 

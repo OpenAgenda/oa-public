@@ -92,6 +92,7 @@ module.exports = {
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-continue': 'off',
     'no-await-in-loop': 'off',
+    'no-cond-assign': ['error', 'except-parens'],
     'consistent-return': 'off',
     // 'space-in-parens': [ 'error', 'always' ],
     'max-len': ['off', 80],

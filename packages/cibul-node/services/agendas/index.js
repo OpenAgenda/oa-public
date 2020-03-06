@@ -6,7 +6,6 @@ const imageFiles = require('@openagenda/image-files');
 const cmn = require('../../lib/commons-app');
 const controlDataSvc = require('../legacy').controlData;
 const activities = require('../activities');
-const { Inbox } = require('../inboxes');
 const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
 const middleware = require('./middleware');
 
@@ -48,9 +47,9 @@ module.exports.init = (config, services) => {
     logger: config.getLogConfig('svc', 'agendas'),
     interfaces: {
       onCreate: onCreate.bind(null, services),
+      onRemove: onRemove.bind(null, services),
       onUpdate,
       beforeRemove,
-      onRemove,
       imageFilesLoad: imageFiles.load,
       imageFilesClear: imageFiles.clear,
       imageFilesGetBasePath: imageFiles.getBucketPath
@@ -123,7 +122,8 @@ function beforeRemove(agenda, cb) {
 }
 
 
-function onRemove(agenda) {
+function onRemove(services, agenda) {
+  const { Inbox } = services.inboxes;
 
   // inbox
   log('remove inbox (agenda uid %d)', agenda.uid);
@@ -131,5 +131,4 @@ function onRemove(agenda) {
 
   // feed / activity
   activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
-
 }

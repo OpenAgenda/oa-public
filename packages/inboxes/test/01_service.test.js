@@ -1,8 +1,8 @@
 import knexLib from 'knex';
-import { initAndLoad } from './service';
 import testconfig from '../testconfig';
+import { initAndLoad } from './service';
 
-const database = testconfig.mysql.database + '_service';
+const database = `${testconfig.mysql.database}_service`;
 
 const serviceShape = {
   Inbox: expect.any(Function),
@@ -25,11 +25,14 @@ describe('service', () => {
 
   describe('init', () => {
     test('simple init', async () => {
-      const service = initAndLoad({
-        ...testconfig,
-        mysql: { ...testconfig.mysql, database },
-        logger: { namespace: 'test:' }
-      }, []);
+      const service = initAndLoad(
+        {
+          ...testconfig,
+          mysql: { ...testconfig.mysql, database },
+          logger: { namespace: 'test:' }
+        },
+        []
+      );
 
       await expect(service).resolves.toMatchObject(serviceShape);
 
@@ -37,11 +40,14 @@ describe('service', () => {
     });
 
     test('init without migrations', async () => {
-      const service = initAndLoad({
-        ...testconfig,
-        mysql: { ...testconfig.mysql, database },
-        migrations: null
-      }, []);
+      const service = initAndLoad(
+        {
+          ...testconfig,
+          mysql: { ...testconfig.mysql, database },
+          migrations: null
+        },
+        []
+      );
 
       await expect(service).resolves.toMatchObject(serviceShape);
 
@@ -54,14 +60,17 @@ describe('service', () => {
         connection: { ...testconfig.mysql, database }
       });
 
-      const service = initAndLoad({
-        ...testconfig,
-        mysql: { ...testconfig.mysql, database },
-        knex,
-        migrations: {
-          tableName: 'test_migrations'
-        }
-      }, []);
+      const service = initAndLoad(
+        {
+          ...testconfig,
+          mysql: { ...testconfig.mysql, database },
+          knex,
+          migrations: {
+            tableName: 'test_migrations'
+          }
+        },
+        []
+      );
 
       await expect(service).resolves.toMatchObject(serviceShape);
 

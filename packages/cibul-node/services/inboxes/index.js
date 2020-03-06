@@ -181,12 +181,15 @@ module.exports.init = async (c, services) => {
             ]
           }
         },
-        defaultImagePath: c.aws.defaultImagePath
+        defaultImagePath: c.aws.defaultImagePath,
+        mw: {
+          limit: 20
+        }
       }
     )
   );
 
-  await inboxMw.init(_.merge({}, service.config, { interfaces, mw: { limit: 20 } }));
+  await inboxMw.init(service);
 
   Object.assign(service, {
     getApp: getApp.bind(null, c, services)

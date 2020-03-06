@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import VError from 'verror';
-import { initAndLoad, seed } from './service';
 import testconfig from '../testconfig';
+import { initAndLoad, seed } from './service';
 
-const database = testconfig.mysql.database + '_Message';
+const database = `${testconfig.mysql.database}_Message`;
 const tables = [
   'inbox',
   'inboxUser',
@@ -15,10 +14,6 @@ const tables = [
 describe('Message', () => {
   let service;
   let Inbox;
-  let InboxUsers;
-  let InboxUser;
-  let Conversations;
-  let Conversation;
 
   beforeAll(async () => {
     service = await initAndLoad(
@@ -29,16 +24,16 @@ describe('Message', () => {
       []
     );
 
-    ({ Inbox, InboxUsers, InboxUser, Conversations, Conversation } = service);
+    ({ Inbox } = service);
   });
 
   beforeEach(async () => {
     await service.config.knex.transaction(async trx => {
-      await trx.raw(`SET foreign_key_checks = 0`);
+      await trx.raw('SET foreign_key_checks = 0');
       for (const table of tables) {
         await trx(service.config.schemas[table]).truncate();
       }
-      await trx.raw(`SET foreign_key_checks = 1`);
+      await trx.raw('SET foreign_key_checks = 1');
     });
 
     await seed(
@@ -58,6 +53,7 @@ describe('Message', () => {
   describe('create', () => {
     test('create a message - by inboxes endpoint', async () => {
       const conversation = await new Inbox(1).conversations.get(1);
+
       const message = await conversation.messages.create({
         body: 'Salut toi, mets moi admin, et vite ! 🎉',
         userUid: 23456789
@@ -123,28 +119,32 @@ describe('Message', () => {
     test('create a message - by inboxes endpoint with missing userUid', async () => {
       const conversation = await new Inbox(1).conversations.get(1);
 
-      try {
-        await conversation.messages.create({
+      await expect(
+        conversation.messages.create({
           body: 'Salut toi, mets moi admin, et vite !'
-        });
-      } catch (err) {
-        expect(VError.info(err).errors.userUid.code).toBe('required');
-      }
+        })
+      ).rejects.toMatchObject({
+        jse_info: {
+          errors: {
+            userUid: {
+              code: 'required'
+            }
+          }
+        }
+      });
     });
 
     test('create a message - by inboxes endpoint with inexistant inboxUser', async () => {
       const conversation = await new Inbox(1).conversations.get(1);
 
-      try {
-        await conversation.messages.create({
+      await expect(
+        conversation.messages.create({
           body: 'Salut toi, mets moi admin, et vite !',
           userUid: 23456790
-        });
-      } catch (err) {
-        expect(err.message).toBe(
-          'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }'
-        );
-      }
+        })
+      ).rejects.toMatchObject({
+        message: 'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }'
+      });
     });
 
     test('create a message - createInboxUserOnNull option create the inexistant inboxUser', async () => {

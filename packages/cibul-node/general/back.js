@@ -2,11 +2,11 @@
 
 const _ = require('lodash');
 const sessions = require('@openagenda/sessions');
-const mails = require('../services/mails');
 const cmn = require('../lib/commons-app');
-const { Inbox } = require('../services/inboxes');
 
 function callToActionRequest(req, res) {
+  const { mails } = req.app.services;
+
   const { subject, url, agenda, message } = _.pick(req.body, 'subject', 'url', 'agenda', 'message');
 
   mails.send({
@@ -43,6 +43,8 @@ function _loadUser(detailed, req, res, next) {
 }
 
 function latestInboxMessageTimestamp(req, res, next) {
+  const { Inbox } = req.app.services.inboxes;
+
   new Inbox.user(req.user.uid).conversations.list(0, 1)
     .then(({ data }) => {
       const latestConversation = _.head(data);
