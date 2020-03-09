@@ -2,13 +2,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const _ = require('lodash');
 const addressParser = require('nodemailer/lib/addressparser');
 const isEmail = require('isemail');
 const VError = require('verror');
 const log = require('@openagenda/logs')('mails/index');
 const { runFilterTask, runSendTask } = require('./task');
-const templater = require('./templater');
+const render = require('./templater');
 const createConfig = require('./config');
 
 class Mails {
@@ -19,8 +18,7 @@ class Mails {
   async init() {
     this.config = await createConfig(this._rawConfig);
 
-    this.render = templater.render.bind(null, this.config);
-    this.compile = templater.compile.bind(null, this.config);
+    this.render = render.bind(null, this.config);
   }
 
   static recipientToArray(recipient) {
@@ -54,16 +52,10 @@ class Mails {
       }
     }
 
-    const defaultLang = options.lang || config.defaults.lang;
-    const enqueue = typeof options.queue !== 'undefined'
-      ? options.queue
-      : config.defaults.queue !== false && config.queues;
-    const compiled = options.template && enqueue
-      ? await this.compile(options.template, {
-        ..._.pick(options, 'disableHtml', 'disableText', 'disableSubject'),
-        lang: defaultLang
-      })
-      : null;
+    const defaultLang = 'lang' in options ? options.lang : config.defaults.lang;
+    const defaultEnqueue = 'queue' in config.defaults ? config.defaults.queue : true;
+
+    const enqueue = 'queue' in options ? options.queue : defaultEnqueue;
     const recipients = this.constructor.flattenRecipients(options.to);
 
     const results = [];
@@ -96,7 +88,7 @@ class Mails {
       };
 
       try {
-        if (!enqueue) {
+        if (!enqueue || !config.queues) {
           if (typeof config.sendFilter === 'function') {
             const allowed = await config.sendFilter(params);
 
@@ -121,24 +113,10 @@ class Mails {
             params.data.lang
           );
 
-          if (compiled) {
-            if (compiled.html) {
-              params.html = compiled.html(params.data);
-            }
-
-            if (compiled.text) {
-              params.text = compiled.text(params.data);
-            }
-
-            if (compiled.subject) {
-              params.subject = compiled.subject(params.data);
-            }
-          } else {
-            Object.assign(
-              params,
-              await this.render(params.template, params.data, params)
-            );
-          }
+          Object.assign(
+            params,
+            await this.render(params.template, params.data, params)
+          );
         }
 
         const method = !enqueue
@@ -191,7 +169,6 @@ class Mails {
   }
 }
 
-Mails.templater = templater;
 Mails.addressParser = addressParser;
 
 module.exports = Mails;

@@ -1,8 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
 const logs = require('@openagenda/logs');
-const templater = require('./templater');
+const render = require('./templater');
 
 const log = logs('mails/task');
 
@@ -37,15 +36,13 @@ async function runFilterTask(config, params) {
     Object.assign(params.data, config.defaults.data);
 
     const defaultLang = params.lang || config.defaults.lang;
-    const result = await templater.render(
-      config,
-      params.template,
-      params.data,
-      {
-        ..._.pick(params, 'disableHtml', 'disableText', 'disableSubject'),
-        lang: defaultLang
-      }
-    );
+    const { disableHtml, disableText, disableSubject } = params;
+    const result = await render(config, params.template, params.data, {
+      disableHtml,
+      disableText,
+      disableSubject,
+      lang: defaultLang
+    });
 
     Object.assign(params, result);
 

@@ -3,192 +3,15 @@
 const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
-const _ = require('lodash');
 const mjml = require('mjml');
 const ejs = require('ejs');
 const VError = require('verror');
-const LRU = require('lru-cache');
 const log = require('@openagenda/logs')('mails/templater');
 
 const mjml2html = mjml.__esModule ? mjml.default : mjml;
-const cache = new LRU();
 const readFile = promisify(fs.readFile);
 
-function getCompiledRenderer(config, compiled, type, templateName, opts) {
-  if (opts[`disable${_.upperFirst(type)}`] || !compiled[type]) {
-    return null;
-  }
-
-  let { __ } = opts;
-  if (!__) {
-    const labels = (config.translations.labels || {})[templateName] || {};
-    __ = config.translations.makeLabelGetter(labels, opts.lang);
-  }
-
-  return typeof compiled[type] !== 'function'
-    ? null
-    : data => {
-      if (opts[`disable${_.capitalize(type)}`]) {
-        return null;
-      }
-
-      const templateData = {
-        ...data,
-        lang: data.lang || opts.lang,
-        __: data.__ || __
-      };
-
-      return compiled[type](templateData);
-    };
-}
-
-async function compile(config, templateName, opts = {}) {
-  const cacheKeyCompiled = JSON.stringify({
-    compiled: true,
-    templateName,
-    ..._.pick(opts, 'lang', 'disableHtml', 'disableText', 'disableSubject')
-  });
-  const cachedCompiled = cache.get(cacheKeyCompiled);
-
-  if (cachedCompiled) {
-    return cachedCompiled;
-  }
-
-  const cacheKeyRaw = JSON.stringify({
-    raw: true,
-    templateName,
-    ..._.pick(opts, 'lang', 'disableHtml', 'disableText', 'disableSubject')
-  });
-  const cachedRaw = cache.get(cacheKeyRaw);
-
-  const templateDir = path.join(config.templatesDir || '', templateName);
-  const compiled = {};
-
-  let rawHtml = cachedRaw && cachedRaw.html ? cachedRaw.html : null;
-  let rawText = cachedRaw && cachedRaw.text ? cachedRaw.text : null;
-  let rawSubject = cachedRaw && cachedRaw.subject ? cachedRaw.subject : null;
-
-  if (!opts.disableHtml) {
-    if (rawHtml === null) {
-      try {
-        rawHtml = await readFile(path.join(templateDir, 'index.mjml'), 'utf8');
-      } catch (e) {
-        log.error(
-          new VError(
-            e,
-            `Error compiling html of the template '${templateName}'`
-          )
-        );
-      }
-    }
-
-    if (rawHtml !== null) {
-      compiled.html = data => {
-        const preHtml = ejs.render(rawHtml, data, {
-          ...opts,
-          filename: path.join(
-            config.templatesDir || '',
-            templateName,
-            'index.mjml'
-          )
-        });
-        const { html, errors } = mjml2html(preHtml);
-
-        if (errors && errors.length) {
-          throw new VError(
-            {
-              info: { errors }
-            },
-            'Invalid MJML'
-          );
-        }
-
-        return html;
-      };
-    }
-  }
-
-  if (!opts.disableText) {
-    if (rawText === null) {
-      try {
-        rawText = await readFile(path.join(templateDir, 'text.ejs'), 'utf8');
-      } catch (e) {
-        log.error(
-          new VError(
-            e,
-            `Error compiling text of the template '${templateName}'`
-          )
-        );
-      }
-    }
-
-    if (rawText !== null) {
-      compiled.text = ejs.compile(rawText, {
-        ...opts,
-        filename: path.join(config.templatesDir || '', templateName, 'text.ejs')
-      });
-    }
-  }
-
-  if (!opts.disableSubject) {
-    if (rawSubject === null) {
-      try {
-        rawSubject = await readFile(
-          path.join(templateDir, 'subject.ejs'),
-          'utf8'
-        );
-      } catch (e) {
-        log.error(
-          new VError(
-            e,
-            `Error compiling subject of the template '${templateName}'`
-          )
-        );
-      }
-    }
-
-    if (rawSubject !== null) {
-      compiled.subject = ejs.compile(rawSubject, {
-        ...opts,
-        filename: path.join(
-          config.templatesDir || '',
-          templateName,
-          'subject.ejs'
-        )
-      });
-    }
-  }
-
-  const result = {
-    html: getCompiledRenderer(config, compiled, 'html', templateName, opts),
-    text: getCompiledRenderer(config, compiled, 'text', templateName, opts),
-    subject: getCompiledRenderer(
-      config,
-      compiled,
-      'subject',
-      templateName,
-      opts
-    )
-  };
-
-  cache.set(cacheKeyRaw, {
-    html: rawHtml,
-    text: rawText,
-    subject: rawSubject
-  });
-  cache.set(cacheKeyCompiled, result);
-
-  return result;
-}
-
 async function render(config, templateName, data = {}, opts = {}) {
-  const cacheKey = JSON.stringify({
-    raw: true,
-    templateName,
-    ..._.pick(opts, 'lang', 'disableHtml', 'disableText', 'disableSubject')
-  });
-  const cached = cache.get(cacheKey);
-
   const templateDir = path.join(config.templatesDir || '', templateName);
   const lang = data.lang || opts.lang;
 
@@ -204,9 +27,9 @@ async function render(config, templateName, data = {}, opts = {}) {
     __
   };
 
-  let rawHtml = cached && cached.html ? cached.html : null;
-  let rawText = cached && cached.text ? cached.text : null;
-  let rawSubject = cached && cached.subject ? cached.subject : null;
+  let rawHtml = null;
+  let rawText = null;
+  let rawSubject = null;
   let html = null;
   let text = null;
   let subject = null;
@@ -303,12 +126,6 @@ async function render(config, templateName, data = {}, opts = {}) {
     }
   }
 
-  cache.set(cacheKey, {
-    html: rawHtml,
-    text: rawText,
-    subject: rawSubject
-  });
-
   return {
     html,
     text,
@@ -316,7 +133,4 @@ async function render(config, templateName, data = {}, opts = {}) {
   };
 }
 
-module.exports = {
-  compile,
-  render
-};
+module.exports = render;
