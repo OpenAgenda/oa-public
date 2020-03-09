@@ -41,10 +41,12 @@ const mw = {
 
 const baseAssetsPath = `${__dirname}/assets`;
 
+let devApp = null; // used for @openagenda/agenda-portal dev only
+
 module.exports = async options => {
   log('booting');
 
-  const app = express();
+  const app = devApp || express();
 
   const config = _.assign(
     {
@@ -142,4 +144,8 @@ module.exports = async options => {
     app,
     baseAssetsPath
   };
+};
+
+module.exports.loadDevApp = dev => {
+  devApp = dev;
 };

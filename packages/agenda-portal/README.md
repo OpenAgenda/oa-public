@@ -43,6 +43,8 @@ To get your project quickly operational, make sure you have the following inform
  * **lang**: the main language of your portal
  * **key**: your OpenAgenda account public key ( available in your user settings ).
 
+**Note**: if the agenda portal is expected to run inside an iframe, answer "Yes" to the corresponding deploy question to activate additional scripts that will communicate with the parent page to adjust iframe height and url updates. See the [iframe section below](#iframes) for details.
+
 Run the deploy command:
 
     yarn deploy
@@ -74,6 +76,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **uid**: Required. UID of the agenda
  * **views**: Required. Path to the handlebar views folder
  * **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
+ * **iframable**: false by default. True if the portal is to be displayed within an iframe.
 
 ## Cache options
 
@@ -135,6 +138,15 @@ Place the partial `widgets/map.hbs` where the map is to appear. Widget options c
  * `auto`: boolean. If `true` panning and zooming actions on the map will update the current list filter accordingly.
  * `center`: Preset center at initialization. Object of 3 required keys: `latitude`, `longitude`, `center`
 
+# IFrames
+
+In some cases, an agenda portal project is integrated into an existing website by loading it within an iframe. In this case, a js controller that will handle iframe height adjustments and url updates needs to be associated to the iframe. Given a portal url `https://myagendaportal.com`, the iframe/controller code should look like this:
+
+    <iframe data-oa-portal="https://myagendaportal.com" allowtransparency="allowtransparency" frameborder="0"></iframe>
+    <script type="text/javascript" src="https://myagendaportal.com/js/oaPortalController.js"></script>
+
+You can use the `iframe-canvas.html` locally when working in a development environment to display the portal within an integrated page.
+
 # Miscellaneous
 
 ## Static pages
@@ -162,7 +174,6 @@ This is useful if you need to specify additional account keys, such as google an
 For index and event pages. If you want insight on the data your are handling, add `?data` to your URL. The call will load a json view of the data as given to the template.
 
 Use JSON viewer plugin such as [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)
-
 
 ## Customizing event data
 

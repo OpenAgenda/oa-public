@@ -34,7 +34,8 @@ Portal({
   defaultFilter: {
     featured: 0
   },
-
+  // true if portal is to be displayed within iframe
+  iframable: true,
   cache: {
     // interval at which cache is refreshed ( in milliseconds )
     refreshInterval: 60 * 60 * 1000

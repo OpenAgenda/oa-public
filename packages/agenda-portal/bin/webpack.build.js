@@ -1,0 +1,42 @@
+'use strict';
+
+const fs = require('fs');
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const webpack = require('webpack');
+const jsEntryFiles = fs.readdirSync(__dirname + '/../client')
+  .filter(filesAndFolders => filesAndFolders.split('.').length > 1);
+
+module.exports = {
+  mode: 'production',
+  context: __dirname + '/../',
+  optimization: { minimize: true },
+  entry: jsEntryFiles.reduce((entries, filename) => ({
+    ...entries,
+    [filename.split('.').shift()]: [
+      'webpack-hot-middleware/client',
+      `./client/${filename}`
+    ]
+  }), {}),
+  output: {
+    path: __dirname + '/../assets/js',
+    filename: '[name].js'
+  },
+  plugins: [
+    new LodashModuleReplacementPlugin({ paths: true }),
+    new CleanWebpackPlugin()
+  ],
+  module: {
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader'
+      }
+    }]
+  },
+  resolve: {
+    symlinks: false
+  }
+}
