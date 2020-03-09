@@ -12,10 +12,14 @@ module.exports = (req, res, next) => {
   ];
 
   const bottomScripts = [
-    `${req.app.locals.assetsRoot}/main.js`,
+    `${req.app.locals.assetsRoot}/js/main.js`,
     'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js',
     `${req.app.locals.assetsRoot}/jquery.spin.js`
   ];
+
+  if (req.app.locals.iframable) {
+    bottomScripts.push(`${req.app.locals.assetsRoot}/js/iframeResizeContent.js`);
+  }
 
   if (process.env.NODE_ENV === 'development') {
     bottomScripts.push(process.env.BROWSER_REFRESH_URL);

@@ -1,8 +1,19 @@
 'use strict';
 
 const listSelector = '.events';
-let nextProgressiveLoadPage = 2; let
-  rockBottom;
+let nextProgressiveLoadPage = 2;
+let rockBottom;
+let isInIframe = false;
+
+if (module.hot) {
+  module.hot.accept();
+}
+
+const iframeHandler = require('./lib/iframe.child')({
+  onParentNavUpdate: updatedHref => {
+    window.location.href = updatedHref;
+  }
+});
 
 window.oa = {
   onWidgetUpdate(widget, query) {
@@ -18,6 +29,8 @@ window.oa = {
       if (pageMatch) {
         window.history.pushState({}, '', window.location.href.replace(pageMatch[0], '/p/1'));
       }
+
+      iframeHandler.sendNavUpdate();
     });
   },
   onWidgetReady() {
