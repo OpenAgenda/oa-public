@@ -185,14 +185,20 @@ export default class ContributionEdition extends Component {
               'inbox',
               <b>{getLabel( 'inbox' )}</b>,
               getLabel( 'inboxTabDescription' ),
-              <InboxSettingsForm onSubmit={data => editAgenda( { settings: { inbox: { mailto: data } } } )} />
+              <InboxSettingsForm
+                agenda={agenda}
+                onSubmit={data => editAgenda( { settings: { inbox: { mailto: data } } } )}
+              />
             )}
 
             {this.renderTableRow(
               'analytics',
               <b>{getLabel( 'stats' )}</b>,
               getLabel( 'statsTabDescription' ),
-              <TrackingSettingsForm onSubmit={data => editAgenda( { settings: { tracking: data } } )} />
+              <TrackingSettingsForm
+                agenda={agenda}
+                onSubmit={data => editAgenda( { settings: { tracking: data } } )}
+              />
             )}
             </tbody>
           </table>
