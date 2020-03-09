@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "start": "browser-refresh dev",
-    "build": "webpack --config bin/webpack.build.js",
+    "install": "webpack --config bin/webpack.build.js",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
