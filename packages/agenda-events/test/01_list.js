@@ -9,7 +9,8 @@ const states = require('../iso/states');
 
 const fixtures = require('./fixtures');
 
-const membersFixtures = require('./fixtures/membersFixtures.json');
+const membersFixtures = require('./fixtures/members.json');
+const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
 
 describe('agendaEvents - 01 - functional (server): list', function() {
   let svc;
@@ -27,14 +28,12 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       ...config,
       interfaces: {
         ...config.interfaces,
-        getMembers: async aes => {
-          return aes.map(ae => _.find(
-            membersFixtures, {
-              agendaUid: ae.agendaUid,
-              userUid: ae.userUid
-            }
-         )).filter(ae => !!ae);
-        }
+        getMembers: async aes => aes.map(ae => _.find(membersFixtures, {
+          agendaUid: ae.agendaUid,
+          userUid: ae.userUid
+        })).filter(ae => !!ae),
+        getSourceAgendas: async sourceAgendaUids => sourceAgendasFixtures
+          .filter(agenda => sourceAgendaUids.includes(agenda.uid))
       }
     });
   });
@@ -59,12 +58,28 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     });
   });
 
+  it('list with sourceAgendas decorate provides source agendas for each returned item', async () => {
+    const {
+      items
+    } = await svc(62792452).list(100, 10, { decorate: ['sourceAgendas'] });
+
+    items[0].sourceAgendas.should.eql([
+      { uid: 7878876, title: 'Papadapap' },
+      { uid: 789679, title: 'Castoche' }
+    ]);
+
+    items[7].sourceAgendas.should.eql([{
+      uid: 5675765,
+      title: 'Dièse'
+    }]);
+  });
+
   it('list filtered by state using code in query', async () => {
     const result = await svc(62792452).list({
       state: states.PUBLISHED
     }, 0, 10);
 
-    result.total.should.equal(1);
+    result.total.should.equal(2);
   });
 
   it('query can be omitted', async () => {
@@ -78,7 +93,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       state: 'published'
     }, 0, 10);
 
-    result.total.should.equal(1);
+    result.total.should.equal(2);
   });
 
   it('list filtered by aggregated boolean', async () => {

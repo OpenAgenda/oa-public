@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-events",
-  "version": "1.10.1",
+  "version": "1.11.0",
   "description": "Store agenda-event references",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,7 @@
     "@openagenda/logs": "^1.1.1",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/validators": "^2.1.3",
+    "immutability-helper": "^2.2.2",
     "knex": "^0.19.5",
     "lodash": "^4.17.2",
     "mysql": "^2.11.1",
@@ -18,7 +19,6 @@
   },
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.1",
-    "immutability-helper": "^2.2.2",
     "mocha": "^7.0.1",
     "should": "^13.2.3"
   },

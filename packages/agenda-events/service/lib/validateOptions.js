@@ -31,7 +31,7 @@ const base = {
   },
   decorate: {
     type: 'choice',
-    options: ['member']
+    options: ['member', 'sourceAgendas']
   },
   context: {
     optional: true,

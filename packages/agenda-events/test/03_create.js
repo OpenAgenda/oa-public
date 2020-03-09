@@ -9,7 +9,7 @@ const Service = require('../');
 const config = require('../testconfig');
 
 const fixtures = require('./fixtures');
-const membersFixtures = require('./fixtures/membersFixtures.json');
+const membersFixtures = require('./fixtures/members.json');
 
 describe('agendaEvents - 03 - functional (server): create', function() {
   let svc;

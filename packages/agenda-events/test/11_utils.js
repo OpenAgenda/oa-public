@@ -25,7 +25,7 @@ describe('agendaEvents - functional (server): utils', function() {
     let result;
 
     before(async () => {
-      result = await svc.utils.setSourcePaths(62792452, 10974548, [[123]]);
+      result = await svc.utils.setSourcePaths(62792452, 16425580, [[123]]);
     });
 
     it('updated ref includes set source uid', () => {

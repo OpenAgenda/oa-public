@@ -9,6 +9,8 @@ const validate = require('../iso/validate');
 const validateListQuery = require('./lib/validateListQuery');
 const extractListParameters = require('./lib/extractListParameters');
 const validateOptions = require('./lib/validateOptions');
+const decorateListItems = require('./lib/decorateListItems');
+const buildListQuery = require('./lib/buildListQuery');
 
 
 module.exports = async (service, agendaUid, query, offset, limit, options) => {
@@ -20,18 +22,15 @@ module.exports = async (service, agendaUid, query, offset, limit, options) => {
     decorate
   } = validateOptions(params.options);
 
-  const items = (await _list(
-    client,
+  const items = (await buildListQuery(
+    service,
     params.query,
-    _.pick(params, ['offset', 'limit'])
+    _.pick(params, ['offset', 'limit']),
+    { decorate }
   )).map(validate);
 
-  if (decorate.includes('member') && _.get(config, 'interfaces.getMembers')) {
-    const members = await config.interfaces.getMembers(items);
-
-    items.forEach(item => {
-      item.member = _.find(members, { userUid: item.userUid });
-    });
+  if (decorate.length) {
+    await decorateListItems(service, items, decorate);
   }
 
   return {
@@ -40,12 +39,16 @@ module.exports = async (service, agendaUid, query, offset, limit, options) => {
   }
 }
 
-module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2) => {
+module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2, options = {}) => {
   const { config, client } = service;
 
   const cleanQuery = {
     agendaUid
   };
+
+  const {
+    decorate
+  } = validateOptions(options);
 
   const nav = {}
 
@@ -57,7 +60,7 @@ module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2) =
     Object.assign(nav, { lastId, limit });
   }
 
-  const items = await _list(client, cleanQuery, nav);
+  const items = await buildListQuery(service, cleanQuery, nav);
 
   return {
     items: items.map(validate),
@@ -69,7 +72,7 @@ module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2) =
 module.exports.byUserUid = async (service, userUid, offset, limit) => {
   const { config, client } = service;
   return {
-    items: (await _list(client, { userUid }, { offset, limit })).map(validate),
+    items: (await buildListQuery(service, { userUid }, { offset, limit })).map(validate),
     total: await _total(client, { userUid })
   }
 }
@@ -82,7 +85,7 @@ module.exports.byEventUid = async (service, eventUid, ...args) => {
   const query = args.length === 3 ? { ...args[0], eventUid } : { eventUid };
 
   return {
-    items: (await _list(client, query, { offset, limit })).map(validate),
+    items: (await buildListQuery(service, query, { offset, limit })).map(validate),
     total: await _total(client, query)
   }
 }
@@ -90,73 +93,8 @@ module.exports.byEventUid = async (service, eventUid, ...args) => {
 function _total(client, query) {
   const k = client('agenda_event');
 
-  _query(k, query);
+  buildListQuery.addWheres(k, query);
 
   return k.count('id as total')
     .then(rows => rows[0]['total']);
-}
-
-function _list(client, query, nav) {
-  const {
-    limit,
-    offset,
-    lastId
-  } = nav;
-
-  const fields = [
-    'agenda_uid',
-    'event_uid',
-    'user_uid',
-    'state',
-    'featured',
-    'legacy_id'
-  ];
-
-  if (lastId !== undefined) {
-    fields.push('id');
-  }
-
-  const k = client('agenda_event').select(fields);
-
-  if (limit !== undefined) {
-    k.limit(limit);
-  }
-
-  if (lastId !== undefined) {
-    k.where('id', '>', lastId);
-  } else {
-    k.offset(offset);
-  }
-
-  _query(k, query);
-
-  return k.then(rows => rows
-    .map(r => _.mapKeys(r, (v, k) => _.camelCase(k)))
-  );
-}
-
-function _query(k, query) {
-  if (query.agendaUid !== undefined) {
-    k.where('agenda_uid', query.agendaUid);
-  } else if (query.userUid !== undefined) {
-    k.where('user_uid', query.userUid);
-  }
-
-  if (query.eventUid && _.isArray(query.eventUid)) {
-    k.whereIn('event_uid', query.eventUid);
-  } else if (query.eventUid) {
-    k.where('event_uid', query.eventUid);
-  }
-
-  if (query.state !== undefined) {
-    k.andWhere('state', query.state);
-  }
-
-  if (query.excludeAgendaUid) {
-    k.whereNotIn('agenda_uid', [].concat(query.excludeAgendaUid))
-  }
-
-  if (![null, undefined].includes(query.aggregated)) {
-    k.andWhere('aggregated', 1);
-  }
 }

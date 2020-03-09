@@ -1,5 +1,6 @@
 'use strict';
 
+const ih = require('immutability-helper');
 const eventStates = require('./states');
 
 const schema = require('@openagenda/validators/schema');
@@ -120,21 +121,28 @@ function _postClean( v, c, { optionalSecondaryFields } ) {
 }
 
 function _preClean(v) {
-  let cleanState;
-
   if (!_.isObject(v)) return v;
 
-  if (v.state === undefined) return v;
+  const update = {};
 
-  try {
-    cleanState = parseInt(v.state);
-  } catch (e) {
-    return v;
+  if (v.state !== undefined) {
+    try {
+      update.state = {
+        $set: parseInt(v.state)
+      };
+    } catch (e) {}
   }
 
-  return Object.assign({}, v, {
-    state: cleanState
-  });
+  if (v.sourceAgendaUid) {
+    update['$unset'] = ['sourceAgendaUid'];
+    try {
+      update.sourcePaths = {
+        $set: JSON.parse(v.sourceAgendaUid)
+      };
+    } catch (e) {}
+  }
+
+  return ih(v, update);
 }
 
 function _pickSetFields(preCleaned) {

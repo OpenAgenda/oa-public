@@ -7,7 +7,8 @@ const Service = require('../');
 const config = require('../testconfig');
 
 const fixtures = require('./fixtures');
-const membersFixtures = require('./fixtures/membersFixtures.json');
+const membersFixtures = require('./fixtures/members.json');
+const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
 
 describe('agendaEvents - 02 - functional (server): get', function() {
   let svc, get;
@@ -25,12 +26,12 @@ describe('agendaEvents - 02 - functional (server): get', function() {
       ...config,
       interfaces: {
         ...config.interfaces,
-        getMembers: async aes => aes.map(ae => _.find(
-          membersFixtures, {
-            agendaUid: ae.agendaUid,
-            userUid: ae.userUid
-          }
-        ))
+        getMembers: async aes => aes.map(ae => _.find(membersFixtures, {
+          agendaUid: ae.agendaUid,
+          userUid: ae.userUid
+        })),
+        getSourceAgendas: async sourceAgendaUids => sourceAgendasFixtures
+          .filter(agenda => sourceAgendaUids.includes(agenda.uid))
       }
     });
 
@@ -45,7 +46,7 @@ describe('agendaEvents - 02 - functional (server): get', function() {
       eventUid: 10974548,
       userUid: 12312312,
       aggregated: false,
-      sourcePaths: [],
+      sourcePaths: [[6789678], [896785]],
       state: config.eventStates.VALIDATED,
       featured: false,
       canEdit: false,
@@ -58,7 +59,25 @@ describe('agendaEvents - 02 - functional (server): get', function() {
       decorate: ['member']
     });
 
-    ref.member.should.eql({ agendaUid: 62792452, userUid: 12312312, role: 1 });
+    ref.member.should.eql({
+      agendaUid: 62792452,
+      userUid: 12312312,
+      role: 1
+    });
+  });
+
+  it('get with decorate to get sourceAgenda details', async () => {
+    const ref = await svc(62792452).get(10974548, {
+      decorate: ['sourceAgendas']
+    });
+
+    ref.sourceAgendas.should.eql([{
+      uid: 6789678,
+      title: 'La source'
+    }, {
+      uid: 896785,
+      title: 'Et encore une source'
+    }]);
   });
 
   it('explicit error is thrown when event uid is not provided', async () => {
@@ -94,20 +113,20 @@ describe('agendaEvents - 02 - functional (server): get', function() {
   });
 
 
-  it( 'get by legacy id', async () => {
+  it('get by legacy id', async () => {
     let ref = await get.byLegacyId(42, 24);
 
-    _.omit(ref, ['updatedAt', 'createdAt']).should.eql( {
+    _.omit(ref, ['updatedAt', 'createdAt']).should.eql({
       eventUid: 10974548,
       agendaUid: 62792452,
       userUid: 12312312,
       aggregated: false,
-      sourcePaths: [],
+      sourcePaths: [[6789678], [896785]],
       featured: false,
       canEdit: false,
       state: config.eventStates.VALIDATED,
       legacyId: '42.24'
-    } );
-  } );
+    });
+  });
 
 } );
