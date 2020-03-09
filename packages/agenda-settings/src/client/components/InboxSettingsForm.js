@@ -30,11 +30,11 @@ function validate( values ) {
   return errors;
 }
 
-@connect( state => ({
+@connect( (state, props) => ({
   initialValues: {
-    enabled: _.get( state, 'agenda.data.settings.inbox.mailto.enabled', false ),
-    email: _.get( state, 'agenda.data.settings.inbox.mailto.email', null ),
-    subject: _.get( state, 'agenda.data.settings.inbox.mailto.subject', null )
+    enabled: _.get( props, 'agenda.settings.inbox.mailto.enabled', false ),
+    email: _.get( props, 'agenda.settings.inbox.mailto.email', null ),
+    subject: _.get( props, 'agenda.settings.inbox.mailto.subject', null )
   }
 }) )
 @reduxForm( {

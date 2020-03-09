@@ -15,9 +15,9 @@ function validate( values ) {
   return errors;
 }
 
-@connect( state => ({
+@connect( (state, props) => ({
   initialValues: {
-    googleAnalytics: _.get( state, 'agenda.data.settings.tracking.googleAnalytics', null )
+    googleAnalytics: _.get( props, 'agenda.settings.tracking.googleAnalytics', null )
   }
 }) )
 @reduxForm( {
