@@ -15,7 +15,6 @@ module.exports = {
   entry: jsEntryFiles.reduce((entries, filename) => ({
     ...entries,
     [filename.split('.').shift()]: [
-      'webpack-hot-middleware/client',
       `./client/${filename}`
     ]
   }), {}),

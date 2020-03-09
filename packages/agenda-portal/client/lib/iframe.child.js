@@ -11,7 +11,7 @@ module.exports = ({ onParentNavUpdate }) => {
       state.parent = window.parentIFrame;
       state.parent.sendMessage({
         code: 'ready',
-        nav: getCurrentNav()
+        nav: _getCurrentNav()
       });
     }
   };
@@ -65,6 +65,6 @@ function sendNavUpdate(state) {
   });
 }
 
-function getCurrentNav() {
+function _getCurrentNav() {
   return window.location.href.split(window.location.host).pop()
 }
