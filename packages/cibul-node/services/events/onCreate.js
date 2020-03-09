@@ -13,7 +13,7 @@ module.exports = (services, event, context) => {
   _registerActivity(services.activities, event);
 }
 
-async function _registerActivity(activitiesSvcevent) {
+async function _registerActivity(activitiesSvc, event) {
   try {
     await activitiesSvc.feed({
       entityType: 'event',
