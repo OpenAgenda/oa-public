@@ -32,6 +32,7 @@
   "aggregator-sources.DefineRules.requiredSubdivision": null,
   "aggregator-sources.DefineRules.requiredValues": null,
   "aggregator-sources.DefineRules.uselessRule": null,
+  "aggregator-sources.DefineRules.uselessRuleWithFilter": null,
   "aggregator-sources.DefineRules.cancel": null,
   "aggregator-sources.DefineRules.add": null,
   "aggregator-sources.DefineRules.update": null,

@@ -32,6 +32,7 @@
   "aggregator-sources.DefineRules.requiredSubdivision": "Required subdivision",
   "aggregator-sources.DefineRules.requiredValues": "Required values",
   "aggregator-sources.DefineRules.uselessRule": "Please define at least a required filter or one action",
+  "aggregator-sources.DefineRules.uselessRuleWithFilter": "An aggregation rule with filter not required must have at least one action",
   "aggregator-sources.DefineRules.cancel": "Cancel",
   "aggregator-sources.DefineRules.add": "Add",
   "aggregator-sources.DefineRules.update": "Update",
