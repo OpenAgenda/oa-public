@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, {
   useCallback, useMemo, useReducer, useEffect
 } from 'react';
-import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
@@ -13,7 +12,6 @@ import AddRuleSubmitButton from './AddRuleSubmitButton';
 import UpdateRuleSubmitButton from './UpdateRuleSubmitButton';
 import messages from './messages';
 import validate from './validate';
-import validateActions from './validateActions';
 
 function getInitialState(initialRules) {
   const rules = initialRules
@@ -26,8 +24,7 @@ function getInitialState(initialRules) {
   return {
     rules,
     mode: 'list',
-    modeOptions: {},
-    error: null
+    modeOptions: {}
   };
 }
 
@@ -40,16 +37,9 @@ function reducer(state, action) {
         modeOptions: action.payload.options
       };
     }
-    case 'setError': {
-      return {
-        ...state,
-        error: action.payload.error
-      };
-    }
     case 'addRule': {
       return {
         ...state,
-        error: null,
         rules: [
           ...state.rules,
           {
@@ -62,7 +52,6 @@ function reducer(state, action) {
     case 'updateRule': {
       return {
         ...state,
-        error: null,
         rules: state.rules.map(rule => (rule.id === action.payload.id
           ? {
             id: action.payload.id,
@@ -74,8 +63,16 @@ function reducer(state, action) {
     case 'removeRule': {
       return {
         ...state,
-        error: null,
         rules: state.rules.filter(rule => rule.id !== action.payload.id)
+      };
+    }
+    case 'reorderRules': {
+      const rules = Array.from(state.rules);
+      const [itemToMove] = rules.splice(action.payload.startIndex, 1);
+      rules.splice(action.payload.endIndex, 0, itemToMove);
+      return {
+        ...state,
+        rules
       };
     }
     default:
@@ -206,6 +203,16 @@ export default function DefineRules({
     },
     [addRule, aggregatorAgendaSchema]
   );
+  const reorderRules = useCallback(
+    (startIndex, endIndex) => dispatch({
+      type: 'reorderRules',
+      payload: {
+        startIndex,
+        endIndex
+      }
+    }),
+    [dispatch]
+  );
 
   useEffect(() => {
     const pasteHandler = event => {
@@ -225,49 +232,6 @@ export default function DefineRules({
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema);
   }, [state.rules, state.modeOptions.id, aggregatorAgendaSchema]);
 
-  const submitElement = useMemo(
-    () => (state.mode === 'list' ? (
-      <>
-        {ReactIs.isValidElementType(SubmitButton) ? (
-          <SubmitButton
-            handleSubmit={() => {
-              const rules = state.rules.map(rule => _.omit(rule, 'id'));
-              const error = validateActions(
-                intl,
-                rules,
-                aggregatorAgendaSchema,
-                sourceSchema
-              );
-
-              if (error) {
-                return dispatch({
-                  type: 'setError',
-                  payload: {
-                    error
-                  }
-                });
-              }
-
-              return onSubmit(rules);
-            }}
-            rules={state.rules}
-            onCancel={onCancel}
-          />
-        ) : null}
-      </>
-    ) : null),
-    [
-      state.mode,
-      state.rules,
-      SubmitButton,
-      onCancel,
-      intl,
-      aggregatorAgendaSchema,
-      sourceSchema,
-      onSubmit
-    ]
-  );
-
   let content = null;
 
   if (state.mode === 'list') {
@@ -278,9 +242,12 @@ export default function DefineRules({
         isAggregator={isAggregator}
         rules={state.rules}
         addRules={addRules}
-        removeRules={removeRule}
+        reorderRules={reorderRules}
         removeRule={removeRule}
         setMode={setMode}
+        SubmitButton={SubmitButton}
+        onSubmit={onSubmit}
+        onCancel={onCancel}
       />
     );
   } else if (state.mode === 'add') {
@@ -335,15 +302,5 @@ export default function DefineRules({
     );
   }
 
-  return (
-    <>
-      {content}
-
-      {state.mode === 'list' && state.error ? (
-        <div className="text-danger">{state.error}</div>
-      ) : null}
-
-      {submitElement}
-    </>
-  );
+  return content;
 }

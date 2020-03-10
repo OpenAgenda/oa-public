@@ -88,7 +88,7 @@ export default function RuleItem({
   }, [intl, queryType, rule.required]);
 
   return (
-    <div className="row margin-v-sm">
+    <div className="row padding-bottom-sm">
       <div className="col-md-6">
         <div className="rule-value">{ruleValue}</div>
 
