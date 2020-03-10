@@ -113,6 +113,10 @@ function widget( elem, options ) {
 
     allowCookies = _allowCookies();
 
+    if (elem.hasAttribute('data-src')) {
+      elem.setAttribute('src', elem.getAttribute('data-src'));
+    }
+
     styler( style );
 
     controller.requestModal( 'body' );
