@@ -39,7 +39,7 @@ module.exports = async (service, agendaUid, query, offset, limit, options) => {
   }
 }
 
-module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2, options = {}) => {
+module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 20, options = {}) => {
   const { config, client } = service;
 
   const cleanQuery = {
@@ -50,7 +50,7 @@ module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2, o
     decorate
   } = validateOptions(options);
 
-  const nav = {}
+  const nav = {};
 
   if (!_.isObject(query)) {
     Object.assign(cleanQuery, validateListQuery({}));
@@ -60,12 +60,17 @@ module.exports.byLastId = async (service, agendaUid, query, lastId, limit = 2, o
     Object.assign(nav, { lastId, limit });
   }
 
-  const items = await buildListQuery(service, cleanQuery, nav);
+  const dirtyItems = await buildListQuery(service, cleanQuery, nav, { decorate });
+  const items = dirtyItems.map(validate);
+
+  if (decorate.length) {
+    await decorateListItems(service, items, decorate);
+  }
 
   return {
-    items: items.map(validate),
+    items,
     total: await _total(client, cleanQuery),
-    lastId: _.get(_.last(items), 'id', -1)
+    lastId: _.get(_.last(dirtyItems), 'id', -1)
   }
 }
 
