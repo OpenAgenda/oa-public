@@ -37,7 +37,7 @@ module.exports = function( navQuery ) {
   let clean = {
     page: defaults.page,
     offset: defaults.offset,
-    limit: defaults.limit 
+    limit: defaults.limit
   };
 
   try {
