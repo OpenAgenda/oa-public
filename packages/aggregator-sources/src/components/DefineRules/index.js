@@ -6,12 +6,9 @@ import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
-import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import { ruleToValues, valuesToRule } from '../../utils/rules';
-import readClipboard from '../../utils/readClipboard';
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
 import RuleForm from '../RuleForm';
-import RuleItem from './RuleItem';
+import List from './List';
 import AddRuleSubmitButton from './AddRuleSubmitButton';
 import UpdateRuleSubmitButton from './UpdateRuleSubmitButton';
 import messages from './messages';
@@ -113,39 +110,7 @@ export default function DefineRules({
     [dispatch]
   );
 
-  const setModeAdd = useCallback(() => setMode('add'), [setMode]);
   const setModeList = useCallback(() => setMode('list'), [setMode]);
-  const setModeUpdate = useCallback(id => setMode('update', { id }), [setMode]);
-
-  const requiredFields = useMemoOne(
-    () => aggregatorAgendaSchema.fields.filter(field => {
-      if (isAggregator) {
-        return false;
-      }
-
-      const sourceField = sourceSchema?.fields?.find(
-          v => v.schemaId
-            && v.field === field.field
-            && v.schemaId === field.schemaId
-        );
-
-      if (sourceField) {
-        return false;
-      }
-
-      return field.fieldType !== 'abstract' && field.optional === false;
-    }),
-    [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
-  );
-
-  const requiredFieldList = useMemo(
-    () => requiredFields.map(field => (
-      <em key={field.field}>
-        {getMultiLanguageLabel(field.label, intl.locale)}
-      </em>
-    )),
-    [intl.locale, requiredFields]
-  );
 
   const addRule = useCallback(
     values => {
@@ -252,10 +217,6 @@ export default function DefineRules({
     return () => document.removeEventListener('paste', pasteHandler);
   }, [addRules]);
 
-  const pasteRules = useCallback(async () => {
-    addRules(await readClipboard().catch(() => null));
-  }, [addRules]);
-
   const initialValues = useMemo(() => {
     const ruleToUpdate = state.rules.find(
       rule => rule.id === state.modeOptions.id
@@ -311,63 +272,16 @@ export default function DefineRules({
 
   if (state.mode === 'list') {
     content = (
-      <div className="margin-top-md">
-        <p className="margin-top-sm">
-          {intl.formatMessage(messages.description, { br: <br key="br" /> })}
-        </p>
-
-        {sourceSchema && requiredFieldList.length ? (
-          <p>
-            {intl.formatMessage(messages.requiredFieldsWarning, {
-              fields: intl.formatList(requiredFieldList),
-              fieldsCount: requiredFields.length
-            })}
-          </p>
-        ) : null}
-
-        {state.rules.map(rule => (
-          <RuleItem
-            key={rule.id}
-            rule={rule}
-            onUpdate={setModeUpdate}
-            onRemove={removeRule}
-            sourceSchema={sourceSchema}
-          />
-        ))}
-
-        <div>
-          <p>
-            <button
-              type="button"
-              className="btn-link-inline"
-              onClick={setModeAdd}
-            >
-              <i className="fa fa-sm fa-plus" aria-hidden="true" />{' '}
-              {intl.formatMessage(messages.addARule)}
-            </button>
-          </p>
-
-          {sourceSchema ? (
-            <p>
-              {navigator?.clipboard?.readText ? (
-                <button
-                  type="button"
-                  className="btn-link-inline"
-                  onClick={pasteRules}
-                >
-                  <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
-                  {intl.formatMessage(messages.pasteRules)}
-                </button>
-              ) : (
-                <em className="text-muted">
-                  <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
-                  {intl.formatMessage(messages.manualPasteRules)}
-                </em>
-              )}
-            </p>
-          ) : null}
-        </div>
-      </div>
+      <List
+        aggregatorAgendaSchema={aggregatorAgendaSchema}
+        sourceSchema={sourceSchema}
+        isAggregator={isAggregator}
+        rules={state.rules}
+        addRules={addRules}
+        removeRules={removeRule}
+        removeRule={removeRule}
+        setMode={setMode}
+      />
     );
   } else if (state.mode === 'add') {
     content = (
