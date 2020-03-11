@@ -1,7 +1,6 @@
 'use strict';
 
-const should = require('should');
-const config = require('../config.test');
+const config = require('../testconfig');
 const createInstance = require('../');
 const fixtures = require('./fixtures');
 const getAgendasByUidsAndSearch = require('./fixtures/getAgendasByUidsAndSearch');
@@ -12,7 +11,7 @@ describe('11 - list sources', () => {
   const f = fixtures(config.mysql);
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = createInstance({
@@ -27,24 +26,24 @@ describe('11 - list sources', () => {
     });
   });
 
-  after(f.destroyClient);
+  afterAll(f.destroyClient);
 
-  it('unfiltered list', async () => {
+  test('unfiltered list', async () => {
     const sources = await svc.sources.list(agenda);
 
-    sources.map(s => s.agendaUid).should.eql([222, 333, 444]);
+    expect(sources.map(s => s.agendaUid)).toEqual([222, 333, 444]);
   });
 
-  it('filtered list', async () => {
+  test('filtered list', async () => {
     const sources = await svc.sources.list(agenda, 'Martinique');
 
-    sources.map(s => s.agendaUid).should.eql([333]);
+    expect(sources.map(s => s.agendaUid)).toEqual([333]);
   });
 
-  it('list cleans rules before returning them', async () => {
+  test('list cleans rules before returning them', async () => {
     const sources = await svc.sources.list(agenda, 'Guadeloupe');
 
-    sources[0].rules.should.eql([{
+    expect(sources[0].rules).toEqual([{
       query: {},
       actions: [{
         field: 'state',

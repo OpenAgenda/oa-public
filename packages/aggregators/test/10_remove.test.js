@@ -1,8 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const should = require('should');
-const config = require('../config.test');
+const config = require('../testconfig');
 const createInstance = require('../');
 const fixtures = require('./fixtures');
 const Tracker = require('./utils').Tracker;
@@ -13,7 +12,7 @@ describe('10 - remove', () => {
   const tracker = Tracker();
   const results = [];
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = createInstance({
@@ -26,14 +25,14 @@ describe('10 - remove', () => {
     });
   });
 
-  after(f.destroyClient);
+  afterAll(f.destroyClient);
 
-  it('remove is successful', async () => {
+  test('remove is successful', async () => {
     const result = await svc.remove(999);
-    result.success.should.equal(true);
+    expect(result.success).toBe(true);
   });
 
-  it('error is thrown if aggregator to be removed is not found', async () => {
+  test('error is thrown if aggregator to be removed is not found', async () => {
     let err;
     try {
       await svc.remove(92929);
@@ -41,7 +40,7 @@ describe('10 - remove', () => {
       err = e;
     }
 
-    err.message.should.equal('Aggregator not found');
+    expect(err.message).toBe('Aggregator not found');
   });
 
 });

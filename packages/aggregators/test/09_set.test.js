@@ -1,8 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const should = require('should');
-const config = require('../config.test');
+const config = require('../testconfig');
 const createInstance = require('../');
 const fixtures = require('./fixtures');
 const Tracker = require('./utils').Tracker;
@@ -13,7 +12,7 @@ describe('09 - set and get', () => {
   const tracker = Tracker();
   const results = [];
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = createInstance({
@@ -36,10 +35,10 @@ describe('09 - set and get', () => {
     }));
   });
 
-  after(f.destroyClient);
+  afterAll(f.destroyClient);
 
-  it('get provides clean rules', () => {
-    results[0].rules.should.eql([{
+  test('get provides clean rules', () => {
+    expect(results[0].rules).toEqual([{
       query: {},
       actions: [{
         field: 'state',
@@ -49,18 +48,20 @@ describe('09 - set and get', () => {
     }]);
   });
 
-  it('second operation was an update', () => {
-    results[1].operation.should.equal('update');
+  test('second operation was an update', () => {
+    expect(results[1].operation).toBe('update');
   });
 
-  it('third operation was a create', () => {
-    results[2].operation.should.equal('create');
+  test('third operation was a create', () => {
+    expect(results[2].operation).toBe('create');
   });
 
-  it('aggregator entry references review id', async () => {
+  test('aggregator entry references review id', async () => {
     const entry = await f.client('aggregator').first('*').where('review_id', 219);
 
-    entry.store.should.equal('{"rules":[{"query":{},"actions":[{"field":"state","values":{"$set":2}}],"required":true}]}');
+    expect(entry.store).toBe(
+      '{"rules":[{"query":{},"actions":[{"field":"state","values":{"$set":2}}],"required":true}]}'
+    );
   });
 
 });

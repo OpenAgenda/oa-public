@@ -1,7 +1,6 @@
 'use strict';
 
 const ih = require('immutability-helper');
-const should = require('should');
 
 const {
   getJSON
@@ -16,7 +15,7 @@ describe('04 - evaluate', () => {
   describe('simple evaluate leading to new reference', () => {
     let args, result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await evaluate({
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference'),
@@ -27,35 +26,44 @@ describe('04 - evaluate', () => {
       }, data);
     });
 
-    it('result provides operation key set to `aggregation` when event was aggregated', () => {
-      result.operation.should.equal('aggregation');
-    });
+    test(
+      'result provides operation key set to `aggregation` when event was aggregated',
+      () => {
+        expect(result.operation).toBe('aggregation');
+      }
+    );
 
     describe('referenceEvent call', () => {
 
-      it('first argument is the uid of the aggregator on which the event is to be referenced', () => {
-        args[0].should.equal(data.aggregatorAgendaUid);
+      test(
+        'first argument is the uid of the aggregator on which the event is to be referenced',
+        () => {
+          expect(args[0]).toBe(data.aggregatorAgendaUid);
+        }
+      );
+
+      test('second is the uid of the event that is to be aggregated', () => {
+        expect(args[1]).toBe(data.event.uid);
       });
 
-      it('second is the uid of the event that is to be aggregated', () => {
-        args[1].should.equal(data.event.uid);
-      });
+      test(
+        'third is the additional values to be associated to event on aggregating agenda',
+        () => {
+          expect(args[2]).toEqual({
+            entreelibre: [],
+            'thematiques-metropolitaines': [ 8, 9 ],
+            'types-devenements': [ 15, 23 ],
+            public: [ 26 ],
+            organisateur: [ 33 ],
+            participation: null,
+            'evenement-ponctuel': null
+          });
+        }
+      );
 
-      it('third is the additional values to be associated to event on aggregating agenda', () => {
-        args[2].should.eql({
-          entreelibre: [],
-          'thematiques-metropolitaines': [ 8, 9 ],
-          'types-devenements': [ 15, 23 ],
-          public: [ 26 ],
-          organisateur: [ 33 ],
-          participation: null,
-          'evenement-ponctuel': null
-        });
-      });
+      test('fourth contains the aggregation paths', () => {
 
-      it('fourth contains the aggregation paths', () => {
-
-        args[3].paths.should.eql([
+        expect(args[3].paths).toEqual([
           [120, 19023, data.agenda.uid],
           [92893, 90193, data.agenda.uid]
         ]);
@@ -68,7 +76,7 @@ describe('04 - evaluate', () => {
   describe('evaluate leading to the paths of a reference being updated', () => {
     let args, result;
 
-    before(async () => {
+    beforeAll(async () => {
       await evaluate({
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
@@ -81,16 +89,16 @@ describe('04 - evaluate', () => {
 
     describe('updateSourcePaths call', () => {
 
-      it('first arg is the uid of the aggregating agenda', () => {
-        args[0].should.equal(data.aggregatorAgendaUid);
+      test('first arg is the uid of the aggregating agenda', () => {
+        expect(args[0]).toBe(data.aggregatorAgendaUid);
       });
 
-      it('second is the uid of the event that is to be aggregated', () => {
-        args[1].should.equal(data.event.uid);
+      test('second is the uid of the event that is to be aggregated', () => {
+        expect(args[1]).toBe(data.event.uid);
       });
 
-      it('third are the updated paths, amended with source paths', () => {
-        args[2].should.eql([
+      test('third are the updated paths, amended with source paths', () => {
+        expect(args[2]).toEqual([
           [1293, 7878697],
           [120, 19023, data.agenda.uid],
           [92893, 90193, data.agenda.uid]
@@ -104,7 +112,7 @@ describe('04 - evaluate', () => {
 
     let called = false;
 
-    before(async () => {
+    beforeAll(async () => {
       await evaluate({
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.3'),
@@ -117,8 +125,8 @@ describe('04 - evaluate', () => {
       }, data);
     });
 
-    it('no state-changing function was called', () => {
-      called.should.equal(false);
+    test('no state-changing function was called', () => {
+      expect(called).toBe(false);
     });
 
   });
@@ -126,7 +134,7 @@ describe('04 - evaluate', () => {
   describe('evaluate with call to remove source from paths', () => {
     let args;
 
-    before(async () => {
+    beforeAll(async () => {
       await evaluate({
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.4'),
@@ -139,8 +147,8 @@ describe('04 - evaluate', () => {
       });
     });
 
-    it('updateSourcePaths provides paths without source', () => {
-      args[2].should.eql([ [ 1, 2, 3 ]]);
+    test('updateSourcePaths provides paths without source', () => {
+      expect(args[2]).toEqual([ [ 1, 2, 3 ]]);
     });
 
   });
@@ -148,7 +156,7 @@ describe('04 - evaluate', () => {
   describe('evaluate with call to remove reference altogether', () => {
     let args;
 
-    before(async () => {
+    beforeAll(async () => {
       await evaluate({
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.3'),
@@ -160,8 +168,8 @@ describe('04 - evaluate', () => {
       });
     });
 
-    it('enqueueRemove is provided with payload required for removal', () => {
-      Object.keys(args).should.eql([
+    test('enqueueRemove is provided with payload required for removal', () => {
+      expect(Object.keys(args)).toEqual([
         'sourceAgendaUid',
         'eventUid',
         'aggregatorAgendaUid',

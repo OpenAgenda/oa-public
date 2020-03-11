@@ -17,7 +17,7 @@ module.exports = async (knex, agendaUid, data) => {
   const entry = db.toEntry({
     ...clean,
     updatedAt: new Date(),
-    ...exists ? {} : { agendaId, createdAt: new Date() }
+    ...(exists ? {} : { agendaId, createdAt: new Date() })
   });
 
   if (!exists) {

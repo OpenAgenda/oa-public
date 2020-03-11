@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const should = require('should');
 
 const addSource = require('../lib/addSource');
 const loadSourceEvaluates = require('../lib/loadSourceEvaluates');
@@ -13,7 +12,7 @@ describe('06 - addSource', () => {
     let enqueuedData = null;
     let addSourceEntryWasCalled = false;
 
-    before(async () => {
+    beforeAll(async () => {
       await addSource({
         getAgendaSourceId: async (sourceAgenda, aggregatorAgenda) => false,
         addSourceEntry: (aggregatorAgenda, sourceAgenda) => {
@@ -25,16 +24,16 @@ describe('06 - addSource', () => {
       }, { uid: 123, slug: 'ndm2020' }, { uid: 456, slug: 'ndm2020-idf' }, [], { evaluate: true });
     });
 
-    it('calls for a source entry creation', () => {
-      addSourceEntryWasCalled.should.equal(true);
+    test('calls for a source entry creation', () => {
+      expect(addSourceEntryWasCalled).toBe(true);
     });
 
-    it('data passed to queue contains uid of aggregator agenda', () => {
-      enqueuedData.aggregatorAgendaUid.should.equal(123);
+    test('data passed to queue contains uid of aggregator agenda', () => {
+      expect(enqueuedData.aggregatorAgendaUid).toBe(123);
     });
 
-    it('data passed to queue contains source formSchema', () => {
-      enqueuedData.formSchema.should.be.ok();
+    test('data passed to queue contains source formSchema', () => {
+      expect(enqueuedData.formSchema).toBeTruthy();
     });
 
   });
@@ -43,7 +42,7 @@ describe('06 - addSource', () => {
 
     const enqueuedForEvaluate = [];
 
-    before(async () => {
+    beforeAll(async () => {
       let looped = false;
 
       await loadSourceEvaluates({
@@ -59,8 +58,8 @@ describe('06 - addSource', () => {
       }, _getJSON('fixtures/addSource/loadSourceEvaluates'))
     });
 
-    it('data required for evaluate is enqueued', () => {
-      Object.keys(enqueuedForEvaluate[0]).should.eql([
+    test('data required for evaluate is enqueued', () => {
+      expect(Object.keys(enqueuedForEvaluate[0])).toEqual([
         'agenda',
         'event',
         'aggregatorAgendaUid',
@@ -71,9 +70,12 @@ describe('06 - addSource', () => {
       ]);
     });
 
-    it('enqueueLoadForEvaluate is called as many times as list interface provided references', () => {
-      enqueuedForEvaluate.length.should.equal(20);
-    });
+    test(
+      'enqueueLoadForEvaluate is called as many times as list interface provided references',
+      () => {
+        expect(enqueuedForEvaluate.length).toBe(20);
+      }
+    );
   });
 
 });

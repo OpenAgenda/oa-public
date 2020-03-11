@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const should = require('should');
 
 const convertFieldOptionIdsToLabels = require('../utils/rules/convertFieldOptionIdsToLabels');
 const determineAggregationAction = require('../utils/determineAggregationAction');
@@ -25,18 +24,21 @@ describe('05 - utils', () => {
 
   describe('convertFieldOptionIdsToLabels', () => {
 
-    it('provides the list of labels corresponding to the option ids provided', () => {
-      const field = _.find(fixtures.jepOToJEP.aggregatorSchema.fields, { field: 'conditions-de-participation' });
-      const labels = convertFieldOptionIdsToLabels(field, [14]);
+    test(
+      'provides the list of labels corresponding to the option ids provided',
+      () => {
+        const field = _.find(fixtures.jepOToJEP.aggregatorSchema.fields, { field: 'conditions-de-participation' });
+        const labels = convertFieldOptionIdsToLabels(field, [14]);
 
-      labels.should.eql(['Tarif habituel']);
-    });
+        expect(labels).toEqual(['Tarif habituel']);
+      }
+    );
 
   });
 
   describe('pickReferenceValues', () => {
 
-    it('returns values belonging to provided schema', () => {
+    test('returns values belonging to provided schema', () => {
       const picked = pickReferenceValues(fixtures.jepOToJEP.aggregatorSchema, {
         location: 'dqfdq',
         tags: ['Atelier / Démonstration / Savoir-faire'],
@@ -45,47 +47,62 @@ describe('05 - utils', () => {
         'diffusion-sur-le-pass-culture': [ 1 ]
       });
 
-      picked.should.eql({
+      expect(picked).toEqual({
         'types-devenement': 3,
         'conditions-de-participation': [ 14 ],
         'diffusion-sur-le-pass-culture': [ 1 ]
       });
     });
 
-    it('state is returned when set', () => {
+    test('state is returned when set', () => {
       const picked = pickReferenceValues(fixtures.jepOToJEP.aggregatorSchema, { state: 1 });
 
-      picked.should.eql({ state: 1 });
+      expect(picked).toEqual({ state: 1 });
     });
 
   });
 
   describe('determineAggregationAction', () => {
 
-    it('if type is remove, aggregationAction is remove', () => {
-      determineAggregationAction('removeEvent').should.equal('removeEvent');
+    test('if type is remove, aggregationAction is remove', () => {
+      expect(determineAggregationAction('removeEvent')).toBe('removeEvent');
     });
 
-    it('if type is update but no change is observed, action is null', () => {
-      should(determineAggregationAction('updateEvent', fixtures.eventNowPublish, fixtures.eventNowPublish)).equal(null);
+    test('if type is update but no change is observed, action is null', () => {
+      expect(determineAggregationAction('updateEvent', fixtures.eventNowPublish, fixtures.eventNowPublish)).toBeNull();
     });
 
-    it('if type is update, state was not published and now is published, action is evaluate', () => {
-      determineAggregationAction('updateEvent', fixtures.eventBeforePublish, fixtures.eventNowPublish).should.equal('evaluateEvent');
-    });
+    test(
+      'if type is update, state was not published and now is published, action is evaluate',
+      () => {
+        expect(
+          determineAggregationAction('updateEvent', fixtures.eventBeforePublish, fixtures.eventNowPublish)
+        ).toBe('evaluateEvent');
+      }
+    );
 
-    it('if type is update, state was published and now is not published, action is remove', () => {
-      determineAggregationAction('updateEvent', fixtures.eventBeforeUnpublish, fixtures.eventNowUnpublish).should.equal('removeEvent');
-    });
+    test(
+      'if type is update, state was published and now is not published, action is remove',
+      () => {
+        expect(
+          determineAggregationAction('updateEvent', fixtures.eventBeforeUnpublish, fixtures.eventNowUnpublish)
+        ).toBe('removeEvent');
+      }
+    );
 
-    it('if there are changes in event data on a unchanged state published event, action is evaluate', () => {
-      determineAggregationAction('updateEvent', fixtures.eventBeforeChange, fixtures.eventNowChange).should.equal('evaluateEvent');
-    });
+    test(
+      'if there are changes in event data on a unchanged state published event, action is evaluate',
+      () => {
+        expect(
+          determineAggregationAction('updateEvent', fixtures.eventBeforeChange, fixtures.eventNowChange)
+        ).toBe('evaluateEvent');
+      }
+    );
 
   });
 
   describe('cleanRule', () => {
-    it('transform object is parsed to list of actions', () => {
+    test('transform object is parsed to list of actions', () => {
       const clean = cleanRule({
         query: {
           tags: 'Animation Jeune public'
@@ -98,13 +115,13 @@ describe('05 - utils', () => {
         required : false
       });
 
-      clean.actions.should.eql([{
+      expect(clean.actions).toEqual([{
         field: 'tags',
         values: { '$push' : ['Animation'] }
       }]);
     });
 
-    it('state in value is converted to an action', () => {
+    test('state in value is converted to an action', () => {
       const clean = cleanRule({
         query: {
           location: {
@@ -116,13 +133,13 @@ describe('05 - utils', () => {
         }
       });
 
-      clean.actions.should.eql([{
+      expect(clean.actions).toEqual([{
         field: 'state',
         values: { '$set': 2 }
       }]);
     });
 
-    it('geographic query list-values are reduced by geographic type', () => {
+    test('geographic query list-values are reduced by geographic type', () => {
       const clean = cleanRule({
         query: {
           location: [{
@@ -141,7 +158,7 @@ describe('05 - utils', () => {
         }
       });
 
-      clean.query.location.city.should.eql([
+      expect(clean.query.location.city).toEqual([
         'Lille', 'Anstaing', 'Armentières', 'Aubers', 'Baisieux', 'La Bassée'
       ]);
     });

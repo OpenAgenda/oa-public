@@ -1,7 +1,5 @@
 'use strict';
 
-const should = require('should');
-
 const removeSource = require('../lib/removeSource');
 const loadSourceRemoves = require('../lib/loadSourceRemoves');
 
@@ -23,7 +21,7 @@ describe('07 - removeSource', () => {
     let removeSourceWasCalled = false;
     let enqueuePayLoad = {};
 
-    before(async () => {
+    beforeAll(async () => {
       await removeSource({
         removeSourceEntry: tracker('removeSourceEntry'),
         getSourceEntry: tracker('getSourceEntry', {
@@ -35,23 +33,29 @@ describe('07 - removeSource', () => {
       }, aggregatorAgenda, 1, { evaluate: true });
     });
 
-    it('loads source details first', () => {
-      tracker.calls[0].name.should.equal('getSourceEntry');
+    test('loads source details first', () => {
+      expect(tracker.calls[0].name).toBe('getSourceEntry');
     });
 
-    it('if agenda is source, calls fn to remove source, providing aggregator and source agendas', () => {
-      tracker.calls[1].name.should.equal('removeSourceEntry');
-      tracker.calls[1].args[0].should.equal(aggregatorAgenda);
-      tracker.calls[1].args[1].should.equal(sourceAgenda);
-    });
+    test(
+      'if agenda is source, calls fn to remove source, providing aggregator and source agendas',
+      () => {
+        expect(tracker.calls[1].name).toBe('removeSourceEntry');
+        expect(tracker.calls[1].args[0]).toBe(aggregatorAgenda);
+        expect(tracker.calls[1].args[1]).toBe(sourceAgenda);
+      }
+    );
 
-    it('calls enqueueing function last, providing uids of aggregator and source agendas', () => {
-      tracker.calls[2].name.should.equal('enqueueLoadSourceRemoves');
-      tracker.calls[2].args[0].should.eql({
-        aggregatorAgendaUid: aggregatorAgenda.uid,
-        sourceAgendaUid: sourceAgenda.uid
-      });
-    });
+    test(
+      'calls enqueueing function last, providing uids of aggregator and source agendas',
+      () => {
+        expect(tracker.calls[2].name).toBe('enqueueLoadSourceRemoves');
+        expect(tracker.calls[2].args[0]).toEqual({
+          aggregatorAgendaUid: aggregatorAgenda.uid,
+          sourceAgendaUid: sourceAgenda.uid
+        });
+      }
+    );
 
   });
 
@@ -59,7 +63,7 @@ describe('07 - removeSource', () => {
     const tracker = Tracker();
     let loops = 0;
 
-    before(async () => {
+    beforeAll(async () => {
       await loadSourceRemoves({
         listEventReferences: tracker(
           'listEventReferences',
@@ -69,12 +73,15 @@ describe('07 - removeSource', () => {
       }, 123, 456);
     });
 
-    it('calls listEventReferences first to list events of source to evaluate on aggregator', () => {
-      tracker.calls[0].name.should.equal('listEventReferences');
-    });
+    test(
+      'calls listEventReferences first to list events of source to evaluate on aggregator',
+      () => {
+        expect(tracker.calls[0].name).toBe('listEventReferences');
+      }
+    );
 
-    it('enqueueRemove is called for each event', () => {
-      tracker.calls.slice(1, 21).filter(c => c.name === 'enqueueRemove').length.should.equal(20);
+    test('enqueueRemove is called for each event', () => {
+      expect(tracker.calls.slice(1, 21).filter(c => c.name === 'enqueueRemove').length).toBe(20);
     });
   });
 
