@@ -27,6 +27,7 @@
     "uid",
     "slug",
     "originAgenda",
+    "sourceAgendas",
     "creatorUid",
     "locationUid",
     "location",

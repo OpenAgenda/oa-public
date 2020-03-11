@@ -1,0 +1,1405 @@
+{
+  "events": [
+    {
+      "uid": 97680015,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "soul-music-la-bande-son-dune-liberation",
+      "title": {
+        "fr": "Soul music : la bande-son d’une libération"
+      },
+      "description": {
+        "fr": "Brother lion et the Preacher, chanteur et guitariste du groupe Shaolin temple Defenders"
+      },
+      "longDescription": {
+        "fr": "**Brother lion et the Preacher, chanteur et guitariste du groupe Shaolin temple Defenders**\n\n**RENCONTRE MUSICALE**\n\nSoul music : la bande-son d’une libération Brother lion et the Preacher, chanteur et guitariste du groupe Shaolin temple DefendersEn partenariat avec Rock et Chanson\n\nVendredi 15 novembre à 18h15 Médiathèque Castagnéra Salle des animations\n\nLa Soul est l’expression culturelle et sociale d’une population vivant sous le joug de la ségrégation raciale légalisée. Véritable révolution culturelle, elle transcende les codes entre musique sacrée et profane. Brother Lion et the Preacher, le chanteur et le guitariste de Shaolin temple Defenders vous racontent cette histoire passionnante, illustrée par de la musique live !"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "ca3ff1de8e754d6fbe9eeae5fbd97a3f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 891
+        },
+        "variants": [
+          {
+            "filename": "ca3ff1de8e754d6fbe9eeae5fbd97a3f.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1328,
+              "height": 1690
+            }
+          },
+          {
+            "filename": "ca3ff1de8e754d6fbe9eeae5fbd97a3f.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 201,
+              "height": 201
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-15T17:15:00.000Z",
+          "end": "2019-11-15T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T11:08:07.000Z",
+      "createdAt": "2019-10-24T11:08:07.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 86011856,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "05 56 84 78 90",
+        "mediatheque@talence.fr"
+      ],
+      "location": {
+        "uid": 86011856,
+        "slug": "mediatheque-castagnera",
+        "name": "Médiathèque Castagnéra",
+        "address": "allée Peixotto",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.807373,
+        "longitude": -0.589897,
+        "updatedAt": "2017-02-15T11:31:08.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 90281256,
+      "ownerUid": 57697946,
+      "creatorUid": 57697946,
+      "slug": "partenaires-particuliers",
+      "title": {
+        "fr": "\"Partenaires particuliers\""
+      },
+      "description": {
+        "fr": "30 ans de Création Franche : rencontres"
+      },
+      "longDescription": {
+        "fr": "_**2019 : le musée de la Création Franche a trente ans.**_\n\n_**Il célèbre cet anniversaire en rythmant l’année par une série de rendez-vous et de rencontres en marge de son** **cycle d’expositions habituel. Pendant l’exposition « Visions et Créations Dissidentes » : le musée propose quatre** **rendez-vous, de septembre à décembre. Ces rencontres thématiques rassembleront de nombreux invités pour** **porter témoignage et échanger avec le public.**_\n\n### **Nouveau rendez-vous :**\n\n### **« Partenaires particuliers »**\n\n### **Jeudi 14 novembre à 18h.**\n\n**Partenaires particuliers parce que depuis l’origine, 1989, ils sont des compagnons d’aventure de la Création Franche, du Site au musée.**\n\n**Colin Rhodes**, professeur d’histoire de l’art et de théorie de l’art, il est l’auteur de nombreux ouvrages sur l’art brut et l’art outsider. Il est aussi commissaire d’expositions. Il est enfin le président du Conseil consultatif artistique du musée.\n\n**Bruno Gérard**, fonde en 1990 l’atelier dessin et peinture du Centre La Pommeraie en Belgique (centre accueillant des personnes en situations de handicap). Depuis, les liens étroits entre La Pommeraie et la Création Franche ont permis la découverte et l’exposition régulière de créateurs issus de cet atelier. Préoccupée par la sauvegarde des œuvres de l’atelier de La Pommeraie, Bruno Gérard créé la Fondation Paul Duhem en 2016.\n\n**Bruno Montpied**, est un créateur, auteur et spécialiste des environnements d’art brut. Il est un contributeur de longue date de la revue Création Franche dans laquelle il fait état de ses découvertes et de ses recherches.\n\n**Informations pratiques**\n\n**Gratuit**\n\n**Sur réservation au 05 56 85 81 73**"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre, sur inscription au 05 56 85 81 73"
+      },
+      "image": {
+        "filename": "event_partenaires-particuliers_145053.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_partenaires-particuliers_145053.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_partenaires-particuliers_145053.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-14T17:00:00.000Z",
+          "end": "2019-11-14T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-06T11:07:29.000Z",
+      "createdAt": "2019-10-24T11:42:31.000Z",
+      "agendaUid": 5598423,
+      "locationUid": 43244673,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43244673,
+        "slug": "musee-de-la-creation-franche544",
+        "name": "Musée de la Création Franche",
+        "address": "58 avenue du Maréchal de Lattre de Tassigny 33130 Bègles",
+        "city": "Bègles",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33130",
+        "insee": "33039",
+        "countryCode": "FR",
+        "district": "Terres Neuves",
+        "latitude": 44.808037,
+        "longitude": -0.542402,
+        "updatedAt": "2019-11-06T11:02:52.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "musee-creation-franche",
+        "uid": 5598423,
+        "official": 1,
+        "title": "Musée de la Création Franche",
+        "description": "Le Musée de la Création Franche est un musée d'art brut et apparentés, créé en 1989 à l'initiative de Noël Mamère sur proposition de Gérard Sendrey.",
+        "url": "http://musee-creationfranche.com",
+        "image": "agenda5598423.jpg",
+        "updatedAt": "2019-11-06T11:06:32.000Z",
+        "createdAt": "2017-05-30T09:41:40.000Z",
+        "officializedAt": "2019-10-30T15:56:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 99662648,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "maman-chaperon",
+      "title": {
+        "fr": "Maman Chaperon"
+      },
+      "description": {
+        "fr": "Théâtre musical et gestuel par la Cie Les 13 Lunes."
+      },
+      "longDescription": {
+        "fr": "Entrez dans la forêt des contes en compagnie du Chaperon, Blanc, Rouge, Noir. En musique, en gestes, en français, en langue des signes, en espagnol… Un espéranto du corps et de la voix pour dire l’apprentissage de la liberté, le danger d’une rencontre, la ruse du plus petit qui se sauve du grand méchant."
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_maman-chaperon_504012.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_maman-chaperon_504012.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_maman-chaperon_504012.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T14:30:00.000Z",
+          "end": "2020-02-08T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T10:54:30.000Z",
+      "createdAt": "2019-10-24T12:30:58.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 53432197,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "veillee-historique-l-eglise-de-bassens",
+      "title": {
+        "fr": "Veillée historique : L’église de Bassens"
+      },
+      "description": {
+        "fr": "A travers différents documents, Bernard Vallier nous retrace l’histoire de l’église de Bassens et nous présente quelques-uns de ses vitraux les plus remarquables."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "réservation conseillée"
+      },
+      "image": {
+        "filename": "event_veillee-historique-l-eglise-de-bassens_744468.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_veillee-historique-l-eglise-de-bassens_744468.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_veillee-historique-l-eglise-de-bassens_744468.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-14T17:30:00.000Z",
+          "end": "2020-02-14T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T12:33:13.000Z",
+      "createdAt": "2019-10-24T12:33:12.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 8888808,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "mostapha-el-harfi",
+      "title": {
+        "fr": "Mostapha El Harfi"
+      },
+      "description": {
+        "fr": "De rivage en rivage, Mostafa El Harfi invente des passerelles où s’accouder pour rêver. Le son voluptueux de l’oud qui l’accompagne depuis quarante ans, nous y invite"
+      },
+      "longDescription": {
+        "fr": "Joueur d’oud talentueux et généreux, il enseigne cet instrument au sein de l’Association des Artistes Marocains qu’il a créée et  s’attache à transmettre et pérenniser le riche patrimoine musical arabo-andalou.\n\n**En partenariat avec Musiques de nuit**"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_mostapha-el-harfi_844220.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_mostapha-el-harfi_844220.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_mostapha-el-harfi_844220.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-21T19:00:00.000Z",
+          "end": "2020-02-21T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T12:35:08.000Z",
+      "createdAt": "2019-10-24T12:35:08.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 89408200,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "concert-de-l-ensemble-de-sax-de-l-ecole-de-musique-de-bassens",
+      "title": {
+        "fr": "Concert de l’ensemble de sax de l’école de musique de Bassens."
+      },
+      "description": {
+        "fr": "Composé de musiciens confirmés, l’ensemble de sax de l’école de musique propose un répertoire très étendu, allant de la musique jazz au classique en passant par les musiques de films."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_concert-de-l-ensemble-de-sax-de-l-ecole-de-musique-de-bassens_919661.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_concert-de-l-ensemble-de-sax-de-l-ecole-de-musique-de-bassens_919661.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_concert-de-l-ensemble-de-sax-de-l-ecole-de-musique-de-bassens_919661.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-13T19:00:00.000Z",
+          "end": "2020-03-13T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T12:39:09.000Z",
+      "createdAt": "2019-10-24T12:39:08.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 93510656,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 93510656,
+        "slug": "eglise-saint-pierre569",
+        "name": "Eglise Saint-Pierre",
+        "address": "33530 BASSENS",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.901605,
+        "longitude": -0.51625,
+        "updatedAt": "2017-12-26T16:36:37.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 99366678,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "abecedaire-en-calligrammes",
+      "title": {
+        "fr": "« Abécédaire en calligrammes \""
+      },
+      "description": {
+        "fr": "Une exposition, réalisée par Céline Lamour Crochet, pour découvrir les lettres et les mots en s’amusant."
+      },
+      "longDescription": {
+        "fr": "**Dans le cadre de Presqu’île en pages.**"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_abecedaire-en-calligrammes_818554.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_abecedaire-en-calligrammes_818554.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_abecedaire-en-calligrammes_818554.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-17T14:00:00.000Z",
+          "end": "2020-03-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T16:00:00.000Z",
+          "end": "2020-03-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T09:00:00.000Z",
+          "end": "2020-03-20T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T14:00:00.000Z",
+          "end": "2020-03-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T08:30:00.000Z",
+          "end": "2020-03-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T12:30:00.000Z",
+          "end": "2020-03-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T14:00:00.000Z",
+          "end": "2020-03-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T16:00:00.000Z",
+          "end": "2020-03-26T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T09:00:00.000Z",
+          "end": "2020-03-27T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T14:00:00.000Z",
+          "end": "2020-03-27T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T08:30:00.000Z",
+          "end": "2020-03-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T12:30:00.000Z",
+          "end": "2020-03-28T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T12:42:29.000Z",
+      "createdAt": "2019-10-24T12:42:29.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 23956798,
+      "ownerUid": 96079790,
+      "creatorUid": 96079790,
+      "slug": "atelier-monstres-merveilles-a-l-abbaye-de-la-sauve-majeure",
+      "title": {
+        "fr": "Atelier \"Monstres & Merveilles\" à l'abbaye de La Sauve-Majeure"
+      },
+      "description": {
+        "fr": "Création d’un monstre en s’inspirant des décors de l’abbaye"
+      },
+      "longDescription": {
+        "fr": "Après une découverte du site et du bestiaire fantastique médiéval, création d’un monstre en s’inspirant des décors de l’abbaye /  14h30-16h30 - Abbaye de La Sauve-Majeure - Nombre de places limité, réservation via [mediation.archimuse@gmail.com](mailto:mediation.archimuse@gmail.com)\n\n⚠️Les accompagnateurs doivent rester sur le site durant tout l'atelier"
+      },
+      "keywords": {
+        "fr": [
+          "Enfants",
+          "Art",
+          "Abbaye",
+          "PAtrimoine",
+          "Atelier",
+          "Creation",
+          "Creatif",
+          "Monstre",
+          "Halloween",
+          "Vacances",
+          "Famille",
+          "Toussaint",
+          "Gironde",
+          "Decouverte",
+          "Visite"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit sur réservation pour les enfants - Prix du billet d'entrée à l'abbaye pour les accompagnateurs"
+      },
+      "image": {
+        "filename": "event_atelier-monstres-merveilles-a-l-abbaye-de-la-sauve-majeure_511526.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_atelier-monstres-merveilles-a-l-abbaye-de-la-sauve-majeure_511526.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_atelier-monstres-merveilles-a-l-abbaye-de-la-sauve-majeure_511526.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-23T12:30:00.000Z",
+          "end": "2019-10-23T14:30:00.000Z"
+        },
+        {
+          "begin": "2019-10-30T13:30:00.000Z",
+          "end": "2019-10-30T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T12:43:43.000Z",
+      "createdAt": "2019-10-24T10:14:57.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 49998280,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "mediation.archimuse@gmail.com"
+      ],
+      "location": {
+        "uid": 49998280,
+        "slug": "abbaye-de-la-sauve-majeure634",
+        "name": "Abbaye de la Sauve-Majeure",
+        "address": "14 Rue de l'abbaye, La Sauve",
+        "city": "La Sauve",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33670",
+        "insee": "33505",
+        "countryCode": "FR",
+        "district": "Le Brandas",
+        "latitude": 44.763872,
+        "longitude": -0.312807,
+        "updatedAt": "2019-10-24T12:44:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9,
+        25
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 68955884,
+      "ownerUid": 96079790,
+      "creatorUid": 96079790,
+      "slug": "jeu-de-piste-hommes-de-la-gironde-levez-vous",
+      "title": {
+        "fr": "Jeu de piste \"Hommes de la Gironde, levez-vous !\""
+      },
+      "description": {
+        "fr": "Jeu de piste immersif à grande échelle à l'abbaye de La Sauve-Majeure"
+      },
+      "longDescription": {
+        "fr": "Archimuse vous invite à venir découvrir l’abbaye de La Sauve-Majeure au travers d’un jeu de piste immersif et à grande échelle, retraçant l’histoire du lieu durant l’époque Révolutionnaire !\n\nArriverez-vous à décrypter les indices ? À résoudre les énigmes ? Trouverez-vous le coupable...? Rendez-vous les 26-27 octobre et les 02-03 novembre à l'Abbaye de La Sauve-Majeure pour le savoir !\n\nDéparts : 14h30 / 15h / 15h30 / 16h30 (samedi et dimanche)\n\nÉvenement Facebook : [https://www.facebook.com/events/326607701352135/](https://www.facebook.com/events/326607701352135/)"
+      },
+      "keywords": {
+        "fr": [
+          "jeu de piste",
+          "jeu",
+          "game",
+          "escape game",
+          "enfants",
+          "famille",
+          "vacances",
+          "toussaint",
+          "halloween",
+          "abbaye",
+          "gironde",
+          "patrimoine"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit sur présentation du billet d'entrée à l'abbaye (Gratuit -26 ans)"
+      },
+      "image": {
+        "filename": "event_jeu-de-piste-hommes-de-la-gironde-levez-vous_167078.jpg",
+        "credits": "Archimuse-Bordeaux",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_jeu-de-piste-hommes-de-la-gironde-levez-vous_167078.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_jeu-de-piste-hommes-de-la-gironde-levez-vous_167078.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-26T12:30:00.000Z",
+          "end": "2019-10-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2019-10-27T13:30:00.000Z",
+          "end": "2019-10-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-02T13:30:00.000Z",
+          "end": "2019-11-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-03T13:30:00.000Z",
+          "end": "2019-11-03T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T12:44:01.000Z",
+      "createdAt": "2019-10-24T10:27:29.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 49998280,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "mediation.archimuse@gmail.com"
+      ],
+      "location": {
+        "uid": 49998280,
+        "slug": "abbaye-de-la-sauve-majeure634",
+        "name": "Abbaye de la Sauve-Majeure",
+        "address": "14 Rue de l'abbaye, La Sauve",
+        "city": "La Sauve",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33670",
+        "insee": "33505",
+        "countryCode": "FR",
+        "district": "Le Brandas",
+        "latitude": 44.763872,
+        "longitude": -0.312807,
+        "updatedAt": "2019-10-24T12:44:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9,
+        25
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 12047891,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "souleymane-diamanka",
+      "title": {
+        "fr": "Souleymane diamanka"
+      },
+      "description": {
+        "fr": "Natif du sénégal, SOuleymane Diamanka, enfant des aubiers et gardien slameur de la mémoir epeul, jongle avec les univers musicaux, la poésie et les mots qu'il nous offre généreusement."
+      },
+      "longDescription": {
+        "fr": "De sa voix de velours, il nous mènera sur les chemins de sa cultur et de son patrimoine familial."
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_souleymane-diamanka_610276.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_souleymane-diamanka_610276.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_souleymane-diamanka_610276.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-03T18:00:00.000Z",
+          "end": "2020-04-03T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T13:20:25.000Z",
+      "createdAt": "2019-10-24T13:20:25.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2048104
+}

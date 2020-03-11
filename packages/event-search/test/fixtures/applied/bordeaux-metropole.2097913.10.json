@@ -1,0 +1,1662 @@
+{
+  "events": [
+    {
+      "uid": 22500234,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-punch-tous-azimuts_617119",
+      "title": {
+        "fr": "Sieste musicale « Punch tous azimuts »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "4f7f7a5283c84a6795f0b91f33ca2dbd.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "4f7f7a5283c84a6795f0b91f33ca2dbd.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "4f7f7a5283c84a6795f0b91f33ca2dbd.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-27T13:30:00.000Z",
+          "end": "2020-02-27T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-06T02:05:29.000Z",
+      "createdAt": "2019-12-06T02:05:29.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 39086026,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-femmes-dalgerie",
+      "title": {
+        "fr": "Sieste musicale « Femmes d’Algérie »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {
+        "fr": "En écho au concert de Lemma, le 14 mars."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "2647f4b7d3f44bafb7774f7b5078a838.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "2647f4b7d3f44bafb7774f7b5078a838.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "2647f4b7d3f44bafb7774f7b5078a838.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-28T14:00:00.000Z",
+          "end": "2020-02-28T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-06T02:05:29.000Z",
+      "createdAt": "2019-12-06T02:05:29.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 30131565,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "lous-and-the-yakuza",
+      "title": {
+        "fr": "Lous and The Yakuza (Annulé)"
+      },
+      "description": {
+        "fr": "Nous avons appris avec regret l'annulation de la tournée de Lous and the yakuza... Remboursement auprès de votre point de vente."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "lous and the yakuza"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "409d3f7d1d894c9ba66c6e4f50f37f29.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "409d3f7d1d894c9ba66c6e4f50f37f29.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "409d3f7d1d894c9ba66c6e4f50f37f29.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T19:30:00.000Z",
+          "end": "2020-03-05T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-31T02:05:06.000Z",
+      "createdAt": "2019-11-27T02:05:07.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/lous.yakusa/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 77634423,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "juliette_840351",
+      "title": {
+        "fr": "Juliette (Complet)"
+      },
+      "description": {
+        "fr": "Au tour de Juliette de prêter ses chansons et ses cordes vocales aux étudiants de la licence Musique de l’Université Bordeaux Montaigne qui les arrangent à leur sauce… piquante !"
+      },
+      "longDescription": {
+        "fr": "Chanteuse atypique au caractère bien trempé, Juliette fait le bonheur des mélomanes depuis plus de trente ans avec sa gouaille et son répertoire plein d’humour, d’émotion et de fantaisie. Avec douze albums à son actif et des prix à ne plus savoir où les poser sur le rebord de sa cheminée, l’ovni de la chanson française a accepté de se poser quelques temps aux côtés des étudiants de la licence Musique de l’Université Bordeaux Montaigne, à l’invitation de leur directeur pédagogique, le pétulant Pascal Pistone. Le résultat ? Un concert qui rassemble un orchestre de chambre, différents chœurs d’adultes et d’enfants, des profs et des étudiants, avec la grande Juliette en vedette, complice bienveillante et inspirante de cette aventure pédagogique hors du commun."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "juliette",
+          "chanson"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 24€ / Plein tarif : 22€ / Concert offert aux abonnés - Places numérotées"
+      },
+      "image": {
+        "filename": "8a688330cb7844119d0e8be6d5c5aa04.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "8a688330cb7844119d0e8be6d5c5aa04.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "8a688330cb7844119d0e8be6d5c5aa04.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T19:30:00.000Z",
+          "end": "2020-02-01T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-30T02:05:29.000Z",
+      "createdAt": "2019-11-29T02:05:11.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/juliette/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 2410424,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "trombone-a-la-nouvelle-orleans-des-annees-20-a-nos-jours",
+      "title": {
+        "fr": "Trombone à la Nouvelle-Orléans, des années 20 à nos jours"
+      },
+      "description": {
+        "fr": "Coup de projecteur, et coup d’œil dans le rétroviseur, sur le trombone à la Nouvelle-Orléans des années 20 jusqu’à nos jours, par un orchestre de 90 musiciens."
+      },
+      "longDescription": {
+        "fr": "Issus des conservatoires et écoles de musiques de la région, les musiciens ici rassemblés nous proposent d’explorer les multiples facettes de la culture néo-orléanaise à travers le répertoire des plus grands trombonistes d'hier et d’aujourd’hui, de Kid Ory à Trombone Shorty. Une découverte passionnante de ce cuivre à la silhouette élégante, au timbre brillant, aussi à l’aise dans une fanfare que dans une formation jazz."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "trombone à la nouvelle-orléans",
+          "des années 20 à nos jours"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 10€"
+      },
+      "image": {
+        "filename": "19d3dd07ea2e4c2b9d33bd0d1268e60a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "19d3dd07ea2e4c2b9d33bd0d1268e60a.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "19d3dd07ea2e4c2b9d33bd0d1268e60a.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-16T14:30:00.000Z",
+          "end": "2020-02-16T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-07T02:05:08.000Z",
+      "createdAt": "2019-11-28T02:05:29.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/trombone/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 4223087,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-chanter-la-pluie",
+      "title": {
+        "fr": "Sieste musicale « Chanter la pluie »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {
+        "fr": "En résonnance avec les giboulées de mars."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "e94099aa9fb84ffab56727c993b05982.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "e94099aa9fb84ffab56727c993b05982.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "e94099aa9fb84ffab56727c993b05982.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-03T14:00:00.000Z",
+          "end": "2020-03-03T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-07T02:05:11.000Z",
+      "createdAt": "2019-12-07T02:05:11.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 42026372,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-le-mali-enchante",
+      "title": {
+        "fr": "Sieste musicale « Le Mali enchanté »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "aa08fe2229f04e4f8bef288714d2f888.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "aa08fe2229f04e4f8bef288714d2f888.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "aa08fe2229f04e4f8bef288714d2f888.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T14:00:00.000Z",
+          "end": "2020-03-05T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-07T02:05:22.000Z",
+      "createdAt": "2019-12-07T02:05:22.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 29499515,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-autour-de-la-chanteuse-dorsaf-hamdani",
+      "title": {
+        "fr": "Sieste musicale « Autour de la chanteuse Dorsaf Hamdani »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {
+        "fr": "En écho à son concert du 9 avril."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "56293221fd7643858502a3c37a37aa5f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "56293221fd7643858502a3c37a37aa5f.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "56293221fd7643858502a3c37a37aa5f.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-12T14:00:00.000Z",
+          "end": "2020-03-12T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-07T02:05:20.000Z",
+      "createdAt": "2019-12-07T02:05:20.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 1243036,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-jour-de-chance",
+      "title": {
+        "fr": "Sieste musicale « Jour de chance »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {
+        "fr": "Découvrez avant tout le monde les nouveautés des musiques du monde."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "170f44adac1a4e789c0098bb4ebd85fa.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "170f44adac1a4e789c0098bb4ebd85fa.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "170f44adac1a4e789c0098bb4ebd85fa.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-13T14:00:00.000Z",
+          "end": "2020-03-13T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-07T02:05:22.000Z",
+      "createdAt": "2019-12-07T02:05:22.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 12418910,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-autour-du-groupe-franco-cubain-que-vola",
+      "title": {
+        "fr": "Sieste musicale « Autour du groupe franco-cubain ¿ Que vola ? »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {
+        "fr": "En concert le 19 mars."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "680864378662465ca275793c48a52787.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "680864378662465ca275793c48a52787.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "680864378662465ca275793c48a52787.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-17T09:00:00.000Z",
+          "end": "2020-03-17T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-07T02:05:26.000Z",
+      "createdAt": "2019-12-07T02:05:26.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2098819
+}

@@ -1,0 +1,1821 @@
+{
+  "events": [
+    {
+      "uid": 17930704,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "groundation_392691",
+      "title": {
+        "fr": "Groundation"
+      },
+      "description": {
+        "fr": "Un des groupes légendaires du reggae sur la scène du Rocher cet automne : Groundation nous fait l’honneur d’une visite, reformé autour de son leader Harrison Stafford."
+      },
+      "longDescription": {
+        "fr": "Après quelques années de pause, le temps de reconstituer un groupe avec la crème des musiciens issus, comme lui, de la prestigieuse Sonoma State University, Harrison Stafford revient sur le devant de la scène avec son reggae jazz irrésistible. Fidèle à sa couleur de toujours, le groupe californien alterne entre improvisations virtuoses et maîtrise totale du sujet. Une expérience sonore incomparable que les fans de Groundation apprécient depuis plus de vingt ans sur les plus grandes scènes du monde. Expérience à partager entre véritables aficionados cet automne au Rocher."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "groundation",
+          "reggae"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 27€ / Plein tarif : 25€ / Tarif abonné : 22€"
+      },
+      "image": {
+        "filename": "84fdd257a29841eca09f639740ddab4a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "84fdd257a29841eca09f639740ddab4a.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "84fdd257a29841eca09f639740ddab4a.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-11-13T19:30:00.000Z",
+          "end": "2020-11-13T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-12T02:05:51.000Z",
+      "createdAt": "2020-01-09T02:05:06.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/groundation/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 70941594,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "286846",
+      "title": {
+        "fr": "L'Adie organise une semaine d'information sur le micro credit"
+      },
+      "description": {
+        "fr": "faire évoluer les représentations de la société sur l’entrepreneuriat et le crédit"
+      },
+      "longDescription": {
+        "fr": "Du 3 au 7 février, l'Adie et ses partenaires déploieront toute leur énergie à travers plus de 200 évènements pour révéler les talents des entrepreneurs.\n\nAu programme : des ateliers sur la création d’entreprise, des rencontres avec des entrepreneurs, des webconférences gratuites.\n\n\\- faire évoluer les représentations de la société sur l’entrepreneuriat et le crédit.\n\n\\- déceler le potentiel là où d’autres ne le voient pas, l’association vous invite à sa semaine contre le gâchis des talents."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "8c42d22ba8994ca2bf76965752d4ad5d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 995,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8c42d22ba8994ca2bf76965752d4ad5d.full.image.jpg",
+            "size": {
+              "height": 1563,
+              "width": 1100
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8c42d22ba8994ca2bf76965752d4ad5d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-03T08:00:00.000Z",
+          "end": "2020-02-03T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T08:00:00.000Z",
+          "end": "2020-02-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-09T08:02:42.000Z",
+      "createdAt": "2020-01-09T08:01:04.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 5325812,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.adie.org/nos-ateliers/"
+      ],
+      "location": {
+        "uid": 5325812,
+        "slug": "ville-de-talence703",
+        "name": "Ville de Talence",
+        "address": "33400",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.805431,
+        "longitude": -0.59186,
+        "updatedAt": "2017-12-05T08:46:42.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        54892589
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-talence",
+          "uid": 54892589,
+          "official": 1,
+          "title": "Ville de Talence",
+          "description": "Agenda de tous les événements de la commune de Talence.",
+          "url": "http://www.talence.fr",
+          "image": "agenda54892589.jpg",
+          "updatedAt": "2020-02-13T08:50:36.000Z",
+          "createdAt": "2017-02-10T16:12:45.000Z",
+          "officializedAt": "2019-04-05T11:29:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 16356164,
+      "ownerUid": 44813069,
+      "creatorUid": 44813069,
+      "slug": "petits-pas-voyageurs_81487",
+      "title": {
+        "fr": "PETITS PAS VOYAGEURS"
+      },
+      "description": {
+        "fr": "\" Un premier concert pour les bébés : une grande découverte \""
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de la 6e édition de la Quinzaine de la Petite Enfance, le grand événement des tout-petits au Taillan : **Laura** et **Ceïba** chantent une aventure en 6 langues et s’accompagnent de leurs instruments en proximité avec les enfants. Un petit bijou qui séduira les bébés accompagnés de leurs parents. Pas de micros, pas de machines, juste la vibration des voix, du violoncelle et des percussions. Des compositions pleines de poésie qui invitent au voyage les tout-petits, éveillent leurs sens, leur curiosité et laisse rêveurs les plus grands !\n\n### Deux représentations par jour : Mercredi 12 à 9h30 & 10h45 et Samedi 15 février 2020 10h30 & 11h15 .\n\n**⇒** Auditorium du Pôle Culturel de la Haye // Durée : 30 minutes // Priorité aux crèches et assistant(e)s maternel(le)s // Réservations obligatoires sur weezevent : https://www.weezevent.com/petits-pas-voyageurs-2\n\n_Une production jeune public du Krakatoa avec le soutien de la SACEM, l’IDDAC et l’OARA. Avec : Laura Caronni : violoncelle / violon / sanza & Ceïba : sanza / cajon._"
+      },
+      "keywords": {
+        "fr": [
+          "concert",
+          "bébé",
+          "enfance",
+          "chants",
+          "instruments",
+          "enfants",
+          "tout-petits",
+          "spectacle",
+          "parents",
+          "quinzainepetiteenfance"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, sur réservation (obligatoire)"
+      },
+      "image": {
+        "filename": "8f92dcd456c044b89ad15cb75db29ae6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8f92dcd456c044b89ad15cb75db29ae6.full.image.jpg",
+            "size": {
+              "height": 1280,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8f92dcd456c044b89ad15cb75db29ae6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T08:30:00.000Z",
+          "end": "2020-02-12T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:45:00.000Z",
+          "end": "2020-02-12T10:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:30:00.000Z",
+          "end": "2020-02-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T10:15:00.000Z",
+          "end": "2020-02-15T10:45:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-09T12:03:37.000Z",
+      "createdAt": "2020-01-09T12:00:37.000Z",
+      "agendaUid": 82433240,
+      "locationUid": 54591162,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 3
+      },
+      "registration": [
+        "http://weezevent.com/petits-pas-voyageurs-2",
+        "animation-culture@taillan-medoc.fr"
+      ],
+      "location": {
+        "uid": 54591162,
+        "slug": "auditorium-du-pole-culturel-de-la-haye",
+        "name": "Auditorium du Pôle Culturel de la Haye",
+        "address": "8 rue de Calavet, 33320, Le Taillan-Médoc",
+        "city": "Le Taillan-Médoc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33320",
+        "insee": "33519",
+        "countryCode": "FR",
+        "district": "Hontane",
+        "latitude": 44.911219,
+        "longitude": -0.681538,
+        "updatedAt": "2019-10-15T13:30:38.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        82433240
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-du-taillan-medoc",
+          "uid": 82433240,
+          "official": 1,
+          "title": "Ville du Taillan-Médoc",
+          "description": "Aux portes du Médoc et à une dizaine de kilomètres au Nord-­Ouest de Bordeaux, Le Taillan ­Médoc est une des communes de Bordeaux Métropole.",
+          "url": "http://www.taillan-medoc.fr/",
+          "image": "agenda82433240.jpg",
+          "updatedAt": "2020-02-13T14:34:14.000Z",
+          "createdAt": "2019-06-06T07:36:49.000Z",
+          "officializedAt": "2019-07-09T08:38:27.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-du-taillan-medoc",
+        "uid": 82433240,
+        "official": 1,
+        "title": "Ville du Taillan-Médoc",
+        "description": "Aux portes du Médoc et à une dizaine de kilomètres au Nord-­Ouest de Bordeaux, Le Taillan ­Médoc est une des communes de Bordeaux Métropole.",
+        "url": "http://www.taillan-medoc.fr/",
+        "image": "agenda82433240.jpg",
+        "updatedAt": "2020-02-13T14:34:14.000Z",
+        "createdAt": "2019-06-06T07:36:49.000Z",
+        "officializedAt": "2019-07-09T08:38:27.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 55690597,
+      "ownerUid": 44813069,
+      "creatorUid": 44813069,
+      "slug": "quinzaine-de-la-petite-enfance-6e-edition",
+      "title": {
+        "fr": "QUINZAINE DE LA PETITE ENFANCE - 6° ÉDITION"
+      },
+      "description": {
+        "fr": "Pour sa sixième édition, la Quinzaine de la Petite Enfance propose des animations variées, au RAM, au Café Tiers, au Multi-Accueil, à la Cabane et au Pôle Culturel."
+      },
+      "longDescription": {
+        "fr": "La Quinzaine de la petite enfance, c'est deux semaines d'ateliers, de rencontres, d'expositions et d'échanges autour de l'univers des tout-petits.\n\n**Toutes les propositions sont gratuites. Certaines sont sur réservation.**\n\nRetrouvez notamment le spectacle **Petits Pas Voyageurs**, dont les réservations sont ouvertes ici : [**weezevent**](https://www.weezevent.com/petits-pas-voyageurs-2)\n\n**Retrouvez le programme de la Quinzaine en cliquant :** [**ici**](https://fr.calameo.com/read/004367565a013755b0fe0?fbclid=IwAR18tHTqbNJ9-BjjsAakSm1k2pbs1hNkCCkoFR4_ZGxwqO4cm8L3bcMSowA)"
+      },
+      "keywords": {
+        "fr": [
+          "Petite enfance",
+          "Ateliers",
+          "Animations",
+          "Spectacle",
+          "Lectures",
+          "Expositions",
+          "Danse",
+          "Rencontres",
+          "Familles"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre / Tout public / Réservations obligatoires pour certaines animations."
+      },
+      "image": {
+        "filename": "12660acb70144bee8a29349aeddfdf58.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "12660acb70144bee8a29349aeddfdf58.full.image.jpg",
+            "size": {
+              "height": 2481,
+              "width": 1754
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "12660acb70144bee8a29349aeddfdf58.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T14:00:00.000Z",
+          "end": "2020-02-22T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T14:34:14.000Z",
+      "createdAt": "2020-01-09T12:06:02.000Z",
+      "agendaUid": 82433240,
+      "locationUid": 94867573,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "05 56 35 60 96",
+        "mediatheque@taillan-medoc.fr",
+        "https://www.weezevent.com/petits-pas-voyageurs-2",
+        "http://www.taillan-medoc.fr/"
+      ],
+      "location": {
+        "uid": 94867573,
+        "slug": "mediatheque-du-pole-culturel-de-la-haye",
+        "name": "Médiathèque du Pôle Culturel de La Haye",
+        "address": "8 Rue de Calavet, 33320 Le Taillan-Médoc",
+        "city": "Le Taillan-Médoc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33320",
+        "insee": "33519",
+        "countryCode": "FR",
+        "district": "Hontane",
+        "latitude": 44.911219,
+        "longitude": -0.681538,
+        "updatedAt": "2019-10-04T13:35:07.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [
+        2
+      ],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        82433240
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-du-taillan-medoc",
+          "uid": 82433240,
+          "official": 1,
+          "title": "Ville du Taillan-Médoc",
+          "description": "Aux portes du Médoc et à une dizaine de kilomètres au Nord-­Ouest de Bordeaux, Le Taillan ­Médoc est une des communes de Bordeaux Métropole.",
+          "url": "http://www.taillan-medoc.fr/",
+          "image": "agenda82433240.jpg",
+          "updatedAt": "2020-02-13T14:34:14.000Z",
+          "createdAt": "2019-06-06T07:36:49.000Z",
+          "officializedAt": "2019-07-09T08:38:27.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-du-taillan-medoc",
+        "uid": 82433240,
+        "official": 1,
+        "title": "Ville du Taillan-Médoc",
+        "description": "Aux portes du Médoc et à une dizaine de kilomètres au Nord-­Ouest de Bordeaux, Le Taillan ­Médoc est une des communes de Bordeaux Métropole.",
+        "url": "http://www.taillan-medoc.fr/",
+        "image": "agenda82433240.jpg",
+        "updatedAt": "2020-02-13T14:34:14.000Z",
+        "createdAt": "2019-06-06T07:36:49.000Z",
+        "officializedAt": "2019-07-09T08:38:27.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 66254143,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "tremplin-des-2-rives-finale-a-la-rock-school-barbey",
+      "title": {
+        "fr": "Tremplin des 2 Rives : finale à la Rock School Barbey"
+      },
+      "description": {
+        "fr": "Soutenez vos groupes ou artistes préférés lors des concerts du Tremplin des 2 Rives pour la finale le 8 février 2020 à la Rock School Barbey."
+      },
+      "longDescription": {
+        "fr": "Le Tremplin des 2 Rives a pour vocation la valorisation des talents musicaux sur le territoire bordelais. C’est l’occasion pour les jeunes artistes de défendre leur projet sur une scène devant un public et un jury de professionnel.\n\nDu 10 janvier au 1er février 2020, sept soirées de sélection se tiendront dans sept lieux de Bordeaux, de la rive droite et de l'ouest de Bordeaux Métropole. Chaque soirée verra concourir cinq candidats, artistes individuels ou formations collectives pré-sélectionnés sur dossier, pendant 20 minutes sur scène. Ils seront départagés par le vote du public et par un jury composé de professionnels de la musique et de représentants institutionnels.\n\nL'artiste ou le groupe ayant réuni le plus grand nombre de votes sera sélectionné pour la finale le 8 février à la Rock School Barbey.\n\nSoutenez vos groupes ou artistes préférés lors des concerts du Tremplin des 2 Rives. L'artiste ayant réuni le plus grand nombre de votes sera sélectionné pour le concert final à la Rock School Barbey le 8 février.\n\nRetrouvez la programmation [http://www.rockschool-barbey.com/47/tremplin-des-2-rives](http://www.rockschool-barbey.com/47/tremplin-des-2-rives)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "1353c37670744ce39d391f8aa09d27b9.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 379
+        },
+        "variants": [
+          {
+            "filename": "1353c37670744ce39d391f8aa09d27b9.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 870,
+              "height": 470
+            }
+          },
+          {
+            "filename": "1353c37670744ce39d391f8aa09d27b9.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T18:00:00.000Z",
+          "end": "2020-02-08T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-09T14:03:07.000Z",
+      "createdAt": "2020-01-09T14:03:07.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 15563863,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 15563863,
+        "slug": "rock-school-barbey692",
+        "name": "Rock School Barbey",
+        "address": "18 cours Barbey 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.826949,
+        "longitude": -0.563268,
+        "updatedAt": "2020-01-09T14:02:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [
+        23
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 7792759,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "exposition-ken-zone-libre",
+      "title": {
+        "fr": "Exposition Ken « Zone Libre »"
+      },
+      "description": {
+        "fr": "Ici. On vit. Loin des prisons illégitimes et administratives. Ici. On vit. Librement. Fortement. Ici. Pas de frontière entre terre et coeur."
+      },
+      "longDescription": {
+        "fr": "Ici. On vit. Loin des prisons illégitimes et administratives. Ici. On vit. Librement. Fortement. Ici. Pas de frontière entre terre et coeur."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "exposition",
+          "ken",
+          "photographie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, du lundi au vendredi et les soirs de concerts"
+      },
+      "image": {
+        "filename": "fcfe46fcf0a34ea4bb48f2e0197bc863.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "fcfe46fcf0a34ea4bb48f2e0197bc863.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "fcfe46fcf0a34ea4bb48f2e0197bc863.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-23T13:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T13:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T13:00:00.000Z",
+          "end": "2020-01-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T13:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T13:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T13:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T13:00:00.000Z",
+          "end": "2020-02-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T13:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T13:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T13:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T13:00:00.000Z",
+          "end": "2020-02-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T13:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T13:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T13:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T13:00:00.000Z",
+          "end": "2020-02-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T13:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T13:00:00.000Z",
+          "end": "2020-02-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T13:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T02:05:06.000Z",
+      "createdAt": "2020-01-10T02:05:03.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/expositions/ken/zone.libre.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 67997971,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "malaa",
+      "title": {
+        "fr": "Malaa (Annulé)"
+      },
+      "description": {
+        "fr": "Énigmatique producteur masqué reconnu sur la scène mondiale, Malaa est aujourd’hui à l’affiche des plus gros rassemblements dédiés à la musique électronique !"
+      },
+      "longDescription": {
+        "fr": "Superstar du web et génie du dancefloor à l’identité bien cachée, Malaa a su s’imposer depuis 2015 comme l’un des meilleurs espoirs de la house française, accumulant les crédits sur de nombreux remix (Skrillex, Diplo…). Non content de s’être imposé à l’international, le prodige à la cagoule innove, déniche et crée avec brio des rythmes dévastateurs et des sonorités à la croisée de la G-house et de l’EDM, ce qui lui confère une identité sonore unique en son genre. Mais l’univers Malaa ne s’arrête pas là : ses shows sont inégalables, aussi brûlants que dansants, à la fois dingues et jubilatoires ! Après avoir marqué l’année 2019 avec une tournée complète qui a enflammé les grandes villes de France, l’homme mystère revient en 2020 pour le second volet du « Illegal Tour » : une nuit dont on se souviendra !"
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "malaa",
+          "electro"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 33€"
+      },
+      "image": {
+        "filename": "99cba639af9948c6bdb8e5d5861f0de1.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "99cba639af9948c6bdb8e5d5861f0de1.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "99cba639af9948c6bdb8e5d5861f0de1.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-13T21:00:00.000Z",
+          "end": "2020-02-14T04:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T02:05:02.000Z",
+      "createdAt": "2020-01-10T02:05:18.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/malaa/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 58478434,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "exoria-festival",
+      "title": {
+        "fr": "Exoria Festival"
+      },
+      "description": {
+        "fr": "Avec toujours plus de collaborations et de lieux investis, Exoria continue d'évoluer pour devenir cette année un véritable festival itinérant !"
+      },
+      "longDescription": {
+        "fr": "Avec 16 dates dans 15 villes de France d’octobre 2019 à mai 2020, Exoria Festival s'étend sur tout le territoire avec une programmation Dub, Trance et Hard Music, une création artistique inédite : Ex-Echo, une scénographie interactive créée par L’Octopus, le tout mêlé à une histoire inédite racontée au public !"
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "exoria festival",
+          "dub"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 25€ / Plein Tarif : 20€ / Tarif réduit : 15€"
+      },
+      "image": {
+        "filename": "28ee0e14fca54208b4693e2ed3225e25.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "28ee0e14fca54208b4693e2ed3225e25.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "28ee0e14fca54208b4693e2ed3225e25.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T21:00:00.000Z",
+          "end": "2020-03-22T04:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-14T02:05:03.000Z",
+      "createdAt": "2020-01-10T02:05:22.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/exoria/03.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 27240673,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "exposition-omar-malas-the-crows-eye",
+      "title": {
+        "fr": "Exposition Omar Malas « The Crow's Eye »"
+      },
+      "description": {
+        "fr": "Le quotidien de Damas, capitale de la Syrie, observé à travers l'oeil d'un corbeau. Dans le cadre de MINA : Port d'escales artistiques."
+      },
+      "longDescription": {
+        "fr": "Perché sur le toit de son appartement à hauteur de vol d’oiseaux, Omar Malas assiste depuis bientôt dix ans aux soubresauts de son pays et de sa ville natale, Damas. Cette exposition de photographies documente la vie quotidienne de la capitale syrienne à travers l’oeil des corbeaux qui la survolent, percevant de notre quotidien une autre réalité."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "exposition",
+          "omar malas",
+          "photographie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, du lundi au vendredi et les soirs de concerts"
+      },
+      "image": {
+        "filename": "af2f717aa9254739990b18d0bb18f04c.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "af2f717aa9254739990b18d0bb18f04c.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "af2f717aa9254739990b18d0bb18f04c.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-31T12:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T12:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T12:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T12:00:00.000Z",
+          "end": "2020-04-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T12:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T12:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T12:00:00.000Z",
+          "end": "2020-04-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T12:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T12:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T12:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T12:00:00.000Z",
+          "end": "2020-04-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T12:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T12:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T12:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T12:00:00.000Z",
+          "end": "2020-04-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T12:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T12:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T12:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T02:05:13.000Z",
+      "createdAt": "2020-01-10T02:05:25.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/expositions/omar.malas/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 95624448,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "image-latente",
+      "title": {
+        "fr": "IMAGE LATENTE"
+      },
+      "description": {
+        "fr": "Installation contemplative. Une création d'URBRAIN"
+      },
+      "longDescription": {
+        "fr": "Image Latente est un environnement immersif de projection d’images sur des gouttelettes d’eau, plaçant la lumière en lévitation et laissant apparaître différentes séquences graphiques sur des écrans de vapeur d’eau. L’installation place le visiteur dans une attitude contemplative et lui délivre une narration visuelle sur une partition sonore d’Ôtanô au travers différents tableaux graphiques. Son dispositif spatial plongé dans l’obscurité s’exprime dans un langage lumineux holographique. Les pulsations des électrovannes délivrent elles-mêmes une partition sonore pour représenter un improbable orchestre acousmatique qui remplit l’espace où vibre l’installation.\n\n[http://labo.feesdhiver.fr/portfolio/image-latente/](http://labo.feesdhiver.fr/portfolio/image-latente/)\n\nUne coproduction Fées d'hiver"
+      },
+      "keywords": {
+        "fr": [
+          "installation",
+          "contemplative",
+          "art",
+          "numérique",
+          "eau",
+          "flux",
+          "fleuve",
+          "bassens",
+          "faites numérique"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "21500f20acea4585841978c1e7ff03d1.base.image.jpg",
+        "credits": "Fées d'hiver / URBRAIN",
+        "size": {
+          "height": 583,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "21500f20acea4585841978c1e7ff03d1.full.image.jpg",
+            "size": {
+              "height": 2062,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "21500f20acea4585841978c1e7ff03d1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T18:00:00.000Z",
+          "end": "2020-01-21T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T16:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T09:00:00.000Z",
+          "end": "2020-01-24T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T08:30:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T12:30:00.000Z",
+          "end": "2020-01-25T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T08:50:23.000Z",
+      "createdAt": "2020-01-10T08:44:14.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2123779
+}

@@ -2,7 +2,9 @@
 
 const _ = require('lodash');
 
-const getPathLeaves = item =>(item.sourcePaths || []).filter(p => p.length).map(p => p[p.length-1]);
+const getPathLeaves = item => (
+  item.sourcePaths || []
+).map(p => [].concat(p)).filter(p => p.length).map(p => p[p.length-1]);
 
 module.exports = async (service, items = [], decorate = []) => {
   const {

@@ -1,0 +1,1484 @@
+{
+  "events": [
+    {
+      "uid": 33413610,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "exposition-itineraires-des-photographes-voyageurs",
+      "title": {
+        "fr": "Exposition Itinéraires des Photographes Voyageurs"
+      },
+      "description": {
+        "fr": "Exposition Itinéraires des Photographes Voyageurs, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {
+        "fr": "Le 30ème Festival Itinéraires des Photographes Voyageurs invite le public à découvrir, dans les principaux lieux culturels de la Métropole bordelaise, des expositions photographiques sur le thème du voyage. Cette année le festival présente Pierre Gély-Fort « The Dark Love Boat » au Rocher. Miami Beach, son port, capitale mondiale des croisières avec plus de 5 millions de passagers par an. Là commence l’histoire du plus grand paquebot du monde, le « Symphony of the Seas », fabriqué en France. Quand les chantiers de Saint-Nazaire annoncent en avril 2018 la mise en service de ce monstre des mers avec près de 9.000 personnes à bord, le photographe Pierre Gély-Fort est dans les starting-blocks ! Après un galop d’essai en Méditerranée d’avril à octobre 2018, le paquebot géant rejoint sa destination prévue, Miami Beach, pour une croisière américaine vers les Caraïbes. Parodiant « La Croisière s’amuse », série TV américaine culte des années 80, cette série-photos s’intitule « The Dark Love Boat » : quarante photos donnant un point de vue d’auteur sur la vie de croisière de la middle class américaine d’aujourd’hui. Elle explore et interroge surtout le lien (ou l’absence de lien ?) entre le croisiériste et la mer. En tongs ou en smoking, partageant jour et nuit les activités des croisiéristes américains, Pierre Gély-Fort propose une vision très personnelle, en noir et blanc, éloignée d’une narration traditionnelle documentaire ou photo-journalistique. Comme dans un conte, une croisière hors du temps où chacun peut se raconter sa propre histoire ..."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "exposition",
+          "itinéraires des photographes voyageurs",
+          "photographie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, du lundi au vendredi et les soirs de concerts"
+      },
+      "image": {
+        "filename": "f41abf8d3c1d45f88085c26264dc4073.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "f41abf8d3c1d45f88085c26264dc4073.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "f41abf8d3c1d45f88085c26264dc4073.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T12:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T12:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T12:00:00.000Z",
+          "end": "2020-04-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T12:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T12:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T12:00:00.000Z",
+          "end": "2020-04-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T12:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T12:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T12:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T12:00:00.000Z",
+          "end": "2020-04-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T12:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T12:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T12:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T12:00:00.000Z",
+          "end": "2020-04-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T12:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T12:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T12:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T02:05:15.000Z",
+      "createdAt": "2019-10-22T01:05:10.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/expositions/pierre.gely.fort/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 75559944,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "kompromat",
+      "title": {
+        "fr": "Kompromat"
+      },
+      "description": {
+        "fr": "Fruit de l’entente entre Rebeka Warrior et le producteur Vitalic, Kompromat s’approprie la culture des clubs berlinois pour créer une musique électronique punk, noire et profonde."
+      },
+      "longDescription": {
+        "fr": "Le duo 100% français au nom russe a su créer avec Traum und Existenz un univers non répertorié, envoûtant, appelant autant au cri de guerre qu’à la prière, oscillant entre l’électro, la pop ou le post-punk. Un univers quasi-apocalyptique où se rencontrent la musicalité du chant allemand de Rebeka Warrior (Sexy Sushi, Mansfield.TYA) et les atmosphères sombres et planantes du pape de l’électro française Vitalic, le tout dans une harmonie à la fois violente et poétique. Rythmiques et dansantes, les mélodies de Kompromat évoquent Kraftwerk, Nina Hagen ou l’Electronic Body Music de nos voisins belges. Une musique fatalement hédoniste, façonnée pour s’émouvoir, crier, hurler, pleurer et surtout danser les bras en l’air jusqu’à en oublier le reste !"
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "kompromat"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 24€ / Plein tarif : 22€ / Tarif abonné : 19€"
+      },
+      "image": {
+        "filename": "e8895bb1db374fec94e4c10f05461429.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "e8895bb1db374fec94e4c10f05461429.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "e8895bb1db374fec94e4c10f05461429.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-24T18:30:00.000Z",
+          "end": "2020-04-24T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T01:05:12.000Z",
+      "createdAt": "2019-10-22T01:05:12.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/kompromat/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 84963866,
+      "ownerUid": 4599828,
+      "creatorUid": 4599828,
+      "slug": "arpentage-le-president-des-ultra-riches",
+      "title": {
+        "fr": "Arpentage : Le président des ultra-riches (Annulé)"
+      },
+      "description": {
+        "fr": "Chronique du mépris de classe dans la politique d'Emmanuel Macron"
+      },
+      "longDescription": {
+        "fr": "**Macron, président des ultra-riches? Deux sociologues de la grande bourgeoisie s'attaquent à cette question, étudient le profil du président de la République et l'oligarchie qui l'entoure.**\n\nVous pensez ne jamais pouvoir lire ce livre de sociologie, par manque de temps, par manque d'énergie? Venez participer à un arpentage, une ancienne technique ouvrière de lecture collective!\n\nAprès un petit temps de lecture individuelle, et une restitution collective, vous allez pouvoir, en quelques heures, venir à bout d'un ouvrage passionnant que vous n'aurez peut-être jamais lu seul!\n\nLe livre qui sera épluché est **Le Président des Ultra-riches** de Monique Pinçon-Charlot et Michel Charlot, sociologues. Toujours en lien avec [Le Grand Plan](https://www.bordeaux-metropole.fr/Agenda/Le-Grand-Plan2)\n\nArpentage du livre **Le président des ultra-riches: Chronique du mépris de classe dans la politique d'Emmanuel Macron** le 19 novembre à 18h30 à la ludo-médiathèque."
+      },
+      "keywords": {
+        "fr": [
+          "Lecture",
+          "politique",
+          "inégalités",
+          "sociologie"
+        ]
+      },
+      "conditions": {
+        "fr": "Sur réservation"
+      },
+      "image": {
+        "filename": "f0a1e22102594fd4883569e624ff44c1.base.image.jpg",
+        "credits": "(c) Zones",
+        "size": {
+          "height": 466,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f0a1e22102594fd4883569e624ff44c1.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1503
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f0a1e22102594fd4883569e624ff44c1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-19T17:30:00.000Z",
+          "end": "2019-11-19T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-19T15:35:18.000Z",
+      "createdAt": "2019-10-22T10:38:40.000Z",
+      "agendaUid": 19486837,
+      "locationUid": 57686300,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 57 77 31 77",
+        "mediatheque.jriviere@ville-cenon.fr"
+      ],
+      "location": {
+        "uid": 57686300,
+        "slug": "mediatheque-jacques-riviere183",
+        "name": "Médiathèque Jacques Rivière",
+        "address": "2, avenue Vincent Auriol 33150 Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.855363,
+        "longitude": -0.520225,
+        "updatedAt": "2017-03-29T09:21:09.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 56,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "mediatheque-jacques-riviere",
+        "uid": 19486837,
+        "official": 1,
+        "title": "Ludo-médiathèque Jacques Rivière",
+        "description": "La médiathèque Jacques Rivière de CENON propose aux adultes et aux enfants des livres, disques, magazines, à emprunter ou consulter sur place.",
+        "url": "https://www.ville-cenon.fr/agenda/",
+        "image": "agenda19486837.jpg",
+        "updatedAt": "2020-02-12T16:19:32.000Z",
+        "createdAt": "2017-03-28T14:19:27.000Z",
+        "officializedAt": "2018-06-12T13:17:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 94462918,
+      "ownerUid": 8316304,
+      "creatorUid": 8316304,
+      "slug": "atelier-de-fabrication-d-un-lombricomposteur",
+      "title": {
+        "fr": "Atelier de fabrication d’un lombricomposteur"
+      },
+      "description": {
+        "fr": "Vous habitez en appartement et souhaitez reduire vos déchet ? Et si vous passiez au lombricomposteur ?"
+      },
+      "longDescription": {
+        "fr": "### Les Rendez-vous du développement durable vous propose de construire votre propre lombricomposteur au cours d'un atelier d'initiation.\n\nConstruisez votre lombricomposteur et apprenez à l’utiliser. C'est un bon outil de substitution au composteur lorsque l’on vit en appartement.\n\nInscrivez-vous dès à présent.\n\nAnimé par l’association Au Ras du Sol."
+      },
+      "keywords": {
+        "fr": [
+          "composteur",
+          "home made",
+          "fait maison",
+          "lombricomposteur",
+          "zéro déchet",
+          "écologie"
+        ]
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "event_atelier-de-fabrication-d-un-lombricomposteur_633042.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_atelier-de-fabrication-d-un-lombricomposteur_633042.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_atelier-de-fabrication-d-un-lombricomposteur_633042.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T10:34:29.000Z",
+      "createdAt": "2019-10-22T11:25:56.000Z",
+      "agendaUid": 26283955,
+      "locationUid": 86613041,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [
+        "mission.agenda21@mairie-villenavedornon.fr",
+        "05 56 75 69 08"
+      ],
+      "location": {
+        "uid": 86613041,
+        "slug": "centre-socioculturel-les-etoiles-7-rue-colette-besson-33140-villenave-dornon",
+        "name": "Centre socioculturel les Etoiles",
+        "address": "7 rue Colette besson, 33140 Villenave d'Ornon",
+        "city": "Villenave-d'Ornon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33140",
+        "insee": "33550",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.776734,
+        "longitude": -0.533529,
+        "updatedAt": "2018-05-23T13:03:37.000Z",
+        "image": "location86613041.jpg",
+        "description": {
+          "fr": "Agréé « centre social » par la caisse d’allocation familiale de la Gironde et soutenus par la commune de Villenave d’Ornon, le centre est ouvert à tous et propose aux habitants de la ville différentes activités ludiques et pédagogiques. Il délivre de l’information sur certaines démarches administratives, sur la fonction parentale et la vie quotidienne, mais il est aussi un rôle de coordonnateur de l’animation de la vie locale et de la vie de quartier.\nSitué au coeur de l’éco-quartier du Bocage, qui compte plus d’un millier d’unités résidentielles, le nouveau centre socioculturel a ouvert ses portes début 2017.\nImmédiatement adjacent au groupe scolaire Jules-Verne et face à la crèche les P’tits Nuages, ce nouveau centre socioculturel fait partie de l’espace culturel les Étoiles, qui abrite également les nouveaux locaux des archives municipales et à l’étage, la seconde médiathèque.\nLe centre socioculturel les Étoiles vous accueille tous les jours de la semaine\n• Lundi, mercredi, jeudi et vendredi de 9 h à 12 h 30 et de 14 h à 18 h\n• Mardi de 14 h à 18 h"
+        },
+        "website": "https://www.villenavedornon.fr/solidarite-sante/centre-socio-culturel/",
+        "phone": "05 40 08 80 85",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "agenda-de-villenave-d-ornon",
+        "uid": 26283955,
+        "official": 1,
+        "title": "Agenda de Villenave d'Ornon",
+        "description": "Agenda des événements de la commune de Villenave-d'Ornon",
+        "url": "https://www.villenavedornon.fr/agenda",
+        "image": "agenda26283955.jpg",
+        "updatedAt": "2020-02-14T09:58:49.000Z",
+        "createdAt": "2017-02-10T16:04:20.000Z",
+        "officializedAt": "2017-12-19T11:21:22.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 25888127,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "conference-histoire-de-l-art-animee-par-isciane-labatut",
+      "title": {
+        "fr": "Conférence Histoire de l’art animée par Isciane Labatut."
+      },
+      "description": {
+        "fr": "Cyprien Alfred Duprat, architecte visionnaire pour Bordeaux au début du XXe siècle"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_conference-histoire-de-l-art-animee-par-isciane-labatut_279930.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_conference-histoire-de-l-art-animee-par-isciane-labatut_279930.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_conference-histoire-de-l-art-animee-par-isciane-labatut_279930.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-24T16:30:00.000Z",
+          "end": "2019-10-24T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T11:46:46.000Z",
+      "createdAt": "2019-10-22T11:46:45.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 707027,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "maina_187",
+      "title": {
+        "fr": "Maïna"
+      },
+      "description": {
+        "fr": "Native de Saint Louis (Sénégal), Maïna sort, en 2018, son 1er disque composé de six titres. Intitulé « Macilo », il contient des chansons en français et en Wolof."
+      },
+      "longDescription": {
+        "fr": "Dans un style pop/ soul, elle interprète aussi bien ses propres compositions que des reprises telles que « I put a spell on you » de Screamin’ Jay Hawkins.\n\n**En partenariat avec Musiques de nuit.**"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_maina_187_479667.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_maina_187_479667.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_maina_187_479667.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-25T16:30:00.000Z",
+          "end": "2019-10-25T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T11:49:16.000Z",
+      "createdAt": "2019-10-22T11:49:16.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 86343065,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "bassens-1959-2019-60-ans-d-histoire",
+      "title": {
+        "fr": "Bassens, 1959-2019, 60 ans d'histoire"
+      },
+      "description": {
+        "fr": "Réalisée et présentée par les associations histoire et patrimoine et l'A.B.P.E.P.P."
+      },
+      "longDescription": {
+        "fr": "Grâce à de nombreuses photographies de la commune des années 1960 à nos jours, découvrez ou redécouvrez Bassens, son patrimoine et son histoire contemporaine.\n\nOuvert de 16h à 19h jusqu'au 30 novembre.\n\n\\*_Vernissage vendredi 22 novembre à 18h00 \\*_"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "event_bassens-1959-2019-60-ans-d-histoire_929333.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_bassens-1959-2019-60-ans-d-histoire_929333.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_bassens-1959-2019-60-ans-d-histoire_929333.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-19T09:00:00.000Z",
+          "end": "2019-11-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-20T09:00:00.000Z",
+          "end": "2019-11-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-21T09:00:00.000Z",
+          "end": "2019-11-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T09:00:00.000Z",
+          "end": "2019-11-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T09:00:00.000Z",
+          "end": "2019-11-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-26T15:00:00.000Z",
+          "end": "2019-11-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-27T15:00:00.000Z",
+          "end": "2019-11-27T17:59:00.000Z"
+        },
+        {
+          "begin": "2019-11-28T15:00:00.000Z",
+          "end": "2019-11-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-29T15:00:00.000Z",
+          "end": "2019-11-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-30T15:00:00.000Z",
+          "end": "2019-11-30T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-26T13:55:43.000Z",
+      "createdAt": "2019-10-22T11:55:11.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 64215784,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 64215784,
+        "slug": "salle-des-fetes-de-bassens",
+        "name": "Salle des fêtes de Bassens",
+        "address": "avenue Jean Jaurès 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899297,
+        "longitude": -0.516538,
+        "updatedAt": "2018-03-05T14:20:22.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 23899716,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "aie-aie-aie_474",
+      "title": {
+        "fr": "« Aïe, Aïe, Aïe »"
+      },
+      "description": {
+        "fr": "par la Cie Betty Blues.Pétillant, amusant, parfois décapant, un duo tout en fraîcheur et en subtilité."
+      },
+      "longDescription": {
+        "fr": "Entre féminisme et romantisme, entre élégance et bouffonnerie, deux brins de femmes venues nous chanter l’amour dans un monde de brutes vont faire valser leurs notes pour danser sur les idées préconçues.\n\nDans le cadre de Presqu’île en pages."
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_aie-aie-aie_474_998664.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_aie-aie-aie_474_998664.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_aie-aie-aie_474_998664.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-22T19:00:00.000Z",
+          "end": "2019-11-22T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T12:14:02.000Z",
+      "createdAt": "2019-10-22T12:14:01.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 14590594,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "quelle-place-pour-les-femmes-dans-le-monde-du-travail",
+      "title": {
+        "fr": "Quelle place pour les femmes dans le monde du travail?"
+      },
+      "description": {
+        "fr": "Débat par les amis du monde diplomatique. Différence de salaire, sexisme à l'embauche, postes à responsabilité..."
+      },
+      "longDescription": {
+        "fr": "Les femmes ont-elles la même place que les hommes dans le monde du travail?"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_quelle-place-pour-les-femmes-dans-le-monde-du-travail_117892.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_quelle-place-pour-les-femmes-dans-le-monde-du-travail_117892.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_quelle-place-pour-les-femmes-dans-le-monde-du-travail_117892.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-29T19:00:00.000Z",
+          "end": "2019-11-29T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T12:17:26.000Z",
+      "createdAt": "2019-10-22T12:17:25.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 53989562,
+      "ownerUid": 74834659,
+      "creatorUid": 74834659,
+      "slug": "projection_295",
+      "title": {
+        "fr": "Projection"
+      },
+      "description": {
+        "fr": "Projection du film de Sarah Trouche \"Je ne peux pas rester silencieuse\" tourné au musée cette année"
+      },
+      "longDescription": {
+        "fr": "Projection du film de Sarah Trouche \"Je ne peux pas rester silencieuse\" tourné au musée cette année. Durée 20 mn. \n\nTrois jeunes boxeuses, trois championnes françaises, issues de milieux populaires ruraux de nouvelle Aquitaine se confrontent aux représentations féminines des tableaux d’un grand musée national. Viol, deuil, agonie, allégorie, les femmes y sont systématiquement montrées en situation d’infériorité au fil des siècles. Les trois jeunes femmes rejettent radicalement ses représentations sexistes. \n\nPrésentation par Sarah Trouche, artiste, et Caroline Corbal, créatrice de la Hack collection, série de films réalisés autour des œuvres de la collection du musée dont fait partie ce film."
+      },
+      "keywords": {
+        "fr": [
+          "Film",
+          "vidéo",
+          "musée",
+          "peintures",
+          "boxeuses"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrèe libre"
+      },
+      "image": {
+        "filename": "event_projection_295_275701.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_projection_295_275701.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_projection_295_275701.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-21T18:00:00.000Z",
+          "end": "2019-11-21T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T12:38:12.000Z",
+      "createdAt": "2019-10-22T09:17:14.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 36415946,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 36415946,
+        "slug": "musee-des-beaux-arts580",
+        "name": "Musée des Beaux Arts",
+        "address": "20 cours d'Albret, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Saint-Augustin - Tauzin - Alphonse Dupeux",
+        "latitude": 44.837462,
+        "longitude": -0.581143,
+        "updatedAt": "2019-06-06T09:58:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2045794
+}

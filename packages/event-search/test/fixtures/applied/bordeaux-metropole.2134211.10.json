@@ -1,0 +1,2651 @@
+{
+  "events": [
+    {
+      "uid": 50604661,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "nuit-des-conservatoires-2020",
+      "title": {
+        "fr": "Nuit des Conservatoires 2020"
+      },
+      "description": {
+        "fr": "Habitués des Scènes Publiques, amis ou curieux, vous êtes invités à rejoindre la nuit des conservatoires le 31 janvier pour une nuit surprenante !"
+      },
+      "longDescription": {
+        "fr": "Cette manifestation nationale permet d'ouvrir très largement les conservatoires au public dans un format singulier pour une soirée sous le signe du partage et de la convivialité. Au Conservatoire de Bordeaux, toutes les disciplines dispensées en Musiques et Arts de la scène sont représentées. L'occasion de voir le conservatoire autrement . Au programme de cette édition : des concerts, performances, cours participatifs, jeux….\n\nProgrammation à venir, restez connectés !\n\n\\*\\*INFOS PRATIQUES\\*\\*\n\nLieu : Conservatoire de Bordeaux - 22 Quai Sainte-Croix\n\nAccessibilité : Tram C arrêt Sainte-Croix"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "e32dbbb7f90e471f9ca25ba9c6ca7253.base.image.jpg",
+        "credits": "Frédéric Deval",
+        "size": {
+          "height": 367,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e32dbbb7f90e471f9ca25ba9c6ca7253.full.image.jpg",
+            "size": {
+              "height": 524,
+              "width": 1000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e32dbbb7f90e471f9ca25ba9c6ca7253.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T17:30:00.000Z",
+          "end": "2020-01-31T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T14:18:10.000Z",
+      "createdAt": "2020-01-17T14:00:50.000Z",
+      "agendaUid": 79691685,
+      "locationUid": 72336047,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 72336047,
+        "slug": "conservatoire-de-bordeaux-jacques-thibaud840",
+        "name": "Conservatoire de Bordeaux Jacques Thibaud",
+        "address": "22 quai Sainte Croix 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.832537,
+        "longitude": -0.560158,
+        "updatedAt": "2020-01-17T13:58:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bxmetro-contribution",
+        "uid": 79691685,
+        "official": 0,
+        "title": "Formulaire de contribution ponctuel - Bordeaux Métropole",
+        "description": "Pour les événements ponctuels hors équipements communaux de la métropole.",
+        "url": "https://www.bordeaux-metropole.fr/agenda",
+        "image": "agenda79691685.jpg",
+        "updatedAt": "2020-01-27T17:12:05.000Z",
+        "createdAt": "2019-04-12T13:37:45.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 87045489,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "conseil-de-metropole_523138",
+      "title": {
+        "fr": "Conseil de Métropole"
+      },
+      "description": {
+        "fr": "Le conseil métropolitain aura lieu le vendredi 24 janvier à partir de 9h30 à l'hôtel de Bordeaux Métropole."
+      },
+      "longDescription": {
+        "fr": "La séance sera diffusée en direct en vidéo dès 9h30.\n\n[Voir le conseil en direct](http://www.bordeaux-metropole.fr/Metropole/Organisation-politique/Seances-du-conseil/Voir-le-conseil-en-direct)\n\n[Télécharger l'ordre du jour](http://www.bordeaux-metropole.fr/Metropole/Organisation-politique/Seances-du-conseil/Les-documents-du-conseil/Ordres-du-jour-du-Conseil) (disponible en ligne quelques jours avant la séance)\n\nVous pouvez également suivre le déroulé des débats sur [le compte twitter](https://twitter.com) @BxMetro et [la page Facebook de Bordeaux Métropole](https://www.facebook.com/bordeauxmetropole/)\n\n**Accès**  \nBus Lianes 4, arrêt Bibliothèque  \nBus Lianes 2, arrêt Palais de Justice  \nBus Ligne 83, arrêt Gambetta Mériadeck  \nTram Ligne A et V3 - station Mériadeck ou Palais de Justice"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre mais pièce d’identité obligatoire afin d’accéder à l’Hôtel de Bordeaux Métropole."
+      },
+      "image": {
+        "filename": "event_conseil-de-metropole_278467.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_conseil-de-metropole_278467.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_conseil-de-metropole_278467.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T08:30:00.000Z",
+          "end": "2020-01-24T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-20T15:25:03.000Z",
+      "createdAt": "2020-01-20T15:25:03.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 41656706,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 41656706,
+        "slug": "hotel-de-bordeaux-metropole",
+        "name": "Hôtel de Bordeaux Métropole",
+        "address": "esplanade charles de gaulle bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.836814,
+        "longitude": -0.585151,
+        "updatedAt": "2017-05-10T08:43:41.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 49,
+      "thematiques-bordeaux-metropole": [
+        3,
+        24
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 47216159,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "berywam_783054",
+      "title": {
+        "fr": "Berywam"
+      },
+      "description": {
+        "fr": "Berywam, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "berywam",
+          "rap"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 25€"
+      },
+      "image": {
+        "filename": "b7c8f2eadacf469baaa2d3362b941ec4.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "b7c8f2eadacf469baaa2d3362b941ec4.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "b7c8f2eadacf469baaa2d3362b941ec4.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-12-11T19:30:00.000Z",
+          "end": "2020-12-11T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-12T02:05:42.000Z",
+      "createdAt": "2020-01-22T02:05:12.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/berywam/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 97912830,
+      "ownerUid": 76240901,
+      "creatorUid": 76240901,
+      "slug": "theatre-ne-mappelle-plus-cherie",
+      "title": {
+        "fr": "Théâtre ne m'appelle plus chérie"
+      },
+      "description": {
+        "fr": "théâtre, comédie"
+      },
+      "longDescription": {
+        "fr": "Comédie en 2 actes de J. Dubois par le théâtre À Pas de Loup\n\nEntrée 8€ directement sur place au Cinéma Favols\n\nBrigitte accueille sa mère qui vient lui annoncer son prochain divorce d’avec Barnabé.\n\nMaurice, le gentil mari de Brigitte, apprend au détour d’un article dans son journal préféré, qu’un dangereux malfaiteur rôde dans le quartier.\n\nBrigitte doit également et dans le même temps annoncer à Maurice qu’ils vont bientôt être trois dans leur foyer. Le futur papa est fou de joie : joie qui va se transformer très vite en cauchemar pour lui...\n\nVont s’inviter et s’incruster sa mère, deux flics, une voisine et Jacques sous ce même toit. Au menu de cette pièce, quiproquos et rebondissements vont se succéder."
+      },
+      "keywords": {
+        "fr": [
+          "théâtre",
+          "comédie"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif 8€"
+      },
+      "image": {
+        "filename": "e962ef908aa9486caf4251016c23f4c6.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "e962ef908aa9486caf4251016c23f4c6.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 3508,
+              "height": 4961
+            }
+          },
+          {
+            "filename": "e962ef908aa9486caf4251016c23f4c6.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T19:30:00.000Z",
+          "end": "2020-02-08T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-22T13:52:52.000Z",
+      "createdAt": "2020-01-22T13:52:52.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 40090964,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 40090964,
+        "slug": "cinema-favols",
+        "name": "Cinéma Favols",
+        "address": "Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.896468,
+        "longitude": -0.503612,
+        "updatedAt": "2017-02-16T08:47:27.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        22478436
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-carbon-blanc",
+          "uid": 22478436,
+          "official": 1,
+          "title": "Ville de Carbon-Blanc",
+          "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+          "url": "http://www.carbon-blanc.fr",
+          "image": "agenda22478436.jpg",
+          "updatedAt": "2020-02-06T16:07:03.000Z",
+          "createdAt": "2017-02-15T09:58:10.000Z",
+          "officializedAt": "2018-06-12T13:17:55.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2020-02-06T16:07:03.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 86631187,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "la-cites-compagnie-vivre-ensemble-sur-le-meme-espace-cest-possible",
+      "title": {
+        "fr": "La Cité's Compagnie « Vivre ensemble sur le même espace... c'est possible ? »"
+      },
+      "description": {
+        "fr": "La Cité’s Compagnie mène depuis deux ans à Lormont et Cenon un projet de théâtre interactif qui libère la parole des habitants. Une expérience artistique et citoyenne palpitante."
+      },
+      "longDescription": {
+        "fr": "Le thème : « Vivre ensemble sur le même espace... c'est possible ? ». Vaste question ! Des éléments de réponse à glaner lors de cette soirée organisée en deux temps : dans la première partie, des habitants de Lormont et Cenon présenteront des saynètes préparées pendant plusieurs semaines avec la comédienne Loubna Edno-Boufar. Dans la seconde, La Cité’s Compagnie proposera un spectacle de théâtre forum (technique du théâtre de l’opprimé créée par Augusto Boal pour sensibiliser à des questions sociales), où les spectateurs auront la possibilité d’interagir avec les comédiens pour faire évoluer le scénario initial. Loin des clichés et des expressions galvaudées sur la « co-construction » d’un pseudo « vivre-ensemble », ici, on fait vraiment société."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "la cité's compagnie",
+          "théâtre",
+          "gratuit"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit. Réservation conseillée, invitation à télécharger un mois avant le concert. Places réservées jusqu’à 15mn avant le début de la représentation."
+      },
+      "image": {
+        "filename": "bc4c529aeb894493a45f7760928de087.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "bc4c529aeb894493a45f7760928de087.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "bc4c529aeb894493a45f7760928de087.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T19:00:00.000Z",
+          "end": "2020-02-22T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-23T02:05:16.000Z",
+      "createdAt": "2020-01-23T02:05:16.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/cites.compagnie/02.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 71238101,
+      "ownerUid": 81315291,
+      "creatorUid": 81315291,
+      "slug": "max-linder-1883-1925-la-premiere-star-de-lhistoire-du-cinema-etait-girondine",
+      "title": {
+        "fr": "Max Linder (1883-1925) : la première star de l’histoire du cinéma était girondine"
+      },
+      "description": {
+        "fr": "Max Linder fut le précurseur de la comédie burlesque. Sa vie est un roman qui nous plonge dans les années folles."
+      },
+      "longDescription": {
+        "fr": "Max Linder (1883-1925) fut le précurseur de la comédie burlesque. Charles Chaplin, Harold Lloyd et Buster Keaton lui ont souvent rendu hommage et se sont inspirés de son personnage et de son rythme. Tragiquement disparu en 1925, sa vie est un roman qui nous replonge dans les années folles, période faste de créations et d’innovation."
+      },
+      "keywords": {
+        "fr": [
+          "archives",
+          "cinéma",
+          "projection",
+          "conférence",
+          "cinéma muet",
+          "histoire du cinéma",
+          "comédie",
+          "réalisateur",
+          "Max Linder"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, réservation obligatoire"
+      },
+      "image": {
+        "filename": "4ed9caae6c1b4804b2f7541888cb769e.base.image.jpg",
+        "credits": "Fonds La Mémoire de Bordeaux Métropole",
+        "size": {
+          "height": 455,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4ed9caae6c1b4804b2f7541888cb769e.full.image.jpg",
+            "size": {
+              "height": 663,
+              "width": 1020
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4ed9caae6c1b4804b2f7541888cb769e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-30T17:00:00.000Z",
+          "end": "2020-01-30T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-23T14:30:02.000Z",
+      "createdAt": "2020-01-21T15:53:35.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 55717203,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "05 56 52 59 19",
+        "memoiredebordeaux@orange.fr",
+        "http://memoiredebordeaux.wixsite.com/metropole"
+      ],
+      "location": {
+        "uid": 55717203,
+        "slug": "auditorium-dalca-la-meca",
+        "name": "Auditorium d'ALCA - La MECA",
+        "address": "54, quai de Paludate - 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.828013,
+        "longitude": -0.5525,
+        "updatedAt": "2020-01-23T14:29:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Conférence sur l'oeuvre et la vie de Max Linder, présentée par Marie-Agnès Bordes et Youen Bernard, administratrice et gérant de salles de cinéma en Gironde avec la projection de trois courts métrages muets du comédien-réalisateur né à Saint-Loubès en 1883.",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 45,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 54735441,
+      "ownerUid": 24523756,
+      "creatorUid": 24523756,
+      "slug": "salon-maison-neuve-bordeaux_621828",
+      "title": {
+        "fr": "Salon Maison Neuve Bordeaux"
+      },
+      "description": {
+        "fr": "La 15e édition du salon Maison Neuve de Bordeaux ouvrira ses portes du 20 au 22 Mars 2020. Changement majeur cette année, la société L.É.O. sera pour la première fois organisatrice de cet événement"
+      },
+      "longDescription": {
+        "fr": "Le Salon Maison Neuve Bordeaux et Les Constructeurs et Aménageurs de la Fédération Française du Bâtiments (LCA-FFB) s’associent afin de proposer à une clientèle ciblée une manifestation professionnelle, pertinente et dynamique. Pour la première fois, les adhérents et partenaires LCA-FFB 33 ouvrent leurs portes aux professionnels de l’équipement de la maison, permettant de réunir plus de 60 exposants au sein du Hall 3 du Parc des Expositions de Bordeaux du 20 au 22 mars 2020.\n\nL’occasion d’étudier votre projet de construction de A à Z : recherche de terrain, analyse de vos possibilités, étude de financement, mise en place d’un planning, gestion des différents acteurs de la constructions… Les 60 professionnels présents sur ces 2,5 jours de salon sauront répondre à toutes les questions que vous vous posez et vous accompagneront dans la réalisation de la maison qui vos correspond !"
+      },
+      "keywords": {
+        "fr": [
+          "Maison",
+          "Immobilier",
+          "Bordeaux",
+          "Construire",
+          "Salon",
+          "Habitat"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif : 5€"
+      },
+      "image": {
+        "filename": "9ed5156ca7fc4fb393cb7df673e7f94d.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1050
+        },
+        "variants": [
+          {
+            "filename": "9ed5156ca7fc4fb393cb7df673e7f94d.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 4725,
+              "height": 7087
+            }
+          },
+          {
+            "filename": "9ed5156ca7fc4fb393cb7df673e7f94d.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T09:00:00.000Z",
+          "end": "2020-03-22T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-31T14:07:21.000Z",
+      "createdAt": "2020-01-23T14:42:17.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 46044317,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.salonmaisonneuvebordeaux.fr/"
+      ],
+      "location": {
+        "uid": 46044317,
+        "slug": "parc-des-exposition-de-bordeaux-hall-3602",
+        "name": "Parc des Exposition de Bordeaux Hall 3",
+        "address": "Cours Jules Ladoumegue 33300 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Maritime",
+        "latitude": 44.897809,
+        "longitude": -0.571481,
+        "updatedAt": "2020-01-23T14:50:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 54,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 52837577,
+      "ownerUid": 81976262,
+      "creatorUid": 81976262,
+      "slug": "mozart-sacre-un-autre-visage",
+      "title": {
+        "fr": "MOZART sacré, un autre visage"
+      },
+      "description": {
+        "fr": "Samedi 4 avril 2020, 20h30, Eglise Notre-Dame de Bordeaux. Solistes, choeur et orchestre. Arpège retrouve la plume généreuse de Wolfgang Amadeus MOZART grâce à des compositions rarement exécutées."
+      },
+      "longDescription": {
+        "fr": "« **Mozart sacré, un autre visage »**\n\nSolistes, choeur et orchestre\n\n_Samedi 04 avril 2020 à 20h30_\n\n_Eglise Notre-Dame de Bordeaux_\n\nArpège retrouve pour 2020 la plume généreuse de Wolfgang Amadeus Mozart grâce à des compositions rarement exécutées.\n\nOeuvre de jeunesse composée juste avant son départ pour l’Italie en 1769, le très solennel Te Deum témoigne de la magnificence des fêtes princières grâce à l’union particulièrement puissante du choeur, des trompettes et timbales.\n\nLes trois autres oeuvres, écrites alors qu’il est maître de chapelle à la cathédrale de Salzburg dans les années 1780, expriment une vision beaucoup plus opératique, où solistes et choeur construisent avec finesse les contrastes et figuralismes tant appréciés à l’époque.\n\nCelles et ceux qui ne connaîtraient pas ces compositions, et qui apprécient le fameux _Requiem_ ou les célèbres _Vêpres solennelles d’un confesseur_, peuvent réserver leur soirée sans hésiter.\n\n_Distribution_ :\n\nHéloïse Derache-Zaruba – Soprano\n\nBénédicte Lavaud-Legendre – Mezzosoprano\n\nPierre-Emmanuel Roubet – Ténor\n\nLoïc Cassin – Basse\n\nGroupe Vocal Arpège de Bordeaux\n\nOrchestre Arpège\n\nJacques Charpentier – Direction\n\n_Programme_ :\n\nVesperae solennes de Dominica KV 321 – solistes, choeur et orchestre\n\nSpatzenmesse KV 220 – solistes, choeur et orchestre\n\nTe Deum KV 141 – choeur et orchestre\n\nDixit et Magnificat KV 193 – solistes, choeur et orchestre"
+      },
+      "keywords": {
+        "fr": [
+          "Concert",
+          "Arpège",
+          "MOZART",
+          "4 avril 2020",
+          "Eglise Notre-Dame",
+          "Bordeaux",
+          "20h30",
+          "Groupe Vocal Arpege",
+          "classique",
+          "musique sacrée",
+          "solistes choeur et orchestre",
+          "MOZART sacré un autre visage"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif plein 22 euros; tarif réduit 12 euros; gratuit moins de 12 ans; billetterie en ligne, à l'entrée du concert, bientôt à la FNAC"
+      },
+      "image": {
+        "filename": "605469ac4a6b4cbcb71e5dad34594f7b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 989,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "605469ac4a6b4cbcb71e5dad34594f7b.full.image.jpg",
+            "size": {
+              "height": 1752,
+              "width": 1241
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "605469ac4a6b4cbcb71e5dad34594f7b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T18:00:00.000Z",
+          "end": "2020-04-04T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-27T17:12:05.000Z",
+      "createdAt": "2020-01-27T16:11:48.000Z",
+      "agendaUid": 79691685,
+      "locationUid": 75361468,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "https://www.groupevocalarpege.org",
+        "06 23 20 67 80",
+        "http://www.facebook.com/groupevocalarpegebordeaux"
+      ],
+      "location": {
+        "uid": 75361468,
+        "slug": "eglise-notre-dame-de-bordeaux460",
+        "name": "Eglise Notre-Dame de Bordeaux",
+        "address": "1 rue Mably, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.843297,
+        "longitude": -0.576685,
+        "updatedAt": "2020-01-27T15:59:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "« MOZART sacré, un autre visage »\nSamedi 04 avril 2020 à 20h30\nEglise Notre-Dame de Bordeaux",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bxmetro-contribution",
+        "uid": 79691685,
+        "official": 0,
+        "title": "Formulaire de contribution ponctuel - Bordeaux Métropole",
+        "description": "Pour les événements ponctuels hors équipements communaux de la métropole.",
+        "url": "https://www.bordeaux-metropole.fr/agenda",
+        "image": "agenda79691685.jpg",
+        "updatedAt": "2020-01-27T17:12:05.000Z",
+        "createdAt": "2019-04-12T13:37:45.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 75302338,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "yasiin-bey-black-on-both-sides-20th-anniversary_625980",
+      "title": {
+        "fr": "Yasiin Bey « Black On Both Sides 20TH Anniversary »"
+      },
+      "description": {
+        "fr": "20 ans depuis la sortie de Black On Both Sides, le premier album de Mos Def - rebaptisé depuis Yasiin Bey : un disque culte, cela méritait une tournée événement."
+      },
+      "longDescription": {
+        "fr": "Quelle maîtrise déjà, fin 1999, dans ce premier album studio du rappeur-acteur-activiste Yasiin Bey - connu à l’époque sous le nom de Mos Def. Grand classique instantané et indétrônable du rap US, l’opus est tricoté par des artistes aussi légendaires que Q-Tip et Ali Shaheed Muhammad du groupe A Tribe Called Quest, ou encore DJ Premier ou Psycho Les. Un disque qu'on adule immédiatement pour « ses infinies subtilités, son courage, son humour et sa grâce » (Les Inrocks). Il subjugue la critique, défraie la chronique avec son flow élégant, son acuité politique, son groove intarissable. « Mr Nigga » se bat contre les préjugés raciaux tout en prenant le temps d’encenser « Ms. Fat Booty » croisée dans les rues de son fief « Brooklyn » : Black On Both Sides est un monument, et son créateur un artiste unique. Appelez-le Yasiin Bey, il y tient depuis quelques années, et remerciez-le de célébrer avec nous son disque mythique, 20 ans après."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "yasiin bey"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 32€ / Plein tarif : 30€ / Tarif abonné : 27€"
+      },
+      "image": {
+        "filename": "1d2a19e1a37245e2950d0b16c49ec56f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "1d2a19e1a37245e2950d0b16c49ec56f.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "1d2a19e1a37245e2950d0b16c49ec56f.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-18T18:30:00.000Z",
+          "end": "2020-04-18T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T02:05:26.000Z",
+      "createdAt": "2020-01-28T02:05:26.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/yasiin.bey/04.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 13858993,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "afrique-savane-sauvage-la-nouvelle-exposition-temporaire-du-museum",
+      "title": {
+        "fr": "Afrique savane sauvage : la nouvelle exposition temporaire du Muséum"
+      },
+      "description": {
+        "fr": "Découvrez à travers un parcours ludique, l’exposition du Muséum de Bordeaux - sciences et nature."
+      },
+      "longDescription": {
+        "fr": "Savane… étendues à perte de vue… soleil cuisant… et soudain lion, girafe ou rhinocéros, quelques-uns des grands mammifères qui peuplent l’imaginaire commun de la planète entière.\n\nLa savane africaine ou plutôt les savanes, herbeuses ou arborées, sont des biotopes exceptionnels où une nature sauvage existe encore mais sur laquelle pèsent de lourdes menaces.\n\nA l’occasion de la saison Africa 2020, le Muséum de Bordeaux – sciences et nature met en scène, dans son nouvel espace d’exposition temporaire, ses riches collections de spécimens d’espèces emblématiques, complétées de prêts d’autres établissements.\n\nDes focus portent sur les comportements de cette grande faune : chaîne-alimentaire, coexistence sans compétition, migrations saisonnières, stratégies de survie. Un espace réunira des espèces autour du point d’eau, un autre laissera découvrir de surprenantes adaptations à la vie nocturne. L’exposition mettra en exergue l’impact des activités humaines sur ces écosystèmes dont l’équilibre peut être menacé. L’agriculture, l’expansion humaine, la chasse, le braconnage et le commerce illégal d’animaux sont autant de pratiques à faire évoluer pour préserver ces écrins de nature.\n\nParcours ludique et immersif, visuel et sonore, dispositifs permettant le questionnement et expression des adultes et des enfants, viennent animer une exposition qui veut conduire tant à l’émerveillement qu’à la réflexion.\n\nPlus d'infos sur le site du [Museum](https://www.museum-bordeaux.fr/Accueil/expositions/Afrique)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "https://www.museum-bordeaux.fr/accueil/venir-et-visiter"
+      },
+      "image": {
+        "filename": "cfcd1c86a2074c849a10af2141f9579a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 599,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cfcd1c86a2074c849a10af2141f9579a.full.image.jpg",
+            "size": {
+              "height": 875,
+              "width": 1024
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cfcd1c86a2074c849a10af2141f9579a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-04T09:30:00.000Z",
+          "end": "2020-02-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:30:00.000Z",
+          "end": "2020-02-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T09:30:00.000Z",
+          "end": "2020-02-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T09:30:00.000Z",
+          "end": "2020-02-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T09:30:00.000Z",
+          "end": "2020-02-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:30:00.000Z",
+          "end": "2020-02-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:30:00.000Z",
+          "end": "2020-02-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T09:30:00.000Z",
+          "end": "2020-02-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T09:30:00.000Z",
+          "end": "2020-02-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:30:00.000Z",
+          "end": "2020-02-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T09:30:00.000Z",
+          "end": "2020-02-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:30:00.000Z",
+          "end": "2020-02-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:30:00.000Z",
+          "end": "2020-02-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T09:30:00.000Z",
+          "end": "2020-02-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T09:30:00.000Z",
+          "end": "2020-02-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:30:00.000Z",
+          "end": "2020-02-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T09:30:00.000Z",
+          "end": "2020-02-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:30:00.000Z",
+          "end": "2020-02-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:30:00.000Z",
+          "end": "2020-02-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T09:30:00.000Z",
+          "end": "2020-02-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T09:30:00.000Z",
+          "end": "2020-02-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:30:00.000Z",
+          "end": "2020-02-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T09:30:00.000Z",
+          "end": "2020-03-01T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T09:30:00.000Z",
+          "end": "2020-03-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:30:00.000Z",
+          "end": "2020-03-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T09:30:00.000Z",
+          "end": "2020-03-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T09:30:00.000Z",
+          "end": "2020-03-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:30:00.000Z",
+          "end": "2020-03-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T09:30:00.000Z",
+          "end": "2020-03-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T09:30:00.000Z",
+          "end": "2020-03-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:30:00.000Z",
+          "end": "2020-03-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T09:30:00.000Z",
+          "end": "2020-03-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T09:30:00.000Z",
+          "end": "2020-03-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:30:00.000Z",
+          "end": "2020-03-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T09:30:00.000Z",
+          "end": "2020-03-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T09:30:00.000Z",
+          "end": "2020-03-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:30:00.000Z",
+          "end": "2020-03-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T09:30:00.000Z",
+          "end": "2020-03-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T09:30:00.000Z",
+          "end": "2020-03-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:30:00.000Z",
+          "end": "2020-03-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T09:30:00.000Z",
+          "end": "2020-03-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T09:30:00.000Z",
+          "end": "2020-03-24T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:30:00.000Z",
+          "end": "2020-03-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T09:30:00.000Z",
+          "end": "2020-03-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T09:30:00.000Z",
+          "end": "2020-03-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:30:00.000Z",
+          "end": "2020-03-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T08:30:00.000Z",
+          "end": "2020-03-29T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T08:30:00.000Z",
+          "end": "2020-03-31T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:30:00.000Z",
+          "end": "2020-04-01T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T08:30:00.000Z",
+          "end": "2020-04-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:30:00.000Z",
+          "end": "2020-04-03T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:30:00.000Z",
+          "end": "2020-04-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T08:30:00.000Z",
+          "end": "2020-04-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T08:30:00.000Z",
+          "end": "2020-04-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:30:00.000Z",
+          "end": "2020-04-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:30:00.000Z",
+          "end": "2020-04-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:30:00.000Z",
+          "end": "2020-04-10T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:30:00.000Z",
+          "end": "2020-04-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T08:30:00.000Z",
+          "end": "2020-04-12T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T08:30:00.000Z",
+          "end": "2020-04-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:30:00.000Z",
+          "end": "2020-04-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:30:00.000Z",
+          "end": "2020-04-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:30:00.000Z",
+          "end": "2020-04-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:30:00.000Z",
+          "end": "2020-04-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T08:30:00.000Z",
+          "end": "2020-04-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:30:00.000Z",
+          "end": "2020-04-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:30:00.000Z",
+          "end": "2020-04-22T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T08:30:00.000Z",
+          "end": "2020-04-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:30:00.000Z",
+          "end": "2020-04-24T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:30:00.000Z",
+          "end": "2020-04-25T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T08:30:00.000Z",
+          "end": "2020-04-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T08:30:00.000Z",
+          "end": "2020-04-28T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:30:00.000Z",
+          "end": "2020-04-29T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T08:30:00.000Z",
+          "end": "2020-04-30T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T08:30:00.000Z",
+          "end": "2020-05-01T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:30:00.000Z",
+          "end": "2020-05-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T08:30:00.000Z",
+          "end": "2020-05-03T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T08:30:00.000Z",
+          "end": "2020-05-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:30:00.000Z",
+          "end": "2020-05-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T08:30:00.000Z",
+          "end": "2020-05-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T08:30:00.000Z",
+          "end": "2020-05-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:30:00.000Z",
+          "end": "2020-05-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T08:30:00.000Z",
+          "end": "2020-05-10T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T08:30:00.000Z",
+          "end": "2020-05-12T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T08:30:00.000Z",
+          "end": "2020-05-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T08:30:00.000Z",
+          "end": "2020-05-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T08:30:00.000Z",
+          "end": "2020-05-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:30:00.000Z",
+          "end": "2020-05-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:30:00.000Z",
+          "end": "2020-05-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T08:30:00.000Z",
+          "end": "2020-05-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:30:00.000Z",
+          "end": "2020-05-20T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T08:30:00.000Z",
+          "end": "2020-05-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T08:30:00.000Z",
+          "end": "2020-05-22T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:30:00.000Z",
+          "end": "2020-05-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T08:30:00.000Z",
+          "end": "2020-05-24T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T08:30:00.000Z",
+          "end": "2020-05-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:30:00.000Z",
+          "end": "2020-05-27T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T08:30:00.000Z",
+          "end": "2020-05-28T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T08:30:00.000Z",
+          "end": "2020-05-29T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T08:30:00.000Z",
+          "end": "2020-05-30T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T08:30:00.000Z",
+          "end": "2020-05-31T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T08:30:00.000Z",
+          "end": "2020-06-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:30:00.000Z",
+          "end": "2020-06-03T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T08:30:00.000Z",
+          "end": "2020-06-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:30:00.000Z",
+          "end": "2020-06-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:30:00.000Z",
+          "end": "2020-06-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T08:30:00.000Z",
+          "end": "2020-06-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T08:30:00.000Z",
+          "end": "2020-06-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:30:00.000Z",
+          "end": "2020-06-10T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T08:30:00.000Z",
+          "end": "2020-06-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T08:30:00.000Z",
+          "end": "2020-06-12T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:30:00.000Z",
+          "end": "2020-06-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T08:30:00.000Z",
+          "end": "2020-06-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T08:30:00.000Z",
+          "end": "2020-06-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:30:00.000Z",
+          "end": "2020-06-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T08:30:00.000Z",
+          "end": "2020-06-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T08:30:00.000Z",
+          "end": "2020-06-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:30:00.000Z",
+          "end": "2020-06-20T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T08:30:00.000Z",
+          "end": "2020-06-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T08:30:00.000Z",
+          "end": "2020-06-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:30:00.000Z",
+          "end": "2020-06-24T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T08:30:00.000Z",
+          "end": "2020-06-25T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T08:30:00.000Z",
+          "end": "2020-06-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:30:00.000Z",
+          "end": "2020-06-27T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T08:30:00.000Z",
+          "end": "2020-06-28T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-30T08:30:00.000Z",
+          "end": "2020-06-30T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T08:30:00.000Z",
+          "end": "2020-07-01T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T08:30:00.000Z",
+          "end": "2020-07-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T08:30:00.000Z",
+          "end": "2020-07-03T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T08:30:00.000Z",
+          "end": "2020-07-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-05T08:30:00.000Z",
+          "end": "2020-07-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-07T08:30:00.000Z",
+          "end": "2020-07-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T08:30:00.000Z",
+          "end": "2020-07-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T08:30:00.000Z",
+          "end": "2020-07-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T08:30:00.000Z",
+          "end": "2020-07-10T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T08:30:00.000Z",
+          "end": "2020-07-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-12T08:30:00.000Z",
+          "end": "2020-07-12T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-14T08:30:00.000Z",
+          "end": "2020-07-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T08:30:00.000Z",
+          "end": "2020-07-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T08:30:00.000Z",
+          "end": "2020-07-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T08:30:00.000Z",
+          "end": "2020-07-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T08:30:00.000Z",
+          "end": "2020-07-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T08:30:00.000Z",
+          "end": "2020-07-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-21T08:30:00.000Z",
+          "end": "2020-07-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T08:30:00.000Z",
+          "end": "2020-07-22T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T08:30:00.000Z",
+          "end": "2020-07-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T08:30:00.000Z",
+          "end": "2020-07-24T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T08:30:00.000Z",
+          "end": "2020-07-25T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T08:30:00.000Z",
+          "end": "2020-07-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-28T08:30:00.000Z",
+          "end": "2020-07-28T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T08:30:00.000Z",
+          "end": "2020-07-29T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T08:30:00.000Z",
+          "end": "2020-07-30T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T08:30:00.000Z",
+          "end": "2020-07-31T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T08:30:00.000Z",
+          "end": "2020-08-01T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T08:30:00.000Z",
+          "end": "2020-08-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-04T08:30:00.000Z",
+          "end": "2020-08-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T08:30:00.000Z",
+          "end": "2020-08-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T08:30:00.000Z",
+          "end": "2020-08-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T08:30:00.000Z",
+          "end": "2020-08-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T08:30:00.000Z",
+          "end": "2020-08-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T08:30:00.000Z",
+          "end": "2020-08-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-11T08:30:00.000Z",
+          "end": "2020-08-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T08:30:00.000Z",
+          "end": "2020-08-12T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T08:30:00.000Z",
+          "end": "2020-08-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T08:30:00.000Z",
+          "end": "2020-08-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T08:30:00.000Z",
+          "end": "2020-08-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T08:30:00.000Z",
+          "end": "2020-08-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-18T08:30:00.000Z",
+          "end": "2020-08-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T08:30:00.000Z",
+          "end": "2020-08-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T08:30:00.000Z",
+          "end": "2020-08-20T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T08:30:00.000Z",
+          "end": "2020-08-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T08:30:00.000Z",
+          "end": "2020-08-22T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T08:30:00.000Z",
+          "end": "2020-08-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-25T08:30:00.000Z",
+          "end": "2020-08-25T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T08:30:00.000Z",
+          "end": "2020-08-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T08:30:00.000Z",
+          "end": "2020-08-27T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T08:30:00.000Z",
+          "end": "2020-08-28T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T08:30:00.000Z",
+          "end": "2020-08-29T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T08:30:00.000Z",
+          "end": "2020-08-30T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-01T08:30:00.000Z",
+          "end": "2020-09-01T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-02T08:30:00.000Z",
+          "end": "2020-09-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-03T08:30:00.000Z",
+          "end": "2020-09-03T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-04T08:30:00.000Z",
+          "end": "2020-09-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-05T08:30:00.000Z",
+          "end": "2020-09-05T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-06T08:30:00.000Z",
+          "end": "2020-09-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-08T08:30:00.000Z",
+          "end": "2020-09-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-09T08:30:00.000Z",
+          "end": "2020-09-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-10T08:30:00.000Z",
+          "end": "2020-09-10T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-11T08:30:00.000Z",
+          "end": "2020-09-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-12T08:30:00.000Z",
+          "end": "2020-09-12T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-13T08:30:00.000Z",
+          "end": "2020-09-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-15T08:30:00.000Z",
+          "end": "2020-09-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-16T08:30:00.000Z",
+          "end": "2020-09-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-17T08:30:00.000Z",
+          "end": "2020-09-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-18T08:30:00.000Z",
+          "end": "2020-09-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-19T08:30:00.000Z",
+          "end": "2020-09-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-20T08:30:00.000Z",
+          "end": "2020-09-20T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-22T08:30:00.000Z",
+          "end": "2020-09-22T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-23T08:30:00.000Z",
+          "end": "2020-09-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-24T08:30:00.000Z",
+          "end": "2020-09-24T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-25T08:30:00.000Z",
+          "end": "2020-09-25T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-26T08:30:00.000Z",
+          "end": "2020-09-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-27T08:30:00.000Z",
+          "end": "2020-09-27T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-29T08:30:00.000Z",
+          "end": "2020-09-29T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-30T08:30:00.000Z",
+          "end": "2020-09-30T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-01T08:30:00.000Z",
+          "end": "2020-10-01T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-02T08:30:00.000Z",
+          "end": "2020-10-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-03T08:30:00.000Z",
+          "end": "2020-10-03T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-04T08:30:00.000Z",
+          "end": "2020-10-04T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-06T08:30:00.000Z",
+          "end": "2020-10-06T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-07T08:30:00.000Z",
+          "end": "2020-10-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-08T08:30:00.000Z",
+          "end": "2020-10-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-09T08:30:00.000Z",
+          "end": "2020-10-09T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-10T08:30:00.000Z",
+          "end": "2020-10-10T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-11T08:30:00.000Z",
+          "end": "2020-10-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-13T08:30:00.000Z",
+          "end": "2020-10-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-14T08:30:00.000Z",
+          "end": "2020-10-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-15T08:30:00.000Z",
+          "end": "2020-10-15T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-16T08:30:00.000Z",
+          "end": "2020-10-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-17T08:30:00.000Z",
+          "end": "2020-10-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-18T08:30:00.000Z",
+          "end": "2020-10-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-20T08:30:00.000Z",
+          "end": "2020-10-20T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-21T08:30:00.000Z",
+          "end": "2020-10-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-22T08:30:00.000Z",
+          "end": "2020-10-22T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-23T08:30:00.000Z",
+          "end": "2020-10-23T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-24T08:30:00.000Z",
+          "end": "2020-10-24T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-25T09:30:00.000Z",
+          "end": "2020-10-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-27T09:30:00.000Z",
+          "end": "2020-10-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-28T09:30:00.000Z",
+          "end": "2020-10-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-29T09:30:00.000Z",
+          "end": "2020-10-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-30T09:30:00.000Z",
+          "end": "2020-10-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-10-31T09:30:00.000Z",
+          "end": "2020-10-31T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-01T09:30:00.000Z",
+          "end": "2020-11-01T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-03T09:30:00.000Z",
+          "end": "2020-11-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-04T09:30:00.000Z",
+          "end": "2020-11-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-05T09:30:00.000Z",
+          "end": "2020-11-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-06T09:30:00.000Z",
+          "end": "2020-11-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-07T09:30:00.000Z",
+          "end": "2020-11-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-08T09:30:00.000Z",
+          "end": "2020-11-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-10T09:30:00.000Z",
+          "end": "2020-11-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-11T09:30:00.000Z",
+          "end": "2020-11-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-12T09:30:00.000Z",
+          "end": "2020-11-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-13T09:30:00.000Z",
+          "end": "2020-11-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T09:30:00.000Z",
+          "end": "2020-11-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T09:30:00.000Z",
+          "end": "2020-11-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-17T09:30:00.000Z",
+          "end": "2020-11-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-18T09:30:00.000Z",
+          "end": "2020-11-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-19T09:30:00.000Z",
+          "end": "2020-11-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-20T09:30:00.000Z",
+          "end": "2020-11-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-21T09:30:00.000Z",
+          "end": "2020-11-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-22T09:30:00.000Z",
+          "end": "2020-11-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T09:30:00.000Z",
+          "end": "2020-11-24T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T09:30:00.000Z",
+          "end": "2020-11-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T09:30:00.000Z",
+          "end": "2020-11-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T09:30:00.000Z",
+          "end": "2020-11-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T09:30:00.000Z",
+          "end": "2020-11-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-29T09:30:00.000Z",
+          "end": "2020-11-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-01T09:30:00.000Z",
+          "end": "2020-12-01T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-02T09:30:00.000Z",
+          "end": "2020-12-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-03T09:30:00.000Z",
+          "end": "2020-12-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-04T09:30:00.000Z",
+          "end": "2020-12-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-05T09:30:00.000Z",
+          "end": "2020-12-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-06T09:30:00.000Z",
+          "end": "2020-12-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-08T09:30:00.000Z",
+          "end": "2020-12-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-09T09:30:00.000Z",
+          "end": "2020-12-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-10T09:30:00.000Z",
+          "end": "2020-12-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-11T09:30:00.000Z",
+          "end": "2020-12-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-12T09:30:00.000Z",
+          "end": "2020-12-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-13T09:30:00.000Z",
+          "end": "2020-12-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-15T09:30:00.000Z",
+          "end": "2020-12-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-16T09:30:00.000Z",
+          "end": "2020-12-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-17T09:30:00.000Z",
+          "end": "2020-12-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-18T09:30:00.000Z",
+          "end": "2020-12-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-19T09:30:00.000Z",
+          "end": "2020-12-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-20T09:30:00.000Z",
+          "end": "2020-12-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-22T09:30:00.000Z",
+          "end": "2020-12-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-23T09:30:00.000Z",
+          "end": "2020-12-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-24T09:30:00.000Z",
+          "end": "2020-12-24T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-25T09:30:00.000Z",
+          "end": "2020-12-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-26T09:30:00.000Z",
+          "end": "2020-12-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-27T09:30:00.000Z",
+          "end": "2020-12-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-29T09:30:00.000Z",
+          "end": "2020-12-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-30T09:30:00.000Z",
+          "end": "2020-12-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-31T09:30:00.000Z",
+          "end": "2020-12-31T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-30T14:23:18.000Z",
+      "createdAt": "2020-01-30T14:01:28.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 16571451,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 16571451,
+        "slug": "museum-de-bordeaux-sciences-et-nature132",
+        "name": "Muséum de Bordeaux-sciences et nature",
+        "address": "5 place Bardineau - 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Chartrons - Grand Parc - Jardin Public",
+        "latitude": 44.848378,
+        "longitude": -0.580165,
+        "updatedAt": "2020-01-30T13:58:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [
+        36,
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    }
+  ],
+  "lastId": 2144713
+}

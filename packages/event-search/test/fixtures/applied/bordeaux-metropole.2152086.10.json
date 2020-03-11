@@ -1,0 +1,1562 @@
+{
+  "events": [
+    {
+      "uid": 98044307,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "the-wackids-back-to-the-90s",
+      "title": {
+        "fr": "The Wackids « Back to The 90's »"
+      },
+      "description": {
+        "fr": "The Wackids « Back to The 90's », Rocher de Palmer, Cenon"
+      },
+      "longDescription": {
+        "fr": "Ultime épisode de la wacky-trilogie, Back to the 90’s est un voyage sonore et visuel qui nous ramène à l’époque où l’on écoutait la musique sur radio K7 et où les clips ne se regardaient que sur MTV. Après deux spectacles à succès, une décennie de tournée, plus de 800 concerts et des millions de vues sur internet, The Wackids sont devenus les maîtres incontestés du « rock’n’toys ». Chevaliers Jedis puisant la Force dans les jouets pour enfants, super-héros du rock jeune public fédérant trois générations autour de leurs concerts, Blowmaster, Speedfinger et Bongostar se dévoilent ici un peu plus… Dans quel univers ont-ils grandi ? Étaient-ils Blur ou Oasis ? Leur baladeur K7 diffusait-il les Spice Girls ? Jouaient-ils du Offspring dans le garage de leurs parents ? On le découvrira en les suivant avec délice dans cette virée nostalgique qui nous permet d’évoquer la culture rock de la fin du siècle dernier avec nos enfants."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "the wackids",
+          "jeune public"
+        ]
+      },
+      "conditions": {
+        "fr": "Plein tarif : 8€ / Tarif enfants -12 ans : 5€"
+      },
+      "image": {
+        "filename": "5640bfcf41c44159ab8a8293affae53b.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "5640bfcf41c44159ab8a8293affae53b.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "5640bfcf41c44159ab8a8293affae53b.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-30T18:30:00.000Z",
+          "end": "2020-10-30T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-12T02:05:34.000Z",
+      "createdAt": "2020-02-03T02:05:04.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/the.wackids/10.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 10502622,
+      "ownerUid": 65460997,
+      "creatorUid": 65460997,
+      "slug": "braderie-dhiver_940801",
+      "title": {
+        "fr": "Braderie d'Hiver"
+      },
+      "description": {
+        "fr": "Venez faire de bonnes affaires lors de la Braderie d'Hiver jeudi 6, vendredi 7 et samedi 8 février."
+      },
+      "longDescription": {
+        "fr": "La Braderie d'Hiver se tiendra jeudi 6, vendredi 7 et samedi 8 février ! Venez faire de bonnes affaires auprès de vos commerçants habituels mais aussi de bradeurs venus de toute la France !\n\nOuverture au public dès 9h00 et jusqu'à 19h00."
+      },
+      "keywords": {
+        "fr": [
+          "braderie",
+          "soldes",
+          "centre-ville",
+          "bordeaux",
+          "bonnes affaires"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "06a0e81018eb4f05b02618a0b3bcd375.base.image.jpg",
+        "credits": "cc Olga Carbonnier/RDQB",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "06a0e81018eb4f05b02618a0b3bcd375.full.image.jpg",
+            "size": {
+              "height": 3024,
+              "width": 4032
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "06a0e81018eb4f05b02618a0b3bcd375.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T17:30:00.000Z",
+          "end": "2020-02-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T17:30:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T08:00:00.000Z",
+          "end": "2020-02-08T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T17:30:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T13:37:22.000Z",
+      "createdAt": "2020-02-03T10:51:11.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 94200986,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.larondedesquartiers.com"
+      ],
+      "location": {
+        "uid": 94200986,
+        "slug": "rue-sainte-catherine134",
+        "name": "Rue Sainte Catherine",
+        "address": "Rue sainte catherine, bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.840905,
+        "longitude": -0.574345,
+        "updatedAt": "2020-02-03T13:38:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "La Braderie d'Hiver se tiendra jeudi 6, vendredi 7 et samedi 8 février ! Venez faire de bonnes affaires auprès de vos commerçants habituels mais aussi de bradeurs venus de toute la France !",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [
+        2
+      ],
+      "categories-agenda-metropolitain": 57,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 72952519,
+      "ownerUid": 79399918,
+      "creatorUid": 79399918,
+      "slug": "flore-sauvage-et-comestible",
+      "title": {
+        "fr": "Flore sauvage et comestible"
+      },
+      "description": {
+        "fr": "Balade botanique suivie d'un atelier cuisine"
+      },
+      "longDescription": {
+        "fr": "Les plantes sauvages poussent tout autour de nous et certaines ont des vertus inattendues ! Elodie vous emmène à la rencontre de la flore spontanée de nos rues, parcs et espaces naturels.\n\nA travers une balade ludique et botanique, vous apprendrez à reconnaître les espèces comestibles les plus communes. La sortie se terminera par un atelier cuisine (pensez à emmener 2 petits bocaux en verre) !\n\nGratuit - Pour adultes et enfants à partir de 10 ans - Inscription obligatoire\n\nRenseignements et inscription : elodie.malavialle\\[@\\]cistude\\[point\\]org (retirer les crochets) - 07 83 40 14 81\n\nLieu : Cistude Nature, Chemin du Moulinat (se garer RUE du Moulinat et venir à pieds), Le Haillan\n\nEn partenariat avec le département de la Gironde et la Ville du Haillan."
+      },
+      "keywords": {
+        "fr": [
+          "Flore",
+          "Cuisine",
+          "Nature"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - Inscription obligatoire"
+      },
+      "image": {
+        "filename": "15cdea37aae440b5968144af792392a6.base.image.jpg",
+        "credits": "Carine Lecoeur, Cistude Nature",
+        "size": {
+          "height": 466,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "15cdea37aae440b5968144af792392a6.full.image.jpg",
+            "size": {
+              "height": 719,
+              "width": 1082
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "15cdea37aae440b5968144af792392a6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-12T10:51:27.000Z",
+      "createdAt": "2020-02-03T15:25:17.000Z",
+      "agendaUid": 72869717,
+      "locationUid": 5840501,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "07 83 40 14 81",
+        "elodie.malavialle@cistude.org"
+      ],
+      "location": {
+        "uid": 5840501,
+        "slug": "cistude-nature248",
+        "name": "Cistude Nature",
+        "address": "Chemin du moulinat, 33185 le haillan",
+        "city": "Le Haillan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33185",
+        "insee": "33200",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.89361,
+        "longitude": -0.678996,
+        "updatedAt": "2018-09-06T12:48:33.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": "Balade botanique suivie d'un atelier cuisine",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        72869717
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "les-balades-de-cistude-nature",
+          "uid": 72869717,
+          "official": 1,
+          "title": "Les balades de Cistude Nature",
+          "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+          "url": "http://www.cistude.org",
+          "image": "agenda72869717.jpg",
+          "updatedAt": "2020-02-12T10:51:27.000Z",
+          "createdAt": "2018-07-17T12:53:10.000Z",
+          "officializedAt": "2019-10-28T15:54:52.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "les-balades-de-cistude-nature",
+        "uid": 72869717,
+        "official": 1,
+        "title": "Les balades de Cistude Nature",
+        "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+        "url": "http://www.cistude.org",
+        "image": "agenda72869717.jpg",
+        "updatedAt": "2020-02-12T10:51:27.000Z",
+        "createdAt": "2018-07-17T12:53:10.000Z",
+        "officializedAt": "2019-10-28T15:54:52.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 97480408,
+      "ownerUid": 32181685,
+      "creatorUid": 32181685,
+      "slug": "bordeaux-fete-le-chocolat_91167",
+      "title": {
+        "fr": "BORDEAUX FÊTE LE CHOCOLAT"
+      },
+      "description": {
+        "fr": "Exposition vente chocolat"
+      },
+      "longDescription": {
+        "fr": "FRUIT TIME\n\nLe Jardin botanique et la Fédération Autonome des Métiers Gourmands (FAMG) organisent BORDEAUX FETE LE CHOCOLAT.\n\nConcours de sculptures, ateliers dégustation, animation..., cette année sur le thème des fruits, petits et grands sont conviés à venir découvrir le chocolat sous toutes ses formes. Professionnels et grands noms du chocolat vous attentent pour partager leurs connaissances et savoir-faire sur la fève la plus la plus célèbre au monde, celle du cacao.\n\nHasnaâ FERREIRA, artisan chocolatière bordelaise évoquera, lors de deux soirées, l'accord subtil et délicat du chocolat, une plante aux nombreux terroirs.\n\nINAUGURATION\n\njeudi 13 février 18 h 00"
+      },
+      "keywords": {
+        "fr": [
+          "chocolat",
+          "jardin botanique",
+          "dégustation",
+          "week-end",
+          "concours",
+          "exposition"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "7b4652d8979549e8b2c0eba6099d81f0.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 969
+        },
+        "variants": [
+          {
+            "filename": "7b4652d8979549e8b2c0eba6099d81f0.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1792,
+              "height": 2480
+            }
+          },
+          {
+            "filename": "7b4652d8979549e8b2c0eba6099d81f0.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "© irene-kredenets-unsplash",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-14T10:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T10:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T10:00:00.000Z",
+          "end": "2020-02-16T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T14:37:24.000Z",
+      "createdAt": "2020-01-10T14:37:24.000Z",
+      "agendaUid": 99562884,
+      "locationUid": 42610172,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 52 18 77"
+      ],
+      "location": {
+        "uid": 42610172,
+        "slug": "jardin-botanique-bastide",
+        "name": "JARDIN BOTANIQUE Bastide",
+        "address": "Esplanade Linné 33100 BORDEAUX",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.846321,
+        "longitude": -0.551885,
+        "updatedAt": "2018-10-18T12:35:53.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "jardin-botanique-bordeaux",
+        "uid": 99562884,
+        "official": 1,
+        "title": "JARDIN BOTANIQUE BORDEAUX",
+        "description": "programme des manifestations, expositions, animations...",
+        "url": "http://jardin-botanique-bordeaux.fr/",
+        "image": "agenda99562884.jpg",
+        "updatedAt": "2020-02-04T14:53:38.000Z",
+        "createdAt": "2018-10-10T10:32:59.000Z",
+        "officializedAt": "2018-12-19T11:22:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 45090905,
+      "ownerUid": 32181685,
+      "creatorUid": 32181685,
+      "slug": "atelier-degustation_577342",
+      "title": {
+        "fr": "ATELIER DEGUSTATION"
+      },
+      "description": {
+        "fr": "DÉGUSTATION VIN ET CHOCOLAT"
+      },
+      "longDescription": {
+        "fr": "ATELIER DEGUSTATION VIN/CHOCOLAT\n\nLe chocolat, tout comme le vin, a la capacité de refléter le terroir et peut donc faire ressortir divers arômes de fruits, fleurs, forêts ou encore d’épices.\n\nComme le vin, il provient d’un fruit qu’il faut fermenter. Il fait aussi appel à l’utilisation de nos cinq sens : la vue, le toucher, l’ouïe (lorsqu’on casse un morceau de chocolat), l’odorat et bien entendu le goût.\n\nHasnaâ FERREIRA, artisan chocolatière bordelaise et Henri FAIVRE, oenologue évoqueront l'accord subtil et délicat du vin et du chocolat.\n\nVendredi 14 Février 2020, 18:30\n\nSamedi 15 Février 2020, 18:30\n\nTarif : 15 €\n\nrenseignements et réservations accueil du Jardin Botanique 05 56 52 18 77\n\nnombre de places : 30 par atelier"
+      },
+      "keywords": {
+        "fr": [
+          "OENOLOGIE",
+          "DEGUSTATION",
+          "atelier",
+          "+jardin botanique",
+          "week-end"
+        ]
+      },
+      "conditions": {
+        "fr": "15 €"
+      },
+      "image": {
+        "filename": "c737e5d53dc748f9882e4079bcc18298.base.image.jpg",
+        "credits": "© irene-kredenets-unsplash",
+        "size": {
+          "height": 931,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c737e5d53dc748f9882e4079bcc18298.full.image.jpg",
+            "size": {
+              "height": 1134,
+              "width": 853
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c737e5d53dc748f9882e4079bcc18298.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-14T17:30:00.000Z",
+          "end": "2020-02-14T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T17:30:00.000Z",
+          "end": "2020-02-15T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-04T14:53:38.000Z",
+      "createdAt": "2020-01-10T14:48:16.000Z",
+      "agendaUid": 99562884,
+      "locationUid": 42610172,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "registration": [
+        "05 56 52 18 77"
+      ],
+      "location": {
+        "uid": 42610172,
+        "slug": "jardin-botanique-bastide",
+        "name": "JARDIN BOTANIQUE Bastide",
+        "address": "Esplanade Linné 33100 BORDEAUX",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.846321,
+        "longitude": -0.551885,
+        "updatedAt": "2018-10-18T12:35:53.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        99562884
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "jardin-botanique-bordeaux",
+          "uid": 99562884,
+          "official": 1,
+          "title": "JARDIN BOTANIQUE BORDEAUX",
+          "description": "programme des manifestations, expositions, animations...",
+          "url": "http://jardin-botanique-bordeaux.fr/",
+          "image": "agenda99562884.jpg",
+          "updatedAt": "2020-02-04T14:53:38.000Z",
+          "createdAt": "2018-10-10T10:32:59.000Z",
+          "officializedAt": "2018-12-19T11:22:19.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "jardin-botanique-bordeaux",
+        "uid": 99562884,
+        "official": 1,
+        "title": "JARDIN BOTANIQUE BORDEAUX",
+        "description": "programme des manifestations, expositions, animations...",
+        "url": "http://jardin-botanique-bordeaux.fr/",
+        "image": "agenda99562884.jpg",
+        "updatedAt": "2020-02-04T14:53:38.000Z",
+        "createdAt": "2018-10-10T10:32:59.000Z",
+        "officializedAt": "2018-12-19T11:22:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 65578495,
+      "ownerUid": 3609792,
+      "creatorUid": 3609792,
+      "slug": "metamorphone-cie-sina-qua-non-art_392480",
+      "title": {
+        "fr": "Métamorphone / Cie Sina Qua Non Art"
+      },
+      "description": {
+        "fr": "spectacle danse dès 8 ans"
+      },
+      "longDescription": {
+        "fr": "Métamorphone\n------------\n\nJaune, bleu, violet, les couleurs pulsent dans cette pièce qui ne manque pas de peps. Un beatboxer et un danseur électro rapide comme l’éclair, immergés dans un environnement 100% numérique, s’emparent de L’après midi d’un faune. En remixant ce ballet mythique qui a fait scandale à sa création en 1912, et sa musique originale signée Debussy, MetamorPhone rêve des étincelles que le chorégraphe d’avant-garde Nijinski aurait pu faire avec les technologies et de la danse de notre temps.\n\nConcept – Chorégraphie Christophe Béranger et Jonathan Pranlas Descours / Danse Brice Rouchet / Beatbox Loop Tioneb / Création numérique Olivier Bauer / Régie vidéo Pierre Hébras\n\nPhotos © Sine qua non art\n\nEn partenariat avec l'OARA et la Ville d'Ambarès-et-Lagrave"
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "musique",
+          "atelier",
+          "enfant",
+          "jeune",
+          "contemporain"
+        ]
+      },
+      "conditions": {
+        "fr": "tarif unique 6€"
+      },
+      "image": {
+        "filename": "fe50eb70b5144d659a48520f11cf4871.base.image.jpg",
+        "credits": "dessin Atelier Franck Tallo",
+        "size": {
+          "height": 507,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "fe50eb70b5144d659a48520f11cf4871.full.image.jpg",
+            "size": {
+              "height": 550,
+              "width": 760
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "fe50eb70b5144d659a48520f11cf4871.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-11T18:00:00.000Z",
+          "end": "2020-02-11T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-04T15:20:17.000Z",
+      "createdAt": "2020-02-04T13:56:05.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 27500580,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "https://www.lamanufacture-cdcn.org/spectacles/metamorphone-11-fevrier/"
+      ],
+      "location": {
+        "uid": 27500580,
+        "slug": "pole-culturel-evasion734",
+        "name": "Pôle Culturel Evasion",
+        "address": "Ambarès-et-Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.925901,
+        "longitude": -0.488185,
+        "updatedAt": "2020-02-04T13:55:52.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "POUCE ! Festival danse jeune public\n\nTous les ans depuis 9 ans, au creux de l'hiver, le festival POUCE ! convie les enfants, dès 2 ans et leurs parents à découvrir la danse. \n\nhttps://www.lamanufacture-cdcn.org",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [
+        2
+      ],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 78628856,
+      "ownerUid": 76240901,
+      "creatorUid": 76240901,
+      "slug": "carnaval-les-dents-de-la-mer",
+      "title": {
+        "fr": "Carnaval - Les dents de la mer"
+      },
+      "description": {
+        "fr": "carnaval"
+      },
+      "longDescription": {
+        "fr": "Le Thème choisi pour le carnaval de l’année 2020 est : « LES DENTS DE LA MER ».\n\nIl se déroulera le samedi 7 MARS 2020 dans le Parc Favols.\n\nNous souhaitons la participation du plus grand nombre !!\n\nC’est une manifestation où tout le monde peut se retrouver, elle appartient à tous : aux associations, aux écoles, aux quartiers, aux particuliers, aux groupements d’amis, aux services, aux entreprises, aux commerçants, …\n\nDes groupes de musiques, des percussions, des chants, des costumes, des bulles ou tout autres propositions peuvent enrichir ce moment.\n\nDurant cette journée, l’ambiance au parc Favols est à la détente, au partage et à la fête.\n\n14h30 : Rendez-vous des carnavaleux, devant l’Hôtel de Ville\n\n15h : Départ du défilé\n\n16h : Goûter et animations dans le Parc Favols\n\n17h : Crémation de Monsieur Carnaval\n\nDes confettis seront distribués en poches gratuitement.\n\nLes confettis, ça se jette, mais pas les poches en papier !\n\nLes parents sont invités à être également costumés et à apporter des gâteaux pour le goûter.\n\nChaque année, cet événement est une réussite collective grâce au travail accompli durant de longs mois, grâce à l’investissement des bénévoles, des nombreuses associations, des partenaires, des parents, des services de la Municipalité de Carbon-Blanc.\n\nEn cas d'intempéries, le carnaval sera reporté à une date ultérieure.\n\nRappel : penser à vous faire connaitre si vous souhaitez faire partie de l’équipe qui sécurise le parcours emprunté par M. Carnaval !!\n\nPartenaires : Association O fil du jeu, Ecole de Musique de l’ASCJB, Action Jeunes, ALSH, APS, ACAP…"
+      },
+      "keywords": {
+        "fr": [
+          "carnaval"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "3aece1fb7b2542b5b66d147087da8e04.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1027
+        },
+        "variants": [
+          {
+            "filename": "3aece1fb7b2542b5b66d147087da8e04.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 7087,
+              "height": 10394
+            }
+          },
+          {
+            "filename": "3aece1fb7b2542b5b66d147087da8e04.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T13:30:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-05T10:52:02.000Z",
+      "createdAt": "2020-02-05T10:52:02.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 52191739,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 52191739,
+        "slug": "hotel-de-ville84",
+        "name": "Hôtel de Ville",
+        "address": "17 Avenue Vignau Anglade 33560 Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.895317,
+        "longitude": -0.503798,
+        "updatedAt": "2017-07-04T13:59:29.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        22478436
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-carbon-blanc",
+          "uid": 22478436,
+          "official": 1,
+          "title": "Ville de Carbon-Blanc",
+          "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+          "url": "http://www.carbon-blanc.fr",
+          "image": "agenda22478436.jpg",
+          "updatedAt": "2020-02-06T16:07:03.000Z",
+          "createdAt": "2017-02-15T09:58:10.000Z",
+          "officializedAt": "2018-06-12T13:17:55.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2020-02-06T16:07:03.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 70237824,
+      "ownerUid": 19502811,
+      "creatorUid": 19502811,
+      "slug": "cartoon-movie_879938",
+      "title": {
+        "fr": "Cartoon Movie"
+      },
+      "description": {
+        "fr": "Bordeaux accueille la 4e édition bordelaise (900 professionnels du cinéma d’animation provenant de 38 pays, 364 films financés depuis 20 ans pour un montant global de 2,4 Md€)."
+      },
+      "longDescription": {
+        "fr": "Organisé par Cartoon Media en partenariat avec Bordeaux Métropole, la Région Nouvelle Aquitaine, le pôle Image Magelis, le CNC et le programme Media de l’Union européenne.\n\nCe forum majeur de la co-production réunit producteurs, investisseurs, distributeurs, sociétés de jeux vidéo, new media players… pour établir des coopérations, permettant le financement d’une vingtaine de longs métrages d’animation. Au programme, 66 projets de longs métrages en sélection dont 4 du territoire, le coaching programme réunissant les écoles du numérique et de l’animation, le Cartoon Games etc. Un événement #magneticbordeaux !\n\n[Plus d'info](http://cartoon-media.eu/cartoon-movie-event/cartoon-movie-2020.htm)\n\n[Découvrez la sélection 2020](http://cartoon-media.eu/cartoon-movie-event/cartoon-movie-2020/discover-the-projects-2020.htm)\n\nProjection grand public\n-----------------------\n\nUne projection d'un film d’animation sera offerte au grand public bordelais : « Terra Willy », une aventure très spatiale, produit par TAT Productions."
+      },
+      "keywords": {
+        "fr": [
+          "Cartoon",
+          "Movie",
+          "Film",
+          "Animation",
+          "Numérique"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "f5cfcda51321485ba3495b807a4b6b47.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 344,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f5cfcda51321485ba3495b807a4b6b47.full.image.jpg",
+            "size": {
+              "height": 300,
+              "width": 611
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f5cfcda51321485ba3495b807a4b6b47.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-03T09:00:00.000Z",
+          "end": "2020-03-03T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T09:00:00.000Z",
+          "end": "2020-03-05T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T15:43:00.000Z",
+      "createdAt": "2020-02-05T12:42:38.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 64705721,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://cartoon-media.eu/cartoon-movie-event/cartoon-movie-2020.htm"
+      ],
+      "location": {
+        "uid": 64705721,
+        "slug": "palais-des-congres530",
+        "name": "Palais des Congrès",
+        "address": "Avenue Jean Gabriel Domergue  33300 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.889735,
+        "longitude": -0.567219,
+        "updatedAt": "2019-02-21T12:40:26.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 48,
+      "thematiques-bordeaux-metropole": [
+        27,
+        23,
+        15,
+        13
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 19502811,
+        "custom": {}
+      }
+    },
+    {
+      "uid": 88603951,
+      "ownerUid": 10589704,
+      "creatorUid": 10589704,
+      "slug": "de-vernissage-au-dela-du-regard",
+      "title": {
+        "fr": "Dé-vernissage « Au-delà du regard »"
+      },
+      "description": {
+        "fr": "L'artiste peintre Jenny Rys nous invite au rêve et à la méditation pour se questionner sur la relation entre le visible et l'invisible"
+      },
+      "longDescription": {
+        "fr": "✨ A l’occasion de son dernier jour d’exposition, l’artiste peintre Jenny Rys vous invite à son dé-vernissage le vendredi 21/02 de 19h à 21h30 à l’adresse suivante :\n\n41 Rue Servandoni, 33000 Bordeaux\n\nAutodidacte, l'artiste peintre bordelaise Jenny Rys nous invite à se questionner sur la relation entre le réel et le spirituel, la frontière entre l'abstrait et le figuratif.\n\n✨ « Au-delà du regard » est une série de tableaux où l'artiste exprime l'importance de nos émotions au sein de la réalisation d'une toile. Entre douceur et lâcher-prise, les tableaux de Jenny Rys sont une invitation au rêve, à la méditation ou à l'amour.\n\nA regarder au-delà pour être plus plus proche de sa propre réalité.\n\nPour son dernier jour d’exposition, Jenny Rys vous proposera la vente exclusive de reproductions de ses toiles en édition limitée sur papier vinyle.\n\n➡ Exposition visible du 30/01 au 21/02, ouverte uniquement pendant pour les ateliers créatifs et de bien-être de l'Espace Servandoni.\n\nPossibilité de voir l'expo sur RDV.\n\n✨ Pour découvrir les oeuvres de Jenny Rys sur les sociaux (@jenny.rys.art) et sur son site :\n\n[https://www.instagram.com/jenny.rys.art/](https://www.instagram.com/jenny.rys.art/)\n\n[https://jenniris.wixsite.com/artist](https://jenniris.wixsite.com/artist)"
+      },
+      "keywords": {
+        "fr": [
+          "bien-être",
+          "spiritualité",
+          "développement personnel",
+          "peinture acrylique",
+          "méditation"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrées limitées sur inscription"
+      },
+      "image": {
+        "filename": "12cfab347ca141ac8b8d60e65280ee76.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "12cfab347ca141ac8b8d60e65280ee76.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "12cfab347ca141ac8b8d60e65280ee76.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-21T18:00:00.000Z",
+          "end": "2020-02-21T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T18:30:00.000Z",
+          "end": "2020-02-21T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T19:00:00.000Z",
+          "end": "2020-02-21T19:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T19:30:00.000Z",
+          "end": "2020-02-21T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T10:20:04.000Z",
+      "createdAt": "2020-02-04T17:29:10.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 95904536,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "jenniris@hotmail.fr",
+        "https://www.instagram.com/jenny.rys.art/",
+        "https://www.facebook.com/jenny.rys.art/"
+      ],
+      "location": {
+        "uid": 95904536,
+        "slug": "41-rue-servandoni",
+        "name": "41 rue servandoni",
+        "address": "41 rue servandoni",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Saint-Augustin - Tauzin - Alphonse Dupeux",
+        "latitude": 44.834413,
+        "longitude": -0.582987,
+        "updatedAt": "2020-02-04T17:28:01.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Dé-vernissage de l'artiste peintre Jenny Rys à l'Espace Servandoni, espace dédié aux ateliers et conférences sur le bien-être, le développement personnel et l'art",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 24945364,
+      "ownerUid": 79399918,
+      "creatorUid": 79399918,
+      "slug": "chantier-flex-yourte",
+      "title": {
+        "fr": "Chantier « Flex Yourte »"
+      },
+      "description": {
+        "fr": "Atelier participatif pour construire une yourte version DIY, en matériaux naturels, recyclés et ré-utilisables !"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de la [3ème édition de notre festival « Territoires Sauvages »](https://www.territoires-sauvages.fr/), nous nous lançons dans la fabrication d’un habitat léger, fait avec des matériaux naturels, recyclés et ré-utilisables, la [FLEX YOURTE](http://www.flexyourte.com/plans-flex-yourte.html) !\n\nRéalisée à base de bambous, cette structure compacte et mobile nous sera utile au festival mais aussi dans bien d'autres occasions pour vous accueillir en animation. Vous avez un esprit pratique et des bras costauds ? ou alors vous faites preuve d'une certaine dextérité ? Vous êtes simplement très motivé ?\n\nRejoignez-nous vendredi 6 mars de 9h30 à 17h (et pensez à apporter quelques outils si vous en avez) !\n\nConditions de la journée : Repas, boissons chaudes et/ou fraîches, offerts.\n\nRenseignements et inscriptions : 07 83 40 14 81 / elodie.malavialle\\[@\\]cistude\\[point\\]org (remplacer les crochets)\n\nContact : Elodie Malavialle\n\nLieu : Cistude Nature, chemin du moulinat, 33185 Le Haillan"
+      },
+      "keywords": {
+        "fr": [
+          "atelier",
+          "bénévolat",
+          "construction",
+          "yourte",
+          "nature"
+        ]
+      },
+      "conditions": {
+        "fr": "gratuit - inscription obligatoire - repas et boissons offerts"
+      },
+      "image": {
+        "filename": "8843e395ce0149b09febdb0febb3f0bb.base.image.jpg",
+        "credits": "http://www.flexyourte.com",
+        "size": {
+          "height": 395,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8843e395ce0149b09febdb0febb3f0bb.full.image.jpg",
+            "size": {
+              "height": 245,
+              "width": 435
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8843e395ce0149b09febdb0febb3f0bb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T08:30:00.000Z",
+          "end": "2020-03-06T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T15:15:03.000Z",
+      "createdAt": "2020-02-06T10:41:08.000Z",
+      "agendaUid": 72869717,
+      "locationUid": 5840501,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "07 83 40 14 81",
+        "elodie.malavialle@cistude.org"
+      ],
+      "location": {
+        "uid": 5840501,
+        "slug": "cistude-nature248",
+        "name": "Cistude Nature",
+        "address": "Chemin du moulinat, 33185 le haillan",
+        "city": "Le Haillan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33185",
+        "insee": "33200",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.89361,
+        "longitude": -0.678996,
+        "updatedAt": "2018-09-06T12:48:33.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        72869717,
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "les-balades-de-cistude-nature",
+          "uid": 72869717,
+          "official": 1,
+          "title": "Les balades de Cistude Nature",
+          "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+          "url": "http://www.cistude.org",
+          "image": "agenda72869717.jpg",
+          "updatedAt": "2020-02-12T10:51:27.000Z",
+          "createdAt": "2018-07-17T12:53:10.000Z",
+          "officializedAt": "2019-10-28T15:54:52.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "les-balades-de-cistude-nature",
+        "uid": 72869717,
+        "official": 1,
+        "title": "Les balades de Cistude Nature",
+        "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+        "url": "http://www.cistude.org",
+        "image": "agenda72869717.jpg",
+        "updatedAt": "2020-02-12T10:51:27.000Z",
+        "createdAt": "2018-07-17T12:53:10.000Z",
+        "officializedAt": "2019-10-28T15:54:52.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2157102
+}

@@ -20,7 +20,6 @@ describe('02 - event search - functional: Applied search', function() {
       service = Service(config);
     });
 
-
     before(async () => {
       try {
         await service.getConfig().client.indices.delete({
@@ -48,7 +47,7 @@ describe('02 - event search - functional: Applied search', function() {
         before(async () => {
           event = await service('bdx')
             .search({ uid }, {})
-            .then(({ total, events }) => events[0]);
+            .then(r => r.events[0]);
         });
 
         it('an event can be retrieved by uid', () => {
@@ -75,6 +74,10 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('timings are provided in detailed', () => {
           (event.timings instanceof Array).should.equal(true);
+        });
+
+        it('source agendas are available', () => {
+          (event.sourceAgendas instanceof Array).should.equal(true);
         });
 
       });
@@ -104,13 +107,13 @@ describe('02 - event search - functional: Applied search', function() {
       it('events can be filtered by member', async () => {
         const { events, total } = await service('bdx')
           .search({ memberUid: 75052324 }, {});
-        total.should.equal(207);
+        total.should.equal(204);
       });
 
       it('events can be filtered by multiple members', async () => {
         const { events, total } = await service('bdx')
           .search({ memberUid: [75052324, 65133249] }, {});
-        total.should.equal(218);
+        total.should.equal(228);
       });
 
       it('events can be filtered by origin agenda', async () => {
@@ -121,12 +124,20 @@ describe('02 - event search - functional: Applied search', function() {
         total.should.equal(1);
       });
 
+      it('events can be filtered by source agenda', async () => {
+        const { events, total } = await service('bdx').search({
+          sourceAgendaUid: 1108324
+        }, {}, { detailed: true });
+
+        total.should.equal(38);
+      });
+
       it('filter by city', async () => {
         const { total } = await service('bdx').search({
           city: 'Bordeaux'
         }, {});
 
-        total.should.equal(93);
+        total.should.equal(129);
       });
 
       it('filter by department', async () => {
@@ -134,7 +145,7 @@ describe('02 - event search - functional: Applied search', function() {
           department: 'Gironde'
         }, {});
 
-        total.should.equal(333);
+        total.should.equal(509);
       });
 
       it('scroll through results', async () => {
@@ -182,7 +193,7 @@ describe('02 - event search - functional: Applied search', function() {
           'thematiques-bordeaux-metropole' : 9
         }, {}, { formSchema });
 
-        total.should.equal(111);
+        total.should.equal(118);
 
         for (const event of events) {
           event['thematiques-bordeaux-metropole']
@@ -203,6 +214,12 @@ describe('02 - event search - functional: Applied search', function() {
           formSchema,
           refresh: true // index must be refreshed directly for test
         });
+      });
+
+      after(async () => {
+        try {
+          await service('bdx').remove({ uid: data.uid });
+        } catch (e) {}
       });
 
       it('adding a document went well', async () => {
@@ -261,7 +278,9 @@ describe('02 - event search - functional: Applied search', function() {
       });
 
       it('removing a document', async () => {
-        const result = await service('bdx').remove({ uid: data.uid }, {
+        const result = await service('bdx').remove({
+          uid: data.uid
+        }, {
           refresh: true
         });
 
@@ -306,8 +325,8 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('one item has a key and an event count', () => {
           agg[0].should.eql({
-            key: 'concert',
-            eventCount: 88
+            key: 'cenon',
+            eventCount: 174
           });
         });
 
@@ -338,7 +357,7 @@ describe('02 - event search - functional: Applied search', function() {
             });
             _.last(agg).should.eql({
               key: '2021-01-09',
-              timingCount: 2
+              timingCount: 1
             });
           });
 
@@ -365,7 +384,7 @@ describe('02 - event search - functional: Applied search', function() {
           });
 
           it('count is timings count', () => {
-            agg[0].timingCount.should.equal(2);
+            agg[0].timingCount.should.equal(1);
           });
         });
 
@@ -384,19 +403,22 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('regions aggregation', () => {
           agg.regions.should.eql([
-            { key: 'Nouvelle-Aquitaine', eventCount: 338 },
+            { key: 'Nouvelle-Aquitaine', eventCount: 514 },
             { key: 'Île-de-France', eventCount: 1 }
           ]);
         });
 
         it('departments aggregation', () => {
-          agg.departments[0].should.eql({ key: 'Gironde', eventCount: 333 });
+          agg.departments[0].should.eql({
+            key: 'Gironde',
+            eventCount: 509
+          });
         });
 
         it('cities aggregation', () => {
           agg.cities[0].should.eql({
-            key: 'Bordeaux',
-            eventCount: 93
+            key: 'Cenon',
+            eventCount: 183
           });
         });
 
@@ -422,7 +444,7 @@ describe('02 - event search - functional: Applied search', function() {
           agg[0].should.eql({
             key: '75052324',
             member: { uid: 75052324, name: 'Kaoré - OpenAgenda' },
-            eventCount: 207
+            eventCount: 204
           });
         });
 
@@ -446,7 +468,7 @@ describe('02 - event search - functional: Applied search', function() {
         it('each aggregation provides basic info on agenda', () => {
           originAgendaAggregation[0].should.eql({
             key: '94573624',
-            eventCount: 80,
+            eventCount: 174,
             agenda: {
               uid: 94573624,
               title: 'Rocher de Palmer',
@@ -516,12 +538,9 @@ describe('02 - event search - functional: Applied search', function() {
         it('provides count for each state', () => {
           statesAggregation.should.eql([{
             key: 2,
-            eventCount: 343
+            eventCount: 520
           }, {
             key: 0,
-            eventCount: 1
-          }, {
-            key: 1,
             eventCount: 1
           }]);
         });
@@ -588,7 +607,7 @@ describe('02 - event search - functional: Applied search', function() {
             value: 'culture',
             label: { fr: 'Culture' },
             legacyId: null,
-            eventCount: 44
+            eventCount: 37
           });
         });
 
@@ -601,12 +620,11 @@ describe('02 - event search - functional: Applied search', function() {
       it('on title alone', async () => {
         const { events } = await service('bdx').moreLikeThis({
           title: { fr: 'Sieste musicale' }
-        }, { size: 3 });
+        }, { size: 2 });
 
         events.map(e => e.slug).should.eql([
-          'sieste-musicale-mosaique-londonienne',
-          'sieste-musicale-rutilants-trombones',
-          'sieste-musicale-inspirant-amour'
+          'sieste-musicale-101-28',
+          'sieste-musicale-basta'
         ]);
       });
 
@@ -626,12 +644,11 @@ describe('02 - event search - functional: Applied search', function() {
         const { events } = await service('bdx').moreLikeThis({
           title: { fr: 'Sieste musicale' },
           keywords: { fr: ['jazz'] }
-        }, { size: 3 });
+        }, { size: 2 });
 
         events.map(e => e.slug).should.eql([
-          'sieste-musicale-mosaique-londonienne',
-          'sieste-musicale-rutilants-trombones',
-          'sieste-musicale-inspirant-amour'
+          'sieste-musicale-101-28',
+          'sieste-musicale-basta'
         ]);
       });
 

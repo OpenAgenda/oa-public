@@ -1,0 +1,1363 @@
+{
+  "events": [
+    {
+      "uid": 78349198,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "animation-seniors_251928",
+      "title": {
+        "fr": "Animation Seniors"
+      },
+      "description": {
+        "fr": "Lectures, Quiz, animations musicales, ateliers culturels mis en place par Carole et Richard."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_animation-seniors_611171.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_animation-seniors_611171.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_animation-seniors_611171.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T14:30:00.000Z",
+          "end": "2020-03-05T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T07:52:16.000Z",
+      "createdAt": "2019-10-25T07:51:20.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 45,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 93976403,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "animation-seniors_277026",
+      "title": {
+        "fr": "Animation Seniors"
+      },
+      "description": {
+        "fr": "Lectures, Quiz, animations musicales, ateliers culturels mis en place par Carole et Richard."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_animation-seniors_611171.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_animation-seniors_611171.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_animation-seniors_611171.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-07T13:30:00.000Z",
+          "end": "2020-05-07T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T07:52:00.000Z",
+      "createdAt": "2019-10-25T07:52:00.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 45,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 23840850,
+      "ownerUid": 50760968,
+      "creatorUid": 50760968,
+      "slug": "bal-trad-de-noel_751435",
+      "title": {
+        "fr": "Bal trad de Noël"
+      },
+      "description": {
+        "fr": "L'association APPI vous invite à fêter la fin de l'année en musique, lors d'un bal trad de Noël"
+      },
+      "longDescription": {
+        "fr": "Une belle fête en perspective, autour de 4h de bal, animé par :\n\n*   [Trio du Haut](https://appimusique.files.wordpress.com/2018/11/precc81sentation-trio-du-haut.pdf) – Taffard, Pouységur, Lainé\n\n*   Roucoulet – duo Cathy Castet (boha)/Pascal Lefeuvre (vielle)\n\n*   [La Manivielle Joyeuse](https://appimusique.wordpress.com/la-manivelle-joyeuse/)\n\n*   [APPI FOLK BAND](https://appimusique.wordpress.com/appi-actions/appi-archives-dates/musiques-a-danser-w-e-des-6-7-fevrier-2016/photos-et-commentaires-we-fevrier-2016/) & Marilyn – animation danse"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Prix libre si adhérent; adhésion APPI 10€"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-14T20:00:00.000Z",
+          "end": "2019-12-14T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T07:56:57.000Z",
+      "createdAt": "2019-10-25T07:56:49.000Z",
+      "agendaUid": 38598267,
+      "locationUid": 76036473,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "+33556863843",
+        "+33684530805"
+      ],
+      "location": {
+        "uid": 76036473,
+        "slug": "centre-culturel-chateau-palmer",
+        "name": "Centre culturel Château Palmer",
+        "address": "rue Aristide Briand 33150 Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.859573,
+        "longitude": -0.523799,
+        "updatedAt": "2017-06-01T12:56:42.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-cenon",
+        "uid": 38598267,
+        "official": 1,
+        "title": "Ville de CENON",
+        "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+        "url": "",
+        "image": "agenda38598267.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-24T10:19:36.000Z",
+        "officializedAt": "2018-06-12T13:17:03.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 65889120,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "festival-de-litterature-lettres-du-monde-16",
+      "title": {
+        "fr": "Festival de littérature Lettres du monde #16"
+      },
+      "description": {
+        "fr": "Depuis 2003, l’association Lettres du monde œuvre à la promotion et à la diffusion des littératures étrangères, à travers plusieurs manifestations culturelles, en Nouvelle-Aquitaine."
+      },
+      "longDescription": {
+        "fr": "En novembre, le festival Lettres du monde réunit chaque année quinze à vingt écrivains du monde entier, illustrateurs, traducteurs, éditeurs autour d’un titre, fil rouge de la programmation. Pendant dix jours, les auteurs invités se déplacent sur le territoire de la région Nouvelle-Aquitaine pour un programme de soixante-dix rendez-vous littéraires avec le public.\n\nCes rencontres sont organisées en partenariat avec les professionnels du livre et de la lecture publique que sont les bibliothèques, médiathèques et librairies indépendantes, mais aussi avec les établissements scolaires et universitaires.\n\nAvec cette programmation, Lettres du monde participe au développement d’une politique d’animation littéraire dédiée à la diffusion et à la promotion des littératures étrangères. L’objectif de cette manifestation est de faire découvrir au public des écrivains d’ici et d’ailleurs, des textes singuliers.\n\nConsultez la [programmation](https://lettresdumonde33.com/festival-lettres-du-monde/)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b1af9e31d9c144b5b137398a51b2482f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 379
+        },
+        "variants": [
+          {
+            "filename": "b1af9e31d9c144b5b137398a51b2482f.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 870,
+              "height": 470
+            }
+          },
+          {
+            "filename": "b1af9e31d9c144b5b137398a51b2482f.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-15T08:00:00.000Z",
+          "end": "2019-11-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-16T08:00:00.000Z",
+          "end": "2019-11-16T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-17T08:00:00.000Z",
+          "end": "2019-11-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-18T08:00:00.000Z",
+          "end": "2019-11-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-19T08:00:00.000Z",
+          "end": "2019-11-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-20T08:00:00.000Z",
+          "end": "2019-11-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-21T08:00:00.000Z",
+          "end": "2019-11-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T08:00:00.000Z",
+          "end": "2019-11-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T08:00:00.000Z",
+          "end": "2019-11-23T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T12:50:32.000Z",
+      "createdAt": "2019-10-25T12:50:32.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 9993883,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 9993883,
+        "slug": "marche-des-douves795",
+        "name": "Marché des Douves",
+        "address": "marché des douves, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.830697,
+        "longitude": -0.566159,
+        "updatedAt": "2017-07-25T09:57:06.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 53448207,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "mois-sans-tabac-village-et-marche-nocturne-place-de-la-victoire",
+      "title": {
+        "fr": "Mois sans Tabac : Village et marche nocturne place de la Victoire"
+      },
+      "description": {
+        "fr": "Retrouvez le 7 novembre prochain le village et la marche nocturne du #MoisSansTabac !"
+      },
+      "longDescription": {
+        "fr": "Le **Mois Sans Tabac** de Bordeaux approche !\n\nEntretiens gratuits, ateliers, conseils de professionnels de la santé, documentation et goodies sont au programme ! Sans oublier le défi #FillTheBottle (collecte participative des mégots) dans les rues bordelaises ainsi que la marche nocturne ! ?‍♂️?‍♀️\n\n[Inscrivez-vous](https://www.facebook.com/events/402692703754089/) à l'événement !"
+      },
+      "keywords": {
+        "fr": [
+          "santé",
+          "tabac",
+          "prévention"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "004defcdd7324bb08ef935cd4cf538af.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 266
+        },
+        "variants": [
+          {
+            "filename": "004defcdd7324bb08ef935cd4cf538af.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1186,
+              "height": 450
+            }
+          },
+          {
+            "filename": "004defcdd7324bb08ef935cd4cf538af.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-07T13:00:00.000Z",
+          "end": "2019-11-07T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T13:08:05.000Z",
+      "createdAt": "2019-10-25T13:08:05.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 10100177,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 10100177,
+        "slug": "place-de-la-victoire282",
+        "name": "Place de la victoire",
+        "address": "Place de la victoire, 33000 bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.831157,
+        "longitude": -0.572579,
+        "updatedAt": "2018-07-20T08:35:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        32
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 22734056,
+      "ownerUid": 50760968,
+      "creatorUid": 50760968,
+      "slug": "balade-urbaine_855498",
+      "title": {
+        "fr": "balade urbaine"
+      },
+      "description": {
+        "fr": "L'Alternative Urbaine Bordeaux développe une forme de tourisme solidaire, et de proximité; elle organise des balades culturelles dans les quartiers dit \"populaires\" de la métropole."
+      },
+      "longDescription": {
+        "fr": "Laissez-vous guider par notre éclaireuse cenonnaise, Aude, qui vous emmène sur ses terres : traversez le parc du Cypressat en passant par la vieille Cure et l’église Saint-Romain pour terminer dans le quartier Sellier et ses mosaïques. De La Morlette au Bas-Cenon, un voyage à flanc de coteau ponctué d’un patrimoine historique et industriel très varié qui ne manquera pas de vous étonner!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription; Le prix de la balade est libre pour qu'elle soit accessible à tous."
+      },
+      "image": {
+        "filename": "3852f40e5faa45c29d4cc1f23c7c65fb.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3852f40e5faa45c29d4cc1f23c7c65fb.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3852f40e5faa45c29d4cc1f23c7c65fb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-17T09:00:00.000Z",
+          "end": "2019-11-17T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-28T10:53:01.000Z",
+      "createdAt": "2019-10-28T10:52:41.000Z",
+      "agendaUid": 38598267,
+      "locationUid": 80003090,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://bordeaux.alternative-urbaine.com/nos-balades/",
+        "+33767652484"
+      ],
+      "location": {
+        "uid": 80003090,
+        "slug": "arret-de-tram-la-morlette",
+        "name": "Arrêt de tram \"La Morlette\"",
+        "address": "Avenue Roger Schwob",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.855054,
+        "longitude": -0.518123,
+        "updatedAt": "2019-05-22T15:40:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-cenon",
+        "uid": 38598267,
+        "official": 1,
+        "title": "Ville de CENON",
+        "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+        "url": "",
+        "image": "agenda38598267.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-24T10:19:36.000Z",
+        "officializedAt": "2018-06-12T13:17:03.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 80437190,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "talence-vous-offre-des-plantes-grimpantes",
+      "title": {
+        "fr": "Talence vous offre des plantes grimpantes"
+      },
+      "description": {
+        "fr": "Dans le cadre de la végétalisation des logements Talençais,   jardins, façades et balcons, 440 plantes grimpantes seront distribuées par la Municipalité"
+      },
+      "longDescription": {
+        "fr": "**organisé par le service environnement et paysages**\n\nLa mairie de Talence s’est engagée depuis de nombreuses années dans une démarche globale de développement durable.\n\nDans le cadre de la végétalisation des logements Talençais, jardins, façades et balcons, 440 plantes grimpantes seront distribuées par la Municipalité :\n\nLe dimanche 24 novembre 2019 au marché de Thouars.\n\nÀ cette occasion, les agents du service environnement et paysages répondront à vos questions sur la plantation et l’entretien de ces végétaux.\n\nSachez d’ores et déjà que vous pourrez les planter soit en pleine terre, sur votre balcon en pot ou en jardinière. Les variétés proposées ont été choisies pour leur floraison ou pour leur feuillage décoratif. Ces végétaux sont globalement robustes et ne demandent que peu de soins, cependant certaines variétés doivent être guidées par des supports adéquats (grille).\n\nCes plantes offriront une belle couverture végétale sous réserve d’être entretenues et nourries régulièrement.\n\nIl faudra également surveiller l’arrosage pour les végétaux mis en pot ou en jardinière :\n\n➤ Pour un arrosage « régulier » : ne pas laisser sécher la terre.\n\n➤ Ne pas laisser d’eau dans les coupelles sous les pots et arroser de préférence avec de l’eau de pluie.\n\n**LES VARIÉ TÉS OFFERTES...**\n\n**Akebia - Clématite - Lierre - Jasmin - Chevrefeuille - Locinéra - Vigne vierge - Solanum**"
+      },
+      "keywords": {
+        "fr": [
+          "organisé par le service environnement et paysages"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "001935ca89174c0d9c325c471577c513.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 994
+        },
+        "variants": [
+          {
+            "filename": "001935ca89174c0d9c325c471577c513.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1136,
+              "height": 1612
+            }
+          },
+          {
+            "filename": "001935ca89174c0d9c325c471577c513.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-24T08:00:00.000Z",
+          "end": "2019-11-24T12:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-07T15:51:15.000Z",
+      "createdAt": "2019-10-29T08:10:36.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 5969878,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 5969878,
+        "slug": "marche-de-thouars",
+        "name": "Marché de Thouars",
+        "address": "221 avenue de Thouars",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.790937,
+        "longitude": -0.59151,
+        "updatedAt": "2017-11-14T09:29:12.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 42,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 23204180,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "10eme-edition-journee-de-lentrepreneuriat",
+      "title": {
+        "fr": "10ème édition Journée de l'entrepreneuriat"
+      },
+      "description": {
+        "fr": "Journée de rencontre et d'échange autour de l'entrepreneuriat. Ponctuée d'un speed meeting, de conférences, de tables rondes et de remises de prix."
+      },
+      "longDescription": {
+        "fr": "Journée de rencontre et d'échange autour de l'entrepreneuriat. Ponctuée d'un speed meeting, de conférences, de tables rondes et de remises de prix.\n\nAu programme :\n\nSpeed Meeting avec les 6 clubs d’entreprises du Sud Bordeaux\n\nDes Conférences : « L’échec : un challenge vers la réussite »\n\n« Secret d’affaires » : une alternative au dépôt de brevet\n\nUn atelier : « Révolution robotique collaborative : quels impacts en France et dans le monde ? »\n\nUne Table Ronde : « 10 ans d’innovation : que sont nos Lauréats devenus ? »\n\nEn parallèle se tiendront les rendez-vous d'experts de 14h30 à 17h30\n\nDes stands de nos partenaires seront également présents\n\nEt pour conclure cette journée : Remise des Trophées du Concours Jeunes Entrepreneurs & Créateurs 2019"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription"
+      },
+      "image": {
+        "filename": "4c0b3fd6527f433f94608c7a42dc02b4.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1042
+        },
+        "variants": [
+          {
+            "filename": "4c0b3fd6527f433f94608c7a42dc02b4.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1082,
+              "height": 1610
+            }
+          },
+          {
+            "filename": "4c0b3fd6527f433f94608c7a42dc02b4.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-07T07:30:00.000Z",
+          "end": "2019-11-07T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-29T08:28:40.000Z",
+      "createdAt": "2019-10-29T08:28:40.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 38000225,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.helloasso.com/associations/talence-innovation-sud-developpement/evenements/journee-de-l-entrepreneuriat?fbclid=IwAR1-2HaCEHdTbniCrB8AlBctgIWwvgc2MhbPTwFXNrOUfExNliv0T9Y2eNA"
+      ],
+      "location": {
+        "uid": 38000225,
+        "slug": "ensam822",
+        "name": "Ensam",
+        "address": "33400",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.807464,
+        "longitude": -0.60253,
+        "updatedAt": "2019-10-29T08:27:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 48,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 15718923,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "6e-quinzaine-de-legalite-de-la-diversite-et-de-la-citoyennete",
+      "title": {
+        "fr": "6e Quinzaine de l’égalité de la diversité et de la citoyenneté"
+      },
+      "description": {
+        "fr": "Du 4 au 29 novembre, le Dôme organise une série d’expositions, d’ateliers et d’animations dans le cadre de la Quinzaine de l’égalité, de la diversité et de la citoyenneté."
+      },
+      "longDescription": {
+        "fr": "**Du 4 au 29 novembre, le Dôme organise une série d’expositions, d’ateliers et d’animations dans le cadre de la Quinzaine de l’égalité, de la diversité et de la citoyenneté.**\n\n**Programme de la Quinzaine au Dôme de Talence :**\n\n**\\- Du lundi 4 au vendredi 29 novembre de 9h30 à 18h30 au Dôme :**\n\nExposition “We can do it ! Droit des femmes” - Des lycéennes ont souhaité mettre en avant des réflexions sexistes ou des moments “machistes” qu’elles ont vécus dans la rue. À la suite d’une prise de conscience de la banalisation de ces propos, elles ont décidé de créer une exposition itinérante, afin de porter à la connaissance de tous ces comportements et participer ainsi à faire évoluer les choses. Entrée libre.\n\n**\\- Vendredi 15 novembre à 20h30 au Dôme :**\n\nProjection du film “Harvey Milk” suivi d’un débat - Entrée libre.\n\nHomme politique et militant pour les droits des homosexuels américains, Harvey Milk fut le premier élu superviseur - poste similaire à celui de conseiller municipal - ouvertement homosexuel de San Francisco.\n\n**\\- Mercredi 20 novembre à partir de 14h au Dôme : animations sportives “Handi-valides” :**\n\nDes ateliers de pratique sportive ont pour but de sensibiliser les publics aux valeurs inclusives. Entrée libre, renseignements au 05 56 84 64 10.\n\n**\\- Samedi 23 novembre de 16h à 23h, salle Pierre de Coubertin :**\n\n“Girls Boxing Day” animation boxe/animation musicale/débat - L’Union Sportive Talençaise Boxe compte parmi ses adhérents de nombreuses filles. Si certaines pratiquent cette discipline dans le cadre d’une remise en forme avec l’Aéroboxe par exemple, la majorité est engagée en compétition régionale, nationale, européenne. Le club se propose de mener une action afin de partager avec le plus grand nombre sa passion de la boxe et permettre aux filles et aux femmes de découvrir la discipline. Entrée libre.\n\n**\\- Vendredi 29 novembre à 19h30 au Dôme :**\n\nThéâtre “Le garçon à la valise” par la compagnie de Louise.\n\nUn mythe moderne, avec des héros que nous croisons tous les jours dans les rues de nos grandes villes.\n\n« Tout commence chez Nafi, là où son père lui racontait des histoires. Un jour la guerre éclate. Nafi se retrouve seul. Il doit fuir la folie et la violence des hommes pour tenter de rejoindre son frère à Londres. Sur sa route, il va rencontrer Krysia et ensemble ils vont braver tous les dangers : les montagnes, les océans, l'esclavage, les loups, la mort... pour enfin arriver à Londres. La réalité sera-t-elle à la hauteur de leurs attentes ? Les efforts fournis pour l'atteindre seront-ils récompensés ? Que deviendront à nos yeux ces héros quand ils débarqueront ici après avoir risqué leurs vies ? Et comment leur culture pourra-t-elle les sauver après un tel déracinement ? »\n\nwww.lacompagniedelouise.fr - Durée 1h - tout public à partir de 8 ans.\n\nPlaces limitées, renseignements au Service culturel Tél. 05 57 12 29 00.\n\nBilletterie en ligne www.talence.fr\n\n**\\- Samedi 16 novembre au Dôme :**\n\nJournée de formation pour les conseils citoyens “Laïcité et valeurs de la République”.\n\n**\\- Mardi 26 novembre à 18h30 au Dôme :**\n\nRésultats du diagnostics pour l’égalité.\n\nLa ville de Talence a souhaité lancer un diagnostic pour faire un état des lieux des discriminations sur la commune afin de réaliser des actions qui répondent à la réalité de notre territoire. Les Talençais (es) ainsi que les partenaires associatifs et les services municipaux ont été sollicités pour participer à cette démarche vers une plus grande égalité. Le cabinet Anthropolead en charge de cette mission restituera les premiers résultats de l’enquête. Entrée libre.\n\nhttps://www.talence.fr/etat-des-lieux-du-sentiment-degalite-sur-le-territoire-de-talence/"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "0ecfda4104934965a7b576a477dd211a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 979,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0ecfda4104934965a7b576a477dd211a.full.image.jpg",
+            "size": {
+              "height": 2394,
+              "width": 1712
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0ecfda4104934965a7b576a477dd211a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-14T08:30:00.000Z",
+          "end": "2019-11-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-15T08:30:00.000Z",
+          "end": "2019-11-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-16T08:30:00.000Z",
+          "end": "2019-11-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-17T08:30:00.000Z",
+          "end": "2019-11-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-21T08:30:00.000Z",
+          "end": "2019-11-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T08:30:00.000Z",
+          "end": "2019-11-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T08:30:00.000Z",
+          "end": "2019-11-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-24T08:30:00.000Z",
+          "end": "2019-11-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-28T08:30:00.000Z",
+          "end": "2019-11-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-29T08:30:00.000Z",
+          "end": "2019-11-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-30T08:30:00.000Z",
+          "end": "2019-11-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-01T08:30:00.000Z",
+          "end": "2019-12-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-02T08:30:00.000Z",
+          "end": "2019-12-02T15:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-03T08:30:00.000Z",
+          "end": "2019-12-03T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-08T08:10:24.000Z",
+      "createdAt": "2019-10-29T09:27:47.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 83378419,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.talence.fr/etat-des-lieux-du-sentiment-degalite-sur-le-territoire-de-talence/",
+        "05 56 84 64 10"
+      ],
+      "location": {
+        "uid": 83378419,
+        "slug": "le-dome668",
+        "name": "Le Dôme",
+        "address": "221, avenue de Thouars",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.790907,
+        "longitude": -0.59146,
+        "updatedAt": "2017-02-15T11:26:04.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 69147421,
+      "ownerUid": 56179491,
+      "creatorUid": 56179491,
+      "slug": "the-vox-corner-party-3",
+      "title": {
+        "fr": "The Vox Corner Party #3"
+      },
+      "description": {
+        "fr": "Les élèves de chant de The Vox Corner vont vous faire danser sur des morceaux hauts en couleurs et pleins de soleil cet hiver ! Rythmes endiablés latinos et tubes hyper groovy qui donnent la ..."
+      },
+      "longDescription": {
+        "fr": "Après le succès des 2eres éditions, la Vox Corner Party de Corinne Calcamuggi est de retour !!\n\nTU DANSES OU TU DANSES ?\n\nLes élèves de chant de The Vox Corner vont vous faire danser sur des morceaux hauts en couleurs et pleins de soleil cet hiver ! Rythmes endiablés latinos et tubes hyper groovy qui donnent la pêche ! Pour les accompagner, nous avons invité les incontournables musiciens du Trio Del Sol qui seront aux commandes avec cette énergie qui les caractérise si bien !\n\nAu menu :\n\nDaddy Yanki, Cesaria Evora, Salome de Bahia, Nicky Jam, OMI, Daft Punk, Bruno Mars, Avicii, Deorro, Gilberto Gil ...\n\n▬▬▬▬▬▬▬▬ INFOS PRATIQUES ▬▬▬▬▬▬▬▬\n\nBar et restauration sur place\n\nTarif : 13€\n\nOuverture des portes : 19h30\n\nDébut des concerts : 20h45\n\nRue Walter Scott 33600 Pessac // Parking gratuit\n\nⓉ Tram B : arrêt France Alouette\n\nⒷ Bus 4/36 44 : arrêt France Alouette\n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
+      },
+      "keywords": {
+        "fr": [
+          "groove",
+          "latino",
+          "tube",
+          "ecole",
+          "musique",
+          "vox",
+          "corner",
+          "concert des eleves"
+        ]
+      },
+      "conditions": {
+        "fr": "13 euros"
+      },
+      "image": {
+        "filename": "event_the-vox-corner-party-3_44527.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_the-vox-corner-party-3_44527.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_the-vox-corner-party-3_44527.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-20T19:30:00.000Z",
+          "end": "2019-12-20T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-29T09:56:59.000Z",
+      "createdAt": "2019-10-28T15:57:43.000Z",
+      "agendaUid": 86013541,
+      "locationUid": 40364527,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.weezevent.com/the-vox-corner-party-3"
+      ],
+      "location": {
+        "uid": 40364527,
+        "slug": "sortie-13-expos-and-concerts",
+        "name": "Sortie 13 - Expos & Concerts",
+        "address": "rue walter scott 33600 pessac",
+        "city": "Pessac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33600",
+        "insee": "33318",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.801397,
+        "longitude": -0.660211,
+        "updatedAt": "2018-03-29T14:46:09.000Z",
+        "image": "location40364527.jpg",
+        "description": {},
+        "website": "http://www.sortie-13.com",
+        "phone": "0556364843",
+        "links": [
+          "https://www.facebook.com/sortie13pessac/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "sortie-13",
+        "uid": 86013541,
+        "official": 0,
+        "title": "SORTIE 13",
+        "description": "Salle de concert et lieu d'exposition.\nBar & restauration sur place, 5 salles de 12 à 30 m² insonorisées.\n600 m² dédiés à la musique et aux arts visuels",
+        "url": "http://www.sortie-13.com",
+        "image": "agenda86013541.jpg",
+        "updatedAt": "2020-01-24T16:26:03.000Z",
+        "createdAt": "2018-03-29T14:35:53.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2050958
+}

@@ -133,6 +133,11 @@ describe('core - functional (server): core.agendas().events.list()', function() 
         }
       });
     });
+
+    it('sourceAgendas are provided', async () => {
+      const events = await core.agendas(2).events.list({}, { limit: 2 }, { detailed: true });
+      events[1].sourceAgendas.length.should.equal(1);
+    });
   });
 
   describe('list with access option', () => {

@@ -1,0 +1,1460 @@
+{
+  "events": [
+    {
+      "uid": 88621741,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "concertation-boulevards-balade-en-marchant_649738",
+      "title": {
+        "fr": "Concertation Boulevards : balade en marchant"
+      },
+      "description": {
+        "fr": "Dans le cadre de la concertation des boulevards et des barrières, Bordeaux Métropole vous invite à \"une balade en marchant\"."
+      },
+      "longDescription": {
+        "fr": "DANS LE CADRE DE LA CONCERTATION DES BOULEVARDS\n\nET DES BARRIÈRES, BORDEAUX MÉTROPOLE VOUS INVITE À\n\n**UNE BALADE EN MARCHANT**\n\n**le samedi 8 février 2020**\n\nde 10h à 12h,\n\nrendez-vous à la station Ravezies Le Bouscat tramway C\n\n19 allée de Boutaut, au Bouscat\n\nInscription balade & atelier via notre formulaire en ligne."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Dans la limite des places disponibles."
+      },
+      "image": {
+        "filename": "0cfcec4af16e47689a4b26fdc1ea4e66.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 379
+        },
+        "variants": [
+          {
+            "filename": "0cfcec4af16e47689a4b26fdc1ea4e66.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 870,
+              "height": 470
+            }
+          },
+          {
+            "filename": "0cfcec4af16e47689a4b26fdc1ea4e66.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-30T14:12:56.000Z",
+      "createdAt": "2020-01-30T14:12:56.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 26196381,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://inscription.bordeaux-metropole.fr/balade-et-atelier-pour-la-concertation-des-boulevards"
+      ],
+      "location": {
+        "uid": 26196381,
+        "slug": "station-ravezies-tram-c",
+        "name": "Station Ravezies tram C",
+        "address": "place Ravezies",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Chartrons - Grand Parc - Jardin Public",
+        "latitude": 44.865895,
+        "longitude": -0.575678,
+        "updatedAt": "2020-01-30T14:12:33.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [
+        40
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 8974964,
+      "ownerUid": 93251299,
+      "creatorUid": 93251299,
+      "slug": "atelier-comment-financer-sa-micro-entreprise",
+      "title": {
+        "fr": "Atelier Comment financer sa micro-entreprise"
+      },
+      "description": {
+        "fr": "Du 3 au 7 février, révélez votre talent d'entrepreneur(e) avec l'Adie !"
+      },
+      "longDescription": {
+        "fr": "Retrouvons nous à Bordeaux, le 4 février avec la maison de l'emploi pour un atelier \"comment financer sa micro-entreprise\""
+      },
+      "keywords": {
+        "fr": [
+          "entrepreneuriat",
+          "entreprendre"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "61ae64a7de8c48d685cc6b95c18295b2.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 991
+        },
+        "variants": [
+          {
+            "filename": "61ae64a7de8c48d685cc6b95c18295b2.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1753,
+              "height": 2480
+            }
+          },
+          {
+            "filename": "61ae64a7de8c48d685cc6b95c18295b2.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-27T09:29:35.000Z",
+      "createdAt": "2020-01-27T09:29:35.000Z",
+      "agendaUid": 82566930,
+      "locationUid": 71925574,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 71925574,
+        "slug": "maison-de-lemploi-de-bordeaux",
+        "name": "Maison de l’emploi de Bordeaux",
+        "address": "Immeuble Arc-en-ciel, 127 avenue Emile Counord – 33000 Bordeaux)",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.860735,
+        "longitude": -0.575169,
+        "updatedAt": "2019-01-23T11:02:06.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "adie-nouvelleaquitaine",
+        "uid": 82566930,
+        "official": 1,
+        "title": "Adie Nouvelle-Aquitaine",
+        "description": "L’Adie défend l’idée que chacun peut entreprendre. Son réseau de spécialistes finance et accompagne les créateurs d’entreprise pour une économie plus inclusive.",
+        "url": "http://www.adie.org",
+        "image": "agenda82566930.jpg",
+        "updatedAt": "2020-01-27T09:29:37.000Z",
+        "createdAt": "2017-05-16T09:27:59.000Z",
+        "officializedAt": "2018-06-12T13:19:14.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 54256579,
+      "ownerUid": 93251299,
+      "creatorUid": 93251299,
+      "slug": "revelez-votre-talent-dentrepreneur-avec-ladie",
+      "title": {
+        "fr": "Révélez votre talent d'entrepreneur avec l'Adie !"
+      },
+      "description": {
+        "fr": "Du 3 au 7 février, l'Adie Nouvelle-Aquitaine vous accompagne dans la construction et le financement de votre projet d'entreprise !"
+      },
+      "longDescription": {
+        "fr": "Du 3 au 7 février, l'Adie vous accompagne dans la construction et le financement de votre projet d'entreprise !\n\nFemmes, Jeunes, Seniors, des quartiers ou de la campagne, tout le monde, quel que soit son milieu, ses diplômes, son genre ou son âge, doit pouvoir accéder au financement et à l’accompagnement pour donner vie à son projet de création d’entreprise !\n\nPour informer les futurs entrepreneurs de tous horizons l’Adie et ses partenaires, organisent une semaine d’action avec chaque jour en Nouvelle-Aquitaine :\n\n• Des ateliers thématiques, des forums, des journées portes ouvertes, des cafés créateurs etc. partout en Nouvelle-Aquitaine\n\n• Des webconférences gratuites accessibles où que vous soyez !\n\nListe des évènements à venir sur www.adie.org/nos-ateliers/"
+      },
+      "keywords": {
+        "fr": [
+          "entrepreneuriat",
+          "entreprendre",
+          "création d'entreprise"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "884cca88dda04a2f95719d728dfff465.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 991
+        },
+        "variants": [
+          {
+            "filename": "884cca88dda04a2f95719d728dfff465.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 842,
+              "height": 1191
+            }
+          },
+          {
+            "filename": "884cca88dda04a2f95719d728dfff465.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-03T08:00:00.000Z",
+          "end": "2020-02-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T08:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-27T09:25:45.000Z",
+      "createdAt": "2020-01-27T09:25:45.000Z",
+      "agendaUid": 82566930,
+      "locationUid": 1331205,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 1331205,
+        "slug": "adie-aquitaine",
+        "name": "Adie Aquitaine",
+        "address": "11, rue Général Delestraint 33310 LORMONT",
+        "city": "Lormont",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33310",
+        "insee": "33249",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.874377,
+        "longitude": -0.522189,
+        "updatedAt": "2017-09-29T12:23:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "adie-nouvelleaquitaine",
+        "uid": 82566930,
+        "official": 1,
+        "title": "Adie Nouvelle-Aquitaine",
+        "description": "L’Adie défend l’idée que chacun peut entreprendre. Son réseau de spécialistes finance et accompagne les créateurs d’entreprise pour une économie plus inclusive.",
+        "url": "http://www.adie.org",
+        "image": "agenda82566930.jpg",
+        "updatedAt": "2020-01-27T09:29:37.000Z",
+        "createdAt": "2017-05-16T09:27:59.000Z",
+        "officializedAt": "2018-06-12T13:19:14.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 82523953,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "concertation-boulevards-atelier-de-proximite",
+      "title": {
+        "fr": "Concertation Boulevards : atelier de proximité"
+      },
+      "description": {
+        "fr": "Dans le cadre de la concertation des boulevards et des barrières, Bordeaux Métropole vous invite à  \"un atelier de proximité\" le 20 février."
+      },
+      "longDescription": {
+        "fr": "DANS LE CADRE DE LA CONCERTATION DES BOULEVARDS\n\nET DES BARRIÈRES, BORDEAUX MÉTROPOLE VOUS INVITE À\n\n**UN ATELIER DE PROXIMITÉ**\n\nSection entre la barrière du Médoc et le nord du boulevard Brandenburg\n\n**le jeudi 20 février 2020**\n\nà 18h30,\n\nSalle Point du jour\n\n44 rue Joseph Brunet, à Bordeaux\n\n\\> ligne tramway B, arrêt station Brandenburg\n\n\\> lignes de bus 9, 25, 76, arrêt Brandenburg\n\nInscription balade & atelier via notre formulaire en ligne"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Dans la limite des places disponibles"
+      },
+      "image": {
+        "filename": "8343090a7d9a47f2baa7d0e2ce55aeb3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 379,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8343090a7d9a47f2baa7d0e2ce55aeb3.full.image.jpg",
+            "size": {
+              "height": 470,
+              "width": 870
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8343090a7d9a47f2baa7d0e2ce55aeb3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-20T17:30:00.000Z",
+          "end": "2020-02-20T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T15:50:22.000Z",
+      "createdAt": "2020-01-30T14:16:33.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 51012460,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://inscription.bordeaux-metropole.fr/node/36/"
+      ],
+      "location": {
+        "uid": 51012460,
+        "slug": "salle-du-point-du-jour",
+        "name": "salle du Point du jour",
+        "address": "44 rue Joseph Brunet",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Maritime",
+        "latitude": 44.876276,
+        "longitude": -0.544248,
+        "updatedAt": "2020-01-30T14:15:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "thematiques-bordeaux-metropole": [
+        40
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 75079993,
+      "ownerUid": 20534583,
+      "creatorUid": 20534583,
+      "slug": "atelier-photo-association-idi_89738",
+      "title": {
+        "fr": "Atelier photo - Association IDI"
+      },
+      "description": {
+        "fr": "Venez vous mettre en scène dans un décor inédit aux couleurs du Brésil !"
+      },
+      "longDescription": {
+        "fr": "iDi est une association qui a pour but de mettre en place des projets partagés de pratiques artistiques contemporaines. Elle propose de faire vivre et de transmettre la création numérique, autour du portrait et de l’image de soi.\n\nVous pourrez vous mettre en scène, seul ou à plusieurs, au sein d’un décor éphémère sur le thème du Brésil. Chaque participant pourra repartir avec sa photo imprimée. Un moment plein d’humour, de découverte, de rencontre et de création !\n\nSite web : [idi-asso.org](https://idi-asso.org)"
+      },
+      "keywords": {
+        "fr": [
+          "ateliers",
+          "photographie",
+          "creation"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_atelier-photo-association-idi_229128.jpg",
+        "credits": "Association IDI",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_atelier-photo-association-idi_229128.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_atelier-photo-association-idi_229128.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-06-14T17:00:00.000Z",
+          "end": "2019-06-14T21:00:00.000Z"
+        },
+        {
+          "begin": "2019-06-15T15:00:00.000Z",
+          "end": "2019-06-15T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-04-04T13:41:00.000Z",
+      "createdAt": "2019-04-04T13:40:40.000Z",
+      "agendaUid": 31170163,
+      "locationUid": 13553557,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 13553557,
+        "slug": "salle-gaston-et-jean-martin-stade-amoga",
+        "name": "Salle Gaston et Jean Martin - Stade A.Moga",
+        "address": "25 Rue Delphin Loche, 33130 Bègles",
+        "city": "Bègles",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33130",
+        "insee": "33039",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.806277,
+        "longitude": -0.552379,
+        "updatedAt": "2018-04-24T08:00:59.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "fete-de-la-morue",
+        "uid": 31170163,
+        "official": 1,
+        "title": "Fête de la Morue",
+        "description": "Fête populaire béglaise depuis plus de 20 ans, qui rassemble les visiteur·euse·s autour de de spectacles, théâtre de rue et autres rendez-vous farfelus.",
+        "url": "http://www.fetedelamorue.com",
+        "image": "agenda31170163.jpg",
+        "updatedAt": "2019-10-25T10:27:49.000Z",
+        "createdAt": "2017-03-22T13:57:29.000Z",
+        "officializedAt": "2018-04-23T08:06:16.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 3114135,
+      "ownerUid": 11148426,
+      "creatorUid": 11148426,
+      "slug": "insitu-lire-le-monde-lire-ma-ville_78109",
+      "title": {
+        "fr": "INSITU / Lire le monde, lire ma ville"
+      },
+      "description": {
+        "fr": "Les Archives Bordeaux Métropole accueillent la soirée d’ouverture du marathon littéraire  organisé par l’association Lettres du monde en présence de l’auteure et scénariste Négar Djavadi."
+      },
+      "longDescription": {
+        "fr": "L’association développe un riche programme autour de textes d’auteurs étrangers mis en voix par des comédiens. Une quinzaine de lecture est ainsi proposée dans des espaces habituellement non dédiés à l'expression culturelle. Quinze lieux insolites dans Bordeaux et la métropole qui entrent en correspondance avec quinze textes choisis par les bibliothécaires des villes partenaires, pour des lectures de 20 minutes.\n\nInscription et programme sur https://lettresdumonde33.com/"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "event_insitu-lire-le-monde-lire-ma-ville_394330.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_insitu-lire-le-monde-lire-ma-ville_394330.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_insitu-lire-le-monde-lire-ma-ville_394330.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-07-05T16:30:00.000Z",
+          "end": "2019-07-05T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-05-27T09:33:49.000Z",
+      "createdAt": "2019-05-27T09:33:48.000Z",
+      "agendaUid": 70173944,
+      "locationUid": 8150947,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lettresdumonde33.com/"
+      ],
+      "location": {
+        "uid": 8150947,
+        "slug": "archives-bordeaux-metropole834",
+        "name": "Archives Bordeaux Métropole",
+        "address": "Parvis des Archives, Bordeaux",
+        "city": "Bordeaux",
+        "region": null,
+        "department": null,
+        "postalCode": "33100",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.846773,
+        "longitude": -0.554291,
+        "updatedAt": "2018-01-11T10:16:09.000Z",
+        "image": "location8150947.jpg",
+        "description": {
+          "fr": "Les Archives Bordeaux Métropole collectent, conservent, classent et communiquent au public les archives qui leur sont confiées tant par les administrations métropolitaine et communales que par des particuliers, familles, entreprises ou associations. Elles proposent un programme tout public d’expositions, de visites, de conférences et d’ateliers.\nOuvert du lundi au vendredi de 9h30 à 17h"
+        },
+        "website": "http://archives.bordeaux-metropole.fr/",
+        "phone": "05 56 10 20 55",
+        "links": [
+          "https://www.facebook.com/ArchivesBxM/",
+          "https://twitter.com/ArchivesBxM"
+        ],
+        "access": {
+          "fr": "Entrée libre"
+        },
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": "© Archives Bordeaux Métropole, photo  Bernard Rakotomanga"
+      },
+      "custom_description": "Les Archives Bordeaux Métropole accueillent la soirée d’ouverture du marathon littéraire  organisé par l’association Lettres du monde en présence de l’auteure et scénariste Négar Djavadi.",
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "archives-bordeaux-metropole",
+        "uid": 70173944,
+        "official": 1,
+        "title": "Archives Bordeaux Métropole",
+        "description": "Programme des expositions, visites, conférences et ateliers des Archives Bordeaux Métropole.",
+        "url": "http://archives.bordeaux-metropole.fr/",
+        "image": "agenda70173944.jpg",
+        "updatedAt": "2020-01-21T08:18:28.000Z",
+        "createdAt": "2018-01-09T14:07:17.000Z",
+        "officializedAt": "2018-01-09T16:16:03.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 37341079,
+      "ownerUid": 89522188,
+      "creatorUid": 89522188,
+      "slug": "top-14-demi-finales-a-bordeaux_88921",
+      "title": {
+        "fr": "TOP-14 demi-finales à Bordeaux"
+      },
+      "description": {
+        "fr": "Les demi-finales du TOP 14 auront lieu à Bordeaux les 8 et 9 juin 2019 au stade Matmut Atlantique. Il est vivement conseillé de privilégier les transports en commun pour vos déplacements."
+      },
+      "longDescription": {
+        "fr": "Toutes les informations pratiques sur le site [sedeplacer.bordeaux-metropole.fr](https://sedeplacer.bordeaux-metropole.fr/Toutes-les-infos-circulation/Evenements/1-2-finales-TOP-14-de-rugby-conseils-de-circulation)"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_top-14-demi-finales-a-bordeaux_614895.jpg",
+        "credits": "Bordeaux Métropole",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_top-14-demi-finales-a-bordeaux_614895.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_top-14-demi-finales-a-bordeaux_614895.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-06-08T11:00:00.000Z",
+          "end": "2019-06-09T00:00:00.000Z"
+        },
+        {
+          "begin": "2019-06-09T11:00:00.000Z",
+          "end": "2019-06-09T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-06-03T16:11:10.000Z",
+      "createdAt": "2019-05-29T14:28:43.000Z",
+      "agendaUid": 27129502,
+      "locationUid": 78647133,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://sedeplacer.bordeaux-metropole.fr/Toutes-les-infos-circulation/Evenements/1-2-finales-TOP-14-de-rugby-conseils-de-circulation"
+      ],
+      "location": {
+        "uid": 78647133,
+        "slug": "stade-matmut-atlantique",
+        "name": "Stade Matmut Atlantique",
+        "address": "stade matmut atlantique bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.897374,
+        "longitude": -0.561592,
+        "updatedAt": "2017-09-06T09:36:39.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 51482460,
+      "ownerUid": 46498053,
+      "creatorUid": 46498053,
+      "slug": "atelier-maquillage_600",
+      "title": {
+        "fr": "Atelier maquillage"
+      },
+      "description": {
+        "fr": "Atelier maquillage gratuit pour enfants dans le cadre de la Fête Champêtre de Bassens."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "maquillage",
+          "enfant",
+          "fête"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_atelier-maquillage_600_244202.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_atelier-maquillage_600_244202.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_atelier-maquillage_600_244202.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-07-20T12:00:00.000Z",
+          "end": "2019-07-20T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-07-15T11:30:55.000Z",
+      "createdAt": "2019-07-15T11:30:54.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 74561103,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 74561103,
+        "slug": "plaine-des-sports-griffons-seguinaud",
+        "name": "Plaine des sports Griffons Séguinaud",
+        "address": "chemin du grand came, 33530 bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.888991,
+        "longitude": -0.521013,
+        "updatedAt": "2018-02-13T14:21:33.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": "Atelier maquillage gratuit pour enfants dans le cadre de la Fête Champêtre de Bassens.",
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 46764689,
+      "ownerUid": 72699902,
+      "creatorUid": 72699902,
+      "slug": "les-grenadines-givrees",
+      "title": {
+        "fr": "Les Grenadines Givrées"
+      },
+      "description": {
+        "fr": "Du 22 au 29 février à la Salle des Fêtes du Grand Parc, venez découvrir « Les Grenadines Givrées » des spectacles variés qui s’adressent à tout le monde, petits et grands !"
+      },
+      "longDescription": {
+        "fr": "Du samedi 22 au samedi 29 février 2020, la 5e éditition des “Grenadines Givrées” revient pour la seconde fois à la Salle des Fêtes du Grand Parc.\n\nCette année, la Boîte à Jouer propose une nouvelle édition de ce festival qui émerveillera toute la famille avec une programmation variée, pour faire vivre une multitude d’expériences artistiques et culturelles. Des compagnies de Bordeaux et d’ailleurs auront pour mission de surpasser l’édition 2019, qui avait ravi 1350 spectateurs, dont 700 enfants. De nouveaux visages pour de nouvelles expériences : les artistes des compagnies Entresols, Opéra Pagaï, Rêvolution, Sons de Toile, La Tendresse du Gravier… présents à l’édition précédente, laissent place aux compagnies Les 13 lunes, Mouka, Fabre/Sénou, Agnès et Joseph Doherty, Azul Bangor, Les Enfants du Paradis, le Josem et d’autres.\n\nLa jeunesse, au sens large, est au coeur des Grenadines Givrées, et ce festival permet de faire découvrir les arts du spectacle vivant.\n\nLa Boîte à Jouer propose des représentations et des activités diversifiées : s’entremêlent des spectacles, des ateliers, un bal, un coin détente dans le hall qui réjouira les plus jeunes. Les Grenadines s’adressent à tous les âges : du théâtre émerveillant les bébés, à la danse pour leurs frères, en passant par la marionnette pour leurs soeurs, pour finir par des lectures pour les parents. Il faut beaucoup de mauvaise volonté pour s’y ennuyer !\n\nCette manifestation ne laisse pas non plus le public plus âgé de côté, et des moments d’échanges entre les artistes et les visiteurs sont prévus, autour d’un chocolat chaud ou d’un goûter, comme le Thé Vinyle l’an passé où, à l’abri dans le hall de la salle des fêtes une bibliothèque a été installée, pour refaire le monde en musique. Une pièce de théâtre propose plusieurs actes, et le spectacle vivant offre une scène à chaque génération : le petit pitchoun, le vieux rebelle, l’adolescent sage, l’adulte qui doit continuer à rêver sont toutes et tous invité-e-s aux Grenadines Givrées !"
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "théâtre",
+          "musique",
+          "marionnette",
+          "spectacles",
+          "festival",
+          "famille",
+          "ateliers",
+          "vacances",
+          "activités",
+          "Bordeaux",
+          "février"
+        ]
+      },
+      "conditions": {
+        "fr": "5€ pour tout le monde / Pour les bébés de -1 an : 2€ / Pour les familles nombreuses : 2€ à partir du 4ème enfant. Carte Jeune : 1 place achetée = 1 place offerte. Modes de paiement : chèque, espèces ou carte bleue."
+      },
+      "image": {
+        "filename": "b51976c413e1449eaff9d4792951dc4c.base.image.jpg",
+        "credits": "Gilles Freluche",
+        "size": {
+          "height": 351,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b51976c413e1449eaff9d4792951dc4c.full.image.jpg",
+            "size": {
+              "height": 1183,
+              "width": 2363
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b51976c413e1449eaff9d4792951dc4c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T09:30:00.000Z",
+          "end": "2020-02-22T19:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T16:30:00.000Z",
+          "end": "2020-02-23T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T10:00:00.000Z",
+          "end": "2020-02-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:30:00.000Z",
+          "end": "2020-02-25T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T15:30:00.000Z",
+          "end": "2020-02-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T10:00:00.000Z",
+          "end": "2020-02-26T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T14:30:00.000Z",
+          "end": "2020-02-26T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T18:00:00.000Z",
+          "end": "2020-02-26T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T09:00:00.000Z",
+          "end": "2020-02-27T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T10:00:00.000Z",
+          "end": "2020-02-27T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T15:00:00.000Z",
+          "end": "2020-02-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T18:00:00.000Z",
+          "end": "2020-02-27T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T10:00:00.000Z",
+          "end": "2020-02-28T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T15:00:00.000Z",
+          "end": "2020-02-28T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T16:30:00.000Z",
+          "end": "2020-02-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T18:00:00.000Z",
+          "end": "2020-02-28T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T08:30:00.000Z",
+          "end": "2020-02-29T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T10:30:00.000Z",
+          "end": "2020-02-29T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T14:30:00.000Z",
+          "end": "2020-02-29T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T17:00:00.000Z",
+          "end": "2020-02-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T18:30:00.000Z",
+          "end": "2020-02-29T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-31T15:50:10.000Z",
+      "createdAt": "2020-01-31T15:43:01.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 39223558,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "06 14 36 47 92",
+        "reservation@laboiteajouer.com",
+        "http://www.laboiteajouer.com"
+      ],
+      "location": {
+        "uid": 39223558,
+        "slug": "salle-des-fetes-du-grand-parc80",
+        "name": "Salle des Fêtes du Grand Parc",
+        "address": "39 Cours de Luze",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.856735,
+        "longitude": -0.578889,
+        "updatedAt": "2019-02-28T08:18:09.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "La Boîte à Jouer a le plaisir de vous annoncer son festival « Les Grenadines Givrées » qui aura lieu à la Salle des Fêtes du Grand Parc du 22 au 29 février. Pendant la première semaine des vacances d’hiver, venez découvrir des spectacles variés qui s’adressent à tout le monde, petits et grands ! \n\nThéâtre, danse, musique, conte, marionnette… des ateliers et un bal qui se regroupent autour d’une même envie : vous rassembler pour partager un bon moment !\n\nPetit bonus avec la halte-garderie culturelle « Les P’tits Couch’tard » du Collectif Bordonor : 2 spectacles ont lieu en même temps, dans le même lieu, un pour les grands et un pour les bébés. Des animateurs professionnels sont là pour s’occuper des plus petits. \n\nEt on clôture les festivités avec un apéro-concert gratuit ! \n\nCôté pratique : 5€ pour tout le monde / Pour les bébés de -1 an : 2€ / Pour les familles nombreuses : 2€ à partir du 4ème enfant.\nCarte Jeune : 1 place achetée = 1 place offerte.\nPour les groupes et structures : contactez-nous.\nPaiement sur place avant le spectacle.\nModes de paiement : chèque, espèces ou carte bleue.\nCertains spectacles sont accessibles aux malvoyants et aux malentendants.  \nVous pouvez retrouver l’ensemble des spectacles sur notre site internet : www.laboiteajouer.com\nPensez à réserver au 06 14 36 47 92 ou bien sur reservation@laboiteajouer.com",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 64895344,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "volbeat",
+      "title": {
+        "fr": "Volbeat"
+      },
+      "description": {
+        "fr": "Après 20 ans de carrière et des tournées aux côtés de Metallica, Motörhead ou Slipknot, les Danois de Volbeat poursuivent le show avec un septième album, Rewind, Replay, Rebound."
+      },
+      "longDescription": {
+        "fr": "Une nouvelle fournée pleine de tubes en puissance, dans la même veine - solide - que les albums précédents, voilà Volbeat qui revient, plus mélodique que jamais,  avec ses titres entêtants, ses accents metal et rockabilly, ses riffs puissants. On succombe toujours autant à la voix caractéristique, si intense, de Michael Poulsen et à la virtuosité des musiciens. Une expérience à vivre en live, avec un groupe qui ne croit pas à la perfection mais donne une âme à sa musique. Un rock robuste et léger à la fois, incontournable pour les amateurs du genre."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "volbeat",
+          "metal"
+        ]
+      },
+      "conditions": {
+        "fr": "Plein tarif : 28€ / Tarif abonné : 25€"
+      },
+      "image": {
+        "filename": "8f9782e5f7364a18af0b2d30b6447f33.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "8f9782e5f7364a18af0b2d30b6447f33.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "8f9782e5f7364a18af0b2d30b6447f33.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-26T18:30:00.000Z",
+          "end": "2020-06-26T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-12T02:05:16.000Z",
+      "createdAt": "2020-02-01T02:05:07.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/volbeat/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2152086
+}

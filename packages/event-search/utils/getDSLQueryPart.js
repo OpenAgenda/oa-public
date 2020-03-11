@@ -64,6 +64,10 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_dateExcludingOngoing(cleanQuery.date));
   }
 
+  if (_.get(cleanQuery, 'sourceAgendaUid', []).length) {
+    parts.push(_filterBySourceAgendaUid(cleanQuery.sourceAgendaUid));
+  }
+
   Object.keys(termsFiltersMap)
     .filter(key => cleanQuery[key] && cleanQuery[key].length)
     .forEach(key => {
@@ -148,13 +152,9 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
 
 
 function _dateExcludingOngoing( d ) {
-
   let range = {};
-
-  if ( d.gte ) range.gte = d.gte;
-
-  if ( d.lte ) range.lte = d.lte;
-
+  if (d.gte) range.gte = d.gte;
+  if (d.lte) range.lte = d.lte;
 
   return {
     nested: {
@@ -167,12 +167,34 @@ function _dateExcludingOngoing( d ) {
       }
     }
   }
+}
 
+function _filterBySourceAgendaUid(sourceAgendaUid) {
+  const uids = [].concat(sourceAgendaUid);
+  const filter = uids.length > 1 ? {
+    terms: {
+      'sourceAgendas.uid': uids
+    }
+  } : {
+    term: {
+      'sourceAgendas.uid': uids[0]
+    }
+  };
+
+  return {
+    nested: {
+      path: 'sourceAgendas',
+      query: {
+        bool: {
+          filter: [filter]
+        }
+      }
+    }
+  }
 }
 
 
 function _localTime( t ) {
-
   let range = {};
 
   if ( t.gte ) range.gte = t.gte;
@@ -183,16 +205,14 @@ function _localTime( t ) {
     nested: {
       path: 'timings',
       score_mode: 'min',
-      query: { range: {
+      query: { range: {
         'timings._search_begin_from_midnight' : range
       } }
     }
   };
-
 }
 
 function _geoBounds( b ) {
-
   return {
     geo_bounding_box: {
       _search_location: {
@@ -201,7 +221,6 @@ function _geoBounds( b ) {
       }
     }
   }
-
 }
 
 function _mustPart(queryType, fieldName, value) {

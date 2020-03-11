@@ -13,7 +13,7 @@ const _ = {
   assign: require('lodash/assign'),
   omit: require('lodash/omit'),
   get: require('lodash/get')
-}
+};
 
 schema.register({
   integer: require('@openagenda/validators/integer'),

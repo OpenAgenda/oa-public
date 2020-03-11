@@ -1,0 +1,1546 @@
+{
+  "events": [
+    {
+      "uid": 45828554,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "pierre-et-le-loup_547383",
+      "title": {
+        "fr": "Pierre et le loup"
+      },
+      "description": {
+        "fr": "Pierre et le loup, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "pierre et le loup",
+          "danse"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif adulte : 24€ / Tarif enfant -12 ans : 17€"
+      },
+      "image": {
+        "filename": "6d2faf1a1dc147afb93b2be3980cf0f8.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "6d2faf1a1dc147afb93b2be3980cf0f8.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "6d2faf1a1dc147afb93b2be3980cf0f8.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-04T13:30:00.000Z",
+          "end": "2020-01-04T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-15T02:05:08.000Z",
+      "createdAt": "2019-11-15T02:05:08.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/pierre.et.le.loup/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 84908657,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "pierre-et-le-loup_653254",
+      "title": {
+        "fr": "Pierre et le loup"
+      },
+      "description": {
+        "fr": "Pierre et le loup, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "pierre et le loup",
+          "danse"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif adulte : 24€ / Tarif enfant -12 ans : 17€"
+      },
+      "image": {
+        "filename": "c67244541dfc43f09b2764f3ce6f72ea.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "c67244541dfc43f09b2764f3ce6f72ea.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "c67244541dfc43f09b2764f3ce6f72ea.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-05T13:30:00.000Z",
+          "end": "2020-01-05T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-15T02:05:10.000Z",
+      "createdAt": "2019-11-15T02:05:10.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/pierre.et.le.loup/01.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 35625711,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "finales-championnat-de-france-par-equipes-pro-a",
+      "title": {
+        "fr": "Finales championnat de France par équipes Pro A"
+      },
+      "description": {
+        "fr": "Qui  succédera  au  Tennis  Club  de  Paris,  chez  les  dames,  et  à  l’US  Colomiers,  chez  les  messieurs,  au  palmarès  des  championnats  de  France  par  équipes  de  Pro  A ?"
+      },
+      "longDescription": {
+        "fr": "**Qui succédera au Tennis Club de Paris, chez les dames, et à l’US Colomiers, chez les messieurs, au palmarès des championnats de France par équipes de Pro A ?**\n\nLes championnats de France interclubs seniors évoluent...Sous l'impulsion de la gouvernance de la FFT et de la commission fédérale seniors, les deux divisions supérieures des championnats de France Interclubs Seniors s'appellent désormais Pro A et Pro B.Autre nouveauté majeure du millésime, le format des matchs en simple change. Ceux-ci se disputent désormais au meilleur des trois manches avec application d’un super jeu décisif à 10 points en cas d’égalité à une manche partout. Enfin, les finales messieurs et dames se dérouleront cette année le même jour, soit le samedi 7 décembre.\n\n**LE FORMAT DES RENCONTRES**\n\nChaque rencontre est constituée de 4 simples et 2 doubles.\n\nToutes les rencontres débuteront à 11 heures.\n\n• Format des matchs\n\nSimple : les matchs se disputent au meilleur des 3 manches avec application d’un super jeu décisif à 10 points en cas d’égalité à une manche partout.\n\nDouble : application dans les 2 premières manches du point décisif (no-ad) et un super jeu décisif à 10 points en cas d’égalité à une manche partout.\n\n• Les parties sont disputées dans l’ordre suivant : simples 4 et 2, puis 3 et 1, puis doubles.\n\n• Chaque équipe marque 1 point par partie gagnée.\n\n• Points attribués :\n\n\\- 3 points pour une victoire ;\n\n\\- 2 points pour une rencontre nulle ;\n\n\\- 1 point pour une défaite ;\n\n\\- moins 1 point au club dont l’équipe a été disqualifiée par décision du juge arbitre ou de la commission compétente ;\n\n\\- moins 2 points pour un forfait.\n\nEn cas d’égalité de points, les critères suivants s’appliquent pour déterminer le classement de la poule : meilleure différence de matchs, puis meilleure différence de sets, puis meilleure différence de jeux.\n\n**LIGUE DE TENNISDE NOUVELLE-AQUITAINE**\n\n2 ALLÉE PIERRE DE COUBERTIN 33400 TALENCE"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e2488da2287b4c988c5b4ba3660ff175.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 899
+        },
+        "variants": [
+          {
+            "filename": "e2488da2287b4c988c5b4ba3660ff175.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1704,
+              "height": 2186
+            }
+          },
+          {
+            "filename": "e2488da2287b4c988c5b4ba3660ff175.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-07T08:00:00.000Z",
+          "end": "2019-12-07T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T08:13:25.000Z",
+      "createdAt": "2019-11-18T08:13:25.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 97531234,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.fft.fr"
+      ],
+      "location": {
+        "uid": 97531234,
+        "slug": "2-allee-pierre-de-coubertin",
+        "name": "2,  allée  Pierre  de  Coubertin",
+        "address": "2,  allée  Pierre  de  Coubertin 33400 Talence",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": null,
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": "Brivazac-Candau",
+        "latitude": 44.800899,
+        "longitude": -0.60397,
+        "updatedAt": "2019-11-18T08:13:01.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 51,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        54892589
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-talence",
+          "uid": 54892589,
+          "official": 1,
+          "title": "Ville de Talence",
+          "description": "Agenda de tous les événements de la commune de Talence.",
+          "url": "http://www.talence.fr",
+          "image": "agenda54892589.jpg",
+          "updatedAt": "2020-02-13T08:50:36.000Z",
+          "createdAt": "2017-02-10T16:12:45.000Z",
+          "officializedAt": "2019-04-05T11:29:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 92601464,
+      "ownerUid": 46498053,
+      "creatorUid": 46498053,
+      "slug": "troc-de-plantes_675982",
+      "title": {
+        "fr": "Troc de plantes"
+      },
+      "description": {
+        "fr": "Venez échanger, donner et recevoir plantes et conseils de jardinage. Entrée libre et gratuite. Proposé par le SEL Rive Douce (Système d'échnage local)"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "troc",
+          "plantes",
+          "SEL"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "7e3a79d0d1ee4a388e3e850b9e1ec75b.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "7e3a79d0d1ee4a388e3e850b9e1ec75b.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 5760,
+              "height": 3840
+            }
+          },
+          {
+            "filename": "7e3a79d0d1ee4a388e3e850b9e1ec75b.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-23T13:00:00.000Z",
+          "end": "2019-11-23T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-19T10:42:44.000Z",
+      "createdAt": "2019-11-18T15:56:24.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 49721617,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "06 89 42 06 04",
+        "http://selrivedouce.communityforge.net"
+      ],
+      "location": {
+        "uid": 49721617,
+        "slug": "salle-laffue",
+        "name": "Salle Laffue",
+        "address": "rue Laffue, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.913736,
+        "longitude": -0.516728,
+        "updatedAt": "2018-02-14T09:18:56.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 57,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 86346401,
+      "ownerUid": 32181685,
+      "creatorUid": 32181685,
+      "slug": "visite-guidee-gratuite-human-naturenature-humaine",
+      "title": {
+        "fr": "visite guidée gratuite HUMAN NATURE/NATURE HUMAINE"
+      },
+      "description": {
+        "fr": "visite commentée par les artistes + vernissage"
+      },
+      "longDescription": {
+        "fr": "Visite guidée gratuite\n\nLe samedi 14 décembre à partir de 11h, les artistes du groupe Dialogue invitent à une déambulation artistique et guidée dans le jardin\n\nà la découverte de leurs oeuvres.\n\nCe moment d’échange sera également l’occasion non seulement de se retrouver devant un verre mais surtout de présenter le catalogue tiré de l’exposition en vente à l’accueil du Jardin : photos des oeuvres et commentaires des artistes, l’ouvrage développe en profondeur la manière dont a été construite l’exposition Human nature / Nature humaine.\n\nRendez-vous donc, quai de Queyries pour une belle promenade."
+      },
+      "keywords": {
+        "fr": [
+          "vernissage",
+          "visite guidée",
+          "nature humaine",
+          "gratuit",
+          "jardin botanique"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "400551a5034e4fd09051be9ddc874b7d.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 444
+        },
+        "variants": [
+          {
+            "filename": "400551a5034e4fd09051be9ddc874b7d.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 3621,
+              "height": 2293
+            }
+          },
+          {
+            "filename": "400551a5034e4fd09051be9ddc874b7d.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-14T10:00:00.000Z",
+          "end": "2019-12-14T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T16:59:49.000Z",
+      "createdAt": "2019-11-18T16:59:49.000Z",
+      "agendaUid": 99562884,
+      "locationUid": 44013339,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 44013339,
+        "slug": "jardin-botanique-entree-quai-de-queyries",
+        "name": "jardin Botanique entrée quai de Queyries",
+        "address": "quai de Queyries b",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": null,
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "La Bastide",
+        "latitude": 44.841675,
+        "longitude": -0.562522,
+        "updatedAt": "2019-11-18T16:57:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 55,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        99562884
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "jardin-botanique-bordeaux",
+          "uid": 99562884,
+          "official": 1,
+          "title": "JARDIN BOTANIQUE BORDEAUX",
+          "description": "programme des manifestations, expositions, animations...",
+          "url": "http://jardin-botanique-bordeaux.fr/",
+          "image": "agenda99562884.jpg",
+          "updatedAt": "2020-02-04T14:53:38.000Z",
+          "createdAt": "2018-10-10T10:32:59.000Z",
+          "officializedAt": "2018-12-19T11:22:19.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "jardin-botanique-bordeaux",
+        "uid": 99562884,
+        "official": 1,
+        "title": "JARDIN BOTANIQUE BORDEAUX",
+        "description": "programme des manifestations, expositions, animations...",
+        "url": "http://jardin-botanique-bordeaux.fr/",
+        "image": "agenda99562884.jpg",
+        "updatedAt": "2020-02-04T14:53:38.000Z",
+        "createdAt": "2018-10-10T10:32:59.000Z",
+        "officializedAt": "2018-12-19T11:22:19.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 40292388,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "julie-lagarrigue-amours-sorcieres",
+      "title": {
+        "fr": "Julie Lagarrigue « Amours sorcières »"
+      },
+      "description": {
+        "fr": "La chanteuse Julie Lagarrigue fête la sortie de son nouvel album, entourée des musiciens qui l’ont accompagnée dans cette aventure."
+      },
+      "longDescription": {
+        "fr": "Quand la musique panse… La musicienne Julie Lagarrigue est aussi art thérapeute et s’interroge sur le soin qu’on peut porter à l’autre à travers des chansons. Celle qui, enfant, s’endormait dans les églises froides où résonnaient des concerts d’orgues, s’imprègne aujourd’hui d’influences beaucoup plus chaudes : guitares brésiliennes, oud du Maghreb, percussions réunionnaises échafaudent autour du piano des arrangements en équilibre délicat au service de textes fantaisistes et poétiques. Imprégnée de chanson française - de Barbara à Camille en passant par Anne Sylvestre, Mathieu Boogaerts ou Emily Loizeau - Julie Lagarrigue se penche une fois de plus, dans son dernier disque, Amours Sorcières, sur la fragilité des êtres et la nécessité d’accepter notre vulnérabilité. Un message et des notes qui font du bien."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "julie lagarrigue",
+          "chanson"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 10€"
+      },
+      "image": {
+        "filename": "ede9544a307648a1ab40525cf25aa049.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "ede9544a307648a1ab40525cf25aa049.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "ede9544a307648a1ab40525cf25aa049.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-21T19:30:00.000Z",
+          "end": "2020-02-21T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-19T02:05:07.000Z",
+      "createdAt": "2019-11-19T02:05:07.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/julie.lagarrigue/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 19925014,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "paul-personne_889900",
+      "title": {
+        "fr": "Paul Personne"
+      },
+      "description": {
+        "fr": "Après avoir rempli à craquer l’Entrepôt du Haillan en octobre dernier, le plus connu des bluesmen français revient avec son nouvel album, cette fois-ci au Rocher !"
+      },
+      "longDescription": {
+        "fr": "Paul Personne, c’est une voix éraillée qui chante en français, associée à un son de guitare rugueux et jubilatoire, le tout donnant un blues iconique. S’il n’a jamais cherché à être un virtuose, un guitar hero, il est ce qui s’en rapproche le plus, autant en studio qu’en live. Après plus de 30 ans de carrière, Paul Personne revient avec un nouvel album écrit, composé et enregistré entre la Normandie et Bruxelles : Funambule (Ou tentative de survie en milieu hostile). Un album chaud et électrique comme sait le faire Paul Personne, avec des textes en forme de coups de gueule et des riffs blues-rock bien assaisonnés. Un vrai bonheur de le retrouver."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "paul personne",
+          "rock",
+          "blues"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 37€ / Plein tarif : 35€ / Tarif abonné : 32€ - Places numérotées"
+      },
+      "image": {
+        "filename": "78caa86340204d9c89ac9e6c8277884b.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "78caa86340204d9c89ac9e6c8277884b.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "78caa86340204d9c89ac9e6c8277884b.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-04T19:30:00.000Z",
+          "end": "2020-03-04T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T02:05:29.000Z",
+      "createdAt": "2019-11-19T02:05:09.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/paul.personne/03.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 85079649,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "tom-ibarra",
+      "title": {
+        "fr": "Tom Ibarra Group"
+      },
+      "description": {
+        "fr": "À seulement 20 ans, le guitariste prodige Tom Ibarra a déjà partagé la scène avec Didier Lockwood et Marcus Miller… et il sort son troisième album !"
+      },
+      "longDescription": {
+        "fr": "Non seulement il a un talent fou, mais il est également terriblement attachant : Tom Ibarra, guitariste et compositeur précoce (il a écrit ses premiers morceaux à onze ans !), aurait toutes les raisons de crâner, mais ce n’est pas du tout son genre. Aussi modeste que brillant, le Bordelais s’impose depuis quelques années comme LA relève du jazz et mène sa carrière avec beaucoup d’instinct et de détermination. À l’issue d’une résidence artistique au Rocher de Palmer fin février, il présentera en concert son troisième album, entouré d’autres excellents jeunes musiciens."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "tom ibarra group",
+          "jazz"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 17€ / Plein tarif : 15€ / Tarif abonné : 10€"
+      },
+      "image": {
+        "filename": "ad8b364c852c4e84bcf83230b75f89e0.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "ad8b364c852c4e84bcf83230b75f89e0.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "ad8b364c852c4e84bcf83230b75f89e0.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-12T19:30:00.000Z",
+          "end": "2020-03-12T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-22T02:05:16.000Z",
+      "createdAt": "2019-11-19T02:05:10.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/tom.ibarra/03.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 73308320,
+      "ownerUid": 7830949,
+      "creatorUid": 7830949,
+      "slug": "jeudi-de-la-transition-la-data-est-elle-un-boulet-ecologique",
+      "title": {
+        "fr": "Conférence débat - La data : menace pour l'environnement ?"
+      },
+      "description": {
+        "fr": "Les technologies de l’information, les data-centers, les datas, ont un coût environnemental qui n'a rien de virtuel. Peuvent-elles être une source d'opportunité en matière de transition écologique?"
+      },
+      "longDescription": {
+        "fr": "### Dans le cadre des jeudis de la transition, la Maison Écocitoyenne et l'Échoppe s'associent pour proposer un cycle de conférence sur la sobriété numérique.\n\n**▶ RDV JEUDI 28 NOV :**\n------------------------\n\n**LA DATA : MENACE POUR L'ENVIRONNEMENT** ?\n-------------------------------------------\n\nQuel est l'empreinte carbone d'un data-center ? Très gourmand en ressources lors de la fabrication des équipements, sujet à une obsolescence programmée, Data-center et environnement sont-ils antinomiques ?\n\nLes perspectives des besoins de données avec la montée en puissance de la e-santé, de la SmartCity, de la mobilité connectée, et l'arrivée de la technologie 5G sont autant de raisons de concilier centre de données et écologie.\n\n**Oui mais comment ?**\n\nPour nous éclairer et répondre à nos questions :\n\n*   **Hugues Ferreboeuf, Directeur du numérique à** [**ShiftProject**](https://theshiftproject.org/)\n\nIngénieur polytechnicien et diplômé de Télécom ParisTech, Hugues Ferreboeuf a dirigé plusieurs sociétés du secteur numérique et est directeur associé au sein de Virtus Management. Il coordonne par ailleurs au sein du Shift Project, think tank qui oeuvre en faveur d’une économie libérée de la contrainte carbone.\n\n*   **Nicolas SAINTHERANT, Responsable innovation de** [**Qarnot**](https://www.qarnot.com/fr/home-fr/)\n\nQarnot est la première entreprise au monde à chauffer des bâtiments et de l'eau grâce à la chaleur des ordinateurs, la chaleur fatale informatique.\n\nQarnot a récemment installé près de 350 radiateurs-ordinateurs pour chauffer une résidence de 49 logements sociaux et deux niveaux de bureaux, à Bordeaux.\n\n*   **Nathalie QUENEL-TUEUX, coordonnatrice du** [**Groupe Santé Numérique de l'Institut Bergonié**](https://www.bergonie.fr/essais_cliniques/e-domsante/)\n\nMédecin-pilote du projet e-Domsanté : suivi et aide à distance grâce au numérique de patients atteints de cancer métastatique, pour éviter des consultations inutiles et des passages aux urgences dans le but d'améliorer la qualité de vie de ces patients."
+      },
+      "keywords": {
+        "fr": [
+          "numerique",
+          "conference",
+          "web",
+          "ecologie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "ec1be8a0291b4fbc90004c225ae9bef7.base.image.jpg",
+        "credits": "Mairie de Bordeaux",
+        "size": {
+          "height": 507,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ec1be8a0291b4fbc90004c225ae9bef7.full.image.jpg",
+            "size": {
+              "height": 2539,
+              "width": 3508
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ec1be8a0291b4fbc90004c225ae9bef7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-28T17:00:00.000Z",
+          "end": "2019-11-28T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-21T14:50:55.000Z",
+      "createdAt": "2019-10-31T14:55:49.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2020-02-03T09:57:09.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 30469258,
+      "ownerUid": 46498053,
+      "creatorUid": 46498053,
+      "slug": "plan-de-prevention-du-risque-inondation-reunions-publiques",
+      "title": {
+        "fr": "Plan de Prévention du Risque Inondation : réunions publiques"
+      },
+      "description": {
+        "fr": "Plusieurs réunions publiques d'information relatives au Plan de Prévention du Risque Inondation (PPRI) sont organisées du 21 novembre au 12 décembre. A Bassens le lundi 9 décembre."
+      },
+      "longDescription": {
+        "fr": "Le Plan de prévention du risque inondation est un outil essentiel de la politique menée par l'État en matière de prévention et de contrôle des risques naturels majeurs. Il vise à maîtriser l'urbanisation en zone inondable afin de limiter l'exposition aux risques des personnes et des biens. La révision du PPRI de l’agglomération bordelaise intègre la réflexion autour de l’impact du changement climatique sur la montée des eaux de l’océan. Elle prend aussi en compte les ouvrages de protection, tout en envisageant les risques de submersion ou de rupture de ces ouvrages."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "entrée libre"
+      },
+      "image": {
+        "filename": "7a69cc6744d443a79e1701980eea4a9f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "7a69cc6744d443a79e1701980eea4a9f.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1123,
+              "height": 1587
+            }
+          },
+          {
+            "filename": "7a69cc6744d443a79e1701980eea4a9f.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-09T17:30:00.000Z",
+          "end": "2019-12-09T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-19T13:52:55.000Z",
+      "createdAt": "2019-11-19T13:52:55.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 64215784,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.gironde.gouv.fr"
+      ],
+      "location": {
+        "uid": 64215784,
+        "slug": "salle-des-fetes-de-bassens",
+        "name": "Salle des fêtes de Bassens",
+        "address": "avenue Jean Jaurès 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899297,
+        "longitude": -0.516538,
+        "updatedAt": "2018-03-05T14:20:22.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 58,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2079682
+}

@@ -56,7 +56,9 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   const {
     lastId: newLastId,
     items: agendaEvents
-  } = await agendaEventsSvc(agendaUid).listByLastId(query, lastId, limit);
+  } = await agendaEventsSvc(agendaUid).listByLastId(query, lastId, limit, {
+    decorate: detailed ? ['sourceAgendas'] : []
+  });
 
   if (load.agendaEvent) {
     fetched.agendaEvents = agendaEvents

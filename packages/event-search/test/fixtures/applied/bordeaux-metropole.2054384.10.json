@@ -1,0 +1,1563 @@
+{
+  "events": [
+    {
+      "uid": 66166862,
+      "ownerUid": 63276682,
+      "creatorUid": 63276682,
+      "slug": "magali-ripoll-radio-active",
+      "title": {
+        "fr": "Magali Ripoll - Radio Active"
+      },
+      "description": {
+        "fr": "Festival \"Humour au Féminin"
+      },
+      "longDescription": {
+        "fr": "Magali Ripoll...? Son nom ne vous parle peut-être pas, mais son visage forcément ! Elle est musicienne et chanteuse, dans l’émission de Nagui sur France 2, «N’oubliez pas les paroles».\n\nAprès avoir joué à l’Apollo Théâtre, au Splendid, Magali nous présentera à Martignas son one-woman- show, «Radioactive».\n\nChanteuse, musicienne et comédienne, Magali Ripoll raconte une épopée musicale loufoque dans «Radioactive» à travers les événements marquants du XXème siècle. Elle évoque aussi bien Jean-Jacques Goldman que Rihanna ou Booba, en passant par les chemins d’Harlem et les routes de Vladivostok.\n\nSoyez prêts, vous allez en prendre plein les oreilles !\n\nAvec l’amicale participation de Michel Jonasz / Textes Zoé & Gérard Pullicino / Mise en scène Marie Guibourt & Gérard Pullicino - Arrangements Magali Ripoll & Antoine Mollard. STAM PRODUCTIONS"
+      },
+      "keywords": {
+        "fr": [
+          "#spectacle",
+          "#humour"
+        ]
+      },
+      "conditions": {
+        "fr": "TOUT PUBLIC // DURÉE 1H15 // TARIF Unique : 15/13/10 €"
+      },
+      "image": {
+        "filename": "20f2a8394b194207870757f54b6f7ed7.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1027,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "20f2a8394b194207870757f54b6f7ed7.full.image.jpg",
+            "size": {
+              "height": 3306,
+              "width": 2254
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "20f2a8394b194207870757f54b6f7ed7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-14T19:30:00.000Z",
+          "end": "2020-03-14T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-30T14:16:53.000Z",
+      "createdAt": "2019-10-30T14:15:24.000Z",
+      "agendaUid": 13738634,
+      "locationUid": 29289901,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "reservations@leclam-martignas.fr",
+        "06 61 26 30 99"
+      ],
+      "location": {
+        "uid": 29289901,
+        "slug": "complexe-dolange-salle-gerard-philipe-et-exterieur-avenue-de-verdun",
+        "name": "Complexe Dolange - Salle Gérard Philipe, avenue de Verdun",
+        "address": "avenue de verdun, martignas",
+        "city": "Martignas-sur-Jalle",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33127",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.843083,
+        "longitude": -0.784648,
+        "updatedAt": "2020-01-07T09:33:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "agenda-de-martignas-sur-jalle",
+        "uid": 13738634,
+        "official": 1,
+        "title": "Agenda de Martignas-sur-Jalle",
+        "description": "Agenda de tous les événements de la commune de Martignas-sur-Jalle",
+        "url": null,
+        "image": "agenda13738634.jpg",
+        "updatedAt": "2020-01-07T09:34:14.000Z",
+        "createdAt": "2017-02-15T10:01:43.000Z",
+        "officializedAt": "2018-06-12T13:19:40.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 78823454,
+      "ownerUid": 63276682,
+      "creatorUid": 63276682,
+      "slug": "noemi-de-lattre-feministe-pour-hommes",
+      "title": {
+        "fr": "Noémi de Lattre -Féministe pour Hommes"
+      },
+      "description": {
+        "fr": "Oui, on peut être sexy et féministe !"
+      },
+      "longDescription": {
+        "fr": "Oui, on peut être sexy et féministe ! Noémie Delattre nous le prouve magnifiquement et excelle à mélanger le drôle et le sérieux dans «Féministe pour homme.» Dans ce spectacle qu’elle a concocté toute seule, elle offre une performance hors normes, joyeuse et naturelle, à son image, généreuse et inventive. Elle parvient à conquérir son public en lui adressant la parole sans détour, avec tendresse et humour.\n\n« Une joyeuse (im)pertinence. Avec des moments bouleversants » - TELERAMA\n\nUn spectacle écrit et interprété par Noémie de Lattre Mise en scène : Tristan Petitgirard, Lionel Erdogan, Violaine Arsac, Mikael Chirinian, Ludivine de Chastenet entre autres... Production : Atelier Théâtre Actuel et NdLA."
+      },
+      "keywords": {
+        "fr": [
+          "#spectacle",
+          "#humour"
+        ]
+      },
+      "conditions": {
+        "fr": "TOUT PUBLIC // DURÉE 1h15 // TARIF : 20/15/10 €"
+      },
+      "image": {
+        "filename": "172e8e892935497d90ce38a06015681b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "172e8e892935497d90ce38a06015681b.full.image.jpg",
+            "size": {
+              "height": 3306,
+              "width": 2338
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "172e8e892935497d90ce38a06015681b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-28T19:30:00.000Z",
+          "end": "2020-03-28T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-30T14:21:05.000Z",
+      "createdAt": "2019-10-30T14:20:58.000Z",
+      "agendaUid": 13738634,
+      "locationUid": 29289901,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "reservations@leclam-martignas.fr",
+        "06 61 26 30 99"
+      ],
+      "location": {
+        "uid": 29289901,
+        "slug": "complexe-dolange-salle-gerard-philipe-et-exterieur-avenue-de-verdun",
+        "name": "Complexe Dolange - Salle Gérard Philipe, avenue de Verdun",
+        "address": "avenue de verdun, martignas",
+        "city": "Martignas-sur-Jalle",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33127",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.843083,
+        "longitude": -0.784648,
+        "updatedAt": "2020-01-07T09:33:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Festival \"Humour au Féminin\"",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "agenda-de-martignas-sur-jalle",
+        "uid": 13738634,
+        "official": 1,
+        "title": "Agenda de Martignas-sur-Jalle",
+        "description": "Agenda de tous les événements de la commune de Martignas-sur-Jalle",
+        "url": null,
+        "image": "agenda13738634.jpg",
+        "updatedAt": "2020-01-07T09:34:14.000Z",
+        "createdAt": "2017-02-15T10:01:43.000Z",
+        "officializedAt": "2018-06-12T13:19:40.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 49111868,
+      "ownerUid": 89522188,
+      "creatorUid": 89522188,
+      "slug": "foot-feminin-match-france-serbie",
+      "title": {
+        "fr": "Foot féminin : match France - Serbie"
+      },
+      "description": {
+        "fr": "Pour la première fois, l'équipe de France féminine jouera au Matmut Atlantique dans le cadre de l'un de ses Matchs Qualificatifs Euro féminin de l’UEFA 2021."
+      },
+      "longDescription": {
+        "fr": "Le 9 novembre, l'équipe de France féminine accueillera à Bordeaux, au Matmut Atlantique, la Serbie pour son deuxième match qualificatif Euro féminin de l’UEFA 2021. Les Bleues joueront leur qualification à l'Euro 2021 face au Kazakhstan, à la Serbie, à l'Autriche et à la Macédoine."
+      },
+      "keywords": {
+        "fr": [
+          "football",
+          "Matmut Atlantique",
+          "France Serbie"
+        ]
+      },
+      "conditions": {
+        "fr": "A partir de 7 €"
+      },
+      "image": {
+        "filename": "069a5ff0e1e3480f9fd42580d76bd280.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 379,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "069a5ff0e1e3480f9fd42580d76bd280.full.image.jpg",
+            "size": {
+              "height": 470,
+              "width": 870
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "069a5ff0e1e3480f9fd42580d76bd280.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-09T20:00:00.000Z",
+          "end": "2019-11-09T23:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-30T16:59:16.000Z",
+      "createdAt": "2019-10-30T15:16:40.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 26334976,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.matmut-atlantique.com/fr/billetterie/france-serbie-feminines"
+      ],
+      "location": {
+        "uid": 26334976,
+        "slug": "stade-matmut-atlantique60",
+        "name": "Stade Matmut Atlantique",
+        "address": "Cours jules Ladoumègue Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.897471,
+        "longitude": -0.560989,
+        "updatedAt": "2018-02-07T15:37:14.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.matmut-atlantique.com",
+        "phone": null,
+        "links": [
+          "https://www.facebook.com/matmutatlantique",
+          "https://twitter.com/MatmutAtl",
+          "https://www.instagram.com/matmut.atl/",
+          "https://www.linkedin.com/company/stade-bordeaux-atlantique/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 51,
+      "thematiques-bordeaux-metropole": [
+        34
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 41269639,
+      "ownerUid": 96079790,
+      "creatorUid": 96079790,
+      "slug": "les-recontres-creatives-labbaye-de-la-sauve-majeure-entre-les-mains-dartistes",
+      "title": {
+        "fr": "Les Rencontres Créatives - L'abbaye de la Sauve-Majeure entre les mains d'artistes"
+      },
+      "description": {
+        "fr": "Archimuse invite de jeunes artistes contemporains à venir créer sur place autour de quatre thématiques en résonance avec le lieu : la couleur, la ligne, le panorama et le bestiaire fantastique."
+      },
+      "longDescription": {
+        "fr": "**L’association Archimuse-Bordeaux organise les Rencontres Créatives à l’abbaye de La Sauve-Majeure. Les deux premiers week-ends de novembre, des artistes étudiants issus entre autres des Écoles des Beaux-Arts de Bordeaux et des filières artistiques de l’Université Bordeaux Montaigne investiront ce site de l’Entre-deux-Mers dans le cadre de la saison culturelle** _**PERSPECTIVES - Une saison autour de La Sauve-Majeure**_**. Au programme : création contemporaine in situ et médiation autour de leurs démarches et de leurs productions finales.**\n\nLes 2-3 et 9-10 novembre, Archimuse invite de jeunes artistes contemporains à venir créer sur place autour de quatre thématiques en résonance avec le lieu : la couleur, la ligne, le panorama et le bestiaire fantastique. Venant dialoguer avec le site, son architecture, son environnement et son paysage, les oeuvres produites renouvelleront les regards portés sur l’abbaye. En parallèle, des médiateurs seront présents pour permettre un échange entre les artistes et les visiteurs autour de leurs démarches.\n\nLe travail produit sur place sera par la suite valorisé au cours d’une exposition à l’Université Bordeaux Montaigne (27 novembre - 11 décembre 2019), puis à l’espace culturel Saint-Rémi de Bordeaux (13 janvier - 2 février 2020).\n\nÉvénement facebook : https://www.facebook.com/events/531690317652939/?event\\_time\\_id=531690330986271"
+      },
+      "keywords": {
+        "fr": [
+          "art",
+          "gironde",
+          "visite",
+          "patrimoine",
+          "creation",
+          "art contemporain",
+          "artiste",
+          "etudiant",
+          "vacances",
+          "toussaint",
+          "halloween",
+          "rencontre",
+          "abbaye",
+          "entre-deux-mers",
+          "weekend"
+        ]
+      },
+      "conditions": {
+        "fr": "GRATUIT sur présentation du billet d'entrée à l'abbaye (GRATUIT -26 ans)"
+      },
+      "image": {
+        "filename": "2879917aa84e4972b630a2b9d37890be.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 409,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2879917aa84e4972b630a2b9d37890be.full.image.jpg",
+            "size": {
+              "height": 438,
+              "width": 750
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2879917aa84e4972b630a2b9d37890be.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-02T09:30:00.000Z",
+          "end": "2019-11-02T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-02T13:00:00.000Z",
+          "end": "2019-11-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-03T09:30:00.000Z",
+          "end": "2019-11-03T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-03T13:00:00.000Z",
+          "end": "2019-11-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-09T09:30:00.000Z",
+          "end": "2019-11-09T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-09T13:00:00.000Z",
+          "end": "2019-11-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-10T09:30:00.000Z",
+          "end": "2019-11-10T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-10T13:00:00.000Z",
+          "end": "2019-11-10T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-31T18:06:05.000Z",
+      "createdAt": "2019-10-31T12:31:13.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 49998280,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 1,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 49998280,
+        "slug": "abbaye-de-la-sauve-majeure634",
+        "name": "Abbaye de la Sauve-Majeure",
+        "address": "14 Rue de l'abbaye, La Sauve",
+        "city": "La Sauve",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33670",
+        "insee": "33505",
+        "countryCode": "FR",
+        "district": "Le Brandas",
+        "latitude": 44.763872,
+        "longitude": -0.312807,
+        "updatedAt": "2019-10-24T12:44:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "L’association Archimuse-Bordeaux organise les Rencontres Créatives à l’abbaye de La Sauve-Majeure. Les deux premiers week-ends de novembre, des artistes étudiants issus entre autres des Écoles des Beaux-Arts de Bordeaux et des filières artistiques de l’Université Bordeaux Montaigne investiront ce site de l’Entre-deux-Mers dans le cadre de la saison culturelle PERSPECTIVES - Une saison autour de La Sauve-Majeure. Au programme : création contemporaine in situ et médiation autour de leurs démarches et de leurs productions finales.",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [
+        9,
+        25
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 41666031,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "connexions",
+      "title": {
+        "fr": "Connexions"
+      },
+      "description": {
+        "fr": "Entre danse et théâtre gestuel, par des danseurs en situation de handicap entourés de professionnels, ConneXions se joue des codes et dessine les contours d’une certaine humanité."
+      },
+      "longDescription": {
+        "fr": "Une humanité tour à tour tendre ou rageuse, égarée ou joyeuse, dans laquelle dépendances et aspirations libératrices tissent une poétique singulière : ConneXions est le nouveau spectacle issu des ateliers de danse contemporaine menés par Édéa, une association qui gère des établissements sociaux et médico-sociaux de Bordeaux Métropole et de l’Entre-deux-Mers. Chaque semaine, Valérie Lacamoire, de la compagnie Les Résonances, Laurent Anton, éducateur spécialisé et Anne-Sophie Chevreau, psychomotricienne, assurent cet atelier dans une salle du Cuvier de Feydeau, à Artigues, avec un groupe de douze danseurs, dans des conditions quasi professionnelles. La recherche plastique dans la scénographie vient enrichir la démarche, volontairement esthétique. Le résultat est simplement beau, profondément bouleversant."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "connexions",
+          "contemporain",
+          "danse"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 7€"
+      },
+      "image": {
+        "filename": "f37981795eb54b3c8951382d4c67ba78.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "f37981795eb54b3c8951382d4c67ba78.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "f37981795eb54b3c8951382d4c67ba78.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-10T19:30:00.000Z",
+          "end": "2020-01-10T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-01T02:05:12.000Z",
+      "createdAt": "2019-11-01T02:05:12.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/mois.danse/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 6849986,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "fact-human-reboot",
+      "title": {
+        "fr": "FACT Human Reboot"
+      },
+      "description": {
+        "fr": "FACTS propose pour cette troisième édition de nous poser un instant dans le fracas du monde : Human Reboot !"
+      },
+      "longDescription": {
+        "fr": "À la rencontre de ces chemins aventureux que peuvent prendre ensemble artistes et chercheurs, ces croisements et points de rendez-vous que le mystère des langages et la conversation des pratiques irradient d’une lumière neuve, FACTS propose pour cette troisième édition de nous poser un instant dans le fracas du monde. Human Reboot 1, voilà le programme ! Redémarrage nécessaire et questionnements autour de notre activité d’humains.\n\nPerchés sur la lune en hommage aux premiers pas d’Armstrong et à l’utopie entretenue, nous observons, dialoguons et essayons d’entreprendre ensemble afin de trouver des voies nouvelles à notre survivance. Et si la science demeure le refuge à un futur en suspens, le poème aide à en saisir la puissance.\n\nAutour de cinq parcours qui seront les repères de notre réflexion, nous voici embarqués pour de sensibles voyages à l’écoute du chant du monde.\n\n*   [Programme en ligne](http://www.facts-bordeaux.fr/LE-PROGRAMME)\n*   [Programme au format PDF](http://www.facts-bordeaux.fr/content/download/93124/710308/version/1/file/FACTS-progA5-w.pdf)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "6a1e2610d81a4e22a6c1a831038a4831.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1005
+        },
+        "variants": [
+          {
+            "filename": "6a1e2610d81a4e22a6c1a831038a4831.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1714,
+              "height": 2460
+            }
+          },
+          {
+            "filename": "6a1e2610d81a4e22a6c1a831038a4831.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-19T08:00:00.000Z",
+          "end": "2019-11-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-20T08:00:00.000Z",
+          "end": "2019-11-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-21T08:00:00.000Z",
+          "end": "2019-11-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T08:00:00.000Z",
+          "end": "2019-11-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T08:00:00.000Z",
+          "end": "2019-11-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-24T08:00:00.000Z",
+          "end": "2019-11-24T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-04T09:45:45.000Z",
+      "createdAt": "2019-11-04T09:45:45.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 80601395,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.facts-bordeaux.fr",
+        "https://www.facebook.com/factsbordeaux"
+      ],
+      "location": {
+        "uid": 80601395,
+        "slug": "bordeaux387",
+        "name": "Bordeaux",
+        "address": "33000",
+        "city": null,
+        "region": "Nouvelle-Aquitaine",
+        "department": "Centre ville",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.84063,
+        "longitude": -0.57475,
+        "updatedAt": "2019-11-04T09:42:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        54892589
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-talence",
+          "uid": 54892589,
+          "official": 1,
+          "title": "Ville de Talence",
+          "description": "Agenda de tous les événements de la commune de Talence.",
+          "url": "http://www.talence.fr",
+          "image": "agenda54892589.jpg",
+          "updatedAt": "2020-02-13T08:50:36.000Z",
+          "createdAt": "2017-02-10T16:12:45.000Z",
+          "officializedAt": "2019-04-05T11:29:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 70904528,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "une-histoire-de-casse-noisette",
+      "title": {
+        "fr": "Une histoire de casse noisette"
+      },
+      "description": {
+        "fr": "Une histoire de casse noisette, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "une histoire de casse noisette",
+          "danse"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif adulte : 24€ / Tarif enfant -12 ans : 17€"
+      },
+      "image": {
+        "filename": "e27cba98e094495c958bea351818ac65.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "e27cba98e094495c958bea351818ac65.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "e27cba98e094495c958bea351818ac65.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-22T13:30:00.000Z",
+          "end": "2019-12-22T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-05T02:05:09.000Z",
+      "createdAt": "2019-11-05T02:05:09.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/casse.noisette/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 98562063,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "nova-twins",
+      "title": {
+        "fr": "Nova Twins"
+      },
+      "description": {
+        "fr": "La musique délicieusement pesante d’un duo londonien bigarré : les fausses frangines de Nova Twins vont vous retourner le cerveau !"
+      },
+      "longDescription": {
+        "fr": "La basse grondante de Georgia South et le chant acéré d’Amy Love constituent le moteur de Nova Twins. Le duo londonien a trouvé le parfait mélange de punk, de rock et de hip-hop impossible à étiqueter, et une attitude follement cool, non seulement dans ses productions musicales mais aussi dans ses réalisations vidéos ou son look inimitable. Les deux super-héroïnes se sont fait la main en première partie de Wolf Alice et de Ho99o9 avant de prendre leur envol à l’international en tournée avec Prophets of Rage et Skunk Anansie. Elles peaufinent désormais leur tout premier album, prévu pour début 2020, avec le producteur légendaire Jim Abbiss (Artic Monkeys, Kasabian ou Adele) et sont dans les starting-blocks pour une tournée en tête d'affiche. Du lourd."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "nova twins"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 20€ / Plein tarif : 18€ / Tarif abonné : 15€"
+      },
+      "image": {
+        "filename": "9f9ee42bd1ce4af1ac2b3c1aa03e3cfd.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "9f9ee42bd1ce4af1ac2b3c1aa03e3cfd.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "9f9ee42bd1ce4af1ac2b3c1aa03e3cfd.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-09T19:30:00.000Z",
+          "end": "2020-03-09T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-05T02:05:11.000Z",
+      "createdAt": "2019-11-05T02:05:11.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/nova.twins/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 25945016,
+      "ownerUid": 17767391,
+      "creatorUid": 17767391,
+      "slug": "lydia-filipovic-jazz-trio",
+      "title": {
+        "fr": "Lydia Filipovic Jazz Trio"
+      },
+      "description": {
+        "fr": "Les standards du Jazz  sont détournés pour un voyage imaginaire, où la beauté, la sensibilité,le raffinement et la tendresse se fondent pour faire de chaque chanson un joyau."
+      },
+      "longDescription": {
+        "fr": "LYDIA FILIPOVIC JAZZ TRIO\n\nLydia Filipovic - chant\n\nAlex Golino - ténor saxophone\n\nLudo Guichard - guitare\n\nThéâtre La Lucarne\n\n3 Rue Beyssac, 33000 Bordeaux\n\nRéservation obligatoire, places limitées: 05 56 92 25 06 ~ contact@theatre-la-lucarne.com\n\n« Old & New Standards »\n\nLes standards du Jazz et les classiques de Pop et du Rock musique sont détournés pour un voyage imaginaire, où la beauté, la sensibilité,\n\nle raffinement et la tendresse se fondent pour faire de chaque chanson un joyau.\n\nLydia et ses musiciens exceptionnels, offrant leurs âmes et leur créativité pour un délice musical.\n\nyoutube : Besame Mucho - Lydia Filipovic \" Mediterraneo \"\n\nyoutube : Nel Blu Dipinto Di Blu - Lydia Filipovic \"Mediterraneo \""
+      },
+      "keywords": {
+        "fr": [
+          "musique",
+          "jazz    chanteuse   swing     concert",
+          "live"
+        ]
+      },
+      "conditions": {
+        "fr": "12 euros"
+      },
+      "image": {
+        "filename": "dc243f34d24d40deaf4c8ada21599837.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dc243f34d24d40deaf4c8ada21599837.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 640
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dc243f34d24d40deaf4c8ada21599837.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-08T19:00:00.000Z",
+          "end": "2019-11-08T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-05T11:14:41.000Z",
+      "createdAt": "2019-11-05T11:07:38.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 81830059,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "contact@theatre-la-lucarne.com",
+        "05 56 92 25 06"
+      ],
+      "location": {
+        "uid": 81830059,
+        "slug": "theatre-la-lucarne547",
+        "name": "Théâtre La Lucarne",
+        "address": "3 rue Beyssac 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.83262,
+        "longitude": -0.563664,
+        "updatedAt": "2019-10-21T15:51:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "LYDIA FILIPOVIC JAZZ TRIO\n\nLydia Filipovic - chant\nAlex Golino - ténor saxophone\nLudo Guichard  - guitare\n\nThéâtre La Lucarne  \n3 Rue Beyssac, 33000 Bordeaux\nRéservation obligatoire, places limitées:  05 56 92 25 06  ~ contact@theatre-la-lucarne.com\nwww.theatre-la-lucarne.com",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 55560262,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "amenagement-des-boulevards-reunion-publique-1",
+      "title": {
+        "fr": "Aménagement des boulevards : Réunion publique #1"
+      },
+      "description": {
+        "fr": "Les boulevards, exprimez-vous le 13 novembre à l'occasion de la première réunion de concertation."
+      },
+      "longDescription": {
+        "fr": "Donnez votre avis sur les orientations d’aménagement des boulevards en participant à la **réunion de lancement de la concertation le 13 novembre à 18h30 au Stade Brun**, 67 rue Brun à Bordeaux.\n\n*   Entrée libre, dans la limite des places disponibles.\n\nExprimez-vous également sur la page dédiée au projet.\n\n[Je participe !](https://participation.bordeaux-metropole.fr/agenda/projet-metropolitain-des-barrieres-et-boulevards-reunion-publique-de-concertation-1)\n\nPlus d'infos\n\n[https://www.bordeaux-metropole.fr/Actualites/Les-boulevards-exprimez-vous](https://www.bordeaux-metropole.fr/Actualites/Les-boulevards-exprimez-vous)"
+      },
+      "keywords": {
+        "fr": [
+          "boulevards",
+          "concertation"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, dans la limite des places disponibles."
+      },
+      "image": {
+        "filename": "ed9857c977d2460baaa261059ee6ffbe.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 379,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ed9857c977d2460baaa261059ee6ffbe.full.image.jpg",
+            "size": {
+              "height": 470,
+              "width": 870
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ed9857c977d2460baaa261059ee6ffbe.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-13T17:30:00.000Z",
+          "end": "2019-11-13T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-06T15:05:23.000Z",
+      "createdAt": "2019-11-06T14:48:34.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 21663535,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 21663535,
+        "slug": "stade-brun",
+        "name": "Stade Brun",
+        "address": "67 rue Brun, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Nansouty - Saint-Genès",
+        "latitude": 44.817073,
+        "longitude": -0.57561,
+        "updatedAt": "2019-11-06T14:48:01.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 58,
+      "thematiques-bordeaux-metropole": [
+        40,
+        19
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    }
+  ],
+  "lastId": 2069882
+}

@@ -1,7 +1,173 @@
 {
   "events": [
     {
+      "uid": 83047694,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-soleils-corses",
+      "title": {
+        "fr": "Sieste musicale « Soleils corses »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "50cb70ba92c44ed88a17930a6893fd21.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "50cb70ba92c44ed88a17930a6893fd21.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "50cb70ba92c44ed88a17930a6893fd21.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-09T13:00:00.000Z",
+          "end": "2020-01-09T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-16T02:05:08.000Z",
+      "createdAt": "2019-11-28T02:05:13.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
       "uid": 68995649,
+      "ownerUid": 57697946,
+      "creatorUid": 57697946,
       "slug": "archi-libres",
       "title": {
         "fr": "ARCHI LIBRES !"
@@ -301,8 +467,26 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        5598423
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "musee-creation-franche",
+          "uid": 5598423,
+          "official": 1,
+          "title": "Musée de la Création Franche",
+          "description": "Le Musée de la Création Franche est un musée d'art brut et apparentés, créé en 1989 à l'initiative de Noël Mamère sur proposition de Gérard Sendrey.",
+          "url": "http://musee-creationfranche.com",
+          "image": "agenda5598423.jpg",
+          "updatedAt": "2019-11-06T11:06:32.000Z",
+          "createdAt": "2017-05-30T09:41:40.000Z",
+          "officializedAt": "2019-10-30T15:56:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "musee-creation-franche",
         "uid": 5598423,
@@ -319,6 +503,8 @@
     },
     {
       "uid": 4851644,
+      "ownerUid": 57697946,
+      "creatorUid": 57697946,
       "slug": "abel",
       "title": {
         "fr": "ABEL"
@@ -618,8 +804,26 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        5598423
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "musee-creation-franche",
+          "uid": 5598423,
+          "official": 1,
+          "title": "Musée de la Création Franche",
+          "description": "Le Musée de la Création Franche est un musée d'art brut et apparentés, créé en 1989 à l'initiative de Noël Mamère sur proposition de Gérard Sendrey.",
+          "url": "http://musee-creationfranche.com",
+          "image": "agenda5598423.jpg",
+          "updatedAt": "2019-11-06T11:06:32.000Z",
+          "createdAt": "2017-05-30T09:41:40.000Z",
+          "officializedAt": "2019-10-30T15:56:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "musee-creation-franche",
         "uid": 5598423,
@@ -636,6 +840,8 @@
     },
     {
       "uid": 53501326,
+      "ownerUid": 57697946,
+      "creatorUid": 57697946,
       "slug": "les-jardiniers-deden",
       "title": {
         "fr": "LES JARDINIERS D'EDEN"
@@ -2086,10 +2292,6 @@
           "end": "2021-01-08T17:00:00.000Z"
         },
         {
-          "begin": "2021-01-09T09:00:00.000Z",
-          "end": "2021-01-09T11:00:00.000Z"
-        },
-        {
           "begin": "2021-01-09T13:00:00.000Z",
           "end": "2021-01-09T17:00:00.000Z"
         }
@@ -2143,8 +2345,26 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        5598423
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "musee-creation-franche",
+          "uid": 5598423,
+          "official": 1,
+          "title": "Musée de la Création Franche",
+          "description": "Le Musée de la Création Franche est un musée d'art brut et apparentés, créé en 1989 à l'initiative de Noël Mamère sur proposition de Gérard Sendrey.",
+          "url": "http://musee-creationfranche.com",
+          "image": "agenda5598423.jpg",
+          "updatedAt": "2019-11-06T11:06:32.000Z",
+          "createdAt": "2017-05-30T09:41:40.000Z",
+          "officializedAt": "2019-10-30T15:56:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "musee-creation-franche",
         "uid": 5598423,
@@ -2161,6 +2381,8 @@
     },
     {
       "uid": 94350344,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
       "slug": "la-chaminera-joaquin-pardinilla-sexteto_886981",
       "title": {
         "fr": "La Chaminera + Joaquín Pardinilla Sexteto"
@@ -2188,29 +2410,29 @@
       },
       "image": {
         "filename": "9155182baa4240c38b6206c36a98042e.base.image.jpg",
+        "credits": null,
         "size": {
-          "width": 700,
-          "height": 467
+          "height": 467,
+          "width": 700
         },
         "variants": [
           {
-            "filename": "9155182baa4240c38b6206c36a98042e.full.image.jpg",
             "type": "full",
+            "filename": "9155182baa4240c38b6206c36a98042e.full.image.jpg",
             "size": {
-              "width": 1920,
-              "height": 1280
+              "height": 1280,
+              "width": 1920
             }
           },
           {
-            "filename": "9155182baa4240c38b6206c36a98042e.thumb.image.jpg",
             "type": "thumbnail",
+            "filename": "9155182baa4240c38b6206c36a98042e.thumb.image.jpg",
             "size": {
-              "width": 200,
-              "height": 200
+              "height": 200,
+              "width": 200
             }
           }
         ],
-        "credits": null,
         "base": "https://cibuldev.s3.amazonaws.com/"
       },
       "draft": 0,
@@ -2222,7 +2444,7 @@
           "end": "2020-02-15T21:30:00.000Z"
         }
       ],
-      "updatedAt": "2019-12-17T02:05:22.000Z",
+      "updatedAt": "2020-02-14T09:56:32.000Z",
       "createdAt": "2019-12-17T02:05:22.000Z",
       "agendaUid": 94573624,
       "locationUid": 18191842,
@@ -2277,8 +2499,41 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "rocher-de-palmer",
         "uid": 94573624,
@@ -2287,7 +2542,7 @@
         "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
         "url": "https://lerocherdepalmer.fr/",
         "image": "agenda94573624.jpg",
-        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
         "createdAt": "2017-06-02T15:32:00.000Z",
         "officializedAt": "2018-06-12T13:17:23.000Z",
         "private": 0
@@ -2295,6 +2550,8 @@
     },
     {
       "uid": 29271303,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
       "slug": "pour-sama_555958",
       "title": {
         "fr": "Pour Sama"
@@ -2410,8 +2667,41 @@
       "thematiques-bordeaux-metropole": [],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "rocher-de-palmer",
         "uid": 94573624,
@@ -2420,7 +2710,7 @@
         "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
         "url": "https://lerocherdepalmer.fr/",
         "image": "agenda94573624.jpg",
-        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
         "createdAt": "2017-06-02T15:32:00.000Z",
         "officializedAt": "2018-06-12T13:17:23.000Z",
         "private": 0
@@ -2428,6 +2718,8 @@
     },
     {
       "uid": 83057373,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-au-theatre-des-quatre-saisons",
       "title": {
         "fr": "Trente Trente au Théâtre des Quatre Saisons"
@@ -2544,8 +2836,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -2554,7 +2864,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -2562,6 +2872,8 @@
     },
     {
       "uid": 99950746,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-a-la-meca",
       "title": {
         "fr": "Trente Trente à la MECA"
@@ -2655,14 +2967,14 @@
         "district": "Bordeaux Sud",
         "latitude": 44.831482,
         "longitude": -0.558332,
-        "updatedAt": "2019-12-16T09:51:08.000Z",
+        "updatedAt": "2019-12-30T08:36:47.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -2678,8 +2990,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -2688,7 +3018,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -2696,6 +3026,8 @@
     },
     {
       "uid": 60725911,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-soiree-courts-metrages-a-lutopia",
       "title": {
         "fr": "Trente Trente : soirée courts-métrages à l'Utopia"
@@ -2808,8 +3140,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -2818,7 +3168,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -2826,6 +3176,8 @@
     },
     {
       "uid": 56840874,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-soiree-cirque-a-lesplanade-des-terres-neuves",
       "title": {
         "fr": "Trente Trente : soirée cirque à l'Esplanade des Terres Neuves"
@@ -2918,14 +3270,14 @@
         "district": "Terres Neuves",
         "latitude": 44.811618,
         "longitude": -0.550961,
-        "updatedAt": "2019-12-16T09:43:42.000Z",
+        "updatedAt": "2019-12-30T08:36:53.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -2941,8 +3293,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -2951,7 +3321,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0

@@ -252,6 +252,11 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       ev.sourcePaths.should.eql([[1]]);
     });
 
+    it('source agendas are provided if detailed is true', async () => {
+      const ev = await core.agendas(2).events.get(2, { detailed: true });
+      ev.sourceAgendas.length.should.equal(1);
+    });
+
     it('get non-existing event returns null', async () => {
       should(await core.agendas(2).events.get(18978979)).equal(null);
     });

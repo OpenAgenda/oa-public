@@ -1,0 +1,1504 @@
+{
+  "events": [
+    {
+      "uid": 81461442,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "nicolas-saez-sextet_683652",
+      "title": {
+        "fr": "Nicolas Saez Sextet"
+      },
+      "description": {
+        "fr": "Si Nicolas Saez revendique son héritage andalou, il reste empreint d’un irrésistible besoin de s’ouvrir à d’autres influences."
+      },
+      "longDescription": {
+        "fr": "En mi sitio, dernier spectacle d’un tryptique musical, vient clore le voyage initiatique de Nicolas Saez. Guitariste et compositeur franco-espagnol, Nicolas fait partie de cette nouvelle génération de la scène flamenca hexagonale. Un art qu’il aborde avec audace et originalité en proposant un répertoire inédit et personnel. Conteur d’histoires qui invitent à l’évasion et à la rêverie, Nicolas Saez s’approprie les codes du flamenco dans le respect de la tradition, tout en restant à l’affût de nouvelles influences. Dans cette nouvelle création, il revient entouré de quatre autres musiciens et d’une danseuse."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "nicolas saez sextet",
+          "flamenco",
+          "gratuit"
+        ]
+      },
+      "conditions": {
+        "fr": "Concert gratuit. Réservation conseillée, invitation à télécharger un mois avant le concert."
+      },
+      "image": {
+        "filename": "58935965a6d744d9a54f7e750bd9f1a3.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "58935965a6d744d9a54f7e750bd9f1a3.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "58935965a6d744d9a54f7e750bd9f1a3.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T18:30:00.000Z",
+          "end": "2020-03-06T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-05T02:05:07.000Z",
+      "createdAt": "2019-12-30T02:05:30.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/nicolas.saez/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 41074858,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "festival-odp-talence-6",
+      "title": {
+        "fr": "Festival ODP Talence #6"
+      },
+      "description": {
+        "fr": "Un festival familial, dans un lieu unique : Le Festival ODP Talence se veut chaleureux et festif tout en conservant une taille humaine."
+      },
+      "longDescription": {
+        "fr": "Un festival familial, dans un lieu unique : Le Festival ODP Talence se veut chaleureux et festif tout en conservant une taille humaine, pour laquelle le Parc Peixotto est idéal, avec une jauge limitée à 8000 personnes par soir, préservant ainsi l’esprit et l’identité du festival, dans un lieu unique. Le château Peixotto et son parc sont d’ailleurs classés parmi les plus remarquables jardins à la française. Le bâtiment est même inscrit sur la liste des monuments historiques ! Un festival qui se vit : Plus de 900 bénévoles, tous issus de la grande famille des Sapeurs-Pompiers, œuvrent nuit et jour pour faire du festival ODP Talence un univers chaleureux et festif, afin que son public profite pleinement de ce week-end culturel et partage l’esprit solidaire des Sapeurs-Pompiers.\n\n**Ven 29 Mai**\n\nYANNICK NOAH\n\nYOUSSOUPHA ...\n\n**Sam 30 Mai**\n\nPASCAL OBISPO\n\nVÉRONIQUE SANSON\n\nOXMO PUCCINO ...\n\n**Dim 31 Mai**\n\nROMÉO ELVIS\n\nCATHERINE RINGER chante LES RITA MITSOUKO\n\nSUZANE"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "70252ce267b0449da0d9fe6e7e9d71ab.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 982
+        },
+        "variants": [
+          {
+            "filename": "70252ce267b0449da0d9fe6e7e9d71ab.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1730,
+              "height": 2426
+            }
+          },
+          {
+            "filename": "70252ce267b0449da0d9fe6e7e9d71ab.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-29T14:00:00.000Z",
+          "end": "2020-05-29T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T14:00:00.000Z",
+          "end": "2020-05-30T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T14:00:00.000Z",
+          "end": "2020-05-31T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-07T09:04:32.000Z",
+      "createdAt": "2020-01-07T09:04:32.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 35222559,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.festival-odp.com/billetterie",
+        "https://www.festival-odp.com/"
+      ],
+      "location": {
+        "uid": 35222559,
+        "slug": "parc-peixotto865",
+        "name": "Parc Peixotto",
+        "address": "Peixotto 33400 Talence",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.807117,
+        "longitude": -0.592783,
+        "updatedAt": "2019-06-17T08:00:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        54892589
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-talence",
+          "uid": 54892589,
+          "official": 1,
+          "title": "Ville de Talence",
+          "description": "Agenda de tous les événements de la commune de Talence.",
+          "url": "http://www.talence.fr",
+          "image": "agenda54892589.jpg",
+          "updatedAt": "2020-02-13T08:50:36.000Z",
+          "createdAt": "2017-02-10T16:12:45.000Z",
+          "officializedAt": "2019-04-05T11:29:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 34658962,
+      "ownerUid": 67378676,
+      "creatorUid": 67378676,
+      "slug": "black-history-month",
+      "title": {
+        "fr": "Black History Month"
+      },
+      "description": {
+        "fr": "3 ème édition de cette évènement culturel"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "Concert / Littérature / Conférence"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, participation libre"
+      },
+      "image": {
+        "filename": "066cb914644e45bdaf7daffe70b9b569.base.image.jpg",
+        "credits": "Tristan Barrosso",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "066cb914644e45bdaf7daffe70b9b569.full.image.jpg",
+            "size": {
+              "height": 899,
+              "width": 1599
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "066cb914644e45bdaf7daffe70b9b569.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-09T07:30:00.000Z",
+          "end": "2020-01-09T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T06:30:00.000Z",
+          "end": "2020-01-12T07:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T07:00:00.000Z",
+          "end": "2020-02-04T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T07:00:00.000Z",
+          "end": "2020-02-05T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T10:00:00.000Z",
+          "end": "2020-02-05T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T07:00:00.000Z",
+          "end": "2020-02-06T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T07:00:00.000Z",
+          "end": "2020-02-07T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T09:30:00.000Z",
+          "end": "2020-02-07T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T07:30:00.000Z",
+          "end": "2020-02-29T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T04:00:00.000Z",
+          "end": "2020-03-01T05:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-07T09:31:21.000Z",
+      "createdAt": "2020-01-06T07:33:40.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 70364172,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 70364172,
+        "slug": "darwin-eco-systeme",
+        "name": "Darwin éco système",
+        "address": "87 quai des Queyries 33100 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33100",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "La Bastide",
+        "latitude": 44.849739,
+        "longitude": -0.560762,
+        "updatedAt": "2019-06-06T09:22:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [
+        2
+      ],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 31134582,
+      "ownerUid": 63276682,
+      "creatorUid": 63276682,
+      "slug": "les-entendez-vous_732496",
+      "title": {
+        "fr": "Les entendez-vous ?"
+      },
+      "description": {
+        "fr": "La cie de l’Atelier Provisoire propose une traversée littéraire humoristique, impertinente ; sautant arbitrairement du 18ème au 21ème siècle, avec comme figure centrale « la Femme »."
+      },
+      "longDescription": {
+        "fr": "Celle qui écrit, chante, clame, revendique, légifère, dans l’ombre ou la lumière.\n\nColette côtoie Duras, Despentes, Albert Cohen... Sans doute vous retrouverez ou découvrirez quelques pépites incontournables.\n\nSur ce chemin, trois femmes vous conduisent, Arièle Maloumian a écrit certains textes et sélectionné d’autres, Laure Dallet a imaginé une scénographie et Domie Garras prête sa voix.\n\nRecherche de textes et écriture : Arièle Maloumian / Sélection, montage textes et Interprétation : Dominique Garras Scénographie et Régie son : Laure Dallet"
+      },
+      "keywords": {
+        "fr": [
+          "#théâtre",
+          "#spectacle",
+          "#feminin",
+          "#martignas",
+          "#clam!"
+        ]
+      },
+      "conditions": {
+        "fr": "TOUT PUBLIC // DURÉE 1h15 // TARIF : 15/13/10 €"
+      },
+      "image": {
+        "filename": "68c11ba62ddf42038811453f61b2ba4f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "68c11ba62ddf42038811453f61b2ba4f.full.image.jpg",
+            "size": {
+              "height": 3306,
+              "width": 2338
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "68c11ba62ddf42038811453f61b2ba4f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T19:30:00.000Z",
+          "end": "2020-02-08T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-07T09:34:14.000Z",
+      "createdAt": "2020-01-07T09:32:54.000Z",
+      "agendaUid": 13738634,
+      "locationUid": 29289901,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "reservations@leclam-martignas.fr",
+        "06 61 26 30 99"
+      ],
+      "location": {
+        "uid": 29289901,
+        "slug": "complexe-dolange-salle-gerard-philipe-et-exterieur-avenue-de-verdun",
+        "name": "Complexe Dolange - Salle Gérard Philipe, avenue de Verdun",
+        "address": "avenue de verdun, martignas",
+        "city": "Martignas-sur-Jalle",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33127",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.843083,
+        "longitude": -0.784648,
+        "updatedAt": "2020-01-07T09:33:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Festival \"Humour au Féminin\"",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        13738634
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "agenda-de-martignas-sur-jalle",
+          "uid": 13738634,
+          "official": 1,
+          "title": "Agenda de Martignas-sur-Jalle",
+          "description": "Agenda de tous les événements de la commune de Martignas-sur-Jalle",
+          "url": null,
+          "image": "agenda13738634.jpg",
+          "updatedAt": "2020-01-07T09:34:14.000Z",
+          "createdAt": "2017-02-15T10:01:43.000Z",
+          "officializedAt": "2018-06-12T13:19:40.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "agenda-de-martignas-sur-jalle",
+        "uid": 13738634,
+        "official": 1,
+        "title": "Agenda de Martignas-sur-Jalle",
+        "description": "Agenda de tous les événements de la commune de Martignas-sur-Jalle",
+        "url": null,
+        "image": "agenda13738634.jpg",
+        "updatedAt": "2020-01-07T09:34:14.000Z",
+        "createdAt": "2017-02-15T10:01:43.000Z",
+        "officializedAt": "2018-06-12T13:19:40.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 85515603,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "concertation-boulevards-balade-en-marchant",
+      "title": {
+        "fr": "Concertation Boulevards : Balade en marchant"
+      },
+      "description": {
+        "fr": "Dans le cadre de la concertation des boulevards et des barrières, Bordeaux Métropole vous invite à \"une balade en marchant\"."
+      },
+      "longDescription": {
+        "fr": "Mardi 21 janvier 2020 , participez à la concertation des Boulevards en rejoignant une balade en marchant de 14h à 16h .\n\nRendez-vous / Départ :\n\nTram B - Station Barrière St Genès\n\nPlace Louis Barthou à Bordeaux"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre sur inscription"
+      },
+      "image": {
+        "filename": "161d97d7877049479a6c2a636e46e29a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 379
+        },
+        "variants": [
+          {
+            "filename": "161d97d7877049479a6c2a636e46e29a.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 870,
+              "height": 470
+            }
+          },
+          {
+            "filename": "161d97d7877049479a6c2a636e46e29a.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T13:00:00.000Z",
+          "end": "2020-01-21T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-07T15:00:12.000Z",
+      "createdAt": "2020-01-07T15:00:12.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 42908599,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://inscription.bordeaux-metropole.fr/une-balade-en-marchant"
+      ],
+      "location": {
+        "uid": 42908599,
+        "slug": "tram-b-station-barriere-st-genes",
+        "name": "Tram B  - Station Barrière St Genès",
+        "address": "Barrière St Genès talence",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": "Nansouty - Saint-Genès",
+        "latitude": 44.820935,
+        "longitude": -0.582973,
+        "updatedAt": "2020-01-07T14:59:42.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [
+        40
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 33735502,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "boulevards-atelier-de-concertation",
+      "title": {
+        "fr": "Boulevards : Atelier de concertation"
+      },
+      "description": {
+        "fr": "Participez à un atelier de concertation sur les boulevards mardi 28 janvier 2020 à 18h30."
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de la concertation des boulevards et des barrières, Bordeaux Métropole vous invite à un atelier de proximité (section entre les barrières de Toulouse et de Pessac ) mardi 28 janvier 2020 à 18h30."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "dccb035e7bcf4e72a133a2a6dc6cba38.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 379
+        },
+        "variants": [
+          {
+            "filename": "dccb035e7bcf4e72a133a2a6dc6cba38.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 870,
+              "height": 470
+            }
+          },
+          {
+            "filename": "dccb035e7bcf4e72a133a2a6dc6cba38.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-28T17:30:00.000Z",
+          "end": "2020-01-28T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-07T15:04:59.000Z",
+      "createdAt": "2020-01-07T15:04:59.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 94196121,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://inscription.bordeaux-metropole.fr/un-atelier-de-proximite"
+      ],
+      "location": {
+        "uid": 94196121,
+        "slug": "espace-francois-mauriac470",
+        "name": "Espace François Mauriac",
+        "address": "Rue du Professeur Arnozan Talence",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.809005,
+        "longitude": -0.587779,
+        "updatedAt": "2020-01-07T15:03:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "thematiques-bordeaux-metropole": [
+        40
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 79041397,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "visite-guidee-de-bordeaux_73734",
+      "title": {
+        "fr": "Visite guidée de Bordeaux"
+      },
+      "description": {
+        "fr": "Isciane Labatut entraine un groupe de 25 personnes à travers les rues de Bordeaux pour une visite riche et passionnante."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "b42ca1e3764749b08255ce61da074c8d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b42ca1e3764749b08255ce61da074c8d.full.image.jpg",
+            "size": {
+              "height": 640,
+              "width": 960
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b42ca1e3764749b08255ce61da074c8d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T09:00:00.000Z",
+          "end": "2020-01-16T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-09T08:30:09.000Z",
+      "createdAt": "2019-12-18T08:27:13.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 29012956,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 29012956,
+        "slug": "place-du-parvis",
+        "name": "place du parvis",
+        "address": "parvis des droits de l'homme, bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.83659,
+        "longitude": -0.579982,
+        "updatedAt": "2020-01-09T08:30:01.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 83530198,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "palmares-des-entreprises-6e-edition",
+      "title": {
+        "fr": "Palmarès des entreprises : 6e édition"
+      },
+      "description": {
+        "fr": "Découvrez le 6e Palmarès des entreprises qui recrutent le 21 janvier 2020 dans le salons de l'Hôtel de ville de Bordeaux."
+      },
+      "longDescription": {
+        "fr": "Organisé par La Tribune Bordeaux en partenariat avec Bordeaux Métropole, la Ville de Bordeaux, Pôle Emploi et la MDE, cette 6e édition recensera plus de **8.700 intentions d'embauche et publiera le top 100 des sociétés qui prévoient de recruter en 2020** ainsi qu’une analyse des secteurs qui embauchent.\n\nCandidats à l’emploi, participez au job dating : les principaux recruteurs sur la métropole bordelaise seront présents et feront part de leurs besoins lors de la remise des prix, de 18h à 20h dans les salons de l'Hôtel de ville !\n\nInfos : [http://bit.ly/35wSkuW](http://bit.ly/35wSkuW)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription obligatoire"
+      },
+      "image": {
+        "filename": "07bdc5a165a848ffbbf6d7b2a5b27df6.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 379
+        },
+        "variants": [
+          {
+            "filename": "07bdc5a165a848ffbbf6d7b2a5b27df6.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 870,
+              "height": 470
+            }
+          },
+          {
+            "filename": "07bdc5a165a848ffbbf6d7b2a5b27df6.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-20T17:00:00.000Z",
+          "end": "2020-01-20T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-08T13:04:44.000Z",
+      "createdAt": "2020-01-08T13:04:44.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 23450112,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://objectifaquitaine.latribune.fr/evenements/inscription/palmares-des-entreprises-qui-recrutent-le-20-janvier-2020-a-bordeaux"
+      ],
+      "location": {
+        "uid": 23450112,
+        "slug": "hotel-de-ville-de-bordeaux",
+        "name": "Hôtel de ville de Bordeaux",
+        "address": "palais rohan bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837937,
+        "longitude": -0.579609,
+        "updatedAt": "2018-01-12T10:38:59.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        13
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 70007681,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "forum-be-a-boss-5e-edition",
+      "title": {
+        "fr": "Forum Be a boss : 5e édition"
+      },
+      "description": {
+        "fr": "Samedi 11 février 2020, participez au forum Be a boss consacré aux femmes entrepreneures."
+      },
+      "longDescription": {
+        "fr": "Cette année encore, Bordeaux Métropole accueille et soutient ce forum qui permet aux femmes de booster leur ambition entrepreneuriale, de nourrir leur réflexion, de développer leur réseau, d’échanger avec des rôles modèles et de trouver un accompagnement ou des financements !\n\nLa journée sera marquée par des rencontres et des échanges entre entrepreneures, experts et professionnels de l’accompagnement de startups. Les participantes pourront assister aux « Be a Boss Awards » à Paris.\n\nPlus d'informations [https://www.be-a-boss.com/nouvelle-aquitaine](https://www.be-a-boss.com/nouvelle-aquitaine)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription obligatoire"
+      },
+      "image": {
+        "filename": "998e300ecf544f8f948435901947cebf.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 496,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "998e300ecf544f8f948435901947cebf.full.image.jpg",
+            "size": {
+              "height": 189,
+              "width": 267
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "998e300ecf544f8f948435901947cebf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-11T08:00:00.000Z",
+          "end": "2020-02-11T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-22T15:00:03.000Z",
+      "createdAt": "2020-01-08T13:24:13.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 41656706,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.be-a-boss.com/nouvelle-aquitaine"
+      ],
+      "location": {
+        "uid": 41656706,
+        "slug": "hotel-de-bordeaux-metropole",
+        "name": "Hôtel de Bordeaux Métropole",
+        "address": "esplanade charles de gaulle bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.836814,
+        "longitude": -0.585151,
+        "updatedAt": "2017-05-10T08:43:41.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        13
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 21571403,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "sieste-musicale-punch-tous-azimuts_496995",
+      "title": {
+        "fr": "Sieste musicale « Punch tous azimuts »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "0e3545869ea244e8b30b85e0f8a95a48.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "0e3545869ea244e8b30b85e0f8a95a48.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "0e3545869ea244e8b30b85e0f8a95a48.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-29T14:00:00.000Z",
+          "end": "2020-01-29T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-09T02:05:03.000Z",
+      "createdAt": "2020-01-09T02:05:03.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2122342
+}

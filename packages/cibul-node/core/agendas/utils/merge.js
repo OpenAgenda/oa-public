@@ -48,6 +48,10 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     });
   }
 
+  if (agendaEvent && agendaEvent.sourceAgendas) {
+    compiled.sourceAgendas = agendaEvent.sourceAgendas;
+  }
+
   if (originAgenda) {
     compiled.originAgenda = originAgenda;
   }
