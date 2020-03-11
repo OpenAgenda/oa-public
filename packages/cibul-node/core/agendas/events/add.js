@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const VError = require('verror');
@@ -51,7 +51,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     bypassAdditionalFieldValidation,
     paths,
     aggregated,
-    member
+    member,
+    access
   });
 
   const payload = createPayload(services, agenda);
