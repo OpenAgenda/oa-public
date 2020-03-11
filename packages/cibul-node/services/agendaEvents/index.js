@@ -44,7 +44,10 @@ module.exports = Object.assign(plugApp, {
       onUpdate: onUpdate.bind(null, { config, services }),
       onRemove: onRemove.bind(null, { services }),
       beforeRemove,
-      getMembers
+      getMembers,
+      getSourceAgendas: uids => services.agendas
+        .list({ uid: uids })
+        .then(({ agendas }) => agendas)
     }
   }),
   mw: {

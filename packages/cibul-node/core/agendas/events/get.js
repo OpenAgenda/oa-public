@@ -45,7 +45,9 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
 
   const payload = createPayload(services, agenda);
 
-  payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid, { decorate: ['member'] }));
+  payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid, {
+    decorate: ['member'].concat(detailed ? ['sourceAgendas'] : [])
+  }));
 
   if (load.event) {
     const event = await events.get({

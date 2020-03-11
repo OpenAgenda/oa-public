@@ -45,11 +45,11 @@ function eventsList(core, agenda, lastId, limit) {
     detailed: true
   }).then(({ events, lastId, agenda, formSchema }) => {
     log('listed %s events for reindexing in agenda %s (%s)', events.length, agenda.slug, lastId);
-    /*fs.writeFileSync(`/var/tmp/${agenda.slug}.schema.json`, JSON.stringify(formSchema, null, 2));
+    fs.writeFileSync(`/var/tmp/${agenda.slug}.schema.json`, JSON.stringify(formSchema, null, 2));
     fs.writeFileSync(`/var/tmp/${agenda.slug}.${lId}.${limit}.json`, JSON.stringify({
       events,
       lastId
-    }, null, 2));*/
+    }, null, 2));
 
     return { lastId, events };
   });
