@@ -25,7 +25,6 @@ module.exports = async function(config, set, identifiers, options = {} ) {
       refresh
     });
   } catch (err) {
-    console.log(err);
     throw new VError(err, 'failed to remove event from set %s', set);
   }
 

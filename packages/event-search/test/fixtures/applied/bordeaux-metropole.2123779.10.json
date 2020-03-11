@@ -1,0 +1,1332 @@
+{
+  "events": [
+    {
+      "uid": 81565608,
+      "ownerUid": 65133249,
+      "creatorUid": 65133249,
+      "slug": "boxers-esport-day-le-rendez-vous-des-gamers",
+      "title": {
+        "fr": "Boxers Esport Day : Le rendez-vous des gamers"
+      },
+      "description": {
+        "fr": "Plus grand rassemblement de gamers de Nouvelle-Aquitaine, le BED est un évènement incontournable pour le club, véritable précurseur dans le domaine le 11 Janvier à la Patinoire Mériadeck"
+      },
+      "longDescription": {
+        "fr": "Sont attendus : des influenceurs majeurs (Skyyart, Fred of the dead., …), des joueurs pros (Noobicyde, Mika & Vitch, …) et des amateurs qui pourront s’affronter dans des tournois et challenges tout au long de la journée mais également visiter le Village Gaming (stand et exposants), le Village Business (avec des intervenants clés du secteur) ou encore l’Espace Famille (pour découvrir et comprendre l’eSport).\n\nUn évènement qui se veut ouvert à tous, fédérateur et transgénérationnel de par son approche pédagogique, fun et responsable pour rassembler bien au delà du coeur de la communauté eSport.\n\n**PROGRAMME DE LA JOURNÉE**\n\n9h30 : Ouverture des portes\n\n10h : Cérémonie d'ouverture par Fred of the dead.\n\n10h30 : Début des tournois\n\n17h-19h : Finales des tournois commentées sur la scène centrale\n\n20h : Cérémonie de cloture et remise des prix\n\n21h : Fin du BED\n\n**TOURNOIS**\n\n\\- Fortnite (PC) : 20 duos en format Battle Royal, mode non compétitif, manettes interdites. Apportez vos périphériques (souris, clavier, casque, tapis de souris). 1200€ de cash prize à se partager pour les meilleurs duos\n\n\\- EA SPORTS NHL 20 (PS4) : 32 joueurs en format 1 vs 1, phase de poule puis arbre à élimination directe. Apportez seulement votre manette et votre câble USB. Prix : 180€ pour le vainqueur, 90€ pour le finaliste, 50€ pour le troisième.\n\n\\- EA SPORTS FIFA 20 (PS4) : 32 joueurs en format 1 vs 1, phase de poule puis arbre à élimination directe en aller/retour. Apportez seulement votre manette et votre câble USB. Prix : 180€ pour le vainqueur, 90€ pour le finaliste, 50€ pour le troisième.\n\n\\- Super Smash Bros. Ultimate (Switch) : 32 joueurs en format 1 vs 1, phase de poule puis arbre à élimination directe au meilleur des 3. Apportez seulement votre manette et votre câble USB. Prix : 180€ pour le vainqueur, 90€ pour le finaliste, 50€ pour le troisième.\n\n\\- Rocket League (PC) : 16 duos, format 2 vs 2, phase de poule puis arbre à élimination directe au meilleur des 3. Apportez vos périphériques (souris, clavier, casque, tapis de souris). Prix : 180€ chacun pour les vainqueurs, 90€ chacun pour les finalistes, 50€ chacun pour les troisièmes.\n\n**CHALLENGES**\n\nVenez défier Freyja sur League of Legends, Mika & Vitch sur Super Smash Bros., ... tout au long de la journée pour tenter de remporter des lots !\n\n**BILLETTERIE**\n\nTarif unique à 5€ ! Le billet journée vous permet des entrées et sorties de la patinoire illimitées. Le billet est cessible.\n\nInfos & réservations sur [https://boxersesport.live](https://boxersesport.live)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée à 5 euros"
+      },
+      "image": {
+        "filename": "4f2bdbe582d9441fb0e52359e94c90f3.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 260
+        },
+        "variants": [
+          {
+            "filename": "4f2bdbe582d9441fb0e52359e94c90f3.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1702,
+              "height": 630
+            }
+          },
+          {
+            "filename": "4f2bdbe582d9441fb0e52359e94c90f3.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-11T08:30:00.000Z",
+          "end": "2020-01-11T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T09:11:45.000Z",
+      "createdAt": "2020-01-10T09:11:45.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 31885316,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 31885316,
+        "slug": "patinoire-meriadeck289",
+        "name": "Patinoire Mériadeck",
+        "address": "95 Cours Maréchal Juin, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.834705,
+        "longitude": -0.587359,
+        "updatedAt": "2020-01-10T09:11:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 51,
+      "thematiques-bordeaux-metropole": [
+        34
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2020-02-15T02:14:33.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 51874821,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "visite-centre-de-telecontrole-ramses",
+      "title": {
+        "fr": "Visite centre de télécontrôle RAMSES"
+      },
+      "description": {
+        "fr": "Site chargé de surveiller le système d'assainissement de Bordeaux métropole, proposé par le service pédagogique du site. Le Transport est assuré par la ville de Bassens."
+      },
+      "longDescription": {
+        "fr": "Transport prévu avec départ à 9h15 et 14h15 de la Place de la commune de Paris. (marché)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "sur inscription"
+      },
+      "image": {
+        "filename": "7c77ea0bceab4c8eb45a063404ddbc5b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 465,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7c77ea0bceab4c8eb45a063404ddbc5b.full.image.jpg",
+            "size": {
+              "height": 618,
+              "width": 932
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7c77ea0bceab4c8eb45a063404ddbc5b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T08:15:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:15:00.000Z",
+          "end": "2020-01-22T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-16T17:38:02.000Z",
+      "createdAt": "2020-01-10T10:12:09.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 77805073,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0557808157"
+      ],
+      "location": {
+        "uid": 77805073,
+        "slug": "ramses978",
+        "name": "RAMSES",
+        "address": "cours louis fargue bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Maritime",
+        "latitude": 44.865552,
+        "longitude": -0.56522,
+        "updatedAt": "2020-01-10T10:11:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 1919865,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "retro-gaming_324704",
+      "title": {
+        "fr": "Rétro-gaming"
+      },
+      "description": {
+        "fr": "Jouez à des consoles des années passées sur le thème de l'eau avec les Rétrogamers de Bordeaux"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "entrée libre"
+      },
+      "image": {
+        "filename": "c432849c14ae41b88e45f727beb94d60.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 308
+        },
+        "variants": [
+          {
+            "filename": "c432849c14ae41b88e45f727beb94d60.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1640,
+              "height": 720
+            }
+          },
+          {
+            "filename": "c432849c14ae41b88e45f727beb94d60.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "RGB",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T10:15:34.000Z",
+      "createdAt": "2020-01-10T10:15:34.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 42,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 68999853,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "les-livres-saniment",
+      "title": {
+        "fr": "Les livres s'animent"
+      },
+      "description": {
+        "fr": "Lecture et découverte d'applications en lien avec les livres par Christelle."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "sur inscription"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T14:00:00.000Z",
+          "end": "2020-01-22T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T10:23:49.000Z",
+      "createdAt": "2020-01-10T10:23:49.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 8
+      },
+      "registration": [
+        "0557808178"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 56,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 63715516,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "demonstration-de-drones-sur-leau",
+      "title": {
+        "fr": "Démonstration de drones sur l'eau"
+      },
+      "description": {
+        "fr": "Des drônes occuperont le bassin de la piscine pour étonner et surprendre les spectateurs."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c3c040788642458b98a155a41a71e160.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 340
+        },
+        "variants": [
+          {
+            "filename": "c3c040788642458b98a155a41a71e160.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 600,
+              "height": 291
+            }
+          },
+          {
+            "filename": "c3c040788642458b98a155a41a71e160.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "Cap Science",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T15:00:00.000Z",
+          "end": "2020-01-22T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T10:26:39.000Z",
+      "createdAt": "2020-01-10T10:26:39.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 90526567,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 90526567,
+        "slug": "piscine-intercommunale-nelson-mandela",
+        "name": "Piscine intercommunale  Nelson Mandela",
+        "address": "piscine bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.900219,
+        "longitude": -0.51669,
+        "updatedAt": "2019-05-13T09:01:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 1732100,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "demonstration-des-outils-numeriques-en-sport-aquatique",
+      "title": {
+        "fr": "Démonstration des outils numériques en sport aquatique"
+      },
+      "description": {
+        "fr": "par la comité ESSM pour rendre des photos et des  vidéos sous l'eau"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "30b10c879c8b425495606e7fc03a5929.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 406,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "30b10c879c8b425495606e7fc03a5929.full.image.jpg",
+            "size": {
+              "height": 694,
+              "width": 1198
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "30b10c879c8b425495606e7fc03a5929.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-23T16:30:00.000Z",
+          "end": "2020-01-23T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T13:24:52.000Z",
+      "createdAt": "2020-01-10T12:57:59.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 44054023,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 44054023,
+        "slug": "gymnase-du-bousquet",
+        "name": "Gymnase du Bousquet",
+        "address": "rue Paul Bert, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.900736,
+        "longitude": -0.515228,
+        "updatedAt": "2018-02-14T09:16:00.000Z",
+        "image": null,
+        "description": {},
+        "website": "",
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 12456118,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "visite-privee-cap-sciences",
+      "title": {
+        "fr": "visite \"privée\" CAP Sciences"
+      },
+      "description": {
+        "fr": "Exposition robots"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "sur inscription et réservée aux bassenais"
+      },
+      "image": {
+        "filename": "f20d2c41bfa14a58a334bef8ca5b52c9.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1027
+        },
+        "variants": [
+          {
+            "filename": "f20d2c41bfa14a58a334bef8ca5b52c9.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 191,
+              "height": 280
+            }
+          },
+          {
+            "filename": "f20d2c41bfa14a58a334bef8ca5b52c9.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-23T18:00:00.000Z",
+          "end": "2020-01-23T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T13:01:18.000Z",
+      "createdAt": "2020-01-10T13:01:18.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 68474036,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 68474036,
+        "slug": "cap-sciences545",
+        "name": "Cap sciences",
+        "address": "Hangar 20, Quai de Bacalan, 33300 Bordeaux, France",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.858735,
+        "longitude": -0.557869,
+        "updatedAt": "2019-05-13T09:01:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 50054537,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "demonstration-musique-electronique",
+      "title": {
+        "fr": "Démonstration musique électronique"
+      },
+      "description": {
+        "fr": "Présentation du travail effectué lors des ateliers au collège Manon Cormier"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d6e2e1d69a954eadb0bd7ad4d36273d5.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 525
+        },
+        "variants": [
+          {
+            "filename": "d6e2e1d69a954eadb0bd7ad4d36273d5.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 3264,
+              "height": 2448
+            }
+          },
+          {
+            "filename": "d6e2e1d69a954eadb0bd7ad4d36273d5.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T16:30:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T13:03:05.000Z",
+      "createdAt": "2020-01-10T13:03:05.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 35227211,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "debat-intelligence-artificielle-et-choix-de-societe",
+      "title": {
+        "fr": "Débat \" Intelligence artificielle et choix de société\""
+      },
+      "description": {
+        "fr": "par les amis du Monde diplomatique"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T19:00:00.000Z",
+          "end": "2020-01-24T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T13:24:08.000Z",
+      "createdAt": "2020-01-10T13:24:08.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 91597514,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "tournoi-de-retro-gaming",
+      "title": {
+        "fr": "Tournoi de Rétro-gaming"
+      },
+      "description": {
+        "fr": "Par les RGB"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a17facbf12864224b54c979620b4a7b7.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 308
+        },
+        "variants": [
+          {
+            "filename": "a17facbf12864224b54c979620b4a7b7.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1640,
+              "height": 720
+            }
+          },
+          {
+            "filename": "a17facbf12864224b54c979620b4a7b7.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T12:30:00.000Z",
+          "end": "2020-01-25T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T13:27:06.000Z",
+      "createdAt": "2020-01-10T13:27:06.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 42,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2124258
+}

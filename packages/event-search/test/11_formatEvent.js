@@ -41,6 +41,11 @@ describe('11 - event-search - unit: formatEvent', function() {
       title: 'L\'agenda d\'origine je crois',
       image: 'https://fdqfdq.jpg'
     },
+    sourceAgendas: [{
+      uid: 7891011,
+      title: 'Un agenda source',
+      'image': null
+    }],
     someAdditionalValue: 'oa@oa.com'
   };
 
@@ -54,8 +59,12 @@ describe('11 - event-search - unit: formatEvent', function() {
     formatted['_search_languages'].should.eql(['fr', 'en']);
   });
 
-  it('_search_origin_agenda is a string with info on agenda', () => {
+  it('originAgenda._agg is a string with info on agenda', () => {
     formatted.originAgenda._agg.should.eql('uid:123456|title:L\'agenda d\'origine je crois|image:https://fdqfdq.jpg')
+  });
+
+  it('sourceAgendas[]._agg is a string with info on the agenda', () => {
+    formatted.sourceAgendas[0]._agg.should.eql('uid:7891011|title:Un agenda source|image:');
   });
 
   it('_search_title contains the titles of the event', () => {

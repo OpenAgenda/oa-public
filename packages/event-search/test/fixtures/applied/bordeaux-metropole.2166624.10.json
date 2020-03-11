@@ -1,0 +1,1568 @@
+{
+  "events": [
+    {
+      "uid": 72731572,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "science-infuse-vie-darbre",
+      "title": {
+        "fr": "Science Infuse : Vie d'arbre"
+      },
+      "description": {
+        "fr": "En lien avec l’exposition « Arbres, résonances… » au rez-de-chaussée et 1er étage du Forum, venez découvrir le circuit de visite scientifique « Vie d’arbre » situé au 3è étage."
+      },
+      "longDescription": {
+        "fr": "**L’arbre, ce géant terrestre, attire et fascine les enfants depuis toujours. Tantôt refuge ou repère, tantôt cachette ou compagnon de jeux, il fait travailler l’imaginaire des petits comme des grands. De la jeune pousse à la vieille branche, en passant par les racines et l’écorce, l’arbre a tant d’histoires à raconter et de secrets à livrer !**\n\n**Les enfants prendront le temps d’observer, d’enquêter et de découvrir les ressources de ce vieil ami qui peuple les forêts depuis la nuit des temps.**\n\n**QUÉSACO-LABO**\n\nLE PRINCIPE :\n\nDES ACTIVITÉS AMUSANTES, DES EXPÉRIENCES COLLABORATIVES ET DES PRODUCTIONS (RÉ)CRÉATIVES À LA SÉANCE, OUVERTES À TOUS LES ENFANTS CURIEUX DE RELEVER DES DÉFIS.\n\n\\- De 7 à 12 ans / Durée 1h30 Inscription obligatoire - places limitées\n\nTarif : 3€ par enfant/séance Billetterie culture / [www.talence.fr](https://www.talence.fr)\n\n**QUÉSACO-DUO**\n\nLE PRINCIPE :\n\nFORMEZ UN DUO PARENT-ENFANT POUR PARTAGER UN ATELIER LUDIQUE ET CRÉATIF.\n\n\\- De 4 à 7 ans / Durée 1h30 Inscription obligatoire - places limitées\n\nTarif : 5€ par duo Billetterie culture / [www.talence.fr](https://www.talence.fr)\n\n**LE BEC AU SEC !**\n\n**Le mercredi 18 mars et 29 avril à 14h30**\n\n**Le samedi 18 avril à 16h**\n\nTrouver l’endroit idéal pour fabriquer un petit nid douillet n’est pas une mince affaire pour les oiseaux.\n\nOffre l’hospitalité à nos amis à plumes, en confectionnant un nichoir tout confort, à suspendre aux branches d’un bel arbre robuste.\n\n**LE TOUR DU MONDE DES BOIS**\n\n**Le mercredi 25 mars et 13 mai à 14h30**\n\nNima Saedlou, scientifique et spécialiste du bois, a prévu de délocaliser une partie de son laboratoire dans les espaces de la Science infuse. Elle te proposera un voyage riche en découvertes, autour d’essences de bois de tous les continents, qui mettront, à coup sûr, tes sens en éveil. Si ça te branche d’apprendre à mieux connaître les arbres, rejoins-nous !\n\n**DE BRIQUES ET DE BLOCS**\n\n**Le mercredi 15 avril et 27 mai à 14h30**\n\n**Le samedi 16 mai à 16h**\n\nQui n’a jamais voulu construire son refuge secret ? Sa cachette idéale où l’on peut y jouer, laisser vagabonder son imagination, mettre en place les stratégies les plus ingénieuses ? Le temps de l’atelier, en groupe, élaborez, dessinez et bâtissez la cabane de vos rêves, grâce au matériel mis à votre disposition.\n\n**RÉCRÉA-SCIENCE**\n\n**Le mercredi 22 avril et 6 mai à 15h30**\n\n\\- De 4 à 7 ans / Durée 1h Inscription obligatoire - places limitées\n\nGratuit / Billetterie culture / [www.talence.fr](https://www.talence.fr)\n\nSi tu as de l’appétit pour le savoir \\[et pour le goûter\\], cet atelier est fait pour toi ! Au menu : une visite du parcours de la « Science infuse » suivie d’une collation conviviale organisée dans le laboratoire.\n\n**ENVIE DE DÉCOUVRIR LE PARCOURS EN FAMILLE ?**\n\n**Une visite accompagnée du parcours scientifique « Vie d’arbre » peut vous être proposée gratuitement et sur demande.**\n\n**Si vous souhaitez en profiter, contactez le service culturel par mail :** [**culture@talence.fr**](mailto:culture@talence.fr)\n\nLa médiatrice scientifique conviendra d’un rendez-vous avec vous en fonction des créneaux disponibles."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "62d0d904560c40c08ead8efd3d5be28c.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 986
+        },
+        "variants": [
+          {
+            "filename": "62d0d904560c40c08ead8efd3d5be28c.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1648,
+              "height": 2320
+            }
+          },
+          {
+            "filename": "62d0d904560c40c08ead8efd3d5be28c.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-10T13:00:00.000Z",
+          "end": "2020-03-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T12:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T12:00:00.000Z",
+          "end": "2020-04-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T12:00:00.000Z",
+          "end": "2020-04-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T12:00:00.000Z",
+          "end": "2020-04-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T12:00:00.000Z",
+          "end": "2020-04-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T12:00:00.000Z",
+          "end": "2020-05-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T12:00:00.000Z",
+          "end": "2020-05-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T12:00:00.000Z",
+          "end": "2020-05-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T12:00:00.000Z",
+          "end": "2020-05-29T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T08:43:25.000Z",
+      "createdAt": "2020-02-13T08:43:25.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 1973393,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "culture@talence.fr",
+        "05 57 12 29 00"
+      ],
+      "location": {
+        "uid": 1973393,
+        "slug": "forum-des-arts-and-de-la-culture810",
+        "name": "Forum des Arts & de la Culture",
+        "address": "place alcala de henares Talence",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.812097,
+        "longitude": -0.590094,
+        "updatedAt": "2019-08-30T08:34:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        54892589
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-talence",
+          "uid": 54892589,
+          "official": 1,
+          "title": "Ville de Talence",
+          "description": "Agenda de tous les événements de la commune de Talence.",
+          "url": "http://www.talence.fr",
+          "image": "agenda54892589.jpg",
+          "updatedAt": "2020-02-13T08:50:36.000Z",
+          "createdAt": "2017-02-10T16:12:45.000Z",
+          "officializedAt": "2019-04-05T11:29:36.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 99793183,
+      "ownerUid": 41026681,
+      "creatorUid": 41026681,
+      "slug": "mama_746691",
+      "title": {
+        "fr": "Mamá"
+      },
+      "description": {
+        "fr": "Dans le cadre du cycle de cinéma colombien, en collaboration avec l'Ambassade de Colombie en France et à l'occasion de la Journée Internationale de la Femme"
+      },
+      "longDescription": {
+        "fr": "Projection du film «Mamá», réalisé par Philippe Van Hassenhoven, en version espagnole, sous-titrée en français.\n\nSynopsis: Victoria reçoit la visite de sa fille Saraha, dont elle n'avait plus de nouvelles. Celle-ci lui demande de s'occuper de son enfant de 7 ans. Mais Victoria apprécie sa solitude et son indépendance. Peu à peu, au contact de sa petite-fille qu'elle découvre, sa vie va être transformée."
+      },
+      "keywords": {
+        "fr": [
+          "cinéma",
+          "Colombie",
+          "maman",
+          "femmes",
+          "enfants"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre dans la mesure des places disponibles"
+      },
+      "image": {
+        "filename": "a64f653c87974df0aeec040e8188b589.base.image.jpg",
+        "credits": "Ambassade de Colombie",
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a64f653c87974df0aeec040e8188b589.full.image.jpg",
+            "size": {
+              "height": 1333,
+              "width": 1000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a64f653c87974df0aeec040e8188b589.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-09T17:00:00.000Z",
+          "end": "2020-03-09T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T10:30:24.000Z",
+      "createdAt": "2020-02-11T14:33:09.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 75101604,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "05 57 14 26 11",
+        "https://cultura.cervantes.es/burdeos/fr/mam%c3%a1/130843"
+      ],
+      "location": {
+        "uid": 75101604,
+        "slug": "institut-cervantes586",
+        "name": "Institut Cervantes",
+        "address": "57 cours de l'intendance 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841949,
+        "longitude": -0.578694,
+        "updatedAt": "2019-12-30T08:37:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Projection d'un film colombien, en collaboration avec l'Ambassade de Colombie en France, dans le cadre du ciné-club de l'Instituto Cervantes de Bordeaux Cycle cinéma colombien",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 45,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 15365675,
+      "ownerUid": 41026681,
+      "creatorUid": 41026681,
+      "slug": "rencontres-poetiques-en-4-langues",
+      "title": {
+        "fr": "Rencontres poétiques en 4 langues"
+      },
+      "description": {
+        "fr": "Poésie et récital avec 4 prestigieux poètes espagnols"
+      },
+      "longDescription": {
+        "fr": "Raquel Santanera, Felipe Juaristi, Alba Cid et Juan Carlos Abril, 4 poétes provenant de 4 régions d'Espagne différentes parleront de leur travail, de leur parcours et liront quelques poèmes écrits dans une des 4 langues officielles de l´état espagnol: basque, catalan, galicien et castillan.\n\nActivité organisée en collaboration avec l'Université Bordeaux-Montaigne et l'Office Culturel de l'Ambassade d'Espagne à Paris"
+      },
+      "keywords": {
+        "fr": [
+          "poésie",
+          "littérature espagnole",
+          "récital poétique."
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "d0b68e85570d433cb0302bdc2c75cd7d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 510,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d0b68e85570d433cb0302bdc2c75cd7d.full.image.jpg",
+            "size": {
+              "height": 204,
+              "width": 280
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d0b68e85570d433cb0302bdc2c75cd7d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-18T09:30:00.000Z",
+          "end": "2020-03-18T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T10:00:00.000Z",
+          "end": "2020-03-18T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T10:30:00.000Z",
+          "end": "2020-03-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T11:00:00.000Z",
+          "end": "2020-03-18T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:30:00.000Z",
+          "end": "2020-03-18T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T14:00:00.000Z",
+          "end": "2020-03-18T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T14:30:00.000Z",
+          "end": "2020-03-18T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T10:30:41.000Z",
+      "createdAt": "2020-02-11T14:45:39.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 75101604,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 17,
+        "max": 99
+      },
+      "registration": [
+        "0557142614"
+      ],
+      "location": {
+        "uid": 75101604,
+        "slug": "institut-cervantes586",
+        "name": "Institut Cervantes",
+        "address": "57 cours de l'intendance 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841949,
+        "longitude": -0.578694,
+        "updatedAt": "2019-12-30T08:37:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "À l'occasion du Mois de la poésie, en collaboration avec l'Université Bordeaux-Montaigne",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 36995527,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "rencontre-le-printemps-italien",
+      "title": {
+        "fr": "Rencontre « Le printemps Italien »"
+      },
+      "description": {
+        "fr": "Dans le cadre du festival Le Printemps Italien un hommage sera rendu à Gianmaria Testa en présence de Paola Farinetti, productrice, qui dirige la société de production et de distribution Fuorivie."
+      },
+      "longDescription": {
+        "fr": "Paola Farinetti a été la femme de Gianmaria Testa, musicien et chanteur piémontais très apprécié dans toute la France qui nous a quittés prématurément le 30 mars 2016. Avec Fuorivie, fruit de son imagination, le spectacle est présenté sous toutes ses formes, de celle théâtrale à celle musicale en passant par la littérature. Paola a toujours travaillé avec Gianmaria et ensemble ils ont réussi à impliquer dans leur projet des artistes de premier plan de la scène italienne et internationale parmi lesquels Erri De Luca, Paolo Rossi, Greg Cohen, Stefano Bollani, Gabriele Mirabassi, Paolo Fresu et Enrico Rava. Lors de cette rencontre, Paola Farinetti dialoguera avec Patrick Duval, directeur du Rocher Palmer. Seront aussi lus, en français et en italien, des extraits du livre de Gianmaria Testa « Da questa parte del mare » (« De ce côté-ci de la mer » aux éditions Du Sonneur) par Luciana Carraretto e Christiane Rateau (actrices de théâtre amateur à Bordeaux). Enfin, des extraits du spectacle « Chichiotte et les invisibles » avec Gianmaria Testa, Gabriele Mirabassi et Erri de Luca seront projetés."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "786b2cde91a14d4fb7b881221b81c23c.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "786b2cde91a14d4fb7b881221b81c23c.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "786b2cde91a14d4fb7b881221b81c23c.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-28T19:30:00.000Z",
+          "end": "2020-03-28T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T02:05:03.000Z",
+      "createdAt": "2020-02-14T02:05:03.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/rencontres/printemps.italien/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 70426976,
+      "ownerUid": 20609331,
+      "creatorUid": 20609331,
+      "slug": "19eme-salon-du-livre-jeunesse",
+      "title": {
+        "fr": "19ème Salon du Livre Jeunesse"
+      },
+      "description": {
+        "fr": "19ème Salon du Livre Jeunesse - Même pas peur !"
+      },
+      "longDescription": {
+        "fr": "**19ème Salon du Livre Jeunesse**\n---------------------------------\n\n**Même pas peur !**\n-------------------\n\n**10 et 11 avril 2020**\n\n**La Source**\n\nAu printemps 2020, le Salon du livre jeunesse a décidé de vous faire frissonner. Les peurs, celles du noir ou de la nuit, des monstres ou de\n\nl’inconnu, occupent une place de choix dans la littérature jeunesse, car en les mettant en scène, en les traduisant à travers des textes et des images, les livres permettent un peu de les apprivoiser. Et qui peut dire qu’il n’aime pas, de temps à autre jouer à se faire peur ?\n\n**Au programme :** rencontres scolaires, ateliers créatifs et numériques, histoires de monstres, de loups, d’ogres et de sorcières, jeux, spectacles, des dédicaces et des rencontres avec les auteurs, éditeurs et libraires.\n\nMême pas peur de découvrir et de rêver !\n\n**Spectacle de clôture : 11 AVRIL 18H30**\n\nERMITAGE-COMPOSTELLE « Victor L’enfant sauvage » COMPAGNIE ZAI : Tout public à partir de 4 ans Durée 55 min\n\nVictor découvre un monde inconnu et surprenant. Il croise des êtres fantastiques et cherche à les apprivoiser. Chemin faisant, il rencontre un monstre, des rochers mobiles, un souterrain, une balle verte magique... Sa curiosité et son audace l’emportent. Il dépasse sa solitude et parvient à s’adapter à cet univers."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée Libre"
+      },
+      "image": {
+        "filename": "ac7097b53acc4c0687eb8ac83e3c6293.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1050
+        },
+        "variants": [
+          {
+            "filename": "ac7097b53acc4c0687eb8ac83e3c6293.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 840,
+              "height": 1260
+            }
+          },
+          {
+            "filename": "ac7097b53acc4c0687eb8ac83e3c6293.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "@VILLE LE BOUSCAT",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-10T15:00:00.000Z",
+          "end": "2020-04-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:30:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T10:58:07.000Z",
+      "createdAt": "2020-02-14T10:58:07.000Z",
+      "agendaUid": 94362290,
+      "locationUid": 53452339,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 53452339,
+        "slug": "la-source-httpsalondulivrejeunesse-bouscatfr",
+        "name": "La Source - http://salondulivrejeunesse-bouscat.fr",
+        "address": "Place Gambetta 33110",
+        "city": "Le Bouscat",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33110",
+        "insee": "33069",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.865574,
+        "longitude": -0.60028,
+        "updatedAt": "2019-02-14T15:42:02.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "19ÈME SALON DU LIVRE JEUNESSE",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 54,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94362290
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-le-bouscat",
+          "uid": 94362290,
+          "official": 1,
+          "title": "Ville de Le Bouscat",
+          "description": "Agenda des événements de la commune de Le Bouscat",
+          "url": "http://www.bouscat.fr/agenda/",
+          "image": "agenda94362290.jpg",
+          "updatedAt": "2020-02-14T10:58:09.000Z",
+          "createdAt": "2017-02-10T16:00:40.000Z",
+          "officializedAt": "2018-06-12T13:20:33.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-le-bouscat",
+        "uid": 94362290,
+        "official": 1,
+        "title": "Ville de Le Bouscat",
+        "description": "Agenda des événements de la commune de Le Bouscat",
+        "url": "http://www.bouscat.fr/agenda/",
+        "image": "agenda94362290.jpg",
+        "updatedAt": "2020-02-14T10:58:09.000Z",
+        "createdAt": "2017-02-10T16:00:40.000Z",
+        "officializedAt": "2018-06-12T13:20:33.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 14957691,
+      "ownerUid": 18204049,
+      "creatorUid": 18204049,
+      "slug": "pause-debat-de-0-a-99-ans-quand-la-musique-nous-fait-du-bien",
+      "title": {
+        "fr": "Pause-débat : \"De 0 à 99 ans, quand la musique nous fait du bien\""
+      },
+      "description": {
+        "fr": "C'est bien connu, la musique adoucit les mœurs. Et si c'était plus que ça ?  Si la musique était une source de bien-être plus générale."
+      },
+      "longDescription": {
+        "fr": "La prochaine **pause-débat** organisée par la Ville de Gradignan aura pour thème : _**\"De 0 à 99 ans, quand la musique nous fait du bien\"**_.\n\nElle se déroulera le **dimanche 29 mars 2020** à 16h à la Médiathèque Jean Vautrin.\n\nC'est bien connu, la musique adoucit les mœurs. Et si c'était plus que ça ? Si la musique était une source de bien-être plus générale. Si nous pouvions, grâce à la musique, appréhender les moments de stress. Si nous utilisions la musique comme vecteur de communication apaisant avec les autres. Rachel Pairaud et Florence Segui, musicothérapeutes, nous proposent de considérer la musique comme un outil à travers lequel nous pourrions améliorer notre quotidien, intensifier la confiance en soi, favoriser l'apprentissage, prendre la parole en public. Frédéric Fauré, le Directeur du Conservatoire de Musique de Gradignan participera également à cette rencontre.\n\nFidèle à son principe, ce moment laissera une large place aux questions et à l'échange. Accès libre et gratuit.\n\nEn espérant vous retrouver nombreux pour ce rendez-vous !\n\n."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Accès libre"
+      },
+      "image": {
+        "filename": "e506720ba6374fd9a3e10dcd8bcae602.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 276,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e506720ba6374fd9a3e10dcd8bcae602.full.image.jpg",
+            "size": {
+              "height": 480,
+              "width": 1220
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e506720ba6374fd9a3e10dcd8bcae602.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-29T14:00:00.000Z",
+          "end": "2020-03-29T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T13:32:25.000Z",
+      "createdAt": "2020-02-14T13:31:22.000Z",
+      "agendaUid": 35828405,
+      "locationUid": 92848691,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 92848691,
+        "slug": "mediatheque-jean-vautrin577",
+        "name": "Médiathèque Jean Vautrin",
+        "address": "32 Route de Léognan, 33170",
+        "city": "Gradignan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33170",
+        "insee": "33192",
+        "countryCode": "FR",
+        "district": "Moulineau",
+        "latitude": 44.768004,
+        "longitude": -0.610793,
+        "updatedAt": "2019-09-12T10:03:41.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.lamediathequedegradignan.fr/exploitation/",
+        "email": "lamediatheque@ville-gradignan.fr",
+        "phone": "05 57 12 18 90",
+        "links": [
+          "https://www.gradignan.fr/nos-loisirs/culture/mediatheque-397.html"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        35828405
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-gradignan",
+          "uid": 35828405,
+          "official": 0,
+          "title": "Ville de Gradignan",
+          "description": "Agenda de tous les événements de la commune de Gradignan",
+          "url": "https://www.gradignan.fr/",
+          "image": "agenda35828405.jpg",
+          "updatedAt": "2020-02-14T15:02:10.000Z",
+          "createdAt": "2017-04-10T10:35:39.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-gradignan",
+        "uid": 35828405,
+        "official": 0,
+        "title": "Ville de Gradignan",
+        "description": "Agenda de tous les événements de la commune de Gradignan",
+        "url": "https://www.gradignan.fr/",
+        "image": "agenda35828405.jpg",
+        "updatedAt": "2020-02-14T15:02:10.000Z",
+        "createdAt": "2017-04-10T10:35:39.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 30999508,
+      "ownerUid": 18204049,
+      "creatorUid": 18204049,
+      "slug": "trocke-dance-battle-9_882527",
+      "title": {
+        "fr": "tROCké Dance Battle 9"
+      },
+      "description": {
+        "fr": "Neuvième édition du tROCKé Dance Battle : une cinquantaine de danseurs français et européens se défient"
+      },
+      "longDescription": {
+        "fr": "Venez encourager les meilleurs footworkers et breakers de Bordeaux, de France et d'Europe, au tROCKé le **samedi 15 février 2020 dès 14h30** pour la neuvième édition du **tROCKé Dance Battle.**\n\nPour cette 9e édition, la scène du tROCKé accueillera **une cinquantaine de danseurs de hip-hop venus de toute la France et d'Europe** pour se défier. Les meilleures équipes de Bordeaux mais aussi de toute la France (Paris, Montpellier Cholet, Limoges, ....) et d'Europe (Espagne, Suisse, Portugal..) seront au rendez-vous.\n\nAu programme, deux catégories 1 contre 1 « Footwork » et 2 contre 2 « Breakdance ».\n\nLe jury est composé cette année de 3 artistes reconnus mondialement :\n\n*   WINGZERO du Japon (il participera à la Hip Hop Session à Nantes le week-end suivant, l'un des événements les plus importants en France),\n*   INSIDE de Russie\n*   et MENDIGO de Bordeaux.\n\nAux platines, DJ Davy Jones (Bordeaux) et DJ KRIS.\n\nAu micro El Pistolero & Hassan Sarr (Les Associés Crew)."
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "battle",
+          "gradignan"
+        ]
+      },
+      "conditions": {
+        "fr": "Adhérents : 5 € - Non adhérents : 7 €  (- 12 ans : 2€ , - 6 ans : gratuit)"
+      },
+      "image": {
+        "filename": "8ea7cb93850140bfa5e969d38f1578b2.base.image.jpg",
+        "credits": "®DR",
+        "size": {
+          "height": 276,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8ea7cb93850140bfa5e969d38f1578b2.full.image.jpg",
+            "size": {
+              "height": 480,
+              "width": 1220
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8ea7cb93850140bfa5e969d38f1578b2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T13:30:00.000Z",
+          "end": "2020-02-15T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T13:59:05.000Z",
+      "createdAt": "2020-02-14T13:57:49.000Z",
+      "agendaUid": 35828405,
+      "locationUid": 80866445,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 80866445,
+        "slug": "trocke-cafe-epajg-bourg",
+        "name": "tROCKé Café / EPAJG Bourg",
+        "address": "8 avenue Jean Larrieu 33170 Gradignan",
+        "city": "Gradignan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33170",
+        "insee": "33192",
+        "countryCode": "FR",
+        "district": "Cité Jardin",
+        "latitude": 44.773742,
+        "longitude": -0.61707,
+        "updatedAt": "2020-02-14T14:01:27.000Z",
+        "image": "location80866445.jpg",
+        "description": {},
+        "website": "https://www.gradignan.fr/enfance-jeunesse/jeunesse/le-trocke-cafe-608.html",
+        "email": "epajgtrocke@ville-gradignan.fr",
+        "phone": "05 56 89 17 12",
+        "links": [
+          "http://facebook.com/trocke.cafe.jeunes"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 51,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        35828405
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-gradignan",
+          "uid": 35828405,
+          "official": 0,
+          "title": "Ville de Gradignan",
+          "description": "Agenda de tous les événements de la commune de Gradignan",
+          "url": "https://www.gradignan.fr/",
+          "image": "agenda35828405.jpg",
+          "updatedAt": "2020-02-14T15:02:10.000Z",
+          "createdAt": "2017-04-10T10:35:39.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-gradignan",
+        "uid": 35828405,
+        "official": 0,
+        "title": "Ville de Gradignan",
+        "description": "Agenda de tous les événements de la commune de Gradignan",
+        "url": "https://www.gradignan.fr/",
+        "image": "agenda35828405.jpg",
+        "updatedAt": "2020-02-14T15:02:10.000Z",
+        "createdAt": "2017-04-10T10:35:39.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 37762232,
+      "ownerUid": 18204049,
+      "creatorUid": 18204049,
+      "slug": "un-carnaval-dans-les-etoiles-a-gradignan",
+      "title": {
+        "fr": "Un Carnaval « dans les étoiles » à Gradignan"
+      },
+      "description": {
+        "fr": "Tous les ans, Gradignan célèbre joyeusement et en musique la traditionnelle fête de Carnaval. Le thème de cette année : \"Dans les étoiles !\""
+      },
+      "longDescription": {
+        "fr": "Tous les ans, Gradignan célèbre joyeusement et en musique la traditionnelle **fête de Carnaval.**\n\n**Samedi 21 mars à 14h**, le Carnaval de la Ville fera son défilé. Le thème de cette année : **\"Dans les étoiles !\".** À vos déguisements !\n\nAu programme :\n\n*   14h : animations, jeux et maquillage à Laurenzane.\n*   16h : déambulation vers le parc de l'Ermitage.\n*   17h : goûter à l'EPAJG Bourg\n*   17h à 20h : Concert de musique irlandaise à l'occasion de la Saint-Patrick, buvette et restauration, place Bernard Roumégoux."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d6996f2552054ec2b18892a4b46c2267.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 276,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d6996f2552054ec2b18892a4b46c2267.full.image.jpg",
+            "size": {
+              "height": 480,
+              "width": 1220
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d6996f2552054ec2b18892a4b46c2267.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T14:40:21.000Z",
+      "createdAt": "2020-02-14T14:39:32.000Z",
+      "agendaUid": 35828405,
+      "locationUid": 97161824,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 97161824,
+        "slug": "centre-commercial-de-laurenzane",
+        "name": "Centre commercial de Laurenzane",
+        "address": "Allée Gaston Rodrigues, 33170 Gradignan",
+        "city": "Gradignan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33170",
+        "insee": "33192",
+        "countryCode": "FR",
+        "district": "Laurenzane",
+        "latitude": 44.772757,
+        "longitude": -0.609956,
+        "updatedAt": "2020-02-14T14:46:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        35828405
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-gradignan",
+          "uid": 35828405,
+          "official": 0,
+          "title": "Ville de Gradignan",
+          "description": "Agenda de tous les événements de la commune de Gradignan",
+          "url": "https://www.gradignan.fr/",
+          "image": "agenda35828405.jpg",
+          "updatedAt": "2020-02-14T15:02:10.000Z",
+          "createdAt": "2017-04-10T10:35:39.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-gradignan",
+        "uid": 35828405,
+        "official": 0,
+        "title": "Ville de Gradignan",
+        "description": "Agenda de tous les événements de la commune de Gradignan",
+        "url": "https://www.gradignan.fr/",
+        "image": "agenda35828405.jpg",
+        "updatedAt": "2020-02-14T15:02:10.000Z",
+        "createdAt": "2017-04-10T10:35:39.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 16193887,
+      "ownerUid": 18204049,
+      "creatorUid": 18204049,
+      "slug": "tauzia-fete-les-plantes-et-les-jardins_759597",
+      "title": {
+        "fr": "Tauzia fête les plantes et les jardins"
+      },
+      "description": {
+        "fr": "Édition printemps 2020 : Plantez la Vie, Plantez l’Avenir ! « Tauzia fête les plantes et les jardins », revient pour un nouveau rendez-vous à l’occasion du printemps : les 4 et 5 avril 2020."
+      },
+      "longDescription": {
+        "fr": "**« Tauzia fête les plantes et les jardins », revient pour un nouveau rendez-vous à l’occasion du printemps : les 4 et 5 avril 2020.**\n\nVenez rencontrer **près de 100 exposants spécialistes du monde végétal** : pépiniéristes producteurs, artisans, artistes et créateurs d’exception. Vous aurez la possibilité d’acheter plantes, fleurs et arbustes dans le cadre privilégié du parc à l’anglaise du **château de Tauzia à Gradignan**.\n\nVous pourrez également obtenir des conseils pour entretenir votre jardin et suivre des classes vertes courtes et instructives sur des thématiques précises."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Tarifs sur le site internet https://www.tauzia.fr/informations-pratiques/"
+      },
+      "image": {
+        "filename": "34b4ee6f0e524bc6b331f527b3af6e7d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 276,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "34b4ee6f0e524bc6b331f527b3af6e7d.full.image.jpg",
+            "size": {
+              "height": 480,
+              "width": 1220
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "34b4ee6f0e524bc6b331f527b3af6e7d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T08:00:00.000Z",
+          "end": "2020-04-05T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T15:02:09.000Z",
+      "createdAt": "2020-02-14T14:58:51.000Z",
+      "agendaUid": 35828405,
+      "locationUid": 75114406,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.billetweb.fr/tauzia-fete-les-plantes-et-les-jardins"
+      ],
+      "location": {
+        "uid": 75114406,
+        "slug": "chateau-de-tauzia472",
+        "name": "Château de Tauzia",
+        "address": "216 Cours du Général de Gaulle, 33170 Gradignan",
+        "city": "Gradignan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33170",
+        "insee": "33192",
+        "countryCode": "FR",
+        "district": "Sabatey",
+        "latitude": 44.761194,
+        "longitude": -0.616844,
+        "updatedAt": "2019-10-17T11:00:05.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://www.tauzia.fr/",
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        35828405
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-gradignan",
+          "uid": 35828405,
+          "official": 0,
+          "title": "Ville de Gradignan",
+          "description": "Agenda de tous les événements de la commune de Gradignan",
+          "url": "https://www.gradignan.fr/",
+          "image": "agenda35828405.jpg",
+          "updatedAt": "2020-02-14T15:02:10.000Z",
+          "createdAt": "2017-04-10T10:35:39.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-gradignan",
+        "uid": 35828405,
+        "official": 0,
+        "title": "Ville de Gradignan",
+        "description": "Agenda de tous les événements de la commune de Gradignan",
+        "url": "https://www.gradignan.fr/",
+        "image": "agenda35828405.jpg",
+        "updatedAt": "2020-02-14T15:02:10.000Z",
+        "createdAt": "2017-04-10T10:35:39.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 82220107,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "leonie-et-laurie-darmon",
+      "title": {
+        "fr": "Leonie et Laurie Darmon"
+      },
+      "description": {
+        "fr": "Leonie et Laurie Darmon, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "leonie et laurie darmon",
+          "pop"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 20€"
+      },
+      "image": {
+        "filename": "4f5878bec4e546ccbc82de4c9fe5ab13.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "4f5878bec4e546ccbc82de4c9fe5ab13.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "4f5878bec4e546ccbc82de4c9fe5ab13.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-12T18:30:00.000Z",
+          "end": "2020-06-12T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T02:05:04.000Z",
+      "createdAt": "2020-02-15T02:05:04.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/leonie/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2174737
+}

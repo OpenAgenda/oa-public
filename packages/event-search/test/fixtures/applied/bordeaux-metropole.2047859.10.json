@@ -1,0 +1,1364 @@
+{
+  "events": [
+    {
+      "uid": 87855155,
+      "ownerUid": 74139496,
+      "creatorUid": 74139496,
+      "slug": "gamification-laissez-vous-prendre-au-jeu-testerdemain",
+      "title": {
+        "fr": "Gamification : laissez-vous prendre au jeu #TesterDemain"
+      },
+      "description": {
+        "fr": "Atelier"
+      },
+      "longDescription": {
+        "fr": "Nouvelle tendance, la gamification est utilisée dans de nombreux domaines : éducation, marketing, civisme… Quels ressorts psychologiques mobilisent les jeux ? Pourquoi sont-ils si addictifs ? Vincent Jouanneau de Cap Sciences, nous invite à un atelier test pour comprendre la mécanique des jeux.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "game"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_gamification-laissez-vous-prendre-au-jeu-testerdemain_905670.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_gamification-laissez-vous-prendre-au-jeu-testerdemain_905670.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_gamification-laissez-vous-prendre-au-jeu-testerdemain_905670.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-27T17:30:00.000Z",
+          "end": "2019-11-27T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:09:33.000Z",
+      "createdAt": "2019-10-24T10:09:33.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 78811443,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 78811443,
+        "slug": "cap-sciences102",
+        "name": "Cap Sciences",
+        "address": "Hangar 20, quai de Bacalan Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.856773,
+        "longitude": -0.560627,
+        "updatedAt": "2019-05-09T14:49:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 43399992,
+      "ownerUid": 7830949,
+      "creatorUid": 7830949,
+      "slug": "au-bout-du-fil-avec-recup-r_777",
+      "title": {
+        "fr": "Au bout du fil avec Récup'R"
+      },
+      "description": {
+        "fr": "Avec les chambres à air de vélo, la créativité n'a pas de limites. Apprenez à travailler ce matériau en fabriquant des bijoux originaux et durables, pour vous ou pour offrir."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "event_au-bout-du-fil-avec-recup-r_777_552758.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_au-bout-du-fil-avec-recup-r_777_552758.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_au-bout-du-fil-avec-recup-r_777_552758.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-14T13:00:00.000Z",
+          "end": "2019-11-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:19:55.000Z",
+      "createdAt": "2019-10-24T10:11:07.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://maisoneco.bordeaux-metropole.fr/s-inscrire-a-un-atelier",
+        "05 24 57 65 20"
+      ],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        10,
+        11,
+        17
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2020-02-03T09:57:09.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 21916700,
+      "ownerUid": 74139496,
+      "creatorUid": 74139496,
+      "slug": "cartopartie-contribuez-a-openstreetmap-testerdemain",
+      "title": {
+        "fr": "Cartopartie : contribuez à OpenStreetMap #TesterDemain"
+      },
+      "description": {
+        "fr": "Atelier"
+      },
+      "longDescription": {
+        "fr": "Le point commun entre la SNCF, la Poste et Médecins sans frontières ? Tous utilisent OpenStreetMap, cartographie libre du monde. Vincent Bergeot de Num&Lib nous apprend à contribuer à ce commun numérique en signalant une nouvelle borne de tri, un commerce et même l’intérieur d’une gare ou d’un musée.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "carto",
+          "opensource",
+          "openstreetmap"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_cartopartie-contribuez-a-openstreetmap-testerdemain_760208.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_cartopartie-contribuez-a-openstreetmap-testerdemain_760208.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_cartopartie-contribuez-a-openstreetmap-testerdemain_760208.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-27T17:30:00.000Z",
+          "end": "2019-11-27T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:13:53.000Z",
+      "createdAt": "2019-10-24T10:13:52.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 95069313,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 95069313,
+        "slug": "c2d-conseil-de-developpement-durable-de-bordeaux-metropole",
+        "name": "C2D - Conseil de développement durable de Bordeaux Métropole",
+        "address": "Hôtel de Bordeaux Métropole Esplanade Charles De Gaulle 33045 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837373,
+        "longitude": -0.58374,
+        "updatedAt": "2017-10-04T07:56:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 8146864,
+      "ownerUid": 74139496,
+      "creatorUid": 74139496,
+      "slug": "libres-grace-aux-objets-connectes-testerdemain",
+      "title": {
+        "fr": "Libres grâce aux objets connectés ? #TesterDemain"
+      },
+      "description": {
+        "fr": "Midi-démo"
+      },
+      "longDescription": {
+        "fr": "Certains objets connectés facilitent le maintien à domicile de personnes dépendantes. Face au vieillissement de la population, l’e-santé est-elle une alternative fiable à l’accompagnement humain ? Jenny Benois-Pineau du LaBRI nous parlera du projet BIRDS et des outils au chevet des plus fragiles : bracelets, caméras, détecteurs de chute…\n\nDécouvrez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "esante"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_libres-grace-aux-objets-connectes-testerdemain_446895.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_libres-grace-aux-objets-connectes-testerdemain_446895.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_libres-grace-aux-objets-connectes-testerdemain_446895.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-28T11:00:00.000Z",
+          "end": "2019-11-28T13:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:16:28.000Z",
+      "createdAt": "2019-10-24T10:16:27.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 95069313,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 95069313,
+        "slug": "c2d-conseil-de-developpement-durable-de-bordeaux-metropole",
+        "name": "C2D - Conseil de développement durable de Bordeaux Métropole",
+        "address": "Hôtel de Bordeaux Métropole Esplanade Charles De Gaulle 33045 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837373,
+        "longitude": -0.58374,
+        "updatedAt": "2017-10-04T07:56:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 79391117,
+      "ownerUid": 7830949,
+      "creatorUid": 7830949,
+      "slug": "permanence-bokashi-avec-recup-emfso",
+      "title": {
+        "fr": "Permanence Bokashi avec Recup / EMFSO"
+      },
+      "description": {
+        "fr": "Comment composter en appartement ? Avec son projet Bokashi, EMFSO vous aide à trouver la meilleure solution pour valoriser vos biodéchets sans jardin !"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Sans inscription"
+      },
+      "image": {
+        "filename": "event_permanence-bokashi-avec-recup-emfso_532020.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_permanence-bokashi-avec-recup-emfso_532020.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_permanence-bokashi-avec-recup-emfso_532020.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T14:00:00.000Z",
+          "end": "2019-11-16T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:35:38.000Z",
+      "createdAt": "2019-10-24T10:17:13.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        10,
+        11,
+        17,
+        21
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2020-02-03T09:57:09.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 69003549,
+      "ownerUid": 7830949,
+      "creatorUid": 7830949,
+      "slug": "un-noel-sans-dechet-avec-les-alternatives-de-lilly",
+      "title": {
+        "fr": "Un Noël sans déchet avec Les alternatives de Lilly"
+      },
+      "description": {
+        "fr": "Vous vous lancez dans le zéro déchet à la maison et vous ne savez pas comment vous allez gérer Noël ? Découvrez des astuces faciles à mettre en place pour alléger votre poubelle et votre budget"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "event_un-noel-sans-dechet-avec-les-alternatives-de-lilly_913854.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_un-noel-sans-dechet-avec-les-alternatives-de-lilly_913854.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_un-noel-sans-dechet-avec-les-alternatives-de-lilly_913854.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-20T13:00:00.000Z",
+          "end": "2019-11-20T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:44:26.000Z",
+      "createdAt": "2019-10-24T10:44:25.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        10,
+        11,
+        17,
+        23
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2020-02-03T09:57:09.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 78169746,
+      "ownerUid": 7830949,
+      "creatorUid": 7830949,
+      "slug": "bien-dans-monassiette-avec-charlotte-dupart",
+      "title": {
+        "fr": "Bien dans monassiette avec Charlotte Dupart"
+      },
+      "description": {
+        "fr": "Pour booster votre santé l'hiver, ça passe dans l'assiette. Connaissez-vous les super aliments, ses aliments pour faire le plein de vitalité en ces périodes où se ressent la fatigue ?"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "event_bien-dans-monassiette-avec-charlotte-dupart_599124.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_bien-dans-monassiette-avec-charlotte-dupart_599124.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_bien-dans-monassiette-avec-charlotte-dupart_599124.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-22T12:00:00.000Z",
+          "end": "2019-10-22T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:53:04.000Z",
+      "createdAt": "2019-10-24T10:53:03.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://maisoneco.bordeaux-metropole.fr/s-inscrire-a-un-atelier",
+        "05 24 57 65 20"
+      ],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        17,
+        32
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2020-02-03T09:57:09.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 16560750,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "programmation-bricotheque",
+      "title": {
+        "fr": "PROGRAMMATION BRICOTHÈQUE"
+      },
+      "description": {
+        "fr": "Les ateliers sont gratuits sur inscription : gvacher@talence.fr"
+      },
+      "longDescription": {
+        "fr": "**Horaires d’ouverture :**\n\n**LES MERCREDIS DE 14H À 18H & SAMEDIS DE 9H À 13H**\n\n**avenue Espeleta - 33400 Talence**\n\n**➤ Mercredi 13 novembre à partir de 14h30**\n\n**Atelier autour du bois et de ses différentes propriétés**\n\nTristan Quetineau, artisan ambulant animera un atelier : à travers différents jeux comme le loto des odeurs ou le jeu des paires, vous pourrez tester vos sens. Seul, entre amis ou en famille, venez vous amuser et en apprendre plus sur cette matière vivante qu’est le bois ! Vous serez surpris par la diversité des aspects, couleurs, odeurs, sonorités et même des goûts que le bois possède !\n\n**➤Samedi 23 novembre à partir de 14h**\n\n**Atelier broderie**\n\nRemise au goût du jour des vêtements que l’on ne porte plus. Malaury propose cet atelier de broderie à la main dans le but de customiser des vêtements que vous ne portez plus. Jeans, veste, tee-shirt, sweat, chemise, libre à chacun d’apporter une petite touche plus personnelle.Voici des exemples de broderies réalisables ensemble : motifs vé-gétaux, initiales, date, etc. (vous pouvez également venir avec votre propre idée de broderie).\n\nLes ateliers sont gratuits sur inscription : gvacher@talence.fr"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3fd0179c2220457da120806651032ed4.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 972
+        },
+        "variants": [
+          {
+            "filename": "3fd0179c2220457da120806651032ed4.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1172,
+              "height": 1626
+            }
+          },
+          {
+            "filename": "3fd0179c2220457da120806651032ed4.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 201,
+              "height": 201
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-01T08:00:00.000Z",
+          "end": "2019-11-01T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-02T08:00:00.000Z",
+          "end": "2019-11-02T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-03T08:00:00.000Z",
+          "end": "2019-11-03T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-08T08:00:00.000Z",
+          "end": "2019-11-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-09T08:00:00.000Z",
+          "end": "2019-11-09T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-10T08:00:00.000Z",
+          "end": "2019-11-10T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-15T08:00:00.000Z",
+          "end": "2019-11-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-16T08:00:00.000Z",
+          "end": "2019-11-16T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-17T08:00:00.000Z",
+          "end": "2019-11-17T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T08:00:00.000Z",
+          "end": "2019-11-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T08:00:00.000Z",
+          "end": "2019-11-23T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-24T08:00:00.000Z",
+          "end": "2019-11-24T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-29T08:00:00.000Z",
+          "end": "2019-11-29T12:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-30T08:00:00.000Z",
+          "end": "2019-11-30T12:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:57:32.000Z",
+      "createdAt": "2019-10-24T10:57:32.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 65230287,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "gvacher@talence.fr",
+        "05 56 84 34 66",
+        "06 12 66 14 07"
+      ],
+      "location": {
+        "uid": 65230287,
+        "slug": "maison-du-developpement-durable-talence",
+        "name": "Maison du développement durable Talence",
+        "address": "parc peixotto talence",
+        "city": null,
+        "region": null,
+        "department": null,
+        "postalCode": "18170",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.63728,
+        "longitude": 2.338262,
+        "updatedAt": "2017-09-26T08:02:01.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 42,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 70986373,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "rencontre-avec-beata-umubyeyi-mairesse_424988",
+      "title": {
+        "fr": "Rencontre avec Beata Umubyeyi Mairesse"
+      },
+      "description": {
+        "fr": "Dans le cadre du Prix des lecteurs – Escale du livre"
+      },
+      "longDescription": {
+        "fr": "**Dans le cadre du Prix des lecteurs – Escale du livre**\n\nLe Prix des lecteurs – Escale du livre défend la jeune création littéraire et récompense, chaque année, un roman français publié à la rentrée de septembre. Nous avons le plaisir d’accueillir dans ce cadre un des auteurs de la sélection : Beata Umubyeyi Mairesse. Remarquée pour ses recueils de nouvelles, elle publie aujourd’hui son premier roman : «Tous tes enfants dispersés». Née à Butare au Rwanda en 1979, elle arrive en France en 1994 après avoir survécu au génocide des Tutsi. Le récit prend sa source dans son histoire et raconte le destin d’une famille sur trois générations. Un roman sur la transmission, l’identité et le métissage."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "e84cbad86fc2419d95330ceb86cf3c3d.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 975
+        },
+        "variants": [
+          {
+            "filename": "e84cbad86fc2419d95330ceb86cf3c3d.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1176,
+              "height": 1638
+            }
+          },
+          {
+            "filename": "e84cbad86fc2419d95330ceb86cf3c3d.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-28T17:15:00.000Z",
+          "end": "2019-11-28T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T11:00:09.000Z",
+      "createdAt": "2019-10-24T11:00:09.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 86011856,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 84 78 90",
+        "mediatheques@talence.fr"
+      ],
+      "location": {
+        "uid": 86011856,
+        "slug": "mediatheque-castagnera",
+        "name": "Médiathèque Castagnéra",
+        "address": "allée Peixotto",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.807373,
+        "longitude": -0.589897,
+        "updatedAt": "2017-02-15T11:31:08.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 66790335,
+      "ownerUid": 65539533,
+      "creatorUid": 65539533,
+      "slug": "cric-crac-croc-les-lectures-a-laveugle-de-la-cie-ribambelle",
+      "title": {
+        "fr": "Cric Crac Croc : les lectures à l’aveugle de la Cie Ribambelle"
+      },
+      "description": {
+        "fr": "On raconte l’histoire, vous vous faites votre film !"
+      },
+      "longDescription": {
+        "fr": "Lectures à l’aveugle : asseyez-vous confortablement, mettez votre masque de sommeil et en avant vers votre propre imaginaire.\n\nOn raconte l’histoire, vous vous faites votre film !"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation"
+      },
+      "image": {
+        "filename": "01db2e5fe0414739a2d8a58ab7044337.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 915
+        },
+        "variants": [
+          {
+            "filename": "01db2e5fe0414739a2d8a58ab7044337.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1314,
+              "height": 1716
+            }
+          },
+          {
+            "filename": "01db2e5fe0414739a2d8a58ab7044337.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-06T17:15:00.000Z",
+          "end": "2019-12-06T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T11:04:05.000Z",
+      "createdAt": "2019-10-24T11:04:05.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 86011856,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "05 56 84 78 90",
+        "mediatheques@talence.fr"
+      ],
+      "location": {
+        "uid": 86011856,
+        "slug": "mediatheque-castagnera",
+        "name": "Médiathèque Castagnéra",
+        "address": "allée Peixotto",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.807373,
+        "longitude": -0.589897,
+        "updatedAt": "2017-02-15T11:31:08.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 56,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2020-02-13T08:50:36.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2047932
+}

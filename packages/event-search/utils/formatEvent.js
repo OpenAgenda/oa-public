@@ -74,6 +74,15 @@ module.exports = (event, formSchema = null) => {
       }
     }
   }
+  if (event.sourceAgendas) {
+    transform.sourceAgendas = event.sourceAgendas.reduce((transform, sourceAgenda, index) => ({
+      [index]: {
+        _agg: {
+          $set: aggObjects.flatten(sourceAgenda, ['uid', 'title', 'image'])
+        }
+      }
+    }), {});
+  }
   if (event.member) {
     const member = {
       uid: _.get(event, 'member.userUid', null),

@@ -1,0 +1,1584 @@
+{
+  "events": [
+    {
+      "uid": 70281121,
+      "ownerUid": 74140601,
+      "creatorUid": 74140601,
+      "slug": "stage-de-yoga-vinyasa_143595",
+      "title": {
+        "fr": "Stage de Yoga Vinyasa"
+      },
+      "description": {
+        "fr": "L'AGJA vous propose un stage de Yoga Vinyasa le samedi 22 février à la salle de Lussy à Caudéran."
+      },
+      "longDescription": {
+        "fr": "Le yoga permet au pratiquant de se confronter à l’essence du temps. En faisant l’expérience dans la posture et dans l’assise de la présence consciente à l’instant. Dans la pratique du Yoga Vinyasa, nous faisons lâcher le mental par l’action !\n\nVinyasa signifie littéralement « synchronisation du mouvement sur la respiration ». C’est un Yoga rythmé, tonique et créatif, qui apporte l’apaisement du mental par l’action. Le souffle est lié aux mouvements au sein d’enchaînements aussi structurés que fluides. Ce Yoga développe force, endurance et sens de l’équilibre. Il tonifie la musculature et redonne de la souplesse à la colonne vertébrale. En contribuant à la gestion du stress et à l’accroissement des capacités de concentration, il offre la base d’un développement spirituel.\n\nIl vous sera proposé une trame de 2h30 sur l’ouverture du cœur. L’attention sera également portée sur l’auto grandissement, la respiration et l’alignement postural adapté aux particularités physiques de chacun."
+      },
+      "keywords": {
+        "fr": [
+          "yoga",
+          "vinyasa",
+          "yoga vinyasa",
+          "stage"
+        ]
+      },
+      "conditions": {
+        "fr": "adhérent AGJA : 22 €/personne ; Non adhérent : 27 €/personne"
+      },
+      "image": {
+        "filename": "f2b1da0cde194076b8c9dcf84d1ba7db.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 996,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f2b1da0cde194076b8c9dcf84d1ba7db.full.image.jpg",
+            "size": {
+              "height": 916,
+              "width": 644
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f2b1da0cde194076b8c9dcf84d1ba7db.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T09:15:00.000Z",
+          "end": "2020-02-22T11:45:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-14T15:08:00.000Z",
+      "createdAt": "2020-01-13T16:01:28.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 40082192,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "registration": [
+        "https://docs.google.com/forms/d/1ATRKLqDdFb8qgt5IloarjYzsFoRmT5SVnQGv17l5Vl0/prefill"
+      ],
+      "location": {
+        "uid": 40082192,
+        "slug": "salle-de-lussy",
+        "name": "Salle de Lussy",
+        "address": "10 avenue Bel Air 33200 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.840893,
+        "longitude": -0.607974,
+        "updatedAt": "2019-10-29T10:06:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 51,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 95960856,
+      "ownerUid": 74140601,
+      "creatorUid": 74140601,
+      "slug": "visite-guidee-au-musee-daquitaine",
+      "title": {
+        "fr": "Visite guidée au Musée d'Aquitaine"
+      },
+      "description": {
+        "fr": "Nicolas Bulf, guide-conférencier spécialisé en histoire de l’art et en arts premiers, vous propose une visite guidée le dimanche 2 février de 14h à 16h"
+      },
+      "longDescription": {
+        "fr": "Il vous invite pour une explication des collections extra-européennes du Musée d’Aquitaine qui contiennent de nombreux objets magiques et usuels de nouvelle Calédonie et du Groenland, des parures, objets de navigation et tissus des îles du Pacifique, des instruments de musique du continent Africain et un ensemble exceptionnel de masques et Fétiches d’Afrique. Nicolas Bulf commentera également un nombre de gravures en bas-relief issues du Paléolithique dont la célèbre « Vénus à la Corne » du musée d’Aquitaine et aussi nombre d’outils lithiques de la préhistoire. Nous finirons la visite par l’implantation des Celtes dans le grand Sud-Ouest aux débuts de l’Age du Bronze, moment où l’homme commence à appréhender avec une plus grande maîtrise son expansion en Aquitaine.\n\nInscription au siège de l'AGJA, 8 Rue Gambetta – 33200 BORDEAUX ou directement sur place le jour de la visite.\n\nRDV à 13h30 devant le Musée."
+      },
+      "keywords": {
+        "fr": [
+          "visite",
+          "musée d'Aquitaine",
+          "bordeaux",
+          "musée",
+          "visite guidée"
+        ]
+      },
+      "conditions": {
+        "fr": "10€/personne"
+      },
+      "image": {
+        "filename": "07bcacb38bcf443cab771a057d7098c2.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 993
+        },
+        "variants": [
+          {
+            "filename": "07bcacb38bcf443cab771a057d7098c2.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 644,
+              "height": 913
+            }
+          },
+          {
+            "filename": "07bcacb38bcf443cab771a057d7098c2.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-02T13:00:00.000Z",
+          "end": "2020-02-02T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-15T14:54:07.000Z",
+      "createdAt": "2020-01-14T16:41:05.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 65374466,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 65374466,
+        "slug": "musee-daquitaine327",
+        "name": "Musée d'Aquitaine",
+        "address": "20 cours Pasteur 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.835619,
+        "longitude": -0.57498,
+        "updatedAt": "2020-01-21T11:21:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 97791440,
+      "ownerUid": 51900240,
+      "creatorUid": 51900240,
+      "slug": "meeting-dornon",
+      "title": {
+        "fr": "Meeting d'Ornon"
+      },
+      "description": {
+        "fr": "Un premier meeting à ne pas manquer"
+      },
+      "longDescription": {
+        "fr": "### L'association Ornon natation a le plaisir de vous inviter à sa première grande compétition.\n\nOuverte aux nageurs licenciés de la Fédération française de natation et des fédérations affiliées (LEN, FINA).\n\nLes catégories Avenirs, Jeunes, Juniors et Seniors seront représentées.\n\n**Programme**\n\nMatin : 400 NL D - 100 Dos D/M - 100 Br D/M - 200 Nl D/M - 50 Dos D/M - 50 Pap D/M - 2 km Indoor (organisé par le comité départemental de Gironde de natation).\n\nAprès-midi : 400 Nl D/M - 100 Pap D/M - 100 Nl D/M - 200 4n D/M - 50 Br D/M - 50 Nl D/M - Relais 6x100 TC\n\n**Récompense**\n\nUn podium par épreuve, médailles et cadezaux décernés pour les courses individuelles et relais.\n\nBuvette et restauration sur place. Tombola"
+      },
+      "keywords": {
+        "fr": [
+          "Meeting",
+          "Natation"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "95f45f6529d04dd6b504a03ab122328e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 403,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "95f45f6529d04dd6b504a03ab122328e.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 870
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "95f45f6529d04dd6b504a03ab122328e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-26T08:00:00.000Z",
+          "end": "2020-01-26T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-15T10:21:44.000Z",
+      "createdAt": "2020-01-15T10:07:44.000Z",
+      "agendaUid": 26283955,
+      "locationUid": 43464215,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://asso-ornon-natation.comiti-sport.fr/"
+      ],
+      "location": {
+        "uid": 43464215,
+        "slug": "piscine-olympique-municipale895",
+        "name": "Piscine olympique municipale",
+        "address": "145 route de Léognan, 33140 Villenave d'Ornon",
+        "city": "Villenave-d'Ornon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33140",
+        "insee": "33550",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.755867,
+        "longitude": -0.58511,
+        "updatedAt": "2018-05-23T08:27:09.000Z",
+        "image": "location43464215.jpg",
+        "description": {
+          "fr": "Seul bassin olympique homologué du département, la piscine de Villenave d’Ornon est dotée d’une surface totale de baignade de 1600 m2 dont 8 couloirs de 50 mètres dans le grand bassin, et peut accueillir jusqu’à 1072 baigneurs simultanément\nCet équipement permet la pratique de nombreuses disciplines aquatiques et est ouverte à de nombreux établissements et clubs d’enseignement.\nChaque année, elle reçoit près de 200 000 visiteurs et est fréquentée par 30 écoles, 3 lycées, 8 collèges, 34 clubs sportifs et une vingtaine de centres spécialisés. Pour les écoles et les clubs, la piscine olympique peut proposer les prestations exclusives d’un maître-nageur et réserver une ligne d’eau."
+        },
+        "website": "https://www.villenavedornon.fr/culture-sport-loisirs/piscine-olympique-municipale/",
+        "phone": "05 57 99 50 50",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 51,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        26283955
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "agenda-de-villenave-d-ornon",
+          "uid": 26283955,
+          "official": 1,
+          "title": "Agenda de Villenave d'Ornon",
+          "description": "Agenda des événements de la commune de Villenave-d'Ornon",
+          "url": "https://www.villenavedornon.fr/agenda",
+          "image": "agenda26283955.jpg",
+          "updatedAt": "2020-02-14T09:58:49.000Z",
+          "createdAt": "2017-02-10T16:04:20.000Z",
+          "officializedAt": "2017-12-19T11:21:22.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "agenda-de-villenave-d-ornon",
+        "uid": 26283955,
+        "official": 1,
+        "title": "Agenda de Villenave d'Ornon",
+        "description": "Agenda des événements de la commune de Villenave-d'Ornon",
+        "url": "https://www.villenavedornon.fr/agenda",
+        "image": "agenda26283955.jpg",
+        "updatedAt": "2020-02-14T09:58:49.000Z",
+        "createdAt": "2017-02-10T16:04:20.000Z",
+        "officializedAt": "2017-12-19T11:21:22.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 89418349,
+      "ownerUid": 51900240,
+      "creatorUid": 51900240,
+      "slug": "concert-jazz-swing-rock",
+      "title": {
+        "fr": "Concert jazz swing rock"
+      },
+      "description": {
+        "fr": "Au profit de l'association COPIPAS"
+      },
+      "longDescription": {
+        "fr": "### Le Rotary club de Villenave d'Ornon vous attend pour une soirée d'aide au profit de l'association d'aide à l'enfance COPIPAS.\n\n**A partir de 19 h** : restauration en musique avec les planches gourmandes de Tradition & Terroir.\n\n**A partir de 20 h 30** : concert avec Ricky Norton Band.\n\nExposition d'oeuvres de jeunes artistes."
+      },
+      "keywords": {
+        "fr": [
+          "Concert"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée 20 € - Billeterie en ligne"
+      },
+      "image": {
+        "filename": "7e7ea28c518f44e181dea907dba6b6e6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 403,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7e7ea28c518f44e181dea907dba6b6e6.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 870
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7e7ea28c518f44e181dea907dba6b6e6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:30:00.000Z",
+          "end": "2020-01-18T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T10:15:21.000Z",
+      "createdAt": "2020-01-15T14:01:53.000Z",
+      "agendaUid": 26283955,
+      "locationUid": 80023147,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www-hello-asso.fr"
+      ],
+      "location": {
+        "uid": 80023147,
+        "slug": "le-cube350",
+        "name": "Le Cube",
+        "address": "chemin de Cadaujac, 33140 Villenave d'Ornon",
+        "city": "Villenave-d'Ornon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33140",
+        "insee": "33550",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.765107,
+        "longitude": -0.545239,
+        "updatedAt": "2017-11-27T11:42:36.000Z",
+        "image": "location80023147.jpg",
+        "description": {
+          "fr": "Le Cube se développe sur une surface de 517 m2 et peut accueillir jusqu’à 1554 personnes en configuration debout.\nSes gradins rétractables permettent d’envisager quatre configurations différentes.\n\nElle est adaptée pour recevoir des événements de types concerts, spectacles, conférences, grands repas etc.\n\nLe Cube est équipé d’un guichet pour la billetterie, de vestiaires, de quatre loges, de gradins rétractables, d’un éclairage scénique complet, de tables rondes, chaises, office et local de plonge."
+        },
+        "website": "https://www.villenavedornon.fr/demarches-informations-services/location-de-salles/le-cube/",
+        "phone": "05 57 99 52 14",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        26283955
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "agenda-de-villenave-d-ornon",
+          "uid": 26283955,
+          "official": 1,
+          "title": "Agenda de Villenave d'Ornon",
+          "description": "Agenda des événements de la commune de Villenave-d'Ornon",
+          "url": "https://www.villenavedornon.fr/agenda",
+          "image": "agenda26283955.jpg",
+          "updatedAt": "2020-02-14T09:58:49.000Z",
+          "createdAt": "2017-02-10T16:04:20.000Z",
+          "officializedAt": "2017-12-19T11:21:22.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "agenda-de-villenave-d-ornon",
+        "uid": 26283955,
+        "official": 1,
+        "title": "Agenda de Villenave d'Ornon",
+        "description": "Agenda des événements de la commune de Villenave-d'Ornon",
+        "url": "https://www.villenavedornon.fr/agenda",
+        "image": "agenda26283955.jpg",
+        "updatedAt": "2020-02-14T09:58:49.000Z",
+        "createdAt": "2017-02-10T16:04:20.000Z",
+        "officializedAt": "2017-12-19T11:21:22.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 83568397,
+      "ownerUid": 24523756,
+      "creatorUid": 24523756,
+      "slug": "salon-maison-neuve-bordeaux",
+      "title": {
+        "fr": "Salon Maison Neuve Bordeaux"
+      },
+      "description": {
+        "fr": "Le Salon Maison Neuve Bordeaux : l'événement incontournable pour concrétiser vos rêves de propriété !"
+      },
+      "longDescription": {
+        "fr": "Le Salon Maison Neuve Bordeaux et Les Constructeurs et Aménageurs de la Fédération Française du Bâtiments (LCA-FFB) s’associe afin de proposer à une clientèle ciblée une manifestation professionnelle, pertinente et dynamique. Pour la première fois, les adhérents et partenaires LCA-FFB 33 ouvrent leurs portes aux professionnels de l’équipement de la maison, permettant de réunir plus de 60 exposants au sein du Hall 3 du Parc des Expositions de Bordeaux du 20 au 22 mars 2020.\n\nL’occasion d’étudier votre projet de construction de A à Z : recherche de terrain, analyse de vos possibilités, étude de financement, mise ne place d’un planning, gestion des différents acteurs de la constructions… Les 60 professionnels présents sur ces 2,5 jours de salon sauront répondre à toutes les questions que vous vous posez et vous accompagneront dans la réalisation de la maison qui vos correspond !"
+      },
+      "keywords": {
+        "fr": [
+          "Salon / Maison / Immobilier"
+        ]
+      },
+      "conditions": {
+        "fr": "Prix entrée : 5€"
+      },
+      "image": {
+        "filename": "bf9934f794d24fc6944ffc37a8a2c5ee.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 1050
+        },
+        "variants": [
+          {
+            "filename": "bf9934f794d24fc6944ffc37a8a2c5ee.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 4725,
+              "height": 7087
+            }
+          },
+          {
+            "filename": "bf9934f794d24fc6944ffc37a8a2c5ee.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T09:00:00.000Z",
+          "end": "2020-03-22T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-31T14:06:51.000Z",
+      "createdAt": "2020-01-10T13:54:50.000Z",
+      "agendaUid": 19587592,
+      "locationUid": 24190534,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.salonmaisonneuvebordeaux.fr/"
+      ],
+      "location": {
+        "uid": 24190534,
+        "slug": "parc-des-exposition-de-bordeaux-hall-3",
+        "name": "Parc des Exposition de Bordeaux – Hall 3",
+        "address": "Cours Jules Ladoumegue  33300 BORDEAUX",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Maritime",
+        "latitude": 44.897809,
+        "longitude": -0.571481,
+        "updatedAt": "2020-01-10T13:52:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "l-e-o",
+        "uid": 19587592,
+        "official": 0,
+        "title": "LEO",
+        "description": "L'agence L.E.O est une agence événementielle située à Saumur, dans le Maine et Loire.",
+        "url": "https://www.l-e-o.fr/",
+        "image": null,
+        "updatedAt": "2020-01-31T14:06:54.000Z",
+        "createdAt": "2020-01-10T13:48:43.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 1221756,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "exposition-ken-syriens-en-regards",
+      "title": {
+        "fr": "Exposition Charlotte Canat et Ken « Syriens en regards »"
+      },
+      "description": {
+        "fr": "Une galerie de portraits et de parcours tourmentés de réfugiés fuyant une Syrie où ils ne parviennent plus à vivre, pas même à survivre. Vingt-et-un visages en quête de paix."
+      },
+      "longDescription": {
+        "fr": "Le contexte est tragique, mais l’espoir n’est pas tout à fait absent de cette exposition tirée de l’ouvrage « Syriens en regards » de Charlotte Canat et Ken. Sept années de guerre, six millions trois cent mille Syriens fuyant leur pays dévasté, vingt-et-un d’entre eux rencontrés à Bordeaux, souvent après un long et chaotique transit, par l’auteure Charlotte Canat et le photographe Ken. Ils ont donné naissance à vingt-et-un portraits, autant de parcours de vie poignants d’hommes et femmes luttant pour s’en sortir, extraordinaires de courage. Paru aux éditions Passiflore, le livre est, aussi, l’occasion de récolter des fonds : tous les droits d’auteur sont reversés à l’association Syrie Démocratie 33. Le Rocher est fier de contribuer à la mise en lumière de ce projet animé par deux Bordelais solidaires et talentueux."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "exposition",
+          "charlotte canat et ken",
+          "photographie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, du lundi au vendredi et les soirs de concerts"
+      },
+      "image": {
+        "filename": "54a5128e31bb48a490b92a3c39373adf.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "54a5128e31bb48a490b92a3c39373adf.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "54a5128e31bb48a490b92a3c39373adf.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-11T13:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T13:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T13:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T13:00:00.000Z",
+          "end": "2020-02-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T13:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T13:00:00.000Z",
+          "end": "2020-02-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T13:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T13:00:00.000Z",
+          "end": "2020-03-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T13:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T02:05:08.000Z",
+      "createdAt": "2019-10-21T01:05:04.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/expositions/ken/02.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 39434921,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "vernissage-charlotte-canat-et-ken-zone-libre-et-syriens-en-regards",
+      "title": {
+        "fr": "Vernissage Charlotte Canat et Ken « Zone libre » et « Syriens en regards »"
+      },
+      "description": {
+        "fr": "Vernissage des expositions de Charlotte Canat et Ken « Zone libre » et « Syriens en regards »"
+      },
+      "longDescription": {
+        "fr": "Ici. On vit. Loin des prisons illégitimes et administratives. Ici. On vit. Librement. Fortement. Ici. Pas de frontière entre terre et coeur."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "exposition",
+          "charlotte canat et ken",
+          "vernissage",
+          "photographie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "8df17912015845adb5738ee6939add31.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "8df17912015845adb5738ee6939add31.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "8df17912015845adb5738ee6939add31.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-21T17:30:00.000Z",
+          "end": "2020-02-21T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T02:05:09.000Z",
+      "createdAt": "2020-01-17T02:05:09.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/expositions/ken/zone.libre.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 89900390,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "vernissage-omar-malas-the-crows-eye",
+      "title": {
+        "fr": "Vernissage Omar Malas « The Crow's Eye »"
+      },
+      "description": {
+        "fr": "Vernissage de l'exposition d'Omar Malas « The Crow's Eye » Dans le cadre de MINA : Port d'escales artistiques."
+      },
+      "longDescription": {
+        "fr": "Perché sur le toit de son appartement à hauteur de vol d’oiseaux, Omar Malas assiste depuis bientôt dix ans aux soubresauts de son pays et de sa ville natale, Damas. Cette exposition de photographies documente la vie quotidienne de la capitale syrienne à travers l’oeil des corbeaux qui la survolent, percevant de notre quotidien une autre réalité."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "exposition",
+          "omar malas",
+          "vernissage",
+          "photographie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "e3f348f77c3b482ebfeebfba24c6b81b.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "e3f348f77c3b482ebfeebfba24c6b81b.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "e3f348f77c3b482ebfeebfba24c6b81b.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-02T17:00:00.000Z",
+          "end": "2020-04-02T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T02:05:17.000Z",
+      "createdAt": "2020-01-17T02:05:17.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/expositions/omar.malas/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 39803587,
+      "ownerUid": 26245325,
+      "creatorUid": 26245325,
+      "slug": "20e-congres-de-la-fub",
+      "title": {
+        "fr": "20e Congrès de la FUB"
+      },
+      "description": {
+        "fr": "Tables rondes, conférences, ateliers...durant deux jours, le vélo comme mode de déplacement au quotidien sera au coeur de l’actualité à Bordeaux"
+      },
+      "longDescription": {
+        "fr": "**20ème Congrès de la FUB les 6 et 7 février 2020 à Bordeaux « Système vélo : du local au global »**\n----------------------------------------------------------------------------------------------------\n\n### Les inscriptions pour le 20ème Congrès de la Fédération française des Usagers de la Bicyclette (FUB), qui se tiendra à Bordeaux les 6 et 7 février prohain, en co-organisation avec l’association Vélo-Cité, sont ouvertes !\n\n### Durant deux jours, le vélo comme mode de déplacement au quotidien sera au coeur de l’actualité.\n\n**Jeudi 6 février 2020, à partir de 18h : Plénière et cérémonie de remise des prix du « Baromètre Parlons vélo des villes cyclables »**\n\nLe 9 septembre 2019, la FUB a lancé la seconde édition du baromètre Parlons vélo des villes cyclables(1). Cette seconde édition ne se contente pas de classer les villes entre elles mais fournit des analyses comparatives fines sur l’évolution des différents indicateurs depuis 2017, date de la première édition du Baromètre, au sein d’un même territoire. Le congrès 2020 à Bordeaux sera l’occasion de dévoiler le très attendu palmarès des villes les plus cyclables de France selon les usagers. Des résultats à saisir pour les collectivités comme pour les associations pour préparer les élections municipales de 2020.\n\n**Vendredi 7 février 2020, de 9h30 à 17h30 : Journée d’études « Système vélo : du local au global »**\n\nLors de cette journée, élus, techniciens, experts et chercheurs, dirigeants et militants associatifs seront invités à croiser regards et expériences autour du thème « Système vélo : du local au global ». Pour construire le « système vélo » que les citoyen.ne.s attendent, chaque échelon territorial est nécessaire. Des exemples locaux et nationaux permettront d’illustrer la variété d’actions qui peuvent être mises en oeuvre à cet égard. La journée sera déclinée autour de six thèmes : expertise d’usagers, politiques publiques locales et régionales, stationnement vélo et lutte contre le vol, mise en place du savoir rouler à l’école, entreprises et vélo et le recyclage des vélos. La journée se poursuivra par des visites techniques et touristiques de la ville à vélo.\n\nUn espace d’exposition permettra de rencontrer et d’échanger avec des professionnels tout au long de ces deux journées."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "048b868e978f4c58ac6c30b048f27173.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 698
+        },
+        "variants": [
+          {
+            "filename": "048b868e978f4c58ac6c30b048f27173.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 566,
+              "height": 564
+            }
+          },
+          {
+            "filename": "048b868e978f4c58ac6c30b048f27173.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-06T16:00:00.000Z",
+          "end": "2020-02-06T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T11:32:59.000Z",
+      "createdAt": "2020-01-17T11:32:59.000Z",
+      "agendaUid": 78626564,
+      "locationUid": 14412879,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.fub.fr/evenements/congres-fub"
+      ],
+      "location": {
+        "uid": 14412879,
+        "slug": "palais-de-la-bourse-bordeaux",
+        "name": "Palais de la bourse, Bordeaux",
+        "address": "17 place de la bourse",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841843,
+        "longitude": -0.570665,
+        "updatedAt": "2020-01-17T11:32:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "20e Congrès de la FUB à Bordeaux\n\"Système vélo, du local au global\"",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 48,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        78626564
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "velo-cite",
+          "uid": 78626564,
+          "official": 1,
+          "title": "Vélo-Cité",
+          "description": "Association de promotion et de défense du vélo urbain dans la métropole de Bordeaux",
+          "url": "http://velo-cite.org",
+          "image": null,
+          "updatedAt": "2020-01-17T15:00:57.000Z",
+          "createdAt": "2018-03-27T09:58:08.000Z",
+          "officializedAt": "2019-10-25T16:52:45.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "velo-cite",
+        "uid": 78626564,
+        "official": 1,
+        "title": "Vélo-Cité",
+        "description": "Association de promotion et de défense du vélo urbain dans la métropole de Bordeaux",
+        "url": "http://velo-cite.org",
+        "image": null,
+        "updatedAt": "2020-01-17T15:00:57.000Z",
+        "createdAt": "2018-03-27T09:58:08.000Z",
+        "officializedAt": "2019-10-25T16:52:45.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 70854814,
+      "ownerUid": 61774005,
+      "creatorUid": 61774005,
+      "slug": "operette-gourmande",
+      "title": {
+        "fr": "Opérette Gourmande"
+      },
+      "description": {
+        "fr": "Opérette comique solo avec Marie LOUP / Spectacle tout public"
+      },
+      "longDescription": {
+        "fr": "Une fantaisie lyrique drôle et visuelle au sujet de la nourriture et de l’amour ...\n\nAvec principalement Offenbach au menu ainsi que Lehar, Verdi …\n\nCe spectacle met en scène l’édonisme lyrique chez Offenbach. Des plats se succèdent au fil de la préparation et du déroulé d'un repas.\n\nLe ton est gai, la musique allante.\n\nLe chant et la musique, alliés à une implication théâtre omniprésente sont ponctués de changements de costumes chorégraphiés.\n\nSe succèderont entre autre : un défilé d’amants presto, le prélude de la fruitière au marché des innocents, une escapade désaltérante à l’aube des temps, une scène de jalousie sur fond de griserie, des quiproquos amoureux, le thé chinois de la réconciliation …\n\nCe tour de chant théâtrale est une invitation au divertissement mais aussi à l’émotion."
+      },
+      "keywords": {
+        "fr": [
+          "Opérette",
+          "lyriques",
+          "Marie LOUP",
+          "offenbach",
+          "traversées lyriques",
+          "divertissement",
+          "Spectacle lyrique",
+          "Chant lyrique",
+          "Spectacle musical"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif plein : 15 euros, Tarif réduit : 10 euros"
+      },
+      "image": {
+        "filename": "9066707e8ff04df0988febd848141c4f.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 999
+        },
+        "variants": [
+          {
+            "filename": "9066707e8ff04df0988febd848141c4f.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1245,
+              "height": 1776
+            }
+          },
+          {
+            "filename": "9066707e8ff04df0988febd848141c4f.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "Phanara BUN",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-21T18:30:00.000Z",
+          "end": "2020-04-21T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-17T15:18:21.000Z",
+      "createdAt": "2020-01-17T15:18:21.000Z",
+      "agendaUid": 42338309,
+      "locationUid": 32344632,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "09 51 51 42 64",
+        "lestraverseeslyrique@gmail.com",
+        "https://www.helloasso.com/associations/les-traversees-lyriques/evenements/operette-gourmande"
+      ],
+      "location": {
+        "uid": 32344632,
+        "slug": "theatre-de-la-pergola",
+        "name": "Théâtre de la pergola",
+        "address": "Rue Fernand Cazères, 33200 BORDEAUX",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.851311,
+        "longitude": -0.615324,
+        "updatedAt": "2020-01-17T15:18:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "les-traversees-lyriques",
+        "uid": 42338309,
+        "official": 0,
+        "title": "Les traversees Lyriques",
+        "description": "Opérette comique solo\nUne fantaisie lyrique drôle et visuelle au sujet de la nourriture et de l’amour ... Avec Offenbach au menu ainsi que Lehar, Verdi …",
+        "url": "http://lestraverseeslyriques.com",
+        "image": null,
+        "updatedAt": "2020-01-17T15:18:23.000Z",
+        "createdAt": "2020-01-17T15:02:50.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    }
+  ],
+  "lastId": 2134211
+}

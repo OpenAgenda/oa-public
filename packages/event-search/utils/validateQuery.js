@@ -67,6 +67,10 @@ const validate = schema({
     type: 'integer',
     list: true
   },
+  sourceAgendaUid: {
+    type: 'integer',
+    list: true
+  },
   state: {
     optional: true,
     type: 'choice',

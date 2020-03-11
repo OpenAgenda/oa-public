@@ -2,6 +2,8 @@
   "events": [
     {
       "uid": 50429909,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-parcours-dans-la-ville-bordeaux",
       "title": {
         "fr": "Trente Trente : Parcours dans la ville, Bordeaux"
@@ -94,14 +96,14 @@
         "district": "Caudéran",
         "latitude": 44.856764,
         "longitude": -0.598314,
-        "updatedAt": "2019-12-16T09:33:53.000Z",
+        "updatedAt": "2019-12-30T08:36:58.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -117,8 +119,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -127,7 +147,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -135,6 +155,8 @@
     },
     {
       "uid": 86668470,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-soiree-parcours-bordeaux",
       "title": {
         "fr": "Trente Trente : soirée parcours, Bordeaux"
@@ -227,14 +249,14 @@
         "district": "Caudéran",
         "latitude": 44.856764,
         "longitude": -0.598314,
-        "updatedAt": "2019-12-16T09:33:53.000Z",
+        "updatedAt": "2019-12-30T08:36:58.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -250,8 +272,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -260,7 +300,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -268,6 +308,8 @@
     },
     {
       "uid": 67718458,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-workshop-trucmuche-cie-michael-allibert",
       "title": {
         "fr": "Trente Trente : workshop Trucmuche cie - Michaël Allibert"
@@ -361,14 +403,14 @@
         "district": "Centre ville",
         "latitude": 44.847393,
         "longitude": -0.585611,
-        "updatedAt": "2019-12-16T09:28:53.000Z",
+        "updatedAt": "2019-12-30T08:36:31.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -384,8 +426,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -394,7 +454,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -402,6 +462,8 @@
     },
     {
       "uid": 44452457,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-soiree-carte-blanche",
       "title": {
         "fr": "Trente Trente : soirée carte blanche"
@@ -458,11 +520,11 @@
       "timezone": "Europe/Paris",
       "timings": [
         {
-          "begin": "2020-01-23T17:30:00.000Z",
+          "begin": "2020-01-23T17:00:00.000Z",
           "end": "2020-01-23T22:00:00.000Z"
         }
       ],
-      "updatedAt": "2019-12-17T16:54:50.000Z",
+      "updatedAt": "2019-12-19T14:10:30.000Z",
       "createdAt": "2019-12-16T09:23:29.000Z",
       "agendaUid": 1108324,
       "locationUid": 76669959,
@@ -495,14 +557,14 @@
         "district": "Lafon Féline",
         "latitude": 44.86915,
         "longitude": -0.615261,
-        "updatedAt": "2019-12-16T09:22:48.000Z",
+        "updatedAt": "2019-12-30T08:37:32.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -518,8 +580,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -528,7 +608,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -536,6 +616,8 @@
     },
     {
       "uid": 30744958,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-a-la-manufacture-cdcn",
       "title": {
         "fr": "Trente Trente à la Manufacture CDCN"
@@ -628,14 +710,14 @@
         "district": "Bordeaux Sud",
         "latitude": 44.812816,
         "longitude": -0.558294,
-        "updatedAt": "2019-12-16T09:14:36.000Z",
+        "updatedAt": "2019-12-30T08:37:05.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -651,8 +733,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -661,7 +761,7 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
@@ -669,6 +769,8 @@
     },
     {
       "uid": 80986869,
+      "ownerUid": 62997367,
+      "creatorUid": 62997367,
       "slug": "trente-trente-soiree-cirque-a-lagora-pnc",
       "title": {
         "fr": "Trente Trente : soirée cirque à l'Agora PNC"
@@ -761,14 +863,14 @@
         "district": "Boulazac",
         "latitude": 45.182119,
         "longitude": 0.761367,
-        "updatedAt": "2019-12-16T08:56:56.000Z",
+        "updatedAt": "2019-12-30T08:37:48.000Z",
         "image": null,
         "description": {},
         "email": null,
         "phone": null,
         "links": [],
         "access": {},
-        "state": 0,
+        "state": 1,
         "timezone": "Europe/Paris",
         "imageCredits": null,
         "extId": null
@@ -784,8 +886,26 @@
       ],
       "state": 2,
       "featured": false,
-      "sourceAgendaUid": [],
+      "sourcePaths": [
+        1108324
+      ],
       "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
       "originAgenda": {
         "slug": "un-air-de-bordeaux",
         "uid": 1108324,
@@ -794,12 +914,673 @@
         "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
         "url": "http://www.unairdebordeaux.fr",
         "image": "agenda1108324.jpg",
-        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
         "createdAt": "2017-09-25T16:03:24.000Z",
         "officializedAt": "2018-05-17T14:21:06.000Z",
         "private": 0
       }
+    },
+    {
+      "uid": 38777718,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "un-mois-un-instrument-le-balkan-quartet",
+      "title": {
+        "fr": "Les Rencontres de la Cabane « Le Balkan Kartet »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer,  venez découvrir l'histoire, les sonorités et les mélodies d'un musicien, d'un instrument de musique."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "rencontres"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "1f4e5460bd9744f39eb9c2230e81d3bc.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "1f4e5460bd9744f39eb9c2230e81d3bc.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "1f4e5460bd9744f39eb9c2230e81d3bc.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T14:00:00.000Z",
+          "end": "2020-01-22T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-25T02:05:18.000Z",
+      "createdAt": "2019-12-18T02:05:05.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/un.mois.un.instrument/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 80217076,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "bienvenue-a-la-zone-libre",
+      "title": {
+        "fr": "Bienvenue à la Zone Libre"
+      },
+      "description": {
+        "fr": "Une soirée de soutien pour la « Zone Libre » de Cenon où des centaines de personnes sans domicile ont trouvé refuge cet hiver…"
+      },
+      "longDescription": {
+        "fr": "Depuis mi-novembre, la « Zone Libre », espace d’accueil pour des familles sans domicile, a ouvert à quelques centaines de mètres du Rocher de Palmer, dans une  ancienne Résidence pour Personnes Âgées (RPA) vouée à être rasée pour un futur projet immobilier. Plus de 70 familles - soit plus de 260 personnes, dont 105 enfants - ont été prises en charge afin de leur éviter la rue en cette période hivernale. Ce n’est pas le grand luxe, mais ce sont des studios chauffés. Le 115 (numéro d’appel pour l’hébergement d’urgence) est débordé et refuse jusqu’à 300 demandes par jour en Gironde… Il est inadmissible de laisser à la rue ces personnes déjà largement éprouvées par les difficultés. Plusieurs associations, comme le Réseau Éducation Sans Frontières, Médecins du Monde, Les Enfants de Coluche, le Collectif Bienvenue, le Collectif Égalité des Droits Rive Droite, Tri, Potes et Mascagne, ainsi que de nombreux citoyens solidaires ont décidé d’agir en favorisant l’installation de ces familles dans des conditions relativement décentes."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "bienvenue à la zone libre"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 10€"
+      },
+      "image": {
+        "filename": "a2cbd8b5412741a580f10b24bd7b89c6.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "a2cbd8b5412741a580f10b24bd7b89c6.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "a2cbd8b5412741a580f10b24bd7b89c6.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-26T15:00:00.000Z",
+          "end": "2020-01-26T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-18T02:05:09.000Z",
+      "createdAt": "2019-12-18T02:05:09.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/bienvenue/01.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 54576586,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "un-mois-un-instrument-andre-minvielle-la-main-vielle-a-roue",
+      "title": {
+        "fr": "Les Rencontres de la Cabane « André Minvielle « La Main-Vielle à Roue » »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer,  venez découvrir l'histoire, les sonorités et les mélodies d'un musicien, d'un instrument de musique."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "rencontres"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "19c7cb4f27a74298b72286f4dfb554e8.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "19c7cb4f27a74298b72286f4dfb554e8.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "19c7cb4f27a74298b72286f4dfb554e8.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T14:00:00.000Z",
+          "end": "2020-02-12T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-22T02:05:11.000Z",
+      "createdAt": "2019-12-18T02:05:12.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/un.mois.un.instrument/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 10744973,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "un-mois-un-instrument-nicolas-saez",
+      "title": {
+        "fr": "Les Rencontres de la Cabane « Nicolas Saez »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer,  venez découvrir l'histoire, les sonorités et les mélodies d'un musicien, d'un instrument de musique."
+      },
+      "longDescription": {
+        "fr": "Guitariste flamenco."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "rencontres"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "7809929cc98b4fb3b9464c89b85b4893.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "7809929cc98b4fb3b9464c89b85b4893.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "7809929cc98b4fb3b9464c89b85b4893.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-04T13:30:00.000Z",
+          "end": "2020-03-04T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-22T02:05:20.000Z",
+      "createdAt": "2019-12-18T02:05:24.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/un.mois.un.instrument/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
     }
   ],
-  "lastId": 2109072
+  "lastId": 2109193
 }

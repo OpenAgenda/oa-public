@@ -85,6 +85,23 @@
       }
     }
   },
+  "sourceAgendas": {
+    "type": "nested",
+    "properties": {
+      "uid": {
+        "type" : "integer"
+      },
+      "title": {
+        "type": "text"
+      },
+      "slug": {
+        "type": "keyword"
+      },
+      "_agg": {
+        "type": "keyword"
+      }
+    }
+  },
   "updatedAt": {
     "type": "date"
   },

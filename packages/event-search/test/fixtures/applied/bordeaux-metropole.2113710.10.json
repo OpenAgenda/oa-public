@@ -1,0 +1,1687 @@
+{
+  "events": [
+    {
+      "uid": 46698123,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "dom-juan-ou-le-festin-de-pierre_189074",
+      "title": {
+        "fr": "Dom Juan ou le festin de Pierre"
+      },
+      "description": {
+        "fr": "l'atelier du Théâtre du Pont Tournant"
+      },
+      "longDescription": {
+        "fr": "Dom Juan, grand seigneur libertin, libre-penseur athée, ne respecte ni les valeurs de l’ancienne noblesse, ni celles de la religion. Il n’hésite pas à mentir à ses créanciers, à son père et aux femmes qu’il séduit. Dans cette pièce extraordinaire, Molière au sommet de son art utilise tour à tour la farce et la tragédie.\n\nMise en scène : Stéphane ALVAREZ\n\nAvec : Hans-Igor BENTHO, Romain CURSAN, Maxime DENIEL, Sébastien HÉQUET, Yannick LELEU, Jean-Louis LEGAL, Julie VALLCANERAS, Marine LAUDY, Carole PIERRET-BONNIN, Victor ALVAREZ et Lino ALVAREZ\n\nLumières : Yannick LELEU\n\nCostumes : Vincent DUPEYRON"
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "pôle culturel évasion",
+          "ambarès-et-lagrave",
+          "théâtre",
+          "dom juan",
+          "théâtre du pont tournant"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs : 6 €/12 € - Tarif carte jeune : 5 € - Réservation conseillée"
+      },
+      "image": {
+        "filename": "97b67a4d3d814730874d82140b814bbe.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 260
+        },
+        "variants": [
+          {
+            "filename": "97b67a4d3d814730874d82140b814bbe.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 851,
+              "height": 315
+            }
+          },
+          {
+            "filename": "97b67a4d3d814730874d82140b814bbe.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-13T19:30:00.000Z",
+          "end": "2020-03-13T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T12:54:19.000Z",
+      "createdAt": "2019-12-23T10:34:03.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 24810088,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "carnaval_170257",
+      "title": {
+        "fr": "Carnaval"
+      },
+      "description": {
+        "fr": "\" Si j'avais un rêve, je serais...\""
+      },
+      "longDescription": {
+        "fr": "Rendez-vous Avenue de l'Europe - City-stade\n\n« Si j’avais un rêve, je serais… » capitaine de l’équipe de France ! Une licorne ! Un super héros ! Harry Potter ! L’édition 2020 du carnaval annonce une ribambelle de rêveurs dans les rues de la ville, le samedi 14 mars prochain.\n\nToujours aussi festif et inventif, le collectif des organisateurs du carnaval ambarésien, réuni autour du service Vie locale et associative, n’est jamais en manque d’idées pour faire de cet évènement un des temps forts de l’agenda annuel des manifestations municipales.\n\nAssociations, bénévoles et services municipaux préparent chaque année ce rendez-vous, avec un enthousiasme digne d’un super héros prêt à sauver le monde !\n\nDès 14 heures, rendez-vous au city-stade, avenue de l’Europe, avant le départ de la grande déambulation en centre-ville. En tête de cortège, madame Carnaval conduira la foule jusqu’à son bûcher, où se tiendra son procès et n’en doutons pas, son exécution.\n\nCôté artistes, la programmation promet de belles surprises. La batucada « Toda Naçao » donnera le tempo dans des costumes étourdissants, tandis que les marching bands « La vaillante » et celui de « l’Harmonie » assureront la cadence.\n\nIl ne vous reste plus qu’à choisir et revêtir votre costume, pour devenir le temps d’un jour, un héros extraordinaire, avec ou sans super pouvoirs."
+      },
+      "keywords": {
+        "fr": [
+          "ambarès-et-lagrave",
+          "carnaval"
+        ]
+      },
+      "conditions": {
+        "fr": "Défilé du carnaval - Tout public - Entrée libre - Renseignements : 05 56 77 34 70"
+      },
+      "image": {
+        "filename": "4b43bb3f528c4a0a90ff49cc28643b74.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4b43bb3f528c4a0a90ff49cc28643b74.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4b43bb3f528c4a0a90ff49cc28643b74.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-23T10:36:19.000Z",
+      "createdAt": "2019-12-23T10:36:12.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 45734741,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 45734741,
+        "slug": "differents-lieux-de-la-ville567",
+        "name": "Différents lieux de la ville",
+        "address": "33440 ambarès-et-lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.957165,
+        "longitude": -0.502205,
+        "updatedAt": "2018-09-27T07:54:44.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 31576651,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "opale-cie-la-cavale",
+      "title": {
+        "fr": "Opale - Cie La Cavale"
+      },
+      "description": {
+        "fr": "Poursuivant leur recherche sur les rapports impalpables entre hommes, éric Fessenmeyer et Julie Coutant proposent un duo chorégraphique tout en subtilité et en mouvement"
+      },
+      "longDescription": {
+        "fr": "Poursuivant leur recherche sur les rapports impalpables entre les hommes, éric Fessenmeyer et Julie Coutant proposent un duo chorégraphique tout en subtilité et en mouvement laissant la place à ce que l’on ne voit pas. Il y a ce que l’on connaît de soi, de l’autre et de ce qui nous entoure. Sur une musique puissante d’éric Brochard, Opale propose un regard poétique sur les rapports humains et ce qui peut unir deux personnes.\n\nEn partenariat avec la Manufacture CDCN, avec le soutien de l’Office Artistique de la Région Nouvelle-Aquitaine."
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "pôle culturel évasion",
+          "ambarès-et-lagrave",
+          "danse",
+          "opale",
+          "cie la cavale"
+        ]
+      },
+      "conditions": {
+        "fr": "Tout public - Tarifs : 6 €/12 € - Tarif carte jeune : 5 € - Réservation conseillée"
+      },
+      "image": {
+        "filename": "fa78f205695d45d98af967065ee93b35.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "fa78f205695d45d98af967065ee93b35.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "fa78f205695d45d98af967065ee93b35.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-18T19:30:00.000Z",
+          "end": "2020-03-18T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T12:27:19.000Z",
+      "createdAt": "2019-12-23T10:39:14.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 24193014,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "hope-cie-mechanic",
+      "title": {
+        "fr": "HOP(e) - Cie Mechanic"
+      },
+      "description": {
+        "fr": "Un spectacle « agrandisseur de paillettes tout autant qu’un microscope à sentiments ». À découvrir."
+      },
+      "longDescription": {
+        "fr": "Autour d’un duo de chair et de fer se raconte un parcours d’artiste avec ses interrogations : le cirque, les études, une carrière, des choix utiles ou inutiles, une vie privée également. Émilien Médail nous offre ici une création personnelle tout juste sortie d’un cerveau qui va, des fois, trop vite.\n\nUn spectacle « agrandisseur de paillettes tout autant qu’un microscope à sentiments ». À découvrir.\n\nCirque - Sortie de résidence/étape de travail suivi d’un bord de scène\n\nCo-écriture : Sylvie Faivre (Pudding Théâtre) et Emilien Médail\n\nCostumes : Vincent Dupeyron - Travail chorégraphique : Marie Commandu et Lucille Prieur\n\nCréation structure : Romain Giard\n\n© Josselin Paris (visuel)\n\nAvec le soutien de l’OARA- Nouvelle Aquitaine (Bénéficiaire du dispositif de Bourse à l’écriture Dramatique) / IDDAC (co-production) / les Villes d’Eysines, Villenave d’Ornon, le Teich et Ambarès et Lagrave / ESPACE K Co-production / Maison des Arts du Cirque Imhotep Villenave D’Ornon"
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "cirque",
+          "pôle culturel évasion",
+          "ambarès-et-lagrave",
+          "hop(e)",
+          "cie mechanic"
+        ]
+      },
+      "conditions": {
+        "fr": "Tout public - Entrée libre - Réservation conseillée"
+      },
+      "image": {
+        "filename": "165db46de71a4c47bfd52c13aa5ae168.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "165db46de71a4c47bfd52c13aa5ae168.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "165db46de71a4c47bfd52c13aa5ae168.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-27T19:30:00.000Z",
+          "end": "2020-03-27T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T12:35:43.000Z",
+      "createdAt": "2019-12-23T10:41:31.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 89682950,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "claire-faravarjoo_659558",
+      "title": {
+        "fr": "Claire Faravarjoo"
+      },
+      "description": {
+        "fr": "Des mélodies entêtantes, des basses profondes, des rythmiques électroniques inattendues sur des textes en français, Claire Faravarjoo nous dessine un univers électro-pop atypique, mélodiqueb poétique"
+      },
+      "longDescription": {
+        "fr": "Des mélodies entêtantes, des basses profondes, des rythmiques électroniques inattendues sur des textes en français, Claire Faravarjoo nous dessine un univers électro-pop atypique, mélodique et poétique.\n\nAprès un premier album remarqué, tout s’enchaîne pour cette étoile montante de la chanson française : récompenses (lauréate du tremplin L’Oiseau Rare 2018, prix Ricard SA Live 2018, sélection Inouïs du Printemps de Bourges 2018), concerts, festivals et collaborations prestigieuses (Brigitte, Julien Doré…). Annoncé pour début 2020, son nouvel album « Nightclub » compte parmi les sorties attendues !\n\nCo-organisé avec Versions Françaises."
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "chanson française",
+          "pôle culturel évasion",
+          "ambarès-et-lagrave",
+          "claire faravarjoo",
+          "versions françaises"
+        ]
+      },
+      "conditions": {
+        "fr": "Tout public – Tarifs : 6 €/12 € - Tarif carte jeune : 5 € – Réservation conseillée"
+      },
+      "image": {
+        "filename": "929f8d943e8b4114ace4c0d1f31cf8a2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "929f8d943e8b4114ace4c0d1f31cf8a2.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "929f8d943e8b4114ace4c0d1f31cf8a2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-03T18:30:00.000Z",
+          "end": "2020-04-03T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T12:26:44.000Z",
+      "createdAt": "2019-12-23T10:43:40.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 65344049,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "mayomi-moreno",
+      "title": {
+        "fr": "Mayomi Moreno"
+      },
+      "description": {
+        "fr": "Musiques du monde – Club évasion"
+      },
+      "longDescription": {
+        "fr": "Chanteuse et pianiste née à Santiago de Cuba, Mayomi Moreno a forgé son parcours musical en intégrant le fameux conservatoire « Esteban Salas » et en prenant part à de multiples concerts et festivals de La Havane et ses alentours. Arrivée en France en 2006, elle s’est rapidement fait un nom et une place de choix sur la scène jazz et musiques du monde. Le « Mayomi Project » est construit autour de ses compositions et des musiques cubaines dans toute leur diversité."
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "pôle culturel évasion",
+          "ambarès-et-lagrave",
+          "musiques du monde",
+          "club évasion",
+          "mayomi moreno",
+          "concert",
+          "musique cubaine"
+        ]
+      },
+      "conditions": {
+        "fr": "Tout public - Entrée libre - Réservation conseillée"
+      },
+      "image": {
+        "filename": "2bdcd27c94af47548d7236c79fc1f3ce.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2bdcd27c94af47548d7236c79fc1f3ce.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2bdcd27c94af47548d7236c79fc1f3ce.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-10T18:30:00.000Z",
+          "end": "2020-04-10T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-23T10:45:49.000Z",
+      "createdAt": "2019-12-23T10:45:44.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 6017244,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "la-danse-en-heritage-2",
+      "title": {
+        "fr": "La Danse en héritage #2"
+      },
+      "description": {
+        "fr": "Pôle d’Enseignement Supérieur Musique et Danse Bordeaux Aquitaine"
+      },
+      "longDescription": {
+        "fr": "Les danseurs du Pôle d’Enseignement Supérieur Bordeaux Aquitaine présentent leurs créations de fin d’étude croisant les références et les aspirations et les réinscrivant dans leur vision artistique. Un travail chorégraphique intense pour ces futurs professionnels et l’occasion pour le public de découvrir des créations d’une grande fraîcheur.\n\nPour cette promotion, c’est Gilles Baron qui assure cette commande sous la forme d’un spectacle unique."
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "danse",
+          "pôle culturel évasion",
+          "ambarès-et-lagrave",
+          "pesmd"
+        ]
+      },
+      "conditions": {
+        "fr": "Tout public - Entrée libre - Réservation conseillée"
+      },
+      "image": {
+        "filename": "a1716d3bc9b74b518640ff5285bddeba.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a1716d3bc9b74b518640ff5285bddeba.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a1716d3bc9b74b518640ff5285bddeba.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-16T17:30:00.000Z",
+          "end": "2020-04-16T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-23T10:47:45.000Z",
+      "createdAt": "2019-12-23T10:47:30.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 66654863,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "le-festival-des-jardins",
+      "title": {
+        "fr": "Le festival des jardins"
+      },
+      "description": {
+        "fr": "Ambarès-et-Lagrave fête la nature"
+      },
+      "longDescription": {
+        "fr": "Le festival des jardins, rendez-vous convivial ouvert à tous, réunira cette année encore des passionnés de jardin, de nature… Et de culture.\n\nAmateurs et professionnels, adultes et enfants, cet événement désormais incontournable vous permettra de partager des connaissances autour du jardin, de la nature mais aussi de découvrir une programmation culturelle riche et diversifiée.\n\nAu programme : ateliers, stands de professionnels, bourses aux plantes, conférences, expositions mais aussi spectacles et concerts.\n\n\\- Du lundi 4 au samedi 16 mai : exposition Le Grand bestiaire\n\n\\- Mardi 12 mai : spectacle scolaire Miss Terre\n\n\\- Samedi 16 mai : journée nature + ballades contées d’Agnès Doherty\n\nAu pied de l’arbre, par la Cie Doherty\n\nSam. 16 mai - 11h00 au Parc Charron\n\nSous forme de portraits mêlant histoires rythmées et musicales, chansons et informations sur les espèces d’arbres, partez à la découverte des parcs de la ville. La proximité réelle des arbres permettra de les aborder avec tous les sens. La musique rythmera aussi la déambulation. Un spectacle itinérant et familial pour amener le public à la rencontre des arbres."
+      },
+      "keywords": {
+        "fr": [
+          "ambarès-et-lagrave",
+          "festival des jardins",
+          "nature"
+        ]
+      },
+      "conditions": {
+        "fr": "Ballades contées - à partir de 6 ans - Entrée libre - Réservation conseillée"
+      },
+      "image": {
+        "filename": "eefd307abece4a1ea59e198a23fbcf2f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "eefd307abece4a1ea59e198a23fbcf2f.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "eefd307abece4a1ea59e198a23fbcf2f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-04T07:00:00.000Z",
+          "end": "2020-05-04T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T07:00:00.000Z",
+          "end": "2020-05-05T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T07:00:00.000Z",
+          "end": "2020-05-06T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T07:00:00.000Z",
+          "end": "2020-05-07T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T07:00:00.000Z",
+          "end": "2020-05-08T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T07:00:00.000Z",
+          "end": "2020-05-09T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T07:00:00.000Z",
+          "end": "2020-05-10T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T07:00:00.000Z",
+          "end": "2020-05-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T07:00:00.000Z",
+          "end": "2020-05-12T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T07:00:00.000Z",
+          "end": "2020-05-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T07:00:00.000Z",
+          "end": "2020-05-14T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T07:00:00.000Z",
+          "end": "2020-05-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T07:00:00.000Z",
+          "end": "2020-05-16T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-23T10:50:17.000Z",
+      "createdAt": "2019-12-23T10:50:19.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 74425982,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 74425982,
+        "slug": "bibliotheque-municipale-f-mitterrand",
+        "name": "Bibliothèque Municipale F. Mitterrand",
+        "address": "9 rue Edmond Faulat 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.925273,
+        "longitude": -0.488366,
+        "updatedAt": "2017-11-17T13:40:20.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://bibliotheque.ville-ambaresetlagrave.fr/",
+        "phone": "0557801520",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 6391654,
+      "ownerUid": 91226507,
+      "creatorUid": 91226507,
+      "slug": "scenes-croisees-18",
+      "title": {
+        "fr": "Scènes croisées #18"
+      },
+      "description": {
+        "fr": "Dans le cadre du dispositif Scènes Croisées en partenariat avec la Rock School Barbey et O2 Radio."
+      },
+      "longDescription": {
+        "fr": "C’est toute la vitalité d’une scène « musiques actuelles » toujours en ébullition que le Pôle Culturel Evasion vous invite à découvrir lors de cette soirée concert pas comme les autres. Quatre groupes issus des sélections et quatre univers sonores sont mis en valeur par une scénographie fourmillant d’écrans et de vidéos.\n\nDans le cadre du dispositif Scènes Croisées en partenariat avec la Rock School Barbey et O2 Radio."
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "pôle culturel évasion",
+          "scènes croisées",
+          "ambarès-et-lagrave",
+          "musiques actuelles"
+        ]
+      },
+      "conditions": {
+        "fr": "Tout public - Tarif : 6 € - Tarif carte jeune : 5 € - Réservation conseillée"
+      },
+      "image": {
+        "filename": "116a3b827c1140c7ba2f11dd1e8c9eda.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 259,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "116a3b827c1140c7ba2f11dd1e8c9eda.full.image.jpg",
+            "size": {
+              "height": 222,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "116a3b827c1140c7ba2f11dd1e8c9eda.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-30T18:30:00.000Z",
+          "end": "2020-05-30T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T12:26:16.000Z",
+      "createdAt": "2019-12-23T10:53:24.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 36 26"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        58816119
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-ambares-et-lagrave",
+          "uid": 58816119,
+          "official": 0,
+          "title": "Ville de Ambarès-et-Lagrave",
+          "description": "Agenda de tous les événements de la commune",
+          "url": "http://www.ville-ambaresetlagrave.fr",
+          "image": "agenda58816119.jpg",
+          "updatedAt": "2020-02-13T12:54:21.000Z",
+          "createdAt": "2017-04-10T10:29:28.000Z",
+          "officializedAt": null,
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2020-02-13T12:54:21.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 43336790,
+      "ownerUid": 96079790,
+      "creatorUid": 96079790,
+      "slug": "perspectives-variations-autour-de-la-sauve-majeure",
+      "title": {
+        "fr": "Perspectives - Variations autour de La Sauve-Majeure"
+      },
+      "description": {
+        "fr": "Archimuse Bordeaux organise PERSPECTIVES - Variations autour de La Sauve-Majeure du 13 janvier au 2 février 2020 afin de proposer au public différents points de vue contemporains sur cette abbaye."
+      },
+      "longDescription": {
+        "fr": "**PERSPECTIVES -** **_Variations autour de La Sauve-Majeure_**\n--------------------------------------------------------------\n\nRéalisée par l’association Archimuse dans le cadre de sa saison culturelle autour de La Sauve-Majeure, l’exposition collaborative au contenu original propose au grand public différents points de vue contemporains sur cette abbaye de l’Entre-deux-Mers. À travers des travaux d’artistes, des photographies, des installations sonores et des expériences graphiques, l’exposition pose la question de la mise en récit du patrimoine et invite chacun à s’approprier ce site remarquable\n\n_Visites guidées gratuites sur réservation, y compris la semaine en matinée_\n\n_Atelier enfant en libre accès_\n\n**_Archimuse-Bordeaux_**\n\n**_PERSPECTIVES - Variations autour de La Sauve-Majeure_**\n\n**_13 janvier 2020 - 02 février 2020_**\n\n**_Ouvert du lundi au vendredi de 13h à 19h et le week-end de 11h à 19h_**\n\n**_Nocturne étudiante le jeudi 16 janvier de 19h à 23h - Entrée libre_**\n\n**_Espace Saint-Rémi, 4 Rue Jouannet_**\n\n**_www.perspectiveslsm.com_**\n\n**_Gratuit_**"
+      },
+      "keywords": {
+        "fr": [
+          "culture",
+          "art contemporain",
+          "exposition",
+          "abbaye de La Sauve-Majeure",
+          "perspectives",
+          "espace saint-rémi",
+          "Bordeaux",
+          "Archimuse",
+          "Master Patrimoine et Musées"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "4a64a55fc1314728943947bd3780af35.base.image.jpg",
+        "credits": "Archimuse Bordeaux",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4a64a55fc1314728943947bd3780af35.full.image.jpg",
+            "size": {
+              "height": 540,
+              "width": 960
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4a64a55fc1314728943947bd3780af35.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-13T12:00:00.000Z",
+          "end": "2020-01-13T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T12:30:00.000Z",
+          "end": "2020-01-13T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T13:00:00.000Z",
+          "end": "2020-01-13T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T13:30:00.000Z",
+          "end": "2020-01-13T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T14:00:00.000Z",
+          "end": "2020-01-13T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T14:30:00.000Z",
+          "end": "2020-01-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T15:00:00.000Z",
+          "end": "2020-01-13T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T15:30:00.000Z",
+          "end": "2020-01-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T16:00:00.000Z",
+          "end": "2020-01-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T16:30:00.000Z",
+          "end": "2020-01-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T17:00:00.000Z",
+          "end": "2020-01-13T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T17:30:00.000Z",
+          "end": "2020-01-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T12:00:00.000Z",
+          "end": "2020-01-14T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T12:30:00.000Z",
+          "end": "2020-01-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T12:00:00.000Z",
+          "end": "2020-01-15T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T12:30:00.000Z",
+          "end": "2020-01-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T12:00:00.000Z",
+          "end": "2020-01-16T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T12:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T10:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T10:00:00.000Z",
+          "end": "2020-01-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T12:00:00.000Z",
+          "end": "2020-01-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T12:00:00.000Z",
+          "end": "2020-01-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T12:00:00.000Z",
+          "end": "2020-01-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T12:00:00.000Z",
+          "end": "2020-01-23T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T12:00:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T10:00:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T10:00:00.000Z",
+          "end": "2020-01-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T12:00:00.000Z",
+          "end": "2020-01-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T12:00:00.000Z",
+          "end": "2020-01-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T12:00:00.000Z",
+          "end": "2020-01-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T12:00:00.000Z",
+          "end": "2020-01-30T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T12:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T10:00:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T10:00:00.000Z",
+          "end": "2020-02-02T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-27T14:32:47.000Z",
+      "createdAt": "2019-12-19T17:02:24.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 64879417,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "archimuse.bordeaux@gmail.com"
+      ],
+      "location": {
+        "uid": 64879417,
+        "slug": "espace-culturel-saint-remi",
+        "name": "Espace culturel Saint-Rémi",
+        "address": "4 rue jouannet",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.84168,
+        "longitude": -0.571938,
+        "updatedAt": "2019-12-30T08:35:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [
+        2
+      ],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2020-02-14T15:18:43.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2114836
+}

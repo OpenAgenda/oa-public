@@ -1,0 +1,1513 @@
+{
+  "events": [
+    {
+      "uid": 33747818,
+      "ownerUid": 30160185,
+      "creatorUid": 30160185,
+      "slug": "inauguration-de-faites-numerique_837787",
+      "title": {
+        "fr": "Inauguration de Faites Numérique"
+      },
+      "description": {
+        "fr": "Vernissage de l'exposition \"IMAGE LATENTE\" d'URBRAIN"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c66035b9cebc4ac2af947e85488076ab.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 432
+        },
+        "variants": [
+          {
+            "filename": "c66035b9cebc4ac2af947e85488076ab.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 800,
+              "height": 493
+            }
+          },
+          {
+            "filename": "c66035b9cebc4ac2af947e85488076ab.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T18:00:00.000Z",
+          "end": "2020-01-21T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-10T13:38:47.000Z",
+      "createdAt": "2020-01-10T13:38:47.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 44,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        41375362
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "ville-de-bassens",
+          "uid": 41375362,
+          "official": 1,
+          "title": "Ville de Bassens",
+          "description": "L'agenda de tous les événements de la commune de Bassens",
+          "url": null,
+          "image": "agenda41375362.jpg",
+          "updatedAt": "2020-02-11T09:35:15.000Z",
+          "createdAt": "2017-02-10T15:55:02.000Z",
+          "officializedAt": "2018-06-12T13:18:13.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2020-02-11T09:35:15.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 96379379,
+      "ownerUid": 79399918,
+      "creatorUid": 79399918,
+      "slug": "crapaud-epineux-et-sentinelles-du-climat",
+      "title": {
+        "fr": "Crapaud épineux et Sentinelles du climat"
+      },
+      "description": {
+        "fr": "Vous avez une fibre naturelle ? Vous vous sentez concerné par la préservation de la biodiversité et le changement climatique ? Devenez observateur des sentinelles du climat"
+      },
+      "longDescription": {
+        "fr": "Le temps d'une sortie, venez vous familiariser avec les amphibiens du bois des sources et plus particulièrement le crapaud épineux. Vous apprendrez à le reconnaître et à réaliser des suivis dans le cadre de l'observatoire des Sentinelles du climat : l'occasion de se mettre aux sciences participatives !\n\nSortie d'hivernation, migration, métamorphose, saviez-vous que ces phénomènes périodiques des cycles de développement des animaux sont conditionnés notamment par certains paramètres climatiques ? Leur observation est un outil de suivi de la réponse de la faune au changement climatique.\n\nAprès cette sortie, vous saurez quelles observations réaliser sur le crapaud épineux, cette espèce de l'observatoire des Sentinelles du climat. Par la suite, vous aurez tout le loisir de participer à la recherche en renseignant vos données sur [www.obs.sentinelles-climat.org](http://www.obs.sentinelles-climat.org)\n\nRenseignements et réservations : 07 83 40 14 81 / elodie.malavialle\\[@\\]cistude\\[point\\]org (remplacer les crochets)\n\nEn partenariat avec le Département de la Gironde\n\nLieu : Cistude Nature, Chemin du Moulinat (se garer RUE du Moulinat et venir à pied), 33185 Le Haillan"
+      },
+      "keywords": {
+        "fr": [
+          "nature",
+          "biodiversité",
+          "bois",
+          "forêt",
+          "amphibien",
+          "climat",
+          "changement climatique"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - Inscription obligatoire"
+      },
+      "image": {
+        "filename": "cf0092a9318240119a57d2e453080adf.base.image.jpg",
+        "credits": "Matthieu Berroneau",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cf0092a9318240119a57d2e453080adf.full.image.jpg",
+            "size": {
+              "height": 531,
+              "width": 797
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cf0092a9318240119a57d2e453080adf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T18:00:00.000Z",
+          "end": "2020-01-24T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-14T15:09:06.000Z",
+      "createdAt": "2020-01-10T15:44:10.000Z",
+      "agendaUid": 72869717,
+      "locationUid": 5840501,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "07 83 40 14 81",
+        "elodie.malavialle@cistude.org"
+      ],
+      "location": {
+        "uid": 5840501,
+        "slug": "cistude-nature248",
+        "name": "Cistude Nature",
+        "address": "Chemin du moulinat, 33185 le haillan",
+        "city": "Le Haillan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33185",
+        "insee": "33200",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.89361,
+        "longitude": -0.678996,
+        "updatedAt": "2018-09-06T12:48:33.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        72869717,
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "les-balades-de-cistude-nature",
+          "uid": 72869717,
+          "official": 1,
+          "title": "Les balades de Cistude Nature",
+          "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+          "url": "http://www.cistude.org",
+          "image": "agenda72869717.jpg",
+          "updatedAt": "2020-02-12T10:51:27.000Z",
+          "createdAt": "2018-07-17T12:53:10.000Z",
+          "officializedAt": "2019-10-28T15:54:52.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "les-balades-de-cistude-nature",
+        "uid": 72869717,
+        "official": 1,
+        "title": "Les balades de Cistude Nature",
+        "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+        "url": "http://www.cistude.org",
+        "image": "agenda72869717.jpg",
+        "updatedAt": "2020-02-12T10:51:27.000Z",
+        "createdAt": "2018-07-17T12:53:10.000Z",
+        "officializedAt": "2019-10-28T15:54:52.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 42410060,
+      "ownerUid": 79399918,
+      "creatorUid": 79399918,
+      "slug": "devenez-observateur-des-sentinelles-du-climat",
+      "title": {
+        "fr": "Devenez observateur des Sentinelles du climat"
+      },
+      "description": {
+        "fr": "Vous avez une fibre naturelle ? Vous vous sentez concerné par la préservation de la biodiversité et le changement climatique ? Devenez observateur des sentinelles du climat"
+      },
+      "longDescription": {
+        "fr": "Noisetiers, ficaires, paon du jour, coucou, hérisson... Le temps d'une sortie, venez vous familiariser avec la faune et la flore du bois des sources. Vous apprendrez à reconnaître et réaliser les suivis de ces espèces dans le cadre de l'observatoire des Sentinelles du climat : l'occasion de se mettre aux sciences participatives !\n\nFeuillaison, floraison, sortie d'hivernation, migration, métamorphose, saviez-vous que ces phénomènes périodiques des cycles de développement des végétaux et des animaux sont conditionnés notamment par certains paramètres climatiques ? Leur observation est un outil de suivi de la réponse de la faune au changement climatique.\n\nAprès cette sortie, vous saurez quelles observations réaliser sur ces espèces de l'observatoire des Sentinelles du climat. Par la suite, vous aurez tout le loisir de participer à la recherche en renseignant vos données sur [www.obs.sentinelles-climat.org](http://www.obs.sentinelles-climat.org)\n\nRenseignements et réservations : 07 83 40 14 81 / elodie.malavialle\\[@\\]cistude\\[point\\]org (remplacer les crochets)\n\nEn partenariat avec le Département de la Gironde\n\nLieu : Cistude Nature, Chemin du Moulinat (se garer RUE du Moulinat et venir à pied), 33185 Le Haillan"
+      },
+      "keywords": {
+        "fr": [
+          "Nature",
+          "Bois",
+          "Forêt",
+          "Faune",
+          "Flore",
+          "Biodiversité",
+          "Climat",
+          "Changement Climatique"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - Inscription obligatoire"
+      },
+      "image": {
+        "filename": "83835c9605da4d38a40b82531ef2ba3a.base.image.jpg",
+        "credits": "@ Sentinelles du Climat - illustration Sauvage Garage",
+        "size": {
+          "height": 393,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "83835c9605da4d38a40b82531ef2ba3a.full.image.jpg",
+            "size": {
+              "height": 473,
+              "width": 844
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "83835c9605da4d38a40b82531ef2ba3a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-14T15:08:23.000Z",
+      "createdAt": "2020-01-10T15:54:19.000Z",
+      "agendaUid": 72869717,
+      "locationUid": 5840501,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "07 83 40 14 81",
+        "elodie.malavialle@cistude.org"
+      ],
+      "location": {
+        "uid": 5840501,
+        "slug": "cistude-nature248",
+        "name": "Cistude Nature",
+        "address": "Chemin du moulinat, 33185 le haillan",
+        "city": "Le Haillan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33185",
+        "insee": "33200",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.89361,
+        "longitude": -0.678996,
+        "updatedAt": "2018-09-06T12:48:33.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 60,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        72869717,
+        1108324
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "les-balades-de-cistude-nature",
+          "uid": 72869717,
+          "official": 1,
+          "title": "Les balades de Cistude Nature",
+          "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+          "url": "http://www.cistude.org",
+          "image": "agenda72869717.jpg",
+          "updatedAt": "2020-02-12T10:51:27.000Z",
+          "createdAt": "2018-07-17T12:53:10.000Z",
+          "officializedAt": "2019-10-28T15:54:52.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "un-air-de-bordeaux",
+          "uid": 1108324,
+          "official": 1,
+          "title": "Un air de Bordeaux",
+          "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+          "url": "http://www.unairdebordeaux.fr",
+          "image": "agenda1108324.jpg",
+          "updatedAt": "2020-02-14T15:18:43.000Z",
+          "createdAt": "2017-09-25T16:03:24.000Z",
+          "officializedAt": "2018-05-17T14:21:06.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "les-balades-de-cistude-nature",
+        "uid": 72869717,
+        "official": 1,
+        "title": "Les balades de Cistude Nature",
+        "description": "Programme des sorties nature organisées par l'association Cistude Nature",
+        "url": "http://www.cistude.org",
+        "image": "agenda72869717.jpg",
+        "updatedAt": "2020-02-12T10:51:27.000Z",
+        "createdAt": "2018-07-17T12:53:10.000Z",
+        "officializedAt": "2019-10-28T15:54:52.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 37927992,
+      "ownerUid": 8359038,
+      "creatorUid": 8359038,
+      "slug": "atrisma",
+      "title": {
+        "fr": "Atrisma"
+      },
+      "description": {
+        "fr": "Atrisma, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {
+        "fr": "Passant d’un rythme à l’autre, Atrisma dévoile une musique captivante qui embarque le public dans un voyage teinté de passion et de mélancolie. Ces trois amis ne cessent de surprendre en mêlant le jazz, le hip-hop en encore l’électro. Avec leur premier album Aurosmose, Atrisma s’est produit sur plusieurs scènes françaises (Andernos Jazz Festival, Festival Eclats D'Email, Jazz 360, Jazz à Caudéran...) et à l'étranger (Shanghaï, Saragosse…). Fort de ces expériences, le trio revient avec un nouvel opus Chrone, dans lequel le groupe développe un univers coloré et onirique où se mêlent quiétude et chaos. Pour cette sortie, Atrisma sera accompagné de deux artistes chorégraphiques et d’un dessinateur."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "atrisma",
+          "jazz",
+          "gratuit"
+        ]
+      },
+      "conditions": {
+        "fr": "Concert gratuit. Réservation conseillée, invitation à télécharger un mois avant le concert."
+      },
+      "image": {
+        "filename": "da84c858a27c4effbe60933be7fbe61b.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "da84c858a27c4effbe60933be7fbe61b.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "da84c858a27c4effbe60933be7fbe61b.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-03T17:30:00.000Z",
+          "end": "2020-04-03T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-12T02:05:06.000Z",
+      "createdAt": "2020-01-12T02:05:06.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/atrisma/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [
+        94573624,
+        38598267
+      ],
+      "aggregated": false,
+      "sourceAgendas": [
+        {
+          "slug": "rocher-de-palmer",
+          "uid": 94573624,
+          "official": 1,
+          "title": "Rocher de Palmer",
+          "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+          "url": "https://lerocherdepalmer.fr/",
+          "image": "agenda94573624.jpg",
+          "updatedAt": "2020-02-15T02:05:25.000Z",
+          "createdAt": "2017-06-02T15:32:00.000Z",
+          "officializedAt": "2018-06-12T13:17:23.000Z",
+          "private": 0,
+          "indexed": 1
+        },
+        {
+          "slug": "ville-de-cenon",
+          "uid": 38598267,
+          "official": 1,
+          "title": "Ville de CENON",
+          "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+          "url": "",
+          "image": "agenda38598267.jpg",
+          "updatedAt": "2020-02-15T02:14:33.000Z",
+          "createdAt": "2017-01-24T10:19:36.000Z",
+          "officializedAt": "2018-06-12T13:17:03.000Z",
+          "private": 0,
+          "indexed": 1
+        }
+      ],
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2020-02-15T02:05:25.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 99533329,
+      "ownerUid": 50469945,
+      "creatorUid": 50469945,
+      "slug": "la-contrebasse_414786",
+      "title": {
+        "fr": "La Contrebasse"
+      },
+      "description": {
+        "fr": "Bien moins connue que « Le Parfum », cette autre oeuvre de Patrick Süskind nous raconte le plongeon vers la solitude et la folie d’un contrebassiste."
+      },
+      "longDescription": {
+        "fr": "Le 31 décembre à 20H et 22h\n\nLes 9, 10, 11, 15, 16, 17, 18 Janvier à 20h30\n\nEt les dimanches 12 et 19 Janvier à 16h\n\nVous ne verrez plus jamais les musiciens d’orchestre du même oeil ! Bien moins connue que « Le Parfum », cette autre oeuvre de Patrick Süskind nous raconte le plongeon vers la solitude et la folie d’un contrebassiste. Instrument imposant et puissant, il est selon le musicien essentiel à tout orchestre digne de ce nom. Il nous décrit avec passion les liens qui les unissent, humanisant à l’extrême l’objet musical de son désir. Mais on découvre au fil du spectacle que derrière cette fascination absolue, se cache une haine à l’encontre de cette contrebasse, encombrante et envahissante, car bientôt l’éloge pompeux laisse affleurer les frustrations et les rancoeurs du musicien et de l’homme. Peu à peu la haine d’abord refoulée de cette encombrante compagne s’exprime, se déchaîne et explose, jusqu’à la folie… Patrick Süskind dévoile avec ironie les dessous de la vie d’orchestre dans cette version finement dirigée et jouée par Stéphane Alvarez.\n\nMise en scène et jeu : Stéphane ALVAREZ\n\nRegard extérieur : Sébastien HÉQUET\n\nLumières : Yannick LELEU\n\nCostumes : Vincent DUPEYRON\n\nPlein Tarif : 20€ / Tarif Réduit : 12€\n\nTarif unique le 31 : 30€ avec coupe de champagne offerte\n\nDurée : 1h15mn\n\nRÉSERVATIONS :\n\nMail : [resa.ponttournant@gmail.com](mailto:resa.ponttournant@gmail.com)\n\nTél : 05.56.11.06.11\n\nBilletWeb : [http://bit.ly/contrebasseresa](http://bit.ly/contrebasseresa)\n\nSite : [https://www.theatreponttournant.com/](https://www.theatreponttournant.com/)"
+      },
+      "keywords": {
+        "fr": [
+          "théâtre",
+          "spectacle",
+          "süskind",
+          "contrebasse",
+          "classique"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 30€ avec coupe de champagne offerte / plein : 20€ / réduit : 12€"
+      },
+      "image": {
+        "filename": "62521e282a2b44f98e8eb937b14de1c0.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 701,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "62521e282a2b44f98e8eb937b14de1c0.full.image.jpg",
+            "size": {
+              "height": 1250,
+              "width": 1250
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "62521e282a2b44f98e8eb937b14de1c0.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-31T19:00:00.000Z",
+          "end": "2019-12-31T20:15:00.000Z"
+        },
+        {
+          "begin": "2019-12-31T21:00:00.000Z",
+          "end": "2019-12-31T22:15:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T19:30:00.000Z",
+          "end": "2020-01-09T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T19:30:00.000Z",
+          "end": "2020-01-10T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T19:30:00.000Z",
+          "end": "2020-01-11T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T15:00:00.000Z",
+          "end": "2020-01-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T19:30:00.000Z",
+          "end": "2020-01-15T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T19:30:00.000Z",
+          "end": "2020-01-16T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T19:30:00.000Z",
+          "end": "2020-01-17T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T19:30:00.000Z",
+          "end": "2020-01-18T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T15:00:00.000Z",
+          "end": "2020-01-19T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-19T10:45:44.000Z",
+      "createdAt": "2019-11-12T12:03:07.000Z",
+      "agendaUid": 98498606,
+      "locationUid": 88310969,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/contrebasseresa",
+        "https://www.theatreponttournant.com/",
+        "resa.ponttournant@gmail.com",
+        "05.56.11.06.11"
+      ],
+      "location": {
+        "uid": 88310969,
+        "slug": "theatre-du-pont-tournant",
+        "name": "Théâtre du Pont Tournant",
+        "address": "13 rue Charlevoix de Villers",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Bacalan",
+        "latitude": 44.870681,
+        "longitude": -0.548457,
+        "updatedAt": "2020-01-14T09:33:52.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.theatreponttournant.com",
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "theatre-du-pont-tournant",
+        "uid": 98498606,
+        "official": 0,
+        "title": "Théâtre du Pont Tournant",
+        "description": "Le Théâtre du Pont Tournant offre une programmation exigeante et pluridisciplinaire, mêlant pièces classiques et auteurs contemporains.",
+        "url": "https://www.theatreponttournant.com/",
+        "image": "agenda98498606.jpg",
+        "updatedAt": "2020-01-14T09:41:26.000Z",
+        "createdAt": "2019-05-15T09:52:26.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 33358917,
+      "ownerUid": 50469945,
+      "creatorUid": 50469945,
+      "slug": "que-je-taime",
+      "title": {
+        "fr": "Que je t’aime !"
+      },
+      "description": {
+        "fr": "Ces lettres datent d’avant la pilule, la loi Veil, surtout d’avant 68 ! Écrites au crayon ou au stylo bic, leur langage paraît vieillot, désuet, voire kitch, mais ce n’est que la forme qui a changé"
+      },
+      "longDescription": {
+        "fr": "**Les 24 et 25 Janvier à 20h30**\n\n**et le dimanche 26 Janvier à 16h**\n\nLorsque ce spectacle a été créé en juillet 1995 au Théâtre des Carmes d’Avignon, j’étais loin de penser pouvoir le rejouer 23 ans après. Puis, à la lumière de la nouvelle « parole libérée des femmes » (et de ses dérives…!), l’occasion m’est donnée aujourd’hui de rejouer ces lettres des années 50/60. En effet, elles résonnent singulièrement.\n\nCes lettres datent d’avant la pilule, la loi Veil, surtout d’avant 68 ! Écrites au crayon ou au stylo bic, leur langage paraît vieillot, désuet, voire kitch, mais ce n’est que la forme qui a changé, ou la manière, car aujourd’hui, leurs questions, leurs confessions et leurs aveux demeurent les mêmes. Finalement, pour ce qui est des ignorances et des inquiétudes en matière « d’amour », et… de la « carrière » qu’il induit, peu de choses ont changé. Et ces lettres, témoignage d’une période révolue, en sont encore plus touchantes et plus drôles.\n\nCo-production : Théâtre du Pont Tournant et Théâtre Lucernaire\n\nDe et avec : Clémence Massart\n\nMise en scène : Philippe Caubère\n\nLumières : Clémence Massart, Philippe Caubère et Yannick Leleu\n\nCostumes : L’atelier du costume, Verasri Treethara\n\nDurée : 1h30 / Tout public\n\nPlein Tarif : 20€ / Tarif Réduit : 12€\n\n**RÉSERVATIONS :**\n\nMail : resa.ponttournant@gmail.com\n\nTél : 05.56.11.06.11\n\nBilletWeb : [http://bit.ly/Quejetaimeresa](http://bit.ly/Quejetaimeresa)\n\nSite : [https://www.theatreponttournant.com/janvier-mars-2020-2/](https://www.theatreponttournant.com/janvier-mars-2020-2/)"
+      },
+      "keywords": {
+        "fr": [
+          "théâtre",
+          "spectacle",
+          "sortie",
+          "bordeaux",
+          "bacalan"
+        ]
+      },
+      "conditions": {
+        "fr": "Plein Tarif : 20€ / Tarif Réduit : 12€"
+      },
+      "image": {
+        "filename": "48e82ee602744401bcd9fccdeaee6b85.base.image.jpg",
+        "credits": "@stéphane Bidouze",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "48e82ee602744401bcd9fccdeaee6b85.full.image.jpg",
+            "size": {
+              "height": 640,
+              "width": 960
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "48e82ee602744401bcd9fccdeaee6b85.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T19:30:00.000Z",
+          "end": "2020-01-24T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T19:30:00.000Z",
+          "end": "2020-01-25T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T15:00:00.000Z",
+          "end": "2020-01-26T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-27T10:34:47.000Z",
+      "createdAt": "2019-12-23T11:51:41.000Z",
+      "agendaUid": 98498606,
+      "locationUid": 88310969,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/Quejetaimeresa",
+        "https://www.theatreponttournant.com/janvier-mars-2020-2/",
+        "resa.ponttournant@gmail.com",
+        "05.56.11.06.11"
+      ],
+      "location": {
+        "uid": 88310969,
+        "slug": "theatre-du-pont-tournant",
+        "name": "Théâtre du Pont Tournant",
+        "address": "13 rue Charlevoix de Villers",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Bacalan",
+        "latitude": 44.870681,
+        "longitude": -0.548457,
+        "updatedAt": "2020-01-14T09:33:52.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.theatreponttournant.com",
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "theatre-du-pont-tournant",
+        "uid": 98498606,
+        "official": 0,
+        "title": "Théâtre du Pont Tournant",
+        "description": "Le Théâtre du Pont Tournant offre une programmation exigeante et pluridisciplinaire, mêlant pièces classiques et auteurs contemporains.",
+        "url": "https://www.theatreponttournant.com/",
+        "image": "agenda98498606.jpg",
+        "updatedAt": "2020-01-14T09:41:26.000Z",
+        "createdAt": "2019-05-15T09:52:26.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 16629979,
+      "ownerUid": 50469945,
+      "creatorUid": 50469945,
+      "slug": "accueille-aime-ose-conference-inspirante",
+      "title": {
+        "fr": "\" Accueille, Aime, Ose \" - Conférence inspirante"
+      },
+      "description": {
+        "fr": "J’ai envie de partager avec toi les clés qui m’ont permis de traverser certaines épreuves et d’en faire des forces. Du pire en faire le meilleur. C’est ce que l’on appelle la résilience."
+      },
+      "longDescription": {
+        "fr": "**Le 31 Janvier à 20h30**\n\nTu te sens secoué en ce moment, mal-mené, la vie te demande de te ré-aligner sans arrêt ?\n\nTu ressens de l’incompréhension, de l’injuste face à ce que tu traverses ?\n\nTu souhaiterais faire évoluer les choses, donner plus de sens à ta vie mais tu ne sais pas comment, ni qui peut t’aider ?\n\nJe te rassure tout cela est normal, notre monde est en pleine mutation.\n\nMais tu n’es pas seul.\n\nJ’ai envie de partager avec toi les clés qui m’ont permis de traverser certaines épreuves et d’en faire des forces.\n\nDu pire en faire le meilleur. C’est ce que l’on appelle la résilience.\n\nPour moi, derrière chaque événement il y a un cadeau, parfois mal emballé.\n\nAs-tu envie que je te partage les secrets issus de mes propres expériences ?\n\nJe serai très heureuse de t’avoir à mes côtés pour cette belle soirée connectés ensemble de coeur à coeur avant mon départ pour le Vietnam.\n\nCélébrons la vie, célébrons l’amour et osons.\n\nAprès la conférence, il y aura un pot de l’amitié et la possibilité d’acheter des photos et des objets du Vietnam.\n\nCette soirée sera au profit de l’association Gabriel.\n\nTarif unique 22€\n\n**RÉSERVATIONS :**\n\nMail : resa.ponttournant@gmail.com\n\nTél : 05.56.11.06.11\n\nBilletWeb : [http://bit.ly/AAOconference](http://bit.ly/AAOconference)\n\nSite : [www.stephanieherve.com](www.stephanieherve.com)"
+      },
+      "keywords": {
+        "fr": [
+          "conference",
+          "théâtre",
+          "bordeaux",
+          "sortie",
+          "bien être"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique 22€"
+      },
+      "image": {
+        "filename": "0e51701e0c34406dada30353ced8f059.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 402
+        },
+        "variants": [
+          {
+            "filename": "0e51701e0c34406dada30353ced8f059.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1040,
+              "height": 596
+            }
+          },
+          {
+            "filename": "0e51701e0c34406dada30353ced8f059.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T19:30:00.000Z",
+          "end": "2020-01-31T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T15:08:49.000Z",
+      "createdAt": "2019-12-31T15:08:49.000Z",
+      "agendaUid": 98498606,
+      "locationUid": 88310969,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/AAOconference",
+        "http://www.stephanieherve.com",
+        "resa.ponttournant@gmail.com",
+        "05.56.11.06.11"
+      ],
+      "location": {
+        "uid": 88310969,
+        "slug": "theatre-du-pont-tournant",
+        "name": "Théâtre du Pont Tournant",
+        "address": "13 rue Charlevoix de Villers",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Bacalan",
+        "latitude": 44.870681,
+        "longitude": -0.548457,
+        "updatedAt": "2020-01-14T09:33:52.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.theatreponttournant.com",
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "theatre-du-pont-tournant",
+        "uid": 98498606,
+        "official": 0,
+        "title": "Théâtre du Pont Tournant",
+        "description": "Le Théâtre du Pont Tournant offre une programmation exigeante et pluridisciplinaire, mêlant pièces classiques et auteurs contemporains.",
+        "url": "https://www.theatreponttournant.com/",
+        "image": "agenda98498606.jpg",
+        "updatedAt": "2020-01-14T09:41:26.000Z",
+        "createdAt": "2019-05-15T09:52:26.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 63861672,
+      "ownerUid": 50469945,
+      "creatorUid": 50469945,
+      "slug": "lhistoire-dune-femme",
+      "title": {
+        "fr": "L’histoire d’une femme"
+      },
+      "description": {
+        "fr": "Un type passe, à vélo, la frôle, et lui met une main aux fesses, claque violente. Elle tombe, elle va se relever. Elle n’a pas de nom, elle va raconter son histoire."
+      },
+      "longDescription": {
+        "fr": "**Le 1er février à 20h30**\n\nUn type passe, à vélo, la frôle, et lui met une main aux fesses, claque violente. Elle tombe, elle va se relever. Elle n’a pas de nom, elle va raconter son histoire.\n\nC’est une femme en prise avec tous les signes de la misogynie ordinaire. Elle passe en revue les attaques, insultes et sous-entendus des hommes qui l’entourent. Son père, son compagnon, le buraliste ou le patron, le médecin ou le passant. Signes flagrants ou invisibles d’un monde phallocrate, une société d’hommes qu’elle refuse d’affronter. Elle ne jouera plus le jeu de la guerre des sexes, ce serait cautionner la bataille. Elle oppose son silence, et ça les rend fous. Elle refuse pour autant de renoncer à ses désirs, aux plaisirs. Elle va chercher à comprendre comment ça marche, un homme.\n\nCo-production : Théâtre du Rond Point et Scène & Public\n\nTexte et mise en scène : Pierre Notte\n\nAvec : Muriel Gaudin\n\nLumières : Antonio de Carvalho\n\nMusiques originales : Pierre Notte\n\nArrangements : Clément Walker-Viry\n\nDurée : 1h10 / Tout Public\n\nPlein Tarif : 20€ / Tarif Réduit : 12€\n\n**RÉSERVATIONS :**\n\nMail : resa.ponttournant@gmail.com\n\nTél : 05.56.11.06.11\n\nBilletWeb : [http://bit.ly/histoirefemmeresa](http://bit.ly/histoirefemmeresa)\n\nSite : [https://www.theatreponttournant.com/janvier-mars-2020-2/](https://www.theatreponttournant.com/janvier-mars-2020-2/)"
+      },
+      "keywords": {
+        "fr": [
+          "théâtre",
+          "spectacle",
+          "sortie",
+          "feministe",
+          "bordeaux",
+          "débat"
+        ]
+      },
+      "conditions": {
+        "fr": "Plein Tarif : 20€ / Tarif Réduit : 12€"
+      },
+      "image": {
+        "filename": "44eec76984464f4ca26669188834e8e9.base.image.jpg",
+        "credits": "@théâtre du Rond Point",
+        "size": {
+          "height": 468,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "44eec76984464f4ca26669188834e8e9.full.image.jpg",
+            "size": {
+              "height": 743,
+              "width": 1112
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "44eec76984464f4ca26669188834e8e9.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T19:30:00.000Z",
+          "end": "2020-02-01T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-27T10:38:58.000Z",
+      "createdAt": "2019-12-23T12:03:45.000Z",
+      "agendaUid": 98498606,
+      "locationUid": 88310969,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/histoirefemmeresa",
+        "https://www.theatreponttournant.com/janvier-mars-2020-2/",
+        "resa.ponttournant@gmail.com",
+        "05.56.11.06.11"
+      ],
+      "location": {
+        "uid": 88310969,
+        "slug": "theatre-du-pont-tournant",
+        "name": "Théâtre du Pont Tournant",
+        "address": "13 rue Charlevoix de Villers",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Bacalan",
+        "latitude": 44.870681,
+        "longitude": -0.548457,
+        "updatedAt": "2020-01-14T09:33:52.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.theatreponttournant.com",
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "theatre-du-pont-tournant",
+        "uid": 98498606,
+        "official": 0,
+        "title": "Théâtre du Pont Tournant",
+        "description": "Le Théâtre du Pont Tournant offre une programmation exigeante et pluridisciplinaire, mêlant pièces classiques et auteurs contemporains.",
+        "url": "https://www.theatreponttournant.com/",
+        "image": "agenda98498606.jpg",
+        "updatedAt": "2020-01-14T09:41:26.000Z",
+        "createdAt": "2019-05-15T09:52:26.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 68219481,
+      "ownerUid": 50469945,
+      "creatorUid": 50469945,
+      "slug": "le-souper_169932",
+      "title": {
+        "fr": "Le Souper"
+      },
+      "description": {
+        "fr": "spectacle de Jean-claude Brisville, Avec Daniel et William Mesguich. Après la défaite de Waterloo et l’exil de Napoléon, Wellington et les troupes coalisées sont dans Paris. La révolte gronde."
+      },
+      "longDescription": {
+        "fr": "Les 7 et 8 février à 20h30\n\nAprès la défaite de Waterloo et l’exil de Napoléon, Wellington et les troupes coalisées sont dans Paris. La révolte gronde.\n\nQui va gouverner le pays ?\n\nLe 6 juillet 1815 au soir, les « faiseurs de rois » Fouché et Talleyrand se retrouvent lors d’un souper pour décider du régime à donner à la France. Si le premier souhaite une République, le second envisage le retour de Bourbons. Aucun des deux ne peut agir sans l’autre.\n\nCommence alors une négociation entre deux hommes puissants qui se détestent, mais que les circonstances historiques condamnent à s’entendre.\n\nProduction : Miroir et Métaphore\n\nDe : Jean-Claude Brisville\n\nMise en scène et avec : Daniel Mesguich et William Mesguich\n\nCostumes : Dominique Louis\n\nPlein Tarif : 28€ / Tarif Réduit : 20€\n\nDurée : 1h30mn\n\nRÉSERVATIONS :\n\nMail : resa.ponttournant@gmail.com\n\nTél : 05.56.11.06.11\n\nBilletWeb : [http://bit.ly/lesouperresa](http://bit.ly/lesouperresa)\n\nSite : [https://www.theatreponttournant.com/janvier-mars-2020-2/](https://www.theatreponttournant.com/janvier-mars-2020-2/)"
+      },
+      "keywords": {
+        "fr": [
+          "Théâtre",
+          "spectacle",
+          "waterloo",
+          "sortir",
+          "bordeaux",
+          "bacalan",
+          "Brisville",
+          "Mesguich",
+          "histoire"
+        ]
+      },
+      "conditions": {
+        "fr": "Plein Tarif : 28€ / Tarif Réduit : 20€"
+      },
+      "image": {
+        "filename": "eea0b7277e8c4abf96a49f18e1359198.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 673,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "eea0b7277e8c4abf96a49f18e1359198.full.image.jpg",
+            "size": {
+              "height": 742,
+              "width": 772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "eea0b7277e8c4abf96a49f18e1359198.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-07T19:30:00.000Z",
+          "end": "2020-02-07T21:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T19:30:00.000Z",
+          "end": "2020-02-08T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-27T10:39:20.000Z",
+      "createdAt": "2019-12-27T09:58:06.000Z",
+      "agendaUid": 98498606,
+      "locationUid": 88310969,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/lesouperresa",
+        "https://www.theatreponttournant.com/janvier-mars-2020-2/",
+        "resa.ponttournant@gmail.com",
+        "05.56.11.06.11"
+      ],
+      "location": {
+        "uid": 88310969,
+        "slug": "theatre-du-pont-tournant",
+        "name": "Théâtre du Pont Tournant",
+        "address": "13 rue Charlevoix de Villers",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Bacalan",
+        "latitude": 44.870681,
+        "longitude": -0.548457,
+        "updatedAt": "2020-01-14T09:33:52.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.theatreponttournant.com",
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "theatre-du-pont-tournant",
+        "uid": 98498606,
+        "official": 0,
+        "title": "Théâtre du Pont Tournant",
+        "description": "Le Théâtre du Pont Tournant offre une programmation exigeante et pluridisciplinaire, mêlant pièces classiques et auteurs contemporains.",
+        "url": "https://www.theatreponttournant.com/",
+        "image": "agenda98498606.jpg",
+        "updatedAt": "2020-01-14T09:41:26.000Z",
+        "createdAt": "2019-05-15T09:52:26.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    },
+    {
+      "uid": 95025057,
+      "ownerUid": 50469945,
+      "creatorUid": 50469945,
+      "slug": "tantot-rouge-tantot-bleu",
+      "title": {
+        "fr": "Tantôt rouge, tantôt bleu"
+      },
+      "description": {
+        "fr": "En 2020, Rezvani et moi souhaitons fêter les 20 ans de Tantôt rouge tantôt bleu, Livre-disque produit par les éditions Actes-Sud Grand prix de l’Académie Charles Cros en 2000."
+      },
+      "longDescription": {
+        "fr": "**Le 22 février à 20h30**\n\nEn 2020, Rezvani et moi souhaitons fêter les 20 ans de Tantôt rouge tantôt bleu, Livre-disque produit par les éditions Actes-Sud Grand prix de l’Académie Charles Cros en 2000.\n\n« Ces chansons, je les ai composées sans y penser vraiment. La musique portant les mots, poussés presque malgré moi par le besoin vital de fixer mes émotions, de dire sur un mode inattendu -venant du peintre que j’étais- mon amour pour Lula… et aussi la joie de partager ces moments de félicité avec les amis qui nous entouraient. Aujourd’hui qu’elles sont chantées avec tant d’intelligence et de sensibilité par Mona, j’ai la joie surprenante de les recevoir telles des chansons jamais entendues, et surtout aussi neuves que si elles étaient d’un autre que moi. » Serge Rezvani\n\nChant : Mona Heftre\n\nPiano : Nathalie Fortin\n\nChansons de Rezvani\n\nPlein Tarif : 20€ / Tarif Réduit : 12€\n\nDurée : 1h20mn\n\n**RÉSERVATIONS :**\n\nMail : resa.ponttournant@gmail.com\n\nTél : 05.56.11.06.11\n\nBilletWeb : http://bit.ly/monaheftreresa\n\nSite : https://www.theatreponttournant.com/janvier-mars-2020-2/"
+      },
+      "keywords": {
+        "fr": [
+          "théâtre",
+          "musique",
+          "chanson",
+          "spectacle",
+          "sortie",
+          "bordeaux",
+          "bacalan"
+        ]
+      },
+      "conditions": {
+        "fr": "Plein Tarif : 20€ / Tarif Réduit : 12€"
+      },
+      "image": {
+        "filename": "69d5b4ebe1b548eb979ba08880767d48.base.image.jpg",
+        "credits": "@David Desreumaux",
+        "size": {
+          "height": 464,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "69d5b4ebe1b548eb979ba08880767d48.full.image.jpg",
+            "size": {
+              "height": 739,
+              "width": 1117
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "69d5b4ebe1b548eb979ba08880767d48.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T19:30:00.000Z",
+          "end": "2020-02-22T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-27T10:33:55.000Z",
+      "createdAt": "2019-12-27T10:07:26.000Z",
+      "agendaUid": 98498606,
+      "locationUid": 88310969,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/monaheftreresa",
+        "https://www.theatreponttournant.com/janvier-mars-2020-2/",
+        "resa.ponttournant@gmail.com",
+        "05.56.11.06.11"
+      ],
+      "location": {
+        "uid": 88310969,
+        "slug": "theatre-du-pont-tournant",
+        "name": "Théâtre du Pont Tournant",
+        "address": "13 rue Charlevoix de Villers",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Bacalan",
+        "latitude": 44.870681,
+        "longitude": -0.548457,
+        "updatedAt": "2020-01-14T09:33:52.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.theatreponttournant.com",
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "sourceAgendas": [],
+      "originAgenda": {
+        "slug": "theatre-du-pont-tournant",
+        "uid": 98498606,
+        "official": 0,
+        "title": "Théâtre du Pont Tournant",
+        "description": "Le Théâtre du Pont Tournant offre une programmation exigeante et pluridisciplinaire, mêlant pièces classiques et auteurs contemporains.",
+        "url": "https://www.theatreponttournant.com/",
+        "image": "agenda98498606.jpg",
+        "updatedAt": "2020-01-14T09:41:26.000Z",
+        "createdAt": "2019-05-15T09:52:26.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 89522188,
+        "custom": {
+          "contactName": "Mcervennansky Bordeaux-metropole"
+        }
+      }
+    }
+  ],
+  "lastId": 2128913
+}
