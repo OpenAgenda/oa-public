@@ -1,6 +1,7 @@
 {
   "presets": [
-    "@openagenda"
+    "@openagenda",
+    "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
     "@loadable/babel-plugin",

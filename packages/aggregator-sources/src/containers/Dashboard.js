@@ -14,6 +14,7 @@ import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
 import Fuse from 'fuse.js';
+import { css } from '@emotion/core';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
@@ -92,6 +93,11 @@ const messages = defineMessages({
   modifyAggregatorFilters: {
     id: 'aggregator-sources.Dashboard.modifyAggregatorFilters',
     defaultMessage: 'Modify filters to apply for all aggregations'
+  },
+  aggregationCountWarning: {
+    id: 'aggregator-sources.Dashboard.aggregationCountWarning',
+    defaultMessage:
+      'Well done, you have aggregated {eventCount, number} events on this calendar!\nThe {version, select, free {free}} version allows you to create automatic aggregations up to {limit} events/year.\n<support-link>Contact technical support</support-link> to increase this threshold.'
   }
 });
 
@@ -314,107 +320,128 @@ function Dashboard({
 
   return (
     <div>
-      <div>
-        <div className="pull-right">
-          <MoreInfo
-            id="source-help"
-            content={intl.formatMessage(messages.sourcesHelp)}
-            link="https://openagenda.zendesk.com/hc/fr/articles/203549842-Agr%C3%A9ger-des-agendas"
-            placement="left"
-          />
+      {aggregator?.deactivatedUntil ? (
+        <div
+          className="padding-all-sm padding-bottom-sm margin-bottom-md"
+          css={css`
+            background-color: #fafafa;
+            border-radius: 0;
+            border: #41acdd 1px solid;
+          `}
+        >
+          {intl.formatMessage(messages.aggregationCountWarning, {
+            limit: 365,
+            br: <br />,
+            'support-link': (...chunks) => (
+              <a
+                href={`/support?origin=${encodeURIComponent(
+                  history.location.pathname
+                )}`}
+              >
+                {chunks}
+              </a>
+            )
+          })}
         </div>
+      ) : null}
 
-        <div>
-          {aggregator?.rules?.length
-            ? intl.formatMessage(messages.aggregatorWithFilter, {
-              count: aggregator?.rules?.length
-            })
-            : intl.formatMessage(messages.aggregatorWithoutFilter)}
-          :{' '}
-          <button
-            onClick={showModalSetAggregatorRules}
-            type="button"
-            className="btn btn-link-inline"
-          >
-            {aggregator?.rules?.length
-              ? intl.formatMessage(messages.modifyAggregatorFilters)
-              : intl.formatMessage(messages.defineAggregatorFilters)}
-          </button>
-        </div>
-
-        {aggregator ? (
-          <RulesSummary
-            rules={aggregator.rules}
-            schema={aggregatorAgendaSchema}
-          />
-        ) : null}
-
-        <h2>{intl.formatMessage(messages.sourceAgendas)}</h2>
-
-        <div className="margin-v-md">
-          <ReactMarkdown
-            className="text-muted"
-            source={intl.formatMessage(messages.sourcesExplanation, {
-              title: aggregatorAgenda.title,
-              link: res.showAgenda.replace(':slug', aggregatorAgenda.slug)
-            })}
-          />
-        </div>
-
-        <Form initialValues={initialValues} onSubmit={onSearch}>
-          {({ handleSubmit }) => (
-            <form onSubmit={handleSubmit}>
-              <Field
-                component={SearchInput}
-                name="search"
-                type="text"
-                classNameGroup="form-group search margin-v-md"
-                className="form-control"
-                placeholder={intl.formatMessage(messages.searchAgenda)}
-                action={v => debouncedSearch(v === '' ? undefined : v)}
-                loading={listLoading}
-                intl={intl}
-                visible={
-                  (value && value !== '')
-                  || (previousValue && previousValue !== '')
-                  || (!previousValue && !value)
-                }
-              />
-            </form>
-          )}
-        </Form>
-      </div>
-
-      <div>
-        <p>
-          {intl.formatMessage(messages.numberOfResults)}:{' '}
-          {filteredSources.length} -{' '}
-          <button
-            type="button"
-            className="btn btn-link-inline"
-            onClick={showModalAddSource}
-          >
-            {intl.formatMessage(messages.addASource)}
-          </button>
-        </p>
-
-        <SourcesList
-          sources={filteredSources}
-          aggregatorAgendaSchema={aggregatorAgendaSchema}
+      <div className="pull-right">
+        <MoreInfo
+          id="source-help"
+          content={intl.formatMessage(messages.sourcesHelp)}
+          link="https://openagenda.zendesk.com/hc/fr/articles/203549842-Agr%C3%A9ger-des-agendas"
+          placement="left"
         />
-
-        {!filteredSources?.length ? (
-          <div className="text-center text-muted margin-v-md">
-            {intl.formatMessage(messages.noResult)}
-          </div>
-        ) : null}
-
-        {nextLoading && (
-          <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
-          </div>
-        )}
       </div>
+
+      <div>
+        {aggregator?.rules?.length
+          ? intl.formatMessage(messages.aggregatorWithFilter, {
+            count: aggregator?.rules?.length
+          })
+          : intl.formatMessage(messages.aggregatorWithoutFilter)}
+        :{' '}
+        <button
+          onClick={showModalSetAggregatorRules}
+          type="button"
+          className="btn btn-link-inline"
+        >
+          {aggregator?.rules?.length
+            ? intl.formatMessage(messages.modifyAggregatorFilters)
+            : intl.formatMessage(messages.defineAggregatorFilters)}
+        </button>
+      </div>
+
+      {aggregator ? (
+        <RulesSummary
+          rules={aggregator.rules}
+          schema={aggregatorAgendaSchema}
+        />
+      ) : null}
+
+      <h2>{intl.formatMessage(messages.sourceAgendas)}</h2>
+
+      <div className="margin-v-md">
+        <ReactMarkdown
+          className="text-muted"
+          source={intl.formatMessage(messages.sourcesExplanation, {
+            title: aggregatorAgenda.title,
+            link: res.showAgenda.replace(':slug', aggregatorAgenda.slug)
+          })}
+        />
+      </div>
+
+      <Form initialValues={initialValues} onSubmit={onSearch}>
+        {({ handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
+            <Field
+              component={SearchInput}
+              name="search"
+              type="text"
+              classNameGroup="form-group search margin-v-md"
+              className="form-control"
+              placeholder={intl.formatMessage(messages.searchAgenda)}
+              action={v => debouncedSearch(v === '' ? undefined : v)}
+              loading={listLoading}
+              intl={intl}
+              visible={
+                (value && value !== '')
+                || (previousValue && previousValue !== '')
+                || (!previousValue && !value)
+              }
+            />
+          </form>
+        )}
+      </Form>
+
+      <p>
+        {intl.formatMessage(messages.numberOfResults)}: {filteredSources.length}{' '}
+        -{' '}
+        <button
+          type="button"
+          className="btn btn-link-inline"
+          onClick={showModalAddSource}
+        >
+          {intl.formatMessage(messages.addASource)}
+        </button>
+      </p>
+
+      <SourcesList
+        sources={filteredSources}
+        aggregatorAgendaSchema={aggregatorAgendaSchema}
+      />
+
+      {!filteredSources?.length ? (
+        <div className="text-center text-muted margin-v-md">
+          {intl.formatMessage(messages.noResult)}
+        </div>
+      ) : null}
+
+      {nextLoading && (
+        <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner />
+        </div>
+      )}
 
       {modals.setAggregatorRules?.visible ? (
         <AggregatorRulesModal

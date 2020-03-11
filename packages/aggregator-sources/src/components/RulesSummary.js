@@ -88,10 +88,10 @@ export default function RulesSummary({ rules, schema }) {
       ...new Map(
         result.actionFields.map(item => [
           item.field,
-          <em key={item.field}>{getMultiLanguageLabel(item.label)}</em>
+          getMultiLanguageLabel(item.label)
         ])
       ).values()
-    ];
+    ].map(v => <em key={v}>{v}</em>);
 
     return result;
   }, [intl, rules, schema]);

@@ -117,6 +117,7 @@
   "aggregator-sources.Dashboard.aggregatorWithFilter": "Agrégation filtrée",
   "aggregator-sources.Dashboard.defineAggregatorFilters": "Définir des règles générales d'agrégation",
   "aggregator-sources.Dashboard.modifyAggregatorFilters": "Modifier les règles générales d'agrégation",
+  "aggregator-sources.Dashboard.aggregationCountWarning": "Vous avez atteint le seuil d'agrégation de {limit} événements/an de la version gratuite !{br}Pour l'augmenter, écrivez-nous un message.{br}{br}<support-link>Augmenter le seuil</support-link>",
   "aggregator-sources.utils.stateMessages.state": "Statut",
   "aggregator-sources.utils.stateMessages.stateToControl": "À contrôler",
   "aggregator-sources.utils.stateMessages.stateControlled": "Pret à publier",
