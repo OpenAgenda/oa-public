@@ -11,5 +11,5 @@ module.exports = async (knex, agendaUid) => {
   return knex('aggregator')
     .first('*')
     .where('review_id', agendaId)
-    .then(r => r ? db.fromEntry(r) : null);
-}
+    .then(r => (r ? db.fromEntry(r) : null));
+};

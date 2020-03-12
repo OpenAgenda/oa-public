@@ -1,17 +1,14 @@
 'use strict';
 
 const _ = require('lodash');
-
-const validateListQuery = require('../validateListQuery');
 const extractRules = require('../rules/extract');
 
-module.exports = async ({
-  knex,
-  getAgendasByUidsAndSearch
-}, sourceId, options = {}) => {
-  const {
-    detailed
-  } = {
+module.exports = async (
+  { knex, getAgendasByUidsAndSearch },
+  sourceId,
+  options = {}
+) => {
+  const { detailed } = {
     detailed: false,
     ...options
   };
@@ -22,18 +19,21 @@ module.exports = async ({
       'r.uid as agendaUid',
       'ags.store as sourceStore',
       'ags.aggregator_id as aggregatorId'
-    ]).leftJoin('review as r', 'ags.review_id', 'r.id')
+    ])
+    .leftJoin('review as r', 'ags.review_id', 'r.id')
     .where('ags.id', sourceId)
-    .then(r => r ? {
-      id: r.sourceId,
-      agendaUid: r.agendaUid,
-      rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
-      aggregatorId: r.aggregatorId
-    } : null);
+    .then(r => (r
+      ? {
+        id: r.sourceId,
+        agendaUid: r.agendaUid,
+        rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
+        aggregatorId: r.aggregatorId
+      }
+      : null));
 
   if (detailed && source) {
     source.agenda = _.first(await getAgendasByUidsAndSearch(source.agendaUid));
-  };
+  }
 
   return source;
-}
+};

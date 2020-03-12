@@ -27,13 +27,18 @@ const ruleFields = {
     type: 'boolean',
     default: true
   }
-}
+};
 
 const validate = schema({
   version: {
     type: 'integer',
     optional: true,
     default: 2
+  },
+  limit: {
+    type: 'integer',
+    optional: true,
+    default: null
   },
   rules: {
     list: true,
@@ -50,6 +55,6 @@ module.exports = data => {
     ...data,
     rules
   });
-}
+};
 
 module.exports.rule = r => validateRule(cleanRule(r));

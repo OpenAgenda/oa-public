@@ -3,36 +3,38 @@
 const _ = require('lodash');
 const Log = require('../utils/Log')('Aggregators/loadSourceEvaluates');
 
-module.exports = async ({
-  listEventReferences,
-  loadEvent,
-  enqueueEvaluate
-}, {
-  aggregatorAgendaUid,
-  aggregatorRules,
-  sourceAgenda,
-  sourceRules,
-  formSchema
-}) => {
-  const log = Log(`source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`);
-  let lastId = 0, hasMore = true;
+module.exports = async (
+  { listEventReferences, loadEvent, enqueueEvaluate },
+  {
+    aggregatorAgendaUid,
+    aggregatorRules,
+    sourceAgenda,
+    sourceRules,
+    formSchema
+  }
+) => {
+  const log = Log(
+    `source agenda ${sourceAgenda.slug} of aggregator agenda ${aggregatorAgendaUid}`
+  );
+  let lastId = 0;
+  let hasMore = true;
 
   let count = 0;
 
   while (hasMore) {
-    const {
-      lastId: updatedLastId,
-      events
-    } = await listEventReferences(sourceAgenda.uid, lastId);
+    const { lastId: updatedLastId, events } = await listEventReferences(
+      sourceAgenda.uid,
+      lastId
+    );
 
     log('enqueuing %s evaluates', events.length);
     count += events.length;
 
     for (const { uid: eventUid } of events) {
       await enqueueEvaluate({
-        agenda: _.pick(sourceAgenda, ['slug','id','uid']),
+        agenda: _.pick(sourceAgenda, ['slug', 'id', 'uid']),
         event: await loadEvent(sourceAgenda.uid, eventUid),
-        aggregatorAgendaUid: aggregatorAgendaUid,
+        aggregatorAgendaUid,
         aggregatorRules,
         batched: true,
         formSchema,
@@ -45,4 +47,4 @@ module.exports = async ({
   }
 
   log('enqueued %s evaluates, done', count);
-}
+};

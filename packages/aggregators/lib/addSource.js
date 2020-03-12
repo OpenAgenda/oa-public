@@ -2,30 +2,35 @@
 
 const Log = require('../utils/Log')('Aggregators/addSource');
 
-module.exports = async ({
-  getAgendaSourceId,
-  addSourceEntry,
-  getMergedSchema,
-  enqueueLoadSourceEvaluates
-}, aggregatorAgenda, sourceAgenda, sourceRules = [], options = {}) => {
+module.exports = async (
+  {
+    getAgendaSourceId,
+    addSourceEntry,
+    getMergedSchema,
+    enqueueLoadSourceEvaluates
+  },
+  aggregatorAgenda,
+  sourceAgenda,
+  sourceRules = [],
+  options = {}
+) => {
   const log = Log(`adding ${sourceAgenda.slug} to ${aggregatorAgenda.slug}`);
 
-  const {
-    evaluate
-  } = {
+  const { evaluate } = {
     evaluate: false,
     ...options
-  }
+  };
 
   if (await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
     log('already source, throwing error');
     throw new Error('Agenda is already source');
   }
 
-  const {
-    aggregator,
-    source
-  } = await addSourceEntry(aggregatorAgenda, sourceAgenda, sourceRules);
+  const { aggregator, source } = await addSourceEntry(
+    aggregatorAgenda,
+    sourceAgenda,
+    sourceRules
+  );
 
   if (evaluate) {
     log('evaluating and done');
@@ -44,4 +49,4 @@ module.exports = async ({
     aggregator,
     source
   };
-}
+};

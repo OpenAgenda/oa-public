@@ -2,24 +2,33 @@
 
 const fs = require('fs');
 
-module.exports.asAsync = function(relativePath) {
+function getJSON(relativePath) {
+  return JSON.parse(
+    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8')
+  );
+}
+
+module.exports.getJSON = getJSON;
+
+module.exports.asAsync = function asAsync(relativePath) {
   return async () => getJSON(relativePath);
-}
+};
 
-module.exports.getJSON = function getJSON(relativePath) {
-  return JSON.parse(fs.readFileSync(__dirname + '/' + relativePath +'.json', 'utf-8'));
-}
-
-module.exports.Tracker = function() {
+module.exports.Tracker = function Tracker() {
   const calls = [];
-  return Object.assign((name, returnValue) => {
-    return async (...args) => {
+  return Object.assign(
+    (name, returnValue) => async (...args) => {
       calls.push({ name, args });
       return typeof returnValue === 'function' ? returnValue() : returnValue;
-    }
-  }, { calls });
-}
+    },
+    { calls }
+  );
+};
 
 module.exports.write = (fxFolder, name, data) => {
-  fs.writeFileSync(`${__dirname}/${fxFolder}/${name}.json`, JSON.stringify(data, null, 2), 'utf-8');
-}
+  fs.writeFileSync(
+    `${__dirname}/${fxFolder}/${name}.json`,
+    JSON.stringify(data, null, 2),
+    'utf-8'
+  );
+};

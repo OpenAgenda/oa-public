@@ -2,21 +2,24 @@
 
 const Log = require('../utils/Log')('Aggregators/updateSource');
 
-module.exports = async ({
-  getAggregator,
-  updateSourceEntry,
-  getSourceEntry,
-  getMergedSchema,
-  enqueueLoadSourceEvaluates
-}, aggregatorAgenda, sourceId, sourceRules = [], options = {}) => {
+module.exports = async (
+  {
+    updateSourceEntry,
+    getSourceEntry,
+    getMergedSchema,
+    enqueueLoadSourceEvaluates
+  },
+  aggregatorAgenda,
+  sourceId,
+  sourceRules = [],
+  options = {}
+) => {
   const log = Log(`updating source ${sourceId} of ${aggregatorAgenda.slug}`);
 
-  const {
-    evaluate
-  } = {
+  const { evaluate } = {
     evaluate: false,
     ...options
-  }
+  };
 
   const source = await getSourceEntry(sourceId, { detailed: true });
 
@@ -25,10 +28,11 @@ module.exports = async ({
     throw new Error('No source was found');
   }
 
-  const {
-    aggregator,
-    source: updatedSource
-  } = await updateSourceEntry(aggregatorAgenda, source, sourceRules);
+  const { aggregator /* , source: updatedSource */ } = await updateSourceEntry(
+    aggregatorAgenda,
+    source,
+    sourceRules
+  );
 
   if (evaluate) {
     log('evaluating and done');
@@ -42,4 +46,4 @@ module.exports = async ({
   }
 
   log('done');
-}
+};

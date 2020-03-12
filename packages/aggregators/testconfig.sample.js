@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   mysql: {
@@ -8,4 +8,4 @@ module.exports = {
     password: 'grut',
     timezone: 'UTC'
   }
-}
+};

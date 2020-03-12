@@ -98,9 +98,9 @@ module.exports.init = (config, services) => {
         useDefaultImage: true
       }).then(({ agendas }) => agendas.map(a =>
         _.pick(a, ['id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'])
-      ))
+      )),
+      getAggregatedCount: agendaUid => services.agendaEvents(agendaUid).getAggregatedCount()
     }
-
   });
 
   return Object.assign({

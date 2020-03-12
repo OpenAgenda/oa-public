@@ -1,15 +1,16 @@
 'use strict';
 
-const validate = require('./validate');
 const db = require('../utils/db');
 const getAgendaId = require('../utils/getAgendaId');
 const aggregatorExists = require('../utils/aggregatorExists');
 const Log = require('../utils/Log')('Aggregators/set');
+const validate = require('./validate');
 
-module.exports = async (knex, agendaUid, data) => {
+module.exports = async (knex, agendaUid, data, options = {}) => {
   const log = Log(`setting ${agendaUid}`);
   const clean = validate(data);
-  clean.updatedAt = clean.createdAt = new Date();
+  clean.createdAt = new Date();
+  clean.updatedAt = clean.createdAt;
 
   const agendaId = await getAgendaId(knex, agendaUid);
   const exists = await aggregatorExists(knex, agendaId);
@@ -22,13 +23,16 @@ module.exports = async (knex, agendaUid, data) => {
 
   if (!exists) {
     log('creating');
-    const result = await knex('aggregator').insert(entry);
+    await knex('aggregator').insert(entry);
   } else {
     log('updating');
-    const result = await knex('aggregator').update(entry).where('review_id', agendaId);
+    const method = options.patch ? 'patch' : 'update';
+    const request = knex('aggregator').where('review_id', agendaId);
+
+    await request[method](entry);
   }
 
   return {
     operation: exists ? 'update' : 'create'
-  }
-}
+  };
+};

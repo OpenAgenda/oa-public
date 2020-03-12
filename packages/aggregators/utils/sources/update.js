@@ -9,13 +9,15 @@ module.exports = async (knex, aggregatorAgenda, source, sourceRules = []) => {
     throw new Error('Aggregator not found');
   }
 
-  await knex('aggregator_source').update({
-    store: JSON.stringify({ rules: sourceRules }),
-    updated_at: new Date()
-  }).where({
-    review_id: source.agenda.id,
-    aggregator_id: aggregator.id
-  });
+  await knex('aggregator_source')
+    .update({
+      store: JSON.stringify({ rules: sourceRules }),
+      updated_at: new Date()
+    })
+    .where({
+      review_id: source.agenda.id,
+      aggregator_id: aggregator.id
+    });
 
   return {
     aggregator,
@@ -23,5 +25,5 @@ module.exports = async (knex, aggregatorAgenda, source, sourceRules = []) => {
       id: source.id,
       rules: sourceRules
     }
-  }
-}
+  };
+};

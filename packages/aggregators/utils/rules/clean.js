@@ -1,5 +1,21 @@
 'use strict';
 
+function _cleanQuery(dirty) {
+  if (!dirty) return {};
+
+  return Object.keys(dirty).reduce((result, key) => {
+    if (key === 'location' && dirty.location instanceof Array) {
+      const geoKey = Object.keys(dirty.location[0])[0];
+      result.location = {
+        [geoKey]: dirty.location.map(l => l[geoKey])
+      };
+    } else {
+      result[key] = dirty[key];
+    }
+    return result;
+  }, {});
+}
+
 function clean(dirty) {
   const actionKey = dirty.transform !== undefined ? 'transform' : 'actions';
 
@@ -36,7 +52,7 @@ function clean(dirty) {
 
   rule.actions = actions;
 
-  if (dirty.value && (dirty.value.state !== undefined)) {
+  if (dirty.value && dirty.value.state !== undefined) {
     rule.actions.push({
       field: 'state',
       values: { $set: dirty.value.state }
@@ -46,26 +62,9 @@ function clean(dirty) {
   return rule;
 }
 
-function _cleanQuery(dirty) {
-  if (!dirty) return {};
-
-  return Object.keys(dirty).reduce((clean, key) => {
-    if (key === 'location' && dirty.location instanceof Array) {
-      const geoKey = Object.keys(dirty.location[0])[0];
-      clean.location = {
-        [geoKey]: dirty.location.map(l => l[geoKey])
-      };
-    } else {
-      clean[key] = dirty[key];
-    }
-    return clean;
-  }, {});
-}
-
 module.exports = (dirty = []) => {
   if (dirty instanceof Array) {
     return dirty.map(clean);
-  } else {
-    return clean(dirty);
   }
-}
+  return clean(dirty);
+};

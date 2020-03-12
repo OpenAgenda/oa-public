@@ -16,7 +16,7 @@ describe('11 - list sources', () => {
 
     svc = createInstance({
       knex: f.client,
-      queues: queueName => Object.assign(async () => {}, {
+      queues: () => Object.assign(async () => {}, {
         register: () => {},
         on: () => {}
       }),
@@ -43,13 +43,17 @@ describe('11 - list sources', () => {
   test('list cleans rules before returning them', async () => {
     const sources = await svc.sources.list(agenda, 'Guadeloupe');
 
-    expect(sources[0].rules).toEqual([{
-      query: {},
-      actions: [{
-        field: 'state',
-        values: { '$set': 2 }
-      }],
-      required: false
-    }]);
+    expect(sources[0].rules).toEqual([
+      {
+        query: {},
+        actions: [
+          {
+            field: 'state',
+            values: { $set: 2 }
+          }
+        ],
+        required: false
+      }
+    ]);
   });
 });

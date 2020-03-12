@@ -6,26 +6,32 @@ const getAggregator = require('../getAggregator');
 const validateListQuery = require('../validateListQuery');
 const extractRules = require('../rules/extract');
 
-module.exports = async ({ knex, getAgendasByUidsAndSearch }, aggregatorAgenda, query = {}, options = {}) => {
+module.exports = async (
+  { knex, getAgendasByUidsAndSearch },
+  aggregatorAgenda,
+  query = {},
+  options = {}
+) => {
   const aggregatorId = await getAggregator(knex, aggregatorAgenda, true);
 
   if (!aggregatorId) throw new Error('Aggregator not found');
 
-  const {
-    detailed
-  } = {
+  const { detailed } = {
     detailed: false,
     ...options
   };
 
-  const cleanQuery = validateListQuery(typeof query === 'string' ? { search: query } : query);
+  const cleanQuery = validateListQuery(
+    typeof query === 'string' ? { search: query } : query
+  );
 
   const sources = await knex('aggregator_source as ags')
     .select([
       'ags.id as sourceId',
       'r.uid as agendaUid',
       'ags.store as sourceStore'
-    ]).leftJoin('review as r', 'ags.review_id', 'r.id')
+    ])
+    .leftJoin('review as r', 'ags.review_id', 'r.id')
     .where('ags.aggregator_id', aggregatorId)
     .then(rows => rows.map(r => ({
       id: r.sourceId,
@@ -34,14 +40,17 @@ module.exports = async ({ knex, getAgendasByUidsAndSearch }, aggregatorAgenda, q
     })));
 
   if ((detailed || cleanQuery.search) && sources.length) {
-    const agendas = await getAgendasByUidsAndSearch(sources.map(s=> s.agendaUid), cleanQuery.search);
+    const agendas = await getAgendasByUidsAndSearch(
+      sources.map(s => s.agendaUid),
+      cleanQuery.search
+    );
 
     sources.forEach(s => {
       s.agenda = _.find(agendas, { uid: s.agendaUid });
     });
 
     return sources.filter(s => !!s.agenda);
-  };
+  }
 
   return sources;
-}
+};

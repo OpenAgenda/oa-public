@@ -1,23 +1,21 @@
 'use strict';
 
-const _ = require('lodash');
 const config = require('../testconfig');
 const createInstance = require('../');
 const fixtures = require('./fixtures');
-const Tracker = require('./utils').Tracker;
+const { Tracker } = require('./utils');
 
 describe('10 - remove', () => {
   const f = fixtures(config.mysql);
   let svc;
   const tracker = Tracker();
-  const results = [];
 
   beforeAll(async () => {
     await f.load();
 
     svc = createInstance({
       knex: f.client,
-      queues: queueName => Object.assign(tracker.bind(null, 'queue'),{
+      queues: () => Object.assign(tracker.bind(null, 'queue'), {
         register: tracker('register'),
         on: tracker('on')
       }),
@@ -42,5 +40,4 @@ describe('10 - remove', () => {
 
     expect(err.message).toBe('Aggregator not found');
   });
-
 });

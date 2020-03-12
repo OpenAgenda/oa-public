@@ -16,11 +16,11 @@ function _sql() {
   });
 
   return [
-    fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8') + ';',
+    `${fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8')};`,
     fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8'),
     fs.readFileSync(`${__dirname}/review.create.sql`, 'utf-8'),
-    k('review').insert(agendas) + ';',
-    k('aggregator').insert(aggregators) + ';',
+    `${k('review').insert(agendas)};`,
+    `${k('aggregator').insert(aggregators)};`,
     k('aggregator_source').insert(aggregatorSources)
   ].join('\n');
 }

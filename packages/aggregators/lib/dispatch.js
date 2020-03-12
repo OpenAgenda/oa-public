@@ -27,4 +27,4 @@ module.exports = async ({ queue, knex }, action, data) => {
       });
     }
   }
-}
+};

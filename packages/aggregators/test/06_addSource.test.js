@@ -5,23 +5,39 @@ const fs = require('fs');
 const addSource = require('../lib/addSource');
 const loadSourceEvaluates = require('../lib/loadSourceEvaluates');
 
+function _getJSON(relativePath) {
+  return JSON.parse(
+    fs.readFileSync(`${__dirname}/${relativePath}.json`, 'utf-8')
+  );
+}
+
+function _async(relativePath) {
+  return async () => _getJSON(relativePath);
+}
+
 describe('06 - addSource', () => {
-
   describe('addSource', () => {
-
     let enqueuedData = null;
     let addSourceEntryWasCalled = false;
 
     beforeAll(async () => {
-      await addSource({
-        getAgendaSourceId: async (sourceAgenda, aggregatorAgenda) => false,
-        addSourceEntry: (aggregatorAgenda, sourceAgenda) => {
-          addSourceEntryWasCalled = true;
-          return _async('fixtures/addSource/addSourceEntry')();
+      await addSource(
+        {
+          getAgendaSourceId: () => false,
+          addSourceEntry: () => {
+            addSourceEntryWasCalled = true;
+            return _async('fixtures/addSource/addSourceEntry')();
+          },
+          getMergedSchema: _async('fixtures/addSource/formSchema'),
+          enqueueLoadSourceEvaluates: async data => {
+            enqueuedData = data;
+          }
         },
-        getMergedSchema: _async('fixtures/addSource/formSchema'),
-        enqueueLoadSourceEvaluates: async data => { enqueuedData = data; }
-      }, { uid: 123, slug: 'ndm2020' }, { uid: 456, slug: 'ndm2020-idf' }, [], { evaluate: true });
+        { uid: 123, slug: 'ndm2020' },
+        { uid: 456, slug: 'ndm2020-idf' },
+        [],
+        { evaluate: true }
+      );
     });
 
     test('calls for a source entry creation', () => {
@@ -35,27 +51,28 @@ describe('06 - addSource', () => {
     test('data passed to queue contains source formSchema', () => {
       expect(enqueuedData.formSchema).toBeTruthy();
     });
-
   });
 
   describe('loadSourceEvaluates', () => {
-
     const enqueuedForEvaluate = [];
 
     beforeAll(async () => {
       let looped = false;
 
-      await loadSourceEvaluates({
-        loadEvent: _async('fixtures/addSource/loadForEvaluate.event'),
-        listEventReferences: async (agendaUid, lastId) => {
-          if (looped) return { events: [] };
-          looped = true;
-          return _async('fixtures/addSource/listEventReferences')();
+      await loadSourceEvaluates(
+        {
+          loadEvent: _async('fixtures/addSource/loadForEvaluate.event'),
+          listEventReferences: async () => {
+            if (looped) return { events: [] };
+            looped = true;
+            return _async('fixtures/addSource/listEventReferences')();
+          },
+          enqueueEvaluate: data => {
+            enqueuedForEvaluate.push(data);
+          }
         },
-        enqueueEvaluate: data => {
-          enqueuedForEvaluate.push(data);
-        }
-      }, _getJSON('fixtures/addSource/loadSourceEvaluates'))
+        _getJSON('fixtures/addSource/loadSourceEvaluates')
+      );
     });
 
     test('data required for evaluate is enqueued', () => {
@@ -70,20 +87,8 @@ describe('06 - addSource', () => {
       ]);
     });
 
-    test(
-      'enqueueLoadForEvaluate is called as many times as list interface provided references',
-      () => {
-        expect(enqueuedForEvaluate.length).toBe(20);
-      }
-    );
+    test('enqueueLoadForEvaluate is called as many times as list interface provided references', () => {
+      expect(enqueuedForEvaluate.length).toBe(20);
+    });
   });
-
 });
-
-function _async(relativePath) {
-  return async () => _getJSON(relativePath);
-}
-
-function _getJSON(relativePath) {
-  return JSON.parse(fs.readFileSync(__dirname + '/' + relativePath +'.json', 'utf-8'));
-}

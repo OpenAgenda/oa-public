@@ -2,24 +2,29 @@
 
 const Log = require('../utils/Log')('Aggregators/removeSource');
 
-module.exports = async ({
-  removeSourceEntry,
-  getSourceEntry,
-  enqueueLoadSourceRemoves,
-  getAgendaSourceId,
-}, aggregatorAgenda, sourceIdOrAgenda, options = {}) => {
-  const {
-    evaluate
-  } = {
+module.exports = async (
+  {
+    removeSourceEntry,
+    getSourceEntry,
+    enqueueLoadSourceRemoves,
+    getAgendaSourceId
+  },
+  aggregatorAgenda,
+  sourceIdOrAgenda,
+  options = {}
+) => {
+  const { evaluate } = {
     evaluate: false,
     ...options
-  }
+  };
 
-  const sourceId = typeof sourceIdOrAgenda === 'object' ?
-    await getAgendaSourceId(sourceIdOrAgenda, aggregatorAgenda)
+  const sourceId = typeof sourceIdOrAgenda === 'object'
+    ? await getAgendaSourceId(sourceIdOrAgenda, aggregatorAgenda)
     : sourceIdOrAgenda;
 
-  const log = Log(`removing source ${sourceId} from aggregator ${aggregatorAgenda.slug}`);
+  const log = Log(
+    `removing source ${sourceId} from aggregator ${aggregatorAgenda.slug}`
+  );
 
   const source = await getSourceEntry(sourceId, { detailed: true });
 
@@ -38,4 +43,4 @@ module.exports = async ({
     });
   }
   log('source removed, not evaluating');
-}
+};

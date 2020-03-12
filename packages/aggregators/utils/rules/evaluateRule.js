@@ -9,16 +9,23 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   }
   const required = rule.required === undefined ? true : !!rule.required;
 
-  if (rule.query.location && !evaluateLocation(data.location, rule.query.location)) {
+  if (
+    rule.query.location
+    && !evaluateLocation(data.location, rule.query.location)
+  ) {
     return required ? false : null;
   }
 
-  if (rule.query.tags && !evaluateLabels(sourceAgendaSchema, rule.query.tags, data)) {
+  if (
+    rule.query.tags
+    && !evaluateLabels(sourceAgendaSchema, rule.query.tags, data)
+  ) {
     return required ? false : null;
   }
 
-  const otherRuleFields = Object.keys(rule.query)
-    .filter(f => !['location', 'tags'].includes(f));
+  const otherRuleFields = Object.keys(rule.query).filter(
+    f => !['location', 'tags'].includes(f)
+  );
 
   for (const ruleField of otherRuleFields) {
     const values = [].concat(data[ruleField]) || [];
@@ -30,4 +37,4 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   }
 
   return rule.actions;
-}
+};
