@@ -42,7 +42,7 @@ module.exports = async (
     return;
   }
 
-  if (aggregator.limit !== -1) {
+  if (getAggregatedCount && aggregator.limit !== -1) {
     // -1 is unlimited
     const limit = aggregator.limit === null ? DEFAULT_LIMIT : aggregator.limit;
     const aggregatedCount = await getAggregatedCount(aggregatorAgendaUid);
