@@ -7,14 +7,28 @@ import identifyLanguageChanges from '../src/utils/identifyLanguageChanges';
 import getTimingsSpan from '../src/utils/getTimingsSpan';
 import flattenLocationTagSet from '../src/utils/flattenLocationTagSet';
 import schemaLanguages from '../src/utils/schemaLanguages';
+import extractLanguages from '../src/utils/extractLanguages';
 
+describe('event-form utils unit tests', () => {
 
-describe( 'event-form utils unit tests', () => {
+  describe('extractLanguages', () => {
 
-  describe( 'schemaLanguages', () => {
+    test('fix - should not return numbers', () => {
+      const languages = extractLanguages({
+        title: 'Un autre événement créé par API',
+        description: 'Un tout petit événement',
+        keywords: ['un', 'deux', 'trois']
+      }, 'en');
+
+      expect(languages).toEqual(['en']);
+    });
+
+  });
+
+  describe('schemaLanguages', () => {
 
     const schema = {
-      fields: [ {
+      fields: [{
         field: 'one',
         languages: []
       }, {
@@ -24,169 +38,169 @@ describe( 'event-form utils unit tests', () => {
       }, {
         field: 'three',
         languages: []
-      } ]
+      }]
     };
 
     // language validator should validate differently depending on languages field config.
 
-    test( 'languages defined by values are used in priority', () => {
+    test('languages defined by values are used in priority', () => {
 
-      const languagedSchema = schemaLanguages.set( schema, null, [ 'it', 'en' ] );
+      const languagedSchema = schemaLanguages.set(schema, null, ['it', 'en']);
 
-      expect( languagedSchema ).toEqual( {
-        fields: [ {
+      expect(languagedSchema).toEqual({
+        fields: [{
           field: 'one',
-          languages: [ 'it', 'en' ]
+          languages: ['it', 'en']
         }, {
           field: 'two'
         }, {
           field: 'languages',
         }, {
           field: 'three',
-          languages: [ 'it', 'en' ]
-        } ]
-      } );
+          languages: ['it', 'en']
+        }]
+      });
 
-    } );
+    });
 
-    it( 'if no value languages are defined and interface value is provided, it is used', () => {
+    it('if no value languages are defined and interface value is provided, it is used', () => {
 
-      const languagedSchema = schemaLanguages.set( schema, 'is', [] );
+      const languagedSchema = schemaLanguages.set(schema, 'is', []);
 
-      expect( languagedSchema ).toEqual( {
-        fields: [ {
+      expect(languagedSchema).toEqual({
+        fields: [{
           field: 'one',
-          languages: [ 'is' ]
+          languages: ['is']
         }, {
           field: 'two'
         }, {
           field: 'languages',
         }, {
           field: 'three',
-          languages: [ 'is' ]
-        } ]
-      } );
+          languages: ['is']
+        }]
+      });
 
-    } );
+    });
 
-    it( 'if no value languages are defined and default values are set, they are used independently of interface language', () => {
+    it('if no value languages are defined and default values are set, they are used independently of interface language', () => {
 
-      const schemaWithDefaultLanguages = ih( schema, {
-        fields : { 2: { default: { $set: [ 'it', 'de' ] } } }
-      } );
+      const schemaWithDefaultLanguages = ih(schema, {
+        fields : { 2: { default: { $set: ['it', 'de'] } } }
+      });
 
-      const languagedSchema = schemaLanguages.set( schemaWithDefaultLanguages, 'is', [] );
+      const languagedSchema = schemaLanguages.set(schemaWithDefaultLanguages, 'is', []);
 
-      expect( languagedSchema ).toEqual( {
-        fields: [ {
+      expect(languagedSchema).toEqual({
+        fields: [{
           field: 'one',
-          languages: [ 'it', 'de' ]
+          languages: ['it', 'de']
         }, {
           field: 'two'
         }, {
           field: 'languages',
-          default: [ 'it', 'de' ]
+          default: ['it', 'de']
         }, {
           field: 'three',
-          languages: [ 'it', 'de' ]
-        } ]
-      } );
+          languages: ['it', 'de']
+        }]
+      });
 
-    } );
+    });
 
 
-    it( 'if required languages exist they should be set independently of value languages', () => {
+    it('if required languages exist they should be set independently of value languages', () => {
 
-      const schemaWithDefaultLanguages = ih( schema, {
-        fields : { 2: { required: { $set: [ 'it', 'de' ] } } }
-      } );
+      const schemaWithDefaultLanguages = ih(schema, {
+        fields : { 2: { required: { $set: ['it', 'de'] } } }
+      });
 
-      const languagedSchema = schemaLanguages.set( schemaWithDefaultLanguages, 'is', [ 'es' ] );
+      const languagedSchema = schemaLanguages.set(schemaWithDefaultLanguages, 'is', ['es']);
 
-      expect( languagedSchema ).toEqual( {
-        fields: [ {
+      expect(languagedSchema).toEqual({
+        fields: [{
           field: 'one',
-          languages: [ 'it', 'de', 'es' ]
+          languages: ['it', 'de', 'es']
         }, {
           field: 'two'
         }, {
           field: 'languages',
-          required: [ 'it', 'de' ]
+          required: ['it', 'de']
         }, {
           field: 'three',
-          languages: [ 'it', 'de', 'es' ]
-        } ]
-      } );
+          languages: ['it', 'de', 'es']
+        }]
+      });
 
-    } );
+    });
 
-    it( 'if required languages are strict, they are always set', () => {
+    it('if required languages are strict, they are always set', () => {
 
-      const schemaWithDefaultLanguages = ih( schema, {
+      const schemaWithDefaultLanguages = ih(schema, {
         fields : { 2: {
-          required: { $set: [ 'it', 'de' ] },
+          required: { $set: ['it', 'de'] },
           strict: { $set: true }
         } }
-      } );
+      });
 
-      const languagedSchema = schemaLanguages.set( schemaWithDefaultLanguages, 'is', [ 'es' ] );
+      const languagedSchema = schemaLanguages.set(schemaWithDefaultLanguages, 'is', ['es']);
 
-      expect( languagedSchema ).toEqual( {
-        fields: [ {
+      expect(languagedSchema).toEqual({
+        fields: [{
           field: 'one',
-          languages: [ 'it', 'de' ]
+          languages: ['it', 'de']
         }, {
           field: 'two'
         }, {
           field: 'languages',
-          required: [ 'it', 'de' ],
+          required: ['it', 'de'],
           strict: true
         }, {
           field: 'three',
-          languages: [ 'it', 'de' ]
-        } ]
-      } );
+          languages: ['it', 'de']
+        }]
+      });
 
-    } );
+    });
 
-  } );
+  });
 
 
-  test( 'getMultilingualFieldNames', () => {
+  test('getMultilingualFieldNames', () => {
 
-    expect( getMultilingualFieldNames( {
-      fields: [ {
+    expect(getMultilingualFieldNames({
+      fields: [{
         field: 'notmulti'
       }, {
         field: 'multi',
         languages: []
-      } ]
-    } ) ).toEqual( [ 'multi' ] );
+      }]
+    })).toEqual(['multi']);
 
-  } );
+  });
 
-  test( 'removeMultilingualValues', () => {
+  test('removeMultilingualValues', () => {
 
-    expect( removeMultilingualValues( {
+    expect(removeMultilingualValues({
       "accessibility":{"hi":true,"sl":true},
       "references":[45527593],
       "timings":[{"begin":{"date":"2018-11-27","hours":10,"minutes":10},"end":{"date":"2018-11-27","hours":16,"minutes":16}}],
       "languages":["de","fr"],
       "title":{"de":"deuuu","fr":"frrrrr"}
-    }, [ 'title', 'description', 'keywords', 'longDescription', 'conditions' ], [ 'de' ]
-    ) ).toEqual( {
+    }, ['title', 'description', 'keywords', 'longDescription', 'conditions'], ['de']
+   )).toEqual({
       "accessibility":{"hi":true,"sl":true},
       "references":[45527593],
       "timings":[{"begin":{"date":"2018-11-27","hours":10,"minutes":10},"end":{"date":"2018-11-27","hours":16,"minutes":16}}],
       "languages":["de","fr"],
       "title":{"fr":"frrrrr"}
-    } );
+    });
 
-  } );
+  });
 
-  test( 'transferMultilingualValues - transfering language values', () => {
+  test('transferMultilingualValues - transfering language values', () => {
 
-    expect( transferMultilingualValues( {
+    expect(transferMultilingualValues({
       notmulti: 'A value',
       multi: {
         fr: 'Une valeur multilingue'
@@ -194,7 +208,7 @@ describe( 'event-form utils unit tests', () => {
       multi_2: {
         fr: 'Une autre valeur'
       }
-    }, [ 'multi', 'multi_2' ], 'fr', 'is' ) ).toEqual( {
+    }, ['multi', 'multi_2'], 'fr', 'is')).toEqual({
       notmulti: 'A value',
       multi: {
         is: 'Une valeur multilingue'
@@ -202,24 +216,24 @@ describe( 'event-form utils unit tests', () => {
       multi_2: {
         is: 'Une autre valeur'
       }
-    } );
+    });
 
-  } );
+  });
 
-  test( 'identifyLanguageChanges - changing a language', () => {
+  test('identifyLanguageChanges - changing a language', () => {
 
-    expect( identifyLanguageChanges( [ 'fr' ], [ 'es' ] ) ).toEqual( {
+    expect(identifyLanguageChanges(['fr'], ['es'])).toEqual({
       has: true,
-      added: [ 'es' ],
-      removed: [ 'fr' ],
-      swapped: [ 'es' ]
-    } );
+      added: ['es'],
+      removed: ['fr'],
+      swapped: ['es']
+    });
 
-  } );
+  });
 
-  test( 'given a list of timings, returns in ms the time between the first begin time and the last end time', () => {
+  test('given a list of timings, returns in ms the time between the first begin time and the last end time', () => {
 
-    const ms = getTimingsSpan( [ {
+    const ms = getTimingsSpan([{
       begin: '2018-12-24T10:00:00.0002',
       end: '2018-12-24T11:00:00.0002'
     }, {
@@ -231,23 +245,23 @@ describe( 'event-form utils unit tests', () => {
     }, {
       begin: '2018-12-25T09:00:00.0002',
       end: '2018-12-25T10:00:00.0002'
-    } ] );
+    }]);
 
-    expect( ms / 1000 / 60 / 60 / 24 ).toEqual( 7.5 );
+    expect(ms / 1000 / 60 / 60 / 24).toEqual(7.5);
 
-  } );
+  });
 
 
-  test( 'Location legacy settings can contain tag sets. Function takes tag set labels and flattens them', () => {
+  test('Location legacy settings can contain tag sets. Function takes tag set labels and flattens them', () => {
 
-    const flattened = flattenLocationTagSet( {
-      groups: [ {
+    const flattened = flattenLocationTagSet({
+      groups: [{
         name: {
           fr : 'Un label',
           en : 'A Label'
         },
         info: null,
-        tags: [ {
+        tags: [{
           id: 50,
           label: 'Architecture'
         }, {
@@ -256,24 +270,24 @@ describe( 'event-form utils unit tests', () => {
             fr: 'Jardin',
             en: 'Garden'
           }
-        } ]
-      } ]
-    }, 'fr' );
+        }]
+      }]
+    }, 'fr');
 
-    expect( flattened ).toEqual( {
-      groups: [ {
+    expect(flattened).toEqual({
+      groups: [{
         name: 'Un label',
         info: null,
-        tags: [ {
+        tags: [{
           id: 50,
           label: 'Architecture'
         }, {
           id: 38,
           label: 'Jardin'
-        } ]
-      } ]
-    } );
+        }]
+      }]
+    });
 
-  } );
+  });
 
-} );
+});
