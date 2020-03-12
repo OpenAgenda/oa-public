@@ -62,7 +62,8 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     formSchemaDataFormat,
     optionalSecondaryFields: true,
     partial,
-    access
+    access,
+    defaultLang
   });
 
   const payload = createPayload(services, agenda);

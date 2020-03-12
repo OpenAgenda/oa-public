@@ -447,6 +447,49 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
     });
 
+    describe('monolingual patch', () => {
+
+      it('monolingual patch is by default english', async () => {
+        const response = await axios({
+          method: 'patch',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 12345897,
+            'content-type': 'application/json'
+          },
+          data: {
+            title: 'Un événement remis à jour'
+          }
+        });
+
+        response.data.event.title.should.eql({
+          en: 'Un événement remis à jour'
+        });
+      });
+
+      it('monolingual patch is in language specified in header', async () => {
+        const response = await axios({
+          method: 'patch',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 123405,
+            'content-type': 'application/json',
+            lang: 'fr'
+          },
+          data: {
+            title: 'Un événement reremis à jour'
+          }
+        });
+
+        response.data.event.title.should.eql({
+          fr: 'Un événement reremis à jour'
+        });
+      });
+
+    });
+
   });
 
 });

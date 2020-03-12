@@ -22,7 +22,8 @@ module.exports = async (req, res, next) => {
       context: {
         userUid: req.member.userUid
       },
-      access: req.access
+      access: req.access,
+      defaultLang: req.headers.lang
     });
 
     res.json({

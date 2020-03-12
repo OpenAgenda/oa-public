@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const ValidationError = require('../../utils/ValidationError');
 
 const log = require('@openagenda/logs')('core/agendas/events/create');
 const {
@@ -11,8 +10,9 @@ const {
 
 const createPayload = require('../utils/createPayload');
 const doAdd = require('../utils/doAdd');
-const processOEmbed = require('../utils/processOEmbed');
 const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
+const processOEmbed = require('../utils/processOEmbed');
+const ValidationError = require('../../utils/ValidationError');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
   log('info', 'processing', { agendaUid, options });
@@ -26,13 +26,19 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   } = services;
 
   const {
-    context,
-    returnPayload,
     access,
+    context,
+    draft,
+    defaultLang,
+    formSchemaDataFormat,
+    returnPayload,
   } = {
-    context: {},
-    returnPayload: false,
     access: 'public', // read or write?
+    context: {},
+    draft: false,
+    defaultLang: 'en',
+    formSchemaDataFormat: false,
+    returnPayload: false,
     ...options
   }
 
@@ -44,20 +50,11 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   });
 
   const {
-    draft,
-    formSchemaDataFormat,
-    defaultLang
-  } = Object.assign({
-    draft: false,
-    formSchemaDataFormat: false,
-    defaultLang: 'en'
-  }, options || {});
-
-  const {
     clean,
     agenda
   } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
     draft,
+    defaultLang,
     formSchemaDataFormat,
     member,
     access

@@ -107,7 +107,6 @@ module.exports = async (services, payload, clean, options = {}) => {
     return payload.getResponse('event', access);
   }
 
-
   log('info', 'syncing legacy custom and tag data');
   try {
     await legacy.tagsAndCustom.set(agenda.id, event.uid, [

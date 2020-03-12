@@ -32,7 +32,8 @@ module.exports.init = (config, services) => {
               aggregated: true,
               paths,
               sourceAgenda,
-              batched
+              batched,
+              access: 'administrator'
             });
           tracker('aggregators.referenceEvent.done');
           return {

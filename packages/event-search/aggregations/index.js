@@ -3,18 +3,19 @@
 const geo = require('./geo');
 
 const aggregationTypes = {
-  timespan: require('./timespan'),
-  originAgendas: require('./originAgendas'),
+  additionalFields: require('./additionalFields'),
+  cities: geo('city'),
   eventsByDateRanges: require('./eventsByDateRanges'),
-  timings: require('./timings'),
+  departments: geo('department'),
   keywords: require('./keywords'),
   members: require('./members'),
-  additionalFields: require('./additionalFields'),
-  states: require('./states'),
+  timespan: require('./timespan'),
+  originAgendas: require('./originAgendas'),
+  pastAndUpcoming: require('./pastAndUpcoming'),
   regions: geo('region'),
-  departments: geo('department'),
-  cities: geo('city'),
-  pastAndUpcoming: require('./pastAndUpcoming')
+  sourceAgendas: require('./sourceAgendas'),
+  states: require('./states'),
+  timings: require('./timings')
 }
 
 module.exports = {

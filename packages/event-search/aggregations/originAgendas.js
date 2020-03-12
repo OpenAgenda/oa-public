@@ -1,6 +1,6 @@
 'use strict';
 
-const inflate = require('../utils/aggregatorObjects').inflate;
+const parseAgendaBucket = require('../utils/parseAgendaBucket');
 
 module.exports.formatDSL = () => ({
   terms: {
@@ -8,15 +8,6 @@ module.exports.formatDSL = () => ({
   }
 })
 
-module.exports.formatResult = ({ buckets }) => buckets.map(bucket => {
-  const agenda = inflate(bucket.key);
-
-  const key = agenda.uid;
-  agenda.uid = parseInt(agenda.uid);
-
-  return {
-    key,
-    agenda,
-    eventCount: bucket.doc_count
-  }
-});
+module.exports.formatResult = ({
+  buckets
+}) => buckets.map(parseAgendaBucket);

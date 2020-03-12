@@ -37,7 +37,6 @@ describe('02 - event search - functional: Applied search', function() {
       });
     });
 
-
     describe('Data structure', () => {
       const uid = 11438560;
 
@@ -448,6 +447,30 @@ describe('02 - event search - functional: Applied search', function() {
           });
         });
 
+      });
+
+      describe('source agendas', () => {
+        let agg;
+
+        before(async () => {
+          const result = await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: ['sourceAgendas']
+          });
+          agg = result.aggregations.sourceAgendas;
+        });
+
+        it('source agendas are listed with corresponding event counts', () => {
+          agg[0].should.eql({
+            key: '38598267',
+            agenda: {
+              uid: 38598267,
+              title: 'Ville de CENON',
+              image: 'agenda38598267.jpg'
+            },
+            eventCount: 167
+          });
+        });
       });
 
       describe('origin agendas', () => {
