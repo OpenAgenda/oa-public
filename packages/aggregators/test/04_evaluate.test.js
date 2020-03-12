@@ -178,34 +178,66 @@ describe('04 - evaluate', () => {
     });
   });
 
-  describe('evaluate with aggregator that touches the sky', () => {
-    let args;
+  it('limitIsReached is called if limit is set to null (default)', async () => {
+    const mockLimitIsReached = jest.fn();
 
-    beforeAll(async () => {
-      await evaluate(
-        {
-          getAggregator: () => ({ limit: 365 }),
-          getAggregatedCount: () => 365,
-          getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
-          getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-          updateSourcePaths: () => ({ success: true }),
-          limitIsReached: (...a) => {
-            args = a;
-          }
-        },
-        {
-          ...data,
-          sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
-        }
-      );
-    });
+    await evaluate(
+      {
+        getAggregator: () => ({ limit: null }),
+        getAggregatedCount: () => 365,
+        getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
+        getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
+        updateSourcePaths: () => ({ success: true }),
+        limitIsReached: mockLimitIsReached
+      },
+      {
+        ...data,
+        sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+      }
+    );
 
-    test('setAggregator is called for patchs the deactivatedUntil', () => {
-      const inOneYear = new Date();
+    expect(mockLimitIsReached.mock.calls.length).toBe(1);
+  });
 
-      inOneYear.setFullYear(inOneYear.getFullYear() + 1);
+  it('limitIsReached is called if limit is set to 1000', async () => {
+    const mockLimitIsReached = jest.fn();
 
-      expect(args).toEqual([50522407]);
-    });
+    await evaluate(
+      {
+        getAggregator: () => ({ limit: 1000 }),
+        getAggregatedCount: () => 1000,
+        getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
+        getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
+        updateSourcePaths: () => ({ success: true }),
+        limitIsReached: mockLimitIsReached
+      },
+      {
+        ...data,
+        sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+      }
+    );
+
+    expect(mockLimitIsReached.mock.calls.length).toBe(1);
+  });
+
+  it('limitIsReached is not called if limit is set to -1', async () => {
+    const mockLimitIsReached = jest.fn();
+
+    await evaluate(
+      {
+        getAggregator: () => ({ limit: -1 }),
+        getAggregatedCount: () => 42000,
+        getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
+        getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
+        updateSourcePaths: () => ({ success: true }),
+        limitIsReached: mockLimitIsReached
+      },
+      {
+        ...data,
+        sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+      }
+    );
+
+    expect(mockLimitIsReached.mock.calls.length).toBe(0);
   });
 });
