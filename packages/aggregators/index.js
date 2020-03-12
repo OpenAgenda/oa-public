@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
+
 const log = logs('aggregators');
 
 const getAgendaSourceId = require('./utils/getAgendaSourceId');
@@ -24,8 +25,22 @@ const evaluateEvent = require('./lib/evaluateEvent');
 const remove = require('./lib/remove');
 const set = require('./lib/set');
 const get = require('./lib/get');
+const limitIsReached = require('./lib/limitIsReached');
 
-module.exports = ({ knex, queues, interfaces, logger }) => {
+function task({ queue }) {
+  queue.run();
+
+  return {
+    stopAndClear: async () => {
+      await queue.clear();
+      await queue.stop();
+    }
+  };
+}
+
+module.exports = ({
+  knex, queues, interfaces, logger
+}) => {
   const queue = queues('aggregator');
 
   if (logger) {
@@ -35,17 +50,23 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
   queue.register({
     dispatch: dispatch.bind(null, { knex, queue }),
     evaluateEvent: evaluateEvent.bind(null, {
+      getAggregator: get.bind(null, knex),
+      limitIsReached: limitIsReached.bind(null, knex),
+      deactivateAggregatorUntil: set.bind(null, knex),
       referenceEvent: interfaces.referenceEvent,
       getMergedSchema: interfaces.getMergedSchema,
       getEventReference: interfaces.getEventReference,
       updateSourcePaths: interfaces.updateSourcePaths,
       enqueueRemove: queue.bind(null, 'removeEvent')
     }),
-    removeEvent: removeEvent.bind(null, _.pick(interfaces, [
-      'getEventReference',
-      'updateSourcePaths',
-      'unreferenceEvent'
-    ])),
+    removeEvent: removeEvent.bind(
+      null,
+      _.pick(interfaces, [
+        'getEventReference',
+        'updateSourcePaths',
+        'unreferenceEvent'
+      ])
+    ),
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {
       listEventReferences: interfaces.listEventReferences,
       loadEvent: interfaces.loadEvent,
@@ -58,7 +79,7 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
   });
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
-  queue.on('execute', (fn, args) => log('processing "%s" from queue', fn));
+  queue.on('execute', fn => log('processing "%s" from queue', fn));
   queue.on('success', (fn, args, result) => log('done processing "%s" from queue', fn, result));
 
   return {
@@ -106,16 +127,4 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
     }),
     task: task.bind(null, { queue })
   };
-}
-
-
-function task({ queue }) {
-  queue.run();
-
-  return {
-    stopAndClear: async () => {
-      await queue.clear();
-      await queue.stop();
-    }
-  }
-}
+};
