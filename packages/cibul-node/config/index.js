@@ -644,7 +644,7 @@ const config = {
         },
         agendaSettingsEditSub: {
           method: 'get',
-          uri: '/:slug/admin/settings/?*?'
+          uri: '/:slug/admin/settings(/*?)?'
         },
         agendaSettingsCreateAgenda: {
           method: 'post',

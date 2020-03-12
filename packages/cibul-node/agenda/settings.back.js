@@ -156,7 +156,7 @@ module.exports = app => {
   );
 
   // app.get(
-  //   '/:slug/admin/settings/?*?',
+  //   '/:slug/admin/settings(/*?)?',
   //   cmn.loadAgenda,
   //   sessions.mw.loadOrRedirect,
   //   cmn.verifyIPMiddleware, TODO on webapp

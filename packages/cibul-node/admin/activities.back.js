@@ -23,7 +23,7 @@ const preMw = [
 module.exports = app => {
 
   app.get( '/admin/activities', preMw, appMw );
-  app.get( '/admin/activities/?*?', preMw, appMw );
+  app.get( '/admin/activities(/*?)?', preMw, appMw );
   app.get( '/admin/activities/list', preMw, mw.list() );
 
 };

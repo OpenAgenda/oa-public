@@ -13,8 +13,7 @@ module.exports = (config, parentApp) => {
   // this stays
   parentApp.all([
     '/:agendaSlug/admin/aggregator',
-    '/:agendaSlug/admin/sources',
-    '/:agendaSlug/admin/sources/?*?',
+    '/:agendaSlug/admin/sources(/*?)?',
     '/:agendaSlug/admin/sources/remove',
   ], [
     sessions.mw.loadOrRedirect,

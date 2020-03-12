@@ -49,7 +49,7 @@ app.use( [
 ] );
 
 
-app.get( '/agendas/:agendaUid/admin/?*?', agendaAdminRedirect );
+app.get( '/agendas/:agendaUid/admin(/*?)?', agendaAdminRedirect );
 
 
 
