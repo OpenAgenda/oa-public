@@ -25,8 +25,8 @@ module.exports = app => {
 };
 
 module.exports.init = async (config, services) => {
-  const service = await Service( {
-    mysql: config.db,
+  const service = await Service({
+    knex: config.knex,
     schemas: config.schemas,
     migrations: {
       tableName: 'activity_migrations'
