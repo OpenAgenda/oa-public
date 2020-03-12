@@ -43,12 +43,19 @@ const validate = schema({
 
 const validateRule = schema(ruleFields);
 
-module.exports = data => {
-  const rules = data instanceof Object && data.rules ? cleanRule(data.rules) : [];
+module.exports = (data, options = {}) => {
+  const {
+    patch
+  } = {
+    patch: false,
+    ...options
+  };
 
-  return validate({
+  const rules = data instanceof Object && data.rules ? cleanRule(data.rules) : (patch ? undefined : []);
+
+  return (patch ? validate.part : validate)({
     ...data,
-    rules
+    ...(rules ? { rules } : {})
   });
 };
 

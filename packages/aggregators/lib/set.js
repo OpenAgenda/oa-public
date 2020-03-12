@@ -8,7 +8,7 @@ const validate = require('./validate');
 
 module.exports = async (knex, agendaUid, data, options = {}) => {
   const log = Log(`setting ${agendaUid}`);
-  const clean = validate(data);
+  const clean = validate(data, options);
   clean.createdAt = new Date();
   clean.updatedAt = clean.createdAt;
 
@@ -26,13 +26,12 @@ module.exports = async (knex, agendaUid, data, options = {}) => {
     await knex('aggregator').insert(entry);
   } else {
     log('updating');
-    const method = options.patch ? 'patch' : 'update';
-    const request = knex('aggregator').where('review_id', agendaId);
-
-    await request[method](entry);
+    await knex('aggregator')
+      .update(entry)
+      .where('review_id', agendaId);
   }
 
   return {
-    operation: exists ? 'update' : 'create'
+    operation: exists ? (options.patch ? 'patch' : 'update') : 'create'
   };
 };
