@@ -597,6 +597,62 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     });
 
+    describe('create with one language in input', () => {
+      let response;
+
+      const data = {
+        title: 'Un autre événement créé par API',
+        description: 'Un tout petit événement',
+        timings: [{
+          begin: new Date('2019-05-06T10:00:00'),
+          end: new Date('2019-05-06T11:00:00')
+        }],
+        keywords: ['un', 'deux', 'trois'],
+        location: {
+          uid: 123
+        },
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [3, 4],
+        accessibility: { sl: true }
+      }
+
+      it('Event is created in english if lang is not specified', async () => {
+        const response = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/v2/agendas/17026855/events',
+          headers: {
+            'access-token': accessToken,
+            nonce: 123456,
+            'content-type': 'application/json'
+          },
+          data
+        }).then(r => r.data);
+
+        response.event.title.should.eql({
+          en: 'Un autre événement créé par API'
+        });
+      });
+
+      it('Event is created in french if lang is set to french in header', async () => {
+        const response = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/v2/agendas/17026855/events',
+          headers: {
+            'access-token': accessToken,
+            nonce: 1234567,
+            'content-type': 'application/json',
+            lang: 'fr'
+          },
+          data
+        }).then(r => r.data);
+
+        response.event.title.should.eql({
+          fr: 'Un autre événement créé par API'
+        });
+      });
+
+    });
+
     describe('unsuccessful create (invalid data)', () => {
       let response;
 

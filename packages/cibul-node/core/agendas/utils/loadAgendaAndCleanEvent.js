@@ -4,16 +4,16 @@ const _ = require('lodash');
 const VError = require('verror');
 const { promisify } = require('util');
 
-const FormSchema = require( '@openagenda/form-schemas/iso/FormSchema' );
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
-const log = require( '@openagenda/logs' )( 'core/agendas/events/validate' );
-const validate = require( '@openagenda/events/service/validate' );
+const log = require('@openagenda/logs')('core/agendas/events/validate');
+const validate = require('@openagenda/events/service/validate');
 
-const eventSchema = require( '@openagenda/event-form/build/schema' );
-const extractLanguages = require( '@openagenda/event-form/build/utils/extractLanguages' );
-const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
+const eventSchema = require('@openagenda/event-form/build/schema');
+const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
+const { fromEventServiceFormat } = require('@openagenda/agenda-contribute/server/parse');
 
-const getAgendaWithNetworkAndSchemas = require( './getAgendaWithNetworkAndSchemas' );
+const getAgendaWithNetworkAndSchemas = require('./getAgendaWithNetworkAndSchemas');
 const ValidationError = require('../../utils/ValidationError');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
@@ -61,14 +61,14 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     member: null,
     access: 'public',
     bypassAdditionalFieldValidation: false,
-    ...(typeof options === 'boolean' ? { evaluateEvent: options } : options )
+    ...(typeof options === 'boolean' ? { evaluateEvent: options } : options)
   };
 
-  // api provides event data in event service format ( deep image object that includes credits and variants )
-  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data, {
+  // api provides event data in event service format (deep image object that includes credits and variants)
+  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat(data, {
     location,
     partial: true
-  } );
+  });
 
   const schemaExtensions = {
     network: networkFormSchema,
@@ -76,13 +76,12 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   };
 
   // Define which languages should be included. Should depend on
-  //  * agenda setting ( if set ) ( not yet coded )
+  //  * agenda setting (if set) (not yet coded)
   //  * submitted language keys in languages field
   //  * default language
+  const languages = _.get(data, 'languages') || extractLanguages(data, defaultLang);
 
-  const languages = _.get( data, 'languages' ) || extractLanguages( data, defaultLang );
-
-  log( 'processed languages: %j', languages );
+  log('processed languages: %j', languages);
 
   const consolidatedSchema = bypassAdditionalFieldValidation ? { fields: [] } : eventSchema({
     languages,
@@ -116,7 +115,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     Object.assign(
       clean,
       _distributeCleanData(consolidatedClean, schemaExtensions)
-    );
+   );
   } catch (consolidatedErrors) {
     if (!_.isArray(consolidatedErrors)) {
       throw consolidatedErrors;
@@ -162,17 +161,17 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
 
 function _distributeCleanData(consolidatedClean, schemaExtensions) {
   const fieldsPerSchema = {
-    agenda: schemaExtensions.agenda ? schemaExtensions.agenda.fields.filter( f => f.fieldType && f.fieldType !== 'abstract' ).map( f => f.field ) : [],
-    network: schemaExtensions.network ? schemaExtensions.network.fields.filter( f => f.fieldType && f.fieldType !== 'abstract' ).map( f => f.field ) : [],
+    agenda: schemaExtensions.agenda ? schemaExtensions.agenda.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
+    network: schemaExtensions.network ? schemaExtensions.network.fields.filter(f => f.fieldType && f.fieldType !== 'abstract').map(f => f.field) : [],
     event: []
   };
 
-  fieldsPerSchema.event = _.keys( consolidatedClean ).filter( field => !fieldsPerSchema.agenda.includes( field ) && !fieldsPerSchema.network.includes( field ) );
+  fieldsPerSchema.event = _.keys(consolidatedClean).filter(field => !fieldsPerSchema.agenda.includes(field) && !fieldsPerSchema.network.includes(field));
 
   return {
-    custom: _.pick( consolidatedClean, fieldsPerSchema.agenda ),
-    networkCustom: _.pick( consolidatedClean, fieldsPerSchema.network ),
-    event: _.pick( consolidatedClean, fieldsPerSchema.event )
+    custom: _.pick(consolidatedClean, fieldsPerSchema.agenda),
+    networkCustom: _.pick(consolidatedClean, fieldsPerSchema.network),
+    event: _.pick(consolidatedClean, fieldsPerSchema.event)
   }
 }
 
@@ -187,12 +186,12 @@ function _getLocation(agendaLocations, data) {
 }
 
 function _consolidatedValidate(schema, data, { draft }) {
-  const fs = new FormSchema( schema );
-  const validate = fs.getValidate( { draft } );
-  return validate( data );
+  const fs = new FormSchema(schema);
+  const validate = fs.getValidate({ draft });
+  return validate(data);
 }
 
 
-function _asArray( obj ) {
-  return _.keys( obj ).map( k => obj[ k ] ).filter( s => !!s )
+function _asArray(obj) {
+  return _.keys(obj).map(k => obj[ k ]).filter(s => !!s)
 }
