@@ -4,7 +4,6 @@ CREATE TABLE aggregator (
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL,
   `store` TEXT,
-  `version` tinyint(1),
   `limit` int(11) DEFAULT NULL,
   INDEX review_id_idx (review_id),
   PRIMARY KEY(id)

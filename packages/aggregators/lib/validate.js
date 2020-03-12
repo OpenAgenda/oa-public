@@ -30,11 +30,6 @@ const ruleFields = {
 };
 
 const validate = schema({
-  version: {
-    type: 'integer',
-    optional: true,
-    default: 2
-  },
   limit: {
     type: 'integer',
     optional: true,
