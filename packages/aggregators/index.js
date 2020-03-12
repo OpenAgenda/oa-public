@@ -25,7 +25,6 @@ const evaluateEvent = require('./lib/evaluateEvent');
 const remove = require('./lib/remove');
 const set = require('./lib/set');
 const get = require('./lib/get');
-const limitIsReached = require('./lib/limitIsReached');
 
 function task({ queue }) {
   queue.run();
@@ -50,10 +49,7 @@ module.exports = ({
   queue.register({
     dispatch: dispatch.bind(null, { knex, queue }),
     evaluateEvent: evaluateEvent.bind(null, {
-      getAggregator: get.bind(null, knex),
       getAggregatedCount: interfaces.getAggregatedCount,
-      limitIsReached: limitIsReached.bind(null, knex),
-      deactivateAggregatorUntil: set.bind(null, knex),
       referenceEvent: interfaces.referenceEvent,
       getMergedSchema: interfaces.getMergedSchema,
       getEventReference: interfaces.getEventReference,

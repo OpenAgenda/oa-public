@@ -13,7 +13,6 @@ describe('04 - evaluate', () => {
     beforeAll(async () => {
       result = await evaluate(
         {
-          getAggregator: async () => ({ limit: -1 }),
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference'),
           referenceEvent: (a, e, d, o) => {
@@ -65,7 +64,6 @@ describe('04 - evaluate', () => {
     beforeAll(async () => {
       await evaluate(
         {
-          getAggregator: async () => ({ limit: -1 }),
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
           updateSourcePaths: (a, e, p) => {
@@ -102,7 +100,6 @@ describe('04 - evaluate', () => {
     beforeAll(async () => {
       await evaluate(
         {
-          getAggregator: async () => ({ limit: -1 }),
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.3'),
           updateSourcePaths: () => {
@@ -127,7 +124,6 @@ describe('04 - evaluate', () => {
     beforeAll(async () => {
       await evaluate(
         {
-          getAggregator: async () => ({ limit: -1 }),
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.4'),
           updateSourcePaths: (a, e, p) => {
@@ -153,7 +149,6 @@ describe('04 - evaluate', () => {
     beforeAll(async () => {
       await evaluate(
         {
-          getAggregator: async () => ({ limit: -1 }),
           getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.3'),
           enqueueRemove(a) {
@@ -178,17 +173,13 @@ describe('04 - evaluate', () => {
     });
   });
 
-  it('limitIsReached is called if limit is set to null (default)', async () => {
-    const mockLimitIsReached = jest.fn();
-
-    await evaluate(
+  it('evaluate is skiped if limit is set to null (default)', async () => {
+    const result = await evaluate(
       {
-        getAggregator: () => ({ limit: null }),
         getAggregatedCount: () => 365,
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-        updateSourcePaths: () => ({ success: true }),
-        limitIsReached: mockLimitIsReached
+        updateSourcePaths: () => ({ success: true })
       },
       {
         ...data,
@@ -196,48 +187,44 @@ describe('04 - evaluate', () => {
       }
     );
 
-    expect(mockLimitIsReached.mock.calls.length).toBe(1);
+    expect(result).toBeUndefined();
   });
 
-  it('limitIsReached is called if limit is set to 1000', async () => {
-    const mockLimitIsReached = jest.fn();
-
-    await evaluate(
+  it('evaluate is skiped if limit is set to 1000', async () => {
+    const result = await evaluate(
       {
-        getAggregator: () => ({ limit: 1000 }),
         getAggregatedCount: () => 1000,
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-        updateSourcePaths: () => ({ success: true }),
-        limitIsReached: mockLimitIsReached
+        updateSourcePaths: () => ({ success: true })
       },
       {
         ...data,
+        aggregatorLimit: 1000,
         sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
       }
     );
 
-    expect(mockLimitIsReached.mock.calls.length).toBe(1);
+    expect(result).toBeUndefined();
   });
 
-  it('limitIsReached is not called if limit is set to -1', async () => {
-    const mockLimitIsReached = jest.fn();
-
-    await evaluate(
+  it('evaluate is not skiped if limit is set to -1', async () => {
+    const result = await evaluate(
       {
-        getAggregator: () => ({ limit: -1 }),
         getAggregatedCount: () => 42000,
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-        updateSourcePaths: () => ({ success: true }),
-        limitIsReached: mockLimitIsReached
+        updateSourcePaths: () => ({ success: true })
       },
       {
         ...data,
+        aggregatorLimit: -1,
         sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
       }
     );
 
-    expect(mockLimitIsReached.mock.calls.length).toBe(0);
+    expect(result).toEqual({
+      success: true
+    });
   });
 });
