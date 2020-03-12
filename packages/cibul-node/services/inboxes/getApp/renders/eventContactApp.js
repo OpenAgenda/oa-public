@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const { parsePath } = require('history');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
@@ -43,21 +44,21 @@ module.exports = async ({ services, config }, req, res, next) => {
         allowCreateConversation: true, // show creation button
         creationSubtitle: getLabel(
           'contactAdministratorsOf',
-          { title: _.escape(getMultiLanguageTitle( req.agenda, req.lang ) ), link: eventShowLink },
+          { title: _.escape(getMultiLanguageTitle(req.agenda, lang)), link: eventShowLink },
           req.lang
-        ),
+       ),
         maskCreationSubtitle: false,
         topListForm: false, // add a conversation form on top of conversation list
-        belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+        belowMessageDesc: getLabel('retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang),
         onConversationCreateRedirect: eventShowLink,
-        onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+        onConversationCreateFlash: getLabel('conversationCreationSuccess', req.lang),
         defaultQuery: {
           type: 'event',
           typeIdentifier: req.event.uid,
           params: {
-            agendaTitle: _.unescape( req.agenda.title ),
+            agendaTitle: _.unescape(req.agenda.title),
             agendaUid: req.agenda.uid,
-            eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) )
+            eventTitle: _.unescape(getMultiLanguageTitle(req.event, req.lang))
           },
           destinationInbox: {
             type: 'agenda',
@@ -83,7 +84,7 @@ module.exports = async ({ services, config }, req, res, next) => {
       agenda: req.agenda,
       event: req.event
     }
-  } );
+  });
   const { triggerHooks, store, history } = reactApp;
 
   try {
