@@ -20,7 +20,7 @@ module.exports = Service;
 async function Service(c) {
   const config = {
     ...c,
-    knex: c.knex ? c.knex.clone() : knexLib({
+    knex: c.knex ? c.knex : knexLib({
       client: 'mysql',
       connection: c.mysql
     })
