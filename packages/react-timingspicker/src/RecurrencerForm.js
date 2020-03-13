@@ -5,6 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import * as dateFns from 'date-fns';
 import { FaRegTimesCircle, FaCheck } from 'react-icons/fa';
+import a11yButtonActionHandler from '@openagenda/react-shared/dist/utils/a11yButtonActionHandler';
 import SelectField from './SelectField';
 import WeekdayInput from './WeekdayInput';
 import NumberInput from './NumberInput';
@@ -277,6 +278,22 @@ class RecurrencerForm extends Component {
       );
     }
 
+    const onUntilLabelClick = a11yButtonActionHandler(e => {
+      if (formState.values.endType === 'until') {
+        e.preventDefault();
+        return;
+      }
+      form.change('endType', 'until');
+    });
+
+    const onCountLabelClick = a11yButtonActionHandler(e => {
+      if (formState.values.endType === 'count') {
+        e.preventDefault();
+        return;
+      }
+      form.change('endType', 'count');
+    });
+
     return (
       <form onSubmit={handleSubmit}>
         <h3>{intl.formatMessage(messages.title)}</h3>
@@ -341,14 +358,10 @@ class RecurrencerForm extends Component {
 
             <div className={`${classNamePrefix}recurrencer-until__radio`}>
               <label
+                role="presentation"
                 htmlFor="endType-until"
-                onClick={e => {
-                  if (formState.values.endType === 'until') {
-                    e.preventDefault();
-                    return;
-                  }
-                  form.change('endType', 'until');
-                }}
+                onClick={onUntilLabelClick}
+                onKeyPress={onUntilLabelClick}
               >
                 <Field
                   name="endType"
@@ -373,14 +386,10 @@ class RecurrencerForm extends Component {
 
             <div className={`${classNamePrefix}recurrencer-count__radio`}>
               <label
+                role="presentation"
                 htmlFor="endType-count"
-                onClick={e => {
-                  if (formState.values.endType === 'count') {
-                    e.preventDefault();
-                    return;
-                  }
-                  form.change('endType', 'count');
-                }}
+                onClick={onCountLabelClick}
+                onKeyPress={onCountLabelClick}
               >
                 <Field
                   name="endType"

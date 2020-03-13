@@ -1,9 +1,9 @@
 'use strict';
 
 const config = require('../testconfig');
-const createInstance = require('../');
 const fixtures = require('./fixtures');
 const { Tracker } = require('./utils');
+const createInstance = require('..');
 
 describe('09 - set and get', () => {
   const f = fixtures(config.mysql);
@@ -23,40 +23,39 @@ describe('09 - set and get', () => {
       interfaces: {}
     });
 
-    //0
+    // 0
     results.push(await svc.get(999));
 
-    //1
+    // 1
     results.push(
       await svc.set(999, {
         rules: []
       })
     );
 
-    //2
+    // 2
     results.push(
       await svc.set(998, {
         rules: [{ value: { state: 2 } }]
       })
     );
 
-    //3
+    // 3
     results.push(
       await svc.set(333, {
         rules: [{ value: { state: 2 } }]
       })
     );
 
-    //4
+    // 4
     results.push(
       await svc.set(333, {
         limit: 2
       }, { patch: true })
     );
 
-    //5
-    results.push(await svc.get(333))
-
+    // 5
+    results.push(await svc.get(333));
   });
 
   afterAll(f.destroyClient);

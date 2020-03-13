@@ -69,7 +69,7 @@ export default function List({
     }
 
     reorderRules(result.source.index, result.destination.index);
-  }, []);
+  }, [reorderRules]);
 
   return (
     <>

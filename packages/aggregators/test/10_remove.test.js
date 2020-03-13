@@ -1,9 +1,9 @@
 'use strict';
 
 const config = require('../testconfig');
-const createInstance = require('../');
 const fixtures = require('./fixtures');
 const { Tracker } = require('./utils');
+const createInstance = require('..');
 
 describe('10 - remove', () => {
   const f = fixtures(config.mysql);

@@ -51,7 +51,13 @@ module.exports = (data, options = {}) => {
     ...options
   };
 
-  const rules = data instanceof Object && data.rules ? cleanRule(data.rules) : (patch ? undefined : []);
+  let rules;
+
+  if (data instanceof Object && data.rules) {
+    rules = cleanRule(data.rules);
+  } else if (!patch) {
+    rules = [];
+  }
 
   return (patch ? validate.part : validate)({
     ...data,

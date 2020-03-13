@@ -5,7 +5,7 @@ const {
   isSuperiorToOrEqual,
   isEqualTo,
   isLessThan
-} = require('../').utils.compareRoles;
+} = require('..').utils.compareRoles;
 
 describe('members - utils - compareRoles', () => {
   describe('isSuperiorTo', () => {

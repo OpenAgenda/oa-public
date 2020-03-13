@@ -31,7 +31,15 @@ module.exports = async (knex, agendaUid, data, options = {}) => {
       .where('review_id', agendaId);
   }
 
+  if (exists) {
+    if (options.patch) {
+      return { operation: 'patch' };
+    }
+
+    return { operation: 'update' };
+  }
+
   return {
-    operation: exists ? (options.patch ? 'patch' : 'update') : 'create'
+    operation: 'create'
   };
 };
