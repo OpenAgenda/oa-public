@@ -2,17 +2,16 @@
 
 process.env.NODE_ENV = 'development';
 
-const fs = require('fs');
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotReloadMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config');
+const Portal = require('..');
 
-const Portal = require('../');
 
 const dev = express();
-const compiler = webpack(webpackConfig)
+const compiler = webpack(webpackConfig);
 
 dev.use(webpackDevMiddleware(compiler, {
   publicPath: '/js'

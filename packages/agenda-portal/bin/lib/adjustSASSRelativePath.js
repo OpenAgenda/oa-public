@@ -7,4 +7,5 @@ module.exports = () => fs.writeFileSync(
   fs.readFileSync(`${process.cwd()}/sass/main.scss`, 'utf-8').replace(
     '@import "../../node_modules/bootstrap/scss/bootstrap";',
     '@import "../node_modules/bootstrap/scss/bootstrap";'
-  ));
+  )
+);

@@ -13,6 +13,7 @@ module.exports = () => {
       `"scripts" : {
     "start": "NODE_ENV=development browser-refresh server"
   },
-  "dependencies": {`)
+  "dependencies": {`
+    )
   );
-}
+};

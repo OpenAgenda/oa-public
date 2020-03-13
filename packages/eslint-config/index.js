@@ -40,51 +40,6 @@ module.exports = {
   },
 
   rules: {
-    // TODO remove this with next airbnb version (https://github.com/airbnb/javascript/pull/2157)
-    indent: [
-      'error', 2, {
-        SwitchCase: 1,
-        VariableDeclarator: 1,
-        outerIIFEBody: 1,
-        // MemberExpression: null,
-        FunctionDeclaration: {
-          parameters: 1,
-          body: 1
-        },
-        FunctionExpression: {
-          parameters: 1,
-          body: 1
-        },
-        CallExpression: {
-          arguments: 1
-        },
-        ArrayExpression: 1,
-        ObjectExpression: 1,
-        ImportDeclaration: 1,
-        flatTernaryExpressions: false,
-        // list derived from https://github.com/benjamn/ast-types/blob/HEAD/def/jsx.js
-        ignoredNodes: [
-          'JSXElement',
-          'JSXElement > *',
-          'JSXAttribute',
-          'JSXIdentifier',
-          'JSXNamespacedName',
-          'JSXMemberExpression',
-          'JSXSpreadAttribute',
-          'JSXExpressionContainer',
-          'JSXOpeningElement',
-          'JSXClosingElement',
-          'JSXFragment',
-          'JSXOpeningFragment',
-          'JSXClosingFragment',
-          'JSXText',
-          'JSXEmptyExpression',
-          'JSXSpreadChild'
-        ],
-        ignoreComments: false
-      }
-    ],
-
     strict: ['error', 'safe'],
     'no-param-reassign': ['error', { props: false }],
     'no-underscore-dangle': 'off',
@@ -146,56 +101,6 @@ module.exports = {
       'error',
       {
         skipUndeclared: true
-      }
-    ],
-    'react/sort-comp': [
-      // TODO remove this with next airbnb version
-      'error',
-      {
-        order: [
-          'static-variables',
-          'static-methods',
-          'instance-variables',
-          'lifecycle',
-          '/^on.+$/',
-          'getters',
-          'setters',
-          '/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/',
-          'instance-methods',
-          'everything-else',
-          'rendering'
-        ],
-        groups: {
-          lifecycle: [
-            'displayName',
-            'propTypes',
-            'contextTypes',
-            'childContextTypes',
-            'mixins',
-            'statics',
-            'defaultProps',
-            'constructor',
-            'getDefaultProps',
-            'getInitialState',
-            'state',
-            'getChildContext',
-            'getDerivedStateFromProps',
-            'componentWillMount',
-            'UNSAFE_componentWillMount',
-            'componentDidMount',
-            'componentWillReceiveProps',
-            'UNSAFE_componentWillReceiveProps',
-            'shouldComponentUpdate',
-            'componentWillUpdate',
-            'UNSAFE_componentWillUpdate',
-            'getSnapshotBeforeUpdate',
-            'componentDidUpdate',
-            'componentDidCatch',
-            'componentWillUnmount',
-            'componentDidCatch'
-          ],
-          rendering: ['/^render.+$/', 'render']
-        }
       }
     ],
     'react/static-property-placement': ['error', 'static public field'],

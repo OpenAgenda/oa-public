@@ -4,7 +4,7 @@ const fs = require('fs');
 
 process.env.DEBUG = 'test, middleware/*';
 
-const Portal = require('../');
+const Portal = require('..');
 
 const devPort = 3000;
 
