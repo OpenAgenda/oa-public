@@ -6,15 +6,12 @@ const evaluateRules = require('../utils/rules');
 const paths = require('../utils/paths');
 const pickReferenceValues = require('../utils/pickReferenceValues');
 
-const DEFAULT_LIMIT = 365;
 
 module.exports = async (
   {
-    getAggregator,
     getAggregatedCount,
     getMergedSchema,
     getEventReference, // fetch current ref on aggregator
-    limitIsReached,
     updateSourcePaths,
     referenceEvent,
     enqueueRemove
@@ -26,29 +23,21 @@ module.exports = async (
     event,
     aggregatorAgendaUid,
     batched,
-    formSchema: sourceAgendaFormSchema
+    formSchema: sourceAgendaFormSchema,
+    aggregatorLimit
   } = data;
 
   const log = Log(
     `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`
   );
 
-  const aggregator = await getAggregator(aggregatorAgendaUid);
-
-  if (aggregator.deactivatedUntil > new Date().setHours(0, 0, 0, 0)) {
-    log(
-      `Aggregator is deactivated until ${aggregator.deactivatedUntil.toDateString()}`
-    );
-    return;
-  }
-
-  if (getAggregatedCount && aggregator.limit !== -1) {
-    // -1 is unlimited
-    const limit = aggregator.limit === null ? DEFAULT_LIMIT : aggregator.limit;
+  if (typeof getAggregatedCount === 'function' && ![undefined, -1].includes(aggregatorLimit)) {
     const aggregatedCount = await getAggregatedCount(aggregatorAgendaUid);
 
-    if (aggregatedCount >= limit) {
-      await limitIsReached(aggregatorAgendaUid);
+    log(`Aggregator agenda ${aggregatorAgendaUid} has ${aggregatedCount}/${aggregatorLimit} events`);
+
+    if (aggregatedCount >= aggregatorLimit) {
+      return;
     }
   }
 
