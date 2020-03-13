@@ -1,14 +1,15 @@
 #! /usr/bin/env node
+
 'use strict';
 
 const { promisify } = require('util');
 const fs = require('fs');
 const ncp = promisify(require('ncp').ncp);
 
+const { term, confirm } = require('../lib/prompt');
 const insertStartScript = require('./lib/insertStartScript');
 const insertLangAndUid = require('./lib/insertLangAndUid');
 const adjustSASSRelativePath = require('./lib/adjustSASSRelativePath');
-const { term, confirm } = require('../lib/prompt');
 
 (async () => {
   const confirmed = await confirm(`

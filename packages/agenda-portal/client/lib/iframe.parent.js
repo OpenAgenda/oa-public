@@ -1,7 +1,22 @@
 'use strict';
 
-const iframeResizer = require('iframe-resizer');
+const { iframeResize } = require('iframe-resizer');
+
 const getHash = () => window.location.hash.replace(/^#/, '');
+
+function onMessage(state, { message }) {
+  if (message.code === 'ready' && !state.iFrameReady) {
+    state.iFrameReady = true;
+    if (window.location.hash.length) {
+      state.iframe.iFrameResizer.sendMessage({
+        code: 'nav',
+        nav: getHash()
+      });
+    }
+  } else if (message.nav) {
+    window.location.hash = message.nav;
+  }
+}
 
 module.exports = iframe => {
   const src = iframe.getAttribute('data-oa-portal');
@@ -17,22 +32,8 @@ module.exports = iframe => {
     iFrameReady: false
   };
 
-  iFrameResize({
+  iframeResize({
     log: false,
     onMessage: onMessage.bind(null, state)
   }, iframe);
-}
-
-function onMessage(state, { iframe, message }) {
-  if (message.code === 'ready' && !state.iFrameReady) {
-    state.iFrameReady = true;
-    if (window.location.hash.length) {
-      state.iframe.iFrameResizer.sendMessage({
-        code: 'nav',
-        nav: getHash()
-      });
-    }
-  } else if (message.nav) {
-    window.location.hash = message.nav;
-  }
-}
+};

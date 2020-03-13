@@ -3,12 +3,13 @@
 const fs = require('fs');
 
 const webpack = require('webpack');
-const jsEntryFiles = fs.readdirSync(__dirname + '/../client')
+
+const jsEntryFiles = fs.readdirSync(`${__dirname}/../client`)
   .filter(filesAndFolders => filesAndFolders.split('.').length > 1);
 
 module.exports = {
   mode: 'development',
-  //context: __dirname,
+  // context: __dirname,
   entry: jsEntryFiles.reduce((entries, filename) => ({
     ...entries,
     [filename.split('.').shift()]: [
@@ -35,4 +36,4 @@ module.exports = {
   resolve: {
     symlinks: false
   }
-}
+};

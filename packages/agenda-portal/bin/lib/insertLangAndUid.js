@@ -15,9 +15,9 @@ module.exports = (agendaUid, lang, iframable) => {
       "require('@openagenda/agenda-portal/lib/Log')"
     )
     .replace(
-      "iframable: true,",
+      'iframable: true,',
       `iframable: ${iframable ? 'true' : 'false'},`
     );
 
   fs.writeFileSync(`${process.cwd()}/server.js`, content);
-}
+};

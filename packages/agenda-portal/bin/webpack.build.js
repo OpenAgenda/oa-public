@@ -4,13 +4,13 @@ const fs = require('fs');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const webpack = require('webpack');
-const jsEntryFiles = fs.readdirSync(__dirname + '/../client')
+
+const jsEntryFiles = fs.readdirSync(`${__dirname}/../client`)
   .filter(filesAndFolders => filesAndFolders.split('.').length > 1);
 
 module.exports = {
   mode: 'production',
-  context: __dirname + '/../',
+  context: `${__dirname}/../`,
   optimization: { minimize: true },
   entry: jsEntryFiles.reduce((entries, filename) => ({
     ...entries,
@@ -19,7 +19,7 @@ module.exports = {
     ]
   }), {}),
   output: {
-    path: __dirname + '/../assets/js',
+    path: `${__dirname}/../assets/js`,
     filename: '[name].js'
   },
   plugins: [
@@ -38,4 +38,4 @@ module.exports = {
   resolve: {
     symlinks: false
   }
-}
+};
