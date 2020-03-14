@@ -59,7 +59,8 @@ module.exports = async (config, set, options = {}) => {
   const counts = {
     created: 0,
     updated: 0,
-    deleted: 0
+    deleted: 0,
+    errored: 0
   };
 
   try {
@@ -74,13 +75,23 @@ module.exports = async (config, set, options = {}) => {
       if (events.length) {
         const r = await client.bulk({
           index,
-          body: events.reduce((bulkOperations, event) => bulkOperations.concat([
-            { index: { _id: getDocumentId(set, event.uid) } },
-            { ...formatEvent(event, formSchema),
-              _build: build,
-              _set: set
+          body: events.reduce((bulkOperations, event) => {
+            try {
+              return bulkOperations.concat([{
+                index: {
+                  _id: getDocumentId(set, event.uid)
+                }
+              }, {
+                ...formatEvent(event, formSchema),
+                _build: build,
+                _set: set
+              }]);
+            } catch (e) {
+              counts.errored++;
+              log('error', 'event %s could not be formatted', event.uid, e);
+              return bulkOperations;
             }
-          ]), [])
+          }, [])
         }).then(r => r.body);
 
         if (r.errors) {
@@ -99,7 +110,7 @@ module.exports = async (config, set, options = {}) => {
       }
     } while (hasMore);
 
-    operations.push(`indexed ${counts.updated + counts.created} events, ${counts.updated} updated, ${counts.created} created`);
+    operations.push(`indexed ${counts.updated + counts.created} events, ${counts.updated} updated, ${counts.created} created, ${counts.errored} errored`);
   } catch (e) {
     log('error', e);
     error = e;
