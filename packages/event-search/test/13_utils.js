@@ -7,6 +7,7 @@ const should = require('should');
 
 const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
 const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
+const defineIncludes = require('../utils/defineIncludes');
 const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
@@ -15,13 +16,23 @@ const filterByAccess = require('../utils/filterByAccess');
 
 const config = require('../testconfig');
 const Service = require('../');
-const fixtures = require('./service/parsers/geoJSON.in.json');
-const expected = require('./service/parsers/geoJSON.out.json');
 
-const fba = {
-  formSchema: require('./fixtures/filterByAccess/formSchema.json'),
-  event: require('./fixtures/filterByAccess/event.json')
-}
+const fx = {
+  geo: {
+    in: require('./service/parsers/geoJSON.in.json'),
+    out: require('./service/parsers/geoJSON.out.json')
+  },
+  fba: {
+    formSchema: require('./fixtures/filterByAccess/formSchema.json'),
+    event: require('./fixtures/filterByAccess/event.json')
+  },
+  di: {
+    default: require('./fixtures/defineIncludes/default.json'),
+    detailed: require('./fixtures/defineIncludes/detailed.json'),
+    withFormSchemaDetailed: require('./fixtures/defineIncludes/withFormSchemaDetailed.json'),
+    withFormSchemaNotDetailed: require('./fixtures/defineIncludes/withFormSchemaNotDetailed.json')
+  }
+};
 
 describe('event-search - unit: utils', function() {
 
@@ -64,23 +75,6 @@ describe('event-search - unit: utils', function() {
       nextTiming.should.eql(next);
 
       lastTiming.should.eql(last);
-    });
-  });
-
-  describe('other', () => {
-    it('geoJSON post parsers transforms search result into geoJSON data', () => {
-      geoJSON(fixtures).should.eql(expected);
-    });
-
-    it('derelativize - converts relative term with absolute', () => {
-      const query = derelativize({
-        date: {
-          gte: 'today',
-          timezone: 'Europe/Paris'
-        }
-      });
-
-      (query.date.gte instanceof Date).should.equal(true);
     });
   });
 
@@ -154,13 +148,13 @@ describe('event-search - unit: utils', function() {
   describe('filterByAccess', () => {
 
     it('public filters out non public fields', () => {
-      const event = filterByAccess(fba.formSchema, 'public', fba.event);
+      const event = filterByAccess(fx.fba.formSchema, 'public', fx.fba.event);
 
       should(event['particularites']).equal(undefined);
     });
 
     it('"administrator" access includes administrator read fields', () => {
-      const event = filterByAccess(fba.formSchema, 'administrator', fba.event);
+      const event = filterByAccess(fx.fba.formSchema, 'administrator', fx.fba.event);
 
       should(event['particularites']).eql([776]);
     });
@@ -205,12 +199,79 @@ describe('event-search - unit: utils', function() {
 
   });
 
-  it('gives the number of days between now and the last timing ends also in the past', () => {
-    const timings = [{
-      end: _getYesterdayDate(1)
-    }];
+  describe('defineIncludes', () => {
+    const baseSearchIncludes = fx.di.default.baseSearchIncludes;
+    const detailedSearchIncludes = fx.di.default.detailedSearchIncludes;
+    const formSchema = fx.di.withFormSchemaDetailed.formSchema;
 
-    lastTimingEndsIn({ timings }).should.equal(-1);
+    it('non detailed only returns base fields', () => {
+      const included = defineIncludes({
+        baseSearchIncludes,
+        detailedSearchIncludes
+      }, { detailed: false });
+
+      included.should.eql(baseSearchIncludes);
+    });
+
+    it('detailed returns fields specified in detailedSearchIncludes', () => {
+      const included = defineIncludes({
+        baseSearchIncludes,
+        detailedSearchIncludes
+      }, { detailed: true });
+
+      included.should.eql(detailedSearchIncludes);
+    });
+
+    it('if formSchema is given, formSchema additional fields are included', () => {
+      const included = defineIncludes({
+        baseSearchIncludes,
+        detailedSearchIncludes
+      }, { detailed: false, formSchema });
+
+      const formSchemaFields = formSchema.fields
+        .filter(f => f.schemaId !== null)
+        .map(f => f.field);
+
+      included.should.eql(baseSearchIncludes.concat(formSchemaFields));
+    });
+
+    it('if formSchema is given and detailed is true, additionalFields and detailed fields are provided', () => {
+      const included = defineIncludes({
+        baseSearchIncludes,
+        detailedSearchIncludes
+      }, { detailed: true, formSchema });
+
+      const formSchemaFields = formSchema.fields
+        .filter(f => f.schemaId !== null)
+        .map(f => f.field);
+
+      included.should.eql(detailedSearchIncludes.concat(formSchemaFields));
+    });
+  });
+
+  describe('other', () => {
+    it('geoJSON post parsers transforms search result into geoJSON data', () => {
+      geoJSON(fx.geo.in).should.eql(fx.geo.out);
+    });
+
+    it('derelativize - converts relative term with absolute', () => {
+      const query = derelativize({
+        date: {
+          gte: 'today',
+          timezone: 'Europe/Paris'
+        }
+      });
+
+      (query.date.gte instanceof Date).should.equal(true);
+    });
+
+    it('gives the number of days between now and the last timing ends also in the past', () => {
+      const timings = [{
+        end: _getYesterdayDate(1)
+      }];
+
+      lastTimingEndsIn({ timings }).should.equal(-1);
+    });
   });
 
 });

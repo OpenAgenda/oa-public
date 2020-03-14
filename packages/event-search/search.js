@@ -6,6 +6,7 @@ const VError = require('verror');
 
 const aggregations = require('./aggregations');
 
+const defineIncludes = require('./utils/defineIncludes');
 const postDSL = require('./utils/postDSL');
 const getIndexName = require('./utils/getIndexName');
 const instanciateSearchStream = require('./utils/instanciateSearchStream');
@@ -16,7 +17,6 @@ const filterByAccess = require('./utils/filterByAccess');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
-const getFormSchemaAdditionalFields = require('./utils/getFormSchemaAdditionalFields');
 const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
 const appendMLT = require('./utils/appendMLT');
 
@@ -46,11 +46,18 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     aggregations: requestedAggregations,
     monolingual,
     first,
-    access
+    access,
+    fields,
+    additionalFields
   } = validateOptions(options);
 
   const index = getIndexName(set, defaultIndex);
-  const includes = _defineIncludes(config, { detailed, formSchema });
+  const includes = defineIncludes(config, {
+    detailed,
+    formSchema,
+    fields,
+    additionalFields
+  });
 
   query.set = set;
 
@@ -130,14 +137,6 @@ function _parseEvents(parsers, events) {
     } );
     return e;
   });
-}
-
-function _defineIncludes({ baseSearchIncludes, detailedSearchIncludes }, { detailed, formSchema }) {
-  const includes = [].concat(detailed ? detailedSearchIncludes : baseSearchIncludes);
-
-  return formSchema ? includes.concat(
-    getFormSchemaAdditionalFields(formSchema).map(f => f.field)
-  ) : includes;
 }
 
 function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggregations) {
