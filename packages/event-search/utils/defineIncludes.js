@@ -8,21 +8,43 @@ module.exports = ({
 }, {
   detailed,
   formSchema,
-  access
+  access,
+  requested
 }) => {
+  const additionalFields = formSchema ? getFormSchemaAdditionalFields(formSchema).map(f => f.field) : [];
+  const knownFields = baseSearchIncludes.concat(detailedSearchIncludes).concat(additionalFields);
+
   const includes = [].concat(
-    detailed ? detailedSearchIncludes : baseSearchIncludes
+    !requested ? baseSearchIncludes : []
   ).concat(
-    formSchema ? getFormSchemaAdditionalFields(formSchema).map(f => f.field) : []
-  );
+    !requested && detailed ? detailedSearchIncludes : []
+  ).concat(
+    requested ? requested : []
+  ).concat(requested ? [] : additionalFields)
+    .filter(field => knownFields.includes(field));
 
   if (!access || !formSchema) {
-    return includes;
+    return _keepHigherOrderIncludes(includes);
   }
 
-  return includes.filter(fieldName => {
+  return _keepHigherOrderIncludes(includes.filter(fieldName => {
     const formSchemaField = formSchema.fields.filter(f => f.field === fieldName).pop();
 
+    if (!formSchemaField && (baseSearchIncludes.includes(fieldName) || detailedSearchIncludes.includes(fieldName))) {
+      return true
+    }
+
     return !formSchemaField || !formSchemaField.read || formSchemaField.read.includes(access);
+  }));
+}
+
+function _keepHigherOrderIncludes(includes = []) {
+  const higherOrderIncludes = includes.filter(i => i.indexOf('.') === -1);
+
+  return includes.filter(include => {
+    if (higherOrderIncludes.includes(include)) {
+      return true;
+    }
+    return !higherOrderIncludes.includes(include.split('.').shift());
   });
 }

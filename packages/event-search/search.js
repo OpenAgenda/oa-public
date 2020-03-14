@@ -46,8 +46,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     monolingual,
     first,
     access,
-    fields,
-    additionalFields
+    includes: requestedIncludes
   } = validateOptions(options);
 
   const index = getIndexName(set, defaultIndex);
@@ -55,8 +54,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     detailed,
     formSchema,
     access,
-    fields,
-    additionalFields
+    requested: requestedIncludes
   });
 
   query.set = set;

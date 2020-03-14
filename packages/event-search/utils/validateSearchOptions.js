@@ -36,5 +36,10 @@ module.exports = schema({
     type: 'text',
     default: 'public',
     optional: true
+  },
+  includes: {
+    type: 'text',
+    optional: true,
+    list: { default: null }
   }
 });

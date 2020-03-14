@@ -7,7 +7,6 @@ const should = require('should');
 
 const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
 const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
-const defineIncludes = require('../utils/defineIncludes');
 const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
@@ -20,12 +19,6 @@ const fx = {
   geo: {
     in: require('./service/parsers/geoJSON.in.json'),
     out: require('./service/parsers/geoJSON.out.json')
-  },
-  di: {
-    default: require('./fixtures/defineIncludes/default.json'),
-    detailed: require('./fixtures/defineIncludes/detailed.json'),
-    withFormSchemaDetailed: require('./fixtures/defineIncludes/withFormSchemaDetailed.json'),
-    formSchemaWithRestrictedFields: require('./fixtures/defineIncludes/formSchemaWithRestrictedFields.json')
   }
 };
 
@@ -174,99 +167,6 @@ describe('event-search - unit: utils', function() {
       }];
 
       lastTimingEndsIn({ timings }).should.greaterThan(3);
-    });
-
-  });
-
-  describe('defineIncludes', () => {
-    const baseSearchIncludes = fx.di.default.baseSearchIncludes;
-    const detailedSearchIncludes = fx.di.default.detailedSearchIncludes;
-    const formSchema = fx.di.withFormSchemaDetailed.formSchema;
-    const formSchemaWithRestrictedFields = fx.di.formSchemaWithRestrictedFields;
-
-    it('non detailed only returns base fields', () => {
-      const included = defineIncludes({
-        baseSearchIncludes,
-        detailedSearchIncludes
-      }, { detailed: false });
-
-      included.should.eql(baseSearchIncludes);
-    });
-
-    it('detailed returns fields specified in detailedSearchIncludes', () => {
-      const included = defineIncludes({
-        baseSearchIncludes,
-        detailedSearchIncludes
-      }, { detailed: true });
-
-      included.should.eql(detailedSearchIncludes);
-    });
-
-    it('if formSchema is given, formSchema additional fields are included', () => {
-      const included = defineIncludes({
-        baseSearchIncludes,
-        detailedSearchIncludes
-      }, { detailed: false, formSchema });
-
-      const formSchemaFields = formSchema.fields
-        .filter(f => f.schemaId !== null)
-        .map(f => f.field);
-
-      included.should.eql(baseSearchIncludes.concat(formSchemaFields));
-    });
-
-    it('if formSchema is given and detailed is true, additionalFields and detailed fields are provided', () => {
-      const included = defineIncludes({
-        baseSearchIncludes,
-        detailedSearchIncludes
-      }, { detailed: true, formSchema });
-
-      const formSchemaFields = formSchema.fields
-        .filter(f => f.schemaId !== null)
-        .map(f => f.field);
-
-      included.should.eql(detailedSearchIncludes.concat(formSchemaFields));
-    });
-
-    it('if access restrictions are present but no access is specified, includes ignore restrictions', () => {
-      const included = defineIncludes({
-        baseSearchIncludes,
-        detailedSearchIncludes
-      }, {
-        formSchema: formSchemaWithRestrictedFields
-      });
-
-      const formSchemaFields = formSchema.fields
-        .filter(f => f.schemaId !== null)
-        .map(f => f.field);
-
-      included.should.eql(baseSearchIncludes.concat(formSchemaFields));
-    });
-
-    it('if access restrictions are present and access is public, only public fields are included', () => {
-      const included = defineIncludes({
-        baseSearchIncludes,
-        detailedSearchIncludes
-      }, {
-        formSchema: formSchemaWithRestrictedFields,
-        access: 'public'
-      });
-
-      ['custom_description', 'intermunicipal_interest', 'recurring'].forEach(restrictedField => {
-        included.includes(restrictedField).should.equal(false)
-      });
-    });
-
-    it('if access restrictions are present and access is specified, restricted fields with provided access are included', () => {
-      const included = defineIncludes({
-        baseSearchIncludes,
-        detailedSearchIncludes
-      }, {
-        formSchema: formSchemaWithRestrictedFields,
-        access: 'moderator'
-      });
-
-      included.includes('recurring').should.equal(true);
     });
 
   });

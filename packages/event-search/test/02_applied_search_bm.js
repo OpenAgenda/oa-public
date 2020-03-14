@@ -716,6 +716,7 @@ describe('02 - event search - functional: Applied search', function() {
         }, { size: 3, detailed: true });
 
         for (const event of events) {
+          //console.log(event);
           event.location.city.should.equal('Bassens');
         }
 
