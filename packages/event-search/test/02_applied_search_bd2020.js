@@ -18,7 +18,7 @@ describe('02 - event search - functional: bd2020', function() {
     service = Service(config);
   });
 
-  before(async () => {
+ before(async () => {
     try {
       await service.getConfig().client.indices.delete({
         index: 'test'
@@ -53,7 +53,7 @@ describe('02 - event search - functional: bd2020', function() {
       should(eventForPublic['particularites']).equal(undefined);
     });
 
-    it('info of limited access is not provided if access is not provided', () => {
+    it('info of limited access is provided if access is not provided', () => {
       should(eventForAdmin['particularites']).eql([776]);
     });
 

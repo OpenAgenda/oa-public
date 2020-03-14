@@ -1,20 +1,28 @@
 'use strict';
 
-const textLog = require('./textLog');
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
-
-let i = 0;
 
 module.exports = ({
   baseSearchIncludes,
   detailedSearchIncludes
 }, {
   detailed,
-  formSchema
+  formSchema,
+  access
 }) => {
-  const includes = [].concat(detailed ? detailedSearchIncludes : baseSearchIncludes);
+  const includes = [].concat(
+    detailed ? detailedSearchIncludes : baseSearchIncludes
+  ).concat(
+    formSchema ? getFormSchemaAdditionalFields(formSchema).map(f => f.field) : []
+  );
 
-  return formSchema ? includes.concat(
-    getFormSchemaAdditionalFields(formSchema).map(f => f.field)
-  ) : includes;
+  if (!access || !formSchema) {
+    return includes;
+  }
+
+  return includes.filter(fieldName => {
+    const formSchemaField = formSchema.fields.filter(f => f.field === fieldName).pop();
+
+    return !formSchemaField || !formSchemaField.read || formSchemaField.read.includes(access);
+  });
 }

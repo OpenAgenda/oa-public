@@ -13,7 +13,6 @@ const instanciateSearchStream = require('./utils/instanciateSearchStream');
 const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
-const filterByAccess = require('./utils/filterByAccess');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
@@ -55,6 +54,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   const includes = defineIncludes(config, {
     detailed,
     formSchema,
+    access,
     fields,
     additionalFields
   });
@@ -160,10 +160,6 @@ function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggre
       'country',
       'location.description'
     ], monolingual));
-  }
-
-  if (access && formSchema) {
-    parsers.push(e => filterByAccess(formSchema, access, e));
   }
 
   return parsers;

@@ -12,7 +12,6 @@ const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
 const monolingual = require('../utils/monolingualize');
-const filterByAccess = require('../utils/filterByAccess');
 
 const config = require('../testconfig');
 const Service = require('../');
@@ -22,15 +21,11 @@ const fx = {
     in: require('./service/parsers/geoJSON.in.json'),
     out: require('./service/parsers/geoJSON.out.json')
   },
-  fba: {
-    formSchema: require('./fixtures/filterByAccess/formSchema.json'),
-    event: require('./fixtures/filterByAccess/event.json')
-  },
   di: {
     default: require('./fixtures/defineIncludes/default.json'),
     detailed: require('./fixtures/defineIncludes/detailed.json'),
     withFormSchemaDetailed: require('./fixtures/defineIncludes/withFormSchemaDetailed.json'),
-    withFormSchemaNotDetailed: require('./fixtures/defineIncludes/withFormSchemaNotDetailed.json')
+    formSchemaWithRestrictedFields: require('./fixtures/defineIncludes/formSchemaWithRestrictedFields.json')
   }
 };
 
@@ -145,22 +140,6 @@ describe('event-search - unit: utils', function() {
 
   });
 
-  describe('filterByAccess', () => {
-
-    it('public filters out non public fields', () => {
-      const event = filterByAccess(fx.fba.formSchema, 'public', fx.fba.event);
-
-      should(event['particularites']).equal(undefined);
-    });
-
-    it('"administrator" access includes administrator read fields', () => {
-      const event = filterByAccess(fx.fba.formSchema, 'administrator', fx.fba.event);
-
-      should(event['particularites']).eql([776]);
-    });
-
-  });
-
   describe('convertToLocalTimezone', () => {
 
     it('when timings and local timezone are available in event, timings are converted', () => {
@@ -203,6 +182,7 @@ describe('event-search - unit: utils', function() {
     const baseSearchIncludes = fx.di.default.baseSearchIncludes;
     const detailedSearchIncludes = fx.di.default.detailedSearchIncludes;
     const formSchema = fx.di.withFormSchemaDetailed.formSchema;
+    const formSchemaWithRestrictedFields = fx.di.formSchemaWithRestrictedFields;
 
     it('non detailed only returns base fields', () => {
       const included = defineIncludes({
@@ -247,6 +227,48 @@ describe('event-search - unit: utils', function() {
 
       included.should.eql(detailedSearchIncludes.concat(formSchemaFields));
     });
+
+    it('if access restrictions are present but no access is specified, includes ignore restrictions', () => {
+      const included = defineIncludes({
+        baseSearchIncludes,
+        detailedSearchIncludes
+      }, {
+        formSchema: formSchemaWithRestrictedFields
+      });
+
+      const formSchemaFields = formSchema.fields
+        .filter(f => f.schemaId !== null)
+        .map(f => f.field);
+
+      included.should.eql(baseSearchIncludes.concat(formSchemaFields));
+    });
+
+    it('if access restrictions are present and access is public, only public fields are included', () => {
+      const included = defineIncludes({
+        baseSearchIncludes,
+        detailedSearchIncludes
+      }, {
+        formSchema: formSchemaWithRestrictedFields,
+        access: 'public'
+      });
+
+      ['custom_description', 'intermunicipal_interest', 'recurring'].forEach(restrictedField => {
+        included.includes(restrictedField).should.equal(false)
+      });
+    });
+
+    it('if access restrictions are present and access is specified, restricted fields with provided access are included', () => {
+      const included = defineIncludes({
+        baseSearchIncludes,
+        detailedSearchIncludes
+      }, {
+        formSchema: formSchemaWithRestrictedFields,
+        access: 'moderator'
+      });
+
+      included.includes('recurring').should.equal(true);
+    });
+
   });
 
   describe('other', () => {
