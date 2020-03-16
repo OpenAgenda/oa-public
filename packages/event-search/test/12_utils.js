@@ -11,21 +11,20 @@ const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
 const monolingual = require('../utils/monolingualize');
-const filterByAccess = require('../utils/filterByAccess');
 
 const config = require('../testconfig');
-const Service = require( '../' );
-const fixtures = require('./service/parsers/geoJSON.in.json');
-const expected = require('./service/parsers/geoJSON.out.json');
+const Service = require('../');
 
-const fba = {
-  formSchema: require('./fixtures/filterByAccess/formSchema.json'),
-  event: require('./fixtures/filterByAccess/event.json')
-}
+const fx = {
+  geo: {
+    in: require('./service/parsers/geoJSON.in.json'),
+    out: require('./service/parsers/geoJSON.out.json')
+  }
+};
 
 describe('event-search - unit: utils', function() {
 
-  this.timeout( 10000 );
+  this.timeout(10000);
 
   let client, service;
 
@@ -67,27 +66,10 @@ describe('event-search - unit: utils', function() {
     });
   });
 
-  describe('other', () => {
-    it('geoJSON post parsers transforms search result into geoJSON data', () => {
-      geoJSON(fixtures).should.eql(expected);
-    });
-
-    it('derelativize - converts relative term with absolute', () => {
-      const query = derelativize({
-        date: {
-          gte: 'today',
-          timezone: 'Europe/Paris'
-        }
-      });
-
-      (query.date.gte instanceof Date).should.equal(true);
-    });
-  });
-
   describe('monolingual', () => {
 
     it('if an empty array is provided, filter is not applied', () => {
-      const h = monolingual.bind(null, [ 'title' ], []);
+      const h = monolingual.bind(null, ['title'], []);
 
       const result = h({
         title: {
@@ -96,7 +78,7 @@ describe('event-search - unit: utils', function() {
         }
       });
 
-      result.should.eql( {
+      result.should.eql({
         title: { fr: 'La guerre des gaules', en: 'War of the Gauls' }
       });
     });
@@ -119,7 +101,7 @@ describe('event-search - unit: utils', function() {
     });
 
     it('following languages are considered as fallback languages', () => {
-      const h = monolingual.bind( null, ['title', 'description', 'registration'], ['es', 'en']);
+      const h = monolingual.bind(null, ['title', 'description', 'registration'], ['es', 'en']);
 
       const result = h({
         title: {
@@ -144,57 +126,38 @@ describe('event-search - unit: utils', function() {
 
       h({
         title: { es: 'La luna llena' }
-      }).should.eql( {
+      }).should.eql({
         title: 'La luna llena'
       });
     });
 
   });
 
-  describe('filterByAccess', () => {
+  describe('convertToLocalTimezone', () => {
 
-    it('public filters out non public fields', () => {
-      const event = filterByAccess(fba.formSchema, 'public', fba.event);
+    it('when timings and local timezone are available in event, timings are converted', () => {
+      convertToLocalTimezone({
+        timings: [{
+          begin: '2016-10-24T12:00:00.000Z',
+          end: '2016-10-24T13:00:00.000Z'
+        }],
+        timezone: 'Europe/Paris'
+      })
 
-      should(event['particularites']).equal(undefined);
-    });
-
-    it('"administrator" access includes administrator read fields', () => {
-      const event = filterByAccess(fba.formSchema, 'administrator', fba.event);
-
-      should(event['particularites']).eql([776]);
+      .should.eql({
+        timings: [{
+          begin: '2016-10-24T14:00:00+02:00',
+          end: '2016-10-24T15:00:00+02:00'
+        }],
+        timezone: 'Europe/Paris'
+      });
     });
 
   });
 
-  describe( 'convertToLocalTimezone', () => {
-
-    it( 'when timings and local timezone are available in event, timings are converted', () => {
-
-      convertToLocalTimezone( {
-        timings: [ {
-          begin: '2016-10-24T12:00:00.000Z',
-          end: '2016-10-24T13:00:00.000Z'
-        } ],
-        timezone: 'Europe/Paris'
-      } )
-
-      .should.eql( {
-        timings: [ {
-          begin: '2016-10-24T14:00:00+02:00',
-          end: '2016-10-24T15:00:00+02:00'
-        } ],
-        timezone: 'Europe/Paris'
-      } );
-
-    } );
-
-  } );
-
   describe('lastTimingEndsIn', () => {
 
     it('gives the number of days between now and the time the last timing ends', () => {
-
       let timings = [{
         start: _dateStrFromNow(4),
         end: _dateStrFromNow(5)
@@ -204,40 +167,50 @@ describe('event-search - unit: utils', function() {
       }];
 
       lastTimingEndsIn({ timings }).should.greaterThan(3);
+    });
 
-    } );
+  });
 
-  } );
+  describe('other', () => {
+    it('geoJSON post parsers transforms search result into geoJSON data', () => {
+      geoJSON(fx.geo.in).should.eql(fx.geo.out);
+    });
 
-  it( 'gives the number of days between now and the last timing ends also in the past', () => {
+    it('derelativize - converts relative term with absolute', () => {
+      const query = derelativize({
+        date: {
+          gte: 'today',
+          timezone: 'Europe/Paris'
+        }
+      });
 
-    const timings = [ {
-      end: _getYesterdayDate( 1 )
-    } ];
+      (query.date.gte instanceof Date).should.equal(true);
+    });
 
-    lastTimingEndsIn({ timings }).should.equal( -1 );
+    it('gives the number of days between now and the last timing ends also in the past', () => {
+      const timings = [{
+        end: _getYesterdayDate(1)
+      }];
 
-  } );
+      lastTimingEndsIn({ timings }).should.equal(-1);
+    });
+  });
 
-} );
+});
 
 
-function _getYesterdayDate( secondsOffset ) {
-
+function _getYesterdayDate(secondsOffset) {
   const yesterday = new Date();
 
-  yesterday.setDate( ( new Date() ).getDate() - 1 );
+  yesterday.setDate((new Date()).getDate() - 1);
 
-  yesterday.setSeconds( yesterday.getSeconds() + secondsOffset );
+  yesterday.setSeconds(yesterday.getSeconds() + secondsOffset);
 
   return yesterday;
-
 }
 
-function _dateStrFromNow( count = 0 ) {
+function _dateStrFromNow(count = 0) {
+  const d = moment().add(count, 'day').toDate();
 
-  const d = moment().add( count, 'day' ).toDate();
-
-  return JSON.stringify( d ).replace( /"/g, '' );
-
+  return JSON.stringify(d).replace(/"/g, '');
 }

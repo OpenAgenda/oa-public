@@ -1,5 +1,5 @@
 {
-  "base" : [
+  "baseSearchIncludes": [
     "uid",
     "title",
     "dateRange",
@@ -16,23 +16,28 @@
     "location.longitude",
     "timezone"
   ],
-  "detailed" : [
+  "detailedSearchIncludes": [
+    "title",
     "description",
+    "keywords",
+    "dateRange",
     "longDescription",
     "html",
+    "originAgenda",
     "sourceAgendas",
     "creatorUid",
+    "location",
     "country",
     "registration",
     "timings",
     "createdAt",
     "updatedAt",
-    "location",
     "accessibility",
     "private",
     "draft",
     "age",
     "state",
     "member"
-  ]
+  ],
+  "detailed": false
 }

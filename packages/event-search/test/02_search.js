@@ -148,7 +148,6 @@ describe('02 - event search - functional: search', function() {
         'originAgenda',
         'description',
         'title',
-        'locationUid',
         'uid',
         'createdAt',
         'creatorUid',

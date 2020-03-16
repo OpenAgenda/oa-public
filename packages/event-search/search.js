@@ -6,17 +6,16 @@ const VError = require('verror');
 
 const aggregations = require('./aggregations');
 
+const defineIncludes = require('./utils/defineIncludes');
 const postDSL = require('./utils/postDSL');
 const getIndexName = require('./utils/getIndexName');
 const instanciateSearchStream = require('./utils/instanciateSearchStream');
 const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
 const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
 const monolingualize = require('./utils/monolingualize');
-const filterByAccess = require('./utils/filterByAccess');
 const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./utils/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
-const getFormSchemaAdditionalFields = require('./utils/getFormSchemaAdditionalFields');
 const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
 const appendMLT = require('./utils/appendMLT');
 
@@ -46,11 +45,17 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     aggregations: requestedAggregations,
     monolingual,
     first,
-    access
+    access,
+    includes: requestedIncludes
   } = validateOptions(options);
 
   const index = getIndexName(set, defaultIndex);
-  const includes = _defineIncludes(config, { detailed, formSchema });
+  const includes = defineIncludes(config, {
+    detailed,
+    formSchema,
+    access,
+    requested: requestedIncludes
+  });
 
   query.set = set;
 
@@ -132,14 +137,6 @@ function _parseEvents(parsers, events) {
   });
 }
 
-function _defineIncludes({ baseSearchIncludes, detailedSearchIncludes }, { detailed, formSchema }) {
-  const includes = [].concat(detailed ? detailedSearchIncludes : baseSearchIncludes);
-
-  return formSchema ? includes.concat(
-    getFormSchemaAdditionalFields(formSchema).map(f => f.field)
-  ) : includes;
-}
-
 function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggregations) {
   const parsers = [
     convertToLocalTimezone,
@@ -161,10 +158,6 @@ function _buildEventParsers({ detailed, monolingual, formSchema, access }, aggre
       'country',
       'location.description'
     ], monolingual));
-  }
-
-  if (access && formSchema) {
-    parsers.push(e => filterByAccess(formSchema, access, e));
   }
 
   return parsers;
