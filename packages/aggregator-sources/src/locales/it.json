@@ -118,6 +118,8 @@
   "aggregator-sources.Dashboard.defineAggregatorFilters": null,
   "aggregator-sources.Dashboard.modifyAggregatorFilters": null,
   "aggregator-sources.Dashboard.aggregationCountWarning": null,
+  "aggregator-sources.Dashboard.startUse": null,
+  "aggregator-sources.Dashboard.aggregationDesc": null,
   "aggregator-sources.utils.stateMessages.state": null,
   "aggregator-sources.utils.stateMessages.stateToControl": null,
   "aggregator-sources.utils.stateMessages.stateControlled": null,

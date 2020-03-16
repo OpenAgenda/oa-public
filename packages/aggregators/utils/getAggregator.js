@@ -3,7 +3,7 @@
 const extractRules = require('./rules/extract');
 
 module.exports = (knex, agenda, idOnly = false) => knex('aggregator')
-  .first(idOnly ? ['id'] : ['id', 'store'])
+  .first(idOnly ? ['id'] : ['id', 'store', 'limit'])
   .where('review_id', agenda.id)
   .then(agg => {
     if (agg && idOnly) {
@@ -13,7 +13,8 @@ module.exports = (knex, agenda, idOnly = false) => knex('aggregator')
     if (agg) {
       return {
         id: agg.id,
-        rules: extractRules('aggregator', agg.id, agg.store)
+        rules: extractRules('aggregator', agg.id, agg.store),
+        limit: agg.limit
       };
     }
 

@@ -118,6 +118,8 @@
   "aggregator-sources.Dashboard.defineAggregatorFilters": "Define general aggregation rules",
   "aggregator-sources.Dashboard.modifyAggregatorFilters": "Modify general aggregation rules",
   "aggregator-sources.Dashboard.aggregationCountWarning": "You have reached the aggregation threshold of {limit} events/year of the free version !{br}To increase it, write us a message.{br}{br}<support-link>Increase the threshold</support-link>",
+  "aggregator-sources.Dashboard.startUse": "Start",
+  "aggregator-sources.Dashboard.aggregationDesc": "Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!",
   "aggregator-sources.utils.stateMessages.state": "State",
   "aggregator-sources.utils.stateMessages.stateToControl": "To control",
   "aggregator-sources.utils.stateMessages.stateControlled": "Controlled",

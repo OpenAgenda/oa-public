@@ -98,6 +98,14 @@ const messages = defineMessages({
     id: 'aggregator-sources.Dashboard.aggregationCountWarning',
     defaultMessage:
       'Well done, you have aggregated {eventCount, number} events on this calendar!\nThe {version, select, free {free}} version allows you to create automatic aggregations up to {limit} events/year.\n<support-link>Contact technical support</support-link> to increase this threshold.'
+  },
+  startUse: {
+    id: 'aggregator-sources.Dashboard.startUse',
+    defaultMessage: 'Start'
+  },
+  aggregationDesc: {
+    id: 'aggregator-sources.Dashboard.aggregationDesc',
+    defaultMessage: 'Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!'
   }
 });
 
@@ -194,11 +202,17 @@ function Dashboard({
     [dispatch, value]
   );
 
+  const createAggregator = useCallback(
+    () => dispatch(sourcesActions.createAggregator(params.slug))
+      .then(() => dispatch(sourcesActions.loadAggregator(params.slug))),
+    [dispatch]
+  );
+
   const setAggregatorRules = useCallback(
     rules => dispatch(sourcesActions.setAggregatorRules(rules)).then(() => {
       closeModalSetAggregatorRules();
 
-      dispatch(sourcesActions.loadAggregator(params.slug));
+      return dispatch(sourcesActions.loadAggregator(params.slug));
     }),
     [closeModalSetAggregatorRules, dispatch, params.slug]
   );
@@ -314,6 +328,24 @@ function Dashboard({
     return (
       <div className="padding-v-md" style={{ position: 'relative' }}>
         <Spinner />
+      </div>
+    );
+  }
+
+  if (!aggregator) {
+    return (
+      <div>
+        {intl.formatMessage(messages.aggregationDesc)}
+
+        <div className="margin-top-md">
+          <button
+            type="button"
+            onClick={createAggregator}
+            className="btn btn-primary"
+          >
+            {intl.formatMessage(messages.startUse)}
+          </button>
+        </div>
       </div>
     );
   }
