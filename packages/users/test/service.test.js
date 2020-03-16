@@ -11,9 +11,9 @@ const keysConfig = require('@openagenda/keys/service/config');
 const imageFiles = require('@openagenda/image-files');
 const images = require('@openagenda/images');
 const files = require('@openagenda/files');
-const Service = require('../');
 const crypto = require('../utils/crypto');
 const config = require('../testconfig');
+const Service = require('..');
 
 const database = `${config.mysql.database}_service`;
 let knex;

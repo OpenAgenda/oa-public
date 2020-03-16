@@ -81,6 +81,7 @@ describe('06 - addSource', () => {
         'event',
         'aggregatorAgendaUid',
         'aggregatorRules',
+        'aggregatorLimit',
         'batched',
         'formSchema',
         'sourceRules'

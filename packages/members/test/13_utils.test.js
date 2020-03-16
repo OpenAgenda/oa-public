@@ -1,6 +1,6 @@
 'use strict';
 
-const { getRoleSlug, getRoleCode } = require('../').utils;
+const { getRoleSlug, getRoleCode } = require('..').utils;
 
 describe('members - functional - utils', () => {
   describe('getRoleSlug', () => {

@@ -1,12 +1,12 @@
 'use strict';
 
-const Service = require('../');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
 const queues = require('./mock/queues');
 const getUsersByUid = require('./fixtures/getUsersByUid');
 const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
 const getUserUidByEmail = require('./fixtures/getUserUidByEmail');
+const Service = require('..');
 
 describe('members - functional - setByEmail', () => {
   const f = fixtures(config.mysql);

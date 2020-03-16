@@ -30,9 +30,18 @@ module.exports = (config, parentApp) => {
 
     aggregators.sources
       .list(req.agenda, { search: req.query.search }, { detailed: true })
-      .then(sources => {
-        res.json({ sources });
-      }, next);
+      .then(
+        sources => {
+          res.json({ sources });
+        },
+        err => {
+          if (err.message === 'Aggregator not found') {
+            return res.status(404).send(err.message);
+          }
+
+          next(err);
+        }
+      );
   });
 
   parentApp.post(
@@ -51,21 +60,30 @@ module.exports = (config, parentApp) => {
     ).then(res.json.bind(res), next)
   );
 
-  parentApp.get('/:agendaSlug/admin/aggregator',
+  parentApp.get(
+    '/:agendaSlug/admin/aggregator',
     bodyParser.json(),
     (req, res, next) => aggregators
       .get(req.agenda.uid)
-      .then(result => res.json(result), next)
+      .then(result => {
+        if (!result) {
+          return res.status(404).send('Aggregator not found');
+        }
+
+        res.json(result);
+      }, next)
   );
 
-  parentApp.post('/:agendaSlug/admin/aggregator',
+  parentApp.post(
+    '/:agendaSlug/admin/aggregator',
     bodyParser.json(),
     (req, res, next) => aggregators
       .set(req.agenda.uid, req.body)
       .then(result => res.json(result), next)
   );
 
-  parentApp.put('/:agendaSlug/admin/sources/:sourceId',
+  parentApp.put(
+    '/:agendaSlug/admin/sources/:sourceId',
     bodyParser.json(),
     (req, res, next) => aggregators.sources.update(
       req.agenda,

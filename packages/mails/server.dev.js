@@ -10,7 +10,7 @@ const reload = require('reload');
 const walk = require('walk');
 const VError = require('verror');
 const htmlToText = require('html-to-text');
-const Mails = require('./');
+const Mails = require('.');
 
 const mails = new Mails();
 

@@ -11,7 +11,6 @@ module.exports = async ({ queue, knex }, action, data) => {
   const { agenda, event } = data;
 
   const aggregators = await getSourceAndAggregatorPairs(knex, agenda);
-
   for (const ag of aggregators) {
     const aggregatorLimit = ag.limit === null ? DEFAULT_LIMIT : ag.limit;
 
@@ -28,7 +27,6 @@ module.exports = async ({ queue, knex }, action, data) => {
         aggregatorAgendaUid: ag.agendaUid,
         sourceAgendaUid: agenda.uid,
         eventUid: event.uid,
-        aggregatorLimit,
         ...data
       });
     }

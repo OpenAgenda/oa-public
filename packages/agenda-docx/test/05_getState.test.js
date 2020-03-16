@@ -1,7 +1,7 @@
-const service = require('../');
 const AgendaFiles = require('../server/lib/agendaFiles');
 const config = require('../config.dev');
 const defaultState = require('../server/defaultState');
+const service = require('..');
 
 describe('functional - getState', () => {
   const { setJSON } = AgendaFiles({

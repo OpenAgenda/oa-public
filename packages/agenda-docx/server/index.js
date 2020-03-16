@@ -4,7 +4,7 @@ const express = require('express');
 
 const logger = require('@openagenda/logs');
 
-const AgendaFiles = require('../server/lib/agendaFiles');
+const AgendaFiles = require('./lib/agendaFiles');
 const config = require('./config');
 const queue = require('./queue');
 const task = require('./task');

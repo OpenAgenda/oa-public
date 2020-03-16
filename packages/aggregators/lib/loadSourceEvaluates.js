@@ -8,6 +8,7 @@ module.exports = async (
   {
     aggregatorAgendaUid,
     aggregatorRules,
+    aggregatorLimit,
     sourceAgenda,
     sourceRules,
     formSchema
@@ -36,6 +37,7 @@ module.exports = async (
         event: await loadEvent(sourceAgenda.uid, eventUid),
         aggregatorAgendaUid,
         aggregatorRules,
+        aggregatorLimit,
         batched: true,
         formSchema,
         sourceRules

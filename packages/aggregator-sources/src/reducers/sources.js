@@ -4,6 +4,9 @@ const LOAD_FAIL = 'aggregator-sources/sources/LOAD_FAIL';
 const LOAD_AGGREGATOR = 'aggregator-sources/sources/LOAD_AGGREGATOR';
 const LOAD_AGGREGATOR_SUCCESS = 'aggregator-sources/sources/LOAD_AGGREGATOR_SUCCESS';
 const LOAD_AGGREGATOR_FAIL = 'aggregator-sources/sources/LOAD_AGGREGATOR_FAIL';
+const CREATE_AGGREGATOR = 'aggregator-sources/sources/CREATE_AGGREGATOR';
+const CREATE_AGGREGATOR_SUCCESS = 'aggregator-sources/sources/CREATE_AGGREGATOR_SUCCESS';
+const CREATE_AGGREGATOR_FAIL = 'aggregator-sources/sources/CREATE_AGGREGATOR_FAIL';
 const LIST = 'aggregator-sources/sources/LIST';
 const LIST_SUCCESS = 'aggregator-sources/sources/LIST_SUCCESS';
 const LIST_FAIL = 'aggregator-sources/sources/LIST_FAIL';
@@ -40,7 +43,7 @@ export default function reducer(state = initialState, action) {
     case LOAD_FAIL:
       return {
         ...state,
-        data: null,
+        data: [],
         error: action.error,
         loading: false
       };
@@ -53,6 +56,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         aggregator: null
+      };
+    case CREATE_AGGREGATOR_SUCCESS:
+      return {
+        ...state,
+        aggregator: action.result
       };
     case LIST:
       return {
@@ -69,7 +77,7 @@ export default function reducer(state = initialState, action) {
     case LIST_FAIL:
       return {
         ...state,
-        data: null,
+        data: [],
         error: action.error,
         listLoading: false
       };
@@ -117,6 +125,17 @@ export function loadAggregator(slug) {
       const { res } = getState();
 
       return client.get(res.getAggregator.replace(':slug', slug));
+    }
+  };
+}
+
+export function createAggregator(slug) {
+  return {
+    types: [CREATE_AGGREGATOR, CREATE_AGGREGATOR_SUCCESS, CREATE_AGGREGATOR_FAIL],
+    promise: ({ client }, { getState }) => {
+      const { res } = getState();
+
+      return client.post(res.setAggregator.replace(':slug', slug), {});
     }
   };
 }
