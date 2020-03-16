@@ -4,6 +4,7 @@ CREATE TABLE aggregator (
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   INDEX review_id_idx (review_id),
+  `limit` INT DEFAULT NULL,
   store TEXT,
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

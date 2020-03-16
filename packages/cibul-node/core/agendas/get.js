@@ -23,6 +23,10 @@ module.exports = async (services, agendaUid, options = {}) => {
     internal: true
   });
 
+  if (!agenda) {
+    return null;
+  }
+
   if (!detailed && !includeEvent) {
     return internal ? agenda : agendas.utils.omitInternals(agenda)
   }

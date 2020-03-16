@@ -12,7 +12,7 @@ const baseAggregations = [
   'location.name',
 ];
 
-module.exports = ({ transverseSearch, queue, services }) => {
+module.exports = services => {
   const app = express();
 
   app.get('/*', (req, res, next) => {
@@ -45,7 +45,7 @@ module.exports = ({ transverseSearch, queue, services }) => {
   });
 
   app.get(['/', '/cal', '/aggs'], (req, res, next) => {
-    transverseSearch(
+    services.eventSearch.transverse.search(
       req.search.options,
       req.search.nav,
       req.search.options
@@ -53,7 +53,9 @@ module.exports = ({ transverseSearch, queue, services }) => {
   });
 
   app.get('/rebuild', (req, res, next) => {
-    queue('transverseIndexRebuild', { stopAtCount: req.query.stop || null });
+    services.eventSearch.transverse.rebuild({
+      stopAtCount: req.query.stop || null
+    });
     res.redirect(302, app.path() + '/rebuilding');
   });
 

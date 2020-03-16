@@ -1,12 +1,14 @@
 'use strict';
 
+const NotFoundError = require('../../utils/NotFoundError');
+
 module.exports = async (core, agendaUid, query, nav, options = {}) => {
   const agenda = await core.agendas(agendaUid).get({
     includeEvent: true
   });
 
-  if (!agenda) {
-    throw new Error('Not found');
+  if (!agenda) {;
+    throw new NotFoundError('agenda', agendaUid);
   }
 
   return core.services.eventSearch.agendas(agenda).search(query, nav, {

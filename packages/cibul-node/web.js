@@ -3,7 +3,9 @@
 module.exports = app => {
   require('./services/users').plugApp(app);
   require('./services/mails').plugApp(app);
-  app.use('/events/search', app.services.eventSearch.getApp());
+  app.use('/events/search', app.services.eventSearch.apps.events());
+  app.use('/agendas/:agendaUid/events.v2:format', app.services.eventSearch.apps.agendas.public()),
+  app.use('/agendas/:agendaUid/admin/events.v2:format', app.services.eventSearch.apps.agendas.restricted())
   require('./agenda/back')(app);
   app.use('/', app.services.inboxes.getApp());
   require('./services/agendaContribute')(app);

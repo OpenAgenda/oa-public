@@ -26,7 +26,7 @@ module.exports = async (services, eventSearch, agenda) => {
         log('error', `${logPrefix} bulk failed`, { result, lastId });
       }
     },
-    eventsList: eventsList.bind(null, core, agenda),
+    eventsList: eventsList(core, agenda),
     formSchema: await core.agendas(agenda.uid).settings.schema.getMerged()
   });
 
@@ -35,22 +35,19 @@ module.exports = async (services, eventSearch, agenda) => {
   return result;
 }
 
-function eventsList(core, agenda, lastId, limit) {
-  let lId = lastId;
-  return core.agendas(agenda.uid).events.list({}, {
-    lastId,
-    limit
-  }, {
-    returnPayload: true,
-    detailed: true
-  }).then(({ events, lastId, agenda, formSchema }) => {
-    log('listed %s events for reindexing in agenda %s (%s)', events.length, agenda.slug, lastId);
-    fs.writeFileSync(`/var/tmp/${agenda.slug}.schema.json`, JSON.stringify(formSchema, null, 2));
-    fs.writeFileSync(`/var/tmp/${agenda.slug}.${lId}.${limit}.json`, JSON.stringify({
-      events,
-      lastId
-    }, null, 2));
-
-    return { lastId, events };
-  });
+function eventsList(core, agenda) {
+  let count = 0;
+  return (lastId, limit) => {
+    let lId = lastId;
+    return core.agendas(agenda.uid).events.list({}, {
+      lastId,
+      limit
+    }, {
+      returnPayload: true,
+      detailed: true
+    }).then(({ events, lastId, agenda, formSchema, total }) => {
+      log('listed %s events for reindexing in agenda %s (cursor: %s, total done: %s)', events.length, agenda.slug, lastId, count += events.length);
+      return { lastId, events };
+    });
+  }
 }

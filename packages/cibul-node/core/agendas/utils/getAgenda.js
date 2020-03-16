@@ -1,6 +1,6 @@
 'use strict';
 
-const VError = require( 'verror' );
+const NotFoundError = require('../../utils/NotFoundError');
 
 module.exports = async (services, agendaUid) => {
   const agenda = await services.agendas.get({ uid: agendaUid }, {
@@ -10,7 +10,7 @@ module.exports = async (services, agendaUid) => {
   });
 
   if (!agenda) {
-    throw new VError( 'agenda of uid %d was not found', agendaUid );
+    throw new NotFoundError('agenda', agendaUid);
   }
 
   return agenda;
