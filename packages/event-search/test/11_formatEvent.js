@@ -1,5 +1,6 @@
 "use strict";
 
+const ih = require('immutability-helper');
 const should = require('should');
 const formatEvent = require('../utils/formatEvent');
 
@@ -57,6 +58,36 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('_search_languages contains list of languages used for event', () => {
     formatted['_search_languages'].should.eql(['fr', 'en']);
+  });
+
+  it('additional value is in formatted data', () => {
+    formatted.someAdditionalValue.should.equal('oa@oa.com');
+  });
+
+  it('additional value is null if is not in formatted data', () => {
+    const eventWithNoAdditionalValue = ih(event, {
+      $unset: ['someAdditionalValue']
+    });
+
+    const formatted = formatEvent(eventWithNoAdditionalValue, formSchema);
+
+    should(formatted.someAdditionalValue).equal(null);
+  });
+
+  it('additional value is empty array if is not in formatted data and field is of list type (radio)', () => {
+    const eventWithNoAdditionalValue = ih(event, {
+      $unset: ['someAdditionalValue']
+    });
+
+    const formatted = formatEvent(eventWithNoAdditionalValue, {
+      fields: [{
+        schemaId: 123,
+        field: 'someAdditionalValue',
+        fieldType: 'radio',
+      }]
+    });
+
+    should(formatted.someAdditionalValue).eql([]);
   });
 
   it('originAgenda._agg is a string with info on agenda', () => {

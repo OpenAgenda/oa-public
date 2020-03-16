@@ -108,8 +108,18 @@ module.exports = (event, formSchema = null) => {
   };
 
   if (formSchema) {
+    const schemaAdditionalFields = getFormSchemaAdditionalFields(formSchema);
+
+    schemaAdditionalFields.forEach(additionalField => {
+      if (event[additionalField.field] === undefined) {
+        transform[additionalField.field] = {
+          $set: additionalField.fieldType === 'radio' ? [] : null
+        }
+      }
+    });
+
     transform['_search_additional_keywords'] = {
-      $set: getFormSchemaAdditionalFields(formSchema)
+      $set: schemaAdditionalFields
         .map(field => ({
           field,
           value: event[field.field]
