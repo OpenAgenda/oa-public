@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('debug')('main');
+
 /* global $ */
 
 const listSelector = '.events';
@@ -38,6 +40,7 @@ spin.isSpinning = function isSpinning() {
 };
 
 function loadListContent(url, data, cb) {
+  log('loadListContent');
   spin();
 
   $.ajax({
@@ -51,15 +54,16 @@ function loadListContent(url, data, cb) {
 }
 
 function updateTotal(total) {
+  log('updateTotal');
   if (!$('.js_total').length) {
     return;
   }
 
   let result;
 
-  if (typeof total === 'undefined') {
-    result = parseInt($('.js_total').attr('data-total'), 10);
-  }
+  const cleanTotal = total === undefined
+    ? parseInt($('.js_total').attr('data-total'), 10)
+    : total;
 
   let attr;
 
@@ -71,13 +75,18 @@ function updateTotal(total) {
     attr = 'data-label-plural';
   }
 
-
-  $('.js_total').html($('.js_total').attr(attr).replace('%total%', total));
+  $('.js_total').html(
+    $('.js_total')
+      .attr(attr)
+      .replace('%total%', cleanTotal)
+  );
 
   return result;
 }
 
 function progressiveLoad(canvasSelector) {
+  log('progressiveLoad');
+
   if (!$(canvasSelector).first().length) return;
 
   $(window).on('scroll', () => {
@@ -96,41 +105,57 @@ function progressiveLoad(canvasSelector) {
 
     nextProgressiveLoadPage += 1;
 
-    loadListContent(`/events/p/${nextProgressiveLoadPage}${queryPart}`, null, (err, result) => {
-      const eventItemsHTML = $(result.html).filter(canvasSelector).get(0).innerHTML.trim();
+    loadListContent(
+      `/events/p/${nextProgressiveLoadPage}${queryPart}`,
+      null,
+      (err, result) => {
+        const eventItemsHTML = $(result.html)
+          .filter(canvasSelector)
+          .get(0)
+          .innerHTML.trim();
 
-      if (eventItemsHTML.length) {
-        $(canvasSelector).first().append(eventItemsHTML);
-      } else {
-        rockBottom = true;
+        if (eventItemsHTML.length) {
+          $(canvasSelector)
+            .first()
+            .append(eventItemsHTML);
+        } else {
+          rockBottom = true;
+        }
       }
-    });
+    );
+  });
+}
+
+function onWidgetController(widget, query) {
+  log('onWidgetUpdate');
+  nextProgressiveLoadPage = 2;
+  rockBottom = false;
+
+  loadListContent('/events', { oaq: query }, (err, result) => {
+    $(listSelector).html(result.html);
+    result.total = updateTotal(result.total);
+
+    const pageMatch = window.location.href.match(/\/p\/[0-9]+/);
+
+    if (pageMatch) {
+      window.history.pushState(
+        {},
+        '',
+        window.location.href.replace(pageMatch[0], '/p/1')
+      );
+    }
+
+    iframeHandler.sendNavUpdate();
   });
 }
 
 window.oa = {
-  onWidgetUpdate(widget, query) {
-    nextProgressiveLoadPage = 2;
-    rockBottom = false;
-
-    loadListContent('/events', { oaq: query }, (err, result) => {
-      $(listSelector).html(result.html);
-      result.total = updateTotal(result.total);
-
-      const pageMatch = window.location.href.match(/\/p\/[0-9]+/);
-
-      if (pageMatch) {
-        window.history.pushState({}, '', window.location.href.replace(pageMatch[0], '/p/1'));
-      }
-
-      iframeHandler.sendNavUpdate();
-    });
-  },
-  onWidgetReady() {
-  }
+  onReloadWithPassed: onWidgetController.bind(null),
+  onWidgetUpdate: onWidgetController.bind(null, null)
 };
 
 $(() => {
+  log('page ready');
   $('.js_trigger_spin').on('click', spin);
 
   progressiveLoad('.js_progressive_load');

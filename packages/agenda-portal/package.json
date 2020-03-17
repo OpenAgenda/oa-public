@@ -31,6 +31,7 @@
     "browser-refresh": "^1.7.3",
     "clean-webpack-plugin": "^3.0.0",
     "cors": "^2.8.5",
+    "debug": "^3.2.6",
     "express": "^4.16.4",
     "hbs": "^4.0.1",
     "iframe-resizer": "^4.2.10",
