@@ -17,7 +17,7 @@ function eventHook(event /* { lang, moment } */) {
 Portal({
   root: process.env.PORTAL_ROOT || `http://localhost:${devPort}`,
   // agenda uid
-  uid: 48353388,
+  uid: process.env.UID || /* UID */ 48353388,
   // site language
   lang: 'fr',
   // associated OA account key
