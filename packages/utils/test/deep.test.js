@@ -1,8 +1,6 @@
 "use strict";
 
-let should = require( 'should' ),
-
-utils = require( '../' );
+let utils = require( '../' );
 
 describe( 'utils - deep', () => {
 
@@ -12,7 +10,7 @@ describe( 'utils - deep', () => {
 
     utils.deep.set( obj, 'settings.contribution.some.where', 'yey' );
 
-    obj.should.eql( {
+    expect(obj).toEqual({
       settings: {
         contribution: {
           some: {
@@ -20,31 +18,27 @@ describe( 'utils - deep', () => {
           }
         }
       }
-    } );
+    });
 
   } );
 
   it( 'should return deep value when exists', () => {
 
-    utils.deep( {
+    expect(utils.deep( {
       settings: {
         contribution: 'yey'
       }
-    }, 'settings.contribution' )
-
-    .should.equal( 'yey' );
+    }, 'settings.contribution' )).toBe('yey');
 
   } );
 
   it( 'should return undefined when does not exist', () => {
 
-    should( utils.deep( {
+    expect( utils.deep( {
       settings: {
         contribution: 'yey'
       }
-    }, 'settings.ffdsfs' ) )
-
-    .equal( undefined );
+    }, 'settings.ffdsfs' ) ).toBeUndefined();
 
   } );
 

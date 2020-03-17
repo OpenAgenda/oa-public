@@ -1,12 +1,12 @@
 "use strict";
 
-var xhr = require( 'xhr' ),
+var xhr = require('xhr'),
 
-  qs = require( 'qs' );
+  qs = require('qs');
 
-module.exports = function( res, data, cb ) {
+module.exports = function(res, data, cb) {
 
-  if ( arguments.length === 2 ) {
+  if (arguments.length === 2) {
 
     cb = data;
 
@@ -14,37 +14,37 @@ module.exports = function( res, data, cb ) {
 
   }
 
-  var query = qs.stringify( data ),
+  var query = qs.stringify(data),
 
   separator;
 
-  if ( ( !res || !res.length ) && window ) {
+  if ((!res || !res.length) && window) {
 
     res = window.location.href;
 
   }
 
-  separator = res.indexOf( '?' ) === -1 ? '?' : '&';
+  separator = res.indexOf('?') === -1 ? '?' : '&';
 
-  xhr( {
-    uri: res + ( query ? separator + query : '' ),
+  xhr({
+    uri: res + (query ? separator + query : ''),
     method: 'get',
     json: true,
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
     }
-  }, function( err, result ) {
+  }, function(err, result) {
 
-    if ( err ) return cb( err );
+    if (err) return cb(err);
 
-    if ( result.statusCode !== 200 ) {
+    if (result.statusCode !== 200) {
 
-      return cb( { statusCode: result.statusCode } );
+      return cb({ statusCode: result.statusCode });
 
     }
 
-    cb( null, result.body );
+    cb(null, result.body);
 
-  } );
+  });
 
 };
