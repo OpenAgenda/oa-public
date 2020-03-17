@@ -203,6 +203,23 @@ module.exports = {
     "es": "anular",
     "br": "Nullañ"
   },
+  "cancelled": {
+    "en": "Cancelled",
+    "fr": "Annulé",
+    "de": "Abgesagt",
+    "it": "Cancellato",
+    "es": "Cancelado"
+  },
+  "cancelEvent": {
+    "en": "Mark event as cancelled",
+    "fr": "Marquer l'événement comme annulé",
+    "es": "Marcar el evento como Cancelado"
+  },
+  "uncancelEvent": {
+    "en": "Un-cancel event",
+    "fr": "L'événement n'est plus annulé",
+    "es": "El evento no está Cancelado"
+  },
   "eventState": {
     "en": "Event state",
     "fr": "Etat de l'événement",

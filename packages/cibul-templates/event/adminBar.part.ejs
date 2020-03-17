@@ -1,6 +1,5 @@
 <div id="admin-bar" class="edge-bar js_admin_controls display-none">
   <ul class="edge-list"><!--
-<% if ( !loner ) { %>
     --><li class="edge-item w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator">
       <div class="admin-nav">
 <% if ( !!adminNav ) { %>
@@ -19,7 +18,6 @@
 <% } %>
       </div>
     </li><!--
-<% } %>
     --><li class="edge-item js_toggle w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator js_current_state_control display-none" data-toggle="js_dropdown_menu">
       <span class="edge-selected state <%= event.currentState %>">
         <i class="sticker"></i>
@@ -76,6 +74,9 @@
 <% } %>
         <li class="list-group-item js_admin_item js_role_event_editor">
           <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><%= __( 'duplicate' ) %></a>
+        </li>
+        <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
+          <a class="item active" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow"><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></a>
         </li>
         <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
           <a class="item active <% if (isOriginAgenda) { %>js_message_confirm<% } %>" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= `/${slug}/events/${event.slug}/remove${removeRedirect ? '?redirect=' + removeRedirect : ''}` %>" rel="nofollow"><%= __(isOriginAgenda ? 'delete' : 'remove') %></a>

@@ -16,7 +16,8 @@ const mw = {
   remove: require('./middleware/remove'),
   add: require('./middleware/add'),
   requireCanEdit: require('./middleware/requireCanEdit'),
-  changeState: require('./middleware/changeState')
+  changeState: require('./middleware/changeState'),
+  toggleCancelled: require('./middleware/toggleCancelled')
 }
 
 module.exports = Object.assign(plugApp, {
@@ -77,7 +78,8 @@ function plugApp(parentApp) {
 
   parentApp.all([
     '/:agendaSlug/events/:eventSlug/state/:state',
-    '/:agendaSlug/events/:eventSlug/remove'
+    '/:agendaSlug/events/:eventSlug/remove',
+    '/:agendaSlug/events/:eventSlug/toggle-cancelled'
   ], [
     mw.loadAgenda,
     mw.loadEvent,
@@ -87,6 +89,12 @@ function plugApp(parentApp) {
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state',
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState
+  );
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/toggle-cancelled',
+    members.mw.load,
+    members.mw.authorizeAdminModOrEventOwner,
+    mw.toggleCancelled
   );
 
   parentApp.get('/:agendaSlug/events/:eventSlug/remove',

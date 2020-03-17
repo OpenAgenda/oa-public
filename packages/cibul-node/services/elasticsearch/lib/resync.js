@@ -139,8 +139,6 @@ async function _removeEventZombies(services, ES, agendaId) {
     agendaEvents
   } = services;
 
-  console.log(agendaEvents);
-
   log('info', agendaId ? 'removing zombie events of agenda id %s' : 'removing zombie events of entire index', agendaId);
 
   const agendaUid = await knex('review').first('uid').where('id', agendaId).then(r => r ? r.uid : null);

@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const qs = require( 'qs' );
 const base64 = require('@openagenda/utils/base64');
+const determineEventCancellationFromTitle = require('@openagenda/utils/cancellation/determineFromTitle');
 
 const agendaSvc = require( '@openagenda/agendas' );
 
@@ -277,6 +278,7 @@ async function agendaEventShow( req, res, next ) {
     isOriginAgenda: _.get(req, 'event.origin.uid') === req.agenda.uid,
     removeRedirect: req.query.admin_nav ? base64.encode(`/${req.agenda.slug}/admin?${qs.stringify(req.query.admin_nav)}`) : null,
     redirect: cmn.makeRedirect( req ),
+    isCancelled: determineEventCancellationFromTitle(req.event.title),
     event: req.formatted,
     components: req.components,
     showRequestLocation: ![ 2, 3 ].includes( _.get( member, 'role', 0 ) ),

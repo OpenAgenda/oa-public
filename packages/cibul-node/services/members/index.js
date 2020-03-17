@@ -95,6 +95,7 @@ function init(c, services) {
         loadOr: mw.load.or.bind(null, members),
         list: mw.list.bind(null, members),
         loadAndAuthorize: mw.load.andAuthorize.bind(null, members),
+        authorizeAdminModOrEventOwner: mw.authorize.adminModOrEventOwner,
         loadTarget: Object.assign( mw.loadTarget.bind(null, members), {
           options: mw.loadTarget.options.bind(null, members)
         } )
