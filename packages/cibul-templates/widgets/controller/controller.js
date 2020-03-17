@@ -488,24 +488,23 @@ module.exports = function( uid ) {
 
     }
 
-    if ( ctl.p && passedAutoLoad && ( typeof currentRequestParams.passed == 'undefined' || typeof currentRequestParams.order == 'undefined' ) && !currentRequestParams.from && !currentRequestParams.to ) {
+    const reloadWithPassed = ctl.p && passedAutoLoad && ( typeof currentRequestParams.passed == 'undefined' || typeof currentRequestParams.order == 'undefined' ) && !currentRequestParams.from && !currentRequestParams.to;
 
+    if (reloadWithPassed) {
       change = true;
-
       currentRequestParams.passed = 1;
-
       currentRequestParams.order = 'latest';
 
-      if ( syncHref ) {
-
-        _updateHrefQuery( currentRequestParams );
-
+      if (syncHref) {
+        _updateHrefQuery(currentRequestParams);
       }
 
+      if (window.oa && window.oa.onReloadWithPassed) {
+        window.oa.onReloadWithPassed(currentRequestParams);
+      }
     }
 
     return change;
-
   }
 
 
