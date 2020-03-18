@@ -80,7 +80,10 @@ module.exports = ({
   queue.on('success', (fn, args, result) => log('done processing "%s" from queue', fn, result));
 
   return {
-    get: get.bind(null, knex),
+    get: get.bind(null, {
+      knex,
+      getAggregatedCount: interfaces.getAggregatedCount
+    }),
     set: set.bind(null, knex),
     remove: remove.bind(null, knex),
     sources: {

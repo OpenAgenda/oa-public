@@ -5,7 +5,7 @@ const Log = require('../utils/Log')('evaluateEvent');
 const evaluateRules = require('../utils/rules');
 const paths = require('../utils/paths');
 const pickReferenceValues = require('../utils/pickReferenceValues');
-
+const limit = require('../utils/limit');
 
 module.exports = async (
   {
@@ -31,12 +31,18 @@ module.exports = async (
     `${event.slug} of source ${sourceAgenda.slug} (${sourceAgenda.uid})`
   );
 
-  if (typeof getAggregatedCount === 'function' && ![undefined, -1].includes(aggregatorLimit)) {
+  if (
+    typeof getAggregatedCount === 'function'
+    && limit.exists(aggregatorLimit)
+  ) {
     const aggregatedCount = await getAggregatedCount(aggregatorAgendaUid);
 
-    log(`Aggregator agenda ${aggregatorAgendaUid} has ${aggregatedCount}/${aggregatorLimit} events`);
+    log(
+      `Aggregator agenda ${aggregatorAgendaUid} has ${aggregatedCount}/${aggregatorLimit} events`
+    );
 
-    if (aggregatedCount >= aggregatorLimit) {
+    if (limit.isReached(aggregatorLimit, aggregatedCount)) {
+      log('Limit %s has been reached reached. Not processed');
       return;
     }
   }

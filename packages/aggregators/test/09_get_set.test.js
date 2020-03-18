@@ -20,7 +20,9 @@ describe('09 - set and get', () => {
         register: tracker('register'),
         on: tracker('on')
       }),
-      interfaces: {}
+      interfaces: {
+        getAggregatedCount: () => 12 // interface arg is agenda uid
+      }
     });
 
     // 0
@@ -49,13 +51,20 @@ describe('09 - set and get', () => {
 
     // 4
     results.push(
-      await svc.set(333, {
-        limit: 2
-      }, { patch: true })
+      await svc.set(
+        333,
+        {
+          limit: 2
+        },
+        { patch: true }
+      )
     );
 
     // 5
     results.push(await svc.get(333));
+
+    // 6
+    results.push(await svc.get(333, { detailed: true }));
   });
 
   afterAll(f.destroyClient);
@@ -97,5 +106,10 @@ describe('09 - set and get', () => {
   test('patch patches: rules are not overwritten by limit', () => {
     expect(results[5].rules.length).toEqual(1);
     expect(results[5].limit).toEqual(2);
+  });
+
+  test('detailed options provides information relative to limit', () => {
+    expect(results[6].aggregatedCount).toEqual(12);
+    expect(results[6].limitIsReached).toEqual(true);
   });
 });

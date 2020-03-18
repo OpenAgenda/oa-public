@@ -1,8 +1,7 @@
 'use strict';
 
 const Log = require('../utils/Log')('Aggregators/addSource');
-
-const DEFAULT_LIMIT = 365;
+const limit = require('../utils/limit');
 
 module.exports = async (
   {
@@ -37,12 +36,10 @@ module.exports = async (
   if (evaluate) {
     log('evaluating and done');
 
-    const aggregatorLimit = aggregator.limit === null ? DEFAULT_LIMIT : aggregator.limit;
-
     return enqueueLoadSourceEvaluates({
       aggregatorAgendaUid: aggregatorAgenda.uid,
       aggregatorRules: aggregator.rules,
-      aggregatorLimit,
+      aggregatorLimit: limit.get(aggregator),
       sourceAgenda,
       sourceRules,
       formSchema: await getMergedSchema(sourceAgenda.uid)
