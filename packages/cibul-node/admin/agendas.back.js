@@ -5,7 +5,6 @@ const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const mw = require( '@openagenda/admin-agendas' ).mw;
 const cmn = require( '../lib/commons-app' );
-const config = require( '../config' );
 
 const preMw = [
   cmn.loadBaseData( 'compiledAdmin.css' ),
@@ -44,13 +43,15 @@ module.exports = app => {
     async ( req, res, next ) => {
       try {
         if ( _.get( req, 'body.credentials.aggregator' ) ) {
-          const aggregator = await aggregators.get( req.agenda.uid );
+          await aggregators.set(req.agenda.uid, {
+            limit: -1
+          }, { patch: true, protected: false });
+        }
 
-          if (!aggregator) {
-            await aggregators.set(req.agenda.uid, {
-              rules: []
-            });
-          }
+        if ( _.get( req, 'body.credentials.aggregator' ) === false ) {
+          await aggregators.set(req.agenda.uid, {
+            limit: null
+          }, { patch: true, protected: false });
         }
 
         next();

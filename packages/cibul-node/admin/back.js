@@ -2,7 +2,6 @@
 
 const { promisify } = require( 'util' );
 const moment = require( 'moment' );
-const wn = require( 'when/node' );
 const async = require( 'async' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
