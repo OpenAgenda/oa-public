@@ -366,6 +366,7 @@ function Dashboard({
             br: <br />,
             'support-link': (...chunks) => (
               <a
+                className="btn btn-primary"
                 href={`/support?origin=${encodeURIComponent(
                   history.location.pathname
                 )}`}
