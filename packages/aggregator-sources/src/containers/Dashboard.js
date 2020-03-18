@@ -352,7 +352,7 @@ function Dashboard({
 
   return (
     <div>
-      {aggregator?.deactivatedUntil ? (
+      {aggregator?.limitIsReached ? (
         <div
           className="padding-all-sm padding-bottom-sm margin-bottom-md"
           css={css`
@@ -362,7 +362,7 @@ function Dashboard({
           `}
         >
           {intl.formatMessage(messages.aggregationCountWarning, {
-            limit: 365,
+            limit: aggregator.limit,
             br: <br />,
             'support-link': (...chunks) => (
               <a
