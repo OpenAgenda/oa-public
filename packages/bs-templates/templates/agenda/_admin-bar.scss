@@ -1,5 +1,5 @@
 .edge-bar {
-  
+
   background: $oa-blue;
 
   &.fixed-bottom {
@@ -93,7 +93,7 @@
     a {
 
       cursor: pointer;
-      
+
     }
 
     .admin-nav {
@@ -208,11 +208,13 @@
 
       label {
         display: block;
+        cursor: pointer;
       }
 
       span {
         display: block;
         white-space: initial;
+        cursor: pointer;
       }
 
       &.bullet:after {
@@ -239,7 +241,7 @@
           border: 5px solid $oa-white;
         }
       }
-      
+
       &.selected {
         color: $oa-blue;
 
@@ -397,7 +399,7 @@
   }
 
   @media (min-width: 768px) {
-  
+
     height: 50px;
 
     .edge-item {

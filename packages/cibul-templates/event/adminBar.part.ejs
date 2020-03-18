@@ -62,24 +62,27 @@
       <ul class="list-group js_dropdown_menu">
         <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator">
 <% if ( event.featured ) { %>
-          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/notfeatured?redirect=${redirect}` %>" rel="nofollow"><span><%= __( 'featured' ) %></span><span class="hovered"><%= __('removeFromFeatured') %></span><i class="fa fa-thumb-tack"></i><i class="fa fa-thumb-tack"></i></a>
+          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/notfeatured?redirect=${redirect}` %>" rel="nofollow"><span><label><%= __( 'featured' ) %></label></span><span class="hovered"><label><%= __('removeFromFeatured') %></label></span><span><%= __('featuredInfo') %></span><span class="hovered"><%= __('featuredInfo') %></span><i class="fa fa-thumb-tack"></i><i class="fa fa-thumb-tack"></i></a>
 <% } else { %>
-          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/featured?redirect=${redirect}` %>" rel="nofollow"><%= __('addToFeatured') %><i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i></a>
+          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/featured?redirect=${redirect}` %>" rel="nofollow"><label><%= __('addToFeatured') %></label><i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i><span><%= __('featuredInfo') %></a>
 <% } %>
         </li>
 <% if ( hasOwnershipTransfer ) { %>
         <li class="list-group-item js_role_agenda_moderator js_ownership_transfer" data-res="/<%= slug %>/admin/members/transfer/<%= event.slug %>">
-          <a class="item active" rel="nofollow"><%= __( 'transferOwnership' ) %></a>
+          <a class="item active" rel="nofollow"><label><%= __( 'transferOwnership' ) %></label></a>
         </li>
 <% } %>
         <li class="list-group-item js_admin_item js_role_event_editor">
-          <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><%= __( 'duplicate' ) %></a>
+          <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><label><%= __( 'duplicate' ) %></label><span><%= __('duplicateInfo') %></span></a>
         </li>
         <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
-          <a class="item active" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow"><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></a>
+          <a class="item active" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow">
+            <label><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></label>
+            <span><%= __(isCancelled ? 'uncancelInfo' : 'cancelInfo') %></span>
+          </a>
         </li>
         <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
-          <a class="item active <% if (isOriginAgenda) { %>js_message_confirm<% } %>" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= `/${slug}/events/${event.slug}/remove${removeRedirect ? '?redirect=' + removeRedirect : ''}` %>" rel="nofollow"><%= __(isOriginAgenda ? 'delete' : 'remove') %></a>
+          <a class="item active <% if (isOriginAgenda) { %>js_message_confirm<% } %>" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= `/${slug}/events/${event.slug}/remove${removeRedirect ? '?redirect=' + removeRedirect : ''}` %>" rel="nofollow"><label><%= __(isOriginAgenda ? 'delete' : 'remove') %></label><span><%= __(isOriginAgenda ? 'deleteInfo' : 'removeInfo') %></span></a>
         </li>
       </ul>
     </li>

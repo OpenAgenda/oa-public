@@ -100,9 +100,17 @@ module.exports = {
     "es": "Eliminar",
     "br": "Dilemel"
   },
+  "deleteInfo": {
+    "en": "Permanently remove this event from OpenAgenda",
+    "fr": "Supprimer de manière permanente l'événement d'OpenAgenda"
+  },
   "remove": {
     "en": "Remove from agenda",
     "fr": "Retirer de l'agenda"
+  },
+  "removeInfo": {
+    "fr": "L'événement ne sera plus référencé sur l'agenda",
+    "en": "The event will no longer be referenced on the agenda"
   },
   "about": {
     "en": "About",
@@ -213,12 +221,24 @@ module.exports = {
   "cancelEvent": {
     "en": "Mark event as cancelled",
     "fr": "Marquer l'événement comme annulé",
-    "es": "Marcar el evento como Cancelado"
+    "es": "Marcar el evento como Cancelado",
+    "de": "Veranstaltung als abgesagt kennzeichnen"
   },
   "uncancelEvent": {
     "en": "Un-cancel event",
     "fr": "L'événement n'est plus annulé",
     "es": "El evento no está Cancelado"
+  },
+  "cancelInfo": {
+    "fr": "Votre événement reste en ligne, avec son titre précédé par 'Annulé'",
+    "it": "Il vostro evento rimanera online, con il suo titolo preceduto da 'Cancellato'.",
+    "de": "Ihre Veranstaltung wird online bleiben, wobei der Titel der Veranstaltung mit 'Abgesagt' vorangestellt wird.",
+    "es": "Su evento permanecera en línea, con su título precedido por 'Cancelado'.",
+    "en": "Your event will remain online, with its title preceded by 'Cancelled'."
+  },
+  "uncancelInfo": {
+    "fr": "Retire la mention d'annulation du titre",
+    "en": "Removes the cancellation mention in the title"
   },
   "eventState": {
     "en": "Event state",
@@ -391,6 +411,10 @@ module.exports = {
     "es": "Poner en una",
     "br": "E-mesk ar c'heleier pennañ"
   },
+  "featuredInfo": {
+    "en": "The event will appear on top of the agenda's event list",
+    "fr": "Un événement en une apparait en tête de liste"
+  },
   "fromTo": {
     "en": "from %from% to %to%",
     "fr": "de %from% à %to%",
@@ -408,6 +432,10 @@ module.exports = {
     "pl": "Powielić",
     "es": "duplicar",
     "br": "Eilañ"
+  },
+  "duplicateInfo": {
+    "en": "Load a new event form pre-filled with the details from this event",
+    "fr": "Charger un nouveau formulaire de saisie pré-rempli avec les informations de cet événement"
   },
   "startingAt": {
     "en": "Starting at %min% years old",
@@ -599,8 +627,8 @@ module.exports = {
     "br": "Aozañ al lec'h"
   },
   "actions": {
-    "en": "Actions",
-    "fr": "Actions",
+    "en": "Other actions",
+    "fr": "Autres actions",
     "it": "Azioni",
     "de": "Aktionen",
     "pl": "Działania",
