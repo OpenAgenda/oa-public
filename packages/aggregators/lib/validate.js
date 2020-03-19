@@ -45,9 +45,11 @@ const validateRule = schema(ruleFields);
 
 module.exports = (data, options = {}) => {
   const {
-    patch
+    patch,
+    protected: isProtected
   } = {
     patch: false,
+    protected: true,
     ...options
   };
 
@@ -59,10 +61,16 @@ module.exports = (data, options = {}) => {
     rules = [];
   }
 
-  return (patch ? validate.part : validate)({
+  const result = (patch ? validate.part : validate)({
     ...data,
     ...(rules ? { rules } : {})
   });
+
+  if (isProtected) {
+    delete result.limit;
+  }
+
+  return result;
 };
 
 module.exports.rule = r => validateRule(cleanRule(r));

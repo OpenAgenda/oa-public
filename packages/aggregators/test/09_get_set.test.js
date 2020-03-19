@@ -56,7 +56,7 @@ describe('09 - set and get', () => {
         {
           limit: 2
         },
-        { patch: true }
+        { patch: true, protected: false }
       )
     );
 
@@ -65,6 +65,17 @@ describe('09 - set and get', () => {
 
     // 6
     results.push(await svc.get(333, { detailed: true }));
+
+    // 7
+    results.push(
+      await svc.set(
+        444,
+        {
+          limit: 2
+        },
+        { patch: true }
+      )
+    );
   });
 
   afterAll(f.destroyClient);
@@ -90,6 +101,24 @@ describe('09 - set and get', () => {
 
   test('third operation was a create', () => {
     expect(results[2].operation).toBe('create');
+  });
+
+  test('cannot set limit without options.protected to false', async () => {
+    const entry = await f
+      .client('aggregator')
+      .first('*')
+      .where('review_id', 3);
+
+    expect(entry.limit).toBe(2);
+  });
+
+  test('can set limit with options.protected to false', async () => {
+    const entry = await f
+      .client('aggregator')
+      .first('*')
+      .where('review_id', 4);
+
+    expect(entry.limit).toBeNull();
   });
 
   test('aggregator entry references review id', async () => {

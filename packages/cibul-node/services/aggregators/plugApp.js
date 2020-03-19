@@ -64,7 +64,7 @@ module.exports = (config, parentApp) => {
     '/:agendaSlug/admin/aggregator',
     bodyParser.json(),
     (req, res, next) => aggregators
-      .get(req.agenda.uid)
+      .get(req.agenda.uid, { detailed: true })
       .then(result => {
         if (!result) {
           return res.status(404).send('Aggregator not found');
