@@ -20,6 +20,7 @@
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.1",
     "mocha": "^7.0.1",
+    "redis": "^2.8.0",
     "should": "^13.2.3"
   },
   "keywords": [],

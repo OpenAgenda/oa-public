@@ -17,10 +17,15 @@ module.exports = async (service, agendaUid, eventUid, options = {}) => {
 module.exports.byEventUid = async (service, eventUid, options) => {
   const { config, client, listByEventUid, queue } = service;
 
-  let events = [], offset = 0, limit = 20;
+  let aesToBeRemoved = [], offset = 0, limit = 20;
 
-  while ((events = (await listByEventUid(eventUid, offset, limit)).items).length) {
-    events.forEach(e => queue(['onRemove', e, options ? options.context : undefined]));
+  while ((aesToBeRemoved = (await listByEventUid(eventUid, offset, limit)).items).length) {
+    for (const aeToBeRemoved of aesToBeRemoved) {
+      if (aeToBeRemoved.aggregated) {
+        await service.getAggregatedCount.dec(aeToBeRemoved.agendaUid);
+      }
+      await queue(['onRemove', aeToBeRemoved, options ? options.context : undefined]);
+    }
     offset += limit;
   }
 
@@ -47,8 +52,19 @@ module.exports.byLegacyId = async (service, agendaId = null, eventId = null) => 
     }, await getByLegacyId(agendaId, eventId), {});
   }
 
-  const removedRows = await client('agenda_event').del()
-    .where('legacy_id', 'like', '%' + (agendaId || '') + '.' + (eventId || '') + '%');
+  const like = '%' + (agendaId || '') + '.' + (eventId || '') + '%';
+
+  const aggCountsToBeRemovedByAgendaUid = await client('agenda_event')
+    .select(client.raw('agenda_uid as agendaUid, count(event_uid) as toBeRemovedCount'))
+    .where('legacy_id', 'like', like)
+    .andWhere('aggregated', true)
+    .groupBy('agendaUid');
+
+  for (const { agendaUid, toBeRemovedCount } of aggCountsToBeRemovedByAgendaUid) {
+    await service.getAggregatedCount.dec(agendaUid, toBeRemovedCount);
+  }
+
+  const removedRows = await client('agenda_event').del().where('legacy_id', 'like', like);
 
   return {
     success: removedRows >= 1
@@ -72,6 +88,10 @@ async function _remove(service, where, current = null, params = null ) {
 
   if (config.interfaces.beforeRemove ){
     await config.interfaces.beforeRemove(current, params !== null ? params.context : null);
+  }
+
+  if (current.aggregated) {
+    await service.getAggregatedCount.dec(current.agendaUid);
   }
 
   const removedRows = await client('agenda_event')
