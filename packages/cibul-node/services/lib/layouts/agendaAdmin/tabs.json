@@ -23,6 +23,10 @@
   "section" : "manage"
 },
 {
+  "name" : "statistics",
+  "section" : "manage"
+},
+{
   "name" : "activities",
   "section" : "manage"
 },

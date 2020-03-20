@@ -30,6 +30,7 @@ const TABS_IN_APP = [
   'sources',
   'inbox',
   'activities',
+  'statistics',
   'settings_profile',
   'settings_contribution',
   'settings_advanced'

@@ -29,6 +29,7 @@ const createAgendaSettingsEditApp = require('@openagenda/agenda-settings/dist/cl
 const createUserActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/user');
 const createAgendaActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/agenda');
 const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/app');
+const createAgendaStatsApp = require('@openagenda/agenda-stats/dist/app');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const createMembersApp = require('@openagenda/member-apps/dist/app');
 const RootHelmet = require('./RootHelmet');
@@ -147,6 +148,13 @@ module.exports = function match({ initialState, lang, publicPath }) {
           req,
           history,
           initialState: state.agendaActivities,
+          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+          reduxMiddleware
+        }),
+        agendaStats: createAgendaStatsApp({
+          req,
+          history,
+          initialState: state.agendaStats,
           layout: [MainLayout, RequiredUser, AgendaAdminLayout],
           reduxMiddleware
         }),
