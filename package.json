@@ -35,7 +35,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run lint-staged --concurrency 1"
+      "pre-commit": "lerna run lint-staged --concurrency 1 --stream --since HEAD"
     }
   }
 }
