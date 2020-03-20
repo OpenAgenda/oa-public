@@ -126,8 +126,8 @@ function progressiveLoad(canvasSelector) {
   });
 }
 
-function onWidgetController(widget, query) {
-  log('onWidgetUpdate');
+function onWidgetController(origin, widget, query = {}) {
+  log('onWidgetUpdate from %s, %j', origin, query);
   nextProgressiveLoadPage = 2;
   rockBottom = false;
 
@@ -150,8 +150,8 @@ function onWidgetController(widget, query) {
 }
 
 window.oa = {
-  onReloadWithPassed: onWidgetController.bind(null),
-  onWidgetUpdate: onWidgetController.bind(null, null)
+  onReloadWithPassed: onWidgetController.bind(null, 'onReloadWithPassed', null),
+  onWidgetUpdate: onWidgetController.bind(null, 'onWidgetUpdate')
 };
 
 $(() => {

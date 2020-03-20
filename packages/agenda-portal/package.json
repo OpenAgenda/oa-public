@@ -1,13 +1,14 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "2.3.3",
+  "version": "2.3.4",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
   "scripts": {
     "test": "jest",
     "start": "browser-refresh dev",
-    "install": "webpack --config bin/webpack.build.js",
+    "build": "webpack --config bin/webpack.build.js",
+    "install": "yarn build",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
