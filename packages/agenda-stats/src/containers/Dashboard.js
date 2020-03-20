@@ -1,52 +1,57 @@
-import React from //   useMemo,
-//   useState,
-//   useEffect,
-//   useRef
-  'react';
+import _ from 'lodash';
+import React, { useMemo, useEffect, useRef } from 'react';
 import { hot } from 'react-hot-loader/root';
-// import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import { defineMessages, useIntl } from 'react-intl';
-// import { useSelector, useDispatch } from 'react-redux';
-// import qs from 'qs';
+import { useSelector, useDispatch } from 'react-redux';
+import qs from 'qs';
 // import { css } from '@emotion/core';
-// import Spinner from '@openagenda/react-components/build/Spinner';
+import Spinner from '@openagenda/react-components/build/Spinner';
 // import useApiClient from '@openagenda/react-utils/dist/useApiClient';
+import * as statsActions from '../reducers/stats';
+import OriginAgendasChart from '../components/OriginAgendasChart';
 
 // const messages = defineMessages({});
 
-function Dashboard(/* {
-  agenda,
-  agendaSchema
-} */) {
-  // const history = useHistory();
-  // const params = useParams();
-  // const query = useMemo(
-  //   () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
-  //   [history.location.search]
-  // );
+function Dashboard({ user, agenda }) {
+  const history = useHistory();
+  const query = useMemo(
+    () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
+    [history.location.search]
+  );
 
   // const intl = useIntl();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const apiClient = useApiClient();
 
-  // const res = useSelector(state => state.res);
+  const loading = useSelector(state => _.get(state, 'stats.loading', true));
+  // const loaded = useSelector(state => _.get(state, 'stats.loaded'));
+  const aggregations = useSelector(state => state.stats.data);
 
-  // const initialQuery = useRef(query);
+  const initialQuery = useRef(query);
 
-  // useEffect(() => {
-  //   dispatch(sourcesActions.load(params.slug, initialQuery.current));
-  //   dispatch(sourcesActions.loadAggregator(params.slug));
-  // }, [dispatch, params.slug]);
+  useEffect(() => {
+    dispatch(statsActions.load(user, agenda, initialQuery.current));
+  }, [dispatch, user, agenda]);
 
-  // if (loading) {
-  //   return (
-  //     <div className="padding-v-md" style={{ position: 'relative' }}>
-  //       <Spinner />
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="padding-v-md" css={{ position: 'relative' }}>
+        <Spinner />
+      </div>
+    );
+  }
 
-  return <div>ICI</div>;
+  return (
+    <div>
+      {aggregations.originAgendas?.length ? (
+        <OriginAgendasChart data={aggregations.originAgendas} />
+      ) : null}
+
+      <pre>{JSON.stringify(Object.keys(aggregations), null, 2)}</pre>
+      <pre>{JSON.stringify(aggregations.originAgendas, null, 2)}</pre>
+    </div>
+  );
 }
 
 export default hot(Dashboard);
