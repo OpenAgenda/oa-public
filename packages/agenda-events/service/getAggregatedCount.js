@@ -1,6 +1,29 @@
 'use strict';
 
-module.exports = async (service, agendaUid, since = null) => {
+const CachedCount = require('./lib/CachedCount');
+
+module.exports = service => {
+  const {
+    client,
+    redisClient
+  } = service;
+
+  const fn = getAggregatedCount.bind(null, service);
+  const cached = redisClient ? CachedCount(redisClient, 'getAggregatedCount', fn) : null;
+
+  return Object.assign(agendaUid => (cached || fn)(agendaUid), {
+    inc: (agendaUid, count = 1) => {
+      if (!cached) return;
+      return cached.inc(agendaUid, count);
+    },
+    dec: (agendaUid, count = 1) => {
+      if (!cached) return;
+      return cached.dec(agendaUid, count);
+    }
+  });
+}
+
+async function getAggregatedCount(service, agendaUid, since = null) {
   const { client } = service;
 
   return client('agenda_event').count('id', { as: 'count' })

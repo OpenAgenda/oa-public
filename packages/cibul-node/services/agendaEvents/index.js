@@ -25,6 +25,7 @@ module.exports = Object.assign(plugApp, {
     mysql: config.db,
     knex: config.knex,
     redis: config.redis,
+    redisClient: config.redisClient,
     logger: config.getLogConfig( 'svc', 'agendaEvents' ),
     schemas: {
       agendaEvent: config.schemas.agendaEventService

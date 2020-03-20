@@ -417,6 +417,55 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
     });
 
+    describe('unsuccessful update', () => {
+
+      before(async () => {
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+            headers: {
+              'access-token': accessToken,
+              nonce: 12893,
+              'content-type': 'application/json'
+            },
+            data: {
+              title: {
+                fr: 'Un événement mis à jour via l\'api',
+                en: 'An updated event through the api'
+              },
+              description: {
+                fr: 'Une description',
+                en: 'A desc'
+              },
+              location: {
+                uid: 123
+              },
+              'custom_description' : 'Meh',
+              'categories-agenda-metropolitain': 43,
+              'thematiques-bordeaux-metropole' : [3]
+            }
+          });
+        } catch (e) {
+          response = e.response;
+        }
+      });
+
+      it('response status should be 400', () => {
+        response.status.should.equal(400);
+      });
+
+      it('response body provides validation errors', () => {
+        response.data.errors.should.eql([{
+          code: 'timings.empty',
+          message: 'At least one timing is required',
+          field: 'timings',
+          step: 'validation'
+        }]);
+      });
+
+    });
+
     describe('successful patch', () => {
 
       before(async () => {
