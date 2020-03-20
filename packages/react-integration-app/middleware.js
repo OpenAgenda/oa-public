@@ -68,110 +68,73 @@ module.exports = function match({ initialState, lang, publicPath }) {
 
       const reduxMiddleware = createReduxMiddleware(layoutStore);
 
-      const apps = {
-        home: createHomeApp({
-          req,
-          history,
-          initialState: state.home,
-          layout: MainLayout,
-          reduxMiddleware
+      const apps = [
+        ['home', createHomeApp, MainLayout],
+        ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
+        [
+          'agendaSettingsNew',
+          createAgendaSettingsNewApp,
+          [MainLayout, RequiredUser]
+        ],
+        ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
+        [
+          'aggregatorSources',
+          createAggregatorSourcesApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
+        ],
+        [
+          'agendaSettingsEdit',
+          createAgendaSettingsEditApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
+        ],
+        [
+          'inboxUser',
+          createInboxApp,
+          [MainLayout, RequiredUser, InboxUserLayout]
+        ],
+        [
+          'support',
+          createInboxApp,
+          [MainLayout, RequiredUser, InboxUserLayout]
+        ],
+        [
+          'agendaAdminInbox',
+          createInboxApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout, InboxAgendaAdminLayout]
+        ],
+        [
+          'members',
+          createMembersApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
+        ],
+        [
+          'agendaActivities',
+          createAgendaActivitiesApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
+        ],
+        [
+          'agendaStats',
+          createAgendaStatsApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
+        ],
+        [
+          'adminSupport',
+          createInboxApp,
+          [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout]
+        ]
+      ].reduce(
+        (accu, [key, createApp, layout]) => ({
+          ...accu,
+          [key]: createApp({
+            req,
+            history,
+            initialState: state[key],
+            layout,
+            reduxMiddleware
+          })
         }),
-        userSettings: createUserSettingsApp({
-          req,
-          history,
-          initialState: state.userSettings,
-          layout: [MainLayout, RequiredUser],
-          reduxMiddleware
-        }),
-        agendaSettingsNew: createAgendaSettingsNewApp({
-          req,
-          history,
-          initialState: state.agendaSettingsNew,
-          layout: [MainLayout, RequiredUser],
-          reduxMiddleware
-        }),
-        userActivities: createUserActivitiesApp({
-          req,
-          history,
-          initialState: state.userActivities,
-          layout: [MainLayout, RequiredUser],
-          reduxMiddleware
-        }),
-        aggregatorSources: createAggregatorSourcesApp({
-          req,
-          history,
-          initialState: state.aggregatorSources,
-          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
-          reduxMiddleware
-        }),
-        agendaSettingsEdit: createAgendaSettingsEditApp({
-          req,
-          history,
-          initialState: state.agendaSettingsEdit,
-          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
-          reduxMiddleware
-        }),
-        inboxUser: createInboxApp({
-          req,
-          history,
-          initialState: state.inboxUser,
-          layout: [MainLayout, RequiredUser, InboxUserLayout],
-          reduxMiddleware
-        }),
-        support: createInboxApp({
-          req,
-          history,
-          initialState: state.support,
-          layout: [MainLayout, RequiredUser, InboxUserLayout],
-          reduxMiddleware
-        }),
-        agendaAdminInbox: createInboxApp({
-          req,
-          history,
-          initialState: state.agendaAdminInbox,
-          layout: [
-            MainLayout,
-            RequiredUser,
-            AgendaAdminLayout,
-            InboxAgendaAdminLayout
-          ],
-          reduxMiddleware
-        }),
-        members: createMembersApp({
-          req,
-          history,
-          initialState: state.members,
-          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
-          reduxMiddleware
-        }),
-        agendaActivities: createAgendaActivitiesApp({
-          req,
-          history,
-          initialState: state.agendaActivities,
-          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
-          reduxMiddleware
-        }),
-        agendaStats: createAgendaStatsApp({
-          req,
-          history,
-          initialState: state.agendaStats,
-          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
-          reduxMiddleware
-        }),
-        // Admin
-        adminSupport: createInboxApp({
-          req,
-          history,
-          initialState: state.adminSupport,
-          layout: [
-            MainLayout,
-            RequiredUser,
-            RequiredSuperAdmin,
-            InboxUserLayout
-          ],
-          reduxMiddleware
-        })
-      };
+        {}
+      );
 
       // Not found
       const notFound = Object.values(apps).every(
