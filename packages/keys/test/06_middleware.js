@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const should = require( 'should' );
+const knexLib = require( 'knex' );
 const service = require( './service' );
 const mw = require( '../middleware' );
 const config = require( '../testconfig' );
@@ -12,7 +13,13 @@ describe( 'keys - middleware', function () {
 
   beforeEach( async () => {
 
-    await service.initAndLoad( config );
+    await service.initAndLoad( {
+      ...config,
+      knex: knexLib({
+        client: 'mysql',
+        connection: config.mysql
+      })
+    } );
 
   } );
 
@@ -150,6 +157,8 @@ describe( 'keys - middleware', function () {
     };
 
     mw.list()( req, {}, err => {
+
+      console.log(err);
 
       should( err ).equal( undefined );
 

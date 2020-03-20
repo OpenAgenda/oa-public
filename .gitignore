@@ -3,7 +3,13 @@
 /lerna-debug.log
 node_modules/
 npm-debug.log
-yarn-error.log
 coverage/
 
-secrets.tar
+# yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
+yarn-error.log
+
+/secrets.tar

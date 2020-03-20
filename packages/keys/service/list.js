@@ -30,7 +30,7 @@ module.exports = async ( identifiers, ...args ) => {
     total = (await baseRequest.clone().count( '* as total' ))[ 0 ].total;
   }
 
-  const items = await baseRequest.limit( limit ).offset( offset ).map( parse );
+  const items = (await baseRequest.limit( limit ).offset( offset )).map( parse );
 
   return { items, total };
 

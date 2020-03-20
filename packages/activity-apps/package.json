@@ -30,7 +30,7 @@
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/sessions": "^3.0.13",
-    "@openagenda/utils": "^1.0.2",
+    "@openagenda/utils": "^1.1.0",
     "async": "^2.1.4",
     "bootstrap-daterangepicker": "^2.1.25",
     "classnames": "^2.2.5",
@@ -47,6 +47,8 @@
     "react-waypoint": "^9.0.2",
     "redial": "^0.5.0",
     "redux-form": "^8.1.0",
+    "regenerator-runtime": "^0.13.5",
+    "spin.js": "2.3.2",
     "when": "^3.7.8"
   },
   "devDependencies": {
@@ -55,7 +57,7 @@
     "@babel/node": "^7.8.4",
     "@loadable/babel-plugin": "^5.12.0",
     "@loadable/component": "^5.12.0",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "@storybook/react": "^5.3.9",
@@ -79,6 +81,7 @@
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
     "react": "^16.12.0",
+    "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"
   }

@@ -988,7 +988,8 @@ currentConfig.emailStrategieDb = _.merge( {}, currentConfig.db, {
 currentConfig.knex = knexLib( {
   client: 'mysql',
   connection: currentConfig.db,
-  pool: { min: 2, max: 20 }
+  pool: { min: 2, max: 20 },
+  schemas: currentConfig.schemas
 } );
 
 currentConfig.redisClient = redis.createClient( currentConfig.redis.port, currentConfig.redis.host );

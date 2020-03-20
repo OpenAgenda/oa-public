@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const knexLib = require('knex');
 const logger = require('@openagenda/logs');
 const feed = require('./feed');
 const feeds = require('./feeds');
@@ -18,22 +17,23 @@ const sendSummary = require('./notifications/tasks/sendSummary');
 module.exports = Service;
 
 async function Service(c) {
-  const config = {
-    ...c,
-    knex: c.knex ? c.knex : knexLib({
-      client: 'mysql',
-      connection: c.mysql
-    })
-  };
+  const config = c;
 
   logger.setModuleConfig(c.logger);
+
+  Object.assign(config.knex.client.config, {
+    schemas: {
+      ...config.knex.client.config.schemas,
+      ...config.schemas
+    }
+  });
+
 
   if (c.migrations !== null) {
     Object.assign(config.knex.client.config, {
       migrations: Object.assign({}, c.migrations, {
         directory: path.resolve(path.dirname(__dirname), '../migrations')
-      }),
-      schemas: c.schemas
+      })
     });
   }
 

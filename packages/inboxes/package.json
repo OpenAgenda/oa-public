@@ -44,6 +44,7 @@
     "mime-types": "^2.1.25",
     "mysql": "^2.14.1",
     "redis": "^2.8.0",
+    "regenerator-runtime": "^0.13.5",
     "uppy-server": "^0.11.1",
     "uuid": "^3.4.0",
     "verror": "^1.10.0"
@@ -51,7 +52,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/eslint-config": "^1.0.0",
     "@openagenda/fixtures": "^2.0.1",
     "babel-jest": "^25.1.0",

@@ -20,7 +20,7 @@ describe( 'activities - activities', function () {
       connection: config.mysql
     } );
 
-    service = await Service.initAndLoad( config );
+    service = await Service.initAndLoad( { ...config, knex } );
 
   } );
 
@@ -517,9 +517,11 @@ describe( 'activities - activities', function () {
 
     it( 'add an activity that passes through the followFilters', async () => {
 
-      await service.shutdown();
-
       service = await Service( Object.assign( {}, config, {
+        knex: knexLib( {
+          client: 'mysql',
+          connection: config.mysql
+        } ),
         filterFollows: [ {
           verb: 'event.publish',
           getFeeds: true,

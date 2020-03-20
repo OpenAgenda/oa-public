@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const webpack = require('webpack');
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 const ProgressBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -18,8 +19,11 @@ const modulesToInclude = [
   '@openagenda\\/agenda-settings',
   '@openagenda\\/aggregator-sources',
   '@openagenda\\/home',
+  '@openagenda\\/inbox-apps',
+  '@openagenda\\/member-apps',
   '@openagenda\\/user-apps',
   '@openagenda\\/react-layouts',
+  '@openagenda\\/react-utils',
   'react-intl',
   'intl-messageformat',
   'intl-messageformat-parser'
@@ -90,11 +94,11 @@ module.exports = (env = {}, argv = {}) => {
         {
           test: /\.jsx?$/,
           enforce: 'pre',
-          loader: 'source-map-loader'
+          loader: require.resolve('source-map-loader')
         },
         {
           test: /\.jsx?$/,
-          loader: 'babel-loader',
+          loader: require.resolve('babel-loader'),
           exclude: BABEL_EXCLUDE_REGEX,
           options: {
             cacheDirectory: process.env.DISABLE_WEBPACK_CACHE
@@ -106,11 +110,11 @@ module.exports = (env = {}, argv = {}) => {
         },
         {
           test: /\.ejs$/,
-          loader: 'ejs-compiled-loader-webpack4'
+          loader: require.resolve('ejs-compiled-loader-webpack4')
         },
         {
           test: /\.(css|html|tblr)$/,
-          loader: 'raw-loader'
+          loader: require.resolve('raw-loader')
         }
       ]
     },
@@ -120,7 +124,15 @@ module.exports = (env = {}, argv = {}) => {
       alias: {
         react: require.resolve('react'),
         'react-dom': require.resolve('@hot-loader/react-dom')
-      }
+      },
+      plugins: [
+        PnpWebpackPlugin
+      ]
+    },
+    resolveLoader: {
+      plugins: [
+        PnpWebpackPlugin.moduleLoader(module)
+      ]
     },
     performance: {
       hints: false,

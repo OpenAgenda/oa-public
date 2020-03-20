@@ -20,7 +20,10 @@ describe.skip( 'activities - rebuid', function () {
       connection: config.mysql
     } );
 
-    await service.initAndLoad( config, [
+    await service.initAndLoad( {
+      ...config,
+      knex
+    }, [
       'feed',
       'feed_follow',
       'feed_activity',

@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const VError = require( 'verror' );
+const knexLib = require( 'knex' );
 const queue = require( '@openagenda/queue' );
 const Service = require( './service' );
 const config = require( '../testconfig' );
@@ -19,7 +20,13 @@ describe( 'activities - notifications', function () {
 
     before( async () => {
 
-      service = await Service.initAndLoad( config );
+      service = await Service.initAndLoad({
+        ...config,
+        knex: knexLib( {
+          client: 'mysql',
+          connection: config.mysql
+        } )
+      } );
 
     } );
 
@@ -129,7 +136,13 @@ describe( 'activities - notifications', function () {
 
     beforeEach( async () => {
 
-      service = await Service.initAndLoad( config );
+      service = await Service.initAndLoad( {
+        ...config,
+        knex: knexLib( {
+          client: 'mysql',
+          connection: config.mysql
+        } )
+      } );
 
     } );
 
@@ -407,7 +420,13 @@ describe( 'activities - notifications', function () {
 
     before( async () => {
 
-      service = await Service.initAndLoad( config );
+      service = await Service.initAndLoad( {
+        ...config,
+        knex: knexLib( {
+          client: 'mysql',
+          connection: config.mysql
+        } )
+      } );
 
     } );
 
@@ -444,7 +463,13 @@ describe( 'activities - notifications', function () {
 
     beforeEach( async () => {
 
-      service = await Service.initAndLoad( config );
+      service = await Service.initAndLoad( {
+        ...config,
+        knex: knexLib( {
+          client: 'mysql',
+          connection: config.mysql
+        } )
+      } );
 
     } );
 
@@ -706,7 +731,13 @@ describe( 'activities - notifications', function () {
 
     beforeEach( async () => {
 
-      service = await Service.initAndLoad( config );
+      service = await Service.initAndLoad( {
+        ...config,
+        knex: knexLib( {
+          client: 'mysql',
+          connection: config.mysql
+        } )
+      } );
 
     } );
 
@@ -929,7 +960,13 @@ describe( 'activities - notifications', function () {
 
     beforeEach( async () => {
 
-      service = await Service.initAndLoad( config );
+      service = await Service.initAndLoad( {
+        ...config,
+        knex: knexLib( {
+          client: 'mysql',
+          connection: config.mysql
+        } )
+      } );
 
     } );
 

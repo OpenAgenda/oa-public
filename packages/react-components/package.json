@@ -14,6 +14,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
     "@openagenda/dom-utils": "^2.2.0",
+    "@openagenda/react-form-components": "^2.1.1",
     "core-js": "^3.6.4",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
@@ -24,11 +25,11 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@storybook/addon-actions": "^5.3.9",
     "@storybook/react": "^5.3.9",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-markdown": "^4.0.4",

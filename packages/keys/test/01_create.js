@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const should = require( 'should' );
+const knexLib = require( 'knex' );
 const service = require( './service' );
 const config = require( '../testconfig' );
 
@@ -11,7 +12,13 @@ describe( 'keys - create', function () {
 
   before( async () => {
 
-    await service.initAndLoad( config );
+    await service.initAndLoad( {
+      ...config,
+      knex: knexLib({
+        client: 'mysql',
+        connection: config.mysql
+      })
+    } );
 
   } );
 

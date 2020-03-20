@@ -1,6 +1,7 @@
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const sinon = require( 'sinon' );
+const knexLib = require( 'knex' );
 const service = require( './service' );
 const testconfig = require( '../testconfig' );
 const config = require( '../service/config' );
@@ -11,7 +12,13 @@ describe( 'keys - get', function () {
 
   before( async () => {
 
-    await service.initAndLoad( testconfig );
+    await service.initAndLoad( {
+      ...testconfig,
+      knex: knexLib({
+        client: 'mysql',
+        connection: testconfig.mysql
+      })
+    } );
 
   } );
 

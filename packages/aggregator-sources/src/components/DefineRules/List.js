@@ -33,10 +33,10 @@ export default function List({
       }
 
       const sourceField = sourceSchema?.fields?.find(
-          v => v.schemaId
-            && v.field === field.field
-            && v.schemaId === field.schemaId
-        );
+        v => v.schemaId
+          && v.field === field.field
+          && v.schemaId === field.schemaId
+      );
 
       if (sourceField) {
         return false;

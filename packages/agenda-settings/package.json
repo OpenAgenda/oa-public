@@ -43,6 +43,7 @@
     "react-router-config": "^5.1.1",
     "redial": "^0.5.0",
     "redux-form": "^8.1.0",
+    "regenerator-runtime": "^0.13.5",
     "reselect": "^3.0.1",
     "speakingurl": "^14.0.1"
   },
@@ -53,11 +54,11 @@
     "@babel/register": "^7.8.3",
     "@loadable/babel-plugin": "^5.12.0",
     "@loadable/component": "^5.12.0",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/keys": "^2.1.1",
     "@storybook/react": "^5.3.9",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.6",
     "body-parser": "^1.15.2",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
@@ -78,6 +79,7 @@
   "peerDependencies": {
     "@loadable/component": "^5.12.0",
     "react": "^16.12.0",
+    "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"
   }

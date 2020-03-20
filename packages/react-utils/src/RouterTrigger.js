@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withRouter, Route } from 'react-router-dom';
 
 @withRouter
 class RouterTrigger extends Component {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    history: PropTypes.objectOf( PropTypes.any ).isRequired,
-    location: PropTypes.objectOf( PropTypes.any ).isRequired,
-    trigger: PropTypes.func.isRequired
-  };
-
   static defaultProps = {
     trigger: () => {}
   };
