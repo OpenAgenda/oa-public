@@ -105,7 +105,8 @@ const messages = defineMessages({
   },
   aggregationDesc: {
     id: 'aggregator-sources.Dashboard.aggregationDesc',
-    defaultMessage: 'Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!'
+    defaultMessage:
+      'Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!'
   }
 });
 
@@ -203,9 +204,8 @@ function Dashboard({
   );
 
   const createAggregator = useCallback(
-    () => dispatch(sourcesActions.createAggregator(params.slug))
-      .then(() => dispatch(sourcesActions.loadAggregator(params.slug))),
-    [dispatch]
+    () => dispatch(sourcesActions.createAggregator(params.slug)).then(() => dispatch(sourcesActions.loadAggregator(params.slug))),
+    [dispatch, params.slug]
   );
 
   const setAggregatorRules = useCallback(
@@ -366,6 +366,7 @@ function Dashboard({
             br: <br />,
             'support-link': (...chunks) => (
               <a
+                className="btn btn-primary"
                 href={`/support?origin=${encodeURIComponent(
                   history.location.pathname
                 )}`}

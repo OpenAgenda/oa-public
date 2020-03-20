@@ -9,7 +9,7 @@ module.exports = ( req, res, next ) => {
     lang: req.lang,
     sender: {
       userUid: req.user.uid,
-      memberName: _.get( req, 'member.custom.contactName' ) || req.user.fullName
+      memberName: _.get( req, 'member.custom.contactName' ) || _.get( req, 'member.custom.email' )
     }
   }, req.body.context );
   log( 'loaded context', req.context );

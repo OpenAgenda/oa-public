@@ -24,6 +24,7 @@ import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/client/
 import createUserActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import createAgendaActivitiesApp from '@openagenda/activity-apps/src/client/apps/agenda';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
+import createAgendaStatsApp from '@openagenda/agenda-stats/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import createMembersApp from '@openagenda/member-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
@@ -128,6 +129,12 @@ const apps = {
   agendaActivities: createAgendaActivitiesApp({
     history,
     initialState: initialState.agendaActivities,
+    layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+    reduxMiddleware
+  }),
+  agendaStats: createAgendaStatsApp({
+    history,
+    initialState: initialState.agendaStats,
     layout: [MainLayout, RequiredUser, AgendaAdminLayout],
     reduxMiddleware
   }),

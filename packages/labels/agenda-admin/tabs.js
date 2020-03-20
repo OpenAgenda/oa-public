@@ -154,5 +154,12 @@ module.exports = {
     "de": "Fortgeschritten",
     "es": "Avanzado",
     "it": "Avanzato"
+  },
+  "statistics": {
+    "en": "Statistics",
+    "fr": "Statistiques",
+    "de": "Statistik",
+    "es": "Estadísticas",
+    "it": "Statistica"
   }
 }

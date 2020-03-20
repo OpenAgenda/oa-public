@@ -189,6 +189,7 @@ function addActivity( config ) {
             ) {
 
               return addActivity(
+                config,
                 identifiers,
                 activity,
                 { excludeIds: (params.excludeIds || []).concat( notif.id ) },

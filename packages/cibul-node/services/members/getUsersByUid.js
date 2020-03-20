@@ -13,5 +13,5 @@ module.exports = async (services, userUids, userOptions) => {
       }
     },
     ...userOptions
-  } ) ).data/*.map( d => _.pick( d, ['id', 'uid', 'fullName', 'culture'] ) )*/;
+  } ) ).data.map( d => _.pick( d, ['id', 'uid', 'fullName', 'culture'] ) );
 }
