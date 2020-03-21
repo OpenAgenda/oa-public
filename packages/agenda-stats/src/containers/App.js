@@ -4,17 +4,21 @@ import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-// import modalsReducer from '../reducers/modals';
-// import sourcesReducer from '../reducers/sources';
+import statsReducer from '../reducers/stats';
 import locales from '../locales';
 
 function App({
-  route, agenda, agendaSchema, role
+  route, user, agenda, agendaSchema, role
 }) {
   const lang = useSelector(state => state.settings.lang);
 
   const children = useMemo(
-    () => renderRoutes(route.routes, { agenda, agendaSchema, role }),
+    () => renderRoutes(route.routes, {
+      user,
+      agenda,
+      agendaSchema,
+      role
+    }),
     [route.routes, agenda, agendaSchema, role]
   );
 
@@ -28,8 +32,7 @@ function App({
 export default hot(
   provideHooks({
     inject: ({ store }) => store.inject({
-      // modals: modalsReducer,
-      // sources: sourcesReducer
+      stats: statsReducer
     })
   })(App)
 );

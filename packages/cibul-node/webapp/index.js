@@ -295,7 +295,9 @@ const initialState = async req => {
         lang: req.lang,
         apiRoot: `http://localhost:${config.port}`
       },
-      res: {}
+      res: {
+        jsonExport: '/agendas/:uid/admin/events.v2.json'
+      }
     },
     // Admin
     adminSupport: {

@@ -6,24 +6,35 @@ const { Router } = require('express');
 module.exports = services => {
   const {
     core,
-    sessions,
     members,
     accessTokens
   } = services;
 
   return Router({ mergeParams: true }).get('', (req, res, next) => {
     if (req.query.key) {
-      return next();
+      return accessTokens.getUserFromKey(req.query.key).then(user => {
+        req.user = user;
+        next();
+      }, err => {
+        if (err.message === 'invalid key') {
+          return res.status(403).json({ message: 'Invalid key' });
+        }
+
+        next(err);
+      });
     }
-    return res.status(400).json({ message: 'Access key is missing' });
-  }, (req, res, next) => {
-    accessTokens.getUserFromKey(req.query.key).then(user => {
-      if (!user) {
-        return res.status(403).json({ message: 'You need to be logged' });
+
+    next();
+  },(req, res, next) => {
+    if (!req.user) {
+      if (!req.query.key) {
+        return res.status(400).json({ message: 'Access key is missing' });
       }
-      req.user = user;
-      next();
-    }, next);
+
+      return res.status(403).json({ message: 'You need to be logged' });
+    }
+
+    next();
   }, _verifyAdministratorRole.bind(null, members), (req, res, next) => {
     core.agendas(req.params.agendaUid)
       .events.search({}, req.query, {
