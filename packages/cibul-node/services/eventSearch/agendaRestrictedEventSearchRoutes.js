@@ -37,7 +37,7 @@ module.exports = services => {
     next();
   }, _verifyAdministratorRole.bind(null, members), (req, res, next) => {
     core.agendas(req.params.agendaUid)
-      .events.search({}, req.query, {
+      .events.search(req.query, req.query, {
         ...req.query,
         access: 'public'
       }).then(result => {
