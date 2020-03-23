@@ -1,0 +1,53 @@
+{
+  "title": "Agrégation histogramme qui marche",
+  "description": "Une contrainte sur la requête évite l'erreur",
+  "value": {
+    "query": {
+      "bool": {
+        "filter": [
+          {
+            "term": {
+              "_set": "agendas_50522407"
+            }
+          },
+          {
+            "term": {
+              "state": 2
+            }
+          },
+          {
+            "nested": {
+              "path": "timings",
+              "score_mode": "min",
+              "query": {
+                "range": {
+                  "timings.begin": {
+                    "gte": "2019-06-01T00:00:00.000Z"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "from": 0,
+    "size": 0,
+    "aggregations": {
+      "timings": {
+        "nested": {
+          "path": "timings"
+        },
+        "aggregations": {
+          "timings": {
+            "date_histogram": {
+              "field": "timings.begin",
+              "interval": "day",
+              "format": "YYYY-MM-dd"
+            }
+          }
+        }
+      }
+    }
+  }
+}

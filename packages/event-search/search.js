@@ -78,6 +78,14 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     cleanDSL.aggregations = aggregations.formatDSL(requestedAggregations, query, { includes, formSchema });
   }
 
+  textLog({
+    query,
+    includes,
+    formSchema,
+    requestedAggregations,
+    cleanDSL
+  });
+
   let {
     events,
     total,
