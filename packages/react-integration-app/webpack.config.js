@@ -144,6 +144,7 @@ module.exports = (env = {}, argv = {}) => {
       splitChunks: {
         chunks: 'all',
         maxAsyncRequests: 20
+        // minSize: 0,
         // cacheGroups: {
         //   locale: {
         //     test: module => (module.type === 'json' && module.resource && module.resource.includes('/locales/')),

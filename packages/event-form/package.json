@@ -45,7 +45,7 @@
     "react-json-editor-ajrm": "^2.5.9",
     "store": "^2.0.12",
     "verror": "^1.10.0",
-    "webpack": "^4.41.5",
+    "webpack": "^4.42.0",
     "webpack-assets-manifest": "^3.0.1",
     "webpack-cli": "^3.3.10",
     "webpack-dev-middleware": "^3.7.2",

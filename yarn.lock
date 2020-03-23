@@ -329,6 +329,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-validator-identifier@npm:^7.9.0":
+  version: 7.9.0
+  resolution: "@babel/helper-validator-identifier@npm:7.9.0"
+  checksum: 2/c8b67b61fe59ba40d28729bda49579b89022b3ac8ab2eb135fa0a41b2dec600e11240bb4b71a95195217404d02ea89d25a0f1dac01a93f37c50658cbf8b95115
+  languageName: node
+  linkType: hard
+
 "@babel/helper-wrap-function@npm:^7.8.3":
   version: 7.8.3
   resolution: "@babel/helper-wrap-function@npm:7.8.3"
@@ -1449,6 +1456,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:^7.9.0":
+  version: 7.9.0
+  resolution: "@babel/runtime-corejs3@npm:7.9.0"
+  dependencies:
+    core-js-pure: ^3.0.0
+    regenerator-runtime: ^0.13.4
+  checksum: 2/2e8beadabc298c13ee1e9b73cadfe21502b0440b351cb389ceb92628399b75170ab24be9a4b2aca1061b9bfcc15ccdc98286ff526f6ea093faab429d1a8a5a50
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.0.0-rc.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.3.4, @babel/runtime@npm:^7.4.0, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.4.5, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.4, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.7.7, @babel/runtime@npm:^7.8.3, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7":
   version: 7.8.7
   resolution: "@babel/runtime@npm:7.8.7"
@@ -1494,6 +1511,17 @@ __metadata:
     lodash: ^4.17.13
     to-fast-properties: ^2.0.0
   checksum: 2/b6401126e3b3ea6c98a4225547a52ccade5747237cd9d62f86b1b9b76598ab0957e698bae46a6159cc5dfa0045fe71d367788ebd325c4a94383574a44781589b
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.9.0":
+  version: 7.9.0
+  resolution: "@babel/types@npm:7.9.0"
+  dependencies:
+    "@babel/helper-validator-identifier": ^7.9.0
+    lodash: ^4.17.13
+    to-fast-properties: ^2.0.0
+  checksum: 2/5fcd95a5187f0083796f0966988bfc3d909764693245ac279296d5d25fff9bc07c1b5e9314c2cec9fe741ed09848d3d44289a37c0fb332593744e1c8b697cdf1
   languageName: node
   linkType: hard
 
@@ -3303,7 +3331,7 @@ __metadata:
     recompose: ^0.30.0
     regenerator-runtime: ^0.13.5
     rimraf: ^3.0.1
-    webpack: ^4.41.5
+    webpack: ^4.42.0
   peerDependencies:
     final-form: ^4.18.5
     react: ^16.12.0
@@ -3486,7 +3514,7 @@ __metadata:
     sass-loader: ^6.0.6
     style-loader: ^0.19.0
     superagent: ^3.8.2
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
     webpack-hot-middleware: ^2.21.2
@@ -3582,7 +3610,7 @@ __metadata:
     regenerator-runtime: ^0.13.3
     serialize-javascript: ^2.1.0
     superagent: ^3.8.3
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-assets-manifest: ^3.0.1
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
@@ -3633,7 +3661,7 @@ __metadata:
     rimraf: ^3.0.1
     superagent: ^3.8.3
     verror: ^1.10.0
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
     webpack-hot-middleware: ^2.21.2
@@ -3815,7 +3843,7 @@ __metadata:
     prompt-input: ^3.0.0
     qs: ^6.9.1
     validator: ^11.0.0
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
     webpack-hot-middleware: ^2.21.2
@@ -3851,7 +3879,7 @@ __metadata:
     regenerator-runtime: ^0.13.3
     serialize-javascript: ^2.1.0
     superagent: ^3.8.3
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-assets-manifest: ^3.0.1
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
@@ -4052,7 +4080,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/aggregator-sources@^1.1.3, @openagenda/aggregator-sources@^1.1.6, @openagenda/aggregator-sources@workspace:packages/aggregator-sources":
+"@openagenda/aggregator-sources@^1.1.6, @openagenda/aggregator-sources@workspace:packages/aggregator-sources":
   version: 0.0.0-use.local
   resolution: "@openagenda/aggregator-sources@workspace:packages/aggregator-sources"
   dependencies:
@@ -4073,6 +4101,7 @@ __metadata:
     "@storybook/react": ^5.3.9
     axios: ^0.19.0
     axios-mock-adapter: ^1.17.0
+    babel-loader: ^8.0.6
     babel-plugin-react-intl: ^6.2.0
     classnames: ^2.2.6
     core-js: ^3.6.4
@@ -4108,7 +4137,7 @@ __metadata:
     regenerator-runtime: ^0.13.5
     rimraf: ^3.0.1
     toggle-selection: ^1.0.6
-    webpack: ^4.41.5
+    webpack: ^4.42.0
   peerDependencies:
     "@loadable/component": ^5.12.0
     final-form: ^4.18.5
@@ -4163,9 +4192,12 @@ __metadata:
     "@babel/plugin-transform-runtime": ^7.8.3
     "@babel/preset-env": ^7.8.4
     "@babel/preset-react": ^7.8.3
+    "@types/react": ^16.9.25
     babel-plugin-add-module-exports: ^1.0.2
     babel-plugin-dynamic-import-node: ^2.3.0
     babel-plugin-lodash: ^3.3.4
+    react: ^16.13.1
+    react-dom: ^16.13.1
     react-hot-loader: ^4.12.19
   peerDependencies:
     "@babel/core": ^7.8.4
@@ -4270,7 +4302,7 @@ __metadata:
     "@openagenda/agenda-search": ^1.0.4
     "@openagenda/agenda-settings": ^1.1.2
     "@openagenda/agenda-tags": ^1.0.2
-    "@openagenda/aggregator-sources": ^1.1.3
+    "@openagenda/aggregator-sources": ^1.1.6
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/bs-templates": ^2.2.0
     "@openagenda/call-to-action": ^2.2.2
@@ -4280,7 +4312,7 @@ __metadata:
     "@openagenda/inbox-apps": ^1.1.3
     "@openagenda/labels": ^2.1.0
     "@openagenda/leaflet.markercluster": ^0.4.0
-    "@openagenda/member-apps": ^2.0.1
+    "@openagenda/member-apps": "workspace:packages/member-apps"
     "@openagenda/pepjs": ^0.5.4
     "@openagenda/react-components": ^2.2.1
     "@openagenda/react-form-components": ^2.1.1
@@ -4308,6 +4340,7 @@ __metadata:
     ejs-compiled-loader: ^2.2.0
     ejs-compiled-loader-webpack4: ^2.2.0
     express: ^4.16.4
+    final-form: ^4.18.6
     form-serialize: 0.3.0
     imagesloaded: ^4.1
     immutability-helper: ^3.0.0
@@ -4328,7 +4361,7 @@ __metadata:
     prop-types: ^15.5.8
     qs: 6.9.1
     raven-js: ^3.9.1
-    raw-loader: ^0.5.1
+    raw-loader: ^4.0.0
     rc-switch: ^1.4.3
     react: ^16.12.0
     react-copy-to-clipboard: ^5.0.2
@@ -4336,6 +4369,8 @@ __metadata:
     react-dropzone: ^4.2.1
     react-hot-loader: ^4.12.19
     react-redux: ^7.1.3
+    react-router: ^5.1.2
+    react-router-dom: ^5.1.2
     react-select: ^3.0.8
     react-tagsinput: ^3.7.0
     react-timings-picker: ^0.3.6
@@ -4351,7 +4386,7 @@ __metadata:
     superagent: ^3.8.1
     terser-webpack-plugin: ^2.3.3
     uglify-js: ^3.7.6
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-manifest-plugin: ^2.2.0
     webpackbar: ^4.0.0
     when: ~3.7.8
@@ -4495,7 +4530,7 @@ __metadata:
     store: ^2.0.12
     superagent: ^3.8.3
     verror: ^1.10.0
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-assets-manifest: ^3.0.1
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
@@ -4670,7 +4705,7 @@ __metadata:
     superagent: ^3.8.3
     turndown: ^5.0.3
     verror: ^1.10.0
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
     webpack-hot-middleware: ^2.22.2
@@ -4733,7 +4768,7 @@ __metadata:
     redux: ^4.0.5
     regenerator-runtime: ^0.13.5
     rimraf: ^3.0.1
-    webpack: ^4.41.5
+    webpack: ^4.42.0
   peerDependencies:
     "@loadable/component": ^5.12.0
     final-form: ^4.18.5
@@ -5053,7 +5088,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/member-apps@^2.0.0, @openagenda/member-apps@^2.0.1, @openagenda/member-apps@workspace:packages/member-apps":
+"@openagenda/member-apps@^2.0.1, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
   dependencies:
@@ -5067,7 +5102,7 @@ __metadata:
     "@openagenda/dom-utils": ^2.2.0
     "@openagenda/eslint-config": ^1.0.1
     "@openagenda/labels": ^2.1.0
-    "@openagenda/members": ^1.11.0
+    "@openagenda/members": ^1.15.0
     "@openagenda/react-components": ^2.2.1
     "@openagenda/react-form-components": ^2.1.1
     "@openagenda/react-utils": ^4.0.0
@@ -5104,7 +5139,7 @@ __metadata:
     redux: ^4.0.5
     regenerator-runtime: ^0.13.5
     rimraf: ^3.0.1
-    webpack: ^4.41.5
+    webpack: ^4.42.0
   peerDependencies:
     final-form: ^4.18.5
     react: ^16.12.0
@@ -5114,7 +5149,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/members@^1.0.1, @openagenda/members@^1.11.0, @openagenda/members@^1.15.0, @openagenda/members@workspace:packages/members":
+"@openagenda/members@^1.15.0, @openagenda/members@workspace:packages/members":
   version: 0.0.0-use.local
   resolution: "@openagenda/members@workspace:packages/members"
   dependencies:
@@ -5199,7 +5234,7 @@ __metadata:
     regenerator-runtime: ^0.13.3
     serialize-javascript: ^2.1.0
     superagent: ^3.8.3
-    webpack: ^4.41.5
+    webpack: ^4.42.0
     webpack-assets-manifest: ^3.0.1
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
@@ -5330,6 +5365,7 @@ __metadata:
     babel-loader: ^8.0.6
     core-js: ^3.6.4
     create-react-class: ^15.5.3
+    final-form: ^4.18.6
     prop-types: ^15.7.2
     react: ^16.12.0
     react-bootstrap: ^0.33.0
@@ -5338,8 +5374,13 @@ __metadata:
     react-markdown: ^4.0.4
     react-waypoint: ^9.0.2
     rimraf: ^3.0.1
+    webpack: ^4.42.0
   peerDependencies:
+    final-form: ^4.18.5
     react: ^16.12.0
+  peerDependenciesMeta:
+    final-form:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -5409,6 +5450,7 @@ __metadata:
     dom4: ^2.1.5
     ejs-compiled-loader-webpack4: ^2.2.0
     eslint: ^6.8.0
+    final-form: ^4.18.6
     flatted: ^2.0.1
     he: ^1.2.0
     history: ^4.10.1
@@ -6824,6 +6866,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/keyv@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@types/keyv@npm:3.1.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2/3aaf557d5b82e733d5a17b7f55af5d6be953363c3a594f006d64265790fe87c301c6e1400c0b6b1cf72add50a0ceddc25afb8231ab8302a2e5b6ebfbfac30e5d
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
@@ -6938,6 +6989,25 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^2.2.0
   checksum: 2/2aebd251cc8d4551a7c3f39d5d0d251bfcb2d55c0f1b17153010e0c8e52ffda498b4e468ab839ca039c2d277dfa36744d1f3a7f21cf1e525f32bfef55362f77d
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^16.9.25":
+  version: 16.9.25
+  resolution: "@types/react@npm:16.9.25"
+  dependencies:
+    "@types/prop-types": "*"
+    csstype: ^2.2.0
+  checksum: 2/20cc7d3b714cc1802e84eb30d6090d67de1b76dd02d58f03705bb1046f1be11525670c73696e86363293506a6f9bfcc3438ec9f44e9de32cba1a0d1c3efc3aa8
+  languageName: node
+  linkType: hard
+
+"@types/responselike@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/responselike@npm:1.0.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2/e6e6613c800aeda63e2331e753e8d21df1a2c9aa7a4bc71ed792a848e4811fc96e609759089355314a2318c76eff1f161499cd242044838ab1e6f56e463ebb9c
   languageName: node
   linkType: hard
 
@@ -11086,7 +11156,7 @@ __metadata:
     "@openagenda/agenda-settings": ^1.1.2
     "@openagenda/agenda-tags": ^1.0.7
     "@openagenda/agendas": ^1.3.0
-    "@openagenda/aggregator-sources": ^1.1.3
+    "@openagenda/aggregator-sources": ^1.1.6
     "@openagenda/aggregators": ^1.1.1
     "@openagenda/call-to-action": ^2.2.2
     "@openagenda/cibul-model": ^1.1.1
@@ -11118,8 +11188,8 @@ __metadata:
     "@openagenda/legacy": ^1.0.0
     "@openagenda/logs": ^1.1.1
     "@openagenda/mails": ^2.0.0
-    "@openagenda/member-apps": ^2.0.0
-    "@openagenda/members": ^1.0.1
+    "@openagenda/member-apps": ^2.0.1
+    "@openagenda/members": ^1.15.0
     "@openagenda/network-apps": ^1.0.1
     "@openagenda/networks": ^1.1.2
     "@openagenda/newsletter": ^2.0.1
@@ -11152,6 +11222,7 @@ __metadata:
     fast-levenshtein: ^2.0.6
     feathers-authentication-hooks: ^0.3.0
     feathers-hooks-common: ^4.20.7
+    final-form: ^4.18.6
     gm: ^1.23.1
     history: ^4.10.1
     hsts: ^2.1.0
@@ -25021,6 +25092,9 @@ __metadata:
     jest: ^25.1.0
     lerna: ^3.20.2
     regenerator-runtime: ^0.13.5
+  dependenciesMeta:
+    webpack-dev-server:
+      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -27987,13 +28061,6 @@ __metadata:
     iconv-lite: 0.4.13
     unpipe: 1.0.0
   checksum: 2/579509323fee6f6849674fc7a1deb79051732ba8b305f25f3dcf3097ba3bb600acca2fa3af1c6703ab3044148f33b345bbf2e1b1e2e13e6b7d83ca52c360f5de
-  languageName: node
-  linkType: hard
-
-"raw-loader@npm:^0.5.1":
-  version: 0.5.1
-  resolution: "raw-loader@npm:0.5.1"
-  checksum: 2/a0b1451a164fc98f112a7464d33c93df627a7d6b075ad5f9ca16da3db6ea03698d0ced9d6fcd8d017f82e4505a982c900d282141f4657549e682a026cc25d706
   languageName: node
   linkType: hard
 
@@ -35219,7 +35286,7 @@ typescript@^3.2.1:
   languageName: node
   linkType: hard
 
-"webpack@npm:4.42.0, webpack@npm:^4.33.0, webpack@npm:^4.38.0, webpack@npm:^4.41.5, webpack@npm:^4.42.0":
+"webpack@npm:4.42.0, webpack@npm:^4.33.0, webpack@npm:^4.38.0, webpack@npm:^4.42.0":
   version: 4.42.0
   resolution: "webpack@npm:4.42.0"
   dependencies:

@@ -42,5 +42,10 @@
     "hooks": {
       "pre-commit": "lerna run lint-staged --concurrency 1"
     }
+  },
+  "dependenciesMeta": {
+    "webpack-dev-server": {
+      "unplugged": true
+    }
   }
 }

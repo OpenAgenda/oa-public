@@ -30,7 +30,10 @@
     "react-hot-loader": "^4.12.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4"
+    "@babel/core": "^7.8.4",
+    "@types/react": "^16.9.25",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "peerDependencies": {
     "@babel/core": "^7.8.4"

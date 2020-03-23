@@ -26,7 +26,7 @@ module.exports = Object.assign( plugApp, {
 } )
 
 function task() {
-  knex( schemas.unsubscriptionLink )
+  config.knex( schemas.unsubscriptionLink )
     .delete()
     .where( 'created_at', '<', new Date( new Date().getTime() - (1000 * 60 * 60 * 24 * 90) ) )
     .then(
