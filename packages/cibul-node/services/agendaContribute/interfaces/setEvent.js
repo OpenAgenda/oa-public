@@ -111,17 +111,17 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
 
 async function _shouldBeModerated(memberRole, agenda, user) {
   try {
-    const shouldBeModeratedBy = _.get(
+    const shouldBeModeratedIfChangedBy = _.get(
       agenda,
       'settings.contribution.moderateOnChangeBy',
       []
-    );
+    ).map(r => r.replace(/s$/,''))
 
-    if (!shouldBeModeratedBy.length) return false;
+    if (!shouldBeModeratedIfChangedBy.length) return false;
 
     if (!memberRole) throw new Error('Member not found');
 
-    return shouldBeModeratedBy.includes(memberRole);
+    return shouldBeModeratedIfChangedBy.includes(memberRole);
 
   } catch (e) {
     log('error', 'Could not determine role of user %s in agenda %s', user.uid, agenda.uid, e);
