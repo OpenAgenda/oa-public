@@ -24,7 +24,8 @@
 },
 {
   "name" : "statistics",
-  "section" : "manage"
+  "section" : "manage",
+  "roles" : [ "gna" ]
 },
 {
   "name" : "activities",
