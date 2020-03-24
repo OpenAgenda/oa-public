@@ -95,13 +95,14 @@ module.exports = {
     "en": "Delete",
     "fr": "Supprimer",
     "it": "Cancellare",
-    "de": "löschen",
+    "de": "Veranstaltung löschen",
     "pl": "Usuń",
     "es": "Eliminar",
     "br": "Dilemel"
   },
   "deleteInfo": {
     "en": "Permanently remove this event from OpenAgenda",
+    "de": "Entferne deine Veranstaltung endgültig aus OpenAgenda.",
     "fr": "Supprimer de manière permanente l'événement d'OpenAgenda"
   },
   "remove": {
@@ -232,7 +233,7 @@ module.exports = {
   "cancelInfo": {
     "fr": "Votre événement reste en ligne, avec son titre précédé par 'Annulé'",
     "it": "Il vostro evento rimanera online, con il suo titolo preceduto da 'Cancellato'.",
-    "de": "Ihre Veranstaltung wird online bleiben, wobei der Titel der Veranstaltung mit 'Abgesagt' vorangestellt wird.",
+    "de": "Deine Veranstaltung wird mit dem Hinweis \"Abgesagt\" angezeigt.",
     "es": "Su evento permanecera en línea, con su título precedido por 'Cancelado'.",
     "en": "Your event will remain online, with its title preceded by 'Cancelled'."
   },
@@ -428,12 +429,13 @@ module.exports = {
     "en": "Duplicate",
     "fr": "Dupliquer",
     "it": "Duplicare ",
-    "de": "dublizieren",
+    "de": "Veranstaltung dublizieren",
     "pl": "Powielić",
     "es": "duplicar",
     "br": "Eilañ"
   },
   "duplicateInfo": {
+    "de": "Dubliziere Deine Veranstaltung und übertrage alle Angaben auf einen weiteren Event.",
     "en": "Load a new event form pre-filled with the details from this event",
     "fr": "Charger un nouveau formulaire de saisie pré-rempli avec les informations de cet événement"
   },

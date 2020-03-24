@@ -74,13 +74,13 @@ module.exports = {
     "br": "Esaeit adarre"
   },
   "hasAccount": {
-    "fr": "Vous avez déjà utilisé OpenAgenda ?",
-    "en": "Have you already used OpenAgenda ?",
-    "it": "Hai già utilizzato OpenAgenda ?",
-    "de": "Kennst du schon OpenAgenda ?",
-    "pl": "Czy korzystałeś już z OpenAgendy?",
-    "es": "Ya ha utilizado OpenAgenda?",
-    "br": "Daoust hag implijet ho peus OpenAgenda c'hoazh ?"
+    "fr": "Vous avez déjà utilisé OpenAgenda ?",
+    "en": "Have you already used OpenAgenda ?",
+    "it": "Hai già utilizzato OpenAgenda ?",
+    "de": "Schon registriert ?",
+    "pl": "Czy korzystałeś już z OpenAgendy ?",
+    "es": "Ya ha utilizado OpenAgenda ?",
+    "br": "Daoust hag implijet ho peus OpenAgenda c'hoazh ?"
   },
   "connect": {
     "fr": "Connectez-vous",

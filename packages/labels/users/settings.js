@@ -11,7 +11,7 @@ module.exports = {
   "accountParameters": {
     "en": "Account parameters",
     "fr": "Paramètres du compte",
-    "de": "Kontoparameter",
+    "de": "Allgemeine Einstellungen",
     "es": "Configuración de la cuenta",
     "it": "Impostazioni del conto"
   },
@@ -354,7 +354,7 @@ module.exports = {
   "chooseEmailsSent": {
     "en": "Choose the emails that OpenAgenda sends me",
     "fr": "Choisir les emails qu'OpenAgenda m'envoie",
-    "de": "Wählen Sie die E-Mails, dass OpenAgenda mich sendet",
+    "de": "Meine Benachrichtigungseinstellungen. Wie und wann möchtest Du E-Mails bekommen?",
     "es": "Elija qu'OpenAgenda me envía mensajes de correo electrónico",
     "it": "La scelta delle e-mail che OpenAgenda mi invia"
   },
