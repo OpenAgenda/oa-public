@@ -2,7 +2,7 @@
 
 const config = require('../testconfig');
 const { Tracker } = require('./utils');
-const fixtures = require('./fixtures/load');
+const fixtures = require('./fixtures');
 const createInstance = require('..');
 
 describe('09 - set and get', () => {
