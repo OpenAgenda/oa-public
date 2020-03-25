@@ -84,6 +84,26 @@ describe('images - functional (server): main function', function() {
 
   });
 
+  it('fix - url that is already encoded works', done => {
+
+    imageSvc({
+      url: 'https://pantin-pom-test.c3rb.org/images/PRUDHOMME_Sylvain_photo_2019_Francesca_Mantovani_-_e%CC%81ditions_Gallimard_87A1174_-2.jpg',
+      name: 'testprocessedimage',
+      format: {
+        crop: true,
+        width: 200,
+        height: 200
+      }
+    }, (err, result) => {
+
+      result.split('/').pop().should.equal('testprocessedimage.jpg');
+
+      done();
+
+    });
+
+  });
+
 
   it('process images from wobbly url', done => {
 
