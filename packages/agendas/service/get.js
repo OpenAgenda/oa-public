@@ -187,35 +187,6 @@ function _applyDefaults( data ) {
 
 }
 
-
-function _detailed( agenda, includeRestricted ) {
-
-
-
-}
-
-
-function _detailed( v ) {
-
-  if ( !v.detailed || !v.data ) return v;
-
-  let d = w.defer();
-
-  details.load( v.data, { includeRestricted: v.includeRestricted }, ( err, data ) => {
-
-    if ( err ) return d.reject( err );
-
-    v.data = data;
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
-
 function _filterInternals( v ) {
 
   if ( !v.data ) return v;
