@@ -73,7 +73,9 @@ describe('images - functional (server): main function', function() {
     }, err => {
 
       err.should.eql({
-        message: 'invalid image'
+        code: 'invalid.format',
+        format: 'txt',
+        message: 'unhandled image format'
       });
 
       done();
