@@ -401,7 +401,7 @@ module.exports = {
   "noContrib": {
     "fr": "n'a pas contribué",
     "en": "did not contribute",
-    "de": "nicht beitragen",
+    "de": "kein Beitrag",
     "es": "no ha añadido evento",
     "it": "non ha contribuito"
   },

@@ -468,13 +468,17 @@ async function _loadImageStream( values ) {
 }
 
 
+
 /**
  * download file from given url
  */
 
 function _download( values ) {
+  log('_download', values.url);
 
   return w.promise( function( rs, rj ) {
+
+    let processed = false;
 
     var path = _getTemporaryFilePath(),
 
@@ -489,7 +493,7 @@ function _download( values ) {
     aborted = false,
 
     req = request.get( {
-      url: encodeURI( src ),
+      url: _encodeURIIfNotEncoded(src),
       agentOptions: {
         rejectUnauthorized: false
       },
@@ -503,7 +507,12 @@ function _download( values ) {
 
     .on( 'response', res => {
 
+      log('_download: received with code %s', res.statusCode);
+
       if ( res.statusCode < 200 || res.statusCode > 300 ) {
+
+        if (processed) return;
+        processed = true;
 
         _downloadAbort( req, path, {
           code: 'invalid.status',
@@ -516,16 +525,25 @@ function _download( values ) {
     } )
 
     .on( 'error', err => {
+      log('_download - error', err);
+
+      if (processed) return;
+      processed = true;
 
       rj( err.code == 'ETIMEDOUT' ? 'timeout' : err );
 
     } )
 
     .on( 'data', chunk => {
+      log('_download - data');
 
       downloadedSize += chunk.length;
 
       if ( downloadedSize > config.maxSize ) {
+
+        if (processed) return;
+
+        processed = true;
 
         _downloadAbort( req, path, {
           code: 'image.toobig',
@@ -540,8 +558,10 @@ function _download( values ) {
     } )
 
     .on( 'end', () => {
+      log('_download - end');
 
-      if ( aborted ) return;
+      if (aborted) return;
+      if (processed) return;
 
       values.path = path;
 
@@ -552,8 +572,11 @@ function _download( values ) {
     req.pipe( file );
 
     file.on( 'close', () => {
+      log('_downloed - close');
 
       if ( aborted ) return;
+      if (processed) return;
+      processed = true;
 
       rs( values );
 
@@ -565,6 +588,7 @@ function _download( values ) {
 
 
 function _downloadAbort( req, path, error, cb ) {
+  log('_downloadAbort: unlinking file %s', path);
 
   req.abort();
 
@@ -574,6 +598,8 @@ function _downloadAbort( req, path, error, cb ) {
 
       log( 'error', 'could not delete file at %s', path );
 
+    } else {
+      log('file %s unlinked', path);
     }
 
     cb( error );
@@ -600,4 +626,15 @@ function _stripExtension( filename ) {
 
   return filename;
 
+}
+
+function _isURIEncoded(src) {
+  return decodeURI(src)!==src;
+}
+
+function _encodeURIIfNotEncoded(src) {
+  if (_isURIEncoded(src)) {
+    return src;
+  }
+  return encodeURI(src);
 }

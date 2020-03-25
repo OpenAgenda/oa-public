@@ -424,7 +424,7 @@ module.exports = {
   "retrieveConversationsOnHome": {
     "fr": "Retrouvez toutes vos conversations sur <a href=\"%url%\">votre messagerie OA</a>.",
     "en": "Find all your conversations on <a href=\"%url%\">your OA messaging</a>.",
-    "de": "Finden Sie alle Ihre Gespräche auf <a href=\"%url%\"> Ihre OA Messaging </a>.",
+    "de": "Finde Deine Gespräche im <a href=\"%url%\">Posteingang</a>.",
     "es": "Encuentra todas las conversaciones <a href=\"%url%\"> su correo electrónico OA </a>.",
     "it": "Trova tutte le tue conversazioni su <a href=\"%url%\">la tua casella di posta elettronica OA</a>."
   },

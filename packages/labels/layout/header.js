@@ -4,7 +4,7 @@ module.exports = {
   "signin": {
     "fr": "Se connecter",
     "en": "Sign in",
-    "de": "Einloggen",
+    "de": "Login",
     "es": "Conectarse",
     "it": "Accesso"
   },
