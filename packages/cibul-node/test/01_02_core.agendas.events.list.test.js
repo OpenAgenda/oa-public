@@ -6,7 +6,6 @@ const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const fixtures = require('./fixtures/001.sql');
@@ -17,11 +16,9 @@ const Services = require('../services/init');
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events.list()', function() {
-  this.timeout(20000);
-
   let core;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -33,9 +30,9 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -57,50 +54,53 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     core = Core(services, testConfig);
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
   describe('simple list', () => {
     let events;
 
-    before(async () => {
+    beforeAll(async () => {
       events = await core.agendas(2).events.list({}, { limit: 1 });
     });
 
     it('list of events are provided as result', () => {
-      events[0].uid.should.equal(1);
+      expect(events[0].uid).toBe(1);
     });
 
     it('extended field is provided', () => {
-      events[0].thematique.should.equal(2);
+      expect(events[0].thematique).toBe(2);
     });
 
     it('extended restricted access field is not provided', () => {
-      should(events[0].note).equal(undefined);
+      expect(events[0].note).toBeUndefined();
     });
 
     it('location is not provided, just location uid', () => {
-      should(events[0].location).equal(undefined);
-      events[0].locationUid.should.equal(1);
+      expect(events[0].location).toBeUndefined();
+      expect(events[0].locationUid).toBe(1);
     });
 
     it('origin agenda is not provided', () => {
-      should(events[0].originAgenda).equal(undefined);
+      expect(events[0].originAgenda).toBeUndefined();
     });
   });
 
   describe('list with option detailed: true', () => {
     let events;
 
-    before(async () => {
+    beforeAll(async () => {
       events = await core.agendas(2).events.list({}, { limit: 1 }, { detailed: true });
     });
 
     it('requested event is returned directly by get', () => {
-      events[0].uid.should.equal(1);
+      expect(events[0].uid).toBe(1);
     });
 
     it('location is provided', () => {
-      Object.keys(events[0].location).should.eql([
+      expect(Object.keys(events[0].location)).toEqual([
         'uid', 'slug', 'name', 'address',
         'city', 'region', 'department', 'postalCode',
         'insee', 'countryCode', 'district',
@@ -109,7 +109,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     });
 
     it('origin agenda is provided', () => {
-      Object.keys(events[0].originAgenda).should.eql([
+      expect(Object.keys(events[0].originAgenda)).toEqual([
         'slug',
         'uid',
         'official',
@@ -125,7 +125,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     });
 
     it('member is provided', () => {
-      events[0].member.should.eql({
+      expect(events[0].member).toEqual({
         role: 1,
         userUid: 1,
         custom: {
@@ -136,7 +136,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
 
     it('sourceAgendas are provided', async () => {
       const events = await core.agendas(2).events.list({}, { limit: 2 }, { detailed: true });
-      events[1].sourceAgendas.length.should.equal(1);
+      expect(events[1].sourceAgendas.length).toBe(1);
     });
   });
 
@@ -144,52 +144,52 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     it('if null is set on access, all extended fields are provided', async () => {
       const events = await core.agendas(2).events.list({}, { limit: 1 }, { access: null });
 
-      events[0].thematique.should.equal(2);
-      events[0].note.should.equal('Une note interne pour les administrateurs');
+      expect(events[0].thematique).toBe(2);
+      expect(events[0].note).toBe('Une note interne pour les administrateurs');
     });
 
     it('if provided access value does not match set value in field, value is not provided', async () => {
       const events = await core.agendas(2).events.list({}, { limit: 1 }, { access: 'moderator' });
 
-      should(events[0].note).equal(undefined);
+      expect(events[0].note).toBeUndefined();
     });
 
     it('if provided access value matches field configuration, value is provided', async () => {
       const events = await core.agendas(2).events.list({}, { limit: 1 }, { access: 'administrator' });
 
-      events[0].thematique.should.equal(2);
-      events[0].note.should.equal('Une note interne pour les administrateurs');
+      expect(events[0].thematique).toBe(2);
+      expect(events[0].note).toBe('Une note interne pour les administrateurs');
     });
   });
 
   describe('list with option returnPayload: true', () => {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await core.agendas(2).events.list({}, { limit: 1 }, { returnPayload: true });
     });
 
     it('success key is true when get is successful', () => {
-      result.success.should.equal(true);
+      expect(result.success).toBe(true);
     });
 
     it('current agenda is available under agenda key', () => {
-      result.agenda.uid.should.equal(2);
+      expect(result.agenda.uid).toBe(2);
     });
 
     it('schema is available under formSchema key, with public fields, excluding id', () => {
-      result.formSchema.fields.filter(f => f.field === 'id').length.should.equal(0);
+      expect(result.formSchema.fields.filter(f => f.field === 'id').length).toBe(0);
     });
 
     it('event is provided in payload', () => {
-      result.events[0].slug.should.equal('event-1');
+      expect(result.events[0].slug).toBe('event-1');
     });
   });
 
   describe('list with option returnPayload: true and access set', () => {
     let adminResult, internalResult;
 
-    before(async () => {
+    beforeAll(async () => {
       adminResult = await core.agendas(2).events.list({}, { limit: 1 }, {
         returnPayload: true,
         access: 'administrator'
@@ -201,27 +201,29 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     });
 
     it('admin field is provided in event', () => {
-      adminResult.events[0].note.should.equal('Une note interne pour les administrateurs');
+      expect(adminResult.events[0].note).toBe('Une note interne pour les administrateurs');
     });
 
     it('admin fields are given in schema', () => {
-      adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length.should.equal(2);
+      expect(
+        adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length
+      ).toBe(2);
     });
 
     it('event id is not provided if access is administrator', () => {
-      should(adminResult.events[0].id).equal(undefined);
+      expect(adminResult.events[0].id).toBeUndefined();
     });
 
     it('event id field is not provided if access is administrator', () => {
-      adminResult.formSchema.fields.filter(f => f.field === 'id').length.should.equal(0);
+      expect(adminResult.formSchema.fields.filter(f => f.field === 'id').length).toBe(0);
     });
 
     it('event id field is provided if access is internal', () => {
-      internalResult.events[0].id.should.equal(1);
+      expect(internalResult.events[0].id).toBe(1);
     });
 
     it('id field is present if formSchema if access is internal', () => {
-      internalResult.formSchema.fields.filter(f => f.field === 'id').length.should.equal(1);
+      expect(internalResult.formSchema.fields.filter(f => f.field === 'id').length).toBe(1);
     });
   });
 

@@ -1,6 +1,5 @@
 'use strict';
 
-const should = require( 'should' );
 const sinon = require( 'sinon' );
 const moment = require( 'moment' );
 const { agenda, event } = require('./fixtures/99_event_ics');
@@ -22,8 +21,7 @@ describe('event ics', () => {
 
   it('create valid ics', () => {
     return console.log('ignoring as does not work in different timezone');
-    should(toIcs(agenda, event, 'fr'))
-      .equal(`BEGIN:VCALENDAR
+    expect(toIcs(agenda, event, 'fr')).toBe(`BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Mondonville\\; L'aut côté !//agenda::fr
 METHOD:PUBLISH

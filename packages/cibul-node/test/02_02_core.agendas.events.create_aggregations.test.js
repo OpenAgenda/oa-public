@@ -7,7 +7,6 @@ const axios = require('axios');
 const ih = require('immutability-helper');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const api = require('../api');
 const Core = require('../core');
@@ -23,13 +22,11 @@ const fixtures = {
 const testConfig = require('./testConfig');
 
 describe('02 - core - functional (server): core.agendas().events.create() - aggregations', function() {
-  this.timeout(30000);
-
   const memberUserUid = 63170200;
 
   let core, stopTask;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -41,9 +38,9 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'tracker', // for testing
@@ -70,15 +67,16 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     stopTask = services.aggregators.task().stopAndClear;
   });
 
-  after(async () => {
+  afterAll(async () => {
     await stopTask();
     testConfig.knex.destroy();
+    testConfig.redisClient.quit();
   });
 
   describe('direct aggregation', function() {
     let event, tracked;
 
-    before(done => {
+    beforeAll(done => {
       core.services.tracker.on('aggregators.referenceEvent.done', stack => {
         done();
       }, true);
@@ -93,12 +91,12 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
     it('event was aggregated', async () => {
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
-      ref.state.should.equal(2);
+      expect(ref.state).toBe(2);
     });
 
     it('sourcePaths is saved in agendaEvent ref', async () => {
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
-      ref.sourcePaths.should.eql([[17026855]]);
+      expect(ref.sourcePaths).toEqual([[17026855]]);
     });
   });
 
@@ -108,14 +106,14 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
     };
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(58025176).events.create(fixtures.events[1], {
         context,
         access: 'contributor'
       });
     });
 
-    before(done => {
+    beforeAll(done => {
       core.agendas(17026855).events.add(event.uid, {
         'thematiques-metropolitaines': 3
       }, { context });
@@ -127,7 +125,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
     it('event is aggregated and source path starts at agenda where it was added', async () => {
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
-      ref.sourcePaths.should.eql([[17026855]]);
+      expect(ref.sourcePaths).toEqual([[17026855]]);
     });
 
   });

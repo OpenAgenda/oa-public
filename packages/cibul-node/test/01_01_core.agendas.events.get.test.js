@@ -6,7 +6,6 @@ const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const fixtures = require('./fixtures/001.sql');
@@ -17,11 +16,10 @@ const Services = require('../services/init');
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events.get()', function() {
-  this.timeout(20000);
 
   let core;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -33,9 +31,9 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -57,34 +55,37 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     core = Core(services, testConfig);
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
   describe('simple get', () => {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(2).events.get(1);
     });
 
     it('requested event is returned directly by get', () => {
-      event.uid.should.equal(1);
+      expect(event.uid).toBe(1);
     });
 
     it('additional field is provided', () => {
-      event.thematique.should.equal(2);
+      expect(event.thematique).toBe(2);
     });
 
     it('additional restricted access field is not provided', () => {
-      should(event.note).equal(undefined);
+      expect(event.note).toBeUndefined();
     });
 
     it('location is not provided, just location uid', () => {
-      should(event.location).equal(undefined);
-      event.locationUid.should.equal(1);
+      expect(event.location).toBeUndefined();
+      expect(event.locationUid).toBe(1);
     });
 
     it('origin agenda is provided', () => {
-      should(event.originAgenda).eql({
+      expect(event.originAgenda).toEqual({
         uid: 1,
         title: 'Une commune de Fraaance',
         slug: 'une-commune-de-fraaance',
@@ -99,12 +100,12 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   describe('get with option detailed: true', () => {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(2).events.get(1, { detailed: true });
     });
 
     it('location is provided', () => {
-      Object.keys(event.location).should.eql([
+      expect(Object.keys(event.location)).toEqual([
         'uid', 'slug', 'name', 'address',
         'city', 'region', 'department', 'postalCode',
         'insee', 'countryCode', 'district',
@@ -118,84 +119,84 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     describe('access: null', () => {
       let event;
 
-      before(async () => {
+      beforeAll(async () => {
         event = await core.agendas(2).events.get(1, { access: null });
       });
 
       it('all additional fields are provided', async () => {
-        event.thematique.should.equal(2);
-        event.note.should.equal('Une note interne pour les administrateurs');
+        expect(event.thematique).toEqual(2);
+        expect(event.note).toEqual('Une note interne pour les administrateurs');
       });
 
       it('member is provided if detailed is true', async () => {
-        event.member.userUid.should.equal(1);
+        expect(event.member.userUid).toEqual(1);
       });
     });
 
     describe('access: internal', () => {
       let event;
 
-      before(async () => {
+      beforeAll(async () => {
         event = await core.agendas(2).events.get(1, { access: 'internal' });
       });
 
       it('all additional fields are provided', async () => {
-        event.thematique.should.equal(2);
-        event.note.should.equal('Une note interne pour les administrateurs');
+        expect(event.thematique).toBe(2);
+        expect(event.note).toBe('Une note interne pour les administrateurs');
       });
     });
 
     describe('access: public', () => {
       let event;
 
-      before(async () => {
+      beforeAll(async () => {
         event = await core.agendas(2).events.get(1);
       });
 
       it('member is not provided', () => {
-        should(event.member).equal(undefined);
+        expect(event.member).toBe(undefined);
       });
     });
 
     it('if provided access value does not match set value in field, value is not provided', async () => {
       const event = await core.agendas(2).events.get(1, { access: 'moderator' });
 
-      should(event.note).equal(undefined);
+      expect(event.note).toBe(undefined);
     });
 
     it('if provided access value matches field configuration, value is provided', async () => {
       const event = await core.agendas(2).events.get(1, { access: 'administrator' });
 
-      event.thematique.should.equal(2);
-      event.note.should.equal('Une note interne pour les administrateurs');
+      expect(event.thematique).toBe(2);
+      expect(event.note).toBe('Une note interne pour les administrateurs');
     });
   });
 
   describe('get with option returnPayload: true', () => {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await core.agendas(2).events.get(1, { returnPayload: true });
     });
 
     it('success key is true when get is successful', () => {
-      result.success.should.equal(true);
+      expect(result.success).toEqual(true);
     });
 
     it('current agenda is available under agenda key', () => {
-      result.agenda.uid.should.equal(2);
+      expect(result.agenda.uid).toEqual(2);
     });
 
     it('origin agenda is available under originAgenda key', () => {
-      result.originAgenda.uid.should.equal(1);
+      expect(result.originAgenda.uid).toEqual(1);
     });
 
     it('schema is available under formSchema key, with public fields, excluding id', () => {
-      result.formSchema.fields.filter(f => f.field === 'id').length.should.equal(0);
+      expect(result.formSchema.fields.filter(f => f.field === 'id').length).toEqual(0);
     });
 
     it('event is provided in payload', () => {
-      result.event.slug.should.equal('event-1');
+      expect(result.event.slug).toEqual('event-1');
     });
   });
 
@@ -203,7 +204,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
 
     let adminResult, internalResult;
 
-    before(async () => {
+    beforeAll(async () => {
       adminResult = await core.agendas(2).events.get(1, {
         returnPayload: true,
         access: 'administrator'
@@ -215,31 +216,31 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     });
 
     it('admin field is provided in event', () => {
-      adminResult.event.note.should.equal('Une note interne pour les administrateurs');
+      expect(adminResult.event.note).toEqual('Une note interne pour les administrateurs');
     });
 
     it('admin fields are given in schema', () => {
-      adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length.should.equal(2);
+      expect(adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length).toEqual(2);
     });
 
     it('event id is not provided if access is administrator', () => {
-      should(adminResult.event.id).equal(undefined);
+      expect(adminResult.event.id).toEqual(undefined);
     });
 
     it('event id field is not provided if access is administrator', () => {
-      adminResult.formSchema.fields.filter(f => f.field === 'id').length.should.equal(0);
+      expect(adminResult.formSchema.fields.filter(f => f.field === 'id').length).toEqual(0);
     });
 
     it('event id field is provided if access is internal', () => {
-      internalResult.event.id.should.equal(1);
+      expect(internalResult.event.id).toEqual(1);
     });
 
     it('creatorUid is provided if access is internal', () => {
-      internalResult.event.creatorUid.should.equal(1);
+      expect(internalResult.event.creatorUid).toEqual(1);
     });
 
     it('id field is present if formSchema if access is internal', () => {
-      internalResult.formSchema.fields.filter(f => f.field === 'id').length.should.equal(1);
+      expect(internalResult.formSchema.fields.filter(f => f.field === 'id').length).toEqual(1);
     });
 
   });
@@ -249,16 +250,16 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     it('get on event includes source paths', async () => {
       const ev = await core.agendas(2).events.get(2);
 
-      ev.sourcePaths.should.eql([[1]]);
+      expect(ev.sourcePaths).toEqual([[1]]);
     });
 
     it('source agendas are provided if detailed is true', async () => {
       const ev = await core.agendas(2).events.get(2, { detailed: true });
-      ev.sourceAgendas.length.should.equal(1);
+      expect(ev.sourceAgendas.length).toEqual(1);
     });
 
     it('get non-existing event returns null', async () => {
-      should(await core.agendas(2).events.get(18978979)).equal(null);
+      expect(await core.agendas(2).events.get(18978979)).toBe(null);
     });
 
     it('get with customOnly option only gets custom data', async () => {
@@ -268,7 +269,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
         }
       });
 
-      data.should.eql({
+      expect(data).toEqual({
         thematique: 2
       });
     });
@@ -281,7 +282,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
         access: 'administrator'
       });
 
-      data.should.eql({
+      expect(data).toEqual({
         thematique: 2,
         note: 'Une note interne pour les administrateurs'
       });

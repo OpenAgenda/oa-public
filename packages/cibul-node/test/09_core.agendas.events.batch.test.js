@@ -6,7 +6,6 @@ const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const fixtures = require('./fixtures/010.sql');
 
@@ -20,10 +19,9 @@ const assignClients = require('./utils/assignClients');
 const testConfig = require('./testConfig');
 
 describe('09 - core - fuctional (server): core.agendas().events.batch()', function() {
-  this.timeout(30000);
   let core;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -35,9 +33,9 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -61,12 +59,15 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
     core = Core(services, testConfig);
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
   describe('basic batch', () => {
     let result;
 
-    before(done => {
+    beforeAll(done => {
       let called = false;
       core.agendas(1).events.batch('update', {
         state: 0
@@ -92,7 +93,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
 
     it('event is updated through batch operation', async () => {
       const event = await core.agendas(1).events.get(2);
-      event.state.should.equal(1);
+      expect(event.state).toBe(1);
     });
 
   });

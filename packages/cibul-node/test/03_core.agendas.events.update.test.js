@@ -1,12 +1,12 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
+global.XMLHttpRequest = undefined; // required to make axios calls to http://localhost with jest
 
 const _ = require('lodash');
 const axios = require('axios');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const api = require('../api');
@@ -16,14 +16,13 @@ const testConfig = require('./testConfig');
 const loadFixtures = require('./fixtures/load');
 
 describe('core - functional (server): core.agendas().events.update()', function() {
-  this.timeout(20000);
   let core;
 
-  before(() => loadFixtures(testConfig.db, '004.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '004.sql'));
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -50,9 +49,12 @@ describe('core - functional (server): core.agendas().events.update()', function(
     await core.agendas(17026855).events.search.rebuild();
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
-  after(async () => {
+  afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
@@ -63,7 +65,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
   describe('simple update', function() {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(17026855).events.update(19201989, {
         state: 0,
         featured: true,
@@ -96,16 +98,16 @@ describe('core - functional (server): core.agendas().events.update()', function(
     describe('response', () => {
 
       it('updated event is provided as a response', () => {
-        event.uid.should.equal(19201989);
-        event.title.fr.should.equal('Un événement mis à jour');
+        expect(event.uid).toBe(19201989);
+        expect(event.title.fr).toBe('Un événement mis à jour');
       });
 
       it('updated state is provided in response', () => {
-        event.state.should.equal(0);
+        expect(event.state).toBe(0);
       });
 
       it('provides the location in a location key', async () => {
-        event.location.name.should.equal('La boutique');
+        expect(event.location.name).toBe('La boutique');
       });
 
     });
@@ -115,13 +117,13 @@ describe('core - functional (server): core.agendas().events.update()', function(
       it('custom values are updated', async () => {
         const data = await core.services.custom(2).get(event.uid);
 
-        data['thematiques-bordeaux-metropole'].should.eql([3])
+        expect(data['thematiques-bordeaux-metropole']).toEqual([3])
       });
 
       it('event state in agenda is updated', async () => {
         const { state } = await core.services.agendaEvents(17026855).get(19201989);
 
-        state.should.equal(0);
+        expect(state).toBe(0);
       });
 
     });
@@ -129,7 +131,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
     describe('search', () => {
       let result;
 
-      before(async () => {
+      beforeAll(async () => {
         result = await core.agendas(17026855).events.search({
           uid: event.uid,
           state: null
@@ -137,14 +139,14 @@ describe('core - functional (server): core.agendas().events.update()', function(
       });
 
       it('indexed document is updated', () => {
-        result.events[0]['thematiques-bordeaux-metropole'].should.eql([3])
+        expect(result.events[0]['thematiques-bordeaux-metropole']).toEqual([3])
       });
     });
 
     describe('fixes', () => {
 
       it('location store should not be present in result', () => {
-        should(event.location.store).equal(undefined);
+        expect(event.location.store).toBeUndefined();
       });
 
     });
@@ -153,7 +155,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
   describe('updates with different accesses', () => {
 
-    before(() => core.agendas(92983929).events.update(19390293, {
+    beforeAll(() => core.agendas(92983929).events.update(19390293, {
       title: {
         fr: 'Un autre événement mis à jour',
       },
@@ -171,7 +173,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
       access: 'contributor'
     }));
 
-    before(() => core.agendas(92983929).events.update(19390294, {
+    beforeAll(() => core.agendas(92983929).events.update(19390294, {
       title: {
         fr: 'Et un autre événement mis à jour',
       },
@@ -191,14 +193,14 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
     it('a contributor access cannot update an administrator field', async () => {
       const data = await core.services.custom(5).get(19390293);
-      data.should.eql({
+      expect(data).toEqual({
         'organisation-interne': 'Il faut que Thérèse y soit'
       });
     });
 
     it('an administrator access can update an administrator field', async () => {
       const data = await core.services.custom(5).get(19390294);
-      data.should.eql({
+      expect(data).toEqual({
         'organisation-interne': 'Il faut que René y aille'
       });
     });
@@ -208,7 +210,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
   describe('draft update', function() {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(17026855).events.update(83902931, {
         title: {
           fr: 'Un brouillon mis à jour',
@@ -229,16 +231,16 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
     it('update is still draft', async () => {
       const e = await core.services.events.get({ uid: 83902931 });
-      e.draft.should.equal(1);
+      expect(e.draft).toBe(1);
     });
 
     it('draft is updated', () => {
-      event.title.fr.should.equal('Un brouillon mis à jour');
+      expect(event.title.fr).toBe('Un brouillon mis à jour');
     });
 
     it('custom data is updated', async () => {
       const data = await core.services.custom(2).get(83902931);
-      data['thematiques-bordeaux-metropole'].should.eql([4]);
+      expect(data['thematiques-bordeaux-metropole']).toEqual([4]);
     });
 
   });
@@ -246,7 +248,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
   describe('patch with returnPayload: true', () => {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await core.agendas(17026855).events.patch(19201989, {
         state: -1
       }, {
@@ -257,15 +259,15 @@ describe('core - functional (server): core.agendas().events.update()', function(
     describe('response', () => {
 
       it('success bool is provided in response', () => {
-        result.success.should.equal(true);
+        expect(result.success).toBe(true);
       });
 
       it('updated event is provided in event response key', () => {
-        result.event.description.fr.should.equal('Une description');
+        expect(result.event.description.fr).toBe('Une description');
       });
 
       it('patched data is in event', () => {
-        result.event.state.should.equal(-1);
+        expect(result.event.state).toBe(-1);
       });
 
     });
@@ -277,7 +279,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
           .first('*')
           .where('id', 123);
 
-        record.state.should.equal(-1);
+        expect(record.state).toBe(-1);
       });
 
     });
@@ -319,7 +321,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
         state: updatedState
       } = await core.services.agendaEvents(17026855).get(19201989);
 
-      currentState.should.equal(updatedState);
+      expect(currentState).toBe(updatedState);
     });
 
     it('event can be updated with timings specifying begin&end as { date, hours, minutes } objects', async () => {
@@ -339,8 +341,8 @@ describe('core - functional (server): core.agendas().events.update()', function(
         }]
       }, { formSchemaDataFormat: true });
 
-      (new Date(event.timings[0].begin)).getUTCHours().should.equal(17);
-      (new Date(event.timings[0].begin)).getMinutes().should.equal(28);
+      expect((new Date(event.timings[0].begin)).getUTCHours()).toBe(17);
+      expect((new Date(event.timings[0].begin)).getMinutes()).toBe(28);
 
     });
 
@@ -349,13 +351,13 @@ describe('core - functional (server): core.agendas().events.update()', function(
   describe('api', function() {
     let server, accessToken, response;
 
-    before(done => {
+    beforeAll(done => {
        server = api(core).listen(3000, done);
     });
 
-    after(() => server.close());
+    afterAll(() => server.close());
 
-    before(async () => {
+    beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
         url: 'http://localhost:3000/v2/requestAccessToken',
@@ -370,7 +372,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
     describe('successful update', () => {
 
-      before(async () => {
+      beforeAll(async () => {
         response = await axios({
           method: 'post',
           url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
@@ -408,18 +410,18 @@ describe('core - functional (server): core.agendas().events.update()', function(
       });
 
       it('response gives success key if update was a success', () => {
-        response.success.should.equal(true);
+        expect(response.success).toBe(true);
       });
 
       it('updated event is provided in event key', () => {
-        response.event.uid.should.equal(19201989);
+        expect(response.event.uid).toBe(19201989);
       });
 
     });
 
     describe('unsuccessful update', () => {
 
-      before(async () => {
+      beforeAll(async () => {
         try {
           await axios({
             method: 'post',
@@ -452,11 +454,11 @@ describe('core - functional (server): core.agendas().events.update()', function(
       });
 
       it('response status should be 400', () => {
-        response.status.should.equal(400);
+        expect(response.status).toBe(400);
       });
 
       it('response body provides validation errors', () => {
-        response.data.errors.should.eql([{
+        expect(response.data.errors).toEqual([{
           code: 'timings.empty',
           message: 'At least one timing is required',
           field: 'timings',
@@ -468,7 +470,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
     describe('successful patch', () => {
 
-      before(async () => {
+      beforeAll(async () => {
         response = await axios({
           method: 'patch',
           url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
@@ -487,11 +489,11 @@ describe('core - functional (server): core.agendas().events.update()', function(
       });
 
       it('status is 200', () => {
-        response.status.should.equal(200);
+        expect(response.status).toBe(200);
       });
 
       it('body contains event', () => {
-        response.data.event.uid.should.equal(19201989);
+        expect(response.data.event.uid).toBe(19201989);
       });
 
     });
@@ -512,7 +514,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
           }
         });
 
-        response.data.event.title.should.eql({
+        expect(response.data.event.title).toEqual({
           en: 'Un événement remis à jour'
         });
       });
@@ -532,7 +534,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
           }
         });
 
-        response.data.event.title.should.eql({
+        expect(response.data.event.title).toEqual({
           fr: 'Un événement reremis à jour'
         });
       });

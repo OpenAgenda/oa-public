@@ -1,11 +1,11 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
+global.XMLHttpRequest = undefined; // required to make axios calls to http://localhost with jest
 
 const _ = require('lodash');
 const axios = require('axios');
 const ih = require('immutability-helper');
-const should = require('should');
 const request = require('superagent');
 
 const api = require('../api');
@@ -17,7 +17,6 @@ const loadFixtures = require('./fixtures/load');
 const testConfig = require('./testConfig');
 
 describe('02 - core - functional (server): core.agendas().events.create()', function() {
-  this.timeout(20000);
   let core;
 
   const eventData = {
@@ -42,11 +41,11 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     accessibility: { sl: true }
   };
 
-  before(() => loadFixtures(testConfig.db, '002.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '002.sql'));
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -71,9 +70,12 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     core = Core(services, testConfig);
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
-  after(async () => {
+  afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
@@ -86,7 +88,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     const memberUserUid = 63170200;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(17026855).events.create({
         title: {
           fr: 'Un événement'
@@ -118,15 +120,15 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     describe('response', () => {
       it('created event is provided in response', () => {
-        event.slug.should.equal('un-evenement');
+        expect(event.slug).toBe('un-evenement');
       });
 
       it('created event internal fields are not provided (id)', () => {
-        should(event.id).equal(undefined);
+        expect(event.id).toBeUndefined();
       });
 
       it('created event does not include field with "moderator" read access', () => {
-        should(event.custom_description).equal(undefined);
+        expect(event.custom_description).toBeUndefined();
       });
     });
 
@@ -135,7 +137,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       it('contributing member is associated to event', async () => {
         const ae = await core.services.agendaEvents(17026855).get(event.uid);
 
-        ae.userUid.should.equal(63170200);
+        expect(ae.userUid).toBe(63170200);
       });
 
       it('event owner is contributing member', async () => {
@@ -145,32 +147,32 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           internal: true
         });
 
-        eventSvcEvent.ownerUid.should.equal(63170200);
+        expect(eventSvcEvent.ownerUid).toBe(63170200);
       });
 
       it('agenda custom values are stored in agenda custom schema', async () => {
         const data = await core.services.custom(2).get(event.uid);
 
-        data['thematiques-bordeaux-metropole'].should.eql([3, 4]);
+        expect(data['thematiques-bordeaux-metropole']).toEqual([3, 4]);
 
-        data['categories-agenda-metropolitain'].should.equal(42);
+        expect(data['categories-agenda-metropolitain']).toBe(42);
       });
 
       it('custom fields with write set for "moderator" are not edited through "contributor" access', async () => {
         const data = await core.services.custom(2).get(event.uid);
-        should(data.custom_description).equal(undefined);
+        expect(data.custom_description).toBeUndefined();
       });
 
       it('event is created on legacy event data structure', done => {
         core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
-          legacyEvent.uid.should.equal(event.uid);
+          expect(legacyEvent.uid).toBe(event.uid);
           done();
         });
       });
 
       it('accessibility is saved in event and legacy event', done => {
         core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
-          legacyEvent.accessibility.should.eql({
+          expect(legacyEvent.accessibility).toEqual({
             mi: false,
             hi: false,
             pi: false,
@@ -178,7 +180,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
             sl: true
           });
 
-          event.accessibility.should.eql({
+          expect(event.accessibility).toEqual({
             mi: false,
             hi: false,
             pi: false,
@@ -207,7 +209,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           .select('*')
           .where('review_article_id', reviewArticle.id);
 
-        reviewTagArticles.map(rta => rta.review_tag_id).should.eql([
+        expect(reviewTagArticles.map(rta => rta.review_tag_id)).toEqual([
           9661, // Administration (2.3)
           9662  // Aéronautique (2.4)
         ]);
@@ -218,14 +220,14 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     describe('search', () => {
       let result;
 
-      before(async () => {
+      beforeAll(async () => {
         result = await core.agendas(17026855).events.search({ uid: event.uid });
       });
 
       it('event is retrieved by its uid', async () => {
-        result.total.should.equal(1);
+        expect(result.total).toBe(1);
 
-        result.events[0].uid.should.equal(event.uid);
+        expect(result.events[0].uid).toBe(event.uid);
       });
 
     });
@@ -236,7 +238,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await core.agendas(17026855).events.create({
         title: {
           fr: 'Un événement'
@@ -263,41 +265,41 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     });
 
     it('agenda formSchema is provided in result', () => {
-      Object.keys(result.formSchema).should.eql(['custom', 'fields']);
+      expect(Object.keys(result.formSchema)).toEqual(['custom', 'fields']);
     });
 
     it('fields with moderator as access are not provided in schema', () => {
-      result.formSchema
+      expect(result.formSchema
         .fields
-        .filter(f=> f.field === 'custom_description').length.should.equal(0);
+        .filter(f=> f.field === 'custom_description').length).toBe(0);
     });
 
     it('created event is provided in event key', () => {
-      result.event.title.fr.should.equal('Un événement');
+      expect(result.event.title.fr).toBe('Un événement');
     });
 
     it('success boolean is provided as true', () => {
-      result.success.should.equal(true);
+      expect(result.success).toBe(true);
     });
 
     it('event id is not in result', () => {
-      should(result.event.id).equal(undefined);
+      expect(result.event.id).toBeUndefined();
     });
 
     it('originAgenda is in created event', () => {
-      result.event.originAgenda.uid.should.equal(17026855);
+      expect(result.event.originAgenda.uid).toBe(17026855);
     });
 
     it('state is in event', () => {
-      result.event.state.should.equal(2);
+      expect(result.event.state).toBe(2);
     });
 
     it('member is part of payload', () => {
-      result.member.userUid.should.equal(63170200);
+      expect(result.member.userUid).toBe(63170200);
     });
 
     it('agenda is part payload', () => {
-      result.agenda.uid.should.equal(17026855);
+      expect(result.agenda.uid).toBe(17026855);
     });
 
   });
@@ -306,7 +308,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await core.agendas(17026855).events.create({
         title: {
           fr: 'Un événement'
@@ -332,9 +334,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     });
 
     it('field with "moderator" in read parameter are provided in result', () => {
-      result.formSchema
+      expect(result.formSchema
         .fields
-        .filter(f=> f.field === 'custom_description').length.should.equal(1);
+        .filter(f=> f.field === 'custom_description').length).toBe(1);
     });
 
   });
@@ -345,7 +347,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     const memberUserUid = 63170200;
     const agendaUid = 17026855;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(agendaUid).events.create({
         title: {
           fr: 'Un événement brouillon'
@@ -361,18 +363,18 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     });
 
     it('incomplete event can be saved', () => {
-      event.draft.should.equal(1);
+      expect(event.draft).toBe(1);
     });
 
     it('draft event is not referenced in agenda', async () => {
       const ae = await core.services.agendaEvents(agendaUid).get(event.uid);
 
-      should(ae).equal(null);
+      expect(ae).toBeNull();
     });
 
     it('no legacy event is created for draft', done => {
       core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
-        should(legacyEvent).equal(null);
+        expect(legacyEvent).toBeNull();
         done();
       });
     });
@@ -380,7 +382,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     it('custom data is stored even if incomplete', async () => {
       const data = await core.services.custom(2).get(event.uid);
 
-      data.should.eql({
+      expect(data).toEqual({
         intermunicipal_interest: [],
         recurring: [],
         'thematiques-bordeaux-metropole': [],
@@ -394,7 +396,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
   describe('data format variations', function () {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(17026855).events.create({
         title: {
           fr: 'Un événement'
@@ -428,11 +430,11 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     });
 
     it('event is created with timings provided in non Date format', () => {
-      event.title.fr.should.equal('Un événement');
+      expect(event.title.fr).toBe('Un événement');
     });
 
     it('timings is saved in Date format', () => {
-      event.timings[0].begin.should.equal('2019-12-06T10:23:00.000Z');
+      expect(event.timings[0].begin).toBe('2019-12-06T10:23:00.000Z');
     });
 
   });
@@ -469,7 +471,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           $unset: ['title']
         }), options);
       } catch (e) {
-        e.detail[0].should.eql({
+        expect(e.detail[0]).toEqual({
           lang: 'fr',
           field: 'title',
           code: 'required',
@@ -488,7 +490,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           }
         }), options);
       } catch (e) {
-        e.detail.should.eql([{
+        expect(e.detail).toEqual([{
           field: 'location',
           code: 'invalid',
           message: 'provided location uid is invalid',
@@ -504,7 +506,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           $unset: ['location']
         }), options);
       } catch (e) {
-        e.detail.should.eql([{
+        expect(e.detail).toEqual([{
           code: 'location.required',
           message: 'a integer is required',
           origin: undefined,
@@ -519,13 +521,13 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
   describe('api', function() {
     let server, accessToken, response;
 
-    before(done => {
+    beforeAll(done => {
        server = api(core).listen(3000, done);
     });
 
-    after(() => server.close());
+    afterAll(() => server.close());
 
-    before(async () => {
+    beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
         url: 'http://localhost:3000/v2/requestAccessToken',
@@ -540,7 +542,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     describe('successful create', () => {
 
-      before(async () => {
+      beforeAll(async () => {
         response = await axios({
           method: 'post',
           url: 'http://localhost:3000/v2/agendas/17026855/events',
@@ -574,11 +576,11 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       });
 
       it('response gives success key at true if creation was a success', () => {
-        response.success.should.equal(true);
+        expect(response.success).toBe(true);
       });
 
       it('response provides created event in event key', () => {
-        response.event.slug.should.equal('un-evenement-cree-par-api');
+        expect(response.event.slug).toBe('un-evenement-cree-par-api');
       });
 
       it('create with superagent', async () => {
@@ -592,7 +594,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
             data: JSON.stringify(eventsFixtures[3])
           });
 
-        response.body.success.should.equal(true);
+        expect(response.body.success).toBe(true);
       });
 
     });
@@ -628,7 +630,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           data
         }).then(r => r.data);
 
-        response.event.title.should.eql({
+        expect(response.event.title).toEqual({
           en: 'Un autre événement créé par API'
         });
       });
@@ -646,7 +648,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           data
         }).then(r => r.data);
 
-        response.event.title.should.eql({
+        expect(response.event.title).toEqual({
           fr: 'Un autre événement créé par API'
         });
       });
@@ -656,7 +658,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     describe('unsuccessful create (invalid data)', () => {
       let response;
 
-      before(async () => {
+      beforeAll(async () => {
         await axios({
           method: 'post',
           url: 'http://localhost:3000/v2/agendas/17026855/events',
@@ -682,11 +684,11 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       });
 
       it('response is 400', () => {
-        response.status.should.equal(400);
+        expect(response.status).toBe(400);
       });
 
       it('list of validation errors is provided in body', () => {
-        response.data.errors.should.eql([{
+        expect(response.data.errors).toEqual([{
           lang: 'fr',
           field: 'description',
           code: 'required',

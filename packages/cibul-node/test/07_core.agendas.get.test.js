@@ -6,7 +6,6 @@ const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const fixtures = require('./fixtures/008.sql');
@@ -17,10 +16,9 @@ const Core = require('../core');
 const testConfig = require('./testConfig');
 
 describe('07 - core - functional (server): core.agendas().get', function() {
-  this.timeout(20000);
   let core;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -32,9 +30,9 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -58,20 +56,23 @@ describe('07 - core - functional (server): core.agendas().get', function() {
     core = Core(services, testConfig);
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
   it('simple get provides uid, title and slug', async () => {
     const agenda = await core.agendas(92983929).get();
 
-    agenda.uid.should.equal(92983929);
-    agenda.title.should.equal('Un agenda avec un champ contributeur');
-    agenda.slug.should.equal('agenda-champ-contributeur');
+    expect(agenda.uid).toBe(92983929);
+    expect(agenda.title).toBe('Un agenda avec un champ contributeur');
+    expect(agenda.slug).toBe('agenda-champ-contributeur');
   });
 
   it('detailed get provides consolidated schema', async () => {
     const agenda = await core.agendas(92983929).get({ detailed: true });
 
-    agenda.schema.fields.map(f => f.field).should.eql(['categories', 'organisation-interne']);
+    expect(agenda.schema.fields.map(f => f.field)).toEqual(['categories', 'organisation-interne']);
   });
 
 });

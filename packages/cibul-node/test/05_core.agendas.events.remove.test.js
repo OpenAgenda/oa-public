@@ -1,13 +1,13 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
+global.XMLHttpRequest = undefined;
 
 const _ = require('lodash');
 const axios = require('axios');
 const ih = require('immutability-helper');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const api = require('../api');
 const assignClients = require('./utils/assignClients');
@@ -19,14 +19,13 @@ const testConfig = require('./testConfig');
 const loadFixtures = require('./fixtures/load');
 
 describe('core - functional (server): core agendas() events.remove()', function() {
-  this.timeout(20000);
   let core;
 
-  before(() => loadFixtures(testConfig.db, '006.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '006.sql'));
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -52,9 +51,12 @@ describe('core - functional (server): core agendas() events.remove()', function(
     await core.agendas(17026800).events.search.rebuild();
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
-  after(async () => {
+  afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
@@ -65,16 +67,16 @@ describe('core - functional (server): core agendas() events.remove()', function(
   describe('remove from other agenda', () => {
     let event, searchResultBefore;
 
-    before(async () => {
+    beforeAll(async () => {
       searchResultBefore = await core.agendas(17026800).events.search({ uid: 19201989 });
     });
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(17026800).events.remove(19201989);
     });
 
     it('result is removed event', () => {
-      event.uid.should.equal(19201989);
+      expect(event.uid).toBe(19201989);
     });
 
     it('event is removed from agenda search', async () => {
@@ -82,20 +84,20 @@ describe('core - functional (server): core agendas() events.remove()', function(
         total,
         events
       } = await core.agendas(17026800).events.search({ uid: 19201989 });
-      searchResultBefore.total.should.equal(1);
-      total.should.equal(0);
+      expect(searchResultBefore.total).toBe(1);
+      expect(total).toBe(0);
     });
   });
 
   describe('remove from origin agenda', () => {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(17026855).events.remove(19201978);
     });
 
     it('result is removed event', () => {
-      event.uid.should.equal(19201978);
+      expect(event.uid).toBe(19201978);
     });
   });
 
@@ -103,21 +105,21 @@ describe('core - functional (server): core agendas() events.remove()', function(
 
     let eventBefore, eventAfter;
 
-    before(async () => {
+    beforeAll(async () => {
       eventBefore = await core.agendas(17026855).events.get(89378913);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       await core.agendas(17026855).events.remove(89378913);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       eventAfter = await core.agendas(17026855).events.get(89378913);
     });
 
     it('draft event is removed', () => {
-      eventBefore.uid.should.equal(89378913);
-      should(eventAfter).equal(null);
+      expect(eventBefore.uid).toBe(89378913);
+      expect(eventAfter).toBeNull();
     });
 
   });
@@ -125,13 +127,13 @@ describe('core - functional (server): core agendas() events.remove()', function(
   describe('api', () => {
     let server, accessToken, response;
 
-    before(done => {
+    beforeAll(done => {
        server = api(core).listen(3000, done);
     });
 
-    after(() => server.close());
+    afterAll(() => server.close());
 
-    before(async () => {
+    beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
         url: 'http://localhost:3000/v2/requestAccessToken',
@@ -144,7 +146,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
       }).then(r => r.data.access_token);
     });
 
-    before(async () => {
+    beforeAll(async () => {
       response = await axios({
         method: 'delete',
         url: 'http://localhost:3000/v2/agendas/17026855/events/90298390',
@@ -157,11 +159,11 @@ describe('core - functional (server): core agendas() events.remove()', function(
     });
 
     it('response gives success key at true if creation was a success', () => {
-      response.success.should.equal(true);
+      expect(response.success).toBe(true);
     });
 
     it('response provides the deleted event', () => {
-      response.event.uid.should.equal(90298390);
+      expect(response.event.uid).toBe(90298390);
     });
 
   });

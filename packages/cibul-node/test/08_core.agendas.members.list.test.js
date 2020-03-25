@@ -1,11 +1,12 @@
 'use strict';
 
+global.XMLHttpRequest = undefined;
+
 const _ = require('lodash');
 const axios = require('axios');
 const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const fixtures = require('./fixtures/009.sql');
@@ -18,10 +19,9 @@ const Core = require('../core');
 const testConfig = require('./testConfig');
 
 describe('08 - core - functional (server): core.agendas().members.list', function() {
-  this.timeout(10000);
   let core;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -33,9 +33,9 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'accessTokens',
@@ -59,27 +59,30 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
     core = Core(services, testConfig);
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
   describe('results contents', function() {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await core.agendas({ uid: 2 }).members.list({ limit: 2 });
     });
 
     it('total, items and after keys are part of results', () => {
-      result.total.should.equal(5);
+      expect(result.total).toBe(5);
 
-      _.isArray(result.items).should.equal(true);
-      _.isInteger(result.after).should.equal(true);
+      expect(_.isArray(result.items)).toBe(true);
+      expect(_.isInteger(result.after)).toBe(true);
     });
 
     it('next result set can be fetched using "after" value', async () => {
       const nextResult = await core.agendas({ uid: 2 })
         .members.list({ after: result.after });
 
-      nextResult.items.length.should.equal(3);
+      expect(nextResult.items.length).toBe(3);
     });
 
   });
@@ -88,15 +91,15 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
     const key = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
     let server, accessToken, response;
 
-    before(done => {
+    beforeAll(done => {
        server = api(core).listen(3000, done);
     });
 
-    after(() => server.close());
+    afterAll(() => server.close());
 
     describe('successful call', () => {
 
-      before(async () => {
+      beforeAll(async () => {
         response = await axios({
           method: 'get',
           url: `http://localhost:3000/v2/agendas/2/members?key=${key}`
@@ -104,7 +107,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
       });
 
       it('response includes a success, total, a list of items and an after key', () => {
-        Object.keys(response).should.eql([
+        expect(Object.keys(response)).toEqual([
           'total',
           'after',
           'items',
@@ -115,7 +118,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
     });
 
     describe('invalid call', () => {
-      before(async () => {
+      beforeAll(async () => {
         try {
           await axios({
             method: 'get',
@@ -127,11 +130,11 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
       });
 
       it('status is 400 if invalid query is provided', () => {
-        response.status.should.equal(400);
+        expect(response.status).toBe(400);
       });
 
       it('validation errors are provided in body', () => {
-        response.data.errors.should.eql([
+        expect(response.data.errors).toEqual([
           {
             code: 'integer.toobig',
             message: 'the integer is too big',

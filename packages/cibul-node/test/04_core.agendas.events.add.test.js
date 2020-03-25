@@ -1,13 +1,13 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
+global.XMLHttpRequest = undefined;
 
 const _ = require('lodash');
 const fs = require('fs');
 const ih = require('immutability-helper');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const loadFixtures = require('./fixtures/load');
@@ -18,14 +18,13 @@ const Core = require('../core');
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events add()', function() {
-  this.timeout(20000);
   let core;
 
-  before(() => loadFixtures(testConfig.db, '005.sql'));
+  beforeAll(() => loadFixtures(testConfig.db, '005.sql'));
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -51,9 +50,12 @@ describe('core - functional (server): core.agendas().events add()', function() {
     await core.agendas(17026800).events.search.rebuild();
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
-  after(async () => {
+  afterAll(async () => {
     try {
       await core.services.eventSearch.getConfig().client.indices.delete({
         index: 'test'
@@ -64,7 +66,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
   describe('simple add', function() {
     let event;
 
-    before(async () => {
+    beforeAll(async () => {
       event = await core.agendas(17026800).events.add(19201989, {
         'thematiques-metropolitaines': 3
       }, {
@@ -75,11 +77,11 @@ describe('core - functional (server): core.agendas().events add()', function() {
     });
 
     it('provides the added event as a response', () => {
-      event.uid.should.equal(19201989);
+      expect(event.uid).toBe(19201989);
     });
 
     it('destination agenda additional field value is in response', () => {
-      event['thematiques-metropolitaines'].should.eql([3]);
+      expect(event['thematiques-metropolitaines']).toEqual([3]);
     });
 
     it('event is indexed in agenda', async () => {
@@ -88,8 +90,8 @@ describe('core - functional (server): core.agendas().events add()', function() {
         events
       } = await core.agendas(17026800).events.search({ uid: 19201989 });
 
-      total.should.equal(1);
-      events[0].uid.should.equal(19201989);
+      expect(total).toBe(1);
+      expect(events[0].uid).toBe(19201989);
     });
 
   });
@@ -109,7 +111,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
         error = e;
       }
 
-      error.name.should.equal('ValidationError');
+      expect(error.name).toBe('ValidationError');
     });
 
     it('bypassAdditionalFieldValidation option makes it possible to add event regardless of additional field validation. Used for legacy share ONLY', async () => {
@@ -121,7 +123,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
         bypassAdditionalFieldValidation: true
       });
 
-      result.success.should.equal(true);
+      expect(result.success).toBe(true);
     });
 
   });
@@ -129,7 +131,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
   describe('aggregated add', function() {
     let result;
 
-    before(async () => {
+    beforeAll(async () => {
       result = await core.agendas(17026800).events.add(18992812, {
         state: 1,
         'thematiques-metropolitaines': 3
@@ -141,15 +143,15 @@ describe('core - functional (server): core.agendas().events add()', function() {
     });
 
     it('agenda event reference is flagged as aggregated', () => {
-      result.event.aggregated.should.equal(true)
+      expect(result.event.aggregated).toBe(true)
     });
 
     it('agenda event reference stores agenda source uid', () => {
-      result.event.sourcePaths.should.eql([[82910283, 17026855]]);
+      expect(result.event.sourcePaths).toEqual([[82910283, 17026855]]);
     });
 
     it('state taken is state provided', () => {
-      result.event.state.should.equal(1);
+      expect(result.event.state).toBe(1);
     });
   });
 

@@ -6,7 +6,6 @@ const _ = require('lodash');
 const knexLib = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const fixtures = require('./fixtures/007.sql');
 
@@ -20,10 +19,9 @@ const assignClients = require('./utils/assignClients');
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().settings.get()', function() {
-  this.timeout(20000);
   let core;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -34,9 +32,9 @@ describe('core - functional (server): core.agendas().settings.get()', function()
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'queues',
@@ -60,13 +58,16 @@ describe('core - functional (server): core.agendas().settings.get()', function()
     core = Core(services, testConfig);
   });
 
-  after( () => testConfig.knex.destroy() );
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
   it( 'get field configuration of an agenda not linked to a network', async () => {
 
     const result = await core.agendas(60934473).settings.get();
 
-    result.fields.map( f => f.field ).should.eql( [
+    expect(result.fields.map( f => f.field )).toEqual([
       'entreelibre',
       'thematiques-metropolitaines',
       'types-devenements',
@@ -75,7 +76,7 @@ describe('core - functional (server): core.agendas().settings.get()', function()
       'tag-group-4',
       'cle_session',
       'category-group'
-    ] );
+    ]);
 
   } );
 
@@ -83,7 +84,7 @@ describe('core - functional (server): core.agendas().settings.get()', function()
 
     const result = await core.agendas(60935574).settings.get();
 
-    result.fields.map( f => f.field ).should.eql( [
+    expect(result.fields.map( f => f.field )).toEqual([
       'entreelibre',
       'thematiques-metropolitaines',
       'types-devenements',
@@ -93,7 +94,7 @@ describe('core - functional (server): core.agendas().settings.get()', function()
       'cle_session',
       'category-group',
       'edition'
-    ] );
+    ]);
 
   } );
 

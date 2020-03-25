@@ -6,7 +6,6 @@ const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
-const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const fixtures = require('./fixtures/011.sql');
@@ -17,10 +16,9 @@ const Core = require('../core');
 const testConfig = require('./testConfig');
 
 describe('10 - core - functional (server): core.users().get()', function() {
-  this.timeout(10000);
   let core;
 
-  before(async () => {
+  beforeAll(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
@@ -32,9 +30,9 @@ describe('10 - core - functional (server): core.users().get()', function() {
     con.end();
   });
 
-  before(() => assignClients(testConfig));
+  beforeAll(() => assignClients(testConfig));
 
-  before(async () => {
+  beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
         'accessTokens',
@@ -58,11 +56,14 @@ describe('10 - core - functional (server): core.users().get()', function() {
     core = Core(services, testConfig);
   });
 
-  after(() => testConfig.knex.destroy());
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
 
   it('user can be retrieved using a valid access token', async () => {
     const janine = await core.users.get.byAccessToken('11a7946ddd256c768867ac3f2182cba0', 1);
-    janine.uid.should.equal(1);
+    expect(janine.uid).toBe(1);
   });
 
   it('outdated access token throws error', async () => {
@@ -72,12 +73,12 @@ describe('10 - core - functional (server): core.users().get()', function() {
     } catch (e) {
       error = e.message;
     }
-    error.should.equal('access token is expired');
+    expect(error).toBe('access token is expired');
   });
 
   it('user can be retrieved using a public key', async () => {
     const janine = await core.users.get.byPublicKey('egP36aMb0toI8hAhFOm1if8auC1Vg1N9');
-    janine.uid.should.equal(1);
+    expect(janine.uid).toBe(1);
   });
 
   it('user access token can be refreshed using the secret key', async () => {
@@ -90,8 +91,8 @@ describe('10 - core - functional (server): core.users().get()', function() {
       secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
     }).generateToken();
 
-    token.id.should.equal(2);
-    token.lifespan.should.equal(3600);
+    expect(token.id).toBe(2);
+    expect(token.lifespan).toBe(3600);
   });
 
   it('new access token is created when previous is outdated', async () => {
@@ -104,8 +105,8 @@ describe('10 - core - functional (server): core.users().get()', function() {
       secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
     }).generateToken();
 
-    token.id.should.equal(3);
-    token.lifespan.should.equal(3600);
+    expect(token.id).toBe(3);
+    expect(token.lifespan).toBe(3600);
   });
 
 });
