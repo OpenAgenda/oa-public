@@ -8,7 +8,7 @@ const mysql = require('mysql');
 
 const aggregators = require('./aggregators.json');
 const aggregatorSources = require('./aggregatorSources.json');
-const agendas = require('./agendas.json');
+const agendas = require('./review.data.json');
 
 function _sql() {
   const k = knex({
