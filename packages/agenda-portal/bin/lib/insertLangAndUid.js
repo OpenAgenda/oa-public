@@ -8,7 +8,7 @@ module.exports = (agendaUid, lang, iframable) => {
     .replace(/\/\*UID\*\/[0-9]+/g, `${agendaUid}`)
     .replace(/lang:(\s|'|[a-z])+,/, `lang: '${lang}',`)
     .replace(
-      "const Portal = require('../');",
+      "const Portal = require('..');",
       "const Portal = require('@openagenda/agenda-portal');"
     )
     .replace(
