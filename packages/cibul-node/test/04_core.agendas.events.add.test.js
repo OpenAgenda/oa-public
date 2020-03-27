@@ -1,7 +1,6 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
-global.XMLHttpRequest = undefined;
 
 const _ = require('lodash');
 const fs = require('fs');

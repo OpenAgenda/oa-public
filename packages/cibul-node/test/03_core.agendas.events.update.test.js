@@ -1,7 +1,6 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
-global.XMLHttpRequest = undefined; // required to make axios calls to http://localhost with jest
 
 const _ = require('lodash');
 const axios = require('axios');

@@ -1,7 +1,5 @@
 'use strict';
 
-global.XMLHttpRequest = undefined;
-
 const _ = require('lodash');
 const axios = require('axios');
 const knex = require('knex');
