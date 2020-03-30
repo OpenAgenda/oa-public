@@ -11,6 +11,8 @@ import App from './containers/App'
 
 const defaults = {
   initialState: {
+    eventUid: null,
+    agendaUid: null,
     settings: {
       lang: 'fr',
       perPageLimit: 20
@@ -22,6 +24,7 @@ const defaults = {
       }
     },
     agendas: {
+      initialized: false,
       selectAgendasForDuplicate: {
         loading: true
       }
@@ -39,6 +42,9 @@ export default function duplicateApp(options) {
     agendaTitle,
     agendaImage
   } = _.merge({}, defaults, options);
+
+  initialState.eventUid = eventUid;
+  initialState.agendaUid = agendaUid;
 
   const client = apiClient('', null, { legacy: true });
   const store = createStore(
@@ -62,8 +68,6 @@ export default function duplicateApp(options) {
     <Provider store={store} context={ReactReduxContext}>
       <App
         lang={lang}
-        eventUid={eventUid}
-        agendaUid={agendaUid}
         agendaSlug={agendaSlug}
         agendaTitle={agendaTitle}
         agendaImage={agendaImage}

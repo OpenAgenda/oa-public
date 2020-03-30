@@ -11,7 +11,10 @@ import * as modalsActions from '../redux/modules/modals';
 @connect(
   state => ({
     loading: state.agendas.selectAgendasForDuplicate.loading,
-    modals: state.modals
+    modals: state.modals,
+    eventUid: state.eventUid,
+    agendaUid: state.agendaUid,
+    initialized: state.agendas.initialized
   }),
   modalsActions
 )
@@ -37,14 +40,14 @@ export default class App extends Component {
   };
 
   render() {
-    const { loading, modals, closeModal, agendaUid, agendaSlug, agendaTitle, agendaImage } = this.props;
+    const { loading, modals, closeModal, agendaUid, agendaSlug, agendaTitle, agendaImage, initialized } = this.props;
     const { getLabel } = this.getChildContext();
 
     const selectAgendasModal = modals.selectAgendasForDuplicate || {};
     const sameAgendaLink = this.getDuplicateLink( { uid: agendaUid, slug: agendaSlug } );
 
     return (
-      selectAgendasModal.visible ? (
+      selectAgendasModal.visible && initialized ? (
         <Modal
           title="Sélectionner un agenda"
           onClose={() => closeModal( 'selectAgendasForDuplicate' )}

@@ -23,6 +23,7 @@ export default function reducer(state = initialState, action) {
     case LOAD_SUCCESS:
       return {
         ...state,
+        initialized: action.result.initialized,
         [action.key]: {
           ...state[action.key],
           loaded: true,
@@ -120,9 +121,27 @@ export function load(key, query) {
     key,
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: ({ client }, { getState }) => {
-      const { res } = getState();
+      console.log(getState());
+      const {
+        res,
+        initialized,
+        eventUid,
+        agendaUid
+      } = getState();
 
-      return client.get(res.agendas.list, { params: query });
+      return client.get(res.agendas.list, { params: query })
+        .then(({ agendas, total }) => {
+          if (!initialized && (agendas.length === 1)) {
+            window.location.href = `/${agendas[0].slug}/contribute?agendaUid=${agendaUid}&eventUid=${eventUid}`;
+            return;
+          }
+
+          return {
+            initialized: true,
+            agendas: agendas.filter(a => a.uid !== agendaUid),
+            total
+          };
+        });
     }
   };
 }
