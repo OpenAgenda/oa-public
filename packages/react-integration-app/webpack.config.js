@@ -5,11 +5,12 @@ const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const webpack = require('webpack');
-const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 const ProgressBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
+
+const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const WebpackDashboardPlugin = require('webpack-dashboard/plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 
@@ -125,14 +126,10 @@ module.exports = (env = {}, argv = {}) => {
         react: require.resolve('react'),
         'react-dom': require.resolve('@hot-loader/react-dom')
       },
-      plugins: [
-        PnpWebpackPlugin
-      ]
+      plugins: [PnpWebpackPlugin]
     },
     resolveLoader: {
-      plugins: [
-        PnpWebpackPlugin.moduleLoader(module)
-      ]
+      plugins: [PnpWebpackPlugin.moduleLoader(module)]
     },
     performance: {
       hints: false,

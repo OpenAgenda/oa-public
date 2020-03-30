@@ -1,6 +1,7 @@
 "use strict";
 
 const webpack = require( 'webpack' );
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
 const modulesToInclude = [
   '@feathersjs',
@@ -29,7 +30,7 @@ module.exports = {
     rules: [ {
       test: /\.js$/,
       exclude: BABEL_EXCLUDE_REGEX,
-      loader: 'babel-loader',
+      loader: require.resolve('babel-loader'),
       options: {
         rootMode: 'upward'
       }
@@ -40,6 +41,14 @@ module.exports = {
     alias: {
       // required only for the timings component
       'react': require.resolve( 'react' )
-    }
+    },
+    plugins: [
+      PnpWebpackPlugin
+    ]
+  },
+  resolveLoader: {
+    plugins: [
+      PnpWebpackPlugin.moduleLoader(module)
+    ]
   }
 };

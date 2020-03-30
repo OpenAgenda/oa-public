@@ -9,7 +9,6 @@ const ncp = promisify(require('ncp').ncp);
 const { term, confirm } = require('../lib/prompt');
 const insertStartScript = require('./lib/insertStartScript');
 const insertLangAndUid = require('./lib/insertLangAndUid');
-const adjustSASSRelativePath = require('./lib/adjustSASSRelativePath');
 
 (async () => {
   const confirmed = await confirm(`
@@ -23,9 +22,14 @@ Continue?`);
   if (!confirmed) return;
 
   const agendaUid = await term('What is the uid of your agenda?');
-  const lang = await term('Which is the main language of the portal?', { default: 'fr' });
+  const lang = await term('Which is the main language of the portal?', {
+    default: 'fr'
+  });
   const key = await term('OpenAgenda account public key');
-  const iframable = await confirm('Is the portal going to run inside an iframe?', { default: false });
+  const iframable = await confirm(
+    'Is the portal going to run inside an iframe?',
+    { default: false }
+  );
 
   fs.writeFileSync(`${process.cwd()}/oa.key`, key);
 
@@ -34,8 +38,6 @@ Continue?`);
   await insertStartScript();
 
   insertLangAndUid(agendaUid, lang, iframable);
-
-  adjustSASSRelativePath();
 
   if (!iframable) {
     fs.unlinkSync(`${process.cwd()}/iframe-canvas.html`);

@@ -5,6 +5,7 @@ const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
 const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
 const serviceName = require( './package.json' ).name.split( '/' ).pop();
 
@@ -66,19 +67,22 @@ module.exports = {
     rules: [ {
       test: /\.js$/,
       exclude: BABEL_EXCLUDE_REGEX,
-      loader: 'babel-loader',
+      loader: require.resolve('babel-loader'),
       options: {
         rootMode: 'upward'
       }
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader'
+      use: [
+        require.resolve('style-loader'),
+        require.resolve('css-loader')
+      ]
     }, {
       test: /\.scss$/,
       use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader'
+        require.resolve('style-loader'),
+        require.resolve('css-loader'),
+        require.resolve('sass-loader')
       ]
     } ]
   },
@@ -87,6 +91,14 @@ module.exports = {
     alias: {
       // required only for the timings component
       'react': require.resolve( 'react' )
-    }
+    },
+    plugins: [
+      PnpWebpackPlugin
+    ]
+  },
+  resolveLoader: {
+    plugins: [
+      PnpWebpackPlugin.moduleLoader(module)
+    ]
   }
 };

@@ -13,7 +13,7 @@
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
     "knex": "babel-node ./node_modules/.bin/knex",
     "clean": "rimraf components/lib",
-    "prepublish": "yarn clean && yarn build"
+    "prepack": "yarn clean && yarn build"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,0 @@
-{
-  "presets": [
-    "@openagenda"
-  ],
-  "plugins": [
-    "@loadable/babel-plugin"
-  ],
-  "sourceType": "unambiguous"
-}

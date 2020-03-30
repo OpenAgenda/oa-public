@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepublish": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "build": "babel components -d build -s",
     "clean": "rimraf build",
     "start": "start-storybook -p 3000 -c .storybook"
@@ -18,7 +18,7 @@
     "core-js": "^3.6.4",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
-    "react-bootstrap": "^0.33.0",
+    "react-bootstrap": "^0.33.1",
     "react-final-form": "^6.3.3",
     "react-waypoint": "^9.0.2"
   },

@@ -15,7 +15,7 @@
     "knex": "babel-node ./node_modules/.bin/knex",
     "build": "babel components/src -d components/build -s",
     "clean": "rimraf components/build",
-    "prepublish": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "test": "mocha --exit --require @babel/register"
   },
   "dependencies": {

@@ -2,7 +2,7 @@
   "name": "@openagenda/members",
   "version": "1.15.0",
   "scripts": {
-    "prepublish": "yarn build",
+    "prepack": "yarn build",
     "test": "jest --runInBand --testEnvironment=node",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "build": "rimraf build && babel iso -d build -s",

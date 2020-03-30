@@ -18,7 +18,7 @@
     "clean": "rimraf dist",
     "test": "jest --coverage --forceExit",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "prepublish": "yarn clean && yarn build"
+    "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",

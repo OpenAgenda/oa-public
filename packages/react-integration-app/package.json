@@ -7,7 +7,7 @@
     "build": "webpack-cli --config webpack.config.js",
     "dev": "webpack-dev-server --config webpack.config.js",
     "analyze": "webpack-dashboard -- yarn build",
-    "prepublish": "yarn build",
+    "prepack": "yarn build",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"

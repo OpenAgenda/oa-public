@@ -7,9 +7,9 @@
     "dist"
   ],
   "scripts": {
-    "prepublish": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "build": "babel --copy-files src -d dist -s",
-    "extract-messages": "yarn oa-extract-messages",
+    "extract-messages": "yarn oa:extract-messages",
     "clean": "rimraf build",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
@@ -49,7 +49,7 @@
     "@babel/core": "^7.8.4",
     "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/eslint-config": "^1.0.0",
-    "babel-plugin-react-intl": "^6.2.0",
+    "babel-plugin-react-intl": "^7.0.0",
     "eslint": "^6.8.0",
     "lint-staged": "^10.0.7",
     "prettier-eslint-cli": "^5.0.0",

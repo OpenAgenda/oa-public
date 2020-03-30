@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const webpack = require( 'webpack' );
+const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -31,11 +32,19 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       use: {
-        loader: 'babel-loader'
+        loader: require.resolve('babel-loader')
       }
     } ]
   },
   resolve: {
-    symlinks: false
+    symlinks: false,
+    plugins: [
+      PnpWebpackPlugin
+    ]
+  },
+  resolveLoader: {
+    plugins: [
+      PnpWebpackPlugin.moduleLoader(module)
+    ]
   }
 };

@@ -30,7 +30,8 @@
   },
   "devDependencies": {
     "@openagenda/files": "^2.0.7",
-    "@openagenda/image-files": "^1.1.1",
+    "@openagenda/fixtures": "^2.0.1",
+    "@openagenda/image-files": "^1.1.2",
     "@openagenda/images": "^1.1.1",
     "immutability-helper": "^2.3.0",
     "mocha": "^7.0.1",

@@ -1436,7 +1436,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs2@npm:^7.0.0, @babel/runtime-corejs2@npm:^7.2.0, @babel/runtime-corejs2@npm:^7.3.1, @babel/runtime-corejs2@npm:^7.4.2, @babel/runtime-corejs2@npm:^7.8.7":
+"@babel/runtime-corejs2@npm:^7.0.0, @babel/runtime-corejs2@npm:^7.2.0, @babel/runtime-corejs2@npm:^7.3.1, @babel/runtime-corejs2@npm:^7.4.2":
   version: 7.8.7
   resolution: "@babel/runtime-corejs2@npm:7.8.7"
   dependencies:
@@ -3293,6 +3293,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/bs-templates": ^2.2.1
     "@openagenda/eslint-config": ^1.0.1
+    "@openagenda/image-files": ^1.1.2
     "@openagenda/logs": ^1.1.1
     "@openagenda/react-components": ^2.2.1
     "@openagenda/react-shared": ^1.0.0
@@ -3302,7 +3303,7 @@ __metadata:
     axios: ^0.19.0
     babel-jest: ^25.1.0
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^6.2.0
+    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     concurrently: ^5.1.0
     core-js: ^3.6.4
@@ -3345,7 +3346,7 @@ __metadata:
   dependencies:
     "@babel/cli": ^7.8.4
     "@babel/core": ^7.8.4
-    "@babel/runtime-corejs3": ^7.8.7
+    "@babel/runtime-corejs3": ^7.8.4
     "@formatjs/intl-listformat": ^1.4.1
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/fixtures": ^2.0.1
@@ -3395,6 +3396,7 @@ __metadata:
     "@openagenda/utils": ^1.1.0
     "@storybook/react": ^5.3.9
     async: ^2.1.4
+    babel-loader: ^8.1.0
     body-parser: ^1.16.0
     bootstrap-daterangepicker: ^2.1.25
     classnames: ^2.2.5
@@ -3415,7 +3417,7 @@ __metadata:
     prop-types: ^15.5.8
     qs: ^6.9.1
     react: ^16.12.0
-    react-bootstrap: ^0.31.0
+    react-bootstrap: ^0.33.1
     react-dom: ^16.12.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -3506,6 +3508,7 @@ __metadata:
     moment: ^2.24.0
     node-sass: ^4.7.2
     nodemon: ^1.19.3
+    pnp-webpack-plugin: ^1.6.4
     prop-types: ^15.6.0
     react: ^16.12.0
     react-big-calendar: ^0.17.0
@@ -3589,6 +3592,7 @@ __metadata:
     clean-webpack-plugin: ^3.0.0
     compression-webpack-plugin: ^3.0.0
     core-js: ^3.6.4
+    css-loader: ^3.4.2
     express: ^4.16.2
     history: ^4.10.1
     immutability-helper: ^3.0.1
@@ -3597,6 +3601,7 @@ __metadata:
     lodash-webpack-plugin: ^0.11.5
     moment-timezone: ^0.5.23
     nodemon: ^1.19.3
+    pnp-webpack-plugin: ^1.6.4
     prop-types: ^15.6.0
     react: ^16.12.0
     react-dom: ^16.12.0
@@ -3608,7 +3613,9 @@ __metadata:
     redux-logger: ^3.0.6
     redux-thunk: ^2.3.0
     regenerator-runtime: ^0.13.3
+    sass-loader: ^8.0.2
     serialize-javascript: ^2.1.0
+    style-loader: ^1.1.3
     superagent: ^3.8.3
     webpack: ^4.42.0
     webpack-assets-manifest: ^3.0.1
@@ -3634,6 +3641,7 @@ __metadata:
     babel-jest: ^25.1.0
     babel-loader: ^8.0.6
     core-js: ^3.6.4
+    css-loader: ^3.4.2
     date-fns: ^1.29.0
     docxtemplater: ^3.14.2
     eslint: ^6.8.0
@@ -3648,6 +3656,7 @@ __metadata:
     moment-timezone: ^0.5.14
     nodemon: ^1.19.3
     pizzip: ^3.0.6
+    pnp-webpack-plugin: ^1.6.4
     prettier-eslint-cli: ^5.0.0
     prompt-input: ^3.0.0
     prop-types: ^15.7.2
@@ -3659,6 +3668,8 @@ __metadata:
     regenerator-runtime: ^0.13.3
     remove-markdown: ^0.3.0
     rimraf: ^3.0.1
+    sass-loader: ^8.0.2
+    style-loader: ^1.1.3
     superagent: ^3.8.3
     verror: ^1.10.0
     webpack: ^4.42.0
@@ -3682,6 +3693,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/bs-templates": ^2.2.0
     "@openagenda/dom-utils": ^2.2.0
+    "@openagenda/fixtures": ^2.0.1
     "@openagenda/labels": ^2.1.0
     "@openagenda/mysql-utils": ^2.0.0
     "@openagenda/react-components": ^2.2.1
@@ -3735,7 +3747,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-locations@^1.1.4, @openagenda/agenda-locations@^1.5.0, @openagenda/agenda-locations@workspace:packages/agenda-locations":
+"@openagenda/agenda-locations@^1.1.4, @openagenda/agenda-locations@^1.7.0, @openagenda/agenda-locations@workspace:packages/agenda-locations":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations@workspace:packages/agenda-locations"
   dependencies:
@@ -3814,7 +3826,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:packages/agenda-portal"
   dependencies:
-    "@babel/runtime-corejs2": ^7.8.7
+    "@babel/core": ^7.8.4
+    "@babel/runtime-corejs3": ^7.8.4
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/eslint-config": ^1.0.0
     "@openagenda/logs": ^1.1.2
@@ -3823,11 +3836,13 @@ __metadata:
     bootstrap: ^4.1.3
     browser-refresh: ^1.7.3
     clean-webpack-plugin: ^3.0.0
+    core-js: ^3.6.4
     cors: ^2.8.5
+    css-loader: ^3.4.2
     debug: ^3.2.6
     eslint: ^6.8.0
     express: ^4.16.4
-    hbs: ^4.0.1
+    hbs: ^4.1.0
     iframe-resizer: ^4.2.10
     immutability-helper: ^3.0.0
     jest: ^25.1.0
@@ -3838,10 +3853,15 @@ __metadata:
     moment-timezone: ^0.5.23
     ncp: ^2.0.0
     node-sass: ^4.10.0
+    pnp-webpack-plugin: ^1.6.4
     prettier-eslint-cli: ^5.0.0
     prompt-confirm: ^2.0.4
     prompt-input: ^3.0.0
     qs: ^6.9.1
+    regenerator-runtime: ^0.13.5
+    resolve: ^1.15.1
+    sass-loader: ^8.0.2
+    style-loader: ^1.1.3
     validator: ^11.0.0
     webpack: ^4.42.0
     webpack-cli: ^3.3.10
@@ -3870,14 +3890,18 @@ __metadata:
     clean-webpack-plugin: ^3.0.0
     compression-webpack-plugin: ^3.0.0
     core-js: ^3.3.6
+    css-loader: ^3.4.2
     express: ^4.16.2
     lodash: ^4.16.6
     lodash-webpack-plugin: ^0.11.5
     nodemon: ^1.19.3
+    pnp-webpack-plugin: ^1.6.4
     react: ^16.12.0
     react-dom: ^16.12.0
     regenerator-runtime: ^0.13.3
+    sass-loader: ^8.0.2
     serialize-javascript: ^2.1.0
+    style-loader: ^1.1.3
     superagent: ^3.8.3
     webpack: ^4.42.0
     webpack-assets-manifest: ^3.0.1
@@ -4060,7 +4084,8 @@ __metadata:
   resolution: "@openagenda/agendas@workspace:packages/agendas"
   dependencies:
     "@openagenda/files": ^2.0.7
-    "@openagenda/image-files": ^1.1.1
+    "@openagenda/fixtures": ^2.0.1
+    "@openagenda/image-files": ^1.1.2
     "@openagenda/images": ^1.1.1
     "@openagenda/logs": ^1.1.1
     "@openagenda/mysql-utils": ^2.0.0
@@ -4102,7 +4127,7 @@ __metadata:
     axios: ^0.19.0
     axios-mock-adapter: ^1.17.0
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^6.2.0
+    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     core-js: ^3.6.4
     eslint: ^6.8.0
@@ -4114,6 +4139,7 @@ __metadata:
     lint-staged: ^10.0.7
     lodash: ^4.17.11
     prettier-eslint-cli: ^5.0.0
+    prop-types: ^15.7.2
     qs: ^6.9.1
     react: ^16.12.0
     react-beautiful-dnd: ^13.0.0
@@ -4196,8 +4222,8 @@ __metadata:
     babel-plugin-add-module-exports: ^1.0.2
     babel-plugin-dynamic-import-node: ^2.3.0
     babel-plugin-lodash: ^3.3.4
-    react: ^16.13.1
-    react-dom: ^16.13.1
+    react: ^16.12.0
+    react-dom: ^16.12.0
     react-hot-loader: ^4.12.19
   peerDependencies:
     "@babel/core": ^7.8.4
@@ -4221,11 +4247,15 @@ __metadata:
     ejs: ^2.7.4
     express: ^4.13.3
     font-awesome: 4.7.0
+    moment: ^2.24.0
     node-sass: ^4.5.2
     node-sass-import-once: ^1.2.0
     node-watch: ^0.3.5
-    rc-collapse: ^1.10.0
+    rc-collapse: ^1.11.1
+    react: ^16.12.0
     react-datepicker: ^1.6.0
+    react-day-picker: ^7.3.0
+    react-dom: ^16.12.0
     reload: ^3.0.4
     uppy: ^0.23.2
     walk: ^2.3.9
@@ -4247,6 +4277,7 @@ __metadata:
     "@openagenda/react-form-components": ^2.1.1
     "@openagenda/react-utils": ^4.0.0
     "@storybook/react": ^5.3.9
+    axios: ^0.19.0
     axios-mock-adapter: ^1.17.0
     babel-loader: ^8.0.6
     core-js: ^3.6.4
@@ -4293,12 +4324,13 @@ __metadata:
   dependencies:
     "@babel/core": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
+    "@loadable/component": ^5.12.0
     "@loadable/webpack-plugin": ^5.12.0
     "@openagenda/activity-apps": ^1.1.2
     "@openagenda/admin-agendas": ^1.1.2
     "@openagenda/agenda-categories": ^1.0.1
     "@openagenda/agenda-event-references": ^1.1.2
-    "@openagenda/agenda-locations": ^1.5.0
+    "@openagenda/agenda-locations": ^1.7.0
     "@openagenda/agenda-search": ^1.0.4
     "@openagenda/agenda-settings": ^1.1.2
     "@openagenda/agenda-tags": ^1.0.2
@@ -4312,7 +4344,7 @@ __metadata:
     "@openagenda/inbox-apps": ^1.1.3
     "@openagenda/labels": ^2.1.0
     "@openagenda/leaflet.markercluster": ^0.4.0
-    "@openagenda/member-apps": "workspace:packages/member-apps"
+    "@openagenda/member-apps": ^2.0.1
     "@openagenda/pepjs": ^0.5.4
     "@openagenda/react-components": ^2.2.1
     "@openagenda/react-form-components": ^2.1.1
@@ -4522,11 +4554,12 @@ __metadata:
     nodemon: ^1.19.3
     prop-types: ^15.6.0
     react: ^16.12.0
-    react-click-outside: tj/react-click-outside
     react-dom: ^16.12.0
     react-json-editor-ajrm: ^2.5.9
+    react-outside-click-handler: ^1.3.0
     react-select: ^3.0.8
     react-tagsinput: ^3.19.0
+    rimraf: ^3.0.1
     store: ^2.0.12
     superagent: ^3.8.3
     verror: ^1.10.0
@@ -4566,7 +4599,7 @@ __metadata:
   dependencies:
     "@openagenda/files": ^2.0.7
     "@openagenda/fixtures": ^2.0.1
-    "@openagenda/image-files": ^1.1.1
+    "@openagenda/image-files": ^1.1.2
     "@openagenda/images": ^1.1.1
     "@openagenda/logs": ^1.1.1
     "@openagenda/mysql-utils": ^2.0.0
@@ -4680,6 +4713,7 @@ __metadata:
     body-parser: ^1.18.3
     classnames: ^2.2.6
     core-js: ^3.6.4
+    express: ^4.17.1
     immutability-helper: ^3.0.0
     immutable: ^3.8.2
     knex: ^0.19.5
@@ -4689,12 +4723,16 @@ __metadata:
     marked: ^0.7.0
     mocha: ^7.0.1
     multer: ^1.3.1
+    mysql: ^2.18.1
     nodemon: ^1.19.3
+    pnp-webpack-plugin: ^1.6.4
+    prop-types: ^15.7.2
     react: ^16.12.0
     react-beautiful-dnd: ^10.0.4
     react-dom: ^16.12.0
     react-dropzone: ^5.0.1
     react-markdown: ^4.0.4
+    react-select: ^3.0.8
     rimraf: ^3.0.1
     sanitize-html: ^1.20.1
     should: ^13.2.3
@@ -4779,7 +4817,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/image-files@^1.1.1, @openagenda/image-files@^1.1.2, @openagenda/image-files@workspace:packages/image-files":
+"@openagenda/image-files@^1.1.2, @openagenda/image-files@workspace:packages/image-files":
   version: 0.0.0-use.local
   resolution: "@openagenda/image-files@workspace:packages/image-files"
   dependencies:
@@ -4992,7 +5030,7 @@ __metadata:
   dependencies:
     immutability-helper: ^3.0.1
     intl-messageformat: ^7.8.4
-    intl-messageformat-parser: ^3.6.4
+    intl-messageformat-parser: ^4.1.1
     mocha: ^7.0.1
     prompt-confirm: ^2.0.4
     prompt-input: ^3.0.0
@@ -5096,6 +5134,7 @@ __metadata:
     "@babel/core": ^7.8.4
     "@babel/node": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
+    "@loadable/component": ^5.12.0
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/bs-templates": ^2.2.0
     "@openagenda/call-to-action": ^2.2.2
@@ -5128,7 +5167,7 @@ __metadata:
     prop-types: ^15.5.8
     qs: ^6.9.1
     react: ^16.12.0
-    react-bootstrap: ^0.32.4
+    react-bootstrap: ^0.33.1
     react-dom: ^16.12.0
     react-final-form: ^6.3.3
     react-redux: ^7.1.3
@@ -5141,6 +5180,7 @@ __metadata:
     rimraf: ^3.0.1
     webpack: ^4.42.0
   peerDependencies:
+    "@loadable/component": ^5.12.0
     final-form: ^4.18.5
     react: ^16.12.0
     react-router: ^5.0.0
@@ -5217,11 +5257,14 @@ __metadata:
     clean-webpack-plugin: ^3.0.0
     compression-webpack-plugin: ^3.0.0
     core-js: ^3.6.4
+    css-loader: ^3.4.2
     express: ^4.17.1
+    history: ^4.10.1
     immutability-helper: ^3.0.0
     lodash: ^4.16.6
     lodash-webpack-plugin: ^0.11.5
     nodemon: ^1.19.3
+    pnp-webpack-plugin: ^1.6.4
     react: ^16.12.0
     react-dom: ^16.12.0
     react-redux: ^7.1.3
@@ -5232,7 +5275,9 @@ __metadata:
     redux-logger: ^3.0.6
     redux-thunk: ^2.3.0
     regenerator-runtime: ^0.13.3
+    sass-loader: ^8.0.2
     serialize-javascript: ^2.1.0
+    style-loader: ^1.1.3
     superagent: ^3.8.3
     webpack: ^4.42.0
     webpack-assets-manifest: ^3.0.1
@@ -5286,7 +5331,9 @@ __metadata:
     lodash: ^4.17.11
     markdown-link-extractor: ^1.2.0
     node-html-parser: ^1.1.16
+    regenerator-runtime: ^0.13.5
     rimraf: ^3.0.1
+    verror: ^1.10.0
   languageName: unknown
   linkType: soft
 
@@ -5368,7 +5415,7 @@ __metadata:
     final-form: ^4.18.6
     prop-types: ^15.7.2
     react: ^16.12.0
-    react-bootstrap: ^0.33.0
+    react-bootstrap: ^0.33.1
     react-dom: ^16.12.0
     react-final-form: ^6.3.3
     react-markdown: ^4.0.4
@@ -5498,7 +5545,7 @@ __metadata:
     "@openagenda/react-shared": ^1.0.0
     "@openagenda/react-utils": ^4.0.0
     "@openagenda/sessions": ^3.0.13
-    babel-plugin-react-intl: ^6.2.0
+    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     core-js: ^3.6.4
     eslint: ^6.8.0
@@ -5550,7 +5597,7 @@ __metadata:
   peerDependencies:
     react: ^16.12.0
   bin:
-    oa-extract-messages: ./scripts/extract-messages.js
+    "oa:extract-messages": ./scripts/extract-messages.js
   languageName: unknown
   linkType: soft
 
@@ -5571,7 +5618,7 @@ __metadata:
     "@storybook/react": ^5.3.9
     babel-jest: ^25.1.0
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^6.2.0
+    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     core-js: ^3.6.4
     date-fns: ^2.1.0
@@ -5665,6 +5712,7 @@ __metadata:
     lodash: ^4.17.5
     moment: ^2.20.1
     prettier-eslint-cli: ^5.0.0
+    regenerator-runtime: ^0.13.5
     reload: ^3.0.4
     rimraf: ^3.0.1
     sinon: ^4.4.5
@@ -5834,6 +5882,7 @@ __metadata:
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/bs-templates": ^2.2.0
     "@openagenda/dom-utils": ^2.2.0
+    "@openagenda/files": ^2.0.7
     "@openagenda/fixtures": ^2.0.1
     "@openagenda/image-upload": ^1.0.8
     "@openagenda/keys": ^2.1.1
@@ -5938,6 +5987,7 @@ __metadata:
     core-js: ^3.6.4
     jest: ^25.1.0
     lodash: ^4.17.2
+    should: ^13.2.3
     validator: ^12.2.0
   languageName: unknown
   linkType: soft
@@ -6866,15 +6916,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/keyv@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "@types/keyv@npm:3.1.1"
-  dependencies:
-    "@types/node": "*"
-  checksum: 2/3aaf557d5b82e733d5a17b7f55af5d6be953363c3a594f006d64265790fe87c301c6e1400c0b6b1cf72add50a0ceddc25afb8231ab8302a2e5b6ebfbfac30e5d
-  languageName: node
-  linkType: hard
-
 "@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
@@ -6999,15 +7040,6 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^2.2.0
   checksum: 2/20cc7d3b714cc1802e84eb30d6090d67de1b76dd02d58f03705bb1046f1be11525670c73696e86363293506a6f9bfcc3438ec9f44e9de32cba1a0d1c3efc3aa8
-  languageName: node
-  linkType: hard
-
-"@types/responselike@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@types/responselike@npm:1.0.0"
-  dependencies:
-    "@types/node": "*"
-  checksum: 2/e6e6613c800aeda63e2331e753e8d21df1a2c9aa7a4bc71ed792a848e4811fc96e609759089355314a2318c76eff1f161499cd242044838ab1e6f56e463ebb9c
   languageName: node
   linkType: hard
 
@@ -7747,7 +7779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.1.0, ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.5.5, ajv@npm:^6.9.1":
+"ajv@npm:^6.1.0, ajv@npm:^6.10.0, ajv@npm:^6.10.2, ajv@npm:^6.12.0, ajv@npm:^6.5.5, ajv@npm:^6.9.1":
   version: 6.12.0
   resolution: "ajv@npm:6.12.0"
   dependencies:
@@ -9063,6 +9095,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-loader@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "babel-loader@npm:8.1.0"
+  dependencies:
+    find-cache-dir: ^2.1.0
+    loader-utils: ^1.4.0
+    mkdirp: ^0.5.3
+    pify: ^4.0.1
+    schema-utils: ^2.6.5
+  peerDependencies:
+    "@babel/core": ^7.0.0
+    webpack: ">=2"
+  checksum: 2/f7b236a5f7b3f2c8a49ec41ed0a2905075ed4bb6d6ba85552b50be7c56b8fdb46e92270576ef29e6598f23919f7a00a515091c2410ced25c08992a4bd799124b
+  languageName: node
+  linkType: hard
+
 "babel-plugin-add-module-exports@npm:^1.0.2":
   version: 1.0.2
   resolution: "babel-plugin-add-module-exports@npm:1.0.2"
@@ -9285,9 +9333,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-intl@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "babel-plugin-react-intl@npm:6.2.0"
+"babel-plugin-react-intl@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "babel-plugin-react-intl@npm:7.0.0"
   dependencies:
     "@babel/core": ^7.7.2
     "@babel/helper-plugin-utils": ^7.0.0
@@ -9296,7 +9344,7 @@ __metadata:
     fs-extra: ^8.1.0
     intl-messageformat-parser: ^4.1.1
     schema-utils: ^2.2.0
-  checksum: 2/a233c54dfe1ef60216e5eaf8f1e55a16a62751fc120671a5219209344307411711ccc48cb434abb60d6779566082689042da5b6dbccdb27f0d8191c4f77954e7
+  checksum: 2/752f3d24c37f75dcdbe35ad1053cf242bcccb4f9f6648725021285bf044559fffd0b8e63ec8d2ad68f031d60cd4c9079f0986d0606c0b8d51efcc701b85c0e95
   languageName: node
   linkType: hard
 
@@ -12831,7 +12879,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:^3.0.0":
+"css-loader@npm:^3.0.0, css-loader@npm:^3.4.2":
   version: 3.4.2
   resolution: "css-loader@npm:3.4.2"
   dependencies:
@@ -16705,27 +16753,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@^1.0.0#builtin<compat/fsevents>, fsevents@patch:fsevents@^1.2.7#builtin<compat/fsevents>":
-  version: 1.2.11
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.11#builtin<compat/fsevents>::version=1.2.11&hash=77dfe6"
-  dependencies:
-    bindings: ^1.5.0
-    nan: ^2.12.1
-    node-gyp: latest
-    node-pre-gyp: "*"
-  checksum: 2/bed0c750c8ed79e28fb83283e6a059c50d0f522fa20267476ce8b905ea6b4e89dbe16ad23ab019527fef694c339a391baedf04fd5b521eb150ffaeab6d199049
-  languageName: node
-  linkType: hard
-
-"fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.1#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
-  version: 2.1.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.1.2#builtin<compat/fsevents>::version=2.1.2&hash=77dfe6"
-  dependencies:
-    node-gyp: latest
-  checksum: 2/6fb6ae0c1e5aca68fec6c0bf119d0dc9a1d653af60925c7ec69868f0ac68fa6930eeb769745030ecb560e00c144c74068da62bb77a000cc7dc263963ba4e2d7f
-  languageName: node
-  linkType: hard
-
 "fstream@npm:^1.0.0, fstream@npm:^1.0.12":
   version: 1.0.12
   resolution: "fstream@npm:1.0.12"
@@ -17770,7 +17797,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hbs@npm:^4.0.1":
+"hbs@npm:^4.1.0":
   version: 4.1.0
   resolution: "hbs@npm:4.1.0"
   dependencies:
@@ -18946,7 +18973,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"invariant@npm:^2.1.0, invariant@npm:^2.2.0, invariant@npm:^2.2.1, invariant@npm:^2.2.2, invariant@npm:^2.2.3, invariant@npm:^2.2.4":
+"invariant@npm:^2.1.0, invariant@npm:^2.2.0, invariant@npm:^2.2.2, invariant@npm:^2.2.3, invariant@npm:^2.2.4":
   version: 2.2.4
   resolution: "invariant@npm:2.2.4"
   dependencies:
@@ -21807,7 +21834,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.0.1, loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0, loader-utils@npm:^1.2.3":
+"loader-utils@npm:^1.0.1, loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0, loader-utils@npm:^1.2.3, loader-utils@npm:^1.4.0":
   version: 1.4.0
   resolution: "loader-utils@npm:1.4.0"
   dependencies:
@@ -23363,6 +23390,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimist@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "minimist@npm:1.2.5"
+  checksum: 2/b77b8590147a4e217ff34266236bc39de23b52e6e33054076991ff674c7397a1380a7bde11111916f16f003a94aaa7e4f3d92595a32189644ff607fabc65a5b6
+  languageName: node
+  linkType: hard
+
 "minimist@npm:~0.0.1":
   version: 0.0.10
   resolution: "minimist@npm:0.0.10"
@@ -23915,6 +23949,17 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: 2/8ef65f4f0c7642b2f6e7af417eb9f3f24e8d1e4d612eddc5b1ee3b0ef974ccfaafb38bba6cc9178510c5aae82a6ef9ad85037448c9856b2fb8308162a7c8987e
+  languageName: node
+  linkType: hard
+
+"mkdirp@npm:^0.5.3":
+  version: 0.5.4
+  resolution: "mkdirp@npm:0.5.4"
+  dependencies:
+    minimist: ^1.2.5
+  bin:
+    mkdirp: bin/cmd.js
+  checksum: 2/914b8b8b1c34128c06ddd41a1d33f1515f0dde80ba233e321385eedcd4cc71bc4a4b66c19c7fde708c3e7f22969403b371b81663761cff8b01a9a72c2b7bdd12
   languageName: node
   linkType: hard
 
@@ -25084,6 +25129,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "oa@workspace:."
   dependencies:
+    "@babel/core": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
     "@openagenda/babel-preset": ^1.2.0
     codecov: ^3.6.2
@@ -28103,7 +28149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rc-collapse@npm:^1.10.0, rc-collapse@npm:^1.11.1":
+"rc-collapse@npm:^1.11.1":
   version: 1.11.8
   resolution: "rc-collapse@npm:1.11.8"
   dependencies:
@@ -28220,51 +28266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-bootstrap@npm:^0.31.0":
-  version: 0.31.5
-  resolution: "react-bootstrap@npm:0.31.5"
-  dependencies:
-    babel-runtime: ^6.11.6
-    classnames: ^2.2.5
-    dom-helpers: ^3.2.0
-    invariant: ^2.2.1
-    keycode: ^2.1.2
-    prop-types: ^15.5.10
-    prop-types-extra: ^1.0.1
-    react-overlays: ^0.7.4
-    uncontrollable: ^4.1.0
-    warning: ^3.0.0
-  peerDependencies:
-    react: ^0.14.9 || >=15.3.0
-    react-dom: ^0.14.9 || >=15.3.0
-  checksum: 2/793a3d0e27d883035a8c6a72606f2257612b1f0fd096f44546c1425f8f04bbfa4ec66a0b8b874fdbf10bd784eb01ad2e444ee80f23019b1197292a129f41d160
-  languageName: node
-  linkType: hard
-
-"react-bootstrap@npm:^0.32.4":
-  version: 0.32.4
-  resolution: "react-bootstrap@npm:0.32.4"
-  dependencies:
-    "@babel/runtime-corejs2": ^7.0.0
-    classnames: ^2.2.5
-    dom-helpers: ^3.2.0
-    invariant: ^2.2.4
-    keycode: ^2.2.0
-    prop-types: ^15.6.1
-    prop-types-extra: ^1.0.1
-    react-overlays: ^0.8.0
-    react-prop-types: ^0.4.0
-    react-transition-group: ^2.0.0
-    uncontrollable: ^5.0.0
-    warning: ^3.0.0
-  peerDependencies:
-    react: ^0.14.9 || >=15.3.0
-    react-dom: ^0.14.9 || >=15.3.0
-  checksum: 2/e97c2ea01d4b356f4e6b076d1cc587d3f9794af18fef94b91ce0559cacc7d00fb18011159ef27e461c11e4931f43a16313d5580a170454b96dfed222548e0bfc
-  languageName: node
-  linkType: hard
-
-"react-bootstrap@npm:^0.33.0":
+"react-bootstrap@npm:^0.33.1":
   version: 0.33.1
   resolution: "react-bootstrap@npm:0.33.1"
   dependencies:
@@ -28284,13 +28286,6 @@ __metadata:
     react: ">=16.3.0"
     react-dom: ">=16.3.0"
   checksum: 2/81e53d53b57cbda1d3b2d80f2ed4062a71203907d0ffd2c05b61b31f123b5febfcc87a0f12330c7e4a4eed3c60526cce57aee397c3baeaeaca0fa20d48d16d66
-  languageName: node
-  linkType: hard
-
-react-click-outside@tj/react-click-outside:
-  version: 1.1.1
-  resolution: "react-click-outside@https://github.com/tj/react-click-outside.git#commit:a833ddc5be47490307f9fcc6ed09d8c353108510"
-  checksum: 2/b55faa07d6559c21df008a51b56b5fa5bb40f5515c0e518ea5ea06beb0f4951e5067696e1d1b15d783e68e1c5da411fe50a1540dc098e5ddb6793461e8ec86ed
   languageName: node
   linkType: hard
 
@@ -28773,7 +28768,7 @@ react-click-outside@tj/react-click-outside:
   languageName: node
   linkType: hard
 
-"react-overlays@npm:^0.7.0, react-overlays@npm:^0.7.4":
+"react-overlays@npm:^0.7.0":
   version: 0.7.4
   resolution: "react-overlays@npm:0.7.4"
   dependencies:
@@ -28786,23 +28781,6 @@ react-click-outside@tj/react-click-outside:
     react: ^0.14.9 || >=15.3.0
     react-dom: ^0.14.9 || >=15.3.0
   checksum: 2/6663cae255164132b230d93ce784e6c17878b6395f48290955b816431fa813f306e68e064c8fd90cd2ea4e2ac6b4dd7390c94b2f679c601a73c6010b12eaa28f
-  languageName: node
-  linkType: hard
-
-"react-overlays@npm:^0.8.0":
-  version: 0.8.3
-  resolution: "react-overlays@npm:0.8.3"
-  dependencies:
-    classnames: ^2.2.5
-    dom-helpers: ^3.2.1
-    prop-types: ^15.5.10
-    prop-types-extra: ^1.0.1
-    react-transition-group: ^2.2.0
-    warning: ^3.0.0
-  peerDependencies:
-    react: ^0.14.9 || >=15.3.0
-    react-dom: ^0.14.9 || >=15.3.0
-  checksum: 2/407f5d87313e48c8a0a12ea468199c6a6386bfe17767bb2a41ab6f26a35dd509c5ca0efccec3dcfe7e1984e52483eec8912542c11430c13f6eeb4aeb793d54c0
   languageName: node
   linkType: hard
 
@@ -29149,7 +29127,7 @@ react-click-outside@tj/react-click-outside:
   languageName: node
   linkType: hard
 
-"react-transition-group@npm:^2.0.0, react-transition-group@npm:^2.2.0, react-transition-group@npm:^2.2.1":
+"react-transition-group@npm:^2.0.0, react-transition-group@npm:^2.2.1":
   version: 2.9.0
   resolution: "react-transition-group@npm:2.9.0"
   dependencies:
@@ -30264,22 +30242,6 @@ react-click-outside@tj/react-click-outside:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@1.1.7#builtin<compat/resolve>, resolve@patch:resolve@~1.1.0#builtin<compat/resolve>":
-  version: 1.1.7
-  resolution: "resolve@patch:resolve@npm%3A1.1.7#builtin<compat/resolve>::version=1.1.7&hash=8fccd0"
-  checksum: 2/5238277188664a6948dd7288d16f1a09e098fb36d4f9b2c749130969c998faa9bccefd30fd618073af5210fdc768730cadfc15588bbee4fc64b257f20cab6783
-  languageName: node
-  linkType: hard
-
-"resolve@patch:resolve@^1.1.3#builtin<compat/resolve>, resolve@patch:resolve@^1.1.4#builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.15.1#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.4.0#builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#builtin<compat/resolve>":
-  version: 1.15.1
-  resolution: "resolve@patch:resolve@npm%3A1.15.1#builtin<compat/resolve>::version=1.15.1&hash=8fccd0"
-  dependencies:
-    path-parse: ^1.0.6
-  checksum: 2/fe7e72ddef33d5c157991b824ba2d439cafcd386cb4b26d86c32e77fea442bdd9a93c6cdd93ab90f87a29449008df64b53a8310dd89ebe88ea87fb5db09c03aa
-  languageName: node
-  linkType: hard
-
 "restore-cursor@npm:^1.0.1":
   version: 1.0.1
   resolution: "restore-cursor@npm:1.0.1"
@@ -30610,6 +30572,31 @@ react-click-outside@tj/react-click-outside:
   languageName: node
   linkType: hard
 
+"sass-loader@npm:^8.0.2":
+  version: 8.0.2
+  resolution: "sass-loader@npm:8.0.2"
+  dependencies:
+    clone-deep: ^4.0.1
+    loader-utils: ^1.2.3
+    neo-async: ^2.6.1
+    schema-utils: ^2.6.1
+    semver: ^6.3.0
+  peerDependencies:
+    fibers: ">= 3.1.0"
+    node-sass: ^4.0.0
+    sass: ^1.3.0
+    webpack: ^4.36.0 || ^5.0.0
+  peerDependenciesMeta:
+    fibers:
+      optional: true
+    node-sass:
+      optional: true
+    sass:
+      optional: true
+  checksum: 2/e23d9b308f0792fb9ca3ebe314d5c9c96dfa833f89f457e4fc9c5026dacbfbb81e65b1e9b924f6aa11d749e2ba033acf7d1767929d6f9628c45525535bceb889
+  languageName: node
+  linkType: hard
+
 "sax@npm:0.4.2":
   version: 0.4.2
   resolution: "sax@npm:0.4.2"
@@ -30694,6 +30681,16 @@ react-click-outside@tj/react-click-outside:
     ajv: ^6.10.2
     ajv-keywords: ^3.4.1
   checksum: 2/26d3184dc7f6f95f5cacf58c4fffb7c44854d974831670e76df8e97f47aa147e6f76f89d4bc96890c7d24bba3f9dad2982f976c87fd56edf8192b9234b8bc828
+  languageName: node
+  linkType: hard
+
+"schema-utils@npm:^2.6.5":
+  version: 2.6.5
+  resolution: "schema-utils@npm:2.6.5"
+  dependencies:
+    ajv: ^6.12.0
+    ajv-keywords: ^3.4.1
+  checksum: 2/f41503bd6025c4ec77b7eacf98bf39799b9240e51e1f16881e71a90a9a39208f6d1489719acc59ae1b47aedcbcc8c66ceb09f23603e09ca6889c2521b2d9078f
   languageName: node
   linkType: hard
 
@@ -32728,7 +32725,7 @@ react-click-outside@tj/react-click-outside:
   languageName: node
   linkType: hard
 
-"style-loader@npm:^1.0.0":
+"style-loader@npm:^1.0.0, style-loader@npm:^1.1.3":
   version: 1.1.3
   resolution: "style-loader@npm:1.1.3"
   dependencies:
@@ -33946,16 +33943,6 @@ typescript@^3.2.1:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^3.2.1#builtin<compat/typescript>":
-  version: 3.8.3
-  resolution: "typescript@patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=270b6c"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 2/2950b292ac700898647d49ca5f07fa546f6c3d28983ba559c5b4fa360babdc1734493b7f5f72553735eaa401c850989d7bbbd70f739df3c0b7fc83c82e37d8a5
-  languageName: node
-  linkType: hard
-
 "ua-parser-js@npm:^0.7.0, ua-parser-js@npm:^0.7.18":
   version: 0.7.21
   resolution: "ua-parser-js@npm:0.7.21"
@@ -34093,7 +34080,7 @@ typescript@^3.2.1:
   languageName: node
   linkType: hard
 
-"uncontrollable@npm:^3.3.1 || ^4.0.0, uncontrollable@npm:^4.1.0":
+"uncontrollable@npm:^3.3.1 || ^4.0.0":
   version: 4.1.0
   resolution: "uncontrollable@npm:4.1.0"
   dependencies:
@@ -34101,17 +34088,6 @@ typescript@^3.2.1:
   peerDependencies:
     react: ">=0.11.0"
   checksum: 2/464b80d33c869dfd5db594a2a1c9250987323c512fc9f39173cc8166c777c5ae31597c8a6e8f38a71524725f6ee0f01f4f9194fc2c35040822b385459eb25830
-  languageName: node
-  linkType: hard
-
-"uncontrollable@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "uncontrollable@npm:5.1.0"
-  dependencies:
-    invariant: ^2.2.4
-  peerDependencies:
-    react: ">=15.0.0"
-  checksum: 2/bd209f3fbd240af6599df41732e74e6acca25acbf9beaf6548fd0d8582f3d0db4fa7ff0286544c3bcb507a53aebcaa187c70355c063bc68899b0b7767e49b28a
   languageName: node
   linkType: hard
 

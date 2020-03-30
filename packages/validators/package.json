@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src -d ./ -s",
     "test": "jest",
-    "prepublish": "yarn build"
+    "prepack": "yarn build"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "@babel/core": "^7.8.4",
     "@openagenda/babel-preset": "^1.2.0",
     "babel-jest": "^25.1.0",
-    "jest": "^25.1.0"
+    "jest": "^25.1.0",
+    "should": "^13.2.3"
   }
 }

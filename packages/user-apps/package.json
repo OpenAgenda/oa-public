@@ -10,7 +10,7 @@
     "knex": "babel-node ./node_modules/.bin/knex",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
-    "prepublish": "yarn clean && yarn build"
+    "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
@@ -41,6 +41,7 @@
     "@loadable/babel-plugin": "^5.12.0",
     "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
+    "@openagenda/files": "^2.0.7",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.1.1",
     "@openagenda/unsubscribed": "^2.1.1",

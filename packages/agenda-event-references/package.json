@@ -14,7 +14,7 @@
     "knex": "babel-node ./node_modules/.bin/knex",
     "build": "babel react/src -d react/build -s",
     "clean": "rimraf react/build",
-    "prepublish": "yarn clean && yarn build"
+    "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
@@ -43,6 +43,7 @@
     "@babel/node": "^7.8.4",
     "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
+    "@openagenda/fixtures": "^2.0.1",
     "@storybook/react": "^5.3.9",
     "babel-loader": "^8.0.6",
     "concurrently": "^5.1.0",

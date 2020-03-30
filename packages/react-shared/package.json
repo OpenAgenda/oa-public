@@ -7,10 +7,10 @@
     "dist"
   ],
   "bin": {
-    "oa-extract-messages": "./scripts/extract-messages.js"
+    "oa:extract-messages": "./scripts/extract-messages.js"
   },
   "scripts": {
-    "prepublish": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf build",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",

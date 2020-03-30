@@ -14,10 +14,10 @@
   "scripts": {
     "build": "babel src -d dist -s",
     "test": "mocha --exit",
-    "prepublish": "yarn build"
+    "prepack": "yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.8.7",
+    "@babel/runtime-corejs3": "^7.8.4",
     "@formatjs/intl-listformat": "^1.4.1",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",

@@ -9,7 +9,7 @@ module.exports = {
     'packages/*'
   ],
   presets: [
-    '@openagenda'
+    require('@openagenda/babel-preset')
   ],
   sourceType: 'unambiguous'
 };

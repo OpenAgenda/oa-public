@@ -73,6 +73,7 @@ module.exports = async options => {
 
   app.set('view engine', 'hbs');
   app.set('views', views);
+  app.engine('hbs', hbs.__express);
   hbs.registerPartials(`${views}/partials`);
 
   _.assign(app.locals, config);

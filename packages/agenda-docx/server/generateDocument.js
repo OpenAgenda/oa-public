@@ -9,7 +9,6 @@ const expressions = require('angular-expressions');
 const removeMd = require('remove-markdown');
 
 const log = require('@openagenda/logs')('generateDocument');
-
 const formatEvent = require('./lib/formatEvent');
 const reduceByDeep = require('./lib/reduceByDeep');
 const sortBy = require('./lib/sortBy');

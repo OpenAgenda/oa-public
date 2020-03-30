@@ -15,7 +15,9 @@
     "core-js": "^3.6.4",
     "lodash": "^4.17.11",
     "markdown-link-extractor": "^1.2.0",
-    "node-html-parser": "^1.1.16"
+    "node-html-parser": "^1.1.16",
+    "regenerator-runtime": "^0.13.5",
+    "verror": "^1.10.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

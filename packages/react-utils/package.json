@@ -13,7 +13,7 @@
   "scripts": {
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
-    "prepublish": "yarn clean && yarn build"
+    "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",

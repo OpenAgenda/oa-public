@@ -10,7 +10,7 @@
     "test": "jest --coverage",
     "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "prepublish": "yarn build",
+    "prepack": "yarn build",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
@@ -25,6 +25,7 @@
     "@babel/runtime-corejs3": "^7.8.4",
     "core-js": "^3.6.4",
     "lodash": "^4.17.5",
+    "regenerator-runtime": "^0.13.5",
     "superagent": "^3.8.2",
     "verror": "^1.10.0"
   },

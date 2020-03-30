@@ -9,7 +9,7 @@
     "test": "mocha --exit",
     "build": "rimraf build && babel components -d build -s",
     "start": "start-storybook -s ./stories/static -p 9001",
-    "prepublish": "yarn build"
+    "prepack": "yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
