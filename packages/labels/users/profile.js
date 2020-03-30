@@ -77,7 +77,7 @@ module.exports = {
     "en": "Agendas",
     "fr": "Agendas",
     "it": "Le agende",
-    "de": "Veranstaltungskalender",
+    "de": "Agendas",
     "pl": "Porządek dzienny",
     "es": "agendas",
     "br": "Deiziataerioù"

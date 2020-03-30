@@ -293,7 +293,7 @@ export default class Events extends Component {
                     key={event.uid}
                     className={`event-item media${event.draft ? ' draft' : ''}`}
                   >
-                    <div className="padding-all-md">
+                    <div className="padding-all-md" title={getLabel('show')}>
                       <div className="media-left">
                         <a href={this.getEventShowLink(event)}>
                           <Image
@@ -351,7 +351,7 @@ export default class Events extends Component {
                               <span className="badge badge-sm badge-default">
                                 {getLabel('draft')}
                               </span>
-                            ) : null}
+                            ) : <a href={this.getEventShowLink(event)}>{getLabel('show')}</a>}
                             <a href={this.getEventEditLink(event)}>
                               {getLabel('modify')}
                             </a>

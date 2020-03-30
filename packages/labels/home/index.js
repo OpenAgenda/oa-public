@@ -208,5 +208,11 @@ module.exports = {
     "br": "N'ho peus krouet darvoud ebet c'hoazh",
     "es": "No ha creado ningún evento",
     "it": "Non avete ancora creato alcun evento"
+  },
+  "show": {
+    "fr": "Afficher",
+    "en": "Open",
+    "de": "Ansehen",
+    "es": "Ver"
   }
 }
