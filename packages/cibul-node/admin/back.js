@@ -109,7 +109,11 @@ function getUsers( req, res, next ) {
 
         if ( !req.loadedUser.id ) return next( new Error( 'User not found' ) );
 
-        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 1000, order: 'id.desc' } ).then( members => {
+        membersSvc.list(
+          { userUid: req.loadedUser.uid },
+          { limit: 1000, order: 'id.desc' },
+          { userOptions: { detailed: true } }
+        ).then( members => {
 
           agendasSvc.list( {
             uid: members.map( m => m.agendaUid )

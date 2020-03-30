@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Connexion",
     "en": "Connection",
     "it": "Connessione",
-    "de": "Verbindung",
+    "de": "Login", // traduit par l'équipe FDM berlin
     "pl": "Podłączenie",
     "es": "acceder",
     "br": "Kevreañ"
@@ -68,7 +68,7 @@ module.exports = {
     "fr": "Vous n'avez pas encore de compte?",
     "en": "Don't have an account yet?",
     "it": "Non hai ancora un conto?",
-    "de": "Du hast noch kein Konto?",
+    "de": "Noch nicht registriert? Hier geht's zur Anmeldung.",
     "pl": "Nie masz jeszcze konta?",
     "es": "¿No tienes una cuenta?",
     "br": "N'ho peus kont ebet c'hoazh ?"

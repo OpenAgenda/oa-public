@@ -11,7 +11,13 @@ describe('10 - remove', () => {
   const tracker = Tracker();
 
   beforeAll(async () => {
-    await f.load();
+    await f.load([
+      'reset.sql',
+      '../../model.sql',
+      'aggregator.data.json',
+      'review.create.sql',
+      'review.data.json'
+    ]);
 
     svc = createInstance({
       knex: f.client,

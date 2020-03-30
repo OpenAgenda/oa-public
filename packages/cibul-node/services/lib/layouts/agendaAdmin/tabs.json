@@ -23,6 +23,11 @@
   "section" : "manage"
 },
 {
+  "name" : "statistics",
+  "section" : "manage",
+  "roles" : [ "gna" ]
+},
+{
   "name" : "activities",
   "section" : "manage"
 },

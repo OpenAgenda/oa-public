@@ -19,6 +19,7 @@ const get = require('./middleware/getEvent');
 const { redirectToNeighbor } = require('./middleware/eventNavigation');
 const list = require('./middleware/listEvents');
 const pageGlobals = require('./middleware/pageGlobals');
+const webpackSASSMiddleware = require('./dev/webpackSASSMiddleware');
 const redirectLegacyEventQuery = require('./middleware/redirectLegacyEventQuery');
 const renderList = require('./middleware/renderList');
 const redirect = require('./middleware/redirectToEvent');
@@ -105,7 +106,7 @@ module.exports = async options => {
   }
 
   if (process.env.NODE_ENV === 'development') {
-    launch.applyDevelopmentMiddleware(app);
+    app.use(webpackSASSMiddleware(app.locals.sass));
   }
 
   if (assets) {

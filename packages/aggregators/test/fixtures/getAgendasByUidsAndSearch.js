@@ -1,6 +1,6 @@
 'use strict';
 
-const agendas = require('./agendas.json');
+const agendas = require('./review.data.json');
 
 module.exports = async (uids = [], searchQuery = null) => agendas
   .filter(a => uids.includes(a.uid))

@@ -297,6 +297,7 @@ async function activateResend( req, res ) {
   const {
     users,
     tokens,
+    sessions
   } = req.app.services;
 
   if ( !req.query.email ) {

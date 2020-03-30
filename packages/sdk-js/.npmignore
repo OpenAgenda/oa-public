@@ -15,5 +15,6 @@ src/
 .babelrc
 .tmp/
 test/
+coverage/
 
 testconfig.js

@@ -19,7 +19,7 @@ function validate( values ) {
     }
   }
 
-  if ( !values.enabled && !values.email ) {
+  if ( values.enabled && !values.email ) {
     errors.email = 'required';
   }
 

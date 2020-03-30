@@ -5,7 +5,7 @@ module.exports = {
     "en": "The submission of your event is complete",
     "fr": "Votre saisie a bien été enregistrée",
     "it": "Il suo evento è registrato",
-    "de": "Ihre Veranstalltung ist aufgezeichnet",
+    "de": "Deine Veranstalung wurde angelegt.",
     "br": "Enrollet eo bet ar pezh ho peus skrivet. ",
     "es": "Su aportación ha sido registrado"
   },

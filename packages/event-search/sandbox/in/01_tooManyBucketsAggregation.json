@@ -1,0 +1,40 @@
+{
+  "title": "Agrégation histogramme qui plante",
+  "description": "Trop de buckets (>10000) pour une agrégation mène à une erreur",
+  "value": {
+    "query": {
+      "bool": {
+        "filter": [
+          {
+            "term": {
+              "_set": "agendas_50522407"
+            }
+          },
+          {
+            "term": {
+              "state": 2
+            }
+          }
+        ]
+      }
+    },
+    "from": 0,
+    "size": 0,
+    "aggregations": {
+      "timings": {
+        "nested": {
+          "path": "timings"
+        },
+        "aggregations": {
+          "timings": {
+            "date_histogram": {
+              "field": "timings.begin",
+              "interval": "day",
+              "format": "YYYY-MM-dd"
+            }
+          }
+        }
+      }
+    }
+  }
+}

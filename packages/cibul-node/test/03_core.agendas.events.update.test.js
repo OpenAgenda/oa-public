@@ -1,0 +1,545 @@
+'use strict';
+
+process.env.NODE_ENV = 'test';
+
+const _ = require('lodash');
+const axios = require('axios');
+const mysql = require('mysql');
+const { promisify } = require('util');
+
+const assignClients = require('./utils/assignClients');
+const api = require('../api');
+const Services = require('../services/init');
+const Core = require('../core');
+const testConfig = require('./testConfig');
+const loadFixtures = require('./fixtures/load');
+
+describe('core - functional (server): core.agendas().events.update()', function() {
+  let core;
+
+  beforeAll(() => loadFixtures(testConfig.db, '004.sql'));
+
+  beforeAll(() => assignClients(testConfig));
+
+  beforeAll(async () => {
+    const services = await Services(testConfig, {
+      enabled: [
+        'queues',
+        'events',
+        'agendas',
+        'agendaEvents',
+        'aggregators',
+        'agendaLocations',
+        'formSchemas',
+        'custom',
+        'eventSearch',
+        'members',
+        'networks',
+        'legacy',
+        'users',
+        'keys',
+        'accessTokens',
+        'tracker'
+      ]
+    });
+
+    core = Core(services, testConfig);
+
+    await core.agendas(17026855).events.search.rebuild();
+  });
+
+  afterAll(() => {
+    testConfig.knex.destroy();
+    testConfig.redisClient.quit();
+  });
+
+  afterAll(async () => {
+    try {
+      await core.services.eventSearch.getConfig().client.indices.delete({
+        index: 'test'
+      });
+    } catch (e) {}
+  });
+
+  describe('simple update', function() {
+    let event;
+
+    beforeAll(async () => {
+      event = await core.agendas(17026855).events.update(19201989, {
+        state: 0,
+        featured: true,
+        title: {
+          fr: 'Un événement mis à jour',
+          en: 'An updated event'
+        },
+        description: {
+          fr: 'Une description',
+          en: 'A desc'
+        },
+        location: {
+          uid: 123
+        },
+        timings: [{
+          begin: new Date('2019-05-06T10:00:00'),
+          end: new Date('2019-05-06T11:00:00')
+        }, {
+          begin: new Date('2019-05-06T12:00:00'),
+          end: new Date('2019-05-06T13:00:00')
+        }],
+        'custom_description' : 'Meh',
+        'categories-agenda-metropolitain': 43,
+        'thematiques-bordeaux-metropole' : [3]
+      }, {
+        access: 'contributor'
+      });
+    });
+
+    describe('response', () => {
+
+      it('updated event is provided as a response', () => {
+        expect(event.uid).toBe(19201989);
+        expect(event.title.fr).toBe('Un événement mis à jour');
+      });
+
+      it('updated state is provided in response', () => {
+        expect(event.state).toBe(0);
+      });
+
+      it('provides the location in a location key', async () => {
+        expect(event.location.name).toBe('La boutique');
+      });
+
+    });
+
+    describe('persistence', () => {
+
+      it('custom values are updated', async () => {
+        const data = await core.services.custom(2).get(event.uid);
+
+        expect(data['thematiques-bordeaux-metropole']).toEqual([3])
+      });
+
+      it('event state in agenda is updated', async () => {
+        const { state } = await core.services.agendaEvents(17026855).get(19201989);
+
+        expect(state).toBe(0);
+      });
+
+    });
+
+    describe('search', () => {
+      let result;
+
+      beforeAll(async () => {
+        result = await core.agendas(17026855).events.search({
+          uid: event.uid,
+          state: null
+        }, {}, { detailed: true });
+      });
+
+      it('indexed document is updated', () => {
+        expect(result.events[0]['thematiques-bordeaux-metropole']).toEqual([3])
+      });
+    });
+
+    describe('fixes', () => {
+
+      it('location store should not be present in result', () => {
+        expect(event.location.store).toBeUndefined();
+      });
+
+    });
+
+  });
+
+  describe('updates with different accesses', () => {
+
+    beforeAll(() => core.agendas(92983929).events.update(19390293, {
+      title: {
+        fr: 'Un autre événement mis à jour',
+      },
+      description: {
+        fr: 'Une description'
+      },
+      locationUid: 123,
+      timings: [{
+        begin: new Date('2019-12-18T14:30:00'),
+        end: new Date('2019-12-18T15:30:00')
+      }],
+      'organisation-interne': 'Il faut que René y aille',
+      categories: 2
+    }, {
+      access: 'contributor'
+    }));
+
+    beforeAll(() => core.agendas(92983929).events.update(19390294, {
+      title: {
+        fr: 'Et un autre événement mis à jour',
+      },
+      description: {
+        fr: 'Une description'
+      },
+      locationUid: 123,
+      timings: [{
+        begin: new Date('2019-12-18T14:30:00'),
+        end: new Date('2019-12-18T15:30:00')
+      }],
+      'organisation-interne': 'Il faut que René y aille',
+      categories: 1
+    }, {
+      access: 'administrator'
+    }));
+
+    it('a contributor access cannot update an administrator field', async () => {
+      const data = await core.services.custom(5).get(19390293);
+      expect(data).toEqual({
+        'organisation-interne': 'Il faut que Thérèse y soit'
+      });
+    });
+
+    it('an administrator access can update an administrator field', async () => {
+      const data = await core.services.custom(5).get(19390294);
+      expect(data).toEqual({
+        'organisation-interne': 'Il faut que René y aille'
+      });
+    });
+
+  });
+
+  describe('draft update', function() {
+    let event;
+
+    beforeAll(async () => {
+      event = await core.agendas(17026855).events.update(83902931, {
+        title: {
+          fr: 'Un brouillon mis à jour',
+          en: 'An updated event'
+        },
+        description: {
+          fr: 'Une description',
+          en: 'A desc'
+        },
+        'custom_description' : 'Meh',
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [4]
+      }, {
+        draft: true,
+        access: 'contributor'
+      });
+    });
+
+    it('update is still draft', async () => {
+      const e = await core.services.events.get({ uid: 83902931 });
+      expect(e.draft).toBe(1);
+    });
+
+    it('draft is updated', () => {
+      expect(event.title.fr).toBe('Un brouillon mis à jour');
+    });
+
+    it('custom data is updated', async () => {
+      const data = await core.services.custom(2).get(83902931);
+      expect(data['thematiques-bordeaux-metropole']).toEqual([4]);
+    });
+
+  });
+
+  describe('patch with returnPayload: true', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas(17026855).events.patch(19201989, {
+        state: -1
+      }, {
+        returnPayload: true
+      });
+    });
+
+    describe('response', () => {
+
+      it('success bool is provided in response', () => {
+        expect(result.success).toBe(true);
+      });
+
+      it('updated event is provided in event response key', () => {
+        expect(result.event.description.fr).toBe('Une description');
+      });
+
+      it('patched data is in event', () => {
+        expect(result.event.state).toBe(-1);
+      });
+
+    });
+
+    describe('persistence', () => {
+
+      it('legacy model is patched', async () => {
+        const record = await testConfig.knex('review_article')
+          .first('*')
+          .where('id', 123);
+
+        expect(record.state).toBe(-1);
+      });
+
+    });
+
+  });
+
+  describe('other', () => {
+
+    it('if state is not specified in provided data, state is not updated', async () => {
+      const {
+        state: currentState
+      } = await core.services.agendaEvents(17026855).get(19201989);
+
+      await core.agendas(17026855).events.update(19201989, {
+        featured: true,
+        title: {
+          fr: 'Un événement remis à jour',
+          en: 'An updated event'
+        },
+        description: {
+          fr: 'Une description',
+          en: 'A desc'
+        },
+        location: {
+          uid: 123
+        },
+        timings: [{
+          begin: new Date('2019-05-06T10:00:00'),
+          end: new Date('2019-05-06T11:00:00')
+        }, {
+          begin: new Date('2019-05-06T12:00:00'),
+          end: new Date('2019-05-06T13:00:00')
+        }],
+        'categories-agenda-metropolitain': 43,
+        'thematiques-bordeaux-metropole' : [3]
+      });
+
+      const {
+        state: updatedState
+      } = await core.services.agendaEvents(17026855).get(19201989);
+
+      expect(currentState).toBe(updatedState);
+    });
+
+    it('event can be updated with timings specifying begin&end as { date, hours, minutes } objects', async () => {
+
+      const event = await core.agendas(17026855).events.patch(19201989, {
+        timings: [{
+          begin: {
+            date: '2019-12-14',
+            hours: 18,
+            minutes: 28
+          },
+          end: {
+            date: '2019-12-14',
+            hours: 18,
+            minutes: 40
+          }
+        }]
+      }, { formSchemaDataFormat: true });
+
+      expect((new Date(event.timings[0].begin)).getUTCHours()).toBe(17);
+      expect((new Date(event.timings[0].begin)).getMinutes()).toBe(28);
+
+    });
+
+  });
+
+  describe('api', function() {
+    let server, accessToken, response;
+
+    beforeAll(done => {
+       server = api(core).listen(3000, done);
+    });
+
+    afterAll(() => server.close());
+
+    beforeAll(async () => {
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/v2/requestAccessToken',
+        headers: {
+          'content-type': 'application/json'
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+        }
+      }).then(r => r.data.access_token);
+    });
+
+    describe('successful update', () => {
+
+      beforeAll(async () => {
+        response = await axios({
+          method: 'post',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 123,
+            'content-type': 'application/json'
+          },
+          data: {
+            state: 0,
+            featured: true,
+            title: {
+              fr: 'Un événement mis à jour via l\'api',
+              en: 'An updated event through the api'
+            },
+            description: {
+              fr: 'Une description',
+              en: 'A desc'
+            },
+            location: {
+              uid: 123
+            },
+            timings: [{
+              begin: new Date('2019-05-06T10:00:00'),
+              end: new Date('2019-05-06T11:00:00')
+            }, {
+              begin: new Date('2019-05-06T12:00:00'),
+              end: new Date('2019-05-06T13:00:00')
+            }],
+            'custom_description' : 'Meh',
+            'categories-agenda-metropolitain': 43,
+            'thematiques-bordeaux-metropole' : [3]
+          }
+        }).then(r => r.data);
+      });
+
+      it('response gives success key if update was a success', () => {
+        expect(response.success).toBe(true);
+      });
+
+      it('updated event is provided in event key', () => {
+        expect(response.event.uid).toBe(19201989);
+      });
+
+    });
+
+    describe('unsuccessful update', () => {
+
+      beforeAll(async () => {
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+            headers: {
+              'access-token': accessToken,
+              nonce: 12893,
+              'content-type': 'application/json'
+            },
+            data: {
+              title: {
+                fr: 'Un événement mis à jour via l\'api',
+                en: 'An updated event through the api'
+              },
+              description: {
+                fr: 'Une description',
+                en: 'A desc'
+              },
+              location: {
+                uid: 123
+              },
+              'custom_description' : 'Meh',
+              'categories-agenda-metropolitain': 43,
+              'thematiques-bordeaux-metropole' : [3]
+            }
+          });
+        } catch (e) {
+          response = e.response;
+        }
+      });
+
+      it('response status should be 400', () => {
+        expect(response.status).toBe(400);
+      });
+
+      it('response body provides validation errors', () => {
+        expect(response.data.errors).toEqual([{
+          code: 'timings.empty',
+          message: 'At least one timing is required',
+          field: 'timings',
+          step: 'validation'
+        }]);
+      });
+
+    });
+
+    describe('successful patch', () => {
+
+      beforeAll(async () => {
+        response = await axios({
+          method: 'patch',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 12345,
+            'content-type': 'application/json'
+          },
+          data: {
+            title: {
+              fr: 'Un événement mis à jour via l\'api',
+              en: 'An updated event through the api'
+            }
+          }
+        });
+      });
+
+      it('status is 200', () => {
+        expect(response.status).toBe(200);
+      });
+
+      it('body contains event', () => {
+        expect(response.data.event.uid).toBe(19201989);
+      });
+
+    });
+
+    describe('monolingual patch', () => {
+
+      it('monolingual patch is by default english', async () => {
+        const response = await axios({
+          method: 'patch',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 12345897,
+            'content-type': 'application/json'
+          },
+          data: {
+            title: 'Un événement remis à jour'
+          }
+        });
+
+        expect(response.data.event.title).toEqual({
+          en: 'Un événement remis à jour'
+        });
+      });
+
+      it('monolingual patch is in language specified in header', async () => {
+        const response = await axios({
+          method: 'patch',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          headers: {
+            'access-token': accessToken,
+            nonce: 123405,
+            'content-type': 'application/json',
+            lang: 'fr'
+          },
+          data: {
+            title: 'Un événement reremis à jour'
+          }
+        });
+
+        expect(response.data.event.title).toEqual({
+          fr: 'Un événement reremis à jour'
+        });
+      });
+
+    });
+
+  });
+
+});

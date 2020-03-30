@@ -10,7 +10,7 @@ module.exports = services => {
 
   return Router({ mergeParams: true }).get('', (req, res, next) => {
     core.agendas(req.params.agendaUid)
-      .events.search({}, req.query, {
+      .events.search(req.query, req.query, {
         ...req.query,
         access: 'public'
       }).then(result => {

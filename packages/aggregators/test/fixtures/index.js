@@ -1,41 +1,53 @@
 'use strict';
 
-const fs = require('fs');
 const { promisify } = require('util');
+const fs = require('fs');
 const _ = require('lodash');
 const knex = require('knex');
+
+const mysqlKnex = knex({
+  client: 'mysql'
+});
 const mysql = require('mysql');
 
-const aggregators = require('./aggregators.json');
-const aggregatorSources = require('./aggregatorSources.json');
-const agendas = require('./agendas.json');
-
-function _sql() {
-  const k = knex({
-    client: 'mysql'
-  });
-
-  return [
-    `${fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8')};`,
-    fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8'),
-    fs.readFileSync(`${__dirname}/review.create.sql`, 'utf-8'),
-    `${k('review').insert(agendas)};`,
-    `${k('aggregator').insert(aggregators)};`,
-    k('aggregator_source').insert(aggregatorSources)
-  ].join('\n');
+function _parseJSON(fx) {
+  return mysqlKnex(fx.path.split('.').shift()).insert(JSON.parse(fx.content));
 }
 
-async function _load(dbConfig) {
-  const con = mysql.createConnection({
-    ..._.pick(dbConfig, ['user', 'password']),
+function _parseSQL(fx) {
+  return fx.content.replace(/;(\n|)$/, '');
+}
+
+async function _load(config, files) {
+  const getCon = (omitDB = false) => mysql.createConnection({
+    ..._.omit(config, omitDB ? ['database'] : []),
     multipleStatements: true
   });
 
-  const query = promisify(con.query.bind(con));
+  const con = getCon(true);
 
-  await query(_sql());
+  const compiledSQL = `${files
+    .map(f => ({
+      path: f,
+      type: f.split('.').pop(),
+      content: fs.readFileSync(`${__dirname}/${f}`, 'utf-8')
+    }))
+    .map(fx => (fx.type === 'sql' ? _parseSQL : _parseJSON)(fx))
+    .join(';\n')};`;
+
+  await promisify(con.query.bind(con))(compiledSQL);
 
   con.end();
+
+  const query = async (sql, values) => {
+    const queryCon = getCon();
+    await promisify(queryCon.query.bind(queryCon))(sql, values);
+    queryCon.end();
+  };
+
+  return {
+    query
+  };
 }
 
 module.exports = dbConfig => {
@@ -50,6 +62,6 @@ module.exports = dbConfig => {
   return {
     destroyClient: () => client.destroy(),
     client,
-    load: () => _load(dbConfig)
+    load: files => _load(dbConfig, files)
   };
 };

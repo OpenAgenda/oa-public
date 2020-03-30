@@ -289,6 +289,16 @@ const initialState = async req => {
         list: '/:slug/admin/activities/list',
       }
     },
+    agendaStats: {
+      settings: {
+        prefix: '/:slug/admin/statistics',
+        lang: req.lang,
+        apiRoot: `http://localhost:${config.port}`
+      },
+      res: {
+        jsonExport: '/agendas/:uid/admin/events.v2.json'
+      }
+    },
     // Admin
     adminSupport: {
       settings: {
@@ -349,6 +359,7 @@ module.exports = app => {
       '/:slug/admin/members(/*?)?',
       '/:slug/admin/activities(/*?)?',
       '/:slug/admin/settings(/*?)?',
+      '/:slug/admin/statistics(/*?)?',
       // Admin
       '/admin/support(/*?)?'
     ],

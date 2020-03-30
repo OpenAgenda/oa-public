@@ -29,6 +29,7 @@ const getLocaleValue = require('../services/events/lib/getLocaleValue');
 module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug/action',
+    cmn.https,
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)

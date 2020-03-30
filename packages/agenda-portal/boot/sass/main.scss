@@ -22,7 +22,7 @@ $theme-colors: (
   "danger": $oa-red
 );
 
-@import "bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/bootstrap";
 
 body {
   min-height: 100%;

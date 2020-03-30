@@ -86,6 +86,10 @@ module.exports = async (service, agendaUid, eventUid, data = {}, options = {}) =
     }
   }
 
+  if (success && clean.aggregated) {
+    await service.getAggregatedCount.inc(clean.agendaUid);
+  }
+
   if (success && config.interfaces.onCreate) {
     config.interfaces.onCreate(created, params.context);
   }

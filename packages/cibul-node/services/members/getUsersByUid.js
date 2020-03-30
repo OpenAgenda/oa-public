@@ -3,15 +3,22 @@
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'services/members/getUsersByUid' );
 
-module.exports = async (services, userUids, userOptions) => {
+module.exports = async (services, userUids, userOptions = {}) => {
   log( 'processing', [].concat( userUids ).join( ',' ), userOptions );
 
-  return ( await services.users.find( {
+  const { data } = await services.users.find({
     query: {
       uid: {
-        $in: [].concat( userUids )
+        $in: [].concat(userUids)
       }
     },
     ...userOptions
-  } ) ).data.map( d => _.pick( d, ['id', 'uid', 'fullName', 'culture'] ) );
+  });
+
+  // For agenda-admin
+  if (userOptions.detailed) {
+    return data;
+  }
+
+  return data.map( d => _.pick( d, ['id', 'uid', 'fullName', 'culture'] ) );
 }

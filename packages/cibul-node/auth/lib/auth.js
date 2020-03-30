@@ -726,6 +726,12 @@ function loadOptionals( req ) {
 
   }
 
+  if ( req.query.lang ) {
+
+    optionals.lang = req.query.lang;
+
+  }
+
   return optionals;
 
 }

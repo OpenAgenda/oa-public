@@ -43,13 +43,14 @@ module.exports = c => {
     client: config.knex || knex({
       client: 'mysql',
       connection: config.mysql
-    })
+    }),
+    redisClient: config.redisClient
   };
 
   Object.assign(service, {
     get: get.bind(null, service),
     getByLegacyId: get.byLegacyId.bind(null, service),
-    getAggregatedCount: getAggregatedCount.bind(null, service),
+    getAggregatedCount: getAggregatedCount(service),
     create: create.bind(null, service),
     update: update.bind(null, service),
     set: set.bind(null, service),

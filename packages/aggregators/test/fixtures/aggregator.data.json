@@ -1,0 +1,13 @@
+[ {
+  "id": 1,
+  "review_id": 218,
+  "store": "{\"rules\":[{\"value\":{\"state\":2}, \"required\":false}]}"
+}, {
+  "id": 2,
+  "review_id": 219,
+  "store": null
+}, {
+  "id": 3,
+  "review_id": 3,
+  "limit": 1
+} ]
