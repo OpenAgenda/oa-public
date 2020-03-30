@@ -29,7 +29,7 @@ const defaults = {
   }
 };
 
-export default function duplicateApp( options ) {
+export default function duplicateApp(options) {
   const {
     initialState,
     lang,
@@ -38,9 +38,9 @@ export default function duplicateApp( options ) {
     agendaSlug,
     agendaTitle,
     agendaImage
-  } = _.merge( {}, defaults, options );
+  } = _.merge({}, defaults, options);
 
-  const client = apiClient( '', null, { legacy: true } );
+  const client = apiClient('', null, { legacy: true });
   const store = createStore(
     () => ({
       agendas: agendasReducer,
@@ -49,14 +49,14 @@ export default function duplicateApp( options ) {
     initialState,
     compose(
       applyMiddleware(
-        clientMiddleware( { client } )
+        clientMiddleware({ client })
         // ... other middlewares ... (like redux-logger)
-      ),
+     ),
       __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : v => v
-    )
-  );
+   )
+ );
 
   const element = (
     <Provider store={store} context={ReactReduxContext}>
@@ -69,7 +69,7 @@ export default function duplicateApp( options ) {
         agendaImage={agendaImage}
       />
     </Provider>
-  );
+ );
 
   return {
     element,
