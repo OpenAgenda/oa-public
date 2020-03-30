@@ -9,7 +9,6 @@ const ncp = promisify(require('ncp').ncp);
 const { term, confirm } = require('../lib/prompt');
 const insertStartScript = require('./lib/insertStartScript');
 const insertLangAndUid = require('./lib/insertLangAndUid');
-const adjustSASSRelativePath = require('./lib/adjustSASSRelativePath');
 
 (async () => {
   const confirmed = await confirm(`
@@ -34,8 +33,6 @@ Continue?`);
   await insertStartScript();
 
   insertLangAndUid(agendaUid, lang, iframable);
-
-  adjustSASSRelativePath();
 
   if (!iframable) {
     fs.unlinkSync(`${process.cwd()}/iframe-canvas.html`);
