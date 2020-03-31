@@ -10,7 +10,7 @@
     "prepack": "yarn clean && yarn build",
     "build": "babel --copy-files src -d dist -s",
     "extract-messages": "yarn oa:extract-messages",
-    "clean": "rimraf build",
+    "clean": "rimraf dist",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
