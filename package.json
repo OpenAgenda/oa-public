@@ -12,7 +12,7 @@
     "start": "yarn workspace cibulNode start",
     "release": "lerna publish",
     "mails-editor": "yarn workspace cibulNode mails-editor",
-    "test": "jest --forceExit --detectOpenHandles"
+    "test": "yarn workspaces foreach -tv run test"
   },
   "workspaces": {
     "packages": [
