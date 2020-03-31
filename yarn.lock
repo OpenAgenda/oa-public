@@ -4499,7 +4499,7 @@ __metadata:
     "@openagenda/queues": ^1.1.0
     "@openagenda/validators": ^2.1.3
     immutability-helper: ^3.0.0
-    knex: ^0.19.5
+    knex: ^0.20.13
     lodash: ^4.17.4
     mocha: ^7.0.1
     mysql: ^2.13.0
@@ -21734,6 +21734,48 @@ __metadata:
   bin:
     knex: bin/cli.js
   checksum: 2/0f13f78618f2ae64b581aaf72d430bcfedf737a10f35cab2050f7ad0d1641435150dc099bdff0ddfed0e5934635827186e0d152ae1182c6ab141bc677fa0cb21
+  languageName: node
+  linkType: hard
+
+"knex@npm:^0.20.13":
+  version: 0.20.13
+  resolution: "knex@npm:0.20.13"
+  dependencies:
+    colorette: 1.1.0
+    commander: ^4.1.1
+    debug: 4.1.1
+    esm: ^3.2.25
+    getopts: 2.2.5
+    inherits: ~2.0.4
+    interpret: ^2.0.0
+    liftoff: 3.1.0
+    lodash: ^4.17.15
+    mkdirp: ^0.5.1
+    pg-connection-string: 2.1.0
+    tarn: ^2.0.0
+    tildify: 2.0.0
+    uuid: ^7.0.1
+    v8flags: ^3.1.3
+  peerDependencies:
+    mssql: ^6.1.0
+    mysql: ^2.18.1
+    mysql2: ^2.1.0
+    pg: ^7.18.2
+    sqlite3: ^4.1.1
+  peerDependenciesMeta:
+    mssql:
+      optional: true
+    mysql:
+      optional: true
+    mysql2:
+      optional: true
+    pg:
+      optional: true
+    sqlite3:
+      optional: true
+  bin:
+    knex: bin/cli.js
+  checksum: 2/8df4015211adffb2937e3f22255f5b1cdfcff2b5c40bc4882c42286e940e2846076ee352580931b7c0e773af51971195e76662b31a24ab2ceaecc3edbe31540a
   languageName: node
   linkType: hard
 

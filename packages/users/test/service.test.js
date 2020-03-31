@@ -51,11 +51,9 @@ beforeEach(async () => {
   await keysSvc.initAndLoad(
     {
       ...config,
+      knex,
       mysql: { ...config.mysql, database },
-      migrations: {
-        directory: path.join(__dirname, '../../keys/migrations'),
-        tableName: 'knex_migrations_keys'
-      }
+      migrations: null
     },
     []
   );
@@ -69,6 +67,10 @@ beforeEach(async () => {
   images.init({ tmpPath: config.files.tmpPath });
   imageFiles.init({ images, files });
 
+  await knex.migrate.latest({
+    directory: path.join(__dirname, '../../keys/migrations'),
+    tableName: 'knex_migrations_keys'
+  });
   await knex.migrate.latest({
     directory: path.join(__dirname, '../migrations')
   });
