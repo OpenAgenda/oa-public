@@ -89,7 +89,7 @@ module.exports = async function (configObject, options = {}) {
   await init('networks', require('./networks'));
   await init('newsletter', require('./newsletter'));
   await init('oembed', require('./oembed'));
-  await init('portals', require('./portals'));
+  // await init('portals', require('./portals'));
   await init('simpleCache', require('./simpleCache'));
   await init('unsubscribed', require('./unsubscribed'));
   await init('agendaSchema', require('./agendaSchema'));
