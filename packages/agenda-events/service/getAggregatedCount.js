@@ -11,7 +11,7 @@ module.exports = service => {
   const fn = getAggregatedCount.bind(null, service);
   const cached = redisClient ? CachedCount(redisClient, 'getAggregatedCount', fn) : null;
 
-  return Object.assign(agendaUid => (cached || fn)(agendaUid), {
+  return Object.assign((agendaUid, since = null) => (cached || fn)(agendaUid, since), {
     inc: (agendaUid, count = 1) => {
       if (!cached) return;
       return cached.inc(agendaUid, count);
