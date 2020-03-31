@@ -9,7 +9,7 @@ const listQuery = require( './validators/listQuery' );
 module.exports = async ( formSchemaId, query = {}, offset = 0, limit = 20 ) => {
 
   return {
-    items: await _base( formSchemaId, query ).select( [ 'identifier', 'store' ] ).limit( limit ).offset( offset ).map( r => ( { identifier: r.identifier, custom: JSON.parse( r.store ) } ) ),
+    items: (await _base( formSchemaId, query ).select( [ 'identifier', 'store' ] ).limit( limit ).offset( offset )).map( r => ( { identifier: r.identifier, custom: JSON.parse( r.store ) } ) ),
     total: await _base( formSchemaId, query ).count( 'identifier as total' ).then( r => r[ 0 ].total )
   }
 
