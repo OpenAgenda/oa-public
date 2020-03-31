@@ -8,7 +8,7 @@ module.exports = {
     [
       require.resolve('babel-plugin-react-intl'),
       {
-        messagesDir: path.resolve(__dirname, 'build/messages')
+        messagesDir: path.resolve(__dirname, 'dist/messages')
       }
     ]
   ],

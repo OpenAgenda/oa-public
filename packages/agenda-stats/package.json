@@ -16,7 +16,7 @@
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged",
     "test": "jest",
-    "extract-messages": "yarn oa-extract-messages"
+    "extract-messages": "yarn oa:extract-messages"
   },
   "lint-staged": {
     "**/*.js": [
