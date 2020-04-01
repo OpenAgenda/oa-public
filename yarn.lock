@@ -3738,7 +3738,7 @@ __metadata:
     "@openagenda/queue": ^1.0.0
     "@openagenda/validators": ^2.1.3
     immutability-helper: ^2.2.2
-    knex: ^0.19.5
+    knex: ^0.20.13
     lodash: ^4.17.2
     mocha: ^7.0.1
     mysql: ^2.11.1
