@@ -6,15 +6,15 @@ module.exports = {
   parser: 'babel-eslint',
 
   extends: [
-    'airbnb',
+    'eslint-config-airbnb',
     'plugin:jest/recommended'
   ],
 
   plugins: [
-    'import',
-    'jsx-a11y',
-    'react',
-    'react-hooks'
+    'eslint-plugin-import',
+    'eslint-plugin-jsx-a11y',
+    'eslint-plugin-react',
+    'eslint-plugin-react-hooks'
   ],
 
   env: {

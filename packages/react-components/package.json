@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepublish": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "build": "babel components -d build -s",
     "clean": "rimraf build",
     "start": "start-storybook -p 3000 -c .storybook"
@@ -14,27 +14,36 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
     "@openagenda/dom-utils": "^2.2.0",
+    "@openagenda/react-form-components": "^2.1.1",
     "core-js": "^3.6.4",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
-    "react-bootstrap": "^0.33.0",
+    "react-bootstrap": "^0.33.1",
     "react-final-form": "^6.3.3",
     "react-waypoint": "^9.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@storybook/addon-actions": "^5.3.9",
     "@storybook/react": "^5.3.9",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.6",
+    "final-form": "^4.18.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-markdown": "^4.0.4",
-    "rimraf": "^3.0.1"
+    "rimraf": "^3.0.1",
+    "webpack": "^4.42.0"
   },
   "peerDependencies": {
+    "final-form": "^4.18.5",
     "react": "^16.12.0"
+  },
+  "peerDependenciesMeta": {
+    "final-form": {
+      "optional": true
+    }
   }
 }

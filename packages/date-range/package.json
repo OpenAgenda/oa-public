@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@openagenda/labels": "^2.1.0",
-    "@openagenda/utils": "^1.0.2",
+    "@openagenda/utils": "^1.1.0",
     "moment-timezone": "^0.5.3"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const should = require( 'should' );
+const knexLib = require( 'knex' );
 const Service = require( './service' );
 const config = require( '../testconfig' );
 
@@ -15,7 +16,7 @@ describe( 'activities - feed', function () {
 
     it( 'use feed method throw an error', () => {
 
-      return Service( {} ).should.rejectedWith( 'Unable to acquire a connection' );
+      return Service( {} ).should.rejected();
 
     } );
 
@@ -25,7 +26,13 @@ describe( 'activities - feed', function () {
 
     before( async () => {
 
-      service = await Service.initAndLoad( config, [ 'feed', 'feed_follow' ] );
+      service = await Service.initAndLoad({
+        ...config,
+        knex: knexLib({
+          client: 'mysql',
+          connection: config.mysql
+        })
+      }, [ 'feed', 'feed_follow' ] );
 
     } );
 

@@ -10,13 +10,13 @@
     "build": "rimraf lib && babel src -d lib -s",
     "test": "mocha --exit",
     "clean": "rimraf dist",
-    "prepublish": "yarn clean && yarn build"
+    "prepack": "yarn clean && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
     "@openagenda/logs": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
-    "@openagenda/utils": "^1.0.1",
+    "@openagenda/utils": "^1.1.0",
     "@openagenda/validators": "^2.0.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.2",
@@ -24,13 +24,14 @@
     "core-js": "^3.6.4",
     "lodash": "^4.17.4",
     "redis": "^2.6.3",
+    "regenerator-runtime": "^0.13.5",
     "verror": "^1.10.0",
     "when": "^3.7.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "async": "^2.1.4",
     "express": "^4.14.0",
     "immutability-helper": "^2.3.0",

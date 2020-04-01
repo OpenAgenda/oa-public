@@ -15,12 +15,14 @@
     "core-js": "^3.6.4",
     "lodash": "^4.17.11",
     "markdown-link-extractor": "^1.2.0",
-    "node-html-parser": "^1.1.16"
+    "node-html-parser": "^1.1.16",
+    "regenerator-runtime": "^0.13.5",
+    "verror": "^1.10.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "babel-jest": "^25.1.0",
     "jest": "^25.1.0",
     "rimraf": "^3.0.1"

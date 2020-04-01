@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.1",
-    "knex": "^0.19.5",
+    "knex": "^0.20.13",
     "mocha": "^7.0.1",
     "should": "^13.2.3"
   }

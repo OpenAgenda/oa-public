@@ -17,7 +17,7 @@
   "scripts": {
     "build": "babel src -d dist -s",
     "test": "jest --forceExit --detectOpenHandles",
-    "prepublish": "yarn build"
+    "prepack": "yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "babel-jest": "^25.1.0",
     "jest": "^25.1.0",
     "should": "^13.2.3"

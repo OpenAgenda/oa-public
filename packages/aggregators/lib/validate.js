@@ -4,7 +4,6 @@ const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
 const pass = require('@openagenda/validators/pass');
 const boolean = require('@openagenda/validators/boolean');
-
 const cleanRule = require('../utils/rules/clean');
 
 schema.register({
@@ -44,10 +43,7 @@ const validate = schema({
 const validateRule = schema(ruleFields);
 
 module.exports = (data, options = {}) => {
-  const {
-    patch,
-    protected: isProtected
-  } = {
+  const { patch, protected: isProtected } = {
     patch: false,
     protected: true,
     ...options

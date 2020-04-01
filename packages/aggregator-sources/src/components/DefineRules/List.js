@@ -63,13 +63,16 @@ export default function List({
   const setModeAdd = useCallback(() => setMode('add'), [setMode]);
   const setModeUpdate = useCallback(id => setMode('update', { id }), [setMode]);
 
-  const onDragEnd = useCallback(result => {
-    if (!result.destination) {
-      return;
-    }
+  const onDragEnd = useCallback(
+    result => {
+      if (!result.destination) {
+        return;
+      }
 
-    reorderRules(result.source.index, result.destination.index);
-  }, [reorderRules]);
+      reorderRules(result.source.index, result.destination.index);
+    },
+    [reorderRules]
+  );
 
   return (
     <>

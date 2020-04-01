@@ -5,6 +5,7 @@ const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
 const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
 const serviceName = require( './package.json' ).name.split( '/' ).pop();
 
@@ -55,29 +56,44 @@ module.exports = {
       } )
   ] : [] ),
   module: {
-    rules: [ {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: require.resolve('babel-loader')
+        }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader')
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader'),
+          require.resolve('sass-loader')
+        ]
       }
-    }, {
-      test: /\.css$/,
-      loader: 'style-loader!css-loader'
-    }, {
-      test: /\.scss$/,
-      use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader'
-      ]
-    } ]
+    ]
   },
   resolve: {
     symlinks: false,
     alias: {
       // required only for the timings component
       'react': require.resolve( 'react' )
-    }
+    },
+    plugins: [
+      PnpWebpackPlugin
+    ]
+  },
+  resolveLoader: {
+    plugins: [
+      PnpWebpackPlugin.moduleLoader(module)
+    ]
   }
 };

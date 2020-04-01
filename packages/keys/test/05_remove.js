@@ -1,6 +1,7 @@
 "use strict";
 
 const should = require( 'should' );
+const knexLib = require( 'knex' );
 const service = require( './service' );
 const config = require( '../testconfig' );
 
@@ -10,7 +11,13 @@ describe( 'keys - remove', function () {
 
   before( async () => {
 
-    await service.initAndLoad( config );
+    await service.initAndLoad( {
+      ...config,
+      knex: knexLib({
+        client: 'mysql',
+        connection: config.mysql
+      })
+    } );
 
   } );
 

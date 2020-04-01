@@ -1,11 +1,17 @@
 'use strict';
 
 const webpack = require('webpack');
+const PnpWebpackPlugin = require('pnp-webpack-plugin');
 
 module.exports = {
   mode: 'development',
   context: __dirname,
-  entry: ['webpack-hot-middleware/client', './client/src/index.js'],
+  entry: [
+    'core-js/stable',
+    'regenerator-runtime/runtime',
+    'webpack-hot-middleware/client',
+    './client/src/index.js'
+  ],
   output: {
     filename: 'index.js',
     publicPath: '/js/'
@@ -20,20 +26,28 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
+          loader: require.resolve('babel-loader')
         }
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        use: [require.resolve('style-loader'), require.resolve('css-loader')]
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [
+          require.resolve('style-loader'),
+          require.resolve('css-loader'),
+          require.resolve('sass-loader')
+        ]
       }
     ]
   },
   resolve: {
-    symlinks: false
+    symlinks: false,
+    plugins: [PnpWebpackPlugin]
+  },
+  resolveLoader: {
+    plugins: [PnpWebpackPlugin.moduleLoader(module)]
   }
 };

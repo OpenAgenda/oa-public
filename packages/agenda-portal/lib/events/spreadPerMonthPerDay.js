@@ -19,7 +19,7 @@ function _monthWeeks(month, weeks, timezone, today) {
     current: today.week === week,
     days: _.keys(weeks[week]).map(day => ({
       day,
-      current: (today.day === day) && (today.month === month),
+      current: today.day === day && today.month === month,
       passed: today.month + today.day > month + day,
       timings: weeks[week][day],
       label: _.capitalize(

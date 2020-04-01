@@ -7,9 +7,9 @@
     "client/dist"
   ],
   "scripts": {
-    "prepublish": "yarn dist",
+    "prepack": "yarn dist",
     "start": "nodemon dev/server",
-    "dist": "webpack --config webpack.dist.js"
+    "dist": "webpack-cli --config webpack.dist.js"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
@@ -19,6 +19,8 @@
     "@openagenda/react-components": "^2.2.1",
     "body-parser": "^1.18.2",
     "core-js": "^3.6.4",
+    "express": "^4.17.1",
+    "history": "^4.10.1",
     "immutability-helper": "^3.0.0",
     "lodash": "^4.16.6",
     "react": "^16.12.0",
@@ -37,14 +39,18 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.4.2",
     "lodash-webpack-plugin": "^0.11.5",
     "nodemon": "^1.19.3",
-    "webpack": "^4.41.5",
+    "pnp-webpack-plugin": "^1.6.4",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.42.0",
     "webpack-assets-manifest": "^3.0.1",
     "webpack-cli": "^3.3.10",
     "webpack-dev-middleware": "^3.7.2",

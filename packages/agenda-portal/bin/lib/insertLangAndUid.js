@@ -19,4 +19,3 @@ module.exports = (agendaUid, lang, iframable) => {
 
   fs.writeFileSync(`${process.cwd()}/server.js`, content);
 };
-process.env.UID || /* UID */ 48353388

@@ -1,6 +1,7 @@
 "use strict";
 
 const webpack = require( 'webpack' );
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
 module.exports = {
   mode: 'development',
@@ -22,7 +23,7 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       use: {
-        loader: 'babel-loader'
+        loader: require.resolve('babel-loader')
       }
     } ]
   },
@@ -31,6 +32,14 @@ module.exports = {
     alias: {
       // required only for the timings component
       'react': require.resolve( 'react' )
-    }
+    },
+    plugins: [
+      PnpWebpackPlugin
+    ]
+  },
+  resolveLoader: {
+    plugins: [
+      PnpWebpackPlugin.moduleLoader(module)
+    ]
   }
 };

@@ -3,6 +3,7 @@
 const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
+const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
 module.exports = {
   mode: 'production',
@@ -43,21 +44,32 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       use: {
-        loader: 'babel-loader'
+        loader: require.resolve('babel-loader')
       }
     }, {
       test: /\.css$/,
-      loader: 'style-loader!css-loader'
+      use: [
+        require.resolve('style-loader'),
+        require.resolve('css-loader')
+      ]
     }, {
       test: /\.scss$/,
       use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader'
+        require.resolve('style-loader'),
+        require.resolve('css-loader'),
+        require.resolve('sass-loader')
       ]
     } ]
   },
   resolve: {
-    symlinks: false
+    symlinks: false,
+    plugins: [
+      PnpWebpackPlugin
+    ]
+  },
+  resolveLoader: {
+    plugins: [
+      PnpWebpackPlugin.moduleLoader(module)
+    ]
   }
 };

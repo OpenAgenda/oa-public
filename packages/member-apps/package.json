@@ -18,7 +18,7 @@
     "knex": "babel-node ./node_modules/.bin/knex",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
-    "prepublish": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
@@ -34,7 +34,7 @@
     "@openagenda/call-to-action": "^2.2.2",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
-    "@openagenda/members": "^1.11.0",
+    "@openagenda/members": "^1.15.0",
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
@@ -47,17 +47,19 @@
     "lodash": "^4.17.4",
     "prop-types": "^15.5.8",
     "qs": "^6.9.1",
-    "react-bootstrap": "^0.32.4",
+    "react-bootstrap": "^0.33.1",
     "react-final-form": "^6.3.3",
     "react-redux": "^7.1.3",
     "react-router-config": "^5.1.1",
-    "redial": "^0.5.0"
+    "redial": "^0.5.0",
+    "regenerator-runtime": "^0.13.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@loadable/component": "^5.12.0",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/eslint-config": "^1.0.1",
     "@storybook/react": "^5.3.9",
@@ -74,14 +76,17 @@
     "prettier-eslint-cli": "^5.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "rimraf": "^3.0.1",
-    "webpack": "^4.41.5"
+    "webpack": "^4.42.0"
   },
   "peerDependencies": {
+    "@loadable/component": "^5.12.0",
     "final-form": "^4.18.5",
     "react": "^16.12.0",
+    "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.5"
   }

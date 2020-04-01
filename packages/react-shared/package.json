@@ -7,10 +7,10 @@
     "dist"
   ],
   "bin": {
-    "oa-extract-messages": "./scripts/extract-messages.js"
+    "oa:extract-messages": "./scripts/extract-messages.js"
   },
   "scripts": {
-    "prepublish": "yarn clean && yarn build",
+    "prepack": "yarn clean && yarn build",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf build",
     "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
@@ -35,7 +35,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/babel-preset": "^1.2.0",
     "@openagenda/eslint-config": "^1.0.0",
     "eslint": "^6.8.0",
     "lint-staged": "^10.0.7",

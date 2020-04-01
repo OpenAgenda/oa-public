@@ -19,7 +19,7 @@
   "dependencies": {
     "immutability-helper": "^3.0.1",
     "intl-messageformat": "^7.8.4",
-    "intl-messageformat-parser": "^3.6.4",
+    "intl-messageformat-parser": "^4.1.1",
     "prompt-confirm": "^2.0.4",
     "prompt-input": "^3.0.0"
   },

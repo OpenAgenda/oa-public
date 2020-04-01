@@ -2,7 +2,7 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import sa from 'superagent';
 import React, { Component } from 'react';
-import ClickOutside from 'react-click-outside';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import labels from '@openagenda/labels/event/references';
 import flatten from '@openagenda/labels/flatten';
@@ -277,38 +277,40 @@ export default class References extends Component {
 
     const { labels, search } = this.state;
 
-    return <ClickOutside onClickOutside={this.onCloseDropdown.bind( this )} className="search dropdown open">
-      <SearchField
-        loading={ search.loading }
-        threshold={ 3 }
-        value={ search.query }
-        name="search"
-        label={ labels.search }
-        placeholder={ labels.search }
-        onFocus={this.onSearchFocus.bind( this )}
-        onChange={ this.onSearchChange.bind( this ) }
-      />
-      { search.dropdown ? <div className="dropdown-menu">
-        { search.loading ? <ul className="list-unstyled">
-          <li><div className="padding-all-lg"><Spinner /></div></li>
-        </ul> : null }
-        { search.dropdown && !search.loading && !search.events.length ? <ul className="list-unstyled">
-          <li className="empty">
-            <p>{labels.emptySearch}</p>
-          </li>
-        </ul> : null }
-        { search.dropdown && !search.loading && search.events.length ? <ul className="list-unstyled">
-          <li key="suggestion-section-item">
-            <div className="media section-item">
-              <strong className="text-muted">{labels[ search.suggested ? 'suggestionResultTitle' : 'searchResultTitle' ] }</strong>
-            </div>
-          </li>
-          { search.events.map( event => <li key={'event-item-' + event.uid}>
-            <EventItem event={event} onClick={this.onSelectEvent.bind( this )} lang={this.props.lang}/>
-          </li> ) }
-        </ul> : null }
-      </div> : null }
-    </ClickOutside>
+    return <OutsideClickHandler onOutsideClick={this.onCloseDropdown.bind( this )}>
+      <div className="search dropdown open">
+        <SearchField
+          loading={ search.loading }
+          threshold={ 3 }
+          value={ search.query }
+          name="search"
+          label={ labels.search }
+          placeholder={ labels.search }
+          onFocus={this.onSearchFocus.bind( this )}
+          onChange={ this.onSearchChange.bind( this ) }
+        />
+        { search.dropdown ? <div className="dropdown-menu">
+          { search.loading ? <ul className="list-unstyled">
+            <li><div className="padding-all-lg"><Spinner /></div></li>
+          </ul> : null }
+          { search.dropdown && !search.loading && !search.events.length ? <ul className="list-unstyled">
+            <li className="empty">
+              <p>{labels.emptySearch}</p>
+            </li>
+          </ul> : null }
+          { search.dropdown && !search.loading && search.events.length ? <ul className="list-unstyled">
+            <li key="suggestion-section-item">
+              <div className="media section-item">
+                <strong className="text-muted">{labels[ search.suggested ? 'suggestionResultTitle' : 'searchResultTitle' ] }</strong>
+              </div>
+            </li>
+            { search.events.map( event => <li key={'event-item-' + event.uid}>
+              <EventItem event={event} onClick={this.onSelectEvent.bind( this )} lang={this.props.lang}/>
+            </li> ) }
+          </ul> : null }
+        </div> : null }
+      </div>
+    </OutsideClickHandler>
 
   }
 
