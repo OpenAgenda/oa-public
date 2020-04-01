@@ -24,7 +24,7 @@
     "@openagenda/utils": "^1.1.0",
     "core-js": "^3.6.4",
     "knex": "^0.19.5",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "mysql": "^2.16.0",
     "prop-types": "^15.6.1",
     "react-redux": "^7.1.3",

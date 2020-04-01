@@ -22,7 +22,7 @@
     "express": "^4.16.2",
     "history": "^4.10.1",
     "immutability-helper": "^3.0.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "moment-timezone": "^0.5.23",
     "prop-types": "^15.6.0",
     "react": "^16.12.0",

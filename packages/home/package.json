@@ -33,7 +33,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "classnames": "^2.2.5",
     "core-js": "^3.6.4",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "prop-types": "^15.5.8",
     "qs": "^6.9.1",
     "react-final-form": "^6.3.3",

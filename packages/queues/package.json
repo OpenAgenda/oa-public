@@ -7,7 +7,7 @@
     "test": "mocha --exit"
   },
   "dependencies": {
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.15",
     "redis": "^2.8.0",
     "verror": "^1.10.0"
   },

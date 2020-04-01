@@ -37,7 +37,7 @@
     "create-react-class": "^15.5.2",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.15",
     "mysql": "^2.10.2",
     "prop-types": "^15.5.8",
     "rc-switch": "^1.4.2",

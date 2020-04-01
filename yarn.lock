@@ -3318,7 +3318,7 @@ __metadata:
     jest: ^25.1.0
     knex: ^0.19.5
     lint-staged: ^10.0.7
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     morgan: ^1.9.1
     mysql: ^2.16.0
     nodemon: ^1.19.3
@@ -3360,7 +3360,7 @@ __metadata:
     core-js: ^3.6.4
     is-promise: ^2.1.0
     knex: ^0.19.5
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     moment: ^2.24.0
     mysql: ^2.18.1
@@ -3410,7 +3410,7 @@ __metadata:
     iscroll: ^5.2.0
     jquery: ^3.2.1
     knex: ^0.19.5
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     moment: ^2.24.0
     morgan: ^1.7.0
     mysql: ^2.16.0
@@ -3472,7 +3472,7 @@ __metadata:
     express: ^4.16.4
     immutability-helper: ^3.0.0
     knex: ^0.19.5
-    lodash: ^4.17.5
+    lodash: ^4.17.15
     morgan: ^1.9.1
     mysql: ^2.10.2
     nodemon: ^1.19.3
@@ -3503,7 +3503,7 @@ __metadata:
     css-loader: ^0.28.7
     express: ^4.17.1
     immutability-helper: ^3.0.0
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     moment: ^2.24.0
     node-sass: ^4.7.2
@@ -3597,7 +3597,7 @@ __metadata:
     history: ^4.10.1
     immutability-helper: ^3.0.1
     jest: ^25.1.0
-    lodash: ^4.17.10
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     moment-timezone: ^0.5.23
     nodemon: ^1.19.3
@@ -3650,7 +3650,7 @@ __metadata:
     immutability-helper: ^3.0.0
     jest: ^25.1.0
     lint-staged: ^10.0.7
-    lodash: ^4.17.5
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     moment: ^2.24.0
     moment-timezone: ^0.5.14
@@ -3710,7 +3710,7 @@ __metadata:
     express: ^4.16.4
     immutability-helper: ^3.0.0
     knex: ^0.19.5
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     morgan: ^1.9.1
     mysql: ^2.11.1
@@ -3739,7 +3739,7 @@ __metadata:
     "@openagenda/validators": ^2.1.3
     immutability-helper: ^2.2.2
     knex: ^0.20.13
-    lodash: ^4.17.2
+    lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.11.1
     redis: ^2.8.0
@@ -3787,7 +3787,7 @@ __metadata:
     knex: ^0.19.5
     languages: 0.1.3
     leaflet: ^0.7.7
-    lodash: ^4.17.2
+    lodash: ^4.17.15
     mocha: ^7.0.1
     morgan: ^1.9.1
     mysql: ^2.9.0
@@ -3848,7 +3848,7 @@ __metadata:
     immutability-helper: ^3.0.0
     jest: ^25.1.0
     lint-staged: ^10.0.7
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     mini-css-extract-plugin: ^0.9.0
     moment: ^2.24.0
@@ -3893,7 +3893,7 @@ __metadata:
     core-js: ^3.3.6
     css-loader: ^3.4.2
     express: ^4.16.2
-    lodash: ^4.16.6
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     nodemon: ^1.19.3
     pnp-webpack-plugin: ^1.6.4
@@ -3943,7 +3943,7 @@ __metadata:
     express: ^4.16.4
     immutability-helper: ^3.0.0
     knex: ^0.19.5
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     mocha: ^7.0.1
     morgan: ^1.9.1
     mysql: ^2.16.0
@@ -3998,7 +3998,7 @@ __metadata:
     history: ^4.10.1
     immutability-helper: ^3.0.0
     knex: ^0.19.5
-    lodash: ^4.17.10
+    lodash: ^4.17.15
     mocha: ^7.0.1
     morgan: ^1.9.1
     mysql: ^2.11.1
@@ -4149,7 +4149,7 @@ __metadata:
     async: ^1.5.2
     immutability-helper: ^2.3.0
     knex: ^0.19.5
-    lodash: ^4.17.2
+    lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.10.2
     should: ^13.2.3
@@ -4191,7 +4191,7 @@ __metadata:
     history: ^4.10.1
     jest: ^25.1.0
     lint-staged: ^10.0.7
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.7.2
     qs: ^6.9.1
@@ -4241,7 +4241,7 @@ __metadata:
     jest: ^25.1.0
     knex: ^0.19.5
     lint-staged: ^10.0.7
-    lodash: ^4.17.10
+    lodash: ^4.17.15
     mysql: ^2.15.0
     prettier-eslint-cli: ^5.0.0
   languageName: unknown
@@ -4335,7 +4335,7 @@ __metadata:
     axios-mock-adapter: ^1.17.0
     babel-loader: ^8.0.6
     core-js: ^3.6.4
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     prop-types: ^15.6.0
     react: ^16.12.0
     react-dom: ^16.12.0
@@ -4434,7 +4434,7 @@ __metadata:
     iscroll: ^5.2.0
     languages: 0.1.3
     leaflet: 0.7.3
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     marked: ^0.7.0
     masonry-layout: 4.2.2
     mkdirp: ^0.5.1
@@ -4500,7 +4500,7 @@ __metadata:
     "@openagenda/validators": ^2.1.3
     immutability-helper: ^3.0.0
     knex: ^0.20.13
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.13.0
     should: ^13.2.3
@@ -4603,7 +4603,7 @@ __metadata:
     immutability-helper: ^3.0.1
     jest: ^25.1.0
     languages: ^0.1.3
-    lodash: ^4.17.10
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     nodemon: ^1.19.3
     prop-types: ^15.6.0
@@ -4639,7 +4639,7 @@ __metadata:
     axios: ^0.19.0
     debug: ^4.1.1
     immutability-helper: ^3.0.0
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     moment: ^2.20.1
     moment-timezone: ^0.5.13
@@ -4666,7 +4666,7 @@ __metadata:
     async: ^2.1.2
     immutability-helper: ^2.3.0
     knex: ^0.19.5
-    lodash: ^4.16.6
+    lodash: ^4.17.15
     marked: ^0.7.0
     mocha: ^7.0.1
     moment-timezone: ^0.5.7
@@ -4700,7 +4700,7 @@ __metadata:
     async: ^1.5.0
     aws-sdk: ^2.544.0
     knox-s3: ^0.9.3
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mime: ^1.4.1
     mocha: ^7.0.1
     should: ^13.2.3
@@ -4731,7 +4731,7 @@ __metadata:
     fast-csv: ^2.4.1
     global: ^4.3.2
     jest: ^25.1.0
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     moment: ^2.24.0
     moment-timezone: ^0.5.13
     rss: ^1.2.2
@@ -4774,7 +4774,7 @@ __metadata:
     immutable: ^3.8.2
     knex: ^0.19.5
     languages: ^0.1.3
-    lodash: ^4.16.6
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     marked: ^0.7.0
     mocha: ^7.0.1
@@ -4811,7 +4811,7 @@ __metadata:
   resolution: "@openagenda/geocoder@workspace:packages/geocoder"
   dependencies:
     axios: ^0.19.0
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     point-in-polygon: ^1.0.1
     should: ^13.2.3
@@ -4844,7 +4844,7 @@ __metadata:
     final-form: ^4.18.6
     history: ^4.10.1
     lint-staged: ^10.0.7
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0
     prop-types: ^15.5.8
     qs: ^6.9.1
@@ -4880,7 +4880,7 @@ __metadata:
     "@openagenda/files": ^2.0.6
     "@openagenda/images": ^1.1.1
     "@openagenda/logs": ^1.1.1
-    lodash: ^4.17.5
+    lodash: ^4.17.15
     mocha: ^7.0.1
     should: ^13.2.3
     when: ^3.7.7
@@ -4915,7 +4915,7 @@ __metadata:
     "@openagenda/logs": ^1.1.1
     async: ^1.5.0
     gm: ^1.21.1
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     request: ^2.88.0
     should: ^13.2.3
@@ -4970,7 +4970,7 @@ __metadata:
     js-cookie: ^2.2.0
     knex: ^0.19.5
     load-script: ^1.0.0
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     marked: ^0.7.0
     moment: ^2.24.0
     morgan: ^1.9.1
@@ -5029,7 +5029,7 @@ __metadata:
     jest: ^25.1.0
     knex: ^0.19.5
     lint-staged: ^10.0.7
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mime-types: ^2.1.25
     mysql: ^2.14.1
     prettier-eslint-cli: ^5.0.0
@@ -5068,7 +5068,7 @@ __metadata:
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.1.4
     knex: ^0.20.12
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.18.1
     redis: ^2.8.0
@@ -5131,7 +5131,7 @@ __metadata:
     jest: ^25.1.0
     knex: ^0.19.5
     locutus: ^2.0.11
-    lodash: ^4.17.10
+    lodash: ^4.17.15
     moment-timezone: ^0.5.13
     mysql: ^2.16.0
     redis: ^2.8.0
@@ -5146,7 +5146,7 @@ __metadata:
   dependencies:
     debug: ^3.2.6
     jest: ^25.1.0
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     r7insight_node: ^1.8.1
     sinon: ^3.2.1
     winston: ^2.3.1
@@ -5216,7 +5216,7 @@ __metadata:
     js-base64: ^2.5.1
     knex: ^0.19.5
     lint-staged: ^10.0.7
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     morgan: ^1.9.1
     nodemon: ^1.19.3
     prettier-eslint-cli: ^5.0.0
@@ -5262,7 +5262,7 @@ __metadata:
     jest: ^25.1.0
     knex: ^0.19.5
     lint-staged: ^10.0.7
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mysql: ^2.13.0
     prettier-eslint-cli: ^5.0.0
     regenerator-runtime: ^0.13.5
@@ -5317,7 +5317,7 @@ __metadata:
     express: ^4.17.1
     history: ^4.10.1
     immutability-helper: ^3.0.0
-    lodash: ^4.16.6
+    lodash: ^4.17.15
     lodash-webpack-plugin: ^0.11.5
     nodemon: ^1.19.3
     pnp-webpack-plugin: ^1.6.4
@@ -5351,7 +5351,7 @@ __metadata:
     "@openagenda/logs": ^1.1.1
     "@openagenda/validators": ^2.1.6
     knex: ^0.19.5
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.13.0
     should: ^13.2.3
@@ -5384,7 +5384,7 @@ __metadata:
     babel-jest: ^25.1.0
     core-js: ^3.6.4
     jest: ^25.1.0
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     markdown-link-extractor: ^1.2.0
     node-html-parser: ^1.1.16
     regenerator-runtime: ^0.13.5
@@ -5429,7 +5429,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/queues@workspace:packages/queues"
   dependencies:
-    lodash: ^4.17.10
+    lodash: ^4.17.15
     mocha: ^7.0.1
     redis: ^2.8.0
     should: ^13.2.3
@@ -5561,7 +5561,7 @@ __metadata:
     intl: ^1.2.5
     iscroll: ^5.2.0
     lint-staged: ^10.0.7
-    lodash: ^4.17.11
+    lodash: ^4.17.15
     mkdirp: ^0.5.1
     nprogress: ^0.2.0
     pnp-webpack-plugin: ^1.6.4
@@ -5716,7 +5716,7 @@ __metadata:
     core-js: ^3.6.4
     history: ^4.10.1
     hoist-non-react-statics: ^3.3.1
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     qs: ^6.9.1
     react: ^16.12.0
     react-dom: ^16.12.0
@@ -5766,7 +5766,7 @@ __metadata:
     eslint: ^6.8.0
     jest: ^25.1.0
     lint-staged: ^10.0.7
-    lodash: ^4.17.5
+    lodash: ^4.17.15
     moment: ^2.20.1
     prettier-eslint-cli: ^5.0.0
     regenerator-runtime: ^0.13.5
@@ -5808,7 +5808,7 @@ __metadata:
     express: ^4.14.0
     immutability-helper: ^2.3.0
     jsdom: ^15.2.1
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     redis: ^2.6.3
     regenerator-runtime: ^0.13.5
@@ -5889,7 +5889,7 @@ __metadata:
     core-js: ^3.6.4
     crypto-js: ^3.1.9-1
     jest: ^25.1.0
-    lodash: ^4.17.1
+    lodash: ^4.17.15
     marked: ^0.7.0
     sha1: ^1.1.1
     should: ^13.2.3
@@ -5917,7 +5917,7 @@ __metadata:
     "@openagenda/service-utils": ^2.0.0
     express: ^4.14.1
     knex: ^0.19.5
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     mocha: ^7.0.1
     mysql: ^2.10.2
     should: ^13.2.3
@@ -5959,7 +5959,7 @@ __metadata:
     express: ^4.16.4
     history: ^4.10.1
     knex: ^0.19.5
-    lodash: ^4.17.10
+    lodash: ^4.17.15
     morgan: ^1.9.1
     mysql: ^2.16.0
     nodemon: ^1.19.3
@@ -6043,7 +6043,7 @@ __metadata:
     babel-jest: ^25.1.0
     core-js: ^3.6.4
     jest: ^25.1.0
-    lodash: ^4.17.2
+    lodash: ^4.17.15
     should: ^13.2.3
     validator: ^12.2.0
   languageName: unknown
@@ -11544,7 +11544,7 @@ __metadata:
     knex: ^0.20.12
     languages: ^0.1.3
     locutus: ^2.0.11
-    lodash: ^4.17.4
+    lodash: ^4.17.15
     marked: ^0.7.0
     mjml-core: ^4.5.1
     mjml-validator: ^4.5.0
@@ -22831,7 +22831,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.15, lodash@npm:>=3.5 <5, lodash@npm:^4, lodash@npm:^4.0.0, lodash@npm:^4.0.1, lodash@npm:^4.1.1, lodash@npm:^4.15.0, lodash@npm:^4.16.6, lodash@npm:^4.17.1, lodash@npm:^4.17.10, lodash@npm:^4.17.11, lodash@npm:^4.17.12, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.2, lodash@npm:^4.17.4, lodash@npm:^4.17.5, lodash@npm:^4.2.1, lodash@npm:^4.3.0, lodash@npm:^4.6.0, lodash@npm:^4.8.0, lodash@npm:~4.17.12, lodash@npm:~4.17.4":
+"lodash@npm:4.17.15, lodash@npm:>=3.5 <5, lodash@npm:^4, lodash@npm:^4.0.0, lodash@npm:^4.0.1, lodash@npm:^4.1.1, lodash@npm:^4.15.0, lodash@npm:^4.17.10, lodash@npm:^4.17.11, lodash@npm:^4.17.12, lodash@npm:^4.17.13, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.2, lodash@npm:^4.17.4, lodash@npm:^4.17.5, lodash@npm:^4.2.1, lodash@npm:^4.3.0, lodash@npm:^4.6.0, lodash@npm:^4.8.0, lodash@npm:~4.17.12, lodash@npm:~4.17.4":
   version: 4.17.15
   resolution: "lodash@npm:4.17.15"
   checksum: 2/aec3fbb7570aa67bda500b8299b1b1821d60646bede87f76a74dfcc7666ab3445267d734ec71424d70809d52ad67a1356fab5ab694a3faa1908d68e9d48f00f5
