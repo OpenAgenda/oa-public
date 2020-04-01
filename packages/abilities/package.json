@@ -38,7 +38,7 @@
     "final-form-set-field-data": "^1.0.2",
     "fuse.js": "^3.4.6",
     "knex": "^0.19.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "mysql": "^2.16.0",
     "prop-types": "^15.6.2",
     "rc-collapse": "^1.11.1",

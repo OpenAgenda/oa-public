@@ -36,7 +36,7 @@
     "core-js": "^3.6.4",
     "final-form-arrays": "^3.0.2",
     "fuse.js": "^3.4.6",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "qs": "^6.9.1",
     "react-beautiful-dnd": "^13.0.0",

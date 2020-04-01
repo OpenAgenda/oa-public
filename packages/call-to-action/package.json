@@ -25,7 +25,7 @@
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
     "core-js": "^3.6.4",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.15",
     "prop-types": "^15.6.0",
     "redux-form": "^8.1.0"
   },
