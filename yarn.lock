@@ -3799,7 +3799,6 @@ __metadata:
     react-select: ^3.0.8
     redis: ^2.8.0
     rimraf: ^3.0.1
-    s3: ^4.4.0
     should: ^13.2.3
     slug: 0.9.1
     superagent: ^3.8.2
@@ -9162,16 +9161,6 @@ __metadata:
     uuid: 3.3.2
     xml2js: 0.4.19
   checksum: 2/7af6c0be5df5b301fd43a4fecc8385b4262a6dd0d9b198c7074bc58c89072ee0916e75f7950af5f88502a0660502e677df65f9bdf4153f65628928173c0ffc44
-  languageName: node
-  linkType: hard
-
-"aws-sdk@npm:~2.0.31":
-  version: 2.0.31
-  resolution: "aws-sdk@npm:2.0.31"
-  dependencies:
-    xml2js: 0.2.6
-    xmlbuilder: 0.4.2
-  checksum: 2/5410c029965efa4ef74db593d01836bb36adabf27477d2c1cfb563de44a7c2cfa81227d72d7e23d3cafa8000b6dda82f9a9dad111bb957b3398f3823fba3b4de
   languageName: node
   linkType: hard
 
@@ -16294,15 +16283,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fd-slicer@npm:~1.0.0":
-  version: 1.0.1
-  resolution: "fd-slicer@npm:1.0.1"
-  dependencies:
-    pend: ~1.2.0
-  checksum: 2/59c72004ed040f4f29c9109beacec53bf0978ae11328f525708a04eb24a58e2a7f0bec41c8f602690b6dd971868a26919a7c23ac9cb308fbbe8e0ce56e62c3bb
-  languageName: node
-  linkType: hard
-
 "fd@npm:~0.0.2":
   version: 0.0.3
   resolution: "fd@npm:0.0.3"
@@ -16651,13 +16631,6 @@ __metadata:
   dependencies:
     semver-regex: ^2.0.0
   checksum: 2/2ddc16b4265184e2b7ab68bfd9d84835178fef4193abd957ebe328e0de98e8ca3b31e2a19201c1c8308e24786faa295aab46c0bc21fa89440e2a1bc8174987f0
-  languageName: node
-  linkType: hard
-
-"findit2@npm:~2.2.3":
-  version: 2.2.3
-  resolution: "findit2@npm:2.2.3"
-  checksum: 2/face0d387e33d0d0ba1a3d671aee685893944552f4e4a05add34f81b4a842ef40b2d627252e2727b95aa872688c884520a37d8347d25a1376f5c81b3acba647d
   languageName: node
   linkType: hard
 
@@ -17831,15 +17804,6 @@ __metadata:
   version: 4.2.3
   resolution: "graceful-fs@npm:4.2.3"
   checksum: 2/67b7e3f6a687c91287f17a2adfcce462406e2aa16ea4440618e1daaecd579ae6362c0b13303f86c77c165ed8074fa8b0868bb0a73173fa3407c2b747e89353f9
-  languageName: node
-  linkType: hard
-
-"graceful-fs@npm:~3.0.5":
-  version: 3.0.12
-  resolution: "graceful-fs@npm:3.0.12"
-  dependencies:
-    natives: ^1.1.3
-  checksum: 2/47637d99f900b55d4965c2e4e7919bf5f6d2b3b015510b32a60284a986f93d21115aa36c011c37a09a31548c299227b80dd8ba0c739823dd1a3241d98c924a79
   languageName: node
   linkType: hard
 
@@ -23643,13 +23607,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:~1.2.11":
-  version: 1.2.11
-  resolution: "mime@npm:1.2.11"
-  checksum: 2/9d720bbd4e1834bf8add0dcd582b2ad3c20e89cd047a05af3cce6f8463905cfe881fca7c475d27beda87cd26dc041523b043f5e258e45b0bc9130210a0de4efb
-  languageName: node
-  linkType: hard
-
 "mime@npm:~1.4.1":
   version: 1.4.1
   resolution: "mime@npm:1.4.1"
@@ -24354,7 +24311,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:0.5.1, mkdirp@npm:>=0.5 0, mkdirp@npm:^0.5, mkdirp@npm:^0.5.0, mkdirp@npm:^0.5.1, mkdirp@npm:~0.5.0, mkdirp@npm:~0.5.1":
+"mkdirp@npm:0.5.1, mkdirp@npm:>=0.5 0, mkdirp@npm:^0.5, mkdirp@npm:^0.5.0, mkdirp@npm:^0.5.1, mkdirp@npm:~0.5.1":
   version: 0.5.1
   resolution: "mkdirp@npm:0.5.1"
   dependencies:
@@ -24801,13 +24758,6 @@ __metadata:
   version: 0.8.1
   resolution: "native-promise-only@npm:0.8.1"
   checksum: 2/c5b74e061f4afeeeeb8b04cf115ff341c824e5e16c61f7b24167a2845b7a1b2dabec5464786073101596d9d3e24d903b63ccee1e6d176ba41612aa1c385dcb24
-  languageName: node
-  linkType: hard
-
-"natives@npm:^1.1.3":
-  version: 1.1.6
-  resolution: "natives@npm:1.1.6"
-  checksum: 2/5afd3d7d7d9eab3cc3a1e62e212684672909cb760e8f2b5363fd3e5706589dd55a671b30e2d14ee6d51982bafb60390f640f633b72fb05ee96143555d810607a
   languageName: node
   linkType: hard
 
@@ -26760,13 +26710,6 @@ __metadata:
     linebreak: ~0.1.0
     png-js: ">=0.1.0"
   checksum: 2/fe30b44d6d8e649faa0b5f0228602ec655762e0135fad39289cfe31d63a6f51df4954f89267d95429cfd0b6479b44eedc29f9cab0ad7cb9e0d20c14c917590ae
-  languageName: node
-  linkType: hard
-
-"pend@npm:~1.2.0":
-  version: 1.2.0
-  resolution: "pend@npm:1.2.0"
-  checksum: 2/35da01b2aa52458fbda2dceaeb5305c0d6c7262beca67d9f4c97bd70e4a8f4457f5fa01ffea3b3f786fb310b9b3b98515c52de3d7ae0b50dfb50b2a2d38d042b
   languageName: node
   linkType: hard
 
@@ -30812,15 +30755,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:~2.2.8":
-  version: 2.2.8
-  resolution: "rimraf@npm:2.2.8"
-  bin:
-    rimraf: ./bin.js
-  checksum: 2/a84877f6c9027bdc3c501b0761603f0171e032581897308030b4314486ccd5ef65571239d62f23ee62a4a6cada948e2a9a0446da30ed3566498c1eee474f23e0
-  languageName: node
-  linkType: hard
-
 "ripemd160@npm:^2.0.0, ripemd160@npm:^2.0.1":
   version: 2.0.2
   resolution: "ripemd160@npm:2.0.2"
@@ -30918,23 +30852,6 @@ __metadata:
   dependencies:
     tslib: ^1.9.0
   checksum: 2/8e2b3c1c5ce1134212145f4ee3abd0ad1d3f84efeba1014490627e1176f15ceaeb8c79954d8473fbe01ee33443438a7a9588d442173145eddb294990d7e62102
-  languageName: node
-  linkType: hard
-
-"s3@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "s3@npm:4.4.0"
-  dependencies:
-    aws-sdk: ~2.0.31
-    fd-slicer: ~1.0.0
-    findit2: ~2.2.3
-    graceful-fs: ~3.0.5
-    mime: ~1.2.11
-    mkdirp: ~0.5.0
-    pend: ~1.2.0
-    rimraf: ~2.2.8
-    streamsink: ~1.2.0
-  checksum: 2/7117c03db483160ea2c50ad540a80b4b5a774ad5343a468d13cce7c19348d0a1623d323fba6be5b9fcc436d440d5e2d2c9b84f1a9b0fc9cb4df2b4bc200415b1
   languageName: node
   linkType: hard
 
@@ -31071,13 +30988,6 @@ __metadata:
     sass:
       optional: true
   checksum: 2/e23d9b308f0792fb9ca3ebe314d5c9c96dfa833f89f457e4fc9c5026dacbfbb81e65b1e9b924f6aa11d749e2ba033acf7d1767929d6f9628c45525535bceb889
-  languageName: node
-  linkType: hard
-
-"sax@npm:0.4.2":
-  version: 0.4.2
-  resolution: "sax@npm:0.4.2"
-  checksum: 2/1146aece397449bc5a05a1c62e6fb8dc89b50349688acc8596cdda9b27cc94833fd1d66adf94ebf19ca7efdd9bed36cbaabd028f4566460cbba1ec3d47f95e40
   languageName: node
   linkType: hard
 
@@ -32847,13 +32757,6 @@ __metadata:
   version: 0.1.2
   resolution: "streamsearch@npm:0.1.2"
   checksum: 2/f72befba95082d49be19cd4318112bc141f6cd7cbb201ee8079887f6f3cbcdf79c311977ce0eaa93d7d8c3e6b9727412f6177a87ced5b98d0fd4075723ad8eaf
-  languageName: node
-  linkType: hard
-
-"streamsink@npm:~1.2.0":
-  version: 1.2.0
-  resolution: "streamsink@npm:1.2.0"
-  checksum: 2/e814bf9ff40746434a22779bd4e9768f094028b635099531b73dbe38bc19759fb880539c80fa65c888dba3b7f22f0543f0963d4350f2d1e6c1c986f0a2a1854e
   languageName: node
   linkType: hard
 
@@ -36395,15 +36298,6 @@ typescript@^3.2.1:
   languageName: node
   linkType: hard
 
-"xml2js@npm:0.2.6":
-  version: 0.2.6
-  resolution: "xml2js@npm:0.2.6"
-  dependencies:
-    sax: 0.4.2
-  checksum: 2/e0501b8983feafe86f54c27379370f1a6f6d44155e7714c98989a329e8a227ddf9a8962efe4efed55f47d525f25f58bbe328b361d561cb6c92153e0d7e632fdd
-  languageName: node
-  linkType: hard
-
 "xml2js@npm:0.4.19":
   version: 0.4.19
   resolution: "xml2js@npm:0.4.19"
@@ -36438,13 +36332,6 @@ typescript@^3.2.1:
   version: 1.0.1
   resolution: "xml@npm:1.0.1"
   checksum: 2/adde7652a6f6010d28079586e7f608d616138bcb6c44bbc9174292b5cc2fab09b351d6c5f009e9304df2e0030888198225dd2e9ccbf51b776c8928479bfea4cb
-  languageName: node
-  linkType: hard
-
-"xmlbuilder@npm:0.4.2":
-  version: 0.4.2
-  resolution: "xmlbuilder@npm:0.4.2"
-  checksum: 2/acc016245b569b94fd9f69a98a0b13297f42b77aa4686407ce3a71267e05b981fd69667e01040b09dfde359dfb6d4ce8bdf1370b728acbc44a6f3f613940138b
   languageName: node
   linkType: hard
 
