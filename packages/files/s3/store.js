@@ -1,8 +1,9 @@
 "use strict";
 
+const path = require( 'path' );
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const getClient = require( './getClient' ).knox;
+const getClient = require( './getClient' );
 const fs = require( 'fs' );
 const log = require( '@openagenda/logs' )( 'file/s3/store' );
 
@@ -49,27 +50,28 @@ function store( config, file, options, cb ) {
 
     log( 'storing %s in bucket %s', file, params.bucket );
 
-    _getClient( params.bucket ).putFile( file, '/' + file.split( '/' ).pop(), {
-      'x-amz-acl': 'public-read',
-      //'s3-signature-version': 'v4', for frankfurt?
-    }, ( err, res ) => {
+    _getClient().upload({
+      Bucket: params.bucket,
+      Key: path.basename(file),
+      Body: fs.createReadStream(file),
+      ACL: 'public-read'
+    }, (err, res) => {
+      if (err) {
+        return cb('unable to upload: ' + err);
+      }
 
-      if ( err ) return cb( 'unable to upload: ' + err );
+      if (!params.clearOrigin) {
+        return cb(null);
+      }
 
-      if ( res.statusCode !== 200 ) return cb( 'unable to upload: ' + res.statusCode );
+      fs.unlink(file, err => {
+        if (err) {
+          log('error', 'could not delete file ', +file);
+        }
 
-      if ( !params.clearOrigin ) return cb( null );
-
-      fs.unlink( file, err => {
-
-        if ( err ) log( 'error', 'could not delete file ', + file );
-
-        // this is ugly. did not find anything better;
-        cb( null, res.socket._httpMessage.url );
-
-      } );
-
-    } );
+        cb(null, res.Location);
+      });
+    });
 
   }
 

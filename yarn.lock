@@ -4699,7 +4699,6 @@ __metadata:
     "@openagenda/logs": ^1.0.1
     async: ^1.5.0
     aws-sdk: ^2.544.0
-    knox-s3: ^0.9.3
     lodash: ^4.17.15
     mocha: ^7.0.1
     should: ^13.2.3
@@ -21820,19 +21819,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knox-s3@npm:^0.9.3":
-  version: 0.9.5
-  resolution: "knox-s3@npm:0.9.5"
-  dependencies:
-    debug: ^2.2.0
-    mime: ^1.4.0
-    once: ^1.3.0
-    stream-counter: ^1.0.0
-    xml2js: ^0.4.4
-  checksum: 2/4977b71f58156a580a1058a9e386fee7e1a958922bf7825f1307559f0545bc0755c174ee3cf97445cf40a980432bbe9edaab18ac08c9e12868f8df6afaa8a8f8
-  languageName: node
-  linkType: hard
-
 "koalas@npm:^1.0.2":
   version: 1.0.2
   resolution: "koalas@npm:1.0.2"
@@ -23639,7 +23625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:1.6.0, mime@npm:^1.3.4, mime@npm:^1.4.0, mime@npm:^1.4.1":
+"mime@npm:1.6.0, mime@npm:^1.3.4, mime@npm:^1.4.1":
   version: 1.6.0
   resolution: "mime@npm:1.6.0"
   bin:
@@ -32796,13 +32782,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stream-counter@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "stream-counter@npm:1.0.0"
-  checksum: 2/fc5d2ad666d1c19866500ea0a49d22249882556ffec23f04350e87d2fea1bcb1e55cab70e447cb83c4ed3f41230be981aeb64c521235835be17fe45cee47fe7b
-  languageName: node
-  linkType: hard
-
 "stream-each@npm:^1.1.0":
   version: 1.2.3
   resolution: "stream-each@npm:1.2.3"
@@ -36445,7 +36424,7 @@ typescript@^3.2.1:
   languageName: node
   linkType: hard
 
-"xml2js@npm:^0.4.17, xml2js@npm:^0.4.4":
+"xml2js@npm:^0.4.17":
   version: 0.4.23
   resolution: "xml2js@npm:0.4.23"
   dependencies:
