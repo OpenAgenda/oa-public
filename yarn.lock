@@ -4701,7 +4701,6 @@ __metadata:
     aws-sdk: ^2.544.0
     knox-s3: ^0.9.3
     lodash: ^4.17.15
-    mime: ^1.4.1
     mocha: ^7.0.1
     should: ^13.2.3
     uuid: ^3.4.0
@@ -25572,6 +25571,7 @@ __metadata:
     husky: ^4.2.1
     jest: ^25.1.0
     lerna: ^3.20.2
+    mime: ^2.4.4
     regenerator-runtime: ^0.13.5
   dependenciesMeta:
     webpack-dev-server:

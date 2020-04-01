@@ -47,5 +47,8 @@
     "webpack-dev-server": {
       "unplugged": true
     }
+  },
+  "dependencies": {
+    "mime": "^2.4.4"
   }
 }
