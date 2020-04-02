@@ -12,11 +12,11 @@ module.exports = declare((api, options) => {
 
   const isWebpack = api.caller(isBabelLoader);
 
-  const debug = typeof options.debug === 'boolean' ? options.debug : false;
-  const useBuiltIns = typeof options.useBuiltIns !== 'undefined' ? options.useBuiltIns : 'usage';
-  const corejs = typeof options.corejs !== 'undefined' ? options.corejs : { version: 3, proposals: true };
-  const modules = typeof options.modules !== 'undefined' ? options.modules : 'auto';
-  const development = typeof options.development === 'boolean'
+  const debug = 'debug' in options ? options.debug : false;
+  const useBuiltIns = 'useBuiltIns' in options ? options.useBuiltIns : 'usage';
+  const corejs = 'corejs' in options ? options.corejs : { version: 3, proposals: true };
+  const modules = 'modules' in options ? options.modules : 'auto';
+  const development = 'development' in options
     ? options.development
     : api.cache(() => process.env.NODE_ENV !== 'production');
 
