@@ -32,8 +32,11 @@ module.exports = iframe => {
     iFrameReady: false
   };
 
-  iframeResize({
-    log: false,
-    onMessage: onMessage.bind(null, state)
-  }, iframe);
+  iframeResize(
+    {
+      log: false,
+      onMessage: onMessage.bind(null, state)
+    },
+    iframe
+  );
 };

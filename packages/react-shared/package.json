@@ -13,7 +13,7 @@
     "prepack": "yarn clean && yarn build",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf build",
-    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
+    "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },

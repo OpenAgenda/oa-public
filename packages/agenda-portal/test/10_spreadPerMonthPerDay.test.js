@@ -59,17 +59,25 @@ describe('10 - spreadPerMonthPerDay', () => {
     it('Timings are distributed in an array of months and sub-array of days', () => {
       const result = spreadPerMonth(timings, 'Europe/Paris', 'fr');
 
-      expect(JSON.stringify(result.map(m => _.omit(m, 'diff')), null, 2)).toBe(
-        spreadTimings
-      );
+      expect(
+        JSON.stringify(
+          result.map(m => _.omit(m, 'diff')),
+          null,
+          2
+        )
+      ).toBe(spreadTimings);
     });
 
     it('When december hits Paris, it is still november in New York', () => {
       const result = spreadPerMonth(timings, 'America/New_York', 'en');
 
-      expect(JSON.stringify(result.map(m => _.omit(m, 'diff')), null, 2)).toBe(
-        spreadTimingsNYC
-      );
+      expect(
+        JSON.stringify(
+          result.map(m => _.omit(m, 'diff')),
+          null,
+          2
+        )
+      ).toBe(spreadTimingsNYC);
     });
   });
 });

@@ -9,13 +9,14 @@ const webpackHotReloadMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('./webpack.config');
 const Portal = require('..');
 
-
 const dev = express();
 const compiler = webpack(webpackConfig);
 
-dev.use(webpackDevMiddleware(compiler, {
-  publicPath: '/js'
-}));
+dev.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: '/js'
+  })
+);
 
 dev.use(webpackHotReloadMiddleware(compiler));
 

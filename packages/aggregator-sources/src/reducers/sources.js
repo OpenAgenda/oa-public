@@ -131,7 +131,11 @@ export function loadAggregator(slug) {
 
 export function createAggregator(slug) {
   return {
-    types: [CREATE_AGGREGATOR, CREATE_AGGREGATOR_SUCCESS, CREATE_AGGREGATOR_FAIL],
+    types: [
+      CREATE_AGGREGATOR,
+      CREATE_AGGREGATOR_SUCCESS,
+      CREATE_AGGREGATOR_FAIL
+    ],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 

@@ -10,7 +10,6 @@ import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
 import SelectField from './SelectField';
 import messages from './messages';
 
-
 export default ({ sourceSchema }) => {
   const intl = useIntl();
   const form = useForm();

@@ -19,7 +19,7 @@
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build",
-    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
+    "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },

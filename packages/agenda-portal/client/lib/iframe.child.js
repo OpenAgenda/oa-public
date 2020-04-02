@@ -25,9 +25,7 @@ function _getCurrentNav() {
 }
 
 function sendNavUpdate(state) {
-  const {
-    parent
-  } = state;
+  const { parent } = state;
 
   if (!parent) {
     return;

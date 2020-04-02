@@ -5,10 +5,7 @@ module.exports = {
 
   parser: 'babel-eslint',
 
-  extends: [
-    'eslint-config-airbnb',
-    'plugin:jest/recommended'
-  ],
+  extends: ['eslint-config-airbnb', 'plugin:jest/recommended'],
 
   plugins: [
     'eslint-plugin-import',

@@ -52,7 +52,7 @@ The first line are useful for does not ignore the dotfiles (.storybook, .babelrc
 ```json
 {
   "scripts": {
-    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'"
+    "lint": "eslint -c .eslintrc '**/*.js'"
   }
 }
 ```

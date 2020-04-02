@@ -351,7 +351,11 @@ export default class Events extends Component {
                               <span className="badge badge-sm badge-default">
                                 {getLabel('draft')}
                               </span>
-                            ) : <a href={this.getEventShowLink(event)}>{getLabel('show')}</a>}
+                            ) : (
+                              <a href={this.getEventShowLink(event)}>
+                                {getLabel('show')}
+                              </a>
+                            )}
                             <a href={this.getEventEditLink(event)}>
                               {getLabel('modify')}
                             </a>

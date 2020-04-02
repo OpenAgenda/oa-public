@@ -18,7 +18,9 @@ module.exports = (req, res, next) => {
   ];
 
   if (req.app.locals.iframable) {
-    bottomScripts.push(`${req.app.locals.assetsRoot}/js/iframeResizeContent.js`);
+    bottomScripts.push(
+      `${req.app.locals.assetsRoot}/js/iframeResizeContent.js`
+    );
   }
 
   if (process.env.NODE_ENV === 'development') {
