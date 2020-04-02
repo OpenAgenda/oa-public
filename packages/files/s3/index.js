@@ -10,14 +10,17 @@ const prefixList = require( './prefixList' );
 const store = require( './store' );
 
 
-let config, _getClient, _prefixList, _store;
+let config;
+let _getClient;
+let _prefixList;
+let _store;
 
 module.exports = {
   init: cfg => {
 
     config = cfg;
 
-    _getClient = getClient.knox.bind( null, config );
+    _getClient = getClient.bind( null, config );
 
     _prefixList = prefixList.bind( null, config );
 
@@ -71,17 +74,18 @@ function copy( srcBucket, srcName, dstBucket, dstName, cb ) {
 
   log( 'copying file %s/%s to %s/%s', srcBucket, srcName, dstBucket, dstName );
 
-  _getClient( srcBucket ).copyFileTo( '/' + srcName, dstBucket, '/' + dstName, {
-    'x-amz-acl': 'public-read'
+  _getClient().copyObject({
+    Bucket: dstBucket,
+    CopySource: `/${srcBucket}/${srcName}`,
+    Key: dstName,
+    ACL: 'public-read'
   }, ( err, res ) => {
 
     if ( err ) return cb( 'copy not successful: %s', err );
 
-    if ( res.statusCode !== 200 ) return cb( 'copy was not successful: %s', res.statusCode );
-
     cb( null );
 
-  } );
+  });
 
 }
 
@@ -130,7 +134,7 @@ function transfer( srcBucket, srcName, dstBucket, dstName, cb ) {
 
 function remove( filename, options, cb ) {
 
-  let operation, error, params;
+  let params;
 
   if ( arguments.length == 2 ) {
 
@@ -150,7 +154,12 @@ function remove( filename, options, cb ) {
 
   }
 
-  _getClient( params.bucket ).deleteMultiple( filename.map( f => '/' + f ), ( err, res ) => {
+  _getClient().deleteObjects( {
+    Bucket: params.bucket,
+    Delete: {
+      Objects: filename.map( f => ({ Key: f }) )
+    }
+  }, ( err, res ) => {
 
     if ( err ) return cb( 'unable to remove: %s', err );
 
@@ -171,7 +180,7 @@ function exists( filename, cb ) {
 
   } else {
 
-    path = _getClient( config.bucket ).http( '/' + filename );
+    path = `http://${config.bucket}.s3.amazonaws.com/${encodeURI(filename)}`;
 
   }
 

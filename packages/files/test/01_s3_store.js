@@ -69,7 +69,7 @@ describe( 'files - functional ( server ): s3.store', function() {
 
       should( err ).equal( null );
 
-      url.should.equal( 'https://cibultest.s3.amazonaws.com/testfiletoupload.txt' );
+      url.should.equal( 'https://cibultest.s3.eu-west-1.amazonaws.com/testfiletoupload.txt' );
 
       s3Svc.exists( filePath.split('/').pop(), function( err, exists ) {
 
