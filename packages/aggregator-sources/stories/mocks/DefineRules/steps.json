@@ -1,0 +1,22 @@
+[{
+  "key": "selectAgendas",
+  "label": "Sélection",
+  "display": true,
+  "active": false,
+  "activable": true,
+  "passed": true
+}, {
+  "key": "rules",
+  "label": "Règles",
+  "display": true,
+  "active": true,
+  "activable": false,
+  "passed": false
+}, {
+  "key": "lafin",
+  "label": "Confirmation",
+  "display": true,
+  "active": false,
+  "activable": false,
+  "passed": false
+}]

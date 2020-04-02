@@ -3,6 +3,7 @@
 const { ruleToValues, valuesToRule } = require('../src/utils/rules');
 
 const aggregatorAgendaSchema = require('./fixtures/aggregatorAgendaSchema.json');
+const aggAgendaSchema2 = require('./fixtures/aggregatorAgendaSchema.2.json');
 
 describe('utils - rules', () => {
   describe('ruleToValues', () => {
@@ -62,6 +63,37 @@ describe('utils - rules', () => {
       );
 
       expect(values.actions[0].set).toEqual(true);
+    });
+
+    it('withActions bool is true when actions are defined', () => {
+      const values = ruleToValues({
+        "query": {
+          "location": {
+            "department": [
+              "Loiret"
+            ]
+          }
+        },
+        "actions": [
+          {
+            "field": "categorie-principale",
+            "values": [
+              93
+            ],
+            "automatic": false
+          },
+          {
+            "field": "state",
+            "values": {
+              "$set": 2
+            },
+            "automatic": false
+          }
+        ],
+        "required": true
+      }, aggAgendaSchema2);
+
+      expect(values.withActions).toBe(true);
     });
   });
 

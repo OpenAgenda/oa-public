@@ -1,0 +1,1092 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 94,
+  "fields": [
+    {
+      "field": "categorie-principale",
+      "label": {
+        "fr": "Catégorie principale"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 1,
+          "value": "balade-decouverte-visite",
+          "label": {
+            "fr": "Balade - découverte - visite"
+          },
+          "display": true
+        },
+        {
+          "id": 2,
+          "value": "conference-rencontre-debat",
+          "label": {
+            "fr": "Conférence - rencontre - débat"
+          },
+          "display": true
+        },
+        {
+          "id": 3,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition"
+          },
+          "display": true
+        },
+        {
+          "id": 4,
+          "value": "fete-salon-marche",
+          "label": {
+            "fr": "Fête - salon - marché"
+          },
+          "display": true
+        },
+        {
+          "id": 5,
+          "value": "musique",
+          "label": {
+            "fr": "Musique"
+          },
+          "display": true
+        },
+        {
+          "id": 6,
+          "value": "projection-cinema",
+          "label": {
+            "fr": "Projection - cinéma"
+          },
+          "display": true
+        },
+        {
+          "id": 7,
+          "value": "spectacle",
+          "label": {
+            "fr": "Spectacle"
+          },
+          "display": true
+        },
+        {
+          "id": 8,
+          "value": "sport",
+          "label": {
+            "fr": "Sport"
+          },
+          "display": true
+        },
+        {
+          "id": 9,
+          "value": "stage-atelier-jeu",
+          "label": {
+            "fr": "Stage - atelier -  jeu"
+          },
+          "display": true
+        },
+        {
+          "id": 10,
+          "value": "jeune-public",
+          "label": {
+            "fr": "Jeune public"
+          },
+          "display": true
+        },
+        {
+          "id": 93,
+          "value": "autre",
+          "label": {
+            "fr": "Autre"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "balade-decouverte-visite",
+      "label": {
+        "fr": "Balade - découverte - visite"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 11,
+          "value": "visite-guidee",
+          "label": {
+            "fr": "Visite guidée"
+          },
+          "display": true
+        },
+        {
+          "id": 12,
+          "value": "nature-environnement",
+          "label": {
+            "fr": "Nature-environnement"
+          },
+          "display": true
+        },
+        {
+          "id": 13,
+          "value": "patrimoine-industriel",
+          "label": {
+            "fr": "Patrimoine industriel"
+          },
+          "display": true
+        },
+        {
+          "id": 14,
+          "value": "patrimoine-bati",
+          "label": {
+            "fr": "Patrimoine bâti"
+          },
+          "display": true
+        },
+        {
+          "id": 15,
+          "value": "patrimoine-culturel",
+          "label": {
+            "fr": "Patrimoine culturel"
+          },
+          "display": true
+        },
+        {
+          "id": 16,
+          "value": "artisanat",
+          "label": {
+            "fr": "Artisanat"
+          },
+          "display": true
+        },
+        {
+          "id": 17,
+          "value": "portes-ouvertes",
+          "label": {
+            "fr": "Portes-ouvertes"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "conference-rencontre-debat",
+      "label": {
+        "fr": "Conférence - rencontre - débat"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 18,
+          "value": "table-ronde",
+          "label": {
+            "fr": "Table-ronde"
+          },
+          "display": true
+        },
+        {
+          "id": 19,
+          "value": "colloque-assises",
+          "label": {
+            "fr": "Colloque-Assises"
+          },
+          "display": true
+        },
+        {
+          "id": 20,
+          "value": "seminaire",
+          "label": {
+            "fr": "Séminaire"
+          },
+          "display": true
+        },
+        {
+          "id": 21,
+          "value": "rendez-vous-litteraire",
+          "label": {
+            "fr": "Rendez-vous littéraire"
+          },
+          "display": true
+        },
+        {
+          "id": 22,
+          "value": "projection-debat",
+          "label": {
+            "fr": "Projection-débat"
+          },
+          "display": true
+        },
+        {
+          "id": 23,
+          "value": "lecture",
+          "label": {
+            "fr": "Lecture"
+          },
+          "display": true
+        },
+        {
+          "id": 24,
+          "value": "hackathon",
+          "label": {
+            "fr": "Hackathon"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "exposition",
+      "label": {
+        "fr": "Exposition"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 25,
+          "value": "photographie",
+          "label": {
+            "fr": "Photographie"
+          },
+          "display": true
+        },
+        {
+          "id": 26,
+          "value": "art-contemporain",
+          "label": {
+            "fr": "Art contemporain"
+          },
+          "display": true
+        },
+        {
+          "id": 27,
+          "value": "beaux-arts",
+          "label": {
+            "fr": "Beaux-arts"
+          },
+          "display": true
+        },
+        {
+          "id": 28,
+          "value": "histoire-civilisation",
+          "label": {
+            "fr": "Histoire-civilisation"
+          },
+          "display": true
+        },
+        {
+          "id": 29,
+          "value": "architecture-urbanisme",
+          "label": {
+            "fr": "Architecture-urbanisme"
+          },
+          "display": true
+        },
+        {
+          "id": 30,
+          "value": "design-mode",
+          "label": {
+            "fr": "Design-mode"
+          },
+          "display": true
+        },
+        {
+          "id": 31,
+          "value": "sciences-techniques",
+          "label": {
+            "fr": "Sciences-techniques"
+          },
+          "display": true
+        },
+        {
+          "id": 32,
+          "value": "street-art",
+          "label": {
+            "fr": "Street art"
+          },
+          "display": true
+        },
+        {
+          "id": 33,
+          "value": "arts-numeriques",
+          "label": {
+            "fr": "Arts numériques"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "fete-salon-marche",
+      "label": {
+        "fr": "Fête - salon - marché"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 34,
+          "value": "marche-de-plein-air",
+          "label": {
+            "fr": "Marché de plein air"
+          },
+          "display": true
+        },
+        {
+          "id": 35,
+          "value": "vide-grenier",
+          "label": {
+            "fr": "Vide-grenier"
+          },
+          "display": true
+        },
+        {
+          "id": 36,
+          "value": "vide-jardin",
+          "label": {
+            "fr": "Vide-jardin"
+          },
+          "display": true
+        },
+        {
+          "id": 37,
+          "value": "foire-aux-plantes",
+          "label": {
+            "fr": "Foire  aux  plantes"
+          },
+          "display": true
+        },
+        {
+          "id": 38,
+          "value": "brocante",
+          "label": {
+            "fr": "Brocante"
+          },
+          "display": true
+        },
+        {
+          "id": 39,
+          "value": "braderie",
+          "label": {
+            "fr": "Braderie"
+          },
+          "display": true
+        },
+        {
+          "id": 40,
+          "value": "fete-de-quartier",
+          "label": {
+            "fr": "Fête de quartier"
+          },
+          "display": true
+        },
+        {
+          "id": 41,
+          "value": "kermesse",
+          "label": {
+            "fr": "Kermesse"
+          },
+          "display": true
+        },
+        {
+          "id": 42,
+          "value": "soiree-a-theme",
+          "label": {
+            "fr": "Soirée à thème"
+          },
+          "display": true
+        },
+        {
+          "id": 43,
+          "value": "rendez-vous-festif",
+          "label": {
+            "fr": "Rendez-vous festif"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "musique",
+      "label": {
+        "fr": "Musique"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 44,
+          "value": "jazz",
+          "label": {
+            "fr": "Jazz"
+          },
+          "display": true
+        },
+        {
+          "id": 45,
+          "value": "rock",
+          "label": {
+            "fr": "Rock"
+          },
+          "display": true
+        },
+        {
+          "id": 46,
+          "value": "hip-hop",
+          "label": {
+            "fr": "Hip-hop"
+          },
+          "display": true
+        },
+        {
+          "id": 47,
+          "value": "electronique",
+          "label": {
+            "fr": "Électronique"
+          },
+          "display": true
+        },
+        {
+          "id": 48,
+          "value": "world",
+          "label": {
+            "fr": "World"
+          },
+          "display": true
+        },
+        {
+          "id": 49,
+          "value": "classique",
+          "label": {
+            "fr": "Classique"
+          },
+          "display": true
+        },
+        {
+          "id": 50,
+          "value": "chanson",
+          "label": {
+            "fr": "Chanson"
+          },
+          "display": true
+        },
+        {
+          "id": 51,
+          "value": "experimental",
+          "label": {
+            "fr": "Expérimental"
+          },
+          "display": true
+        },
+        {
+          "id": 52,
+          "value": "variete",
+          "label": {
+            "fr": "Variété"
+          },
+          "display": true
+        },
+        {
+          "id": 53,
+          "value": "concert",
+          "label": {
+            "fr": "Concert"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "projection-cinema",
+      "label": {
+        "fr": "Projection - cinéma"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 54,
+          "value": "court-metrage",
+          "label": {
+            "fr": "Court-métrage"
+          },
+          "display": true
+        },
+        {
+          "id": 55,
+          "value": "avant-premiere",
+          "label": {
+            "fr": "Avant-première"
+          },
+          "display": true
+        },
+        {
+          "id": 56,
+          "value": "documentaire",
+          "label": {
+            "fr": "Documentaire"
+          },
+          "display": true
+        },
+        {
+          "id": 57,
+          "value": "projection-en-plein-air",
+          "label": {
+            "fr": "Projection en plein air"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "spectacle",
+      "label": {
+        "fr": "Spectacle"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 58,
+          "value": "theatre",
+          "label": {
+            "fr": "Théâtre"
+          },
+          "display": true
+        },
+        {
+          "id": 59,
+          "value": "humour",
+          "label": {
+            "fr": "Humour"
+          },
+          "display": true
+        },
+        {
+          "id": 60,
+          "value": "danse",
+          "label": {
+            "fr": "Danse"
+          },
+          "display": true
+        },
+        {
+          "id": 61,
+          "value": "cirque-arts-de-la-rue",
+          "label": {
+            "fr": "Cirque - arts de la rue"
+          },
+          "display": true
+        },
+        {
+          "id": 62,
+          "value": "conte",
+          "label": {
+            "fr": "Conte"
+          },
+          "display": true
+        },
+        {
+          "id": 63,
+          "value": "poesie",
+          "label": {
+            "fr": "Poésie"
+          },
+          "display": true
+        },
+        {
+          "id": 64,
+          "value": "spectacle-musical",
+          "label": {
+            "fr": "Spectacle musical"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "sport",
+      "label": {
+        "fr": "Sport"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 65,
+          "value": "rencontre-sportive",
+          "label": {
+            "fr": "Rencontre sportive"
+          },
+          "display": true
+        },
+        {
+          "id": 66,
+          "value": "stage-sportif",
+          "label": {
+            "fr": "Stage sportif"
+          },
+          "display": true
+        },
+        {
+          "id": 67,
+          "value": "animation-sportive",
+          "label": {
+            "fr": "Animation sportive"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "stage-atelier-jeu",
+      "label": {
+        "fr": "Stage - atelier - jeu"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 68,
+          "value": "initiation",
+          "label": {
+            "fr": "Initiation"
+          },
+          "display": true
+        },
+        {
+          "id": 69,
+          "value": "jeux-daventure",
+          "label": {
+            "fr": "Jeux d’aventure"
+          },
+          "display": true
+        },
+        {
+          "id": 70,
+          "value": "attraction",
+          "label": {
+            "fr": "Attraction"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "cantons-du-loiret",
+      "label": {
+        "fr": "Cantons du Loiret"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 71,
+          "value": "canton-de-beaugency",
+          "label": {
+            "fr": "Canton de Beaugency"
+          },
+          "display": true
+        },
+        {
+          "id": 72,
+          "value": "canton-de-chalette-sur-loing",
+          "label": {
+            "fr": "Canton de Châlette-sur-Loing"
+          },
+          "display": true
+        },
+        {
+          "id": 73,
+          "value": "canton-de-chateauneuf-sur-loire",
+          "label": {
+            "fr": "Canton de Châteauneuf-sur-Loire"
+          },
+          "display": true
+        },
+        {
+          "id": 74,
+          "value": "canton-de-canton-de-courtenay",
+          "label": {
+            "fr": "Canton de Canton de Courtenay"
+          },
+          "display": true
+        },
+        {
+          "id": 75,
+          "value": "canton-de-fleury-les-aubrais",
+          "label": {
+            "fr": "Canton de Fleury-les-Aubrais"
+          },
+          "display": true
+        },
+        {
+          "id": 76,
+          "value": "canton-de-gien",
+          "label": {
+            "fr": "Canton de Gien"
+          },
+          "display": true
+        },
+        {
+          "id": 77,
+          "value": "canton-de-la-ferte-saint-aubin",
+          "label": {
+            "fr": "Canton de La Ferté-Saint-Aubin"
+          },
+          "display": true
+        },
+        {
+          "id": 78,
+          "value": "canton-de-lorris",
+          "label": {
+            "fr": "Canton de Lorris"
+          },
+          "display": true
+        },
+        {
+          "id": 79,
+          "value": "canton-de-malesherbes",
+          "label": {
+            "fr": "Canton de Malesherbes"
+          },
+          "display": true
+        },
+        {
+          "id": 80,
+          "value": "canton-de-meung-sur-loire",
+          "label": {
+            "fr": "Canton de Meung-sur-Loire"
+          },
+          "display": true
+        },
+        {
+          "id": 81,
+          "value": "canton-de-montargis",
+          "label": {
+            "fr": "Canton de Montargis"
+          },
+          "display": true
+        },
+        {
+          "id": 82,
+          "value": "canton-dolivet",
+          "label": {
+            "fr": "Canton d'Olivet"
+          },
+          "display": true
+        },
+        {
+          "id": 83,
+          "value": "canton-dorleans-1",
+          "label": {
+            "fr": "Canton d'Orléans 1"
+          },
+          "display": true
+        },
+        {
+          "id": 84,
+          "value": "canton-dorleans-2",
+          "label": {
+            "fr": "Canton d'Orléans 2"
+          },
+          "display": true
+        },
+        {
+          "id": 85,
+          "value": "canton-dorleans-3",
+          "label": {
+            "fr": "Canton d'Orléans 3"
+          },
+          "display": true
+        },
+        {
+          "id": 86,
+          "value": "canton-dorleans-4",
+          "label": {
+            "fr": "Canton d'Orléans 4"
+          },
+          "display": true
+        },
+        {
+          "id": 87,
+          "value": "canton-de-pithiviers",
+          "label": {
+            "fr": "Canton de Pithiviers"
+          },
+          "display": true
+        },
+        {
+          "id": 88,
+          "value": "canton-de-saint-jean-de-braye",
+          "label": {
+            "fr": "Canton de Saint-Jean-de-Braye"
+          },
+          "display": true
+        },
+        {
+          "id": 89,
+          "value": "canton-de-saint-jean-de-la-ruelle",
+          "label": {
+            "fr": "Canton de Saint-Jean-de-la-Ruelle"
+          },
+          "display": true
+        },
+        {
+          "id": 90,
+          "value": "canton-de-saint-jean-le-blanc",
+          "label": {
+            "fr": "Canton de Saint-Jean-le-Blanc"
+          },
+          "display": true
+        },
+        {
+          "id": 91,
+          "value": "canton-de-sully-sur-loire",
+          "label": {
+            "fr": "Canton de Sully-sur-Loire"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "renaissance",
+      "label": {
+        "fr": "500 ans Renaissance"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 92,
+          "value": "cet-evenement-se-deroule-de-le-cadre-de-levenement-500-ans-renaissance",
+          "label": {
+            "fr": "Cet événement se déroule de le cadre de l'événement 500 ans Renaissance"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "imageCredits",
+      "optional": false,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "languages",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "location",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract"
+    }
+  ]
+}

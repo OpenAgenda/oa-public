@@ -5,10 +5,6 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.requiredType',
     defaultMessage: 'Required type'
   },
-  allEvents: {
-    id: 'aggregator-sources.DefineRules.allEvents',
-    defaultMessage: 'All events'
-  },
   noFilter: {
     id: 'aggregator-sources.DefineRules.noFilter',
     defaultMessage: 'No filter'
@@ -34,29 +30,13 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.cancel',
     defaultMessage: 'Cancel'
   },
-  add: {
-    id: 'aggregator-sources.DefineRules.add',
-    defaultMessage: 'Add'
-  },
   update: {
     id: 'aggregator-sources.DefineRules.update',
     defaultMessage: 'Update'
   },
-  remove: {
-    id: 'aggregator-sources.DefineRules.remove',
-    defaultMessage: 'Remove'
-  },
-  locationFilter: {
-    id: 'aggregator-sources.DefineRules.locationFilter',
-    defaultMessage: 'Location filter'
-  },
-  tagFilter: {
-    id: 'aggregator-sources.DefineRules.tagFilter',
-    defaultMessage: 'Tag filter'
-  },
-  extendedFilter: {
-    id: 'aggregator-sources.DefineRules.extendedFilter',
-    defaultMessage: 'Additionnal field filter'
+  add: {
+    id: 'aggregator-sources.DefineRules.add',
+    defaultMessage: 'Add'
   },
   addARule: {
     id: 'aggregator-sources.DefineRules.addARule',
@@ -96,11 +76,6 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.missingRequiredFields',
     defaultMessage:
       '{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.'
-  },
-  withActions: {
-    id: 'aggregator-sources.DefineRules.withActions',
-    defaultMessage:
-      '{actionCount, plural, =1 {with 1 action} other {with # actions}}'
   },
   ruleDescription: {
     id: 'aggregator-sources.DefineRules.ruleDescription',

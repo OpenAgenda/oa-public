@@ -8,6 +8,7 @@ import arrayMutators from 'final-form-arrays';
 import { ruleToValues, valuesToRule } from '../../utils/rules';
 import RuleForm from '../RuleForm';
 import List from './List';
+import RulesSubmitButton from './RulesSubmitButton';
 import AddRuleSubmitButton from './AddRuleSubmitButton';
 import UpdateRuleSubmitButton from './UpdateRuleSubmitButton';
 import messages from './messages';
@@ -82,10 +83,11 @@ function reducer(state, action) {
 
 export default function DefineRules({
   aggregatorAgendaSchema,
-  sourceSchema,
+  displayInfo,
   initialRules,
   isAggregator,
-  SubmitButton,
+  sourceSchema,
+  primaryAction,
   onSubmit,
   onCancel
 }) {
@@ -232,27 +234,26 @@ export default function DefineRules({
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema);
   }, [state.rules, state.modeOptions.id, aggregatorAgendaSchema]);
 
-  let content = null;
-
   if (state.mode === 'list') {
-    content = (
+    return (
       <List
         aggregatorAgendaSchema={aggregatorAgendaSchema}
         sourceSchema={sourceSchema}
         isAggregator={isAggregator}
+        displayInfo={displayInfo}
         rules={state.rules}
         addRules={addRules}
         reorderRules={reorderRules}
         removeRule={removeRule}
         setMode={setMode}
-        SubmitButton={SubmitButton}
+        SubmitButton={RulesSubmitButton({ primaryAction })}
         onSubmit={onSubmit}
         onCancel={onCancel}
       />
     );
   } else if (state.mode === 'add') {
-    content = (
-      <div className="margin-top-md">
+    return (
+      <div className="padding-v-sm">
         <h4 className="margin-bottom-sm">
           {intl.formatMessage(messages.newRule)}
         </h4>
@@ -276,8 +277,8 @@ export default function DefineRules({
       </div>
     );
   } else if (state.mode === 'update') {
-    content = (
-      <div className="margin-top-md">
+    return (
+      <div className="padding-v-sm">
         <h4 className="margin-bottom-sm">
           {intl.formatMessage(messages.updateARule)}
         </h4>
@@ -302,5 +303,5 @@ export default function DefineRules({
     );
   }
 
-  return content;
+  return null;
 }

@@ -13,6 +13,7 @@ import validateActions from './validateActions';
 export default function List({
   aggregatorAgendaSchema,
   sourceSchema,
+  displayInfo,
   isAggregator,
   rules,
   addRules,
@@ -76,10 +77,10 @@ export default function List({
 
   return (
     <>
-      <div className="margin-top-md">
-        <p className="margin-top-sm">
+      <div className="padding-v-sm">
+        {displayInfo ? <p>
           {intl.formatMessage(messages.description, { br: <br key="br" /> })}
-        </p>
+        </p> : null}
 
         {sourceSchema && requiredFieldList.length ? (
           <p>
@@ -91,14 +92,15 @@ export default function List({
         ) : null}
 
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext className="list-group" onDragEnd={onDragEnd}>
           <Droppable droppableId="droppable">
             {provided => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 {rules.map((rule, index) => (
                   <Draggable key={rule.id} draggableId={rule.id} index={index}>
                     {provided2 => (
-                      <div
+                      <li
+                        className="list-group-item"
                         ref={provided2.innerRef}
                         {...provided2.draggableProps}
                         {...provided2.dragHandleProps}
@@ -107,9 +109,10 @@ export default function List({
                           rule={rule}
                           onUpdate={setModeUpdate}
                           onRemove={removeRule}
-                          sourceSchema={sourceSchema}
+                          sourceAgendaSchema={sourceSchema}
+                          aggregatorAgendaSchema={aggregatorAgendaSchema}
                         />
-                      </div>
+                      </li>
                     )}
                   </Draggable>
                 ))}

@@ -21,10 +21,6 @@ const messages = defineMessages({
     defaultMessage:
       'Add a source{agenda, select, undefined {} other {: {agenda}}}'
   },
-  nextButton: {
-    id: 'aggregator-sources.AddSourceModal.nextButton',
-    defaultMessage: 'Next'
-  },
   submitButton: {
     id: 'aggregator-sources.AddSourceModal.submitButton',
     defaultMessage: 'Add source'
@@ -245,32 +241,6 @@ function AgendaItem({
   );
 }
 
-function RulesSubmitButton({ handleSubmit, onCancel }) {
-  const intl = useIntl();
-
-  return (
-    <div className="margin-top-md">
-      <div className="pull-left">
-        <button
-          type="button"
-          className="btn btn-link text-danger cancel-button-left"
-          onClick={onCancel}
-        >
-          {intl.formatMessage(messages.cancel)}
-        </button>
-      </div>
-      <div className="text-right">
-        <button
-          onClick={handleSubmit}
-          type="button"
-          className="btn btn-primary"
-        >
-          {intl.formatMessage(messages.nextButton)}
-        </button>
-      </div>
-    </div>
-  );
-}
 
 export default function AddSourceModal({
   aggregatorAgenda,
@@ -416,7 +386,7 @@ export default function AddSourceModal({
       onClose={onClose}
       classNames={modalClassnames}
     >
-      <div className="margin-top-sm">
+      <div>
         <Stepper
           steps={steps}
           onSelect={selectStep}
@@ -558,9 +528,10 @@ export default function AddSourceModal({
 
         {selectedStep === 'defineRules' ? (
           <DefineRules
+            displayInfo={true}
             aggregatorAgendaSchema={aggregatorAgendaSchema}
             sourceSchema={selectedAgenda?.schema}
-            SubmitButton={RulesSubmitButton}
+            primaryAction="next"
             initialRules={rules}
             onSubmit={handleRulesSubmit}
             onCancel={onClose}
