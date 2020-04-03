@@ -11,7 +11,8 @@
       "message": "chore: publish"
     },
     "version": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "changelogPreset": "conventional-changelog-conventionalcommits"
     }
   }
 }
