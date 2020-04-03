@@ -16,6 +16,7 @@ const modalClassnames = {
 
 export default function AggregatorRulesModal({
   aggregator,
+  aggregatorAgenda,
   aggregatorAgendaSchema,
   onSubmit,
   onClose
@@ -29,6 +30,7 @@ export default function AggregatorRulesModal({
       classNames={modalClassnames}
     >
       <DefineRules
+        aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
         initialRules={aggregator.rules}
         disableMissingFieldsValidation

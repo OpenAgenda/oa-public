@@ -7,66 +7,8 @@ export function hasFilter(rule) {
   return true;
 }
 
-export function getFilterType(rule) {
-  if (!hasFilter(rule)) return null;
-
-  const key = Object.keys(rule.query)[0];
-
-  return ['location', 'tags'].includes(key) ? key : 'extended';
-}
-
-export function getFilterLocationType(rule) {
-  return Object.keys(rule.query.location)[0];
-}
-
-export function getFilterField(rule) {
-  return Object.keys(rule.query)[0];
-}
-
 export function hasValues(rule) {
   return rule.actions && rule.actions.length;
-}
-
-export function getActionValues(action) {
-  if (action.values instanceof Object) {
-    return [].concat(action.values[Object.keys(action.values)[0]]);
-  }
-  return [].concat(action.values);
-}
-
-export function isActionSet(action) {
-  if (action.values instanceof Object) {
-    return Object.keys(action.values)[0] === '$set';
-  }
-  return false;
-}
-
-export function getActionKey(action) {
-  return 'action-' + JSON.stringify(action);
-}
-
-export function getActionStateBadgeType(value) {
-  switch (value) {
-    case -1:
-      return 'badge-danger';
-    case 0:
-      return 'badge-default';
-    case 1:
-      return 'badge-warning';
-    case 2:
-      return 'badge-success';
-    default:
-      return '';
-  }
-}
-
-export function getActionStateLabel(intl, messages, value) {
-  return intl.formatMessage(messages[[
-    'refused',
-    'toModerate',
-    'readyToPublish',
-    'published'
-  ][value + 1]]);
 }
 
 export function ruleToValues(rule, aggregatorAgendaSchema) {

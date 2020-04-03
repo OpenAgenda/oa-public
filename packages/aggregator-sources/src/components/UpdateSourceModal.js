@@ -26,7 +26,8 @@ const modalClassnames = {
 export default function UpdateSourceModal({
   onSubmit,
   onClose,
-  aggregatorAgendaSchema
+  aggregatorAgendaSchema,
+  aggregatorAgenda
 }) {
   const intl = useIntl();
 
@@ -47,7 +48,9 @@ export default function UpdateSourceModal({
     >
       <DefineRules
         displayInfo={false}
+        aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
+        sourceAgenda={data.source.agenda}
         sourceSchema={data.schema}
         initialRules={data.source.rules}
         onSubmit={handleSubmit}

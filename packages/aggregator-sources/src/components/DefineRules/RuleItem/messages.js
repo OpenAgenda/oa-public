@@ -23,7 +23,7 @@ export default defineMessages({
       '{actionCount, plural, =1 {with 1 action} other {with # actions}}'
   },
   update: {
-    id: 'aggregator-sources.DefineRules.update',
+    id: 'aggregator-sources.DefineRules.RuleItem.update',
     defaultMessage: 'Update'
   },
   remove: {
@@ -112,10 +112,14 @@ export default defineMessages({
   },
   eventLocationDetail: {
     id: 'aggregator-sources.DefineRules.eventLocationDetail',
-    defaultMessage: '%geo% where the event should take place'
+    defaultMessage: '{geo} where the event should take place'
   },
   aggregatorAgendaAdditionalFieldValueDetail: {
     id: 'aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail',
     defaultMessage: 'Field & Value of "{agendaTitle}" that will be associated with event'
+  },
+  actionStateDetail: {
+    id: 'aggregator-sources.DefineRules.actionStatusDetail',
+    defaultMessage: '{state} is applied to event'
   }
 });

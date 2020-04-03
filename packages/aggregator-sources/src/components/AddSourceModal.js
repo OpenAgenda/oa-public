@@ -529,8 +529,10 @@ export default function AddSourceModal({
         {selectedStep === 'defineRules' ? (
           <DefineRules
             displayInfo={true}
+            aggregatorAgenda={aggregatorAgenda}
             aggregatorAgendaSchema={aggregatorAgendaSchema}
             sourceSchema={selectedAgenda?.schema}
+            sourceAgenda={selectedAgenda}
             primaryAction="next"
             initialRules={rules}
             onSubmit={handleRulesSubmit}

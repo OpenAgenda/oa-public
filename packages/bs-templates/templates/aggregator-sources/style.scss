@@ -142,6 +142,12 @@
     }
   }
 
+  .actions-icon {
+    font-size: 1.3em;
+    line-height: 0.8em;
+    padding: 0 0 0 0.4em;
+  }
+
   @media (max-width: $screen-sm) {
     h2 {
       margin: 0;

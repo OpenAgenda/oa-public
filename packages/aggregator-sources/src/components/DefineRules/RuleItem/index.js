@@ -9,8 +9,10 @@ export default function RuleItem({
   rule,
   onUpdate,
   onRemove,
+  sourceAgenda,
   sourceAgendaSchema,
-  aggregatorAgendaSchema
+  aggregatorAgenda,
+  aggregatorAgendaSchema,
 }) {
   const intl = useIntl();
 
@@ -28,11 +30,14 @@ export default function RuleItem({
       {hasFilter(rule)? <FilterPart
         rule={rule}
         intl={intl}
+        sourceAgenda={sourceAgenda}
         sourceAgendaSchema={sourceAgendaSchema}
       /> : null}
       {hasValues(rule) ? <ActionsPart
         rule={rule}
         intl={intl}
+        sourceAgenda={sourceAgenda}
+        aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
       /> : null}
       <div className="list-item-actions padding-left-md">

@@ -12,6 +12,17 @@ import sourceAgendaSchema from './mocks/DefineRules/NDM.schema.json';
 import steps from './mocks/DefineRules/steps.json';
 import rules from './mocks/DefineRules/rules.json';
 
+const sourceAgenda = {
+  uid: 123,
+  title: 'Nuit des musées 2020',
+  slug: 'mondonville'
+};
+
+const aggregatorAgenda = {
+  uid: 456,
+  title: 'Mondonville',
+  slug: 'mondonville'
+};
 
 storiesOf('DefineRules - add', module)
   .addDecorator(SourcesCanvasDecorator)
@@ -28,6 +39,7 @@ storiesOf('DefineRules - add', module)
         </div>
         <DefineRules
           displayInfo={true}
+          aggregatorAgenda={aggregatorAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
           sourceSchema={sourceAgendaSchema}
           initialRules={[]}
@@ -39,12 +51,14 @@ storiesOf('DefineRules - add', module)
 
 storiesOf('DefineRules - edit', module)
   .addDecorator(SourcesCanvasDecorator)
-  .addDecorator(ModalDecorator('Mondonville | Règles d\'agrégation'))
+  .addDecorator(ModalDecorator(sourceAgenda.title + ' | Règles d\'agrégation'))
   .addDecorator(IntlDecorator)
   .add('Editing a source - empty rule list', () => (
       <DefineRules
         displayInfo={false}
+        aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
+        sourceAgenda={sourceAgenda}
         sourceSchema={sourceAgendaSchema}
         initialRules={[]}
         onSubmit={() => {}}
@@ -54,7 +68,9 @@ storiesOf('DefineRules - edit', module)
   .add('Editing a source - some rules exist', () => (
     <DefineRules
       displayInfo={false}
+      aggregatorAgenda={aggregatorAgenda}
       aggregatorAgendaSchema={aggregatorAgendaSchema}
+      sourceAgenda={sourceAgenda}
       sourceSchema={sourceAgendaSchema}
       initialRules={rules}
       onSubmit={() => {}}

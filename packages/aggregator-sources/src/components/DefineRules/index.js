@@ -82,11 +82,13 @@ function reducer(state, action) {
 }
 
 export default function DefineRules({
+  aggregatorAgenda,
   aggregatorAgendaSchema,
   displayInfo,
   initialRules,
   isAggregator,
   sourceSchema,
+  sourceAgenda,
   primaryAction,
   onSubmit,
   onCancel
@@ -237,7 +239,9 @@ export default function DefineRules({
   if (state.mode === 'list') {
     return (
       <List
+        aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
+        sourceAgenda={sourceAgenda}
         sourceSchema={sourceSchema}
         isAggregator={isAggregator}
         displayInfo={displayInfo}
