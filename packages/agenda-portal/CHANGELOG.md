@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.4.4...@openagenda/agenda-portal@2.4.5) (2020-04-03)
+
+**Note:** Version bump only for package @openagenda/agenda-portal
+
+
+
+
+
 ## <small>2.4.4 (2020-04-03)</small>
 
 * revert(agenda-portal): reverts "add brackets in searchQuery" ([3c36ba7](https://bitbucket.org/openagenda/oa/commits/3c36ba7))
