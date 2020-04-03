@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.0.8 (2020-04-03)</small>
+
+**Note:** Version bump only for package @openagenda/agenda-search
+
+
+
+
+
 ## <small>1.0.7 (2020-04-03)</small>
 
 * fix builds on Yarn 2 ([f4723be](https://bitbucket.org/openagenda/oa/commits/f4723be))

@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.1.3 (2020-04-03)</small>
+
+* style(images): linting ([6cf7ddf](https://bitbucket.org/openagenda/oa/commits/6cf7ddf))
+* tweak(images): removed unused scripts ([f59d593](https://bitbucket.org/openagenda/oa/commits/f59d593))
+* linting(images) ([473cfb4](https://bitbucket.org/openagenda/oa/commits/473cfb4))
+
+
+
+
+
 ## <small>1.1.2 (2020-04-03)</small>
 
 * lint and prettier ([b1dbbc0](https://bitbucket.org/openagenda/oa/commits/b1dbbc0))

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.3.20 (2020-04-03)</small>
+
+**Note:** Version bump only for package @openagenda/event-form
+
+
+
+
+
 ## <small>1.3.19 (2020-04-03)</small>
 
 * event-form: tweaks enabledRanges in Timings ([dd54e12](https://bitbucket.org/openagenda/oa/commits/dd54e12))

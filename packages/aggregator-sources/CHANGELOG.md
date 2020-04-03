@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.1.8 (2020-04-03)</small>
+
+**Note:** Version bump only for package @openagenda/aggregator-sources
+
+
+
+
+
 ## <small>1.1.7 (2020-04-03)</small>
 
 * add agenda-settings/edit to webapp ([4f13766](https://bitbucket.org/openagenda/oa/commits/4f13766))

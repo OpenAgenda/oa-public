@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.2.4 (2020-04-03)</small>
+
+**Note:** Version bump only for package cibulNode
+
+
+
+
+
 ## <small>0.2.3 (2020-04-03)</small>
 
 * add addEvent activity, email and ability ([678a7f1](https://bitbucket.org/openagenda/oa/commits/678a7f1))

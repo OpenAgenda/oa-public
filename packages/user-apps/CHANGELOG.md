@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.1.4 (2020-04-03)</small>
+
+**Note:** Version bump only for package @openagenda/user-apps
+
+
+
+
+
 ## <small>1.1.3 (2020-04-03)</small>
 
 * add deutsch language choice ([a7f047d](https://bitbucket.org/openagenda/oa/commits/a7f047d))

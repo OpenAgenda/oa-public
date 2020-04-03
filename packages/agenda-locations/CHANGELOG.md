@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.7.2 (2020-04-03)</small>
+
+**Note:** Version bump only for package @openagenda/agenda-locations
+
+
+
+
+
 ## <small>1.7.1 (2020-04-03)</small>
 
 * agenda-locations: remove usuned s3 dependency ([14058aa](https://bitbucket.org/openagenda/oa/commits/14058aa))
