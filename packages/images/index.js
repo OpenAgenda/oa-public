@@ -1,24 +1,24 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const gm = require( 'gm' ).subClass( { imageMagick: true } );
-const http = require( 'http' );
-const https = require( 'https' );
-const { promisify } = require( 'util' );
-const request = require( 'request' );
-const url = require( 'url' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const fs = require('fs');
+const gm = require('gm').subClass({ imageMagick: true });
+const http = require('http');
+const https = require('https');
+const { promisify } = require('util');
+const request = require('request');
+const url = require('url');
+const VError = require('verror');
 
-const logs = require( '@openagenda/logs' );
-const log = logs( 'images' );
+const logs = require('@openagenda/logs');
+const log = logs('images');
 
-const p = require( './lib/promises' );
+const p = require('./lib/promises');
 const { w, wn } = p;
 
 let config;
 
-module.exports = _.assign( processImage, {
+module.exports = _.assign(processImage, {
   multi: processImageMulti,
   init,
   test: {
@@ -28,20 +28,20 @@ module.exports = _.assign( processImage, {
     _resize,
     _checkSize
   }
-} );
+});
 
-function init( cfg ) {
+function init(cfg) {
 
-  config = _.extend( {
+  config = _.extend({
     tmpPath: '/var/tmp',
     timeout: 10000,
     maxSize: 12000000,
     logger: false
-  }, cfg );
+  }, cfg);
 
-  if ( config.logger ) {
+  if (config.logger) {
 
-    logs.setModuleConfig( config.logger );
+    logs.setModuleConfig(config.logger);
 
   }
 
@@ -53,60 +53,60 @@ function init( cfg ) {
  * image output
  */
 
-function processImageMulti( srcOptions, destOptions, cb ) {
+function processImageMulti(srcOptions, destOptions, cb) {
 
-  log( 'processing multiple images' );
+  log('processing multiple images');
 
-  var srcParams = _.extend( {
+  var srcParams = _.extend({
     url: false,
     path: false
-  }, srcOptions ),
+  }, srcOptions),
 
   destDefaults = {
     name: false, // required
     clear: false
   };
 
-  ( srcParams.url ? _download( {
+  (srcParams.url ? _download({
     url: srcParams.url
-  } ) : w( { path: srcParams.path } ) )
+  }) : w({ path: srcParams.path }))
 
-  .then( p.ife( { preSave: true }, _preSave ) )
+  .then(p.ife({ preSave: true }, _preSave))
 
-  .then( async values => {
+  .then(async values => {
 
     const paths = [];
     const infos = [];
 
-    for ( const options of destOptions ) {
+    for (const options of destOptions) {
 
-      const { dstPath, info } = await promisify( processImage )( _.assign( {
+      const { dstPath, info } = await promisify(processImage)(_.assign({
         path: values.path,
         clear: false,
         name: false
       }, options, {
         returnValues: true
-      } ) );
+      }));
 
-      paths.push( dstPath );
-      infos.push( info );
+      paths.push(dstPath);
+      infos.push(info);
 
     }
 
-    return _.assign( values, {
+    return _.assign(values, {
       paths,
       infos
-    } );
+    });
 
-  } )
+  })
 
-  .then( _clearOrigin )
+  .then(_clearOrigin)
 
-  .done( values => {
+  .done(values => {
 
-    cb( null, values.paths, values.infos );
+    cb(null, values.paths, values.infos);
 
-  }, cb );
+  }, cb);
 
 }
 
@@ -116,82 +116,82 @@ function processImageMulti( srcOptions, destOptions, cb ) {
  * to tmp formatted saved image
  */
 
-function processImage( options, cb ) {
+function processImage(options, cb) {
 
-  log( 'processing single image' );
+  log('processing single image');
 
-  w( _.extend( {
+  w(_.extend({
     preSave: false,
     url: false,
     path: false, // either url or this is required
     name: false, // required
     format: false,  // if not set, keep original format
-    sizeLimits: [ 2000, 10000000 ],
+    sizeLimits: [2000, 10000000],
     info: {},
     returnValues: false,
     clear: true // if true, deletes origin file in tmp dir
-  }, options ) )
+  }, options))
 
-  .then( p.ifl( { url: true }, _download ) )
+  .then(p.ifl({ url: true }, _download))
 
-  .then( p.ifl( { path: false }, p.interrupt( 'image could not be retrieved' ) ) )
+  .then(p.ifl({ path: false }, p.interrupt('image could not be retrieved')))
 
-  .then( _loadImageStream )
+  .then(_loadImageStream)
 
-  .then( _checkSize )
+  .then(_checkSize)
 
-  .then( _clearExif )
+  .then(_clearExif)
 
-  .then( p.ife( { preSave: true }, _preSave ) )
+  .then(p.ife({ preSave: true }, _preSave))
 
-  .then( p.ifl( { format: true }, _crop ) )
+  .then(p.ifl({ format: true }, _crop))
 
-  .then( p.ifl( { format: true }, _resize ) )
+  .then(p.ifl({ format: true }, _resize))
 
-  .then( _save )
+  .then(_save)
 
-  .then( p.ife( { clear: true }, _clearOrigin ) )
+  .then(p.ife({ clear: true }, _clearOrigin))
 
-  .done( function( values ) {
+  .done(function(values) {
 
-    cb( null, values.returnValues ? values : values.dstPath );
+    cb(null, values.returnValues ? values : values.dstPath);
 
   }, err => {
 
-    if ( _.get( err, 'path' ) && _.get( options, 'clear' ) ) {
+    if (_.get(err, 'path') && _.get(options, 'clear')) {
 
-      fs.unlink( _.get( err, 'path' ), () => {
+      fs.unlink(_.get(err, 'path'), () => {
 
-        cb( _.omit( err, [ 'path' ] ) );
+        cb(_.omit(err, ['path']));
 
-      } );
+      });
 
-    } else if ( _.isObject( err ) ) {
+    } else if (_.isObject(err)) {
 
-      cb( _.omit( err, [ 'path' ] ) );
+      cb(_.omit(err, ['path']));
 
     } else {
 
-      cb( err );
+      cb(err);
 
     }
 
-  } );
+  });
 
 }
 
 
-async function _clearOrigin( values ) {
+async function _clearOrigin(values) {
 
-  log( 'removing file at %s', values.path );
+  log('removing file at %s', values.path);
 
   try {
 
-    await promisify( fs.unlink.bind( fs ) )( values.path );
+    await promisify(fs.unlink.bind(fs))(values.path);
 
-  } catch ( err ) {
+  } catch (err) {
 
-    log( 'error', 'could not delete file at %s', values.path );
+    log('error', 'could not delete file at %s', values.path);
 
     throw err;
 
@@ -202,7 +202,7 @@ async function _clearOrigin( values ) {
 }
 
 
-function _clearExif( values ) {
+function _clearExif(values) {
 
   values.image.noProfile();
 
@@ -211,113 +211,113 @@ function _clearExif( values ) {
 }
 
 
-function _checkSize( values ) {
+function _checkSize(values) {
 
-  return w.promise( function( rs, rj ) {
+  return w.promise(function(rs, rj) {
 
     var imageBytes;
 
     const { filesize } = values.info;
 
-    if ( filesize.indexOf( 'MB' ) !== -1 ) {
+    if (filesize.indexOf('MB') !== -1) {
 
-      imageBytes = parseInt( filesize.replace( /(\.[0-9]+|)MB/, '000000' ), 10 );
+      imageBytes = parseInt(filesize.replace(/(\.[0-9]+|)MB/, '000000'), 10);
 
-    } else if ( filesize.indexOf( 'KB' ) !== -1 ) {
+    } else if (filesize.indexOf('KB') !== -1) {
 
-      imageBytes = parseInt( filesize.replace( /(\.[0-9]+|)KB/, '000' ), 10 );
+      imageBytes = parseInt(filesize.replace(/(\.[0-9]+|)KB/, '000'), 10);
 
     } else {
 
-      imageBytes = parseInt( filesize.replace( /(\.[0-9]+|)B/, '' ), 10 );
+      imageBytes = parseInt(filesize.replace(/(\.[0-9]+|)B/, ''), 10);
 
     }
 
-    if ( imageBytes < values.sizeLimits[ 0 ] ) {
+    if (imageBytes < values.sizeLimits[0]) {
 
-      return rj( {
+      return rj({
         code: 'image.toosmall',
-        min: values.sizeLimits[ 0 ],
+        min: values.sizeLimits[0],
         message: 'minimum size not met',
         path: values.path
-      } );
+      });
 
-    } else if ( imageBytes > values.sizeLimits[ 1 ] ) {
+    } else if (imageBytes > values.sizeLimits[1]) {
 
-      return rj( {
+      return rj({
         code: 'image.toobig',
-        max: values.sizeLimits[ 1 ],
+        max: values.sizeLimits[1],
         message: 'maximum size exceeded',
         path: values.path
-      } );
+      });
 
     }
 
-    rs( values );
+    rs(values);
 
-  } );
+  });
 
 }
 
 
-async function _preSave( values ) {
+async function _preSave(values) {
 
-  const path = values.path.split( '/' );
+  const path = values.path.split('/');
 
-  const format = ( values.format && values.format.format ) ? values.format.format : 'jpg';
+  const format = (values.format && values.format.format) ? values.format.format : 'jpg';
 
-  log( 'presaving to format', format );
+  log('presaving to format', format);
 
   path.pop();
 
-  path.push( _stripExtension( values.name ) );
+  path.push(_stripExtension(values.name));
 
   const dstPath = path.join('/') + '.pre.' + format;
 
-  log( 'presaving to %s', dstPath );
+  log('presaving to %s', dstPath);
 
-  await promisify( values.image.write.bind( values.image ) )( dstPath );
+  await promisify(values.image.write.bind(values.image))(dstPath);
 
-  log( 'presaved' );
+  log('presaved');
 
   // reload image from pre-saved
-  if ( values.clear ) await _clearOrigin( values );
+  if (values.clear) await _clearOrigin(values);
 
-  _.assign( values, {
+  _.assign(values, {
     path: dstPath,
     clear: true
-  } );
+  });
 
-  return _loadImageStream( values );
+  return _loadImageStream(values);
 
 }
 
 
-function _save( values ) {
+function _save(values) {
 
-  return w.promise( function( rs, rj ) {
+  return w.promise(function(rs, rj) {
 
-    var path = values.path.split( '/' ),
+    var path = values.path.split('/'),
 
-    format = ( values.format && values.format.format ) ? values.format.format : 'jpg',
+    format = (values.format && values.format.format) ? values.format.format : 'jpg',
 
     dstPath;
 
     path.pop();
 
-    path.push( _stripExtension( values.name ) );
+    path.push(_stripExtension(values.name));
 
     dstPath = path.join('/') + '.' + format;
 
-    values.image.write( dstPath, function( err ) {
+    values.image.write(dstPath, function(err) {
 
-      if ( err ) return rj( err );
+      if (err) return rj(err);
 
-      log( 'successful image save at %s', dstPath );
+      log('successful image save at %s', dstPath);
 
       values.dstPath = dstPath;
 
-      rs( values );
+      rs(values);
 
     })
 
@@ -331,35 +331,35 @@ function _save( values ) {
  * resize to fit inside required format
  */
 
-function _resize( values ) {
+function _resize(values) {
 
-  if ( !values.format.width && !values.format.height ) return values;
+  if (!values.format.width && !values.format.height) return values;
 
-  return w.promise( function( rs, rj ) {
+  return w.promise(function(rs, rj) {
 
     var resizeByHeight = false,
 
     srcRatio = values.info.size.width / values.info.size.height,
 
-    dstRatio = ( !values.format.width || !values.format.height ) ? srcRatio : values.format.width / values.format.height,
+    dstRatio = (!values.format.width || !values.format.height) ? srcRatio : values.format.width / values.format.height,
 
     resizeRatio;
 
-    if ( srcRatio !== dstRatio ) {
+    if (srcRatio !== dstRatio) {
 
       resizeByHeight = dstRatio > srcRatio;
 
     }
 
-    resizeRatio = values.format[ resizeByHeight ? 'height' : 'width' ] / values.info.size[ resizeByHeight ? 'height' : 'width' ];
+    resizeRatio = values.format[resizeByHeight ? 'height' : 'width'] / values.info.size[resizeByHeight ? 'height' : 'width'];
 
-    values.info.size.width = Math.ceil( values.info.size.width * resizeRatio );
+    values.info.size.width = Math.ceil(values.info.size.width * resizeRatio);
 
-    values.info.size.height = Math.ceil( values.info.size.height * resizeRatio );
+    values.info.size.height = Math.ceil(values.info.size.height * resizeRatio);
 
-    values.image.resize( values.info.size.width, values.info.size.height );
+    values.image.resize(values.info.size.width, values.info.size.height);
 
-    rs( values );
+    rs(values);
 
   });
 
@@ -370,11 +370,11 @@ function _resize( values ) {
  * crop image if required
  */
 
-function _crop( values ) {
+function _crop(values) {
 
-  if ( !values.format.crop || !values.format.height || !values.format.width ) return values;
+  if (!values.format.crop || !values.format.height || !values.format.width) return values;
 
-  return w.promise( function( rs, rj ) {
+  return w.promise(function(rs, rj) {
 
     // crop if ratio is different
 
@@ -384,33 +384,33 @@ function _crop( values ) {
 
     newHeight, newWidth;
 
-    if ( srcRatio < dstRatio ) {
+    if (srcRatio < dstRatio) {
 
       // crop in height
 
       newHeight = values.info.size.width / dstRatio;
 
-      values.image.crop( values.info.size.width, newHeight, 0, ( values.info.size.height - newHeight )/2 );
+      values.image.crop(values.info.size.width, newHeight, 0, (values.info.size.height - newHeight)/2);
 
       values.info.size.height = newHeight;
 
-    } else if ( srcRatio > dstRatio ) {
+    } else if (srcRatio > dstRatio) {
 
       // crop in width
 
       newWidth = values.info.size.height * dstRatio;
 
-      values.image.crop( newWidth, values.info.size.height, ( values.info.size.width - newWidth ) / 2, 0 );
+      values.image.crop(newWidth, values.info.size.height, (values.info.size.width - newWidth) / 2, 0);
 
       values.info.size.width = newWidth;
 
     } else {
 
-      log( 'the ratio is the same, no need to crop' );
+      log('the ratio is the same, no need to crop');
 
     }
 
-    rs( values );
+    rs(values);
 
   });
 
@@ -420,17 +420,17 @@ function _crop( values ) {
  * load and check image validity
  */
 
-async function _loadImageStream( values ) {
+async function _loadImageStream(values) {
 
-  log( 'loading image stream' );
+  log('loading image stream');
 
-  const image = gm( values.path );
+  const image = gm(values.path);
 
   try {
 
-    const size = await promisify( image.size.bind( image ) )();
+    const size = await promisify(image.size.bind(image))();
 
-    const filesize = await promisify( image.filesize.bind( image ) )();
+    const filesize = await promisify(image.filesize.bind(image))();
 
     values.info = {
       size,
@@ -441,14 +441,14 @@ async function _loadImageStream( values ) {
 
     return values;
 
-  } catch ( err ) {
+  } catch (err) {
 
-    if ( err.toString().indexOf( 'no decode delegate for this image format' ) !== -1 ) {
+    if (err.toString().indexOf('no decode delegate for this image format') !== -1) {
 
-      const format = ( _.get( values, 'url', null ) || _.get( values, 'url', '' ) || '' ).split( '.' ).pop();
+      const format = (_.get(values, 'url', null) || _.get(values, 'url', '') || '').split('.').pop();
 
       throw {
-        path: _.get( values, 'path' ),
+        path: _.get(values, 'path'),
         format,
         message: 'unhandled image format',
         code: 'invalid.format'
@@ -456,10 +456,10 @@ async function _loadImageStream( values ) {
 
     }
 
-    log( 'error', 'invalid image: %j', err );
+    log('error', 'invalid image: %j', err);
 
     throw {
-      path: _.get( values, 'path' ),
+      path: _.get(values, 'path'),
       message: 'invalid image'
     }
 
@@ -473,10 +473,10 @@ async function _loadImageStream( values ) {
  * download file from given url
  */
 
-function _download( values ) {
+function _download(values) {
   log('_download', values.url);
 
-  return w.promise( function( rs, rj ) {
+  return w.promise(function(rs, rj) {
 
     let processed = false;
 
@@ -486,13 +486,13 @@ function _download( values ) {
 
     timeout = false,
 
-    file = fs.createWriteStream( path ),
+    file = fs.createWriteStream(path),
 
     downloadedSize = 0,
 
     aborted = false,
 
-    req = request.get( {
+    req = request.get({
       url: _encodeURIIfNotEncoded(src),
       agentOptions: {
         rejectUnauthorized: false
@@ -503,61 +503,61 @@ function _download( values ) {
         'Accept': '*/*'
       },
       timeout: config.timeout
-    } )
+    })
 
-    .on( 'response', res => {
+    .on('response', res => {
 
       log('_download: received with code %s', res.statusCode);
 
-      if ( res.statusCode < 200 || res.statusCode > 300 ) {
+      if (res.statusCode < 200 || res.statusCode > 300) {
 
         if (processed) return;
         processed = true;
 
-        _downloadAbort( req, path, {
+        _downloadAbort(req, path, {
           code: 'invalid.status',
           message: 'invalid status code',
           statusCode: res.statusCode
-        }, rj );
+        }, rj);
 
       }
 
-    } )
+    })
 
-    .on( 'error', err => {
+    .on('error', err => {
       log('_download - error', err);
 
       if (processed) return;
       processed = true;
 
-      rj( err.code == 'ETIMEDOUT' ? 'timeout' : err );
+      rj(err.code == 'ETIMEDOUT' ? 'timeout' : err);
 
-    } )
+    })
 
-    .on( 'data', chunk => {
+    .on('data', chunk => {
       log('_download - data');
 
       downloadedSize += chunk.length;
 
-      if ( downloadedSize > config.maxSize ) {
+      if (downloadedSize > config.maxSize) {
 
         if (processed) return;
 
         processed = true;
 
-        _downloadAbort( req, path, {
+        _downloadAbort(req, path, {
           code: 'image.toobig',
           message: 'maximum size exceeded',
           max: config.maxSize
-        }, rj );
+        }, rj);
 
         aborted = true;
 
       }
 
-    } )
+    })
 
-    .on( 'end', () => {
+    .on('end', () => {
       log('_download - end');
 
       if (aborted) return;
@@ -565,44 +565,44 @@ function _download( values ) {
 
       values.path = path;
 
-      log( 'download successful at %s', path );
+      log('download successful at %s', path);
 
     });
 
-    req.pipe( file );
+    req.pipe(file);
 
-    file.on( 'close', () => {
+    file.on('close', () => {
       log('_downloed - close');
 
-      if ( aborted ) return;
+      if (aborted) return;
       if (processed) return;
       processed = true;
 
-      rs( values );
+      rs(values);
 
-    } );
+    });
 
-  } );
+  });
 
 }
 
 
-function _downloadAbort( req, path, error, cb ) {
+function _downloadAbort(req, path, error, cb) {
   log('_downloadAbort: unlinking file %s', path);
 
   req.abort();
 
-  fs.unlink( path, function( err ) {
+  fs.unlink(path, function(err) {
 
-    if ( err ) {
+    if (err) {
 
-      log( 'error', 'could not delete file at %s', path );
+      log('error', 'could not delete file at %s', path);
 
     } else {
       log('file %s unlinked', path);
     }
 
-    cb( error );
+    cb(error);
 
   });
 
@@ -610,17 +610,17 @@ function _downloadAbort( req, path, error, cb ) {
 
 function _getTemporaryFilePath() {
 
-  return config.tmpPath + ( new Date() ).getTime() + '-' + Math.ceil( Math.random() * 9999999999 );
+  return config.tmpPath + (new Date()).getTime() + '-' + Math.ceil(Math.random() * 9999999999);
 
 }
 
-function _stripExtension( filename ) {
+function _stripExtension(filename) {
 
-  var parts = filename.split( '.' );
+  var parts = filename.split('.');
 
-  if ( [ 'jpg', 'png', 'bmp', 'jpeg' ].indexOf( parts.pop() ) !== -1 ) {
+  if (['jpg', 'png', 'bmp', 'jpeg'].indexOf(parts.pop()) !== -1) {
 
-    return parts.join( '.' );
+    return parts.join('.');
 
   }
 
