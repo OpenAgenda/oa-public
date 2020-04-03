@@ -42,7 +42,7 @@ module.exports = async (
     );
 
     if (limit.isReached(aggregatorLimit, aggregatedCount)) {
-      log('Limit %s has been reached reached. Not processed');
+      log('info', 'Limit %s has been reached reached on aggregator agenda uid %s. Not processed', aggregatorLimit, aggregatorAgendaUid);
       return;
     }
   }
