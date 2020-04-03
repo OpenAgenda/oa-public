@@ -8,12 +8,12 @@ import { ruleToValues } from '../src/utils/rules';
 import ModalDecorator from './decorators/ModalDecorator';
 import IntlDecorator from './decorators/IntlDecorator';
 
-import villeDeLille from './mocks/villeDeLille.schema.json';
-import MEL from './mocks/MEL.schema.json';
-import villeDeLilleToMELRules from './mocks/villeDeLilleToMEL.rules.json';
+import villeDeLille from './mocks/RuleForm/villeDeLille.schema.json';
+import MEL from './mocks/RuleForm/MEL.schema.json';
+import villeDeLilleToMELRules from './mocks/RuleForm/villeDeLilleToMEL.rules.json';
 
 export default storiesOf('RuleForm', module)
-  .addDecorator(ModalDecorator)
+  .addDecorator(ModalDecorator())
   .addDecorator(IntlDecorator)
   .add('when the rule is new', () => (
     <Form

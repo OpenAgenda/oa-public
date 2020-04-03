@@ -121,7 +121,6 @@ export function load(key, query) {
     key,
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: ({ client }, { getState }) => {
-      console.log(getState());
       const {
         res,
         initialized,

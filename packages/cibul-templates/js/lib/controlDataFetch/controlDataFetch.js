@@ -29,7 +29,9 @@ defaults = {
   uid: false, // required. the uid of the agenda
   embedUid: false, // optional. the uid of the embed
   jsonp: false
-}
+};
+
+res.dev = res.development;
 
 module.exports = fetch;
 

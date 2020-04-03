@@ -7,11 +7,11 @@ import DefineRules from './DefineRules';
 const messages = defineMessages({
   updateASource: {
     id: 'aggregator-sources.UpdateSourceModal.updateASource',
-    defaultMessage: 'Update a source'
+    defaultMessage: 'Aggregation rules'
   },
   updateSource: {
     id: 'aggregator-sources.UpdateSourceModal.updateSource',
-    defaultMessage: 'Update source'
+    defaultMessage: 'Update'
   },
   cancel: {
     id: 'aggregator-sources.UpdateSourceModal.cancel',
@@ -22,33 +22,6 @@ const messages = defineMessages({
 const modalClassnames = {
   overlay: 'popup-overlay big'
 };
-
-function SubmitButton({ onCancel, handleSubmit }) {
-  const intl = useIntl();
-
-  return (
-    <div className="margin-top-md">
-      <div className="pull-left">
-        <button
-          onClick={onCancel}
-          type="button"
-          className="btn btn-link cancel-button-left text-danger"
-        >
-          {intl.formatMessage(messages.cancel)}
-        </button>
-      </div>
-      <div className="text-right">
-        <button
-          onClick={handleSubmit}
-          type="button"
-          className="btn btn-primary"
-        >
-          {intl.formatMessage(messages.updateSource)}
-        </button>
-      </div>
-    </div>
-  );
-}
 
 export default function UpdateSourceModal({
   onSubmit,
@@ -68,21 +41,18 @@ export default function UpdateSourceModal({
 
   return (
     <Modal
-      title={intl.formatMessage(messages.updateASource)}
+      title={data.source.agenda.title + ' | ' + intl.formatMessage(messages.updateASource)}
       onClose={onClose}
       classNames={modalClassnames}
     >
-      <h4 className="text-center">{data.source.agenda.title}</h4>
-      <div className="margin-top-sm">
-        <DefineRules
-          aggregatorAgendaSchema={aggregatorAgendaSchema}
-          sourceSchema={data.schema}
-          initialRules={data.source.rules}
-          onSubmit={handleSubmit}
-          SubmitButton={SubmitButton}
-          onCancel={onClose}
-        />
-      </div>
+      <DefineRules
+        displayInfo={false}
+        aggregatorAgendaSchema={aggregatorAgendaSchema}
+        sourceSchema={data.schema}
+        initialRules={data.source.rules}
+        onSubmit={handleSubmit}
+        onCancel={onClose}
+      />
     </Modal>
   );
 }

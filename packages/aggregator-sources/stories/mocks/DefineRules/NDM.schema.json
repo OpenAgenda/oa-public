@@ -1,0 +1,523 @@
+{
+  "nextOptionId": 14,
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "fields": [
+    {
+      "field": "languages",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract",
+      "label": {
+        "fr": "Nom de l'événement",
+        "en": "Name of the event"
+      },
+      "info": {
+        "fr": "Précisez le type et le nom de l'activité",
+        "en": "Specify the type and name of the activity"
+      },
+      "placeholder": {
+        "fr": "ex : Visite à la lampe torche des collections",
+        "en": "ex : Visit of the collections at torchlight"
+      }
+    },
+    {
+      "field": "types-devenement",
+      "label": {
+        "fr": "Types d'événement",
+        "en": "Types of events"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 1,
+          "value": "animation-jeune-public",
+          "label": {
+            "fr": "Animation jeune public",
+            "en": "Junior animation"
+          }
+        },
+        {
+          "id": 2,
+          "value": "atelier",
+          "label": {
+            "fr": "Atelier",
+            "en": "Workshop"
+          }
+        },
+        {
+          "id": 3,
+          "value": "circuit-parcours",
+          "label": {
+            "fr": "Circuit / parcours",
+            "en": "Circuit / journey"
+          }
+        },
+        {
+          "id": 4,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition",
+            "en": "Exhibition"
+          }
+        },
+        {
+          "id": 5,
+          "value": "fouille-archeologique-demonstration",
+          "label": {
+            "fr": "Fouille archéologique / démonstration",
+            "en": "Archeological dig / technical show"
+          }
+        },
+        {
+          "id": 6,
+          "value": "projection-mise-en-lumiere",
+          "label": {
+            "fr": "Projection / mise en lumière",
+            "en": "Projection / lightings"
+          }
+        },
+        {
+          "id": 7,
+          "value": "spectacle-concert",
+          "label": {
+            "fr": "Spectacle / concert",
+            "en": "Performances / concerts"
+          }
+        },
+        {
+          "id": 8,
+          "value": "visite-libre",
+          "label": {
+            "fr": "Visite libre",
+            "en": "Free visit"
+          }
+        },
+        {
+          "id": 9,
+          "value": "visite-commentee-conference-lecture",
+          "label": {
+            "fr": "Visite commentée / conférence / lecture",
+            "en": "Guided tour / conference / reading"
+          }
+        }
+      ],
+      "fieldType": "radio"
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract",
+      "label": {
+        "fr": "Image de l'événement",
+        "en": "Image"
+      },
+      "info": {
+        "fr": "Les événements disposant d'une image ont un taux de clic deux fois plus élevé !\nL'image doit présenter 500 pixels de largeur minimum.",
+        "en": "Events with images are more appealing! The image must have a minimum width of 500 pixels."
+      }
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "abstract",
+      "optional": false,
+      "label": {
+        "fr": "Crédits de l'image",
+        "en": "Image credits"
+      },
+      "info": {
+        "fr": "Indiquez le propriétaire de l'image. Si l'image est sous licence libre, merci de le préciser.",
+        "en": "Specify the owner of the image. Mention when the license is open."
+      },
+      "placeholder": {
+        "fr": "© Ministère de la Culture",
+        "en": "© Ministry of Culture"
+      }
+    },
+    {
+      "field": "location",
+      "fieldType": "abstract",
+      "label": {
+        "fr": "Lieu",
+        "en": "Location"
+      },
+      "info": {
+        "fr": "Recherchez un musée dans notre base de donnée ou créez une nouvelle fiche.\nAttention : vous ne pourrez plus modifier la fiche une fois créée mais simplement suggérer une modification. Votre demande sera traitée par les modérateurs de l'agenda.",
+        "en": "Search an existing museum in the database ou create a new one.\nBe careful : you will not be able to update the location once it is created but still may request administrators to bring changes to it."
+      },
+      "placeholder": {
+        "fr": "Saisissez le nom du lieu de l’événement.",
+        "en": "Type in the name of the location of the event"
+      },
+      "legacy": {
+        "eventForm": {
+          "detailed": true
+        },
+        "labels": {
+          "create": {
+            "info": {
+              "en": "The address will be automatically completed with the correspondence Department, City, Country extracted from the geolocation.",
+              "fr": "L'adresse sera automatiquement complétée avec les correspondances Département, Ville, Pays extraites de la géolocalisation."
+            }
+          },
+          "name": {
+            "en": "Name of the location of the event ( Required field )",
+            "fr": "Saisissez le nom du lieu de l’événement ( Obligatoire )"
+          },
+          "nameInfo": {
+            "en": "",
+            "fr": "Saisissez le nom du lieu où se déroule l’événement. Si l’événement est itinérant, indiquez le nom et l’adresse du lieu de départ et précisez le déroulé du parcours dans la description de l’événement."
+          },
+          "namePlaceholder": {
+            "fr": "Ministère de la Culture",
+            "en": "Ministry of culture"
+          },
+          "address": {
+            "en": "Address ( Required field )",
+            "fr": "Adresse ( Champ obligatoire )"
+          },
+          "addressInfo": {
+            "en": "Indicate the number, name of the street, the name and postal code of the city",
+            "fr": "Indiquez le numéro, le nom de la voie, le code postal et le nom de la commune.\nAttention : N’utilisez pas de codes postaux sous forme de cedex.\nUne fois le champ « Adresse » complété, vérifiez sur la carte que le pointeur est correctement situé. Vous pouvez le déplacer manuellement si nécessaire.\nA noter : L'adresse sera automatiquement complétée avec les correspondances Département, Région, Pays, extraites de la géolocalisation."
+          },
+          "addressPlaceholder": {
+            "en": "03 rue de Valois 75001 Paris",
+            "fr": "03 rue de Valois 75001 Paris"
+          },
+          "imageInfo": {
+            "en": "Only upload images you have the right to re-use. The image must have a minimum width of 500 pixels.",
+            "fr": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide."
+          },
+          "imageCredits": {
+            "en": "Image credits ( Required field )",
+            "fr": "Crédits de l’image ( Champ obligatoire )"
+          },
+          "imageCreditsInfo": {
+            "en": "Indicate the owner of the image. If the image is under an open license, please specify which.",
+            "fr": "Indiquez le propriétaire de l'image. Si l'image est sous licence libre, merci de le préciser."
+          },
+          "descriptionInfo": {
+            "en": "Describe your location (its history, particularities, the type of offered activities, etc).",
+            "fr": "Présentez votre lieu (son histoire, ses particularités, le type d’activité proposée, etc)."
+          },
+          "accessInfo": {
+            "en": "Indicate the access conditions to your location",
+            "fr": "Indiquez les conditions d’accès à votre lieu (transports à proximité, présence de parkings, aménagements spécifiques, etc)."
+          },
+          "phoneInfo": {
+            "en": "Indicate a contact phone number for the public",
+            "fr": "Indiquez un numéro de téléphone pour les demandes du public (standard, tél. fixe)."
+          },
+          "phonePlaceholder": {
+            "en": "Ex : +33 (0)1 40 15 80 00",
+            "fr": "Ex : +33 (0)1 40 15 80 00"
+          },
+          "websiteInfo": {
+            "fr": "Indiquez l’adresse de votre site Internet, si existant (inclure le http:// ou https://)",
+            "en": "Indicate the website of the location if any  (don’t forget http:// or https://)."
+          },
+          "websitePlaceholder": {
+            "fr": "http://www.culture.gouv.fr",
+            "en": "http://www.culture.gouv.fr"
+          },
+          "linksInfo": {
+            "fr": "Ajoutez le lien de vos pages Facebook, Twitter ou tout autre lien relatif au lieu.",
+            "en": "Add facebook, twitter and other links"
+          }
+        },
+        "tagSet": {
+          "groups": [
+            {
+              "name": "Label",
+              "info": null,
+              "tags": [
+                {
+                  "id": 50,
+                  "label": "Architecture contemporaine remarquable"
+                },
+                {
+                  "id": 38,
+                  "label": "Jardin remarquable"
+                },
+                {
+                  "id": 41,
+                  "label": "Maison des illustres"
+                },
+                {
+                  "id": 42,
+                  "label": "Monument historique"
+                },
+                {
+                  "id": 40,
+                  "label": "Musée de France"
+                },
+                {
+                  "id": 35,
+                  "label": "Patrimoine européen"
+                },
+                {
+                  "id": 37,
+                  "label": "Patrimoine mondial de l'UNESCO"
+                },
+                {
+                  "id": 60,
+                  "label": "Site patrimonial remarquable"
+                },
+                {
+                  "id": 39,
+                  "label": "Tourisme et handicap"
+                },
+                {
+                  "id": 36,
+                  "label": "Villes et Pays d'art et d'histoire"
+                }
+              ]
+            },
+            {
+              "name": {
+                "fr": "Spécificité",
+                "en": "Specificity"
+              },
+              "info": null,
+              "tags": [
+                {
+                  "id": 33,
+                  "label": {
+                    "fr": "Première participation",
+                    "en": "First participation"
+                  }
+                },
+                {
+                  "id": 32,
+                  "label": {
+                    "fr": "Ouverture exceptionnelle",
+                    "en": "Exceptional opening"
+                  }
+                }
+              ]
+            },
+            {
+              "name": {
+                "fr": "Types de lieu",
+                "en": "Types of place"
+              },
+              "info": null,
+              "tags": [
+                {
+                  "id": 2,
+                  "label": {
+                    "fr": "Château, hôtel urbain, palais, manoir",
+                    "en": "Castle, palace, manor house"
+                  }
+                },
+                {
+                  "id": 17,
+                  "label": {
+                    "fr": "Beaux-Arts",
+                    "en": "Museum of Arts"
+                  }
+                },
+                {
+                  "id": 18,
+                  "label": {
+                    "fr": "Art contemporain",
+                    "en": "Contemporary Arts"
+                  }
+                },
+                {
+                  "id": 19,
+                  "label": {
+                    "fr": "Arts décoratifs",
+                    "en": "Decorative Arts"
+                  }
+                },
+                {
+                  "id": 20,
+                  "label": {
+                    "fr": "Sciences et techniques",
+                    "en": "Sciences and technical"
+                  }
+                },
+                {
+                  "id": 21,
+                  "label": {
+                    "fr": "Insolites",
+                    "en": "Unusual"
+                  }
+                },
+                {
+                  "id": 22,
+                  "label": {
+                    "fr": "Société et civilisation",
+                    "en": "Society and civilisation"
+                  }
+                }
+              ],
+              "required": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract",
+      "label": {
+        "en": "Timings",
+        "fr": "Horaires"
+      },
+      "info": {
+        "fr": "Ajoutez ou modifiez des horaires",
+        "en": "Add and modify timings"
+      },
+      "enabledRanges": [
+        {
+          "begin": "2020-11-14T07:00",
+          "end": "2020-11-15T06:00"
+        }
+      ]
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract",
+      "info": {
+        "fr": "Proposez un résumé de l'événement. Ce texte s’affichera sur internet si la description longue n’est pas renseignée et pour l’édition de programmes papier.",
+        "en": "Write an extract of your programme. This text will be displayed on the internet if the long description is not filled in and for editing paper programs."
+      }
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract",
+      "info": {
+        "fr": "Décrivez l'événement, donnez des précisions sur son déroulé.\nPS: Les outils d’inscription et les conditions de participation sont à renseigner dans les champs spécifiques ci-dessous.",
+        "en": "Write the full programme.\nPS: Registration tools and conditions of participation are to be filled in the specific fields below."
+      },
+      "placeholder": {
+        "fr": "Vous pouvez ajouter des médias (audio, vidéo) en copiant une URL Youtube, Dailymotion ou Soundcloud, par ex.",
+        "en": "You can add medias (video, audio) by copying a YouTube URL for example."
+      }
+    },
+    {
+      "field": "conditions-de-participation",
+      "label": {
+        "fr": "Conditions de participation",
+        "en": "Conditions for participation"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 10,
+          "value": "gratuit",
+          "label": {
+            "fr": "Gratuit",
+            "en": "Free entrance"
+          }
+        },
+        {
+          "id": 11,
+          "value": "tarif-preferentiel",
+          "label": {
+            "fr": "Tarif préférentiel",
+            "en": "Reduced fare"
+          }
+        },
+        {
+          "id": 12,
+          "value": "tarif-habituel",
+          "label": {
+            "fr": "Tarif habituel",
+            "en": "Usual fare"
+          }
+        },
+        {
+          "id": 13,
+          "value": "sur-inscription",
+          "label": {
+            "fr": "Sur inscription",
+            "en": "Registration required"
+          }
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract",
+      "label": {
+        "fr": "Détail des conditions de participation",
+        "en": "Details of participation conditions"
+      },
+      "info": {
+        "fr": "Indiquez les tarifs, les conditions de gratuité, le nombre limité de places disponibles, le matériel à prévoir, etc.",
+        "en": "Specify fares, conditions of free entrance, number of places available or any other request"
+      }
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract",
+      "label": {
+        "fr": "Outils d'inscription",
+        "en": "Registration details"
+      },
+      "info": {
+        "fr": "Pour les inscriptions obligatoires, indiquez un numéro de téléphone, une adresse mail ou un lien de réservation.",
+        "en": "Specify a phone number or an email for the registration."
+      },
+      "placeholder": {
+        "fr": "Séparez chaque valeur par une virgule ou une tabulation",
+        "en": "Separate each value by a tab or a comma"
+      }
+    },
+    {
+      "field": "age",
+      "label": {
+        "fr": "Age du public ciblé",
+        "en": "Targeted public age"
+      },
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract",
+      "label": {
+        "fr": "Accessibilité particulière",
+        "en": "Accessibility conditions"
+      },
+      "info": {
+        "fr": "Précisez à quel(s) type(s) de handicap(s) cet événement est accessible.",
+        "en": "Specify availability of special access"
+      }
+    },
+    {
+      "field": "keywords",
+      "display": false
+    }
+  ]
+}

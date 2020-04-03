@@ -1,6 +1,7 @@
 "use strict";
 
 const domain = require( '../../domain' );
+const base64 = require( '@openagenda/utils/base64' );
 
 const debug = require( 'debug' );
 const qs = require( 'qs' );
@@ -98,28 +99,17 @@ module.exports = function( uid ) {
 
       syncHref = !!ctl.sh;
 
-      if ( typeof _readHrefQuery().geolocate !== 'undefined' ) {
-
-        geoLib( ctl, _readHrefQuery( 'geolocate' ), function( err, cornerParams ) {
-
-          if ( err ) {
-
-            console.log( '>>>>>> GEOLOCATION ERROR: ', JSON.stringify( err ) );
-
+      if (typeof _readHrefQuery().geolocate !== 'undefined') {
+        geoLib(ctl, _readHrefQuery('geolocate'), function(err, cornerParams) {
+          if (err) {
+            console.log( '>>>>>> GEOLOCATION ERROR: ', JSON.stringify(err));
             _init();
-
           } else {
-
-            _init( cornerParams );
-
+            _init(cornerParams);
           }
-
-        } );
-
+        });
       } else {
-
-        _init();
-
+        _init(_extractNavigationContext());
       }
 
     });
@@ -143,7 +133,6 @@ module.exports = function( uid ) {
 
 
   function _init( initParams ) {
-
     var change = _initCurrentRequestParams( initParams );
 
     _processWidgetCtlRequests( false );
@@ -922,6 +911,25 @@ module.exports = function( uid ) {
 
     }
 
+  }
+
+  function _extractNavigationContext() {
+    try {
+      let query = {};
+
+      const queryParts = window.location.href.split('#')[0].split('?').slice(1);
+
+      if (queryParts.length) {
+        query = qs.parse(queryParts[0]);
+      }
+
+      if (!query.nc) return;
+
+      return JSON.parse(base64.decode(query.nc)).search;
+    } catch(e) {
+      log('had some trouble reading navigation context: %s', e);
+      return;
+    }
   }
 
   function _readHrefQuery( key ) {

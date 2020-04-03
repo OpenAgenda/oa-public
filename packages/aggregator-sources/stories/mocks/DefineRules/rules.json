@@ -1,0 +1,50 @@
+[{
+  "query": {
+    "location": {
+      "city": "Mondonville"
+    }
+  },
+  "required": true,
+  "actions": []
+}, {
+  "query": {
+    "location": {
+      "department": ["Haute-Garonne"]
+    }
+  },
+  "required": false,
+  "actions": [{
+    "field": "thematiques-metropolitaines",
+    "values": 3
+  }, {
+    "field": "state",
+    "values": 2
+  }]
+}, {
+  "query": {
+    "tags": [
+      "Événement d'intérêt intercommunal",
+      "Événement d’intérêt métropolitain"
+    ]
+  },
+  "actions": [{
+    "field": "thematiques-metropolitaines",
+    "values": { "$set": 4 }
+  }, {
+    "field": "types-devenements",
+    "automatic": true
+  }]
+}, {
+  "actions": [{
+    "field": "entreelibre",
+    "values": 1
+  }]
+}, {
+  "query": {
+    "types-devenement": [2]
+  },
+  "actions": [{
+    "field": "state",
+    "values": 1
+  }]
+}]
