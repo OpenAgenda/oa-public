@@ -13,8 +13,7 @@
     "mails-editor": "yarn workspace cibulNode mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",
     "commit": "git-cz",
-    "release": "lerna publish",
-    "oa:changelog": "cd $INIT_CWD && conventional-changelog -p conventionalcommits -i CHANGELOG.md -s --commit-path $PWD && git add CHANGELOG.md"
+    "release": "lerna publish"
   },
   "husky": {
     "hooks": {
@@ -54,7 +53,6 @@
     "@openagenda/cz-conventional-changelog": "^3.2.1",
     "codecov": "^3.6.2",
     "commitizen": "^4.0.3",
-    "conventional-changelog-cli": "^2.0.31",
     "conventional-changelog-conventionalcommits": "^4.2.3",
     "core-js": "^3.6.4",
     "husky": "^4.2.1",
