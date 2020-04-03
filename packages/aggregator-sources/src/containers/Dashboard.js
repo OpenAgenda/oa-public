@@ -497,6 +497,7 @@ function Dashboard({
       ) : null}
       {modals.updateSource?.visible ? (
         <UpdateSourceModal
+          aggregatorAgenda={aggregatorAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
           onClose={closeModalUpdateSource}
           onSubmit={updateSource}

@@ -11,7 +11,9 @@ import RuleItem from './RuleItem';
 import validateActions from './validateActions';
 
 export default function List({
+  aggregatorAgenda,
   aggregatorAgendaSchema,
+  sourceAgenda,
   sourceSchema,
   displayInfo,
   isAggregator,
@@ -109,7 +111,9 @@ export default function List({
                           rule={rule}
                           onUpdate={setModeUpdate}
                           onRemove={removeRule}
+                          sourceAgenda={sourceAgenda}
                           sourceAgendaSchema={sourceSchema}
+                          aggregatorAgenda={aggregatorAgenda}
                           aggregatorAgendaSchema={aggregatorAgendaSchema}
                         />
                       </li>
