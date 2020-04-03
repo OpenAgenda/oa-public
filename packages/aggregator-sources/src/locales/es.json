@@ -40,6 +40,7 @@
   "aggregator-sources.DefineRules.manualPasteRules": null,
   "aggregator-sources.DefineRules.description": null,
   "aggregator-sources.DefineRules.requiredFieldsWarning": null,
+  "aggregator-sources.DefineRules.requiredFieldsWarningDetail": null,
   "aggregator-sources.DefineRules.missingRequiredFields": null,
   "aggregator-sources.DefineRules.ruleDescription": null,
   "aggregator-sources.DefineRules.allEvents": null,

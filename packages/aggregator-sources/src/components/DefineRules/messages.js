@@ -23,8 +23,7 @@ export default defineMessages({
   },
   uselessRuleWithFilter: {
     id: 'aggregator-sources.DefineRules.uselessRuleWithFilter',
-    defaultMessage:
-      'An aggregation rule with filter not required must have at least one action'
+    defaultMessage: 'An aggregation rule with filter not required must have at least one action'
   },
   cancel: {
     id: 'aggregator-sources.DefineRules.cancel',
@@ -64,13 +63,15 @@ export default defineMessages({
   },
   description: {
     id: 'aggregator-sources.DefineRules.description',
-    defaultMessage:
-      'Règles are applied to the events in their aggregation.{br} They are used to condition the aggregation, or to assign values to extended fields in your agenda.'
+    defaultMessage: 'Règles are applied to the events in their aggregation.{br} They are used to condition the aggregation, or to assign values to extended fields in your agenda.'
   },
   requiredFieldsWarning: {
     id: 'aggregator-sources.DefineRules.requiredFieldsWarning',
-    defaultMessage:
-      '{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.'
+    defaultMessage: '{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.'
+  },
+  requiredFieldsWarningDetail: {
+    id: 'aggregator-sources.DefineRules.requiredFieldsWarningDetail',
+    defaultMessage: 'The agenda "{agendaTitle}" has required fields. Event aggregation will only occur for events associated to at least one value of each required field. Use aggregation rules to attribute values to the event at aggregation.'
   },
   missingRequiredFields: {
     id: 'aggregator-sources.DefineRules.missingRequiredFields',
@@ -79,7 +80,6 @@ export default defineMessages({
   },
   ruleDescription: {
     id: 'aggregator-sources.DefineRules.ruleDescription',
-    defaultMessage:
-      'A rule consists of a filter and/or actions applied to each event published on the source.'
+    defaultMessage: 'A rule consists of a filter and/or actions applied to each event published on the source.'
   }
 });

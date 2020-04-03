@@ -40,6 +40,7 @@
   "aggregator-sources.DefineRules.manualPasteRules": "Collez les règles d''une autre source avec CTRL + V",
   "aggregator-sources.DefineRules.description": "Les règles sont appliquées aux événements lors de leur agrégation.{br} Elles servent à conditionner l''agrégation ou à assigner des valeurs aux champs additionnels de votre agenda.",
   "aggregator-sources.DefineRules.requiredFieldsWarning": "{fieldsCount, plural, =1 {Le champ {fields} est obligatoire} other {Les champs {fields} sont obligatoires}}.",
+  "aggregator-sources.DefineRules.requiredFieldsWarningDetail": "L''agenda \"{agendaTitle}\" a des champs obligatoires de définis. L''agrégation ne pourra avoir lieu que pour les événements qui seront attribués à ces champs. Utilisez des règles d'agrégation pour définir ces attributions.",
   "aggregator-sources.DefineRules.missingRequiredFields": "{fieldsCount, plural, =1 {Le champ {fields} est obligatoire} other {Les champs {fields} sont obligatoires}}.",
   "aggregator-sources.DefineRules.ruleDescription": "Une règle se compose d''un filtre et/ou d''actions appliquées sur chaque événement publié sur la source.",
   "aggregator-sources.DefineRules.allEvents": "Tous les événements",

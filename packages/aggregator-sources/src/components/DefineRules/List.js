@@ -79,18 +79,22 @@ export default function List({
 
   return (
     <>
-      <div className="padding-v-sm">
+      <div>
         {displayInfo ? <p>
           {intl.formatMessage(messages.description, { br: <br key="br" /> })}
         </p> : null}
 
         {sourceSchema && requiredFieldList.length ? (
-          <p>
+          <div class="warning-block" title={intl.formatMessage(messages.requiredFieldsWarningDetail, {
+            agendaTitle: aggregatorAgenda.title
+          })}>
+            <b>
             {intl.formatMessage(messages.requiredFieldsWarning, {
               fields: intl.formatList(requiredFieldList),
               fieldsCount: requiredFields.length
             })}
-          </p>
+            </b>
+          </div>
         ) : null}
 
         {/* eslint-disable react/jsx-props-no-spreading */}
