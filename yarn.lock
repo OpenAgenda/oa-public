@@ -12821,6 +12821,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"conventional-changelog-cli@npm:^2.0.31":
+  version: 2.0.32
+  resolution: "conventional-changelog-cli@npm:2.0.32"
+  dependencies:
+    add-stream: ^1.0.0
+    conventional-changelog: ^3.1.19
+    lodash: ^4.17.15
+    meow: ^5.0.0
+    tempfile: ^3.0.0
+  bin:
+    conventional-changelog: cli.js
+  checksum: 2/02ac998cfefaaf96487bf0a084968cf53f15e49421078fc23b4d02150d5b3166d55fac4648981e13c44462acaf61307d7e07480f23a8d29090418ee93193f08e
+  languageName: node
+  linkType: hard
+
 "conventional-changelog-codemirror@npm:^2.0.3":
   version: 2.0.3
   resolution: "conventional-changelog-codemirror@npm:2.0.3"
@@ -12969,7 +12984,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog@npm:^3.1.18":
+"conventional-changelog@npm:^3.1.19":
   version: 3.1.19
   resolution: "conventional-changelog@npm:3.1.19"
   dependencies:
@@ -26009,7 +26024,7 @@ __metadata:
     "@openagenda/cz-conventional-changelog": ^3.2.1
     codecov: ^3.6.2
     commitizen: ^4.0.3
-    conventional-changelog: ^3.1.18
+    conventional-changelog-cli: ^2.0.31
     conventional-changelog-conventionalcommits: ^4.2.3
     core-js: ^3.6.4
     husky: ^4.2.1
@@ -34016,6 +34031,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"temp-dir@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "temp-dir@npm:2.0.0"
+  checksum: 2/d7816d1ce5ea605ffe79f5692c96eef7e14b3dd01799be5462233046db9a169e2bee927c4391f577528137318198f5a18540c174cb6b054768213e7bffd5cb25
+  languageName: node
+  linkType: hard
+
 "temp-write@npm:^3.4.0":
   version: 3.4.0
   resolution: "temp-write@npm:3.4.0"
@@ -34027,6 +34049,16 @@ __metadata:
     temp-dir: ^1.0.0
     uuid: ^3.0.1
   checksum: 2/b5e93a498e1e674e5de055c77a74dd944a5dcabd2d90d50530334ee59dc1cfae6d29d42d470618ef7daf99df548f3253724d5298ff18f331e85228b602500d86
+  languageName: node
+  linkType: hard
+
+"tempfile@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "tempfile@npm:3.0.0"
+  dependencies:
+    temp-dir: ^2.0.0
+    uuid: ^3.3.2
+  checksum: 2/00235007da9d0b299547ccf927a982b12b66e0dff3c53b3280af572210e13ddd39a03dd5d89ba6a37a6a21dcb61dae9a6a7bb7455c764df3779decda875c96f8
   languageName: node
   linkType: hard
 
