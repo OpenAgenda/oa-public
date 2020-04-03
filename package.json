@@ -10,9 +10,21 @@
   "scripts": {
     "postinstall": "lerna link && yarn workspaces foreach -ptv run prepack",
     "start": "yarn workspace cibulNode start",
-    "release": "lerna publish",
     "mails-editor": "yarn workspace cibulNode mails-editor",
-    "test": "yarn workspaces foreach -tv run test --colors"
+    "test": "yarn workspaces foreach -tv run test --colors",
+    "commit": "git-cz",
+    "release": "lerna publish"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run lint-staged --concurrency 1 --stream --since HEAD",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "@openagenda/cz-conventional-changelog"
+    }
   },
   "workspaces": {
     "packages": [
@@ -33,18 +45,21 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime-corejs3": "^7.8.4",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/config-lerna-scopes": "^8.3.4",
+    "@commitlint/load": "^8.3.5",
     "@openagenda/babel-preset": "^1.2.0",
+    "@openagenda/cz-conventional-changelog": "^3.2.1",
     "codecov": "^3.6.2",
+    "commitizen": "^4.0.3",
+    "conventional-changelog": "^3.1.18",
+    "conventional-changelog-conventionalcommits": "^4.2.3",
     "core-js": "^3.6.4",
     "husky": "^4.2.1",
     "jest": "^25.1.0",
     "lerna": "^3.20.2",
     "regenerator-runtime": "^0.13.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run lint-staged --concurrency 1 --stream --since HEAD"
-    }
   },
   "dependenciesMeta": {
     "webpack-dev-server": {
