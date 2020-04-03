@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>2.4.3 (2020-04-03)</small>
+
+* style(agenda-portal): add brackets in searchQuery ([faceaed](https://bitbucket.org/openagenda/oa/commits/faceaed))
+
+
+
+
+
 ## <small>2.4.2 (2020-04-03)</small>
 
 * fix builds on Yarn 2 ([f4723be](https://bitbucket.org/openagenda/oa/commits/f4723be))
