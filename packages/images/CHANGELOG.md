@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.1.4 (2020-04-03)</small>
+
+* style(images): removed a bunch of spaces ([51db50b](https://bitbucket.org/openagenda/oa/commits/51db50b))
+
+
+
+
+
 ## <small>1.1.3 (2020-04-03)</small>
 
 * style(images): linting ([6cf7ddf](https://bitbucket.org/openagenda/oa/commits/6cf7ddf))

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-search",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "service/index.js",
   "scripts": {
@@ -44,7 +44,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
     "@babel/node": "^7.8.4",
-    "@openagenda/agendas": "^1.3.2",
+    "@openagenda/agendas": "^1.3.3",
     "@openagenda/babel-preset": "^1.2.1",
     "@openagenda/bs-templates": "^2.2.3",
     "@storybook/react": "^5.3.9",
