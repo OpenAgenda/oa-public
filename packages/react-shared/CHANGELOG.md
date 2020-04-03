@@ -1,0 +1,22 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## <small>1.0.1 (2020-04-03)</small>
+
+* fix(react-shared): fix oa:extract-messages script ([ee18b7b](https://bitbucket.org/openagenda/oa/commits/ee18b7b))
+* fix builds on Yarn 2 ([f4723be](https://bitbucket.org/openagenda/oa/commits/f4723be))
+* fix deps ([71703f8](https://bitbucket.org/openagenda/oa/commits/71703f8))
+* fix linting ([90ad3dc](https://bitbucket.org/openagenda/oa/commits/90ad3dc))
+* lint ([940c95d](https://bitbucket.org/openagenda/oa/commits/940c95d))
+* lint and prettier ([b1dbbc0](https://bitbucket.org/openagenda/oa/commits/b1dbbc0))
+* merge resolution ([5a9cb4d](https://bitbucket.org/openagenda/oa/commits/5a9cb4d))
+* move script extract-messages in react-shared ([ff33b5a](https://bitbucket.org/openagenda/oa/commits/ff33b5a))
+* react-shared: add eslint comment ([9230c60](https://bitbucket.org/openagenda/oa/commits/9230c60))
+* react-shared: fix useMemoOne ([9b3eb0d](https://bitbucket.org/openagenda/oa/commits/9b3eb0d))
+* react-shared: initial commit ([1cb87cf](https://bitbucket.org/openagenda/oa/commits/1cb87cf))
+* react-timingspicker: translate ([869d7ce](https://bitbucket.org/openagenda/oa/commits/869d7ce))
+* upgrade babel ([444b969](https://bitbucket.org/openagenda/oa/commits/444b969))
+* upgrade jest and core-js ([21c2768](https://bitbucket.org/openagenda/oa/commits/21c2768))
+* upgrade some deps ([33a049a](https://bitbucket.org/openagenda/oa/commits/33a049a))

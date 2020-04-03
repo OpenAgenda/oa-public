@@ -1,0 +1,13 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## <small>1.3.4 (2020-04-03)</small>
+
+* fix deps ([71703f8](https://bitbucket.org/openagenda/oa/commits/71703f8))
+* upgrade some deps ([33a049a](https://bitbucket.org/openagenda/oa/commits/33a049a))
+* upgrade some deps ([dd48588](https://bitbucket.org/openagenda/oa/commits/dd48588))
+* upgrade some deps ([1d10a03](https://bitbucket.org/openagenda/oa/commits/1d10a03))
+* tweak(landing): removed pipedrive form ([0f04a92](https://bitbucket.org/openagenda/oa/commits/0f04a92))
+* tweak(landing): spanish and britton routes ([7d8711c](https://bitbucket.org/openagenda/oa/commits/7d8711c))

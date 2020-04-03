@@ -1,0 +1,12 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## <small>1.11.1 (2020-04-03)</small>
+
+* use the same lodash ([aeae186](https://bitbucket.org/openagenda/oa/commits/aeae186))
+* fix(agenda-events): since must be factored in arguments of getAggregatedCount caching ([23e229a](https://bitbucket.org/openagenda/oa/commits/23e229a))
+* fix(agenda-events): sourceAgendas are not fetched if paths are not arrays in arrays ([0e5f311](https://bitbucket.org/openagenda/oa/commits/0e5f311))
+* fix(agenda-events): sourceAgendas decorate is not working for list by lastId ([c2e3e7a](https://bitbucket.org/openagenda/oa/commits/c2e3e7a))
+* feature(agenda-events): cache for getAggregatedCount ([cdee0be](https://bitbucket.org/openagenda/oa/commits/cdee0be))

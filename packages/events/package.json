@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/events",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "handle core event data",
   "author": "Kaoré",
   "repository": {
@@ -17,12 +17,12 @@
     "build-fields": "node tasks/makeValidatorFields.js"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.1",
+    "@openagenda/logs": "^1.1.3",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/slugs": "^1.1.0",
-    "@openagenda/validators": "^2.2.2",
+    "@openagenda/validators": "^2.2.3",
     "async": "^2.1.2",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
@@ -34,10 +34,10 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@openagenda/files": "^2.0.7",
+    "@openagenda/files": "^2.0.8",
     "@openagenda/fixtures": "^2.0.1",
-    "@openagenda/image-files": "^1.1.2",
-    "@openagenda/images": "^1.1.1",
+    "@openagenda/image-files": "^1.1.3",
+    "@openagenda/images": "^1.1.2",
     "immutability-helper": "^2.3.0",
     "mocha": "^7.0.1",
     "should": "^13.2.3"

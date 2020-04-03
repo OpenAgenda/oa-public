@@ -1,0 +1,28 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## <small>1.2.1 (2020-04-03)</small>
+
+* add hot reload for webapp ([b490cbb](https://bitbucket.org/openagenda/oa/commits/b490cbb))
+* babel-preset: add plugins from stages ([59fb372](https://bitbucket.org/openagenda/oa/commits/59fb372))
+* babel-preset: prefer keywords in ([4b64f13](https://bitbucket.org/openagenda/oa/commits/4b64f13))
+* babel-preset: remove absolute runtime path ([dedb615](https://bitbucket.org/openagenda/oa/commits/dedb615))
+* babel-preset: remove useless .default ([954ea71](https://bitbucket.org/openagenda/oa/commits/954ea71))
+* babel-preset: required corejs option ([c331593](https://bitbucket.org/openagenda/oa/commits/c331593))
+* doc(babel-preset) ([c427a53](https://bitbucket.org/openagenda/oa/commits/c427a53))
+* fix babel deps ([b66bac1](https://bitbucket.org/openagenda/oa/commits/b66bac1))
+* fix build of agenda-contribute ([6e9c091](https://bitbucket.org/openagenda/oa/commits/6e9c091))
+* fix builds on Yarn 2 ([f4723be](https://bitbucket.org/openagenda/oa/commits/f4723be))
+* fix deps ([71703f8](https://bitbucket.org/openagenda/oa/commits/71703f8))
+* fix webpack-dev-server ([d874a0b](https://bitbucket.org/openagenda/oa/commits/d874a0b))
+* remove deprecated @babel/polyfill and upgrade to core-js@3 ([e006882](https://bitbucket.org/openagenda/oa/commits/e006882))
+* rename babel-preset-openagenda to @openagenda/babel-preset ([1da3284](https://bitbucket.org/openagenda/oa/commits/1da3284))
+* upgrade babel ([444b969](https://bitbucket.org/openagenda/oa/commits/444b969))
+* upgrade babel dependencies ([97b3057](https://bitbucket.org/openagenda/oa/commits/97b3057))
+* upgrade deps ([925ed0f](https://bitbucket.org/openagenda/oa/commits/925ed0f))
+* upgrade some deps ([33a049a](https://bitbucket.org/openagenda/oa/commits/33a049a))
+* upgrade some deps ([dd48588](https://bitbucket.org/openagenda/oa/commits/dd48588))
+* upgrade some deps ([1d10a03](https://bitbucket.org/openagenda/oa/commits/1d10a03))
+* v1.1.2 ([ba8a1d1](https://bitbucket.org/openagenda/oa/commits/ba8a1d1))
