@@ -9,6 +9,10 @@
     "publish": {
       "allowBranch": "master",
       "message": "chore: publish"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "changelogPreset": "conventionalcommits"
     }
   }
 }

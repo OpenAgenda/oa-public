@@ -13,7 +13,7 @@
     "mails-editor": "yarn workspace cibulNode mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",
     "commit": "git-cz",
-    "release": "lerna publish --conventional-commits --changelog-preset conventionalcommits",
+    "release": "lerna publish",
     "oa:changelog": "cd $INIT_CWD && conventional-changelog -p conventionalcommits -i CHANGELOG.md -s --commit-path $PWD && git add CHANGELOG.md"
   },
   "husky": {
