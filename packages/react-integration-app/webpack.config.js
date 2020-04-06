@@ -108,14 +108,6 @@ module.exports = (env = {}, argv = {}) => {
             envName: babelEnvName,
             rootMode: 'upward'
           }
-        },
-        {
-          test: /\.ejs$/,
-          loader: require.resolve('ejs-compiled-loader-webpack4')
-        },
-        {
-          test: /\.(css|html|tblr)$/,
-          loader: require.resolve('raw-loader')
         }
       ]
     },
