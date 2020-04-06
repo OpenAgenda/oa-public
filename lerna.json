@@ -12,7 +12,7 @@
     },
     "version": {
       "conventionalCommits": true,
-      "changelogPreset": "conventionalcommits"
+      "changelogPreset": "conventional-changelog-conventionalcommits"
     }
   }
 }

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>1.3.21 (2020-04-03)</small>
+
+**Note:** Version bump only for package @openagenda/event-form
+
+
+
+
+
 ## <small>1.3.20 (2020-04-03)</small>
 
 **Note:** Version bump only for package @openagenda/event-form

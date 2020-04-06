@@ -37,7 +37,8 @@
   "resolutions": {
     "final-form": "4.18.6",
     "react": "16.12.0",
-    "react-dom": "16.12.0"
+    "react-dom": "16.12.0",
+    "conventional-changelog-conventionalcommits@^4.2.3": "patch:conventional-changelog-conventionalcommits@4.2.3#./patches/conventional-changelog-conventionalcommits.patch"
   },
   "dependencies": {
     "mime": "^2.4.4"

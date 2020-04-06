@@ -3464,7 +3464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/abilities@^1.1.4, @openagenda/abilities@workspace:packages/abilities":
+"@openagenda/abilities@^1.1.6, @openagenda/abilities@workspace:packages/abilities":
   version: 0.0.0-use.local
   resolution: "@openagenda/abilities@workspace:packages/abilities"
   dependencies:
@@ -3475,15 +3475,15 @@ __metadata:
     "@casl/ability": ^2.4.2
     "@formatjs/intl-pluralrules": ^1.5.2
     "@formatjs/intl-relativetimeformat": ^4.5.9
-    "@openagenda/agendas": ^1.3.1
+    "@openagenda/agendas": ^1.3.3
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/eslint-config": ^1.0.2
-    "@openagenda/image-files": ^1.1.3
+    "@openagenda/image-files": ^1.1.5
     "@openagenda/logs": ^1.1.3
     "@openagenda/react-components": ^2.2.2
     "@openagenda/react-shared": ^1.0.1
-    "@openagenda/users": ^3.0.1
+    "@openagenda/users": ^3.0.3
     "@storybook/addon-knobs": ^5.3.9
     "@storybook/react": ^5.3.9
     axios: ^0.19.0
@@ -3626,7 +3626,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/admin-agendas@^1.1.3, @openagenda/admin-agendas@workspace:packages/admin-agendas":
+"@openagenda/admin-agendas@^1.1.5, @openagenda/admin-agendas@workspace:packages/admin-agendas":
   version: 0.0.0-use.local
   resolution: "@openagenda/admin-agendas@workspace:packages/admin-agendas"
   dependencies:
@@ -3634,7 +3634,7 @@ __metadata:
     "@babel/core": ^7.8.4
     "@babel/node": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
-    "@openagenda/agendas": ^1.3.1
+    "@openagenda/agendas": ^1.3.3
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/dom-utils": ^2.2.1
@@ -3756,7 +3756,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/agenda-contribute@^1.2.14, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
+"@openagenda/agenda-contribute@^1.2.16, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-contribute@workspace:packages/agenda-contribute"
   dependencies:
@@ -3765,7 +3765,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.8.4
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
-    "@openagenda/event-form": ^1.3.19
+    "@openagenda/event-form": ^1.3.21
     "@openagenda/form-schemas": ^1.7.2
     "@openagenda/labels": ^2.1.7
     "@openagenda/logs": ^1.1.3
@@ -3934,7 +3934,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-locations@^1.7.1, @openagenda/agenda-locations@workspace:packages/agenda-locations":
+"@openagenda/agenda-locations@^1.7.3, @openagenda/agenda-locations@workspace:packages/agenda-locations":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations@workspace:packages/agenda-locations"
   dependencies:
@@ -3950,7 +3950,7 @@ __metadata:
     "@openagenda/fixtures": ^2.0.1
     "@openagenda/geocoder": ^1.2.7
     "@openagenda/image-upload": ^1.0.8
-    "@openagenda/images": ^1.1.2
+    "@openagenda/images": ^1.1.4
     "@openagenda/labels": ^2.1.7
     "@openagenda/logs": ^1.1.3
     "@openagenda/react-components": ^2.2.2
@@ -4008,7 +4008,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/agenda-portal@^2.4.2, @openagenda/agenda-portal@workspace:packages/agenda-portal":
+"@openagenda/agenda-portal@^2.4.7, @openagenda/agenda-portal@workspace:packages/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:packages/agenda-portal"
   dependencies:
@@ -4098,7 +4098,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-search@^1.0.7, @openagenda/agenda-search@workspace:packages/agenda-search":
+"@openagenda/agenda-search@^1.0.9, @openagenda/agenda-search@workspace:packages/agenda-search":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-search@workspace:packages/agenda-search"
   dependencies:
@@ -4106,7 +4106,7 @@ __metadata:
     "@babel/core": ^7.8.4
     "@babel/node": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
-    "@openagenda/agendas": ^1.3.1
+    "@openagenda/agendas": ^1.3.3
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/dom-utils": ^2.2.1
@@ -4148,7 +4148,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-settings@^1.2.1, @openagenda/agenda-settings@workspace:packages/agenda-settings":
+"@openagenda/agenda-settings@^1.2.3, @openagenda/agenda-settings@workspace:packages/agenda-settings":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-settings@workspace:packages/agenda-settings"
   dependencies:
@@ -4159,7 +4159,7 @@ __metadata:
     "@babel/runtime-corejs3": ^7.8.4
     "@loadable/babel-plugin": ^5.12.0
     "@loadable/component": ^5.12.0
-    "@openagenda/agendas": ^1.3.1
+    "@openagenda/agendas": ^1.3.3
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/call-to-action": ^2.2.3
@@ -4318,14 +4318,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/agendas@^1.3.1, @openagenda/agendas@workspace:packages/agendas":
+"@openagenda/agendas@^1.3.3, @openagenda/agendas@workspace:packages/agendas":
   version: 0.0.0-use.local
   resolution: "@openagenda/agendas@workspace:packages/agendas"
   dependencies:
     "@openagenda/files": ^2.0.8
     "@openagenda/fixtures": ^2.0.1
-    "@openagenda/image-files": ^1.1.3
-    "@openagenda/images": ^1.1.2
+    "@openagenda/image-files": ^1.1.5
+    "@openagenda/images": ^1.1.4
     "@openagenda/logs": ^1.1.3
     "@openagenda/mysql-utils": ^2.0.0
     "@openagenda/service-utils": ^2.0.0
@@ -4344,7 +4344,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/aggregator-sources@^1.1.7, @openagenda/aggregator-sources@workspace:packages/aggregator-sources":
+"@openagenda/aggregator-sources@^1.1.9, @openagenda/aggregator-sources@workspace:packages/aggregator-sources":
   version: 0.0.0-use.local
   resolution: "@openagenda/aggregator-sources@workspace:packages/aggregator-sources"
   dependencies:
@@ -4355,7 +4355,7 @@ __metadata:
     "@emotion/core": ^10.0.28
     "@loadable/babel-plugin": ^5.12.0
     "@loadable/component": ^5.12.0
-    "@openagenda/agendas": ^1.3.1
+    "@openagenda/agendas": ^1.3.3
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/eslint-config": ^1.0.2
@@ -4413,7 +4413,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/aggregators@^1.10.1, @openagenda/aggregators@workspace:packages/aggregators":
+"@openagenda/aggregators@^1.10.2, @openagenda/aggregators@workspace:packages/aggregators":
   version: 0.0.0-use.local
   resolution: "@openagenda/aggregators@workspace:packages/aggregators"
   dependencies:
@@ -4557,7 +4557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/cibul-templates@^1.1.21, @openagenda/cibul-templates@workspace:packages/cibul-templates":
+"@openagenda/cibul-templates@^1.1.23, @openagenda/cibul-templates@workspace:packages/cibul-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/cibul-templates@workspace:packages/cibul-templates"
   dependencies:
@@ -4566,14 +4566,14 @@ __metadata:
     "@loadable/component": ^5.12.0
     "@loadable/webpack-plugin": ^5.12.0
     "@openagenda/activity-apps": ^1.1.3
-    "@openagenda/admin-agendas": ^1.1.3
+    "@openagenda/admin-agendas": ^1.1.5
     "@openagenda/agenda-categories": ^1.0.1
     "@openagenda/agenda-event-references": ^1.1.4
-    "@openagenda/agenda-locations": ^1.7.1
-    "@openagenda/agenda-search": ^1.0.7
-    "@openagenda/agenda-settings": ^1.2.1
+    "@openagenda/agenda-locations": ^1.7.3
+    "@openagenda/agenda-search": ^1.0.9
+    "@openagenda/agenda-settings": ^1.2.3
     "@openagenda/agenda-tags": ^1.0.2
-    "@openagenda/aggregator-sources": ^1.1.7
+    "@openagenda/aggregator-sources": ^1.1.9
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/call-to-action": ^2.2.3
@@ -4594,7 +4594,7 @@ __metadata:
     "@openagenda/sync-button": ^0.0.7
     "@openagenda/translators": ^2.0.1
     "@openagenda/tumblr-parser": ^0.1.2
-    "@openagenda/user-apps": ^1.1.3
+    "@openagenda/user-apps": ^1.1.5
     "@openagenda/utils": ^1.1.1
     async: 0.9.0
     babel-loader: ^8.0.6
@@ -4782,14 +4782,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-form@^1.3.19, @openagenda/event-form@workspace:packages/event-form":
+"@openagenda/event-form@^1.3.21, @openagenda/event-form@workspace:packages/event-form":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-form@workspace:packages/event-form"
   dependencies:
     "@babel/cli": ^7.8.4
     "@babel/core": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
-    "@openagenda/agenda-locations": ^1.7.1
+    "@openagenda/agenda-locations": ^1.7.3
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/form-schemas": ^1.7.2
@@ -4853,14 +4853,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/events@^1.5.3, @openagenda/events@workspace:packages/events":
+"@openagenda/events@^1.5.5, @openagenda/events@workspace:packages/events":
   version: 0.0.0-use.local
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
     "@openagenda/files": ^2.0.8
     "@openagenda/fixtures": ^2.0.1
-    "@openagenda/image-files": ^1.1.3
-    "@openagenda/images": ^1.1.2
+    "@openagenda/image-files": ^1.1.5
+    "@openagenda/images": ^1.1.4
     "@openagenda/logs": ^1.1.3
     "@openagenda/mysql-utils": ^2.0.0
     "@openagenda/queue": ^1.0.0
@@ -5075,12 +5075,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/image-files@^1.1.3, @openagenda/image-files@workspace:packages/image-files":
+"@openagenda/image-files@^1.1.5, @openagenda/image-files@workspace:packages/image-files":
   version: 0.0.0-use.local
   resolution: "@openagenda/image-files@workspace:packages/image-files"
   dependencies:
     "@openagenda/files": ^2.0.8
-    "@openagenda/images": ^1.1.2
+    "@openagenda/images": ^1.1.4
     "@openagenda/logs": ^1.1.3
     lodash: ^4.17.15
     mocha: ^7.0.1
@@ -5110,7 +5110,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/images@^1.1.2, @openagenda/images@workspace:packages/images":
+"@openagenda/images@^1.1.4, @openagenda/images@workspace:packages/images":
   version: 0.0.0-use.local
   resolution: "@openagenda/images@workspace:packages/images"
   dependencies:
@@ -5723,7 +5723,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-integration-app@^1.0.1, @openagenda/react-integration-app@workspace:packages/react-integration-app":
+"@openagenda/react-integration-app@^1.0.3, @openagenda/react-integration-app@workspace:packages/react-integration-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-integration-app@workspace:packages/react-integration-app"
   dependencies:
@@ -5737,9 +5737,9 @@ __metadata:
     "@loadable/server": ^5.12.0
     "@loadable/webpack-plugin": ^5.12.0
     "@openagenda/activity-apps": ^1.1.3
-    "@openagenda/agenda-settings": ^1.2.1
+    "@openagenda/agenda-settings": ^1.2.3
     "@openagenda/agenda-stats": ^1.0.1
-    "@openagenda/aggregator-sources": ^1.1.7
+    "@openagenda/aggregator-sources": ^1.1.9
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/eslint-config": ^1.0.2
     "@openagenda/home": ^2.1.5
@@ -5748,7 +5748,7 @@ __metadata:
     "@openagenda/pepjs": ^0.5.4
     "@openagenda/react-layouts": ^1.0.1
     "@openagenda/react-utils": ^4.0.2
-    "@openagenda/user-apps": ^1.1.3
+    "@openagenda/user-apps": ^1.1.5
     "@welldone-software/why-did-you-render": ^4.0.0
     babel-loader: ^8.0.6
     clean-webpack-plugin: ^3.0.0
@@ -6128,7 +6128,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/user-apps@^1.1.3, @openagenda/user-apps@workspace:packages/user-apps":
+"@openagenda/user-apps@^1.1.5, @openagenda/user-apps@workspace:packages/user-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/user-apps@workspace:packages/user-apps"
   dependencies:
@@ -6137,7 +6137,7 @@ __metadata:
     "@babel/node": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
     "@loadable/babel-plugin": ^5.12.0
-    "@openagenda/abilities": ^1.1.4
+    "@openagenda/abilities": ^1.1.6
     "@openagenda/babel-preset": ^1.2.1
     "@openagenda/bs-templates": ^2.2.3
     "@openagenda/dom-utils": ^2.2.1
@@ -6149,7 +6149,7 @@ __metadata:
     "@openagenda/react-components": ^2.2.2
     "@openagenda/react-utils": ^4.0.2
     "@openagenda/unsubscribed": ^2.1.2
-    "@openagenda/users": ^3.0.1
+    "@openagenda/users": ^3.0.3
     "@openagenda/utils": ^1.1.1
     "@storybook/react": ^5.3.9
     async: ^2.6.1
@@ -6187,7 +6187,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/users@^3.0.1, @openagenda/users@workspace:packages/users":
+"@openagenda/users@^3.0.3, @openagenda/users@workspace:packages/users":
   version: 0.0.0-use.local
   resolution: "@openagenda/users@workspace:packages/users"
   dependencies:
@@ -6196,8 +6196,8 @@ __metadata:
     "@openagenda/eslint-config": ^1.0.2
     "@openagenda/files": ^2.0.8
     "@openagenda/fixtures": ^2.0.1
-    "@openagenda/image-files": ^1.1.3
-    "@openagenda/images": ^1.1.2
+    "@openagenda/image-files": ^1.1.5
+    "@openagenda/images": ^1.1.4
     "@openagenda/keys": ^2.1.2
     "@openagenda/logs": ^1.1.3
     "@openagenda/validators": ^2.2.3
@@ -11658,37 +11658,37 @@ __metadata:
     "@feathersjs/feathers": ^4.5.1
     "@feathersjs/hooks": ^0.4.0-alpha.0
     "@loadable/component": ^5.12.0
-    "@openagenda/abilities": ^1.1.4
+    "@openagenda/abilities": ^1.1.6
     "@openagenda/activities": ^2.1.3
     "@openagenda/activity-apps": ^1.1.3
-    "@openagenda/admin-agendas": ^1.1.3
+    "@openagenda/admin-agendas": ^1.1.5
     "@openagenda/agenda-calendar-apps": ^1.2.2
     "@openagenda/agenda-categories": ^1.0.5
-    "@openagenda/agenda-contribute": ^1.2.14
+    "@openagenda/agenda-contribute": ^1.2.16
     "@openagenda/agenda-docx": ^1.1.4
     "@openagenda/agenda-event-references": ^1.1.4
     "@openagenda/agenda-events": ^1.11.1
-    "@openagenda/agenda-locations": ^1.7.1
+    "@openagenda/agenda-locations": ^1.7.3
     "@openagenda/agenda-monitor": ^1.1.0
-    "@openagenda/agenda-portal": ^2.4.2
+    "@openagenda/agenda-portal": ^2.4.7
     "@openagenda/agenda-schema": ^1.0.2
-    "@openagenda/agenda-search": ^1.0.7
-    "@openagenda/agenda-settings": ^1.2.1
+    "@openagenda/agenda-search": ^1.0.9
+    "@openagenda/agenda-settings": ^1.2.3
     "@openagenda/agenda-tags": ^1.0.7
-    "@openagenda/agendas": ^1.3.1
-    "@openagenda/aggregator-sources": ^1.1.7
-    "@openagenda/aggregators": ^1.10.1
+    "@openagenda/agendas": ^1.3.3
+    "@openagenda/aggregator-sources": ^1.1.9
+    "@openagenda/aggregators": ^1.10.2
     "@openagenda/call-to-action": ^2.2.3
     "@openagenda/cibul-model": ^1.1.1
-    "@openagenda/cibul-templates": ^1.1.21
+    "@openagenda/cibul-templates": ^1.1.23
     "@openagenda/custom": ^1.3.1
     "@openagenda/date-range": ^2.2.2
     "@openagenda/dom-utils": ^2.2.1
     "@openagenda/email-strategie": ^0.1.1
     "@openagenda/es-node": ^1.2.2
-    "@openagenda/event-form": ^1.3.19
+    "@openagenda/event-form": ^1.3.21
     "@openagenda/event-search": ^2.2.1
-    "@openagenda/events": ^1.5.3
+    "@openagenda/events": ^1.5.5
     "@openagenda/facebook": ^0.1.1
     "@openagenda/files": ^2.0.8
     "@openagenda/flat-exports": ^1.2.2
@@ -11696,9 +11696,9 @@ __metadata:
     "@openagenda/form-schemas": ^1.7.2
     "@openagenda/geocoder": ^1.2.7
     "@openagenda/home": ^2.1.5
-    "@openagenda/image-files": ^1.1.3
+    "@openagenda/image-files": ^1.1.5
     "@openagenda/image-upload": ^1.0.8
-    "@openagenda/images": ^1.1.2
+    "@openagenda/images": ^1.1.4
     "@openagenda/inbox-apps": ^1.1.4
     "@openagenda/inboxes": ^1.1.3
     "@openagenda/invitations": ^1.1.3
@@ -11717,7 +11717,7 @@ __metadata:
     "@openagenda/pdf": ^0.1.3
     "@openagenda/queue": ^1.0.0
     "@openagenda/queues": ^1.2.3
-    "@openagenda/react-integration-app": ^1.0.1
+    "@openagenda/react-integration-app": ^1.0.3
     "@openagenda/react-layouts": ^1.0.1
     "@openagenda/react-utils": ^4.0.2
     "@openagenda/registration": ^1.1.1
@@ -11728,7 +11728,7 @@ __metadata:
     "@openagenda/stream-utils": ^1.1.0
     "@openagenda/tumblr-parser": ^0.1.0
     "@openagenda/unsubscribed": ^2.1.2
-    "@openagenda/users": ^3.0.1
+    "@openagenda/users": ^3.0.3
     "@openagenda/utils": ^1.1.1
     "@openagenda/validators": ^2.2.3
     async: ^2.3.0
@@ -12805,6 +12805,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+conventional-changelog-conventionalcommits@4.2.3:
+  version: 4.2.3
+  resolution: "conventional-changelog-conventionalcommits@npm:4.2.3"
+  dependencies:
+    compare-func: ^1.3.1
+    lodash: ^4.17.15
+    q: ^1.5.1
+  checksum: 2/287603e7779d6109b580d7c71c0b909aea3c4b96bb9dec0379f313534ace64354b3f93e583658ded2b603a88926433592aa226ef233234a304f30e8f50e68556
+  languageName: node
+  linkType: hard
+
 "conventional-changelog-conventionalcommits@npm:4.2.1":
   version: 4.2.1
   resolution: "conventional-changelog-conventionalcommits@npm:4.2.1"
@@ -12816,14 +12827,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-conventionalcommits@npm:^4.2.3":
+"conventional-changelog-conventionalcommits@patch:conventional-changelog-conventionalcommits@4.2.3#./patches/conventional-changelog-conventionalcommits.patch::locator=oa%40workspace%3A.":
   version: 4.2.3
-  resolution: "conventional-changelog-conventionalcommits@npm:4.2.3"
+  resolution: "conventional-changelog-conventionalcommits@patch:conventional-changelog-conventionalcommits@npm%3A4.2.3#./patches/conventional-changelog-conventionalcommits.patch::version=4.2.3&hash=13dc53&locator=oa%40workspace%3A."
   dependencies:
     compare-func: ^1.3.1
     lodash: ^4.17.15
     q: ^1.5.1
-  checksum: 2/287603e7779d6109b580d7c71c0b909aea3c4b96bb9dec0379f313534ace64354b3f93e583658ded2b603a88926433592aa226ef233234a304f30e8f50e68556
+  checksum: 2/d65d1e6f1cdb690378cc1c06e982da0b5ddc573aa2e3e95f33c7f47ab9677dbfd764fc892f993b99af11030aa948b8166713b260c928edaddf78145aacab970e
   languageName: node
   linkType: hard
 
