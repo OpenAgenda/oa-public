@@ -13,6 +13,8 @@ const S3Plugin = require('webpack-s3-plugin');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const WebpackDashboardPlugin = require('webpack-dashboard/plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const modulesToInclude = [
   '@feathersjs',
@@ -72,7 +74,7 @@ module.exports = (env = {}, argv = {}) => {
       publicPath: pushToCDN
         ? '//d1771xfuxsyp4n.cloudfront.net/' // `https://s3.${region}.amazonaws.com/${bucket}/${serviceName}/`
         : `/dist/${serviceName}/`,
-      filename: envName === 'production' ? '[id].[hash].js' : '[name].js'
+      filename: envName === 'production' ? '[id].[chunkhash].js' : '[name].js'
     },
     devtool:
       envName === 'production' ? 'source-map' : 'cheap-module-source-map',
@@ -108,6 +110,46 @@ module.exports = (env = {}, argv = {}) => {
             envName: babelEnvName,
             rootMode: 'upward'
           }
+        },
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            envName !== 'production'
+              ? 'style-loader'
+              : MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        },
+        {
+          test: /\.css$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
+              options: {
+                // only enable hot in development
+                hmr: envName === 'development'
+                // if hmr does not work, this is a forceful method.
+                // reloadAll: true,
+              }
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
         }
       ]
     },
@@ -129,7 +171,7 @@ module.exports = (env = {}, argv = {}) => {
     },
     optimization: {
       nodeEnv: envName,
-      runtimeChunk: true,
+      runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
         maxAsyncRequests: 20
@@ -158,7 +200,8 @@ module.exports = (env = {}, argv = {}) => {
             : getCacheDir('terser-webpack-plugin'),
           // parallel: true
           sourceMap: true
-        })
+        }),
+        new OptimizeCSSAssetsPlugin()
       ]
     },
     plugins: [
@@ -176,7 +219,11 @@ module.exports = (env = {}, argv = {}) => {
       new LoadablePlugin({ writeToDisk: true }),
       envName === 'production'
         ? new webpack.HashedModuleIdsPlugin()
-        : new webpack.NamedModulesPlugin()
+        : new webpack.NamedModulesPlugin(),
+      new MiniCssExtractPlugin({
+        filename:
+          envName === 'production' ? '[id].[contenthash].css' : '[name].css'
+      })
     ].concat(
       pushToCDN
         ? [
