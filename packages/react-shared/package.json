@@ -7,7 +7,7 @@
     "dist"
   ],
   "bin": {
-    "oa:extract-messages": "cd $INIT_CWD && ./scripts/extract-messages.js"
+    "oa:extract-messages": "./scripts/extract-messages.js"
   },
   "scripts": {
     "prepack": "yarn clean && yarn build",
