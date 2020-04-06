@@ -9,8 +9,10 @@ import readClipboard from '../../utils/readClipboard';
 import messages from './messages';
 import RuleItem from './RuleItem';
 import validateActions from './validateActions';
+import WarningBlock from './WarningBlock';
 
 export default function List({
+  aggregator,
   aggregatorAgenda,
   aggregatorAgendaSchema,
   sourceAgenda,
@@ -80,71 +82,73 @@ export default function List({
   return (
     <>
       <div>
-        {displayInfo ? <p>
-          {intl.formatMessage(messages.description, { br: <br key="br" /> })}
-        </p> : null}
-
-        {sourceSchema && requiredFieldList.length ? (
-          <div class="warning-block" title={intl.formatMessage(messages.requiredFieldsWarningDetail, {
-            agendaTitle: aggregatorAgenda.title
-          })}>
-            <b>
-            {intl.formatMessage(messages.requiredFieldsWarning, {
-              fields: intl.formatList(requiredFieldList),
-              fieldsCount: requiredFields.length
-            })}
-            </b>
-          </div>
+        {displayInfo ? (
+          <p>
+            {intl.formatMessage(messages.description, { br: <br key="br" /> })}
+          </p>
         ) : null}
 
+        <WarningBlock
+          aggregator={aggregator}
+          aggregatorAgenda={aggregatorAgenda}
+          sourceSchema={sourceSchema}
+          requiredFields={requiredFields}
+          requiredFieldList={requiredFieldList}
+          intl={intl}
+          messages={messages}
+        />
+
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <DragDropContext className="list-group" onDragEnd={onDragEnd}>
-          <Droppable droppableId="droppable">
-            {provided => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {rules.map((rule, index) => (
-                  <Draggable key={rule.id} draggableId={rule.id} index={index}>
-                    {provided2 => (
-                      <li
-                        className="list-group-item"
-                        ref={provided2.innerRef}
-                        {...provided2.draggableProps}
-                        {...provided2.dragHandleProps}
-                      >
-                        <RuleItem
-                          rule={rule}
-                          onUpdate={setModeUpdate}
-                          onRemove={removeRule}
-                          sourceAgenda={sourceAgenda}
-                          sourceAgendaSchema={sourceSchema}
-                          aggregatorAgenda={aggregatorAgenda}
-                          aggregatorAgendaSchema={aggregatorAgendaSchema}
-                        />
-                      </li>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div className="margin-v-sm draggable">
+          <DragDropContext className="list-group" onDragEnd={onDragEnd}>
+            <Droppable droppableId="droppable">
+              {provided => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {rules.map((rule, index) => (
+                    <Draggable
+                      key={rule.id}
+                      draggableId={rule.id}
+                      index={index}
+                    >
+                      {provided2 => (
+                        <li
+                          className="list-group-item"
+                          ref={provided2.innerRef}
+                          {...provided2.draggableProps}
+                          {...provided2.dragHandleProps}
+                        >
+                          <RuleItem
+                            rule={rule}
+                            onUpdate={setModeUpdate}
+                            onRemove={removeRule}
+                            sourceAgenda={sourceAgenda}
+                            sourceAgendaSchema={sourceSchema}
+                            aggregatorAgenda={aggregatorAgenda}
+                            aggregatorAgendaSchema={aggregatorAgendaSchema}
+                          />
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
         {/* eslint-enable */}
 
-        <div>
-          <p>
-            <button
-              type="button"
-              className="btn-link-inline"
-              onClick={setModeAdd}
-            >
-              <i className="fa fa-sm fa-plus" aria-hidden="true" />{' '}
-              {intl.formatMessage(messages.addARule)}
-            </button>
-          </p>
-
+        <div className="padding-v-sm text-center">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={setModeAdd}
+          >
+            <i className="fa fa-sm fa-plus" aria-hidden="true" />{' '}
+            {intl.formatMessage(messages.addARule)}
+          </button>
           {sourceSchema ? (
-            <p>
+            <div className="padding-top-xs">
               {navigator?.clipboard?.readText ? (
                 <button
                   type="button"
@@ -160,7 +164,7 @@ export default function List({
                   {intl.formatMessage(messages.manualPasteRules)}
                 </em>
               )}
-            </p>
+            </div>
           ) : null}
         </div>
       </div>

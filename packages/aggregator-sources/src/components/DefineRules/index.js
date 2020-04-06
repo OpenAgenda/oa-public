@@ -31,6 +31,7 @@ function getInitialState(initialRules) {
 }
 
 export default function DefineRules({
+  aggregator,
   aggregatorAgenda,
   aggregatorAgendaSchema,
   displayInfo,
@@ -42,6 +43,7 @@ export default function DefineRules({
   onSubmit,
   onCancel
 }) {
+  console.log(aggregator);
   const intl = useIntl();
 
   const initialState = useMemo(() => getInitialState(initialRules), [
@@ -188,6 +190,7 @@ export default function DefineRules({
   if (state.mode === 'list') {
     return (
       <List
+        aggregator={aggregator}
         aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
         sourceAgenda={sourceAgenda}

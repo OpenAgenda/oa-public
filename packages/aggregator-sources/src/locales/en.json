@@ -41,6 +41,8 @@
   "aggregator-sources.DefineRules.description": "Rules are applied to the events in their aggregation.{br} They are used to condition the aggregation, or to assign values to extended fields in your agenda.",
   "aggregator-sources.DefineRules.requiredFieldsWarning": "{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.",
   "aggregator-sources.DefineRules.requiredFieldsWarningDetail": "The agenda \"{agendaTitle}\" has required fields. Event aggregation will only occur for events associated to at least one value of each required field. Use aggregation rules to attribute values to the event at aggregation.",
+  "aggregator-sources.DefineRules.displayAggregatorRulesExist" : "{count, plural, =1 {One general rule exists} other {{count} general rules exist}}",
+  "aggregator-sources.DefineRules.displayAggregatorRulesExistDetail" : "General rules apply on all events before source-specific rules are evaluated.",
   "aggregator-sources.DefineRules.missingRequiredFields": "{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.",
   "aggregator-sources.DefineRules.ruleDescription": "A rule consists of a filter and/or actions applied to each event published on the source.",
   "aggregator-sources.DefineRules.allEvents": "All events",
