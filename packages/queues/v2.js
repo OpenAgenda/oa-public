@@ -63,21 +63,34 @@ function run(redis, queueName, methods, ons = {}) {
           throw new Error(`Unregistered method: ${methodName}`);
         }
 
-        if (ons.execute) ons.execute(methodName, args);
+        if (ons.execute) {
+          try {
+            ons.execute(methodName, args);
+          } catch(e) {}
+        }
 
         result = await methods[methodName].apply(null, args);
       } catch (e) {
-        if (ons.error) ons.error(methodName, args, e);
+        if (ons.error) {
+          try {
+            ons.error(methodName, args, e);
+          } catch (e) {}
+        }
       }
 
-      if (ons.success) ons.success(methodName, args, result);
+      if (ons.success) {
+        try {
+          ons.success(methodName, args, result);
+        } catch (e) {}
+      }
     }
   })();
 
   async function stop() {
     await pRedis.quit();
-
-    ons.finish ? ons.finish() : null;
+    try {
+      ons.finish ? ons.finish() : null;
+    } catch (e) {}
   }
 
   return pRedis;
