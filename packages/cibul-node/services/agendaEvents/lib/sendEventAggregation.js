@@ -1,19 +1,26 @@
 "use strict";
 
 const _ = require('lodash');
-const agendas = require('@openagenda/agendas');
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
-const membersSvc = require('../../members');
-const usersSvc = require('../../users');
-const mails = require('../../mails');
 
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
+const listAdminMods = require('./utils/listAdminMods');
 
 const log = require('@openagenda/logs')('agendaEvents/sendEventAggregation');
 
-module.exports = async ({ root }, { agendaEvent, context }) => {
+module.exports = async ({ config, services }, { agendaEvent, context }) => {
+  const {
+    root
+  } = config;
+
+  const {
+    agendas,
+    users: usersSvc,
+    mails,
+    members: membersSvc
+  } = services;
+
   log('processing');
   const { sourceAgenda, agenda, event } = context;
   let stateLabel;
@@ -34,7 +41,7 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
 
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(agenda.uid);
+  const members = await listAdminMods(membersSvc, agenda.uid);
 
   const originAgenda = await agendas.get({
     uid: event.agendaUid

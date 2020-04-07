@@ -48,7 +48,7 @@ module.exports.init = (config, services) => {
     interfaces: {
       onCreate: onCreate.bind(null, services),
       onRemove: onRemove.bind(null, services),
-      onUpdate,
+      onUpdate: onUpdate.bind(null, services),
       beforeRemove,
       imageFilesLoad: imageFiles.load,
       imageFilesClear: imageFiles.clear,

@@ -14,6 +14,11 @@ module.exports = (services, event, context) => {
 }
 
 async function _registerActivity(activitiesSvc, event) {
+  if (!activitiesSvc) {
+    log('warn', 'activities services was not initialized');
+    return;
+  }
+
   try {
     await activitiesSvc.feed({
       entityType: 'event',

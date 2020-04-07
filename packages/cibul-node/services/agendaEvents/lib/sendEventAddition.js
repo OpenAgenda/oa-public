@@ -5,13 +5,20 @@ const agendasSvc = require('@openagenda/agendas');
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
 const usersSvc = require('../../users');
 const membersSvc = require('../../members');
-const mails = require('../../mails');
 
 const log = require('@openagenda/logs')(
   'agendaEvents/sendEventAddition'
 );
 
-module.exports = async ({ root }, { agendaEvent, user, context }) => {
+module.exports = async ({ config, services }, { agendaEvent, user, context }) => {
+  const {
+    root
+  } = config;
+
+  const {
+    mails
+  } = services;
+
   log('processing');
 
   const { sourceAgenda, agenda, event } = context;
@@ -66,6 +73,11 @@ module.exports = async ({ root }, { agendaEvent, user, context }) => {
 
   if (!sharerMember) {
     log('no sharer member is defined, not sending email.');
+    return;
+  }
+
+  if (!mails) {
+    log('warn', 'mails service was not initialized');
     return;
   }
 

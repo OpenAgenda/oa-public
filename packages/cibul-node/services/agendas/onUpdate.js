@@ -1,22 +1,27 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const log = require('@openagenda/logs')('services/agendas/onCreate');
 
-const activities = require( '../activities' );
+module.exports = async (services, before, after, context) => {
 
-const log = require( '@openagenda/logs' )( 'services/agendas/onCreate' );
-const legacyEventSearch = require( '../elasticsearch' );
-
-module.exports = async ( before, after, context ) => {
+  const {
+    activities,
+    elasticsearch: legacyEventSearch,
+  } = services;
 
   const hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution );
   const hasCredentialsChange = JSON.stringify( before.credentials ) !== JSON.stringify( after.credentials );
   let updateType;
 
-  try {
-    await legacyEventSearch.updateAgenda( after.id );
-  } catch ( e ) {
-    log( 'error', 'could not update legacy search for agenda %s', after.slug, e );
+  if (legacyEventSearch) {
+    try {
+      await legacyEventSearch.updateAgenda( after.id );
+    } catch ( e ) {
+      log( 'error', 'could not update legacy search for agenda %s', after.slug, e );
+    }
+  } else {
+    log('warn', 'legacy search service was not initialized');
   }
 
   if ( hasContributionSettingsChange ) {

@@ -3,7 +3,6 @@
 const _ = require( 'lodash' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 
-const mails = require( '../../mails' );
 const membersSvc = require( '../../members' );
 const usersSvc = require( '../../users' );
 
@@ -13,7 +12,15 @@ const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventCreation' );
 
-module.exports = async ({ root }, { agendaEvent, context }) => {
+module.exports = async ({ config, services }, { agendaEvent, context }) => {
+  const {
+    root
+  } = config;
+
+  const {
+    mails
+  } = services;
+
   log('processing');
   const { agenda, event } = context;
   if (!event.creatorUid) {
@@ -49,6 +56,11 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
   const logo = agendaLogo(agenda);
 
   const members = await listAdminMods(agenda.uid);
+
+  if (!mails) {
+    log('warn', 'mails service was not initialized');
+    return;
+  }
 
   if ( creatorMemberId ) {
     await mails.send( {

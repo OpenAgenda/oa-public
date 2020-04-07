@@ -5,20 +5,24 @@ const VError = require('verror');
 
 const log = require('@openagenda/logs' )( 'agendaEvents/onCreate');
 
-const custom = require('@openagenda/custom');
-
-const legacyEventSearch = require('../elasticsearch');
-const activitiesSvc = require('../activities');
 const fallbackContextGet = require('./lib/fallbackContextGet');
 const sendEventCreation = require('./lib/sendEventCreation');
 const sendEventAggregation = require('./lib/sendEventAggregation');
 const sendEventAddition = require('./lib/sendEventAddition');
 
-const controlDataSvc = require('../legacy').controlData;
-const membersSvc = require('../members');
-const usersSvc = require('../users');
-
 module.exports = async ({ config, services }, ae, context) => {
+  const {
+    activities: activitiesSvc,
+    elasticsearch: legacyEventSearch,
+    custom,
+    members: membersSvc,
+    users: usersSvc,
+    legacy: {
+      controlData: controlDataSvc
+    }
+  } = services;
+
+
   services.tracker('agendaEvents.onCreate');
   log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
@@ -46,14 +50,14 @@ module.exports = async ({ config, services }, ae, context) => {
     if (ae.agendaUid === event.agendaUid) {
       // Creation
       try {
-        await sendEventCreation(config, { agendaEvent: ae, context });
+        await sendEventCreation({ config, services }, { agendaEvent: ae, context });
       } catch (error) {
         log.error( new VError( error, 'Cannot send event creation emails' ) );
       }
     } else {
       // Adding
       try {
-        await sendEventAddition(config, { agendaEvent: ae, context, user });
+        await sendEventAddition({ config, services }, { agendaEvent: ae, context, user });
       } catch (error) {
         log.error(new VError(error, 'Cannot send event addition emails'));
       }
@@ -62,7 +66,7 @@ module.exports = async ({ config, services }, ae, context) => {
     // Aggregation
     if (!context.batched) {
       try {
-        await sendEventAggregation(config, { agendaEvent: ae, context });
+        await sendEventAggregation({ config, services }, { agendaEvent: ae, context });
       } catch (error) {
         log.error(new VError(error, 'Cannot send event aggregation emails'));
       }
@@ -98,6 +102,11 @@ module.exports = async ({ config, services }, ae, context) => {
       log( 'error', 'control data set failed', e );
     }
 
+  }
+
+  if (!activitiesSvc) {
+    log('warn', 'activities service was not initialized');
+    return;
   }
 
   try {
@@ -137,12 +146,12 @@ module.exports = async ({ config, services }, ae, context) => {
     }
 
     if (context.aggregated) {
-      await _addEventAggregationActivity(eventFeed, { agenda, event }, context);
+      await _addEventAggregationActivity(services, eventFeed, { agenda, event }, context);
     } else {
       if (ae.agendaUid === event.agendaUid) {
-        await _addEventCreationActivity(eventFeed, { agenda, event, user }, context);
+        await _addEventCreationActivity(services, eventFeed, { agenda, event, user }, context);
       } else {
-        await _addEventAdditionActivity(eventFeed, { agenda, event, user }, context);
+        await _addEventAdditionActivity(services, eventFeed, { agenda, event, user }, context);
       }
     }
 
@@ -154,7 +163,11 @@ module.exports = async ({ config, services }, ae, context) => {
 
 }
 
-async function _addEventCreationActivity(eventFeed, { agenda, event, user }, context) {
+async function _addEventCreationActivity(services, eventFeed, { agenda, event, user }, context) {
+  const {
+    activitiesSvc
+  } = services;
+
   if (!user) {
     return log( 'error', new VError( 'user of uid %s not found', context.userUid ) );
   }
@@ -179,7 +192,11 @@ async function _addEventCreationActivity(eventFeed, { agenda, event, user }, con
   });
 }
 
-async function _addEventAggregationActivity(eventFeed, { agenda, event }, context) {
+async function _addEventAggregationActivity(services, eventFeed, { agenda, event }, context) {
+  const {
+    activitiesSvc
+  } = services;
+
   const { sourceAgenda } = context;
 
   await activitiesSvc.feed( eventFeed ).activities.add( {
@@ -197,7 +214,11 @@ async function _addEventAggregationActivity(eventFeed, { agenda, event }, contex
   } );
 }
 
-async function _addEventAdditionActivity(eventFeed, { agenda, user, event }, context) {
+async function _addEventAdditionActivity(services, eventFeed, { agenda, user, event }, context) {
+  const {
+    activitiesSvc
+  } = services;
+
   const { sourceAgenda } = context;
 
   await activitiesSvc.feed(eventFeed).activities.add( {
