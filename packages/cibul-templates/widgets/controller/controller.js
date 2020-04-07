@@ -342,7 +342,7 @@ module.exports = function( uid ) {
 
     if ( window.oa && window.oa.onWidgetUpdate ) {
 
-      window.oa.onWidgetUpdate( originWidget, updatedParams );
+      window.oa.onWidgetUpdate( originWidget, updatedParams, currentRequestParams );
 
     }
 
