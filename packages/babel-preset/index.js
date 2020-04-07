@@ -56,7 +56,8 @@ module.exports = declare((api, options) => {
     [
       require('@babel/plugin-transform-runtime'),
       {
-        corejs
+        corejs,
+        version: require('@babel/helpers/package.json').version
       }
     ],
 
