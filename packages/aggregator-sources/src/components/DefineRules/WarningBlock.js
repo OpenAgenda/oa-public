@@ -26,6 +26,7 @@ const messages = defineMessages({
 });
 
 export default function WarningBlock({
+  top,
   aggregator,
   aggregatorAgenda,
   sourceSchema,
@@ -41,7 +42,7 @@ export default function WarningBlock({
   }
 
   return (
-    <div className="warning-block">
+    <div className={`warning-block${top ? ' top' : ''}`}>
       {displayRequiredFieldsMessage ? (
         <div
           title={intl.formatMessage(messages.requiredFieldsWarningDetail, {

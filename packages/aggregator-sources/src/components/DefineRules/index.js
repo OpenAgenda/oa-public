@@ -43,7 +43,6 @@ export default function DefineRules({
   onSubmit,
   onCancel
 }) {
-  console.log(aggregator);
   const intl = useIntl();
 
   const initialState = useMemo(() => getInitialState(initialRules), [

@@ -68,7 +68,7 @@
   "aggregator-sources.DefineRules.requiredFilter": "Filtre requis: l''événement n''est agrégé que s''il correspond aux critères de ce filtre",
   "aggregator-sources.DefineRules.actionsAfterFilterDetails": "Les actions suivantes sont appliquées lorsque l'événement correspond aux critères du filtre",
   "aggregator-sources.DefineRules.actionsDetails": "Les actions suivantes s'appliquent systématiquement à l'événement lors de l'agrégation",
-  "aggregator-sources.DefineRules.replacingActionDetail": "Cette action assigne la valeur définie sur l'événement, remplaçant les éventuelles assignation faites sur un règle antérieure",
+  "aggregator-sources.DefineRules.replacingActionDetail": "Si une règle antérieure a déjà assignée une valeur sur ce champ, elle est remplacée.",
   "aggregator-sources.DefineRules.automaticDetail": "Les assignations de valeurs sont faites par correspondance d'étiquette en partant du champ du même nom sur l'agenda source",
   "aggregator-sources.DefineRules.sourceAgendaFieldValueDetail": "Champ et valeur de la source \"{agendaTitle}\"",
   "aggregator-sources.DefineRules.sourceAgendaTagsDetail": "Etiquette d'une valeur de la source \"{agendaTitle}\"",

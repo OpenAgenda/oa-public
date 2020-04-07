@@ -83,12 +83,13 @@ export default function List({
     <>
       <div>
         {displayInfo ? (
-          <p>
+          <div>
             {intl.formatMessage(messages.description, { br: <br key="br" /> })}
-          </p>
+          </div>
         ) : null}
 
         <WarningBlock
+          top={!displayInfo}
           aggregator={aggregator}
           aggregatorAgenda={aggregatorAgenda}
           sourceSchema={sourceSchema}
@@ -99,7 +100,7 @@ export default function List({
         />
 
         {/* eslint-disable react/jsx-props-no-spreading */}
-        <div className="margin-v-sm draggable">
+        <div className="margin-v-sm">
           <DragDropContext className="list-group" onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">
               {provided => (
@@ -110,12 +111,15 @@ export default function List({
                       draggableId={rule.id}
                       index={index}
                     >
-                      {provided2 => (
+                      {(provideInner, { isDragging }) => (
                         <li
-                          className="list-group-item"
-                          ref={provided2.innerRef}
-                          {...provided2.draggableProps}
-                          {...provided2.dragHandleProps}
+                          className={
+                            `list-group-item draggable${
+                              isDragging ? ' dragged' : ''}`
+                          }
+                          ref={provideInner.innerRef}
+                          {...provideInner.draggableProps}
+                          {...provideInner.dragHandleProps}
                         >
                           <RuleItem
                             rule={rule}
