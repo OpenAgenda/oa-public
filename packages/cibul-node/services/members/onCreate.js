@@ -1,19 +1,20 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 const VError = require('verror');
-const agendas = require( '@openagenda/agendas' );
-const invitations = require( '@openagenda/invitations' );
-const log = require( '@openagenda/logs' )( 'services/members/onCreate' );
-const controlDataSvc = require( '../legacy' ).controlData;
+const log = require('@openagenda/logs')('services/members/onCreate');
 const {
   isSuperiorToOrEqual
-} = require( '@openagenda/members' ).utils.compareRoles;
+} = require('@openagenda/members').utils.compareRoles;
 
-const { send, sendInvitation } = require( './lib/mail' );
+const { send, sendInvitation } = require('./lib/mail');
 
 module.exports = async ({ services, config, activityQueue }, member, context) => {
   log('created', member);
+
+  const {
+    agendas
+  } = services;
 
   try {
     const agenda = await agendas.get({
@@ -47,43 +48,62 @@ module.exports = async ({ services, config, activityQueue }, member, context) =>
   }
 };
 
-async function _memberIsExistingUser( { services, config, activityQueue }, { member, user, agenda, context } ) {
-  log( 'member is existing user', member );
+async function _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context }) {
+  log('member is existing user', member);
 
-  const { Inbox } = services.inboxes;
-  const activities = services.activities;
+  const {
+    inboxes,
+    activities,
+    legacy
+  } = services;
 
-  if ( user.isNew ) {
-    await services.users.setNewFlag( user.uid, { isNew: false } );
+  const Inbox = (inboxes || {}).Inbox;
+  const controlDataSvc = (legacy || {}).controlData;
+
+  if (user.isNew) {
+    await services.users.setNewFlag(user.uid, { isNew: false });
   }
 
-  controlDataSvc.memberSet( {
-    agendaUid: agenda.uid,
-    userUid: user.uid,
-    role: member.role
-  } ).catch(e => log( 'error', 'could not set member in control data', member, e ));
+  if (controlDataSvc) {
+    controlDataSvc.memberSet({
+      agendaUid: agenda.uid,
+      userUid: user.uid,
+      role: member.role
+    }).catch(e => log('error', 'could not set member in control data', member, e));
+  } else {
+    log('warn', 'legacy service was not initialized');
+  }
 
-  const isAdminMod = isSuperiorToOrEqual( member.role, 'moderator' );
-  if ( isAdminMod ) {
-    try {
-      await new Inbox( {
-        type: 'agenda',
-        identifier: agenda.uid
-      } ).users.add( {
-        userUid: user.uid
-      } );
-    } catch ( e ) {
-      log( 'error', 'could not add member to agenda inbox', e );
+  if (Inbox) {
+    if (isSuperiorToOrEqual(member.role, 'moderator')) {
+      try {
+        await new Inbox({
+          type: 'agenda',
+          identifier: agenda.uid
+        }).users.add({
+          userUid: user.uid
+        });
+      } catch (e) {
+        log('error', 'could not add member to agenda inbox', e);
+      }
     }
+  } else {
+    log('warn', 'inboxes service was not initialized');
+  }
+
+
+  if (!activities) {
+    log('warn', 'activities service was not initialized');
+    return;
   }
 
   const userFeedId = { entityType: 'user', entityUid: user.uid };
   const agendaFeedId = { entityType: 'agenda', entityUid: agenda.uid };
   try {
-    await activities.feed( userFeedId )
-      .follow( agendaFeedId, { credential: member.role } );
-  } catch ( e ) {
-    log( 'error', 'could not make user feed follow agenda feed', member.id );
+    await activities.feed(userFeedId)
+      .follow(agendaFeedId, { credential: member.role });
+  } catch (e) {
+    log('error', 'could not make user feed follow agenda feed', member.id);
   }
 
   const senderUserUid = _.get(context, 'sender.userUid');
@@ -93,35 +113,44 @@ async function _memberIsExistingUser( { services, config, activityQueue }, { mem
     return;
   }
 
-  const senderUser = await services.users.findOne( {
+  const senderUser = await services.users.findOne({
     query: { uid: senderUserUid },
     removed: null
-  } );
+  });
 
-  if ( !senderUser ) throw new VError( 'Sender user %j not found', { uid: senderUserUid } );
+  if (!senderUser) throw new VError('Sender user %j not found', { uid: senderUserUid });
 
-  await send( config, {
+  await send(config, {
     member,
     agenda,
     context,
     message: context.message
-  } );
+  });
 
   try {
-    await activityQueue( 'addMemberCreate', {
+    await activityQueue('addMemberCreate', {
       user, member, agenda, context, senderUser
-    } );
-  } catch ( e ) {
-    log( 'error', 'could not add addMember activity to agenda feed', agenda, member, e );
+    });
+  } catch (e) {
+    log('error', 'could not add addMember activity to agenda feed', agenda, member, e);
   }
 }
 
-async function _memberIsInvitedNonUser( { services, config }, { member, agenda, context } ) {
-  log( 'member is not existing user, is invited' );
+async function _memberIsInvitedNonUser({ services, config }, { member, agenda, context }) {
+  const {
+    invitations
+  } = services;
 
-  const { invitation } = await invitations.assign( {
+  if (!invitations) {
+    log('warn', 'invitations service was not initialized');
+    return;
+  }
+
+  log('member is not existing user, is invited');
+
+  const { invitation } = await invitations.assign({
     email: member.custom.email
-  }, 'linkMember', [ member, context ] );
+  }, 'linkMember', [member, context]);
 
-  return sendInvitation( services, config, { invitation, member, context, agenda } );
+  return sendInvitation(services, config, { invitation, member, context, agenda });
 }
