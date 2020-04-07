@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/translators@2.0.1...@openagenda/translators@2.0.2) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/translators
+
+
+
+
+
 ## <small>2.0.1 (2020-04-03)</small>
 
 * fix builds on Yarn 2 ([f4723be](https://bitbucket.org/openagenda/oa/commits/f4723be))

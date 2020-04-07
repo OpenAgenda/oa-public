@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.2.1...@openagenda/babel-preset@1.2.2) (2020-04-07)
+
+
+### Bug Fixes
+
+* **babel-preset:** avoid duplication of helpers ([5e43948](https://bitbucket.org/openagenda/oa/commit/5e4394894a8ad36818bc6dc78960b1d296ccf146))
+
+
+
 ## <small>1.2.1 (2020-04-03)</small>
 
 * add hot reload for webapp ([b490cbb](https://bitbucket.org/openagenda/oa/commits/b490cbb))

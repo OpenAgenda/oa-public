@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/validators",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.2.1",
+    "@openagenda/babel-preset": "^1.2.2",
     "babel-jest": "^25.1.0",
     "jest": "^25.1.0",
     "should": "^13.2.3"

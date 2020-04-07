@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/home@2.1.5...@openagenda/home@2.1.6) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/home
+
+
+
+
+
 ## <small>2.1.5 (2020-04-03)</small>
 
 * add hot reload for webapp ([b490cbb](https://bitbucket.org/openagenda/oa/commits/b490cbb))

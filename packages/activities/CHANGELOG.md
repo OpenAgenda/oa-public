@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.3...@openagenda/activities@2.1.4) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/activities
+
+
+
+
+
 ## <small>2.1.3 (2020-04-03)</small>
 
 * add addEvent activity, email and ability ([678a7f1](https://bitbucket.org/openagenda/oa/commits/678a7f1))

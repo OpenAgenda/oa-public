@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.24](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.23...@openagenda/cibul-templates@1.1.24) (2020-04-07)
+
+
+### Bug Fixes
+
+* **cibul-templates:** variables from bs-templates are not used for one css build ([42f3f31](https://bitbucket.org/openagenda/oa/commit/42f3f31916328f51c90457e0039128a0a5585d64))
+
+
+
 ## <small>1.1.23 (2020-04-03)</small>
 
 **Note:** Version bump only for package @openagenda/cibul-templates

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.0.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.0.1...@openagenda/react-layouts@1.0.2) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/react-layouts
+
+
+
+
+
 ## <small>1.0.1 (2020-04-03)</small>
 
 * add agenda-settings/edit to webapp ([4f13766](https://bitbucket.org/openagenda/oa/commits/4f13766))

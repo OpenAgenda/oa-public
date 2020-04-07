@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.0.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@1.0.1...@openagenda/react-shared@1.0.2) (2020-04-07)
+
+
+### Bug Fixes
+
+* **react-shared:** fix oa:extract-messages bin ([eb4e0f1](https://bitbucket.org/openagenda/oa/commit/eb4e0f1f0980052055f1525e9e9f0b3261df461d))
+
+
+
 ## <small>1.0.1 (2020-04-03)</small>
 
 * fix(react-shared): fix oa:extract-messages script ([ee18b7b](https://bitbucket.org/openagenda/oa/commits/ee18b7b))

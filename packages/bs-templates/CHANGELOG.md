@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/bs-templates@2.2.3...@openagenda/bs-templates@2.3.0) (2020-04-07)
+
+
+### Features
+
+* **bs-templates:** draggable list items styling ([65f2c4b](https://bitbucket.org/openagenda/oa/commit/65f2c4b041d8f3a53a757793d852d205b1c4ad26))
+
+
+
 ## <small>2.2.3 (2020-04-03)</small>
 
 * aggregator-sources: add actions ([ecc4aa5](https://bitbucket.org/openagenda/oa/commits/ecc4aa5))

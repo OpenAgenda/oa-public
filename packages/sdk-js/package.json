@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/sdk-js",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "main": "dist/index.js",
   "repository": "git+ssh://git@bitbucket.org/openagenda/oa.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.2.1",
+    "@openagenda/babel-preset": "^1.2.2",
     "@openagenda/eslint-config": "^1.0.2",
     "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",

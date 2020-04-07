@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.7.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/form-schemas@1.7.2...@openagenda/form-schemas@1.7.3) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/form-schemas
+
+
+
+
+
 ## <small>1.7.2 (2020-04-03)</small>
 
 * extractSchemaLabelLanguages ignores empty strings ([99fd081](https://bitbucket.org/openagenda/oa/commits/99fd081))

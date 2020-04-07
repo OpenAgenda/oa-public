@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.4.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.4.7...@openagenda/agenda-portal@2.4.8) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/agenda-portal
+
+
+
+
+
 ## <small>2.4.7 (2020-04-03)</small>
 
 * revert(agenda-portal): test changelog ([6e4c96d](https://bitbucket.org/openagenda/oa/commits/6e4c96d))

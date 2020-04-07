@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-shared",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
@@ -35,7 +35,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.2.1",
+    "@openagenda/babel-preset": "^1.2.2",
     "@openagenda/eslint-config": "^1.0.2",
     "eslint": "^6.8.0",
     "lint-staged": "^10.0.7",

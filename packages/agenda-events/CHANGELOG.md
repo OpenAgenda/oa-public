@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.11.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.1...@openagenda/agenda-events@1.11.2) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/agenda-events
+
+
+
+
+
 ## <small>1.11.1 (2020-04-03)</small>
 
 * use the same lodash ([aeae186](https://bitbucket.org/openagenda/oa/commits/aeae186))

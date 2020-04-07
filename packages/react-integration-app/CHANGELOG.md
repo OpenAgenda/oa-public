@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.0.3...@openagenda/react-integration-app@1.1.0) (2020-04-07)
+
+
+### Features
+
+* **react-integration-app:** add css and sass support ([9342184](https://bitbucket.org/openagenda/oa/commit/93421843b171daffe95b450120ab67299999c084))
+
+
+
 ## <small>1.0.3 (2020-04-03)</small>
 
 **Note:** Version bump only for package @openagenda/react-integration-app

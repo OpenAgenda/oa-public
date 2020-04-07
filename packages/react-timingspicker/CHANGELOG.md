@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.0.2](https://github.com/Oagenda/oa/compare/@openagenda/react-timingspicker@1.0.1...@openagenda/react-timingspicker@1.0.2) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/react-timingspicker
+
+
+
+
+
 ## <small>1.0.1 (2020-04-03)</small>
 
 * add recurrencer ([64d67a4](https://github.com/Oagenda/oa/commit/64d67a4))

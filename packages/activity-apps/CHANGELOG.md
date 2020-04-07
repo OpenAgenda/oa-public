@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.3...@openagenda/activity-apps@1.1.4) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/activity-apps
+
+
+
+
+
 ## <small>1.1.3 (2020-04-03)</small>
 
 * activity-apps: fix usage of query ([d014bfe](https://bitbucket.org/openagenda/oa/commits/d014bfe))

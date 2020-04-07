@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-docx@1.1.4...@openagenda/agenda-docx@1.1.5) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/agenda-docx
+
+
+
+
+
 ## <small>1.1.4 (2020-04-03)</small>
 
 * add react-integration-app package ([bab0d17](https://bitbucket.org/openagenda/oa/commits/bab0d17))

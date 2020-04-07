@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [3.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@3.1.0...@openagenda/sessions@3.1.1) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/sessions
+
+
+
+
+
 ## 3.1.0 (2020-04-03)
 
 * 3.0.10 ([852d678](https://bitbucket.org/openagenda/oa/commits/852d678))

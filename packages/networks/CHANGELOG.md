@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/networks@1.2.2...@openagenda/networks@1.2.3) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/networks
+
+
+
+
+
 ## <small>1.2.2 (2020-04-03)</small>
 
 * linting(networks) ([04fc668](https://bitbucket.org/openagenda/oa/commits/04fc668))

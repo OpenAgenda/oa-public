@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.3...@openagenda/call-to-action@2.2.4) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/call-to-action
+
+
+
+
+
 ## <small>2.2.3 (2020-04-03)</small>
 
 * add deutsch language choice ([a7f047d](https://bitbucket.org/openagenda/oa/commits/a7f047d))

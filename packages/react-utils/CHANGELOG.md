@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [4.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.0.2...@openagenda/react-utils@4.0.3) (2020-04-07)
+
+**Note:** Version bump only for package @openagenda/react-utils
+
+
+
+
+
 ## <small>4.0.2 (2020-04-03)</small>
 
 * add hot reload for webapp ([b490cbb](https://bitbucket.org/openagenda/oa/commits/b490cbb))

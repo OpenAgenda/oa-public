@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.1.9...@openagenda/aggregator-sources@1.2.0) (2020-04-07)
+
+
+### Features
+
+* **aggregator-sources:** specific message when general rules exist ([59c0dd0](https://bitbucket.org/openagenda/oa/commit/59c0dd018681198c22b3e562ee18e871c3a073dc))
+
+
+
 ## <small>1.1.9 (2020-04-03)</small>
 
 **Note:** Version bump only for package @openagenda/aggregator-sources
