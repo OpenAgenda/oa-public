@@ -73,9 +73,15 @@
 .popup-content {
   .warning-block {
     padding: 1em 2em;
-    margin: -1em -2em 2em -2em;
     border-bottom: 1px solid $state-warning-border;
+    border-top: 1px solid $state-warning-border;
+    margin: 1em -2em;
     background-color: $oa-gray-lightest;
+
+    &.top {
+      border-top: 0;
+      margin: -1em -2em 2em -2em;
+    }
   }
 }
 

@@ -12,6 +12,7 @@ import RulesSubmitButton from './RulesSubmitButton';
 import AddRuleSubmitButton from './AddRuleSubmitButton';
 import UpdateRuleSubmitButton from './UpdateRuleSubmitButton';
 import messages from './messages';
+import reducer from './reducer';
 import validate from './validate';
 
 function getInitialState(initialRules) {
@@ -29,59 +30,8 @@ function getInitialState(initialRules) {
   };
 }
 
-function reducer(state, action) {
-  switch (action.type) {
-    case 'setMode': {
-      return {
-        ...state,
-        mode: action.payload.mode,
-        modeOptions: action.payload.options
-      };
-    }
-    case 'addRule': {
-      return {
-        ...state,
-        rules: [
-          ...state.rules,
-          {
-            id: _.uniqueId(), // for react key prop
-            ...action.payload.rule
-          }
-        ]
-      };
-    }
-    case 'updateRule': {
-      return {
-        ...state,
-        rules: state.rules.map(rule => (rule.id === action.payload.id
-          ? {
-            id: action.payload.id,
-            ...action.payload.rule
-          }
-          : rule))
-      };
-    }
-    case 'removeRule': {
-      return {
-        ...state,
-        rules: state.rules.filter(rule => rule.id !== action.payload.id)
-      };
-    }
-    case 'reorderRules': {
-      const rules = Array.from(state.rules);
-      const [itemToMove] = rules.splice(action.payload.startIndex, 1);
-      rules.splice(action.payload.endIndex, 0, itemToMove);
-      return {
-        ...state,
-        rules
-      };
-    }
-    default:
-      return state;
-  }
-}
-
 export default function DefineRules({
+  aggregator,
   aggregatorAgenda,
   aggregatorAgendaSchema,
   displayInfo,
@@ -239,6 +189,7 @@ export default function DefineRules({
   if (state.mode === 'list') {
     return (
       <List
+        aggregator={aggregator}
         aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
         sourceAgenda={sourceAgenda}
@@ -255,7 +206,8 @@ export default function DefineRules({
         onCancel={onCancel}
       />
     );
-  } else if (state.mode === 'add') {
+  }
+  if (state.mode === 'add') {
     return (
       <div className="padding-v-sm">
         <h4 className="margin-bottom-sm">
@@ -280,7 +232,8 @@ export default function DefineRules({
         />
       </div>
     );
-  } else if (state.mode === 'update') {
+  }
+  if (state.mode === 'update') {
     return (
       <div className="padding-v-sm">
         <h4 className="margin-bottom-sm">

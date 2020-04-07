@@ -478,8 +478,8 @@ function Dashboard({
 
       {modals.setAggregatorRules?.visible ? (
         <AggregatorRulesModal
-          aggregatorAgenda={aggregatorAgenda}
           aggregator={aggregator}
+          aggregatorAgenda={aggregatorAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
           onClose={closeModalSetAggregatorRules}
           onSubmit={setAggregatorRules}
@@ -488,6 +488,7 @@ function Dashboard({
 
       {modals.addSource?.visible ? (
         <AddSourceModal
+          aggregator={aggregator}
           aggregatorAgenda={aggregatorAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
           preselectedAgenda={modals.addSource.preselectedAgenda}
@@ -497,6 +498,7 @@ function Dashboard({
       ) : null}
       {modals.updateSource?.visible ? (
         <UpdateSourceModal
+          aggregator={aggregator}
           aggregatorAgenda={aggregatorAgenda}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
           onClose={closeModalUpdateSource}

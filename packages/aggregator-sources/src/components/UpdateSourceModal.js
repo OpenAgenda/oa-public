@@ -26,8 +26,9 @@ const modalClassnames = {
 export default function UpdateSourceModal({
   onSubmit,
   onClose,
-  aggregatorAgendaSchema,
-  aggregatorAgenda
+  aggregator,
+  aggregatorAgenda,
+  aggregatorAgendaSchema
 }) {
   const intl = useIntl();
 
@@ -42,12 +43,15 @@ export default function UpdateSourceModal({
 
   return (
     <Modal
-      title={data.source.agenda.title + ' | ' + intl.formatMessage(messages.updateASource)}
+      title={`${data.source.agenda.title} | ${intl.formatMessage(
+        messages.updateASource
+      )}`}
       onClose={onClose}
       classNames={modalClassnames}
     >
       <DefineRules
         displayInfo={false}
+        aggregator={aggregator}
         aggregatorAgenda={aggregatorAgenda}
         aggregatorAgendaSchema={aggregatorAgendaSchema}
         sourceAgenda={data.source.agenda}

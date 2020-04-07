@@ -241,8 +241,8 @@ function AgendaItem({
   );
 }
 
-
 export default function AddSourceModal({
+  aggregator,
   aggregatorAgenda,
   aggregatorAgendaSchema,
   preselectedAgenda,
@@ -528,7 +528,8 @@ export default function AddSourceModal({
 
         {selectedStep === 'defineRules' ? (
           <DefineRules
-            displayInfo={true}
+            displayInfo
+            aggregator={aggregator}
             aggregatorAgenda={aggregatorAgenda}
             aggregatorAgendaSchema={aggregatorAgendaSchema}
             sourceSchema={selectedAgenda?.schema}
