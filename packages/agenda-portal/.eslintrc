@@ -17,5 +17,17 @@
         ]
       }
     ]
-  }
+  },
+
+  "overrides": [
+    {
+      "files": [
+        "client/**/*.js"
+      ],
+
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    }
+  ]
 }

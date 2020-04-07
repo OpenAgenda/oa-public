@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const qs = require('qs');
-const b64 = require('./base64');
+const b64 = require('./utils/base64');
 
 function stringifyContext(obj) {
   return b64.encode(JSON.stringify(obj));

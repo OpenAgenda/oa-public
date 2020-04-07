@@ -1,6 +1,9 @@
-'use strict';
 
-const log = require('debug')('main');
+import debug from 'debug';
+import isEventHref from './lib/isEventHref';
+import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
+
+const log = debug('main');
 
 /* global $ */
 
@@ -126,10 +129,18 @@ function progressiveLoad(canvasSelector) {
   });
 }
 
-function onWidgetController(origin, widget, query = {}) {
+function onWidgetController(origin, widget, update, query = {}) {
   log('onWidgetUpdate from %s, %j', origin, query);
   nextProgressiveLoadPage = 2;
   rockBottom = false;
+
+  if (isEventHref(window.location.href)) {
+    window.location.href = setListPageHrefFromContext(
+      window.location.href,
+      query
+    );
+    return;
+  }
 
   loadListContent('/events', { oaq: query }, (err, result) => {
     $(listSelector).html(result.html);
