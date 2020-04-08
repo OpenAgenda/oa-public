@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.4.8...@openagenda/agenda-portal@2.5.0) (2020-04-08)
+
+
+### Features
+
+* **agenda-portal:** compress css at launch ([ffe2479](https://bitbucket.org/openagenda/oa/commit/ffe2479e010bde6a1589964c46cb7769453e5836))
+
+
+
 ### [2.4.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.4.7...@openagenda/agenda-portal@2.4.8) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-portal
