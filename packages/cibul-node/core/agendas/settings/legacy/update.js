@@ -20,6 +20,11 @@ module.exports = async (core, agendaOrUid, force = false) => {
     custom
   } = services;
 
+  if (!services.legacy) {
+    log('warn', 'legacy service was not initialized');
+    return;
+  }
+
   const {
     controlData
   } = services.legacy;

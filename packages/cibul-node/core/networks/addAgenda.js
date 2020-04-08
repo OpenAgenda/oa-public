@@ -1,17 +1,21 @@
-"use strict";
+'use strict';
 
 const log = require('@openagenda/logs')('core/networks/addAgenda');
+const BadRequestError = require('../utils/BadRequestError');
 
 module.exports = async (core, networkUid, agendaUid) => {
-  const network = await core.networks(networkUid).get();
+  const network = await core.networks(networkUid).get({ throwNotFound: true });
 
-  if (!network) throw new Error('network not found');
+  const agenda = await core.agendas(agendaUid).get({
+    private: null,
+    throwNotFound: true
+  });
 
-  const agenda = await core.agendas(agendaUid).get({ private: null });
-
-  if (!agenda) throw new Error('agenda not found');
-
-  if (agenda.networkUid) throw new Error('agenda is already in a network');
+  if (agenda.networkUid === networkUid) {
+    throw new BadRequestError('agenda is already in the network');
+  } else if (agenda.networkUid) {
+    throw new BadRequestError('agenda is already in a network');
+  }
 
   return core.agendas(agenda).update({ networkUid }, {
     protected: false,

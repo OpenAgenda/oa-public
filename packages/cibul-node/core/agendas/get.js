@@ -1,6 +1,7 @@
 'use strict';
 
 const getMergedSchema = require('./settings/getMergedSchema');
+const NotFoundError = require('../utils/NotFoundError');
 
 module.exports = async (services, agendaUid, options = {}) => {
   const {
@@ -10,11 +11,13 @@ module.exports = async (services, agendaUid, options = {}) => {
   const {
     detailed,
     internal,
-    includeEvent
+    includeEvent,
+    throwNotFound
   } = {
     detailed: false,
     internal: false,
     includeEvent: false,
+    throwNotFound: false,
     ...options
   };
 
@@ -23,7 +26,9 @@ module.exports = async (services, agendaUid, options = {}) => {
     internal: true
   });
 
-  if (!agenda) {
+  if (!agenda && throwNotFound) {
+    throw new NotFoundError('agendas', agendaUid);
+  } else if (!agenda) {
     return null;
   }
 

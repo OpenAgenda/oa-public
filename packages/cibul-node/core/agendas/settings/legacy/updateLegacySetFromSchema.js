@@ -3,25 +3,37 @@
 const _ = require('lodash');
 const { promisify } = require( 'util' );
 
-const agendaTags = require('@openagenda/agenda-tags');
-const agendaCategories = require('@openagenda/agenda-categories');
-
 const getAgenda = require('../../utils/getAgenda');
 const getMergedSchema = require('../getMergedSchema');
 const setSchemaFieldOrigins = require('./setSchemaFieldOrigins');
 
-const operations = {
-  tags: {
-    set: promisify(agendaTags.set),
-    get: promisify(agendaTags.get),
-    generate: require('@openagenda/legacy/tagsAndCustom').utils.generateTagSet
-  },
-  categories: {
-    set: promisify(agendaCategories.set),
-    get: promisify(agendaCategories.get),
-    generate: require('@openagenda/legacy/tagsAndCustom').utils.generateCategorySet
+const Operations = services => {
+  const {
+    agendaTags,
+    agendaCategories,
+    legacy
+  } = services;
+
+  const setTags = agendaTags ? promisify(agendaTags.set) : () => log('warn', 'agendaTags was not initialized');
+  const getTags = agendaTags ? promisify(agendaTags.get) : () => log('warn', 'agendaTags was not initialized');
+  const generateTags = legacy ? legacy.tagsAndCustom.utils.generateTagSet : () => log('warn', 'legacy was not initialized');
+  const setCategories = agendaCategories ? promisify(agendaCategories.set) : () => log('warn', 'agendaCategories was not initialized');
+  const getCategories = agendaCategories ? promisify(agendaCategories.get) : () => log('warn', 'agendaCategories was not initialized');
+  const generateCategories = legacy ? legacy.tagsAndCustom.utils.generateCategorySet : () => log('warn', 'legacy was not initialized');
+
+  return {
+    tags: {
+      set: setTags,
+      get: getTags,
+      generate: generateTags
+    },
+    categories: {
+      set: setCategories,
+      get: getCategories,
+      generate: generateCategories
+    }
   }
-}
+};
 
 const log = require('@openagenda/logs')('core/agendas/settings/legacy/updateLegacySet');
 
@@ -30,6 +42,8 @@ module.exports = async (core, agendaOrUid, type, force = false) => {
   const {
     services
   } = core;
+
+  const operations = Operations(services);
 
   const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
