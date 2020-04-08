@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 
 const unusedFile = 'unused.js';
@@ -28,7 +29,10 @@ module.exports = (mainSASSFilePath, assetsPath) => new Promise((rs, rj) => {
           filename: '[name].css',
           chunkFilename: '[id].css'
         })
-      ]
+      ],
+      optimization: {
+        minimizer: [new OptimizeCSSAssetsPlugin()]
+      }
     },
     err => {
       if (err) {

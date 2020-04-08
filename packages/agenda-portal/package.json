@@ -47,6 +47,7 @@
     "moment-timezone": "^0.5.23",
     "ncp": "^2.0.0",
     "node-sass": "^4.10.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "pnp-webpack-plugin": "^1.6.4",
     "prompt-confirm": "^2.0.4",
     "prompt-input": "^3.0.0",
