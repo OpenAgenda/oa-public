@@ -4,8 +4,6 @@ var cn = require( '../../js/lib/common/common.mod.js' ),
 
 log = require( 'debug' )( 'tag dom' ),
 
-style = require( './style.css' ),
-
 styler = require( '../lib/widgetStyler' ),
 
 templates = {
@@ -15,11 +13,13 @@ templates = {
   bsItem: require( './bsItem.ejs' )
 };
 
+import style from './style.css';
+
 module.exports = function( anchorElem ) {
 
-  var _onSelect = false, _onUnselect = false, 
+  var _onSelect = false, _onUnselect = false,
 
-  mainTemplate = templates.main, 
+  mainTemplate = templates.main,
 
   itemTemplate = templates.item;
 
@@ -29,7 +29,7 @@ module.exports = function( anchorElem ) {
     setOnUnselect: setOnUnselect,
     setDefaultStyle: setDefaultStyle,
     setMode: setMode
-  }; 
+  };
 
   function setMode( mode ) {
 

@@ -45,11 +45,11 @@ res = {
   }
 },
 
-style = require( './style.css' ),
-
 styler = require( '../lib/widgetStyler' ),
 
 onReady; // cb to call when a widget is ready
+
+import style from './style.css';
 
 if ( [ 'tpl', 'development' ].indexOf( env ) !== -1 ) debug.enable( '*' );
 

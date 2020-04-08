@@ -14,8 +14,6 @@ baseConfig = require( './config.js' ),
 
 template = require( './main.ejs' ),
 
-style = require( './style.css' ),
-
 styler = require( '../lib/widgetStyler' ),
 
 today = new Date(),
@@ -23,6 +21,8 @@ today = new Date(),
 onReady,
 
 oneWidgetReady = false;
+
+import style from './style.css';
 
 if ( cn.contains( [ 'tpl', 'development' ], window.env ) ) debug.enable( '*' );
 
@@ -114,6 +114,8 @@ var widget = function( elem, options ) {
   }
 
   function _createElement( labels ) {
+
+    console.log(style);
 
     styler( style );
 

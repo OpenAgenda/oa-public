@@ -15,7 +15,8 @@ const wLib = require(  '../lib/widgetLib' );
 
 const cn = require(  '../../js/lib/common/common.mod.js' );
 const map = require( './template.map.json' );
-const tpl = require( './relative.tblr' );
+
+import tpl from './relative.tblr';
 
 
 const UID = 0;
@@ -140,7 +141,7 @@ function getWeekDate(offset) {
   weekDate.setDate(monday.getDate() + offset);
 
   return weekDate;
-  
+
 }
 
 function getIndexFromMonday( d ) {

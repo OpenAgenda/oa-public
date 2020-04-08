@@ -2,8 +2,6 @@ var cn = require( '../../js/lib/common/common.mod.js' ),
 
 log = require( 'debug' )( 'categories dom' ),
 
-style = require( './style.css' ),
-
 styler = require( '../lib/widgetStyler' ),
 
 templates = {
@@ -12,6 +10,8 @@ templates = {
   bsMain: require( './bsMain.ejs' ),
   bsItem: require( './bsItem.ejs' )
 };
+
+import style from './style.css';
 
 module.exports = function( anchorElem ) {
 
@@ -30,7 +30,7 @@ module.exports = function( anchorElem ) {
       setOnUnselect: setOnUnselect,
       setDefaultStyle: setDefaultStyle
     }
-    
+
   },
 
   setMode = function( mode ) {
