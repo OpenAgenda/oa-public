@@ -17,8 +17,13 @@ module.exports = Object.assign(router, {
   setLayout: layout => router.layout = layout
 });
 
-router.post('*', bodyParser.json());
+router.get('/config.json', (req, res, next) => {
+  router.service.getEventSchema().then(eventSchema => {
+    res.json({ eventSchema });
+  });
+});
 
+router.post('*', bodyParser.json());
 router.get('*', (req, res, next) => req.headers.accept !== 'application/json' ? _renderPage(req, res, next) : next());
 
 router.get('/', async (req, res, next) => {
@@ -120,8 +125,7 @@ async function _renderPage(req, res, next) {
   const init = {
     config: {
       lang: req.lang,
-      base: req.baseUrl,
-      eventSchema: await router.service.getEventSchema()
+      base: req.baseUrl
     },
     state: {}
   };
