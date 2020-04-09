@@ -1,4 +1,3 @@
-
 import qs from 'qs';
 import base64 from '../../lib/utils/base64';
 
@@ -14,7 +13,7 @@ export default (href, query = {}) => {
       base64.decode(decodeURIComponent(contextPart.split('nc=').pop()))
     );
 
-    if (Object.keys(context?.search || {}).length) {
+    if (Object.keys((context || {}).search || {}).length) {
       Object.assign(current, context.search);
     }
   }
