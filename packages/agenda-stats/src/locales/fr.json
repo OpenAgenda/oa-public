@@ -1,1 +1,15 @@
-{}
+{
+  "AgendaStats.PeriodModal.dateRangeModalTitle": "Choisir une période",
+  "AgendaStats.PeriodModal.submit": "Modifier",
+  "AgendaStats.Dashboard.title": "Statistiques",
+  "AgendaStats.Dashboard.sameDayRange": "Le {startDate, date}",
+  "AgendaStats.Dashboard.range": "Du {startDate, date} au {endDate, date}",
+  "AgendaStats.dateRanges.today": "Aujourd''hui",
+  "AgendaStats.dateRanges.yesterday": "Hier",
+  "AgendaStats.dateRanges.thisWeek": "La semaine actuelle",
+  "AgendaStats.dateRanges.lastWeek": "La semaine dernière",
+  "AgendaStats.dateRanges.thisMonth": "Le mois actuel",
+  "AgendaStats.dateRanges.lastMonth": "Le mois dernier",
+  "AgendaStats.dateRanges.daysUpToToday": "jours jusqu''à aujourd''hui",
+  "AgendaStats.dateRanges.daysStartingToday": "jours à partir d''aujourd'hui"
+}

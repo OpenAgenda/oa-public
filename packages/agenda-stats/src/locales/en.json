@@ -1,1 +1,15 @@
-{}
+{
+  "AgendaStats.PeriodModal.dateRangeModalTitle": "Choose period",
+  "AgendaStats.PeriodModal.submit": "Submit",
+  "AgendaStats.Dashboard.title": "Statistics",
+  "AgendaStats.Dashboard.sameDayRange": "The {startDate, date}",
+  "AgendaStats.Dashboard.range": "From {startDate, date} to {endDate, date}",
+  "AgendaStats.dateRanges.today": "Today",
+  "AgendaStats.dateRanges.yesterday": "Yesterday",
+  "AgendaStats.dateRanges.thisWeek": "This Week",
+  "AgendaStats.dateRanges.lastWeek": "Last Week",
+  "AgendaStats.dateRanges.thisMonth": "This Month",
+  "AgendaStats.dateRanges.lastMonth": "Last Month",
+  "AgendaStats.dateRanges.daysUpToToday": "days up to today",
+  "AgendaStats.dateRanges.daysStartingToday": "days starting today"
+}

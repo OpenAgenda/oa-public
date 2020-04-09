@@ -1,1 +1,15 @@
-{}
+{
+  "AgendaStats.PeriodModal.dateRangeModalTitle": null,
+  "AgendaStats.PeriodModal.submit": null,
+  "AgendaStats.Dashboard.title": null,
+  "AgendaStats.Dashboard.sameDayRange": null,
+  "AgendaStats.Dashboard.range": null,
+  "AgendaStats.dateRanges.today": null,
+  "AgendaStats.dateRanges.yesterday": null,
+  "AgendaStats.dateRanges.thisWeek": null,
+  "AgendaStats.dateRanges.lastWeek": null,
+  "AgendaStats.dateRanges.thisMonth": null,
+  "AgendaStats.dateRanges.lastMonth": null,
+  "AgendaStats.dateRanges.daysUpToToday": null,
+  "AgendaStats.dateRanges.daysStartingToday": null
+}

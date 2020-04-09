@@ -1,4 +1,9 @@
-import React, { useReducer, useMemo, useCallback } from 'react';
+import React, {
+  useReducer,
+  useMemo,
+  useCallback,
+  useLayoutEffect
+} from 'react';
 import distinctColors from 'distinct-colors';
 import {
   PieChart, Pie, Legend, Tooltip, Cell
@@ -25,6 +30,8 @@ function legendOpacityInit(data) {
 
 function legendOpacityReducer(state, action) {
   switch (action.type) {
+    case 'init':
+      return legendOpacityInit(action.data);
     case 'mouseEnter':
       return {
         ...state,
@@ -59,6 +66,13 @@ export default function OriginAgendasChart({ data }) {
     legendOpacityInit
   );
 
+  useLayoutEffect(() => {
+    legendOpacityDispatch({
+      type: 'init',
+      data: dataWithColors
+    });
+  }, [dataWithColors, legendOpacityDispatch]);
+
   const handleMouseEnter = useCallback(
     o => legendOpacityDispatch({
       type: 'mouseEnter',
@@ -69,7 +83,7 @@ export default function OriginAgendasChart({ data }) {
   const handleMouseLeave = useCallback(
     o => legendOpacityDispatch({
       type: 'mouseLeave',
-      dataKey: o.payload.key
+      key: o.payload.key
     }),
     [legendOpacityDispatch]
   );
