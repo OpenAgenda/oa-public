@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.9.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.4...@openagenda/legacy@1.9.5) (2020-04-09)
+
+
+### Bug Fixes
+
+* **legacy:** utils has to be available via instance ([021f772](https://bitbucket.org/openagenda/oa/commit/021f77290e39a3aac42510885bd1144b9657e6f1))
+
+
+
 ### [1.9.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.3...@openagenda/legacy@1.9.4) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/legacy

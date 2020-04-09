@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.0](https://bitbucket.org/openagenda/oa/compare/cibulNode@0.3.0...cibulNode@0.4.0) (2020-04-09)
+
+
+### Features
+
+* remove agenda from network ([b6cbed7](https://bitbucket.org/openagenda/oa/commit/b6cbed77ccf956887abb4dde07d0f7d86a4f149f))
+
+
+
 ## [0.3.0](https://bitbucket.org/openagenda/oa/compare/cibulNode@0.2.12...cibulNode@0.3.0) (2020-04-09)
 
 
