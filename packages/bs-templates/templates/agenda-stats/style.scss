@@ -1,0 +1,11 @@
+@import 'react-date-range/dist/styles.css';
+@import 'react-date-range/dist/theme/default.css';
+
+.agenda-stats {
+  .popup-overlay {
+    section {
+      max-width: 614px;
+      width: 614px;
+    }
+  }
+}
