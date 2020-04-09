@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.0](https://bitbucket.org/openagenda/oa/compare/cibulNode@0.2.12...cibulNode@0.3.0) (2020-04-09)
+
+
+### Features
+
+* core.networks.agendas.remove & tests for add & remove ([e6c7edf](https://bitbucket.org/openagenda/oa/commit/e6c7edf64601117e3e5cabec47e147fa162da6f7))
+
+
+
 ### [0.2.12](https://bitbucket.org/openagenda/oa/compare/cibulNode@0.2.11...cibulNode@0.2.12) (2020-04-08)
 
 **Note:** Version bump only for package cibulNode

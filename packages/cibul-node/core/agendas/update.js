@@ -12,9 +12,13 @@ module.exports = async (core, agendaOrUid, data, options = {}) => {
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
-  log( 'updating agenda of uid %s', agendaUid );
+  log('updating agenda of uid %s', agendaUid);
 
-  const { success, agenda } = await setAgenda( { uid: agendaUid }, data, options );
+  const {
+    success,
+    agenda,
+    errors
+  } = await setAgenda({ uid: agendaUid }, data, options);
 
   if (!success) throw new Error( 'could not update agenda' );
 

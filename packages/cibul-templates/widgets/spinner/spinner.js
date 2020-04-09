@@ -10,11 +10,11 @@ wLib = require(  '../lib/widgetLib' ),
 
 domUtils = require( '../../js/lib/domUtils' ),
 
-style = require( './style.css' ),
-
 styler = require( '../lib/widgetStyler' ),
 
 UID = 0, CONFIG = 1;
+
+import style from './style.css';
 
 if ( [ 'tpl', 'development' ].indexOf( window.env ) !== -1 ) debug.enable( '*' );
 

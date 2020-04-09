@@ -16,9 +16,10 @@ const utils = require( '@openagenda/utils' );
 const bottomHit = require( '../lib/bottomHit' );
 const domain = require( '../../domain' );
 const frameLink = require( '../lib/frameLink' ).parent;
-const style = require( './style.css' );
 const styler = require( '../lib/widgetStyler' );
 const wLib = require( '../lib/widgetLib' );
+
+import style from './style.css';
 
 let UID = 0;
 

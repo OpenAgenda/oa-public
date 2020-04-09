@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.5.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.5.0...@openagenda/agenda-portal@2.5.1) (2020-04-09)
+
+
+### Bug Fixes
+
+* **agenda-portal:** .? synthax is not recognized ([0ffca9e](https://bitbucket.org/openagenda/oa/commit/0ffca9eab350e5c6bfcd9ed3de47df90ff2f0071))
+
+
+
 ## [2.5.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.4.8...@openagenda/agenda-portal@2.5.0) (2020-04-08)
 
 

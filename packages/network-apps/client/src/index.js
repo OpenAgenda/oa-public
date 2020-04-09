@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import sa from 'superagent';
 
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -11,50 +12,50 @@ import { createLogger } from 'redux-logger';
 import { Router } from "react-router-dom";
 import { renderRoutes } from 'react-router-config';
 
-if ( module.hot ) module.hot.accept();
+if (module.hot) module.hot.accept();
 
 import getRoutes from './getRoutes';
 import reducers from './reducers';
 
-const init = JSON.parse(document.getElementById( 'init' ).innerHTML);
+const init = JSON.parse(document.getElementById('init').innerHTML);
 
-const loggerMiddleware = createLogger();
+(async () => {
+  const loggerMiddleware = createLogger();
 
-const initState = _.get( init, 'state' );
+  const initState = _.get(init, 'state');
 
-const config = _.get( init, 'config' );
+  const config = {
+    ...init.config,
+    ...((await sa.get(init.config.base + '/config.json')).body)
+  };
 
-const history = createBrowserHistory();
+  const history = createBrowserHistory();
 
-const store = createStore( combineReducers( {
-  ...reducers,
-  config: () => config,
-} ), initState, applyMiddleware(
-  thunkMiddleware.withExtraArgument( history ),
-  loggerMiddleware
-) );
+  const store = createStore(combineReducers({
+    ...reducers,
+    config: () => config,
+  }), initState, applyMiddleware(
+    thunkMiddleware.withExtraArgument(history),
+    loggerMiddleware
+ ));
 
-const routes = getRoutes( config.base || '' );
+  const routes = getRoutes(config.base || '');
 
-ReactDOM.render(
-  <Provider store={store} context={ReactReduxContext}>
-    <div>
-      <Router history={history}>
-        {renderRoutes( routes )}
-      </Router>
-    </div>
-  </Provider>,
-  document.getElementById( 'app' )
-);
+  ReactDOM.render(
+    <Provider store={store} context={ReactReduxContext}>
+      <div>
+        <Router history={history}>
+          {renderRoutes(routes)}
+        </Router>
+      </div>
+    </Provider>,
+    document.getElementById('app')
+ );
 
-if ( module.hot ) {
-
-  module.hot.accept( './reducers', () => {
-
-    const nextRootReducer = require( './reducers' );
-
-    store.replaceReducer( nextRootReducer );
-
-  } );
-
-}
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
+})();

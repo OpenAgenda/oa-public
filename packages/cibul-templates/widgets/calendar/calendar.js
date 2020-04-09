@@ -25,11 +25,11 @@ templates = {
   main : require( './main.ejs' )
 },
 
-style = require( './style.css' ),
-
 styler = require( '../lib/widgetStyler' ),
 
 onReady;
+
+import style from './style.css';
 
 if ( cn.contains( [ 'tpl', 'development' ], window.env ) ) debug.enable( '*' );
 

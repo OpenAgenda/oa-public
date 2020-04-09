@@ -88,8 +88,8 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       expect(event.originAgenda).toEqual({
         uid: 1,
         title: 'Une commune de Fraaance',
+        description: 'Une description',
         slug: 'une-commune-de-fraaance',
-        description: null,
         image: null,
         url: null
       });

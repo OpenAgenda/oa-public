@@ -1,7 +1,10 @@
 {
   "id": 30,
   "title": "Les Plus Beaux Villages de France",
+  "description": "Une description",
   "slug": "les-plus-beaux-villages-de-france",
   "owner_id": 1,
+  "created_at": "2020-04-08T17:00:00",
+  "updated_at": "2020-04-08T17:19:00",
   "uid": 3
 }

@@ -12,15 +12,11 @@ UID = 0, LANG = 1,
 
 env = window.env ? window.env : 'production',
 
-tpl = require( './preview.tblr' ),
-
 tplMap = require( './template.map.json' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 debug = require( 'debug' ),
-
-style = require( './style.css' ),
 
 styler = require( '../lib/widgetStyler' ),
 
@@ -33,6 +29,9 @@ defaults = {
   useStyle: true,
   count: config.count
 };
+
+import tpl from './preview.tblr';
+import style from './style.css';
 
 if ( cn.contains( [ 'development', 'tpl' ], env ) ) debug.enable( '*' );
 

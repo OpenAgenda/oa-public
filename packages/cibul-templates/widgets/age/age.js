@@ -8,8 +8,6 @@ wLib = require(  '../lib/widgetLib' ),
 
 template = require( './main.ejs' ),
 
-style = require( './style.css' ),
-
 styler = require( '../lib/widgetStyler' ),
 
 du = require( '../../js/lib/domUtils' ),
@@ -21,6 +19,8 @@ debug = require( 'debug' ),
 onReady,
 
 oneWidgetReady = false;
+
+import style from './style.css';
 
 if ( [ 'tpl', 'development' ].indexOf( window.env ) ) debug.enable( '*' );
 
