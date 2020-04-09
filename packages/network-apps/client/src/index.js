@@ -12,17 +12,17 @@ import { createLogger } from 'redux-logger';
 import { Router } from "react-router-dom";
 import { renderRoutes } from 'react-router-config';
 
-if ( module.hot ) module.hot.accept();
+if (module.hot) module.hot.accept();
 
 import getRoutes from './getRoutes';
 import reducers from './reducers';
 
-const init = JSON.parse(document.getElementById( 'init' ).innerHTML);
+const init = JSON.parse(document.getElementById('init').innerHTML);
 
 (async () => {
   const loggerMiddleware = createLogger();
 
-  const initState = _.get( init, 'state' );
+  const initState = _.get(init, 'state');
 
   const config = {
     ...init.config,
@@ -31,37 +31,31 @@ const init = JSON.parse(document.getElementById( 'init' ).innerHTML);
 
   const history = createBrowserHistory();
 
-  const store = createStore( combineReducers( {
+  const store = createStore(combineReducers({
     ...reducers,
     config: () => config,
-  } ), initState, applyMiddleware(
-    thunkMiddleware.withExtraArgument( history ),
+  }), initState, applyMiddleware(
+    thunkMiddleware.withExtraArgument(history),
     loggerMiddleware
-  ) );
+ ));
 
-  const routes = getRoutes( config.base || '' );
+  const routes = getRoutes(config.base || '');
 
   ReactDOM.render(
     <Provider store={store} context={ReactReduxContext}>
       <div>
         <Router history={history}>
-          {renderRoutes( routes )}
+          {renderRoutes(routes)}
         </Router>
       </div>
     </Provider>,
-    document.getElementById( 'app' )
-  );
+    document.getElementById('app')
+ );
 
-  if ( module.hot ) {
-
-    module.hot.accept( './reducers', () => {
-
-      const nextRootReducer = require( './reducers' );
-
-      store.replaceReducer( nextRootReducer );
-
-    } );
-
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers');
+      store.replaceReducer(nextRootReducer);
+    });
   }
-
 })();
