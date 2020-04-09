@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.25](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.24...@openagenda/cibul-templates@1.1.25) (2020-04-09)
+
+
+### Bug Fixes
+
+* **cibul-templates:** .css requires no longer load string ([50cb707](https://bitbucket.org/openagenda/oa/commit/50cb707da2f6e553c74643f60031799fa9717094))
+
+
+
 ### [1.1.24](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.23...@openagenda/cibul-templates@1.1.24) (2020-04-07)
 
 
