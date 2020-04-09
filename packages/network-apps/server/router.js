@@ -98,6 +98,20 @@ router.post(
   });
 
 router.post(
+  '/networks/:uid/agendas/remove/:agendaUid',
+  async (req, res, next) => {
+    try {
+      res.json(await router.service.removeAgendaFromNetwork(
+        parseInt(req.params.uid),
+        parseInt(req.params.agendaUid)
+     ));
+    } catch (e) {
+      log('error', 'agenda add', e);
+      next(e);
+    }
+  });
+
+router.post(
   '/networks/:uid/agendas',
   async (req, res, next) => {
     try {
@@ -110,7 +124,6 @@ router.post(
       next(e);
     }
   });
-
 
 router.use((err, req, res, next) => {
   if (req.headers.accept === 'application/json') {

@@ -17,7 +17,8 @@ module.exports = fixtures => {
     createNetwork,
     createAgenda,
     getEventSchema,
-    addAgendaToNetwork
+    addAgendaToNetwork,
+    removeAgendaFromNetwork
   }
 
   async function getNetworkAgendas( uid ) {
@@ -40,6 +41,16 @@ module.exports = fixtures => {
 
     return addedAgenda;
 
+  }
+
+  async function removeAgendaFromNetwork(uid, agendaUid) {
+    const networkIndex = _.findIndex(networks, { uid })
+    const removedAgendaIndex = _.findIndex(networks[networkIndex].agendas, a => a.uid === agendaUid);
+    const removedAgenda = networks[networkIndex].agendas[removedAgendaIndex];
+
+    networks[networkIndex].agendas = networks[networkIndex].agendas.splice(removedAgendaIndex, 1);
+
+    return removedAgenda;
   }
 
   async function setNetworkSchemaFields( uid, fields ) {
