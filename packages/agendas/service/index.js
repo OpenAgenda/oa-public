@@ -16,6 +16,7 @@ const set = require( './set' );
 const slugs = require( './slugs' );
 const validate = require( './validate' );
 const omitInternals = require( './lib/omitInternals' );
+const filterByAccess = require('./validate/fields/filterByAccess');
 
 const service = {
   init,
@@ -38,7 +39,8 @@ const service = {
   getConfig: () => config,
   contributionTypes: require( './validate/contributionTypes' ),
   utils: {
-    omitInternals
+    omitInternals,
+    filterByAccess
   }
 };
 
