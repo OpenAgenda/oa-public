@@ -13,7 +13,7 @@ module.exports = ( identifiers, options ) => {
 
   const params = Object.assign( {
     allowId: true,
-    requireKey: false,
+    optionalKey: false,
     keyOrIdentifier: false
   }, options );
 
@@ -104,7 +104,7 @@ module.exports = ( identifiers, options ) => {
 
   }
 
-  if ( params.requireKey ) {
+  if ( !params.optionalKey ) {
 
     validateSchema.key = {
       type: 'text',

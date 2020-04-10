@@ -16,7 +16,7 @@ module.exports = async ( identifiers, data ) => {
   if ( !knex ) throw new VError( 'db connector needs to be specified at service init' );
 
   try {
-    identifiers = validateIdentifiers( identifiers, { allowId: false } );
+    identifiers = validateIdentifiers( identifiers, { allowId: false, optionalKey: true } );
     data = validate( data );
   } catch ( e ) {
     throw new VError( {
