@@ -38,9 +38,7 @@ function loadKey() {
 
       try {
 
-        //
-        // TODO requiredKey -> optionalKey
-        req.userKey = await keysSvc( { identifier: req.user.uid, type: 'userPublic' } ).get();
+        req.userKey = await keysSvc( { identifier: req.user.uid, type: 'userPublic' } ).get({ optionalKey: true });
 
       } catch ( e ) {
 
