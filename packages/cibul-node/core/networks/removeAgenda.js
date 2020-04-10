@@ -8,7 +8,8 @@ module.exports = async (core, networkUid, agendaUid) => {
     throwNotFound: true
   });
   const agenda = await core.agendas(agendaUid).get({
-    throwNotFound: true
+    throwNotFound: true,
+    access: 'internal'
   });
 
   if (agenda.networkUid !== networkUid) {

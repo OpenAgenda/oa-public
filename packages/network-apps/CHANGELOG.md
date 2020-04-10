@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/network-apps@1.0.8...@openagenda/network-apps@1.1.0) (2020-04-09)
+
+
+### Features
+
+* **network-apps:** remove agenda from network ([13e0421](https://bitbucket.org/openagenda/oa/commit/13e0421ba8d3f2073e21441408a98848c16ffbd8))
+
+
+### Bug Fixes
+
+* **network-apps:** missing file in previous commit ([97f7c88](https://bitbucket.org/openagenda/oa/commit/97f7c88f0406bd8c8ff865cbadb4c5750e313288))
+
+
+
 ### [1.0.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/network-apps@1.0.7...@openagenda/network-apps@1.0.8) (2020-04-09)
 
 **Note:** Version bump only for package @openagenda/network-apps

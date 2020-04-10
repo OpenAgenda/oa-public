@@ -49,7 +49,7 @@ function navigation({ root, eventsPerPage }, contextStr) {
     nav.next = `${root}/events/nav/next?nc=${contextStr}`;
   }
 
-  nav.available = nav.next || nav.previous;
+  nav.available = !!(nav.next || nav.previous || nav.list);
 
   nav.list = _listLink({ root, eventsPerPage }, context);
 

@@ -6,24 +6,37 @@ import reducers from '../reducers';
 
 import AddAgenda from '../components/AddAgenda';
 import CreateAgenda from '../components/CreateAgenda';
+import RemoveAgenda from '../components/RemoveAgenda';
 import Canvas from '../components/Canvas';
 import ListHead from '../components/ListHead';
 import Loading from '../components/Loading';
 
 
 class NetworkAgendas extends Component {
-
   componentDidMount() {
-
     this.props.onMount();
-
   }
 
   render() {
+    const {
+      network,
+      agendas,
+      add,
+      create,
+      remove
+    } = this.props.network;
 
-    const { network, agendas, add, create } = this.props.network;
-
-    const { onAdd, onAddClose, onAddSubmit, onCreate, onCreateClose, onCreateSubmit } = this.props;
+    const {
+      onAdd,
+      onAddClose,
+      onAddSubmit,
+      onCreate,
+      onCreateClose,
+      onCreateSubmit,
+      onRemove,
+      onRemoveSubmit,
+      onRemoveClose
+    } = this.props;
 
     return <Canvas {...this.props}>
       <ListHead className="text-center">
@@ -36,12 +49,17 @@ class NetworkAgendas extends Component {
             <label>{a.title}</label>
             <ul className="list-inline">
               <li><a target="_blank" href={`/agendas/${a.uid}`}>Voir</a></li>
+              <li><button className="btn btn-link" onClick={onRemove.bind(null, a)}>Retirer</button></li>
             </ul>
           </li>
         ) )}</ul> : <Loading /> }
         { add ? <AddAgenda
           onAdd={onAddSubmit}
           onClose={onAddClose}
+        /> : null }
+        { remove ? <RemoveAgenda
+          onRemove={onRemoveSubmit.bind(null, remove)}
+          onClose={onRemoveClose}
         /> : null }
         { create ? <CreateAgenda
           onCreate={onCreateSubmit}
@@ -51,7 +69,6 @@ class NetworkAgendas extends Component {
     </Canvas>
 
   }
-
 }
 
 export default connect(
@@ -63,6 +80,9 @@ export default connect(
     onAddSubmit: slugOrUrl => dispatch( reducers.network.submitAddAgenda( slugOrUrl ) ),
     onCreateSubmit: agenda => dispatch( reducers.network.submitCreateAgenda( agenda ) ),
     onAddClose: () => dispatch( reducers.network.closeAddAgenda() ),
-    onCreateClose: () => dispatch( reducers.network.closeCreateAgenda() )
+    onCreateClose: () => dispatch( reducers.network.closeCreateAgenda() ),
+    onRemove: agenda => dispatch( reducers.network.showRemoveAgenda(agenda) ),
+    onRemoveSubmit: agenda => dispatch( reducers.network.submitRemoveAgenda(agenda) ),
+    onRemoveClose: () => dispatch( reducers.network.closeRemoveAgenda() ),
   } )
 )( NetworkAgendas );

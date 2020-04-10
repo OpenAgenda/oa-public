@@ -136,9 +136,9 @@ describe( 'agendas - functional (server): instanciate', function () {
         should( err ).equal( null );
 
         result.should.eql( [
-          'https://openagendatst.s3.amazonaws.com/agenda93716628.jpg',
-          'https://openagendatst.s3.amazonaws.com/rwtbagenda93716628.jpg',
-          'https://openagendatst.s3.amazonaws.com/agenda93716628_o.jpg'
+          'https://openagendatst.s3.eu-west-1.amazonaws.com/agenda93716628.jpg',
+          'https://openagendatst.s3.eu-west-1.amazonaws.com/rwtbagenda93716628.jpg',
+          'https://openagendatst.s3.eu-west-1.amazonaws.com/agenda93716628_o.jpg'
         ] );
 
         done();

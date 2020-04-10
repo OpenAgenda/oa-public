@@ -14,7 +14,8 @@ module.exports = ( { knex, queue } ) => {
   return {
     set: set.bind( null, { knex } ),
     setAll: setAll.bind( null, { knex, queue } ),
-    task: setAll.task.bind( null, { knex, queue } )
+    task: setAll.task.bind( null, { knex, queue } ),
+    utils
   }
 }
 

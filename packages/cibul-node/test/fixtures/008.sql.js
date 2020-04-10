@@ -57,7 +57,17 @@ raw.push(knex('review').insert([{
 }]));
 
 raw.push(knex('user').insert([
-  require('./sql/users/50304.json')
+  require('./sql/users/50304.json'),
+  require('./sql/users/50300.json')
+]));
+
+raw.push(knex('api_key_set').insert([
+  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 },
+  require('./sql/apiKeySets/02.json')
+]));
+
+raw.push(knex('reviewer').insert([
+  require('./sql/members/71386687.json')
 ]));
 
 raw.push(knex('network').insert([{

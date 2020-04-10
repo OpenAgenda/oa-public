@@ -49,6 +49,7 @@ module.exports.init = (config, services) => {
       getNetworkAgendas: uid => services.core.networks(uid).agendas(),
       getLoggedUser: async req => req.user,
       addAgendaToNetwork: addAgendaToNetwork.bind(null, services),
+      removeAgendaFromNetwork: (uid, agendaUid) => services.core.networks(uid).agendas.remove(agendaUid),
       createAgenda: createAgenda.bind(null, services),
       createNetwork: data => services.networks.create(data)
     }

@@ -14,6 +14,9 @@ const actionTypes = [
   'CREATE_AGENDA_SHOW',
   'CREATE_AGENDA_CLOSE',
   'CREATE_AGENDA_SUCCESS',
+  'REMOVE_AGENDA_SHOW',
+  'REMOVE_AGENDA_CLOSE',
+  'REMOVE_AGENDA_SUCCESS',
 ].reduce( ( a, v ) => _.set( a, v, `network-apps/network/${v}` ), {} );
 
 const { dispatchError } = require( './main' );
@@ -63,6 +66,18 @@ export default _.assign( ( state = {}, action = {} ) => {
     case actionTypes.CREATE_AGENDA_CLOSE:
       return ih( state, { create: { $set: null } } );
 
+    case actionTypes.REMOVE_AGENDA_SHOW:
+      return ih(state, {
+        remove: { $set: action.agendaUid }
+      });
+
+    case actionTypes.REMOVE_AGENDA_SUCCESS:
+      const removedIndex = _.findIndex(state.agendas, a => a.uid===action.agenda.uid);
+      return ih(state, {
+        remove: { $set: null },
+        agendas: { $splice: [ [ removedIndex, 1 ] ] }
+      });
+
     default:
       return state;
   }
@@ -79,7 +94,10 @@ export default _.assign( ( state = {}, action = {} ) => {
   updateSchema: schema => ( {
     type: actionTypes.SCHEMA_UPDATE,
     schema
-  } )
+  } ),
+  showRemoveAgenda: agendaUid => ( { type: actionTypes.REMOVE_AGENDA_SHOW, agendaUid } ),
+  closeRemoveAgenda: () => ( { type: actionTypes.REMOVE_AGENDA_SHOW } ),
+  submitRemoveAgenda
 } );
 
 function loadAgendas() {
@@ -129,6 +147,17 @@ function submitCreateAgenda( agenda ) {
     data: agenda,
     failType: actionTypes.CREATE_AGENDA_CLOSE
   } );
+
+}
+
+function submitRemoveAgenda(agenda) {
+
+  return ( dispatch, getState, history ) => _post({
+    dispatch,
+    successType: actionTypes.REMOVE_AGENDA_SUCCESS,
+    res: history.location.pathname + '/remove/' + agenda.uid,
+    failType: actionTypes.REMOVE_AGENDA_CLOSE
+  });
 
 }
 

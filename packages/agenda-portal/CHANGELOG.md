@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.5.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.5.1...@openagenda/agenda-portal@2.5.2) (2020-04-09)
+
+
+### Bug Fixes
+
+* **agenda-portal:** navigation.available is null if neither prev or next are available ([a20a1bf](https://bitbucket.org/openagenda/oa/commit/a20a1bfb90935f310c63dd8760c0a69f54664a15))
+
+
+
 ### [2.5.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.5.0...@openagenda/agenda-portal@2.5.1) (2020-04-09)
 
 

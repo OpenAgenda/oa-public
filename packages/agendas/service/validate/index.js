@@ -16,6 +16,6 @@ schema.register( {
 } );
 
 module.exports = schema( utils.extend( {},
-  require( './privateFields' ), 
-  require( './publicFields' ) 
+  require( './privateFields' ),
+  require( './publicFields' )
 ) );
