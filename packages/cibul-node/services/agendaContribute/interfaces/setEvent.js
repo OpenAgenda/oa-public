@@ -115,7 +115,7 @@ async function _shouldBeModerated(memberRole, agenda, user) {
       agenda,
       'settings.contribution.moderateOnChangeBy',
       []
-    ).map(r => r.replace(/s$/,''));
+    );
 
     if (!shouldBeModeratedIfChangedBy.length) return false;
 
