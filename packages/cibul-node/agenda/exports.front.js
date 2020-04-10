@@ -134,7 +134,7 @@ module.exports = app => {
     cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    members.mw.loadAndAuthorize('administrator', { agendaNamespace: 'aggregatorAgenda' }),
+    members.mw.loadAndAuthorize('administrator', { agendaUidPath: 'aggregatorAgenda.uid' }),
     addSource
   );
 
@@ -145,7 +145,7 @@ module.exports = app => {
     cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    members.mw.loadAndAuthorize('administrator', {agendaNamespace: 'aggregatorAgenda'}),
+    members.mw.loadAndAuthorize('administrator', { agendaUidPath: 'aggregatorAgenda.uid' }),
     removeSource
   );
 

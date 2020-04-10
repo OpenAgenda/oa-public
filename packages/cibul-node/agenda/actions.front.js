@@ -38,6 +38,8 @@ function loadKey() {
 
       try {
 
+        //
+        // TODO requiredKey -> optionalKey
         req.userKey = await keysSvc( { identifier: req.user.uid, type: 'userPublic' } ).get();
 
       } catch ( e ) {

@@ -5,20 +5,17 @@ const _ = require('lodash');
 const getLabel = require('@openagenda/labels/makeLabelGetter')(
   require('@openagenda/labels/members')
 );
-const {
-  isSuperiorToOrEqual
-} = require('@openagenda/members').utils.compareRoles;
 const log = require('@openagenda/logs')('services/members/middleware/loadMember');
 
-const sessions = require('../../sessions');
-
-module.exports = (members, req, res, next) => {
-  log( 'loading current user member reference' );
-  _load( members, { agenda: 'agenda' }, req ).then( next, next );
+module.exports = (req, res, next) => {
+  log('loading current user member reference');
+  _load({ agendaUidPath: 'agenda.uid' }, req).then(next, next);
 }
 
-module.exports.andAuthorize = (members, requiredRole, options = {}) => {
-  const orFn = _.get( options, 'or', (req, res) => {
+module.exports.andAuthorize = (requiredRole, options = {}) => {
+  const orFn = _.get(options, 'or', (req, res) => {
+    const { sessions } = req.app.services;
+
     if (!req.member) {
       sessions.setFlash(req, res, getLabel('memberRequired', req.lang))
       res.redirect(302, `/${req.agenda.slug}`);
@@ -29,43 +26,52 @@ module.exports.andAuthorize = (members, requiredRole, options = {}) => {
   });
 
   return (req, res, next) => {
-    log( 'load and authorize', requiredRole );
+    log('load and authorize', requiredRole);
 
-    _load(members, options, req).then(() => {
+    const { members } = req.app.services;
+    const { isSuperiorToOrEqual } = members.utils.compareRoles;
+
+    _load(options, req).then(() => {
+
       if (req.member && isSuperiorToOrEqual(req.member.role, requiredRole)) {
         next();
       } else {
         orFn(req, res, next);
       }
-    });
+    }, next);
   }
 }
 
-module.exports.or = (members, orFn) => (req, res, next) => {
-  _load(members, {agendaNamespace: 'agenda'}, req).then(() => {
+module.exports.or = orFn => (req, res, next) => {
+  _load({ agendaUidPath: 'agenda.uid' }, req).then(() => {
     if (!req.member) return orFn(req, res, next);
     next();
-  });
+  }, next);
 }
 
-module.exports.orFail = (members, req, res, next) => {
-  log( 'loading current user member reference... or fail' );
-  _load(members, {agendaNamespace: 'agenda'}, req).then( () => {
+module.exports.orFail = (req, res, next) => {
+  log('loading current user member reference... or fail');
+  _load({ agendaUidPath: 'agenda.uid' }, req).then(() => {
     if (!req.member) {
       res.status(403);
       return next(new Error('Not a member'));
     }
     next();
-  } );
+  }, next);
 }
 
-async function _load(members, {agendaNamespace}, req) {
-  if (!req.user) return;
+async function _load({ agendaUidPath }, req) {
+  const { members } = req.app.services;
+  const agendaUid = _.get(req, agendaUidPath || 'agenda.uid');
 
-  return members.get( {
-    agendaUid: _.get(req, agendaNamespace || 'agenda').uid,
+  if (!req.user) {
+    return;
+  }
+
+  const member = await members.get({
+    agendaUid,
     userUid: req.user.uid
-  } ).then( member => {
-    req.member = member;
-  } );
+  });
+
+  req.member = member
 }

@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require('lodash');
 const {
   isSuperiorTo
 } = require( '@openagenda/members' ).utils.compareRoles;
@@ -11,8 +12,9 @@ module.exports = {
   moderatorCannotEditAdministrator,
   moderatorCannotInviteAdministrator,
   agendaHasCredential,
-  adminModOrEventOwner
-}
+  adminModOrEventOwner,
+  adminModOrKey
+};
 
 function adminModOrEventOwner( req, res, next ) {
   log( 'adminModOrEventOwner', req.member.role, req.member.userUid, req.event.uid );
@@ -50,4 +52,21 @@ function agendaHasCredential( credential, req, res, next ) {
     return res.status( 400 ).json( { error: 'This feature is not available on this agenda' } );
   }
   return next();
+}
+
+function adminModOrKey({ agendaUidPath } = {}) {
+  return function (req, res, next) {
+    const { agendas, users, members } = req.app.services;
+
+    agendas.mw.authorizeByKey.or([
+      users.mw.loadBySessionOrKey(),
+      members.mw.loadAndAuthorize('moderator', {
+        or: (req, res, next) => {
+          res.status(403);
+          next(new Error('Not authorized'));
+        },
+        agendaUidPath
+      })
+    ], { agendaUidPath })(req, res, next);
+  }
 }
