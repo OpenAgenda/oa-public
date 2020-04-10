@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const getMergedSchema = require('./settings/getMergedSchema');
 const NotFoundError = require('../utils/NotFoundError');
 
@@ -9,13 +10,15 @@ module.exports = async (services, agendaUid, options = {}) => {
   } = services;
 
   const {
+    access,
     detailed,
     internal,
     includeEvent,
     throwNotFound
   } = {
+    access: 'public',
     detailed: false,
-    internal: false,
+    internal: options.access === 'internal',
     includeEvent: false,
     throwNotFound: false,
     ...options
@@ -33,11 +36,20 @@ module.exports = async (services, agendaUid, options = {}) => {
   }
 
   if (!detailed && !includeEvent) {
-    return internal ? agenda : agendas.utils.omitInternals(agenda)
+    return internal ? agenda : agendas.utils.filterByAccess(agenda, access);
   }
 
-  return (internal ? a => a : agendas.utils.omitInternals)({
-    ...agenda,
-    schema: await getMergedSchema(services, agenda, { includeEvent })
-  })
+  const schema = await getMergedSchema(services, agenda, {
+    includeEvent,
+    access
+  });
+
+  if (internal) {
+    return { ...agenda, schema }
+  } else {
+    return {
+      ...agendas.utils.filterByAccess(agenda, access),
+      schema
+    }
+  }
 }

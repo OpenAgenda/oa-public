@@ -2,7 +2,24 @@
 
 const defaultRoles = ['contributor', 'moderator', 'administrator'];
 
-module.exports = verify.bind(null, defaultRoles);
+module.exports.load = async (req, res, next) => {
+  const members = req.app.services.members;
+
+  req.member = await members.get({
+    agendaUid: req.agenda.uid,
+    userUid: req.user.uid
+  });
+
+  if (!req.member) {
+    return next();
+  }
+
+  req.access = members.utils.getRoleSlug(req.member.role);
+
+  next();
+}
+
+module.exports.verify = verify.bind(null, defaultRoles);
 
 module.exports.allow = roles => verify.bind(null, roles);
 

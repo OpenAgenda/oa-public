@@ -56,12 +56,22 @@ module.exports = core => {
   app.param('eventUid', mw.loadEvent);
 
   // control all the things
-  app.post('/v2/agendas/:agendaUid/events*', mw.verifyMember);
-  app.patch('/v2/agendas/:agendaUid/events*', mw.verifyMember);
+  app.post('/v2/agendas/:agendaUid/events*', mw.member.verify);
+  app.patch('/v2/agendas/:agendaUid/events*', mw.member.verify);
+  app.get('/v2/agendas/:agendaUid.prv', mw.member.verify);
+  app.get('/v2/agendas/:agendaUid', mw.member.load);
 
   app.post('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
   app.patch('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
   app.delete('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
+
+  app.get('/v2/agendas/:agendaUid', mw.redirectIfPrivate);
+  app.get([
+    '/v2/agendas/:agendaUid',
+    '/v2/agendas/:agendaUid.prv'
+  ], async (req, res, next) => res.json(await core.agendas(req.agenda.uid).get({
+    access: req.access
+  })));
 
   // create the thing
   app.post('/v2/agendas/:agendaUid/events', events.create);
@@ -74,12 +84,12 @@ module.exports = core => {
   app.delete('/v2/agendas/:agendaUid/events/:eventUid', events.remove);
 
   app.get('/v2/agendas/:agendaUid/settings', [
-    mw.verifyMember.allow(['administrator']),
+    mw.member.allow(['administrator']),
     settings.get
   ]);
 
   app.get('/v2/agendas/:agendaUid/members', [
-    mw.verifyMember.allow(['administrator']),
+    mw.member.allow(['administrator']),
     (req, res, next) => req.app.core
       .agendas(req.agenda.uid).members.list(req.query)
       .then(data => res.json({...data, success: true }), next)

@@ -4,7 +4,8 @@ const NotFoundError = require('../../utils/NotFoundError');
 
 module.exports = async (core, agendaUid, query, nav, options = {}) => {
   const agenda = await core.agendas(agendaUid).get({
-    includeEvent: true
+    includeEvent: true,
+    access: 'internal'
   });
 
   if (!agenda) {;
@@ -19,7 +20,8 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
 
 module.exports.rebuild = async (core, agendaUid) => {
   const agenda = await core.agendas(agendaUid).get({
-    detailed: true
+    detailed: true,
+    access: 'internal'
   });
 
   if (!agenda) {
