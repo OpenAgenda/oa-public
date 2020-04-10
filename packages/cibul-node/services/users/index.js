@@ -20,6 +20,7 @@ const resyncSession = require('./middleware/resyncSession');
 const sendChangeEmail = require('./middleware/sendChangeEmail');
 const setFlashChangeEmail = require('./middleware/setFlashChangeEmail');
 const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
+const loadBySessionOrKey = require('./middleware/loadBySessionOrKey');
 const getHandler = require('./getHandler');
 const svcHooks = require('./hooks.js');
 const walkProtoChain = require('../../lib/walkProtoChain');
@@ -175,6 +176,10 @@ async function init(config, services) {
     replaceIdMe()
   ]);
   hooks(service, svcHooks);
+
+  service.mw = {
+    loadBySessionOrKey
+  };
 
   for (const prop of walkProtoChain(service)) {
     module.exports[prop] = typeof service[prop] === 'function'

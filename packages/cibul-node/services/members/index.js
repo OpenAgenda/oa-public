@@ -90,12 +90,13 @@ function init(c, services) {
         activityTask();
       },
       mw: {
-        load: mw.load.bind(null, members),
-        loadOrFail: mw.load.orFail.bind(null, members),
-        loadOr: mw.load.or.bind(null, members),
+        load: mw.load,
+        loadOrFail: mw.load.orFail,
+        loadOr: mw.load.or,
         list: mw.list.bind(null, members),
-        loadAndAuthorize: mw.load.andAuthorize.bind(null, members),
+        loadAndAuthorize: mw.load.andAuthorize,
         authorizeAdminModOrEventOwner: mw.authorize.adminModOrEventOwner,
+        authorizeAdminModOrKey: mw.authorize.adminModOrKey,
         loadTarget: Object.assign( mw.loadTarget.bind(null, members), {
           options: mw.loadTarget.options.bind(null, members)
         } )
@@ -117,7 +118,7 @@ function plugApp(parentApp) {
   ], [
     mw.loadAgenda,
     sessions.mw.loadOrRedirect,
-    mw.load.andAuthorize(members, 'moderator'),
+    mw.load.andAuthorize('moderator'),
     agendasMw.evaluateIPAddress({
       onUnauthorizedIPAddress: _onUnauthorizedIPAddress
     })
@@ -230,7 +231,7 @@ function plugApp(parentApp) {
     '/:agendaSlug/admin/members/transfer/:eventSlug',
     mw.loadAgenda,
     mw.loadEvent,
-    mw.load.bind(null, members),
+    mw.load,
     mw.authorize.adminModOrEventOwner,
     mw.authorize.agendaHasCredential.bind(null, 'eventOwnershipTransfer'),
     mw.loadTarget.byEmail.bind(null, members),
