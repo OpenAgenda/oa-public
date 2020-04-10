@@ -9,8 +9,8 @@
   "private": true,
   "scripts": {
     "postinstall": "lerna link && yarn workspaces foreach -ptv run prepack",
-    "start": "yarn workspace cibulNode start",
-    "mails-editor": "yarn workspace cibulNode mails-editor",
+    "start": "yarn workspace cibul-node start",
+    "mails-editor": "yarn workspace cibul-node mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",
     "commit": "git-cz",
     "release": "lerna publish"
