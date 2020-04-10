@@ -93,9 +93,9 @@ module.exports = {
         type: 'choice',
         default: [],
         options: [
-          'administrators',
-          'moderators',
-          'contributors'
+          'administrator',
+          'moderator',
+          'contributor'
         ]
       },
       defaultLang: {
