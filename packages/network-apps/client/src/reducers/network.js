@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import sa from 'superagent';
+import axios from 'axios';
 
 const actionTypes = [
   'LOAD',
@@ -111,9 +111,12 @@ function loadAgendas() {
     const successDispatch = { type: actionTypes.LOAD_AGENDAS_SUCCESS };
 
     try {
-      const { body: { network, agendas } } = await sa
-        .get( history.location.pathname )
-        .set( 'Accept', 'application/json' );
+      const { data: { network, agendas } } = await axios
+        .get(history.location.pathname, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
 
       _.assign( successDispatch, { network, agendas } );
     } catch ( e ) {
@@ -168,9 +171,13 @@ async function _post( { dispatch, successType, res, data, failType } ) {
   };
 
   try {
-    const response = await sa.post( res, data ).set( 'Accept', 'application/json' );
+    const response = await axios.post(res, data, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
 
-    _.assign( successDispatch, { agenda: response.body } );
+    Object.assign(successDispatch, { agenda: response.data });
   } catch ( e ) {
     dispatch( { type: failType } );
     return dispatchError( dispatch, e );
