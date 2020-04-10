@@ -1,8 +1,7 @@
 import _ from 'lodash';
-
+import axios from 'axios';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import sa from 'superagent';
 
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
@@ -26,7 +25,7 @@ const init = JSON.parse(document.getElementById('init').innerHTML);
 
   const config = {
     ...init.config,
-    ...((await sa.get(init.config.base + '/config.json')).body)
+    ...(await axios.get(init.config.base + '/config.json')).data
   };
 
   const history = createBrowserHistory();

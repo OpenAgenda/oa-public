@@ -1,6 +1,6 @@
 import _ from 'lodash';
+import axios from 'axios';
 import ih from 'immutability-helper';
-import sa from 'superagent';
 
 const actionTypes = [
   'LOAD',
@@ -48,7 +48,7 @@ function addSubmit( e ) {
 
     const { main: { add } } = getState();
 
-    await sa.post( getState().config.base, add );
+    await axios.post(getState().config.base, add);
 
     return load()( dispatch, getState );
 
@@ -65,9 +65,13 @@ function load() {
     };
 
     try {
-      const { body: networks } = await sa
-        .get( getState().config.base )
-        .set( 'Accept', 'application/json' );
+      const {
+        data: networks
+      } = await axios.get(getState().config.base, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
 
       _.assign( successDispatch, { networks } );
     } catch ( e ) {
