@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
@@ -13,14 +13,11 @@ function App({
 }) {
   const lang = useSelector(state => state.settings.lang);
 
-  const children = useMemo(
-    () => renderRoutes(route.routes, { agenda, agendaSchema, role }),
-    [route.routes, agenda, agendaSchema, role]
-  );
-
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
-      <div className="aggregator-sources">{children}</div>
+      <div className="aggregator-sources">
+        {renderRoutes(route.routes, { agenda, agendaSchema, role })}
+      </div>
     </IntlProvider>
   );
 }
