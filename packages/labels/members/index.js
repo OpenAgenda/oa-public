@@ -463,7 +463,7 @@ module.exports = {
   },
   "memberRequired": {
     "en": "You need to be a member of the agenda to access this page. Contact the administrators of the agenda using the 'Contact' button.",
-    "fr": "La page à laquelle vous avez tenté de chargée n'est accessible que pour les membres de l'agenda. Contactez les administrateurs via le bouton 'Contacter'.",
+    "fr": "La page à laquelle vous avez tenté d'accéder n'est accessible que pour les membres de l'agenda. Contactez les administrateurs via le bouton 'Contacter'.",
     "it": "La pagina che avete tentato di caricare è accessibile solo ai membri del calendario. Contattare gli amministratori tramite il pulsante 'Contatto'."
   },
   "moreinfoActive": {
