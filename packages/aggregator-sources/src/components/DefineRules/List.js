@@ -113,10 +113,9 @@ export default function List({
                     >
                       {(provideInner, { isDragging }) => (
                         <li
-                          className={
-                            `list-group-item draggable${
-                              isDragging ? ' dragged' : ''}`
-                          }
+                          className={`list-group-item draggable${
+                            isDragging ? ' dragged' : ''
+                          }`}
                           ref={provideInner.innerRef}
                           {...provideInner.draggableProps}
                           {...provideInner.dragHandleProps}

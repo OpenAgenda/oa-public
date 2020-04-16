@@ -10,7 +10,7 @@ function isSet(action) {
 }
 
 function getKey(action) {
-  return 'action-' + JSON.stringify(action);
+  return `action-${JSON.stringify(action)}`;
 }
 
 function getType(action) {
@@ -43,12 +43,11 @@ export function getStateBadgeType(value) {
 }
 
 function getStateLabel(intl, value) {
-  return intl.formatMessage(messages[[
-    'refused',
-    'toModerate',
-    'readyToPublish',
-    'published'
-  ][value + 1]]);
+  return intl.formatMessage(
+    messages[
+      ['refused', 'toModerate', 'readyToPublish', 'published'][value + 1]
+    ]
+  );
 }
 
 function stateAction({ intl, action }) {
@@ -57,14 +56,20 @@ function stateAction({ intl, action }) {
 
   return {
     label: intl.formatMessage(messages.state),
-    value: <span className={`badge badge-pill ${getStateBadgeType(state)}`}>{stateLabel}</span>,
+    value: (
+      <span className={`badge badge-pill ${getStateBadgeType(state)}`}>
+        {stateLabel}
+      </span>
+    ),
     detail: intl.formatMessage(messages.actionStateDetail, {
       state: stateLabel
     })
-  }
+  };
 }
 
-export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
+export default ({
+  intl, aggregatorAgendaSchema, aggregatorAgenda, action
+}) => {
   const type = getType(action);
   const base = {
     type,
@@ -79,7 +84,9 @@ export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
     };
   }
 
-  const field = (aggregatorAgendaSchema?.fields || []).filter(f => f.field === action.field).pop();
+  const field = (aggregatorAgendaSchema?.fields || [])
+    .filter(f => f.field === action.field)
+    .pop();
 
   if (!field) {
     return {
@@ -87,7 +94,7 @@ export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
       label: action.field,
       value: 'undefined',
       detail: null
-    }
+    };
   }
 
   const label = getMultiLanguageLabel(field.label);
@@ -96,22 +103,26 @@ export default ({ intl, aggregatorAgendaSchema, aggregatorAgenda, action }) => {
     return {
       ...base,
       label,
-      value: <span className="badge badge-pill badge-default">
-        {intl.formatMessage(messages.automatic)}
-      </span>,
+      value: (
+        <span className="badge badge-pill badge-default">
+          {intl.formatMessage(messages.automatic)}
+        </span>
+      ),
       detail: intl.formatMessage(messages.automaticDetail)
-    }
+    };
   }
 
-  const matchingOptions = getValues(action)
-    .map(value => field.options.filter(o => o.id === value).pop());
+  const matchingOptions = getValues(action).map(value => field.options.filter(o => o.id === value).pop());
 
   return {
     ...base,
     label,
     value: matchingOptions.map(o => getMultiLanguageLabel(o.label)).join(', '),
-    detail: intl.formatMessage(messages.aggregatorAgendaAdditionalFieldValueDetail, {
-      agendaTitle: aggregatorAgenda.title
-    })
-  }
-}
+    detail: intl.formatMessage(
+      messages.aggregatorAgendaAdditionalFieldValueDetail,
+      {
+        agendaTitle: aggregatorAgenda.title
+      }
+    )
+  };
+};

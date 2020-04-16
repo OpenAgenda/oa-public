@@ -80,27 +80,33 @@ export default defineMessages({
   },
   filterDetail: {
     id: 'aggregator-sources.DefineRules.filterDetail',
-    defaultMessage: 'If the filter matches the event, the associated actions apply'
+    defaultMessage:
+      'If the filter matches the event, the associated actions apply'
   },
   requiredFilterDetail: {
     id: 'aggregator-sources.DefineRules.requiredFilter',
-    defaultMessage: 'This rule blocks the aggregation if the filter does not match'
+    defaultMessage:
+      'This rule blocks the aggregation if the filter does not match'
   },
   actionsAfterFilterDetail: {
     id: 'aggregator-sources.DefineRules.actionsAfterFilterDetails',
-    defaultMessage: 'The following values are assigned to the event when the filter matches'
+    defaultMessage:
+      'The following values are assigned to the event when the filter matches'
   },
   actionsDetail: {
     id: 'aggregator-sources.DefineRules.actionsDetails',
-    defaultMessage: 'The following actions are always assigned to the aggregated event'
+    defaultMessage:
+      'The following actions are always assigned to the aggregated event'
   },
   replacingActionDetail: {
     id: 'aggregator-sources.DefineRules.replacingActionDetail',
-    defaultMessage: 'This value will come replace any other that was defined in a previous rule'
+    defaultMessage:
+      'This value will come replace any other that was defined in a previous rule'
   },
   automaticDetail: {
     id: 'aggregator-sources.DefineRules.automaticDetail',
-    defaultMessage: 'Value assocation is made based on labels of the field of the same name in the source agenda'
+    defaultMessage:
+      'Value assocation is made based on labels of the field of the same name in the source agenda'
   },
   sourceAgendaAdditionalFieldValueDetail: {
     id: 'aggregator-sources.DefineRules.sourceAgendaFieldValueDetail',
@@ -115,8 +121,10 @@ export default defineMessages({
     defaultMessage: '{geo} where the event should take place'
   },
   aggregatorAgendaAdditionalFieldValueDetail: {
-    id: 'aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail',
-    defaultMessage: 'Field & Value of "{agendaTitle}" that will be associated with event'
+    id:
+      'aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail',
+    defaultMessage:
+      'Field & Value of "{agendaTitle}" that will be associated with event'
   },
   actionStateDetail: {
     id: 'aggregator-sources.DefineRules.actionStatusDetail',
