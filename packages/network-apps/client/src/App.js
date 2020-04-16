@@ -41,7 +41,7 @@ export default (props = {}) => {
     loggerMiddleware
  ));
 
-  const routes = getRoutes(config.base);
+  const routes = getRoutes(config.base || '/');
 
   return <Provider store={store} context={ReactReduxContext}>
     <div>
