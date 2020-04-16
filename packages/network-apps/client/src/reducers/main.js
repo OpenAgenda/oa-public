@@ -71,7 +71,7 @@ function load() {
         headers: {
           'Accept': 'application/json'
         }
-      })
+      });
 
       _.assign( successDispatch, { networks } );
     } catch ( e ) {

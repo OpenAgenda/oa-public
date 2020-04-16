@@ -9,7 +9,8 @@
   "scripts": {
     "prepack": "yarn dist",
     "start": "nodemon dev/server",
-    "dist": "webpack-cli --config webpack.dist.js"
+    "dist": "webpack-cli --config webpack.dist.js",
+    "storybook": "start-storybook --port=9001 --ci"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
@@ -18,6 +19,7 @@
     "@openagenda/logs": "^1.1.3",
     "@openagenda/react-components": "^2.2.3",
     "axios": "^0.19.0",
+    "axios-mock-adapter": "^1.18.1",
     "body-parser": "^1.18.2",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
@@ -41,6 +43,7 @@
     "@babel/core": "^7.8.4",
     "@openagenda/babel-preset": "^1.2.2",
     "@openagenda/bs-templates": "^2.3.0",
+    "@storybook/react": "^5.3.18",
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^3.0.0",
