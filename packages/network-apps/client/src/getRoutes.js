@@ -16,5 +16,4 @@ export default function(prefix = '') {
     path: `${prefixWithSlash}networks/:uid/agendas`,
     component: NetworkAgendas
   }]
-
 }
