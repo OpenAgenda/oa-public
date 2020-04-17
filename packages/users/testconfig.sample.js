@@ -55,7 +55,7 @@ module.exports = {
       };
     },
     keys: {
-      get: identifiers => keysSvc(identifiers).get(),
+      get: identifiers => keysSvc(identifiers).get({ optionalKey: !('key' in identifiers) }),
       create: (identifiers, data) => keysSvc(identifiers).create(data),
       remove: identifiers => keysSvc(identifiers).remove()
     }

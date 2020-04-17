@@ -1,6 +1,5 @@
 'use strict';
 
-const VError = require('verror');
 const errors = require('@feathersjs/errors');
 const { checkContext } = require('feathers-hooks-common');
 const setInStore = require('./setInStore');
@@ -33,20 +32,15 @@ module.exports = function softDelete(field, additionalParams = {}) {
       params.query.$disableSoftDelete = true;
       params.query.$disableStashBefore = true;
 
-      return service
-        .get(id, { ...params, ...additionalParams })
-        .then(data => {
-          delete params.query.$disableSoftDelete;
+      return service.get(id, { ...params, ...additionalParams }).then(data => {
+        delete params.query.$disableSoftDelete;
 
-          if (!data || data[deleteField]) {
-            throw new errors.NotFound('Item has been soft deleted');
-          }
+        if (!data || data[deleteField]) {
+          throw new errors.NotFound('No record found');
+        }
 
-          return data;
-        })
-        .catch(e => {
-          throw new errors.NotFound(new VError(e, 'No record found'));
-        });
+        return data;
+      });
     }
 
     switch (context.method) {

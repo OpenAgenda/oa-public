@@ -14,6 +14,6 @@ module.exports = function validate(_schema) {
       //   : _schema
     );
 
-    return alterItems(rec => Object.assign(rec, _.pick(_coerce(rec), Object.keys(rec))))(context);
+    return alterItems(rec => Object.assign(rec, _.pick(_coerce(rec), rec && Object.keys(rec))))(context);
   };
 };
