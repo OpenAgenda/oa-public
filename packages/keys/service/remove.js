@@ -10,7 +10,7 @@ module.exports = async identifiers => {
 
   if ( !knex ) throw new VError( 'Db connector needs to be specified at service init' );
 
-  const row = await get( identifiers );
+  const row = await get( identifiers, { optionalKey: true } );
 
   if ( row ) {
 
