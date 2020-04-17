@@ -165,7 +165,7 @@ function signinSubmit( req, res, next ) {
 
     if ( err ) {
 
-      req.log( 'error', 'passport could not complete signing and received error %s', JSON.stringify( err ) );
+      req.log( 'error', 'passport could not complete signing and received error', err );
 
     }
 
@@ -175,7 +175,7 @@ function signinSubmit( req, res, next ) {
 
         if ( v.err && v.err.name !== 'NotFound' ) {
 
-          v.req.log( 'error', 'user could not be loaded with data %s', JSON.stringify( v.data ) );
+          v.req.log( 'error', 'user could not be loaded with data %j', v.data );
 
         }
 

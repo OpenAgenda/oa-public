@@ -4545,7 +4545,6 @@ __metadata:
     node-watch: ^0.3.5
     rc-collapse: ^1.11.1
     react: ^16.12.0
-    react-date-range: ^1.0.3
     react-datepicker: ^1.6.0
     react-day-picker: ^7.3.0
     react-dom: ^16.12.0
@@ -7598,6 +7597,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/keyv@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@types/keyv@npm:3.1.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2/3aaf557d5b82e733d5a17b7f55af5d6be953363c3a594f006d64265790fe87c301c6e1400c0b6b1cf72add50a0ceddc25afb8231ab8302a2e5b6ebfbfac30e5d
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
@@ -7731,6 +7739,15 @@ __metadata:
     "@types/prop-types": "*"
     csstype: ^2.2.0
   checksum: 2/20cc7d3b714cc1802e84eb30d6090d67de1b76dd02d58f03705bb1046f1be11525670c73696e86363293506a6f9bfcc3438ec9f44e9de32cba1a0d1c3efc3aa8
+  languageName: node
+  linkType: hard
+
+"@types/responselike@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@types/responselike@npm:1.0.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 2/e6e6613c800aeda63e2331e753e8d21df1a2c9aa7a4bc71ed792a848e4811fc96e609759089355314a2318c76eff1f161499cd242044838ab1e6f56e463ebb9c
   languageName: node
   linkType: hard
 
@@ -18006,6 +18023,27 @@ conventional-changelog-conventionalcommits@4.2.3:
   dependencies:
     node-gyp: latest
   checksum: 2/8f61ef784058aa410def121afcf20014fbb845c678c04e43fe1fd1edec6c469c5452343b4a49960d89e8a207955c8e9b37a229af7a8fc5b28658c9e0faabe086
+  languageName: node
+  linkType: hard
+
+"fsevents@patch:fsevents@^1.0.0#builtin<compat/fsevents>, fsevents@patch:fsevents@^1.2.7#builtin<compat/fsevents>":
+  version: 1.2.11
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.11#builtin<compat/fsevents>::version=1.2.11&hash=495457"
+  dependencies:
+    bindings: ^1.5.0
+    nan: ^2.12.1
+    node-gyp: latest
+    node-pre-gyp: "*"
+  checksum: 2/bed0c750c8ed79e28fb83283e6a059c50d0f522fa20267476ce8b905ea6b4e89dbe16ad23ab019527fef694c339a391baedf04fd5b521eb150ffaeab6d199049
+  languageName: node
+  linkType: hard
+
+"fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.1#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
+  version: 2.1.2
+  resolution: "fsevents@patch:fsevents@npm%3A2.1.2#builtin<compat/fsevents>::version=2.1.2&hash=495457"
+  dependencies:
+    node-gyp: latest
+  checksum: 2/6fb6ae0c1e5aca68fec6c0bf119d0dc9a1d653af60925c7ec69868f0ac68fa6930eeb769745030ecb560e00c144c74068da62bb77a000cc7dc263963ba4e2d7f
   languageName: node
   linkType: hard
 
@@ -32070,6 +32108,22 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
+"resolve@patch:resolve@1.1.7#builtin<compat/resolve>, resolve@patch:resolve@~1.1.0#builtin<compat/resolve>":
+  version: 1.1.7
+  resolution: "resolve@patch:resolve@npm%3A1.1.7#builtin<compat/resolve>::version=1.1.7&hash=e7677c"
+  checksum: 2/5238277188664a6948dd7288d16f1a09e098fb36d4f9b2c749130969c998faa9bccefd30fd618073af5210fdc768730cadfc15588bbee4fc64b257f20cab6783
+  languageName: node
+  linkType: hard
+
+"resolve@patch:resolve@^1.1.3#builtin<compat/resolve>, resolve@patch:resolve@^1.1.4#builtin<compat/resolve>, resolve@patch:resolve@^1.1.6#builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#builtin<compat/resolve>, resolve@patch:resolve@^1.11.0#builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#builtin<compat/resolve>, resolve@patch:resolve@^1.15.1#builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#builtin<compat/resolve>, resolve@patch:resolve@^1.4.0#builtin<compat/resolve>, resolve@patch:resolve@^1.8.1#builtin<compat/resolve>":
+  version: 1.15.1
+  resolution: "resolve@patch:resolve@npm%3A1.15.1#builtin<compat/resolve>::version=1.15.1&hash=e7677c"
+  dependencies:
+    path-parse: ^1.0.6
+  checksum: 2/fe7e72ddef33d5c157991b824ba2d439cafcd386cb4b26d86c32e77fea442bdd9a93c6cdd93ab90f87a29449008df64b53a8310dd89ebe88ea87fb5db09c03aa
+  languageName: node
+  linkType: hard
+
 "restore-cursor@npm:^1.0.1":
   version: 1.0.1
   resolution: "restore-cursor@npm:1.0.1"
@@ -35773,6 +35827,16 @@ typescript@^3.2.1:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 2/519b11576247fe3570d89a2aa757d8f666aafc0cb9465a6cdd4df09c1dc6bf7285f0c6008d2ac7a55ea26457e767aaab819f58439d80af2cce1d9805b2be1034
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^3.2.1#builtin<compat/typescript>":
+  version: 3.8.3
+  resolution: "typescript@patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=c79188"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 2/2950b292ac700898647d49ca5f07fa546f6c3d28983ba559c5b4fa360babdc1734493b7f5f72553735eaa401c850989d7bbbd70f739df3c0b7fc83c82e37d8a5
   languageName: node
   linkType: hard
 

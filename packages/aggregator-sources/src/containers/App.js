@@ -12,6 +12,7 @@ function App({
   route, agenda, agendaSchema, role
 }) {
   const lang = useSelector(state => state.settings.lang);
+
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
       <div className="aggregator-sources">
