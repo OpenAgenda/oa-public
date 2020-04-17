@@ -165,7 +165,8 @@ module.exports = async ({ config, services }, ae, context) => {
 
 async function _addEventCreationActivity(services, eventFeed, { agenda, event, user }, context) {
   const {
-    activitiesSvc
+    activities: activitiesSvc,
+    members: membersSvc
   } = services;
 
   if (!user) {
@@ -194,7 +195,7 @@ async function _addEventCreationActivity(services, eventFeed, { agenda, event, u
 
 async function _addEventAggregationActivity(services, eventFeed, { agenda, event }, context) {
   const {
-    activitiesSvc
+    activities: activitiesSvc
   } = services;
 
   const { sourceAgenda } = context;
@@ -216,7 +217,7 @@ async function _addEventAggregationActivity(services, eventFeed, { agenda, event
 
 async function _addEventAdditionActivity(services, eventFeed, { agenda, user, event }, context) {
   const {
-    activitiesSvc
+    activities: activitiesSvc
   } = services;
 
   const { sourceAgenda } = context;
