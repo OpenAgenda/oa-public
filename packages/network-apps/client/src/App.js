@@ -16,7 +16,8 @@ export default (props = {}) => {
   const {
     base,
     lang,
-    createHistory
+    createHistory,
+    eventSchema
   } = {
     base: null,
     lang: 'fr',
@@ -27,7 +28,8 @@ export default (props = {}) => {
   const initState = {};
   const config = {
     base,
-    lang
+    lang,
+    eventSchema
   };
 
   const history = createHistory();
@@ -41,7 +43,7 @@ export default (props = {}) => {
     loggerMiddleware
  ));
 
-  const routes = getRoutes(config.base);
+  const routes = getRoutes(config.base || '/');
 
   return <Provider store={store} context={ReactReduxContext}>
     <div>

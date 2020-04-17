@@ -11,11 +11,19 @@ import {
 
 const mock = new MockAdapter(axios);
 
-export default { title: 'Network list' };
+export default { title: 'App' };
 
-export const main = () => {
+export const listOfNetworks = () => {
   mock.onGet('').reply(200, networks);
-  mock.onGet(/^\/networks.+/).reply(200, []);
+  mock.onGet(/^\/networks\/[0-9]\/agendas$/).reply(200, {
+    network: networks[0],
+    agendas: networks[0].agendas
+  });
+  mock.onPost(/^\/networks\/[0-9]\/agendas\/remove\/[0-9]+$/).reply(200, networks[0].agendas[0]);
+  mock.onPost(/^\/networks\/[0-9]\/agendas\/add$/).reply(200, {
+    uid: 1230902,
+    title: 'Bim!'
+  });
 
   return <App
     createHistory={createMemoryHistory}

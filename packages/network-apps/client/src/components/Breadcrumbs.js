@@ -12,7 +12,6 @@ export default props => <ol className="margin-v-z breadcrumb">{
 }</ol>
 
 const Crumb = props => {
-
   const { path, pattern, exact } = props;
   const { base } = props.config;
 

@@ -12,7 +12,7 @@ import ListHead from '../components/ListHead';
 import Loading from '../components/Loading';
 
 
-class NetworkAgendas extends Component {
+export class NetworkAgendas extends Component {
   componentDidMount() {
     this.props.onMount();
   }
@@ -45,7 +45,7 @@ class NetworkAgendas extends Component {
       </ListHead>
       <div>
         {agendas ? <ul className="list-unstyled">{agendas.map( a => (
-          <li className="margin-v-sm padding-all-sm wsq" key={'agenda' + a.uid}>
+          <li className="margin-v-sm padding-h-sm padding-top-sm wsq" key={'agenda' + a.uid}>
             <label>{a.title}</label>
             <ul className="list-inline">
               <li><a target="_blank" href={`/agendas/${a.uid}`}>Voir</a></li>
