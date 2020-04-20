@@ -66,7 +66,6 @@ describe( 'agendas - functional (server): set (update)', function() {
             allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
-            message: null,
             messages: {
               instructions: null,
               complete: null,
@@ -76,8 +75,7 @@ describe( 'agendas - functional (server): set (update)', function() {
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: [ 'administrators', 'moderators' ],
-            moderateOnChangeBy: [],
-            survey: false
+            moderateOnChangeBy: []
           },
           translation: {
             enabled: false,
@@ -265,7 +263,6 @@ describe( 'agendas - functional (server): set (update)', function() {
               allowLocationCreate: true,
               defaultLang: null,
               defaultState: 2,
-              message: null,
               messages: {
                 instructions: null,
                 complete: null,
@@ -275,8 +272,7 @@ describe( 'agendas - functional (server): set (update)', function() {
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
-              moderateOnChangeBy: [],
-              survey: false
+              moderateOnChangeBy: []
             },
             translation: {
               enabled: false,

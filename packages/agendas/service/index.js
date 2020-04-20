@@ -40,7 +40,8 @@ const service = {
   contributionTypes: require( './validate/contributionTypes' ),
   utils: {
     omitInternals,
-    filterByAccess
+    filterByAccess,
+    credentials: require('./validate/fields/credentials')
   }
 };
 

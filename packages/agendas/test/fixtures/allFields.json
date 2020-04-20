@@ -1,0 +1,333 @@
+{
+  "title": {
+    "type": "text",
+    "min": 2,
+    "max": 255,
+    "optional": false
+  },
+  "description": {
+    "type": "text",
+    "max": 160,
+    "optional": false
+  },
+  "slug": {
+    "type": "slug",
+    "min": 2,
+    "max": 255,
+    "optional": false
+  },
+  "url": {
+    "type": "link",
+    "max": 255
+  },
+  "official": {
+    "type": "boolean",
+    "default": false
+  },
+  "networkUid": {
+    "type": "integer",
+    "optional": true
+  },
+  "settings": {
+    "fields": {
+      "tracking": {
+        "fields": {
+          "googleAnalytics": {
+            "type": "text",
+            "max": 255
+          }
+        }
+      },
+      "inbox": {
+        "fields": {
+          "mailto": {
+            "fields": {
+              "enabled": {
+                "type": "boolean",
+                "default": false
+              },
+              "email": {
+                "type": "email",
+                "default": null
+              },
+              "subject": {
+                "type": "text",
+                "default": null
+              },
+              "body": {
+                "type": "text",
+                "default": null
+              }
+            }
+          }
+        }
+      },
+      "contribution": {
+        "fields": {
+          "type": {
+            "default": 2,
+            "type": "choice",
+            "optional": false,
+            "unique": true,
+            "options": [
+              2,
+              0,
+              1
+            ]
+          },
+          "defaultState": {
+            "default": 2,
+            "type": "choice",
+            "optional": false,
+            "unique": true,
+            "options": [
+              0,
+              1,
+              2
+            ]
+          },
+          "canPublish": {
+            "type": "choice",
+            "default": [
+              "administrators",
+              "moderators"
+            ],
+            "options": [
+              "administrators",
+              "moderators"
+            ]
+          },
+          "moderateOnChangeBy": {
+            "type": "choice",
+            "default": [],
+            "options": [
+              "administrator",
+              "moderator",
+              "contributor"
+            ]
+          },
+          "defaultLang": {
+            "default": null,
+            "type": "choice",
+            "optional": true,
+            "unique": true,
+            "options": [
+              "en",
+              "fr",
+              "it",
+              "es",
+              "de",
+              "ar",
+              null
+            ]
+          },
+          "allowLocationCreate": {
+            "default": true,
+            "type": "boolean"
+          },
+          "messages": {
+            "fields": {
+              "instructions": {
+                "type": "text"
+              },
+              "complete": {
+                "type": "text"
+              },
+              "publication": {
+                "type": "text"
+              }
+            }
+          },
+          "useFields": {
+            "type": "boolean",
+            "description": "require members to fill in a member form",
+            "default": false
+          },
+          "authorizedIPAddresses": {
+            "type": "ip",
+            "list": true,
+            "default": []
+          }
+        }
+      },
+      "translation": {
+        "optional": true,
+        "fields": {
+          "enabled": {
+            "type": "boolean",
+            "default": false
+          },
+          "source": {
+            "type": "text",
+            "min": 2,
+            "max": 2,
+            "default": "fr"
+          },
+          "sets": {
+            "fields": {
+              "source": {
+                "type": "text",
+                "min": 2,
+                "max": 2,
+                "default": "fr"
+              },
+              "target": {
+                "list": {
+                  "min": 0
+                },
+                "type": "text",
+                "min": 2,
+                "max": 2,
+                "default": [
+                  "en",
+                  "es",
+                  "it",
+                  "de"
+                ]
+              },
+              "checked": {
+                "list": {
+                  "min": 0
+                },
+                "type": "text",
+                "min": 2,
+                "max": 2,
+                "default": []
+              }
+            },
+            "list": {
+              "min": 0
+            },
+            "default": []
+          },
+          "service": {
+            "type": "text",
+            "default": "reverso"
+          },
+          "options": {
+            "type": "text"
+          }
+        }
+      }
+    }
+  },
+  "uid": {
+    "type": "integer",
+    "optional": false
+  },
+  "ownerId": {
+    "type": "integer",
+    "optional": false
+  },
+  "updatedAt": {
+    "type": "date",
+    "optional": false
+  },
+  "createdAt": {
+    "type": "date",
+    "optional": false
+  },
+  "formSchemaId": {
+    "type": "integer",
+    "optional": true
+  },
+  "officializedAt": {
+    "type": "date",
+    "default": null
+  },
+  "image": {
+    "type": "text"
+  },
+  "private": {
+    "type": "boolean",
+    "default": false
+  },
+  "indexed": {
+    "type": "boolean",
+    "default": true
+  },
+  "credentials": {
+    "fields": {
+      "useContributeApp": {
+        "description": "Use new contribute application for creating and editing events",
+        "type": "boolean",
+        "default": false
+      },
+      "useAgendaSchema": {
+        "description": "Use agenda schema app to customize fields",
+        "type": "boolean",
+        "default": false
+      },
+      "premiumCustomFields": {
+        "description": "Allow adding multiple custom fields to agenda form",
+        "type": "boolean",
+        "default": false
+      },
+      "moderators": {
+        "description": "Add Moderator to member roles",
+        "type": "boolean",
+        "default": false
+      },
+      "tags": {
+        "description": "Agenda tags are made available.",
+        "type": "boolean",
+        "default": false
+      },
+      "embedsHead": {
+        "description": "Integrated agendas: The content of the <head> tag can be edited",
+        "type": "boolean",
+        "default": false
+      },
+      "embedsTemplates": {
+        "description": "Integrated agendas: Custom templates can be defined",
+        "type": "boolean",
+        "default": false
+      },
+      "indesign": {
+        "description": "Burn this with fire.",
+        "type": "boolean",
+        "default": false
+      },
+      "activatingInvitations": {
+        "description": "When the user with no account is invited to the agenda, no activation mail is required to complete signup",
+        "type": "boolean",
+        "default": false
+      },
+      "emailstrategie": {
+        "description": "Newsletter app used by Est-Ensemble only. To be deprecated",
+        "type": "boolean",
+        "default": false
+      },
+      "aggregator": {
+        "description": "Agenda aggregation. Do not forget to initialize the tab on the agenda admin menu",
+        "type": "boolean",
+        "default": false
+      },
+      "invitationMessage": {
+        "description": "Members invitation message can be customized",
+        "type": "boolean",
+        "default": false
+      },
+      "prioritizedAggregator": {
+        "description": "Prioritized queue for important aggregation networks",
+        "type": "boolean",
+        "default": false
+      },
+      "docxExport": {
+        "description": "Word export feature",
+        "type": "boolean",
+        "default": false
+      },
+      "calendarView": {
+        "description": "Agenda calendar view",
+        "type": "boolean",
+        "default": false
+      },
+      "eventOwnershipTransfer": {
+        "description": "Transfer ownership of event from one member to another within an agenda",
+        "type": "boolean",
+        "default": false
+      }
+    }
+  }
+}

@@ -13,13 +13,7 @@ module.exports = [{
   field: 'uid',
   type: 'integer',
   optional: false,
-  write: ['internal']
-}, {
-  field: 'slug',
-  type: 'text',
-  min: 2,
-  max: 255,
-  optional: false,
+  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
   write: ['internal']
 }, {
   field: 'title',
@@ -27,72 +21,92 @@ module.exports = [{
   min: 2,
   max: 255,
   optional: false,
+  read: ['internal', 'public', 'legacy', 'legacyPublic']
 }, {
   field: 'description',
   type: 'text',
   max: 160,
-  optional: false
+  optional: false,
+  read: ['internal', 'private', 'legacy', 'legacyPublic']
+}, {
+  field: 'slug',
+  type: 'slug',
+  min: 2,
+  max: 255,
+  optional: false,
+  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  write: ['internal']
 }, {
   field: 'url',
   type: 'link',
+  read: ['internal', 'public', 'legacy', 'legacyPublic'],
   max: 255
 }, {
-  field: 'ownerId',
-  type: 'integer',
-  optional: false,
-  read: ['internal'],
-  write: ['internal']
-}, {
-  field: 'updatedAt',
-  type: 'date',
-  optional: false,
-  write: ['internal']
-}, {
-  field: 'createdAt',
-  type: 'date',
-  optional: false,
+  field: 'official',
+  type: 'boolean',
+  default: false,
+  read: ['internal', 'public', 'legacy', 'legacyPublic'],
   write: ['internal']
 }, {
   field: 'networkUid',
   type: 'integer',
   optional: true,
+  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  write: ['internal']
+}, {
+  field: 'ownerId',
+  type: 'integer',
+  optional: false,
+  read: ['internal', 'legacy', 'legacyPrivate'],
+  write: ['internal']
+}, {
+  field: 'updatedAt',
+  type: 'date',
+  optional: false,
+  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
+  write: ['internal']
+}, {
+  field: 'createdAt',
+  type: 'date',
+  optional: false,
+  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
   write: ['internal']
 }, {
   field: 'formSchemaId',
   type: 'integer',
   optional: true,
-  read: ['internal'],
-  write: ['internal']
-}, {
-  field: 'official',
-  type: 'boolean',
-  default: false,
+  read: ['internal', 'legacy', 'legacyPrivate'],
   write: ['internal']
 }, {
   field: 'officializedAt',
   type: 'date',
   default: null,
+  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
   write: ['internal']
 }, {
   field: 'image',
+  read: ['public', 'legacy', 'legacyPrivate'],
   type: 'text'
 }, {
   field: 'private',
   type: 'boolean',
   default: false,
+  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
   write: ['internal']
 }, {
   field: 'indexed',
   type: 'boolean',
   default: true,
+  read: ['internal', 'public', 'legacy', 'legacyPrivate'],
   write: ['internal']
 }, {
   field: 'settings',
   type: 'schema',
+  read: ['public', 'legacy'],
   fields: [{
     field: 'tracking',
     type: 'schema',
-    read: ['administrator', 'internal'],
+    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'googleAnalytics',
@@ -102,7 +116,7 @@ module.exports = [{
   }, {
     field: 'inbox',
     type: 'schema',
-    read: ['administrator', 'internal'],
+    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
     write: ['administrator', 'internal'],
     fields: [{
       field: 'mailto',
@@ -128,6 +142,7 @@ module.exports = [{
   }, {
     field: 'contribution',
     type: 'schema',
+    read: ['public', 'legacy', 'legacyPublic'],
     fields: [{
       field: 'type',
       default: c.MEMBERS_ONLY,
@@ -171,7 +186,8 @@ module.exports = [{
       options: [ 'en', 'fr', 'it', 'es', 'de', 'ar', null ]
     }, {
       field: 'allowLocationCreate',
-      type: 'boolean'
+      type: 'boolean',
+      default: true
     }, {
       field: 'messages',
       type: 'schema',
@@ -192,7 +208,7 @@ module.exports = [{
       default: false
     }, {
       field: 'authorizedIPAddresses',
-      read: ['internal', 'administrator'],
+      read: ['internal', 'administrator', 'legacy', 'legacyPublic'],
       type: 'ip',
       list: true,
       default: []
@@ -201,13 +217,15 @@ module.exports = [{
     field: 'translation',
     optional: true,
     type: 'schema',
-    read: ['internal', 'administrator'],
+    read: ['internal', 'administrator', 'legacy', 'legacyPublic'],
     write: ['internal', 'administrator'],
     fields: [{
       field: 'enabled',
+      type: 'boolean',
       default: false
     }, {
       field: 'source',
+      type: 'text',
       min: 2,
       max: 2,
       default: 'fr'
@@ -243,7 +261,7 @@ module.exports = [{
       field: 'service',
       type: 'text',
       default: 'reverso'
-    }, {
+    },{
       field: 'options',
       type: 'text'
     }]
@@ -251,7 +269,7 @@ module.exports = [{
 }, {
   field: 'credentials',
   type: 'schema',
-  read: ['internal'],
+  read: ['internal', 'legacy', 'legacyPrivate'],
   write: ['internal'],
   fields: [{
     field: 'useContributeApp',
