@@ -3,7 +3,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared';
 import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
 import readClipboard from '../../utils/readClipboard';
 import messages from './messages';

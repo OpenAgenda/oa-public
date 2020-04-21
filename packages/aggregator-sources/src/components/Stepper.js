@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { useIsomorphicLayoutEffect } from 'react-use';
 import classNames from 'classnames';
-import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared';
 
 const defaultBgColor = 'rgba(0, 0, 0, 0)';
 

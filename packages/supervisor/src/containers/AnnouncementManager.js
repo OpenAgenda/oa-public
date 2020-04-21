@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
 import { css } from '@emotion/core';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
-import useConstant from '@openagenda/react-shared/dist/hooks/useConstant';
+import { useConstant } from '@openagenda/react-shared';
 
 const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
 

@@ -5,7 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import * as dateFns from 'date-fns';
 import { FaRegTimesCircle, FaCheck } from 'react-icons/fa';
-import a11yButtonActionHandler from '@openagenda/react-shared/dist/utils/a11yButtonActionHandler';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import SelectField from './SelectField';
 import WeekdayInput from './WeekdayInput';
 import NumberInput from './NumberInput';
