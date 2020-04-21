@@ -50,7 +50,6 @@ module.exports = async function (configObject, options = {}) {
   await init('activities', require('./activities'));
   await init('activityApps', require('./activityApps'));
   await init('members', require('./members'));
-  await init('adminAgendas', require('./adminAgendas'));
   await init('agendaCalendar', require('./agendaCalendar'));
   await init('agendaCategories', require('./agendaCategories'));
   await init('agendaContribute', require('./agendaContribute'));
@@ -65,6 +64,7 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaStatistics', require('./agendaStatistics'));
   await init('agendaTags', require('./agendaTags'));
   await init('agendas', require('./agendas'));
+  await init('adminAgendas', require('./adminAgendas'));
   await init('aggregators', require('./aggregators'));
   await init('cache', require('./cache'));
   await init('elasticsearch', require('./elasticsearch'));
