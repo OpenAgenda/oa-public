@@ -40,7 +40,9 @@ export default function createApp(options) {
         // ... other middlewares ... (like redux-logger)
         ...(Array.isArray(reduxMiddleware) ? reduxMiddleware : [reduxMiddleware])
       ),
-      __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
+      typeof window !== 'undefined'
+      && process.env.NODE_ENV === 'development'
+      && window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : v => v
     )
