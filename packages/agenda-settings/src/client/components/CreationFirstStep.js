@@ -13,8 +13,8 @@ import { renderInput, renderTextarea, renderInputGroup } from '../utils/inputs';
   initialValues: {
     settings: {
       contribution: {
-        type: agendaSchema.settings.contribution.type.default.toString(),
-        defaultState: agendaSchema.settings.contribution.defaultState.default.toString()
+        type: agendaSchema.settings.fields.contribution.fields.type.default.toString(),
+        defaultState: agendaSchema.settings.fields.contribution.fields.defaultState.default.toString()
       }
     }
   }
