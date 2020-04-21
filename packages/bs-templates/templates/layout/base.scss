@@ -93,7 +93,6 @@
 @import "form-feedback";
 
 
-
 body {
 
   background-color: $oa-gray-lighter;
@@ -319,7 +318,9 @@ a.discreet {
   color: inherit;
   cursor: pointer;
 
-  label { cursor: pointer; }
+  label {
+    cursor: pointer;
+  }
 
   &:hover {
 
@@ -341,10 +342,31 @@ a.discreet {
   }
 }
 
+@each $name, $color in (success: $brand-success, info: $brand-info, warning: $brand-warning, danger: $brand-danger) {
+  &.text-#{$name} a {
+    color: $color;
+    text-decoration: underline;
+
+    &:hover, &:focus {
+      color: darken($color, 15%);
+    }
+  }
+}
+
 .fa-xs {
   font-size: .75em;
 }
 
 .fa-sm {
   font-size: .875em;
+}
+
+.announcement {
+  @each $name, $color in (success: $brand-success, info: $oa-blue, warning: $brand-warning, danger: $brand-danger) {
+    &.bg-#{$name} {
+      border-top: 1px solid $color;
+      border-bottom: 1px solid $color;
+      background-color: lighten($color, 40%);
+    }
+  }
 }
