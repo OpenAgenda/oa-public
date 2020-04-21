@@ -2193,17 +2193,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hot-loader/react-dom@npm:^16.11.0":
-  version: 16.12.0
-  resolution: "@hot-loader/react-dom@npm:16.12.0"
+"@hot-loader/react-dom@npm:^16.13.0":
+  version: 16.13.0
+  resolution: "@hot-loader/react-dom@npm:16.13.0"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
     prop-types: ^15.6.2
-    scheduler: ^0.18.0
+    scheduler: ^0.19.0
   peerDependencies:
     react: ^16.0.0
-  checksum: 2/97e12306ae98b19ce8a086a3a65b02d7a64d740d5a9867ae5deec5cb6c453fae7aa740199e715e08e6d3d72241cdac5d886806131e5fd8869aeed645c2551ab1
+  checksum: 2/ea7a2140d2dcb0634b62401a72030dd5fa9b656fcef27281d903ae3d929e68813838bc4fac097691535b54a0fa939afd249bee6cf818c686ad6edb68fffb11f1
   languageName: node
   linkType: hard
 
@@ -5058,6 +5058,8 @@ __metadata:
     webpack-cli: ^3.3.10
     webpack-dev-middleware: ^3.7.2
     webpack-hot-middleware: ^2.22.2
+  peerDependencies:
+    react: ^16.12.0
   languageName: unknown
   linkType: soft
 
@@ -5785,7 +5787,7 @@ __metadata:
     "@formatjs/intl-listformat": ^1.4.1
     "@formatjs/intl-pluralrules": ^1.5.2
     "@formatjs/intl-relativetimeformat": ^4.5.9
-    "@hot-loader/react-dom": ^16.11.0
+    "@hot-loader/react-dom": ^16.13.0
     "@loadable/component": ^5.12.0
     "@loadable/server": ^5.12.0
     "@loadable/webpack-plugin": ^5.12.0
@@ -5801,6 +5803,7 @@ __metadata:
     "@openagenda/pepjs": ^0.5.4
     "@openagenda/react-layouts": ^1.0.2
     "@openagenda/react-utils": ^4.0.3
+    "@openagenda/supervisor": ^1.0.0
     "@openagenda/user-apps": ^1.1.6
     "@welldone-software/why-did-you-render": ^4.0.0
     babel-loader: ^8.0.6
@@ -5823,10 +5826,10 @@ __metadata:
     optimize-css-assets-webpack-plugin: ^5.0.3
     pnp-webpack-plugin: ^1.6.4
     prettier-eslint-cli: ^5.0.0
-    react: ^16.12.0
-    react-dom: ^16.12.0
+    react: ^16.13.0
+    react-dom: ^16.13.0
     react-helmet-async: ^1.0.3
-    react-hot-loader: ^4.12.19
+    react-hot-loader: ^4.12.20
     react-intl: ^3.11.0
     react-router: ^5.1.2
     react-router-dom: ^5.1.2
@@ -5835,7 +5838,7 @@ __metadata:
     sass-loader: ^8.0.2
     source-map-loader: ^0.2.4
     terser-webpack-plugin: ^2.3.3
-    webpack: ^4.42.0
+    webpack: ^4.42.1
     webpack-cli: ^3.3.11
     webpack-dashboard: ^3.2.0
     webpack-dev-server: ^3.10.3
@@ -5851,6 +5854,8 @@ __metadata:
     "@babel/cli": ^7.8.4
     "@babel/core": ^7.8.4
     "@babel/runtime-corejs3": ^7.8.4
+    "@emotion/babel-preset-css-prop": ^10.0.27
+    "@emotion/core": ^10.0.28
     "@openagenda/activity-apps": ^1.1.4
     "@openagenda/babel-preset": ^1.2.2
     "@openagenda/eslint-config": ^1.0.2
@@ -5873,6 +5878,7 @@ __metadata:
     react-helmet: ^5.2.1
     react-intl: ^3.11.0
     react-is: ^16.12.0
+    react-markdown: ^4.3.1
     react-outside-click-handler: ^1.3.0
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
@@ -6114,6 +6120,69 @@ __metadata:
   checksum: 2/21996d5f54e5bfb78ff9c5b4c85b2e5a273838976a8fca5ec49b3a7218ade5c3c72471afa953f91aeaf3f566bc6a95fe6efa82eb3c201cff07e4f14f1fca5060
   languageName: node
   linkType: hard
+
+"@openagenda/supervisor@^1.0.0, @openagenda/supervisor@workspace:packages/supervisor":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/supervisor@workspace:packages/supervisor"
+  dependencies:
+    "@babel/cli": ^7.8.4
+    "@babel/core": ^7.8.4
+    "@babel/runtime-corejs3": ^7.8.4
+    "@emotion/babel-preset-css-prop": ^10.0.27
+    "@emotion/core": ^10.0.28
+    "@loadable/babel-plugin": ^5.12.0
+    "@loadable/component": ^5.12.0
+    "@openagenda/babel-preset": ^1.2.2
+    "@openagenda/bs-templates": ^2.3.0
+    "@openagenda/eslint-config": ^1.0.2
+    "@openagenda/form-schemas": ^1.7.3
+    "@openagenda/react-components": ^2.2.3
+    "@openagenda/react-shared": ^1.0.2
+    "@openagenda/react-utils": ^4.0.3
+    "@storybook/react": ^5.3.9
+    axios: ^0.19.0
+    axios-mock-adapter: ^1.17.0
+    babel-loader: ^8.0.6
+    babel-plugin-react-intl: ^7.0.0
+    classnames: ^2.2.6
+    core-js: ^3.6.4
+    eslint: ^6.8.0
+    final-form: ^4.18.6
+    final-form-arrays: ^3.0.2
+    fuse.js: ^3.4.6
+    history: ^4.10.1
+    jest: ^25.1.0
+    lint-staged: ^10.0.7
+    lodash: ^4.17.15
+    prettier-eslint-cli: ^5.0.0
+    prop-types: ^15.7.2
+    qs: ^6.9.1
+    react: ^16.12.0
+    react-dom: ^16.12.0
+    react-final-form: ^6.3.3
+    react-final-form-arrays: ^3.1.1
+    react-hot-loader: ^4.12.20
+    react-intl: ^3.11.0
+    react-is: ^16.12.0
+    react-markdown: ^4.3.1
+    react-redux: ^7.1.3
+    react-router: ^5.1.2
+    react-router-config: ^5.1.1
+    react-router-dom: ^5.1.2
+    redux: ^4.0.5
+    regenerator-runtime: ^0.13.5
+    rimraf: ^3.0.1
+    webpack: ^4.42.0
+  peerDependencies:
+    "@loadable/component": ^5.12.0
+    final-form: ^4.18.5
+    react: ^16.12.0
+    react-dom: ^16.12.0
+    react-router: ^5.0.0
+    react-router-dom: ^5.0.0
+    redux: ^4.0.5
+  languageName: unknown
+  linkType: soft
 
 "@openagenda/sync-button@npm:^0.0.7":
   version: 0.0.7
@@ -29790,17 +29859,17 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"react-dom@npm:16.12.0":
-  version: 16.12.0
-  resolution: "react-dom@npm:16.12.0"
+"react-dom@npm:16.13.0":
+  version: 16.13.0
+  resolution: "react-dom@npm:16.13.0"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
     prop-types: ^15.6.2
-    scheduler: ^0.18.0
+    scheduler: ^0.19.0
   peerDependencies:
     react: ^16.0.0
-  checksum: 2/2c7d68c0900fab0b0b9aebe5b231e16b0ea98ae1f7cb26d8d3b6aebe1d20969cc370afce87013c734728e249ed756742070239a9c882c66ab98ba849fa4d0cdb
+  checksum: 2/fbb80029738cc3149f88a49960e27acc92f1ce5605a6ad454ed3b4ad58c8501a8ab4048e7ff88730f44d5e0e9f3a4fad564c7e54449175be036d6a724fc0ae98
   languageName: node
   linkType: hard
 
@@ -29967,6 +30036,26 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
+"react-hot-loader@npm:^4.12.20":
+  version: 4.12.20
+  resolution: "react-hot-loader@npm:4.12.20"
+  dependencies:
+    fast-levenshtein: ^2.0.6
+    global: ^4.3.0
+    hoist-non-react-statics: ^3.3.0
+    loader-utils: ^1.1.0
+    prop-types: ^15.6.1
+    react-lifecycles-compat: ^3.0.4
+    shallowequal: ^1.1.0
+    source-map: ^0.7.3
+  peerDependencies:
+    "@types/react": ^15.0.0 || ^16.0.0
+    react: ^15.0.0 || ^16.0.0
+    react-dom: ^15.0.0 || ^16.0.0
+  checksum: 2/5493dbb8f3fa5494b68cf2be4dc28c08da176771cf9133033d936f3e81b7ffbd959bd8e33082019b42a78ae55a5791ab2f90b28013629e553c70b5265590109c
+  languageName: node
+  linkType: hard
+
 "react-hotkeys@npm:2.0.0":
   version: 2.0.0
   resolution: "react-hotkeys@npm:2.0.0"
@@ -29990,11 +30079,13 @@ conventional-changelog-conventionalcommits@4.2.3:
   linkType: hard
 
 "react-immutable-proptypes@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "react-immutable-proptypes@npm:2.1.0"
+  version: 2.2.0
+  resolution: "react-immutable-proptypes@npm:2.2.0"
+  dependencies:
+    invariant: ^2.2.2
   peerDependencies:
     immutable: ">=3.6.2"
-  checksum: 2/68fcb6f3e90b6fe2b78e79fd1ec4e15f486becaab169075db32b4fb2d5a20d9a7eedf25ca34db4dbd704ab04690bba1a33ec88fd96d0a9f0490a08427ede3d76
+  checksum: 2/0f1b2f5f851e57d0cea8f7ec82b5abbbf1fe95a1da18a5b7e4b3c1718ea9bef41492ee097c9d886d6c08a0ce28f8fe37dea484624f1be8bff0eaa37285d83746
   languageName: node
   linkType: hard
 
@@ -30097,7 +30188,7 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"react-markdown@npm:^4.0.4":
+"react-markdown@npm:^4.0.4, react-markdown@npm:^4.3.1":
   version: 4.3.1
   resolution: "react-markdown@npm:4.3.1"
   dependencies:
@@ -30591,14 +30682,14 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"react@npm:16.12.0":
-  version: 16.12.0
-  resolution: "react@npm:16.12.0"
+"react@npm:16.13.0":
+  version: 16.13.0
+  resolution: "react@npm:16.13.0"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
     prop-types: ^15.6.2
-  checksum: 2/b6feaa411a4280e0da177df18095da85508fd0285cfbd389109365a818cec10631dbed63123a5137734f84321bab0d35d508bf7f1fc4f9011ea822f6c1508be8
+  checksum: 2/a0513b3303ebbbcc4e44d404215d94165b821e01db26d5000a7b37f6e74cace142b516e21cba30a5e5b1923ed41d877995c4e665bf130ee8ec34527e671234b2
   languageName: node
   linkType: hard
 
@@ -32113,16 +32204,6 @@ conventional-changelog-conventionalcommits@4.2.3:
   dependencies:
     xmlchars: ^2.1.1
   checksum: 2/dbdbd14f903e2a18c3efb422401ad0630dd25e4ed6a52fd01e42b205508ee70e5170da4d39ab2957eca54dc2934b9c8fa6f2f90292b136bfa935db7877177a08
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.18.0":
-  version: 0.18.0
-  resolution: "scheduler@npm:0.18.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: 2/007678c559669029a5f8a029022548c2f39258b8087d1da0a3f5c5360abf3aa2794a87f56998151432f48910eca53331206cd712b751188623ca3d1bcab38b9f
   languageName: node
   linkType: hard
 
