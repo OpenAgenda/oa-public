@@ -20,6 +20,7 @@ const modulesToInclude = [
   '@feathersjs',
   '@openagenda\\/activity-apps',
   '@openagenda\\/agenda-settings',
+  '@openagenda\\/agenda-stats',
   '@openagenda\\/aggregator-sources',
   '@openagenda\\/home',
   '@openagenda\\/inbox-apps',
@@ -27,6 +28,7 @@ const modulesToInclude = [
   '@openagenda\\/user-apps',
   '@openagenda\\/react-layouts',
   '@openagenda\\/react-utils',
+  '@openagenda\\/supervisor',
   'react-intl',
   'intl-messageformat',
   'intl-messageformat-parser'
@@ -155,9 +157,10 @@ module.exports = (env = {}, argv = {}) => {
     },
     resolve: {
       // symlinks: false,
-      extensions: ['.js', '.jsx', '.json'],
+      extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
       alias: {
         react: require.resolve('react'),
+        'react-dom/server': require.resolve('@hot-loader/react-dom/server'),
         'react-dom': require.resolve('@hot-loader/react-dom')
       },
       plugins: [PnpWebpackPlugin]

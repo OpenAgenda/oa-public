@@ -32,6 +32,7 @@ const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/
 const createAgendaStatsApp = require('@openagenda/agenda-stats/dist/app');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const createMembersApp = require('@openagenda/member-apps/dist/app');
+const createSupervisorApp = require('@openagenda/supervisor/lib/app');
 const RootHelmet = require('./RootHelmet');
 const createReduxMiddleware = require('./reduxMiddleware');
 
@@ -121,6 +122,11 @@ module.exports = function match({ initialState, lang, publicPath }) {
           'adminSupport',
           createInboxApp,
           [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout]
+        ],
+        [
+          'supervisor',
+          createSupervisorApp,
+          [MainLayout, RequiredUser, RequiredSuperAdmin]
         ]
       ].reduce(
         (accu, [key, createApp, layout]) => ({

@@ -27,6 +27,7 @@ import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import createAgendaStatsApp from '@openagenda/agenda-stats/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import createMembersApp from '@openagenda/member-apps/src/app';
+import createSupervisorApp from '@openagenda/supervisor/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import Root from './Root';
 
@@ -96,6 +97,11 @@ const apps = [
     'adminSupport',
     createInboxApp,
     [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout]
+  ],
+  [
+    'supervisor',
+    createSupervisorApp,
+    [MainLayout, RequiredUser, RequiredSuperAdmin]
   ]
 ].reduce(
   (accu, [key, createApp, layout]) => ({
