@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
 import { useInterval } from 'react-use';
+import ReactMarkdown from 'react-markdown';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import Modal from '@openagenda/react-components/build/Modal';
@@ -15,6 +16,10 @@ import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Loading from '../components/Loading';
+
+const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
+
+const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
 
 const messages = defineMessages({
   search: {
@@ -109,6 +114,30 @@ const HelpLink = React.memo(() => {
     </div>
   );
 });
+
+function Announcement({ data, onClose }) {
+  const kind = data.kind || 'info';
+
+  return (
+    <div className={`announcement bg-${kind}`}>
+      <div className={`container text-${kind}`}>
+        <div className="row padding-top-sm padding-right-sm padding-left-md">
+          <div className="pull-right">
+            <button
+              type="button"
+              className={`btn btn-link-inline text-${kind}`}
+              onClick={onClose}
+            >
+              <i className="fa fa-times" aria-hidden="true" />
+            </button>
+          </div>
+
+          <ReactMarkdown linkTarget={getTarget} source={data.content} />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function MainLayout({
   childLayouts,
@@ -250,6 +279,21 @@ function MainLayout({
     { extraProps, onError, FallbackComponent },
     childLayouts
   );
+
+  const [viewedAnnoucement, setViewedAnnoucement] = useState(true);
+
+  useEffect(() => {
+    setViewedAnnoucement(
+      user?.announcement
+        && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
+          === user.announcement.id
+    );
+  }, [user]);
+
+  const hideAnnouncement = useCallback(() => {
+    window.localStorage.setItem(STORAGE_ANNOUNCEMENT_KEY, user.announcement.id);
+    setViewedAnnoucement(true);
+  }, [user]);
 
   return (
     <>
@@ -403,6 +447,10 @@ function MainLayout({
           </div>
         </div>
       </nav>
+
+      {user?.announcement && !viewedAnnoucement ? (
+        <Announcement data={user.announcement} onClose={hideAnnouncement} />
+      ) : null}
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
         {userLoading ? <Loading /> : getContent()}
