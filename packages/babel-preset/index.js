@@ -10,24 +10,50 @@ function isBabelLoader(caller) {
 module.exports = declare((api, options) => {
   api.assertVersion(7);
 
+  const env = api.env();
   const isWebpack = api.caller(isBabelLoader);
 
-  const debug = 'debug' in options ? options.debug : false;
+  const envOpts = {
+    debug: false,
+    loose: false,
+    modules: 'auto',
+    shippedProposals: true
+  };
+
   const useBuiltIns = 'useBuiltIns' in options ? options.useBuiltIns : 'usage';
   const corejs = 'corejs' in options ? options.corejs : { version: 3, proposals: true };
-  const modules = 'modules' in options ? options.modules : 'auto';
   const development = 'development' in options
     ? options.development
     : api.cache(() => process.env.NODE_ENV !== 'production');
+
+  switch (env) {
+    case 'esm': // ESM
+      envOpts.modules = false;
+      break;
+    case 'development': // CommonJS
+    default:
+      // ...
+      break;
+  }
+
+  if ('modules' in options) {
+    envOpts.modules = options.modules;
+  }
+
+  if ('loose' in options) {
+    envOpts.loose = options.loose;
+  }
 
   const presets = [
     [
       require('@babel/preset-env'),
       {
-        debug,
+        debug: envOpts.debug,
         useBuiltIns,
         corejs,
-        modules,
+        shippedProposals: envOpts.shippedProposals,
+        modules: envOpts.modules,
+        loose: envOpts.loose,
         targets: {
           browsers: [
             '> 0.25%',
@@ -70,7 +96,7 @@ module.exports = declare((api, options) => {
     [
       require('@babel/plugin-proposal-optional-chaining'),
       {
-        loose: false
+        loose: envOpts.loose
       }
     ],
     [
@@ -82,7 +108,7 @@ module.exports = declare((api, options) => {
     [
       require('@babel/plugin-proposal-nullish-coalescing-operator'),
       {
-        loose: false
+        loose: envOpts.loose
       }
     ],
     require('@babel/plugin-proposal-do-expressions'),
@@ -106,7 +132,7 @@ module.exports = declare((api, options) => {
     [
       require('@babel/plugin-proposal-class-properties'),
       {
-        loose: true
+        loose: envOpts.loose
       }
     ],
     require('@babel/plugin-proposal-json-strings'),
