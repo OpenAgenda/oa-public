@@ -6139,7 +6139,7 @@ __metadata:
     "@openagenda/react-components": ^2.2.3
     "@openagenda/react-shared": ^1.0.2
     "@openagenda/react-utils": ^4.0.3
-    "@storybook/react": ^5.3.9
+    "@storybook/react": ^5.3.18
     axios: ^0.19.0
     axios-mock-adapter: ^1.17.0
     babel-loader: ^8.0.6

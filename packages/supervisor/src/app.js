@@ -7,18 +7,8 @@ const defaults = {
     settings: {
       lang: 'fr',
       prefix: '/supervisor',
-      apiRoot: `localhost:${process.env.PORT || 3000}`,
-      perPageLimit: 20
-    },
-    res: {
-      list: '/sources.json',
-      showAgenda: '#',
-      remove: '#',
-      search: '#'
-    },
-    agenda: {},
-    sources: {},
-    modals: {}
+      apiRoot: `localhost:${process.env.PORT || 3000}`
+    }
   }
 };
 
