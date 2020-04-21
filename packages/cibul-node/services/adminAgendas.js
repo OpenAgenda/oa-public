@@ -2,18 +2,20 @@
 
 const { promisify } = require( 'util' );
 const adminAgendas = require( '@openagenda/admin-agendas' );
-const agendas = require( '@openagenda/agendas' );
-const credentials = require( '@openagenda/agendas/service/validate/privateFields' ).credentials;
 
 module.exports.init = async (config, services) => {
+  const {
+    agendas,
+    members
+  } = services;
 
   await promisify( adminAgendas.init )( {
     services: {
       agendas,
-      members: services.members
+      members
     },
     interfaces: {
-      getAgendaCredentialDetails: () => credentials
+      getAgendaCredentialDetails: () => agendas.utils.credentials
     },
     mysql: config.db,
     schemas: config.schemas,

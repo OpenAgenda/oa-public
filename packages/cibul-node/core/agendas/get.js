@@ -36,7 +36,7 @@ module.exports = async (services, agendaUid, options = {}) => {
   }
 
   if (!detailed && !includeEvent) {
-    return internal ? agenda : agendas.utils.filterByAccess(agenda, access);
+    return internal ? agenda : agendas.utils.filterByAccess(agenda, 'read', access);
   }
 
   const schema = await getMergedSchema(services, agenda, {
@@ -48,7 +48,7 @@ module.exports = async (services, agendaUid, options = {}) => {
     return { ...agenda, schema }
   } else {
     return {
-      ...agendas.utils.filterByAccess(agenda, access),
+      ...agendas.utils.filterByAccess(agenda, 'read', access),
       schema
     }
   }
