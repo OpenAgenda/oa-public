@@ -200,9 +200,13 @@ function load() {
     }
 
     try {
-      const { body: { schema, network } } = await sa
-        .get( history.location.pathname )
-        .set( 'Accept', 'application/json' );
+      const {
+        data: { schema, network }
+      } = await axios.get(history.location.pathname, {
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
 
       _.assign( successDispatch, { schema, network } );
     } catch ( e ) {

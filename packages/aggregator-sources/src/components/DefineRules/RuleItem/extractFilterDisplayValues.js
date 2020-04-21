@@ -20,19 +20,25 @@ function getFilterField(rule) {
   return Object.keys(rule.query)[0];
 }
 
-const additionalFilter = ({ intl, rule, sourceAgendaSchema, sourceAgenda }) => {
+const additionalFilter = ({
+  intl, rule, sourceAgendaSchema, sourceAgenda
+}) => {
   const filterFieldName = getFilterField(rule);
   const field = pickSchemaField(sourceAgendaSchema, filterFieldName);
   return {
     label: getMultiLanguageLabel(field.label),
-    value: field.options.filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
+    value: field.options
+      .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
       .map(o => getMultiLanguageLabel(o.label))
       .join(', '),
-    detail: intl.formatMessage(messages.sourceAgendaAdditionalFieldValueDetail, {
-      agendaTitle: sourceAgenda.title
-    })
-  }
-}
+    detail: intl.formatMessage(
+      messages.sourceAgendaAdditionalFieldValueDetail,
+      {
+        agendaTitle: sourceAgenda.title
+      }
+    )
+  };
+};
 
 const tagsFilter = ({ intl, rule, sourceAgenda }) => ({
   label: intl.formatMessage(messages.tags),
@@ -46,14 +52,18 @@ const locationFilter = ({ intl, rule }) => {
   const locationType = getFilterLocationType(rule);
   return {
     label: intl.formatMessage(messages[locationType]),
-    value: [].concat(rule.query.location[getFilterLocationType(rule)]).join(', '),
+    value: []
+      .concat(rule.query.location[getFilterLocationType(rule)])
+      .join(', '),
     detail: intl.formatMessage(messages.eventLocationDetail, {
       geo: intl.formatMessage(messages[locationType])
     })
-  }
-}
+  };
+};
 
-export default ({ intl, sourceAgenda, sourceAgendaSchema, rule }) => {
+export default ({
+  intl, sourceAgenda, sourceAgendaSchema, rule
+}) => {
   const type = getFilterType(rule);
 
   switch (type) {
@@ -62,6 +72,11 @@ export default ({ intl, sourceAgenda, sourceAgendaSchema, rule }) => {
     case 'tags':
       return tagsFilter({ intl, rule, sourceAgenda });
     default:
-      return additionalFilter({ intl, rule, sourceAgendaSchema, sourceAgenda });
+      return additionalFilter({
+        intl,
+        rule,
+        sourceAgendaSchema,
+        sourceAgenda
+      });
   }
-}
+};

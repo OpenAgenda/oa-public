@@ -43,4 +43,4 @@ export default options => ({ handleSubmit, onCancel }) => {
       </div>
     </div>
   );
-}
+};

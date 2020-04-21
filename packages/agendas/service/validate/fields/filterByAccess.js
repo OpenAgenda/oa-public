@@ -3,10 +3,10 @@
 const _ = require('lodash');
 const fieldsByAccess = require('./flattenedByFieldAccess');
 
-module.exports = (agenda, access = 'public') => {
-  return fieldsByAccess[access].reduce((filtered, field) => {
+module.exports = (agenda, type = 'read', access = 'public') => {
+  return fieldsByAccess[type][access].reduce((filtered, field) => {
     const value = _.get(agenda, field.field);
-    if (value === undefined) {
+    if (field.type === 'schema' || value === undefined) {
       return filtered;
     }
     return _.set(filtered, field.field, value);

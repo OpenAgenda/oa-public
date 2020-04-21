@@ -66,32 +66,31 @@ describe('utils - rules', () => {
     });
 
     it('withActions bool is true when actions are defined', () => {
-      const values = ruleToValues({
-        "query": {
-          "location": {
-            "department": [
-              "Loiret"
-            ]
-          }
-        },
-        "actions": [
-          {
-            "field": "categorie-principale",
-            "values": [
-              93
-            ],
-            "automatic": false
+      const values = ruleToValues(
+        {
+          query: {
+            location: {
+              department: ['Loiret']
+            }
           },
-          {
-            "field": "state",
-            "values": {
-              "$set": 2
+          actions: [
+            {
+              field: 'categorie-principale',
+              values: [93],
+              automatic: false
             },
-            "automatic": false
-          }
-        ],
-        "required": true
-      }, aggAgendaSchema2);
+            {
+              field: 'state',
+              values: {
+                $set: 2
+              },
+              automatic: false
+            }
+          ],
+          required: true
+        },
+        aggAgendaSchema2
+      );
 
       expect(values.withActions).toBe(true);
     });

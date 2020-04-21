@@ -11,7 +11,7 @@ import ListHead from '../components/ListHead';
 
 import Loading from '../components/Loading';
 
-class NetworkEdit extends Component {
+export class NetworkEdit extends Component {
 
   componentDidMount() {
 

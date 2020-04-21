@@ -55,7 +55,6 @@ describe( 'agendas - unit (server): validate', () => {
             allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
-            message: null,
             messages: {
               instructions: null,
               complete: null,
@@ -65,8 +64,7 @@ describe( 'agendas - unit (server): validate', () => {
             moderateOnChangeBy: [],
             useFields: false,
             authorizedIPAddresses: [],
-            canPublish: [ 'administrators', 'moderators' ],
-            survey: false
+            canPublish: ['administrators', 'moderators']
           },
           translation: {
             enabled: false,
@@ -169,9 +167,7 @@ describe( 'agendas - unit (server): validate', () => {
         } );
 
       } catch( e ) {
-
         errors = e;
-
       }
 
       errors.length.should.equal( 0 );
@@ -203,7 +199,6 @@ describe( 'agendas - unit (server): validate', () => {
             allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
-            message: null,
             messages: {
               instructions: null,
               complete: null,
@@ -213,8 +208,7 @@ describe( 'agendas - unit (server): validate', () => {
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: [ 'administrators', 'moderators' ],
-            moderateOnChangeBy: [],
-            survey: false
+            moderateOnChangeBy: []
           },
           translation: {
             enabled: false,

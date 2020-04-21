@@ -1,0 +1,29 @@
+{
+  "networks" : [ {
+    "uid": 1,
+    "title": "Orléans Métropole",
+    "agendas" : [ {
+      "uid": 49409342,
+      "title": "Ville d'Olivet"
+    }, {
+      "uid": 97890938,
+      "title": "Ville de Semoy"
+    }, {
+      "uid": 3991265,
+      "title": "Agenda de Chécy"
+    } ],
+    "schema" : {
+      "fields" : [ {
+        "fieldType": "text",
+        "field": "A network field",
+        "label": "Un champ de réseau"
+      } ]
+    }
+  }, {
+    "uid": 2,
+    "title": "Bordeaux Métropole"
+  }, {
+    "uid": 3,
+    "title": "Ville de Genève"
+  } ]
+}

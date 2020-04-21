@@ -3,7 +3,6 @@ import Breadcrumbs from './Breadcrumbs';
 import React, { Component } from 'react';
 
 export default props => {
-
   const { children } = props;
 
   return <div className="container margin-top-lg">

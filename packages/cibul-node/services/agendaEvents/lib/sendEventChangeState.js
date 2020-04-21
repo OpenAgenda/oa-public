@@ -6,17 +6,28 @@ const marked = require('marked');
 
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
 
-const mails = require('../../mails');
-const membersSvc = require('../../members');
-const usersSvc = require('../../users');
-
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
+const listAdminMods = require('./utils/listAdminMods');
 
-const log = require('@openagenda/logs' )( 'agendaEvents/sendEventChangeState');
+const log = require('@openagenda/logs')('agendaEvents/sendEventChangeState');
 
-module.exports = async ({ root }, { agendaEvent, before, context, agenda, event }) => {
+module.exports = async ({ config, services }, { agendaEvent, before, context, agenda, event }) => {
+  const {
+    root
+  } = config;
+
+  const {
+    mails,
+    members: membersSvc,
+    users: usersSvc
+  } = services;
+
+  if (!mails) {
+    log('warn', 'mails is not initialized');
+    return;
+  }
+
   log('processing');
   const afterStateLabel = getStateLabel(agendaEvent.state);
   const beforeStateLabel = getStateLabel(before.state);
@@ -24,7 +35,7 @@ module.exports = async ({ root }, { agendaEvent, before, context, agenda, event 
   const link = eventLink(root, agenda, event);
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(agenda.uid);
+  const members = await listAdminMods(membersSvc, agenda.uid);
 
   const contributorUser = await usersSvc.findOne({
     query: { uid: agendaEvent.userUid }
@@ -35,11 +46,12 @@ module.exports = async ({ root }, { agendaEvent, before, context, agenda, event 
     userUid: contributorUser.uid
   }) : null;
 
-  if ( agendaEvent.agendaUid === event.agendaUid ) {
-    if ( !contributorUser ) {
-      throw new VError( 'User matching agendaEvent.userUid %s was not found', _.get( agendaEvent, 'userUid' ) );
+  if (agendaEvent.agendaUid === event.agendaUid) {
+    if (!contributorUser) {
+      throw new VError('User matching agendaEvent.userUid %s was not found', _.get(agendaEvent, 'userUid'));
     } else {
-      await _sendToContributor( {
+      await _sendToContributor({
+        services,
         contributor,
         contributorUser,
         agendaEvent,
@@ -49,46 +61,46 @@ module.exports = async ({ root }, { agendaEvent, before, context, agenda, event 
         link,
         beforeStateLabel,
         afterStateLabel
-      } );
+      });
     }
   }
 
-  if (_.get( context, 'batched' )) {
-    log( 'part of batch, not sending change state email');
+  if (_.get(context, 'batched')) {
+    log('part of batch, not sending change state email');
     return;
   }
 
-  await mails.send( {
+  await mails.send({
     template: 'eventChangeState',
     to: members
-      .filter( member => member.id !== _.get( contributor, 'id' ) )
-      .filter( member => {
-        if ( !member.user ) {
-          log( 'warn', 'no user was found matching member %s', member.id );
+      .filter(member => member.id !== _.get(contributor, 'id'))
+      .filter(member => {
+        if (!member.user) {
+          log('warn', 'no user was found matching member %s', member.id);
         }
 
         return !!member.user;
-      } )
-      .map( member => {
+      })
+      .map(member => {
         const lang = member.user.culture || 'fr';
-        const eventTitle = event.title[ lang ] || _.find( event.title );
+        const eventTitle = event.title[lang] || _.find(event.title);
 
         return {
           address: member.user.email,
           lang: member.user.culture,
-          unsubscriptions: [ {
-            rule: [ 'receive', 'eventChangeState', { state: agendaEvent.state } ],
+          unsubscriptions: [{
+            rule: ['receive', 'eventChangeState', { state: agendaEvent.state }],
             dataPath: 'unsubscribeLink'
           }, {
             memberId: member.id,
-            rule: [ 'receive', 'eventChangeState', { state: agendaEvent.state } ],
+            rule: ['receive', 'eventChangeState', { state: agendaEvent.state }],
             dataPath: 'memberUnsubscribeLink'
-          } ],
+          }],
           data: {
             event: eventTitle
           }
         };
-      } ),
+      }),
     data: {
       agenda: agenda.title,
       beforeState: beforeStateLabel,
@@ -96,12 +108,13 @@ module.exports = async ({ root }, { agendaEvent, before, context, agenda, event 
       logo,
       link
     }
-  } );
+  });
   log('done');
 };
 
 
-async function _sendToContributor( {
+async function _sendToContributor({
+  services,
   contributor,
   contributorUser,
   agendaEvent,
@@ -111,33 +124,36 @@ async function _sendToContributor( {
   link,
   beforeStateLabel,
   afterStateLabel
-} ) {
+}) {
+  const {
+    mails
+  } = services;
 
   const conributorLang = contributorUser.culture || 'fr';
 
   const sendAgendaPublicationMessage = (
     agendaEvent.state === agendaEventStates.PUBLISHED
-  ) && _.get( agenda, 'settings.contribution.messages.publication');
+ ) && _.get(agenda, 'settings.contribution.messages.publication');
 
   const to = {
     address: contributorUser.email,
-    unsubscriptions: [ {
-      rule: [ 'receive', 'myEventChangeState' ],
+    unsubscriptions: [{
+      rule: ['receive', 'myEventChangeState'],
       dataPath: 'unsubscribeLink'
     }, {
       memberId: contributor.id,
-      rule: [ 'receive', 'myEventChangeState' ],
+      rule: ['receive', 'myEventChangeState'],
       dataPath: 'memberUnsubscribeLink'
-    } ]
+    }]
   };
 
-  const eventTitle = event.title[ conributorLang ] || _.find( event.title );
+  const eventTitle = event.title[conributorLang] || _.find(event.title);
 
   const agendaTitle = agenda.title;
 
-  if ( sendAgendaPublicationMessage ) {
+  if (sendAgendaPublicationMessage) {
 
-    await mails.send( {
+    await mails.send({
       template: 'eventPublishContributor',
       to,
       data: {
@@ -145,14 +161,14 @@ async function _sendToContributor( {
         agendaTitle,
         logo,
         link,
-        message: marked( _.get( agenda, 'settings.contribution.messages.publication' ) )
+        message: marked(_.get(agenda, 'settings.contribution.messages.publication'))
       },
       lang: conributorLang
-    } );
+    });
 
   } else {
 
-    await mails.send( {
+    await mails.send({
       template: 'myEventChangeState',
       to,
       data: {
@@ -164,14 +180,13 @@ async function _sendToContributor( {
         link
       },
       lang: conributorLang
-    } );
+    });
 
   }
-
 }
 
-function getStateLabel( state ) {
-  switch ( state ) {
+function getStateLabel(state) {
+  switch (state) {
     case agendaEventStates.REFUSED:
       return 'refused';
     case agendaEventStates.TOCONTROL:

@@ -5,15 +5,26 @@ const _ = require( 'lodash' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventUpdate' );
 
-const mails = require( '../../mails' );
-const membersSvc = require( '../../members' );
-const usersSvc = require( '../../users' );
-
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
+const listAdminMods = require('./utils/listAdminMods')
 
-module.exports = async ({ root }, { agendaEvent, context, agenda, event }) => {
+module.exports = async ({ config, services }, { agendaEvent, context, agenda, event }) => {
+  const {
+    root
+  } = config;
+
+  const {
+    mails,
+    members: membersSvc,
+    users: usersSvc
+  } = services;
+
+  if (!mails) {
+    log('warn', 'mails is not initialized');
+    return;
+  }
+
   log('processing');
   if (_.get(context, 'batched')) {
     log('part of batch, not sending event update emails');
@@ -38,7 +49,7 @@ module.exports = async ({ root }, { agendaEvent, context, agenda, event }) => {
 
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(agenda.uid);
+  const members = await listAdminMods(membersSvc, agenda.uid);
 
   const creatorUser = await usersSvc.findOne({
     query: { uid: event.creatorUid }
@@ -57,17 +68,17 @@ module.exports = async ({ root }, { agendaEvent, context, agenda, event }) => {
       template: 'myEventUpdate',
       to: {
         address: creatorUser.email,
-        unsubscriptions: [ {
-          rule: [ 'receive', 'myEventUpdate' ],
+        unsubscriptions: [{
+          rule: ['receive', 'myEventUpdate'],
           dataPath: 'unsubscribeLink'
         }, {
           memberId: creator.id,
-          rule: [ 'receive', 'myEventUpdate' ],
+          rule: ['receive', 'myEventUpdate'],
           dataPath: 'memberUnsubscribeLink'
-        } ]
+        }]
       },
       data: {
-        event: event.title[ creatorLang ] || _.find( event.title ),
+        event: event.title[creatorLang] || _.find( event.title ),
         agenda: agenda.title,
         state: stateLabel,
         logo,
@@ -85,19 +96,19 @@ module.exports = async ({ root }, { agendaEvent, context, agenda, event }) => {
       .filter( member => !creator || ( member.id !== creator.id ) )
       .map( member => {
         const lang = member.user.culture || 'fr';
-        const eventTitle = event.title[ lang ] || _.find( event.title );
+        const eventTitle = event.title[lang] || _.find( event.title );
 
         return {
           address: member.user.email,
           lang: member.user.culture,
-          unsubscriptions: [ {
-            rule: [ 'receive', 'eventUpdate' ],
+          unsubscriptions: [{
+            rule: ['receive', 'eventUpdate'],
             dataPath: 'unsubscribeLink'
           }, {
             memberId: member.id,
-            rule: [ 'receive', 'eventUpdate' ],
+            rule: ['receive', 'eventUpdate'],
             dataPath: 'memberUnsubscribeLink'
-          } ],
+          }],
           data: {
             event: eventTitle
           }
