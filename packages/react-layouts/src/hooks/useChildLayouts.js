@@ -1,9 +1,6 @@
 import React from 'react';
 import * as ReactIs from 'react-is';
-import {
-  useMemoOne,
-  useCallbackOne
-} from '@openagenda/react-shared/dist/hooks/useMemoOne';
+import { useMemoOne, useCallbackOne } from '@openagenda/react-shared';
 
 function getChild(children, props) {
   return ReactIs.isValidElementType(children)

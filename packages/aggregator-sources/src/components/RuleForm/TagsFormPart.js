@@ -2,7 +2,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { useFormState } from 'react-final-form';
 
-import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared';
 
 import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
 

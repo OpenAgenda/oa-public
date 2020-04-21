@@ -5,7 +5,7 @@ import React, {
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
-import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared';
 
 import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
 import stateMessages from '../../utils/stateMessages';

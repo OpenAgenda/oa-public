@@ -7,4 +7,5 @@ testconfig.js
 coverage/
 .cache/
 
-dist/
+lib/
+esm/

@@ -30,7 +30,11 @@ function App({ user }) {
 
                 <ul>
                   <li>
-                    <Link to={`${url}/announcement`}>
+                    <Link
+                      to={`${
+                        url.endsWith('/') ? url.slice(0, -1) : url
+                      }/announcement`}
+                    >
                       Gérer les annonces OA
                     </Link>
                   </li>
@@ -39,7 +43,11 @@ function App({ user }) {
             </div>
           </Route>
 
-          <Route path={`${path}/announcement`}>
+          <Route
+            path={`${
+              path.endsWith('/') ? path.slice(0, -1) : path
+            }/announcement`}
+          >
             <AnnouncementManager user={user} />
           </Route>
         </Switch>

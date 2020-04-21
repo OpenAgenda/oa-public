@@ -5,7 +5,7 @@ import { useIntl, defineMessages } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { isSameDay } from 'date-fns';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import useModal from '@openagenda/react-shared/dist/hooks/useModal';
+import { useModal } from '@openagenda/react-shared';
 // import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import * as statsActions from '../reducers/stats';
 import OriginAgendasChart from '../components/OriginAgendasChart';

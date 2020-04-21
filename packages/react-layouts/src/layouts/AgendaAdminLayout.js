@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import compareRoles from '@openagenda/members/build/compareRoles';
 import Image from '@openagenda/react-components/build/Image';
-import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import useChildLayouts from '../hooks/useChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';

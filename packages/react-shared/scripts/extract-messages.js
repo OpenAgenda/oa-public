@@ -9,7 +9,7 @@ const { sync: globSync } = require('glob');
 const { argv } = require('yargs');
 const dedent = require('dedent');
 
-const MESSAGES_PATTERN = argv.messagesPattern || 'dist/messages/**/*.json';
+const MESSAGES_PATTERN = argv.messagesPattern || 'lib/messages/**/*.json';
 const LOCALES_DIR = argv.localesDir || 'src/locales';
 
 const DEFAULT_LANG = argv.defaultLang || 'en';
