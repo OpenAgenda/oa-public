@@ -127,7 +127,7 @@ function onRemove(services, agenda) {
 
   // inbox
   log('remove inbox (agenda uid %d)', agenda.uid);
-  new Inbox().create({ type: 'agenda', identifier: agenda.uid }).then(_.noop);
+  new Inbox().remove({ type: 'agenda', identifier: agenda.uid }).then(_.noop);
 
   // feed / activity
   activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
