@@ -4,8 +4,8 @@ const path = require('path');
 const express = require('express');
 const httpProxy = require('http-proxy');
 const matchMw = require('@openagenda/react-integration-app/middleware');
-const inboxLabels = require( '@openagenda/labels/inboxes' );
-const makeLabelGetter = require( '@openagenda/labels' );
+const inboxLabels = require('@openagenda/labels/inboxes');
+const makeLabelGetter = require('@openagenda/labels');
 const config = require('../config');
 const cmn = require('../lib/commons-app');
 
@@ -33,7 +33,9 @@ const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
 const initialState = async req => {
   const { services } = req.app;
 
-  const user = req.user && req.user.uid ? await services.users.get(req.user.uid) : null;
+  const user = req.user && req.user.uid ? await services.users.get(req.user.uid, {
+    user: req.user
+  }) : null;
 
   return {
     layout: {
@@ -324,6 +326,13 @@ const initialState = async req => {
           addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
         }
       }
+    },
+    supervisor: {
+      settings: {
+        prefix: '/supervisor',
+        lang: req.lang,
+        apiRoot: `http://localhost:${config.port}`
+      }
     }
   };
 };
@@ -361,7 +370,8 @@ module.exports = app => {
       '/:slug/admin/settings(/*?)?',
       '/:slug/admin/statistics(/*?)?',
       // Admin
-      '/admin/support(/*?)?'
+      '/admin/support(/*?)?',
+      '/supervisor(/*?)?'
     ],
     cmn.loadLogger('webapp'),
     cmn.loadBaseData('oasfmain.css'),

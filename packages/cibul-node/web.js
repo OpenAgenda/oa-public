@@ -50,5 +50,6 @@ module.exports = app => {
   require('./agenda/facebook.back')(app);
   require('./agenda/actions.front')(app);
   require('./agenda/exports.front')(app);
+  require('./services/announcements').plugApp(app);
 
 };

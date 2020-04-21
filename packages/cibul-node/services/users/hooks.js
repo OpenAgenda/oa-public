@@ -22,6 +22,20 @@ const restrictToUnloggedIfExternal = () => async (context, next) => {
   await next();
 };
 
+const populateAnnouncement = () => async (context, next) => {
+  await next();
+
+  if (!context.result || !context.params.user) {
+    return;
+  }
+
+  const { announcements } = context.services;
+
+  if (context.params.user.uid === context.id) {
+    context.result.announcement = await announcements.get();
+  }
+};
+
 const disallow = (...args) => async (context, next) => {
   _disallow(...args)(context);
   await next();
@@ -32,7 +46,8 @@ module.exports = {
     disallow('external')
   ],
   get: [
-    restrictToCurrentUserIfExternal()
+    restrictToCurrentUserIfExternal(),
+    populateAnnouncement()
   ],
   create: [
     restrictToUnloggedIfExternal()

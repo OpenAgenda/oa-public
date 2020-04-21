@@ -162,7 +162,7 @@ async function init(config, services) {
       sendToken: sendToken.bind(null, config),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
       keys: {
-        get: identifiers => keys(identifiers).get(),
+        get: identifiers => keys(identifiers).get({ optionalKey: !('key' in identifiers) }),
         create: (identifiers, data) => keys(identifiers).create(data),
         remove: identifiers => keys(identifiers).remove()
       }
