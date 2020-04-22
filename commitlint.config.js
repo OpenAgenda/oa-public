@@ -6,6 +6,7 @@ module.exports = {
     '@commitlint/config-lerna-scopes'
   ],
   rules: {
-    'header-max-length': [0, 'always', 72]
+    'header-max-length': [0],
+    'subject-case': [0]
   }
 };
