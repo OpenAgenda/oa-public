@@ -20,11 +20,6 @@ log.setConfig(loggerConfig);
 const getApp = require('./getApp');
 
 module.exports.init = async (c, services) => {
-  const {
-    members: membersSvc,
-    agendas: agendasSvc
-  } = services;
-
   const interfaces = {
     getUsersDetails: getUsersDetails.bind(null, services),
     onMessageCreate: onMessageCreate.bind(null, services),
@@ -55,8 +50,8 @@ module.exports.init = async (c, services) => {
           tableName: 'inboxes_migrations'
         },
         services: {
-          agendas: () => agendasSvc,
-          members: () => membersSvc,
+          agendas: () => services.agendas,
+          members: () => services.members,
           users: () => services.users
         },
         interfaces,
