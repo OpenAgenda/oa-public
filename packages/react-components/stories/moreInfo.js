@@ -31,6 +31,13 @@ storiesOf('MoreInfo', module)
       placement="left"
     />
   ))
+  .add('Nothing but a link', () => (
+    <MoreInfo
+      id="yetanother-popover"
+      link="https://openagenda.zendesk.com/"
+      placement="left"
+    />
+  ))
   .add('Wrapping a component', () => (
     <MoreInfo
       id="fourth-popover"
