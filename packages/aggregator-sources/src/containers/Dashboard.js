@@ -27,6 +27,7 @@ import UpdateSourceModal from '../components/UpdateSourceModal';
 import RemoveSourceModal from '../components/RemoveSourceModal';
 import AggregatorRulesModal from '../components/AggregatorRulesModal';
 import RulesSummary from '../components/RulesSummary';
+import Presentation from '../components/Presentation';
 
 const fuseOptions = {
   shouldSort: true,
@@ -98,15 +99,6 @@ const messages = defineMessages({
     id: 'aggregator-sources.Dashboard.aggregationCountWarning',
     defaultMessage:
       'Well done, you have aggregated {eventCount, number} events on this calendar!\nThe {version, select, free {free}} version allows you to create automatic aggregations up to {limit} events/year.\n<support-link>Contact technical support</support-link> to increase this threshold.'
-  },
-  startUse: {
-    id: 'aggregator-sources.Dashboard.startUse',
-    defaultMessage: 'Start'
-  },
-  aggregationDesc: {
-    id: 'aggregator-sources.Dashboard.aggregationDesc',
-    defaultMessage:
-      'Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!'
   }
 });
 
@@ -333,21 +325,7 @@ function Dashboard({
   }
 
   if (!aggregator) {
-    return (
-      <div>
-        {intl.formatMessage(messages.aggregationDesc)}
-
-        <div className="margin-top-md">
-          <button
-            type="button"
-            onClick={createAggregator}
-            className="btn btn-primary"
-          >
-            {intl.formatMessage(messages.startUse)}
-          </button>
-        </div>
-      </div>
-    );
+    return <Presentation intl={intl} onCreate={createAggregator} />;
   }
 
   return (
