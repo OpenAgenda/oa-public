@@ -10,7 +10,7 @@ export default class MoreInfo extends Component {
     title: PropTypes.node,
     content: PropTypes.node,
     link: PropTypes.string,
-    placement: PropTypes.oneOf( [ 'top', 'right', 'bottom', 'left' ] ),
+    placement: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
     className: PropTypes.string,
     style: PropTypes.object
   };
@@ -24,29 +24,30 @@ export default class MoreInfo extends Component {
     style: null
   };
 
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
     this.renderIcon = ::this.renderIcon;
   }
 
   renderIcon() {
-
     const { className, link, style } = this.props;
 
-    const iconStyle = Object.assign( {
+    const iconStyle = Object.assign({
       color: '#41acdd',
       fontSize: '1.3em'
-    }, style );
+    }, style);
 
     const icon = <i className={`fa fa-question-circle ${className}`} aria-hidden="true" style={iconStyle}></i>;
 
-    return link ? <a href={link} target="_blank">{icon}</a> : icon;
-
+    return link ? <a href={link} rel="noopener noreferer">{icon}</a> : icon;
   }
 
   render() {
-
     const { children, id, title, content, placement } = this.props;
+
+    if (!content && !children) {
+      return this.renderIcon();
+    }
 
     if (!content) return children;
 
@@ -54,14 +55,13 @@ export default class MoreInfo extends Component {
       <Popover id={id} title={title}>
         {content}
       </Popover>
-    );
-
+   );
 
     return (
-      <OverlayTrigger trigger={[ 'hover', 'focus' ]} placement={placement} overlay={popover}>
+      <OverlayTrigger trigger={['hover', 'focus']} placement={placement} overlay={popover}>
         {children || this.renderIcon()}
       </OverlayTrigger>
-    );
+   );
 
   }
 
