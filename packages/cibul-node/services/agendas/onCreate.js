@@ -11,7 +11,7 @@ module.exports = async (services, agenda) => {
     elasticsearch: legacyEventSearch,
     keys,
     activities,
-    inboxes: Inbox,
+    inboxes: { Inbox },
     eventSearch
   } = services;
 
