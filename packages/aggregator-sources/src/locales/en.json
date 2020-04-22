@@ -134,7 +134,6 @@
   "aggregator-sources.Dashboard.aggregatorExplanation": "This feature allows you to automatically fetch the events added to the agendas of your choice.",
   "aggregator-sources.Dashboard.createAggregator": "Activate agenda aggregation",
   "aggregator-sources.Dashboard.sourcesHelp": "Click here to find out more about aggregations",
-  "aggregator-sources.Dashboard.sourceAgendas": "Source agendas",
   "aggregator-sources.Dashboard.sourcesExplanation": "The events published by the agendas listed here are automatically added to the [{title}]({link}) agenda.",
   "aggregator-sources.Dashboard.searchAgenda": "Search an agenda",
   "aggregator-sources.Dashboard.numberOfResults": "Number of results",

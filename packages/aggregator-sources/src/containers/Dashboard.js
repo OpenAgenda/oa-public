@@ -26,7 +26,7 @@ import AddSourceModal from '../components/AddSourceModal';
 import UpdateSourceModal from '../components/UpdateSourceModal';
 import RemoveSourceModal from '../components/RemoveSourceModal';
 import AggregatorRulesModal from '../components/AggregatorRulesModal';
-import RulesSummary from '../components/RulesSummary';
+import AggregatorRules from '../components/AggregatorRules';
 import Presentation from '../components/Presentation';
 
 const fuseOptions = {
@@ -384,13 +384,11 @@ function Dashboard({
       </div>
 
       {aggregator ? (
-        <RulesSummary
+        <AggregatorRules
           rules={aggregator.rules}
           schema={aggregatorAgendaSchema}
         />
       ) : null}
-
-      <h2>{intl.formatMessage(messages.sourceAgendas)}</h2>
 
       <div className="margin-v-md">
         <ReactMarkdown

@@ -1863,5 +1863,8 @@
         "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
       }
     }
-  ]
+  ],
+  "aggregator": {
+    "limit": 12
+  }
 }
