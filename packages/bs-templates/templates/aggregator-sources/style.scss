@@ -79,7 +79,9 @@
   }
 
   .agenda-item {
-    padding: 1em 0;
+
+    margin: 0;
+    padding: 0;
 
     .actions a + a {
       margin-left: 12px;
@@ -101,7 +103,7 @@
         margin-left: 5px;
       }
 
-      .rules-summary:hover .rules-copy {
+      &:hover .rules-copy {
         display: inline-block;
       }
 
