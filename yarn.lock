@@ -4298,7 +4298,7 @@ __metadata:
     react: ^16.12.0
     react-date-range: ^1.0.3
     react-dom: ^16.12.0
-    react-hot-loader: ^4.12.19
+    react-hot-loader: ^4.12.20
     react-intl: ^3.11.0
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
@@ -4438,7 +4438,7 @@ __metadata:
     react-dom: ^16.12.0
     react-final-form: ^6.3.3
     react-final-form-arrays: ^3.1.1
-    react-hot-loader: ^4.12.19
+    react-hot-loader: ^4.12.20
     react-intl: ^3.11.0
     react-is: ^16.12.0
     react-markdown: ^4.0.4
@@ -4516,7 +4516,7 @@ __metadata:
     babel-plugin-lodash: ^3.3.4
     react: ^16.12.0
     react-dom: ^16.12.0
-    react-hot-loader: ^4.12.19
+    react-hot-loader: ^4.12.20
   peerDependencies:
     "@babel/core": ^7.8.4
   languageName: unknown
@@ -4691,7 +4691,7 @@ __metadata:
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.12.0
     react-dropzone: ^4.2.1
-    react-hot-loader: ^4.12.19
+    react-hot-loader: ^4.12.20
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-dom: ^5.1.2
@@ -5106,7 +5106,7 @@ __metadata:
     react: ^16.12.0
     react-dom: ^16.12.0
     react-final-form: ^6.3.3
-    react-hot-loader: ^4.12.19
+    react-hot-loader: ^4.12.20
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -5236,7 +5236,7 @@ __metadata:
     react: ^16.12.0
     react-dom: ^16.12.0
     react-final-form: ^6.3.3
-    react-hot-loader: ^4.12.19
+    react-hot-loader: ^4.12.20
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -30399,26 +30399,6 @@ conventional-changelog-conventionalcommits@4.2.3:
   peerDependencies:
     react: ">=15.0.0"
   checksum: 2/5cccc521f00c3fd5a6d98801cd3efe13d0cefdcf580bd7f4f5b025fb1470abe6aa4b7653858be7a273b13a6bb266491ba0c0d6641c6c1461a752a5bf449bf7b4
-  languageName: node
-  linkType: hard
-
-"react-hot-loader@npm:^4.12.19":
-  version: 4.12.19
-  resolution: "react-hot-loader@npm:4.12.19"
-  dependencies:
-    fast-levenshtein: ^2.0.6
-    global: ^4.3.0
-    hoist-non-react-statics: ^3.3.0
-    loader-utils: ^1.1.0
-    prop-types: ^15.6.1
-    react-lifecycles-compat: ^3.0.4
-    shallowequal: ^1.1.0
-    source-map: ^0.7.3
-  peerDependencies:
-    "@types/react": ^15.0.0 || ^16.0.0
-    react: ^15.0.0 || ^16.0.0
-    react-dom: ^15.0.0 || ^16.0.0
-  checksum: 2/b0cb9623c2fa26f4d6754812971abd0b6a31b35557c7e088ec946e0525db677dc0e7e89126d17ac14c469a45e47330c2c24db66c23237d153bbbb7dd0ea9eb70
   languageName: node
   linkType: hard
 
