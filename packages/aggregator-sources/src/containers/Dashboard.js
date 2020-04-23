@@ -415,7 +415,11 @@ function Dashboard({
         <div>
           <p>{intl.formatMessage(messages.noSources)}</p>
           <div className="text-center margin-v-md">
-            <button type="button" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={showModalAddSource}
+            >
               {intl.formatMessage(messages.addASource)}
             </button>
           </div>

@@ -136,30 +136,90 @@ function AgendaItem({
 
   if (alreadyInSources) {
     return (
-      <div className="agenda-item media text-muted" key={agenda.uid}>
+      <div className="padding-v-sm">
+        <div className="agenda-item media text-muted" key={agenda.uid}>
+          <div className="media-left">
+            <Image
+              src={agendaImage}
+              fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
+              className="media-object ill avatar"
+              alt={agenda.title}
+            />
+          </div>
+          <div className="media-body">
+            <div className="title media-heading">
+              <strong>{agenda.title}</strong>
+
+              {!!agenda.official && (
+                <span className="official">
+                  <i />
+                  <div className="tooltip right" role="tooltip">
+                    <div className="tooltip-arrow" />
+                    <div className="tooltip-inner">
+                      {intl.formatMessage(messages.official)}
+                    </div>
+                  </div>
+                </span>
+              )}
+
+              {!!agenda.private && (
+                <div className="tooltip-icon">
+                  <i className="fa fa-unlock-alt" />
+                  <div className="tooltip right" role="tooltip">
+                    <div className="tooltip-arrow" />
+                    <div className="tooltip-inner">
+                      {intl.formatMessage(messages.private)}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <em>{intl.formatMessage(messages.alreadyInSources)}</em>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="padding-v-sm">
+      <div className="agenda-item media" key={agenda.uid}>
         <div className="media-left">
-          <Image
-            src={agendaImage}
-            fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
-            className="media-object ill avatar"
-            alt={agenda.title}
-          />
+          <button
+            type="button"
+            className="btn btn-link-inline"
+            onClick={onAgendaClick}
+          >
+            <Image
+              src={agendaImage}
+              fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
+              className="media-object ill avatar"
+              alt={agenda.title}
+            />
+          </button>
         </div>
         <div className="media-body">
           <div className="title media-heading">
-            <strong>{agenda.title}</strong>
+            <button
+              type="button"
+              className="btn btn-link-inline"
+              onClick={onAgendaClick}
+            >
+              <strong>{agenda.title}</strong>
 
-            {!!agenda.official && (
-              <span className="official">
-                <i />
-                <div className="tooltip right" role="tooltip">
-                  <div className="tooltip-arrow" />
-                  <div className="tooltip-inner">
-                    {intl.formatMessage(messages.official)}
+              {!!agenda.official && (
+                <span className="official">
+                  <i />
+                  <div className="tooltip right" role="tooltip">
+                    <div className="tooltip-arrow" />
+                    <div className="tooltip-inner">
+                      {intl.formatMessage(messages.official)}
+                    </div>
                   </div>
-                </div>
-              </span>
-            )}
+                </span>
+              )}
+            </button>
 
             {!!agenda.private && (
               <div className="tooltip-icon">
@@ -173,69 +233,13 @@ function AgendaItem({
               </div>
             )}
           </div>
-
-          <em>{intl.formatMessage(messages.alreadyInSources)}</em>
+          {firstAction}
+          &ensp;
+          <a href={`/${agenda.slug}`} target="_blank" rel="noopener noreferrer">
+            {intl.formatMessage(messages.showAgendaAction)}{' '}
+            <i className="fa fa-sm fa-external-link" aria-hidden="true" />
+          </a>
         </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="agenda-item media" key={agenda.uid}>
-      <div className="media-left">
-        <button
-          type="button"
-          className="btn btn-link-inline"
-          onClick={onAgendaClick}
-        >
-          <Image
-            src={agendaImage}
-            fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
-            className="media-object ill avatar"
-            alt={agenda.title}
-          />
-        </button>
-      </div>
-      <div className="media-body">
-        <div className="title media-heading">
-          <button
-            type="button"
-            className="btn btn-link-inline"
-            onClick={onAgendaClick}
-          >
-            <strong>{agenda.title}</strong>
-
-            {!!agenda.official && (
-              <span className="official">
-                <i />
-                <div className="tooltip right" role="tooltip">
-                  <div className="tooltip-arrow" />
-                  <div className="tooltip-inner">
-                    {intl.formatMessage(messages.official)}
-                  </div>
-                </div>
-              </span>
-            )}
-          </button>
-
-          {!!agenda.private && (
-            <div className="tooltip-icon">
-              <i className="fa fa-unlock-alt" />
-              <div className="tooltip right" role="tooltip">
-                <div className="tooltip-arrow" />
-                <div className="tooltip-inner">
-                  {intl.formatMessage(messages.private)}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-        {firstAction}
-        &ensp;
-        <a href={`/${agenda.slug}`} target="_blank" rel="noopener noreferrer">
-          {intl.formatMessage(messages.showAgendaAction)}{' '}
-          <i className="fa fa-sm fa-external-link" aria-hidden="true" />
-        </a>
       </div>
     </div>
   );
