@@ -10,7 +10,7 @@
   "license": "ISC",
   "main": "dist/app.js",
   "scripts": {
-    "start": "NODE_ENV=development start-storybook -p 9001",
+    "start": "NODE_ENV=development start-storybook -p 9001 --ci",
     "build": "babel --copy-files src -d dist -s",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build",

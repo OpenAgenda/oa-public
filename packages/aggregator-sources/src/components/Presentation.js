@@ -39,7 +39,7 @@ export default ({ onCreate, intl }) => (
     </div>
     <div className="row text-center padding-v-sm">
       <img
-        src={links.aggregationPresentationPic}
+        src={links.aggregationPresentationPic(intl.locale)}
         alt={intl.formatMessage(messages.aggregationDesc)}
       />
     </div>
