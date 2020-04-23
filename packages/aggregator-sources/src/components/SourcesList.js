@@ -56,77 +56,84 @@ function SourceItem({ source }) {
   }, [apiClient, dispatch, source]);
 
   return (
-    <div className="agenda-item media margin-v-z padding-v-z">
-      <div className="media-left">
-        <button
-          type="button"
-          className="btn btn-link-inline"
-          onClick={showModalUpdate}
-        >
-          <Image
-            className="media-object ill avatar"
-            src={source.agenda.image}
-            fallbackSrc={
-              __DEVELOPMENT__
-                ? source.agenda.image.replace('cibuldev', 'cibul')
-                : null
-            }
-            alt={source.agenda.title}
-          />
-        </button>
-      </div>
-      <div className="media-body">
-        <div className="title media-heading">
+    <div className="padding-v-sm">
+      <div className="agenda-item media">
+        <div className="media-left">
           <button
             type="button"
             className="btn btn-link-inline"
             onClick={showModalUpdate}
           >
-            <strong>{source.agenda.title}</strong>
+            <Image
+              className="media-object ill avatar"
+              src={source.agenda.image}
+              fallbackSrc={
+                __DEVELOPMENT__
+                  ? source.agenda.image.replace('cibuldev', 'cibul')
+                  : null
+              }
+              alt={source.agenda.title}
+            />
           </button>
-          {!!source.agenda.official && (
-            <div className="official">
-              <i />
-              <div className="tooltip right" role="tooltip">
-                <div className="tooltip-arrow" />
-                <div className="tooltip-inner">
-                  {intl.formatMessage(messages.officialAgenda)}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
+        <div className="media-body">
+          <div className="title media-heading">
+            <button
+              type="button"
+              className="btn btn-link-inline"
+              onClick={showModalUpdate}
+            >
+              <strong>
+                {source.agenda.title}
+                {!!source.agenda.official && (
+                  <div className="official">
+                    <i />
+                    <div className="tooltip right" role="tooltip">
+                      <div className="tooltip-arrow" />
+                      <div className="tooltip-inner">
+                        {intl.formatMessage(messages.officialAgenda)}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </strong>
+            </button>
+          </div>
 
-        <div className="actions">
-          <button
-            type="button"
-            onClick={showModalUpdate}
-            className="btn btn-link-inline"
-          >
-            {intl.formatMessage(messages.update, {
-              rulesCount: source.rules.length
-            })}
-          </button>{' '}
-          <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
-            {intl.formatMessage(messages.seeAgenda)}
-          </a>{' '}
-          <button
-            type="button"
-            onClick={showModalRemove}
-            className="btn btn-link-inline text-danger"
-          >
-            {intl.formatMessage(messages.remove)}
-          </button>
-          <MoreInfo
-            id="copy-popover"
-            content={intl.formatMessage(messages.copy)}
-          >
-            <CopyToClipboard text={rulesJSON}>
-              <button type="button" className="btn btn-link-inline rules-copy">
-                <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
-              </button>
-            </CopyToClipboard>
-          </MoreInfo>
+          <div className="actions">
+            <button
+              type="button"
+              onClick={showModalUpdate}
+              className="btn btn-link-inline"
+            >
+              {intl.formatMessage(messages.update, {
+                rulesCount: source.rules.length
+              })}
+            </button>{' '}
+            <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
+              {intl.formatMessage(messages.seeAgenda)}
+            </a>{' '}
+            <button
+              type="button"
+              onClick={showModalRemove}
+              className="btn btn-link-inline text-danger"
+            >
+              {intl.formatMessage(messages.remove)}
+            </button>
+            <MoreInfo
+              id="copy-popover"
+              content={intl.formatMessage(messages.copy)}
+            >
+              <CopyToClipboard text={rulesJSON}>
+                <button
+                  type="button"
+                  className="btn btn-link-inline rules-copy"
+                >
+                  <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
+                </button>
+              </CopyToClipboard>
+            </MoreInfo>
+          </div>
         </div>
       </div>
     </div>

@@ -118,7 +118,7 @@ export default function Stepper({ steps = [], onSelect, additionals }) {
   }, [bgColor]);
 
   return (
-    <div className="stepper-container" ref={containerRef}>
+    <div className="stepper-container margin-bottom-sm" ref={containerRef}>
       <div id="stepper" className="stepper">
         {steps.map((s, index) => (s.display ? (
           <Step
