@@ -3,7 +3,11 @@ import React, { useState, useMemo, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
+import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+
 import { useMemoOne } from '@openagenda/react-shared';
+import externalLinks from '../../utils/externalLinks';
 import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
 import readClipboard from '../../utils/readClipboard';
 import messages from './messages';
@@ -167,6 +171,11 @@ export default function List({
                   {intl.formatMessage(messages.manualPasteRules)}
                 </em>
               )}
+              <MoreInfo
+                className="margin-left-xs"
+                id="copypast-popup"
+                link={externalLinks.helpCopyPaste}
+              />
             </div>
           ) : null}
         </div>

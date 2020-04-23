@@ -56,7 +56,7 @@ function SourceItem({ source }) {
   }, [apiClient, dispatch, source]);
 
   return (
-    <div className="agenda-item media">
+    <div className="agenda-item media margin-v-z padding-v-z">
       <div className="media-left">
         <button
           type="button"
@@ -97,24 +97,6 @@ function SourceItem({ source }) {
           )}
         </div>
 
-        <p className="rules-summary">
-          {source.rules.length ? (
-            <MoreInfo
-              id="fourth-popover"
-              content={intl.formatMessage(messages.copy)}
-            >
-              <CopyToClipboard text={rulesJSON}>
-                <button
-                  type="button"
-                  className="btn btn-link-inline rules-copy"
-                >
-                  <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
-                </button>
-              </CopyToClipboard>
-            </MoreInfo>
-          ) : null}
-        </p>
-
         <div className="actions">
           <button
             type="button"
@@ -135,6 +117,16 @@ function SourceItem({ source }) {
           >
             {intl.formatMessage(messages.remove)}
           </button>
+          <MoreInfo
+            id="copy-popover"
+            content={intl.formatMessage(messages.copy)}
+          >
+            <CopyToClipboard text={rulesJSON}>
+              <button type="button" className="btn btn-link-inline rules-copy">
+                <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
+              </button>
+            </CopyToClipboard>
+          </MoreInfo>
         </div>
       </div>
     </div>

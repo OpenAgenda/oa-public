@@ -29,7 +29,6 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
     show: '#',
     remove: '/remove',
     search: '#',
-    createAggregator: '#',
     agendaSearch: '/agendas.json',
     slugSearch: '/:slug',
     getAggregator: '/:slug/admin/aggregator',

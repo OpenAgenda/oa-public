@@ -124,8 +124,6 @@ export function loadAggregator(slug) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      console.log(res);
-
       return client.get(res.getAggregator.replace(':slug', slug));
     }
   };

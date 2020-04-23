@@ -118,7 +118,6 @@
   "aggregator-sources.RulesSummary.labelFiltersSummary": null,
   "aggregator-sources.RulesSummary.extendedFiltersSummary": null,
   "aggregator-sources.RulesSummary.noFilter": null,
-  "aggregator-sources.RulesSummary.actionsSummary": null,
   "aggregator-sources.RulesSummary.noAction": null,
   "aggregator-sources.SlugSearch.enterLink": null,
   "aggregator-sources.SourcesList.officialAgenda": null,

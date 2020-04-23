@@ -2,6 +2,9 @@ import React from 'react';
 
 import { defineMessages } from 'react-intl';
 
+import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+import externalLinks from '../../utils/externalLinks';
+
 const messages = defineMessages({
   requiredFieldsWarning: {
     id: 'aggregator-sources.DefineRules.requiredFieldsWarning',
@@ -54,6 +57,11 @@ export default function WarningBlock({
               fields: intl.formatList(requiredFieldList),
               fieldsCount: requiredFields.length
             })}
+            <MoreInfo
+              className="margin-left-xs"
+              id="doc-popover-required"
+              link={externalLinks.helpRequiredAdditional}
+            />
           </b>
         </div>
       ) : null}
@@ -66,6 +74,11 @@ export default function WarningBlock({
             {intl.formatMessage(messages.displayAggregatorRulesExist, {
               count: aggregator.rules.length
             })}
+            <MoreInfo
+              className="margin-left-xs"
+              id="doc-popover-rules"
+              link={externalLinks.helpRules}
+            />
           </b>
         </div>
       ) : null}

@@ -120,7 +120,6 @@
   "aggregator-sources.RulesSummary.labelFiltersSummary": "{labelCount, plural, =0 {0 label filter} =1 {1 label filter} other {# label filters}}",
   "aggregator-sources.RulesSummary.extendedFiltersSummary": "{extendedCount, plural, =0 {0 extended filter} =1 {1 extended filter} other {# extended filters}}",
   "aggregator-sources.RulesSummary.noFilter": "No filter",
-  "aggregator-sources.RulesSummary.actionsSummary": "{actionCount, plural, =1 {1 action} other {# actions}} on {actionFields}",
   "aggregator-sources.RulesSummary.noAction": "No action",
   "aggregator-sources.SlugSearch.enterLink": "Enter an agenda page link",
   "aggregator-sources.SourcesList.officialAgenda": "Official agenda",
