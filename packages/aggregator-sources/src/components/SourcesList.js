@@ -83,19 +83,21 @@ function SourceItem({ source }) {
               className="btn btn-link-inline"
               onClick={showModalUpdate}
             >
-              <strong>{source.agenda.title}</strong>
-            </button>
-            {!!source.agenda.official && (
-              <div className="official">
-                <i />
-                <div className="tooltip right" role="tooltip">
-                  <div className="tooltip-arrow" />
-                  <div className="tooltip-inner">
-                    {intl.formatMessage(messages.officialAgenda)}
+              <strong>
+                {source.agenda.title}
+                {!!source.agenda.official && (
+                  <div className="official">
+                    <i />
+                    <div className="tooltip right" role="tooltip">
+                      <div className="tooltip-arrow" />
+                      <div className="tooltip-inner">
+                        {intl.formatMessage(messages.officialAgenda)}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            )}
+                )}
+              </strong>
+            </button>
           </div>
 
           <div className="actions">

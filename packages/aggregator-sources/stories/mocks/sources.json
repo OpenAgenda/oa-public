@@ -1843,7 +1843,8 @@
         "uid": 11962028,
         "slug": "experience-montagne",
         "title": "EXPERIENCE MONTAGNE",
-        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg",
+        "official": true
       }
     },
     {
@@ -1859,8 +1860,9 @@
         "id": 16512,
         "uid": 61657848,
         "slug": "ilago",
-        "title": "ILAGO",
-        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+        "title": "ILAGO et voici un titre d'agenda excessivement long, mais alors vraiment vraiment long 1, 2 3, ça dépasse tout juste",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg",
+        "official": true
       }
     }
   ],
