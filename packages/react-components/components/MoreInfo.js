@@ -39,7 +39,7 @@ export default class MoreInfo extends Component {
 
     const icon = <i className={`fa fa-question-circle ${className}`} aria-hidden="true" style={iconStyle}></i>;
 
-    return link ? <a href={link} rel="noopener noreferer">{icon}</a> : icon;
+    return link ? <a href={link} rel="noopener noreferer" target="_blank">{icon}</a> : icon;
   }
 
   render() {
