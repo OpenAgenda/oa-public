@@ -12,7 +12,7 @@
     "start": "start-storybook -p 9001",
     "test": "jest --forceExit --detectOpenHandles",
     "build": "babel --copy-files src -d dist -s",
-    "extract-messages": "yarn oa:extract-messages",
+    "extract-messages": "yarn oa:extract-messages --messages-pattern 'dist/messages/**/*.json'",
     "clean": "rimraf dist",
     "prepack": "yarn clean && yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",

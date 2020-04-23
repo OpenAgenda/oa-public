@@ -9,7 +9,7 @@
   "scripts": {
     "prepack": "yarn clean && yarn build",
     "build": "babel --copy-files src -d dist -s",
-    "extract-messages": "yarn oa:extract-messages",
+    "extract-messages": "yarn oa:extract-messages --messages-pattern 'dist/messages/**/*.json'",
     "clean": "rimraf dist",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
