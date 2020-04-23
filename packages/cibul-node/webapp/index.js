@@ -141,7 +141,6 @@ const initialState = async req => {
         update: '/:slug/admin/sources/:sourceId',
         remove: '/:slug/admin/sources/:sourceId',
         showAgenda: '/:slug',
-        createAggregator: `${phpPrefix}/agenda/:uid/aggregator/create`,
         agendaSearch: '/agendas.json',
         getAgenda: '/:slug',
         getAggregator: '/:slug/admin/aggregator',
