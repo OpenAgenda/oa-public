@@ -50,8 +50,12 @@
     }
 
     .popup-content {
-      padding: 1em 2em 2em;
+      padding: 1em 2em 0;
       overflow: auto;
+
+      &>*:last-child {
+        margin-bottom: 2em;
+      }
     }
   }
 
