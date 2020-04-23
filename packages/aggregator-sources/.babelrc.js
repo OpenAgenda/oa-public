@@ -4,17 +4,16 @@ const path = require('path');
 
 module.exports = {
   presets: [
-    require.resolve('@openagenda/babel-preset'),
+    [
+      require.resolve('@openagenda/babel-preset'),
+      {
+        reactIntl: {
+          messagesDir: path.resolve(__dirname, 'dist/messages')
+        }
+      }
+    ],
     require.resolve('@emotion/babel-preset-css-prop')
   ],
-  plugins: [
-    require.resolve('@loadable/babel-plugin'),
-    [
-      require.resolve('babel-plugin-react-intl'),
-      {
-        messagesDir: path.resolve(__dirname, 'dist/messages')
-      }
-    ]
-  ],
+  plugins: [require.resolve('@loadable/babel-plugin')],
   sourceType: 'unambiguous'
 };

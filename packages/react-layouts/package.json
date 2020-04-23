@@ -52,7 +52,6 @@
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@openagenda/babel-preset": "^1.2.2",
     "@openagenda/eslint-config": "^1.0.2",
-    "babel-plugin-react-intl": "^7.0.0",
     "eslint": "^6.8.0",
     "lint-staged": "^10.0.7",
     "prettier-eslint-cli": "^5.0.0",

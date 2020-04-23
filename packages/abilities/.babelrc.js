@@ -3,12 +3,13 @@
 const path = require('path');
 
 module.exports = {
-  presets: [require.resolve('@openagenda/babel-preset')],
-  plugins: [
+  presets: [
     [
-      require.resolve('babel-plugin-react-intl'),
+      require.resolve('@openagenda/babel-preset'),
       {
-        messagesDir: path.resolve(__dirname, 'build/messages')
+        reactIntl: {
+          messagesDir: path.resolve(__dirname, 'build/messages')
+        }
       }
     ]
   ],
