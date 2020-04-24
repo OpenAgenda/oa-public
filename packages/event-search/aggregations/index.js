@@ -21,25 +21,32 @@ const aggregationTypes = {
 module.exports = {
   formatDSL: (requested, query, options = {}) => []
     .concat(requested)
-    .reduce((aggregationDSL, requested) => ({
+    .map(extractKeyAndType)
+    .reduce((aggregationDSL, { key, type, requested }) => ({
       ...aggregationDSL,
-      [getType(requested)]: aggregationTypes[getType(requested)].formatDSL(
+      [key]: aggregationTypes[type].formatDSL(
         query,
         getOptions(requested, options)
       )
     }), {}),
-  formatResult: (result, options) => Object.keys(result).reduce((formatted, requested) => {
-    const type = getType(requested);
-
-    return {
+  formatResult: (requested, result, options) => requested
+    .map(extractKeyAndType)
+    .reduce((formatted, { key, type, requested }) => ({
       ...formatted,
-      [type]: aggregationTypes[type].formatResult(result[type], options)
-    };
-  }, {})
+      [key]: aggregationTypes[type].formatResult(result[key], options)
+    }), {})
 }
 
-function getType(requested) {
-  return typeof requested === 'string' ? requested : requested.type;
+function extractKeyAndType(requested) {
+  return typeof requested === 'string' ? {
+    key: requested,
+    type: requested,
+    requested
+  } : {
+    key: requested.key || requested.type,
+    type: requested.type,
+    requested
+  }
 }
 
 function getOptions(requested, options = {}) {

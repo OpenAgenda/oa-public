@@ -90,7 +90,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   const parsedEvents = _parseEvents(eventParsers, events);
 
   if (requestedAggregations) {
-    aggregationResults = aggregations.formatResult(aggregationResults, { formSchema });
+    aggregationResults = aggregations.formatResult(requestedAggregations, aggregationResults, { formSchema });
   }
 
   if (first) {

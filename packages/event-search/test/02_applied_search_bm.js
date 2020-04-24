@@ -389,6 +389,37 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
+      describe('both - using key option', () => {
+        let agg;
+
+        before(async () => {
+          const result = await service('bdx').search({
+            date: {
+              gte: '2020-04-01',
+              lte: '2020-04-02'
+            }
+          }, { size: 0 }, {
+            detailed: true,
+            aggregations: [{
+              key: 'timingsByMonth',
+              type: 'timings',
+              interval: 'month',
+              format: 'YYYY-MM'
+            }, {
+              key: 'timingsByDay',
+              type: 'timings',
+              interval: 'day'
+            }]
+          });
+
+          agg = result.aggregations;
+        });
+
+        it('both are provided in their respective keys', () => {
+          Object.keys(agg).should.eql(['timingsByMonth', 'timingsByDay']);
+        });
+      });
+
       describe('location (regions, departments, cities)', () => {
         let agg;
 
