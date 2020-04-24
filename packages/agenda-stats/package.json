@@ -15,7 +15,7 @@
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged",
-    "extract-messages": "yarn oa:extract-messages"
+    "extract-messages": "yarn oa:extract-messages --messages-pattern 'dist/messages/**/*.json'"
   },
   "lint-staged": {
     "**/*.js": [
@@ -54,7 +54,6 @@
     "@openagenda/eslint-config": "^1.0.2",
     "@storybook/react": "^5.3.9",
     "babel-loader": "^8.0.6",
-    "babel-plugin-react-intl": "^5.1.10",
     "eslint": "^6.8.0",
     "final-form": "^4.18.6",
     "history": "^4.10.1",

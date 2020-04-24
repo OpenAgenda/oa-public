@@ -60,7 +60,6 @@
     "@storybook/react": "^5.3.9",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
-    "babel-plugin-react-intl": "^7.0.0",
     "concurrently": "^5.1.0",
     "cors": "^2.8.4",
     "errorhandler": "^1.5.0",

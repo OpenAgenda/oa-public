@@ -2186,10 +2186,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/intl-unified-numberformat@npm:^3.3.3":
+  version: 3.3.3
+  resolution: "@formatjs/intl-unified-numberformat@npm:3.3.3"
+  dependencies:
+    "@formatjs/intl-utils": ^2.2.2
+  checksum: 2/0236739d0eab302573b6b08b64a85563322bdfceb74d9f60971c454c3f8416add2580d0d1486b0cfd75308526e97fa2be05a0568f653bc1e78f53854d18ce30d
+  languageName: node
+  linkType: hard
+
 "@formatjs/intl-utils@npm:^2.2.0":
   version: 2.2.0
   resolution: "@formatjs/intl-utils@npm:2.2.0"
   checksum: 2/bdbfaefb72010dc001483c30c08645b0ae323e8670456be0c88f591a619dbae23f17d1518f05fcb5025392b5af30331fab6a35789da5cb1e0a9832f0c605e63b
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-utils@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "@formatjs/intl-utils@npm:2.2.2"
+  checksum: 2/1e8f1f686c142422b3af17646dd58bb4d50c74327441b2a6c576451b0f87c8ef176b931c5699215e9b93f1f265d4afe5e8e5cad4cdc4b7a69a04b00946ec1a84
   languageName: node
   linkType: hard
 
@@ -3538,7 +3554,6 @@ __metadata:
     axios: ^0.19.0
     babel-jest: ^25.1.0
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     concurrently: ^5.1.0
     core-js: ^3.6.4
@@ -4282,7 +4297,6 @@ __metadata:
     "@openagenda/react-utils": ^4.0.3
     "@storybook/react": ^5.3.9
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^5.1.10
     classnames: ^2.2.6
     core-js: ^3.6.4
     date-fns: ^2.11.1
@@ -4418,7 +4432,6 @@ __metadata:
     axios: ^0.19.0
     axios-mock-adapter: ^1.17.0
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     core-js: ^3.6.4
     eslint: ^6.8.0
@@ -4514,6 +4527,7 @@ __metadata:
     babel-plugin-add-module-exports: ^1.0.2
     babel-plugin-dynamic-import-node: ^2.3.0
     babel-plugin-lodash: ^3.3.4
+    babel-plugin-react-intl: ^7.5.1
     react: ^16.12.0
     react-dom: ^16.12.0
     react-hot-loader: ^4.12.20
@@ -5864,7 +5878,6 @@ __metadata:
     "@openagenda/react-shared": ^1.0.2
     "@openagenda/react-utils": ^4.0.3
     "@openagenda/sessions": ^3.1.1
-    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     core-js: ^3.6.4
     eslint: ^6.8.0
@@ -5938,7 +5951,6 @@ __metadata:
     "@storybook/react": ^5.3.9
     babel-jest: ^25.1.0
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     core-js: ^3.6.4
     date-fns: ^2.1.0
@@ -6143,7 +6155,6 @@ __metadata:
     axios: ^0.19.0
     axios-mock-adapter: ^1.17.0
     babel-loader: ^8.0.6
-    babel-plugin-react-intl: ^7.0.0
     classnames: ^2.2.6
     core-js: ^3.6.4
     eslint: ^6.8.0
@@ -9803,6 +9814,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"at-least-node@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "at-least-node@npm:1.0.0"
+  checksum: 2/8f33efc16287ed39766065c718a2d36a469f702c66c6eb41fa460c0c62bca395301a6a02946e315ae4a84c9cc7f44c94ec73a556bc2a1049350da98d0b013afe
+  languageName: node
+  linkType: hard
+
 "atob-lite@npm:^2.0.0":
   version: 2.0.0
   resolution: "atob-lite@npm:2.0.0"
@@ -10291,33 +10309,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-react-intl@npm:^5.1.10":
-  version: 5.1.18
-  resolution: "babel-plugin-react-intl@npm:5.1.18"
+"babel-plugin-react-intl@npm:^7.5.1":
+  version: 7.5.1
+  resolution: "babel-plugin-react-intl@npm:7.5.1"
   dependencies:
     "@babel/core": ^7.7.2
     "@babel/helper-plugin-utils": ^7.0.0
+    "@babel/types": ^7.9.0
     "@types/babel__core": ^7.1.3
     "@types/schema-utils": ^1.0.0
-    fs-extra: ^8.1.0
-    intl-messageformat-parser: ^3.6.4
+    fs-extra: ^9.0.0
+    intl-messageformat-parser: ^5.0.0
     schema-utils: ^2.2.0
-  checksum: 2/749b361507c637404bd5ff54cb0ec82eec8db5232ee84f976c8a7fadaf8fb62ce05a6eb47ed99885b06a200330fb59325e4f9a772026f42df19b23a83da9edd3
-  languageName: node
-  linkType: hard
-
-"babel-plugin-react-intl@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "babel-plugin-react-intl@npm:7.0.0"
-  dependencies:
-    "@babel/core": ^7.7.2
-    "@babel/helper-plugin-utils": ^7.0.0
-    "@types/babel__core": ^7.1.3
-    "@types/schema-utils": ^1.0.0
-    fs-extra: ^8.1.0
-    intl-messageformat-parser: ^4.1.1
-    schema-utils: ^2.2.0
-  checksum: 2/752f3d24c37f75dcdbe35ad1053cf242bcccb4f9f6648725021285bf044559fffd0b8e63ec8d2ad68f031d60cd4c9079f0986d0606c0b8d51efcc701b85c0e95
+  checksum: 2/a55c92fbde6afc91b1ce0debd63b617d9f4806be224a1a68f323107fbc649a23dabc7f69ce3077d9130c6fff31b4659845bad449fb7f6ac6af50f94b822e9186
   languageName: node
   linkType: hard
 
@@ -18028,6 +18032,18 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
+"fs-extra@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "fs-extra@npm:9.0.0"
+  dependencies:
+    at-least-node: ^1.0.0
+    graceful-fs: ^4.2.0
+    jsonfile: ^6.0.1
+    universalify: ^1.0.0
+  checksum: 2/518828d6e5c33d71cb075f3c25629f857b4a0d1fca5c3b6c8cdee876fa972e0661003491fc7d49d9e4d1c19aec8af6edf045e849a1110f2f879880975f4f6955
+  languageName: node
+  linkType: hard
+
 "fs-minipass@npm:^1.2.5":
   version: 1.2.7
   resolution: "fs-minipass@npm:1.2.7"
@@ -20357,6 +20373,15 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
+"intl-messageformat-parser@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "intl-messageformat-parser@npm:5.0.0"
+  dependencies:
+    "@formatjs/intl-unified-numberformat": ^3.3.3
+  checksum: 2/c0d267480f3391ee8c8198d3ec186325fba2b3d3512add82ac86c5ae6a195dc63f395d7c454db90ebd0b4c71f513d21ebc7223b6a846cf37dce59aa2c512ed7f
+  languageName: node
+  linkType: hard
+
 "intl-messageformat@npm:^7.8.4":
   version: 7.8.4
   resolution: "intl-messageformat@npm:7.8.4"
@@ -22461,6 +22486,19 @@ conventional-changelog-conventionalcommits@4.2.3:
     graceful-fs:
       optional: true
   checksum: 2/a40b7b64da41c84b0dc7ad753737ba240bb0dc50a94be20ec0b73459707dede69a6f89eb44b4d29e6994ed93ddf8c9b6e57f6b1f09dd707567959880ad6cee7f
+  languageName: node
+  linkType: hard
+
+"jsonfile@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "jsonfile@npm:6.0.1"
+  dependencies:
+    graceful-fs: ^4.1.6
+    universalify: ^1.0.0
+  dependenciesMeta:
+    graceful-fs:
+      optional: true
+  checksum: 2/ebd6932424db468226b0b525b5b8acefd97e46f4fc5f36232c94e928b405716b47b2d7c2342025ecd7a0219f2146ae613d33878b917505698b7dc36ebe082c11
   languageName: node
   linkType: hard
 
@@ -36284,6 +36322,13 @@ typescript@^3.2.1:
   version: 0.1.2
   resolution: "universalify@npm:0.1.2"
   checksum: 2/420fc6547357782c700d53e9a92506a8e95345b13e97684c8f9ab75237912ec2ebb6af8ac10d4f7406b7b6bd21c58f6c5c0811414fb0b4091b78b4743fa6806e
+  languageName: node
+  linkType: hard
+
+"universalify@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "universalify@npm:1.0.0"
+  checksum: 2/d74303a8d9ff18598804f3e9f261c9376cad55b81a92346f086e59261803ae75bef347044dd6a25549eb3b1490c0dd106dc07154cd7ccad8f037fdae947c125d
   languageName: node
   linkType: hard
 

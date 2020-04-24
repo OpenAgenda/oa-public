@@ -2,16 +2,26 @@
 
 const { declare } = require('@babel/helper-plugin-utils');
 
+// caller: {
+//   name: 'babel-loader',
+//   supportsStaticESM: true,
+//   supportsDynamicImport: true
+// }
+
 function isBabelLoader(caller) {
   return !!(caller && caller.name === 'babel-loader');
 }
 
+function hasSupportDynamicImport(caller) {
+  return !!(caller && caller.supportsDynamicImport);
+}
 
 module.exports = declare((api, options) => {
   api.assertVersion(7);
 
   const env = api.env();
   const isWebpack = api.caller(isBabelLoader);
+  const supportDynamicImport = api.caller(hasSupportDynamicImport);
 
   const envOpts = {
     debug: false,
@@ -25,6 +35,7 @@ module.exports = declare((api, options) => {
   const development = 'development' in options
     ? options.development
     : api.cache(() => process.env.NODE_ENV !== 'production');
+  let reactIntlOpts = null;
 
   switch (env) {
     case 'esm': // ESM
@@ -42,6 +53,10 @@ module.exports = declare((api, options) => {
 
   if ('loose' in options) {
     envOpts.loose = options.loose;
+  }
+
+  if ('reactIntl' in options) {
+    reactIntlOpts = options.reactIntl;
   }
 
   const presets = [
@@ -127,7 +142,7 @@ module.exports = declare((api, options) => {
 
     // Stage 3
     require('@babel/plugin-syntax-dynamic-import'),
-    isWebpack ? null : require('babel-plugin-dynamic-import-node'),
+    !supportDynamicImport ? require('babel-plugin-dynamic-import-node') : null,
     require('@babel/plugin-syntax-import-meta'),
     [
       require('@babel/plugin-proposal-class-properties'),
@@ -137,7 +152,11 @@ module.exports = declare((api, options) => {
     ],
     require('@babel/plugin-proposal-json-strings'),
 
-    isWebpack && development ? require('react-hot-loader/babel') : null
+    isWebpack && development ? require('react-hot-loader/babel') : null,
+    !isWebpack && reactIntlOpts ? [
+      require('babel-plugin-react-intl'),
+      reactIntlOpts
+    ] : null
   ]
     .filter(Boolean);
 
