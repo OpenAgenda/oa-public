@@ -30402,7 +30402,7 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"react-hot-loader@npm:^4.12.20":
+"react-hot-loader@npm:4.12.20":
   version: 4.12.20
   resolution: "react-hot-loader@npm:4.12.20"
   dependencies:
