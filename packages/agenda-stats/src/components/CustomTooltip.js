@@ -1,19 +1,30 @@
 import _ from 'lodash';
 import React from 'react';
-import classNames from 'classnames';
+import { ClassNames } from '@emotion/core';
+
+function DefaultTooltipItem({ entry, labelKey }) {
+  return (
+    <li key={`tooltip-item-${entry.key}`} className="recharts-tooltip-item">
+      <span>
+        <b>{_.get(entry.payload, labelKey)}</b>
+        <br />
+        {entry.value} événements
+      </span>
+    </li>
+  );
+}
 
 export default function CustomTooltip({
   renderItem,
   payload,
   itemSorter,
   wrapperClassName,
-  contentStyle
+  contentStyle,
+  labelKey
 }) {
-  if (!payload?.length || typeof renderItem !== 'function') {
+  if (!payload?.length) {
     return null;
   }
-
-  const wrapperCN = classNames('recharts-default-tooltip', wrapperClassName);
 
   const items = (itemSorter ? _.sortBy(payload, itemSorter) : payload).map(
     (entry, index, array) => {
@@ -21,13 +32,50 @@ export default function CustomTooltip({
         return null;
       }
 
-      return renderItem(entry, index, array);
+      const itemProps = {
+        entry,
+        index,
+        array,
+        labelKey
+      };
+
+      return React.isValidElement(renderItem)
+        ? React.cloneElement(renderItem, itemProps)
+        : React.createElement(DefaultTooltipItem, itemProps);
     }
   );
 
   return (
-    <div className={wrapperCN} css={contentStyle}>
-      <ul className="recharts-tooltip-item-list">{items}</ul>
-    </div>
+    <ClassNames>
+      {({ css, cx }) => (
+        <div
+          className={cx(
+            css`
+              margin: 0;
+              padding: 6px;
+              background-color: #fff;
+              border: 1px solid #ccc;
+              white-space: nowrap;
+            `,
+            'recharts-default-tooltip',
+            wrapperClassName
+          )}
+        >
+          <ul
+            className={cx(
+              css`
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+              `,
+              'recharts-tooltip-item-list',
+              contentStyle
+            )}
+          >
+            {items}
+          </ul>
+        </div>
+      )}
+    </ClassNames>
   );
 }

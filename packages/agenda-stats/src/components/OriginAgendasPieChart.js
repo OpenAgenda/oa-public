@@ -5,10 +5,11 @@ import React, {
   useLayoutEffect
 } from 'react';
 import distinctColors from 'distinct-colors';
+import { useIntl } from 'react-intl';
 import {
   PieChart, Pie, Legend, Tooltip, Cell
 } from 'recharts';
-import { css } from '@emotion/core';
+import addRestItem from '../utils/addRestItem';
 import CustomTooltip from './CustomTooltip';
 
 function addColorsToData(data) {
@@ -58,20 +59,31 @@ function legendOpacityReducer(state, action) {
   }
 }
 
-export default function OriginAgendasChart({ data }) {
-  const dataWithColors = useMemo(() => addColorsToData(data), [data]);
+export default function OriginAgendasPieChart({ data: rawData, total }) {
+  const intl = useIntl();
+  const data = useMemo(
+    () => addColorsToData(addRestItem(rawData, total, intl)),
+    [rawData, total, intl]
+  );
+
   const [legendOpacityState, legendOpacityDispatch] = useReducer(
     legendOpacityReducer,
-    dataWithColors,
+    data,
     legendOpacityInit
   );
+
+  const [renderCount, forceUpdate] = useReducer(x => x + 1, 0);
 
   useLayoutEffect(() => {
     legendOpacityDispatch({
       type: 'init',
-      data: dataWithColors
+      data
     });
-  }, [dataWithColors, legendOpacityDispatch]);
+  }, [data, legendOpacityDispatch]);
+
+  useLayoutEffect(() => {
+    forceUpdate();
+  }, [data, forceUpdate]);
 
   const handleMouseEnter = useCallback(
     o => legendOpacityDispatch({
@@ -89,11 +101,11 @@ export default function OriginAgendasChart({ data }) {
   );
 
   return (
-    <PieChart width={400} height={400}>
+    <PieChart width={400} height={400} key={renderCount}>
       <Pie
         dataKey="eventCount"
         nameKey="agenda.title"
-        data={dataWithColors}
+        data={data}
         innerRadius={33}
         isAnimationActive={false}
         label
@@ -109,19 +121,6 @@ export default function OriginAgendasChart({ data }) {
         ))}
       </Pie>
       <Tooltip
-        contentStyle={css`
-          margin: 0;
-          padding: 6px;
-          background-color: #fff;
-          border: 1px solid #ccc;
-          white-space: nowrap;
-
-          & ul.recharts-tooltip-item-list {
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-          }
-        `}
         content={(
           <CustomTooltip
             renderItem={entry => (
@@ -132,7 +131,7 @@ export default function OriginAgendasChart({ data }) {
                 <span>
                   <b>{entry.name}</b>
                   <br />
-                  {entry.value} événements {entry.color}
+                  {entry.value} événements
                 </span>
               </li>
             )}

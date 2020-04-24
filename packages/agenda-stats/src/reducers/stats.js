@@ -16,6 +16,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         loaded: true,
         data: action.result.data.aggregations,
+        totalEvents: action.result.data.total,
         error: null,
         loading: false
       };
@@ -43,7 +44,7 @@ export function load(agenda, query) {
         oaq: { passed: 1 },
         size: 0,
         aggregations: [
-          // 'additionalFields',
+          'additionalFields',
           'cities',
           'eventsByDateRanges',
           'departments',
@@ -55,7 +56,17 @@ export function load(agenda, query) {
           'regions',
           // 'sourceAgendas',
           'states',
-          'timings'
+          {
+            key: 'timingsByMonth',
+            type: 'timings',
+            interval: 'month',
+            format: 'YYYY-MM'
+          },
+          {
+            key: 'timingsByDay',
+            type: 'timings',
+            interval: 'day'
+          }
         ],
         ...query
       };

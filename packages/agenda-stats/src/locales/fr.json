@@ -11,5 +11,6 @@
   "AgendaStats.dateRanges.thisMonth": "Le mois actuel",
   "AgendaStats.dateRanges.lastMonth": "Le mois dernier",
   "AgendaStats.dateRanges.daysUpToToday": "jours jusqu''à aujourd''hui",
-  "AgendaStats.dateRanges.daysStartingToday": "jours à partir d''aujourd'hui"
+  "AgendaStats.dateRanges.daysStartingToday": "jours à partir d''aujourd'hui",
+  "AgendaStats.utils.addRestItem.others": "Autres"
 }
