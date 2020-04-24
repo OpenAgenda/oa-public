@@ -3,7 +3,8 @@
 module.exports = ({ detailed } = {}) => {
   return async (req, res, next) => {
     const {
-      sessions
+      sessions,
+      users
     } = req.app.services;
 
     const { key } = req.query;
