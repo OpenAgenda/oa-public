@@ -7,7 +7,7 @@ import {
   useHistory, useLocation, matchPath, Link
 } from 'react-router-dom';
 import compareRoles from '@openagenda/members/build/compareRoles';
-import Image from '@openagenda/react-components/build/Image';
+import { Image } from '@openagenda/react-components';
 import { useMemoOne } from '@openagenda/react-shared';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import useChildLayouts from '../hooks/useChildLayouts';

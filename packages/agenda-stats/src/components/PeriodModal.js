@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { DateRangePicker } from 'react-date-range';
 import * as rdrLocales from 'react-date-range/dist/locale';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 import dateRanges from '../dateRanges';
 
 const messages = defineMessages({

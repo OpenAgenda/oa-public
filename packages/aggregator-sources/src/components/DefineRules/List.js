@@ -4,7 +4,7 @@ import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+import { MoreInfo } from '@openagenda/react-components';
 
 import { useMemoOne } from '@openagenda/react-shared';
 import externalLinks from '../../utils/externalLinks';

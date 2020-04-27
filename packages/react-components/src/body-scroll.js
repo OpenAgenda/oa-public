@@ -1,14 +1,9 @@
 "use strict";
 
-const du = require('@openagenda/dom-utils');
-
-module.exports = {
-  enable,
-  disable
-}
+import * as du from '@openagenda/dom-utils';
 
 // remove overflow:hidden from body
-function enable() {
+export function enable() {
 
   let bodyElem = du.el('body');
 
@@ -29,7 +24,7 @@ function enable() {
 }
 
 // add overflow:hidden to body
-function disable() {
+export function disable() {
 
   let bodyElem = du.el('body');
 

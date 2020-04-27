@@ -10,7 +10,7 @@ import { useInterval } from 'react-use';
 import ReactMarkdown from 'react-markdown';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 import { useMemoOne } from '@openagenda/react-shared';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';

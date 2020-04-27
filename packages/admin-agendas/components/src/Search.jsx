@@ -8,7 +8,7 @@ var React = require( 'react' ),
 
   SearchField = require( '@openagenda/react-form-components/build/SearchField' ),
 
-  List = require( '@openagenda/react-components/build/List' ),
+  { List } = require( '@openagenda/react-components' ),
 
   Spinner = require( '@openagenda/react-form-components/build/Spinner' ),
 

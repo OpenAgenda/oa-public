@@ -15,7 +15,7 @@ import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
 import Fuse from 'fuse.js';
 import { css } from '@emotion/core';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import * as modalsActions from '../reducers/modals';
 import * as sourcesActions from '../reducers/sources';

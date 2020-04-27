@@ -8,10 +8,12 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
-import Spinner from '@openagenda/react-components/build/Spinner';
-import Modal from '@openagenda/react-components/build/Modal';
-import Image from '@openagenda/react-components/build/Image';
-import SearchInput from '@openagenda/react-components/build/SearchInput';
+import {
+  Spinner,
+  Modal,
+  Image,
+  SearchInput
+} from '@openagenda/react-components';
 import I18nContext from '../contexts/I18nContext';
 import * as agendasActions from '../reducers/agendas';
 import * as eventsActions from '../reducers/events';

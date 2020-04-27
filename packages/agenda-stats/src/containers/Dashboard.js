@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader/root';
 import { useIntl, defineMessages } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { isSameDay } from 'date-fns';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import { useModal } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
 // import OriginAgendasPieChart from '../components/OriginAgendasPieChart';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Image from '@openagenda/react-components/build/Image';
+import { Image } from '@openagenda/react-components';
 
 const componentPropTypes = PropTypes.oneOfType( [
   PropTypes.element,

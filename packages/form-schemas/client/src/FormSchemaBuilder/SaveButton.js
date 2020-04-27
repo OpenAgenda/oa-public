@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import classNames from 'classnames';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';

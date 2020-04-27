@@ -1,12 +1,9 @@
-"use strict";
+'use strict';
 
-var React = require( 'react' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  monitorBottomHit = require( '@openagenda/dom-utils/monitorBottomHit' );
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 
 const List = createReactClass( {
 
@@ -137,4 +134,4 @@ const List = createReactClass( {
 
 } );
 
-module.exports = List;
+export default List;

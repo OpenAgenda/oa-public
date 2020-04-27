@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
-import Modal from '@openagenda/react-components/build/Modal';
+import React from 'react';
+import { Modal } from '@openagenda/react-components';
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
 export default props => <Modal onClose={props.onClose}>

@@ -6,7 +6,7 @@ var React = require( 'react' ),
 
   createReactClass = require( 'create-react-class' ),
 
-  Spinner = require( '@openagenda/react-components/build/Spinner' ),
+  { Spinner } = require( '@openagenda/react-components' ),
 
   SearchField = require( './List/SearchField' ),
 

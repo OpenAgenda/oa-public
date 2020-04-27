@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
 import SearchField from '@openagenda/react-form-components/build/SearchField';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 
 import clickTracker from '../clickTracker';
 import EventItem from '../components/EventItem';

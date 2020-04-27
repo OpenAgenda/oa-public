@@ -1,5 +1,5 @@
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 import React, { Component } from 'react';
 
 import ChooseFieldType from './ChooseFieldType';

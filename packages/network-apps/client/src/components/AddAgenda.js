@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 
 export default class AddAgenda extends Component {
 

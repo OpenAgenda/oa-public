@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Spin from './Spin';
-import bodyScroll from './body-scroll';
+import * as bodyScroll from './body-scroll';
 
 class Spinner extends Component {
   constructor(props) {

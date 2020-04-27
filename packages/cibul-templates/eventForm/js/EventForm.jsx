@@ -8,10 +8,9 @@ import flattenLabels from '@openagenda/labels/flatten';
 import formLabels from '@openagenda/labels/event/form';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal, Spinner } from '@openagenda/react-components';
 import References from '@openagenda/agenda-event-references/react/build/Editor';
 import Registration from '@openagenda/registration/lib/Registration.js';
-import Spinner from '@openagenda/react-components/build/Spinner';
 import TagSelector from '@openagenda/agenda-tags/build/TagSelector';
 import Translation from '@openagenda/react-form-components/build/Translation'; // suspected missing key prop
 import translationLabels from '@openagenda/labels/event/translation';

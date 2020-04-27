@@ -8,8 +8,7 @@ import labels from '@openagenda/labels/event/references';
 import flatten from '@openagenda/labels/flatten';
 
 import SearchField from '@openagenda/react-form-components/build/SearchField';
-import Spinner from '@openagenda/react-components/build/Spinner';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal, Spinner } from '@openagenda/react-components';
 
 import EventItem from './EventItem';
 

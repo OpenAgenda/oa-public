@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Canvas from '../components/Canvas';
 import reducers from '../reducers';
 
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 
 
 class Landing extends Component {

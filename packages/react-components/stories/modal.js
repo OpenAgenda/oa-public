@@ -1,7 +1,7 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
-import Modal from '../components/Modal';
+import Modal from '../src/Modal';
 import Decorator from './helpers/Decorator';
 
 import '@openagenda/bs-templates/compiled/main.css';

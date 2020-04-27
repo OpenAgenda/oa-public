@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import cn from 'classnames';
-import Image from '@openagenda/react-components/build/Image';
+import { Image } from '@openagenda/react-components';
 
 export default class AuthorAvatar extends Component {
   render() {
