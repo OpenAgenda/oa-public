@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@openagenda/labels": "^2.1.7",
+    "hsts": "^2.1.0",
     "qs": "^6.9.1",
     "slug": "0.9.1",
     "when": "^3.7.8",
