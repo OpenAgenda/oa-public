@@ -5,7 +5,6 @@
  */
 
 const _ = require( 'lodash' );
-const hsts = require( 'hsts' );
 const fs = require( 'fs' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
@@ -72,7 +71,7 @@ module.exports = {
   errorResponse,                // render error page
   catchError,                   // the heir of standard error handling
 
-  https,                        // middleware. force https ( redirect to when not )
+  https: utils.express.https,   // middleware. force https ( redirect to when not )
 
   requireSuperAdmin,
   loadBaseData,                 // middleware.
@@ -606,22 +605,6 @@ function redirectTo( route, params = {}, options = {} ) {
 function redirectToSignin( req, res, next ) {
   const agenda = req.agenda || _.get( req, 'agendaInstance.data' );
   res.redirect( 302, `${agenda ? '/' + agenda.slug : ''}/signin?redirect=${( Buffer.from( req.originalUrl, 'utf-8' ) ).toString( 'base64' )}` );
-}
-
-
-function https(req, res, next) {
-  if (!req.secure) {
-    const redirectTo = 'https://' + req.hostname + req.originalUrl;
-
-    req.log('forcing https: redirecting to %s', redirectTo);
-
-    return res.redirect(301, redirectTo);
-  }
-
-  hsts({
-    maxAge: 0,
-    includeSubDomains: false
-  })(req, res, next);
 }
 
 
