@@ -387,38 +387,53 @@ describe('02 - event search - functional: Applied search', function() {
           });
         });
 
-      });
+        describe('both - using key option', () => {
+          let agg;
 
-      describe('both - using key option', () => {
-        let agg;
+          before(async () => {
+            const result = await service('bdx').search({
+              date: {
+                gte: '2020-04-01',
+                lte: '2020-04-02'
+              }
+            }, { size: 0 }, {
+              detailed: true,
+              aggregations: [{
+                key: 'timingsByMonth',
+                type: 'timings',
+                interval: 'month',
+                format: 'YYYY-MM'
+              }, {
+                key: 'timingsByDay',
+                type: 'timings',
+                interval: 'day'
+              }]
+            });
 
-        before(async () => {
-          const result = await service('bdx').search({
-            date: {
-              gte: '2020-04-01',
-              lte: '2020-04-02'
-            }
-          }, { size: 0 }, {
-            detailed: true,
-            aggregations: [{
-              key: 'timingsByMonth',
-              type: 'timings',
-              interval: 'month',
-              format: 'YYYY-MM'
-            }, {
-              key: 'timingsByDay',
-              type: 'timings',
-              interval: 'day'
-            }]
+            agg = result.aggregations;
           });
 
-          agg = result.aggregations;
+          it('both are provided in their respective keys', () => {
+            Object.keys(agg).should.eql(['timingsByMonth', 'timingsByDay']);
+          });
+
+          it('day keys matching date filter are the only ones to be provided', () => {
+            agg.timingsByDay.should.eql([
+              { key: '2020-04-01', timingCount: 8 },
+              { key: '2020-04-02', timingCount: 7 }
+            ]);
+          });
+
+          it('month keys matching date filter are the only ones to be provided', () => {
+            agg.timingsByMonth.should.eql([{
+              key: '2020-04',
+              timingCount: 163
+            }]);
+          });
         });
 
-        it('both are provided in their respective keys', () => {
-          Object.keys(agg).should.eql(['timingsByMonth', 'timingsByDay']);
-        });
       });
+
 
       describe('location (regions, departments, cities)', () => {
         let agg;

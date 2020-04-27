@@ -29,11 +29,11 @@ module.exports = {
         getOptions(requested, options)
       )
     }), {}),
-  formatResult: (requested, result, options) => requested
+  formatResult: (requested, query, result, options = {}) => requested
     .map(extractKeyAndType)
     .reduce((formatted, { key, type, requested }) => ({
       ...formatted,
-      [key]: aggregationTypes[type].formatResult(result[key], options)
+      [key]: aggregationTypes[type].formatResult(result[key], { ...getOptions(requested, options), query })
     }), {})
 }
 
