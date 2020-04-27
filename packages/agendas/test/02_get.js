@@ -199,13 +199,13 @@ describe( 'agendas - functional (server): get', function() {
       should( err ).equal( null );
 
       _.get( agenda, 'credentials' ).should.eql( {
-        useContributeApp: false,
-        useAgendaSchema: false,
+        useContributeApp: true,
+        useAgendaSchema: true,
         premiumCustomFields: false,
         activatingInvitations: false,
         emailstrategie: false,
-        embedsHead: false,
-        embedsTemplates: false,
+        embedsHead: true,
+        embedsTemplates: true,
         indesign: false,
         moderators: false,
         tags: false,
