@@ -461,14 +461,25 @@ describe('02 - event search - functional: Applied search', function() {
 
 
       describe('location (regions, departments, cities)', () => {
-        let agg;
+        let agg, aggMoreItems
 
         before(async () => {
           const result = await service('bdx').search({}, { size: 0 }, {
             detailed: true,
             aggregations: ['regions', 'departments', 'cities']
           });
-          agg = result.aggregations
+          agg = result.aggregations;
+        });
+
+        before(async () => {
+          const result = await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: {
+              type: 'cities',
+              size: 20
+            }
+          });
+          aggMoreItems = result.aggregations;
         });
 
         it('regions aggregation', () => {
@@ -490,6 +501,14 @@ describe('02 - event search - functional: Applied search', function() {
             key: 'Cenon',
             eventCount: 183
           });
+        });
+
+        it('by default, max number of returned items is 10', () => {
+          agg.cities.length.should.equal(10);
+        });
+
+        it('if size option is specified, more items can be retrieved', () => {
+          aggMoreItems.cities.length.should.equal(20);
         });
 
       });
@@ -569,6 +588,18 @@ describe('02 - event search - functional: Applied search', function() {
               image: 'agenda94573624.jpg'
             }
           });
+        });
+
+        it('size option can be used to return specific number of items', async () => {
+          const count = (await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: [{
+              type: 'originAgendas',
+              size: 3
+            }]
+          }).then(({ aggregations }) => aggregations.originAgendas.length));
+
+          count.should.equal(3);
         });
 
       });
@@ -787,7 +818,6 @@ describe('02 - event search - functional: Applied search', function() {
         }, { size: 3, detailed: true });
 
         for (const event of events) {
-          //console.log(event);
           event.location.city.should.equal('Bassens');
         }
 

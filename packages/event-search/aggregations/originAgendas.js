@@ -2,9 +2,10 @@
 
 const parseAgendaBucket = require('../utils/parseAgendaBucket');
 
-module.exports.formatDSL = () => ({
+module.exports.formatDSL = (field, options = {}) => ({
   terms: {
-    field: 'originAgenda._agg'
+    field: 'originAgenda._agg',
+    size: options.size
   }
 })
 
