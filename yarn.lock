@@ -1507,6 +1507,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.9.2":
+  version: 7.9.2
+  resolution: "@babel/runtime@npm:7.9.2"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: 2/50c65b4972e62ca260ff6f3f99cf2395585d7f7bcd947ee87d082c2926cb4f0c93c815d5e9071162e689a4d2ba4143ffd5b005893be860088689c963f34e50c8
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.4.0, @babel/template@npm:^7.7.4, @babel/template@npm:^7.8.3, @babel/template@npm:^7.8.6":
   version: 7.8.6
   resolution: "@babel/template@npm:7.8.6"
@@ -3561,7 +3570,7 @@ __metadata:
     errorhandler: ^1.5.0
     eslint: ^6.8.0
     express: ^4.16.3
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     final-form-calculate: ^1.3.1
     final-form-set-field-data: ^1.0.2
     fuse.js: ^3.4.6
@@ -3896,7 +3905,7 @@ __metadata:
     docxtemplater: ^3.14.2
     eslint: ^6.8.0
     express: ^4.16.3
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     immutability-helper: ^3.0.0
     jest: ^25.1.0
     lint-staged: ^10.0.7
@@ -3913,7 +3922,7 @@ __metadata:
     react: ^16.12.0
     react-datepicker: ^1.6.0
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     redis: ^2.8.0
     regenerator-runtime: ^0.13.3
     remove-markdown: ^0.3.0
@@ -4302,7 +4311,7 @@ __metadata:
     date-fns: ^2.11.1
     distinct-colors: ^2.1.0
     eslint: ^6.8.0
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     history: ^4.10.1
     jest: ^25.1.0
     lint-staged: ^10.0.7
@@ -4435,7 +4444,7 @@ __metadata:
     classnames: ^2.2.6
     core-js: ^3.6.4
     eslint: ^6.8.0
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     final-form-arrays: ^3.0.2
     fuse.js: ^3.4.6
     history: ^4.10.1
@@ -4449,7 +4458,7 @@ __metadata:
     react-beautiful-dnd: ^13.0.0
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     react-final-form-arrays: ^3.1.1
     react-hot-loader: ^4.12.20
     react-intl: ^3.11.0
@@ -4678,7 +4687,7 @@ __metadata:
     ejs-compiled-loader: ^2.2.0
     ejs-compiled-loader-webpack4: ^2.2.0
     express: ^4.16.4
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     form-serialize: 0.3.0
     imagesloaded: ^4.1
     immutability-helper: ^3.0.0
@@ -5110,7 +5119,7 @@ __metadata:
     classnames: ^2.2.5
     core-js: ^3.6.4
     eslint: ^6.8.0
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     history: ^4.10.1
     lint-staged: ^10.0.7
     lodash: ^4.17.15
@@ -5119,7 +5128,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.12.0
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -5231,7 +5240,7 @@ __metadata:
     enzyme-to-json: ^3.4.2
     errorhandler: ^1.5.0
     express: ^4.16.4
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     history: ^4.10.1
     immutability-helper: ^3.0.0
     jest: ^25.1.0
@@ -5249,7 +5258,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.12.0
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-redux: ^7.1.3
     react-router: ^5.1.2
@@ -5480,7 +5489,7 @@ __metadata:
     errorhandler: ^1.5.0
     eslint: ^6.8.0
     express: ^4.16.4
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     history: ^4.10.1
     js-base64: ^2.5.1
     knex: ^0.19.5
@@ -5494,7 +5503,7 @@ __metadata:
     react: ^16.12.0
     react-bootstrap: ^0.33.1
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -5739,12 +5748,12 @@ __metadata:
     babel-loader: ^8.0.6
     core-js: ^3.6.4
     create-react-class: ^15.5.3
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     prop-types: ^15.7.2
     react: ^16.12.0
     react-bootstrap: ^0.33.1
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     react-markdown: ^4.0.4
     react-waypoint: ^9.0.2
     rimraf: ^3.0.1
@@ -5825,7 +5834,7 @@ __metadata:
     core-js: ^3.6.4
     dom4: ^2.1.5
     eslint: ^6.8.0
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     flatted: ^2.0.1
     he: ^1.2.0
     history: ^4.10.1
@@ -5918,17 +5927,30 @@ __metadata:
     core-js: ^3.6.4
     dedent: ^0.7.0
     eslint: ^6.8.0
+    final-form: ^4.19.1
     glob: ^7.1.6
     lint-staged: ^10.0.7
     lodash: ^4.17.15
     prettier-eslint-cli: ^5.0.0
     react: ^16.12.0
     react-dom: ^16.12.0
+    react-final-form: ^6.4.0
+    react-select: ^3.1.0
     rimraf: ^3.0.1
     shallowequal: ^1.1.0
     yargs: ^15.1.0
   peerDependencies:
+    final-form: "*"
     react: ^16.12.0
+    react-final-form: "*"
+    react-select: ^3.0.0
+  peerDependenciesMeta:
+    final-form:
+      optional: true
+    react-final-form:
+      optional: true
+    react-select:
+      optional: true
   bin:
     "oa:extract-messages": ./scripts/extract-messages.js
   languageName: unknown
@@ -5955,14 +5977,14 @@ __metadata:
     core-js: ^3.6.4
     date-fns: ^2.1.0
     eslint: ^6.8.0
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     jest: ^25.1.0
     lint-staged: ^10.0.7
     prettier-eslint-cli: ^5.0.0
     react: ^16.12.0
     react-day-picker: ^7.3.0
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     react-icons: ^3.8.0
     react-intl: ^3.11.0
     react-modal: ^3.11.1
@@ -6158,7 +6180,7 @@ __metadata:
     classnames: ^2.2.6
     core-js: ^3.6.4
     eslint: ^6.8.0
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     final-form-arrays: ^3.0.2
     fuse.js: ^3.4.6
     history: ^4.10.1
@@ -6170,7 +6192,7 @@ __metadata:
     qs: ^6.9.1
     react: ^16.12.0
     react-dom: ^16.12.0
-    react-final-form: ^6.3.3
+    react-final-form: ^6.4.0
     react-final-form-arrays: ^3.1.1
     react-hot-loader: ^4.12.20
     react-intl: ^3.11.0
@@ -12286,7 +12308,7 @@ __metadata:
     fast-levenshtein: ^2.0.6
     feathers-authentication-hooks: ^0.3.0
     feathers-hooks-common: ^4.20.7
-    final-form: ^4.18.6
+    final-form: ^4.19.1
     gm: ^1.23.1
     history: ^4.10.1
     hsts: ^2.1.0
@@ -14314,7 +14336,7 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"csstype@npm:^2.2.0, csstype@npm:^2.5.5, csstype@npm:^2.5.7":
+"csstype@npm:^2.2.0, csstype@npm:^2.5.5, csstype@npm:^2.5.7, csstype@npm:^2.6.7":
   version: 2.6.9
   resolution: "csstype@npm:2.6.9"
   checksum: 2/fb00716951a932ac3450546c65d761a75c133091b44db9aec0be07c2ca06a38141d6e059ad839035feea9abb0faee90aadcad6b73e7be0250c66602fd7a49f3a
@@ -15315,6 +15337,16 @@ conventional-changelog-conventionalcommits@4.2.3:
   dependencies:
     "@babel/runtime": ^7.1.2
   checksum: 2/7625598dbfef65a50801e194b88f277ab398dd92c27398280fd8d69294326f05d9b0588922560ba50e10d9fe5ee8096f90995d679b7db2b776afd579d495b962
+  languageName: node
+  linkType: hard
+
+"dom-helpers@npm:^5.0.1":
+  version: 5.1.4
+  resolution: "dom-helpers@npm:5.1.4"
+  dependencies:
+    "@babel/runtime": ^7.8.7
+    csstype: ^2.6.7
+  checksum: 2/266a3f9af7ac882af88418144cb09313141f7ef2db4857454ffa988d7cb15e160e4b4ea0d4ace2264270466052b0f6c9f7ca245e464b80c79b8088eb4b92bf42
   languageName: node
   linkType: hard
 
@@ -17498,12 +17530,12 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"final-form@npm:4.18.6":
-  version: 4.18.6
-  resolution: "final-form@npm:4.18.6"
+"final-form@npm:4.19.1":
+  version: 4.19.1
+  resolution: "final-form@npm:4.19.1"
   dependencies:
-    "@babel/runtime": ^7.3.1
-  checksum: 2/572ca1437442b84031a2530ea9c11aefa0e0c979bda3db5051f19cb4181f1f3b5a10eb0398c2362d6a9486aa899c7789d51b362c36b17693053917f5ea8d0bd5
+    "@babel/runtime": ^7.8.3
+  checksum: 2/a99755c40d9bb470de5d68c58ffd2348858ec4e05a2f57fe1908f24e0f6bb84c8bdf2909f2447eed84c00af38badb6207c125ed77e7e6a5f9923cbeed729d2b5
   languageName: node
   linkType: hard
 
@@ -30381,16 +30413,16 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"react-final-form@npm:^6.3.3":
-  version: 6.3.5
-  resolution: "react-final-form@npm:6.3.5"
+"react-final-form@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "react-final-form@npm:6.4.0"
   dependencies:
-    "@babel/runtime": ^7.8.3
-    ts-essentials: ^5.0.0
+    "@babel/runtime": ^7.9.2
+    ts-essentials: ^6.0.3
   peerDependencies:
-    final-form: ^4.16.1
+    final-form: ^4.19.0
     react: ^16.8.0
-  checksum: 2/7ae532d46859bcae252ee3a6ba59bd17f302dfd842abb7c1764eeda9aac4b572d80f5db1b6d3a950af80372a5f7b5019929f95b73a48b63559b4c20123f4d730
+  checksum: 2/729281c85411609412050179bea7f40e8902a5f5b9015816d864b5fcb73ad94250856aacd5b82dcba3b31bbf0ae090a58bcac8e99fa283952d0957997623f9a4
   languageName: node
   linkType: hard
 
@@ -30882,6 +30914,25 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
+"react-select@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "react-select@npm:3.1.0"
+  dependencies:
+    "@babel/runtime": ^7.4.4
+    "@emotion/cache": ^10.0.9
+    "@emotion/core": ^10.0.9
+    "@emotion/css": ^10.0.9
+    memoize-one: ^5.0.0
+    prop-types: ^15.6.0
+    react-input-autosize: ^2.2.2
+    react-transition-group: ^4.3.0
+  peerDependencies:
+    react: ^16.8.0
+    react-dom: ^16.8.0
+  checksum: 2/95881de591b4b11f434ac0310d9e1f84e0794e6e485d8e131003e298ded230852799962a267e5513b3bdf598e6a9869a38cfcc946bfb5fe649eb5cf41b0c0731
+  languageName: node
+  linkType: hard
+
 "react-side-effect@npm:^1.1.0":
   version: 1.2.0
   resolution: "react-side-effect@npm:1.2.0"
@@ -31046,6 +31097,21 @@ conventional-changelog-conventionalcommits@4.2.3:
     react: ">=15.0.0"
     react-dom: ">=15.0.0"
   checksum: 2/eefed08c48a0d377b5fac3ac7fac54ed986d5dcdd4494f36075954c9d2d257072a9d18cc02c6d8e6698034722b1ff9419ad0c24ef068dea742edcff9f8ea4ba9
+  languageName: node
+  linkType: hard
+
+"react-transition-group@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "react-transition-group@npm:4.3.0"
+  dependencies:
+    "@babel/runtime": ^7.5.5
+    dom-helpers: ^5.0.1
+    loose-envify: ^1.4.0
+    prop-types: ^15.6.2
+  peerDependencies:
+    react: ">=16.6.0"
+    react-dom: ">=16.6.0"
+  checksum: 2/6d87fce48b825439175f8889ed0ecb0eca915e84933033f88d33e20fc0a5c1673cc482fb6a96e86a6f4120b56fdd80a276d424aff7e8384fbb240ff6f7206850
   languageName: node
   linkType: hard
 
@@ -35707,12 +35773,12 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"ts-essentials@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "ts-essentials@npm:5.0.0"
+"ts-essentials@npm:^6.0.3":
+  version: 6.0.4
+  resolution: "ts-essentials@npm:6.0.4"
   peerDependencies:
     typescript: ">=3.7.0"
-  checksum: 2/9c645aabb6c209cd07e89b5f9d2e0cf69142a75fe99e9cc74e347cf37c3ec8e0306e780cbb89db30d47623d7ba5734b5cf01a3eafe6e5e2dac4d2ac442263088
+  checksum: 2/8ae43078154a9688b181152521c891ea8d653e154894d2d23a798451a3d49e7fc708c0cb8b63664b46fde314b14ea8c3870f2b8b3178700486605f099a49f8bf
   languageName: node
   linkType: hard
 

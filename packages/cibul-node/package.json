@@ -102,7 +102,7 @@
     "fast-levenshtein": "^2.0.6",
     "feathers-authentication-hooks": "^0.3.0",
     "feathers-hooks-common": "^4.20.7",
-    "final-form": "^4.18.6",
+    "final-form": "^4.19.1",
     "gm": "^1.23.1",
     "history": "^4.10.1",
     "hsts": "^2.1.0",

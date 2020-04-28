@@ -76,7 +76,7 @@
     "ejs-compiled-loader": "^2.2.0",
     "ejs-compiled-loader-webpack4": "^2.2.0",
     "express": "^4.16.4",
-    "final-form": "^4.18.6",
+    "final-form": "^4.19.1",
     "form-serialize": "0.3.0",
     "imagesloaded": "^4.1",
     "immutability-helper": "^3.0.0",
