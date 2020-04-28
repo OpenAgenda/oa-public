@@ -275,12 +275,12 @@ module.exports = [{
     field: 'useContributeApp',
     description: 'Use new contribute application for creating and editing events',
     type: 'boolean',
-    default: false
+    default: true
   }, {
     field: 'useAgendaSchema',
     description: 'Use agenda schema app to customize fields',
     type: 'boolean',
-    default: false
+    default: true
   }, {
     field: 'premiumCustomFields',
     description: 'Allow adding multiple custom fields to agenda form',
@@ -300,12 +300,12 @@ module.exports = [{
     field: 'embedsHead',
     description: 'Integrated agendas: The content of the <head> tag can be edited',
     type: 'boolean',
-    default: false
+    default: true
   }, {
     field: 'embedsTemplates',
     description: 'Integrated agendas: Custom templates can be defined',
     type: 'boolean',
-    default: false
+    default: true
   }, {
     field: 'indesign',
     description: 'Burn this with fire.',

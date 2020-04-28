@@ -15,6 +15,8 @@ describe('11 - event-search - unit: formatEvent', function() {
   };
 
   const event = {
+    createdAt: new Date('2020-04-28T13:44:00+0200'),
+    updatedAt: new Date('2020-04-28T13:50:00+0200'),
     title: {
       fr: 'Un événement',
       en: 'An event'
@@ -144,6 +146,11 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('additional field of email type is indexed in _search_additional_keywords', () => {
     formatted['_search_additional_keywords'].should.eql(['oa@oa.com']);
+  });
+
+  it('timestamps createdAt and updatedAt are in formatted object', () => {
+    formatted.createdAt.should.be.ok;
+    formatted.updatedAt.should.be.ok;
   });
 
 });

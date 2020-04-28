@@ -47,13 +47,27 @@ const log = debug('⦙');
       break;
     }
 
+    const { index } = await prompts({
+      type: 'select',
+      name: 'index',
+      message: 'Choix de l\'index',
+      default: 'dev',
+      choices: [{
+        title: 'Dev',
+        value: 'dev'
+      }, {
+        title: 'Test',
+        value: 'test'
+      }]
+    });
+
     let result;
 
     try {
       result = {
         success: true,
         returned: await client.search({
-          index: 'dev',
+          index,
           body: DSL
         })
       };

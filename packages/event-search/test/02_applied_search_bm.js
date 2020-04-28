@@ -331,6 +331,31 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
+      describe('createdAt', () => {
+        let updatedAtAgg, createdAtAgg;
+
+        before(async () => {
+          const result = await service('bdx').search({
+            date: { gte: '2020-03-01' }
+          }, { size: 0 }, {
+            detailed: true,
+            aggregations: ['createdAt', 'updatedAt']
+          });
+
+          createdAtAgg = result.aggregations.createdAt;
+          updatedAtAgg = result.aggregations.updatedAt;
+        });
+
+        it('createdAt agg is a list of { eventCount, key }', () => {
+          Object.keys(createdAtAgg[0]).should.eql(['key', 'eventCount']);
+        });
+
+        it('updatedAt agg is a list of { eventCount, key }', () => {
+          Object.keys(updatedAtAgg[0]).should.eql(['key', 'eventCount']);
+        });
+
+      });
+
       describe('timings', () => {
 
         describe('by day', () => {
@@ -387,48 +412,74 @@ describe('02 - event search - functional: Applied search', function() {
           });
         });
 
-      });
+        describe('both - using key option', () => {
+          let agg;
 
-      describe('both - using key option', () => {
-        let agg;
+          before(async () => {
+            const result = await service('bdx').search({
+              date: {
+                gte: '2020-04-01',
+                lte: '2020-04-02'
+              }
+            }, { size: 0 }, {
+              detailed: true,
+              aggregations: [{
+                key: 'timingsByMonth',
+                type: 'timings',
+                interval: 'month',
+                format: 'YYYY-MM'
+              }, {
+                key: 'timingsByDay',
+                type: 'timings',
+                interval: 'day'
+              }]
+            });
 
-        before(async () => {
-          const result = await service('bdx').search({
-            date: {
-              gte: '2020-04-01',
-              lte: '2020-04-02'
-            }
-          }, { size: 0 }, {
-            detailed: true,
-            aggregations: [{
-              key: 'timingsByMonth',
-              type: 'timings',
-              interval: 'month',
-              format: 'YYYY-MM'
-            }, {
-              key: 'timingsByDay',
-              type: 'timings',
-              interval: 'day'
-            }]
+            agg = result.aggregations;
           });
 
-          agg = result.aggregations;
+          it('both are provided in their respective keys', () => {
+            Object.keys(agg).should.eql(['timingsByMonth', 'timingsByDay']);
+          });
+
+          it('day keys matching date filter are the only ones to be provided', () => {
+            agg.timingsByDay.should.eql([
+              { key: '2020-04-01', timingCount: 8 },
+              { key: '2020-04-02', timingCount: 7 }
+            ]);
+          });
+
+          it('month keys matching date filter are the only ones to be provided', () => {
+            agg.timingsByMonth.should.eql([{
+              key: '2020-04',
+              timingCount: 163
+            }]);
+          });
         });
 
-        it('both are provided in their respective keys', () => {
-          Object.keys(agg).should.eql(['timingsByMonth', 'timingsByDay']);
-        });
       });
 
+
       describe('location (regions, departments, cities)', () => {
-        let agg;
+        let agg, aggMoreItems
 
         before(async () => {
           const result = await service('bdx').search({}, { size: 0 }, {
             detailed: true,
             aggregations: ['regions', 'departments', 'cities']
           });
-          agg = result.aggregations
+          agg = result.aggregations;
+        });
+
+        before(async () => {
+          const result = await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: {
+              type: 'cities',
+              size: 20
+            }
+          });
+          aggMoreItems = result.aggregations;
         });
 
         it('regions aggregation', () => {
@@ -450,6 +501,14 @@ describe('02 - event search - functional: Applied search', function() {
             key: 'Cenon',
             eventCount: 183
           });
+        });
+
+        it('by default, max number of returned items is 10', () => {
+          agg.cities.length.should.equal(10);
+        });
+
+        it('if size option is specified, more items can be retrieved', () => {
+          aggMoreItems.cities.length.should.equal(20);
         });
 
       });
@@ -529,6 +588,18 @@ describe('02 - event search - functional: Applied search', function() {
               image: 'agenda94573624.jpg'
             }
           });
+        });
+
+        it('size option can be used to return specific number of items', async () => {
+          const count = (await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: [{
+              type: 'originAgendas',
+              size: 3
+            }]
+          }).then(({ aggregations }) => aggregations.originAgendas.length));
+
+          count.should.equal(3);
         });
 
       });
@@ -747,7 +818,6 @@ describe('02 - event search - functional: Applied search', function() {
         }, { size: 3, detailed: true });
 
         for (const event of events) {
-          //console.log(event);
           event.location.city.should.equal('Bassens');
         }
 

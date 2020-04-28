@@ -117,8 +117,8 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
       credentials.should.eql( {
         moderators: !!test.credRowBefore.moderators,
         tags: !!test.credRowBefore.tags,
-        embedsHead: !!test.credRowBefore.custom_head,
-        embedsTemplates:!!test.credRowBefore.custom_templates,
+        embedsHead: false,
+        embedsTemplates:true,
         indesign: !!test.credRowBefore.indesign,
         invitationMessage: false,
         calendarView: false,
@@ -129,8 +129,8 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         docxExport: false,
         eventOwnershipTransfer: false,
         premiumCustomFields: false,
-        useAgendaSchema: false,
-        useContributeApp: false
+        useAgendaSchema: true,
+        useContributeApp: true
       } );
 
       [ 'moderator', 'tags', 'custom_templates', 'custom_head', 'indesign' ].forEach( f => {

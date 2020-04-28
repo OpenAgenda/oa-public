@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const parseAgendaBucket = require('../utils/parseAgendaBucket');
 
 module.exports.formatDSL = (query, options = {}) => {
@@ -17,4 +18,4 @@ module.exports.formatDSL = (query, options = {}) => {
   };
 }
 
-module.exports.formatResult = result => result.sourceAgendas.buckets.map(parseAgendaBucket);
+module.exports.formatResult = result => _.get(result, 'sourceAgendas.buckets', []).map(parseAgendaBucket);

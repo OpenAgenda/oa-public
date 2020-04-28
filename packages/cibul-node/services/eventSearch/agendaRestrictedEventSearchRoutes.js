@@ -4,12 +4,14 @@ const log = require('@openagenda/logs')(
   'services/eventSearch/agendaRestrictedEventSearchRoutes'
 );
 const { Router } = require('express');
+const expressUtils = require('@openagenda/utils').express;
 
 module.exports = (services) => {
   const { core, members } = services;
 
   return Router({ mergeParams: true }).get(
     '',
+    expressUtils.https,
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'params.agendaUid' }),
     (req, res, next) => {
       core
