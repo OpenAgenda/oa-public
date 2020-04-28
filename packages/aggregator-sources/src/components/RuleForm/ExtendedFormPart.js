@@ -5,9 +5,8 @@ import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 
 import { useForm } from 'react-final-form';
 
-import { useMemoOne } from '@openagenda/react-shared';
+import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
-import SelectField from './SelectField';
 import messages from './messages';
 
 export default ({ sourceSchema }) => {
@@ -58,7 +57,7 @@ export default ({ sourceSchema }) => {
           </label>
 
           <div className="col-sm-10">
-            <SelectField
+            <ReactSelectField
               name="field"
               placeholder={intl.formatMessage(messages.selectField)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
@@ -79,7 +78,7 @@ export default ({ sourceSchema }) => {
             </label>
 
             <div className="col-sm-10">
-              <SelectField
+              <ReactSelectField
                 name="extendedValues"
                 initialValue={
                   values.field !== undefined
