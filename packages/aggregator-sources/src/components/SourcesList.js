@@ -5,7 +5,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Image, MoreInfo } from '@openagenda/react-components';
-import useApiClient from '@openagenda/react-utils/dist/useApiClient';
+import { useApiClient } from '@openagenda/react-shared';
 import * as modalsActions from '../reducers/modals';
 
 const messages = defineMessages({

@@ -16,7 +16,7 @@ import qs from 'qs';
 import Fuse from 'fuse.js';
 import { css } from '@emotion/core';
 import { Spinner } from '@openagenda/react-components';
-import useApiClient from '@openagenda/react-utils/dist/useApiClient';
+import { useApiClient } from '@openagenda/react-shared';
 import * as modalsActions from '../reducers/modals';
 import * as sourcesActions from '../reducers/sources';
 import SearchInput from '../components/SearchInput';

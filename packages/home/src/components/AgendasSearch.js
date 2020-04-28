@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { useCallback, useMemo, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
-import useApiClient from '@openagenda/react-utils/dist/useApiClient';
+import { useApiClient } from '@openagenda/react-shared';
 import useAgendasSearch from '../hooks/useAgendasSearch';
 import SearchInput from './SearchInput';
 
