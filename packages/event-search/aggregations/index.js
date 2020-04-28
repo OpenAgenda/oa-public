@@ -1,6 +1,7 @@
 'use strict';
 
 const geo = require('./geo');
+const timestamp = require('./timestamp');
 
 const aggregationTypes = {
   additionalFields: require('./additionalFields'),
@@ -15,7 +16,9 @@ const aggregationTypes = {
   regions: geo('region'),
   sourceAgendas: require('./sourceAgendas'),
   states: require('./states'),
-  timings: require('./timings')
+  timings: require('./timings'),
+  createdAt: timestamp('createdAt'),
+  updatedAt: timestamp('updatedAt')
 }
 
 module.exports = {

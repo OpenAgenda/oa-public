@@ -331,6 +331,31 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
+      describe('createdAt', () => {
+        let updatedAtAgg, createdAtAgg;
+
+        before(async () => {
+          const result = await service('bdx').search({
+            date: { gte: '2020-03-01' }
+          }, { size: 0 }, {
+            detailed: true,
+            aggregations: ['createdAt', 'updatedAt']
+          });
+
+          createdAtAgg = result.aggregations.createdAt;
+          updatedAtAgg = result.aggregations.updatedAt;
+        });
+
+        it('createdAt agg is a list of { eventCount, key }', () => {
+          Object.keys(createdAtAgg[0]).should.eql(['key', 'eventCount']);
+        });
+
+        it('updatedAt agg is a list of { eventCount, key }', () => {
+          Object.keys(updatedAtAgg[0]).should.eql(['key', 'eventCount']);
+        });
+
+      });
+
       describe('timings', () => {
 
         describe('by day', () => {
