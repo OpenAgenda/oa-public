@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const fs = require( 'fs' );
 const knexLib = require( 'knex' );
 const redis = require( 'redis' );
 const debug = require('debug');
@@ -823,8 +824,12 @@ const config = {
       password: process.env.OA_MYSQL_DEV_PASSWORD || 'grut',
       user: process.env.OA_MYSQL_DEV_USER || 'root',
       cache: true,
-      //debug: true,
-      timezone: 'UTC'
+      timezone: 'UTC',
+      ssl: process.env.OA_MYSQL_DEV_SSL_ENABLED ? {
+        ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
+        cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
+        key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY)
+      } : null
     },
     auth: {
       local: {
