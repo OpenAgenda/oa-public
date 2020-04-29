@@ -42,7 +42,7 @@ module.exports.formatDSL = (query, options = {}) => {
       timings: {
         date_histogram: {
           field: 'timings.begin',
-          interval,
+          calendar_interval: interval,
           format
         }
       }
@@ -64,7 +64,8 @@ module.exports.formatResult = (result, options = {}) => {
   const lte = _.get(query, 'date.lte') ? moment(query.date.lte).tz(timezone).format(format.toUpperCase()) : null;
 
   const buckets = result.timings.buckets.map(b => ({
-    key: b.key_as_string,
+    //key_as_string is not reliable
+    key:  moment(b.key).tz(timezone).format(format.toUpperCase()),
     timingCount: b.doc_count
   }));
 
