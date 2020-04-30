@@ -1,0 +1,34 @@
+.btn {
+  &.btn-bordered {
+    background: transparent;
+    border-width: 2px;
+    border-width: 1px;
+    color: inherit;
+
+    span, i {
+      vertical-align: middle;
+    }
+
+    &.btn-primary {
+      border-color: $oa-blue;
+      color: $oa-blue;
+
+      i {
+        font-size: 1.2em;
+      }
+
+      &:hover {
+        color: $oa-white;
+        i, span {
+          color: $oa-white;
+        }
+        border-color: lighten($oa-blue, 10);
+        background-color: $oa-blue;
+      }
+    }
+  }
+
+  &.btn-rounded {
+    border-radius: 100px;
+  }
+}

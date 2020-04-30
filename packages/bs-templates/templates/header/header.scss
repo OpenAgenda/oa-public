@@ -1,58 +1,11 @@
 .oa-page-header {
 
-
   .help-button-canvas {
 
     display: block;
     padding: 7px 7px 0;
 
   }
-
-
-  .btn-bordered {
-
-    background: transparent;
-    border-width: 2px;
-    color: inherit;
-
-    span, i {
-
-      vertical-align: middle;
-
-    }
-
-    &.btn-primary {
-
-      border-color: $oa-blue;
-      color: $oa-blue;
-
-      i {
-
-        font-size: 1.2em;
-
-      }
-
-      &:hover {
-
-        i, span {
-          color: $oa-white;
-        }
-
-        border-color: lighten( $oa-blue, 10 );
-        background-color: lighten( $oa-blue, 10 );
-
-      }
-
-    }
-
-  }
-
-  .btn-rounded {
-
-    border-radius: 100px;
-
-  }
-
 
   margin: 0;
   z-index: 2002;
