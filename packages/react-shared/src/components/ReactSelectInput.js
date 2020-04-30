@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import CreatableSelect from 'react-select/creatable';
 import ReactSelect from 'react-select';
 
-const styles = {
+const defaultStyles = {
   control: (provided, { isFocused }) => ({
     ...provided,
     minHeight: '35px',
@@ -78,9 +78,13 @@ const styles = {
 };
 
 export default ({
-  innerRef, creatable, input, meta, ...rest
+  innerRef, creatable, input, meta, styles: stylesProp, ...rest
 }) => {
   const SelectComponent = creatable ? CreatableSelect : ReactSelect;
+  const styles = useMemo(() => ({
+    ...defaultStyles,
+    ...stylesProp
+  }));
 
   return (
     <>
