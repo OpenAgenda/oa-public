@@ -57,12 +57,12 @@ describe( 'agenda location instanciate', function() {
 
       inst.test._setNewLocationImage( {
         path: srcFilePath,
-        userUid: '123' 
+        userUid: '123'
       }, ( err, url ) => {
 
         should( err ).equal( null );
 
-        url.should.equal( 'https://openagendatst.s3.amazonaws.com/location123new.jpg' );
+        url.should.equal( 'https://openagendatst.s3.eu-west-1.amazonaws.com/location123new.jpg' );
 
         async.eachSeries( [
           'location123new.jpg',
@@ -88,12 +88,12 @@ describe( 'agenda location instanciate', function() {
 
       inst.test._setLocationImage( {
         path: srcFilePath,
-        uid: '123' 
+        uid: '123'
       }, ( err, url ) => {
 
         should( err ).equal( null );
 
-        url.should.equal( 'https://openagendatst.s3.amazonaws.com/location123.jpg' );
+        url.should.equal( 'https://openagendatst.s3.eu-west-1.amazonaws.com/location123.jpg' );
 
         async.eachSeries( [
           'location123.jpg',
@@ -124,7 +124,7 @@ describe( 'agenda location instanciate', function() {
 
         should( err ).equal( null );
 
-        url.should.equal( 'https://openagendatst.s3.amazonaws.com/location123.jpg' );
+        url.should.equal( 'https://openagendatst.s3.eu-west-1.amazonaws.com/location123.jpg' );
 
         async.eachSeries( [
           'location123.jpg',
@@ -150,7 +150,7 @@ describe( 'agenda location instanciate', function() {
 
       inst.test._setNewLocationImage( {
         path: srcFilePath,
-        userUid: '123' 
+        userUid: '123'
       }, err => {
 
         inst.test._removeNewLocationImage( {
@@ -185,7 +185,7 @@ describe( 'agenda location instanciate', function() {
 
       inst.test._setLocationImage( {
         path: srcFilePath,
-        uid: '123' 
+        uid: '123'
       }, ( err ) => {
 
         inst.test._removeLocationImage( {
@@ -256,7 +256,7 @@ describe( 'agenda location instanciate', function() {
 
         should( err ).equal( null );
 
-        url.should.equal( 'https://openagendatst.s3.amazonaws.com/location' + location.uid + '.jpg' );
+        url.should.equal( 'https://openagendatst.s3.eu-west-1.amazonaws.com/location' + location.uid + '.jpg' );
 
         should( err ).equal( null );
 
@@ -335,7 +335,7 @@ describe( 'agenda location instanciate', function() {
     } );
 
   } );
-  
+
 } );
 
 

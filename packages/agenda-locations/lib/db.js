@@ -1391,7 +1391,8 @@ function _checkDb( v ) {
   const con = _connect( {
     host: v.config.host,
     user: v.config.user,
-    password: v.config.password
+    password: v.config.password,
+    ssl: v.config.ssl
   } );
 
   con.query( q, err => {
@@ -1450,7 +1451,8 @@ function _checkSchema( v ) {
     user: v.config.user,
     password: v.config.password,
     database: v.config.database,
-    multipleStatements: true
+    multipleStatements: true,
+    ssl: v.config.ssl || null
   });
 
   con.query( `
