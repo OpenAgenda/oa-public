@@ -1,12 +1,13 @@
 import {
   addDays,
-  endOfDay,
-  startOfDay,
+  addMonths,
+  addYears,
   startOfMonth,
   endOfMonth,
-  addMonths,
   startOfWeek,
   endOfWeek,
+  startOfYear,
+  endOfYear,
   isSameDay,
   differenceInCalendarDays
 } from 'date-fns';
@@ -14,29 +15,29 @@ import * as dateFnsLocales from 'date-fns/locale';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  today: {
-    id: 'AgendaStats.dateRanges.today',
-    defaultMessage: 'Today'
-  },
-  yesterday: {
-    id: 'AgendaStats.dateRanges.yesterday',
-    defaultMessage: 'Yesterday'
-  },
-  thisWeek: {
-    id: 'AgendaStats.dateRanges.thisWeek',
-    defaultMessage: 'This Week'
+  currentWeek: {
+    id: 'AgendaStats.dateRanges.currentWeek',
+    defaultMessage: 'Current week'
   },
   lastWeek: {
     id: 'AgendaStats.dateRanges.lastWeek',
-    defaultMessage: 'Last Week'
+    defaultMessage: 'Last week'
   },
-  thisMonth: {
-    id: 'AgendaStats.dateRanges.thisMonth',
-    defaultMessage: 'This Month'
+  currentMonth: {
+    id: 'AgendaStats.dateRanges.currentMonth',
+    defaultMessage: 'Current month'
   },
   lastMonth: {
     id: 'AgendaStats.dateRanges.lastMonth',
-    defaultMessage: 'Last Month'
+    defaultMessage: 'Last month'
+  },
+  currentYear: {
+    id: 'AgendaStats.dateRanges.currentYear',
+    defaultMessage: 'Current year'
+  },
+  lastYear: {
+    id: 'AgendaStats.dateRanges.lastYear',
+    defaultMessage: 'Last year'
   },
   daysUpToToday: {
     id: 'AgendaStats.dateRanges.daysUpToToday',
@@ -49,7 +50,6 @@ const messages = defineMessages({
 });
 
 const staticRangeHandler = {
-  range: {},
   isSelected(range) {
     const definedRange = this.range();
     return (
@@ -71,35 +71,20 @@ export default function dateRanges(intl) {
     endOfWeek: endOfWeek(new Date(), { locale }),
     startOfLastWeek: startOfWeek(addDays(new Date(), -7), { locale }),
     endOfLastWeek: endOfWeek(addDays(new Date(), -7), { locale }),
-    startOfToday: startOfDay(new Date()),
-    endOfToday: endOfDay(new Date()),
-    startOfYesterday: startOfDay(addDays(new Date(), -1)),
-    endOfYesterday: endOfDay(addDays(new Date(), -1)),
     startOfMonth: startOfMonth(new Date()),
     endOfMonth: endOfMonth(new Date()),
     startOfLastMonth: startOfMonth(addMonths(new Date(), -1)),
-    endOfLastMonth: endOfMonth(addMonths(new Date(), -1))
+    endOfLastMonth: endOfMonth(addMonths(new Date(), -1)),
+    startOfYear: startOfYear(new Date()),
+    endOfYear: endOfYear(new Date()),
+    startOfLastYear: startOfYear(addYears(new Date(), -1)),
+    endOfLastYear: endOfYear(addYears(new Date(), -1))
   };
 
   return {
     staticRanges: createStaticRanges([
       {
-        label: intl.formatMessage(messages.today),
-        range: () => ({
-          startDate: defineds.startOfToday,
-          endDate: defineds.endOfToday
-        })
-      },
-      {
-        label: intl.formatMessage(messages.yesterday),
-        range: () => ({
-          startDate: defineds.startOfYesterday,
-          endDate: defineds.endOfYesterday
-        })
-      },
-
-      {
-        label: intl.formatMessage(messages.thisWeek),
+        label: intl.formatMessage(messages.currentWeek),
         range: () => ({
           startDate: defineds.startOfWeek,
           endDate: defineds.endOfWeek
@@ -113,7 +98,7 @@ export default function dateRanges(intl) {
         })
       },
       {
-        label: intl.formatMessage(messages.thisMonth),
+        label: intl.formatMessage(messages.currentMonth),
         range: () => ({
           startDate: defineds.startOfMonth,
           endDate: defineds.endOfMonth
@@ -124,6 +109,20 @@ export default function dateRanges(intl) {
         range: () => ({
           startDate: defineds.startOfLastMonth,
           endDate: defineds.endOfLastMonth
+        })
+      },
+      {
+        label: intl.formatMessage(messages.currentYear),
+        range: () => ({
+          startDate: defineds.startOfYear,
+          endDate: defineds.endOfYear
+        })
+      },
+      {
+        label: intl.formatMessage(messages.lastYear),
+        range: () => ({
+          startDate: defineds.startOfLastYear,
+          endDate: defineds.endOfLastYear
         })
       }
     ]),

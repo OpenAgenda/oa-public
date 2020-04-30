@@ -1,17 +1,25 @@
 import _ from 'lodash';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef
+} from 'react';
 import { hot } from 'react-hot-loader/root';
-import { useIntl, defineMessages } from 'react-intl';
+import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
-import { isSameDay } from 'date-fns';
+import {
+  isSameDay,
+  getOverlappingDaysInIntervals,
+  startOfYear,
+  endOfYear,
+  addYears,
+  isAfter
+} from 'date-fns';
 import { Spinner } from '@openagenda/react-components';
-import { useModal } from '@openagenda/react-shared';
+import { useModal, useApiClient } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
-// import OriginAgendasPieChart from '../components/OriginAgendasPieChart';
-import VerticalBarChart from '../components/VerticalBarChart';
-import HorizontalBarChart from '../components/HorizontalBarChart';
 import PeriodModal from '../components/PeriodModal';
-import dateRanges from '../dateRanges';
+import AggregationCharts from '../components/AggregationCharts';
 
 const messages = defineMessages({
   title: {
@@ -26,204 +34,84 @@ const messages = defineMessages({
     id: 'AgendaStats.Dashboard.range',
     defaultMessage: 'From {startDate, date} to {endDate, date}'
   },
-  originAgendas: {
-    id: 'AgendaStats.Dashboard.originAgendas',
-    defaultMessage: 'Origin agendas'
-  },
-  regions: {
-    id: 'AgendaStats.Dashboard.regions',
-    defaultMessage: 'Regions'
-  },
-  cities: {
-    id: 'AgendaStats.Dashboard.cities',
-    defaultMessage: 'Cities'
-  },
-  departments: {
-    id: 'AgendaStats.Dashboard.departments',
-    defaultMessage: 'Departments'
-  },
-  members: {
-    id: 'AgendaStats.Dashboard.members',
-    defaultMessage: 'Members'
-  },
-  timingsByMonth: {
-    id: 'AgendaStats.Dashboard.timingsByMonth',
-    defaultMessage: 'Timings by month'
-  },
-  timingsByDay: {
-    id: 'AgendaStats.Dashboard.timingsByDay',
-    defaultMessage: 'Timings by day'
+  update: {
+    id: 'AgendaStats.Dashboard.update',
+    defaultMessage: 'Update'
   }
 });
 
-function Dashboard({ user, agenda }) {
+function Dashboard({ agenda }) {
   const intl = useIntl();
   const dispatch = useDispatch();
-  // const apiClient = useApiClient();
+  const apiClient = useApiClient();
 
+  const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'stats.loading', true));
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
   const aggregations = useSelector(state => state.stats.data);
   const totalEvents = useSelector(state => state.stats.totalEvents);
 
-  const { staticRanges } = useMemo(() => dateRanges(intl), [intl]);
-  const [range, setRange] = useState({
-    ...staticRanges[2].range(),
-    key: 'selection'
-  });
+  const [range, setRange] = useState(undefined);
   const dateRangeModal = useModal();
 
-  const charts = useMemo(() => {
-    if (!aggregations) {
-      return null;
-    }
-
-    const result = [];
-
-    let sepCount = 0;
-    const pushSeparator = () => {
-      result.push(<div key={`sep-${sepCount}`} className="col-md-12" />);
-      sepCount += 1;
-    };
-
-    if (aggregations.regions?.length) {
-      result.push(
-        <div key="regions" className="col-md-12 col-lg-6 margin-top-md">
-          <h3 className="text-center">
-            {intl.formatMessage(messages.regions)}
-          </h3>
-          <VerticalBarChart
-            data={aggregations.regions}
-            total={totalEvents}
-            dataKey="eventCount"
-            labelKey="key"
-          />
-        </div>
-      );
-    }
-
-    if (aggregations.departments?.length) {
-      result.push(
-        <div key="departments" className="col-md-12 col-lg-6 margin-top-md">
-          <h3 className="text-center">
-            {intl.formatMessage(messages.departments)}
-          </h3>
-          <VerticalBarChart
-            data={aggregations.departments}
-            total={totalEvents}
-            dataKey="eventCount"
-            labelKey="key"
-          />
-        </div>
-      );
-    }
-
-    if (aggregations.cities?.length) {
-      result.push(
-        <div key="cities" className="col-md-12 col-lg-6 margin-top-md">
-          <h3 className="text-center">{intl.formatMessage(messages.cities)}</h3>
-          <VerticalBarChart
-            data={aggregations.cities}
-            total={totalEvents}
-            dataKey="eventCount"
-            labelKey="key"
-          />
-        </div>
-      );
-    }
-
-    pushSeparator();
-
-    if (aggregations.members?.length) {
-      result.push(
-        <div key="members" className="col-md-12 col-lg-6 margin-top-md">
-          <h3 className="text-center">
-            {intl.formatMessage(messages.members)}
-          </h3>
-          <VerticalBarChart
-            data={aggregations.members}
-            total={totalEvents}
-            dataKey="eventCount"
-            labelKey="member.name"
-          />
-        </div>
-      );
-    }
-
-    if (aggregations.originAgendas?.length) {
-      // result.push(
-      //   <div key="originAgendasPie" className="col-md-12 col-lg-6 margin-top-md">
-      //     <h3 className="text-center">{intl.formatMessage(messages.originAgendas)}</h3>
-      //     <OriginAgendasPieChart data={aggregations.originAgendas} total={totalEvents} />
-      //   </div>
-      // );
-      result.push(
-        <div
-          key="originAgendasBar"
-          className="col-md-12 col-lg-6 margin-top-md"
-        >
-          <h3 className="text-center">
-            {intl.formatMessage(messages.originAgendas)}
-          </h3>
-          <VerticalBarChart
-            data={aggregations.originAgendas}
-            total={totalEvents}
-            dataKey="eventCount"
-            labelKey="agenda.title"
-          />
-        </div>
-      );
-    }
-
-    pushSeparator();
-
-    if (aggregations.timingsByMonth?.length) {
-      result.push(
-        <div key="timingsByMonth" className="col-md-12 col-lg-6 margin-top-md">
-          <h3 className="text-center">
-            {intl.formatMessage(messages.timingsByMonth)}
-          </h3>
-          <HorizontalBarChart
-            data={aggregations.timingsByMonth}
-            total={totalEvents}
-            dataKey="timingCount"
-            labelKey="key"
-          />
-        </div>
-      );
-    }
-
-    if (aggregations.timingsByDay?.length) {
-      result.push(
-        <div key="timingsByDay" className="col-md-12 col-lg-6 margin-top-md">
-          <h3 className="text-center">
-            {intl.formatMessage(messages.timingsByDay)}
-          </h3>
-          <HorizontalBarChart
-            data={aggregations.timingsByDay}
-            total={totalEvents}
-            dataKey="timingCount"
-            labelKey="key"
-          />
-        </div>
-      );
-    }
-
-    pushSeparator();
-
-    return result;
-  }, [aggregations, totalEvents, intl]);
+  const aggregationChartsRef = useRef(null);
 
   useEffect(() => {
-    const query = {};
-
-    if (range) {
-      _.set(query, 'date.gte', range.startDate);
-      _.set(query, 'date.lte', range.endDate);
+    if (loaded) {
+      return;
     }
 
-    dispatch(statsActions.load(agenda, query));
-  }, [dispatch, user, agenda, range]);
+    const query = {};
+    const url = res.jsonExport
+      .replace(':slug', agenda.slug)
+      .replace(':uid', agenda.uid);
+
+    const params = {
+      oaq: { passed: 1 },
+      size: 0,
+      aggregations: ['timespan']
+    };
+
+    apiClient.get(url, { params })
+      .then(result => {
+        const { first, last } = result.data.aggregations.timespan;
+
+        if (!first) {
+          // Nothing to display
+          return;
+        }
+
+        const now = new Date();
+        const datePlusOneYear = addYears(now, 1);
+        const thisYear = { start: startOfYear(now), end: endOfYear(now) };
+        const nextYear = { start: startOfYear(datePlusOneYear), end: endOfYear(datePlusOneYear) };
+        const interval = { start: new Date(first), end: new Date(last) };
+
+        const selectRange = value => {
+          setRange(value);
+          _.set(query, 'date.gte', value.startDate);
+          _.set(query, 'date.lte', value.endDate);
+        };
+
+        if (getOverlappingDaysInIntervals(interval, thisYear)) {
+          selectRange({
+            startDate: thisYear.start,
+            endDate: thisYear.end
+          });
+        } else if (getOverlappingDaysInIntervals(interval, nextYear)) {
+          selectRange({
+            startDate: nextYear.start,
+            endDate: nextYear.end
+          });
+        } else if (isAfter(interval.start, now)) {
+          selectRange({ startDate: startOfYear(interval.start), endDate: endOfYear(interval.start) });
+        } else {
+          selectRange({ startDate: startOfYear(interval.end), endDate: endOfYear(interval.end) });
+        }
+
+        return dispatch(statsActions.load(agenda, query));
+      });
+  }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
 
   if (loading && !loaded) {
     return (
@@ -237,7 +125,7 @@ function Dashboard({ user, agenda }) {
     <div>
       <h2>{intl.formatMessage(messages.title)}</h2>
 
-      <div>
+      <div className="margin-top-sm">
         {range ? (
           <>
             {isSameDay(range.startDate, range.endDate) ? (
@@ -245,19 +133,40 @@ function Dashboard({ user, agenda }) {
             ) : (
               <>{intl.formatMessage(messages.range, range)}</>
             )}
+
+            <button
+              type="button"
+              className="btn btn-link-inline margin-left-sm"
+              onClick={() => dateRangeModal.open()}
+            >
+              {intl.formatMessage(messages.update)}
+            </button>
           </>
         ) : null}
-
-        <button
-          type="button"
-          className="btn btn-link-inline margin-left-sm"
-          onClick={() => dateRangeModal.open()}
-        >
-          Modifier
-        </button>
       </div>
 
-      {charts?.length ? <div className="row">{charts}</div> : null}
+      {typeof totalEvents === 'number' ? (
+        <div className="margin-top-xs">
+          <FormattedMessage
+            id="AgendaStats.Dashboard.totalEvents"
+            defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
+            values={{
+              total: totalEvents
+            }}
+          />
+        </div>
+      ) : null}
+
+      {aggregations ? (
+        <AggregationCharts
+          ref={aggregationChartsRef}
+          aggregations={aggregations}
+          totalEvents={totalEvents}
+          range={range}
+        />
+      ) : null}
+
+      {/* {charts?.length ? <div className="row">{charts}</div> : null} */}
 
       {/* <pre>{JSON.stringify(Object.keys(aggregations), null, 2)}</pre> */}
       {/* <pre>{JSON.stringify(aggregations.originAgendas, null, 2)}</pre> */}
@@ -265,10 +174,15 @@ function Dashboard({ user, agenda }) {
       {dateRangeModal.isOpen ? (
         <PeriodModal
           initialValues={[range]}
-          onSubmit={value => {
-            setRange(value[0]);
-            dateRangeModal.close();
-          }}
+          onSubmit={value => dispatch(statsActions.load(agenda, {
+            date: {
+              gte: value[0].startDate,
+              lte: value[0].endDate
+            }
+          }))
+            .then(() => {
+              setRange(value[0]);
+            })}
           onClose={() => dateRangeModal.close()}
         />
       ) : null}

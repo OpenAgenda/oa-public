@@ -12,7 +12,8 @@ export default function VerticalBarChart({
   data,
   // total,
   dataKey,
-  labelKey
+  labelKey,
+  renderTooltipItem
 }) {
   // const intl = useIntl();
   // const data = useMemo(() => addRestItem(rawData, total, intl), [rawData, total, intl]);
@@ -21,7 +22,7 @@ export default function VerticalBarChart({
     <BarChart
       layout="vertical"
       width={400}
-      height={20 + data.length * 50}
+      height={42 + data.length * 50}
       data={data}
       css={css`
         .recharts-surface {
@@ -30,14 +31,19 @@ export default function VerticalBarChart({
       `}
     >
       <CartesianGrid stroke="#f5f5f5" />
-      <XAxis type="number" interval="preserveStartEnd" allowDecimals={false} />
+      <XAxis
+        type="number"
+        // interval="preserveStartEnd"
+        allowDecimals={false}
+      />
       <YAxis
         dataKey={labelKey}
         type="category"
         width={100}
+        // interval="preserveStartEnd"
         tick={<EllipsisAxisTick maxLines={3} />}
       />
-      <Tooltip content={<CustomTooltip labelKey={labelKey} />} />
+      <Tooltip content={<CustomTooltip labelKey={labelKey} renderItem={renderTooltipItem} />} />
       <Bar
         type="monotone"
         dataKey={dataKey}

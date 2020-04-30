@@ -1,14 +1,21 @@
 import _ from 'lodash';
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { ClassNames } from '@emotion/core';
 
 function DefaultTooltipItem({ entry, labelKey }) {
   return (
-    <li key={`tooltip-item-${entry.key}`} className="recharts-tooltip-item">
+    <li className="recharts-tooltip-item">
       <span>
         <b>{_.get(entry.payload, labelKey)}</b>
         <br />
-        {entry.value} événements
+        <FormattedMessage
+          id="AgendaStats.CustomTooltip.events"
+          defaultMessage="{value, number} events"
+          values={{
+            value: entry.value
+          }}
+        />
       </span>
     </li>
   );
@@ -36,12 +43,15 @@ export default function CustomTooltip({
         entry,
         index,
         array,
-        labelKey
+        labelKey,
+        key: entry.payload.key
       };
 
-      return React.isValidElement(renderItem)
-        ? React.cloneElement(renderItem, itemProps)
-        : React.createElement(DefaultTooltipItem, itemProps);
+      const itemRenderer = renderItem || DefaultTooltipItem;
+
+      return React.isValidElement(itemRenderer)
+        ? React.cloneElement(itemRenderer, itemProps)
+        : React.createElement(itemRenderer, itemProps);
     }
   );
 

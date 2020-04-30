@@ -12,7 +12,10 @@ export default function HorizontalBarChart({
   data,
   // total,
   dataKey,
-  labelKey
+  labelKey,
+  renderTooltipItem,
+  xAxisTick,
+  yAxisTick
 }) {
   // const intl = useIntl();
   // const data = useMemo(() => addRestItem(rawData, total, intl), [rawData, total, intl]);
@@ -32,11 +35,17 @@ export default function HorizontalBarChart({
       <XAxis
         dataKey={labelKey}
         type="category"
+        // interval="preserveStartEnd"
         width={100}
-        tick={<EllipsisAxisTick maxLines={3} />}
+        tick={xAxisTick || <EllipsisAxisTick maxLines={3} />}
       />
-      <YAxis type="number" interval="preserveStartEnd" allowDecimals={false} />
-      <Tooltip content={<CustomTooltip labelKey={labelKey} />} />
+      <YAxis
+        type="number"
+        // interval="preserveStartEnd"
+        allowDecimals={false}
+        tick={yAxisTick}
+      />
+      <Tooltip content={<CustomTooltip labelKey={labelKey} renderItem={renderTooltipItem} />} />
       <Bar
         type="monotone"
         dataKey={dataKey}
