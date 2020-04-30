@@ -16,7 +16,7 @@ const Cluster = require('./cluster');
 
 module.exports = c => {
   const config = Object.assign({
-    client: new elasticsearch.Client(_.pick(c.elasticsearch, ['node', 'log'])),
+    client: new elasticsearch.Client(_.pick(c.elasticsearch, ['node', 'log', 'ssl'])),
     type: 'event',
     baseSearchIncludes: searchIncludes.base,
     detailedSearchIncludes: searchIncludes.detailed,

@@ -47,6 +47,7 @@ export default storiesOf('Main', module)
     }),
     {
       extraProps: {
+        lang: 'fr',
         agenda: {
           uid: 48959239,
           slug: 'la-gargouille',
@@ -81,6 +82,7 @@ export default storiesOf('Main', module)
       }),
       {
         extraProps: {
+          lang: 'fr',
           agenda: {
             uid: 48959239,
             slug: 'la-gargouille',
@@ -113,6 +115,7 @@ export default storiesOf('Main', module)
       }),
       {
         extraProps: {
+          lang: 'fr',
           agenda: {
             uid: 48959239,
             slug: 'la-gargouille',

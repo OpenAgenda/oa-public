@@ -281,7 +281,8 @@ function init( cfg, cb ) {
 
   client = new elastic.Client( {
     host: config.host,
-    index: config.index
+    index: config.index,
+    ssl :config.ssl
   } );
 
   w( {
