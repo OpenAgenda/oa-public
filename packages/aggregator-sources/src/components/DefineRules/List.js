@@ -148,7 +148,7 @@ export default function List({
         <div className="padding-v-sm text-center">
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-bordered btn-primary"
             onClick={setModeAdd}
           >
             <i className="fa fa-sm fa-plus" aria-hidden="true" />{' '}
