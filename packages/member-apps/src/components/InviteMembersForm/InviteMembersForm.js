@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import {
   renderField,
   renderTextarea,

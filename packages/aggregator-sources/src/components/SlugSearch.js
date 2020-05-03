@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
-import useApiClient from '@openagenda/react-utils/dist/useApiClient';
+import { useApiClient } from '@openagenda/react-shared';
 import useSlugSearch from '../hooks/useSlugSearch';
 import SearchInput from './SearchInput';
 

@@ -4,9 +4,8 @@ import React, { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import Image from '@openagenda/react-components/build/Image';
-import MoreInfo from '@openagenda/react-components/build/MoreInfo';
-import useApiClient from '@openagenda/react-utils/dist/useApiClient';
+import { Image, MoreInfo } from '@openagenda/react-components';
+import { useApiClient } from '@openagenda/react-shared';
 import * as modalsActions from '../reducers/modals';
 
 const messages = defineMessages({

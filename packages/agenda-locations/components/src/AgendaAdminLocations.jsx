@@ -7,8 +7,7 @@ import xhr from 'xhr';
 import countries from '@openagenda/countries';
 import get from '@openagenda/utils/get';
 import labels from '@openagenda/labels/agenda-locations/list';
-import Modal from '@openagenda/react-components/build/Modal';
-import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+import { Modal, MoreInfo } from '@openagenda/react-components';
 import SearchField from '@openagenda/react-form-components/build/SearchField';
 import utils from '@openagenda/utils';
 

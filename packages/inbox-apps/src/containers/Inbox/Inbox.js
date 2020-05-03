@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import withContext from '@openagenda/react-utils/dist/withContext';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import nl2br from '@openagenda/react-utils/dist/nl2br';
 import I18nContext from '../../contexts/I18nContext';
 import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';

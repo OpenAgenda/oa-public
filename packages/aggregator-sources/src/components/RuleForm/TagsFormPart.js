@@ -2,11 +2,9 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { useFormState } from 'react-final-form';
 
-import { useMemoOne } from '@openagenda/react-shared';
+import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
 import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
-
-import SelectField from './SelectField';
 import messages from './messages';
 
 export default ({ schema }) => {
@@ -35,11 +33,12 @@ export default ({ schema }) => {
         </label>
 
         <div className="col-sm-10">
-          <SelectField
+          <ReactSelectField
             name="tagValues"
             initialValue={initialValues?.tagValues}
             placeholder={intl.formatMessage(messages.addAValue)}
             noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+            formatCreateLabel={value => intl.formatMessage(messages.createOption, { value })}
             options={options}
             menuPosition="fixed"
             isMulti

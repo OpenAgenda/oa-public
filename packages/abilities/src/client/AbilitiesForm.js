@@ -7,7 +7,7 @@ import { shouldUpdate, shallowEqual } from 'recompose';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import cn from 'classnames';
 import Fuse from 'fuse.js';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import RuleCheckbox from './RuleCheckbox';
 import isIndeterminate from './isIndeterminate';
 

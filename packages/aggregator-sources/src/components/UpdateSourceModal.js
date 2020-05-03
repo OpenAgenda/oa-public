@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 import DefineRules from './DefineRules';
 
 const messages = defineMessages({

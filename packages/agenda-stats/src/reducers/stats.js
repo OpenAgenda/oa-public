@@ -2,6 +2,65 @@ const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';
 const LOAD_FAIL = 'agenda-stats/stats/LOAD_FAIL';
 
+const defaultAggregations = [
+  'additionalFields',
+  'cities',
+  'departments',
+  'keywords',
+  'members',
+  'timespan',
+  'originAgendas',
+  'pastAndUpcoming',
+  'regions',
+  // 'sourceAgendas',
+  'states',
+  {
+    key: 'timingsByMonth',
+    type: 'timings',
+    interval: 'month'
+  },
+  {
+    key: 'timingsByWeek',
+    type: 'timings',
+    interval: 'week'
+  },
+  {
+    key: 'timingsByDay',
+    type: 'timings',
+    interval: 'day'
+  },
+  {
+    key: 'createdAtByMonth',
+    type: 'createdAt',
+    interval: 'month'
+  },
+  {
+    key: 'createdAtByWeek',
+    type: 'createdAt',
+    interval: 'week'
+  },
+  {
+    key: 'createdAtByDay',
+    type: 'createdAt',
+    interval: 'day'
+  },
+  {
+    key: 'updatedAtByMonth',
+    type: 'updatedAt',
+    interval: 'month'
+  },
+  {
+    key: 'updatedAtByWeek',
+    type: 'updatedAt',
+    interval: 'week'
+  },
+  {
+    key: 'updatedAtByDay',
+    type: 'updatedAt',
+    interval: 'day'
+  }
+];
+
 const initialState = {};
 
 export default function reducer(state = initialState, action) {
@@ -43,31 +102,7 @@ export function load(agenda, query) {
       const params = {
         oaq: { passed: 1 },
         size: 0,
-        aggregations: [
-          'additionalFields',
-          'cities',
-          'eventsByDateRanges',
-          'departments',
-          'keywords',
-          'members',
-          'timespan',
-          'originAgendas',
-          'pastAndUpcoming',
-          'regions',
-          // 'sourceAgendas',
-          'states',
-          {
-            key: 'timingsByMonth',
-            type: 'timings',
-            interval: 'month',
-            format: 'YYYY-MM'
-          },
-          {
-            key: 'timingsByDay',
-            type: 'timings',
-            interval: 'day'
-          }
-        ],
+        aggregations: defaultAggregations,
         ...query
       };
 

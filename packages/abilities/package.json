@@ -65,7 +65,7 @@
     "errorhandler": "^1.5.0",
     "eslint": "^6.8.0",
     "express": "^4.16.3",
-    "final-form": "^4.18.6",
+    "final-form": "^4.19.1",
     "jest": "^25.1.0",
     "lint-staged": "^10.0.7",
     "morgan": "^1.9.1",

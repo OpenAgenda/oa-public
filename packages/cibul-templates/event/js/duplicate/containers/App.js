@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/event/duplicate'; // TODO changes to event/duplicate.js
-import Modal from '@openagenda/react-components/build/Modal';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Modal, Spinner } from '@openagenda/react-components';
 import AgendasSearch from './AgendasSearch';
 import * as modalsActions from '../redux/modules/modals';
 

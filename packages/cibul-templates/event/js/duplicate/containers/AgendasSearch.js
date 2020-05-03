@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { debounce, throttle } from 'lodash';
-import AgendasSearchComponent from '@openagenda/react-components/build/AgendasSearch';
+import { AgendasSearchComponent } from '@openagenda/react-components';
 import * as agendasActions from '../redux/modules/agendas';
 
 const componentPropTypes = PropTypes.oneOfType( [

@@ -41,7 +41,7 @@
     "@welldone-software/why-did-you-render": "^4.0.0",
     "core-js": "^3.6.4",
     "dom4": "^2.1.5",
-    "final-form": "^4.18.6",
+    "final-form": "^4.19.1",
     "flatted": "^2.0.1",
     "he": "^1.2.0",
     "history": "^4.10.1",

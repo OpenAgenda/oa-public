@@ -10,20 +10,21 @@ export default function EllipsisAxisTick({ maxLines = 3, payload, ...rest }) {
       if (node === null) {
         return;
       }
-
-      let numberOfLines = node.state.wordsByLines.length;
+      let { wordsByLines } = node.state;
+      let biggestLine = wordsByLines.reduce((a, b) => (a.width > b.width ? a : b));
       let tempText = text;
-      const tempSuffix = numberOfLines > maxLines ? '…' : '';
+      const tempSuffix = wordsByLines.length > maxLines || biggestLine.width > rest.width ? '…' : '';
 
-      while (numberOfLines > maxLines) {
+      while (wordsByLines.length > maxLines || biggestLine.width > rest.width) {
         tempText = tempText.slice(0, -1);
-        numberOfLines = node.getWordsByLines(
+        wordsByLines = node.getWordsByLines(
           {
             ...rest,
             children: tempText + tempSuffix
           },
           true
-        ).length;
+        );
+        biggestLine = wordsByLines.reduce((a, b) => (a.width > b.width ? a : b));
       }
 
       if (tempText !== text) {

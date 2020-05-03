@@ -5,13 +5,12 @@ import React, {
 import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
-import { useMemoOne } from '@openagenda/react-shared';
+import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
 import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
 import stateMessages from '../../utils/stateMessages';
 import messages from './messages';
 import Radio from './Radio';
-import SelectField from './SelectField';
 
 export default ({ id, name, aggregatorAgendaSchema }) => {
   const intl = useIntl();
@@ -133,7 +132,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
 
   return (
     <>
-      <SelectField
+      <ReactSelectField
         name={`${name}.field`}
         placeholder={intl.formatMessage(messages.selectField)}
         noOptionsMessage={() => intl.formatMessage(messages.noOption)}
@@ -145,7 +144,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
 
       {valuesOptions ? (
         <>
-          <SelectField
+          <ReactSelectField
             key="values"
             name={`${name}.values`}
             placeholder={intl.formatMessage(

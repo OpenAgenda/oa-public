@@ -13,8 +13,7 @@ import qs from 'qs';
 import withContext from '@openagenda/react-utils/dist/withContext';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
-import Modal from '@openagenda/react-components/build/Modal';
-import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+import { Modal, MoreInfo } from '@openagenda/react-components';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 

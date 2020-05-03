@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import React from 'react';
 import sa from 'superagent';
 import labels from '@openagenda/labels/form-schemas/fileUpload';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 
 export default createReactClass({
 

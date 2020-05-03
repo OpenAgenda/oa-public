@@ -35,7 +35,7 @@
     "pnp": true
   },
   "resolutions": {
-    "final-form": "4.18.6",
+    "final-form": "4.19.1",
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "react-hot-loader": "4.12.20",

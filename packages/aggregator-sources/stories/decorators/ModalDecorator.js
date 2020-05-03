@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 
 export default title => storyFn => (
   <Modal

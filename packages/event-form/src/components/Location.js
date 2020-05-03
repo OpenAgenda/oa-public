@@ -4,8 +4,7 @@ import sa from 'superagent';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Modal from '@openagenda/react-components/build/Modal';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Modal, Spinner } from '@openagenda/react-components';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 
 import flattenLocationTagSet from '../utils/flattenLocationTagSet';

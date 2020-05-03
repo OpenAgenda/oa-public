@@ -12,7 +12,7 @@ var React = require( 'react' ),
 
   Spinner = require( '@openagenda/react-form-components/build/Spinner' ),
 
-  List = require( '@openagenda/react-components/build/List' ),
+  { List } = require( '@openagenda/react-components' ),
 
   get = require( '@openagenda/utils/get' ),
 

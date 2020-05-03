@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Switch from 'rc-switch';
-import List from '@openagenda/react-components/build/List';
+import { List } from '@openagenda/react-components';
 
 export default class UserShow extends Component {
 

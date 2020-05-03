@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 
 const messages = defineMessages({
   removeASource: {

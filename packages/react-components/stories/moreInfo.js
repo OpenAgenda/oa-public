@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import ReactMarkdown from 'react-markdown';
-import MoreInfo from '../components/MoreInfo';
+import MoreInfo from '../src/MoreInfo';
 import Decorator from './helpers/Decorator';
 
 import '@openagenda/bs-templates/compiled/main.css';

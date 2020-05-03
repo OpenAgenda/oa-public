@@ -4,7 +4,7 @@ import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import withContext from '@openagenda/react-utils/dist/withContext';
 import qs from 'qs';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import I18nContext from '../../contexts/I18nContext';
 import { ConversationForm, AuthorAvatar, Breadcrumb } from '../../components';
 import * as conversationFormActions from '../../reducers/conversationForm';

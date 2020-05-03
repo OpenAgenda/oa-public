@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import EventForm from '@openagenda/event-form/build';
-import Spinner from '@openagenda/react-components/build/Spinner';
+import { Spinner } from '@openagenda/react-components';
 import labels from '@openagenda/labels/agenda-contribute/event';
 
 import Canvas from '../components/Canvas';

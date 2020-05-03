@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
 import I18nContext from '../../contexts/I18nContext';

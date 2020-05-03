@@ -1,5 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
+import { makeUseAxios } from 'axios-hooks';
 
 export default function apiClient(baseURL, req, { legacy } = {}) {
   const isServer = typeof window === 'undefined';
@@ -16,6 +17,8 @@ export default function apiClient(baseURL, req, { legacy } = {}) {
   instance.setJwtToken = newToken => {
     token = newToken;
   };
+
+  instance.useAxios = makeUseAxios({ axios: instance });
 
   instance.interceptors.request.use(
     conf => {

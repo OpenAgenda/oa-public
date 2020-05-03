@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import ReactMarkdown from 'react-markdown';
 
 import labels from '@openagenda/labels/form-schemas';
-import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+import { MoreInfo } from '@openagenda/react-components';
 
 import multilingualLabels from '@openagenda/labels/form-schemas/fileUpload';
 

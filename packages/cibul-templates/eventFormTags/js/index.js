@@ -10,7 +10,7 @@ import du from '@openagenda/dom-utils';
 import genLabelGet from '@openagenda/labels';
 import get from '@openagenda/utils/get';
 import labels from '@openagenda/labels/event/tagsForm';
-import Modal from '@openagenda/react-components/build/Modal';
+import { Modal } from '@openagenda/react-components';
 import post from '@openagenda/utils/post';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import TagSelector from '@openagenda/agenda-tags/build/TagSelector';

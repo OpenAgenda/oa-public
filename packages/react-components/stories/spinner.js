@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Spinner from '../components/Spinner';
+import Spinner from '../src/Spinner';
 import Decorator from './helpers/Decorator';
 
 import '@openagenda/bs-templates/compiled/main.css';
