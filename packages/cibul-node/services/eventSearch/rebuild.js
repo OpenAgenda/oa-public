@@ -32,5 +32,5 @@ module.exports = async (services, eventSearch, rebuildQueue) => {
 
   log('info', 'completed rebuild queueing for %s agendas', count);
 
-  await rebuildQueue('transverseIndexRebuild');
+  await rebuildQueue('transverse');
 }

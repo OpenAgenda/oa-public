@@ -781,8 +781,8 @@ const config = {
   },
 
   development: {
-    domain: 'd.openagenda.com',
-    root: 'https://d.openagenda.com',
+    domain: process.env.OA_DEV_DOMAIN || 'd.openagenda.com',
+    root: process.env.OA_DEV_ROOT || 'https://d.openagenda.com',
     env: 'development',
     multiCore: false,
     mainChannel: 'maindev',
@@ -851,22 +851,34 @@ const config = {
       }
     },
     es: {
-      host: process.env.ELASTICSEARCH_134_DEV_HOST || 'localhost',
-      port: process.env.ELASTICSEARCH_134_DEV_PORT || 9200,
+      host: process.env.OA_ELASTICSEARCH_134_DEV_HOST || 'localhost',
+      port: process.env.OA_ELASTICSEARCH_134_DEV_PORT || 9200,
       indexName: 'cibuldev',
-      channel: 'maindev'
+      channel: 'maindev',
+      ssl: process.env.OA_ELASTICSEARCH_134_DEV_USE_SSL ? {
+        key: fs.readFileSync(process.env.OA_ELASTICSEARCH_134_DEV_SSL_KEY, 'utf-8'),
+        cert: fs.readFileSync(process.env.OA_ELASTICSEARCH_134_DEV_SSL_CERT, 'utf-8')
+      } : null
     },
     es53: {
-      host: process.env.ELASTICSEARCH_533_DEV_HOST || 'localhost',
-      port: process.env.ELASTICSEARCH_533_DEV_PORT || 9205
+      host: process.env.OA_ELASTICSEARCH_533_DEV_HOST || 'localhost',
+      port: process.env.OA_ELASTICSEARCH_533_DEV_PORT || 9205,
+      ssl: process.env.OA_ELASTICSEARCH_533_DEV_USE_SSL ? {
+        key: fs.readFileSync(process.env.OA_ELASTICSEARCH_533_DEV_SSL_KEY, 'utf-8'),
+        cert: fs.readFileSync(process.env.OA_ELASTICSEARCH_533_DEV_SSL_CERT, 'utf-8')
+      } : null
     },
     es75: {
       host: process.env.OA_ELASTICSEARCH_750_DEV_HOST || 'localhost',
-      port: process.env.OA_ELASTICSEARCH_750_DEV_PORT || 9207
+      port: process.env.OA_ELASTICSEARCH_750_DEV_PORT || 9207,
+      ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
+        key: fs.readFileSync(process.env.OA_ELASTICSEARCH_750_DEV_SSL_KEY, 'utf-8'),
+        cert: fs.readFileSync(process.env.OA_ELASTICSEARCH_750_DEV_SSL_CERT, 'utf-8')
+      } : null
     },
     redis: {
-      host: 'localhost',
-      port: 6379
+      host: process.env.OA_REDIS_DEV_HOST || 'localhost',
+      port: process.env.OA_REDIS_DEV_PORT || 6379
     },
     mails: {
       transport: {

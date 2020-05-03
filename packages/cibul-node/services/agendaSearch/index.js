@@ -15,7 +15,8 @@ module.exports.init = config => {
     schemas: config.schemas,
     elasticsearch: {
       host: `${config.es53.host}:${config.es53.port}/`,
-      apiVersion: '5.3'
+      apiVersion: '5.3',
+      ssl: config.es53.ssl
     },
     mw: {
       limit: {

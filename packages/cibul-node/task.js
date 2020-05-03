@@ -94,7 +94,7 @@ module.exports = (config, core, services) => {
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 
     /*require( './services/elasticsearch' ).resync( {
-      reset: false,
+      //reset: false,
       //since: '2019-05-14',
       removeZombies: false,
       logEveryUpdate: true
@@ -135,4 +135,5 @@ module.exports = (config, core, services) => {
   services.eventSearch.task();
 
   //services.eventSearch.rebuild();
+  services.eventSearch.transverse.rebuild();
 };

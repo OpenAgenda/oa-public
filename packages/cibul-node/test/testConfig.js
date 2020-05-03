@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const config = require('../config');
 const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
@@ -40,15 +41,27 @@ module.exports = {
     timeout: 30000
   },
   es: {
-    host: process.env.ELASTICSEARCH_134_DEV_HOST,
-    port: process.env.ELASTICSEARCH_134_DEV_PORT
+    host: process.env.OA_ELASTICSEARCH_134_DEV_HOST,
+    port: process.env.OA_ELASTICSEARCH_134_DEV_PORT,
+    ssl: process.env.OA_ELASTICSEARCH_134_DEV_USE_SSL ? {
+      key: fs.readFileSync(process.env.OA_ELASTICSEARCH_134_DEV_SSL_KEY, 'utf-8'),
+      cert: fs.readFileSync(process.env.OA_ELASTICSEARCH_134_DEV_SSL_CERT, 'utf-8')
+    } : null
   },
   es53: {
-    host: process.env.ELASTICSEARCH_533_DEV_HOST,
-    port: process.env.ELASTICSEARCH_533_DEV_PORT
+    host: process.env.OA_ELASTICSEARCH_533_DEV_HOST,
+    port: process.env.OA_ELASTICSEARCH_533_DEV_PORT,
+    ssl: process.env.OA_ELASTICSEARCH_533_DEV_USE_SSL ? {
+      key: fs.readFileSync(process.env.OA_ELASTICSEARCH_533_DEV_SSL_KEY, 'utf-8'),
+      cert: fs.readFileSync(process.env.OA_ELASTICSEARCH_533_DEV_SSL_CERT, 'utf-8')
+    } : null
   },
   es75: {
     host: process.env.OA_ELASTICSEARCH_750_DEV_HOST,
-    defaultIndex: 'test'
+    defaultIndex: 'test',
+    ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
+      key: fs.readFileSync(process.env.OA_ELASTICSEARCH_750_DEV_SSL_KEY, 'utf-8'),
+      cert: fs.readFileSync(process.env.OA_ELASTICSEARCH_750_DEV_SSL_CERT, 'utf-8')
+    } : null
   }
 }

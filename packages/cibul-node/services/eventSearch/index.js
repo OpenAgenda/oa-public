@@ -30,7 +30,8 @@ module.exports.init = async (config, services) => {
 
   const eventSearch = EventSearch({
     elasticsearch: {
-      node
+      node,
+      ssl: _.get(config, 'es75.ssl')
     },
     defaultIndex,
     logger: config.getLogConfig('svc', 'eventSearch')

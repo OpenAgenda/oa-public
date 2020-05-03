@@ -40,7 +40,8 @@ module.exports.init = async (config, services) => {
       log: _.get( config, 'esLocation.log' ),
       index: _.get( config, 'esLocation.index' ),
       apiVersion: _.get( config, 'esLocation.apiVersion' ),
-      timeout: _.get( config, 'esLocation.timeout' )
+      timeout: _.get( config, 'esLocation.timeout' ),
+      ssl: _.get( config, 'es.ssl', null )
     },
     mysql: {
       host: config.db.host,
@@ -48,7 +49,8 @@ module.exports.init = async (config, services) => {
       password: config.db.password,
       database: config.db.database,
       table: 'location',
-      agendaSettingsTableName: 'location_agenda_settings'
+      agendaSettingsTableName: 'location_agenda_settings',
+      ssl: config.db.ssl
     },
     query: _query.bind( null, config ),
     files: {
