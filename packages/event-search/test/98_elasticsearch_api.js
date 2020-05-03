@@ -13,6 +13,7 @@ describe('98 - event-search - unit: used elasticsearch api calls', function() {
   before(() => {
     client = new elasticsearch.Client({
       node: config.node,
+      ssl: config.ssl
     });
   });
 

@@ -21,10 +21,7 @@ const log = debug('⦙');
 
   const client = new elasticsearch.Client({
     node: config.node,
-    ssl: {
-      ...ssl,
-      rejectUnauthorized: true
-    }
+    ssl: config.ssl
   });
 
   while(true) {
