@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 module.exports.formatDSL = (query, options = {}) => ({
   terms: {
     field: '_search_additional_keywords',
@@ -13,15 +15,18 @@ module.exports.formatResult = (result, options = {}) => {
   return result.buckets
     .map(b => _decorateWithSchemaFieldAndOption(options.formSchema, b))
     .reduce((fields, optionItem) => {
-      if (!fields[optionItem.field]) {
-        fields[optionItem.field] = [];
-      }
+      const fieldName = optionItem.field.field;
+      const values = fields[fieldName] ? fields[fieldName].values : [];
+
       return {
         ...fields,
-        [optionItem.field] : (fields[optionItem.field] || []).concat({
-          ...optionItem.option,
-          eventCount: optionItem.eventCount
-        })
+        [fieldName]: {
+          label: optionItem.field.label,
+          values: values.concat({
+            ...optionItem.option,
+            eventCount: optionItem.eventCount
+          })
+        }
       }
     }, {});
 }
@@ -47,8 +52,8 @@ function _decorateWithSchemaFieldAndOption(formSchema, { key, doc_count }) {
     return {
       key,
       eventCount: doc_count,
-      field: field.field,
-      option: matchingOption
+      field,
+      option: _.omit(matchingOption, ['legacyId'])
     }
   }
 

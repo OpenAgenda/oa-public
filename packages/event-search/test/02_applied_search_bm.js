@@ -727,13 +727,16 @@ describe('02 - event search - functional: Applied search', function() {
         });
 
         it('each field lists event count corresponding to field option', () => {
-          agg['thematiques-bordeaux-metropole'][0].should.eql({
+          agg['thematiques-bordeaux-metropole'].values[0].should.eql({
             id: 9,
             value: 'culture',
             label: { fr: 'Culture' },
-            legacyId: null,
             eventCount: 37
           });
+        });
+
+        it('label is provided for each field', () => {
+          agg['thematiques-bordeaux-metropole'].label.fr.should.eql('Thématiques Bordeaux Métropole');
         });
 
       });
