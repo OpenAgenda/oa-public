@@ -64,8 +64,8 @@ const config = {
         version: 1
       } ]
     },
-    port: 8901,
-    apiPort: 8902,
+    port: 8901 || process.env.OA_PORT,
+    apiPort: 8902 || process.env.OA_API_PORT,
     multiCore: true,
     mainChannel: 'main',
     jobsQueue: 'jobs',
