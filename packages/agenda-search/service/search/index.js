@@ -126,7 +126,7 @@ function getClient( esConfig ) {
 
   if ( !esClient ) {
 
-    esClient = new elastic.Client( _.pick( esConfig, [ 'host', 'apiVersion' ] ) );
+    esClient = new elastic.Client( _.pick( esConfig, [ 'host', 'apiVersion', 'ssl' ] ) );
 
   }
 
