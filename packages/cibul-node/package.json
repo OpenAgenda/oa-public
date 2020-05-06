@@ -45,7 +45,7 @@
     "@openagenda/date-range": "^2.2.2",
     "@openagenda/dom-utils": "^2.2.1",
     "@openagenda/email-strategie": "^0.1.1",
-    "@openagenda/es-node": "^1.2.2",
+    "@openagenda/es-node": "^1.2.3",
     "@openagenda/event-form": "^1.3.22",
     "@openagenda/event-search": "^2.2.2",
     "@openagenda/events": "^1.5.6",
