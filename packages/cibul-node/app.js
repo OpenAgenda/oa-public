@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app
-  .set('trust proxy', 'loopback')
+  .set('trust proxy', ['loopback', 'linklocal'])
   .use(bodyParser.json({ limit: '5mb' }))
   .use(bodyParser.urlencoded({ limit: '500kb', extended: true }))
   .use((req, res, next) => {
