@@ -1,5 +1,3 @@
 "use strict";
 
-// used only for production
-
-module.exports = 'openagenda.com';
+module.exports = window.oa && window.oa.domain ? window.oa.domain : 'openagenda.com';
