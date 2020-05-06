@@ -13,8 +13,6 @@ const obj = {
 
   type: 'agenda',
 
-  // used at index creation
-  indexBody: getIndexSettings(),
 
   // prepare dsl query
   query,
@@ -23,9 +21,7 @@ const obj = {
   clean,
 
   // process items read from index
-  parse,
-
-  mappings: getMappings()
+  parse
 
 }
 
@@ -169,108 +165,6 @@ function getSortDsl( query ) {
 }
 
 
-function getMappings() {
-
-  return {
-    agenda: {
-
-      properties: {
-
-        id: {
-          type: 'integer',
-          index: 'not_analyzed'
-        },
-
-        uid: {
-          type: 'integer',
-          index: 'not_analyzed'
-        },
-
-        publishedEvents: {
-          type: 'integer',
-          index: 'not_analyzed'
-        },
-
-        upcomingPublishedEvents: {
-          type: 'integer',
-          index: 'not_analyzed'
-        },
-
-        hasUpcomingPublished: {
-          type: 'boolean',
-          index: 'not_analyzed'
-        },
-
-        slug: {
-          type: 'keyword'
-        },
-
-        title: {
-          type: 'string',
-          analyzer: 'custom'
-        },
-
-        description: {
-          type: 'string',
-          analyzer: 'custom'
-        },
-
-        image: {
-          type: 'string',
-          index: 'not_analyzed'
-        },
-
-        updatedAt: {
-          type: 'date'
-        },
-
-        createdAt: {
-          type: 'date'
-        },
-
-        official: {
-          type: 'boolean'
-        },
-
-        officializedAt: {
-          type: 'date'
-        },
-
-        keywords: {
-          type: 'keyword'
-        }
-
-      }
-
-    }
-  }
-
-}
-
-
-function getIndexSettings() {
-
-  return {
-    analysis: {
-      analyzer: {
-        custom: {
-          type: 'custom',
-          tokenizer: 'standard',
-          filter : [ 'standard', 'lowercase', 'asciifolding', 'my_word_delimiter' ]
-        }
-      },
-      filter : {
-        my_word_delimiter : {
-          type : 'word_delimiter',
-          preserve_original: "true"
-        }
-      }
-    }
-  }
-
-}
-
-
 function parse( hit ) {
 
   return hit._source;
@@ -282,20 +176,20 @@ function clean( a, config ) {
 
   var c = {};
 
-  [ 
+  [
     'id',
     'uid',
     'slug',
     'title',
     'description',
     'official',
-    'image', 
+    'image',
     'publishedEvents',
     'upcomingPublishedEvents',
     'keywords',
     'officializedAt',
     'updatedAt',
-    'createdAt' 
+    'createdAt'
   ].forEach( k => {
 
     c[ utils.toCamelCase( k ) ] = a[ k ];
@@ -305,7 +199,7 @@ function clean( a, config ) {
   c.image = a.image ? config.image.path + a.image : config.image.default;
 
   c.hasUpcomingPublished = !!c.upcomingPublishedEvents;
-  
+
   return c;
 
 }

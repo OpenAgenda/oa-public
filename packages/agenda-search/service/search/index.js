@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const elastic = require( 'elasticsearch' );
+const elasticsearch = require('@elastic/elasticsearch');
 const VError = require( 'verror' );
 const w = require( 'when' );
 
@@ -13,6 +13,7 @@ const log = require( '@openagenda/logs' )( 'search' );
 const bulk = require( './lib/bulk' );
 const obj = require( './lib/agenda' ); // unnecessary abstraction
 const resyncUpdated = require( './resyncUpdated' );
+const mapping  = require('./lib/mapping.json');
 
 let esClient;
 
@@ -43,13 +44,12 @@ function list( { obj, config }, query, offset, limit, cb ) {
 
   client.search( {
     index: obj.alias,
-    type: obj.type,
     body: dsl
   }, ( err, result ) => {
 
     if ( err ) return cb( err );
 
-    cb( null, result.hits.hits.map( obj.parse ), result.hits.total );
+    cb( null, result.body.hits.hits.map( obj.parse ), result.body.hits.total.value );
 
   } );
 
@@ -77,11 +77,11 @@ async function rebuild( { obj, config } ) {
 
     v.previousIndices = _.keys( await client.indices.getAlias( {
       name: obj.alias
-    } ) );
+    } ).then(r => r.body) );
 
   } catch ( err ) {
 
-    if ( err.displayName !== 'NotFound' ) {
+    if ( err.meta.statusCode !== 404 ) {
 
       throw new VError( 'failed to retrieve previous indices', err );
 
@@ -93,9 +93,9 @@ async function rebuild( { obj, config } ) {
 
     .then( _createIndex )
 
-    .then( _setMapping )
-
     .then( async v => {
+
+      console.log(newIndex);
 
       const count = await populate( {
         client,
@@ -126,7 +126,7 @@ function getClient( esConfig ) {
 
   if ( !esClient ) {
 
-    esClient = new elastic.Client( _.pick( esConfig, [ 'host', 'apiVersion', 'ssl' ] ) );
+    esClient = new elasticsearch.Client(_.pick(esConfig, ['node', 'log', 'ssl']));
 
   }
 
@@ -337,7 +337,12 @@ function _createIndex( v ) {
   client.indices.create( {
     index: v.index,
     timeout: v.timeout,
-    body: v.obj.indexBody
+    body: {
+      mappings: {
+        dynamic: false,
+        properties: mapping
+      }
+    }
   }, ( err, result ) => {
 
     if ( err ) return d.reject( err );
@@ -351,30 +356,6 @@ function _createIndex( v ) {
   return d.promise;
 
 }
-
-
-function _setMapping( v ) {
-
-  var client = getClient( _.get( v, 'config.elasticsearch' ) ),
-
-  d = w.defer();
-
-  client.indices.putMapping( {
-    index: v.index,
-    type: v.obj.type,
-    body: v.obj.mappings
-  }, ( err, result ) => {
-
-    if ( err ) return d.reject( err );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
 
 function _dateStr( d ) {
 

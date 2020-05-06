@@ -28,7 +28,7 @@
     "async": "^1.5.2",
     "core-js": "^3.6.4",
     "create-react-class": "^15.5.2",
-    "elasticsearch": "^13.3.1",
+    "@elastic/elasticsearch": "^7.0.0",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",

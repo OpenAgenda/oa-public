@@ -1,0 +1,40 @@
+{
+  "id": {
+    "type": "integer"
+  },
+  "uid": {
+    "type": "integer"
+  },
+  "hasUpcomingPublished": {
+    "type": "boolean"
+  },
+  "slug": {
+    "type": "keyword"
+  },
+  "title": {
+    "type": "text",
+    "analyzer": "simple"
+  },
+  "description": {
+    "type": "text",
+    "analyzer": "simple"
+  },
+  "image": {
+    "type": "text"
+  },
+  "updatedAt": {
+    "type": "date"
+  },
+  "createdAt": {
+    "type": "date"
+  },
+  "official": {
+    "type": "boolean"
+  },
+  "officializedAt": {
+    "type": "date"
+  },
+  "keywords": {
+    "type": "keyword"
+  }
+}
