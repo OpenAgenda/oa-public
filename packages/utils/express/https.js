@@ -3,9 +3,7 @@
 const hsts = require('hsts');
 
 module.exports = (req, res, next) => {
-  const isSecure = process.env.OA_USE_X_FWD_PROTO ? req.headers['x-forwarded-proto'] === 'https' : req.secure;
-
-  if (!isSecure) {
+  if (!req.secure) {
     const redirectTo = 'https://' + req.hostname + req.originalUrl;
 
     if (req.log) {
