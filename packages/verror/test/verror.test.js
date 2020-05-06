@@ -62,6 +62,10 @@ test('VError', () => {
   expect(err.message).toEqual('top: mid');
   expect(VError.cause(err) === suberr).toBeTruthy();
 
+  /* empty message */
+  err = new VError(new VError(new VError(new VError('Test')), 'Ok'))
+  expect(err.message).toEqual('Ok: Test');
+
   /* fullStack */
   suberr = new VError(new Error('root cause'), 'mid');
   err = new VError(suberr, 'top');

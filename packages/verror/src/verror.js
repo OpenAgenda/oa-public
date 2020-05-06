@@ -139,7 +139,7 @@ class VError extends Error {
     if (cause) {
       if (!isError(cause)) throw new AssertionError('cause must be an Error');
 
-      if (!options.skipCauseMessage) {
+      if (!options.skipCauseMessage && cause.message) {
         message = message === ''
           ? cause.message
           : `${message}: ${cause.message}`;
@@ -285,4 +285,3 @@ module.exports.MultiError = MultiError;
  * import * as VError from '@openagenda/verror' // VError.cause ✓
  * import { cause } from '@openagenda/verror';  // cause        ✓
  */
-
