@@ -33,9 +33,7 @@
     "test-node": "bash -c 'for file in test/*.test.js; do node \"$file\"; done'"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.8.4",
     "assertion-error": "^1.1.0",
-    "core-js": "^3.6.4",
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
