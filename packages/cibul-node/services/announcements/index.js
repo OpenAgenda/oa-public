@@ -4,7 +4,6 @@ const { promisify } = require('util');
 const cmn = require('../../lib/commons-app');
 
 const ANNOUNCEMENT_KEY = 'oa:announcement';
-let service;
 
 module.exports = {
   init,
@@ -12,23 +11,21 @@ module.exports = {
 };
 
 function init(config) {
-  service = new Announcements({
+  return new Announcements({
     redisClient: config.redisClient
   });
-
-  return service;
 }
 
-function plugApp(app) {
-  const { sessions } = app.services;
+function plugApp(app, base = '/supervisor/announcement') {
+  const { sessions, announcements } = app.services;
 
   app.post(
-    '/supervisor/announcement',
+    base,
     sessions.middleware.ifUnlogged(cmn.redirectToSignin),
-    cmn.requireSuperAdmin,
+    sessions.mw.requireSuperAdmin,
     async (req, res, next) => {
       try {
-        await service.set(req.body);
+        await announcements.set(req.body);
         res.sendStatus(200);
       } catch (err) {
         next(err);
@@ -37,12 +34,12 @@ function plugApp(app) {
   );
 
   app.delete(
-    '/supervisor/announcement',
+    base,
     sessions.middleware.ifUnlogged(cmn.redirectToSignin),
-    cmn.requireSuperAdmin,
+    sessions.mw.requireSuperAdmin,
     async (req, res, next) => {
       try {
-        await service.remove();
+        await announcements.remove();
         res.sendStatus(200);
       } catch (err) {
         next(err);
