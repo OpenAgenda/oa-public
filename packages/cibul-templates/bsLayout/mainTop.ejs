@@ -27,7 +27,11 @@
         <% }); %>
       <% } %>
     <% } %>
-    <script type="text/javascript">window.templates='bs';</script>
+    <script type="text/javascript">
+      window.templates='bs';
+      if (!window.oa) window.oa = {};
+      window.oa.domain = '<%= typeof domain === 'undefined' ? 'openagenda.com' : domain %>';
+    </script>
     <% if ( typeof preloaded !== 'undefined' ) { %>
     <script type="text/javascript">window.__PRELOADED__=<%= preloaded %>;</script>
     <% } %>

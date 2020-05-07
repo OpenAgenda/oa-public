@@ -469,7 +469,8 @@ function loadBaseData( func, cssFile ) {
           outdated: '/js/outdated.js'
         }
       },
-      scriptsBase: '/js'
+      scriptsBase: '/js',
+      domain: config.domain
     }
 
     if ( func ) {
