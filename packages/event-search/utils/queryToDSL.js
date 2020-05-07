@@ -21,6 +21,7 @@ module.exports = (query = {}, nav = {}, formSchema = null, includes = null) => {
   const clean = validateQuery(derelativized, formSchema);
 
   const DSL = {
+    track_total_hits: true,
     query: getDSLQueryPart(clean, formSchema),
     _source: getDSLSourcePart(includes)
   };

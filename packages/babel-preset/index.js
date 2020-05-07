@@ -30,8 +30,17 @@ module.exports = declare((api, options) => {
     shippedProposals: true
   };
 
-  const useBuiltIns = 'useBuiltIns' in options ? options.useBuiltIns : 'usage';
-  const corejs = 'corejs' in options ? options.corejs : { version: 3, proposals: true };
+  const transformRuntime = 'transformRuntime' in options ? options.transformRuntime : true;
+  const useBuiltIns = 'useBuiltIns' in options
+    ? options.useBuiltIns
+    : transformRuntime
+      ? 'usage'
+      : false;
+  const corejs = 'corejs' in options
+    ? options.corejs
+    : useBuiltIns
+      ? { version: 3, proposals: true }
+      : undefined;
   const development = 'development' in options
     ? options.development
     : api.cache(() => process.env.NODE_ENV !== 'production');
@@ -94,13 +103,13 @@ module.exports = declare((api, options) => {
   const plugins = [
     require('babel-plugin-lodash'),
     require('babel-plugin-add-module-exports'),
-    [
+    transformRuntime ? [
       require('@babel/plugin-transform-runtime'),
       {
         corejs,
         version: require('@babel/helpers/package.json').version
       }
-    ],
+    ] : null,
 
     // Stage 0
     require('@babel/plugin-proposal-function-bind'),
