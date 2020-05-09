@@ -19,6 +19,7 @@
   "detailed" : [
     "description",
     "longDescription",
+    "conditions",
     "html",
     "sourceAgendas",
     "creatorUid",

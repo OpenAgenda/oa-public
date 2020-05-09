@@ -39,6 +39,10 @@ describe('11 - event-search - unit: formatEvent', function() {
       begin: new Date('2020-01-19T08:20:00+0100'),
       end: new Date('2020-01-19T16:30:00+0100')
     }],
+    conditions: {
+      fr: 'Gratuit',
+      en: 'Free'
+    },
     originAgenda: {
       uid: 123456,
       title: 'L\'agenda d\'origine je crois',
