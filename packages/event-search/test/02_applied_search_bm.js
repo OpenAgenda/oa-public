@@ -331,7 +331,7 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
-      describe('createdAt', () => {
+      describe('createdAt / updatedAt', () => {
         let updatedAtAgg, createdAtAgg;
 
         before(async () => {
