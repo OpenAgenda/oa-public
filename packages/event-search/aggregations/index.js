@@ -18,7 +18,7 @@ const aggregationTypes = {
   states: require('./states'),
   timings: require('./timings'),
   createdAt: timestamp('createdAt'),
-  updatedAt: timestamp('updatedAt')
+  updatedAt: timestamp('_exclusiveUpdatedAt')
 }
 
 module.exports = {

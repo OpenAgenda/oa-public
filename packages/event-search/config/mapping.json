@@ -108,6 +108,9 @@
   "updatedAt": {
     "type": "date"
   },
+  "_exclusiveUpdatedAt": {
+    "type": "date"
+  },
   "_search_title": {
     "type": "text",
     "analyzer": "simple"

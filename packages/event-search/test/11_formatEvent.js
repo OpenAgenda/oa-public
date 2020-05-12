@@ -16,7 +16,7 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   const event = {
     createdAt: new Date('2020-04-28T13:44:00+0200'),
-    updatedAt: new Date('2020-04-28T13:50:00+0200'),
+    updatedAt: new Date('2020-04-28T14:50:00+0200'),
     title: {
       fr: 'Un événement',
       en: 'An event'
@@ -39,6 +39,10 @@ describe('11 - event-search - unit: formatEvent', function() {
       begin: new Date('2020-01-19T08:20:00+0100'),
       end: new Date('2020-01-19T16:30:00+0100')
     }],
+    conditions: {
+      fr: 'Gratuit',
+      en: 'Free'
+    },
     originAgenda: {
       uid: 123456,
       title: 'L\'agenda d\'origine je crois',
@@ -151,6 +155,28 @@ describe('11 - event-search - unit: formatEvent', function() {
   it('timestamps createdAt and updatedAt are in formatted object', () => {
     formatted.createdAt.should.be.ok;
     formatted.updatedAt.should.be.ok;
+  });
+
+  it('timestamp _exclusiveUpdatedAt is unset if updatedAt is less than 1mn appart from createdAt', () => {
+    should(formatEvent(ih(event, {
+      createdAt: {
+        $set: new Date('2020-05-11T15:25:30+0200')
+      },
+      updatedAt: {
+        $set: new Date('2020-05-11T15:26+0200')
+      }
+    }), formSchema)._exclusiveUpdatedAt).equal(undefined);
+  });
+
+  it('timestamp _exclusiveUpdatedAt is set if updatedAt is 1mn appart or more from createdAt', () => {
+    formatEvent(ih(event, {
+      createdAt: {
+        $set: new Date('2020-05-11T15:25:30+0200')
+      },
+      updatedAt: {
+        $set: new Date('2020-05-11T15:27+0200')
+      }
+    }), formSchema)._exclusiveUpdatedAt.getTime().should.equal((new Date('2020-05-11T15:27+0200')).getTime());
   });
 
 });

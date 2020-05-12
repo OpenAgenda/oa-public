@@ -10,7 +10,9 @@ const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields')
 const aggObjects = require('./aggregatorObjects');
 
 module.exports = (event, formSchema = null) => {
-  const transform = {};
+  const transform = {
+    $unset: []
+  };
 
   if (event.location) {
     const country = _clearEmptyLabels(_.get(countries,
@@ -107,6 +109,12 @@ module.exports = (event, formSchema = null) => {
       }, [])
   };
 
+  if (!_lessThanOneMinuteApart(event.updatedAt, event.createdAt)) {
+    transform['_exclusiveUpdatedAt'] = {
+      $set: event.updatedAt
+    };
+  }
+
   if (formSchema) {
     const schemaAdditionalFields = getFormSchemaAdditionalFields(formSchema);
 
@@ -171,4 +179,9 @@ function _clearEmptyLabels(labels) {
     }), {});
 }
 
-
+function _lessThanOneMinuteApart(d1, d2) {
+  if (!d1 || !d2) {
+    return false;
+  }
+  return Math.abs((new Date(d1)).getTime() - (new Date(d2)).getTime()) < 60*1000;
+}
