@@ -125,7 +125,7 @@
       "type" : "boolean",
       "default" : false
     },
-    "sl" : {
+    "mei" : {
       "type" : "boolean",
       "default" : false
     }
