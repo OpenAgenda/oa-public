@@ -56,6 +56,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.6",
     "@openagenda/babel-preset": "^1.2.2",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
