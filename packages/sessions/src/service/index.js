@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const logger = require( '@openagenda/logs' );
-const middleware = require( '../middleware' );
+const mw = require( '../middleware' );
 const isoConfig = require( '../../iso/config' );
 const cookieValidate = require( '../../iso/cookie.validate' );
 const expressCookie = require( './expressCookie' );
@@ -29,7 +29,7 @@ module.exports = {
   setFlash: ( req, res, message ) => set( config.writableCookie.name, req, res, 'flash', message ),
   isLogged,
   getCulture,
-  middleware
+  mw
 }
 
 function set( cookieName, request, response, name, value ) {
@@ -96,7 +96,7 @@ function init( c ) {
 
   interfaces = c.interfaces;
 
-  middleware.init( config, module.exports );
+  mw.init( config, module.exports );
 
   expressCookie.init( config );
 
