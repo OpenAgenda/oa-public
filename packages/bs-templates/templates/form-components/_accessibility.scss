@@ -15,7 +15,7 @@
       i {
         height: 30px;
         width: 30px;
-        background-image: url(//s3.eu-central-1.amazonaws.com/oastatic/accessibility-30.png);
+        background-image: url(//s3.eu-central-1.amazonaws.com/oastatic/accessibility-30-2.png);
         position: absolute;
         top: -5px;
         left: 17px;
@@ -44,7 +44,13 @@
 
     .vi i {
 
-      background-position: 0 0;
+      background-position: 0px 150px;
+
+    }
+
+    .mei i {
+
+      background-position: 0px 180px;
 
     }
 
@@ -55,5 +61,5 @@
     }
 
   }
-  
+
 }
