@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const moment = require('moment');
 
 const { applyContextLink } = require('../eventNavigation');
 const detailedTiming = require('../timings/detailed');
@@ -36,8 +35,6 @@ module.exports = options => {
 
   return {
     listItem: (event, req, res, context) => {
-      moment.locale(res.locals.lang);
-
       const transformed = preTransform(event, req, res);
 
       return applyContextLink(
@@ -49,8 +46,6 @@ module.exports = options => {
       );
     },
     show: (event, req, res) => {
-      moment.locale(res.locals.lang);
-
       const transformed = preTransform(event, req, res);
 
       transformed.timings = transformed.timings.map(
@@ -59,7 +54,8 @@ module.exports = options => {
 
       transformed.months = spreadPerMonthPerDay(
         transformed.timings,
-        transformed.timezone
+        transformed.timezone,
+        res.locals.lang
       );
 
       if (_.get(req, 'params.timing')) {

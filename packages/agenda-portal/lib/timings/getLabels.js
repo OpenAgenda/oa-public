@@ -4,13 +4,21 @@ const moment = require('moment-timezone');
 
 const { tz } = moment;
 
-module.exports = (timezone = 'Europe/Paris', timing) => ({
+module.exports = (timing, timezone = 'Europe/Paris', locale = 'en') => ({
   start: {
-    day: tz(timing.start, timezone).format('dddd D'),
-    time: tz(timing.start, timezone).format('LT')
+    day: tz(timing.start, timezone)
+      .locale(locale)
+      .format('dddd D'),
+    time: tz(timing.start, timezone)
+      .locale(locale)
+      .format('LT')
   },
   end: {
-    day: tz(timing.start, timezone).format('dddd D'),
-    time: tz(timing.end, timezone).format('LT')
+    day: tz(timing.start, timezone)
+      .locale(locale)
+      .format('dddd D'),
+    time: tz(timing.end, timezone)
+      .locale(locale)
+      .format('LT')
   }
 });

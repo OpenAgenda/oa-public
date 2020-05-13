@@ -173,7 +173,7 @@ function _transformFormSchemaTimingsToService( t, timezone ) {
   return moment.tz(
     t.date + ' ' + _fZ( t.hours ) + ':' + _fZ( t.minutes ),
     timezone
-  ).locale('en').format();
+  ).format();
 
 }
 
@@ -192,7 +192,7 @@ function _fZ( n ) {
  */
 function _transformTimingToFormSchema( d, timezone ) {
 
-  const tz = moment.tz( d, timezone ).locale('en');
+  const tz = moment.tz( d, timezone );
 
   return {
     date: tz.format( 'YYYY-MM-DD' ),

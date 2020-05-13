@@ -565,17 +565,15 @@ function _defineTimings( lang ) {
 
     timezone = args[ 1 ] || 'Europe/Paris';
 
-    moment.locale( lang );
-
     return timings
 
     .map( t => {
 
-      let d = moment.tz( t.start, timezone ).format( 'dddd Do MMMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
+      let d = moment.tz( t.start, timezone ).locale( lang ).format( 'dddd Do MMMM' ) + ( today.getUTCFullYear() !== parseInt( t.start.substr( 0, 4 ) ) ? ' ' + t.start.substr( 0, 4 ) : '' ),
 
-      start = moment.tz( t.start, timezone ).format( 'HH:mm' ),
+      start = moment.tz( t.start, timezone ).locale( lang ).format( 'HH:mm' ),
 
-      end = moment.tz( t.end, timezone ).format( 'HH:mm' );
+      end = moment.tz( t.end, timezone ).locale( lang ).format( 'HH:mm' );
 
       if ( lang == 'fr' ) {
 
