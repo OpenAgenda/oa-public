@@ -257,7 +257,7 @@ export default class Conversation {
           (v, key) => `${schemas.conversation}.${key}`
         )
       )
-      .groupBy(`${schemas.conversation}.id`)
+      .groupBy(`${schemas.conversation}.id`, `${schemas.inbox}.id`)
       .orderByRaw('(closedAt IS NOT NULL)')
       .orderByRaw('latestMessageId DESC')
       .orderByRaw(
@@ -285,7 +285,8 @@ export default class Conversation {
             `${schemas.inboxConversation}.inbox_id`
           )
           .onNull(`${schemas.inboxUser}.left_at`))
-        .where(`${schemas.inboxUser}.user_uid`, this.userUid);
+        .where(`${schemas.inboxUser}.user_uid`, this.userUid)
+        .groupBy(`${schemas.inboxUser}.id`);
 
       if (
         this.inbox.data
