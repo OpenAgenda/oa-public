@@ -35,28 +35,17 @@
 
   &.spin-inline {
 
-    > span {
-
-      display: inline-block;
-
-    }
-
     position: relative;
-    height: 1em;
-    width: auto;
+    line-height: 1em;
+    width: 1em;
     display: inline-block;
     background: transparent;
 
-    /*
-      commenting this part as it breaks inline spinner on agenda-event-reference suggestions load
-      vertical-align: middle;
-     */
+    > span {
+      display: inline-block;
+    }
 
     .spinner {
-
-      left: 5px!important;
-      width: auto!important;
-      top: 62%!important;
 
       @keyframes spinner-line-fade-more {
         0%, 100% {
@@ -87,16 +76,10 @@
 
     }
 
-    .spin-message {
+    & + .spin-message {
 
-      margin-left: 1.3em;
+      margin-left: .3em;
       color: $oa-gray-light;
-
-    }
-
-    & + span {
-
-      vertical-align: middle;
 
     }
 
