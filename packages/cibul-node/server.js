@@ -43,8 +43,8 @@ supervisor(async loadTasks => {
 
     app.services = services;
 
-    app.use(sessions.middleware);
-    app.use(sessions.middleware.load({ detailed: true }));
+    app.use(sessions.mw);
+    app.use(sessions.mw.load({ detailed: true }));
 
     app.use(require('./services/logRequests').middleware);
 

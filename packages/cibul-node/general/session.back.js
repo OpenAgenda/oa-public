@@ -9,7 +9,7 @@ const members = require( '../services/members' );
 module.exports = app => {
   app.get(
     '/session',
-    sessions.middleware.ifUnlogged( ( req, res ) => res.send( null ) ),
+    sessions.mw.ifUnlogged( ( req, res ) => res.send( null ) ),
     ( req, res, next ) => { req.query.detailed ? _loadDetailed( req, res, next ) : next() },
     ( req, res ) => res.send( req.user )
   );

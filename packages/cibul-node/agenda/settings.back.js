@@ -12,19 +12,19 @@ const members = require( '../services/members' );
 module.exports = app => {
   app.post(
     '/new',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     mw.create
   );
 
   app.post(
     '/agendas/slugs/available',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     mw.slugs.available
   );
 
   app.get(
     '/agendas/:uid/admin/settings.json',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgendaBy( 'uid' ),
     members.mw.loadAndAuthorize('administrator'),
     mw.get
@@ -32,7 +32,7 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/edit',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
@@ -44,7 +44,7 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/setImage',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     mw.setImage
@@ -52,7 +52,7 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/clearImage',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     mw.clearImage
@@ -60,7 +60,7 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/remove',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {
@@ -73,7 +73,7 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/keys/create',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
@@ -89,7 +89,7 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/settings/keys/get',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
@@ -106,7 +106,7 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/settings/keys/list',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
@@ -123,7 +123,7 @@ module.exports = app => {
 
   app.patch(
     '/:slug/admin/settings/keys/update',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
@@ -140,7 +140,7 @@ module.exports = app => {
 
   app.delete(
     '/:slug/admin/settings/keys/remove',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
@@ -158,7 +158,7 @@ module.exports = app => {
   // app.get(
   //   '/:slug/admin/settings(/*?)?',
   //   cmn.loadAgenda,
-  //   sessions.mw.loadOrRedirect,
+  //   sessions.mw.loadOrRedirect(),
   //   cmn.verifyIPMiddleware, TODO on webapp
   //   members.mw.loadAndAuthorize('administrator'),
   //   agendaSvc.mw.loadAdminLayout,

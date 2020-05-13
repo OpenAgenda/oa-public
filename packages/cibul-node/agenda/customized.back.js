@@ -16,7 +16,7 @@ module.exports = app => {
   app.get(
     '/:slug/admin/settings/customize',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     members.mw.loadAndAuthorize('administrator'),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
@@ -28,7 +28,7 @@ module.exports = app => {
   app.post(
     '/:slug/admin/settings/customize',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     members.mw.loadAndAuthorize('administrator'),
     tagMw.set,

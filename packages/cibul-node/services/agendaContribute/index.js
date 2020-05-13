@@ -56,7 +56,7 @@ module.exports = Object.assign( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
-    sessions.middleware.ifUnlogged( _redirectToSignup ),
+    sessions.mw.ifUnlogged( _redirectToSignup ),
     middlewares.member,
     middlewares.schemaExtensions,
     middlewares.duplicateFromEvent

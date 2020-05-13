@@ -13,7 +13,7 @@ const config = require( '../config' );
 
 const preMw = [
   cmn.loadBaseData(),
-  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
+  sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
 ];
 
 

@@ -22,7 +22,7 @@ module.exports = app => {
 
   const preMw = [
     cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
   ];
 
   if ( _.get( config, 'auth.facebook.id' ) ) {

@@ -80,7 +80,7 @@ module.exports = app => {
   app.get(
     '/latest-inbox-timestamp',
     cmn.loadLogger('latestInboxMessageTimestamp'),
-    sessions.middleware.ifUnlogged((req, res) => res.send(null)),
+    sessions.mw.ifUnlogged((req, res) => res.send(null)),
     _loadUser.bind(null, true),
     latestInboxMessageTimestamp
   );

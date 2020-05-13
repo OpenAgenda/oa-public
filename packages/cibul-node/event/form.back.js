@@ -12,7 +12,7 @@ const sessions = require('../services/sessions');
 const members = require('../services/members');
 
 const preMw = [
-  sessions.mw.loadOrRedirect,
+  sessions.mw.loadOrRedirect(),
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
   members.mw.loadAndAuthorize('contributor'),
   _checkField

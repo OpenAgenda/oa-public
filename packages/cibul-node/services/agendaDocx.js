@@ -13,7 +13,7 @@ module.exports = app => {
 
   app.use( '/docx/:agendaUid',
     cmn.loadAgendaBy({uid: 'agendaUid'}),
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     members.mw.loadAndAuthorize('moderator')
   );
 

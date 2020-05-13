@@ -17,7 +17,7 @@ const sessions = require('../services/sessions');
 const preMw = [
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
   eventSvc.mw.load( 'eventSlug', 'slug' ),
-  sessions.mw.loadOrRedirect,
+  sessions.mw.loadOrRedirect(),
   members.mw.loadAndAuthorize('moderator')
 ];
 

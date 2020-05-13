@@ -4,9 +4,6 @@ const fs = require('fs');
 const _ = require('lodash');
 const agendaStatistics = require('../services/agendaStatistics');
 
-const members = require('../services/members');
-const sessions = require('../services/sessions');
-
 const layout = require('../services/lib/layouts').load('agendaAdmin');
 
 const agendaLoad = require('@openagenda/agendas').middleware.load({
@@ -23,15 +20,14 @@ const agendaLoad = require('@openagenda/agendas').middleware.load({
 const statsTemplate = _.template(fs.readFileSync(__dirname + '/stats.tpl', 'utf-8'));
 
 module.exports = app => {
-  const { members } = app.services;
+  const { members, sessions } = app.services;
 
   app.use('/:agendaSlug/admin/getting-started', [
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendaLoad,
     members.mw.loadAndAuthorize('administrator'),
     _gettingStarted
   ]);
-
 
   /**
    * stats routes are hit by a ping script and need to be accessible
@@ -40,7 +36,7 @@ module.exports = app => {
     '/:agendaSlug/admin/stats',
     '/:agendaSlug/admin/stats/resync/:type'
   ], [
-    sessions.mw.load,
+    sessions.mw.load(),
     agendaLoad,
     members.mw.authorizeAdminModOrKey()
   ]);

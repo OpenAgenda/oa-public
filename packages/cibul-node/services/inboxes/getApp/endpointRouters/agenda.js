@@ -14,7 +14,7 @@ module.exports = (config, services) => {
   const errorHandler = makeErrorHandler(services);
 
   const preMw = [
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     (req, res, next) => {
       req.type = 'agenda';
       req.creatorInboxUser = { userUid: req.user.uid };

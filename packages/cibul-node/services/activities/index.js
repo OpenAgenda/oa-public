@@ -13,7 +13,7 @@ const log = require( '@openagenda/logs' )( 'activities' );
 
 const activities = {};
 const preMw = [
-  sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) )
+  sessions.mw.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) )
 ];
 
 module.exports = app => {

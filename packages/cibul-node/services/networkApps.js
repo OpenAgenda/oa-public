@@ -22,7 +22,7 @@ module.exports = parentApp => {
   );
 
   parentApp.use( '/admin/networks',
-    parentApp.services.sessions.middleware.ifUnlogged(( req, res ) => res.redirect(302, '/')),
+    parentApp.services.sessions.mw.ifUnlogged(( req, res ) => res.redirect(302, '/')),
     cmn.requireSuperAdmin,
     router
   );

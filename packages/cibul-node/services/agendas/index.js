@@ -71,7 +71,7 @@ module.exports.plugApp = app => {
 
   app.get(
     '/:slug/admin/layout',
-    sessions.mw.load,
+    sessions.mw.load(),
     checkUser,
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('moderator', { or: throwUnauthorized }),
@@ -94,7 +94,7 @@ module.exports.plugApp = app => {
 
   app.get(
     '/:slug/settings/schema',
-    sessions.mw.load,
+    sessions.mw.load(),
     cmn.loadAgenda,
     async (req, res, next) => {
       try {

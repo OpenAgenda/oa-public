@@ -1,23 +1,16 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
-const sessions = require( '@openagenda/sessions' );
-const log = require( '@openagenda/logs' )( 'sessions' );
+const _ = require('lodash');
+const VError = require('verror');
+const sessions = require('@openagenda/sessions');
+const log = require('@openagenda/logs')('sessions');
 
-const service = {
-  mw: {
-    loadOrRedirect: Object.assign(loadOrRedirect, {
-      options: loadOrRedirectOptions
-    }),
-    load
-  }
-}
+const service = {};
 
 module.exports = service;
 
 module.exports.init = (config, services) => {
-  sessions.init( {
+  sessions.init({
     redis: {
       host: config.redis.host,
       port: config.redis.port,
@@ -30,62 +23,61 @@ module.exports.init = (config, services) => {
     },
     expire: config.session.maxAge / 1000,
     interfaces: {
-      getUser: getUser.bind( null, services, config.aws.imageBucketPath )
+      getUser: getUser.bind(null, services, config.aws.imageBucketPath)
     },
-    logger: config.getLogConfig( 'oa', 'sessions', false )
-  } );
+    logger: config.getLogConfig('oa', 'sessions', false)
+  });
 
+  Object.assign(service, sessions);
+
+  service.mw.load = load;
+  service.mw.loadOrRedirect = loadOrRedirect;
   service.mw.requireSuperAdmin = _requireSuperAdmin(config);
 
-  return Object.assign(service, sessions);
+  return service;
 }
 
-function load(req, res, next) {
-  _load({detailed: false}, req, res, next);
+function loadOrRedirect(options) {
+  return load({
+    detailed: false,
+    redirect: true,
+    msg: 'authRequired',
+    ...options
+  });
 }
 
-function loadOrRedirect(req, res, next) {
-  return _loadOrRedirect({ detailed: false, msg: 'authRequired' }, req, res, next);
+function load({ detailed, redirect, msg } = {}) {
+  return (req, res, next) => {
+    sessions.get(req, { detailed }, (err, user) => {
+      if (err) return next(err);
+      if (!user && redirect) {
+        const redirect = Buffer.from(req.originalUrl, 'utf-8').toString('base64');
+        return res.redirect(302, `${req.agenda ? '/' + req.agenda.slug : ''}/signin?redirect=${redirect}&msg=${msg}`);
+      }
+      req.user = user;
+      next();
+    });
+  };
 }
 
-function loadOrRedirectOptions(options) {
-  return _loadOrRedirect.bind(null, options);
-}
+function getUser(services, imageBucketPath, query, cb) {
 
-function _loadOrRedirect({detailed, msg}, req, res, next) {
-  _load({detailed, redirect: true, msg}, req, res, next)
-}
+  log('info', 'requested user with %j', query);
 
-function _load({detailed, redirect, msg}, req, res, next) {
-  sessions.get(req, {detailed}, (err, user) => {
-    if (err) return next(err);
-    if (!user && redirect) {
-      const redirect = Buffer.from(req.originalUrl, 'utf-8').toString('base64');
-      return res.redirect(302, `${req.agenda?'/'+req.agenda.slug:''}/signin?redirect=${redirect}&msg=${msg}`);
-    }
-    req.user = user;
-    next();
-  } );
-}
+  services.users.findOne({ query: _.pick(query, 'id', 'uid', 'email'), detailed: true })
+    .then(user => {
 
-function getUser( services, imageBucketPath, query, cb ) {
+      if (!user) {
+        const error = new VError('failed to retrieve user: %s', _.pick(query, 'id', 'uid', 'email'));
 
-  log( 'info', 'requested user with %j', query );
+        log('error', error);
 
-  services.users.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
-    .then( user => {
-
-      if ( !user ) {
-        const  error = new VError( 'failed to retrieve user: %s', _.pick( query, 'id', 'uid', 'email' ) );
-
-        log( 'error', error );
-
-        return cb( error );
+        return cb(error);
       }
 
-      log( 'info', 'retrieved user %j', user );
+      log('info', 'retrieved user %j', user);
 
-      cb( null, {
+      cb(null, {
         id: user.id,
         uid: user.uid,
         name: user.fullName,
@@ -93,15 +85,15 @@ function getUser( services, imageBucketPath, query, cb ) {
         email: user.email,
         culture: user.culture,
         isNew: !!user.isNew
-      } );
+      });
 
-    } )
-    .catch( err => {
+    })
+    .catch(err => {
 
-      log( 'error', new VError( err, 'failed to retrieve user: %j', _.pick( query, 'id', 'uid', 'email' ) ) );
-      cb( err, null );
+      log('error', new VError(err, 'failed to retrieve user: %j', _.pick(query, 'id', 'uid', 'email')));
+      cb(err, null);
 
-    } );
+    });
 
 }
 
@@ -112,7 +104,7 @@ function _requireSuperAdmin(config) {
 
       const id = session.id;
 
-      if (config.superAdminIds.indexOf( parseInt( id ) ) !== -1) {
+      if (config.superAdminIds.indexOf(parseInt(id)) !== -1) {
         next();
       } else {
         sessions.setFlash(req, res, 'Eerrh nooo, no esta, nooo, bye bye.');

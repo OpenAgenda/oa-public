@@ -90,7 +90,7 @@ function plugApp(app) {
   // update session after a user patch
   app.patch(
     '/users/:__feathersId',
-    sessions.middleware.open('user', 'sessionResult'),
+    sessions.mw.open('user', 'sessionResult'),
     resyncSession()
   );
 

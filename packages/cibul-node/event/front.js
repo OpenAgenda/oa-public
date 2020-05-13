@@ -84,7 +84,7 @@ module.exports = app => {
         res.redirect( 302, `/${req.params.slug}/events/${req.params.eventSlug}${query}` );
       }
     ),
-    sessions.middleware.ifUnlogged(
+    sessions.mw.ifUnlogged(
       ( req, res ) => {
         const query = qs.stringify( req.query, { addQueryPrefix: true } );
         const redirect = Buffer.from( `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8' )

@@ -72,7 +72,7 @@ function plugApp(parentApp) {
     '/:agendaSlug/events/:eventSlug/remove',
     '/:agendaSlug/events/:eventSlug/add'
   ], [
-    sessions.middleware.ifUnlogged((req, res, next) => next({
+    sessions.mw.ifUnlogged((req, res, next) => next({
       code: 403, error: 'requiredLogged', message: 'You need to be logged'
     }))
   ]);
@@ -112,7 +112,7 @@ function plugApp(parentApp) {
   );
 
   parentApp.post('/:agendaSlug/admin/events/states',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     mw.loadAgenda,
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState.batched

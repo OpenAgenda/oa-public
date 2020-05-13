@@ -27,7 +27,7 @@ module.exports = parentApp => {
 
   parentApp.use(
     '/:agendaSlug/admin/schema',
-    sessions.middleware.ifUnlogged((req, res) => res.redirect(302, '/')),
+    sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator'),
     agendaSchemaRouter
