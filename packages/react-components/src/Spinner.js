@@ -65,27 +65,34 @@ class Spinner extends Component {
       classes.push('spin-page');
 
     return (
-      <span className={classes.join(' ')}>
-        <span
-          ref={this.canvasRef}
-          style={
-            this.props.mode !== 'inline'
-              ? {
-                position: 'absolute',
-                width: 0,
-                zIndex: 2000000000,
-                left: '50%',
-                top: '50%'
-              }
-              : {}
-          }
-        >
-          {this.props.loading ? <Spin {...this.getSpinOptions()} /> : null}
-          {this.props.message ? (
-            <span className="spin-message">{this.props.message}</span>
-          ) : null}
+      <>
+        <span className={classes.join(' ')}>
+          <span
+            ref={this.canvasRef}
+            style={
+              this.props.mode !== 'inline'
+                ? {
+                  position: 'absolute',
+                  width: 0,
+                  zIndex: 2000000000,
+                  left: '50%',
+                  top: '50%'
+                }
+                : {}
+            }
+          >
+            {this.props.loading ? (
+              <Spin {...this.getSpinOptions()} />
+              ) : null}
+            {this.props.mode !== 'inline' && this.props.message ? (
+              <span className="spin-message">{this.props.message}</span>
+            ) : null}
+          </span>
         </span>
-      </span>
+        {this.props.mode === 'inline' && this.props.message ? (
+          <span className="spin-message">{this.props.message}</span>
+        ) : null}
+      </>
     );
   }
 }
