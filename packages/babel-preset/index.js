@@ -72,12 +72,8 @@ module.exports = declare((api, options) => {
     [
       require('@babel/preset-env'),
       {
-        debug: envOpts.debug,
         useBuiltIns,
         corejs,
-        shippedProposals: envOpts.shippedProposals,
-        modules: envOpts.modules,
-        loose: envOpts.loose,
         targets: {
           browsers: [
             '> 0.25%',
@@ -89,7 +85,8 @@ module.exports = declare((api, options) => {
             'last 4 Edge versions'
           ],
           node: '8'
-        }
+        },
+        ...envOpts
       }
     ],
     [
