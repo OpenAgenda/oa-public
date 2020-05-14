@@ -17,7 +17,7 @@ module.exports = async function prepareSummary( config ) {
       config.schemas.feed + '.entity_uid'
     )
       .where( { state: 0, sent: 0 } )
-      .groupBy( 'feed_id' )
+      .groupBy( 'feed_id', config.schemas.feed_notification + '.id' )
       .orderBy( 'updated_at', 'desc' )
       .join( config.schemas.feed, config.schemas.feed_notification + '.feed_id', config.schemas.feed + '.id' ),
     async ( item, index, cb ) => {
