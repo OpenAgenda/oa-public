@@ -15,10 +15,7 @@ function AnnouncementPreview({ data }) {
       <div className={`container text-${kind}`}>
         <div className="row padding-top-sm padding-right-sm padding-left-md">
           <div className="pull-right">
-            <button
-              type="button"
-              className={`btn btn-link-inline text-${kind}`}
-            >
+            <button type="button" className={`btn btn-link-inline btn-${kind}`}>
               <i className="fa fa-times" aria-hidden="true" />
             </button>
           </div>
@@ -36,7 +33,7 @@ export default function AnnouncementManager({ user }) {
   const initialValues = useMemo(
     () => ({
       content: user.announcement?.content,
-      kind: user.announcement?.kind
+      kind: user.announcement?.kind ?? 'primary'
     }),
     [user]
   );
@@ -86,6 +83,7 @@ export default function AnnouncementManager({ user }) {
                     component="select"
                     className="form-control"
                   >
+                    <option value="primary">Primary</option>
                     <option value="info">Info</option>
                     <option value="success">Success</option>
                     <option value="warning">Warning</option>
