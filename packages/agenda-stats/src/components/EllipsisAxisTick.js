@@ -1,19 +1,40 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Text } from 'recharts';
 
-export default function EllipsisAxisTick({ maxLines = 3, payload, ...rest }) {
+export default function EllipsisAxisTick({
+  maxLines = 3,
+  payload,
+  formatter,
+  ...rest
+}) {
+  // const value = useMemo(() => {
+  //   if (typeof formatter === 'function') {
+  //     return formatter(payload.value);
+  //   }
+  //
+  //   return payload;
+  // });
   const [text, setText] = useState(payload.value);
   const [suffix, setSuffix] = useState('');
+
+  useEffect(() => {
+    if (text !== payload.value) {
+      setText(payload.value);
+    }
+  }, [payload.value]);
 
   const measuredRef = useCallback(
     node => {
       if (node === null) {
         return;
       }
+
       let { wordsByLines } = node.state;
       let biggestLine = wordsByLines.reduce((a, b) => (a.width > b.width ? a : b));
       let tempText = text;
-      const tempSuffix = wordsByLines.length > maxLines || biggestLine.width > rest.width ? '…' : '';
+      const tempSuffix = wordsByLines.length > maxLines || biggestLine.width > rest.width
+        ? '…'
+        : '';
 
       while (wordsByLines.length > maxLines || biggestLine.width > rest.width) {
         tempText = tempText.slice(0, -1);

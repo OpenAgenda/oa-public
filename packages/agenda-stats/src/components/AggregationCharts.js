@@ -1,14 +1,21 @@
+import _ from 'lodash';
 import React, {
   useState,
   useMemo,
   useCallback,
+  useEffect,
   useLayoutEffect
 } from 'react';
 import { differenceInCalendarDays } from 'date-fns';
 import { useIntl, defineMessages } from 'react-intl';
+import { useDispatch } from 'react-redux';
 import { ReactSelectInput } from '@openagenda/react-shared';
+import * as statsActions from '../reducers/stats';
+import getLocaleValue from '../utils/getLocaleValue';
 import VerticalBarChart from './VerticalBarChart';
 import TimingsChart from './TimingsChart';
+import SavedEventsChart from './SavedEventsChart';
+import LoadMore from './LoadMore';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
 const messages = defineMessages({
@@ -47,6 +54,10 @@ const messages = defineMessages({
   timingsBySelector: {
     id: 'AgendaStats.AggregationCharts.timingsBySelector',
     defaultMessage: 'Timings by {selector}'
+  },
+  savedEventsBySelector: {
+    id: 'AgendaStats.AggregationCharts.savedEventsBySelector',
+    defaultMessage: 'Saved events by {selector}'
   }
 });
 
@@ -55,7 +66,10 @@ function rangeToTimingInterval(range) {
     return null;
   }
 
-  const rangeDurationInDays = differenceInCalendarDays(range.endDate, range.startDate);
+  const rangeDurationInDays = differenceInCalendarDays(
+    range.endDate,
+    range.startDate
+  );
 
   if (rangeDurationInDays <= 31) {
     return 'day';
@@ -84,13 +98,19 @@ const intervalSelectStyles = {
 function IntervalSelect({ value, onChange }) {
   const intl = useIntl();
 
-  const intervalOptions = useMemo(() => ([
-    { value: 'day', label: intl.formatMessage(messages.day) },
-    { value: 'week', label: intl.formatMessage(messages.week) },
-    { value: 'month', label: intl.formatMessage(messages.month) },
-  ]), [intl]);
+  const intervalOptions = useMemo(
+    () => [
+      { value: 'day', label: intl.formatMessage(messages.day) },
+      { value: 'week', label: intl.formatMessage(messages.week) },
+      { value: 'month', label: intl.formatMessage(messages.month) }
+    ],
+    [intl]
+  );
 
-  const valueOption = useMemo(() => intervalOptions.find(opt => opt.value === value), [intervalOptions, value]);
+  const valueOption = useMemo(
+    () => intervalOptions.find(opt => opt.value === value),
+    [intervalOptions, value]
+  );
   const handleChange = useCallback(opt => onChange(opt.value), [onChange]);
 
   return (
@@ -104,17 +124,95 @@ function IntervalSelect({ value, onChange }) {
 }
 
 export default function AggregationCharts({
+  agenda,
   aggregations,
   totalEvents,
   range
 }) {
   const intl = useIntl();
+  const dispatch = useDispatch();
 
-  const [timingsAggregationInterval, setTimingsAggregationInterval] = useState(() => rangeToTimingInterval(range));
+  const [timingsInterval, setTimingsInterval] = useState(() => rangeToTimingInterval(range));
+  const [savedEventsInterval, setSavedEventsInterval] = useState(() => rangeToTimingInterval(range));
 
   useLayoutEffect(() => {
-    setTimingsAggregationInterval(rangeToTimingInterval(range));
+    setTimingsInterval(rangeToTimingInterval(range));
+    setSavedEventsInterval(rangeToTimingInterval(range));
   }, [range]);
+
+  const getLocaleLabel = useCallback(
+    labelPath => payload => getLocaleValue(_.get(payload, labelPath), intl.locale),
+    [intl.locale]
+  );
+
+  const additionalFieldLabelKey = useMemo(() => getLocaleLabel('label'), [
+    getLocaleLabel
+  ]);
+
+  const timingsData = useMemo(() => {
+    if (timingsInterval === 'day') {
+      return aggregations.timingsByDay;
+    }
+
+    if (timingsInterval === 'week') {
+      return aggregations.timingsByWeek;
+    }
+
+    if (timingsInterval === 'month') {
+      return aggregations.timingsByMonth;
+    }
+  }, [
+    aggregations.timingsByDay,
+    aggregations.timingsByMonth,
+    aggregations.timingsByWeek,
+    timingsInterval
+  ]);
+
+  const createdEventsData = useMemo(() => {
+    if (savedEventsInterval === 'day') {
+      return aggregations.createdAtByDay;
+    }
+
+    if (savedEventsInterval === 'week') {
+      return aggregations.createdAtByWeek;
+    }
+
+    if (savedEventsInterval === 'month') {
+      return aggregations.createdAtByMonth;
+    }
+  }, [
+    aggregations.createdAtByDay,
+    aggregations.createdAtByWeek,
+    aggregations.createdAtByMonth,
+    savedEventsInterval
+  ]);
+
+  const updatedEventsData = useMemo(() => {
+    if (savedEventsInterval === 'day') {
+      return aggregations.updatedAtByDay;
+    }
+
+    if (savedEventsInterval === 'week') {
+      return aggregations.updatedAtByWeek;
+    }
+
+    if (savedEventsInterval === 'month') {
+      return aggregations.updatedAtByMonth;
+    }
+  }, [
+    aggregations.updatedAtByDay,
+    aggregations.updatedAtByWeek,
+    aggregations.updatedAtByMonth,
+    savedEventsInterval
+  ]);
+
+  const loadMore = useCallback(
+    aggregation => dispatch(statsActions.loadMore(agenda, aggregation)),
+    [agenda, dispatch]
+  );
+
+  // TODO on timingsInterval change: reload the aggregation
+  useEffect(() => {}, []);
 
   const result = [];
 
@@ -139,14 +237,19 @@ export default function AggregationCharts({
   if (aggregations.regions?.length) {
     pushChart(
       <div key="regions" className="col-md-12 col-lg-6 margin-top-md">
-        <h3 className="text-center">
-          {intl.formatMessage(messages.regions)}
-        </h3>
+        <h3 className="text-center">{intl.formatMessage(messages.regions)}</h3>
         <VerticalBarChart
           data={aggregations.regions}
           total={totalEvents}
           dataKey="eventCount"
           labelKey="key"
+        />
+        <LoadMore
+          data={aggregations.regions}
+          total={totalEvents}
+          dataKey="eventCount"
+          aggregation="regions"
+          loadMore={loadMore}
         />
       </div>
     );
@@ -164,6 +267,13 @@ export default function AggregationCharts({
           dataKey="eventCount"
           labelKey="key"
         />
+        <LoadMore
+          data={aggregations.departments}
+          total={totalEvents}
+          dataKey="eventCount"
+          aggregation="departments"
+          loadMore={loadMore}
+        />
       </div>
     );
   }
@@ -178,6 +288,13 @@ export default function AggregationCharts({
           dataKey="eventCount"
           labelKey="key"
         />
+        <LoadMore
+          data={aggregations.cities}
+          total={totalEvents}
+          dataKey="eventCount"
+          aggregation="cities"
+          loadMore={loadMore}
+        />
       </div>
     );
   }
@@ -187,9 +304,7 @@ export default function AggregationCharts({
   if (aggregations.members?.length) {
     pushChart(
       <div key="members" className="col-md-12 col-lg-6 margin-top-md">
-        <h3 className="text-center">
-          {intl.formatMessage(messages.members)}
-        </h3>
+        <h3 className="text-center">{intl.formatMessage(messages.members)}</h3>
         <VerticalBarChart
           data={aggregations.members}
           total={totalEvents}
@@ -208,10 +323,7 @@ export default function AggregationCharts({
     //   </div>
     // );
     pushChart(
-      <div
-        key="originAgendasBar"
-        className="col-md-12 col-lg-6 margin-top-md"
-      >
+      <div key="originAgendasBar" className="col-md-12 col-lg-6 margin-top-md">
         <h3 className="text-center">
           {intl.formatMessage(messages.originAgendas)}
         </h3>
@@ -227,48 +339,80 @@ export default function AggregationCharts({
 
   pushSeparator();
 
-  pushChart(
-    <div key="timings" className="col-md-12 col-lg-6 margin-top-md">
-      <h3 className="text-center">
-        {intl.formatMessage(messages.timingsBySelector, {
-          selector: (
-            <IntervalSelect
-              value={timingsAggregationInterval}
-              onChange={setTimingsAggregationInterval}
-            />
-          )
-        })}
-      </h3>
+  if (timingsData) {
+    pushChart(
+      <div key="timings" className="col-md-12 col-lg-6 margin-top-md">
+        <h3 className="text-center">
+          {intl.formatMessage(messages.timingsBySelector, {
+            selector: (
+              <IntervalSelect
+                value={timingsInterval}
+                onChange={setTimingsInterval}
+              />
+            )
+          })}
+        </h3>
 
-      {timingsAggregationInterval === 'day' ? (
         <TimingsChart
-          data={aggregations.timingsByDay}
+          data={timingsData}
           totalEvents={totalEvents}
-          interval={timingsAggregationInterval}
+          interval={timingsInterval}
         />
-      ) : null}
-      {timingsAggregationInterval === 'week' ? (
-        <TimingsChart
-          data={aggregations.timingsByWeek}
-          totalEvents={totalEvents}
-          interval={timingsAggregationInterval}
-        />
-      ) : null}
-      {timingsAggregationInterval === 'month' ? (
-        <TimingsChart
-          data={aggregations.timingsByMonth}
-          totalEvents={totalEvents}
-          interval={timingsAggregationInterval}
-        />
-      ) : null}
-    </div>
-  );
+      </div>
+    );
+  }
 
   pushSeparator();
 
-  return (
-    <div className="row">
-      {result}
-    </div>
-  );
+  if (createdEventsData || updatedEventsData) {
+    pushChart(
+      <div key="savedEvents" className="col-md-12 col-lg-6 margin-top-md">
+        <h3 className="text-center">
+          {intl.formatMessage(messages.savedEventsBySelector, {
+            selector: (
+              <IntervalSelect
+                value={savedEventsInterval}
+                onChange={setSavedEventsInterval}
+              />
+            )
+          })}
+        </h3>
+
+        <SavedEventsChart
+          createdData={createdEventsData}
+          updatedData={updatedEventsData}
+          totalEvents={totalEvents}
+          interval={savedEventsInterval}
+        />
+      </div>
+    );
+  }
+
+  pushSeparator();
+
+  if (aggregations.additionalFields) {
+    for (const field in aggregations.additionalFields) {
+      if ({}.hasOwnProperty.call(aggregations.additionalFields, field)) {
+        const additionalFieldData = aggregations.additionalFields[field];
+
+        pushChart(
+          <div key={field} className="col-md-12 col-lg-6 margin-top-md">
+            <h3 className="text-center">
+              {getLocaleValue(additionalFieldData.label, intl.locale)}
+            </h3>
+            <VerticalBarChart
+              data={additionalFieldData.values}
+              total={totalEvents}
+              dataKey="eventCount"
+              labelKey={additionalFieldLabelKey}
+              // withRest
+              // noValueRest
+            />
+          </div>
+        );
+      }
+    }
+  }
+
+  return <div className="row">{result}</div>;
 }

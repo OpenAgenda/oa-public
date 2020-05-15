@@ -1,25 +1,15 @@
 import _ from 'lodash';
-import React, {
-  useEffect,
-  useState,
-  useRef
-} from 'react';
+import React, { useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
-import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  isSameDay,
-  getOverlappingDaysInIntervals,
-  startOfYear,
-  endOfYear,
-  addYears,
-  isAfter
-} from 'date-fns';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { useDispatch, useSelector } from 'react-redux';
+import { isSameDay } from 'date-fns';
 import { Spinner } from '@openagenda/react-components';
-import { useModal, useApiClient } from '@openagenda/react-shared';
+import { useApiClient, useModal } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
 import PeriodModal from '../components/PeriodModal';
 import AggregationCharts from '../components/AggregationCharts';
+import determineDefaultRange from '../utils/determineDefaultRange';
 
 const messages = defineMessages({
   title: {
@@ -54,8 +44,6 @@ function Dashboard({ agenda }) {
   const [range, setRange] = useState(undefined);
   const dateRangeModal = useModal();
 
-  const aggregationChartsRef = useRef(null);
-
   useEffect(() => {
     if (loaded) {
       return;
@@ -72,45 +60,17 @@ function Dashboard({ agenda }) {
       aggregations: ['timespan']
     };
 
-    apiClient.get(url, { params })
-      .then(result => {
-        const { first, last } = result.data.aggregations.timespan;
+    apiClient.get(url, { params }).then(result => {
+      const { first, last } = result.data.aggregations.timespan;
 
-        if (!first) {
-          // Nothing to display
-          return;
-        }
+      const defaultRange = determineDefaultRange({ first, last });
 
-        const now = new Date();
-        const datePlusOneYear = addYears(now, 1);
-        const thisYear = { start: startOfYear(now), end: endOfYear(now) };
-        const nextYear = { start: startOfYear(datePlusOneYear), end: endOfYear(datePlusOneYear) };
-        const interval = { start: new Date(first), end: new Date(last) };
+      setRange(defaultRange);
+      _.set(query, 'date.gte', defaultRange.startDate);
+      _.set(query, 'date.lte', defaultRange.endDate);
 
-        const selectRange = value => {
-          setRange(value);
-          _.set(query, 'date.gte', value.startDate);
-          _.set(query, 'date.lte', value.endDate);
-        };
-
-        if (getOverlappingDaysInIntervals(interval, thisYear)) {
-          selectRange({
-            startDate: thisYear.start,
-            endDate: thisYear.end
-          });
-        } else if (getOverlappingDaysInIntervals(interval, nextYear)) {
-          selectRange({
-            startDate: nextYear.start,
-            endDate: nextYear.end
-          });
-        } else if (isAfter(interval.start, now)) {
-          selectRange({ startDate: startOfYear(interval.start), endDate: endOfYear(interval.start) });
-        } else {
-          selectRange({ startDate: startOfYear(interval.end), endDate: endOfYear(interval.end) });
-        }
-
-        return dispatch(statsActions.load(agenda, query));
-      });
+      return dispatch(statsActions.load(agenda, query));
+    });
   }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
 
   if (loading && !loaded) {
@@ -159,30 +119,26 @@ function Dashboard({ agenda }) {
 
       {aggregations ? (
         <AggregationCharts
-          ref={aggregationChartsRef}
+          agenda={agenda}
           aggregations={aggregations}
           totalEvents={totalEvents}
           range={range}
         />
       ) : null}
 
-      {/* {charts?.length ? <div className="row">{charts}</div> : null} */}
-
-      {/* <pre>{JSON.stringify(Object.keys(aggregations), null, 2)}</pre> */}
-      {/* <pre>{JSON.stringify(aggregations.originAgendas, null, 2)}</pre> */}
-
       {dateRangeModal.isOpen ? (
         <PeriodModal
           initialValues={[range]}
-          onSubmit={value => dispatch(statsActions.load(agenda, {
-            date: {
-              gte: value[0].startDate,
-              lte: value[0].endDate
-            }
-          }))
-            .then(() => {
-              setRange(value[0]);
-            })}
+          onSubmit={value => dispatch(
+            statsActions.load(agenda, {
+              date: {
+                gte: value[0].startDate,
+                lte: value[0].endDate
+              }
+            })
+          ).then(() => {
+            setRange(value[0]);
+          })}
           onClose={() => dateRangeModal.close()}
         />
       ) : null}
