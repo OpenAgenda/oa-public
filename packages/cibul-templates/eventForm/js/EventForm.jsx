@@ -15,7 +15,6 @@ import TagSelector from '@openagenda/agenda-tags/build/TagSelector';
 import Translation from '@openagenda/react-form-components/build/Translation'; // suspected missing key prop
 import translationLabels from '@openagenda/labels/event/translation';
 
-import AccessibilityFields from './AccessibilityFields.jsx';
 import AgeFields from './AgeFields.jsx';
 import CustomField from './CustomField.jsx';
 import EventKeywordsField from './EventKeywordsField.jsx';
@@ -771,16 +770,6 @@ function EventFormFactory() {
 
         }
 
-        if ( o.field === 'accessibility' ) {
-
-          return <div>{this.props.configuration.field( 'accessibility' ).display() ? <AccessibilityFields
-            value={this.state.accessibility || []}
-            label={this.props.labels.accessibility}
-            info={this.props.configuration.field( 'accessibility' ).getInfo( false, false )}
-            onChange={this.onChange( 'accessibility' )}
-            labelsLang={this.props.lang} /> : null}</div>
-
-        }
 
         if ( o.field === 'age' ) {
 
