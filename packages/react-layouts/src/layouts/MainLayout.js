@@ -125,7 +125,7 @@ function Announcement({ data, onClose }) {
           <div className="pull-right">
             <button
               type="button"
-              className={`btn btn-link-inline text-${kind}`}
+              className={`btn btn-link-inline btn-${kind}`}
               onClick={onClose}
             >
               <i className="fa fa-times" aria-hidden="true" />
