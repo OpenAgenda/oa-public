@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@3.1.1...@openagenda/sessions@4.0.0) (2020-05-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sessions:** rename middleware to mw
+
+### Code Refactoring
+
+* **sessions:** rename middleware to mw ([41a724b](https://bitbucket.org/openagenda/oa/commit/41a724b357b23c01cc6dff7968664ad84681e544))
+
+
+
 ### [3.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@3.1.0...@openagenda/sessions@3.1.1) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/sessions

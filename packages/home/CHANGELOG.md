@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/home@2.1.6...@openagenda/home@2.1.7) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/home
+
+
+
+
+
 ### [2.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/home@2.1.5...@openagenda/home@2.1.6) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/home

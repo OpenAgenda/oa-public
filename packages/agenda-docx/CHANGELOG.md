@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-docx@1.1.5...@openagenda/agenda-docx@1.1.6) (2020-05-15)
+
+
+### Bug Fixes
+
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
+
+
+
 ### [1.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-docx@1.1.4...@openagenda/agenda-docx@1.1.5) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-docx

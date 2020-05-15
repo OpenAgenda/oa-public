@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-components",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "",
   "main": "lib/index.js",
   "jsnext:main": "esm/index.js",
@@ -18,8 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
-    "@openagenda/dom-utils": "^2.2.1",
-    "@openagenda/react-form-components": "^2.1.3",
+    "@openagenda/dom-utils": "^2.2.2",
+    "@openagenda/react-form-components": "^2.1.4",
     "core-js": "^3.6.4",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
@@ -30,8 +30,8 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@openagenda/babel-preset": "^1.2.2",
-    "@openagenda/bs-templates": "^2.3.0",
+    "@openagenda/babel-preset": "^1.3.0",
+    "@openagenda/bs-templates": "^2.4.0",
     "@storybook/addon-actions": "^5.3.9",
     "@storybook/react": "^5.3.9",
     "babel-loader": "^8.0.6",

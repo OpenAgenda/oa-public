@@ -1,12 +1,12 @@
 {
   "name": "@openagenda/utils",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "minimalistic utilities lib",
   "scripts": {
     "test": "jest"
   },
   "dependencies": {
-    "@openagenda/labels": "^2.1.7",
+    "@openagenda/labels": "^2.2.0",
     "hsts": "^2.1.0",
     "qs": "^6.9.1",
     "slug": "0.9.1",

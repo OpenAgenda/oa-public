@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.4...@openagenda/inboxes@1.1.5) (2020-05-15)
+
+
+### Bug Fixes
+
+* **inboxes:** fix mysql groupBy error on version 5.7 ([f0de5e3](https://bitbucket.org/openagenda/oa/commit/f0de5e38895b39f98d53105a0f300c7481bdf0ef))
+
+
+
 ### [1.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.3...@openagenda/inboxes@1.1.4) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/inboxes

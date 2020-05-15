@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [3.0.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.4...@openagenda/users@3.0.5) (2020-05-15)
+
+
+### Bug Fixes
+
+* **users:** fix tests ([cb5a9f0](https://bitbucket.org/openagenda/oa/commit/cb5a9f049f59b4ac431f633cb63bb0346e77f277))
+
+
+
 ### [3.0.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.3...@openagenda/users@3.0.4) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/users

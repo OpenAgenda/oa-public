@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/network-apps@1.1.0...@openagenda/network-apps@1.1.1) (2020-05-15)
+
+
+### Bug Fixes
+
+* **network-apps:** fix of the kaore bug ([dabb603](https://bitbucket.org/openagenda/oa/commit/dabb60354aa5915d1260664eab02bfce0ed57181))
+* **network-apps:** removed forgotten superagent ([a2aa27f](https://bitbucket.org/openagenda/oa/commit/a2aa27f86a21f3859c22b63dbe6f7e819303a5f3))
+
+
+
 ## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/network-apps@1.0.8...@openagenda/network-apps@1.1.0) (2020-04-09)
 
 

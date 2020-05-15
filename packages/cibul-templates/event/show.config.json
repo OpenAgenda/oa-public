@@ -22,10 +22,11 @@
     "mailto" : false,
     "impairments": {
       "hi": "accessibleToHearing",
-      "pi": "accessibleToMentally",
+      "pi": "accessibleToPsychic",
       "mi": "accessibleToMotor",
       "vi": "accessibleToVisually",
-      "sl": "signLanguageAvailable"
+      "sl": "signLanguageAvailable",
+      "mei": "accessibleToMentally"
     },
     "adminNav": {},
     "states": {

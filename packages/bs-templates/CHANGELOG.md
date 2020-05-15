@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/bs-templates@2.3.0...@openagenda/bs-templates@2.4.0) (2020-05-15)
+
+
+### Features
+
+* **bs-templates:** accessibility update ([d90bd07](https://bitbucket.org/openagenda/oa/commit/d90bd0783c3c9c4062ba904b808234ce92298e1c))
+* **bs-templates:** add style for announcement ([b9f45cf](https://bitbucket.org/openagenda/oa/commit/b9f45cf9c4166695d35e33711fc3b36da32a2f3d))
+* **bs-templates:** ajout du handicap mental ([059fb32](https://bitbucket.org/openagenda/oa/commit/059fb3207ef26797543263be4d5b065e5a580e4f))
+* **bs-templates:** inline spinner have a width now ([00f3750](https://bitbucket.org/openagenda/oa/commit/00f37503e0c1c02fc1af80127e1aa9cf0f73cab1))
+
+
+### Bug Fixes
+
+* **bs-templates:** info on featured action disappears on hover ([21ed5c5](https://bitbucket.org/openagenda/oa/commit/21ed5c51f7f2bd82c44a6ede308e3a1c66f14c43))
+* **bs-templates:** modal does not display padding in the bottom when there is a scroll under firefox ([be748bf](https://bitbucket.org/openagenda/oa/commit/be748bf998b3c73786efb279a45aff2d6d58cd9e))
+
+
+
 ## [2.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/bs-templates@2.2.3...@openagenda/bs-templates@2.3.0) (2020-04-07)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.2.2...@openagenda/babel-preset@1.3.0) (2020-05-15)
+
+
+### Features
+
+* **babel-preset:** add reactIntl option ([5bfdf4e](https://bitbucket.org/openagenda/oa/commit/5bfdf4e13c172cca7ba882ac48b1617b99088960))
+* **babel-preset:** add support of esm env ([25343c5](https://bitbucket.org/openagenda/oa/commit/25343c5aaf5b12e03f8ebd43a2cdca2921337dfd))
+* **babel-preset:** allow to disable transformRuntime ([5091844](https://bitbucket.org/openagenda/oa/commit/50918446cdd370afd2faa9b324b002ea879a3c17))
+
+
+
 ### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.2.1...@openagenda/babel-preset@1.2.2) (2020-04-07)
 
 

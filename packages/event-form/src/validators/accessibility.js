@@ -8,7 +8,7 @@ schema.register( { boolean } );
 
 module.exports = () => schema( {
   hi: { type: 'boolean', defaultValue: false },
-  sl: { type: 'boolean', defaultValue: false },
+  mei: { type: 'boolean', defaultValue: false },
   vi: { type: 'boolean', defaultValue: false },
   mi: { type: 'boolean', defaultValue: false },
   pi: { type: 'boolean', defaultValue: false }

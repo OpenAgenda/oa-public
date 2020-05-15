@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.7...@openagenda/abilities@1.1.8) (2020-05-15)
+
+
+### Bug Fixes
+
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
+
+
+
 ### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.6...@openagenda/abilities@1.1.7) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/abilities

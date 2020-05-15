@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.25...@openagenda/cibul-templates@1.2.0) (2020-05-15)
+
+
+### Features
+
+* **cibul-templates:** accessibility ([846dd17](https://bitbucket.org/openagenda/oa/commit/846dd17bfe42083536aaa1ccdf51eda0df832a57))
+
+
+### Bug Fixes
+
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
+* **cibul-templates:** relative path to bs-templates is no longer valid in prodifier script ([b3cddd8](https://bitbucket.org/openagenda/oa/commit/b3cddd86735c7c04aadf1c36506ced7b276bb8c0))
+
+
+
 ### [1.1.25](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.24...@openagenda/cibul-templates@1.1.25) (2020-04-09)
 
 

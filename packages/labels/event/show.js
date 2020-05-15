@@ -466,8 +466,8 @@ module.exports = {
     "es": "Accesible para personas con discapacidad auditiva",
     "br": "En aezamant d'an dud pounnerglev"
   },
-  "accessibleToMentally": {
-    "en": "Accessible to the mentally impaired",
+  "accessibleToPsychic": {
+    "en": "Accessible to the psychic impaired",
     "fr": "Accessible aux handicapés psychiques",
     "it": "Accessibile alle persone con disabilità psichiche",
     "de": "geeignet für Menschen mit geistiger Behinderung",
@@ -492,6 +492,14 @@ module.exports = {
     "pl": "Dostępne dla osób z upośledzeniem wzroku",
     "es": "Accesible para discapacitados visuales",
     "br": "En aezamant d'an dud na welont ket mat"
+  },
+  "accessibleToMentally": {
+    "en": "Accessible to the mentally impaired",
+    "fr": "Accessible aux handicapés mentaux",
+    "de": "Geistige Behinderung",
+    "es": "Discapacidad mental",
+    "br": "Dalc'het en o spered",
+    "it": "Disabilità mental"
   },
   "signLanguageAvailable": {
     "en": "Sign language available",

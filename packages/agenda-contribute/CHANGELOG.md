@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.18](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.17...@openagenda/agenda-contribute@1.2.18) (2020-05-15)
+
+
+### Bug Fixes
+
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
+* **agenda-contribute:** force moment locale to en ([dc33cda](https://bitbucket.org/openagenda/oa/commit/dc33cda5e4e84c50e216ff41f9015b50e71abdac))
+
+
+
 ### [1.2.17](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.16...@openagenda/agenda-contribute@1.2.17) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-contribute
