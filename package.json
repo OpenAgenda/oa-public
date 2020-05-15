@@ -13,14 +13,11 @@
     "mails-editor": "yarn workspace cibul-node mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",
     "commit": "git-cz",
-    "release": "lerna publish",
-    "lint-staged": "lerna run lint-staged --concurrency 1 --stream --since HEAD --exclude-dependents || (yarn run pop-stash >> /dev/null && exit 1)",
-    "stash-unstaged": "git stash save -k 'pre-linting-stash' >> /dev/null",
-    "pop-stash": "git stash && git stash pop \"stash@{1}\" && git read-tree stash && git stash drop"
+    "release": "lerna publish"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn stash-unstaged >> /dev/null && yarn lint-staged && yarn pop-stash >> /dev/null",
+      "pre-commit": "lerna run lint-staged --concurrency 1 --stream --since HEAD --exclude-dependents",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
