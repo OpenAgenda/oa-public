@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/date-range@2.2.2...@openagenda/date-range@2.2.3) (2020-05-15)
+
+
+### Bug Fixes
+
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
+
+
+
 ## <small>2.2.2 (2020-04-03)</small>
 
 * fix deps ([71703f8](https://bitbucket.org/openagenda/oa/commits/71703f8))

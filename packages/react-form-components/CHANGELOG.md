@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.3...@openagenda/react-form-components@2.1.4) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/react-form-components
+
+
+
+
+
 ### [2.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.2...@openagenda/react-form-components@2.1.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-form-components

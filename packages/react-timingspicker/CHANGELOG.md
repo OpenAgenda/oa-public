@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.0.3](https://github.com/Oagenda/oa/compare/@openagenda/react-timingspicker@1.0.2...@openagenda/react-timingspicker@1.0.3) (2020-05-15)
+
+
+### Bug Fixes
+
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://github.com/Oagenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
+* missing option messagePattern for some extract-messages ([30403ff](https://github.com/Oagenda/oa/commit/30403ff9ab274357122bc51c0539b9e68dc6182d))
+
+
+
 ### [1.0.2](https://github.com/Oagenda/oa/compare/@openagenda/react-timingspicker@1.0.1...@openagenda/react-timingspicker@1.0.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-timingspicker

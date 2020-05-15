@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.0.3...@openagenda/react-utils@4.1.0) (2020-05-15)
+
+
+### Features
+
+* **react-shared:** add ApiClientContext and useApiClient ([7af942d](https://bitbucket.org/openagenda/oa/commit/7af942dfc592de48e6e6b99e3987cc723cb8fbca))
+* **react-utils:** add axios-hooks to apiClient ([4215970](https://bitbucket.org/openagenda/oa/commit/4215970f3d07a27844feda96c7fdd2e30515f5f6))
+* **react-utils:** move ApiClientContext to react-shared ([ac52bb9](https://bitbucket.org/openagenda/oa/commit/ac52bb98de962bfe11bd3bc91a4d311b2ff0d8b9))
+
+
+### Bug Fixes
+
+* **react-utils:** missing dep ([c6a363f](https://bitbucket.org/openagenda/oa/commit/c6a363f5b45b226006d289d96a07740624683488))
+
+
+
 ### [4.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.0.2...@openagenda/react-utils@4.0.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-utils

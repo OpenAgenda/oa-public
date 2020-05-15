@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.4...@openagenda/activities@2.1.5) (2020-05-15)
+
+
+### Bug Fixes
+
+* **activities:** fix groupBy on mysql 5.7 ([2a35230](https://bitbucket.org/openagenda/oa/commit/2a3523052bb32e66f00454b0919670bf60fab831))
+
+
+
 ### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.3...@openagenda/activities@2.1.4) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/activities

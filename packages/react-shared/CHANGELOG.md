@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@1.0.2...@openagenda/react-shared@1.1.0) (2020-05-15)
+
+
+### Features
+
+* **react-shared:** add ApiClientContext and useApiClient ([7af942d](https://bitbucket.org/openagenda/oa/commit/7af942dfc592de48e6e6b99e3987cc723cb8fbca))
+* **react-shared:** add ReactSelectInput and ReactSelectField ([cf59e39](https://bitbucket.org/openagenda/oa/commit/cf59e3995f8dbbf59e3e43e6fb3ca1567ec04520))
+* **react-shared:** add Switch and Case ([72ffd17](https://bitbucket.org/openagenda/oa/commit/72ffd17dff87da51cf349392f22c2c16c9791456))
+* **react-shared:** add useConstant hook ([faefffd](https://bitbucket.org/openagenda/oa/commit/faefffd5a75d5026ea75adeee7033609d15f7152))
+* **react-shared:** add useModal hook ([f5363d0](https://bitbucket.org/openagenda/oa/commit/f5363d0af17e08e3d0c521b2a26b22e084269dda))
+* **react-shared:** move styles from ReactSelectField to ReactSelectInput ([ab0624e](https://bitbucket.org/openagenda/oa/commit/ab0624e231a13a21444eea6ae255a10bc109d056))
+
+
+
 ### [1.0.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@1.0.1...@openagenda/react-shared@1.0.2) (2020-04-07)
 
 

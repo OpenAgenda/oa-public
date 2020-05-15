@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.3.22...@openagenda/event-form@1.4.0) (2020-05-15)
+
+
+### Features
+
+* accessibility change ([5937104](https://bitbucket.org/openagenda/oa/commit/5937104f13fb4e574a114ffee896dfabe85c40ef))
+* **event-form:** removed sl, added mei ([e7f8e11](https://bitbucket.org/openagenda/oa/commit/e7f8e11c388c48b1bf6036c3085cdbb109833364))
+
+
+
 ### [1.3.22](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.3.21...@openagenda/event-form@1.3.22) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/event-form

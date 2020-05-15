@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-components@2.2.3...@openagenda/react-components@2.3.0) (2020-05-15)
+
+
+### Features
+
+* **react-components:** change the structure of inline Spinner ([91948e4](https://bitbucket.org/openagenda/oa/commit/91948e400e8820716e0473e3b56096412ca0881a))
+
+
+### Bug Fixes
+
+* **react-components:** fix disable-scroll ([dbfb99e](https://bitbucket.org/openagenda/oa/commit/dbfb99e995b17f16826758c93c98984d3ee6050f))
+
+
+
 ### [2.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-components@2.2.2...@openagenda/react-components@2.2.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-components

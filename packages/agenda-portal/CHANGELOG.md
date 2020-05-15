@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.5.2...@openagenda/agenda-portal@2.6.0) (2020-05-15)
+
+
+### Features
+
+* **agenda-portal:** added event transform utilities ([2daa1b7](https://bitbucket.org/openagenda/oa/commit/2daa1b75d25b72e8b0c9960b7b460c0874e8a40e))
+
+
+### Bug Fixes
+
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
+
+
+
 ### [2.5.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.5.1...@openagenda/agenda-portal@2.5.2) (2020-04-09)
 
 

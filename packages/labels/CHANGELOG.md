@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.1.7...@openagenda/labels@2.2.0) (2020-05-15)
+
+
+### Features
+
+* **labels:** accessibility labels merge ([7d9b6b7](https://bitbucket.org/openagenda/oa/commit/7d9b6b76cc2168f41bb5e8f74b67e5af15f24d76))
+
+
+### Bug Fixes
+
+* **labels:** spelling ([a41a899](https://bitbucket.org/openagenda/oa/commit/a41a899a1bbf9fe7c79ce63168a04a85d65c0791))
+
+
+
 ## <small>2.1.7 (2020-04-03)</small>
 
 * add addEvent activity, email and ability ([678a7f1](https://bitbucket.org/openagenda/oa/commits/678a7f1))

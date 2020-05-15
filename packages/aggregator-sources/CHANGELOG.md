@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.0...@openagenda/aggregator-sources@1.2.1) (2020-05-15)
+
+
+### Bug Fixes
+
+* **aggregator-sources:** add behavior to general aggregation action ([3a09ab6](https://bitbucket.org/openagenda/oa/commit/3a09ab6805ce7f4941afa1dbbda69161ca22f440))
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
+* **aggregator-sources:** official badge goes under if agenda title becomes too long in list item ([1aaa978](https://bitbucket.org/openagenda/oa/commit/1aaa978499cd5544cdcb53beb3d9c5708a9f8928))
+
+
+
 ## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.1.9...@openagenda/aggregator-sources@1.2.0) (2020-04-07)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.5.6...@openagenda/events@1.6.0) (2020-05-15)
+
+
+### Features
+
+* **events:** accessibility code mei for mental impairement added, sign language removed ([9bd930a](https://bitbucket.org/openagenda/oa/commit/9bd930a5a116faa7f094d841fac751e972e23ef8))
+
+
+
 ### [1.5.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.5.5...@openagenda/events@1.5.6) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/events
