@@ -33,23 +33,19 @@ module.exports = function ( { languages }, { target, isoTarget } ) {
 
         cursor = beginDate;
 
-        moment.locale[ possibleLanguages[ 0 ] ];
-
         // set iso values
 
         columns[ 0 ].push( [ t.begin, t.end ].join( ' -> ' ) );
 
         targetLanguages.forEach( ( l, i ) => {
 
-          moment.locale( l );
-
           if ( dateChanged ) {
 
-            columns[ i + 1 ].push( moment( begin ).format( 'dddd D MMMM YYYY - HH:mm' ) );  
+            columns[ i + 1 ].push( moment( begin ).locale( l ).format( 'dddd D MMMM YYYY - HH:mm' ) );
 
           } else {
 
-            columns[ i + 1 ][ columns[ i + 1 ].length - 1 ] += ', ' + moment( begin ).format( 'HH:mm' )
+            columns[ i + 1 ][ columns[ i + 1 ].length - 1 ] += ', ' + moment( begin ).locale( l ).format( 'HH:mm' )
 
           }
 

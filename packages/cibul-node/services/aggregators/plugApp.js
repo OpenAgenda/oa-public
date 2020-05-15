@@ -16,7 +16,7 @@ module.exports = (config, parentApp) => {
     '/:agendaSlug/admin/sources(/*?)?',
     '/:agendaSlug/admin/sources/remove',
   ], [
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator')
   ]);

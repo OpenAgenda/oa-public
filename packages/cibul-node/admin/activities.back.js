@@ -16,7 +16,7 @@ const appMw = [
 
 const preMw = [
   cmn.loadLogger( 'activities' ),
-  sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
+  sessions.mw.ifUnlogged( cmn.redirectToSignin ),
   cmn.requireSuperAdmin
 ];
 

@@ -12,7 +12,7 @@ module.exports = (config, services) => {
   const errorHandler = makeErrorHandler(services);
 
   const preMw = [
-    sessions.middleware.ifUnlogged((req, res) => res.status(400).json({
+    sessions.mw.ifUnlogged((req, res) => res.status(400).json({
       error: 'Not logged'
     })),
     (req, res, next) => {

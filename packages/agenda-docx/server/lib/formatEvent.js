@@ -67,15 +67,13 @@ function _singleLanguage(fields, language, event) {
 }
 
 function _formattedDates(timings, timezone, { from, to, lang = 'fr' } = {}) {
-  moment.locale(lang);
-
   const fromDate = from ? moment(from) : from;
   const toDate = to ? moment(to) : to;
 
   return timings
     .map(timing => {
-      const begin = moment.tz(timing.start, timezone);
-      const end = moment.tz(timing.end, timezone);
+      const begin = moment.tz(timing.start, timezone).locale(lang);
+      const end = moment.tz(timing.end, timezone).locale(lang);
 
       timing.date = begin.format('YYYY/MM/DD');
       timing.day = begin.format('Do MMMM');

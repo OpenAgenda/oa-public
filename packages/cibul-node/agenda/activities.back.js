@@ -8,7 +8,7 @@ const members = require('../services/members');
 
 const preMw = [
   cmn.loadLogger( 'agendaActivities' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
   cmn.loadAgenda,
   members.mw.loadAndAuthorize('moderator')
 ];

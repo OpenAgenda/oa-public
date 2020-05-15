@@ -1,5 +1,5 @@
-import { promisify } from 'util';
-import fixtures from '@openagenda/fixtures';
+const { promisify } = require('util');
+const fixtures = require('@openagenda/fixtures');
 
 exports.seed = async knex => {
   const { testconfig, schemas } = knex.client.config;

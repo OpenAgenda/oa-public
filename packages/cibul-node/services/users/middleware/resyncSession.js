@@ -7,5 +7,5 @@ module.exports = () => (req, res, next) => {
     return next();
   }
 
-  sessions.middleware.sync('syncResult')(req, res, next);
+  sessions.mw.sync('syncResult')(req, res, next);
 };

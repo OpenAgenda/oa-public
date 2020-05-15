@@ -20,7 +20,7 @@ module.exports = app => {
   app.get(
     '/:slug/locations',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.list,
     showList
@@ -29,7 +29,7 @@ module.exports = app => {
   app.get(
     '/:slug/admin/locations',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     members.mw.loadAndAuthorize('moderator'),
     cmn.verifyIPMiddleware,
     cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -40,7 +40,7 @@ module.exports = app => {
   app.get(
     '/:slug/admin/locations/exports.csv',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     members.mw.loadAndAuthorize('moderator'),
     forwardCsvExport
@@ -49,7 +49,7 @@ module.exports = app => {
   app.post(
     '/:slug/locations',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     _checkCreate,
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.setToValidate
@@ -58,7 +58,7 @@ module.exports = app => {
   app.post(
     '/:slug/admin/locations',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.set
@@ -67,7 +67,7 @@ module.exports = app => {
   app.post(
     '/:slug/admin/locations/remove',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     members.mw.loadAndAuthorize('moderator'),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -77,7 +77,7 @@ module.exports = app => {
   app.post(
     '/:slug/admin/locations/merge',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     members.mw.loadAndAuthorize('moderator'),
     mw.merge
@@ -86,7 +86,7 @@ module.exports = app => {
   app.get(
     '/:slug/admin/locations/terms',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     members.mw.loadAndAuthorize('moderator'),
     mw.list.terms
@@ -95,7 +95,7 @@ module.exports = app => {
   app.get(
     '/:slug/admin/locations/stakeholders/:stakeholderId',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.verifyIPMiddleware,
     members.mw.loadAndAuthorize('moderator'),
     ( req, res, next ) => {
@@ -112,7 +112,7 @@ module.exports = app => {
   app.get(
     '/:slug/locations/geocode',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.geocode
   );
@@ -120,7 +120,7 @@ module.exports = app => {
   app.get(
     '/:slug/locations/insee',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.insee
   );
@@ -128,7 +128,7 @@ module.exports = app => {
   app.get(
     '/:slug/locations/geocode/reverse',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.reverseGeocode
   );
@@ -144,7 +144,7 @@ module.exports = app => {
   app.get(
     '/:slug/admin/locations/verifycount',
     cmn.loadAgenda,
-    sessions.mw.load,
+    sessions.mw.load(),
     checkUser,
     members.mw.loadAndAuthorize('moderator'),
     mw.getUnverifiedCount
@@ -153,7 +153,7 @@ module.exports = app => {
   app.post(
     '/:slug/locations/image',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.newImageUpload
   );
@@ -161,7 +161,7 @@ module.exports = app => {
   app.post(
     '/:slug/locations/image/remove',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.newImageRemove
   );
@@ -169,7 +169,7 @@ module.exports = app => {
   app.post(
     '/:slug/locations/:locationUid/image',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     members.mw.loadAndAuthorize('moderator'),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.imageUpload
@@ -178,7 +178,7 @@ module.exports = app => {
   app.post(
     '/:slug/locations/:locationUid/image/remove',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     members.mw.loadAndAuthorize('moderator'),
     cmn.assign( 'req.user.uid', 'req.userUid' ),
     mw.imageRemove
@@ -186,7 +186,7 @@ module.exports = app => {
 
   app.get(
     '/:slug/locations/:locationUid',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     mw.load,
     ( req, res ) => { res.json( req.location ); }
   );

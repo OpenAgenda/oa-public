@@ -226,7 +226,7 @@ module.exports = app => {
       }
       next();
     },
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     members.mw.load,
     ( req, res, next ) => {
       if ( !req.member ) return cmn.renderUnauthorized( req, res, next );

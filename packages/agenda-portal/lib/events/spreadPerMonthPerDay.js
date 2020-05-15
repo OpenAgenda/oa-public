@@ -35,18 +35,19 @@ function _prepare(months, keys) {
   if (!months[keys.month][keys.week][keys.day]) months[keys.month][keys.week][keys.day] = [];
 }
 
-function _getKeys(d, timezone) {
+function _getKeys(d, timezone, locale) {
   return {
-    month: tz(d, timezone).format('YYYY-MM'),
+    month: tz(d, timezone)
+      .locale(locale)
+      .format('YYYY-MM'),
     week: getMonthWeek(d, timezone),
-    day: tz(d, timezone).format('DD')
+    day: tz(d, timezone)
+      .locale(locale)
+      .format('DD')
   };
 }
 
-module.exports = (
-  timings = [],
-  timezone = 'Europe/Paris' /* , locale = 'en' */
-) => {
+module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
   if (!timings.length) return [];
 
   const keyedTimings = timings.reduce(
@@ -61,7 +62,7 @@ module.exports = (
         carry.last = start;
       }
 
-      const keys = _getKeys(timing.start, timezone);
+      const keys = _getKeys(timing.start, timezone, locale);
 
       if (!_.get(carry.months, [keys.month, keys.week, keys.day])) {
         _prepare(carry.months, keys);
@@ -83,19 +84,29 @@ module.exports = (
   );
 
   const months = [];
-  const today = _getKeys(new Date(), timezone);
+  const today = _getKeys(new Date(), timezone, locale);
   const dayCursor = keyedTimings.first;
 
-  const last = tz(keyedTimings.last, timezone).format('YYYY-MM');
+  const last = tz(keyedTimings.last, timezone)
+    .locale(locale)
+    .format('YYYY-MM');
 
-  while (tz(dayCursor, timezone).format('YYYY-MM') <= last) {
-    const keys = _getKeys(dayCursor, timezone);
+  while (
+    tz(dayCursor, timezone)
+      .locale(locale)
+      .format('YYYY-MM') <= last
+  ) {
+    const keys = _getKeys(dayCursor, timezone, locale);
 
     months.push({
       key: keys.month,
       diff: _monthDiff(today.month, keys.month),
       current: today.month === keys.month,
-      label: _.capitalize(tz(dayCursor, timezone).format('MMMM YYYY')),
+      label: _.capitalize(
+        tz(dayCursor, timezone)
+          .locale(locale)
+          .format('MMMM YYYY')
+      ),
       weeks: _monthWeeks(
         keys.month,
         keyedTimings.months[keys.month],

@@ -8,7 +8,7 @@
   "license": "SEE LICENCE IN LICENSE",
   "private": true,
   "scripts": {
-    "prepack": "lerna link && yarn workspaces foreach -ptv run prepack",
+    "prepack": "lerna link && lerna run --stream prepack",
     "start": "yarn workspace cibul-node start",
     "mails-editor": "yarn workspace cibul-node mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",

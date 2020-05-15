@@ -25,7 +25,7 @@ module.exports = app => {
 
   app.get(
     '/:slug/events/:eventSlug/featured/:type',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     members.mw.loadAndAuthorize('moderator'),
@@ -36,7 +36,7 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/custom',
     legacyAgendaSvc.mw.load( 'uid' ),
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     members.mw.load,
     (req, res, next) => {
       req.app.services.core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
@@ -56,7 +56,7 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/private',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     members.mw.load,
     ( req, res, next ) => {
       if (!req.member || !members.utils.compareRoles.isSuperiorToOrEqual('contributor')) {
@@ -72,7 +72,7 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/references',
     legacyAgendaSvc.mw.load( 'uid' ),
-    sessions.mw.load,
+    sessions.mw.load(),
     members.mw.loadOr((req, res) => {
       res.json({ references: null });
     }),
@@ -88,7 +88,7 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/events',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     legacyAgendaSvc.mw.load( 'uid' ),
     members.mw.load,
     (req, res, next) => {
@@ -105,7 +105,7 @@ module.exports = app => {
   app.get([
     '/agendas/:uid/events/suggestions',
     '/agendas/:uid/events/:eventUid/suggestions'
-  ], sessions.mw.loadOrRedirect,
+  ], sessions.mw.loadOrRedirect(),
     (req, res, next) => {
       req.agenda = { uid: req.params.uid };
       next();

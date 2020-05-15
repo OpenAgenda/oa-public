@@ -42,7 +42,7 @@ module.exports = app => {
   app.get(
     '/signin',
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, '/home')),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     _presetEmail,
     auth.renderSignin
   );
@@ -51,7 +51,7 @@ module.exports = app => {
     '/:agendaSlug/signin',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged(_redirectToContribute),
+    sessions.mw.ifLogged(_redirectToContribute),
     _presetEmail,
     auth.renderSignin
   );
@@ -59,7 +59,7 @@ module.exports = app => {
   app.post(
     '/signin',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     signinSubmit
   );
 
@@ -67,14 +67,14 @@ module.exports = app => {
     '/:agendaSlug/signin',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged(_redirectToContribute),
+    sessions.mw.ifLogged(_redirectToContribute),
     signinSubmit
   );
 
   app.get(
     '/signup',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -84,7 +84,7 @@ module.exports = app => {
     '/:agendaSlug/signup',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged(_redirectToContribute),
+    sessions.mw.ifLogged(_redirectToContribute),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -93,7 +93,7 @@ module.exports = app => {
   app.post(
     '/signup',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     signupSubmit
   );
 
@@ -101,14 +101,14 @@ module.exports = app => {
     '/:agendaSlug/signup',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged(_redirectToContribute),
+    sessions.mw.ifLogged(_redirectToContribute),
     signupSubmit
   );
 
   app.get(
     '/signup/complete',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     signupComplete
   );
 
@@ -116,14 +116,14 @@ module.exports = app => {
     '/:agendaSlug/signup/complete',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged(_redirectToContribute),
+    sessions.mw.ifLogged(_redirectToContribute),
     signupComplete
   );
 
   app.get(
     '/activate/resend',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     activateResend
   );
 
@@ -131,14 +131,14 @@ module.exports = app => {
     '/:agendaSlug/activate/resend',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged(_redirectToContribute),
+    sessions.mw.ifLogged(_redirectToContribute),
     activateResend
   );
 
   app.get(
     '/activate/:token',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     activate
   );
 
@@ -146,7 +146,7 @@ module.exports = app => {
     '/:agendaSlug/activate/:token',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged(_redirectToContribute),
+    sessions.mw.ifLogged(_redirectToContribute),
     activate
   );
 

@@ -37,7 +37,7 @@ module.exports = function( timings, lang, timezone ) {
 
   timings.forEach( function( t ) {
 
-    var d = moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' );
+    var d = moment.tz( t.start, timezone ).locale(lang).format( 'YYYY-MM-DD' );
 
     dateMap[ d ] = t.start;
 
@@ -133,8 +133,6 @@ function _render( template, data ){
 
 function _renderDate( { date, relativeTo, isLast, lang, timezone, oneDate } ) {
 
-  moment.locale( lang );
-
   var render = { day: oneDate, month: true, year: false },
 
   now = new Date(),
@@ -163,7 +161,7 @@ function _renderDate( { date, relativeTo, isLast, lang, timezone, oneDate } ) {
   if ( render.month ) template = template + ' MMMM';
   if ( render.year ) template = template + ' YYYY';
 
-  return ucfirst( momentDate.format( template ) );
+  return ucfirst( momentDate.locale(lang).format( template ) );
 
 }
 

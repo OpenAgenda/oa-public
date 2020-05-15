@@ -21,7 +21,7 @@ function plugApp(app, base = '/supervisor/announcement') {
 
   app.post(
     base,
-    sessions.middleware.ifUnlogged(cmn.redirectToSignin),
+    sessions.mw.ifUnlogged(cmn.redirectToSignin),
     sessions.mw.requireSuperAdmin,
     async (req, res, next) => {
       try {
@@ -35,7 +35,7 @@ function plugApp(app, base = '/supervisor/announcement') {
 
   app.delete(
     base,
-    sessions.middleware.ifUnlogged(cmn.redirectToSignin),
+    sessions.mw.ifUnlogged(cmn.redirectToSignin),
     sessions.mw.requireSuperAdmin,
     async (req, res, next) => {
       try {

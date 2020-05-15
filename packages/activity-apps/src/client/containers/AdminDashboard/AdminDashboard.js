@@ -14,7 +14,6 @@ import { renderField, renderSelect, renderInput } from '../../utils/form';
 import { DateTimePicker, ActivityItem } from '../../components';
 
 import 'moment/locale/fr';
-moment.locale( 'fr' );
 
 const dashboardValuesSelector = getFormValues( 'activityAppsAdminDashboard' );
 
@@ -137,8 +136,8 @@ export default class AdminDashboard extends Component {
     return (
       <DateTimePicker
         handleEvent={handleEvent}
-        startValue={moment( startValue || undefined )}
-        endValue={moment( endValue || undefined )}
+        startValue={moment( startValue || undefined ).locale('fr')}
+        endValue={moment( endValue || undefined ).locale('fr')}
       />
     );
 

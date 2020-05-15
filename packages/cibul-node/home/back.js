@@ -14,7 +14,7 @@ const LIST_LIMIT = 20;
 
 const preMw = [
   cmn.loadLogger('home'),
-  sessions.middleware.ifUnlogged((req, res) => res.redirect(302, '/'))
+  sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/'))
 ];
 
 async function agendasList(req, res, next) {

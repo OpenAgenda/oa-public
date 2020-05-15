@@ -10,9 +10,8 @@
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/agenda-locations",
   "scripts": {
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
-    "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
+    "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service server.dev.js",
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
-    "knex": "babel-node ./node_modules/.bin/knex",
     "build": "babel components/src -d components/build -s",
     "clean": "rimraf components/build",
     "prepack": "yarn clean && yarn build",
@@ -57,7 +56,7 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.4",
-    "@babel/node": "^7.8.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.6",
     "@openagenda/babel-preset": "^1.2.2",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",

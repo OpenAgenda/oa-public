@@ -12,7 +12,7 @@ const cookieParser = require( 'cookie-parser' );
 const validate = require( '../src/iso/cookie.validate' );
 const helpers = require( './lib/helpers' );
 
-const mw = sessions.middleware;
+const mw = sessions.mw;
 
 describe( 'session - functional (server): middleware', () => {
 
@@ -39,16 +39,16 @@ describe( 'session - functional (server): middleware', () => {
       server = helpers.launchTestApp( {
         use: mw,
         'get:/land' : helpers.roundTrip,
-        'post:/signin' : [ 
+        'post:/signin' : [
           ( req, res, next ) => {
-            
-            req.userIdentifier = { uid: 123 }; 
 
-            next(); 
+            req.userIdentifier = { uid: 123 };
+
+            next();
 
           },
           mw.open(),
-          ( req, res ) => { res.send( 'ok' ) } 
+          ( req, res ) => { res.send( 'ok' ) }
         ],
         'post:/sync' : [
           ( req, res, next ) => {
@@ -79,7 +79,7 @@ describe( 'session - functional (server): middleware', () => {
 
           },
           mw.sync(),
-          ( req, res ) => { 
+          ( req, res ) => {
 
             res.send( 'ok' )
 
@@ -167,14 +167,14 @@ describe( 'session - functional (server): middleware', () => {
       server = helpers.launchTestApp( {
         use: mw,
         'get:/land' : helpers.roundTrip,
-        'post:/signin': [ 
+        'post:/signin': [
           ( req, res, next ) => {
 
             // you know beforehand based on an email
             // or other who is trying to sign in.
-            req.userIdentifier = { uid: 123 }; 
+            req.userIdentifier = { uid: 123 };
 
-            next(); 
+            next();
 
           },
           mw.open(), // <= this opens the logged user session
@@ -500,9 +500,9 @@ describe( 'session - functional (server): middleware', () => {
         'post:/signin' : [
           ( req, res, next ) => { req.userIdentifier = { uid: 123 }; next(); },
           mw.open(),
-          ( req, res ) => { 
+          ( req, res ) => {
 
-            res.send( 'ok' ); 
+            res.send( 'ok' );
 
           }
         ],

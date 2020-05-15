@@ -26,7 +26,7 @@ module.exports = (app, config, services) => {
   const loadEvent = eventLoader(events);
 
   app.get('/home/inbox/refresh-check',
-    sessions.mw.load,
+    sessions.mw.load(),
     checkUser,
     (req, res, next) => {
       usersSvc.refresh(req.user.uid, {
@@ -36,7 +36,7 @@ module.exports = (app, config, services) => {
   );
 
   app.use('/:slug/contact',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'
@@ -47,7 +47,7 @@ module.exports = (app, config, services) => {
   );
 
   app.use('/:slug/admin/members/:memberId/contact',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'
@@ -59,7 +59,7 @@ module.exports = (app, config, services) => {
   );
 
   app.use('/:slug/admin/events/:eventSlug/contact',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'
@@ -72,7 +72,7 @@ module.exports = (app, config, services) => {
 
   app.use(
     '/:slug/events/:eventSlug/contact',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'
@@ -84,7 +84,7 @@ module.exports = (app, config, services) => {
   );
 
   app.use('/:slug/admin/events/:eventSlug/edition-request',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'
@@ -96,7 +96,7 @@ module.exports = (app, config, services) => {
   );
 
   app.use('/:slug/request-contribute',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'
@@ -107,7 +107,7 @@ module.exports = (app, config, services) => {
   );
 
   app.use('/:slug/locations/:locationUid/suggest-change',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug'

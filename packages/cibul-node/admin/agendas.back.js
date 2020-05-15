@@ -8,7 +8,7 @@ const cmn = require( '../lib/commons-app' );
 
 const preMw = [
   cmn.loadBaseData( 'compiledAdmin.css' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
   cmn.requireSuperAdmin
 ];
 

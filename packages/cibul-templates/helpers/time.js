@@ -15,8 +15,6 @@ module.exports = function( options ) {
 
   var process = function( date, format, timezone ) {
 
-    moment.locale( params.lang );
-
     if ( typeof date == 'string' ) {
 
       try {
@@ -46,7 +44,7 @@ module.exports = function( options ) {
 
         }
 
-        clean[ k ] = formatDate( date[ k ], assumedFormat, timezone );
+        clean[ k ] = formatDate( date[ k ], assumedFormat, timezone, params.lang );
 
       }
 
@@ -56,7 +54,7 @@ module.exports = function( options ) {
 
       if ( !format ) format = 'Do MMMM YYYY';
 
-      return formatDate( date, format, timezone );
+      return formatDate( date, format, timezone, params.lang );
 
     }
 
@@ -96,7 +94,7 @@ module.exports = function( options ) {
 
 };
 
-var formatDate = function ( date, format, timezone ) {
+var formatDate = function ( date, format, timezone, lang = 'en' ) {
 
   if ( !(date instanceof Date)) {
 
@@ -106,10 +104,10 @@ var formatDate = function ( date, format, timezone ) {
 
   if ( timezone ) {
 
-    return moment.tz( date, timezone ).format( format );
+    return moment.tz( date, timezone ).locale( lang ).format( format );
 
   }
 
-  return moment( date ).utc().format( format );
+  return moment( date ).utc().locale( lang ).format( format );
 
 };

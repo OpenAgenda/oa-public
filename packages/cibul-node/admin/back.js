@@ -14,7 +14,7 @@ const adminSvc = require( '../services/admin/admin' );
 
 const preMw = [
   cmn.loadBaseData(),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
   cmn.requireSuperAdmin
 ];
 

@@ -117,7 +117,7 @@ function plugApp(parentApp) {
     '/:agendaSlug/admin/members/:id/invite/resend'
   ], [
     mw.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     mw.load.andAuthorize('moderator'),
     agendasMw.evaluateIPAddress({
       onUnauthorizedIPAddress: _onUnauthorizedIPAddress

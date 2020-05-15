@@ -7,7 +7,7 @@ const agendasSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/home/notifications' ) );
 const cmn = require( '../lib/commons-app' );
 
-const logged = sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) );
+const logged = sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) );
 
 /**
  * this follows a more classic way of using express.

@@ -27,7 +27,7 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/facebook',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     show
@@ -35,7 +35,7 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/facebook/tab/link',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     cmn.loadAgendaBy( 'uid' ),
     members.mw.loadAndAuthorize('administrator'),
     fb.tab.create
@@ -43,7 +43,7 @@ module.exports = app => {
 
   app.get(
     '/facebook/tab/create/:state',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.loadOrRedirect(),
     fb.tab.redirect,
     _onComplete
   );

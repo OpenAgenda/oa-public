@@ -2,19 +2,19 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-import http from 'http';
-import express from 'express';
-import morgan from 'morgan';
-import cors from 'cors';
-import errorHandler from 'errorhandler';
-import testconfig from './testconfig';
-import locationsEditor from './';
+const http = require('http');
+const express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const errorHandler = require('errorhandler');
+const testconfig = require('./testconfig');
+const locationsEditor = require('./');
 
 const mw = locationsEditor.mw( 'agendaId' );
 
 const app = express();
 
-export const server = http.createServer( app );
+const server = http.createServer( app );
 
 app.server = server;
 
@@ -95,5 +95,3 @@ if ( process.env.NODE_ENV !== 'test' ) {
     );
   } );
 }
-
-export default app;

@@ -192,7 +192,7 @@ function _fZ( n ) {
  */
 function _transformTimingToFormSchema( d, timezone ) {
 
-  const tz = moment( d ).tz( timezone );
+  const tz = moment.tz( d, timezone );
 
   return {
     date: tz.format( 'YYYY-MM-DD' ),

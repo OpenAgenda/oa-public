@@ -56,7 +56,7 @@ module.exports = app => {
     [ '/', '/en', '/de', '/es', '/br' ],
     preMw,
     cmn.https,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     cacheMw,
     _setLang,
     corpo.bind(null, cache)
@@ -65,8 +65,8 @@ module.exports = app => {
   app.get(
     '/signout',
     preMw,
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-    sessions.middleware.close(),
+    sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.mw.close(),
     ( req, res ) => res.redirect( 302, '/' )
   );
 
