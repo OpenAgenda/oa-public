@@ -125,7 +125,7 @@
       "type" : "boolean",
       "default" : false
     },
-    "mei" : {
+    "ii" : {
       "type" : "boolean",
       "default" : false
     }

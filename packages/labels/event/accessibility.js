@@ -17,11 +17,11 @@ module.exports = {
     "br": "Pounnerglev",
     "it": "Disabilità uditiva"
   },
-  "mei": {
-    "en": "Mental impairment",
-    "fr": "Handicap mental",
+  "ii": {
+    "en": "Intellectual impairment",
+    "fr": "Handicap intellectuel",
     "de": "Geistige Behinderung",
-    "es": "Discapacidad mental",
+    "es": "Discapacidad intellectual",
     "br": "Dalc'het en o spered",
     "it": "Disabilità mental"
   },

@@ -607,27 +607,13 @@ function _defineEventUrl( instance ) {
 
 
 function _defineAccessibility( lang ) {
+  return codes => {
+    if (!codes || !utils.isArray(codes)) return '';
 
-  const labelCodes = {
-    mi: 'motorImpairment',
-    hi: 'hearingImpairment',
-    pi: 'mentalImpairment',
-    vi: 'visualImpairment',
-    sl: 'signLanguage'
+    return codes.map(c => {
+      return accessibilityLabels[c][lang];
+    }).join('|');
   }
-
-  return function( codes ) {
-
-    if ( !codes || !utils.isArray( codes ) ) return '';
-
-    return codes.map( c => {
-
-      return accessibilityLabels[ labelCodes[ c ] ][ lang ];
-
-    } ).join( '|' );
-
-  }
-
 }
 
 
