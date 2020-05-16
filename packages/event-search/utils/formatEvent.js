@@ -5,6 +5,7 @@ const ih = require('immutability-helper');
 const moment = require('moment-timezone');
 const countries = require('@openagenda/labels/agenda-locations/countries');
 const dateRange = require('@openagenda/date-range');
+const addRegistrationType = require('@openagenda/utils/registration/addType');
 
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 const aggObjects = require('./aggregatorObjects');
@@ -96,6 +97,12 @@ module.exports = (event, formSchema = null) => {
         _agg: aggObjects.flatten(member, ['uid', 'name'])
       }
     };
+  }
+
+  if (event.registration) {
+    transform.registration = {
+      $set: addRegistrationType(event.registration)
+    }
   }
 
   transform['_search_languages'] = {
