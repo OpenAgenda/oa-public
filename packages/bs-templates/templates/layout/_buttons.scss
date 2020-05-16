@@ -1,29 +1,60 @@
 .btn {
+  &.btn-link-inline {
+    @extend .btn-link;
+
+    padding: 0;
+    border: none;
+    vertical-align: baseline;
+    text-align: inherit;
+    white-space: normal;
+  }
+
+  // Colored .text-${name} in .btn-link
+  &.btn-link {
+    @each $name, $color in (
+      primary: $brand-primary,
+      success: $brand-success,
+      info: $brand-info,
+      warning: $brand-warning,
+      danger: $brand-danger
+    ) {
+      &.text-#{$name} {
+        color: darken($color, 10%) !important;
+
+        &:hover, &:focus {
+          text-decoration: underline darken($color, 10%) !important;
+        }
+      }
+    }
+  }
+
   &.btn-bordered {
     background: transparent;
-    border-width: 2px;
     border-width: 1px;
     color: inherit;
 
-    span, i {
-      vertical-align: middle;
+    // For Help link in header
+    i {
+      font-size: 1.2em;
+      vertical-align: text-bottom;
     }
 
-    &.btn-primary {
-      border-color: $oa-blue;
-      color: $oa-blue;
+    @each $name, $color in (
+      primary: $brand-primary,
+      success: $brand-success,
+      info: $brand-info,
+      warning: $brand-warning,
+      danger: $brand-danger
+    ) {
+      &.btn-#{$name} {
+        border-color: $color;
+        color: $color;
 
-      i {
-        font-size: 1.2em;
-      }
-
-      &:hover {
-        color: $oa-white;
-        i, span {
+        &:hover {
           color: $oa-white;
+          border-color: lighten($color, 10);
+          background-color: $color;
         }
-        border-color: lighten($oa-blue, 10);
-        background-color: $oa-blue;
       }
     }
   }

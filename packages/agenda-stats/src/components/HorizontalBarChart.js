@@ -12,6 +12,7 @@ export default function HorizontalBarChart({
   data,
   // total,
   dataKey,
+  dataKey1,
   labelKey,
   renderTooltipItem,
   xAxisTick,
@@ -30,6 +31,7 @@ export default function HorizontalBarChart({
           overflow: visible;
         }
       `}
+      barGap={0}
     >
       <CartesianGrid stroke="#f5f5f5" />
       <XAxis
@@ -45,7 +47,11 @@ export default function HorizontalBarChart({
         allowDecimals={false}
         tick={yAxisTick}
       />
-      <Tooltip content={<CustomTooltip labelKey={labelKey} renderItem={renderTooltipItem} />} />
+      <Tooltip
+        content={
+          <CustomTooltip dataKey={labelKey} renderItem={renderTooltipItem} />
+        }
+      />
       <Bar
         type="monotone"
         dataKey={dataKey}
@@ -54,6 +60,16 @@ export default function HorizontalBarChart({
         fill="#41acdd"
         yAxisId={0}
       />
+      {dataKey1 ? (
+        <Bar
+          type="monotone"
+          dataKey={dataKey1}
+          stroke="#82ca9d"
+          fillOpacity={1}
+          fill="#82ca9d"
+          yAxisId={0}
+        />
+      ) : null}
     </BarChart>
   );
 }

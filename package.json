@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run lint-staged --concurrency 1 --stream --since HEAD",
+      "pre-commit": "lerna run lint-staged --concurrency 1 --stream --since HEAD --exclude-dependents",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },

@@ -295,16 +295,6 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
 
 }
 
-.btn-link-inline {
-  @extend .btn-link;
-
-  padding: 0;
-  border: none;
-  vertical-align: baseline;
-  text-align: inherit;
-  white-space: normal;
-}
-
 .oa-col-canvas {
 
   max-width: 680px;
@@ -332,25 +322,45 @@ a.discreet {
 
 }
 
-.btn-link {
-  @each $name, $color in (success: $brand-success, info: $brand-info, warning: $brand-warning, danger: $brand-danger) {
-    &.text-#{$name} {
-      color: darken($color, 10%) !important;
-
-      &:hover, &:focus {
-        text-decoration: underline darken($color, 10%) !important;
-      }
-    }
-  }
-}
-
-@each $name, $color in (success: $brand-success, info: $brand-info, warning: $brand-warning, danger: $brand-danger) {
-  &.text-#{$name} a {
+// Colored <a>
+@each $name, $color in (
+  primary: $brand-primary,
+  success: $brand-success,
+  info: $brand-info,
+  warning: $brand-warning,
+  danger: $brand-danger
+) {
+  .text-#{$name} a {
     color: $color;
     text-decoration: underline;
 
     &:hover, &:focus {
       color: darken($color, 15%);
+    }
+  }
+}
+
+// Colored announcements
+.announcement {
+  .pull-right + {
+    h1, h2, h3, h4, h5, h6 {
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+
+  @each $name, $color in (
+    primary: $brand-primary,
+    success: $brand-success,
+    info: $brand-info,
+    warning: $brand-warning,
+    danger: $brand-danger,
+  ) {
+    &.bg-#{$name} {
+      border-top: 1px solid $color;
+      border-bottom: 1px solid $color;
+      background-color: lighten($color, 40%);
     }
   }
 }
@@ -361,14 +371,4 @@ a.discreet {
 
 .fa-sm {
   font-size: .875em;
-}
-
-.announcement {
-  @each $name, $color in (success: $brand-success, info: $oa-blue, warning: $brand-warning, danger: $brand-danger) {
-    &.bg-#{$name} {
-      border-top: 1px solid $color;
-      border-bottom: 1px solid $color;
-      background-color: lighten($color, 40%);
-    }
-  }
 }

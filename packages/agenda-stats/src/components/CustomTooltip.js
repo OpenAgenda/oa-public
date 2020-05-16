@@ -1,13 +1,16 @@
 import _ from 'lodash';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 import { ClassNames } from '@emotion/core';
 
-function DefaultTooltipItem({ entry, labelKey }) {
+function DefaultTooltipItem({ entry, dataKey }) {
+  const value = getValueByDataKey(entry.payload, dataKey);
+
   return (
     <li className="recharts-tooltip-item">
       <span>
-        <b>{_.get(entry.payload, labelKey)}</b>
+        <b>{value}</b>
         <br />
         <FormattedMessage
           id="AgendaStats.CustomTooltip.events"
@@ -27,7 +30,7 @@ export default function CustomTooltip({
   itemSorter,
   wrapperClassName,
   contentStyle,
-  labelKey
+  dataKey
 }) {
   if (!payload?.length) {
     return null;
@@ -43,8 +46,8 @@ export default function CustomTooltip({
         entry,
         index,
         array,
-        labelKey,
-        key: entry.payload.key
+        dataKey,
+        key: `${index}-${entry.payload.key}`
       };
 
       const itemRenderer = renderItem || DefaultTooltipItem;

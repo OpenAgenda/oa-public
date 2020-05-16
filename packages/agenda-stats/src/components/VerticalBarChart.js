@@ -1,22 +1,30 @@
-import React from 'react';
-// import { useIntl } from 'react-intl';
+import React, { useMemo } from 'react';
+import { useIntl } from 'react-intl';
 import {
   XAxis, YAxis, Tooltip, CartesianGrid, Bar, BarChart
 } from 'recharts';
 import { css } from '@emotion/core';
-// import addRestItem from '../utils/addRestItem';
+import addRestItem from '../utils/addRestItem';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
 export default function VerticalBarChart({
-  data,
-  // total,
+  data: rawData,
+  total,
   dataKey,
   labelKey,
-  renderTooltipItem
+  renderTooltipItem,
+  withRest,
+  noValueRest
 }) {
-  // const intl = useIntl();
-  // const data = useMemo(() => addRestItem(rawData, total, intl), [rawData, total, intl]);
+  const intl = useIntl();
+  const data = useMemo(() => {
+    if (withRest) {
+      return addRestItem(rawData, total, intl, noValueRest);
+    }
+
+    return rawData;
+  }, [rawData, total, intl, withRest, noValueRest]);
 
   return (
     <BarChart
@@ -43,7 +51,11 @@ export default function VerticalBarChart({
         // interval="preserveStartEnd"
         tick={<EllipsisAxisTick maxLines={3} />}
       />
-      <Tooltip content={<CustomTooltip labelKey={labelKey} renderItem={renderTooltipItem} />} />
+      <Tooltip
+        content={
+          <CustomTooltip dataKey={labelKey} renderItem={renderTooltipItem} />
+        }
+      />
       <Bar
         type="monotone"
         dataKey={dataKey}

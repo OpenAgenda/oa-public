@@ -4,10 +4,14 @@ const messages = defineMessages({
   others: {
     id: 'AgendaStats.utils.addRestItem.others',
     defaultMessage: 'Others'
+  },
+  noValue: {
+    id: 'AgendaStats.utils.addRestItem.noValue',
+    defaultMessage: 'No value'
   }
 });
 
-export default function addRestItem(data, total, intl) {
+export default function addRestItem(data, total, intl, noValue = false) {
   const itemsInData = data.reduce(
     (res, next) => res + (next.eventCount || 0),
     0
@@ -18,7 +22,9 @@ export default function addRestItem(data, total, intl) {
     return data;
   }
 
-  const others = intl.formatMessage(messages.others);
+  const others = intl.formatMessage(
+    noValue ? messages.noValue : messages.others
+  );
 
   return [
     ...data,
@@ -28,6 +34,7 @@ export default function addRestItem(data, total, intl) {
         uid: others,
         title: others
       },
+      label: others,
       eventCount: diff
     }
   ];
