@@ -5,9 +5,14 @@ const axios = require('axios');
 const qs = require('qs');
 const parseSearchQuery = require('./utils/searchQuery');
 const log = require('./Log')('proxy');
+const transformQueryV1ToV2 = require('./utils/transformQueryV1ToV2');
 
 module.exports = ({
-  key, defaultLimit, defaultFilter, jsonExportVersion
+  key,
+  defaultLimit,
+  defaultFilter,
+  defaultTimezone,
+  jsonExportVersion
 }) => {
   function _fetch(agendaUid, res, query, forcedLimit = null) {
     const oaq = parseSearchQuery(_.get(query, 'oaq'), { defaultFilter });
@@ -24,12 +29,19 @@ module.exports = ({
       10
     );
 
-    const params = {
-      key,
-      oaq,
-      limit,
-      offset
-    };
+    const params = jsonExportVersion === 2
+      ? {
+        ..._.omit(query, ['oaq']),
+        ...transformQueryV1ToV2(oaq, { timezone: defaultTimezone }),
+        limit,
+        offset
+      }
+      : {
+        key,
+        oaq,
+        limit,
+        offset
+      };
 
     log('fetching', params);
 

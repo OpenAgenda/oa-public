@@ -53,7 +53,8 @@ module.exports = async options => {
     {
       eventsPerPage: 20,
       assetsRoot: null,
-      jsonExportVersion: 1
+      jsonExportVersion: 1,
+      defaultTimezone: 'Europe/Paris'
     },
     options
   );
@@ -66,6 +67,7 @@ module.exports = async options => {
     views, // path to views folder
     assets, // optional path to assets folder
     // sass, // optional path to sass file
+    defaultTimezone, // optional: used for converting oaq date filter (YYYY-MM-DD) to v2 format (timezoned)
     eventsPerPage, // optional number of events to load per page
     defaultFilter, // optional: filter that applies when no other filter is set
     // cache,
@@ -88,7 +90,8 @@ module.exports = async options => {
         jsonExportVersion,
         key,
         defaultLimit: eventsPerPage,
-        defaultFilter
+        defaultFilter,
+        defaultTimezone
       })
   );
 
