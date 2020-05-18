@@ -12,9 +12,9 @@ const defaultStyles = {
         borderColor: '#66afe9',
         outline: '0',
         WebkitBoxShadow:
-          'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)',
+            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)',
         boxShadow:
-          'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)'
+            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)'
       }
       : {}),
 
@@ -65,12 +65,12 @@ const defaultStyles = {
       color: '#ffffff'
     }
   }),
-  menu: (base, state) => (state.selectProps.creatable && !state.selectProps.options?.length
+  menu: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
     ? {
       display: 'none'
     }
     : base),
-  indicatorsContainer: (base, state) => (state.selectProps.creatable && !state.selectProps.options?.length
+  indicatorsContainer: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
     ? {
       display: 'none'
     }
@@ -78,9 +78,14 @@ const defaultStyles = {
 };
 
 export default ({
-  innerRef, creatable, input, meta, styles: stylesProp, ...rest
+  innerRef,
+  isCreatable,
+  input,
+  meta,
+  styles: stylesProp,
+  ...rest
 }) => {
-  const SelectComponent = creatable ? CreatableSelect : ReactSelect;
+  const SelectComponent = isCreatable ? CreatableSelect : ReactSelect;
   const styles = useMemo(() => ({
     ...defaultStyles,
     ...stylesProp
@@ -91,7 +96,7 @@ export default ({
       <SelectComponent
         ref={innerRef}
         {...input}
-        creatable={creatable}
+        isCreatable={isCreatable}
         styles={styles}
         {...rest}
       />

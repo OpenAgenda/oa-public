@@ -8,13 +8,16 @@ export default ({
   name,
   initialValue,
   options,
-  creatable,
+  isCreatable,
   onBlur,
   ...props
 }) => {
   const selectRef = useRef(null);
 
-  const findOption = useCallback(opt => options?.find(v => v.value === opt) ?? { label: opt, value: opt }, [options]);
+  const findOption = useCallback(
+    opt => options?.find(v => v.value === opt) ?? { label: opt, value: opt },
+    [options]
+  );
 
   const format = useCallback(
     selectedOption => {
@@ -37,7 +40,7 @@ export default ({
   }, []);
   const handleBlur = useCallback(
     (...args) => {
-      if (creatable) {
+      if (isCreatable) {
         const {
           state: { inputValue, value }
         } = selectRef.current;
@@ -58,7 +61,7 @@ export default ({
         return onBlur(...args);
       }
     },
-    [onBlur, creatable]
+    [onBlur, isCreatable]
   );
   const isValidNewOption = useCallback(
     value => ![undefined, null, ''].includes(value),
@@ -77,11 +80,11 @@ export default ({
       component={ReactSelectInput}
       options={options}
       initialValue={initialOption}
-      creatable={creatable}
+      isCreatable={isCreatable}
       format={format}
       parse={parse}
       onBlur={handleBlur}
-      isValidNewOption={creatable ? isValidNewOption : undefined}
+      isValidNewOption={isCreatable ? isValidNewOption : undefined}
       components={undefined}
       {...props}
     />
