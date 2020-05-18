@@ -493,9 +493,9 @@ module.exports = {
     "es": "Accesible para discapacitados visuales",
     "br": "En aezamant d'an dud na welont ket mat"
   },
-  "accessibleToMentally": {
-    "en": "Accessible to the mentally impaired",
-    "fr": "Accessible aux handicapés mentaux",
+  "accessibleToIntellectually": {
+    "en": "Accessible to the intellectually impaired",
+    "fr": "Accessible aux déficients intellectuels",
     "de": "Geistige Behinderung",
     "es": "Discapacidad mental",
     "br": "Dalc'het en o spered",

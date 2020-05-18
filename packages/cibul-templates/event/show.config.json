@@ -26,7 +26,7 @@
       "mi": "accessibleToMotor",
       "vi": "accessibleToVisually",
       "sl": "signLanguageAvailable",
-      "mei": "accessibleToMentally"
+      "ii": "accessibleToIntellectually"
     },
     "adminNav": {},
     "states": {

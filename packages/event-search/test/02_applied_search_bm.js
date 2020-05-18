@@ -79,6 +79,14 @@ describe('02 - event search - functional: Applied search', function() {
           (event.sourceAgendas instanceof Array).should.equal(true);
         });
 
+
+        it('registration is a list [{ type, value }]', async () => {
+          event.registration.should.eql([{
+            type: 'link',
+            value: 'http://william-theviot.fr'
+          }]);
+        });
+
       });
 
       describe('with formSchema', () => {

@@ -105,7 +105,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         location: {
           uid: 123
         },
-        accessibility: { mei: true },
+        accessibility: { ii: true },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [3, 4],
         'custom_description': 'Oui bah non'
@@ -176,7 +176,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
             hi: false,
             pi: false,
             vi: false,
-            mei: true
+            ii: true
           });
 
           expect(event.accessibility).toEqual({
@@ -184,7 +184,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
             hi: false,
             pi: false,
             vi: false,
-            mei: true
+            ii: true
           });
 
           done();

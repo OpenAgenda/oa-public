@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import mLabels from '@openagenda/labels/event/accessibility';
 import flatten from '@openagenda/labels/flatten';
 
-const TYPES = ['hi', 'vi', 'pi', 'mi', 'mei'];
+const TYPES = ['hi', 'vi', 'pi', 'mi', 'ii'];
 
 module.exports = class AccessibilityComponent extends Component {
 
