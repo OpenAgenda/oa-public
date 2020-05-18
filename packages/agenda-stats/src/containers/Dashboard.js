@@ -10,6 +10,7 @@ import * as statsActions from '../reducers/stats';
 import PeriodModal from '../components/PeriodModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
+import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
 
 const messages = defineMessages({
   title: {
@@ -38,7 +39,8 @@ function Dashboard({ agenda }) {
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'stats.loading', true));
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
-  const aggregations = useSelector(state => state.stats.data);
+  const aggregations = useSelector(state => state.stats.aggregations);
+  const data = useSelector(state => state.stats.data);
   const totalEvents = useSelector(state => state.stats.totalEvents);
 
   const [range, setRange] = useState(undefined);
@@ -69,7 +71,9 @@ function Dashboard({ agenda }) {
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
-      return dispatch(statsActions.load(agenda, query));
+      return dispatch(
+        statsActions.load(agenda, query, rangeToCalendarInterval(defaultRange))
+      );
     });
   }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
 
@@ -117,10 +121,11 @@ function Dashboard({ agenda }) {
         </div>
       ) : null}
 
-      {aggregations ? (
+      {data ? (
         <AggregationCharts
           agenda={agenda}
           aggregations={aggregations}
+          data={data}
           totalEvents={totalEvents}
           range={range}
         />

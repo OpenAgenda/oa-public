@@ -16,11 +16,7 @@ const messages = defineMessages({
   }
 });
 
-export default function PeriodModal({
-  initialValues,
-  onSubmit,
-  onClose
-}) {
+export default function PeriodModal({ initialValues, onSubmit, onClose }) {
   const intl = useIntl();
 
   const { staticRanges, inputRanges } = useMemo(() => dateRanges(intl), [intl]);
@@ -29,11 +25,10 @@ export default function PeriodModal({
 
   const handleSubmit = useCallback(() => {
     setSubmitting(true);
-    onSubmit(ranges)
-      .then(() => {
-        setSubmitting(false);
-        onClose();
-      });
+    onSubmit(ranges).then(() => {
+      setSubmitting(false);
+      onClose();
+    });
   });
 
   return (
@@ -62,15 +57,16 @@ export default function PeriodModal({
           type="button"
           className="btn btn-primary"
           onClick={handleSubmit}
+          disabled={submitting}
         >
           {intl.formatMessage(messages.submit)}
-        </button>
 
-        {submitting ? (
-          <span className="margin-left-sm">
-            <Spinner mode="inline" />
-          </span>
-        ) : null}
+          {submitting ? (
+            <span className="margin-left-xs">
+              <Spinner mode="inline" />
+            </span>
+          ) : null}
+        </button>
       </div>
     </Modal>
   );

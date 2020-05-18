@@ -1,68 +1,40 @@
 const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';
 const LOAD_FAIL = 'agenda-stats/stats/LOAD_FAIL';
-const LOAD_MORE = 'agenda-stats/stats/LOAD_MORE';
-const LOAD_MORE_SUCCESS = 'agenda-stats/stats/LOAD_MORE_SUCCESS';
-const LOAD_MORE_FAIL = 'agenda-stats/stats/LOAD_MORE_FAIL';
+const LOAD_AGGREGATION = 'agenda-stats/stats/LOAD_AGGREGATION';
+const LOAD_AGGREGATION_SUCCESS = 'agenda-stats/stats/LOAD_AGGREGATION_SUCCESS';
+const LOAD_AGGREGATION_FAIL = 'agenda-stats/stats/LOAD_AGGREGATION_FAIL';
 
-const defaultAggregations = [
-  'additionalFields',
-  'cities',
-  'departments',
-  'keywords',
-  'members',
-  'timespan',
-  'originAgendas',
-  'pastAndUpcoming',
-  'regions',
-  // 'sourceAgendas',
-  'states',
-  {
-    key: 'timingsByMonth',
-    type: 'timings',
-    interval: 'month'
-  },
-  {
-    key: 'timingsByWeek',
-    type: 'timings',
-    interval: 'week'
-  },
-  {
-    key: 'timingsByDay',
-    type: 'timings',
-    interval: 'day'
-  },
-  {
-    key: 'createdAtByMonth',
-    type: 'createdAt',
-    interval: 'month'
-  },
-  {
-    key: 'createdAtByWeek',
-    type: 'createdAt',
-    interval: 'week'
-  },
-  {
-    key: 'createdAtByDay',
-    type: 'createdAt',
-    interval: 'day'
-  },
-  {
-    key: 'updatedAtByMonth',
-    type: 'updatedAt',
-    interval: 'month'
-  },
-  {
-    key: 'updatedAtByWeek',
-    type: 'updatedAt',
-    interval: 'week'
-  },
-  {
-    key: 'updatedAtByDay',
-    type: 'updatedAt',
-    interval: 'day'
-  }
-];
+function getDefaultAggregations(interval) {
+  return [
+    'additionalFields',
+    'cities',
+    'departments',
+    'keywords',
+    'members',
+    'timespan',
+    'originAgendas',
+    'pastAndUpcoming',
+    'regions',
+    // 'sourceAgendas',
+    'states',
+    {
+      key: 'timings',
+      type: 'timings',
+      interval
+    },
+    {
+      key: 'createdAt',
+      type: 'createdAt',
+      interval
+    },
+    {
+      key: 'updatedAt',
+      type: 'updatedAt',
+      interval
+    }
+  ];
+}
 
 const initialState = {};
 
@@ -90,25 +62,35 @@ export default function reducer(state = initialState, action) {
         error: action.error,
         loading: false
       };
-    case LOAD_MORE_SUCCESS:
+    case LOAD_AGGREGATION_SUCCESS: {
+      const aggIndex = state.aggregations.findIndex(
+        v => v === action.aggregationKey || v.key === action.aggregationKey
+      );
+
       return {
         ...state,
         data: {
           ...state.data,
-          [action.aggregation]:
-            action.result.data.aggregations[action.aggregation]
-        }
+          [action.aggregationKey]:
+            action.result.data.aggregations[action.aggregationKey]
+        },
+        aggregations: [
+          ...state.aggregations.slice(0, aggIndex),
+          action.aggregation,
+          ...state.aggregations.slice(aggIndex + 1)
+        ]
       };
+    }
     default:
       return state;
   }
 }
 
-export function load(agenda, query) {
+export function load(agenda, query, interval) {
   const params = {
     oaq: { passed: 1 },
     size: 0,
-    aggregations: defaultAggregations,
+    aggregations: getDefaultAggregations(interval),
     ...query
   };
 
@@ -127,14 +109,17 @@ export function load(agenda, query) {
   };
 }
 
-export function loadMore(agenda, aggregation, moreSize = 5) {
+export function loadAggregation(agenda, aggregationKey, options) {
   return ({ getState, dispatch }) => {
     const { stats, res } = getState();
 
     const actualAggregation = stats.aggregations.find(
-      v => v === aggregation || v.type === aggregation
+      v => v === aggregationKey || v.key === aggregationKey
     );
-    const actualAggregationData = stats.data[aggregation];
+    const actualAggregationData = stats.data[aggregationKey];
+    const aggOptions = typeof options === 'function'
+      ? options(actualAggregation, actualAggregationData)
+      : options;
 
     const params = {
       oaq: { passed: 1 },
@@ -144,14 +129,18 @@ export function loadMore(agenda, aggregation, moreSize = 5) {
           ...(typeof actualAggregation === 'string'
             ? { type: actualAggregation, key: actualAggregation }
             : actualAggregation),
-          size: (actualAggregationData.length || 0) + moreSize
+          ...aggOptions
         }
       ],
       ...stats.query
     };
 
     return dispatch({
-      types: [LOAD_MORE, LOAD_MORE_SUCCESS, LOAD_MORE_FAIL],
+      types: [
+        LOAD_AGGREGATION,
+        LOAD_AGGREGATION_SUCCESS,
+        LOAD_AGGREGATION_FAIL
+      ],
       promise: ({ client }) => {
         const url = res.jsonExport
           .replace(':slug', agenda.slug)
@@ -159,7 +148,8 @@ export function loadMore(agenda, aggregation, moreSize = 5) {
 
         return client.get(url, { params });
       },
-      aggregation
+      aggregationKey,
+      aggregation: params.aggregations[0]
     });
   };
 }

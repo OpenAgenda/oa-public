@@ -10,7 +10,7 @@ import {
   PieChart, Pie, Legend, Tooltip, Cell
 } from 'recharts';
 import addRestItem from '../utils/addRestItem';
-import CustomTooltip from './CustomTooltip';
+import CustomTooltip from './basics/CustomTooltip';
 
 function addColorsToData(data) {
   const colors = distinctColors({

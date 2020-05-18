@@ -1,10 +1,23 @@
-import React, { useMemo } from 'react';
-import { defineMessages } from 'react-intl';
-import HorizontalBarChart from './HorizontalBarChart';
-import DateTooltipItem from './DateTooltipItem';
-import DateAxisTick from './DateAxisTick';
+import React, {
+  useMemo,
+  useState,
+  useLayoutEffect,
+  useEffect,
+  useRef
+} from 'react';
+import { useIntl, defineMessages } from 'react-intl';
+import { Spinner } from '@openagenda/react-components';
+import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
+import HorizontalBarChart from './basics/HorizontalBarChart';
+import DateTooltipItem from './basics/DateTooltipItem';
+import DateAxisTick from './basics/DateAxisTick';
+import IntervalSelect from './IntervalSelect';
 
 const messages = defineMessages({
+  savedEventsBySelector: {
+    id: 'AgendaStats.SavedEventsChart.savedEventsBySelector',
+    defaultMessage: 'Saved events by {selector}'
+  },
   tooltipContent: {
     id: 'AgendaStats.SavedEventsChart.tooltipContent',
     defaultMessage: '{value, number} events'
@@ -53,9 +66,53 @@ function mergeCreatedAndUpdated(createdData, updatedData) {
 export default function SavedEventsCharts({
   createdData,
   updatedData,
+  createdAggregation,
+  updatedAggregation,
   totalEvents,
-  interval
+  range,
+  loadAggregation
 }) {
+  const latestData = useRef({ createdData, updatedData });
+  useEffect(() => {
+    latestData.current = { createdData, updatedData };
+  });
+
+  const intl = useIntl();
+
+  const [interval, setInterval] = useState(() => rangeToCalendarInterval(range));
+  const [loading, setLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    setInterval(rangeToCalendarInterval(range));
+  }, [range]);
+
+  // Reload the graph with changed `interval` option
+  useEffect(() => {
+    const promises = [];
+
+    setLoading(true);
+
+    if (latestData.current.createdData) {
+      promises.push(
+        loadAggregation('createdAt', previousOptions => ({
+          ...previousOptions,
+          interval
+        }))
+      );
+    }
+
+    if (latestData.current.updatedData) {
+      promises.push(
+        loadAggregation('updatedAt', previousOptions => ({
+          ...previousOptions,
+          interval
+        }))
+      );
+    }
+
+    Promise.allSettled(promises).then(() => setLoading(false));
+  }, [interval, loadAggregation]);
+
   const data = useMemo(() => {
     if (createdData && updatedData) {
       return mergeCreatedAndUpdated(createdData, updatedData);
@@ -70,20 +127,43 @@ export default function SavedEventsCharts({
     }
   }, [createdData, updatedData]);
 
+  const displayedInterval = useMemo(
+    () => createdAggregation?.interval || updatedAggregation?.interval,
+    [createdAggregation, updatedAggregation]
+  );
+
   return (
-    <HorizontalBarChart
-      data={data}
-      total={totalEvents}
-      dataKey={createdData && updatedData ? 'createdCount' : 'eventCount'}
-      dataKey1={createdData && updatedData ? 'updatedCount' : undefined}
-      labelKey="key"
-      renderTooltipItem={(
-        <DateTooltipItem
-          interval={interval}
-          message={messages.tooltipContent}
-        />
-      )}
-      xAxisTick={<DateAxisTick interval={interval} />}
-    />
+    <>
+      <h3 className="text-center">
+        {intl.formatMessage(messages.savedEventsBySelector, {
+          selector: (
+            <>
+              <IntervalSelect value={interval} onChange={setInterval} />
+
+              {loading ? (
+                <span className="margin-left-xs">
+                  <Spinner mode="inline" />
+                </span>
+              ) : null}
+            </>
+          )
+        })}
+      </h3>
+
+      <HorizontalBarChart
+        data={data}
+        total={totalEvents}
+        dataKey={createdData && updatedData ? 'createdCount' : 'eventCount'}
+        dataKey1={createdData && updatedData ? 'updatedCount' : undefined}
+        labelKey="key"
+        renderTooltipItem={(
+          <DateTooltipItem
+            interval={displayedInterval}
+            message={messages.tooltipContent}
+          />
+        )}
+        xAxisTick={<DateAxisTick interval={displayedInterval} />}
+      />
+    </>
   );
 }
