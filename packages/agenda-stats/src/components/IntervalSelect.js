@@ -54,6 +54,7 @@ export default function IntervalSelect({ value, onChange }) {
       value={valueOption}
       onChange={handleChange}
       styles={intervalSelectStyles}
+      isSearchable={false}
     />
   );
 }
