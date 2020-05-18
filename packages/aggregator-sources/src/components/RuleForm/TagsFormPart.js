@@ -42,7 +42,7 @@ export default ({ schema }) => {
             options={options}
             menuPosition="fixed"
             isMulti
-            creatable
+            isCreatable
           />
         </div>
       </div>

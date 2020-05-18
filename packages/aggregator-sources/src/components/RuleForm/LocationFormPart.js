@@ -42,7 +42,7 @@ export default () => {
               menuPosition="fixed"
               initialValue={initialValues?.locationValues}
               isMulti
-              creatable
+              isCreatable
             />
           </div>
         </div>
