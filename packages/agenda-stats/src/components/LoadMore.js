@@ -20,7 +20,7 @@ export default function LoadMore({
   data,
   total,
   dataKey,
-  aggregation,
+  aggregationKey,
   loadMore
 }) {
   const intl = useIntl();
@@ -30,23 +30,23 @@ export default function LoadMore({
 
   const handleClick = useCallback(() => {
     setLoading(true);
-
-    loadMore(aggregation)
+    loadMore(aggregationKey)
       .then(result => {
-        const aggData = result.data.aggregations[aggregation];
+        const aggData = result.data.aggregations[aggregationKey];
 
         if (aggData.length === data.length) {
           setNoMore(true);
         }
       })
       .finally(() => setLoading(false));
-  }, [aggregation, data.length, loadMore]);
+  }, [aggregationKey, data.length, loadMore]);
 
   const hasMore = useMemo(
     () => total !== data.reduce((accu, next) => accu + _.get(next, dataKey), 0),
     [total, data, dataKey]
   );
 
+  // Reset `hasMore` if data changes
   useLayoutEffect(() => {
     if (hasMore) {
       setNoMore(false);
@@ -54,21 +54,21 @@ export default function LoadMore({
   }, [data, hasMore]);
 
   useLayoutEffect(() => {
-    let timer;
+    let id;
 
     if (noMore) {
       setMessage(intl.formatMessage(messages.nothingMore));
-      timer = setTimeout(() => {
+      id = setTimeout(() => {
         setMessage(null);
       }, 1800);
     }
 
     return () => {
-      if (timer) {
-        clearTimeout(timer);
+      if (id) {
+        clearTimeout(id);
       }
     };
-  }, [noMore]);
+  }, [intl, noMore]);
 
   if (!hasMore || noMore) {
     if (message) {

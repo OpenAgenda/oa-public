@@ -4,7 +4,7 @@ import {
   XAxis, YAxis, Tooltip, CartesianGrid, Bar, BarChart
 } from 'recharts';
 import { css } from '@emotion/core';
-import addRestItem from '../utils/addRestItem';
+import addRestItem from '../../utils/addRestItem';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
