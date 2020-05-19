@@ -2,7 +2,7 @@
 
 const { tz } = require('moment-timezone');
 
-module.exports = (v1, { timezone }) => {
+module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
   const v2 = {};
   if (!v1) {
     return v2;
@@ -21,6 +21,22 @@ module.exports = (v1, { timezone }) => {
       gte: fromAtDayStart.format(),
       lte: toAtDayEnd.format()
     };
+  }
+
+  if (v1.tags && slugSchemaOptionIdMap) {
+    Object.assign(
+      v2,
+      v1.tags
+        .map(tag => slugSchemaOptionIdMap.filter(o => o.slug === tag).pop())
+        .filter(match => !!match)
+        .reduce(
+          (additionalFieldFilters, { fieldName, optionId }) => ({
+            ...additionalFieldFilters,
+            [fieldName]: optionId
+          }),
+          {}
+        )
+    );
   }
 
   return v2;

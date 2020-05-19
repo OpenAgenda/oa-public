@@ -1,0 +1,340 @@
+{
+  "title": "Ville de Genève - événements organisés par des organisations externes à la Ville de Genève",
+  "description": "Contenus proposés par des associations, clubs sportifs, acteurs culturels, etc. à Genève pour publication sur le site geneve.ch.\nPlus d'infos sur geneve.events",
+  "slug": "ville-de-geneve-agenda-public",
+  "url": "http://www.geneve.ch/agenda",
+  "tagSet": {
+    "groups": [
+      {
+        "name": "Service Contributeur",
+        "tags": [
+          {
+            "id": 70141,
+            "label": "Contributeur Externe",
+            "slug": "ext",
+            "schemaOptionId": "9661.55"
+          }
+        ],
+        "access": "public",
+        "required": true,
+        "unique": true
+      },
+      {
+        "name": "Type d'événement",
+        "tags": [
+          {
+            "id": 67452,
+            "label": "Animation",
+            "slug": "animation",
+            "schemaOptionId": "9661.34"
+          },
+          {
+            "id": 67451,
+            "label": "Atelier",
+            "slug": "atelier",
+            "schemaOptionId": "9661.35"
+          },
+          {
+            "id": 67453,
+            "label": "Balade",
+            "slug": "balade",
+            "schemaOptionId": "9661.36"
+          },
+          {
+            "id": 67454,
+            "label": "Compétition",
+            "slug": "competition",
+            "schemaOptionId": "9661.37"
+          },
+          {
+            "id": 67455,
+            "label": "Concert",
+            "slug": "concert",
+            "schemaOptionId": "9661.38"
+          },
+          {
+            "id": 67456,
+            "label": "Conférence-Rencontre",
+            "slug": "conference-rencontre",
+            "schemaOptionId": "9661.39"
+          },
+          {
+            "id": 67457,
+            "label": "Danse",
+            "slug": "danse",
+            "schemaOptionId": "9661.40"
+          },
+          {
+            "id": 67458,
+            "label": "Exposition",
+            "slug": "exposition",
+            "schemaOptionId": "9661.41"
+          },
+          {
+            "id": 76065,
+            "label": "Festival",
+            "slug": "festival",
+            "schemaOptionId": "9661.61"
+          },
+          {
+            "id": 67459,
+            "label": "Inauguration",
+            "slug": "inauguration",
+            "schemaOptionId": "9661.42"
+          },
+          {
+            "id": 67460,
+            "label": "Lecture",
+            "slug": "lecture",
+            "schemaOptionId": "9661.43"
+          },
+          {
+            "id": 67461,
+            "label": "Manifestation",
+            "slug": "manifestation",
+            "schemaOptionId": "9661.44"
+          },
+          {
+            "id": 67462,
+            "label": "Projection",
+            "slug": "projection",
+            "schemaOptionId": "9661.45"
+          },
+          {
+            "id": 67463,
+            "label": "Spectacle",
+            "slug": "spectacle",
+            "schemaOptionId": "9661.46"
+          },
+          {
+            "id": 67464,
+            "label": "Théâtre",
+            "slug": "theatre",
+            "schemaOptionId": "9661.47"
+          },
+          {
+            "id": 67465,
+            "label": "Visite commentée",
+            "slug": "visite-commentee",
+            "schemaOptionId": "9661.48"
+          }
+        ],
+        "access": "public",
+        "required": true,
+        "unique": true
+      },
+      {
+        "name": "Public(s) cible(s)",
+        "tags": [
+          {
+            "id": 67475,
+            "label": "Jeunes",
+            "slug": "jeunes",
+            "schemaOptionId": "9661.26"
+          },
+          {
+            "id": 67476,
+            "label": "Enfants et famille",
+            "slug": "enfants-et-famille",
+            "schemaOptionId": "9661.27"
+          },
+          {
+            "id": 67477,
+            "label": "Personnes en situation de handicap",
+            "slug": "personnes-en-situation-de-handicap",
+            "schemaOptionId": "9661.28"
+          },
+          {
+            "id": 67478,
+            "label": "Seniors et retraité-e-s",
+            "slug": "seniors-et-retraite-e-s",
+            "schemaOptionId": "9661.29"
+          },
+          {
+            "id": 67479,
+            "label": "Tous publics",
+            "slug": "tous-publics",
+            "schemaOptionId": "9661.30"
+          }
+        ],
+        "access": "public",
+        "required": true,
+        "unique": false
+      },
+      {
+        "name": "Organisation de l'événement",
+        "tags": [
+          {
+            "id": 67480,
+            "label": "Evénement VDG",
+            "slug": "evenement-vdg",
+            "schemaOptionId": "9661.31"
+          },
+          {
+            "id": 67481,
+            "label": "Evénement soutenu par VDG",
+            "slug": "evenement-soutenu-par-vdg",
+            "schemaOptionId": "9661.32"
+          },
+          {
+            "id": 67482,
+            "label": "Evénement organisé par un externe",
+            "slug": "evenement-organise-par-un-externe",
+            "schemaOptionId": "9661.33"
+          }
+        ],
+        "access": "public",
+        "required": true,
+        "unique": true
+      },
+      {
+        "name": "Thématiques internes",
+        "tags": [
+          {
+            "id": 67746,
+            "label": "Climate",
+            "slug": "climat",
+            "schemaOptionId": "9661.57"
+          },
+          {
+            "id": 67483,
+            "label": "Culture VDG",
+            "slug": "culture-vdg",
+            "schemaOptionId": "9661.49"
+          },
+          {
+            "id": 67487,
+            "label": "Développement durable",
+            "slug": "developpement-durable",
+            "schemaOptionId": "9661.53"
+          },
+          {
+            "id": 67747,
+            "label": "Diversity",
+            "slug": "diversite",
+            "schemaOptionId": "9661.58"
+          },
+          {
+            "id": 76066,
+            "label": "Genre et sports",
+            "slug": "genre-et-sports",
+            "schemaOptionId": "9661.62"
+          },
+          {
+            "id": 67486,
+            "label": "Intergénérationnel",
+            "slug": "intergenerationnel",
+            "schemaOptionId": "9661.52"
+          },
+          {
+            "id": 67748,
+            "label": "Feed the city",
+            "slug": "nourrir-la-ville",
+            "schemaOptionId": "9661.59"
+          },
+          {
+            "id": 67484,
+            "label": "Sport",
+            "slug": "sport",
+            "schemaOptionId": "9661.50"
+          },
+          {
+            "id": 67485,
+            "label": "Espaces de quartier",
+            "slug": "espaces-de-quartier",
+            "schemaOptionId": "9661.51"
+          },
+          {
+            "id": 67749,
+            "label": "Zero Sexism",
+            "slug": "zero-sexisme",
+            "schemaOptionId": "9661.60"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      },
+      {
+        "name": "Labels",
+        "tags": [
+          {
+            "id": 67488,
+            "label": "100% gratuit",
+            "slug": "100-gratuit",
+            "schemaOptionId": "9661.24"
+          },
+          {
+            "id": 67489,
+            "label": "En plein air",
+            "slug": "en-plein-air",
+            "schemaOptionId": "9661.25"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      }
+    ]
+  },
+  "categorySet": {
+    "categories": []
+  },
+  "locationSet": {
+    "defaultCountryCode": "CH"
+  },
+  "customSet": [
+    {
+      "name": "internal_remarks",
+      "type": "private",
+      "fieldType": "textarea",
+      "optional": true,
+      "label": {
+        "en": "Internal remarks",
+        "fr": "Remarques internes"
+      }
+    },
+    {
+      "name": "other_place",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "label": {
+        "fr": "Autre lieu",
+        "en": "Autre lieu"
+      },
+      "max": 300
+    },
+    {
+      "name": "organisator",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "label": {
+        "en": "Organisateur",
+        "fr": "Organisateur"
+      }
+    },
+    {
+      "name": "organisator_url",
+      "type": "public",
+      "fieldType": "text",
+      "optional": true,
+      "label": {
+        "en": "Organisator url",
+        "fr": "Organisateur url"
+      }
+    },
+    {
+      "name": "image_alt_text",
+      "type": "public",
+      "fieldType": "text",
+      "optional": false,
+      "label": {
+        "en": "Texte alternatif à l'image",
+        "fr": "Texte alternatif à l'image"
+      }
+    }
+  ],
+  "embeds": []
+}

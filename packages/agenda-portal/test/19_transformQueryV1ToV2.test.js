@@ -19,4 +19,24 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
       }
     });
   });
+
+  test('oaq tags filter is converted to something', () => {
+    const v2Query = transformQueryV1ToV2(
+      {
+        tags: ['animation']
+      },
+      {
+        slugSchemaOptionIdMap: [
+          {
+            fieldName: 'type-devenement',
+            optionId: 34,
+            schemaId: 9661,
+            slug: 'animation'
+          }
+        ]
+      }
+    );
+
+    expect(v2Query).toEqual({ 'type-devenement': 34 });
+  });
 });

@@ -48,9 +48,7 @@ module.exports = options => {
     show: (event, req, res) => {
       const transformed = preTransform(event, req, res);
 
-      transformed.timings = transformed.timings.map(
-        detailedTiming.bind(null, { event: transformed, req })
-      );
+      transformed.timings = transformed.timings.map(t => detailedTiming({ event: transformed, req }, t));
 
       transformed.months = spreadPerMonthPerDay(
         transformed.timings,
