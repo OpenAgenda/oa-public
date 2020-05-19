@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/events",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "handle core event data",
   "author": "Kaoré",
   "repository": {
@@ -22,7 +22,7 @@
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/slugs": "^1.1.0",
-    "@openagenda/validators": "^2.2.5",
+    "@openagenda/validators": "^2.2.6",
     "async": "^2.1.2",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",

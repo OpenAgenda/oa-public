@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.4...@openagenda/member-apps@2.0.5) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/member-apps
+
+
+
+
+
 ### [2.0.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.3...@openagenda/member-apps@2.0.4) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/member-apps

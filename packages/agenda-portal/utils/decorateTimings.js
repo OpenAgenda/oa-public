@@ -3,9 +3,14 @@
 const moment = require('moment-timezone');
 
 const decorateTiming = (timing, timezone, formats = []) => formats.reduce(
-  (t, { src, dst, format }) => ({
+  (t, {
+    src, dst, format, locale
+  }) => ({
     ...t,
-    [dst]: moment.tz(t[src], timezone).format(format)
+    [dst]: moment
+      .tz(t[src], timezone)
+      .locale(locale || 'fr')
+      .format(format)
   }),
   timing
 );

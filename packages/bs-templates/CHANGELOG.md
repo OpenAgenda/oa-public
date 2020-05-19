@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/bs-templates@2.4.0...@openagenda/bs-templates@2.4.1) (2020-05-19)
+
+
+### Bug Fixes
+
+* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commit/d0770b1fe6488d4050360b9db2c698c85b02eb85))
+
+
+
 ## [2.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/bs-templates@2.3.0...@openagenda/bs-templates@2.4.0) (2020-05-15)
 
 

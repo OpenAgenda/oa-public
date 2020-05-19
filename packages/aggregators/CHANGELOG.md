@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.10.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregators@1.10.4...@openagenda/aggregators@1.10.5) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/aggregators
+
+
+
+
+
 ### [1.10.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregators@1.10.3...@openagenda/aggregators@1.10.4) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/aggregators

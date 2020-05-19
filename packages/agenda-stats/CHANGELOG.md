@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.1.0...@openagenda/agenda-stats@1.2.0) (2020-05-19)
+
+
+### Features
+
+* **agenda-stats:** add LoadMore ([6794877](https://bitbucket.org/openagenda/oa/commit/679487710b2917ffbcf75d93560cac14ace3f8f3))
+* **agenda-stats:** load interval variants on change ([9946cbf](https://bitbucket.org/openagenda/oa/commit/9946cbf8ef37a51204bf96d57419f422b9ade448))
+
+
+
 ## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.0.3...@openagenda/agenda-stats@1.1.0) (2020-05-15)
 
 

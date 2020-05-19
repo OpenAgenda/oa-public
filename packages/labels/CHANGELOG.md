@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.2.0...@openagenda/labels@2.2.1) (2020-05-19)
+
+
+### Bug Fixes
+
+* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commit/d0770b1fe6488d4050360b9db2c698c85b02eb85))
+
+
+
 ## [2.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.1.7...@openagenda/labels@2.2.0) (2020-05-15)
 
 
