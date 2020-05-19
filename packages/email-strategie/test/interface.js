@@ -15,7 +15,7 @@ describe( 'GenerateAuthentification', function() {
   it( 'should give authentification error', function( done ) {
 
     ifc.GenerateAuthentification( {
-      login: 'unknown login', 
+      login: 'unknown login',
       password: 'qfdsqfds'
     }, function( err, result ) {
 
@@ -59,8 +59,8 @@ describe( 'authenticate, create and delete lists', function() {
   before( function( done ) {
 
     ifc.GenerateAuthentification( {
-      login: creds.login, 
-      password: creds.password 
+      login: creds.login,
+      password: creds.password
     }, function( err, result ) {
 
       token = result.token;
@@ -116,8 +116,8 @@ describe( 'get list, handle content', function() {
   before( function( done ) {
 
     ifc.GenerateAuthentification( {
-      login: creds.login, 
-      password: creds.password 
+      login: creds.login,
+      password: creds.password
     }, function( err, result ) {
 
       token = result.token;
@@ -171,11 +171,11 @@ describe( 'get list, handle content', function() {
 
   it( 'GetListByID', function( done ) {
 
-    ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
+    ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
       response.totalRecords.should.eql( '0' );
 
-      response.fieldList.DynamicContentListHeaderVO.map( function( f ) { 
+      response.fieldList.DynamicContentListHeaderVO.map( function( f ) {
 
         return f.fieldLabel[ 0 ];
 
@@ -203,7 +203,7 @@ describe( 'get list, handle content', function() {
 
       response.should.equal( 'SUCCESS' );
 
-      ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
+      ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
         response.totalRecords.should.eql( 1 );
 
@@ -250,7 +250,7 @@ describe( 'get list, handle content', function() {
       [ 3, 'La muraille \r\n de lave', 'glauque' ],
       [ 4, 'Les Matins de l\'emploi', 'Les métiers de l\'hotellerie : venez rencontrer des professionnels, partager expérience et points de vue.  ' ],
       [ 5, '\'\'  . \n\n      de l’hôtelle', 'Test' ],
-      [ 6, '&', 'why use &' ],
+      [ 6, '&', 'why use &' ],
       [ 7, '*;#"“”#~\\', '*;#"“”#~\\' ],
       [ 8, '<>', '<>' ]
     ], function( entry, ecb ) {
@@ -265,7 +265,7 @@ describe( 'get list, handle content', function() {
 
       should( err ).equal( null );
 
-      ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
+      ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
         response.totalRecords.should.eql( 8 );
 
@@ -335,7 +335,7 @@ describe( 'get list, handle content', function() {
 
       should( err ).equal( null );
 
-      ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
+      ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
         response.totalRecords.should.eql( 3 );
 
@@ -345,7 +345,7 @@ describe( 'get list, handle content', function() {
           listContent: [ 'header?', '1', '2', '3' ]
         }, function( err, response ) {
 
-          ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
+          ifc.GetListByID( { listID: listId, token: token }, function( err, response ) {
 
             response.totalRecords.should.eql( 0 );
 
