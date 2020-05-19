@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/validators",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.8.4",
-    "@openagenda/utils": "^1.2.0",
+    "@openagenda/utils": "^1.2.1",
     "core-js": "^3.6.4",
     "lodash": "^4.17.15",
     "validator": "^12.2.0"

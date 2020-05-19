@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.6.0...@openagenda/agenda-portal@2.7.0) (2020-05-19)
+
+
+### Features
+
+* **agenda-portal:** added utilities and documentation ([02b9c98](https://bitbucket.org/openagenda/oa/commit/02b9c9863d53aa0f9934ea5d1971440df71cf85a))
+* **agenda-portal:** util to transform v1 query to v2. Date filter only ([285402d](https://bitbucket.org/openagenda/oa/commit/285402d1ee1eabee605ed90112e4aea129750eaa))
+
+
+
 ## [2.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.5.2...@openagenda/agenda-portal@2.6.0) (2020-05-15)
 
 

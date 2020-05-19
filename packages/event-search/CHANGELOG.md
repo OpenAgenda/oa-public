@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.3.0...@openagenda/event-search@2.4.0) (2020-05-19)
+
+
+### Features
+
+* **event-search:** registration field holds a list of { type, value } pairs ([a6188f0](https://bitbucket.org/openagenda/oa/commit/a6188f0c0c362a2055663ee4cd01609be3673138))
+
+
+
 ## [2.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.2.2...@openagenda/event-search@2.3.0) (2020-05-15)
 
 

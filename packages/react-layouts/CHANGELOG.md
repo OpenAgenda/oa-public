@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.0...@openagenda/react-layouts@1.1.1) (2020-05-19)
+
+
+### Bug Fixes
+
+* **react-layouts:** fix kind of button ([2966f84](https://bitbucket.org/openagenda/oa/commit/2966f84c2e0869791606eb7fc84432314bacadb9))
+
+
+
 ## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.0.2...@openagenda/react-layouts@1.1.0) (2020-05-15)
 
 

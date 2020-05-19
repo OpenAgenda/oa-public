@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.9.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.6...@openagenda/legacy@1.9.7) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/legacy
+
+
+
+
+
 ### [1.9.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.5...@openagenda/legacy@1.9.6) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/legacy
