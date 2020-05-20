@@ -13,14 +13,12 @@ module.exports = async function prepareSummary(config) {
     config.schemas.feed_notification,
     q => q.select(
       config.schemas.feed_notification + '.feed_id',
-      knex.raw(`ANY_VALUE(${config.schemas.feed_notification + '.id'}) AS id`),
-      knex.raw(`ANY_VALUE(${config.schemas.feed_notification + '.updated_at'}) AS updated_at`),
+      knex.raw(`Min(${config.schemas.feed_notification + '.id'}) AS id`),
       config.schemas.feed + '.entity_type',
       config.schemas.feed + '.entity_uid'
     )
       .where({ state: 0, sent: 0 })
       .groupBy(config.schemas.feed_notification + '.feed_id')
-      .orderBy('updated_at', 'desc')
       .join(config.schemas.feed, config.schemas.feed_notification + '.feed_id', config.schemas.feed + '.id'),
     async (item, index, cb) => {
       let notifications = await knex(config.schemas.feed_notification).select()
