@@ -19,21 +19,14 @@ module.exports = async function sendSummary( { user, notifications } ) {
 
   try {
 
-    if ( Math.abs( moment().diff( moment( notifications[ notifications.length - 1 ].createdAt ), 'days', true ) ) > 2 ) {
-
-      await knex( config.schemas.feed_notification )
-        .where( 'feed_id', notifications[ 0 ].feedId )
-        .whereIn( 'id', notifications.map( v => v.id ) )
-        .update( { sent: 1 } );
-
-      return log( 'warn', 'Attempt to send too old summary at %s', user.email, { notifications } );
-
-    }
-
     await knex( config.schemas.feed_notification )
       .where( 'feed_id', notifications[ 0 ].feedId )
       .whereIn( 'id', notifications.map( v => v.id ) )
       .update( { sent: 1 } );
+
+    if ( Math.abs( moment().diff( moment( notifications[ notifications.length - 1 ].updatedAt ), 'days', true ) ) > 2 ) {
+      return log( 'warn', 'Attempt to send too old summary at %s', user.email, { notifications } );
+    }
 
     const lang = user.culture || 'fr';
 
@@ -47,7 +40,7 @@ module.exports = async function sendSummary( { user, notifications } ) {
         const formatted = formatNotification( v, lang );
 
         return '<span style="font-size: 12px">' +
-          _.upperFirst( moment( v.createdAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
+          _.upperFirst( moment( v.updatedAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
           '<a href="' + formatted.url + '" style="color: gray; text-decoration: none">' +
           formatted.content +
           '</a>';
@@ -67,7 +60,7 @@ module.exports = async function sendSummary( { user, notifications } ) {
       data: {
         message,
         nbr: notifications.length,
-        date: moment( notifications[ notifications.length - 1 ].createdAt ).locale( lang ).format( 'LLL' ),
+        date: moment( notifications[ notifications.length - 1 ].updatedAt ).locale( lang ).format( 'LLL' ),
         link: config.root,
         logo: {
           src: `${config.root}/images/openagenda.png`,
