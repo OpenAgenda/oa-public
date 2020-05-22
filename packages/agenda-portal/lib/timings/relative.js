@@ -4,14 +4,20 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 const moment = require('moment');
 
-function _appendLabel(timing) {
-  return _.assign(timing, {
-    label: _.capitalize(moment(timing.start).fromNow())
+const { getValue: getBeginValue } = require('./begin');
+
+function _appendLabel(timing, { lang }) {
+  return Object.assign(timing, {
+    label: _.capitalize(
+      moment(getBeginValue(timing))
+        .locale(lang)
+        .fromNow()
+    )
   });
 }
 
 // assumes timings are sorted
-module.exports = event => {
+module.exports = (event, { lang }) => {
   if (!event.timings || !event.timings.length) {
     return event;
   }
@@ -20,7 +26,7 @@ module.exports = event => {
   const now = new Date();
 
   const update = {
-    lastTiming: { $set: _appendLabel(last) },
+    lastTiming: { $set: _appendLabel(last, { lang }) },
     nextTiming: { $set: null }
   };
 
@@ -33,7 +39,7 @@ module.exports = event => {
   for (const t of event.timings) {
     // go through timings, keep the first one that finishes in the future
     if (new Date(t.end) > now) {
-      update.nextTiming = { $set: _appendLabel(t) };
+      update.nextTiming = { $set: _appendLabel(t, { lang }) };
 
       break;
     }

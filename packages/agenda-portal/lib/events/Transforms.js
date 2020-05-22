@@ -3,6 +3,7 @@
 const _ = require('lodash');
 
 const { applyContextLink } = require('../eventNavigation');
+const getBeginValue = require('../timings/begin').getValue;
 const detailedTiming = require('../timings/detailed');
 const relativeTimings = require('../timings/relative');
 const applySchemaJSONLD = require('./applySchemaJSONLD');
@@ -17,7 +18,7 @@ function _preEventTransform(options, event, req, res) {
       ['range', 'title', 'description', 'html'],
       res.locals.lang
     ),
-    relativeTimings,
+    _.partialRight(relativeTimings, { lang: res.locals.lang }),
     links.bind(null, res.locals)
   ].reduce((e, fn) => fn(e), event);
 }
@@ -48,18 +49,18 @@ module.exports = options => {
     show: (event, req, res) => {
       const transformed = preTransform(event, req, res);
 
-      transformed.timings = transformed.timings.map(t => detailedTiming({ event: transformed, req }, t));
+      transformed.timings = transformed.timings.map(t => detailedTiming({ event: transformed, req }, t, res.locals.lang));
 
       transformed.months = spreadPerMonthPerDay(
         transformed.timings,
-        transformed.timezone,
+        transformed.timezone || transformed.location.timezone,
         res.locals.lang
       );
 
       if (_.get(req, 'params.timing')) {
         transformed.timing = _.find(
           transformed.timings,
-          t => `${new Date(t.start).getTime()}` === req.params.timing
+          t => `${new Date(getBeginValue(t)).getTime()}` === req.params.timing
         );
       }
 

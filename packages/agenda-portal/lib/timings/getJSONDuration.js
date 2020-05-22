@@ -2,4 +2,4 @@
 
 const moment = require('moment-timezone');
 
-module.exports = (start, end) => moment.duration(new Date(end).getTime() - new Date(start).getTime()).toJSON();
+module.exports = (begin, end) => moment.duration(new Date(end).getTime() - new Date(begin).getTime()).toJSON();

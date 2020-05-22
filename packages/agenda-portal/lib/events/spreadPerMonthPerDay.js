@@ -4,13 +4,24 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const { tz } = require('moment-timezone');
 
+const {
+  getKey: getTimingBeginKey,
+  getValue: getTimingBeginValue
+} = require('../timings/begin');
 const getMonthWeek = require('./getMonthWeek');
 
 function _monthDiff(currentMonth, month) {
   return moment(`${month}-01`).diff(`${currentMonth}-01`, 'months');
 }
 
-function _monthWeeks(month, weeks, timezone, today) {
+function _monthWeeks({
+  month,
+  weeks,
+  timezone,
+  today,
+  timingBeginKey,
+  locale
+}) {
   if (!weeks) return [];
 
   return _.keys(weeks).map(week => ({
@@ -23,7 +34,9 @@ function _monthWeeks(month, weeks, timezone, today) {
       passed: today.month + today.day > month + day,
       timings: weeks[week][day],
       label: _.capitalize(
-        tz(_.get(weeks[week][day], '0.start'), timezone).format('dddd D')
+        tz(_.get(weeks[week][day], `0.${timingBeginKey}`), timezone)
+          .locale(locale)
+          .format('dddd D')
       )
     }))
   }));
@@ -52,7 +65,7 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
 
   const keyedTimings = timings.reduce(
     (carry, timing) => {
-      const start = new Date(timing.start);
+      const start = new Date(getTimingBeginValue(timing));
 
       if (!carry.first || start < carry.first) {
         carry.first = start;
@@ -62,7 +75,7 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
         carry.last = start;
       }
 
-      const keys = _getKeys(timing.start, timezone, locale);
+      const keys = _getKeys(getTimingBeginValue(timing), timezone, locale);
 
       if (!_.get(carry.months, [keys.month, keys.week, keys.day])) {
         _prepare(carry.months, keys);
@@ -107,12 +120,14 @@ module.exports = (timings = [], timezone = 'Europe/Paris', locale = 'en') => {
           .locale(locale)
           .format('MMMM YYYY')
       ),
-      weeks: _monthWeeks(
-        keys.month,
-        keyedTimings.months[keys.month],
+      weeks: _monthWeeks({
+        month: keys.month,
+        weeks: keyedTimings.months[keys.month],
         timezone,
-        today
-      )
+        today,
+        timingBeginKey: getTimingBeginKey(_.first(timings)),
+        locale
+      })
     });
 
     dayCursor.setMonth(dayCursor.getMonth() + 1);

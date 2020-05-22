@@ -19,7 +19,7 @@ module.exports = ({
   // root // root path for portal
 }) => (e, req = null, res = null, context = null) => [
   flatten.bind(null, ['range', 'title', 'description', 'html'], lang),
-  _.partialRight(relativeTimings, { lang, moment }),
+  _.partialRight(relativeTimings, { lang }),
   _.partialRight(links, { lang, res }),
   context ? applyContextLink.bind(null, { req, context }) : _.noop,
   eventParser ? _.partialRight(eventParser, { lang, moment }) : _.noop

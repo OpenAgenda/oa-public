@@ -1,7 +1,6 @@
-
 import debug from 'debug';
-import isEventHref from './lib/isEventHref';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
+import readPageProps from './lib/readPageProps';
 
 const log = debug('main');
 
@@ -129,12 +128,12 @@ function progressiveLoad(canvasSelector) {
   });
 }
 
-function onWidgetController(origin, widget, update, query = {}) {
+function onWidgetController({ origin, pageProps }, widget, update, query = {}) {
   log('onWidgetUpdate from %s, %j', origin, query);
   nextProgressiveLoadPage = 2;
   rockBottom = false;
 
-  if (isEventHref(window.location.href)) {
+  if (pageProps.pageType === 'event') {
     window.location.href = setListPageHrefFromContext(
       window.location.href,
       query
@@ -160,16 +159,32 @@ function onWidgetController(origin, widget, update, query = {}) {
   });
 }
 
-window.oa = {
-  onReloadWithPassed: onWidgetController.bind(null, 'onReloadWithPassed', null),
-  onWidgetUpdate: onWidgetController.bind(null, 'onWidgetUpdate')
-};
-
 $(() => {
+  const pageProps = readPageProps($);
+
+  console.log('loaded', pageProps);
+
+  window.oa = {
+    onReloadWithPassed: onWidgetController.bind(
+      null,
+      {
+        origin: 'onReloadWithPassed',
+        pageProps
+      },
+      null
+    ),
+    onWidgetUpdate: onWidgetController.bind(null, {
+      origin: 'onWidgetUpdate',
+      pageProps
+    })
+  };
+
   log('page ready');
   $('.js_trigger_spin').on('click', spin);
 
-  progressiveLoad('.js_progressive_load');
+  if (pageProps && pageProps.pageType === 'list') {
+    progressiveLoad(pageProps, '.js_progressive_load');
+  }
 
   updateTotal();
 });

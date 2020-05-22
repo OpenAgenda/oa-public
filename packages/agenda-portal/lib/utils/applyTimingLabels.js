@@ -4,18 +4,23 @@ const moment = require('moment-timezone');
 
 const { tz } = moment;
 
+const {
+  getKey: getBeginKey,
+  getValue: getBeginValue
+} = require('../timings/begin');
+
 module.exports = (timing, timezone = 'Europe/Paris', locale = 'en') => Object.assign(timing, {
   labels: {
-    start: {
-      day: tz(timing.start, timezone)
+    [getBeginKey(timing)]: {
+      day: tz(getBeginValue(timing), timezone)
         .locale(locale)
         .format('LL'),
-      time: tz(timing.start, timezone)
+      time: tz(getBeginValue(timing), timezone)
         .locale(locale)
         .format('LT')
     },
     end: {
-      day: tz(timing.start, timezone)
+      day: tz(getBeginValue(timing), timezone)
         .locale(locale)
         .format('LL'),
       time: tz(timing.end, timezone)

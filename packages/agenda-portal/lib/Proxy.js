@@ -76,14 +76,20 @@ module.exports = ({
   function get(agendaUid, { uid, slug }) {
     return _fetch(
       agendaUid,
-      'events.json',
-      {
-        oaq: {
-          passed: 1,
-          ...(uid ? { uids: [uid] } : {}),
-          ...(slug ? { slug } : {})
+      `events.${jsonExportVersion === 2 ? 'v2.' : ''}json`,
+      jsonExportVersion === 2
+        ? {
+          ...(uid ? { uid } : {}),
+          ...(slug ? { slug } : {}),
+          detailed: 1
         }
-      },
+        : {
+          oaq: {
+            passed: 1,
+            ...(uid ? { uids: [uid] } : {}),
+            ...(slug ? { slug } : {})
+          }
+        },
       1
     ).then(r => _.get(r, 'events.0'));
   }
