@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/landing@1.3.7...@openagenda/landing@1.3.8) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/landing
+
+
+
+
+
 ### [1.3.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/landing@1.3.6...@openagenda/landing@1.3.7) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/landing

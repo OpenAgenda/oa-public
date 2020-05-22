@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [4.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.1.0...@openagenda/react-utils@4.1.1) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/react-utils
+
+
+
+
+
 ## [4.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.0.3...@openagenda/react-utils@4.1.0) (2020-05-15)
 
 

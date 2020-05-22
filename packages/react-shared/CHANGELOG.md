@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@1.1.0...@openagenda/react-shared@2.0.0) (2020-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **react-shared:** rename creatable prop to isCreatable
+
+### Code Refactoring
+
+* **react-shared:** rename creatable prop to isCreatable ([db14fc3](https://bitbucket.org/openagenda/oa/commit/db14fc3ea00cd94c657c07f16d029ce30f78b3ed))
+
+
+
 ## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@1.0.2...@openagenda/react-shared@1.1.0) (2020-05-15)
 
 

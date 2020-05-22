@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.7.0...@openagenda/agenda-portal@2.8.0) (2020-05-22)
+
+
+### Features
+
+* **agenda-portal:** pageProps mechanism to pass init config to frontend scripts, locale bugfix ([a307333](https://bitbucket.org/openagenda/oa/commit/a3073333b6f2725ea89654f37b23e71486885b57))
+
+
+
 ## [2.7.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.6.0...@openagenda/agenda-portal@2.7.0) (2020-05-19)
 
 

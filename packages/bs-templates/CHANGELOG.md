@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.4.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/bs-templates@2.4.1...@openagenda/bs-templates@2.4.2) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/bs-templates
+
+
+
+
+
 ### [2.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/bs-templates@2.4.0...@openagenda/bs-templates@2.4.1) (2020-05-19)
 
 

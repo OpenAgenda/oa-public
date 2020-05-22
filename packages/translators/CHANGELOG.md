@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/translators@2.0.3...@openagenda/translators@2.0.4) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/translators
+
+
+
+
+
 ### [2.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/translators@2.0.2...@openagenda/translators@2.0.3) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/translators

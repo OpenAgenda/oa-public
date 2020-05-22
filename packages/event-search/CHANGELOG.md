@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.4.0...@openagenda/event-search@2.4.1) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/event-search
+
+
+
+
+
 ## [2.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.3.0...@openagenda/event-search@2.4.0) (2020-05-19)
 
 

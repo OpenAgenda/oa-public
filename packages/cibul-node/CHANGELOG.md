@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.5.2](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.5.1...cibul-node@0.5.2) (2020-05-22)
+
+
+### Bug Fixes
+
+* **cibul-node:** fix notification summary ([b691439](https://bitbucket.org/openagenda/oa/commit/b691439f21d3660f84efac347a30d6a2a0dc117d))
+
+
+
 ### [0.5.1](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.5.0...cibul-node@0.5.1) (2020-05-19)
 
 

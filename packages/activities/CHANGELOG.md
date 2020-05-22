@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.6...@openagenda/activities@2.1.7) (2020-05-22)
+
+
+### Bug Fixes
+
+* **activities:** fix groupBy issue in prepareSummary ([cdb4de8](https://bitbucket.org/openagenda/oa/commit/cdb4de876b2360c93b2dbd7d7b0856768f5319fe))
+* **activities:** stop to use ANY_VALUE() ([b2c0453](https://bitbucket.org/openagenda/oa/commit/b2c0453b1f52574c83285069c0de1c1a7ad30181))
+
+
+
 ### [2.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.5...@openagenda/activities@2.1.6) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/activities

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/email-strategie@0.1.3...@openagenda/email-strategie@0.1.4) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/email-strategie
+
+
+
+
+
 ### [0.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/email-strategie@0.1.2...@openagenda/email-strategie@0.1.3) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/email-strategie

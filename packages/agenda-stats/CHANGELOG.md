@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.2.0...@openagenda/agenda-stats@1.3.0) (2020-05-22)
+
+
+### Features
+
+* **agenda-stats:** IntervalSelect is not searchable ([4c40b4d](https://bitbucket.org/openagenda/oa/commit/4c40b4dd414011359ebbdeb62aae572c779e27cc))
+
+
+
 ## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.1.0...@openagenda/agenda-stats@1.2.0) (2020-05-19)
 
 
