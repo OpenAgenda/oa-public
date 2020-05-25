@@ -58,6 +58,7 @@ module.exports = {
   },
   es75: {
     host: process.env.OA_ELASTICSEARCH_750_DEV_HOST,
+    port: process.env.OA_ELASTICSEARCH_750_DEV_PORT,
     defaultIndex: 'test',
     ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
       key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),

@@ -23,7 +23,12 @@ module.exports.init = async (config, services) => {
     core
   } = services;
 
-  const node = _.get(config, 'es75.host', 'http://localhost:9200');
+  const port = _.get(config, 'es75.port', 9200);
+  const protocol = _.get(config, 'es75.ssl') ? 'https' : 'http';
+  const host = _.get(config, 'es75.host', 'localhost');
+
+  const node = protocol + '://' + host + ':' + port;
+
   const defaultIndex = _.get(config, 'es75.defaultIndex', process.env.NODE_ENV === 'production' ? 'main' : 'dev');
 
   log('using elasticsearch node %s, default index %s', node, defaultIndex);

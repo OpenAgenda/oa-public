@@ -36,7 +36,7 @@ module.exports.init = async (config, services) => {
     opencage: config.opencage,
     redis: config.redis,
     elasticsearch: {
-      host: _.get( config, 'es.host', 'localhost' ) + ':' + _.get( config, 'es.port', '9200' ),
+      host: (_.get(config, 'es.ssl') ? 'https://' : 'http://') + _.get( config, 'es.host', 'localhost' ) + ':' + _.get( config, 'es.port', '9200' ),
       log: _.get( config, 'esLocation.log' ),
       index: _.get( config, 'esLocation.index' ),
       apiVersion: _.get( config, 'esLocation.apiVersion' ),

@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
+const ih = require('immutability-helper');
 const { promisify } = require('util');
 
 const ESNode = require('@openagenda/es-node');
@@ -24,7 +25,11 @@ module.exports = {
 
 function init(config, services) {
 
-  const legacyLib = ESNode(config.es);
+  const legacyLib = ESNode(ih(config.es, {
+    host: {
+      $set: (config.es.ssl ? 'https://' : 'http://') + config.es.host
+    }
+  }));
 
   legacyES = {
     refreshIndex: promisify(legacyLib.refreshIndex),
