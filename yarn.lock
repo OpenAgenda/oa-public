@@ -4185,7 +4185,7 @@ __metadata:
     "@openagenda/dom-utils": ^2.2.4
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/labels": ^2.2.2
-    "@openagenda/mysql-utils": ^2.0.3
+    "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/react-components": ^2.3.2
     "@openagenda/react-form-components": ^2.1.6
     "@openagenda/utils": ^1.2.2
@@ -4622,7 +4622,7 @@ __metadata:
     "@openagenda/image-files": ^1.1.6
     "@openagenda/images": ^1.1.5
     "@openagenda/logs": ^1.1.3
-    "@openagenda/mysql-utils": ^2.0.3
+    "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/utils": ^1.2.2
     "@openagenda/validators": ^2.2.7
@@ -4831,11 +4831,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/cibul-model@npm:^1.1.5":
-  version: 1.1.5
-  resolution: "@openagenda/cibul-model@npm:1.1.5"
+"@openagenda/cibul-model@npm:^1.1.6":
+  version: 1.1.6
+  resolution: "@openagenda/cibul-model@npm:1.1.6"
   dependencies:
-    "@openagenda/mysql-utils": ^2.0.3
+    "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/utils": ^1.2.2
     "@openagenda/validators": ^2.0.1
     async: ~0.9
@@ -4849,7 +4849,7 @@ __metadata:
     mysql: 2.6.2
     validator: 4.1.0
     when: ~3.4
-  checksum: 7a116a8bf596ea94c480b15ead61dcf76f227444a121fde3bac83e530e0b8348fc546f65969512b6278f7f3d779ec00f4135b26fe19ca90e481f094b2660ab23
+  checksum: 0451d88e5d1d9ff137eabee0efc344e755ba9c6cc9fdf8b0bcc0818d5b0e4b2de4ad0d264777ee7c569c621fa8a587d936c798a483970648444efb1f514a6b03
   languageName: node
   linkType: hard
 
@@ -5159,7 +5159,7 @@ __metadata:
     "@openagenda/image-files": ^1.1.6
     "@openagenda/images": ^1.1.5
     "@openagenda/logs": ^1.1.3
-    "@openagenda/mysql-utils": ^2.0.3
+    "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/queue": ^1.0.1
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/slugs": ^1.1.0
@@ -5542,19 +5542,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/invitations@npm:^1.1.4":
-  version: 1.1.4
-  resolution: "@openagenda/invitations@npm:1.1.4"
+"@openagenda/invitations@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "@openagenda/invitations@npm:1.1.5"
   dependencies:
     "@openagenda/logs": ^1.1.2
-    "@openagenda/mysql-utils": ^2.0.3
+    "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.0.1
     async: ^3.2.0
     knex: ^0.12.6
     lodash: ^4.17.4
     uuid: ^3.0.1
-  checksum: 4e2b1d3e92cdbe6aefde71cee3aa01dc61e669702904c6b95775e4d3cda8810ff916e0fab7c3008eaabc5a31acd3d3ee62d5e87a3ea8e12ddb8096b693589b4e
+  checksum: 8eafdbf492a5350311d48e3af38519492b4211ce6ab187bf5f264949cddaae2dd64e219696a6822bd0ca08379a7dee36cdcf266f7c0a6fd075b3d0b016d7c080
   languageName: node
   linkType: hard
 
@@ -5564,7 +5564,7 @@ __metadata:
   dependencies:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.3
-    "@openagenda/mysql-utils": ^2.0.3
+    "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.2.7
     knex: ^0.20.12
@@ -5782,16 +5782,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/mysql-utils@npm:^2.0.3":
-  version: 2.0.3
-  resolution: "@openagenda/mysql-utils@npm:2.0.3"
+"@openagenda/mysql-utils@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "@openagenda/mysql-utils@npm:2.0.4"
   dependencies:
     "@openagenda/utils": ^1.2.2
     async: ^2.0.1
     mysql: ^2.11
-    utils: "git+ssh://git@bitbucket.org/openagenda/utils.git"
     verror: ^1.10.0
-  checksum: bb0fee7e537ec6ffd0f5a92f793463a44b8496ff4c458e0b439701c6c36711dbd1e7067767704b6084b922fca6c503591f1f1ec4c3f7bd6ec381715f29f3e61b
+  checksum: 7e21e2dd0c674a5c76ac0ca4a7d3e87742440019c7b469586a1bfaa6c47407f65bd30d96f9bb3d8369e0150924833b15962ef858c7a88151da6b9e5559b2e22e
   languageName: node
   linkType: hard
 
@@ -12646,7 +12645,7 @@ __metadata:
     "@openagenda/aggregator-sources": ^1.2.3
     "@openagenda/aggregators": ^1.10.6
     "@openagenda/call-to-action": ^2.2.7
-    "@openagenda/cibul-model": ^1.1.5
+    "@openagenda/cibul-model": ^1.1.6
     "@openagenda/cibul-templates": ^1.2.2
     "@openagenda/custom": ^1.3.6
     "@openagenda/date-range": ^2.2.5
@@ -12668,7 +12667,7 @@ __metadata:
     "@openagenda/images": ^1.1.5
     "@openagenda/inbox-apps": ^1.1.8
     "@openagenda/inboxes": ^1.1.6
-    "@openagenda/invitations": ^1.1.4
+    "@openagenda/invitations": ^1.1.5
     "@openagenda/keys": ^2.2.2
     "@openagenda/labels": ^2.2.2
     "@openagenda/landing": ^1.3.8
@@ -37838,17 +37837,6 @@ typescript@^3.2.1:
   version: 1.0.1
   resolution: "utils-merge@npm:1.0.1"
   checksum: a457956ebc09efbda05da8bf213ab89140bb9dffa3c42b3315dd8fc3c45d67a1b802741f58b7bba4872113201fc275fc86470289d8bd32b74297b5e5b5980705
-  languageName: node
-  linkType: hard
-
-"utils@git+ssh://git@bitbucket.org/openagenda/utils.git":
-  version: 1.0.7
-  resolution: "utils@git+ssh://git@bitbucket.org/openagenda/utils.git#commit:4e7f3954396a88b6085fe32136695db40f6ed2b7"
-  dependencies:
-    qs: ^6.1.0
-    when: ^3.7.8
-    xhr: ^2.2.2
-  checksum: 97ff103c03a8b6815fe0620fbfd36b73aaf012baa8dbf10671175e910bdea703b6679b0465bb3d02581d81b0882aaf5f48969e7923ab80f88ff1a6a5c9d017de
   languageName: node
   linkType: hard
 

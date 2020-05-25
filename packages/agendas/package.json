@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@openagenda/logs": "^1.1.3",
-    "@openagenda/mysql-utils": "^2.0.3",
+    "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.2.2",
     "@openagenda/validators": "^2.2.7",

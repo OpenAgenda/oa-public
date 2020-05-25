@@ -20,7 +20,7 @@
     "@babel/runtime-corejs3": "^7.8.4",
     "@openagenda/dom-utils": "^2.2.4",
     "@openagenda/labels": "^2.2.2",
-    "@openagenda/mysql-utils": "^2.0.3",
+    "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/react-components": "^2.3.2",
     "@openagenda/react-form-components": "^2.1.6",
     "@openagenda/utils": "^1.2.2",
