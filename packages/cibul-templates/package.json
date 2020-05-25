@@ -44,7 +44,7 @@
     "@openagenda/call-to-action": "^2.2.7",
     "@openagenda/dom-utils": "^2.2.4",
     "@openagenda/home": "^2.1.9",
-    "@openagenda/image-upload": "^1.0.8",
+    "@openagenda/image-upload": "^1.0.9",
     "@openagenda/inbox-apps": "^1.1.8",
     "@openagenda/labels": "^2.2.2",
     "@openagenda/leaflet.markercluster": "^0.4.0",

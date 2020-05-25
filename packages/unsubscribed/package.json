@@ -19,7 +19,7 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@openagenda/fixtures": "^2.0.1",
+    "@openagenda/fixtures": "^2.0.2",
     "mocha": "^7.0.1",
     "should": "^13.2.3",
     "superagent": "^3.5.0"
