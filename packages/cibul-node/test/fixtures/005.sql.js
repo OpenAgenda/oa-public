@@ -441,6 +441,7 @@ raw.push(knex('event').insert([{
   id: 2,
   uid: 18992812,
   slug: 'encore-un-event',
+  image: 'an-image.jpg',
   owner_id: 50304,
   created_at: '2019-12-14T10:00:00.000Z',
   updated_at: '2019-12-14T10:00:00.000Z'
@@ -499,6 +500,9 @@ raw.push(knex('event_2').insert([{
     begin: new Date('2019-05-13T10:00:00'),
     end: new Date('2019-05-13T11:00:00')
   }]),
+  image: JSON.stringify({
+    filename: 'an-image.jpg'
+  }),
   location_uid: 123,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),

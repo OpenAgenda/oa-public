@@ -41,6 +41,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     draft,
     partial,
     evaluateEvent,
+    event,
     formSchemaDataFormat,
     defaultLang,
     optionalSecondaryFields,
@@ -52,6 +53,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   } = {
     defaultLang: null,
     evaluateEvent: true,
+    event: null,
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
@@ -65,7 +67,10 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   };
 
   // api provides event data in event service format (deep image object that includes credits and variants)
-  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat(data, {
+  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat(event ? {
+    ...event, // if additionnal fields are related to event data, event data must be present
+    ...data
+  } : data, {
     location,
     partial: true
   });

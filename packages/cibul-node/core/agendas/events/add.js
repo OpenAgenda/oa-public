@@ -10,6 +10,7 @@ const createPayload = require('../utils/createPayload');
 const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 
 module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
+  // when the event is added on aggregation, only additional data is provided
   const {
     agendaEvents,
     events,
@@ -43,20 +44,6 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     userUid: context.userUid
   }) : null;
 
-  const {
-    clean,
-    agenda
-  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
-    evaluateEvent: false,
-    bypassAdditionalFieldValidation,
-    paths,
-    aggregated,
-    member,
-    access
-  });
-
-  const payload = createPayload(services, agenda);
-
   // if event is already referenced on agenda, this fails
   if (await agendaEvents(agendaUid).get(eventUid)) {
     throw new VError('event %s is already referenced by agenda %s', eventUid, agendaUid);
@@ -68,6 +55,23 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     internal: true,
     detailed: true
   });
+
+  // if additional data is conditional on main data, it will not be part of clean values
+  // unless main data is also provided
+  const {
+    clean,
+    agenda
+  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
+    evaluateEvent: false,
+    event,
+    bypassAdditionalFieldValidation,
+    paths,
+    aggregated,
+    member,
+    access
+  });
+
+  const payload = createPayload(services, agenda);
 
   payload.setItem('event', null, event);
 

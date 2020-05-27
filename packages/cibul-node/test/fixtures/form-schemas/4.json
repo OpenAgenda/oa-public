@@ -115,6 +115,30 @@
         }
       ],
       "fieldType": "checkbox"
+    },
+    {
+      "field": "image_alt_text",
+      "label": {
+        "en": "Texte alternatif à l'image",
+        "fr": "Texte alternatif à l'image"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Décrivez ce que vous voyez dans l'image pour les personnes en situation de handicap",
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "image",
+      "related": [
+        "image"
+      ],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
     }
   ]
 }

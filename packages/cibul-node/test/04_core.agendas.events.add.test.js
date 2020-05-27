@@ -133,7 +133,8 @@ describe('core - functional (server): core.agendas().events add()', function() {
     beforeAll(async () => {
       result = await core.agendas(17026800).events.add(18992812, {
         state: 1,
-        'thematiques-metropolitaines': 3
+        'thematiques-metropolitaines': 3,
+        'image_alt_text': 'Un texte'
       }, {
         paths: [[82910283, 17026855]],
         aggregated: true,
@@ -151,6 +152,10 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
     it('state taken is state provided', () => {
       expect(result.event.state).toBe(1);
+    });
+
+    it('provided value for additional conditional field is maintained', () => {
+      expect(result.event.image_alt_text).toBe('Un texte');
     });
   });
 
