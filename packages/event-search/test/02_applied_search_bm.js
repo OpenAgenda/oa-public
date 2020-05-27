@@ -749,6 +749,31 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
+      describe('additionalFields for specific field', () => {
+        let agg;
+
+        before(async () => {
+          agg = await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            formSchema,
+            aggregations: [{
+              key: 'et_bim',
+              type: 'additionalFields',
+              field: 'thematiques-bordeaux-metropole'
+            }]
+          }).then(r => r.aggregations['et_bim']);
+        });
+
+        it('only values of field are collected', () => {
+          agg[0].should.eql({
+            id: 9,
+            value: 'culture',
+            label: { fr: 'Culture' },
+            eventCount: 118
+          });
+        });
+      });
+
     });
 
     describe('More like this', () => {

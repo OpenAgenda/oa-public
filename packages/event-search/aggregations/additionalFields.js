@@ -2,17 +2,33 @@
 
 const _ = require('lodash');
 
-module.exports.formatDSL = (query, options = {}) => ({
-  terms: {
-    field: '_search_additional_keywords',
-    size: _formSchemaOptionsCount(options.formSchema)
+module.exports.formatDSL = (query, options = {}) => {
+  const aggregationQuery = {
+    terms: {
+      field: '_search_additional_keywords',
+    }
+  };
+
+  if (options.field) {
+    const field = options.formSchema.fields
+      .filter(field => field.field === options.field)
+      .pop();
+
+    const fieldValues = field.options.map(o => [field.schemaId, o.id].join('.'));
+
+    aggregationQuery.terms.include = fieldValues;
+    aggregationQuery.terms.size = fieldValues.length;
+  } else {
+    aggregationQuery.terms.size = _formSchemaOptionsCount(options.formSchema);
   }
-})
+
+  return aggregationQuery;
+}
 
 module.exports.formatResult = (result, options = {}) => {
   if (!options.formSchema) return [];
 
-  return result.buckets
+  const formattedResult = result.buckets
     .map(b => _decorateWithSchemaFieldAndOption(options.formSchema, b))
     .reduce((fields, optionItem) => {
       const fieldName = optionItem.field.field;
@@ -29,6 +45,12 @@ module.exports.formatResult = (result, options = {}) => {
         }
       }
     }, {});
+
+  if (options.field) {
+    return formattedResult[options.field].values;
+  }
+
+  return formattedResult;
 }
 
 function _formSchemaOptionsCount(formSchema) {
