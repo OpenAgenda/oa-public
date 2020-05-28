@@ -200,9 +200,7 @@ const config = {
       host: prod.elasticsearch.v5_3.host,
       port: prod.elasticsearch.v5_3.port
     },
-    es75: {
-      host: prod.elasticsearch.v7_5.host
-    },
+    es75: prod.elasticsearch.v7_5,
     esLocation: {
       log: [ {
         type: 'stdio',
@@ -871,6 +869,7 @@ const config = {
     es75: {
       host: process.env.OA_ELASTICSEARCH_750_DEV_HOST || 'localhost',
       port: process.env.OA_ELASTICSEARCH_750_DEV_PORT || 9207,
+      protocol: process.env.OA_ELASTICSEARCH_750_DEV_PROTOCOL,
       ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
         key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
         cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8')

@@ -24,7 +24,7 @@ module.exports.init = async (config, services) => {
   } = services;
 
   const port = _.get(config, 'es75.port', 9200);
-  const protocol = _.get(config, 'es75.ssl') ? 'https' : 'http';
+  const protocol = _.get(config, 'es75.protocol', _.get(config, 'es75.ssl') ? 'https' : 'http');
   const host = _.get(config, 'es75.host', 'localhost');
 
   const node = protocol + '://' + host + ':' + port;
