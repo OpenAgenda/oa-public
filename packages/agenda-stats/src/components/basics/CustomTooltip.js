@@ -1,28 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 import { ClassNames } from '@emotion/core';
-
-function DefaultTooltipItem({ entry, dataKey }) {
-  const value = getValueByDataKey(entry.payload, dataKey);
-
-  return (
-    <li className="recharts-tooltip-item">
-      <span>
-        <b>{value}</b>
-        <br />
-        <FormattedMessage
-          id="AgendaStats.CustomTooltip.events"
-          defaultMessage="{value, number} events"
-          values={{
-            value: entry.value
-          }}
-        />
-      </span>
-    </li>
-  );
-}
+import DefaultTooltipItem from './DefaultTooltipItem';
 
 export default function CustomTooltip({
   renderItem,

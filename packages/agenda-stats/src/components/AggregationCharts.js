@@ -1,86 +1,156 @@
 import _ from 'lodash';
-import React, { useMemo, useCallback } from 'react';
+import React, {
+  useMemo,
+  useCallback,
+  useState,
+  useLayoutEffect,
+  useEffect,
+  useRef
+} from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { useDispatch } from 'react-redux';
+import { Spinner } from '@openagenda/react-components';
 import * as statsActions from '../reducers/stats';
-import getLocaleValue from '../utils/getLocaleValue';
-import VerticalBarChart from './basics/VerticalBarChart';
-import TimingsChart from './TimingsChart';
-import SavedEventsChart from './SavedEventsChart';
+import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
+import ComposedChart from './ComposedChart';
+import IntervalSelect from './IntervalSelect';
 import LoadMore from './LoadMore';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
 const messages = defineMessages({
-  originAgendas: {
-    id: 'AgendaStats.AggregationCharts.originAgendas',
-    defaultMessage: 'Origin agendas'
+  withSelector: {
+    id: 'AgendaStats.AggregationCharts.withSelector',
+    defaultMessage: '{message} by {selector}'
   },
+
   regions: {
-    id: 'AgendaStats.AggregationCharts.regions',
+    id: 'AgendaStats.AggregationCharts.titles.regions',
     defaultMessage: 'Regions'
   },
-  cities: {
-    id: 'AgendaStats.AggregationCharts.cities',
-    defaultMessage: 'Cities'
-  },
   departments: {
-    id: 'AgendaStats.AggregationCharts.departments',
+    id: 'AgendaStats.AggregationCharts.titles.departments',
     defaultMessage: 'Departments'
   },
+  cities: {
+    id: 'AgendaStats.AggregationCharts.titles.cities',
+    defaultMessage: 'Cities'
+  },
+  timings: {
+    id: 'AgendaStats.AggregationCharts.titles.timings',
+    defaultMessage: 'Timings'
+  },
+  createdAtUpdatedAt: {
+    id: 'AgendaStats.AggregationCharts.titles.createdAtUpdatedAt',
+    defaultMessage: 'Saved events'
+  },
   members: {
-    id: 'AgendaStats.AggregationCharts.members',
+    id: 'AgendaStats.AggregationCharts.titles.members',
     defaultMessage: 'Members'
+  },
+  originAgendas: {
+    id: 'AgendaStats.AggregationCharts.titles.originAgendas',
+    defaultMessage: 'Origin agendas'
   }
 });
 
+function statToTitleMessageKey(aggregation) {
+  let messageKey = '';
+
+  if (Array.isArray(aggregation)) {
+    for (const agg of aggregation) {
+      messageKey += messageKey === '' ? agg.type : _.upperFirst(agg.type);
+    }
+  } else {
+    messageKey += aggregation.type;
+  }
+
+  return messageKey;
+}
+
+function ChartWrapper({
+  stat, range, totalEvents, loadStat, children
+}) {
+  const intl = useIntl();
+
+  const [interval, setInterval] = useState(() => rangeToCalendarInterval(range));
+  const [loading, setLoading] = useState(false);
+  const isInitialMount = useRef(true);
+
+  const loadMore = useCallback(
+    () => loadStat(stat.id, (options, actualData) => ({
+      ...options,
+      size: (actualData.length || 0) + 5
+    })),
+    [loadStat, stat.id]
+  );
+
+  const titleMessage = useMemo(() => {
+    let message = intl.formatMessage(
+      messages[statToTitleMessageKey(stat.aggregation)]
+    );
+
+    if (stat.chart.intervalSelector) {
+      message = intl.formatMessage(messages.withSelector, {
+        message,
+        selector: (
+          <>
+            <IntervalSelect value={interval} onChange={setInterval} />
+
+            {loading ? (
+              <span className="margin-left-xs">
+                <Spinner mode="inline" />
+              </span>
+            ) : null}
+          </>
+        )
+      });
+    }
+
+    return message;
+  }, [interval, intl, loading, stat.aggregation, stat.chart.intervalSelector]);
+
+  useLayoutEffect(() => {
+    setInterval(rangeToCalendarInterval(range));
+  }, [range]);
+
+  // Reload the graph with changed `interval` option
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    setLoading(true);
+    loadStat(stat.id, previousOptions => ({
+      ...previousOptions,
+      interval
+    })).finally(() => setLoading(false));
+  }, [stat.aggregation.key, interval, loadStat, stat.id]);
+
+  return (
+    <div className="col-md-12 col-lg-6 margin-top-md">
+      <h3 className="text-center">{titleMessage}</h3>
+
+      {children}
+
+      {stat.chart.loadMore ? (
+        <LoadMore stat={stat} total={totalEvents} loadMore={loadMore} />
+      ) : null}
+    </div>
+  );
+}
+
 export default function AggregationCharts({
   agenda,
-  aggregations,
-  data,
+  // agendaSchema,
+  stats,
   totalEvents,
   range
 }) {
-  const intl = useIntl();
   const dispatch = useDispatch();
 
-  const getLocaleLabel = useCallback(
-    labelPath => payload => getLocaleValue(_.get(payload, labelPath), intl.locale),
-    [intl.locale]
-  );
-
-  const additionalFieldLabelKey = useMemo(() => getLocaleLabel('label'), [
-    getLocaleLabel
-  ]);
-
-  const createdAggregation = useMemo(
-    () => aggregations.find(v => v.key === 'createdAt'),
-    [aggregations]
-  );
-  const updatedAggregation = useMemo(
-    () => aggregations.find(v => v.key === 'updatedAt'),
-    [aggregations]
-  );
-  const timingsAggregation = useMemo(
-    () => aggregations.find(v => v.key === 'timings'),
-    [aggregations]
-  );
-
-  const loadMore = useCallback(
-    aggregationKey => dispatch(
-      statsActions.loadAggregation(
-        agenda,
-        aggregationKey,
-        (options, actualData) => ({
-          ...options,
-          size: (actualData.length || 0) + 5
-        })
-      )
-    ),
-    [agenda, dispatch]
-  );
-
-  const loadAggregation = useCallback(
-    (aggregationKey, options) => dispatch(statsActions.loadAggregation(agenda, aggregationKey, options)),
+  const loadStat = useCallback(
+    (statId, getOptions) => dispatch(statsActions.loadStat(agenda, statId, getOptions)),
     [agenda, dispatch]
   );
 
@@ -104,146 +174,35 @@ export default function AggregationCharts({
     chartsFromLastSep += 1;
   };
 
-  if (data.regions?.length) {
-    pushChart(
-      <div key="regions" className="col-md-12 col-lg-6 margin-top-md">
-        <h3 className="text-center">{intl.formatMessage(messages.regions)}</h3>
-        <VerticalBarChart
-          data={data.regions}
-          total={totalEvents}
-          dataKey="eventCount"
-          labelKey="key"
-        />
-        <LoadMore
-          data={data.regions}
-          total={totalEvents}
-          dataKey="eventCount"
-          aggregationKey="regions"
-          loadMore={loadMore}
-        />
-      </div>
-    );
-  }
+  stats.forEach(stat => {
+    if (stat.separator) {
+      pushSeparator();
+    }
 
-  if (data.departments?.length) {
-    pushChart(
-      <div key="departments" className="col-md-12 col-lg-6 margin-top-md">
-        <h3 className="text-center">
-          {intl.formatMessage(messages.departments)}
-        </h3>
-        <VerticalBarChart
-          data={data.departments}
-          total={totalEvents}
-          dataKey="eventCount"
-          labelKey="key"
-        />
-        <LoadMore
-          data={data.departments}
-          total={totalEvents}
-          dataKey="eventCount"
-          aggregationKey="departments"
-          loadMore={loadMore}
-        />
-      </div>
-    );
-  }
+    if (!stat.chart) {
+      return null;
+    }
 
-  if (data.cities?.length) {
-    pushChart(
-      <div key="cities" className="col-md-12 col-lg-6 margin-top-md">
-        <h3 className="text-center">{intl.formatMessage(messages.cities)}</h3>
-        <VerticalBarChart
-          data={data.cities}
+    const multiData = Array.isArray(stat.aggregation);
+    const hasData = multiData
+      ? stat.data?.some(v => v.length)
+      : stat.data?.length;
+
+    if (hasData) {
+      pushChart(
+        <ComposedChart
+          key={stat.id}
+          wrapperComponent={<ChartWrapper />}
+          stat={stat}
           total={totalEvents}
-          dataKey="eventCount"
-          labelKey="key"
-        />
-        <LoadMore
-          data={data.cities}
-          total={totalEvents}
-          dataKey="eventCount"
-          aggregationKey="cities"
-          loadMore={loadMore}
-        />
-      </div>
-    );
-  }
-
-  pushSeparator();
-
-  if (data.members?.length) {
-    pushChart(
-      <div key="members" className="col-md-12 col-lg-6 margin-top-md">
-        <h3 className="text-center">{intl.formatMessage(messages.members)}</h3>
-        <VerticalBarChart
-          data={data.members}
-          total={totalEvents}
-          dataKey="eventCount"
-          labelKey="member.name"
-        />
-      </div>
-    );
-  }
-
-  if (data.originAgendas?.length) {
-    // result.push(
-    //   <div key="originAgendasPie" className="col-md-12 col-lg-6 margin-top-md">
-    //     <h3 className="text-center">{intl.formatMessage(messages.originAgendas)}</h3>
-    //     <OriginAgendasPieChart data={aggregations.originAgendas} total={totalEvents} />
-    //   </div>
-    // );
-    pushChart(
-      <div key="originAgendasBar" className="col-md-12 col-lg-6 margin-top-md">
-        <h3 className="text-center">
-          {intl.formatMessage(messages.originAgendas)}
-        </h3>
-        <VerticalBarChart
-          data={data.originAgendas}
-          total={totalEvents}
-          dataKey="eventCount"
-          labelKey="agenda.title"
-        />
-      </div>
-    );
-  }
-
-  pushSeparator();
-
-  if (data.timings?.length) {
-    pushChart(
-      <div key="timings" className="col-md-12 col-lg-6 margin-top-md">
-        <TimingsChart
           range={range}
-          data={data.timings}
-          aggregation={timingsAggregation}
-          totalEvents={totalEvents}
-          loadAggregation={loadAggregation}
+          loadStat={loadStat}
         />
-      </div>
-    );
-  }
+      );
+    }
+  });
 
-  pushSeparator();
-
-  if (data.createdAt?.length || data.updatedAt?.length) {
-    pushChart(
-      <div key="savedEvents" className="col-md-12 col-lg-6 margin-top-md">
-        <SavedEventsChart
-          range={range}
-          createdData={data.createdAt}
-          updatedData={data.updatedAt}
-          createdAggregation={createdAggregation}
-          updatedAggregation={updatedAggregation}
-          totalEvents={totalEvents}
-          loadAggregation={loadAggregation}
-        />
-      </div>
-    );
-  }
-
-  pushSeparator();
-
-  if (data.additionalFields) {
+  /* if (data.additionalFields) {
     for (const field in data.additionalFields) {
       if ({}.hasOwnProperty.call(data.additionalFields, field)) {
         const additionalFieldData = data.additionalFields[field];
@@ -265,7 +224,7 @@ export default function AggregationCharts({
         );
       }
     }
-  }
+  } */
 
   return <div className="row">{result}</div>;
 }

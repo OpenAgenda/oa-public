@@ -1,30 +1,42 @@
 import React, { useMemo } from 'react';
-import { useIntl } from 'react-intl';
+// import { useIntl } from 'react-intl';
 import {
   XAxis, YAxis, Tooltip, CartesianGrid, Bar, BarChart
 } from 'recharts';
 import { css } from '@emotion/core';
-import addRestItem from '../../utils/addRestItem';
+import dataColors from '../../common/dataColors';
+import mergeMultiData from '../../utils/mergeMultiData';
+// import addRestItem from '../../utils/addRestItem';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
 export default function VerticalBarChart({
   data: rawData,
-  total,
+  // total,
   dataKey,
+  fromDataKey,
   labelKey,
-  renderTooltipItem,
-  withRest,
-  noValueRest
+  renderTooltipItem
+  // withRest,
+  // noValueRest
 }) {
-  const intl = useIntl();
+  // const intl = useIntl();
+  // const data = useMemo(() => {
+  //   const result = rawData;
+  //
+  //   if (withRest) {
+  //     result = addRestItem(rawData, total, intl, noValueRest);
+  //   }
+  //
+  //   return rawData;
+  // }, [rawData, total, intl, withRest, noValueRest]);
   const data = useMemo(() => {
-    if (withRest) {
-      return addRestItem(rawData, total, intl, noValueRest);
+    if (!fromDataKey?.length) {
+      return rawData;
     }
 
-    return rawData;
-  }, [rawData, total, intl, withRest, noValueRest]);
+    return mergeMultiData(rawData, fromDataKey, dataKey);
+  }, [fromDataKey, dataKey, rawData]);
 
   return (
     <BarChart
@@ -56,14 +68,17 @@ export default function VerticalBarChart({
           <CustomTooltip dataKey={labelKey} renderItem={renderTooltipItem} />
         }
       />
-      <Bar
-        type="monotone"
-        dataKey={dataKey}
-        stroke="#41acdd"
-        fillOpacity={1}
-        fill="#41acdd"
-        yAxisId={0}
-      />
+      {[].concat(dataKey).map((k, i) => (
+        <Bar
+          key={k}
+          type="monotone"
+          dataKey={k}
+          stroke={dataColors[i] || dataColors[dataColors.length - 1]}
+          fillOpacity={1}
+          fill={dataColors[i] || dataColors[dataColors.length - 1]}
+          xAxisId={0}
+        />
+      ))}
     </BarChart>
   );
 }

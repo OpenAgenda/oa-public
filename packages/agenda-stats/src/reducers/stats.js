@@ -1,40 +1,11 @@
+import statsToAggregations from '../utils/statsToAggregations';
+
 const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';
 const LOAD_FAIL = 'agenda-stats/stats/LOAD_FAIL';
-const LOAD_AGGREGATION = 'agenda-stats/stats/LOAD_AGGREGATION';
-const LOAD_AGGREGATION_SUCCESS = 'agenda-stats/stats/LOAD_AGGREGATION_SUCCESS';
-const LOAD_AGGREGATION_FAIL = 'agenda-stats/stats/LOAD_AGGREGATION_FAIL';
-
-function getDefaultAggregations(interval) {
-  return [
-    'additionalFields',
-    'cities',
-    'departments',
-    'keywords',
-    'members',
-    'timespan',
-    'originAgendas',
-    'pastAndUpcoming',
-    'regions',
-    // 'sourceAgendas',
-    'states',
-    {
-      key: 'timings',
-      type: 'timings',
-      interval
-    },
-    {
-      key: 'createdAt',
-      type: 'createdAt',
-      interval
-    },
-    {
-      key: 'updatedAt',
-      type: 'updatedAt',
-      interval
-    }
-  ];
-}
+const LOAD_STAT = 'agenda-stats/stats/LOAD_STAT';
+const LOAD_STAT_SUCCESS = 'agenda-stats/stats/LOAD_STAT_SUCCESS';
+const LOAD_STAT_FAIL = 'agenda-stats/stats/LOAD_STAT_FAIL';
 
 const initialState = {};
 
@@ -49,9 +20,27 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         loaded: true,
-        data: action.result.data.aggregations,
         totalEvents: action.result.data.total,
-        aggregations: action.aggregations,
+        data: action.stats.map(v => {
+          if (!v.aggregation) {
+            return v;
+          }
+
+          const getData = agg => action.result.data.aggregations[`${agg.type}-${v.id}`];
+
+          if (Array.isArray(v.aggregation)) {
+            // stat with multi sources
+            return {
+              ...v,
+              data: v.aggregation.map(getData)
+            };
+          }
+
+          return {
+            ...v,
+            data: getData(v.aggregation)
+          };
+        }),
         query: action.query,
         error: null,
         loading: false
@@ -62,22 +51,25 @@ export default function reducer(state = initialState, action) {
         error: action.error,
         loading: false
       };
-    case LOAD_AGGREGATION_SUCCESS: {
-      const aggIndex = state.aggregations.findIndex(
-        v => v === action.aggregationKey || v.key === action.aggregationKey
-      );
+    case LOAD_STAT_SUCCESS: {
+      const statIndex = state.data.findIndex(v => v.id === action.statId);
+      const actualStat = state.data[statIndex];
+
+      const getData = agg => action.result.data.aggregations[`${agg.type}-${action.statId}`];
+
+      const newStat = {
+        ...actualStat,
+        data: Array.isArray(action.aggregations)
+          ? action.aggregations.map(getData)
+          : getData(action.aggregations)
+      };
 
       return {
         ...state,
-        data: {
-          ...state.data,
-          [action.aggregationKey]:
-            action.result.data.aggregations[action.aggregationKey]
-        },
-        aggregations: [
-          ...state.aggregations.slice(0, aggIndex),
-          action.aggregation,
-          ...state.aggregations.slice(aggIndex + 1)
+        data: [
+          ...state.data.slice(0, statIndex),
+          newStat,
+          ...state.data.slice(statIndex + 1)
         ]
       };
     }
@@ -86,11 +78,11 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export function load(agenda, query, interval) {
+export function load(agenda, stats, query, interval) {
   const params = {
     oaq: { passed: 1 },
     size: 0,
-    aggregations: getDefaultAggregations(interval),
+    aggregations: statsToAggregations(stats, { interval }),
     ...query
   };
 
@@ -104,43 +96,34 @@ export function load(agenda, query, interval) {
 
       return client.get(url, { params });
     },
-    aggregations: params.aggregations,
+    stats,
     query
   };
 }
 
-export function loadAggregation(agenda, aggregationKey, options) {
+export function loadStat(agenda, statId, getOptions) {
   return ({ getState, dispatch }) => {
     const { stats, res } = getState();
 
-    const actualAggregation = stats.aggregations.find(
-      v => v === aggregationKey || v.key === aggregationKey
-    );
-    const actualAggregationData = stats.data[aggregationKey];
-    const aggOptions = typeof options === 'function'
-      ? options(actualAggregation, actualAggregationData)
-      : options;
+    const actualStat = stats.data.find(v => v.id === statId);
+    const aggregation = []
+      .concat(actualStat.aggregation)
+      .map(agg => getOptions(agg, actualStat.data));
 
     const params = {
       oaq: { passed: 1 },
       size: 0,
-      aggregations: [
+      aggregations: statsToAggregations([
         {
-          ...(typeof actualAggregation === 'string'
-            ? { type: actualAggregation, key: actualAggregation }
-            : actualAggregation),
-          ...aggOptions
+          ...actualStat,
+          aggregation
         }
-      ],
+      ]),
       ...stats.query
     };
 
     return dispatch({
-      types: [
-        LOAD_AGGREGATION,
-        LOAD_AGGREGATION_SUCCESS,
-        LOAD_AGGREGATION_FAIL
-      ],
+      types: [LOAD_STAT, LOAD_STAT_SUCCESS, LOAD_STAT_FAIL],
       promise: ({ client }) => {
         const url = res.jsonExport
           .replace(':slug', agenda.slug)
@@ -148,8 +131,10 @@ export function loadAggregation(agenda, aggregationKey, options) {
 
         return client.get(url, { params });
       },
-      aggregationKey,
-      aggregation: params.aggregations[0]
+      statId,
+      aggregations: Array.isArray(actualStat.aggregation)
+        ? params.aggregations
+        : params.aggregations[0]
     });
   };
 }
