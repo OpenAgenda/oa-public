@@ -1,0 +1,226 @@
+version: '3.1'
+
+services:
+
+  devinstaller:
+    build:
+      context: docker
+      dockerfile: Dockerfile.devinstall
+    command: /home/root/oa/docker/command.sh ${NPM_TOKEN}
+    volumes:
+      - .:/home/root/oa
+      - ${SF_PROJECT_PATH}:/home/root/cibul-symfony
+      - ${SF_API_PROJECT_PATH}:/home/root/cibulapi-symfony
+      - ${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini
+    env_file:
+      .env
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.17
+    ports:
+      - 80:80
+      - 443:443
+    env_file:
+      .env
+    volumes:
+      - ./docker/nginx:/tmp/nginx
+      - ${SF_PROJECT_PATH}/web:/static
+      - ${SITE_SSL_CERT}:/ssl/cert.pem
+      - ${SITE_SSL_KEY}:/ssl/key.pem
+      - ${CLIENT_SSL_CERT}:/ssl/client.crt
+      - ${ES1_SSL_CERT}:/ssl/es1.cert.pem
+      - ${ES1_SSL_KEY}:/ssl/es1.key.pem
+      - ${ES5_SSL_CERT}:/ssl/es5.cert.pem
+      - ${ES5_SSL_KEY}:/ssl/es5.key.pem
+      - ${ES7_SSL_CERT}:/ssl/es7.cert.pem
+      - ${ES7_SSL_KEY}:/ssl/es7.key.pem
+      - ${PMA_SSL_CERT}:/ssl/pma.cert.pem
+      - ${PMA_SSL_KEY}:/ssl/pma.key.pem
+    command: >
+      /bin/bash -c
+        "for filename in $$(find /tmp/nginx/ -type f -name '*'); do
+          mkdir -p $$(dirname $${filename/\/tmp\/nginx/\/etc\/nginx});
+          cat $$filename \
+            | envsubst \"`printf '$${%s} ' $$(bash -c \"compgen -A variable\")`\" \
+            | tee $${filename/\/tmp\/nginx/\/etc\/nginx\/conf.d};
+        done;
+        nginx -g 'daemon off;'"
+      #/tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY} ${DEPLOY_PMA_NGINX_PROXY}
+    links:
+      - es1
+      - es5
+      - es7
+      - php
+      - node
+      - phpmyadmin
+      - mailcatcher
+    depends_on:
+      - node
+
+  es1:
+    container_name: es1
+    image: andrewvos/docker-elasticsearch
+    environment:
+      - "ES_HEAP_SIZE=512M"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+
+  php:
+    container_name: php
+    build:
+      context: ./docker/php
+    volumes:
+      - .env:/.env
+      - ${SF_PROJECT_PATH}:/cibul-symfony
+      - ${SF_API_PROJECT_PATH}:/cibulapi-symfony
+      - ${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini
+      - ${CONTAINERS_DATA_PATH}/mysql/client-key.pem:${MYSQL_SSL_KEY}
+      - ${CONTAINERS_DATA_PATH}/mysql/client-cert.pem:${MYSQL_SSL_CERT}
+      - ${CONTAINERS_DATA_PATH}/mysql/ca.pem:${MYSQL_SSL_CA}
+    links:
+      - mysql
+      - redis
+      - node
+    env_file:
+      .env
+
+  node:
+    container_name: node
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: node /home/root/oa/packages/cibul-node/server.js web admin task
+    volumes:
+      - .:/home/root/oa
+      - ${CONTAINERS_DATA_PATH}/mysql/client-key.pem:${MYSQL_SSL_KEY}
+      - ${CONTAINERS_DATA_PATH}/mysql/client-cert.pem:${MYSQL_SSL_CERT}
+      - ${CONTAINERS_DATA_PATH}/mysql/ca.pem:${MYSQL_SSL_CA}
+      - ${REPO_SSL_CLIENT}:/root/.ssh/id_rsa
+    links:
+      - mysql
+      - redis
+      - es1
+      - es5
+      - es7
+      - mailcatcher
+    depends_on:
+      - mysql
+      - redis
+      - es1
+      - es5
+      - es7
+    environment:
+      TZ: Etc/UTC
+      NODE_ENV: ${NODE_ENV}
+      DEBUG: ${DEBUG}
+      OA_PORT: 8901
+      OA_API_PORT: 8902
+      OA_USE_X_FWD_PROTO: 1
+      OA_DEV_DOMAIN: ${SITE_DOMAIN}
+      OA_DEV_ROOT: ${SITE_ROOT}
+      OA_MYSQL_DEV_DATABASE: ${MYSQL_DATABASE}
+      OA_MYSQL_DEV_HOST: ${MYSQL_HOST}
+      OA_MYSQL_DEV_PASSWORD: ${MYSQL_PASSWORD}
+      OA_MYSQL_DEV_USER: ${MYSQL_USER}
+      OA_MYSQL_DEV_SSL_ENABLED: 1
+      OA_MYSQL_DEV_SSL_CA: ${MYSQL_SSL_CA}
+      OA_MYSQL_DEV_SSL_KEY: ${MYSQL_SSL_KEY}
+      OA_MYSQL_DEV_SSL_CERT: ${MYSQL_SSL_CERT}
+      OA_ELASTICSEARCH_134_DEV_HOST: ${ES1_HOST}
+      OA_ELASTICSEARCH_134_DEV_PORT: ${ES1_PORT:-9200}
+      OA_ELASTICSEARCH_533_DEV_HOST: ${ES5_HOST}
+      OA_ELASTICSEARCH_533_DEV_PORT: ${ES5_PORT:-9200}
+      OA_ELASTICSEARCH_750_DEV_HOST: ${ES7_HOST}
+      OA_ELASTICSEARCH_750_DEV_PORT: ${ES5_PORT:-9200}
+      OA_REDIS_DEV_PORT: ${REDIS_PORT}
+      OA_REDIS_DEV_HOST: ${REDIS_HOST}
+      AWS_ACCESS_KEY_ID: ${AWS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET}
+      MAILCATCHER_PORT: ${MAILCATCHER_PORT}
+      MAILCATCHER_HOST: ${MAILCATCHER_HOST}
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password --require_secure_transport=on
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - ${CONTAINERS_DATA_PATH}/mysql:/var/lib/mysql
+      - ${CONTAINERS_DATA_PATH}/oa.dump:/docker-entrypoint-initdb.d/oa.sql
+
+  redis:
+    container_name: redis
+    image: redis:4.0.14
+
+  es5:
+    container_name: es5
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.3.3
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "http.host=0.0.0.0"
+      - "transport.host=127.0.0.1"
+      - "xpack.security.enabled=false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata2:/usr/share/elasticsearch/data
+
+  es7:
+    container_name: es7
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+    environment:
+      - cluster.name=es-docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "http.host=0.0.0.0"
+      - "transport.host=127.0.0.1"
+      - "xpack.security.enabled=false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata3:/usr/share/elasticsearch/data
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: ${MYSQL_HOST}
+      #PMA_VERBOSE: 1
+      PMA_SSL_KEY: ${MYSQL_SSL_KEY}
+      PMA_SSL_CERT: ${MYSQL_SSL_CERT}
+      PMA_SSL_CA: ${MYSQL_SSL_CA}
+    volumes:
+      - ./docker/php/phpmyadmin.config.php:/etc/phpmyadmin/config.user.inc.php
+      - ${CONTAINERS_DATA_PATH}/mysql/client-key.pem:/ssl/db-key.pem
+      - ${CONTAINERS_DATA_PATH}/mysql/client-cert.pem:/ssl/db-cert.pem
+      - ${CONTAINERS_DATA_PATH}/mysql/ca.pem:/ssl/db-ca.pem
+    links:
+      - mysql
+
+  mailcatcher:
+    image: schickling/mailcatcher
+
+volumes:
+  esdata1:
+    driver: local
+  esdata2:
+    driver: local
+  esdata3:
+    driver: local

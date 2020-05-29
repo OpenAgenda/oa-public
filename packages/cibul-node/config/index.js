@@ -882,8 +882,8 @@ const config = {
     },
     mails: {
       transport: {
-        host: '127.0.0.1',
-        port: '1025', // Mailcatcher port
+        host: process.env.MAILCATCHER_HOST || '127.0.0.1',
+        port: process.env.MAILCATCHER_PORT || '1025', // Mailcatcher port
       },
       disableVerify: true
     },

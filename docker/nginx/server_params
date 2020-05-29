@@ -1,0 +1,445 @@
+set $client_ip $remote_addr;
+
+error_page  403  http://s3.eu-central-1.amazonaws.com/oastatic/403.html;
+
+if ($http_x_forwarded_for) {
+  set $client_ip $http_x_forwarded_for;
+}
+
+root /cibul-symfony/web;
+
+gzip on;
+gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+server_tokens off;
+client_max_body_size 20m;
+
+##########################################################
+#             STATIC FILES
+
+location ~ ^/dist {
+  include conf.d/nodejs_params;
+}
+
+location ~ \.(js|png|html|svg|ttf|woff|gif|ejs|ico|css)$ {
+  root /static;
+}
+
+location /fonts {
+  add_header Access-Control-Allow-Origin *;
+  root /static;
+}
+
+location ~^/js/ {
+  root /static;
+}
+
+location ~ /\.ht {
+  deny all;
+}
+
+location = /robots.txt {
+  return 200 "User-agent: *\nDisallow:";
+}
+
+location = /favicon.ico {
+  root /static;
+}
+
+
+
+##########################################################
+# CLOSED STUFF
+
+location /legacy {
+  return 403 "Nope.";
+}
+
+
+##########################################################
+#            NODE SPECIFIC ROUTES
+
+location ~ ^/agendas/([0-9]+|)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/events\.v2\.json$ {
+  add_header 'Access-Control-Allow-Origin' '*';
+  add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+  add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+  add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/(events|index|contribute) {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/events/([0-9]+)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/(search|latest|rebuild|update) {
+  include conf.d/nodejs_params;
+}
+
+location /locations {
+  add_header 'Access-Control-Allow-Origin' '*';
+  add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+  add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+  add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+  include conf.d/nodejs_params;
+}
+
+location /users {
+  include conf.d/nodejs_params;
+}
+
+location /home {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/(start|discover|decouvrir|entdecken)($|\/.+$) {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/(settings|filekey) {
+  include conf.d/nodejs_params;
+}
+
+location /session {
+  include conf.d/nodejs_params;
+}
+
+location /assets {
+  include conf.d/nodejs_params;
+}
+
+location /docx {
+  include conf.d/nodejs_params;
+}
+
+# control data route
+location ~ ^/agendas/([0-9]+)/controldata(|\.prv)$ {
+  add_header 'Access-Control-Allow-Origin' '*';
+  add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+  add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+  add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+  include conf.d/nodejs_params;
+}
+
+#export routes
+location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xlsx|pdf|rss|ics)$ {
+  add_header 'Access-Control-Allow-Origin' '*';
+  add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+  add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+  add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+  include conf.d/nodejs_params;
+}
+
+#admin export routes
+location ~ ^/agendas/([0-9]+)/admin/events\.(json|csv|xlsx|rss)$ {
+  include conf.d/nodejs_params;
+}
+
+#admin private event data
+location ~ ^/agendas/([0-9]+)/events/([0-9]+)/private {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/admin/events/states {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/(embed|previewEmbed) {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/facebook {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/(addTo|removeFrom) {
+  include conf.d/nodejs_params;
+}
+
+location /signin {
+  include conf.d/nodejs_params;
+}
+
+location /unsubscribe {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/[^/]+/((twitter|facebook|google)\/|)signin {
+  include conf.d/nodejs_params;
+}
+
+location /signup {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/[^/]+/((twitter|facebook|google)\/|)signup {
+  include conf.d/nodejs_params;
+}
+
+location /twitter/email {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/[^/]+/twitter/email {
+  include conf.d/nodejs_params;
+}
+
+location /signout {
+  include conf.d/nodejs_params;
+}
+
+location /facebook {
+  include conf.d/nodejs_params;
+}
+
+location /twitter {
+  include conf.d/nodejs_params;
+}
+
+location /google {
+  include conf.d/nodejs_params;
+}
+
+location /abilities {
+  include conf.d/nodejs_params;
+}
+
+location /activate {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/[^/]+/(activate|unauthorized|settings) {
+  include conf.d/nodejs_params;
+}
+
+location /password {
+  include conf.d/nodejs_params;
+}
+
+location /aws/sns {
+  include conf.d/nodejs_params;
+}
+
+location /aws/sns/mailreplies {
+  include conf.d/nodejs_params;
+}
+
+# check agenda's slug availability
+location ~ /agendas/slugs/available {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/oa/inbox {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/agendas/([0-9]+)/inbox {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/oa(/agendas|/events(\.json|)|/activities(/list|))$ {
+  include conf.d/nodejs_params;
+}
+
+# all redirection from uid to slug
+location ~ ^/agendas/([0-9]+)/admin/.* {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/[^/]+/admin/events/[^/]+/edition-request {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/[^/]+/admin/events/states {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/[^/]+/locations/([0-9]+)/suggest-change {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^(/admin|)/support {
+  include conf.d/nodejs_params;
+}
+
+
+##########################################################
+#             SF1.4 - SPECIFIC PREFIXED
+# /videos, /surveys, /prezis, /sitemap.xml, /change-language
+# /securesignin, /fbsignin, /howto
+# /termsofuse, /404
+
+location ~ ^/(frontend_dev.php|)(videos|surveys|sitemap|change-language|securesignin|fbsignin|howto|termsofuse|404|captcha) {
+  try_files $uri $uri/ /index.php$uri?$args;
+  include conf.d/php_params;
+}
+
+# /preview, /email, /ical, /calendarexport, /remove
+# /api, /publish, /unpublish, /linktwitter, /password_regenerate
+location ~ ^/(frontend_dev.php|)(preview|email|ical|calendarexport|remove|api|publish|unpublish|linktwitter|unlinktwitter|password_regenerate) {
+  try_files $uri $uri/ /index.php$uri?$args;
+  include conf.d/php_params;
+}
+
+# /imageupload, imageremove, myagenda, programarticle, submit, cred, authlostpassword, authlostpasswordsubmit
+location ~ ^/(frontend_dev.php|)(imageupload|imageremove|myagenda|programarticle$|submit|authlostpassword|authlostpasswordsubmit) {
+  try_files $uri $uri/ /index.php$uri?$args;
+  include conf.d/php_params;
+}
+
+# /event, /embed, /oa, /messages, /auth, /account, /invitation, /agenda
+location ~ ^/(frontend_dev.php|)(event[^s][/|$]|embed|messages|auth(/|$)|account|invitation|agenda[/|$]|agendas[/|$]|program[/|$]) {
+  try_files $uri $uri/ /index.php$uri?$args;
+  include conf.d/php_params;
+}
+
+# legacy newsletter interface
+location ~ ^/[^/]+/admin/newsletter(^s) {
+  try_files $uri $uri/ /index.php$uri?$args;
+  include conf.d/php_params;
+}
+
+# categories administration
+location ~ ^/[^/]+/admin/categories/[^/]+/remove {
+  try_files $uri $uri/ /index.php$uri?$args;
+  include conf.d/php_params;
+}
+
+
+##########################################################
+#                NODEJS
+
+# site homepage
+location = / {
+  include conf.d/nodejs_params;
+}
+
+# newsletter module routes
+# /:slug/admin/newsletters, /:slug/newsletters
+location ~ ^/[^/]+/(admin/newsletters|newsletters|^(admin/)newsletter) {
+  include conf.d/nodejs_params;
+}
+
+
+location /services/swapcard/connect/callback {
+  include conf.d/nodejs_params;
+}
+
+
+
+# submit invitations for agenda contributions
+# /:slug/admin/contributors/invite
+location ~ ^/.+/admin/contributors/(invite|resend|info|resendall|transfer.+|[0-9]+\.json)$ {
+  include conf.d/nodejs_params;
+}
+
+# submit invitations for agenda administrators
+# /:slug/admin/administrators/invite
+location ~ ^/.+/admin/admins/(invite|resend|resendall)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/.+/admin/moderators/(invite|resend|resendall)$ {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/.+/admin/(emailstrategie|stats|schema) {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/.+/admin/embeds/.+/switch {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/.+/admin/(facebook|tagcat|locations|settings|getting-started|aggregator|sources|members|contributors\.(xlsx|csv)|inbox|layout|statistics) {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/.+/(locations|activities|contact(/conversation|$)|request-contribute) {
+  include conf.d/nodejs_params;
+}
+
+location ~ ^/notifications {
+  include conf.d/nodejs_params;
+}
+
+# search routes
+location ~ ^/(events|agendas)/(search|latest)$ {
+  include conf.d/nodejs_params;
+}
+
+# widget search
+location ~ ^/widgets/.+/search$ {
+  include conf.d/nodejs_params;
+}
+
+# admin route
+location /admin {
+  include conf.d/nodejs_params;
+}
+
+# newsletter subscribe
+location = /newsletter/subscribe {
+  include conf.d/nodejs_params;
+}
+
+# agenda page (any string without a slash all the way to the end)
+location ~ ^/[^/]+(|/)$ {
+  include conf.d/nodejs_params;
+}
+
+# action page, new search indices pages
+#location ~ ^/[^/]+/(action(s|)($|/)|index|calendar|contribute) {
+location ~ ^/[^/]+/(action(s|)($|/)|index|calendar|contribute|addevent|event/[^/]+/edit$) {
+  include conf.d/nodejs_params;
+}
+
+
+# agenda resync
+location ~ ^/[^/]+/resync {
+  include conf.d/nodejs_params;
+}
+
+# agenda shares
+location ~ ^/[^/]+/share {
+  include conf.d/nodejs_params;
+}
+
+# event page
+location ~ ^/([^/]+/)events/ {
+  include conf.d/nodejs_params;
+}
+
+# survey app
+location ~ ^/[^/]+/survey {
+  include conf.d/nodejs_params;
+}
+
+#lone event page
+location ~ ^/events/ {
+  include conf.d/nodejs_params;
+}
+
+
+#########################################################
+#              SF 1.4 BUCKET - ANYTHING ELSE GOES HERE
+
+
+location / {
+  try_files $uri $uri/ /index.php$uri?$args;
+}
+
+location ^~ /sf/ {
+  alias /cibul-symfony/lib/vendor/symfony/data/web/sf/;
+}
+
+location ~ "^(.+\.php)($|/)" {
+  include conf.d/php_params;
+}
