@@ -1,6 +1,9 @@
+import _ from 'lodash';
 import React, { useMemo, useCallback } from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import mergeMultiData from '../utils/mergeMultiData';
+import getLocaleValue from '../utils/getLocaleValue';
 import HorizontalBarChart from './basics/HorizontalBarChart';
 import VerticalBarChart from './basics/VerticalBarChart';
 import DateTooltipItem from './basics/DateTooltipItem';
@@ -37,15 +40,32 @@ export default function ComposedChart({
   range,
   loadStat
 }) {
-  const { aggregation, chart, data } = stat;
+  const { aggregation, chart, data: rawData } = stat;
   const {
-    orientation, // TODO replace with `type` ?
+    orientation,
     tooltip: tooltipType,
     xAxisTick: xAxisTickType,
-    loadMore: _withLoadMore,
-    intervalSelector: _withIntervalSelector,
-    ...chartOpts
+    fromDataKey,
+    dataKey,
+    labelKey
   } = chart;
+  const intl = useIntl();
+  const data = useMemo(() => {
+    let result = rawData;
+
+    if (fromDataKey?.length) {
+      result = mergeMultiData(rawData, fromDataKey, dataKey);
+    }
+
+    [].concat(labelKey).forEach(k => {
+      result = result.map(v => ({
+        ...v,
+        ..._.set({}, k, getLocaleValue(_.get(v, k), intl.locale))
+      }));
+    });
+
+    return result;
+  }, [rawData, fromDataKey, dataKey, labelKey, intl.locale]);
 
   const ChartComponent = useMemo(() => {
     if (orientation === 'horizontal') {
@@ -125,9 +145,10 @@ export default function ComposedChart({
 
   const child = (
     <ChartComponent
-      {...chartOpts}
       data={data}
       totalEvents={totalEvents}
+      dataKey={dataKey}
+      labelKey={labelKey}
       renderTooltipItem={renderTooltipItem}
       xAxisTick={xAxisTick}
     />

@@ -72,9 +72,22 @@ function Dashboard({ agenda, agendaSchema }) {
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
-      const statsToLoad = DEFAULT_STATS.map(v => ({ id: _.uniqueId(), ...v }));
-
-      // TODO add additionalFields
+      const statsToLoad = DEFAULT_STATS.concat({ separator: true })
+        .concat(
+          agendaSchema.fields.map(fieldSchema => ({
+            aggregation: {
+              type: 'additionalFields',
+              field: fieldSchema.field
+            },
+            chart: {
+              orientation: 'vertical',
+              dataKey: 'eventCount',
+              labelKey: 'label'
+            },
+            fieldSchema
+          }))
+        )
+        .map(v => ({ id: _.uniqueId(), ...v }));
 
       return dispatch(
         statsActions.load(
@@ -134,7 +147,6 @@ function Dashboard({ agenda, agendaSchema }) {
       {stats ? (
         <AggregationCharts
           agenda={agenda}
-          agendaSchema={agendaSchema}
           stats={stats}
           totalEvents={totalEvents}
           range={range}

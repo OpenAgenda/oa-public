@@ -1,6 +1,7 @@
 import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import getLocaleValue from '../../utils/getLocaleValue';
 
 const messages = defineMessages({
   events: {
@@ -16,7 +17,10 @@ export default function DefaultTooltipItem({
   hideLabel
 }) {
   const intl = useIntl();
-  const label = getValueByDataKey(entry.payload, dataKey);
+  const label = getLocaleValue(
+    getValueByDataKey(entry.payload, dataKey),
+    intl.locale
+  );
 
   return (
     <li className="recharts-tooltip-item">

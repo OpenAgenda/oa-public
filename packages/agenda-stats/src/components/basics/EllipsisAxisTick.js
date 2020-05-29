@@ -1,19 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { Text } from 'recharts';
 
-export default function EllipsisAxisTick({
-  maxLines = 3,
-  payload,
-  formatter,
-  ...rest
-}) {
-  // const value = useMemo(() => {
-  //   if (typeof formatter === 'function') {
-  //     return formatter(payload.value);
-  //   }
-  //
-  //   return payload;
-  // });
+export default function EllipsisAxisTick({ maxLines = 3, payload, ...rest }) {
   const [text, setText] = useState(payload.value);
   const [suffix, setSuffix] = useState('');
 

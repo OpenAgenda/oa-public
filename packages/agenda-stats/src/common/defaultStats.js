@@ -78,8 +78,8 @@ const DEFAULT_STATS = [
       dataKey: 'eventCount',
       labelKey: 'agenda.title'
     }
-  },
-  { separator: true }
+  }
+  // { separator: true }
   // {
   //   aggregation: {
   //     type: 'additionalFields'
