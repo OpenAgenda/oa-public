@@ -32,6 +32,25 @@ const messages = defineMessages({
   }
 });
 
+function getStatsToLoad(agendaSchema) {
+  return DEFAULT_STATS.concat({ separator: true })
+    .concat(
+      agendaSchema.fields.map(fieldSchema => ({
+        aggregation: {
+          type: 'additionalFields',
+          field: fieldSchema.field
+        },
+        chart: {
+          orientation: 'vertical',
+          dataKey: 'eventCount',
+          labelKey: 'label'
+        },
+        fieldSchema
+      }))
+    )
+    .map(v => ({ id: _.uniqueId(), ...v }));
+}
+
 function Dashboard({ agenda, agendaSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -72,33 +91,16 @@ function Dashboard({ agenda, agendaSchema }) {
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
-      const statsToLoad = DEFAULT_STATS.concat({ separator: true })
-        .concat(
-          agendaSchema.fields.map(fieldSchema => ({
-            aggregation: {
-              type: 'additionalFields',
-              field: fieldSchema.field
-            },
-            chart: {
-              orientation: 'vertical',
-              dataKey: 'eventCount',
-              labelKey: 'label'
-            },
-            fieldSchema
-          }))
-        )
-        .map(v => ({ id: _.uniqueId(), ...v }));
-
       return dispatch(
         statsActions.load(
           agenda,
-          statsToLoad,
+          getStatsToLoad(agendaSchema),
           query,
           rangeToCalendarInterval(defaultRange)
         )
       );
     });
-  }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
+  }, [agenda, agendaSchema, apiClient, dispatch, loaded, res.jsonExport]);
 
   if (loading && !loaded) {
     return (
@@ -157,12 +159,17 @@ function Dashboard({ agenda, agendaSchema }) {
         <PeriodModal
           initialValues={[range]}
           onSubmit={value => dispatch(
-            statsActions.load(agenda, {
-              date: {
-                gte: value[0].startDate,
-                lte: value[0].endDate
-              }
-            })
+            statsActions.load(
+              agenda,
+              getStatsToLoad(agendaSchema),
+              {
+                date: {
+                  gte: value[0].startDate,
+                  lte: value[0].endDate
+                }
+              },
+              rangeToCalendarInterval(value[0])
+            )
           ).then(() => {
             setRange(value[0]);
           })}
