@@ -20,7 +20,8 @@ const messages = defineMessages({
   },
   tooltipContent: {
     id: 'AgendaStats.SavedEventsChart.tooltipContent',
-    defaultMessage: '{value, number} events'
+    defaultMessage:
+      '{dataKey, select, createdAt {{value, number} created events} updatedAt {{value, number} updated events}}'
   }
 });
 

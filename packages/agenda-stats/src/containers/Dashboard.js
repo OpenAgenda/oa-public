@@ -11,6 +11,7 @@ import PeriodModal from '../components/PeriodModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
 import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
+import DEFAULT_STATS from '../common/defaultStats';
 
 const messages = defineMessages({
   title: {
@@ -31,7 +32,7 @@ const messages = defineMessages({
   }
 });
 
-function Dashboard({ agenda }) {
+function Dashboard({ agenda, agendaSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
@@ -39,13 +40,13 @@ function Dashboard({ agenda }) {
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'stats.loading', true));
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
-  const aggregations = useSelector(state => state.stats.aggregations);
-  const data = useSelector(state => state.stats.data);
+  const stats = useSelector(state => state.stats.data);
   const totalEvents = useSelector(state => state.stats.totalEvents);
 
   const [range, setRange] = useState(undefined);
   const dateRangeModal = useModal();
 
+  // Load timespan & aggregations
   useEffect(() => {
     if (loaded) {
       return;
@@ -71,8 +72,17 @@ function Dashboard({ agenda }) {
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
+      const statsToLoad = DEFAULT_STATS.map(v => ({ id: _.uniqueId(), ...v }));
+
+      // TODO add additionalFields
+
       return dispatch(
-        statsActions.load(agenda, query, rangeToCalendarInterval(defaultRange))
+        statsActions.load(
+          agenda,
+          statsToLoad,
+          query,
+          rangeToCalendarInterval(defaultRange)
+        )
       );
     });
   }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
@@ -121,11 +131,11 @@ function Dashboard({ agenda }) {
         </div>
       ) : null}
 
-      {data ? (
+      {stats ? (
         <AggregationCharts
           agenda={agenda}
-          aggregations={aggregations}
-          data={data}
+          agendaSchema={agendaSchema}
+          stats={stats}
           totalEvents={totalEvents}
           range={range}
         />

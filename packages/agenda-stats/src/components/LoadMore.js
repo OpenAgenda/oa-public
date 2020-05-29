@@ -16,13 +16,7 @@ const messages = defineMessages({
   }
 });
 
-export default function LoadMore({
-  data,
-  total,
-  dataKey,
-  aggregationKey,
-  loadMore
-}) {
+export default function LoadMore({ stat, total, loadMore }) {
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
   const [noMore, setNoMore] = useState(false);
@@ -30,28 +24,50 @@ export default function LoadMore({
 
   const handleClick = useCallback(() => {
     setLoading(true);
-    loadMore(aggregationKey)
+    loadMore()
       .then(result => {
-        const aggData = result.data.aggregations[aggregationKey];
+        const receivedMore = Array.isArray(stat.aggregation)
+          ? stat.aggregation.some(
+            (v, i) => stat.data[i].length
+                < result.data.aggregations[`${v.type}-${stat.id}`].length
+          )
+          : stat.data.length
+            < result.data.aggregations[`${stat.aggregation.type}-${stat.id}`]
+              .length;
 
-        if (aggData.length === data.length) {
+        if (!receivedMore) {
           setNoMore(true);
         }
       })
       .finally(() => setLoading(false));
-  }, [aggregationKey, data.length, loadMore]);
+  }, [loadMore, stat.aggregation, stat.data, stat.id]);
 
-  const hasMore = useMemo(
-    () => total !== data.reduce((accu, next) => accu + _.get(next, dataKey), 0),
-    [total, data, dataKey]
-  );
+  const hasMore = useMemo(() => {
+    if (Array.isArray(stat.aggregation)) {
+      return stat.aggregation.some(
+        (v, i) => total
+          !== stat.data[i].reduce(
+            (accu, next) => accu + _.get(next, stat.chart.dataKey[i]),
+            0
+          )
+      );
+    }
+
+    return (
+      total
+      !== stat.data.reduce(
+        (accu, next) => accu + _.get(next, stat.chart.dataKey),
+        0
+      )
+    );
+  }, [stat.aggregation, stat.chart.dataKey, stat.data, total]);
 
   // Reset `hasMore` if data changes
   useLayoutEffect(() => {
     if (hasMore) {
       setNoMore(false);
     }
-  }, [data, hasMore]);
+  }, [stat.data, hasMore]);
 
   useLayoutEffect(() => {
     let id;

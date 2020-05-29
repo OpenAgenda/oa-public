@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 // import { useIntl } from 'react-intl';
 import {
   XAxis, YAxis, Tooltip, CartesianGrid, Bar, BarChart
 } from 'recharts';
 import { css } from '@emotion/core';
-// import addRestItem from '../utils/addRestItem';
+// import addRestItem from '../../utils/addRestItem';
+import mergeMultiData from '../../utils/mergeMultiData';
+import dataColors from '../../common/dataColors';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
 export default function HorizontalBarChart({
-  data,
+  data: rawData,
   // total,
   dataKey,
-  dataKey1,
+  fromDataKey,
   labelKey,
   renderTooltipItem,
   xAxisTick,
   yAxisTick
 }) {
   // const intl = useIntl();
-  // const data = useMemo(() => addRestItem(rawData, total, intl), [rawData, total, intl]);
+  const data = useMemo(() => {
+    if (!fromDataKey?.length) {
+      return rawData;
+    }
+
+    return mergeMultiData(rawData, fromDataKey, dataKey);
+  }, [fromDataKey, dataKey, rawData]);
 
   return (
     <BarChart
@@ -52,24 +60,17 @@ export default function HorizontalBarChart({
           <CustomTooltip dataKey={labelKey} renderItem={renderTooltipItem} />
         }
       />
-      <Bar
-        type="monotone"
-        dataKey={dataKey}
-        stroke="#41acdd"
-        fillOpacity={1}
-        fill="#41acdd"
-        yAxisId={0}
-      />
-      {dataKey1 ? (
+      {[].concat(dataKey).map((k, i) => (
         <Bar
+          key={k}
           type="monotone"
-          dataKey={dataKey1}
-          stroke="#82ca9d"
+          dataKey={k}
+          stroke={dataColors[i] || dataColors[dataColors.length - 1]}
           fillOpacity={1}
-          fill="#82ca9d"
+          fill={dataColors[i] || dataColors[dataColors.length - 1]}
           yAxisId={0}
         />
-      ) : null}
+      ))}
     </BarChart>
   );
 }

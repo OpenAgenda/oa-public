@@ -18,7 +18,11 @@ const messages = defineMessages({
 });
 
 export default function DateTooltipItem({
-  message, entry, dataKey, interval
+  message,
+  entry,
+  dataKey,
+  interval,
+  hideLabel
 }) {
   const intl = useIntl();
 
@@ -48,25 +52,32 @@ export default function DateTooltipItem({
   //   }
   // }, interval);
 
-  const value = getValueByDataKey(entry.payload, dataKey);
-  const date = new Date(value);
+  const label = getValueByDataKey(entry.payload, dataKey);
+  const date = new Date(label);
 
   return (
     <li className="recharts-tooltip-item">
       <span>
-        <b>
-          {interval === 'day'
-            ? intl.formatMessage(messages.tooltipDay, { date })
-            : null}
-          {interval === 'week'
-            ? intl.formatMessage(messages.tooltipWeek, { date })
-            : null}
-          {interval === 'month'
-            ? intl.formatMessage(messages.tooltipMonth, { date })
-            : null}
-        </b>
-        <br />
-        {intl.formatMessage(message, { value: entry.value })}
+        {!hideLabel ? (
+          <>
+            <b>
+              {interval === 'day'
+                ? intl.formatMessage(messages.tooltipDay, { date })
+                : null}
+              {interval === 'week'
+                ? intl.formatMessage(messages.tooltipWeek, { date })
+                : null}
+              {interval === 'month'
+                ? intl.formatMessage(messages.tooltipMonth, { date })
+                : null}
+            </b>
+            <br />
+          </>
+        ) : null}
+        {intl.formatMessage(message, {
+          value: entry.value,
+          dataKey: entry.dataKey
+        })}
       </span>
     </li>
   );

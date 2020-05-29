@@ -17,6 +17,7 @@ function getDefaultHistory(req) {
 
 export default function createApp(options) {
   const {
+    name,
     initialState,
     layout,
     req,
@@ -43,7 +44,7 @@ export default function createApp(options) {
       typeof window !== 'undefined'
       && process.env.NODE_ENV === 'development'
       && window.__REDUX_DEVTOOLS_EXTENSION__
-        ? window.__REDUX_DEVTOOLS_EXTENSION__()
+        ? window.__REDUX_DEVTOOLS_EXTENSION__({ name: name ? `${name} — ${document.title}` : document.title })
         : v => v
     )
   );
