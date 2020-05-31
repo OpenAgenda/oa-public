@@ -1,130 +1,130 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const async = require( 'async' );
+const _ = require('lodash');
+const async = require('async');
 const elasticsearch = require('@elastic/elasticsearch');
-const VError = require( 'verror' );
-const w = require( 'when' );
+const VError = require('verror');
+const w = require('when');
 
-const utils = require( '@openagenda/utils' );
+const utils = require('@openagenda/utils');
 
-const log = require( '@openagenda/logs' )( 'search' );
+const log = require('@openagenda/logs')('search');
 
-const bulk = require( './lib/bulk' );
-const obj = require( './lib/agenda' ); // unnecessary abstraction
-const resyncUpdated = require( './resyncUpdated' );
+const bulk = require('./lib/bulk');
+const obj = require('./lib/agenda'); // unnecessary abstraction
+const resyncUpdated = require('./resyncUpdated');
 const mapping  = require('./lib/mapping.json');
 
 let esClient;
 
 module.exports = config => {
 
-  if ( _.get( config, 'alias' ) ) {
+  if (_.get(config, 'alias')) {
 
     obj.alias = config.alias;
 
   }
 
-  return _.mapValues( {
+  return _.mapValues({
     list,
     rebuild,
     resyncUpdated,
-  }, method => method.bind( null, { obj, config, getClient } ) );
+  }, method => method.bind(null, { obj, config, getClient }));
 
-  return search( obj, cfg );
+  return search(obj, cfg);
 
 }
 
 
-function list( { obj, config }, query, offset, limit, cb ) {
+function list({ obj, config }, query, offset, limit, cb) {
 
-  var dsl = obj.query( query, offset, limit ),
+  var dsl = obj.query(query, offset, limit),
 
-  client = getClient( config.elasticsearch );
+  client = getClient(config.elasticsearch);
 
-  client.search( {
+  client.search({
     index: obj.alias,
     body: dsl
-  }, ( err, result ) => {
+  }, (err, result) => {
 
     //console.log(JSON.stringify(result, null, 2));
 
-    if ( err ) return cb( err );
+    if (err) return cb(err);
 
-    cb( null, result.body.hits.hits.map( obj.parse ), result.body.hits.total.value );
+    cb(null, result.body.hits.hits.map(obj.parse), result.body.hits.total.value);
 
-  } );
+  });
 
 }
 
-async function rebuild( { obj, config } ) {
+async function rebuild({ obj, config }) {
 
-  log( 'rebuild' );
+  log('rebuild');
 
   const newIndex = obj.alias + '_' + _dateStr();
 
   const v = {
     interfaces: config.interfaces,
     config: config.elasticsearch,
-    timeout: _.get( config, 'elasticsearch.timeout' ),
+    timeout: _.get(config, 'elasticsearch.timeout'),
     image: config.image,
     obj: obj,
     previousIndices: false,
     index: newIndex
   };
 
-  const client = getClient( config.elasticsearch );
+  const client = getClient(config.elasticsearch);
 
   try {
 
-    v.previousIndices = _.keys( await client.indices.getAlias( {
+    v.previousIndices = _.keys(await client.indices.getAlias({
       name: obj.alias
-    } ).then(r => r.body) );
+    }).then(r => r.body));
 
-  } catch ( err ) {
+  } catch (err) {
 
-    if ( err.meta.statusCode !== 404 ) {
+    if (err.meta.statusCode !== 404) {
 
-      throw new VError( 'failed to retrieve previous indices', err );
+      throw new VError('failed to retrieve previous indices', err);
 
     }
 
   }
 
-  const result = await w( v )
+  const result = await w(v)
 
-    .then( _createIndex )
+    .then(_createIndex)
 
-    .then( async v => {
+    .then(async v => {
 
-      const count = await populate( {
+      const count = await populate({
         client,
         list: config.interfaces.list,
         index: newIndex,
         obj,
         image: config.image
-      } );
+      });
 
-      log( 'info', 'indexed %s items', count );
+      log('info', 'indexed %s items', count);
 
       return v;
 
-    } )
+    })
 
-    .then( _refresh )
+    .then(_refresh)
 
-    .then( _applyAlias )
+    .then(_applyAlias)
 
-    .then( _removePreviousIndices );
+    .then(_removePreviousIndices);
 
   return result;
 
 }
 
 
-function getClient( esConfig ) {
+function getClient(esConfig) {
 
-  if ( !esClient ) {
+  if (!esClient) {
 
     esClient = new elasticsearch.Client(_.pick(esConfig, ['node', 'log', 'ssl']));
 
@@ -141,21 +141,21 @@ function getClient( esConfig ) {
  * before running the bulk insert
  */
 
-async function populate( { client, list, index, obj, image } ) {
+async function populate({ client, list, index, obj, image }) {
 
-  log( 'info', 'populating index' );
+  log('info', 'populating index');
 
   const limit = 20;
 
   let offset = 0, count = 0, agendas;
 
-  while ( ( agendas = await list( {}, offset, limit, { detailed: false } ) ).length ) {
+  while ((agendas = await list({}, offset, limit, { detailed: false })).length) {
 
-    const inserted = await bulk( { client, index, obj, image, operation: 'index' }, agendas );
+    const inserted = await bulk({ client, index, obj, image, operation: 'index' }, agendas);
 
     count += inserted;
 
-    log( 'added %i items from offset %s', agendas.length, offset );
+    log('added %i items from offset %s', agendas.length, offset);
 
     offset += limit;
 
@@ -166,38 +166,38 @@ async function populate( { client, list, index, obj, image } ) {
 }
 
 
-function _bulkInsert( v, items, cb ) {
+function _bulkInsert(v, items, cb) {
 
   var bulked = [],
 
-  client = getClient( _.get( v, [ 'config.elasticsearch' ] ) );
+  client = getClient(_.get(v, [ 'config.elasticsearch' ]));
 
-  items.forEach( item => {
+  items.forEach(item => {
 
     // action description
-    bulked.push( { index: {
+    bulked.push({ index: {
       _index: v.index,
       _type: v.obj.type,
       _id: item.id
-    } } );
+    } });
 
-    bulked.push( v.obj.clean( item, { image: v.image } ) );
+    bulked.push(v.obj.clean(item, { image: v.image }));
 
-  } );
+  });
 
-  if ( !bulked.length ) {
+  if (!bulked.length) {
 
-    return cb( null, { items: [] } );
+    return cb(null, { items: [] });
 
   }
 
-  client.bulk( {
+  client.bulk({
     body: bulked
-  }, ( err, result ) => {
+  }, (err, result) => {
 
-    cb( err, result );
+    cb(err, result);
 
-  } );
+  });
 
 }
 
@@ -206,25 +206,25 @@ function _bulkInsert( v, items, cb ) {
  * refresh the index v.index
  */
 
-function _refresh( v ) {
+function _refresh(v) {
 
-  var client = getClient( _.get( v, 'config.elasticsearch' ) ),
+  var client = getClient(_.get(v, 'config.elasticsearch')),
 
   d = w.defer();
 
-  client.indices.refresh( {
+  client.indices.refresh({
     index: v.index
-  }, ( err, result ) => {
+  }, (err, result) => {
 
-    if ( err ) {
+    if (err) {
 
-      return d.reject( err );
+      return d.reject(err);
 
     }
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
@@ -235,22 +235,22 @@ function _refresh( v ) {
  * apply alias v.obj.alias on v.index index
  */
 
-function _applyAlias( v ) {
+function _applyAlias(v) {
 
-  var client = getClient( _.get( v, 'config.elasticsearch' ) ),
+  var client = getClient(_.get(v, 'config.elasticsearch')),
 
   d = w.defer();
 
-  client.indices.putAlias( {
+  client.indices.putAlias({
     index: v.index,
     name: v.obj.alias
-  }, ( err, result ) => {
+  }, (err, result) => {
 
-    if ( err ) return d.reject( err );
+    if (err) return d.reject(err);
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
@@ -260,32 +260,32 @@ function _applyAlias( v ) {
 /**
  * get indexes pointed to by v.obj.alias
  */
-function _getPreviousIndices( v ) {
+function _getPreviousIndices(v) {
 
-  log( 'retrieving previous indices' );
+  log('retrieving previous indices');
 
-  var client = getClient( _.get( v, 'config.elasticsearch' ) ),
+  var client = getClient(_.get(v, 'config.elasticsearch')),
 
   d = w.defer();
 
-  client.indices.getAlias( {
+  client.indices.getAlias({
     name: v.obj.alias
-  }, ( err, result ) => {
+  }, (err, result) => {
 
-    if ( err && err.displayName !== 'NotFound' ) {
+    if (err && err.displayName !== 'NotFound') {
 
-      return d.reject( err );
+      return d.reject(err);
 
     }
 
     // if err at this point, means alias not set
-    v.previousIndices = err ? [] : Object.keys( result );
+    v.previousIndices = err ? [] : Object.keys(result);
 
-    log( 'retrieved %s indices', v.previousIndices.length );
+    log('retrieved %s indices', v.previousIndices.length);
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
@@ -295,46 +295,46 @@ function _getPreviousIndices( v ) {
 /**
  * remove indexes listed by v.previousIndices
  */
-function _removePreviousIndices( v ) {
+function _removePreviousIndices(v) {
 
-  if ( !v.previousIndices.length ) {
+  if (!v.previousIndices.length) {
 
     return v;
 
   }
 
-  var client = getClient( _.get( v, 'config.elasticsearch' ) ),
+  var client = getClient(_.get(v, 'config.elasticsearch')),
 
   d = w.defer();
 
-  client.indices.delete( {
-    index: v.previousIndices.join( ',' )
-  }, ( err, result ) => {
+  client.indices.delete({
+    index: v.previousIndices.join(',')
+  }, (err, result) => {
 
-    if ( err ) {
+    if (err) {
 
-      return d.reject( err );
+      return d.reject(err);
 
     }
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
 }
 
 
-function _createIndex( v ) {
+function _createIndex(v) {
 
-  log( 'creating index' );
+  log('creating index');
 
-  var client = getClient( _.get( v, 'config.elasticsearch' ) ),
+  var client = getClient(_.get(v, 'config.elasticsearch')),
 
   d = w.defer();
 
-  client.indices.create( {
+  client.indices.create({
     index: v.index,
     timeout: v.timeout,
     body: {
@@ -343,31 +343,31 @@ function _createIndex( v ) {
         properties: mapping
       }
     }
-  }, ( err, result ) => {
+  }, (err, result) => {
 
-    if ( err ) return d.reject( err );
+    if (err) return d.reject(err);
 
-    log( 'index %s created', v.index );
+    log('index %s created', v.index);
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
 }
 
-function _dateStr( d ) {
+function _dateStr(d) {
 
-  const date = d ? new Date( d ) : new Date();
+  const date = d ? new Date(d) : new Date();
 
   return [
     [ date.getFullYear(),
-    utils.fZ( date.getMonth() + 1 ),
-    utils.fZ( date.getDate() ) ].join( '' ),
-    [ utils.fZ( date.getHours() ),
-    utils.fZ( date.getMinutes() ),
-    utils.fZ( date.getSeconds() ) ].join( '' )
-  ].join( '_' );
+    utils.fZ(date.getMonth() + 1),
+    utils.fZ(date.getDate()) ].join(''),
+    [ utils.fZ(date.getHours()),
+    utils.fZ(date.getMinutes()),
+    utils.fZ(date.getSeconds()) ].join('')
+  ].join('_');
 
 }
