@@ -8,6 +8,9 @@
   "hasUpcomingPublished": {
     "type": "boolean"
   },
+  "upcomingPublishedEvents": {
+    "type": "integer"
+  },
   "slug": {
     "type": "keyword"
   },

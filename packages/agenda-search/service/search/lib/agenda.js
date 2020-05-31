@@ -46,7 +46,7 @@ function query( q, offset, limit ) {
     from: offset,
     size: limit,
     sort: getSortDsl( clean ),
-    _source: { exclude: ['*_es'] },
+    _source: { excludes: ['*_es'] },
     query: {
       bool: {}
     }

@@ -47,6 +47,8 @@ function list( { obj, config }, query, offset, limit, cb ) {
     body: dsl
   }, ( err, result ) => {
 
+    //console.log(JSON.stringify(result, null, 2));
+
     if ( err ) return cb( err );
 
     cb( null, result.body.hits.hits.map( obj.parse ), result.body.hits.total.value );
@@ -94,8 +96,6 @@ async function rebuild( { obj, config } ) {
     .then( _createIndex )
 
     .then( async v => {
-
-      console.log(newIndex);
 
       const count = await populate( {
         client,

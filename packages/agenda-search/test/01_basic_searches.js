@@ -53,7 +53,7 @@ describe( 'search', function() {
 
   } );
 
-  it.only( 'keyword search', done => {
+  it( 'keyword search', done => {
 
     search.list( { search: 'jardin' }, 0, 10, ( err, agendas, total ) => {
 
