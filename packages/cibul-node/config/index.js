@@ -196,10 +196,6 @@ const config = {
       indexName: prod.elasticsearch.indices.legacyEvents,
       channel: 'main'
     },
-    es53: {
-      host: prod.elasticsearch.v5_3.host,
-      port: prod.elasticsearch.v5_3.port
-    },
     es75: prod.elasticsearch.v7_5,
     esLocation: {
       log: [ {
@@ -854,14 +850,6 @@ const config = {
       indexName: 'cibuldev',
       channel: 'maindev',
       ssl: process.env.OA_ELASTICSEARCH_134_DEV_USE_SSL ? {
-        key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
-        cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8')
-      } : null
-    },
-    es53: {
-      host: process.env.OA_ELASTICSEARCH_533_DEV_HOST || 'localhost',
-      port: process.env.OA_ELASTICSEARCH_533_DEV_PORT || 9205,
-      ssl: process.env.OA_ELASTICSEARCH_533_DEV_USE_SSL ? {
         key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
         cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8')
       } : null

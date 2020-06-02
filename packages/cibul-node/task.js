@@ -1,7 +1,5 @@
 "use strict";
 
-const agendaSearch = require( '@openagenda/agenda-search' );
-
 const tfy = require( './lib/taskify' );
 
 module.exports = (config, core, services) => {
@@ -12,15 +10,15 @@ module.exports = (config, core, services) => {
 
   tfy( require( './services/elasticsearch' ).refresh, { period: 'daily', time: '00:00' } );
 
-  tfy( agendaSearch.rebuild, {
+  tfy(services.agendaSearch.rebuild, {
     period: 'weekly',
     day: 'sunday',
     time: '01:00'
-  } );
+  });
 
-  tfy( agendaSearch.resyncUpdated, {
+  tfy(services.agendaSearch.resyncUpdated, {
     period: 'hourly'
-  } );
+  });
 
   tfy( require( './services/activities' ).tasks.activities.cleanOld, {
     // bootOffset: 1000,

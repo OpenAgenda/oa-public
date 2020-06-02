@@ -7,7 +7,6 @@ const qs = require( 'qs' );
 const base64 = require('@openagenda/utils/base64');
 
 const agendas = require( '@openagenda/agendas' );
-const agendaSearch = require( '@openagenda/agenda-search' );
 const agendaSvc = require( '../services/agenda' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
@@ -67,6 +66,10 @@ const middlewares = {
 
 
 module.exports = app => {
+
+  const {
+    agendaSearch
+  } = app.services;
 
   app.options( '*/controldata*', ( req, res ) => res.sendStatus(200) );
 
