@@ -2,99 +2,75 @@
 
 process.env.NODE_ENV = 'test';
 
-const ih = require( 'immutability-helper' );
-const should = require( 'should' );
+const ih = require('immutability-helper');
+const should = require('should');
 
-const config = require( '../testconfig' );
+const config = require('../testconfig');
 
-const searchLib = require( '../service/search' );
+const Service = require('../service');
 
-const agendas = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/fixtures/agendas.json', 'utf-8' ) );
-
-let search;
-
-describe( 'specific searches', function() {
-
-  this.timeout( 10000 );
-
-  before( () => {
-
-    search = searchLib( ih( config, { interfaces : {
-      $set: {
-        list: async ( query, offset, limit, { detailed } ) => {
-
-          return agendas.slice( offset, offset + limit );
-
-        }
-      } }
-    } ) );
-
-  } );
-
-  before( () => search.rebuild() );
-
-  it( 'fetch all', done => {
-
-    search.list( {}, 0, 10, ( err, agendas, total ) => {
-
-      total.should.equal( 4 );
-
-      done();
-
-    } );
-
-  } );
+const agendas = JSON.parse(require('fs').readFileSync(__dirname + '/fixtures/agendas.json', 'utf-8'));
 
 
-  it( 'fetch by search on title', done => {
+describe('specific searches', function() {
+  let svc;
 
-    search.list( { search: 'Ville' }, 0, 10, ( err, agendas, total ) => {
+  this.timeout(10000);
 
-      total.should.equal( 1 );
+  before(() => {
+    svc = Service({
+      elasticsearch: config.elasticsearch,
+      alias: config.alias,
+      listAgendas: async (query, offset, limit, { detailed }) => {
+        return agendas.slice(offset, offset + limit);
+      },
+      imagePath: config.imagePath,
+      defaultImage: config.defaultImage
+    });
+  });
 
-      done();
+  before(() => svc.rebuild());
 
-    } );
+  it('fetch all', async () => {
+    const { total, items } = await svc.list({}, 0, 10);
 
-  } );
+    total.should.equal(4);
+  });
 
-  it( 'fetch official only', done => {
 
-    search.list( { official: true }, 0, 10, ( err, agendas, total ) => {
+  it('fetch by search on title', async () => {
+    const { total, items } = await svc.list({
+      search: 'Ville'
+    }, 0, 10);
+  });
 
-      total.should.equal( 3 );
+  it('fetch official only', async () => {
+    const { total, items } = await svc.list({
+      official: true
+    }, 0, 10);
 
-      done();
+    total.should.equal(3);
+  });
 
-    } );
+  it('match search on keyword', async () => {
+    const { total, items: agendas } = await svc.list({
+      search: 'France'
+    }, 0, 10);
 
-  } );
+    total.should.equal(1);
 
-  it( 'match search on keyword', done => {
+    agendas[0].title.should.equal('Au Théâtre ce soir');
+  });
 
-    search.list( { search: 'France' }, 0, 10, ( err, agendas, total ) => {
+  it('official search sorts by officialized timestamp', async () => {
+    const { total, items: agendas } = await svc.list({
+      official: true
+    }, 0, 10);
 
-      total.should.equal( 1 );
+    const agendasUids = agendas.map(a => a.uid).join('-');
 
-      agendas[ 0 ].title.should.equal( 'Au Théâtre ce soir' );
+    agendasUids.should.equal('2-4-1');
 
-      done();
+  });
 
-    } );
-
-  } );
-
-  it( 'official search sorts by officialized timestamp', done => {
-
-    search.list( { official: true }, 0, 10, ( err, agendas ) => {
-      const agendasUids = agendas.map( a => a.uid ).join( '-' );
-
-      agendasUids.should.equal( '2-4-1' );
-
-      done();
-
-    } );
-
-  } );
-
-} );
+});
