@@ -57,12 +57,12 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaEventReferences', require('./agendaEventReferences'));
   await init('agendaEvents', require('./agendaEvents'));
   await init('agendaLocations', require('./agendaLocations'));
-  await init('agendaSearch', require('./agendaSearch'));
   await init('agendaSettings', require('./agendaSettings'));
   await init('inboxes', require('./inboxes'));
   await init('agendaStatistics', require('./agendaStatistics'));
   await init('agendaTags', require('./agendaTags'));
   await init('agendas', require('./agendas'));
+  await init('agendaSearch', require('./agendaSearch'));
   await init('adminAgendas', require('./adminAgendas'));
   await init('aggregators', require('./aggregators'));
   await init('cache', require('./cache'));
