@@ -8,7 +8,7 @@ var React = require( 'react' ),
 
   createReactClass = require( 'create-react-class' ),
 
-  url = require( '../../service/url' );
+  url = require( '../../service/lib/url' );
 
 module.exports = createReactClass( {
 

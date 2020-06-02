@@ -3,55 +3,59 @@
 const _ = require('lodash');
 const should = require('should');
 const config = require('../testconfig');
-const searchLib = require('../service/search');
+const Service = require('../service');
 const listInterface = require('./app/listInterface');
 
-let search;
-
 describe('search', function() {
+  let svc;
   this.timeout(30000);
 
   before(() => {
-    search = searchLib(_.assign({
-      interfaces: {
-        list: listInterface.bind(null, 100)
-      }
-    }, config));
+    svc = Service({
+      elasticsearch: config.elasticsearch,
+      alias: config.alias,
+      listAgendas: listInterface.bind(null, 100),
+      imagePath: config.imagePath,
+      defaultImage: config.defaultImage
+    });
   });
 
-  before(() => search.rebuild());
+  before(() => svc.rebuild());
 
-  it('list', done => {
-    search.list({}, 0, 10, (err, agendas, total) => {
-      total.should.equal(101);
-      done();
-    });
+  it('list', async () => {
+    const {
+      items: agendas,
+      total
+    } = await svc.list({}, 0, 10);
+
+    total.should.equal(101);
   });
 
   it('updates agenda items after given updatedAt', async () => {
     const before = new Date();
     before.setHours(before.getHours() - 1);
 
-    const result = await search.resyncUpdated(before);
+    const result = await svc.resyncUpdated(before);
 
     // capped at 20
     result.should.eql({ indexed: 20, updated: 0 });
   });
 
-  it('keyword search', done => {
-    search.list({ search: 'jardin' }, 0, 10, (err, agendas, total) => {
-      total.should.equal(2);
-      done();
-    });
+  it('keyword search', async () => {
+    const {
+      total
+    } = await svc.list({ search: 'jardin' }, 0, 10);
+
+    total.should.equal(2);
   });
 
 
-  it('official filter: all retrieved agendas are official', done => {
-    search.list({ search: 'title', official: true }, 0, 10, (err, agendas, total) => {
-      agendas.filter(a => !a.official).length.should.equal(0);
+  it('official filter: all retrieved agendas are official', async () => {
+    const {
+      items: agendas
+    } = await svc.list({ search: 'title', official: true });
 
-      done();
-    });
+    agendas.filter(a => !a.official).length.should.equal(0);
   });
 
 });
