@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback, useMemo } from 'react';
 
 const initialState = {
   isOpen: false,
@@ -54,11 +54,14 @@ export default function useModal() {
     dispatch({ type: 'close' });
   }, [dispatch]);
 
-  return {
-    isOpen: state.isOpen,
-    data: state.data,
-    open,
-    update,
-    close
-  };
+  return useMemo(
+    () => ({
+      isOpen: state.isOpen,
+      data: state.data,
+      open,
+      update,
+      close
+    }),
+    [state.isOpen, state.data, open, update, close]
+  );
 }
