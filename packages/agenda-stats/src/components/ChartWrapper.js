@@ -1,15 +1,8 @@
 import _ from 'lodash';
-import React, {
-  useMemo,
-  useCallback,
-  useState,
-  useLayoutEffect,
-  useEffect,
-  useRef
-} from 'react';
+import React, { useCallback, useState } from 'react';
+import { useUpdateEffect, usePrevious } from 'react-use';
 import { useIntl, defineMessages } from 'react-intl';
 import { Spinner } from '@openagenda/react-components';
-import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
 import getLocaleValue from '../utils/getLocaleValue';
 import IntervalSelect from './basics/IntervalSelect';
 import LoadMore from './LoadMore';
@@ -41,6 +34,14 @@ const messages = defineMessages({
     id: 'AgendaStats.AggregationCharts.titles.createdAtUpdatedAt',
     defaultMessage: 'Saved events'
   },
+  createdAt: {
+    id: 'AgendaStats.AggregationCharts.titles.createdAt',
+    defaultMessage: 'Created events'
+  },
+  updatedAt: {
+    id: 'AgendaStats.AggregationCharts.titles.updatedAt',
+    defaultMessage: 'Updated events'
+  },
   members: {
     id: 'AgendaStats.AggregationCharts.titles.members',
     defaultMessage: 'Members'
@@ -65,18 +66,14 @@ function statToTitleMessageKey(aggregation) {
   return messageKey;
 }
 
-export default function ChartWrapper({
-  stat,
-  range,
-  totalEvents,
-  loadStat,
-  children
+function ChartWrapper({
+  stat, totalEvents, loadStat, children
 }) {
   const intl = useIntl();
 
-  const [interval, setInterval] = useState(() => rangeToCalendarInterval(range));
+  const [interval, setInterval] = useState(stat.aggregation.interval);
+  const previousInterval = usePrevious(interval);
   const [loading, setLoading] = useState(false);
-  const isInitialMount = useRef(true);
 
   const loadMore = useCallback(
     () => loadStat(stat.id, (options, actualData) => ({
@@ -86,47 +83,37 @@ export default function ChartWrapper({
     [loadStat, stat.id]
   );
 
-  // const additionalField = useMemo(
-  //   () => stat.fieldSchema?.find(v => v.field === stat.aggregation.field),
-  //   [agendaSchema.fields, stat.aggregation.field]
-  // );
+  const intervalSelector = (
+    <>
+      <IntervalSelect value={interval} onChange={setInterval} />
 
-  // console.log('additionalField', additionalField);
+      {loading ? (
+        <span className="margin-left-xs">
+          <Spinner mode="inline" />
+        </span>
+      ) : null}
+    </>
+  );
 
-  const titleMessage = useMemo(() => {
+  const titleMessage = (() => {
     const messageKey = statToTitleMessageKey(stat.aggregation);
-    let message = messageKey === 'additionalFields'
+    let message = stat.fieldSchema
       ? getLocaleValue(stat.fieldSchema.label, intl.locale)
       : intl.formatMessage(messages[messageKey]);
 
     if (stat.chart.intervalSelector) {
       message = intl.formatMessage(messages.withSelector, {
         message,
-        selector: (
-          <>
-            <IntervalSelect value={interval} onChange={setInterval} />
-
-            {loading ? (
-              <span className="margin-left-xs">
-                <Spinner mode="inline" />
-              </span>
-            ) : null}
-          </>
-        )
+        selector: intervalSelector
       });
     }
 
     return message;
-  }, [interval, intl, loading, stat.aggregation, stat.chart.intervalSelector]);
-
-  useLayoutEffect(() => {
-    setInterval(rangeToCalendarInterval(range));
-  }, [range]);
+  })();
 
   // Reload the graph with changed `interval` option
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
+  useUpdateEffect(() => {
+    if (interval === previousInterval) {
       return;
     }
 
@@ -135,7 +122,7 @@ export default function ChartWrapper({
       ...previousOptions,
       interval
     })).finally(() => setLoading(false));
-  }, [stat.aggregation.key, interval, loadStat, stat.id]);
+  }, [interval, loadStat, previousInterval, stat.id]);
 
   return (
     <div className="col-md-12 col-lg-6 margin-top-md">
@@ -149,3 +136,5 @@ export default function ChartWrapper({
     </div>
   );
 }
+
+export default ChartWrapper;

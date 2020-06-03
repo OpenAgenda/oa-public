@@ -46,13 +46,35 @@ const DEFAULT_STATS = [
       xAxisTick: 'date'
     }
   },
+  // {
+  //   aggregation: [{ type: 'createdAt' }, { type: 'updatedAt' }],
+  //   chart: {
+  //     orientation: 'horizontal',
+  //     intervalSelector: true,
+  //     fromDataKey: ['eventCount', 'eventCount'],
+  //     dataKey: ['createdCount', 'updatedCount'],
+  //     labelKey: 'key',
+  //     tooltip: 'date',
+  //     xAxisTick: 'date'
+  //   }
+  // },
   {
-    aggregation: [{ type: 'createdAt' }, { type: 'updatedAt' }],
+    aggregation: { type: 'createdAt' },
     chart: {
       orientation: 'horizontal',
       intervalSelector: true,
-      fromDataKey: ['eventCount', 'eventCount'],
-      dataKey: ['createdCount', 'updatedCount'],
+      dataKey: 'eventCount',
+      labelKey: 'key',
+      tooltip: 'date',
+      xAxisTick: 'date'
+    }
+  },
+  {
+    aggregation: { type: 'updatedAt' },
+    chart: {
+      orientation: 'horizontal',
+      intervalSelector: true,
+      dataKey: 'eventCount',
       labelKey: 'key',
       tooltip: 'date',
       xAxisTick: 'date'

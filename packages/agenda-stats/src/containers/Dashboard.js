@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,22 +33,20 @@ const messages = defineMessages({
 });
 
 function getStatsToLoad(agendaSchema) {
-  return DEFAULT_STATS.concat({ separator: true })
-    .concat(
-      agendaSchema.fields.map(fieldSchema => ({
-        aggregation: {
-          type: 'additionalFields',
-          field: fieldSchema.field
-        },
-        chart: {
-          orientation: 'vertical',
-          dataKey: 'eventCount',
-          labelKey: 'label'
-        },
-        fieldSchema
-      }))
-    )
-    .map(v => ({ id: _.uniqueId(), ...v }));
+  return DEFAULT_STATS.concat({ separator: true }).concat(
+    agendaSchema.fields.map(fieldSchema => ({
+      aggregation: {
+        type: 'additionalFields',
+        field: fieldSchema.field
+      },
+      chart: {
+        orientation: 'vertical',
+        dataKey: 'eventCount',
+        labelKey: 'label'
+      },
+      fieldSchema
+    }))
+  );
 }
 
 function Dashboard({ agenda, agendaSchema }) {
@@ -64,6 +62,25 @@ function Dashboard({ agenda, agendaSchema }) {
 
   const [range, setRange] = useState(undefined);
   const dateRangeModal = useModal();
+
+  const onPeriodChange = useCallback(
+    value => dispatch(
+      statsActions.load(
+        agenda,
+        stats,
+        {
+          date: {
+            gte: value[0].startDate,
+            lte: value[0].endDate
+          }
+        },
+        rangeToCalendarInterval(value[0])
+      )
+    ).then(() => {
+      setRange(value[0]);
+    }),
+    [agenda, dateRangeModal, dispatch, stats]
+  );
 
   // Load timespan & aggregations
   useEffect(() => {
@@ -91,10 +108,15 @@ function Dashboard({ agenda, agendaSchema }) {
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
+      const statsToLoad = getStatsToLoad(agendaSchema).map(v => ({
+        id: _.uniqueId(),
+        ...v
+      }));
+
       return dispatch(
         statsActions.load(
           agenda,
-          getStatsToLoad(agendaSchema),
+          statsToLoad,
           query,
           rangeToCalendarInterval(defaultRange)
         )
@@ -158,22 +180,8 @@ function Dashboard({ agenda, agendaSchema }) {
       {dateRangeModal.isOpen ? (
         <PeriodModal
           initialValues={[range]}
-          onSubmit={value => dispatch(
-            statsActions.load(
-              agenda,
-              getStatsToLoad(agendaSchema),
-              {
-                date: {
-                  gte: value[0].startDate,
-                  lte: value[0].endDate
-                }
-              },
-              rangeToCalendarInterval(value[0])
-            )
-          ).then(() => {
-            setRange(value[0]);
-          })}
-          onClose={() => dateRangeModal.close()}
+          onSubmit={onPeriodChange}
+          onClose={dateRangeModal.close}
         />
       ) : null}
     </div>

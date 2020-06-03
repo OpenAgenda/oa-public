@@ -33,7 +33,7 @@ const messages = defineMessages({
   }
 });
 
-export default function ComposedChart({
+function ComposedChart({
   wrapperComponent,
   stat,
   totalEvents,
@@ -114,8 +114,7 @@ export default function ComposedChart({
       if (tooltipType === 'date') {
         return (
           <DateTooltipItem
-            // interval={diplayedInterval}
-            interval="month"
+            interval={aggregation.interval}
             message={tooltipContentMessage}
             hideLabel={hideLabel}
             {...props}
@@ -130,14 +129,9 @@ export default function ComposedChart({
 
   const xAxisTick = useMemo(() => {
     if (xAxisTickType === 'date') {
-      return (
-        <DateAxisTick
-          // interval={diplayedInterval}
-          interval="month"
-        />
-      );
+      return <DateAxisTick interval={aggregation.interval} />;
     }
-  }, [xAxisTickType]);
+  }, [aggregation.interval, xAxisTickType]);
 
   if (!ChartComponent) {
     return null;
@@ -168,3 +162,5 @@ export default function ComposedChart({
     ? React.cloneElement(wrapper, wrapperProps, child)
     : React.createElement(wrapper, wrapperProps, child);
 }
+
+export default ComposedChart;

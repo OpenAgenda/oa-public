@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useCallback } from 'react';
+import { useLatest } from 'react-use';
 import { useIntl, defineMessages } from 'react-intl';
 import { DateRangePicker } from 'react-date-range';
 import * as rdrLocales from 'react-date-range/dist/locale';
@@ -21,15 +22,25 @@ export default function PeriodModal({ initialValues, onSubmit, onClose }) {
 
   const { staticRanges, inputRanges } = useMemo(() => dateRanges(intl), [intl]);
   const [ranges, setRanges] = useState(initialValues);
+  const latestRange = useLatest(ranges);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = useCallback(() => {
     setSubmitting(true);
-    onSubmit(ranges).then(() => {
-      setSubmitting(false);
-      onClose();
-    });
-  });
+
+    onSubmit(latestRange.current)
+      .finally(() => {
+        setSubmitting(false);
+      })
+      .then(() => {
+        onClose();
+      });
+  }, [latestRange, onClose, onSubmit]);
+
+  const onChange = useCallback(
+    item => setRanges([item?.selection ? item.selection : item.range1]),
+    []
+  );
 
   return (
     <Modal
@@ -41,7 +52,7 @@ export default function PeriodModal({ initialValues, onSubmit, onClose }) {
       disableBodyScroll
     >
       <DateRangePicker
-        onChange={item => setRanges([item?.selection ? item.selection : item.range1])}
+        onChange={onChange}
         showSelectionPreview
         moveRangeOnFirstSelection={false}
         months={1}

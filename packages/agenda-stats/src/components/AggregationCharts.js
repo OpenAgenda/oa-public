@@ -58,7 +58,7 @@ export default function AggregationCharts({
           key={stat.id}
           wrapperComponent={ChartWrapper}
           stat={stat}
-          total={totalEvents}
+          totalEvents={totalEvents}
           range={range}
           loadStat={loadStat}
         />

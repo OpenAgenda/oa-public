@@ -1,4 +1,5 @@
 import statsToAggregations from '../utils/statsToAggregations';
+import mapAggregationsInStats from '../utils/mapAggregationsInStats';
 
 const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';
@@ -8,6 +9,25 @@ const LOAD_STAT_SUCCESS = 'agenda-stats/stats/LOAD_STAT_SUCCESS';
 const LOAD_STAT_FAIL = 'agenda-stats/stats/LOAD_STAT_FAIL';
 
 const initialState = {};
+
+const addKey = (aggregation, stat) => ({
+  key: `${aggregation.type}-${stat.id}`,
+  ...aggregation
+});
+
+const addInterval = interval => (aggregation, stat) => (stat.chart.intervalSelector && interval
+  ? { ...aggregation, interval }
+  : aggregation);
+
+function decorateStats(stats, { interval } = {}) {
+  let result = mapAggregationsInStats(stats, addKey);
+
+  if (interval) {
+    result = mapAggregationsInStats(result, addInterval(interval));
+  }
+
+  return result;
+}
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -53,15 +73,13 @@ export default function reducer(state = initialState, action) {
       };
     case LOAD_STAT_SUCCESS: {
       const statIndex = state.data.findIndex(v => v.id === action.statId);
-      const actualStat = state.data[statIndex];
-
       const getData = agg => action.result.data.aggregations[`${agg.type}-${action.statId}`];
 
       const newStat = {
-        ...actualStat,
-        data: Array.isArray(action.aggregations)
-          ? action.aggregations.map(getData)
-          : getData(action.aggregations)
+        ...action.stat,
+        data: Array.isArray(action.stat.aggregation)
+          ? action.stat.aggregation.map(getData)
+          : getData(action.stat.aggregation)
       };
 
       return {
@@ -79,10 +97,11 @@ export default function reducer(state = initialState, action) {
 }
 
 export function load(agenda, stats, query, interval) {
+  const decoratedStats = decorateStats(stats, { interval });
   const params = {
     oaq: { passed: 1 },
     size: 0,
-    aggregations: statsToAggregations(stats, { interval }),
+    aggregations: statsToAggregations(decoratedStats),
     ...query
   };
 
@@ -96,7 +115,7 @@ export function load(agenda, stats, query, interval) {
 
       return client.get(url, { params });
     },
-    stats,
+    stats: decoratedStats,
     query
   };
 }
@@ -106,19 +125,20 @@ export function loadStat(agenda, statId, getOptions) {
     const { stats, res } = getState();
 
     const actualStat = stats.data.find(v => v.id === statId);
-    const aggregation = []
-      .concat(actualStat.aggregation)
-      .map(agg => getOptions(agg, actualStat.data));
+    const aggregation = Array.isArray(actualStat.aggregation)
+      ? actualStat.aggregation.map(agg => getOptions(agg, actualStat.data))
+      : getOptions(actualStat.aggregation, actualStat.data);
 
+    const decoratedStats = decorateStats([
+      {
+        ...actualStat,
+        aggregation
+      }
+    ]);
     const params = {
       oaq: { passed: 1 },
       size: 0,
-      aggregations: statsToAggregations([
-        {
-          ...actualStat,
-          aggregation
-        }
-      ]),
+      aggregations: statsToAggregations(decoratedStats),
       ...stats.query
     };
 
@@ -132,9 +152,7 @@ export function loadStat(agenda, statId, getOptions) {
         return client.get(url, { params });
       },
       statId,
-      aggregations: Array.isArray(actualStat.aggregation)
-        ? params.aggregations
-        : params.aggregations[0]
+      stat: decoratedStats[0]
     });
   };
 }
