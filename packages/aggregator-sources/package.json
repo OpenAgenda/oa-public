@@ -27,13 +27,13 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.8.4",
+    "@babel/runtime-corejs3": "^7.10.2",
     "@emotion/core": "^10.0.28",
     "@openagenda/react-components": "^2.3.2",
     "@openagenda/react-shared": "^2.0.0",
     "@openagenda/react-utils": "^4.1.1",
     "classnames": "^2.2.6",
-    "core-js": "^3.6.4",
+    "core-js": "^3.6.5",
     "final-form-arrays": "^3.0.2",
     "fuse.js": "^3.4.6",
     "lodash": "^4.17.15",
@@ -57,8 +57,8 @@
     "toggle-selection": "^1.0.6"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@loadable/babel-plugin": "^5.12.0",
     "@loadable/component": "^5.12.0",
@@ -69,7 +69,7 @@
     "@storybook/react": "^5.3.9",
     "axios": "^0.19.0",
     "axios-mock-adapter": "^1.17.0",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "final-form": "^4.19.1",
     "history": "^4.10.1",
