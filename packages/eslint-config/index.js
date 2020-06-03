@@ -121,7 +121,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': [
       'warn',
       {
-        additionalHooks: 'useMemoOne|useCallbackOne'
+        additionalHooks: '^useMemoOne|useCallbackOne|use.*Effect$'
       }
     ]
   }
