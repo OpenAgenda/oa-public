@@ -24,7 +24,7 @@ const extractType = (value, options = {}) => {
     }
   }
 
-  if (options.unknownIsIgnored) {
+  if (options.unknownAsUndefined) {
     return {
       value,
       type: undefined
@@ -40,7 +40,7 @@ module.exports = (r, options = {}) => {
   }
   const withType = r.map(r => extractType(r, {
     ...options,
-    unknownIsIgnored: options.unknownIsIgnored || options.filterUnknown
+    unknownAsUndefined: options.unknownAsUndefined || options.filterUnknown
   }));
 
   if (!options.filterUnknown) {
