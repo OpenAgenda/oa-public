@@ -114,6 +114,26 @@ const validate = schema({
       }
     }
   },
+  createdAt: {
+    fields: {
+      gte: {
+        type: 'date'
+      },
+      lte: {
+        type: 'date'
+      }
+    }
+  },
+  updatedAt: {
+    fields: {
+      gte: {
+        type: 'date'
+      },
+      lte: {
+        type: 'date'
+      }
+    }
+  },
   date: {
     fields: {
       gte: {
