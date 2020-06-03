@@ -47,7 +47,7 @@ module.exports.formatResult = (result, options = {}) => {
     }, {});
 
   if (options.field) {
-    return formattedResult[options.field].values;
+    return (formattedResult[options.field] || {}).values || [];
   }
 
   return formattedResult;

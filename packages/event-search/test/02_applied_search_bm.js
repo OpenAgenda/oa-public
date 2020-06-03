@@ -14,7 +14,7 @@ describe('02 - event search - functional: Applied search', function() {
   describe('Bordeaux Métropole', function() {
     let service;
     const formSchema = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/applied/bordeaux-metropole.schema.json`));
-    this.timeout(60000);
+    this.timeout(100000);
 
     before(() => {
       service = Service(config);
@@ -129,6 +129,27 @@ describe('02 - event search - functional: Applied search', function() {
         }, {});
 
         total.should.equal(1);
+      });
+
+      it('events can by filtered by creation date', async () => {
+        const { total } = await service('bdx').search({
+          createdAt: {
+            lte: new Date('2019-01-01')
+          }
+        }, {});
+
+        total.should.equal(2);
+      });
+
+      it('events can be filtered buy update date', async () => {
+        const { total } = await service('bdx').search({
+          createdAt: {
+            gte: new Date('2019-06-01'),
+            lte: new Date('2020-01-01')
+          }
+        }, {});
+
+        total.should.equal(427);
       });
 
       it('events can be filtered by source agenda', async () => {
@@ -771,6 +792,25 @@ describe('02 - event search - functional: Applied search', function() {
             label: { fr: 'Culture' },
             eventCount: 118
           });
+        });
+
+        it('if field is not known or no values correspond, empty array is returned', async () => {
+          const result = await service('bdx').search({
+            date: {
+              gte: new Date('2010-11-01'),
+              lte: new Date('2010-11-01')
+            }
+          }, { size: 0 }, {
+            detailed: true,
+            formSchema,
+            aggregations: [{
+              key: 'et_paf',
+              type: 'additionalFields',
+              field: 'categories-agenda-metropolitain'
+            }]
+          }).then(r => r.aggregations['et_paf']);
+
+          result.should.eql([]);
         });
       });
 

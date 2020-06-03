@@ -64,6 +64,14 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_dateExcludingOngoing(cleanQuery.date));
   }
 
+  if (_.get(cleanQuery, 'createdAt.gte') || _.get(cleanQuery, 'createdAt.lte')) {
+    parts.push(_timestampFilter('createdAt', cleanQuery.createdAt));
+  }
+
+  if (_.get(cleanQuery, 'updatedAt.gte') || _.get(cleanQuery, 'updatedAt.lte')) {
+    parts.push(_timestampFilter('updatedAt', cleanQuery.createdAt));
+  }
+
   if (_.get(cleanQuery, 'sourceAgendaUid', []).length) {
     parts.push(_filterBySourceAgendaUid(cleanQuery.sourceAgendaUid));
   }
@@ -193,6 +201,22 @@ function _filterBySourceAgendaUid(sourceAgendaUid) {
   }
 }
 
+function _timestampFilter(field, { gte, lte }) {
+  const range = {};
+
+  if (gte) {
+    range.gte = gte;
+  }
+  if (lte) {
+    range.lte = lte;
+  }
+
+  return {
+    range: {
+      [field]: range
+    }
+  };
+}
 
 function _localTime( t ) {
   let range = {};

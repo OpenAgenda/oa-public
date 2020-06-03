@@ -1,9 +1,13 @@
 #!/bin/bash
 
-if [ $1 -lt 1 ]
+if [ $1 -lt 1 ]; then
   rm /etc/nginx/conf.d/es.conf
 fi
 
-if [ $2 -lt 1 ]
+if [ $2 -lt 1 ]; then
   rm /etc/nginx/conf.d/pma.conf
+fi
+
+if [ $3 -lt 1 ]; then
+  rm /etc/nginx/conf.d/mailcatcher.conf
 fi

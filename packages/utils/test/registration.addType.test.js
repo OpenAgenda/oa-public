@@ -42,8 +42,8 @@ describe('utils - registration addType', () => {
     expect(error.message).toEqual('Unknown type');
   });
 
-  it('returns undefined type if unknownIsIgnored option is true', () => {
-    const result = addType('sdqfdsq', { unknownIsIgnored: true });
+  it('returns undefined type if unknownAsUndefined option is true', () => {
+    const result = addType('sdqfdsq', { unknownAsUndefined: true });
     expect(result).toEqual({
       value: 'sdqfdsq',
       type: undefined

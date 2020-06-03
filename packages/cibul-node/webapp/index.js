@@ -131,7 +131,6 @@ const initialState = async req => {
     aggregatorSources: {
       settings: {
         prefix: '/:slug/admin/sources',
-        lang: req.lang,
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },

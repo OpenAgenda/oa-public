@@ -14,7 +14,7 @@ ENV NODE_VERSION 12.16.3
 
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash \
     && . $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
+    && nvm install $NODE_VERSION --with-intl=full-icu --download=all \
     && nvm alias default $NODE_VERSION \
     && nvm use default
 
@@ -32,5 +32,3 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get install apt-transport-https -y
 RUN apt-get update -y
 RUN apt-get install yarn -y
-
-
