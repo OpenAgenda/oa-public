@@ -772,6 +772,25 @@ describe('02 - event search - functional: Applied search', function() {
             eventCount: 118
           });
         });
+
+        it('if field is not known or no values correspond, empty array is returned', async () => {
+          const result = await service('bdx').search({
+            date: {
+              gte: new Date('2010-11-01'),
+              lte: new Date('2010-11-01')
+            }
+          }, { size: 0 }, {
+            detailed: true,
+            formSchema,
+            aggregations: [{
+              key: 'et_paf',
+              type: 'additionalFields',
+              field: 'categories-agenda-metropolitain'
+            }]
+          }).then(r => r.aggregations['et_paf']);
+
+          result.should.eql([]);
+        });
       });
 
     });
