@@ -1,43 +1,21 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 // import { useIntl } from 'react-intl';
 import {
   XAxis, YAxis, Tooltip, CartesianGrid, Bar, BarChart
 } from 'recharts';
 import { css } from '@emotion/core';
 import dataColors from '../../common/dataColors';
-import mergeMultiData from '../../utils/mergeMultiData';
 // import addRestItem from '../../utils/addRestItem';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
 export default function VerticalBarChart({
-  data: rawData,
+  data,
   // total,
   dataKey,
-  fromDataKey,
   labelKey,
   renderTooltipItem
-  // withRest,
-  // noValueRest
 }) {
-  // const intl = useIntl();
-  // const data = useMemo(() => {
-  //   const result = rawData;
-  //
-  //   if (withRest) {
-  //     result = addRestItem(rawData, total, intl, noValueRest);
-  //   }
-  //
-  //   return rawData;
-  // }, [rawData, total, intl, withRest, noValueRest]);
-  const data = useMemo(() => {
-    if (!fromDataKey?.length) {
-      return rawData;
-    }
-
-    return mergeMultiData(rawData, fromDataKey, dataKey);
-  }, [fromDataKey, dataKey, rawData]);
-
   return (
     <BarChart
       layout="vertical"

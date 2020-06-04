@@ -1,34 +1,21 @@
-import React, { useMemo } from 'react';
-// import { useIntl } from 'react-intl';
+import React from 'react';
 import {
   XAxis, YAxis, Tooltip, CartesianGrid, Bar, BarChart
 } from 'recharts';
 import { css } from '@emotion/core';
-// import addRestItem from '../../utils/addRestItem';
-import mergeMultiData from '../../utils/mergeMultiData';
 import dataColors from '../../common/dataColors';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
 export default function HorizontalBarChart({
-  data: rawData,
+  data,
   // total,
   dataKey,
-  fromDataKey,
   labelKey,
   renderTooltipItem,
   xAxisTick,
   yAxisTick
 }) {
-  // const intl = useIntl();
-  const data = useMemo(() => {
-    if (!fromDataKey?.length) {
-      return rawData;
-    }
-
-    return mergeMultiData(rawData, fromDataKey, dataKey);
-  }, [fromDataKey, dataKey, rawData]);
-
   return (
     <BarChart
       width={400}

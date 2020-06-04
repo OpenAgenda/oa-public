@@ -1,6 +1,9 @@
+import _ from 'lodash';
 import React, { useMemo, useCallback } from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import mergeMultiData from '../utils/mergeMultiData';
+import getLocaleValue from '../utils/getLocaleValue';
 import HorizontalBarChart from './basics/HorizontalBarChart';
 import VerticalBarChart from './basics/VerticalBarChart';
 import DateTooltipItem from './basics/DateTooltipItem';
@@ -30,22 +33,39 @@ const messages = defineMessages({
   }
 });
 
-export default function ComposedChart({
+function ComposedChart({
   wrapperComponent,
   stat,
   totalEvents,
   range,
   loadStat
 }) {
-  const { aggregation, chart, data } = stat;
+  const { aggregation, chart, data: rawData } = stat;
   const {
-    orientation, // TODO replace with `type` ?
+    orientation,
     tooltip: tooltipType,
     xAxisTick: xAxisTickType,
-    loadMore: _withLoadMore,
-    intervalSelector: _withIntervalSelector,
-    ...chartOpts
+    fromDataKey,
+    dataKey,
+    labelKey
   } = chart;
+  const intl = useIntl();
+  const data = useMemo(() => {
+    let result = rawData;
+
+    if (fromDataKey?.length) {
+      result = mergeMultiData(rawData, fromDataKey, dataKey);
+    }
+
+    [].concat(labelKey).forEach(k => {
+      result = result.map(v => ({
+        ...v,
+        ..._.set({}, k, getLocaleValue(_.get(v, k), intl.locale))
+      }));
+    });
+
+    return result;
+  }, [rawData, fromDataKey, dataKey, labelKey, intl.locale]);
 
   const ChartComponent = useMemo(() => {
     if (orientation === 'horizontal') {
@@ -94,8 +114,7 @@ export default function ComposedChart({
       if (tooltipType === 'date') {
         return (
           <DateTooltipItem
-            // interval={diplayedInterval}
-            interval="month"
+            interval={aggregation.interval}
             message={tooltipContentMessage}
             hideLabel={hideLabel}
             {...props}
@@ -110,14 +129,9 @@ export default function ComposedChart({
 
   const xAxisTick = useMemo(() => {
     if (xAxisTickType === 'date') {
-      return (
-        <DateAxisTick
-          // interval={diplayedInterval}
-          interval="month"
-        />
-      );
+      return <DateAxisTick interval={aggregation.interval} />;
     }
-  }, [xAxisTickType]);
+  }, [aggregation.interval, xAxisTickType]);
 
   if (!ChartComponent) {
     return null;
@@ -125,9 +139,10 @@ export default function ComposedChart({
 
   const child = (
     <ChartComponent
-      {...chartOpts}
       data={data}
       totalEvents={totalEvents}
+      dataKey={dataKey}
+      labelKey={labelKey}
       renderTooltipItem={renderTooltipItem}
       xAxisTick={xAxisTick}
     />
@@ -147,3 +162,5 @@ export default function ComposedChart({
     ? React.cloneElement(wrapper, wrapperProps, child)
     : React.createElement(wrapper, wrapperProps, child);
 }
+
+export default ComposedChart;

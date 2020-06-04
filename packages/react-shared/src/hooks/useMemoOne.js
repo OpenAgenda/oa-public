@@ -1,26 +1,34 @@
-import { useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import shallowEqual from 'shallowequal';
 
-function useMemoOne(compute, deps, equalityFn = shallowEqual) {
-  const value = useRef(null);
-  const previousDeps = useRef(null);
+function useMemoOne(getResult, inputs, equalityFn = shallowEqual) {
+  // using useState to generate initial value as it is lazy
+  const initial = useState(() => ({
+    inputs,
+    result: getResult()
+  }))[0];
 
-  if (
-    !Array.isArray(deps)
-    || !Array.isArray(previousDeps.current)
-    || deps.length !== previousDeps.current.length
-    || deps.some((dep, index) => !equalityFn(dep, previousDeps.current[index]))
-  ) {
-    previousDeps.current = deps;
-    value.current = compute();
-  }
+  const committed = useRef(initial);
 
-  return value.current;
+  // persist any uncommitted changes after they have been committed
+  const isInputMatch = Boolean(
+    inputs
+      && committed.current.inputs
+      && equalityFn(inputs, committed.current.inputs)
+  );
+  const cache = isInputMatch
+    ? committed.current
+    : {
+      inputs,
+      result: getResult()
+    };
+
+  // commit the cache
+  useEffect(() => {
+    committed.current = cache;
+  }, [cache]);
+
+  return cache.result;
 }
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
-const useCallbackOne = (compute, deps, equalityFn) => useMemoOne(() => compute, [compute], equalityFn);
-
 export default useMemoOne;
-
-export { useMemoOne, useCallbackOne };
