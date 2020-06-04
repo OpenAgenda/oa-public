@@ -1,6 +1,8 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+
+const legacyAccessType = require('./legacyAccessType');
 
 const log = require('@openagenda/logs')('generateCustomSet');
 
@@ -34,29 +36,29 @@ function isLegacyCustom(field) {
 
 module.exports = schema => {
   const messages = [];
-  log('processing', JSON.stringify( schema, null, 2));
+  log('processing', JSON.stringify(schema, null, 2));
 
   const customFields = schema.fields.filter(isLegacyCustom).map(f => {
 
-      if ( !f.origin ) {
-        messages.push( `${f.field}: field origin is not set` );
+      if (!f.origin) {
+        messages.push(`${f.field}: field origin is not set`);
       }
 
       const custom = {
         name: f.field,
-        type: _legacyAccessType( f ),
-        fieldType: schemaToCustom[ f.fieldType ],
+        type: legacyAccessType(f),
+        fieldType: schemaToCustom[f.fieldType],
         optional: !!f.optional,
-        label: _multilingualLabel( f.label )
+        label: _multilingualLabel(f.label)
       };
 
-      [ 'min', 'max' ]
-        .filter( attr => ![ undefined, null ].includes( f[ attr ] ) )
-        .forEach( attr => { custom[ attr ] = f[ attr ] } );
+      ['min', 'max']
+        .filter(attr => ![undefined, null].includes(f[attr]))
+        .forEach(attr => { custom[attr] = f[attr] });
 
       return custom;
 
-    } );
+    });
 
   log('extracted', customFields);
 
@@ -68,23 +70,11 @@ module.exports = schema => {
 
 module.exports.isLegacyCustom = isLegacyCustom;
 
-function _multilingualLabel( label ) {
-  return _.isString( label ) ? {
+function _multilingualLabel(label) {
+  return _.isString(label) ? {
     fr: label,
     en: label
   } : label;
 }
 
-function _legacyAccessType( field ) {
-  if ( !field.read ) return 'public';
 
-  if ( field.read.includes( 'contributor' ) ) {
-    return 'private';
-  }
-
-  if ( field.read.includes( 'administrator' ) ) {
-    return 'administrator';
-  }
-
-  return 'private';
-}

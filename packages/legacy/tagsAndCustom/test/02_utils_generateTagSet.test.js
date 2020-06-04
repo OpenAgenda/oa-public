@@ -279,6 +279,7 @@ describe( '02 - utils - generateTagSet', () => {
     generateTagSet( schema, tagSet ).set.should.eql( {
       groups: [ {
         "name": "Nantes",
+        "access": "public",
         "required": true,
         "unique": false,
         "tags": [ {
@@ -292,6 +293,7 @@ describe( '02 - utils - generateTagSet', () => {
         } ]
       }, {
         "name": "Paris",
+        "access": "public",
         "required": true,
         "unique": false,
         "tags": [ {
@@ -418,6 +420,7 @@ describe( '02 - utils - generateTagSet', () => {
     generateTagSet( schema ).set.should.eql( {
       "groups": [ {
         "name": "Niveau scolaire",
+        "access": "public",
         "tags": [
           {
             "label": "Niveau scolaire: Ecole",
@@ -444,6 +447,7 @@ describe( '02 - utils - generateTagSet', () => {
         "unique": false
       }, {
         "name": "Style musical",
+        "access" : "public",
         "tags": [
           {
             "label": "Style musical : A cappella",
