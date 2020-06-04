@@ -11,7 +11,6 @@ import PeriodModal from '../components/PeriodModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
 import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
-import DEFAULT_STATS from '../common/defaultStats';
 
 const messages = defineMessages({
   title: {
@@ -32,21 +31,19 @@ const messages = defineMessages({
   }
 });
 
-function getStatsToLoad(agendaSchema) {
-  return DEFAULT_STATS.concat({ separator: true }).concat(
-    agendaSchema.fields.map(fieldSchema => ({
-      aggregation: {
-        type: 'additionalFields',
-        field: fieldSchema.field
-      },
-      chart: {
-        orientation: 'vertical',
-        dataKey: 'eventCount',
-        labelKey: 'label'
-      },
-      fieldSchema
-    }))
-  );
+function getAdditionalFieldStats(agendaSchema) {
+  return agendaSchema.fields.map(fieldSchema => ({
+    aggregation: {
+      type: 'additionalFields',
+      field: fieldSchema.field
+    },
+    chart: {
+      orientation: 'vertical',
+      dataKey: 'eventCount',
+      labelKey: 'label'
+    },
+    fieldSchema
+  }));
 }
 
 function Dashboard({ agenda, agendaSchema }) {
@@ -88,8 +85,8 @@ function Dashboard({ agenda, agendaSchema }) {
       return;
     }
 
-    const query = {};
-    const url = res.jsonExport
+    const configUrl = `/${agenda.slug}/admin/statistics/config`;
+    const exportUrl = res.jsonExport
       .replace(':slug', agenda.slug)
       .replace(':uid', agenda.uid);
 
@@ -99,19 +96,27 @@ function Dashboard({ agenda, agendaSchema }) {
       aggregations: ['timespan']
     };
 
-    apiClient.get(url, { params }).then(result => {
-      const { first, last } = result.data.aggregations.timespan;
+    Promise.all([
+      apiClient.get(configUrl),
+      apiClient.get(exportUrl, { params })
+    ]).then(([configRes, timespanRes]) => {
+      const { first, last } = timespanRes.data.aggregations.timespan;
 
       const defaultRange = determineDefaultRange({ first, last });
 
       setRange(defaultRange);
+
+      const query = {};
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
-      const statsToLoad = getStatsToLoad(agendaSchema).map(v => ({
-        id: _.uniqueId(),
-        ...v
-      }));
+      const statsToLoad = configRes.data
+        .concat({ separator: true })
+        .concat(getAdditionalFieldStats(agendaSchema))
+        .map(v => ({
+          id: _.uniqueId(),
+          ...v
+        }));
 
       return dispatch(
         statsActions.load(

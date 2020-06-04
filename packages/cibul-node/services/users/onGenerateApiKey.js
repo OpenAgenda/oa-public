@@ -1,13 +1,14 @@
-const config = require( '../../config' );
+const config = require('../../config');
 
 
 module.exports = function onGenerateApiKey() {
 
   return async ctx => {
 
-    const user = ctx.result;
+    // Need detailed user
+    const user = await ctx.self.get(ctx.id, { detailed: true });
 
-    if ( !user ) {
+    if (!user) {
       return ctx;
     }
 
@@ -15,15 +16,15 @@ module.exports = function onGenerateApiKey() {
 
     const { knex, schemas } = config;
 
-    const existingKeySet = await knex( schemas.apiKeySet ).select().first().where( { user_id: user.id } );
+    const existingKeySet = await knex(schemas.apiKeySet).select().first().where({ user_id: user.id });
 
-    if ( existingKeySet ) {
-      await knex( schemas.apiKeySet )
-        .where( { id: existingKeySet.id } )
-        .update( {
+    if (existingKeySet) {
+      await knex(schemas.apiKeySet)
+        .where({ id: existingKeySet.id })
+        .update({
           api_key: user.apiKey || null,
           api_secret: user.apiSecret || null
-        } );
+        });
     } else {
       await knex(schemas.apiKeySet)
         .insert({

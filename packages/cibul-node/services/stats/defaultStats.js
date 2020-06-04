@@ -1,4 +1,6 @@
-const DEFAULT_STATS = [
+'use strict';
+
+module.exports = [
   {
     aggregation: {
       type: 'regions'
@@ -135,5 +137,3 @@ const DEFAULT_STATS = [
   //   chart: {}
   // },
 ];
-
-export default DEFAULT_STATS;
