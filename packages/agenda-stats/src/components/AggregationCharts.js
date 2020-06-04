@@ -1,9 +1,17 @@
 import React, { useCallback } from 'react';
+import { useIntl, defineMessages } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import * as statsActions from '../reducers/stats';
 import ComposedChart from './ComposedChart';
 import ChartWrapper from './ChartWrapper';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
+
+const messages = defineMessages({
+  noValue: {
+    id: 'AgendaStats.AggregationCharts.noValue',
+    defaultMessage: 'No value.'
+  }
+});
 
 export default function AggregationCharts({
   agenda,
@@ -11,6 +19,7 @@ export default function AggregationCharts({
   totalEvents,
   range
 }) {
+  const intl = useIntl();
   const dispatch = useDispatch();
 
   const loadStat = useCallback(
@@ -73,7 +82,7 @@ export default function AggregationCharts({
           loadStat={loadStat}
         >
           <div className="margin-v-sm text-center text-muted">
-            Aucune valeur.
+            {intl.formatMessage(messages.noValue)}
           </div>
         </ChartWrapper>
       );

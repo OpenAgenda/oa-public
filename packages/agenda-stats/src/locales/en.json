@@ -1,4 +1,5 @@
 {
+  "AgendaStats.AggregationCharts.noValue": "No value.",
   "AgendaStats.DateTooltipItem.tooltipDay": "{date, time, ::yyyyMMMMddeeeee}",
   "AgendaStats.DateTooltipItem.tooltipWeek": "{date, time, ::yyyyMMdd}",
   "AgendaStats.DateTooltipItem.tooltipMonth": "{date, time, ::yyyyMMMM}",
