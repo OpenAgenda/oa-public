@@ -63,6 +63,20 @@ export default function AggregationCharts({
           loadStat={loadStat}
         />
       );
+    } else {
+      pushChart(
+        <ChartWrapper
+          key={stat.id}
+          stat={stat}
+          totalEvents={totalEvents}
+          range={range}
+          loadStat={loadStat}
+        >
+          <div className="margin-v-sm text-center text-muted">
+            Aucune valeur.
+          </div>
+        </ChartWrapper>
+      );
     }
   });
 
