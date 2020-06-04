@@ -40,6 +40,7 @@ module.exports = app => {
   require('./agenda/settings.back')(app);
   require('./services/members')(app);
   require('./agenda/activities.back')(app);
+  require('./services/stats').plugApp(app);
   require('./webapp')(app);
   require('./location/back')(app);
   require('./services/agendas').plugApp(app);

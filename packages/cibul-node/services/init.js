@@ -92,6 +92,7 @@ module.exports = async function (configObject, options = {}) {
   await init('unsubscribed', require('./unsubscribed'));
   await init('agendaSchema', require('./agendaSchema'));
   await init('announcements', require('./announcements'));
+  await init('stats', require('./stats'));
 
   const timeDiff = new Date().getTime() - t.getTime();
 
