@@ -75,9 +75,9 @@ services:
       - ${SF_PROJECT_PATH}:/cibul-symfony
       - ${SF_API_PROJECT_PATH}:/cibulapi-symfony
       - ${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini
-      - ${CONTAINERS_DATA_PATH}/mysql/client-key.pem:${MYSQL_SSL_KEY}
-      - ${CONTAINERS_DATA_PATH}/mysql/client-cert.pem:${MYSQL_SSL_CERT}
-      - ${CONTAINERS_DATA_PATH}/mysql/ca.pem:${MYSQL_SSL_CA}
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:${MYSQL_SSL_KEY}
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:${MYSQL_SSL_CERT}
+      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:${MYSQL_SSL_CA}
     links:
       - mysql
       - redis
@@ -93,9 +93,9 @@ services:
     command: node /home/root/oa/packages/cibul-node/server.js web admin task
     volumes:
       - .:/home/root/oa
-      - ${CONTAINERS_DATA_PATH}/mysql/client-key.pem:${MYSQL_SSL_KEY}
-      - ${CONTAINERS_DATA_PATH}/mysql/client-cert.pem:${MYSQL_SSL_CERT}
-      - ${CONTAINERS_DATA_PATH}/mysql/ca.pem:${MYSQL_SSL_CA}
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:${MYSQL_SSL_KEY}
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:${MYSQL_SSL_CERT}
+      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:${MYSQL_SSL_CA}
       - ${REPO_SSL_CLIENT}:/root/.ssh/id_rsa
     links:
       - mysql
@@ -147,8 +147,8 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ${CONTAINERS_DATA_PATH}/mysql:/var/lib/mysql
-      - ${CONTAINERS_DATA_PATH}/oa.dump:/docker-entrypoint-initdb.d/oa.sql
+      - ${MYSQL_CONTAINER_DATA_PATH}:/var/lib/mysql
+      - ${MYSQL_DUMP_FILE_PATH}:/docker-entrypoint-initdb.d/oa.sql
 
   redis:
     container_name: redis
@@ -183,9 +183,9 @@ services:
       PMA_SSL_CA: ${MYSQL_SSL_CA}
     volumes:
       - ./docker/php/phpmyadmin.config.php:/etc/phpmyadmin/config.user.inc.php
-      - ${CONTAINERS_DATA_PATH}/mysql/client-key.pem:/ssl/db-key.pem
-      - ${CONTAINERS_DATA_PATH}/mysql/client-cert.pem:/ssl/db-cert.pem
-      - ${CONTAINERS_DATA_PATH}/mysql/ca.pem:/ssl/db-ca.pem
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
+      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem
     links:
       - mysql
 
