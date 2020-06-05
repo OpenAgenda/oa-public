@@ -6,7 +6,7 @@ module.exports = [
       type: 'regions'
     },
     chart: {
-      orientation: 'vertical',
+      type: 'vertical',
       loadMore: true,
       dataKey: 'eventCount',
       labelKey: 'key'
@@ -17,7 +17,7 @@ module.exports = [
       type: 'departments'
     },
     chart: {
-      orientation: 'vertical',
+      type: 'vertical',
       loadMore: true,
       dataKey: 'eventCount',
       labelKey: 'key'
@@ -28,7 +28,7 @@ module.exports = [
       type: 'cities'
     },
     chart: {
-      orientation: 'vertical',
+      type: 'vertical',
       loadMore: true,
       dataKey: 'eventCount',
       labelKey: 'key'
@@ -40,7 +40,7 @@ module.exports = [
       type: 'timings'
     },
     chart: {
-      orientation: 'horizontal',
+      type: 'horizontal',
       intervalSelector: true,
       dataKey: 'timingCount',
       labelKey: 'key',
@@ -51,7 +51,7 @@ module.exports = [
   // {
   //   aggregation: [{ type: 'createdAt' }, { type: 'updatedAt' }],
   //   chart: {
-  //     orientation: 'horizontal',
+  //     type: 'horizontal',
   //     intervalSelector: true,
   //     fromDataKey: ['eventCount', 'eventCount'],
   //     dataKey: ['createdCount', 'updatedCount'],
@@ -63,7 +63,7 @@ module.exports = [
   {
     aggregation: { type: 'createdAt' },
     chart: {
-      orientation: 'horizontal',
+      type: 'horizontal',
       intervalSelector: true,
       dataKey: 'eventCount',
       labelKey: 'key',
@@ -74,7 +74,7 @@ module.exports = [
   {
     aggregation: { type: 'updatedAt' },
     chart: {
-      orientation: 'horizontal',
+      type: 'horizontal',
       intervalSelector: true,
       dataKey: 'eventCount',
       labelKey: 'key',
@@ -88,7 +88,7 @@ module.exports = [
       type: 'members'
     },
     chart: {
-      orientation: 'vertical',
+      type: 'vertical',
       dataKey: 'eventCount',
       labelKey: 'member.name'
     }
@@ -98,24 +98,22 @@ module.exports = [
       type: 'originAgendas'
     },
     chart: {
-      orientation: 'vertical',
+      type: 'vertical',
       dataKey: 'eventCount',
       labelKey: 'agenda.title'
     }
-  }
-  // { separator: true }
-  // {
-  //   aggregation: {
-  //     type: 'additionalFields'
-  //   },
-  //   chart: {}
-  // },
-  // {
-  //   aggregation: {
-  //     type: 'keywords'
-  //   },
-  //   chart: {}
-  // },
+  },
+  { separator: true },
+  {
+    aggregation: {
+      type: 'keywords'
+    },
+    chart: {
+      type: 'vertical',
+      dataKey: 'eventCount',
+      labelKey: 'key'
+    }
+  },
   // {
   //   aggregation: {
   //     type: 'pastAndUpcoming'
