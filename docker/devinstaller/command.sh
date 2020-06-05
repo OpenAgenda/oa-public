@@ -6,6 +6,10 @@ php cibulapi-symfony/scripts/create_yamls.php /home/root/oa/.env
 
 cd oa
 
+# create the certification authority and the self-signed certificates
+./docker/devinstaller/ssl/create_oa_authority.sh /home/root/oa/docker/devinstaller/ssl
+./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl $2 $3
+
 # add the npm token
 echo "" >> .yarnrc.yml
 echo "npmRegistries:" >> .yarnrc.yml

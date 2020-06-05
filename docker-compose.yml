@@ -5,7 +5,7 @@ services:
   devinstaller:
     build:
       context: docker/devinstaller
-    command: /home/root/oa/docker/devinstaller/command.sh ${NPM_TOKEN}
+    command: /home/root/oa/docker/devinstaller/command.sh ${NPM_TOKEN} ${SITE_DOMAIN} ${API_DOMAIN}
     volumes:
       - .:/home/root/oa
       - ${SF_PROJECT_PATH}:/home/root/cibul-symfony
@@ -75,9 +75,9 @@ services:
       - ${SF_PROJECT_PATH}:/cibul-symfony
       - ${SF_API_PROJECT_PATH}:/cibulapi-symfony
       - ${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:${MYSQL_SSL_KEY}
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:${MYSQL_SSL_CERT}
-      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:${MYSQL_SSL_CA}
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
+      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem
     links:
       - mysql
       - redis
@@ -93,9 +93,9 @@ services:
     command: node /home/root/oa/packages/cibul-node/server.js web admin task
     volumes:
       - .:/home/root/oa
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:${MYSQL_SSL_KEY}
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:${MYSQL_SSL_CERT}
-      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:${MYSQL_SSL_CA}
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
+      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
+      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem
       - ${REPO_SSL_CLIENT}:/root/.ssh/id_rsa
     links:
       - mysql
@@ -122,9 +122,9 @@ services:
       OA_MYSQL_DEV_PASSWORD: ${MYSQL_PASSWORD}
       OA_MYSQL_DEV_USER: ${MYSQL_USER}
       OA_MYSQL_DEV_SSL_ENABLED: 1
-      OA_MYSQL_DEV_SSL_CA: ${MYSQL_SSL_CA}
-      OA_MYSQL_DEV_SSL_KEY: ${MYSQL_SSL_KEY}
-      OA_MYSQL_DEV_SSL_CERT: ${MYSQL_SSL_CERT}
+      OA_MYSQL_DEV_SSL_CA: /ssl/db-ca.pem
+      OA_MYSQL_DEV_SSL_KEY: /ssl/db-key.pem
+      OA_MYSQL_DEV_SSL_CERT: /ssl/db-cert.pem
       OA_ELASTICSEARCH_134_DEV_HOST: ${ES1_HOST}
       OA_ELASTICSEARCH_134_DEV_PORT: ${ES1_PORT:-9200}
       OA_ELASTICSEARCH_750_DEV_HOST: ${ES7_HOST}
@@ -178,9 +178,9 @@ services:
     environment:
       PMA_HOST: ${MYSQL_HOST}
       #PMA_VERBOSE: 1
-      PMA_SSL_KEY: ${MYSQL_SSL_KEY}
-      PMA_SSL_CERT: ${MYSQL_SSL_CERT}
-      PMA_SSL_CA: ${MYSQL_SSL_CA}
+      PMA_SSL_KEY: /ssl/db-key.pem
+      PMA_SSL_CERT: /ssl/db-cert.pem
+      PMA_SSL_CA: /ssl/db-ca.pem
     volumes:
       - ./docker/php/phpmyadmin.config.php:/etc/phpmyadmin/config.user.inc.php
       - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem

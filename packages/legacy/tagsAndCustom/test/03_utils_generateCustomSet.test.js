@@ -76,7 +76,7 @@ describe( '03 - utils - generateCustomSet', () => {
     customFields.map( f => f.name ).should.eql( [ 'interetintercommunal', 'recurringevent' ] );
   });
 
-  it.only('if origin is unspecified and field could be custom, field is included in custom fields', () => {
+  it('if origin is unspecified and field could be custom, field is included in custom fields', () => {
 
     const { customFields } = generateCustomFields(fixtures.reedexpo);
     customFields.filter(f => f.name === 'year').length.should.eql(1);
