@@ -97,9 +97,16 @@ function ChartWrapper({
 
   const titleMessage = (() => {
     const messageKey = statToTitleMessageKey(stat.aggregation);
-    let message = stat.fieldSchema
-      ? getLocaleValue(stat.fieldSchema.label, intl.locale)
-      : intl.formatMessage(messages[messageKey]);
+
+    let message;
+
+    if (stat.fieldSchema) {
+      message = getLocaleValue(stat.fieldSchema.label, intl.locale);
+    } else if (messages[messageKey]) {
+      message = intl.formatMessage(messages[messageKey]);
+    } else {
+      message = messageKey;
+    }
 
     if (stat.chart.intervalSelector) {
       message = intl.formatMessage(messages.withSelector, {
