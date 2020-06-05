@@ -49,6 +49,10 @@ const messages = defineMessages({
   originAgendas: {
     id: 'AgendaStats.AggregationCharts.titles.originAgendas',
     defaultMessage: 'Origin agendas'
+  },
+  keywords: {
+    id: 'AgendaStats.AggregationCharts.titles.keywords',
+    defaultMessage: 'Keywords'
   }
 });
 
