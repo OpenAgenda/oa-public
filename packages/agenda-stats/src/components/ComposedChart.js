@@ -42,7 +42,7 @@ function ComposedChart({
 }) {
   const { aggregation, chart, data: rawData } = stat;
   const {
-    orientation,
+    type,
     tooltip: tooltipType,
     xAxisTick: xAxisTickType,
     fromDataKey,
@@ -68,14 +68,14 @@ function ComposedChart({
   }, [rawData, fromDataKey, dataKey, labelKey, intl.locale]);
 
   const ChartComponent = useMemo(() => {
-    if (orientation === 'horizontal') {
+    if (type === 'horizontal') {
       return HorizontalBarChart;
     }
 
-    if (orientation === 'vertical') {
+    if (type === 'vertical') {
       return VerticalBarChart;
     }
-  }, [orientation]);
+  }, [type]);
 
   const renderTooltipItem = useCallback(
     props => {

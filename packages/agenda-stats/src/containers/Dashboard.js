@@ -38,7 +38,7 @@ function getAdditionalFieldStats(agendaSchema) {
       field: fieldSchema.field
     },
     chart: {
-      orientation: 'vertical',
+      type: 'vertical',
       dataKey: 'eventCount',
       labelKey: 'label'
     },

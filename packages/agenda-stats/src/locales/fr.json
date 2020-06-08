@@ -17,6 +17,7 @@
   "AgendaStats.AggregationCharts.titles.updatedAt": "Événements mis à jour",
   "AgendaStats.AggregationCharts.titles.members": "Membres",
   "AgendaStats.AggregationCharts.titles.originAgendas": "Agendas d''origine",
+  "AgendaStats.AggregationCharts.titles.keywords": "Mots clés",
   "AgendaStats.ComposedChart.tooltipContentEvents": "{value, plural, =0 {# événement} one {# événement} other {# événements}}",
   "AgendaStats.ComposedChart.tooltipContentTimings": "{value, plural, =0 {# horaire} one {# horaire} other {# horaires}}",
   "AgendaStats.ComposedChart.tooltipContentCreatedAt": "{value, plural, =0 {# événement créé} one {# événement créé} other {# événements créés}}",
