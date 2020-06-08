@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import classNames from 'classnames';
 import React, { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
