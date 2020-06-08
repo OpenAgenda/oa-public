@@ -269,6 +269,10 @@ location ~ ^(/admin|)/support {
   include conf.d/nodejs_params;
 }
 
+location ~ ^/supervisor {
+  include conf.d/nodejs_params;
+}
+
 
 ##########################################################
 #             SF1.4 - SPECIFIC PREFIXED
