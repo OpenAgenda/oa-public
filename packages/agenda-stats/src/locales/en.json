@@ -17,6 +17,7 @@
   "AgendaStats.AggregationCharts.titles.updatedAt": "Updated events",
   "AgendaStats.AggregationCharts.titles.members": "Members",
   "AgendaStats.AggregationCharts.titles.originAgendas": "Origin agendas",
+  "AgendaStats.AggregationCharts.titles.keywords": "Keywords",
   "AgendaStats.ComposedChart.tooltipContentEvents": "{value, plural, =0 {# event} one {# event} other {# events}}",
   "AgendaStats.ComposedChart.tooltipContentTimings": "{value, plural, =0 {# timing} one {# timing} other {# timings}}",
   "AgendaStats.ComposedChart.tooltipContentCreatedAt": "{value, plural, =0 {# created event} one {# created event} other {# created events}}",

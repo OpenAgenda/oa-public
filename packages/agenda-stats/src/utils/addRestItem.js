@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
@@ -11,7 +12,14 @@ const messages = defineMessages({
   }
 });
 
-export default function addRestItem(data, total, intl, noValue = false) {
+export default function addRestItem(
+  data,
+  total,
+  intl,
+  dataKey = 'eventCount',
+  labelKey = 'key',
+  noValue = false
+) {
   const itemsInData = data.reduce(
     (res, next) => res + (next.eventCount || 0),
     0
@@ -22,20 +30,17 @@ export default function addRestItem(data, total, intl, noValue = false) {
     return data;
   }
 
-  const others = intl.formatMessage(
+  const message = intl.formatMessage(
     noValue ? messages.noValue : messages.others
   );
 
+  const otherItem = {};
+
+  _.set(otherItem, labelKey, message);
+  _.set(otherItem, dataKey, diff);
+
   return [
     ...data,
-    {
-      key: others,
-      agenda: {
-        uid: others,
-        title: others
-      },
-      label: others,
-      eventCount: diff
-    }
+    otherItem
   ];
 }

@@ -53,6 +53,10 @@ const messages = defineMessages({
   keywords: {
     id: 'AgendaStats.AggregationCharts.titles.keywords',
     defaultMessage: 'Keywords'
+  },
+  states: {
+    id: 'AgendaStats.AggregationCharts.titles.states',
+    defaultMessage: 'States'
   }
 });
 
@@ -87,18 +91,6 @@ function ChartWrapper({
     [loadStat, stat.id]
   );
 
-  const intervalSelector = (
-    <>
-      <IntervalSelect value={interval} onChange={setInterval} />
-
-      {loading ? (
-        <span className="margin-left-xs">
-          <Spinner mode="inline" />
-        </span>
-      ) : null}
-    </>
-  );
-
   const titleMessage = (() => {
     const messageKey = statToTitleMessageKey(stat.aggregation);
 
@@ -115,7 +107,17 @@ function ChartWrapper({
     if (stat.chart.intervalSelector) {
       message = intl.formatMessage(messages.withSelector, {
         message,
-        selector: intervalSelector
+        selector: (
+          <>
+            <IntervalSelect value={interval} onChange={setInterval} />
+
+            {loading ? (
+              <span className="margin-left-xs">
+                <Spinner mode="inline" />
+              </span>
+            ) : null}
+          </>
+        )
       });
     }
 

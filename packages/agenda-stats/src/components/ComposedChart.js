@@ -4,10 +4,13 @@ import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 import mergeMultiData from '../utils/mergeMultiData';
 import getLocaleValue from '../utils/getLocaleValue';
+import addRestItem from '../utils/addRestItem';
 import HorizontalBarChart from './basics/HorizontalBarChart';
 import VerticalBarChart from './basics/VerticalBarChart';
-import DateTooltipItem from './basics/DateTooltipItem';
+import PieChart from './basics/PieChart';
 import DateAxisTick from './basics/DateAxisTick';
+import DateTooltipItem from './basics/DateTooltipItem';
+import StateTooltipItem from './basics/StateTooltipItem';
 import DefaultTooltipItem from './basics/DefaultTooltipItem';
 
 const messages = defineMessages({
@@ -44,20 +47,36 @@ function ComposedChart({
   const {
     type,
     tooltip: tooltipType,
-    xAxisTick: xAxisTickType,
+    categoryTick: categoryTickType,
     fromDataKey,
     dataKey,
-    labelKey
+    labelKey,
+    restItem,
+    dataColors
   } = chart;
   const intl = useIntl();
   const data = useMemo(() => {
+    const labelKeys = [].concat(labelKey);
     let result = rawData;
 
     if (fromDataKey?.length) {
       result = mergeMultiData(rawData, fromDataKey, dataKey);
     }
 
-    [].concat(labelKey).forEach(k => {
+    if (restItem) {
+      [].concat(dataKey)
+        .forEach((key, index) => {
+          result = addRestItem(
+            result,
+            totalEvents,
+            intl,
+            key,
+            labelKeys[index]
+          );
+        });
+    }
+
+    labelKeys.forEach(k => {
       result = result.map(v => ({
         ...v,
         ..._.set({}, k, getLocaleValue(_.get(v, k), intl.locale))
@@ -65,7 +84,7 @@ function ComposedChart({
     });
 
     return result;
-  }, [rawData, fromDataKey, dataKey, labelKey, intl.locale]);
+  }, [rawData, fromDataKey, dataKey, labelKey, restItem, intl, totalEvents]);
 
   const ChartComponent = useMemo(() => {
     if (type === 'horizontal') {
@@ -74,6 +93,10 @@ function ComposedChart({
 
     if (type === 'vertical') {
       return VerticalBarChart;
+    }
+
+    if (type === 'pie') {
+      return PieChart;
     }
   }, [type]);
 
@@ -89,10 +112,10 @@ function ComposedChart({
           props.array[props.index].payload,
           props.array[props.index].datakey
         )
-          === getValueByDataKey(
-            props.array[props.index - 1].payload,
-            props.array[props.index - 1].datakey
-          );
+        === getValueByDataKey(
+          props.array[props.index - 1].payload,
+          props.array[props.index - 1].datakey
+        );
 
       let tooltipContentMessage;
 
@@ -122,16 +145,27 @@ function ComposedChart({
         );
       }
 
+      if (tooltipType === 'state') {
+        return (
+          <StateTooltipItem
+            interval={aggregation.interval}
+            message={tooltipContentMessage}
+            hideLabel={hideLabel}
+            {...props}
+          />
+        );
+      }
+
       return <DefaultTooltipItem hideLabel={hideLabel} {...props} />;
     },
     [aggregation, tooltipType]
   );
 
-  const xAxisTick = useMemo(() => {
-    if (xAxisTickType === 'date') {
+  const categoryTick = useMemo(() => {
+    if (categoryTickType === 'date') {
       return <DateAxisTick interval={aggregation.interval} />;
     }
-  }, [aggregation.interval, xAxisTickType]);
+  }, [aggregation.interval, categoryTickType]);
 
   if (!ChartComponent) {
     return null;
@@ -144,7 +178,8 @@ function ComposedChart({
       dataKey={dataKey}
       labelKey={labelKey}
       renderTooltipItem={renderTooltipItem}
-      xAxisTick={xAxisTick}
+      categoryTick={categoryTick}
+      dataColors={dataColors}
     />
   );
 

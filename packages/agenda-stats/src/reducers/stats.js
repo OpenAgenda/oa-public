@@ -48,17 +48,11 @@ export default function reducer(state = initialState, action) {
 
           const getData = agg => action.result.data.aggregations[`${agg.type}-${v.id}`];
 
-          if (Array.isArray(v.aggregation)) {
-            // stat with multi sources
-            return {
-              ...v,
-              data: v.aggregation.map(getData)
-            };
-          }
-
           return {
             ...v,
-            data: getData(v.aggregation)
+            data: Array.isArray(v.aggregation)
+              ? v.aggregation.map(getData)
+              : getData(v.aggregation)
           };
         }),
         query: action.query,
