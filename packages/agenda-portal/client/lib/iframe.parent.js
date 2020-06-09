@@ -1,10 +1,11 @@
-'use strict';
 
+const log = require('debug')('iframe.parent');
 const { iframeResize } = require('iframe-resizer');
 
 const getHash = () => window.location.hash.replace(/^#/, '');
 
 function onMessage(state, { message }) {
+  log('ooooooooooooooo', state, message);
   if (message.code === 'ready' && !state.iFrameReady) {
     state.iFrameReady = true;
     if (window.location.hash.length) {
@@ -15,6 +16,8 @@ function onMessage(state, { message }) {
     }
   } else if (message.nav) {
     window.location.hash = message.nav;
+  } else if (message.link) {
+    window.location.href = message.link;
   }
 }
 
