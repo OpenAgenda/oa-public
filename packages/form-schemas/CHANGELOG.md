@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.7.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/form-schemas@1.7.6...@openagenda/form-schemas@1.7.7) (2020-06-09)
+
+
+### Bug Fixes
+
+* **form-schemas:** lodash ref missing in FieldPreview component ([396cbb2](https://bitbucket.org/openagenda/oa/commit/396cbb26009048cf89ce752209e663b969af51fb))
+
+
+
 ### [1.7.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/form-schemas@1.7.5...@openagenda/form-schemas@1.7.6) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/form-schemas

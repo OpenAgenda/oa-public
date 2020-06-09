@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@2.0.0...@openagenda/react-shared@2.0.1) (2020-06-09)
+
+
+### Performance Improvements
+
+* **react-shared:** improve hooks ([fa52a56](https://bitbucket.org/openagenda/oa/commit/fa52a56b217bdb0726f7b3748b32f58fff6dcffe))
+
+
+
 ## [2.0.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@1.1.0...@openagenda/react-shared@2.0.0) (2020-05-22)
 
 

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.0](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.5.2...cibul-node@0.6.0) (2020-06-09)
+
+
+### Features
+
+* **cibul-node:** create stats service ([b56e552](https://bitbucket.org/openagenda/oa/commit/b56e5529ee0c0b41ff5915b9695552a98e68a3a4))
+* **cibul-node:** orientation to type ([8677a85](https://bitbucket.org/openagenda/oa/commit/8677a85947d1060d8807e05e6b839423dfc6ea38))
+* docker remote dev environment ([e12d769](https://bitbucket.org/openagenda/oa/commit/e12d7697a1cf8a4f1bdd6cf80db1e23d3e1278a2))
+
+
+### Bug Fixes
+
+* **cibul-node:** additional related field is not filtered out on aggregation ([8d5fbae](https://bitbucket.org/openagenda/oa/commit/8d5fbaef2c41163bab7ffa72ff98c9f1dbb1de5d))
+* **cibul-node:** fix "schemas is not defined" ([d03c17e](https://bitbucket.org/openagenda/oa/commit/d03c17ea69bcf8adffb70d563a4cce4d92898ab8))
+* **cibul-node:** fix onGenerateApiKey ([db8cc0c](https://bitbucket.org/openagenda/oa/commit/db8cc0c66b4f4d2a7c0289365e1ef53161c3c59a))
+* **cibul-node:** role eval on user that is not a member and linting ([7cbfd9b](https://bitbucket.org/openagenda/oa/commit/7cbfd9b79d583c06180fb3a2ba66dfaa9ecfe80e))
+* **cibul-node:** wrong protocol load in production env ([128e4b9](https://bitbucket.org/openagenda/oa/commit/128e4b91c8d387f87e618cf5a3fc078618db6d92))
+
+
+
 ### [0.5.2](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.5.1...cibul-node@0.5.2) (2020-05-22)
 
 

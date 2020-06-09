@@ -1,7 +1,7 @@
 {
   "name": "@openagenda/verror",
   "description": "richer JavaScript errors",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "license": "MIT",
   "keywords": [
     "error",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
-    "@openagenda/babel-preset": "^1.3.1",
+    "@openagenda/babel-preset": "^1.3.2",
     "jest": "^26.0.1",
     "rimraf": "^3.0.1"
   }

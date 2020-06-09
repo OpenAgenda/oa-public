@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.2.2...@openagenda/keys@2.2.3) (2020-06-09)
+
+**Note:** Version bump only for package @openagenda/keys
+
+
+
+
+
 ### [2.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.2.1...@openagenda/keys@2.2.2) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/keys

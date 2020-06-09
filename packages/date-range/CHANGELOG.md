@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/date-range@2.2.5...@openagenda/date-range@2.2.6) (2020-06-09)
+
+**Note:** Version bump only for package @openagenda/date-range
+
+
+
+
+
 ### [2.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/date-range@2.2.4...@openagenda/date-range@2.2.5) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/date-range

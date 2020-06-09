@@ -1,13 +1,13 @@
 {
   "name": "@openagenda/email-strategie",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "interface to EmailStrategie emailing service",
   "scripts": {
     "test": "mocha"
   },
   "dependencies": {
     "@openagenda/queue": "^1.0.1",
-    "@openagenda/utils": "^1.2.2",
+    "@openagenda/utils": "^1.2.3",
     "async": "1.2.1",
     "mysql": "^2.17.1",
     "redis": "^2.8.0",
