@@ -45,7 +45,7 @@ module.exports = [
       dataKey: 'timingCount',
       labelKey: 'key',
       tooltip: 'date',
-      xAxisTick: 'date'
+      categoryTick: 'date'
     }
   },
   // {
@@ -57,7 +57,7 @@ module.exports = [
   //     dataKey: ['createdCount', 'updatedCount'],
   //     labelKey: 'key',
   //     tooltip: 'date',
-  //     xAxisTick: 'date'
+  //     categoryTick: 'date'
   //   }
   // },
   {
@@ -68,7 +68,7 @@ module.exports = [
       dataKey: 'eventCount',
       labelKey: 'key',
       tooltip: 'date',
-      xAxisTick: 'date'
+      categoryTick: 'date'
     }
   },
   {
@@ -79,7 +79,7 @@ module.exports = [
       dataKey: 'eventCount',
       labelKey: 'key',
       tooltip: 'date',
-      xAxisTick: 'date'
+      categoryTick: 'date'
     }
   },
   { separator: true },
@@ -112,6 +112,17 @@ module.exports = [
       type: 'vertical',
       dataKey: 'eventCount',
       labelKey: 'key'
+    }
+  },
+  {
+    aggregation: {
+      type: 'states'
+    },
+    chart: {
+      type: 'pie',
+      dataKey: 'eventCount',
+      labelKey: 'key',
+      tooltip: 'state'
     }
   },
   // {
