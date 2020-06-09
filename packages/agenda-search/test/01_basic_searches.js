@@ -22,40 +22,74 @@ describe('search', function() {
 
   before(() => svc.rebuild());
 
-  it('list', async () => {
-    const {
-      items: agendas,
-      total
-    } = await svc.list({}, 0, 10);
+  describe('Title', () => {
 
-    total.should.equal(101);
+    it('Exact match', async () => {
+      const { items } = await svc({
+        search: 'La Roche-Posay'
+      }, 0, 10);
+
+      items[0].title.should.equal('La Roche-Posay');
+    });
+
+    it('Near match', async () => {
+      const { items } = await svc({
+        search: 'Roche-Posay'
+      }, 0, 10);
+
+      items[0].title.should.equal('La Roche-Posay');
+    });
+
+    it('match', async () => {
+      const { items } = await svc({
+        search: 'Roche'
+      }, 0, 10);
+
+      items[0].title.should.equal('La Roche-Posay');
+    });
+
+    it('With accents', async () => {
+      const { items } = await svc({
+        search: 'Théâtre'
+      }, 0, 10);
+
+      items[0].title.should.equal('Au Théâtre ce soir');
+    });
+
+    it('With accents but unspecified in search', async () => {
+      const { items } = await svc({
+        search: 'Theatre'
+      }, 0, 10);
+
+      items[0].title.should.equal('Au Théâtre ce soir');
+    });
+
   });
 
-  it('updates agenda items after given updatedAt', async () => {
-    const before = new Date();
-    before.setHours(before.getHours() - 1);
+  describe('Keywords', () => {
 
-    const result = await svc.resyncUpdated(before);
+    it('matchs on a keyword', async () => {
+      const {
+        items
+      } = await svc.list({ search: 'mcc' }, 0, 10);
 
-    // capped at 20
-    result.should.eql({ indexed: 20, updated: 0 });
+      items[0].title.should.equal('Journées Européennes du Patrimoine');
+    });
+
   });
 
-  it('keyword search', async () => {
-    const {
-      total
-    } = await svc.list({ search: 'jardin' }, 0, 10);
+  describe('Misc', () => {
 
-    total.should.equal(2);
-  });
+    it('fetch official only', async () => {
+      const { total, items } = await svc.list({
+        official: true
+      }, 0, 10);
 
+      items.forEach(agenda => {
+        agenda.official.should.equal(true);
+      });
+    });
 
-  it('official filter: all retrieved agendas are official', async () => {
-    const {
-      items: agendas
-    } = await svc.list({ search: 'title', official: true });
-
-    agendas.filter(a => !a.official).length.should.equal(0);
   });
 
 });
