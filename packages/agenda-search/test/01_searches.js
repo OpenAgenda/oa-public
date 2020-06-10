@@ -138,4 +138,16 @@ describe('search', function() {
 
   });
 
+  describe('Fixes', () => {
+
+    it('official should be indexed as boolean', async () => {
+      const { items } = await svc({
+        search: 'Lille'
+      }, 0, 20);
+
+      items.length.should.equal(1)
+    });
+
+  });
+
 });

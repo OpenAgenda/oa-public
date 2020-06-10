@@ -58,7 +58,7 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
 
     count += inserted;
 
-    log('added %i items from lastId %s', agendas.length, lastId);
+    log('info', 'added %s items from lastId %s', agendas.length, lastId);
 
     lastId = newLastId;
   }
