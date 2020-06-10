@@ -13,7 +13,7 @@ const wrapApp = require('@openagenda/react-utils/dist/wrapApp');
 const {
   matchRoutes
 } = require('@openagenda/react-utils/dist/asyncMatchRoutes');
-const { Html, LayoutManager } = require('@openagenda/react-layouts');
+const { Html, LayoutManager, createLayoutStore } = require('@openagenda/react-layouts');
 const {
   AgendaAdminLayout,
   InboxUserLayout,
@@ -65,7 +65,7 @@ module.exports = function match({ initialState, lang, publicPath }) {
         : initialState;
 
       // Create store for the layout
-      const layoutStore = LayoutManager.createStore(state.layout, history);
+      const layoutStore = createLayoutStore(state.layout, history);
 
       const reduxMiddleware = createReduxMiddleware(layoutStore);
 

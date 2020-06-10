@@ -8,7 +8,7 @@ import IScroll from 'iscroll';
 import { parse } from 'flatted/esm';
 import he from 'he';
 import { loadableReady } from '@loadable/component';
-import { LayoutManager } from '@openagenda/react-layouts/src';
+import { createLayoutStore } from '@openagenda/react-layouts/src';
 import {
   AgendaAdminLayout,
   InboxUserLayout,
@@ -57,7 +57,7 @@ NProgress.configure({ trickleSpeed: 200 });
 const onLocationChangeStart = () => NProgress.start();
 const onLocationChangeFinish = () => NProgress.done();
 
-const layoutStore = LayoutManager.createStore(initialState.layout, history);
+const layoutStore = createLayoutStore(initialState.layout, history);
 
 const reduxMiddleware = createReduxMiddleware(layoutStore);
 
