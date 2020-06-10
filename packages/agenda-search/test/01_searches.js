@@ -112,6 +112,16 @@ describe('search', function() {
       ]);
     });
 
+    it('Title search is more important than description which is more important than keywords', async () => {
+      const {
+        items
+      } = await svc({ search: 'cuillère' }, 0, 10);
+
+      items.map(i => i.title).should.eql([
+        'Cuillère à soupe', 'Téléphone', 'Froid estival'
+      ]);
+    });
+
   });
 
   describe('Misc', () => {

@@ -112,5 +112,38 @@
     "officializedAt": null,
     "publishedEvents": 389,
     "upcomingPublishedEvents": 156
+  },
+  {
+    "id": 99993,
+    "uid": 9999993,
+    "title": "Froid estival",
+    "description": "Le terme important est dans les mots clés",
+    "official": false,
+    "officializedAt": null,
+    "publishedEvents": 389,
+    "upcomingPublishedEvents": 156,
+    "keywords": ["cuillère"]
+  },
+  {
+    "id": 99990,
+    "uid": 9999990,
+    "title": "Cuillère à soupe",
+    "description": "Le terme important est dans le titre",
+    "official": false,
+    "officializedAt": null,
+    "publishedEvents": 389,
+    "upcomingPublishedEvents": 156,
+    "keywords": []
+  },
+  {
+    "id": 99991,
+    "uid": 9999991,
+    "title": "Téléphone",
+    "description": "Le terme important est dans la description: cuillère à café",
+    "official": false,
+    "officializedAt": null,
+    "publishedEvents": 389,
+    "upcomingPublishedEvents": 156,
+    "keywords": []
   }
 ]
