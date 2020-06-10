@@ -19,6 +19,7 @@ module.exports.init = (config, services) => {
     },
     imagePath: config.aws.imageBucketPath.replace('cibuldev', 'cibul'),
     defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+    logger: config.getLogConfig('svc', 'agendaSearch'),
     site: {
       url: config.root,
       image: config.logo
