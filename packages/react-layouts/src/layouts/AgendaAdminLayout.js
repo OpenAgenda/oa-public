@@ -8,9 +8,8 @@ import {
 } from 'react-router-dom';
 import compareRoles from '@openagenda/members/build/compareRoles';
 import { Image } from '@openagenda/react-components';
-import { useMemoOne } from '@openagenda/react-shared';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
-import useChildLayouts from '../hooks/useChildLayouts';
+import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Loading from '../components/Loading';
 
@@ -102,9 +101,9 @@ function Sections({ agenda, role }) {
 function AgendaAdminLayout({
   childLayouts,
   children,
+  extraProps,
   onError,
-  FallbackComponent,
-  extraProps: parentExtraProps
+  FallbackComponent
 }) {
   const intl = useIntl();
   const history = useHistory();
@@ -132,8 +131,7 @@ function AgendaAdminLayout({
     verifyLocationCount();
   }, [verifyLocationCount]);
 
-  const lang = useSelector(state => state.main.lang);
-  const user = useSelector(state => _.get(state, 'main.settings', null));
+  const user = useSelector(state => _.get(state, 'main.user', null));
   const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
   const loadError = useSelector(state => _.get(state, 'agendaAdmin.error', null));
   const agenda = useSelector(
@@ -155,29 +153,6 @@ function AgendaAdminLayout({
   const sections = useSelector(
     state => _.get(state, 'agendaAdmin.sections', null),
     shallowEqual
-  );
-
-  const extraProps = useMemoOne(
-    () => ({
-      ...parentExtraProps,
-      agenda,
-      agendaSchema,
-      role,
-      sections,
-      member
-    }),
-    [parentExtraProps, agenda, agendaSchema, role, sections, member]
-  );
-
-  const ErrorComponent = useCallback(
-    props => React.createElement(FallbackComponent, { ...props, lang }),
-    [FallbackComponent, lang]
-  );
-
-  const getContent = useChildLayouts(
-    children,
-    { extraProps, onError, FallbackComponent },
-    childLayouts
   );
 
   useIsomorphicLayoutEffect(() => {
@@ -233,8 +208,20 @@ function AgendaAdminLayout({
         </div>
 
         <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
-          <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-            {getContent()}
+          <ErrorBoundary onError={onError} FallbackComponent={FallbackComponent}>
+            <ChildLayouts
+              layouts={childLayouts}
+              extraProps={extraProps}
+              onError={onError}
+              FallbackComponent={FallbackComponent}
+              agenda={agenda}
+              agendaSchema={agendaSchema}
+              role={role}
+              sections={sections}
+              member={member}
+            >
+              {children}
+            </ChildLayouts>
           </ErrorBoundary>
         </div>
       </div>
