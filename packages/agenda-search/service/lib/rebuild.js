@@ -2,7 +2,8 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('rebuild');
-const mapping  = require('./mapping.json');
+const mapping = require('./mapping.json');
+const analysis = require('./analysis.json');
 const utils = require('@openagenda/utils');
 const bulk = require('./bulk');
 
@@ -28,6 +29,9 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
     index: newIndex,
     timeout,
     body: {
+      settings: {
+        analysis
+      },
       mappings: {
         dynamic: false,
         properties: mapping
@@ -37,9 +41,14 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
 
   log('info', 'populating index');
 
-  let offset = 0, count = 0, agendas;
+  let lastId = 0, count = 0;
 
-  while ((agendas = await listAgendas({}, offset, LIMIT, { detailed: false })).length) {
+  while (lastId !== -1) {
+    const {
+      lastId: newLastId,
+      items: agendas
+    } = await listAgendas({}, lastId, LIMIT);
+
     const inserted = await bulk({
       client,
       index: newIndex,
@@ -49,9 +58,9 @@ module.exports = async ({ alias, client, timeout, listAgendas, formatForIndex })
 
     count += inserted;
 
-    log('added %i items from offset %s', agendas.length, offset);
+    log('info', 'added %s items from lastId %s', agendas.length, lastId);
 
-    offset += LIMIT;
+    lastId = newLastId;
   }
 
   log('info', 'indexed %s items', count);

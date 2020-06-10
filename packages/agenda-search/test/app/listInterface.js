@@ -1,29 +1,19 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const agendas = require('../fixtures/agendas.json');
 
-const randomAgenda = require( './randomAgenda' );
+module.exports = async (total, query, lastId, limit) => {
+  const updatedAtGreaterThan = _.get(query, 'updatedAtGreaterThan');
 
-module.exports = ( total, query, offset, limit, { detailed } ) => {
+  const chunk = agendas
+    .sort((a1, a2) => a1.id > a2.id ? 1 : -1)
+    .filter(a => a.id > lastId)
+    .filter((a, i) => i < limit)
+    .filter(a => updatedAtGreaterThan ? a.updatedAt > updatedAtGreaterThan : true);
 
-  const updatedAtGreaterThan = _.get( query, 'updatedAtGreaterThan' );
-
-  return new Promise( rs => {
-
-    const randomAgendaUids = [];
-
-    for( let i = 0; i < limit; i++ ) {
-
-      if ( offset + i > total ) continue;
-
-      randomAgendaUids.push( Math.floor( Math.random() * 1000000 ) );
-
-    }
-
-    const agendas = randomAgendaUids.map( uid => randomAgenda( uid, detailed ) );
-
-    rs( agendas.filter( a => !updatedAtGreaterThan || ( ( new Date( updatedAtGreaterThan ) ) < a.updatedAt ) ) );
-
-  } );
-
+  return {
+    items: chunk,
+    lastId: chunk.length ? _.last(chunk).id : -1
+  }
 }

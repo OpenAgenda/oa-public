@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.4.1...@openagenda/event-search@2.5.0) (2020-06-09)
+
+
+### Features
+
+* **event-search:** filter by timestamp ([bc513d4](https://bitbucket.org/openagenda/oa/commit/bc513d4b9df59ab21b6a4235401f719f822bbeac))
+* **event-search:** target field in additionalField aggregation ([399c637](https://bitbucket.org/openagenda/oa/commit/399c637fcbd0ba64231f6143d8ca768077c9a78c))
+
+
+### Bug Fixes
+
+* **event-search:** additionalFields aggregation crashes when no values are retrieved for specific field ([8e11567](https://bitbucket.org/openagenda/oa/commit/8e1156714025918d0e6fa00bf3d21041f92868b0))
+
+
+
 ### [2.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.4.0...@openagenda/event-search@2.4.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/event-search

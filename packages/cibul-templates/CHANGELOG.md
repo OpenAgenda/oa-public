@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.2...@openagenda/cibul-templates@1.2.3) (2020-06-09)
+
+
+### Bug Fixes
+
+* **cibul-templates:** bad import in duplicate feature ([3c26084](https://bitbucket.org/openagenda/oa/commit/3c2608487de713c0b84290af449d132b9fa8b977))
+
+
+
 ### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.1...@openagenda/cibul-templates@1.2.2) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/cibul-templates

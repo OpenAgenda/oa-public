@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.13...@openagenda/agenda-search@1.1.0) (2020-06-09)
+
+
+### Features
+
+* **agenda-search:** service is instanciable ([614cd1b](https://bitbucket.org/openagenda/oa/commit/614cd1b35106d50c97ba521d1c1fdd35cef30e82))
+
+
+
 ### [1.0.13](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.12...@openagenda/agenda-search@1.0.13) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/agenda-search

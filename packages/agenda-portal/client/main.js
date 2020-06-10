@@ -1,4 +1,5 @@
 import debug from 'debug';
+import handleExternalLinks from './lib/handleExternalLinks';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
 
@@ -86,7 +87,7 @@ function updateTotal(total) {
   return result;
 }
 
-function progressiveLoad(canvasSelector) {
+function progressiveLoad(pageProps, canvasSelector) {
   log('progressiveLoad');
 
   if (!$(canvasSelector).first().length) return;
@@ -120,6 +121,10 @@ function progressiveLoad(canvasSelector) {
           $(canvasSelector)
             .first()
             .append(eventItemsHTML);
+
+          if (pageProps.iframable) {
+            handleExternalLinks($, iframeHandler);
+          }
         } else {
           rockBottom = true;
         }
@@ -143,6 +148,11 @@ function onWidgetController({ origin, pageProps }, widget, update, query = {}) {
 
   loadListContent('/events', { oaq: query }, (err, result) => {
     $(listSelector).html(result.html);
+
+    if (pageProps.iframable) {
+      handleExternalLinks($, iframeHandler);
+    }
+
     result.total = updateTotal(result.total);
 
     const pageMatch = window.location.href.match(/\/p\/[0-9]+/);
@@ -162,8 +172,6 @@ function onWidgetController({ origin, pageProps }, widget, update, query = {}) {
 $(() => {
   const pageProps = readPageProps($);
 
-  console.log('loaded', pageProps);
-
   window.oa = {
     onReloadWithPassed: onWidgetController.bind(
       null,
@@ -179,11 +187,16 @@ $(() => {
     })
   };
 
-  log('page ready');
+  log('page ready', pageProps);
+
   $('.js_trigger_spin').on('click', spin);
 
-  if (pageProps && pageProps.pageType === 'list') {
+  if (pageProps.pageType === 'list') {
     progressiveLoad(pageProps, '.js_progressive_load');
+  }
+
+  if (pageProps.iframable) {
+    handleExternalLinks($, iframeHandler);
   }
 
   updateTotal();

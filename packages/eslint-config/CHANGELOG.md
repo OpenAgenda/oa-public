@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/eslint-config@1.0.2...@openagenda/eslint-config@1.1.0) (2020-06-09)
+
+
+### Features
+
+* **eslint-config:** lint also the custom effects ([dc8d351](https://bitbucket.org/openagenda/oa/commit/dc8d3514b00963b26239d5f01f6ea802981f3b67))
+
+
+
 ## <small>1.0.2 (2020-04-03)</small>
 
 * agenda-portal: lint ([c5c2041](https://bitbucket.org/openagenda/oa/commits/c5c2041))

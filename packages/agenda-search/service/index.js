@@ -66,5 +66,5 @@ module.exports = (config = {}) => {
 
   service.mw = mw(service);
 
-  return service;
+  return Object.assign(service.list, service);
 }

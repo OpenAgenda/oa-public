@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/unsubscribed@2.1.2...@openagenda/unsubscribed@2.1.3) (2020-06-09)
+
+**Note:** Version bump only for package @openagenda/unsubscribed
+
+
+
+
+
 ## <small>2.1.2 (2020-04-03)</small>
 
 * upgrade dependencies ([193c6a0](https://bitbucket.org/openagenda/oa/commits/193c6a0))

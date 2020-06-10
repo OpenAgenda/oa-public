@@ -3,7 +3,15 @@
 const _ = require('lodash');
 
 module.exports = (req, path, value) => {
-  if (!req.pageProps) req.pageProps = {};
+  if (!req.pageProps) {
+    req.pageProps = _.pick(req.app.locals, [
+      'iframable',
+      'lang',
+      'uid',
+      'root',
+      'parentRoot'
+    ]);
+  }
 
   _.set(req.pageProps, path, value);
 

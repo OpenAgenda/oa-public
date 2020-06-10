@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.8...@openagenda/legacy@1.10.0) (2020-06-09)
+
+
+### Features
+
+* **legacy:** access is added to tag groups ([a27cfa6](https://bitbucket.org/openagenda/oa/commit/a27cfa684b28b6916b896bd95a0cdaacae053199))
+
+
+
 ### [1.9.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.7...@openagenda/legacy@1.9.8) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/legacy

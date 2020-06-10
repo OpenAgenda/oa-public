@@ -23,7 +23,9 @@ module.exports = async ({
 
   log('info', 'launching update from %s', updatedAtGreaterThan);
 
-  const agendas = await listAgendas({ updatedAtGreaterThan }, 0, 20, { detailed: true });
+  const {
+    items: agendas
+  } = await listAgendas({ updatedAtGreaterThan }, 0, 20);
 
   log('info', '%s agendas to update since %s', agendas.length, updatedAtGreaterThan);
 

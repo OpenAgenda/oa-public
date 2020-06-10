@@ -9,7 +9,6 @@ module.exports = ({ imagePath, defaultImage }, agenda) => ({
     'slug',
     'title',
     'description',
-    'official',
     'image',
     'publishedEvents',
     'upcomingPublishedEvents',
@@ -19,5 +18,6 @@ module.exports = ({ imagePath, defaultImage }, agenda) => ({
     'createdAt'
   ]),
   image: agenda.image ? imagePath + agenda.image : defaultImage,
-  hasUpcomingPublished: !!agenda.upcomingPublishedEvents
+  hasUpcomingPublished: !!agenda.upcomingPublishedEvents,
+  official: !!agenda.official
 });

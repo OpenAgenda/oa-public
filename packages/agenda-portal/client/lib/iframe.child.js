@@ -1,4 +1,3 @@
-'use strict';
 
 function _generateUpdatedHref(update) {
   const base = window.location.href.split(window.location.host);
@@ -37,6 +36,19 @@ function sendNavUpdate(state) {
   });
 }
 
+function sendExternalLinkClick(state, link) {
+  const { parent } = state;
+
+  if (!parent) {
+    return;
+  }
+
+  parent.sendMessage({
+    code: 'external',
+    link
+  });
+}
+
 module.exports = ({ onParentNavUpdate }) => {
   const state = {
     parent: null
@@ -54,6 +66,7 @@ module.exports = ({ onParentNavUpdate }) => {
   };
 
   return {
-    sendNavUpdate: sendNavUpdate.bind(null, state)
+    sendNavUpdate: sendNavUpdate.bind(null, state),
+    sendExternalLinkClick: sendExternalLinkClick.bind(null, state)
   };
 };

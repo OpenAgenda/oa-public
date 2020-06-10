@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.1.1...@openagenda/react-utils@4.2.0) (2020-06-09)
+
+
+### Features
+
+* **react-utils:** add possibility to name the redux store ([4de6f63](https://bitbucket.org/openagenda/oa/commit/4de6f63223dcfb553563a0fc232312a0c683e697))
+
+
+
 ### [4.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.1.0...@openagenda/react-utils@4.1.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/react-utils

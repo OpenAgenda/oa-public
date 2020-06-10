@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/utils@1.2.2...@openagenda/utils@1.2.3) (2020-06-09)
+
+**Note:** Version bump only for package @openagenda/utils
+
+
+
+
+
 ### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/utils@1.2.1...@openagenda/utils@1.2.2) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/utils

@@ -1,12 +1,11 @@
 'use strict';
 
 const _ = require('lodash');
-const { promisify } = require('util');
 
-const agendaLocations = require('@openagenda/agenda-locations');
 const agendaSearch = require('@openagenda/agenda-search');
+const log = require('@openagenda/logs')('services/agendaSearch');
 
-const listLocationTerms = promisify(agendaLocations.list.terms);
+const listAgendas = require('./listAgendas');
 
 module.exports.init = (config, services) => {
   const port = _.get(config, 'es75.port', 9200);
@@ -20,34 +19,11 @@ module.exports.init = (config, services) => {
     },
     imagePath: config.aws.imageBucketPath.replace('cibuldev', 'cibul'),
     defaultImage: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+    logger: config.getLogConfig('svc', 'agendaSearch'),
     site: {
       url: config.root,
       image: config.logo
     },
-    listAgendas: async (query, offset, limit, { detailed }) => {
-      const agendas = (
-        await services.agendas.list(query, offset, limit, { detailed: true, indexed: true })
-      ).agendas.map(a => _.assign(a, { keywords: [] }));
-
-      if (!detailed) return agendas;
-
-      for (const agenda of agendas) {
-        await _decorateWithDetails(agenda);
-      }
-
-      return agendas;
-    }
+    listAgendas: listAgendas.bind(null, services)
   });
-
-}
-
-async function _decorateWithDetails(agenda) {
-  agenda.keywords = [];
-
-  for (const term of ['region', 'department', 'city']) {
-    const result = await listLocationTerms([ term ], { agendaId: agenda.id });
-
-    result.map(r => r[ term ]).forEach(keyword => !agenda.keywords.includes(keyword) ? agenda.keywords.push(keyword) : null);
-  }
-  return agenda;
 }

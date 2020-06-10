@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/inbox-apps@1.1.8...@openagenda/inbox-apps@1.1.9) (2020-06-09)
+
+**Note:** Version bump only for package @openagenda/inbox-apps
+
+
+
+
+
 ### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/inbox-apps@1.1.7...@openagenda/inbox-apps@1.1.8) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/inbox-apps
