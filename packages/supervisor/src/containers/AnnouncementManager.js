@@ -2,25 +2,25 @@ import React, { useMemo, useCallback } from 'react';
 import { createForm } from 'final-form';
 import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
+import breaks from 'remark-breaks';
 import { css } from '@emotion/core';
 import { useConstant, useApiClient } from '@openagenda/react-shared';
 
 const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
+const reactMdPlugins = [breaks];
 
-function AnnouncementPreview({ data }) {
-  const kind = data.kind || 'info';
-
+function AnnouncementPreview({ kind = 'info', content }) {
   return (
     <div className={`announcement bg-${kind}`}>
       <div className={`container text-${kind}`}>
         <div className="row padding-top-sm padding-right-sm padding-left-md">
           <div className="pull-right">
-            <button type="button" className={`btn btn-link-inline btn-${kind}`}>
+            <button type="button" className={`btn btn-link-inline text-${kind}`}>
               <i className="fa fa-times" aria-hidden="true" />
             </button>
           </div>
 
-          <ReactMarkdown linkTarget={getTarget} source={data.content} />
+          <ReactMarkdown linkTarget={getTarget} source={content} plugins={reactMdPlugins} />
         </div>
       </div>
     </div>
@@ -113,7 +113,7 @@ export default function AnnouncementManager({ user }) {
 
             {values.content ? (
               <div className="margin-top-sm">
-                <AnnouncementPreview data={values} />
+                <AnnouncementPreview kind={values.kind} content={values.content} />
               </div>
             ) : null}
           </form>
