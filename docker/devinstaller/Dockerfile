@@ -32,3 +32,6 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get install apt-transport-https -y
 RUN apt-get update -y
 RUN apt-get install yarn -y
+
+# add the npm token
+RUN echo "npmRegistries:\n  //registry.npmjs.org:\n    npmAuthToken: \"\${NPM_TOKEN}\"\n" >> /root/.yarnrc.yml
