@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const should = require('should');
+const assert = require('assert');
 const config = require('../testconfig');
 const Service = require('../service');
 const listInterface = require('./app/listInterface');
@@ -29,7 +29,7 @@ describe('search', function() {
         search: 'La Roche-Posay'
       }, 0, 10);
 
-      items[0].title.should.equal('La Roche-Posay');
+      assert.equal(items[0].title, 'La Roche-Posay');
     });
 
     it('Near match', async () => {
@@ -37,7 +37,7 @@ describe('search', function() {
         search: 'Roche-Posay'
       }, 0, 10);
 
-      items[0].title.should.equal('La Roche-Posay');
+      assert.equal(items[0].title, 'La Roche-Posay');
     });
 
     it('match', async () => {
@@ -45,7 +45,7 @@ describe('search', function() {
         search: 'Roche'
       }, 0, 10);
 
-      items[0].title.should.equal('La Roche-Posay');
+      assert.equal(items[0].title, 'La Roche-Posay');
     });
 
     it('With accents', async () => {
@@ -53,7 +53,7 @@ describe('search', function() {
         search: 'Théâtre'
       }, 0, 10);
 
-      items[0].title.should.equal('Au Théâtre ce soir');
+      assert.equal(items[0].title, 'Au Théâtre ce soir');
     });
 
     it('Singular can provide plural', async () => {
@@ -61,7 +61,7 @@ describe('search', function() {
         search: 'musée'
       });
 
-      items.length.should.equal(3);
+      assert.equal(items.length, 3);
     });
 
     it('With accents but unspecified in search', async () => {
@@ -69,7 +69,7 @@ describe('search', function() {
         search: 'Theatre'
       }, 0, 10);
 
-      items[0].title.should.equal('Au Théâtre ce soir');
+      assert.equal(items[0].title, 'Au Théâtre ce soir');
     });
 
   });
@@ -81,7 +81,7 @@ describe('search', function() {
         items
       } = await svc.list({ search: 'mcc' }, 0, 10);
 
-      items[0].title.should.equal('Journées Européennes du Patrimoine');
+      assert.equal(items[0].title, 'Journées Européennes du Patrimoine');
     });
 
   });
@@ -93,7 +93,7 @@ describe('search', function() {
         items
       } = await svc({ search: 'musées' }, 0, 10);
 
-      items.map(a => a.title).should.eql([
+      assert.deepEqual(items.map(a => a.title), [
         'Nuit européenne des musées 2020 : Île-de-France',
         'Nuit européenne des musées 2018 : Île-de-France',
         'Nuit européenne des musées 2019 : Île-de-France'
@@ -105,10 +105,11 @@ describe('search', function() {
         items
       } = await svc({ search: 'Rendez-vous aux jardins' }, 0, 10);
 
-      items.map(i => i.title).should.eql([
-        'Rendez-vous aux jardins : Pays de la Loire qui va bien',
-        'Rendez-vous aux jardins : Pays de la Loire qui ne va pas',
-        'Rendez-vous aux jardins'
+      assert.deepEqual(items.map(i => i.title), [
+        'Rendez-vous aux jardins : Pays de la Loire qui va bien', // officiel
+        'Rendez-vous aux jardins', // pas officiel
+        'Rendez-vous aux jardins : Pays de la Loire qui ne va pas', // pas officiel
+        'Nuit européenne des musées 2019 : Île-de-France' // officiel
       ]);
     });
 
@@ -117,8 +118,10 @@ describe('search', function() {
         items
       } = await svc({ search: 'cuillère' }, 0, 10);
 
-      items.map(i => i.title).should.eql([
-        'Cuillère à soupe', 'Téléphone', 'Froid estival'
+      assert.deepEqual(items.map(i => i.title), [
+        'Cuillère à soupe',
+        'Téléphone',
+        'Froid estival'
       ]);
     });
 
@@ -132,20 +135,36 @@ describe('search', function() {
       }, 0, 10);
 
       items.forEach(agenda => {
-        agenda.official.should.equal(true);
+        assert.equal(agenda.official, true);
       });
     });
 
   });
 
-  describe('Fixes', () => {
+  describe('Fixes and tweaks', () => {
 
     it('official should be indexed as boolean', async () => {
       const { items } = await svc({
         search: 'Lille'
       }, 0, 20);
 
-      items.length.should.equal(1)
+      assert.equal(items.length, 1);
+    });
+
+    it('"Meudon" search puts "Meudon" official agenda first', async () => {
+      const { items } = await svc({
+        search: 'Meudon'
+      }, 0, 1);
+
+      assert.equal(items[0].title, 'Meudon');
+    });
+
+    it('"meudon" search puts "Meudon" official agenda first', async () => {
+      const { items } = await svc({
+        search: 'meudon'
+      }, 0, 1);
+
+      assert.equal(items[0].title, 'Meudon');
     });
 
   });
