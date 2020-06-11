@@ -5,7 +5,7 @@ services:
   devinstaller:
     build:
       context: docker/devinstaller
-    command: /home/root/oa/docker/devinstaller/command.sh ${NPM_TOKEN} ${SITE_DOMAIN} ${API_DOMAIN}
+    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN}
     volumes:
       - .:/home/root/oa
       - ${SF_PROJECT_PATH}:/home/root/cibul-symfony
@@ -27,13 +27,13 @@ services:
       - ${SF_PROJECT_PATH}/web:/static
       - ${SITE_SSL_CERT}:/ssl/cert.pem
       - ${SITE_SSL_KEY}:/ssl/key.pem
-      - ${CLIENT_SSL_CERT}:/ssl/client.crt
-      - ${ES1_SSL_CERT}:/ssl/es1.cert.pem
-      - ${ES1_SSL_KEY}:/ssl/es1.key.pem
-      - ${ES7_SSL_CERT}:/ssl/es7.cert.pem
-      - ${ES7_SSL_KEY}:/ssl/es7.key.pem
-      - ${PMA_SSL_CERT}:/ssl/pma.cert.pem
-      - ${PMA_SSL_KEY}:/ssl/pma.key.pem
+      - ${CLIENT_SSL_CERT:-/dev/null}:/ssl/client.crt
+      - ${ES1_SSL_CERT:-/dev/null}:/ssl/es1.cert.pem
+      - ${ES1_SSL_KEY:-/dev/null}:/ssl/es1.key.pem
+      - ${ES7_SSL_CERT:-/dev/null}:/ssl/es7.cert.pem
+      - ${ES7_SSL_KEY:-/dev/null}:/ssl/es7.key.pem
+      - ${PMA_SSL_CERT:-/dev/null}:/ssl/pma.cert.pem
+      - ${PMA_SSL_KEY:-/dev/null}:/ssl/pma.key.pem
     command: >
       /bin/bash -c
         "for filename in $$(find /tmp/nginx/ -type f -name '*'); do
