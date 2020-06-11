@@ -52,6 +52,7 @@ module.exports = {
     'comma-dangle': ['error', 'only-multiline'],
     // 'computed-property-spacing': [ 'error', 'always' ],
     // 'array-bracket-spacing': [ 'error', 'always' ],
+    'prefer-arrow-callback': [ 'error', { allowNamedFunctions: true } ],
 
     'import/no-unresolved': 'error',
     'import/named': 'error',

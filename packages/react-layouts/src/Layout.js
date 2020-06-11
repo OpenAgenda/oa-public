@@ -1,12 +1,10 @@
-import React from 'react';
-import * as ReactIs from 'react-is';
+import React, { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import shallowEqual from 'shallowequal';
 import qs from 'qs';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
-import { useMemoOne } from '@openagenda/react-shared';
 import locales from './locales';
 
 const defaultLocale = 'fr';
@@ -21,11 +19,21 @@ function getVisibleAppsByLayout(apps, pathname) {
       const found = accu.find(v => shallowEqual(v.layout, app.layout));
 
       if (found) {
-        found.visibleApps[appName] = app;
+        found.apps[appName] = app;
       } else {
+        const [layout, ...childLayouts] = Array.isArray(app.layout)
+          ? app.layout
+          : [app.layout];
+        const layoutName = layout.layoutName
+          || layout.displayName
+          || layout.name
+          || `InnerLayout${accu.length}`;
+
         accu.push({
-          layout: app.layout,
-          visibleApps: { [appName]: app }
+          key: layoutName,
+          layout,
+          childLayouts,
+          apps: { [appName]: app }
         });
       }
     }
@@ -34,14 +42,8 @@ function getVisibleAppsByLayout(apps, pathname) {
   }, []);
 }
 
-function NoopLayout({ children, ...props }) {
-  return ReactIs.isValidElementType(children)
-    ? React.createElement(children, props)
-    : children;
-}
-
 const AppsDisplayer = React.memo(
-  ({ layout: FirstLayout, apps, ...props }) => {
+  function AppsDisplayer({ layout: FirstLayout, apps, ...props }) {
     const Comp = componentProps => Object.keys(apps).map(name => React.createElement(apps[name].Content, {
       key: name,
       ...componentProps
@@ -78,18 +80,18 @@ function Layout({ apps, ...props }) {
   const userCulture = useSelector(state => state.main.user?.culture);
   const ssrLang = useSelector(state => state.main.lang);
 
-  const userLang = useMemoOne(
+  const userLang = useMemo(
     () => (
       qs.parse(location.search, { ignoreQueryPrefix: true }).lang
-        || userCulture
-        || ssrLang
-        || (typeof navigator === 'object' && navigator.language)
-        || defaultLocale
+      || userCulture
+      || ssrLang
+      || (typeof navigator === 'object' && navigator.language)
+      || defaultLocale
     ).split('-')[0],
     [location.search, ssrLang, userCulture]
   );
 
-  const i18n = useMemoOne(() => {
+  const i18n = useMemo(() => {
     const usedLocale = locales[userLang] ? userLang : defaultLocale;
 
     return {
@@ -98,34 +100,9 @@ function Layout({ apps, ...props }) {
     };
   }, [userLang]);
 
-  const visibleAppsByLayout = useMemoOne(
+  const layouts = useMemo(
     () => getVisibleAppsByLayout(apps, location.pathname),
     [apps, location.pathname]
-  );
-
-  const layouts = useMemoOne(
-    () => visibleAppsByLayout.map(({ layout, visibleApps }, i) => {
-      const [FirstLayout, ...childLayouts] = (Array.isArray(layout)
-        ? layout
-        : [layout]) || [NoopLayout];
-      const layoutName = FirstLayout.layoutName
-          || FirstLayout.displayName
-          || FirstLayout.name
-          || `InnerLayout${i}`;
-
-      return (
-        <AppsDisplayer
-          key={layoutName}
-          {...props}
-          history={history}
-          layout={FirstLayout}
-          childLayouts={childLayouts}
-          apps={visibleApps}
-          lang={i18n.locale}
-        />
-      );
-    }),
-    [visibleAppsByLayout, props, history, i18n.locale]
   );
 
   return (
@@ -135,7 +112,15 @@ function Layout({ apps, ...props }) {
       defaultLocale={defaultLocale}
       otherKey={i18n.locale}
     >
-      {layouts}
+      {layouts.map(({ key, ...layoutProps }) => (
+        <AppsDisplayer
+          key={key}
+          {...props}
+          {...layoutProps}
+          history={history}
+          lang={i18n.locale}
+        />
+      ))}
     </IntlProvider>
   );
 }

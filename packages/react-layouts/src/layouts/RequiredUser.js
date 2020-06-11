@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import useChildLayouts from '../hooks/useChildLayouts';
+import ChildLayouts from '../components/ChildLayouts';
 import Loading from '../components/Loading';
 
 function RequiredUser({
@@ -12,11 +12,6 @@ function RequiredUser({
 }) {
   const history = useHistory();
   const location = useLocation();
-  const getContent = useChildLayouts(
-    children,
-    { extraProps, onError, FallbackComponent },
-    childLayouts
-  );
 
   if (!extraProps.user) {
     const url = location.pathname + location.search;
@@ -32,7 +27,16 @@ function RequiredUser({
     return <Loading />;
   }
 
-  return getContent();
+  return (
+    <ChildLayouts
+      layouts={childLayouts}
+      extraProps={extraProps}
+      onError={onError}
+      FallbackComponent={FallbackComponent}
+    >
+      {children}
+    </ChildLayouts>
+  );
 }
 
 RequiredUser.layoutName = 'RequiredUser';

@@ -1,5 +1,5 @@
 import React from 'react';
-import useChildLayouts from '../hooks/useChildLayouts';
+import ChildLayouts from '../components/ChildLayouts';
 
 function InboxUserLayout({
   childLayouts,
@@ -8,19 +8,20 @@ function InboxUserLayout({
   onError,
   FallbackComponent
 }) {
-  const getContent = useChildLayouts(
-    children,
-    { extraProps, onError, FallbackComponent },
-    childLayouts
-  );
-
   return (
     <div className="container top-margined">
       <div className="row">
         <div className="col-sm-offset-2 col-sm-8">
           <div className="wsq">
             <div className="inbox inbox-user padding-all-sm">
-              {getContent()}
+              <ChildLayouts
+                layouts={childLayouts}
+                extraProps={extraProps}
+                onError={onError}
+                FallbackComponent={FallbackComponent}
+              >
+                {children}
+              </ChildLayouts>
             </div>
           </div>
         </div>

@@ -3,15 +3,15 @@ import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 
 const messages = defineMessages({
-  tooltipDay: {
+  day: {
     id: 'AgendaStats.DateTooltipItem.tooltipDay',
     defaultMessage: '{value, time, ::yyyyMMMMddeeeee}'
   },
-  tooltipWeek: {
+  week: {
     id: 'AgendaStats.DateTooltipItem.tooltipWeek',
     defaultMessage: '{value, time, ::yyyyMMdd}'
   },
-  tooltipMonth: {
+  month: {
     id: 'AgendaStats.DateTooltipItem.tooltipMonth',
     defaultMessage: '{value, time, ::yyyyMMMM}'
   }
@@ -61,15 +61,7 @@ export default function DateTooltipItem({
         {!hideLabel ? (
           <>
             <b>
-              {interval === 'day'
-                ? intl.formatMessage(messages.tooltipDay, { date })
-                : null}
-              {interval === 'week'
-                ? intl.formatMessage(messages.tooltipWeek, { date })
-                : null}
-              {interval === 'month'
-                ? intl.formatMessage(messages.tooltipMonth, { date })
-                : null}
+              {intl.formatMessage(messages[interval], { date })}
             </b>
             <br />
           </>

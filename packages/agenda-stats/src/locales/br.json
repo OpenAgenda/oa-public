@@ -17,6 +17,7 @@
   "AgendaStats.AggregationCharts.titles.updatedAt": null,
   "AgendaStats.AggregationCharts.titles.members": null,
   "AgendaStats.AggregationCharts.titles.originAgendas": null,
+  "AgendaStats.AggregationCharts.titles.keywords": null,
   "AgendaStats.ComposedChart.tooltipContentEvents": null,
   "AgendaStats.ComposedChart.tooltipContentTimings": null,
   "AgendaStats.ComposedChart.tooltipContentCreatedAt": null,

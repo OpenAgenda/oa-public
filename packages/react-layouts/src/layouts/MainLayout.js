@@ -7,29 +7,21 @@ import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import classNames from 'classnames';
 import { useInterval } from 'react-use';
-import ReactMarkdown from 'react-markdown';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import { Modal } from '@openagenda/react-components';
-import { useMemoOne } from '@openagenda/react-shared';
-import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
+import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Loading from '../components/Loading';
+import Logo from '../components/Logo';
+import Search from '../components/Search';
+import HelpLink from '../components/HelpLink';
+import Announcement from '../components/Announcement';
 
 const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
 
-const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
-
 const messages = defineMessages({
-  search: {
-    id: 'react-layouts.MainLayout.search',
-    defaultMessage: 'Search'
-  },
-  help: {
-    id: 'react-layouts.MainLayout.help',
-    defaultMessage: 'Help'
-  },
   general: {
     id: 'react-layouts.MainLayout.general',
     defaultMessage: 'General'
@@ -66,86 +58,13 @@ const messages = defineMessages({
 
 const getDefaultSessionUser = () => session.getUser();
 
-const Logo = React.memo(({ user }) => (user ? (
-  <Link to="/home" className="navbar-brand">
-    <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
-  </Link>
-) : (
-  <a className="navbar-brand" href="/">
-    <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
-  </a>
-)));
-
-const Search = React.memo(() => {
-  const intl = useIntl();
-
-  return (
-    <form className="navbar-left search-form" role="search" action="/agendas">
-      <input
-        className="search-input"
-        placeholder={intl.formatMessage(messages.search)}
-        type="text"
-        name="search"
-      />
-      {/* <input type="hidden" name="lang" value="<%= lang %>" /> */}
-      <div className="search-button">
-        <button className="search-submit" type="submit">
-          <i className="fa fa-search" />
-        </button>
-      </div>
-    </form>
-  );
-});
-
-const HelpLink = React.memo(() => {
-  const intl = useIntl();
-
-  return (
-    <div className="help-button-canvas">
-      <a
-        className="btn btn-primary btn-rounded btn-bordered"
-        rel="nofollow"
-        target="_blank"
-        href="/support"
-      >
-        <i className="fa fa-question-circle" />{' '}
-        <span>{intl.formatMessage(messages.help)}</span>
-      </a>
-    </div>
-  );
-});
-
-function Announcement({ data, onClose }) {
-  const kind = data.kind || 'info';
-
-  return (
-    <div className={`announcement bg-${kind}`}>
-      <div className={`container text-${kind}`}>
-        <div className="row padding-top-sm padding-right-sm padding-left-md">
-          <div className="pull-right">
-            <button
-              type="button"
-              className={`btn btn-link-inline btn-${kind}`}
-              onClick={onClose}
-            >
-              <i className="fa fa-times" aria-hidden="true" />
-            </button>
-          </div>
-
-          <ReactMarkdown linkTarget={getTarget} source={data.content} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function MainLayout({
   childLayouts,
   children,
-  history,
+  extraProps,
   onError,
   FallbackComponent,
-  lang
+  history
 }) {
   const intl = useIntl();
 
@@ -207,16 +126,8 @@ function MainLayout({
   );
 
   const ErrorComponent = useCallback(
-    props => React.createElement(FallbackComponent, { ...props, lang }),
-    [FallbackComponent, lang]
-  );
-
-  const extraProps = useMemoOne(
-    () => ({
-      user,
-      lang
-    }),
-    [user, lang]
+    props => React.createElement(FallbackComponent, { ...props, lang: intl.locale }),
+    [FallbackComponent, intl.locale]
   );
 
   const [flashMessage, setFlashMessage] = useState(null);
@@ -274,19 +185,13 @@ function MainLayout({
     });
   }, [apiRoot, onSeeActivitiesClick]);
 
-  const getContent = useChildLayouts(
-    children,
-    { extraProps, onError, FallbackComponent },
-    childLayouts
-  );
-
   const [viewedAnnoucement, setViewedAnnoucement] = useState(true);
 
   useEffect(() => {
     setViewedAnnoucement(
       user?.announcement
-        && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
-          === user.announcement.id
+      && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
+      === user.announcement.id
     );
   }, [user]);
 
@@ -297,11 +202,9 @@ function MainLayout({
 
   return (
     <>
-      {lang ? (
-        <Helmet>
-          <html lang={lang} />
-        </Helmet>
-      ) : null}
+      <Helmet>
+        <html lang={intl.locale} />
+      </Helmet>
 
       <div id="outdated" />
 
@@ -449,11 +352,28 @@ function MainLayout({
       </nav>
 
       {user?.announcement && !viewedAnnoucement ? (
-        <Announcement data={user.announcement} onClose={hideAnnouncement} />
+        <Announcement
+          kind={user.announcement.kind}
+          content={user.announcement.content}
+          onClose={hideAnnouncement}
+        />
       ) : null}
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-        {userLoading ? <Loading /> : getContent()}
+        {userLoading
+          ? <Loading />
+          : (
+            <ChildLayouts
+              layouts={childLayouts}
+              extraProps={extraProps}
+              onError={onError}
+              FallbackComponent={ErrorComponent}
+              user={user}
+              lang={intl.locale}
+            >
+              {children}
+            </ChildLayouts>
+          )}
 
         {flashMessage && flashMessage !== '' ? (
           <Modal>

@@ -1,7 +1,7 @@
 {
   "react-layouts.AgendaAdminLayout.administration": null,
   "react-layouts.AgendaAdminLayout.return": null,
-  "react-layouts.MainLayout.search": null,
+  "react-layouts.components.Search.search": null,
   "react-layouts.MainLayout.help": null,
   "react-layouts.MainLayout.general": null,
   "react-layouts.MainLayout.myEvents": null,

@@ -1,5 +1,5 @@
 import React from 'react';
-import useChildLayouts from '../hooks/useChildLayouts';
+import ChildLayouts from '../components/ChildLayouts';
 
 function InboxAgendaAdminLayout({
   childLayouts,
@@ -8,13 +8,18 @@ function InboxAgendaAdminLayout({
   onError,
   FallbackComponent
 }) {
-  const getContent = useChildLayouts(
-    children,
-    { extraProps, onError, FallbackComponent },
-    childLayouts
+  return (
+    <div className="inbox inbox-agenda-admin">
+      <ChildLayouts
+        layouts={childLayouts}
+        extraProps={extraProps}
+        onError={onError}
+        FallbackComponent={FallbackComponent}
+      >
+        {children}
+      </ChildLayouts>
+    </div>
   );
-
-  return <div className="inbox inbox-agenda-admin">{getContent()}</div>;
 }
 
 InboxAgendaAdminLayout.layoutName = 'InboxAgendaAdminLayout';

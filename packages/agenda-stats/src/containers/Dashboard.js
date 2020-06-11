@@ -32,18 +32,24 @@ const messages = defineMessages({
 });
 
 function getAdditionalFieldStats(agendaSchema) {
-  return agendaSchema.fields.map(fieldSchema => ({
-    aggregation: {
-      type: 'additionalFields',
-      field: fieldSchema.field
-    },
-    chart: {
-      type: 'vertical',
-      dataKey: 'eventCount',
-      labelKey: 'label'
-    },
-    fieldSchema
-  }));
+  return agendaSchema.fields.map(fieldSchema => {
+    const isCheckbox = fieldSchema.fieldType === 'checkbox' && fieldSchema.options?.length === 1;
+
+    return {
+      aggregation: {
+        type: 'additionalFields',
+        field: fieldSchema.field
+      },
+      chart: {
+        type: isCheckbox ? 'pie' : 'vertical',
+        dataKey: 'eventCount',
+        labelKey: 'label',
+        restItem: isCheckbox,
+        dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
+      },
+      fieldSchema
+    };
+  });
 }
 
 function Dashboard({ agenda, agendaSchema }) {
@@ -99,8 +105,8 @@ function Dashboard({ agenda, agendaSchema }) {
     Promise.all([
       apiClient.get(configUrl),
       apiClient.get(exportUrl, { params })
-    ]).then(([configRes, timespanRes]) => {
-      const { first, last } = timespanRes.data.aggregations.timespan;
+    ]).then(([configResult, timespanResult]) => {
+      const { first, last } = timespanResult.data.aggregations.timespan;
 
       const defaultRange = determineDefaultRange({ first, last });
 
@@ -110,7 +116,7 @@ function Dashboard({ agenda, agendaSchema }) {
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
-      const statsToLoad = configRes.data
+      const statsToLoad = configResult.data
         .concat({ separator: true })
         .concat(getAdditionalFieldStats(agendaSchema))
         .map(v => ({

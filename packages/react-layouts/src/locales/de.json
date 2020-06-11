@@ -1,7 +1,7 @@
 {
   "react-layouts.AgendaAdminLayout.administration": "Verwaltung",
   "react-layouts.AgendaAdminLayout.return": "Kalender Startseite",
-  "react-layouts.MainLayout.search": "Suche",
+  "react-layouts.components.Search.search": "Suche",
   "react-layouts.MainLayout.help": "Hilfe",
   "react-layouts.MainLayout.general": "Allgemein",
   "react-layouts.MainLayout.myEvents": "Meine Veranstaltungen",
