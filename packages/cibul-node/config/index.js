@@ -310,7 +310,9 @@ const config = {
         "allocine",
         "weezevent",
         "eventbrite",
-        "pictoaccess"
+        "pictoaccess",
+        "twitch\\.tv",
+        "arte\\.tv"
       ],
     },
     newsletter: {
