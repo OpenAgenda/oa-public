@@ -3,7 +3,6 @@ import _ from 'lodash';
 import VError from 'verror';
 import queueLib from '@openagenda/queue';
 import logs from '@openagenda/logs';
-import Inbox from '../Inbox';
 
 const log = logs('inboxes/tasks/sync');
 
@@ -19,10 +18,10 @@ function upStats(stats, key) {
  * - weekly complete task
  * */
 
-export async function syncUser(config, user, stats) {
+export async function syncUser(svc, user, stats) {
   // create inbox
   const inboxIdentifiers = { type: 'user', identifier: user.uid };
-  const inbox = await new Inbox(config, inboxIdentifiers).get({
+  const inbox = await new svc.Inbox(inboxIdentifiers).get({
     createOnNull: false
   });
 
@@ -48,15 +47,15 @@ export async function syncUser(config, user, stats) {
   }
 }
 
-export async function syncAgenda(config, agenda, stats) {
-  const { services } = config;
+export async function syncAgenda(svc, agenda, stats) {
+  const { services } = svc.config;
 
   const membersSvc = services.members();
   const usersSvc = services.users();
 
   // create inbox
   const inboxIdentifiers = { type: 'agenda', identifier: agenda.uid };
-  const inbox = await new Inbox(config, inboxIdentifiers).get({
+  const inbox = await new svc.Inbox(inboxIdentifiers).get({
     createOnNull: false
   });
 
@@ -198,18 +197,18 @@ export async function defineJob(config, q, stats) {
   log('info', 'Total of %d agendas queued to sync', stats.agendasToSync);
 }
 
-export async function processJob(config, data, stats) {
+export async function processJob(svc, data, stats) {
   if (data.user) {
-    await syncUser(config, data.user, stats);
+    await syncUser(svc, data.user, stats);
   }
 
   if (data.agenda) {
-    await syncAgenda(config, data.agenda, stats);
+    await syncAgenda(svc, data.agenda, stats);
   }
 }
 
-export default async function syncTask(config) {
-  const { queues, redis } = config;
+export default async function syncTask(svc) {
+  const { queues, redis } = svc.config;
 
   const q = queueLib(queues.inboxesSync, { redis });
   const stats = {
@@ -224,7 +223,7 @@ export default async function syncTask(config) {
 
   if (!(await q.len())) {
     try {
-      await defineJob(config, q, stats);
+      await defineJob(svc.config, q, stats);
     } catch (e) {
       return log('error', 'Error on jobs definition', e);
     }
@@ -237,7 +236,7 @@ export default async function syncTask(config) {
   while ((data = await q.pop())) {
     try {
       log('Process job n°%d/%d', i + 1, total);
-      await processJob(config, data, stats);
+      await processJob(svc.config, data, stats);
     } catch (e) {
       log(
         'error',
