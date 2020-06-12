@@ -40,10 +40,10 @@ services:
           mkdir -p $$(dirname $${filename/\/tmp\/nginx/\/etc\/nginx});
           cat $$filename \
             | envsubst \"`printf '$${%s} ' $$(bash -c \"compgen -A variable\")`\" \
-            | tee $${filename/\/tmp\/nginx/\/etc\/nginx\/conf.d};
+            > $${filename/\/tmp\/nginx/\/etc\/nginx\/conf.d};
         done;
+        /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY:-0} ${DEPLOY_PMA_NGINX_PROXY:-0} ${DEPLOY_MAILCATCHER_NGINX_PROXY:-0};
         nginx -g 'daemon off;'"
-      /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY} ${DEPLOY_PMA_NGINX_PROXY} ${DEPLOY_MAILCATCHER_NGINX_PROXY}
     links:
       - es1
       - es7
@@ -53,6 +53,7 @@ services:
       - mailcatcher
     depends_on:
       - node
+      - php
 
   es1:
     container_name: es1
