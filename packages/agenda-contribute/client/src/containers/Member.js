@@ -10,8 +10,6 @@ import reducers from '../reducers';
 
 import Canvas from '../components/Canvas';
 
-import memberSchema from '../lib/memberSchema';
-
 import deduceSteps from '../lib/deduceSteps';
 
 // container bit
@@ -38,7 +36,7 @@ export default connect(
         fieldsCanvas: 'wsq padding-h-md padding-bottom-md'
       }}
       lang={config.lang}
-      schema={memberSchema}
+      schema={config.member.schema}
       onSubmitSuccess={savedMemberValues => onSuccess( savedMemberValues )}
       errorComponents={[{
         position: 'bottom',

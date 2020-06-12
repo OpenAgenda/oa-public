@@ -10,16 +10,15 @@ schema.register( {
   email: require( '@openagenda/validators/email' )
 } );
 
-const memberSchema = require( './memberSchema' );
 
-const validate = schema( memberSchema.fields
-  .reduce( ( obj, field ) => _.set( 
-    _.set( obj, field.field, field ), 
-    field.field + '.type', field.fieldType 
-  ), {} )
-);
+module.exports = (memberSchema, data) => {
 
-module.exports = data => {
+  const validate = schema(memberSchema.fields
+    .reduce( ( obj, field ) => _.set(
+      _.set( obj, field.field, field ),
+      field.field + '.type', field.fieldType
+    ), {} )
+  );
 
   try {
 
