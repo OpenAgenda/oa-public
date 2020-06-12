@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
+const { promisify } = require('util');
 
 const log = require('@openagenda/logs')('services/agendaContribute/middlewares/duplicateFromEvent');
 
@@ -29,17 +30,35 @@ module.exports = async (req, res, next) => {
   }
 
   // some fields are not duplicatable
-  const unduplicatableFields = [ 'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings' ].concat(mergedSchemaFields.filter(f => !_.get(f, 'duplicatable', true)).map(f => f.field));
+  const unduplicatableFields = ['agenda', 'slug', 'uid', 'fileKey', 'state', 'timings']
+    .concat(
+      mergedSchemaFields
+        .filter(f => !_.get(f, 'duplicatable', true))
+        .map(f => f.field)
+    );
 
-  if (req.agenda.uid !== parseInt(agendaUid)) {
-
+  if (!await _maintainLocationReference(req.app.services, req.agenda, agendaUid, event)) {
     unduplicatableFields.push('locationUid');
-
   }
 
   // location cannot be used as is.
   req.event = ih(event, { $unset: unduplicatableFields });
 
   next();
+}
 
+async function _maintainLocationReference(services, agenda, sourceAgendaUid, event) {
+  const {
+    agendaLocations
+  } = services;
+
+  const location = await promisify(agendaLocations.get)({ uid: event.locationUid });
+
+  if (!location) return false;
+
+  if (agenda.id === location.agendaId) return true;
+
+  if (sourceAgendaUid ===agenda.uid) return true;
+
+  return false;
 }
