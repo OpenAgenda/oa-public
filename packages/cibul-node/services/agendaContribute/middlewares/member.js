@@ -4,9 +4,7 @@ const _ = require( 'lodash' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaContribute/middlewares/member' );
 
-const members = require( '../../members' );
-
-module.exports = function( req, res, next ) {
+module.exports = function( members, req, res, next ) {
   log( 'getting member for user %s in agenda %s', _.get( req, 'user.uid' ), _.get( req, 'agenda.uid' ) );
 
   const userUid = _.get( req, 'user.uid' );

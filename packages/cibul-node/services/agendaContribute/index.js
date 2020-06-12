@@ -13,6 +13,7 @@ const cmn = require('../../lib/commons-app');
 
 const middlewares = require('./middlewares');
 const interfaces = require('./interfaces');
+const memberSchema = require('./lib/memberSchema');
 
 const base64 = require('@openagenda/utils/base64');
 
@@ -21,7 +22,8 @@ let bucket;
 module.exports = Object.assign( ( parentApp, path = '' ) => {
   const {
     agendas,
-    sessions
+    sessions,
+    members
   } = parentApp.services;
 
   parentApp.use( '/dist/contribute',
@@ -57,7 +59,7 @@ module.exports = Object.assign( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
     sessions.mw.ifUnlogged( _redirectToSignup ),
-    middlewares.member,
+    middlewares.member.bind(null, members),
     middlewares.schemaExtensions,
     middlewares.duplicateFromEvent
   ] );
@@ -101,7 +103,8 @@ module.exports = Object.assign( ( parentApp, path = '' ) => {
         draft: `/home/events`
       },
       member: {
-        dataIsRequired: _.get( req, 'agenda.settings.contribution.useFields', false )
+        dataIsRequired: _.get( req, 'agenda.settings.contribution.useFields', false ),
+        schema: memberSchema(req.agenda.uid)
       },
       event: {
         message: _.get( req, 'agenda.settings.contribution.messages.instructions' )
