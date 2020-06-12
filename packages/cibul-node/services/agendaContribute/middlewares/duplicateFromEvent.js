@@ -1,44 +1,44 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
 
-const log = require( '@openagenda/logs' )( 'services/agendaContribute/middlewares/duplicateFromEvent' );
+const log = require('@openagenda/logs')('services/agendaContribute/middlewares/duplicateFromEvent');
 
-module.exports = async ( req, res, next ) => {
+module.exports = async (req, res, next) => {
   const {
     core
   } = req.app.services;
 
-  const agendaUid = _.get( req, 'query.agendaUid', req.agenda.uid );
+  const agendaUid = _.get(req, 'query.agendaUid', req.agenda.uid);
 
-  if ( !req.query.eventUid ) {
+  if (!req.query.eventUid) {
 
     return next();
 
   }
 
-  const mergedSchemaFields = _.get( await core.agendas( agendaUid ).settings.get(), 'fields', [] );
+  const mergedSchemaFields = _.get(await core.agendas(agendaUid).settings.get(), 'fields', []);
 
-  const event = await core.agendas( agendaUid ).events.get( req.query.eventUid );
+  const event = await core.agendas(agendaUid).events.get(req.query.eventUid);
 
-  if ( !event ) {
+  if (!event) {
 
     return next();
 
   }
 
   // some fields are not duplicatable
-  const unduplicatableFields = [ 'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings' ].concat( mergedSchemaFields.filter( f => !_.get( f, 'duplicatable', true ) ).map( f => f.field ) );
+  const unduplicatableFields = [ 'agenda', 'slug', 'uid', 'fileKey', 'state', 'timings' ].concat(mergedSchemaFields.filter(f => !_.get(f, 'duplicatable', true)).map(f => f.field));
 
-  if ( req.agenda.uid !== parseInt( agendaUid ) ) {
+  if (req.agenda.uid !== parseInt(agendaUid)) {
 
-    unduplicatableFields.push( 'locationUid' );
+    unduplicatableFields.push('locationUid');
 
   }
 
   // location cannot be used as is.
-  req.event = ih( event, { $unset: unduplicatableFields } );
+  req.event = ih(event, { $unset: unduplicatableFields });
 
   next();
 
