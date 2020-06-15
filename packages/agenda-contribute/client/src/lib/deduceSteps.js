@@ -9,7 +9,9 @@ const codes = [ 'member', 'event', 'confirmation' ];
 
 module.exports = ( current, state ) => {
 
-  const { member: memberConfig } = state.config;
+  const {
+    member: memberConfig
+  } = state.config;
 
   const { member } = state;
 
@@ -34,7 +36,7 @@ module.exports = ( current, state ) => {
   if ( (
     memberConfig.dataIsRequired &&
     current !== 'member' &&
-    isMemberValid( member )
+    isMemberValid(memberConfig.schema, member)
   ) || isAdministrator ) {
 
     steps.member.validated = true;
@@ -47,7 +49,7 @@ module.exports = ( current, state ) => {
 
   }
 
-  if ( current === 'member' && ( isMemberValid( member ) || isAdministrator ) ) {
+  if ( current === 'member' && ( isMemberValid(memberConfig.schema, member) || isAdministrator ) ) {
 
     steps.event.activable = true;
 

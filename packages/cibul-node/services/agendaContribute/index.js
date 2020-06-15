@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-const agendas = require( '@openagenda/agendas' );
+const agendas = require('@openagenda/agendas');
 const contribute = require('@openagenda/agenda-contribute');
 
 const layout = require('../lib/layouts').agenda;
@@ -13,80 +13,82 @@ const cmn = require('../../lib/commons-app');
 
 const middlewares = require('./middlewares');
 const interfaces = require('./interfaces');
+const memberSchema = require('./lib/memberSchema');
 
 const base64 = require('@openagenda/utils/base64');
 
 let bucket;
 
-module.exports = Object.assign( ( parentApp, path = '' ) => {
+module.exports = Object.assign((parentApp, path = '') => {
   const {
     agendas,
-    sessions
+    sessions,
+    members
   } = parentApp.services;
 
-  parentApp.use( '/dist/contribute',
+  parentApp.use('/dist/contribute',
     contribute.dist,
-    ( req, res, next ) => res.send( 404 ) // if not, unhandled files will be handled by following routes
-  );
+    (req, res, next) => res.send(404) // if not, unhandled files will be handled by following routes
+ );
 
-  parentApp.all( [
+  parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
     agendas.mw.load,
-    (req, res, next) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse(req, res, { code: 404 }),
+    (req, res, next) => _.get(req, 'agenda') ? next() : cmn.errorResponse(req, res, { code: 404 }),
     (req, res, next) => {
       if (!req.agenda.credentials.useContributeApp) {
         return res.redirect(`/${req.agenda.slug}/addevent`);
       }
       next();
     }
-  ] );
+  ]);
 
-  parentApp.all( [
+  parentApp.all([
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
-  ], middlewares.event );
+  ], middlewares.event);
 
-  parentApp.all( [
+  parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
-    sessions.mw.ifUnlogged( _redirectToSignup ),
-    middlewares.member,
+    sessions.mw.ifUnlogged(_redirectToSignup),
+    middlewares.member.bind(null, members),
     middlewares.schemaExtensions,
     middlewares.duplicateFromEvent
-  ] );
+  ]);
 
-  parentApp.get( [
+  parentApp.get([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step'
-  ], middlewares.verifyMemberAuthorization );
+  ], middlewares.verifyMemberAuthorization);
 
-  parentApp.get( [
+  parentApp.get([
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
-  ], middlewares.verifyMemberAuthorization.edit );
+  ], middlewares.verifyMemberAuthorization.edit);
 
-  parentApp.get( '/:agendaSlug/contribute/event/:eventUid',
+  parentApp.get('/:agendaSlug/contribute/event/:eventUid',
     middlewares.defineUpdateRedirect
-  );
+ );
 
-  parentApp.all( [
+  parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
-  ], ( req, res, next ) => {
+  ], (req, res, next) => {
 
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
-      edit: _.get( req, 'event.uid' ) && !_.get( req, 'event.draft' ),
+      edit: _.get(req, 'event.uid') && !_.get(req, 'event.draft'),
       locationRes: `/${req.agenda.slug}/locations`,
       referencesRes: `/agendas/${req.agenda.uid}/events`,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
@@ -101,34 +103,35 @@ module.exports = Object.assign( ( parentApp, path = '' ) => {
         draft: `/home/events`
       },
       member: {
-        dataIsRequired: _.get( req, 'agenda.settings.contribution.useFields', false )
+        dataIsRequired: _.get(req, 'agenda.settings.contribution.useFields', false),
+        schema: memberSchema(req.agenda.uid)
       },
       event: {
-        message: _.get( req, 'agenda.settings.contribution.messages.instructions' )
+        message: _.get(req, 'agenda.settings.contribution.messages.instructions')
       },
       confirmation: {
-        message: _.get( req, 'agenda.settings.contribution.messages.complete' ),
-        state: _.get( req, 'agenda.settings.contribution.defaultState', 2 )
+        message: _.get(req, 'agenda.settings.contribution.messages.complete'),
+        state: _.get(req, 'agenda.settings.contribution.defaultState', 2)
       }
     }
 
     next();
 
-  } );
+  });
 
-  parentApp.use( '/:agendaSlug/contribute', contribute.app );
+  parentApp.use('/:agendaSlug/contribute', contribute.app);
 
   loadLegacyRoutes(parentApp);
 
 }, {
   init
-} );
+});
 
 function init(config, services) {
   bucket = config.aws.bucket;
 
   contribute.init({
-    logger: config.getLogConfig( 'svc', 'agendaContribute' ),
+    logger: config.getLogConfig('svc', 'agendaContribute'),
     CDNPath: config.aws.servicesBucketPath,
     mapboxKey: config.mapboxAccessToken,
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/contribute' : null,
@@ -140,5 +143,5 @@ function init(config, services) {
 
 
 function _redirectToSignup(req, res) {
-  res.redirect(302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}${req.lang !== 'fr' ? '&lang=' + req.lang : ''}`)
+  res.redirect(302, `/${req.agenda.slug}/signup?redirect=${base64.encode(req.originalUrl)}${req.lang !== 'fr' ? '&lang=' + req.lang : ''}`)
 }

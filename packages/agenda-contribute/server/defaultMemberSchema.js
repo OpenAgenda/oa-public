@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-const labels = require( '@openagenda/labels/agenda-contribute/member' );
+const labels = require('@openagenda/labels/agenda-contribute/member');
 
-export default {
+module.exports = {
   fields: [ {
     field: 'organization',
     label: labels.organisation,
