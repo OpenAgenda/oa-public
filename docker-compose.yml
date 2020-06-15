@@ -5,7 +5,8 @@ services:
   devinstaller:
     build:
       context: docker/devinstaller
-    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN}
+    user: ${DOCKER_CONTAINER_USER:-}
+    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN} ${PMA_HOST}
     volumes:
       - .:/home/root/oa
       - ${SF_PROJECT_PATH}:/home/root/cibul-symfony
@@ -91,7 +92,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    command: node /home/root/oa/packages/cibul-node/server.js web admin task
+    command: bash -c "cd /home/root/oa/packages/cibul-node && yarn start"
     volumes:
       - .:/home/root/oa
       - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
