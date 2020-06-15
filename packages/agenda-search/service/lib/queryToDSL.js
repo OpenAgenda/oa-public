@@ -11,24 +11,53 @@ module.exports = (query, from = 0, size = 10) => {
   const dsl = {
     from,
     size,
-    sort: _getSortDsl(clean),
     _source: { excludes: ['*_es'] },
     query: {
-      bool: {}
+      bool: {
+        should: [{
+          term: {
+            official: {
+              value: true,
+              boost : 20
+            }
+          }
+        }, {
+          term: {
+            hasUpcomingPublished: {
+              value: true,
+              boost: 1
+            }
+          }
+        }]
+      }
     }
   };
+
+  if (clean.sort) {
+    dsl.sort = ({
+      'createdAt.desc' : [{
+        createdAt: {
+          order: 'desc'
+        }
+      }]
+    })[clean.sort];
+  }
 
   // when a text search is made, look into title and description
   if (clean.search !== null) {
     mustPart.push({
       multi_match: {
         query: clean.search,
-        type: 'cross_fields',
-        operator: 'and',
+        type: 'best_fields',
         fields: [
-          'title', 'description', 'keywords'
-        ]
+          'title^4', 'description^2', 'keywords^1'
+        ],
+        "tie_breaker": 0.1
       }
+    });
+  } else {
+    dsl.query.bool.should.push({
+      match_all: {}
     });
   }
 
@@ -36,14 +65,6 @@ module.exports = (query, from = 0, size = 10) => {
     filteredPart.push({
       term: {
         official: clean.official
-      }
-    });
-  }
-
-  if (!mustPart.length && !filteredPart.length) {
-    return Object.assign(dsl, {
-      query: {
-        match_all: {}
       }
     });
   }
@@ -57,54 +78,4 @@ module.exports = (query, from = 0, size = 10) => {
   }
 
   return dsl;
-}
-
-
-function _getSortDsl(query) {
-  // a clean sort is set
-  if (query.sort !== null) {
-    return ({
-      'createdAt.desc' : [{
-        createdAt: {
-          order: 'desc'
-        }
-      }]
-    })[query.sort]
-  }
-
-  // default sort when a search is made
-  if (query.search !== null) {
-    return [{
-      official: {
-        order: 'desc'
-      }
-    }, {
-      upcomingPublishedEvents: {
-        order: 'desc',
-      }
-    }, {
-      updatedAt: {
-        order: 'desc'
-      }
-    }];
-  }
-
-  if (query.official) {
-    return [{
-      officializedAt: {
-        order: 'desc'
-      }
-    }];
-  }
-
-  // the default sort
-  return [{
-    hasUpcomingPublished: {
-      order: 'desc',
-    }
-  }, {
-    updatedAt: {
-      order: 'desc'
-    }
-  }];
 }

@@ -17,7 +17,8 @@ const defaultConfig = {
     draft: '/?redirect.draft'
   },
   member: {
-    dataIsRequired: true
+    dataIsRequired: true,
+    schema: null
   },
   fileStore: {
     type: 's3',
@@ -44,7 +45,8 @@ module.exports = [ {
   config: _.assign( {}, defaultConfig, {
     base: '/no-member-data-is-required/contribute',
     member: {
-      dataIsRequired: false
+      dataIsRequired: false,
+      schema: null
     },
     event: {
       message: 'Do not take **all day**'

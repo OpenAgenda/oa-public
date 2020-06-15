@@ -446,7 +446,7 @@ function exists( identifiers, cb ) {
 
   if ( typeof identifiers !== 'object' ) {
 
-    return cb( 'could not check: wrong identifiers %s', identifers );
+    return cb( 'could not check: wrong identifiers %s', identifiers );
 
   }
 

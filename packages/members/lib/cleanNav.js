@@ -2,8 +2,12 @@
 
 const schema = require('@openagenda/validators/schema');
 const text = require('@openagenda/validators/text');
+const integer = require('@openagenda/validators/integer');
+const choice = require('@openagenda/validators/choice');
 
 schema.register({
+  choice,
+  integer,
   text
 });
 

@@ -13,6 +13,7 @@ const app = express();
 const log = logger( 'index' );
 
 const manifest = require( '../client/dist/manifest.json' );
+const defaultMemberSchema = require('./defaultMemberSchema');
 
 const serviceName = require( '../package.json' ).name.split( '/' ).pop();
 
@@ -45,6 +46,10 @@ function init( c ) {
   app.get( [ '/', '/:step', '/:step/:eventUid', '/:step/:eventUid/draft' ], ( req, res ) => {
 
     log( 'info', 'sending app canvas for agenda %s', _.get( req, 'agenda.slug' ) );
+
+    if (!req.config.member.schema) {
+      req.config.member.schema = defaultMemberSchema;
+    }
 
     const frontAppInit = {
       config: {

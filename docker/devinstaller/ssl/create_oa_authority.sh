@@ -8,14 +8,16 @@ elif [ $# -gt 1 ]; then
   exit 2
 fi
 
-mkdir $1/certs
-mkdir $1/certs/private
+mkdir -p $1/certs
+mkdir -p $1/certs/private
 
-openssl genrsa -aes256 -passout pass:xxxx -out $1/certs/private/ca.pass.key 4096 \
-  && openssl rsa -passin pass:xxxx -in $1/certs/private/ca.pass.key -out $1/certs/private/ca.key \
-  && rm $1/certs/private/ca.pass.key
+if [ ! -f $1/certs/ca.crt ]; then
+  openssl genrsa -aes256 -passout pass:xxxx -out $1/certs/private/ca.pass.key 4096 \
+    && openssl rsa -passin pass:xxxx -in $1/certs/private/ca.pass.key -out $1/certs/private/ca.key \
+    && rm $1/certs/private/ca.pass.key
 
-openssl req -new -x509 -days 1095 \
-  -key $1/certs/private/ca.key \
-  -out $1/certs/ca.crt \
-  -subj /C=FR/ST=/L=Courbevoie/O=OADEV/OU=/CN=auth.openagenda.com/emailAddress=support@openagenda.com
+  openssl req -new -x509 -days 1095 \
+    -key $1/certs/private/ca.key \
+    -out $1/certs/ca.crt \
+    -subj /C=FR/ST=/L=Courbevoie/O=OADEV/OU=/CN=auth.openagenda.com/emailAddress=support@openagenda.com
+fi

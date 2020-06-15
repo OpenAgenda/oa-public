@@ -8,21 +8,16 @@ cd oa
 
 # create the certification authority and the self-signed certificates
 ./docker/devinstaller/ssl/create_oa_authority.sh /home/root/oa/docker/devinstaller/ssl
-./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl $2 $3
-
-# add the npm token
-echo "" >> .yarnrc.yml
-echo "npmRegistries:" >> .yarnrc.yml
-echo "  //registry.npmjs.org:" >> .yarnrc.yml
-echo "    npmAuthToken: \"$1\"" >> .yarnrc.yml
+./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl "$1"
+./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl "$2"
+./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl "$3"
 
 # install oa modules, build everything
 yarn
 yarn prepack
 
+# remove the npm token
+export NPM_TOKEN=""
+
 cd packages/cibul-templates
 yarn build:dev
-
-# remove the npm token
-cd /home/root/oa
-head -n -4 .yarnrc.yml | tee .yarnrc.yml
