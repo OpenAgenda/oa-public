@@ -5,7 +5,8 @@ services:
   devinstaller:
     build:
       context: docker/devinstaller
-    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN}
+    user: ${DOCKER_CONTAINER_USER:-}
+    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN} ${PMA_HOST}
     volumes:
       - .:/home/root/oa
       - ${SF_PROJECT_PATH}:/home/root/cibul-symfony
