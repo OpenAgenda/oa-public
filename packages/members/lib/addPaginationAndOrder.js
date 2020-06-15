@@ -34,7 +34,7 @@ function orderBy(k, after, column, orderDirection) {
     } else {
       k.orderByRaw(`field(\`${column}\`,${rolesOrdered.join(',')})`);
     }
-  } else if (_isMultiFieldSeek(after)) {
+  } else if (column !== 'id') {
     k.orderBy([
       {
         column,
