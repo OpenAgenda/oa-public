@@ -176,14 +176,21 @@ storiesOf( 'Wysiwyg', module )
       <button onClick={removeFirstMarkdownComponent}>supprimer le premier</button>
 
       {state.multiMd.map( ( c, i ) => (
-        <MarkdownComponent
-          key={i}
-          lang={c.lang}
-          label={c.label}
-          placeholder={c.placeholder}
-          onChange={onMultiMarkdownChange.bind( null, i )}
-          value={c.markdown}
-        />
+        <React.Fragment key={i}>
+          <MarkdownComponent
+
+            lang={c.lang}
+            label={c.label}
+            placeholder={c.placeholder}
+            onChange={onMultiMarkdownChange.bind( null, i )}
+            value={c.markdown}
+          />
+
+          Prévisualisation:
+          <pre>
+            {c.markdown}
+          </pre>
+        </React.Fragment>
       ) )}
 
       <button onClick={addMarkdownComponent}>ajouter</button>
