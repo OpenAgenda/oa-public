@@ -572,7 +572,10 @@ class Dashboard extends Component {
               onClick={() => {
                 if (agenda.credentials.invitationMessage) {
                   return showModal('writeToMembers', {
-                    query: { search: search || undefined, role: credFilters }
+                    query: {
+                      search: query.search || undefined,
+                      role: credFilters
+                    }
                   });
                 }
                 return openRequestForm({
