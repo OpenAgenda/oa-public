@@ -7166,6 +7166,7 @@ __metadata:
     react-router-config: ^5.1.1
     react-use: ^13.22.3
     redux: ^4.0.5
+    remark-breaks: ^1.0.5
     rimraf: ^3.0.1
     shallowequal: ^1.1.0
   peerDependencies:
@@ -7466,6 +7467,7 @@ __metadata:
     react-router-dom: ^5.1.2
     redux: ^4.0.5
     regenerator-runtime: ^0.13.5
+    remark-breaks: ^1.0.5
     rimraf: ^3.0.1
     webpack: ^4.42.0
   peerDependencies:
@@ -34084,6 +34086,13 @@ conventional-changelog-conventionalcommits@4.2.3:
   bin:
     reload: ./bin/reload
   checksum: fef93a926ae04ffee244ca5e4a215167ed0e549bf07041f534a70ccb6429025cea4043f6f6625e7d0f11cbcc9dcb1383f4d5e2c8744c713c1011efb3b9232172
+  languageName: node
+  linkType: hard
+
+"remark-breaks@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "remark-breaks@npm:1.0.5"
+  checksum: 9c37fdbadab5c507d8b8c5d5b1351adaa5b6a2de8b453937dda42321f103d2c67fb93f9390b9454effab37627ade247c5709add44ba64b54a66978b5f1d3d8b1
   languageName: node
   linkType: hard
 
