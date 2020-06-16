@@ -6,7 +6,7 @@ import Select from 'react-select';
 import labels from '../labels';
 import makeLabelGetter from '../lib/makeLabelGetter';
 
-module.exports = createReactClass( {
+export default createReactClass( {
 
   displayName: 'LanguageBar',
 
