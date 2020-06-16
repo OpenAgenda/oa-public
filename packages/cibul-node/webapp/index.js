@@ -13,7 +13,7 @@ const getInboxLabel = makeLabelGetter(inboxLabels);
 
 const apiRoot = `http://localhost:${config.port}`;
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
-const devServerPort = process.env.DEV_SERVER_PORT || null;
+const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || null;
 const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
   .on('error', (error, req, res) => {
     if (error.code !== 'ECONNRESET') {
