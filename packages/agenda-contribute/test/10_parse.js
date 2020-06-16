@@ -3,8 +3,13 @@
 const _ = require( 'lodash' );
 
 const parse = require( '../server/parse' );
+const moment = require('moment-timezone');
 
 describe( 'agenda-contribute - parse - unit ( server )', () => {
+
+  afterEach(() => {
+    moment.locale('en');
+  });
 
   describe( 'toEventServiceFormat', () => {
 
@@ -100,6 +105,31 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
       } ] );
 
     } );
+
+    test('moment', () => {
+
+      moment.locale('ar');
+
+      const result = parse.toEventServiceFormat({
+        timings: [ {
+          begin: {
+            date: '2019-02-08',
+            hours: '19',
+            minutes: '25'
+          },
+          end: {
+            date: '2019-02-08',
+            hours: '21',
+            minutes: '00'
+          }
+        } ]
+      });
+
+      expect(result.timings).toEqual([{
+        begin: '2019-02-08T19:25:00+01:00',
+        end: '2019-02-08T21:00:00+01:00'
+      }]);
+    });
 
 
     test( 'timings are converted to date format in other timezone', () => {
@@ -241,6 +271,32 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
       } ] );
 
     } );
+
+    test('moment', () => {
+
+      moment.locale('ar');
+
+      const result = parse.fromEventServiceFormat({
+        timings: [{
+          begin: '2020-01-01T08:00:00.000Z',
+          end: '2020-01-01T18:00:00.000Z'
+        }]
+      }, { partial: true });
+
+      expect(result.timings).toEqual([{
+        "begin": {
+          "date": "2020-01-01",
+          "hours": "09",
+          "minutes": "00"
+        },
+        "end": {
+          "date": "2020-01-01",
+          "hours": "19",
+          "minutes": "00"
+        }
+      }]);
+
+    });
 
     test( 'should works with a falsy timezone', () => {
 
