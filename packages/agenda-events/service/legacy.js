@@ -93,7 +93,9 @@ module.exports.to = async (service, ae) => {
     await client('event_editor').insert({
       event_id: eventId,
       review_id: agendaId,
-      type: 1
+      type: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     });
   } else if (!ae.canEdit && hasLegacyEventEditorRef) {
     await client('event_editor').delete().where({

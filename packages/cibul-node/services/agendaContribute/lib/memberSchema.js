@@ -7,7 +7,8 @@ module.exports = agendaUid => {
     return {
       fields: [ {
         field: 'organization',
-        label: 'Organisation et code de votre département',
+        label: 'Votre organisation et le code du département de son siège social',
+        placeholder: 'exemple : OpenAgenda (92)',
         fieldType: 'text',
         optional: false
       }, {

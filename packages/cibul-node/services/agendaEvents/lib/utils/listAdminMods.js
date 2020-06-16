@@ -6,7 +6,7 @@ module.exports = (membersSvc, agendaUid) => new Promise(
       agendaUid,
       role: ['administrator', 'moderator' ],
       withUser: true
-    }, {}, { detailed: true } );
+    }, {}, { detailed: true, userOptions: { detailed: true } } );
 
     const members = [];
 
