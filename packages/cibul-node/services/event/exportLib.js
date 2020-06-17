@@ -93,7 +93,7 @@ function cleanEvent(services, eInst, options, cb ) {
     log( 'error', 'failed fetching date range for event %s, (%s)', eInst.slug, eInst.uid, e );
   }
 
-  const OEmbeds = eInst.getLinks();
+  const OEmbedLinks = eInst.getLinks();
 
   const c = {
     uid: eInst.uid,
@@ -103,8 +103,8 @@ function cleanEvent(services, eInst, options, cb ) {
     description: eInst.description,
     longDescription: eInst.freeText || {},
     keywords: _extractKeywords( eInst ),
-    html: getLongDescriptionHTML({ services }, eInst.freeText || {}, options.includeEmbedded ? OEmbeds : null),
-    longDescriptionEmbeds: OEmbeds,
+    html: getLongDescriptionHTML({ services }, eInst.freeText || {}, options.includeEmbedded ? OEmbedLinks : null),
+    longDescriptionLinks: OEmbedLinks,
     image: eInst.getImage(),
     thumbnail: pickEventImage( config, eInst, 'thumbnail' ),
     originalImage: pickEventImage( config, eInst, 'full' ),
