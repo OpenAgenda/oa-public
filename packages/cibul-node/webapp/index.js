@@ -13,6 +13,7 @@ const getInboxLabel = makeLabelGetter(inboxLabels);
 
 const apiRoot = `http://localhost:${config.port}`;
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
+const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
 const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || null;
 const proxy = devServerPort ? httpProxy.createProxyServer({ secure: false })
   .on('error', (error, req, res) => {
@@ -339,7 +340,7 @@ module.exports = app => {
   if (proxy) {
     app.use(
       '/dist/react-integration-app',
-      (req, res) => proxy.web(req, res, { target: `https://localhost:${devServerPort}/dist/react-integration-app/` })
+      (req, res) => proxy.web(req, res, { target: `https://${devServerHost}:${devServerPort}/dist/react-integration-app/` })
     );
   }
 
@@ -376,7 +377,7 @@ module.exports = app => {
     (req, res, next) => matchMw({
       initialState,
       lang: req.lang,
-      // publicPath: devServerPort ? `//localhost:${devServerPort}/dist/react-integration-app` : undefined
+      publicPath: devServerPort ? `//${devServerHost}:${devServerPort}/dist/react-integration-app` : undefined
     })(req, res, next)
   );
 };
