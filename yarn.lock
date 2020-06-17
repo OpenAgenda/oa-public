@@ -57,7 +57,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/compat-data@npm:^7.10.1":
+"@babel/compat-data@npm:^7.10.1, @babel/compat-data@npm:^7.8.6":
   version: 7.10.1
   resolution: "@babel/compat-data@npm:7.10.1"
   dependencies:
@@ -65,17 +65,6 @@ __metadata:
     invariant: ^2.2.4
     semver: ^5.5.0
   checksum: 745fed72981104eb70132c04a2268f15bad5c2e10f83a698acb882040741af5605f2d079866860ab2aced518798a0032857c2f57eb532cef2a7e936986845fb9
-  languageName: node
-  linkType: hard
-
-"@babel/compat-data@npm:^7.8.6":
-  version: 7.8.6
-  resolution: "@babel/compat-data@npm:7.8.6"
-  dependencies:
-    browserslist: ^4.8.5
-    invariant: ^2.2.4
-    semver: ^5.5.0
-  checksum: b1c6e66f32b4f30326c0376adfb4b55fc5da6471c03d918ca7383b645834d644cb069ac4c5a8867704707bb0e41575e57d99cf6e648b8719ccaf09f452701cb6
   languageName: node
   linkType: hard
 

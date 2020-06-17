@@ -15,7 +15,6 @@ export default class MarkdownComponent extends Component {
     label: PropTypes.string,
     placeholder: PropTypes.string,
     onChange: PropTypes.func,
-    tinyMceOptions: PropTypes.object,
     uniqueClassName: PropTypes.string,
     lang: PropTypes.string,
     loadComponent: PropTypes.node
@@ -130,6 +129,9 @@ export default class MarkdownComponent extends Component {
       link_assume_external_targets: false,
       // pasted iframe are not converted in editor
       invalid_elements: 'iframe',
+      // https://www.tiny.cloud/docs/configure/url-handling/
+      relative_urls: false,
+      remove_script_host : false,
 
       setup: editor => {
 
