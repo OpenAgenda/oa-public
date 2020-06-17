@@ -39,6 +39,23 @@ sudo docker-compose up devinstaller
 
 Once the installation is complete, the process should exit.  
 
+Add authority certificate to Ubuntu CA store with:
+
+```shell script
+sudo cp docker/devinstaller/ssl/certs/ca.crt /usr/share/ca-certificates/auth.openagenda.crt
+sudo chmod 644 /usr/share/ca-certificates/auth.openagenda.crt
+sudo dpkg-reconfigure ca-certificates # choose yes and check auth.openagenda.com
+sudo update-ca-certificates
+
+# or (non-interactive)
+
+sudo cp docker/devinstaller/ssl/certs/ca.crt /usr/local/share/ca-certificates/auth.openagenda.crt
+sudo chmod 644 /usr/local/share/ca-certificates/dev/auth.openagenda.crt
+sudo update-ca-certificates
+```
+
+And import manually `ca.crt` in Chrome and/or Firefox.
+
 ## Launch OpenAgenda
 
 Run the rest and brace yourself:
