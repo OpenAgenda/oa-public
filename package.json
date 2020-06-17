@@ -10,6 +10,7 @@
   "scripts": {
     "prepack": "lerna link && lerna run --stream prepack",
     "start": "yarn workspace cibul-node start",
+    "dev": "concurrently -n \"node,ria\" \"yarn workspace cibul-node watch\" \"yarn workspace @openagenda/react-integration-app dev\"",
     "mails-editor": "yarn workspace cibul-node mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",
     "commit": "git-cz",
@@ -55,6 +56,7 @@
     "@openagenda/cz-conventional-changelog": "^3.2.1",
     "codecov": "^3.6.2",
     "commitizen": "^4.0.3",
+    "concurrently": "^5.2.0",
     "conventional-changelog-conventionalcommits": "^4.2.3",
     "core-js": "^3.6.5",
     "husky": "^4.2.1",

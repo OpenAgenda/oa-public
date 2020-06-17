@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  node:
+    command: >
+      bash -c
+        "cd /home/root/oa && yarn concurrently -n \"node,ria\" \
+        \"DEV_SERVER_HOST=${SITE_DOMAIN} yarn workspace cibul-node start\" \
+        \"DEV_SERVER_HOST=0.0.0.0 yarn workspace @openagenda/react-integration-app dev\""
+    environment:
+      DEV_SERVER_PORT: ${DEV_SERVER_PORT:-8905}
+      DEV_SSL_CERT: /ssl/cert.pem
+      DEV_SSL_KEY: /ssl/key.pem
+    volumes:
+      - ${SITE_SSL_CERT}:/ssl/cert.pem
+      - ${SITE_SSL_KEY}:/ssl/key.pem
+    ports:
+      - 8905:8905
