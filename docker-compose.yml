@@ -92,7 +92,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    command: bash -c "cd /home/root/oa/packages/cibul-node && yarn start"
+    command: bash -c "cd /home/root/oa && yarn start"
     volumes:
       - .:/home/root/oa
       - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
