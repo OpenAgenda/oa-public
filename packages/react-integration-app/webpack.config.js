@@ -37,7 +37,6 @@ const BABEL_EXCLUDE_REGEX = new RegExp(
   `node_modules\\/(?!(${modulesToInclude.join('|')}))`
 );
 
-const port = process.env.PORT || 8905;
 const region = 'eu-west-1';
 const bucket = 'oasvc';
 const serviceName = require('./package.json')
@@ -45,6 +44,8 @@ const serviceName = require('./package.json')
   .pop();
 
 const CLOUDFRONT_DISTRIBUTION_ID = 'E3NUCLR660OPQ4';
+const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
+const devServerPort = parseInt(process.env.DEV_SERVER_PORT, 10) || 8905;
 
 function getCacheDir(name) {
   const homeCacheDir = path.join(os.homedir(), '.cache');
@@ -81,8 +82,19 @@ module.exports = (env = {}, argv = {}) => {
     devtool:
       envName === 'production' ? 'source-map' : 'cheap-module-source-map',
     devServer: {
-      port,
-      https: true,
+      host: devServerHost,
+      port: devServerPort,
+      https:
+        process.env.DEV_SSL_KEY && process.env.DEV_SSL_CERT
+          ? {
+            key: fs.readFileSync(
+              path.resolve(__dirname, process.env.DEV_SSL_KEY)
+            ),
+            cert: fs.readFileSync(
+              path.resolve(__dirname, process.env.DEV_SSL_CERT)
+            )
+          }
+          : true,
       contentBase: './dist',
       disableHostCheck: true,
       headers: { 'Access-Control-Allow-Origin': '*' },
