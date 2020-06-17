@@ -84,17 +84,16 @@ module.exports = (env = {}, argv = {}) => {
     devServer: {
       host: devServerHost,
       port: devServerPort,
-      https:
-        process.env.DEV_SSL_KEY && process.env.DEV_SSL_CERT
-          ? {
-            key: fs.readFileSync(
-              path.resolve(__dirname, process.env.DEV_SSL_KEY)
-            ),
-            cert: fs.readFileSync(
-              path.resolve(__dirname, process.env.DEV_SSL_CERT)
-            )
-          }
-          : true,
+      https: true,
+      key: process.env.DEV_SSL_KEY
+        ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_KEY))
+        : null,
+      cert: process.env.DEV_SSL_CERT
+        ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_CERT))
+        : null,
+      ca: process.env.DEV_SSL_CA
+        ? fs.readFileSync(path.resolve(__dirname, process.env.DEV_SSL_CA))
+        : null,
       contentBase: './dist',
       disableHostCheck: true,
       headers: { 'Access-Control-Allow-Origin': '*' },
