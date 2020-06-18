@@ -425,7 +425,7 @@ export default function AddSourceModal({
                   {intl.formatMessage(messages.or)}{' '}
                   <button
                     type="button"
-                    className="btn-link-inline"
+                    className="btn btn-link-inline"
                     tabIndex={0}
                     onClick={toggleSelectType}
                     onKeyPress={toggleSelectType}
@@ -494,7 +494,7 @@ export default function AddSourceModal({
                   {intl.formatMessage(messages.or)}{' '}
                   <button
                     type="button"
-                    className="btn-link-inline"
+                    className="btn btn-link-inline"
                     tabIndex={0}
                     onClick={toggleSelectType}
                     onKeyPress={toggleSelectType}

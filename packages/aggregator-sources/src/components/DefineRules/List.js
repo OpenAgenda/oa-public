@@ -159,7 +159,7 @@ export default function List({
               {navigator?.clipboard?.readText ? (
                 <button
                   type="button"
-                  className="btn-link-inline"
+                  className="btn btn-link-inline"
                   onClick={pasteRules}
                 >
                   <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
