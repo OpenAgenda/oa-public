@@ -187,6 +187,19 @@
     "mapTo" : "location.links",
     "itemName" : "LocationLink"
   }, {
+    "name": "LongDescriptionLinks",
+    "mapTo": "longDescriptionLinks",
+    "attributes": [
+      {
+        "name": "LongDescriptionLink",
+        "mapTo": "link"
+      },
+      {
+        "name": "LongDescriptionCode",
+        "mapTo": "code"
+      }
+    ]
+  }, {
     "name" : "Registration",
     "mapTo" : "registration",
     "attributes" : [ {
