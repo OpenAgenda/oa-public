@@ -24,7 +24,7 @@ const ruleFields = {
   required: {
     optional: true,
     type: 'boolean',
-    default: true
+    default: false
   }
 };
 

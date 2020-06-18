@@ -6,6 +6,7 @@ const convertFieldOptionIdsToLabels = require('../utils/rules/convertFieldOption
 const determineAggregationAction = require('../utils/determineAggregationAction');
 const pickReferenceValues = require('../utils/pickReferenceValues');
 const cleanRule = require('../utils/rules/clean');
+const sourcesAdd = require('../utils/sources/add');
 
 /* eslint-disable global-require */
 const fixtures = {
@@ -181,6 +182,43 @@ describe('05 - utils', () => {
         'Baisieux',
         'La Bassée'
       ]);
+    });
+  });
+
+  describe('sources/add', () => {
+    test('source rules are cleaned, are required by default', async () => {
+      const { source } = await sourcesAdd(
+        /* mock knex */ () => ({
+          insert: async () => [1],
+          first: () => ({
+            where: () => ({
+              then: () => ({ id: 1 })
+            })
+          })
+        }),
+        /* mock aggregator agenda */ { id: 1 },
+        /* mock source agenda */ { id: 2 }, // mock
+        /* source rules */ [
+          {
+            query: {
+              location: {
+                city: ['Lille']
+              }
+            },
+            actions: [
+              {
+                field: 'state',
+                values: {
+                  $set: 1
+                },
+                automatic: false
+              }
+            ]
+          }
+        ]
+      );
+
+      expect(source.rules[0].required).toEqual(true);
     });
   });
 });

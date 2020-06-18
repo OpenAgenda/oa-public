@@ -51,7 +51,8 @@ describe('05_02 - utils - rules', () => {
         {
           query: {
             thematiques: [1]
-          }
+          },
+          required: true
         }
       ];
 
