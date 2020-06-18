@@ -124,7 +124,10 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 }
 
 export function valuesToRule(values, aggregatorAgendaSchema) {
-  const { withActions, withFilter, required } = values;
+  const { withActions, withFilter, required } = {
+    required: false,
+    ...values
+  };
 
   const actions = !withActions
     ? []
