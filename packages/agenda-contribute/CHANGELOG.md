@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.21...@openagenda/agenda-contribute@1.3.0) (2020-06-18)
+
+
+### Features
+
+* **agenda-contribute:** allow for loading custom member schema ([8e2cf35](https://bitbucket.org/openagenda/oa/commit/8e2cf354e070957fcd94cb365ac25fb5ba529631))
+
+
+### Bug Fixes
+
+* **agenda-contribute:** timings transforms are not impacted by global moment locale ([03d34f2](https://bitbucket.org/openagenda/oa/commit/03d34f2511a04fbefb7b350120bd9db4729ed608))
+
+
+
 ### [1.2.21](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.20...@openagenda/agenda-contribute@1.2.21) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agenda-contribute

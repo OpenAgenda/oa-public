@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.7...@openagenda/inboxes@1.1.8) (2020-06-18)
+
+
+### Bug Fixes
+
+* **inboxes:** sync was not updated in refactor of service initialization ([4c4ca58](https://bitbucket.org/openagenda/oa/commit/4c4ca58093573b507982c6f8e4aa8c2207713642))
+
+
+
 ### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.6...@openagenda/inboxes@1.1.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/inboxes

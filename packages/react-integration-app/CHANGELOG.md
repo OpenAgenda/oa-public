@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.2.3...@openagenda/react-integration-app@1.3.0) (2020-06-18)
+
+
+### Features
+
+* **react-integration-app:** add devServerHost support ([6bcf179](https://bitbucket.org/openagenda/oa/commit/6bcf1798af0189d409828ff0a2e79cbabb0c4bce))
+* **react-integration-app:** use ca certificate when available ([c589f23](https://bitbucket.org/openagenda/oa/commit/c589f23ef90c9f8bf0560c6bc00499713670baeb))
+
+
+
 ### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.2.2...@openagenda/react-integration-app@1.2.3) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/react-integration-app

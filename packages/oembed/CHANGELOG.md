@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/oembed@2.1.7...@openagenda/oembed@2.1.8) (2020-06-18)
+
+**Note:** Version bump only for package @openagenda/oembed
+
+
+
+
+
 ### [2.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/oembed@2.1.6...@openagenda/oembed@2.1.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/oembed

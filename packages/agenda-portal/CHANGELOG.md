@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.9.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.9.0...@openagenda/agenda-portal@2.9.1) (2020-06-18)
+
+
+### Bug Fixes
+
+* **agenda-portal:** babel does not transpile scripts in node_modules in deployed projects ([23adfb5](https://bitbucket.org/openagenda/oa/commit/23adfb50112b1e511a1c2567e9755816b9cb799d))
+
+
+
 ## [2.9.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.8.0...@openagenda/agenda-portal@2.9.0) (2020-06-09)
 
 

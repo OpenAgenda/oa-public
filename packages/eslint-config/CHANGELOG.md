@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/eslint-config@1.1.0...@openagenda/eslint-config@1.2.0) (2020-06-18)
+
+
+### Features
+
+* **eslint-config:** allow named callback functions ([f3deacc](https://bitbucket.org/openagenda/oa/commit/f3deaccee3e353dd2745f65e3618a592d3478b54))
+
+
+
 ## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/eslint-config@1.0.2...@openagenda/eslint-config@1.1.0) (2020-06-09)
 
 

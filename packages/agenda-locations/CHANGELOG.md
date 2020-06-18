@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.8.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.3...@openagenda/agenda-locations@1.8.4) (2020-06-18)
+
+
+### Bug Fixes
+
+* **agenda-locations:** typoe ([d3506e7](https://bitbucket.org/openagenda/oa/commit/d3506e7c84bb9edcd8f91628919b5cc31ba204b8))
+
+
+
 ### [1.8.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.2...@openagenda/agenda-locations@1.8.3) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agenda-locations

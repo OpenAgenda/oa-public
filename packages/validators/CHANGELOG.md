@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/validators@2.2.8...@openagenda/validators@2.2.9) (2020-06-18)
+
+**Note:** Version bump only for package @openagenda/validators
+
+
+
+
+
 ### [2.2.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/validators@2.2.7...@openagenda/validators@2.2.8) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/validators

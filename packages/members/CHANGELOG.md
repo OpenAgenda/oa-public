@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.15.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/members@1.15.6...@openagenda/members@1.15.7) (2020-06-18)
+
+
+### Bug Fixes
+
+* **members:** list order breaks after first call if order is discrete value order like actionsCounter ([f8b733a](https://bitbucket.org/openagenda/oa/commit/f8b733a796fbf0ac96be3c3a211c0863560f8475))
+
+
+
 ### [1.15.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/members@1.15.5...@openagenda/members@1.15.6) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/members

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.1.3...@openagenda/supervisor@1.2.0) (2020-06-18)
+
+
+### Features
+
+* **supervisor:** allow break lines and fix color of close button ([f1a86f6](https://bitbucket.org/openagenda/oa/commit/f1a86f6789ada663d4302fc6bf9c9cfbf57d1807))
+
+
+
 ### [1.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.1.2...@openagenda/supervisor@1.1.3) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/supervisor

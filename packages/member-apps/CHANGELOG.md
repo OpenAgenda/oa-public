@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.7...@openagenda/member-apps@2.0.8) (2020-06-18)
+
+
+### Bug Fixes
+
+* **member-apps:** search filter is not taken in global message to members ([6fb5913](https://bitbucket.org/openagenda/oa/commit/6fb5913cedd3a4649f29cf2c063cd7f6d294274d))
+
+
+
 ### [2.0.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.6...@openagenda/member-apps@2.0.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/member-apps
