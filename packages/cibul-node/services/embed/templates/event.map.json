@@ -1,281 +1,377 @@
 {
-  "attributes" : [ {
-    "name" : "Uid",
-    "mapTo": "uid"
-  }, {
-    "name" : "InterfaceLanguage",
-    "mapTo" : "interfaceLang"
-  }, {
-    "name" : "Title",
-    "mapTo" : "title"
-  }, {
-    "name" : "Description",
-    "mapTo" : "description"
-  }, {
-    "name" : "FreeText",
-    "mapTo" : "freeText"
-  }, {
-    "name" : "Html",
-    "mapTo" : "html"
-  }, {
-    "name" : "ImageUrl",
-    "mapTo" : "image"
-  }, {
-    "name" : "ImageCredits",
-    "mapTo" : "credits"
-  }, {
-    "name" : "PricingInfo",
-    "mapTo" : "pricingInfo"
-  }, {
-    "name" : "Conditions",
-    "mapTo" : "pricingInfo"
-  }, {
-    "name" : "AgeMin",
-    "mapTo" : "age.min"
-  }, {
-    "name" : "AgeMax",
-    "mapTo" : "age.max"
-  }, {
-    "name" : "TicketUrl",
-    "mapTo" : "ticketLink"
-  }, {
-    "name" : "BackLink",
-    "mapTo" : "backLink"
-  }, {
-    "name" : "BackLabel",
-    "mapTo" : "backLabel"
-  }, {
-    "name" : "LocationLink",
-    "mapTo" : "locationLink"
-  }, {
-    "name" : "GoogleItineraryLink",
-    "mapTo" : "googleItineraryLink"
-  }, {
-    "name" : "OSMItineraryLink",
-    "mapTo" : "osmItineraryLink"
-  }, {
-    "name": "DateRange",
-    "mapTo": "dateRange"
-  }, {
-    "name": "LocationName",
-    "mapTo": "placeName"
-  }, {
-    "name": "PostalCode",
-    "mapTo": "postalCode"
-  }, {
-    "name": "Address",
-    "mapTo": "address"
-  }, {
-    "name" : "District",
-    "mapTo" : "location.district"
-  }, {
-    "name": "Latitude",
-    "mapTo": "latitude"
-  }, {
-    "name": "Longitude",
-    "mapTo": "longitude"
-  }, {
-    "name" : "City",
-    "mapTo" : "city"
-  }, {
-    "name" : "Department",
-    "mapTo" : "location.department"
-  }, {
-    "name" : "Region",
-    "mapTo" : "location.region"
-  }, {
-    "name" : "TimingsComponent",
-    "mapTo" : "timingsComponent"
-  }, {
-    "name" : "Access",
-    "mapTo" : "location.access"
-  }, {
-    "name" : "LocationAccess",
-    "mapTo" : "location.access"
-  }, {
-    "name" : "LocationEmail",
-    "mapTo" : "location.email"
-  }, {
-    "name" : "LocationWebsite",
-    "mapTo" : "location.website"
-  }, {
-    "name" : "LocationDescription",
-    "mapTo" : "location.description"
-  }, {
-    "name" : "LocationPhone",
-    "mapTo" : "location.phone"
-  }, {
-    "name" : "LocationImageUrl",
-    "mapTo" : "location.image"
-  }, {
-    "name" : "LocationImageCredits",
-    "mapTo" : "location.imageCredits"
-  }, {
-    "name" : "ShareUrl",
-    "mapTo" : "actionLink"
-  }, {
-    "name" : "ShareLabel",
-    "mapTo" : "actionLabel"
-  }, {
-    "name" : "ExportUrl",
-    "mapTo" : "actionLink"
-  }, {
-    "name" : "Favorite",
-    "mapTo" : "favorite"
-  }, {
-    "name" : "ExportLabel",
-    "mapTo" : "actionLabel"
-  }, {
-    "name" : "FacebookShareUrl",
-    "mapTo" : "facebookShare"
-  }, {
-    "name" : "TwitterShareUrl",
-    "mapTo" : "twitterShare"
-  }, {
-    "name" : "GoogleShareUrl",
-    "mapTo" : "googleShare"
-  }, {
-    "name" : "LinkedInShareUrl",
-    "mapTo" : "linkedInShare"
-  }, {
-    "name" : "TumblrShareUrl",
-    "mapTo" : "tumblrShare"
-  }, {
-    "name" : "PinterestShareUrl",
-    "mapTo" : "pinterestShare"
-  },{
-    "name" : "EmailShareUrl",
-    "mapTo" : "emailShare"
-  },{
-    "name" : "Category",
-    "mapTo" : "category"
-  },{
-    "name" : "CategoryLink",
-    "mapTo" : "categoryLink"
-  }, {
-    "name" : "CategorySlug",
-    "mapTo" : "categorySlug"
-  }, {
-    "name" : "Featured",
-    "mapTo" : "featured"
-  }, {
-    "name" : "ContributorOrganization",
-    "mapTo" : "contributor.organization"
-  }, {
-    "name" : "OriginAgendaSlug",
-    "mapTo" : "origin.slug"
-  }, {
-    "name" : "OriginAgenda",
-    "mapTo" : "origin.title"
-  }, {
-    "name" : "OriginAgendaOAUrl",
-    "mapTo" : "origin.oaUrl"
-  }, {
-    "name" : "OriginAgendaUrl",
-    "mapTo" : "origin.url"
-  } ],
-  "children" : [ {
-    "name" : "Keywords",
-    "mapTo" : "keywordList",
-    "itemName" : "Keyword"
-  }, {
-    "name" : "Accessibility",
-    "mapTo" : "accessibility",
-    "itemName" : "Accessibility"
-  }, {
-    "name" : "LocationLinks",
-    "mapTo" : "location.links",
-    "itemName" : "LocationLink"
-  }, {
-    "name": "LongDescriptionLinks",
-    "mapTo": "longDescriptionLinks",
-    "attributes": [
-      {
-        "name": "LongDescriptionLink",
-        "mapTo": "link"
-      },
-      {
-        "name": "LongDescriptionCode",
-        "mapTo": "code"
-      }
-    ]
-  }, {
-    "name" : "Registration",
-    "mapTo" : "registration",
-    "attributes" : [ {
-      "name" : "Prefix",
-      "mapTo" : "prefix"
-    }, {
-      "name" : "Type",
-      "mapTo" : "type"
-    }, {
-      "name" : "Value",
-      "mapTo" : "value"
-    } ]
-  }, {
-    "name" : "TagGroups",
-    "mapTo" : "tagGroups",
-    "attributes" : [ {
-      "name" : "Name",
-      "mapTo" : "name"
-    }, {
-      "name" : "GroupName",
-      "mapTo" : "name"
-    }, {
-      "name" : "GroupSlug",
-      "mapTo" : "slug"
-    } ],
-    "children" : [ {
-      "name" : "Tags",
-      "mapTo" : "tags",
-      "attributes" : [ {
-        "name" : "Tag",
-        "mapTo" : "label"
-      }, {
-        "name" : "TagLink",
-        "mapTo" : "link"
-      }, {
-        "name" : "TagSlug",
-        "mapTo" : "slug"
-      } ]
-    } ]
-  }, {
-    "name" : "Tags",
-    "mapTo" : "tags",
-    "attributes" : [ {
-      "name" : "Tag",
-      "mapTo" : "label"
-    }, {
-      "name" : "TagLink",
-      "mapTo" : "link"
-    }, {
-      "name" : "TagSlug",
-      "mapTo" : "slug"
-    } ]
-  }, {
-    "name" : "Timings",
-    "mapTo" : "timings",
-    "attributes" : [ {
-      "name" : "Timing",
-      "mapTo" : "label"
-    } ]
-  }, {
-    "name" : "Dates",
-    "mapTo" : "dates",
-    "attributes" : [ {
-      "name" : "Date",
-      "mapTo" : "label"
-    } ],
-    "children" : [ {
-      "name" : "Timings",
-      "mapTo" : "timings",
-      "attributes" : [ {
-        "name" : "Start",
-        "mapTo" : "startLabel"
-      }, {
-        "name" : "End",
-        "mapTo" : "endLabel"
-      } ]
-    } ]
-  } ]
+  "attributes": [
+    {
+      "name": "Uid",
+      "mapTo": "uid"
+    },
+    {
+      "name": "InterfaceLanguage",
+      "mapTo": "interfaceLang"
+    },
+    {
+      "name": "Title",
+      "mapTo": "title"
+    },
+    {
+      "name": "Description",
+      "mapTo": "description"
+    },
+    {
+      "name": "FreeText",
+      "mapTo": "freeText"
+    },
+    {
+      "name": "Html",
+      "mapTo": "html"
+    },
+    {
+      "name": "ImageUrl",
+      "mapTo": "image"
+    },
+    {
+      "name": "ImageCredits",
+      "mapTo": "credits"
+    },
+    {
+      "name": "PricingInfo",
+      "mapTo": "pricingInfo"
+    },
+    {
+      "name": "Conditions",
+      "mapTo": "pricingInfo"
+    },
+    {
+      "name": "AgeMin",
+      "mapTo": "age.min"
+    },
+    {
+      "name": "AgeMax",
+      "mapTo": "age.max"
+    },
+    {
+      "name": "TicketUrl",
+      "mapTo": "ticketLink"
+    },
+    {
+      "name": "BackLink",
+      "mapTo": "backLink"
+    },
+    {
+      "name": "BackLabel",
+      "mapTo": "backLabel"
+    },
+    {
+      "name": "LocationLink",
+      "mapTo": "locationLink"
+    },
+    {
+      "name": "GoogleItineraryLink",
+      "mapTo": "googleItineraryLink"
+    },
+    {
+      "name": "OSMItineraryLink",
+      "mapTo": "osmItineraryLink"
+    },
+    {
+      "name": "DateRange",
+      "mapTo": "dateRange"
+    },
+    {
+      "name": "LocationName",
+      "mapTo": "placeName"
+    },
+    {
+      "name": "PostalCode",
+      "mapTo": "postalCode"
+    },
+    {
+      "name": "Address",
+      "mapTo": "address"
+    },
+    {
+      "name": "District",
+      "mapTo": "location.district"
+    },
+    {
+      "name": "Latitude",
+      "mapTo": "latitude"
+    },
+    {
+      "name": "Longitude",
+      "mapTo": "longitude"
+    },
+    {
+      "name": "City",
+      "mapTo": "city"
+    },
+    {
+      "name": "Department",
+      "mapTo": "location.department"
+    },
+    {
+      "name": "Region",
+      "mapTo": "location.region"
+    },
+    {
+      "name": "TimingsComponent",
+      "mapTo": "timingsComponent"
+    },
+    {
+      "name": "Access",
+      "mapTo": "location.access"
+    },
+    {
+      "name": "LocationAccess",
+      "mapTo": "location.access"
+    },
+    {
+      "name": "LocationEmail",
+      "mapTo": "location.email"
+    },
+    {
+      "name": "LocationWebsite",
+      "mapTo": "location.website"
+    },
+    {
+      "name": "LocationDescription",
+      "mapTo": "location.description"
+    },
+    {
+      "name": "LocationPhone",
+      "mapTo": "location.phone"
+    },
+    {
+      "name": "LocationImageUrl",
+      "mapTo": "location.image"
+    },
+    {
+      "name": "LocationImageCredits",
+      "mapTo": "location.imageCredits"
+    },
+    {
+      "name": "ShareUrl",
+      "mapTo": "actionLink"
+    },
+    {
+      "name": "ShareLabel",
+      "mapTo": "actionLabel"
+    },
+    {
+      "name": "ExportUrl",
+      "mapTo": "actionLink"
+    },
+    {
+      "name": "Favorite",
+      "mapTo": "favorite"
+    },
+    {
+      "name": "ExportLabel",
+      "mapTo": "actionLabel"
+    },
+    {
+      "name": "FacebookShareUrl",
+      "mapTo": "facebookShare"
+    },
+    {
+      "name": "TwitterShareUrl",
+      "mapTo": "twitterShare"
+    },
+    {
+      "name": "GoogleShareUrl",
+      "mapTo": "googleShare"
+    },
+    {
+      "name": "LinkedInShareUrl",
+      "mapTo": "linkedInShare"
+    },
+    {
+      "name": "TumblrShareUrl",
+      "mapTo": "tumblrShare"
+    },
+    {
+      "name": "PinterestShareUrl",
+      "mapTo": "pinterestShare"
+    },
+    {
+      "name": "EmailShareUrl",
+      "mapTo": "emailShare"
+    },
+    {
+      "name": "Category",
+      "mapTo": "category"
+    },
+    {
+      "name": "CategoryLink",
+      "mapTo": "categoryLink"
+    },
+    {
+      "name": "CategorySlug",
+      "mapTo": "categorySlug"
+    },
+    {
+      "name": "Featured",
+      "mapTo": "featured"
+    },
+    {
+      "name": "ContributorOrganization",
+      "mapTo": "contributor.organization"
+    },
+    {
+      "name": "OriginAgendaSlug",
+      "mapTo": "origin.slug"
+    },
+    {
+      "name": "OriginAgenda",
+      "mapTo": "origin.title"
+    },
+    {
+      "name": "OriginAgendaOAUrl",
+      "mapTo": "origin.oaUrl"
+    },
+    {
+      "name": "OriginAgendaUrl",
+      "mapTo": "origin.url"
+    }
+  ],
+  "children": [
+    {
+      "name": "Keywords",
+      "mapTo": "keywordList",
+      "itemName": "Keyword"
+    },
+    {
+      "name": "Accessibility",
+      "mapTo": "accessibility",
+      "itemName": "Accessibility"
+    },
+    {
+      "name": "LocationLinks",
+      "mapTo": "location.links",
+      "itemName": "LocationLink"
+    },
+    {
+      "name": "LongDescriptionLinks",
+      "mapTo": "longDescriptionLinks",
+      "attributes": [
+        {
+          "name": "Link",
+          "mapTo": "link"
+        },
+        {
+          "name": "Code",
+          "mapTo": "code"
+        }
+      ]
+    },
+    {
+      "name": "Registration",
+      "mapTo": "registration",
+      "attributes": [
+        {
+          "name": "Prefix",
+          "mapTo": "prefix"
+        },
+        {
+          "name": "Type",
+          "mapTo": "type"
+        },
+        {
+          "name": "Value",
+          "mapTo": "value"
+        }
+      ]
+    },
+    {
+      "name": "TagGroups",
+      "mapTo": "tagGroups",
+      "attributes": [
+        {
+          "name": "Name",
+          "mapTo": "name"
+        },
+        {
+          "name": "GroupName",
+          "mapTo": "name"
+        },
+        {
+          "name": "GroupSlug",
+          "mapTo": "slug"
+        }
+      ],
+      "children": [
+        {
+          "name": "Tags",
+          "mapTo": "tags",
+          "attributes": [
+            {
+              "name": "Tag",
+              "mapTo": "label"
+            },
+            {
+              "name": "TagLink",
+              "mapTo": "link"
+            },
+            {
+              "name": "TagSlug",
+              "mapTo": "slug"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "mapTo": "tags",
+      "attributes": [
+        {
+          "name": "Tag",
+          "mapTo": "label"
+        },
+        {
+          "name": "TagLink",
+          "mapTo": "link"
+        },
+        {
+          "name": "TagSlug",
+          "mapTo": "slug"
+        }
+      ]
+    },
+    {
+      "name": "Timings",
+      "mapTo": "timings",
+      "attributes": [
+        {
+          "name": "Timing",
+          "mapTo": "label"
+        }
+      ]
+    },
+    {
+      "name": "Dates",
+      "mapTo": "dates",
+      "attributes": [
+        {
+          "name": "Date",
+          "mapTo": "label"
+        }
+      ],
+      "children": [
+        {
+          "name": "Timings",
+          "mapTo": "timings",
+          "attributes": [
+            {
+              "name": "Start",
+              "mapTo": "startLabel"
+            },
+            {
+              "name": "End",
+              "mapTo": "endLabel"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
