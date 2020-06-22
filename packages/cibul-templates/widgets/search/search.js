@@ -115,8 +115,6 @@ var widget = function( elem, options ) {
 
   function _createElement( labels ) {
 
-    console.log(style);
-
     styler( style );
 
     if ( !cn.el( elem, 'input' ) ) {
