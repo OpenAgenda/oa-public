@@ -19,6 +19,7 @@ class Main extends Component {
       },
       lang: 'fr',
       values: {
+        singlelangfield: "Avant\n\nhttp://le\\_monde.com\n\net après",
         multilangfield: { "fr" : '*Et boum*' }
       },
       schema: {

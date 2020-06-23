@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.8...@openagenda/activities@2.1.9) (2020-06-18)
+
+
+### Bug Fixes
+
+* **activities:** updated mysql throws exception on object field without default ([fc6afc8](https://bitbucket.org/openagenda/oa/commit/fc6afc8f359c1df62fd9321816efa0442a62209d))
+
+
+
 ### [2.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.7...@openagenda/activities@2.1.8) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/activities

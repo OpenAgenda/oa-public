@@ -365,10 +365,14 @@ function _main( v ) {
     age: 'getAge'
   };
 
+  const longDescriptionLinks = v.req.event.getLinks();
+
   v.formatted.freeText = getLongDescriptionHTML({
     lang: v.req.lang,
     services: v.req.app.services
-  }, v.req.event.freeText || {}, v.req.event.getLinks());
+  }, v.req.event.freeText || {}, longDescriptionLinks);
+
+  v.formatted.longDescriptionLinks = longDescriptionLinks;
 
   Object.keys(map).forEach( k => {
     v.formatted[ k ] = v.req.event[ map[ k ] ]();

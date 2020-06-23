@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/mails@2.0.5...@openagenda/mails@2.0.6) (2020-06-18)
+
+**Note:** Version bump only for package @openagenda/mails
+
+
+
+
+
 ### [2.0.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/mails@2.0.4...@openagenda/mails@2.0.5) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/mails

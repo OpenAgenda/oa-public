@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.3...@openagenda/react-layouts@2.0.0) (2020-06-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* **react-layouts:** refactor
+
+### Features
+
+* **react-layouts:** allow break lines and fix color of close button ([c68523a](https://bitbucket.org/openagenda/oa/commit/c68523aa801af8fb37c586f375412348f790ef42))
+
+
+### Code Refactoring
+
+* **react-layouts:** refactor ([97c17b2](https://bitbucket.org/openagenda/oa/commit/97c17b2f6b7449c7f602611b744b86f5e2f1eddc))
+
+
+
 ### [1.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.2...@openagenda/react-layouts@1.1.3) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/react-layouts

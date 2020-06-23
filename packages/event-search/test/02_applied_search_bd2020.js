@@ -12,7 +12,7 @@ describe('02 - event search - functional: bd2020', function() {
   let service;
 
   const formSchema = JSON.parse(fs.readFileSync(`${__dirname}/fixtures/applied/bd2020.schema.json`));
-  this.timeout(100000);
+  this.timeout(200000);
 
   before(() => {
     service = Service(config);

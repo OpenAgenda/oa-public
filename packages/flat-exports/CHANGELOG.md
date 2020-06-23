@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.3...@openagenda/flat-exports@1.3.4) (2020-06-18)
+
+**Note:** Version bump only for package @openagenda/flat-exports
+
+
+
+
+
 ### [1.3.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.2...@openagenda/flat-exports@1.3.3) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/flat-exports

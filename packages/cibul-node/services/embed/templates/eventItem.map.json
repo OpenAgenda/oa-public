@@ -1,12 +1,12 @@
 {
   "attributes": [
     {
-      "name" : "Uid",
+      "name": "Uid",
       "mapTo": "uid"
     },
     {
-      "mapTo" : "oaLink",
-      "name" : "OALink"
+      "mapTo": "oaLink",
+      "name": "OALink"
     },
     {
       "mapTo": "title",
@@ -25,8 +25,8 @@
       "name": "Link"
     },
     {
-    "name" : "InterfaceLanguage",
-    "mapTo" : "interfaceLang"
+      "name": "InterfaceLanguage",
+      "mapTo": "interfaceLang"
     },
     {
       "mapTo": "image",
@@ -49,20 +49,20 @@
       "name": "City"
     },
     {
-      "mapTo" : "location.district",
-      "name" : "District"
+      "mapTo": "location.district",
+      "name": "District"
     },
     {
-      "mapTo" : "location.description",
-      "name" : "LocationDescription"
+      "mapTo": "location.description",
+      "name": "LocationDescription"
     },
     {
-      "mapTo" : "location.phone",
-      "name" : "LocationPhone"
+      "mapTo": "location.phone",
+      "name": "LocationPhone"
     },
     {
-      "mapTo" : "location.website",
-      "name" : "LocationWebsite"
+      "mapTo": "location.website",
+      "name": "LocationWebsite"
     },
     {
       "mapTo": "dateRange",
@@ -113,57 +113,85 @@
       "name": "Featured"
     },
     {
-      "name" : "ContributorOrganization",
-      "mapTo" : "contributor.organization"
+      "name": "ContributorOrganization",
+      "mapTo": "contributor.organization"
     }
   ],
   "children": [
     {
-      "name" : "Keywords",
-      "mapTo" : "keywordList",
-      "itemName" : "Keyword"
+      "name": "Keywords",
+      "mapTo": "keywordList",
+      "itemName": "Keyword"
     },
     {
-      "name" : "Registration",
-      "mapTo" : "registration",
-      "attributes" : [ {
-        "name" : "Prefix",
-        "mapTo" : "prefix"
-      }, {
-        "name" : "Type",
-        "mapTo" : "type"
-      }, {
-        "name" : "Value",
-        "mapTo" : "value"
-      } ]
+      "name": "LongDescriptionLinks",
+      "mapTo": "longDescriptionLinks",
+      "attributes": [
+        {
+          "name": "Link",
+          "mapTo": "link"
+        },
+        {
+          "name": "Code",
+          "mapTo": "code"
+        }
+      ]
     },
     {
-      "name" : "TagGroups",
-      "mapTo" : "tagGroups",
-      "attributes" : [ {
-        "name" : "Name",
-        "mapTo" : "name"
-      }, {
-        "name" : "GroupName",
-        "mapTo" : "name"
-      }, {
-        "name" : "GroupSlug",
-        "mapTo" : "slug"
-      } ],
-      "children" : [ {
-        "name" : "Tags",
-        "mapTo" : "tags",
-        "attributes" : [ {
-          "name" : "Tag",
-          "mapTo" : "label"
-        }, {
-          "name" : "TagLink",
-          "mapTo" : "link"
-        }, {
-          "name" : "TagSlug",
-          "mapTo" : "slug"
-        } ]
-      } ]
+      "name": "Registration",
+      "mapTo": "registration",
+      "attributes": [
+        {
+          "name": "Prefix",
+          "mapTo": "prefix"
+        },
+        {
+          "name": "Type",
+          "mapTo": "type"
+        },
+        {
+          "name": "Value",
+          "mapTo": "value"
+        }
+      ]
+    },
+    {
+      "name": "TagGroups",
+      "mapTo": "tagGroups",
+      "attributes": [
+        {
+          "name": "Name",
+          "mapTo": "name"
+        },
+        {
+          "name": "GroupName",
+          "mapTo": "name"
+        },
+        {
+          "name": "GroupSlug",
+          "mapTo": "slug"
+        }
+      ],
+      "children": [
+        {
+          "name": "Tags",
+          "mapTo": "tags",
+          "attributes": [
+            {
+              "name": "Tag",
+              "mapTo": "label"
+            },
+            {
+              "name": "TagLink",
+              "mapTo": "link"
+            },
+            {
+              "name": "TagSlug",
+              "mapTo": "slug"
+            }
+          ]
+        }
+      ]
     },
     {
       "mapTo": "tags",

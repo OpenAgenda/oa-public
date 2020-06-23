@@ -1,6 +1,7 @@
 'use strict';
 
 const getAggregator = require('../getAggregator');
+const cleanRule = require('../rules/clean');
 
 module.exports = async (
   knex,
@@ -14,10 +15,14 @@ module.exports = async (
     throw new Error('Aggregator not found');
   }
 
+  const cleanSourceRules = sourceRules.map(r => cleanRule(r));
+
   const insertIds = await knex('aggregator_source').insert({
     review_id: sourceAgenda.id,
     aggregator_id: aggregator.id,
-    store: JSON.stringify({ rules: sourceRules }),
+    store: JSON.stringify({
+      rules: cleanSourceRules
+    }),
     created_at: new Date(),
     updated_at: new Date()
   });
@@ -26,7 +31,7 @@ module.exports = async (
     aggregator,
     source: {
       id: insertIds[0],
-      rules: sourceRules
+      rules: cleanSourceRules
     }
   };
 };

@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.1.0...@openagenda/agenda-search@1.2.0) (2020-06-18)
+
+
+### Features
+
+* **agenda-search:** log bulk indexing issues ([8c8205b](https://bitbucket.org/openagenda/oa/commit/8c8205b1ff31ea90f61310d404f42afa9c503ee7))
+* **agenda-search:** scored search result ([8cd5cd0](https://bitbucket.org/openagenda/oa/commit/8cd5cd09c1257e59af3b17bba87b495b3baff40b))
+
+
+### Bug Fixes
+
+* **agenda-search:** indexing fails for official agendas ([9eb3f33](https://bitbucket.org/openagenda/oa/commit/9eb3f338e718b272f7b7db9a46d47ae970a9a3c2))
+
+
+
 ## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.13...@openagenda/agenda-search@1.1.0) (2020-06-09)
 
 

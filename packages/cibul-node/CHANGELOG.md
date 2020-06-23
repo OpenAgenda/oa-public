@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.0](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.6.0...cibul-node@0.7.0) (2020-06-18)
+
+
+### Features
+
+* **cibul-node:** add devServerHost support ([ae9d811](https://bitbucket.org/openagenda/oa/commit/ae9d8119b50bffdd99678ecfb3ffe21f2c9c75c5))
+* **cibul-node:** added twitch and arte to embeddables ([f629049](https://bitbucket.org/openagenda/oa/commit/f629049e3d59f342ef50e45774056a4aafb9f15c))
+* **cibul-node:** allow for loading custom member schema ([fc36618](https://bitbucket.org/openagenda/oa/commit/fc36618a216a6991693d34aca68efee87f2581ba))
+* **cibul-node:** embedded links included in json ([1f7ece3](https://bitbucket.org/openagenda/oa/commit/1f7ece3a2ccd9c0213a0993e06f9a2eaddabea31))
+* **cibul-node:** la duplication maintient le lieu lorsqu'il a été transféré vers l'agenda de destination ([dc09bf5](https://bitbucket.org/openagenda/oa/commit/dc09bf5cf2e3cae263952ebb4857a202080e3325))
+
+
+### Bug Fixes
+
+* **cibul-node:** add userOptions for get email address ([e9a0024](https://bitbucket.org/openagenda/oa/commit/e9a002412534e4815c0b621a9c5edc8fe06a0b60))
+* **cibul-node:** exposed embed in json include links, changing name to longDescriptionLinks ([d8b9efc](https://bitbucket.org/openagenda/oa/commit/d8b9efc22f6956a1edbced3d46b5ab2eb551b22d))
+* **cibul-node:** fix NODE_TLS_REJECT_UNAUTHORIZED env string ([e6dfa5c](https://bitbucket.org/openagenda/oa/commit/e6dfa5c5ea0317fb225d7c7d0352c55b07588b79))
+* **cibul-node:** load all default rules before the rest ([55a2e1f](https://bitbucket.org/openagenda/oa/commit/55a2e1f681421df78af27d1587a9ed3c086e1a6b))
+* **cibul-node:** parseInt around env variable ([bfc9b16](https://bitbucket.org/openagenda/oa/commit/bfc9b16f6fb0c970ae7b7590ed35d8cf16ce96b5))
+* **cibul-node:** pass logger to agendaSearch service ([0645514](https://bitbucket.org/openagenda/oa/commit/0645514f0f26850fb343562e86803a2e2b1de7fa))
+* **cibul-node:** tests pass only with event_editor timestamps specified ([ba0dda0](https://bitbucket.org/openagenda/oa/commit/ba0dda0d77936c6c45694be86b78e14e1027e866))
+* **cibul-node:** use localhost instead of devServerHost ([aee5394](https://bitbucket.org/openagenda/oa/commit/aee5394bdf64ab9cea1ee57488c8d5d6bce3fca4))
+
+
+
 ## [0.6.0](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.5.2...cibul-node@0.6.0) (2020-06-09)
 
 

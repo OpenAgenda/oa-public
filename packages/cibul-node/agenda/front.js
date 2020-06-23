@@ -585,6 +585,8 @@ function _formatEventItem( event, req, cb ) {
 
   inst.switchLanguage( req.lang );
 
+  const longDescriptionLinks = inst.getLinks();
+
   const formatted = lib.extend( inst, {
     dateRange: inst.getRange( req.lang, req.query.oaq ),
     closestDate: inst.getClosestDate(),
@@ -598,7 +600,8 @@ function _formatEventItem( event, req, cb ) {
     freeText: getLongDescriptionHTML({
       lang: req.lang,
       services: req.app.services
-    }, inst.getFreeText(), inst.getLinks()),
+    }, inst.getFreeText(), longDescriptionLinks),
+    longDescriptionLinks,
     placeName: inst.getLocationName(),
     address: inst.getAddress().label,
     placeNameLabel: inst.getLocationName().label,

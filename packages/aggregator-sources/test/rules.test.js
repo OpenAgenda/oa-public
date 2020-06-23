@@ -149,5 +149,25 @@ describe('utils - rules', () => {
 
       expect(rule.actions[0].values).toEqual({ $set: [28] });
     });
+
+    it('if required is not specified, defaults to false', () => {
+      const rule = valuesToRule(
+        {
+          withFilter: false,
+          withActions: true,
+          actions: [
+            {
+              id: '1',
+              field: 'categories-metropolitaines',
+              values: [28],
+              set: true
+            }
+          ]
+        },
+        aggregatorAgendaSchema
+      );
+
+      expect(rule.required).toEqual(false);
+    });
   });
 });

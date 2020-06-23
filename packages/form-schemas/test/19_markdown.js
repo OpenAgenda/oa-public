@@ -2,6 +2,7 @@
 
 const should = require('should');
 const markdown = require('../iso/markdown');
+const marked = require('marked');
 
 describe('unit - markdown', () => {
 
@@ -21,6 +22,12 @@ describe('unit - markdown', () => {
 
     it('href are maintained in links', () => {
       markdown.from('Here is a link: [Kaoré](https://kao.re)').should.equal('<p>Here is a link: <a href="https://kao.re">Kaoré</a></p>\n');
+    });
+
+    it('the href of a markdowned link with an underscore should be except of the _ escape', () => {
+      const r = markdown.from('http://le\\_monde.fr');
+
+      r.should.equal('<p><a href="http://le_monde.fr">http://le_monde.fr</a></p>\n');
     });
 
   });

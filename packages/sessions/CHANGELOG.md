@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [4.0.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@4.0.3...@openagenda/sessions@4.0.4) (2020-06-18)
+
+**Note:** Version bump only for package @openagenda/sessions
+
+
+
+
+
 ### [4.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@4.0.2...@openagenda/sessions@4.0.3) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/sessions

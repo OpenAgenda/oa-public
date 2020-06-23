@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.11.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.6...@openagenda/agenda-events@1.11.7) (2020-06-18)
+
+
+### Bug Fixes
+
+* **agenda-events:** add default createdAt and updatedAt ([91856d6](https://bitbucket.org/openagenda/oa/commit/91856d6b51e9d74713ade8249e1ad80c72e7c209))
+
+
+
 ### [1.11.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.5...@openagenda/agenda-events@1.11.6) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agenda-events

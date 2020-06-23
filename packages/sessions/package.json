@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/sessions",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "The sessions service. Handles and provides information on open sessions of the OpenAgenda platform. Sessions are either logged or not.",
   "keywords": [],
   "author": "",
@@ -16,8 +16,8 @@
     "@babel/runtime-corejs3": "^7.10.2",
     "@openagenda/logs": "^1.1.3",
     "@openagenda/service-utils": "^2.0.0",
-    "@openagenda/utils": "^1.2.3",
-    "@openagenda/validators": "^2.2.8",
+    "@openagenda/utils": "^1.2.4",
+    "@openagenda/validators": "^2.2.9",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.2",
     "cookies-js": "^1.2.3",
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
-    "@openagenda/babel-preset": "^1.3.2",
+    "@openagenda/babel-preset": "^1.3.3",
     "async": "^2.1.4",
     "express": "^4.14.0",
     "immutability-helper": "^2.3.0",

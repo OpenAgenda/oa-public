@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.4.0...@openagenda/agenda-stats@1.5.0) (2020-06-18)
+
+
+### Features
+
+* **agenda-stats:** add states chart and some tweaks ([9c1cb92](https://bitbucket.org/openagenda/oa/commit/9c1cb92947a13122f0ae58c916d3a96e8faab8a8))
+
+
+
 ## [1.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.3.0...@openagenda/agenda-stats@1.4.0) (2020-06-09)
 
 
