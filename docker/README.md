@@ -95,7 +95,7 @@ sudo docker-compose up -d --force-recreate nginx phpmyadmin mailcatcher
 View `node` logs:
 
 ```shell script
-docker-compose logs -f node
+docker-compose logs -f --tail=100 node
 ```
 
 Restart node:
