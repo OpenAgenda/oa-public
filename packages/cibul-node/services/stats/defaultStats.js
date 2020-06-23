@@ -111,7 +111,8 @@ module.exports = [
     chart: {
       type: 'vertical',
       dataKey: 'eventCount',
-      labelKey: 'key'
+      labelKey: 'key',
+      loadMore: true
     }
   },
   {
@@ -128,13 +129,6 @@ module.exports = [
   // {
   //   aggregation: {
   //     type: 'pastAndUpcoming'
-  //   },
-  //   chart: {}
-  // },
-  // {
-  //   aggregation: {
-  //     type: 'states',
-  //     interval
   //   },
   //   chart: {}
   // },
