@@ -17,7 +17,7 @@ module.exports = ({ detailed } = {}) => {
         detailed
       });
 
-      if (req.user) {
+      if (user) {
         req.user = user;
       }
 
