@@ -17,10 +17,10 @@ module.exports = (services) => {
       core
         .agendas(req.params.agendaUid)
         .events.search(req.query, req.query, {
-        ...req.query,
-        access: 'public',
-      })
-        .then((result) => {
+          ...req.query,
+          access: 'public',
+        })
+        .then(result => {
           req.result = result;
           next();
         }, next);
@@ -29,11 +29,16 @@ module.exports = (services) => {
       res.json(req.result);
     },
     (err, req, res, next) => {
-      if (err.name !== 'NotFoundError') {
-        log('error', err);
-        res.status(500).send();
+      if (err.name === 'NotFoundError') {
+        res.status(err.statusCode).send(null);
+      } else if (err.name === 'BadRequest') {
+        res.status(err.statusCode).json({
+          error: err.detail,
+          requested: req.query.aggregations
+        });
       } else {
-        res.status(404).send(null);
+        res.status(500).send();
+        log('error', err);
       }
     }
   );
