@@ -189,6 +189,17 @@ describe('methods', () => {
       });
     });
 
+    it('does not find anything', async () => {
+      const { total, data: users } = await service.find({
+        query: {
+          $search: 'fdsqfdsqfdsqfdsq'
+        }
+      });
+
+      expect(total).toBe(0);
+      expect(users).toEqual([]);
+    });
+
     it('find with uid query', async () => {
       const { total, data: users } = await service.find({
         query: {
