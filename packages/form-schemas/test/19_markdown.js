@@ -12,6 +12,15 @@ describe('unit - markdown', () => {
       markdown.to('<h1>Yeay</h1>').should.equal('Yeay\n====');
     });
 
+    it('with a link as paragraph', () => {
+      const r = markdown.to(`
+        <p>Un lien en texte:</p>
+        <p>https://le_monde.fr</p>
+        <p>Un autre: https://le_monde.fr</p>
+        <p>Puis un déjà en markdown: <a href="https://le_monde.fr">Le label</a></p>
+      `);
+    });
+
   });
 
   describe('markdown.from', () => {
