@@ -43,7 +43,7 @@ function fromEventServiceFormat(eventServiceEvent, options = {}) {
     update['image'] = { $set: {
       url: _.get(eventServiceEvent, 'image.url')
     } };
-  } else if (!partial && !_.get(eventServiceEvent, 'image.filename')) {
+  } else if (!_.get(eventServiceEvent, 'image.filename') && !_.get(eventServiceEvent, 'image.credits')) {
     update['image'] = { $set: null };
   }
 
