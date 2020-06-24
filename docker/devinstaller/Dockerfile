@@ -7,10 +7,10 @@ WORKDIR /root
 
 RUN mkdir $NVM_DIR
 
-RUN apt-get update -y
-RUN apt-get install curl ssh git -y
+RUN apt-get update -y \
+    && apt-get install -y curl ssh git gnupg2 python python3-distutils g++ make apt-utils
 
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash \
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | NODE_VERSION="" bash \
     && . $NVM_DIR/nvm.sh \
     && nvm install $NODE_VERSION --with-intl=full-icu --download=all \
     && nvm alias default $NODE_VERSION \
@@ -21,15 +21,15 @@ ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 RUN node -v
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get install apt-transport-https -y
-RUN apt-get update -y
-RUN apt-get install yarn -y
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get install apt-transport-https -y \
+    && apt-get update -y \
+    && apt-get install --no-install-recommends yarn -y
 
-RUN mkdir /root/.ssh
-RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
+RUN mkdir -p /root/.ssh \
+    && touch /root/.ssh/known_hosts \
+    && ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
 
 ENV NPM_TOKEN=""
 
