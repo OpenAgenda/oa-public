@@ -1,0 +1,46 @@
+{
+  "legacyEvent": {
+    "id": 4,
+    "uid": 18992813,
+    "slug": "encore-un-autre-event",
+    "owner_id": 50304,
+    "created_at": "2020-03-02T10:00:00.000Z",
+    "updated_at": "2020-03-02T10:00:00.000Z"
+  },
+  "eventLocation": {
+    "id": 124,
+    "location_id": 1,
+    "event_id": 4,
+    "created_at": "2020-03-02T10:00:00.000Z",
+    "updated_at": "2020-03-02T10:00:00.000Z"
+  },
+  "occurrences": [{
+    "id": 32,
+    "location_id": 1,
+    "event_id": 4,
+    "date": "2020-03-14",
+    "time_start": "10:00:00",
+    "time_end": "20:00:00"
+  }],
+  "event": {
+    "id": 15,
+    "uid": 18992813,
+    "slug": "encore-un-autre-event",
+    "title": "{\"fr\":\"Encore un autre event\"}",
+    "description": "{\"fr\":\"Voilà\"}",
+    "owner_uid": 63170203,
+    "creator_uid": 63170203,
+    "agenda_uid": 17026855,
+    "deleted_at": null,
+    "draft": 0,
+    "timings": "[{\"begin\":\"2020-03-14T10:00:00+0200\",\"end\":\"2020-03-14T10:00:00+0200\"}]",
+    "location_uid": 123,
+    "created_at": "2020-03-02T10:00:00.000Z",
+    "updated_at": "2020-03-02T10:00:00.000Z"
+  },
+  "agendaEvents": [{
+    "event_uid": 18992813,
+    "agenda_uid": 17026855,
+    "state": 2
+  }]
+}

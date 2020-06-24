@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const marked = require('marked');
 const sanitizeHtml = require('sanitize-html');
 const turndown = require('turndown');
@@ -10,36 +11,19 @@ const TurndownService = turndown.default || turndown;
 
 const ts = new TurndownService();
 
-marked.use({
-  tokenizer: {
-    link(src) {
-      if (src.length === 1) {
-        // marked bug: a \ screws output, adds last character of given input
-        return {
-          type: 'text',
-          raw: ' ',
-          text: ''
-        }
-      } else if (src.indexOf('\\_') !== -1) {
-        const clean = src.replace('\\_', '_');
-        return {
-          type: 'link',
-          raw: clean,
-          href: clean,
-          text: clean
-        }
-      }
-
-      return false;
-    }
+ts.addRule('line', {
+  filter: ['p'],
+  replacement: function (content) {
+    return content + '\n';
   }
 });
 
 function convertTextLinks(md) {
   return markdownLinkExtractor(md).reduce(({ md, cursor }, link) => {
-    const index = md.indexOf(link, cursor);
+    const unescapedLink = _.unescape(link);
+    const index = md.indexOf(unescapedLink, cursor);
     const isMarkdownLink = (index > 2)
-      && (md.substr(index + link.length, 1) === ')')
+      && (md.substr(index + unescapedLink.length, 1) === ')')
       && (md.substr(index - 2, 2) === '](');
 
     if (isMarkdownLink) {
@@ -49,9 +33,10 @@ function convertTextLinks(md) {
       };
     }
 
-    const before = md.substr(0, index - 1);
-    const after = md.substr(index + link.length + 1);
-    const markdownedLink = `[${link}](${link.replace('\\', '')})`;
+    const before = md.substr(0, index);
+    const after = md.substr(index + unescapedLink.length);
+
+    const markdownedLink = `[${unescapedLink}](${unescapedLink.replace(/\\/g, '')})`;
 
     return {
       md: before + markdownedLink + after,
@@ -67,11 +52,17 @@ module.exports = {
 
     return convertTextLinks(md);
   },
-  from: md => sanitizeHtml(marked(md || ''), {
-    allowedTags: false,
-    allowedAttributes: {
-      h1: [],
-      a: ['href']
-    }
-  })
+  from: (md = '') => {
+    const mk = marked(md.replace(/\n\n/g, 'doublelinebreak'), { breaks: true })
+      .replace(/<br>/g, '</p>\n<p>')
+      .replace(/doublelinebreak/g, '</p>\n<p></p>\n<p>');
+
+    return sanitizeHtml(mk, {
+      allowedTags: false,
+      allowedAttributes: {
+        h1: [],
+        a: ['href']
+      }
+    });
+  }
 }

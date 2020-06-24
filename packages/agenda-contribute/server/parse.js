@@ -1,9 +1,9 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const moment = require( 'moment-timezone' );
-const ih = require( 'immutability-helper' );
-const validateLink = require( '@openagenda/validators/link' )( { optional: false } );
+const _ = require('lodash');
+const moment = require('moment-timezone');
+const ih = require('immutability-helper');
+const validateLink = require('@openagenda/validators/link')({ optional: false });
 
 /**
  * Event service follows a deep schema that form-schema cannot emulate.
@@ -19,168 +19,133 @@ module.exports = {
 }
 
 
-function fromEventServiceFormat( eventServiceEvent, options = {} ) {
-
-  const { location, partial } = _.assign( {
+function fromEventServiceFormat(eventServiceEvent, options = {}) {
+  const { location, partial } = _.assign({
     location: null,
     partial: false
-  }, options );
+  }, options);
 
-  if ( !eventServiceEvent ) return {};
+  if (!eventServiceEvent) return {};
 
   const update = {
-    $unset: [ 'locationUid' ]
+    $unset: ['locationUid']
   };
 
-  if ( !partial || eventServiceEvent.image ) {
-
-    update.image = { $unset: [ 'credits' ] };
-
+  if (!partial || eventServiceEvent.image) {
+    update.image = { $unset: ['credits'] };
   }
 
-  if ( _.get( eventServiceEvent, 'image.credits' ) ) {
-
-    update[ 'imageCredits' ] = { $set: _.get( eventServiceEvent, 'image.credits' ) };
-
+  if (_.get(eventServiceEvent, 'image.credits')) {
+    update['imageCredits'] = { $set: _.get(eventServiceEvent, 'image.credits') };
   }
 
-  if ( _.get( eventServiceEvent, 'image.url' ) ) {
-
-    update[ 'image' ] = { $set: {
-      url: _.get( eventServiceEvent, 'image.url' )
+  if (_.get(eventServiceEvent, 'image.url')) {
+    update['image'] = { $set: {
+      url: _.get(eventServiceEvent, 'image.url')
     } };
-
-  } else if ( !partial && !_.get( eventServiceEvent, 'image.filename' ) ) {
-
-    update[ 'image' ] = { $set: null };
-
+  } else if (!_.get(eventServiceEvent, 'image.filename') && !_.get(eventServiceEvent, 'image.credits')) {
+    update['image'] = { $set: null };
   }
 
-  const timezone = eventServiceEvent.timezone || _.get( location, 'timezone' ) || 'Europe/Paris';
+  const timezone = eventServiceEvent.timezone || _.get(location, 'timezone') || 'Europe/Paris';
 
   // expliciting the timezone is important as it is then
   // used to convert back un-timezoned timings to event service format
-  if ( eventServiceEvent.locationUid ) {
-
+  if (eventServiceEvent.locationUid) {
     update.location = { $set: {
       uid: eventServiceEvent.locationUid,
       timezone
     } };
-
   }
 
-  if ( !partial || eventServiceEvent.timings ) {
-
+  if (!partial || eventServiceEvent.timings) {
     update.timings = {
-      $set: _.get( eventServiceEvent, 'timings', [] ).map( t => ( {
-        begin: _transformTimingToFormSchema( t.begin, timezone ),
-        end: _transformTimingToFormSchema( t.end, timezone )
-      } ) )
+      $set: _.get(eventServiceEvent, 'timings', []).map(t => ({
+        begin: _transformTimingToFormSchema(t.begin, timezone),
+        end: _transformTimingToFormSchema(t.end, timezone)
+      }))
     };
-
   }
 
-  return ih( eventServiceEvent, update );
-
+  return ih(eventServiceEvent, update);
 }
 
-function toEventServiceFormat( formSchemaEvent, files = {}, options = {} ) {
-
+function toEventServiceFormat(formSchemaEvent, files = {}, options = {}) {
   const {
     raw,
     partial
-  } = _.assign( {
+  } = _.assign({
     raw: null,
     partial: false
-  }, options );
+  }, options);
 
-  if ( !formSchemaEvent ) return null;
+  if (!formSchemaEvent) return null;
 
   const update = {
-    '$unset': [ 'imageCredits', 'locationUid' ]
+    '$unset': ['imageCredits', 'locationUid']
   };
 
-
   // new image is loaded
-  if ( _.get( raw, 'image.path' ) ) {
-
+  if (_.get(raw, 'image.path')) {
     update.image = {
       $set: {
-        path: _.get( raw, 'image.path' ),
-        credits: _.get( formSchemaEvent, 'imageCredits' )
+        path: _.get(raw, 'image.path'),
+        credits: _.get(formSchemaEvent, 'imageCredits')
       }
     };
-
-  } else if ( _isURL( _.get( raw, 'image.url' ) ) ) {
-
+  } else if (_isURL(_.get(raw, 'image.url'))) {
     update.image = {
       $set: {
-        url: _.get( raw, 'image.url' ),
-        credits: _.get( formSchemaEvent, 'imageCredits' )
+        url: _.get(raw, 'image.url'),
+        credits: _.get(formSchemaEvent, 'imageCredits')
       }
     };
-
   // image has been removed
-  } else if ( !formSchemaEvent.image ) {
-
-    update[ '$unset' ].push( 'image' );
-
+  } else if (!formSchemaEvent.image) {
+    update['$unset'].push('image');
   // image is maintained
   } else {
-
     update.image = {
-      credits: { $set: _.get( formSchemaEvent, 'imageCredits' ) },
-      variants: { $set: _.get( raw, 'image.variants' ) },
-      size: { $set: _.get( raw, 'image.size' ) }
+      credits: { $set: _.get(formSchemaEvent, 'imageCredits') },
+      variants: { $set: _.get(raw, 'image.variants') },
+      size: { $set: _.get(raw, 'image.size') }
     };
-
   }
 
-  if ( !partial || _.get( formSchemaEvent, 'location.uid' ) ) {
-
-    update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
-
+  if (!partial || _.get(formSchemaEvent, 'location.uid')) {
+    update.locationUid = { $set: _.get(formSchemaEvent, 'location.uid') };
   }
 
-  const timezone = _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location.timezone' ) || 'Europe/Paris';
+  const timezone = _.get(formSchemaEvent, 'timezone') || _.get(formSchemaEvent, 'location.timezone') || 'Europe/Paris';
 
-  if ( !partial || _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location' ) ) {
-
+  if (!partial || _.get(formSchemaEvent, 'timezone') || _.get(formSchemaEvent, 'location')) {
     update.timezone = {
       $set: timezone
     };
-
   }
 
-  if ( !partial || formSchemaEvent.timings ) {
-
+  if (!partial || formSchemaEvent.timings) {
     update.timings = {
-      $set: _.get( formSchemaEvent, 'timings', [] ).map( t => ( {
-        begin: _transformFormSchemaTimingsToService( t.begin, timezone ),
-        end: _transformFormSchemaTimingsToService( t.end, timezone )
-      } ) )
+      $set: _.get(formSchemaEvent, 'timings', []).map(t => ({
+        begin: _transformFormSchemaTimingsToService(t.begin, timezone),
+        end: _transformFormSchemaTimingsToService(t.end, timezone)
+      }))
     }
-
   }
 
-  return ih( formSchemaEvent, update );
-
+  return ih(formSchemaEvent, update);
 }
 
 
-function _transformFormSchemaTimingsToService( t, timezone ) {
-
+function _transformFormSchemaTimingsToService(t, timezone) {
   return moment.tz(
-    t.date + ' ' + _fZ( t.hours ) + ':' + _fZ( t.minutes ),
+    t.date + ' ' + _fZ(t.hours) + ':' + _fZ(t.minutes),
     timezone
   ).locale('en').format();
-
 }
 
-function _fZ( n ) {
-
-  return ( ( n + '' ).length === 1 ? '0' : '' ) + n;
-
+function _fZ(n) {
+  return ((n + '').length === 1 ? '0' : '') + n;
 }
 
 
@@ -190,29 +155,23 @@ function _fZ( n ) {
  *
  * This function transforms the timings
  */
-function _transformTimingToFormSchema( d, timezone ) {
-
-  const tz = moment.tz( d, timezone ).locale('en');
+function _transformTimingToFormSchema(d, timezone) {
+  const tz = moment.tz(d, timezone).locale('en');
 
   return {
-    date: tz.format( 'YYYY-MM-DD' ),
-    hours: tz.format( 'HH' ),
-    minutes: tz.format( 'mm' )
+    date: tz.format('YYYY-MM-DD'),
+    hours: tz.format('HH'),
+    minutes: tz.format('mm')
   }
-
 }
 
 
-function _isURL( value ) {
-
+function _isURL(value) {
   try {
-
-    validateLink( value );
+    validateLink(value);
 
     return true;
-
-  } catch ( e ) {}
+  } catch (e) {}
 
   return false;
-
 }

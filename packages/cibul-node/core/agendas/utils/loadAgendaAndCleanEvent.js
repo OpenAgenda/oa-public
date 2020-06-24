@@ -144,8 +144,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
-  //_validateLocation(clean.event, location, errors);
-
   if (clean.event && clean.event.location && !location) {
     errors.push({
       field: 'location',
