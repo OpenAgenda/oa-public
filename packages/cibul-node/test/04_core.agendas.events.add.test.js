@@ -67,7 +67,8 @@ describe('core - functional (server): core.agendas().events add()', function() {
 
     beforeAll(async () => {
       event = await core.agendas(17026800).events.add(19201989, {
-        'thematiques-metropolitaines': 3
+        'thematiques-metropolitaines': 3,
+        image_alt_text: 'Un texte obligatoire si l\'image est présente'
       }, {
         context: {
           userUid: 63170203
@@ -157,6 +158,20 @@ describe('core - functional (server): core.agendas().events add()', function() {
     it('provided value for additional conditional field is maintained', () => {
       expect(result.event.image_alt_text).toBe('Un texte');
     });
+
+    it('fix: add with unspecified required additional field linked to image is successful when image is not specified', async () => {
+      const { success } = await core.agendas(17026800).events.add(18992813, {
+        state: 1,
+        'thematiques-metropolitaines': 3
+      }, {
+        paths: [[82910283, 17026855]],
+        aggregated: true,
+        returnPayload: true
+      });
+
+      expect(success).toEqual(true);
+    });
+
   });
 
 });
