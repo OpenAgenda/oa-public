@@ -134,7 +134,7 @@ module.exports.init = async (config, services) => {
 
         }
       }, {
-        verb: [ 'agenda.addMember', 'agenda.setMemberRole' ],
+        verb: [ 'agenda.addMember', 'agenda.setMemberRole', 'agenda.removeMember' ],
         getFeeds: true,
         filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
