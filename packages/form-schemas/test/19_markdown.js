@@ -69,6 +69,25 @@ describe('unit - markdown', () => {
 
     });
 
+    it('list', () => {
+      const r = markdown.from(`A list
+
+*   One
+*   Two
+*   Three
+`);
+
+      assert.equal(r, `<p>A list</p>
+<p></p>
+<ul>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ul>
+`);
+
+    });
+
   });
 
   describe('markdown.from', () => {
