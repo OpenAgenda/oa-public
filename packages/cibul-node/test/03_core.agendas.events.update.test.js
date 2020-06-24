@@ -161,6 +161,9 @@ describe('core - functional (server): core.agendas().events.update()', function(
       description: {
         fr: 'Une description'
       },
+      image: {
+        filename: 'fdqfsdq.jpg'
+      },
       locationUid: 123,
       timings: [{
         begin: new Date('2019-12-18T14:30:00'),
@@ -472,7 +475,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
       beforeAll(async () => {
         response = await axios({
           method: 'patch',
-          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+          url: 'http://localhost:3000/v2/agendas/17026855/events/19390293',
           headers: {
             'access-token': accessToken,
             nonce: 12345,
@@ -492,7 +495,11 @@ describe('core - functional (server): core.agendas().events.update()', function(
       });
 
       it('body contains event', () => {
-        expect(response.data.event.uid).toBe(19201989);
+        expect(response.data.event.uid).toBe(19390293);
+      });
+
+      it('fix: image is maintained', () => {
+        expect(response.data.event.image.filename).toEqual('fdqfsdq.jpg');
       });
 
     });
