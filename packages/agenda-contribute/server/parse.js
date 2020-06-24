@@ -20,9 +20,10 @@ module.exports = {
 
 
 function fromEventServiceFormat(eventServiceEvent, options = {}) {
-  const { location, partial } = _.assign({
+  const { location, partial, unsetImage } = _.assign({
     location: null,
-    partial: false
+    partial: false,
+    unsetImage: false
   }, options);
 
   if (!eventServiceEvent) return {};
@@ -31,7 +32,7 @@ function fromEventServiceFormat(eventServiceEvent, options = {}) {
     $unset: ['locationUid']
   };
 
-  if (!partial || eventServiceEvent.image) {
+  if (!unsetImage && (!partial || eventServiceEvent.image)) {
     update.image = { $unset: ['credits'] };
   }
 
@@ -39,11 +40,13 @@ function fromEventServiceFormat(eventServiceEvent, options = {}) {
     update['imageCredits'] = { $set: _.get(eventServiceEvent, 'image.credits') };
   }
 
-  if (_.get(eventServiceEvent, 'image.url')) {
+  if (unsetImage) {
+    update['$unset'].push('image');
+  } else if (_.get(eventServiceEvent, 'image.url')) {
     update['image'] = { $set: {
       url: _.get(eventServiceEvent, 'image.url')
     } };
-  } else if (!_.get(eventServiceEvent, 'image.filename') && !_.get(eventServiceEvent, 'image.credits')) {
+  } else if (!partial && !_.get(eventServiceEvent, 'image.filename')) {
     update['image'] = { $set: null };
   }
 

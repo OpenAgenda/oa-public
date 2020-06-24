@@ -169,12 +169,12 @@ describe('agenda-contribute - parse - unit (server)', () => {
       }).image).toEqual(null);
     });
 
-    test('sets image to null if file name is not set event for partial transform', () => {
+    test('unsetImage option unsets the image', () => {
       expect(parse.fromEventServiceFormat({
         image: {
           filename: null
         }
-      }).image, { partial: true }).toEqual(null);
+      }, { unsetImage: true }).image).toEqual(undefined);
     });
 
     test('keep image as url if url is provided', () => {

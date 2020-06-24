@@ -72,7 +72,8 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     ...data
   } : data, {
     location,
-    partial: true
+    partial: true,
+    unsetImage: !evaluateEvent && !_.get(event, 'image.filename')
   });
 
   const schemaExtensions = {
