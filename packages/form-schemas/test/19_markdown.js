@@ -4,6 +4,11 @@ const markdown = require('../iso/markdown');
 const marked = require('marked');
 const assert = require('assert');
 
+const fs = require('fs');
+
+const withSubtitle = require('./markdown/withSubtitle.json').fr;
+const withSubtitleHTML = fs.readFileSync(__dirname + '/markdown/withSubtitle.html', 'utf-8');
+
 describe('unit - markdown', () => {
 
   describe('markdown.to', () => {
@@ -107,7 +112,6 @@ describe('unit - markdown', () => {
     });
 
     it('multiple links', () => {
-
       const r = markdown.from([
         'Nothing worked. Here is a first one: [https://le\_monde.fr](https://le_monde.fr)',
         'And the same [https://le\_monde.fr](https://le_monde.fr)',
@@ -122,6 +126,11 @@ describe('unit - markdown', () => {
         '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
         ''
       ].join('\n'));
+    });
+
+    it('Subtitle', () => {
+      const r = markdown.from(withSubtitle);
+      assert.equal(r, withSubtitleHTML);
     });
 
   });
