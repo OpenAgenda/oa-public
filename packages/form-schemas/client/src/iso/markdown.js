@@ -52,8 +52,8 @@ module.exports = {
 
     return convertTextLinks(md);
   },
-  from: (md = '') => {
-    const mk = marked(md.replace(/\n\n/g, 'doublelinebreak\n'), { breaks: true, headerIds: false })
+  from: md => {
+    const mk = marked((md || '').replace(/\n\n/g, 'doublelinebreak\n'), { breaks: true, headerIds: false })
       .replace(/<br>/g, '</p>\n<p>')
       .replace(/doublelinebreak<\/p>/g, '</p>\n<p></p>')
       .replace(/doublelinebreak<\/h3>/g, '</h3>\n<p></p>')
