@@ -111,6 +111,15 @@ describe('unit - markdown', () => {
       );
     });
 
+    it('A line break inserts a <br />', () => {
+      const r = markdown.from([
+        'Here is a line',
+        'Next line'
+      ].join('\n'));
+
+      assert.equal(r, '<p>Here is a line<br />Next line</p>\n');
+    });
+
     it('multiple links', () => {
       const r = markdown.from([
         'Nothing worked. Here is a first one: [https://le\_monde.fr](https://le_monde.fr)',
@@ -120,8 +129,7 @@ describe('unit - markdown', () => {
       ].join('\n'));
 
       assert.equal(r, [
-        '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
-        '<p>And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
+        '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a><br />And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
         '<p></p>',
         '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
         ''
