@@ -53,7 +53,7 @@ module.exports = {
     return convertTextLinks(md);
   },
   from: md => {
-    const html = md.split('\n\n').map(md => marked(md, { breaks: true })).join('<p></p>\n');
+    const html = (md || '').split('\n\n').map(md => marked(md, { breaks: true })).join('<p></p>\n');
 
     return sanitizeHtml(html, {
       allowedTags: false,

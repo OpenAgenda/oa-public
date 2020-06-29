@@ -97,6 +97,10 @@ describe('unit - markdown', () => {
 
   describe('markdown.from', () => {
 
+    it('from can handle nothingness', () => {
+      assert.equal(markdown.from(), '');
+    });
+
     it('basic', () => {
       assert.equal(
         markdown.from('Yeay\n===='),
