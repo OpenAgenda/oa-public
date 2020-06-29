@@ -27,6 +27,9 @@ module.exports = async ( ctl, knex, agendaId ) => {
   ctl.t = [];
 
   _.get( store, 'groups', [] ).forEach( ( g, i ) => {
+    if (['administrator', 'moderator'].includes(g.access)) {
+      return;
+    }
 
     ctl.tg.push( g.name );
 
