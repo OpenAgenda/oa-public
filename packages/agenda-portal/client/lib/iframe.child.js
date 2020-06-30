@@ -1,3 +1,4 @@
+const log = require('debug')('iframe.child');
 
 function _generateUpdatedHref(update) {
   const base = window.location.href.split(window.location.host);
@@ -24,6 +25,7 @@ function _getCurrentNav() {
 }
 
 function sendNavUpdate(state) {
+  log('sendNavUpdate');
   const { parent } = state;
 
   if (!parent) {
@@ -37,9 +39,15 @@ function sendNavUpdate(state) {
 }
 
 function sendExternalLinkClick(state, link) {
+  log('sendExternalLinkClick %s', link);
   const { parent } = state;
 
   if (!parent) {
+    return;
+  }
+
+  if (link === '#') {
+    log('ignoring'); // map zoom out/in buttons have this '#'
     return;
   }
 
