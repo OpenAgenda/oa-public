@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.4.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.4...@openagenda/event-form@1.4.5) (2020-06-30)
+
+**Note:** Version bump only for package @openagenda/event-form
+
+
+
+
+
 ### [1.4.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.3...@openagenda/event-form@1.4.4) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/event-form

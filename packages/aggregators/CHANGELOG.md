@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregators@1.10.8...@openagenda/aggregators@1.11.0) (2020-06-30)
+
+
+### Features
+
+* **aggregators:** added cleaning of source rules ([0e2bd6d](https://bitbucket.org/openagenda/oa/commit/0e2bd6d2a1664d3e2b90a4d8aa208e4494d9101d))
+
+
+
 ### [1.10.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregators@1.10.7...@openagenda/aggregators@1.10.8) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/aggregators

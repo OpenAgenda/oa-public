@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/aggregators",
-  "version": "1.10.8",
+  "version": "1.11.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {

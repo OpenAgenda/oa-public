@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-form",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "main": "client/build/index.js",
   "scripts": {
     "start": "nodemon dev/server",
@@ -11,7 +11,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.10.2",
     "@openagenda/agenda-locations": "^1.8.4",
-    "@openagenda/form-schemas": "^1.7.8",
+    "@openagenda/form-schemas": "^1.8.0",
     "@openagenda/labels": "^2.2.2",
     "@openagenda/react-components": "^2.3.4",
     "@openagenda/react-form-components": "^2.1.8",

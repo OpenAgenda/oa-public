@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.9.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.9.1...@openagenda/agenda-portal@2.9.2) (2020-06-30)
+
+
+### Bug Fixes
+
+* **agenda-portal:** map widget zoom in and out control triggers scroll to top in parent frame ([8d4ce03](https://bitbucket.org/openagenda/oa/commit/8d4ce03919b2777f7fb72a09bbe3f51173de64a3))
+
+
+
 ### [2.9.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.9.0...@openagenda/agenda-portal@2.9.1) (2020-06-18)
 
 

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/form-schemas@1.7.8...@openagenda/form-schemas@1.8.0) (2020-06-30)
+
+
+### Features
+
+* **form-schemas:** markdown field converts all links to markdown link ([a64933d](https://bitbucket.org/openagenda/oa/commit/a64933d19026c2da0c89604ade28faf4fb738550))
+
+
+### Bug Fixes
+
+* **form-schemas:** abandonned doublelinebreak keyword, using split instead ([db311d8](https://bitbucket.org/openagenda/oa/commit/db311d84b57c5f884cf11d06c3f4e09f49e85c5a))
+* **form-schemas:** crashes when null is passed to markdown.from ([3329aaa](https://bitbucket.org/openagenda/oa/commit/3329aaa406ca5e855f08f52a4c66f780ae69b891))
+* **form-schemas:** first item of list does not translate to html ([702eb68](https://bitbucket.org/openagenda/oa/commit/702eb68f904741cdaa4ce89410819dd1890efe28))
+* **form-schemas:** markdown editor does not load direct text links with underscores properly ([2a7dee2](https://bitbucket.org/openagenda/oa/commit/2a7dee2eda549f26c69fb7daed162943078fe172))
+* **form-schemas:** markdown.from generates HTML with a parser-keyword ([d1fa180](https://bitbucket.org/openagenda/oa/commit/d1fa1803f64f3784d084ad938e29c18830366907))
+* **form-schemas:** markdown.from throws exception if given undefined or null ([1cd329d](https://bitbucket.org/openagenda/oa/commit/1cd329d1e850d23cf20cfb850125fd848dfa3862))
+* **form-schemas:** to and from markdown function should maintain same line returns ([fb0a3b8](https://bitbucket.org/openagenda/oa/commit/fb0a3b8011ac20e622da7e67841a0e960b7005bc))
+
+
+
 ### [1.7.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/form-schemas@1.7.7...@openagenda/form-schemas@1.7.8) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/form-schemas
