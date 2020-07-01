@@ -18,23 +18,27 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const modulesToInclude = [
   '@feathersjs',
-  '@openagenda\\/activity-apps',
-  '@openagenda\\/agenda-settings',
-  '@openagenda\\/agenda-stats',
-  '@openagenda\\/aggregator-sources',
-  '@openagenda\\/home',
-  '@openagenda\\/inbox-apps',
-  '@openagenda\\/member-apps',
-  '@openagenda\\/user-apps',
-  '@openagenda\\/react-layouts',
-  '@openagenda\\/react-utils',
-  '@openagenda\\/supervisor',
+  '@openagenda/activity-apps',
+  '@openagenda/agenda-settings',
+  '@openagenda/agenda-stats',
+  '@openagenda/aggregator-sources',
+  '@openagenda/home',
+  '@openagenda/inbox-apps',
+  '@openagenda/member-apps',
+  '@openagenda/user-apps',
+  '@openagenda/react-layouts',
+  '@openagenda/react-shared',
+  '@openagenda/react-utils',
+  '@openagenda/supervisor',
   'react-intl',
   'intl-messageformat',
-  'intl-messageformat-parser'
+  'intl-messageformat-parser',
+  'lru-cache',
+  'yallist',
+  'debug'
 ];
 const BABEL_EXCLUDE_REGEX = new RegExp(
-  `node_modules\\/(?!(${modulesToInclude.join('|')}))`
+  `node_modules/(?!(${modulesToInclude.join('|')}))`
 );
 
 const region = 'eu-west-1';

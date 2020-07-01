@@ -1,4 +1,9 @@
-import './polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import 'dom4';
+import '@openagenda/pepjs';
+import '../polyfill';
+
 import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
