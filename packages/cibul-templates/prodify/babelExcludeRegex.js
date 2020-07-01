@@ -1,4 +1,5 @@
 'use strict';
+
 const oaModulesToBuild = [
   'activity-apps',
   'agenda-settings',
@@ -7,7 +8,7 @@ const oaModulesToBuild = [
 ];
 const modulesToInclude = [
   '@feathersjs',
-  `@openagenda\\/(?:${oaModulesToBuild.join('|')})`,
+  `@openagenda/(?:${oaModulesToBuild.join('|')})`,
   'debug',
   'intl-messageformat',
   'intl-messageformat-parser',
@@ -16,6 +17,6 @@ const modulesToInclude = [
   'yallist'
 ];
 
-const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules\\/(?!(${modulesToInclude.join('|')}))`);
+const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules/(?!(${modulesToInclude.join('|')}))`);
 
 module.exports = BABEL_EXCLUDE_REGEX;

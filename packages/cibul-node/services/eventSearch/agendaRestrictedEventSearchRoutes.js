@@ -14,11 +14,13 @@ module.exports = (services) => {
     expressUtils.https,
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'params.agendaUid' }),
     (req, res, next) => {
+      const access = req.member.role === 2 ? 'administrator' : 'moderator';
+
       core
         .agendas(req.params.agendaUid)
         .events.search(req.query, req.query, {
           ...req.query,
-          access: 'public',
+          access,
         })
         .then(result => {
           req.result = result;

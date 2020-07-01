@@ -24,7 +24,7 @@ export default function LoadMore({ stat, total, loadMore }) {
 
   const handleClick = useCallback(() => {
     setLoading(true);
-    loadMore()
+    Promise.resolve(loadMore())
       .then(result => {
         const receivedMore = Array.isArray(stat.aggregation)
           ? stat.aggregation.some(
@@ -43,6 +43,10 @@ export default function LoadMore({ stat, total, loadMore }) {
   }, [loadMore, stat.aggregation, stat.data, stat.id]);
 
   const hasMore = useMemo(() => {
+    if (!stat.data) {
+      return false;
+    }
+
     if (Array.isArray(stat.aggregation)) {
       return stat.aggregation.some(
         (v, i) => total

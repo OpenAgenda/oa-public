@@ -1,4 +1,4 @@
-import './intlPolyfill';
+import '@openagenda/polyfills/intl';
 
 import React, { Component } from 'react';
 import _ from 'lodash';

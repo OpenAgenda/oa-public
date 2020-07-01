@@ -1,13 +1,6 @@
-require( 'core-js/stable' );
-require( 'regenerator-runtime/runtime' );
-require( 'dom4' );
-require( '@openagenda/pepjs' );
-
-require( 'intl' );
-require( 'intl/locale-data/jsonp/fr' );
-require( 'intl/locale-data/jsonp/en' );
-require( 'intl/locale-data/jsonp/de' );
-require( 'intl/locale-data/jsonp/br' );
+require( '@openagenda/polyfills/web' );
+require( '@openagenda/polyfills/dom' );
+require( '@openagenda/polyfills/intl' );
 
 var layout = require( '../../layout/js/layout' ),
 

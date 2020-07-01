@@ -22,7 +22,7 @@ const modulesToInclude = [
   'react-intl',
   'yallist'
 ];
-const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules\\/(?!(${modulesToInclude.join('|')}))`);
+const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules/(?!(${modulesToInclude.join('|')}))`);
 
 module.exports = {
   // better to have a dist file in dev mode for local troubleshooting

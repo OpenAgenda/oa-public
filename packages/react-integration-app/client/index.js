@@ -1,4 +1,7 @@
-import './polyfill';
+import '@openagenda/polyfills/web';
+import '@openagenda/polyfills/dom';
+import '@openagenda/polyfills/intl';
+
 import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';

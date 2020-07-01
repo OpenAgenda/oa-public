@@ -1,15 +1,8 @@
 "use strict";
 
-require( 'core-js/stable' );
-require( 'regenerator-runtime/runtime' );
-require( 'dom4' );
-require( '@openagenda/pepjs' );
-
-require( 'intl' );
-require( 'intl/locale-data/jsonp/fr' );
-require( 'intl/locale-data/jsonp/en' );
-require( 'intl/locale-data/jsonp/de' );
-require( 'intl/locale-data/jsonp/br' );
+require( '@openagenda/polyfills/web' );
+require( '@openagenda/polyfills/dom' );
+require( '@openagenda/polyfills/intl' );
 
 // import ie8 from 'dom-utils/ie8'; // useful for ie11 too
 // import ie9 from 'dom-utils/ie9'; // useful for ie11 too

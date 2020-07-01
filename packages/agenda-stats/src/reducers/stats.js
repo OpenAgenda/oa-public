@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 import statsToAggregations from '../utils/statsToAggregations';
 import mapAggregationsInStats from '../utils/mapAggregationsInStats';
 
@@ -7,8 +9,21 @@ const LOAD_FAIL = 'agenda-stats/stats/LOAD_FAIL';
 const LOAD_STAT = 'agenda-stats/stats/LOAD_STAT';
 const LOAD_STAT_SUCCESS = 'agenda-stats/stats/LOAD_STAT_SUCCESS';
 const LOAD_STAT_FAIL = 'agenda-stats/stats/LOAD_STAT_FAIL';
+const SET_EDIT_MODE = 'agenda-stats/stats/SET_EDIT_MODE';
+const CANCEL_EDIT = 'agenda-stats/stats/CANCEL_EDIT';
+const REORDER_STATS = 'agenda-stats/stats/REORDER_STATS';
+const REMOVE_STAT = 'agenda-stats/stats/REMOVE_STAT';
+const ADD_STAT = 'agenda-stats/stats/ADD_STAT';
+const SAVE = 'agenda-stats/stats/SAVE';
+const SAVE_SUCCESS = 'agenda-stats/stats/SAVE_SUCCESS';
+const SAVE_FAIL = 'agenda-stats/stats/SAVE_FAIL';
 
 const initialState = {};
+
+const addId = stat => ({
+  id: typeof stat.id !== 'undefined' ? stat.id : uuidv4(),
+  ...stat
+});
 
 const addKey = (aggregation, stat) => ({
   key: `${aggregation.type}-${stat.id}`,
@@ -20,7 +35,9 @@ const addInterval = interval => (aggregation, stat) => (stat.chart.intervalSelec
   : aggregation);
 
 function decorateStats(stats, { interval } = {}) {
-  let result = mapAggregationsInStats(stats, addKey);
+  let result = stats.map(addId);
+
+  result = mapAggregationsInStats(result, addKey);
 
   if (interval) {
     result = mapAggregationsInStats(result, addInterval(interval));
@@ -56,6 +73,7 @@ export default function reducer(state = initialState, action) {
           };
         }),
         query: action.query,
+        interval: action.interval,
         error: null,
         loading: false
       };
@@ -85,6 +103,43 @@ export default function reducer(state = initialState, action) {
         ]
       };
     }
+    case SET_EDIT_MODE: {
+      return {
+        ...state,
+        editing: !!action.editing,
+        data: !action.editing ? _.clone(state.dataBeforeEdit) : state.data,
+        dataBeforeEdit: action.editing
+          ? _.clone(state.data)
+          : state.dataBeforeEdit
+      };
+    }
+    case CANCEL_EDIT: {
+      return {
+        ...state,
+        editing: false,
+        data: _.clone(state.dataBeforeEdit),
+        dataBeforeEdit: null
+      };
+    }
+    case REMOVE_STAT: {
+      return {
+        ...state,
+        data: state.data.filter(stat => stat.id !== action.statId)
+      };
+    }
+    case ADD_STAT: {
+      return {
+        ...state,
+        data: [...state.data, action.stat]
+      };
+    }
+    case SAVE_SUCCESS: {
+      return {
+        ...state,
+        editing: false,
+        dataBeforeEdit: null
+      };
+    }
     default:
       return state;
   }
@@ -110,11 +165,12 @@ export function load(agenda, stats, query, interval) {
       return client.get(url, { params });
     },
     stats: decoratedStats,
-    query
+    query,
+    interval
   };
 }
 
-export function loadStat(agenda, statId, getOptions) {
+export function loadStat(agenda, statId, getOptions = _.identity) {
   return ({ getState, dispatch }) => {
     const { stats, res } = getState();
 
@@ -148,5 +204,62 @@ export function loadStat(agenda, statId, getOptions) {
       statId,
       stat: decoratedStats[0]
     });
+  };
+}
+
+export function setEditMode(editing) {
+  return {
+    type: SET_EDIT_MODE,
+    editing
+  };
+}
+
+export function save(agenda) {
+  return ({ getState, dispatch }) => {
+    const { stats, res } = getState();
+    const { data } = stats;
+
+    return dispatch({
+      types: [SAVE, SAVE_SUCCESS, SAVE_FAIL],
+      promise: ({ client }) => {
+        const url = res.report
+          .replace(':slug', agenda.slug)
+          .replace(':uid', agenda.uid);
+
+        return client.put(
+          url,
+          data.map(v => ({
+            ...v,
+            data: undefined
+          }))
+        );
+      }
+    });
+  };
+}
+
+export function removeStat(statId) {
+  return {
+    type: REMOVE_STAT,
+    statId
+  };
+}
+
+export function addStat(stat) {
+  return ({ getState, dispatch }) => {
+    const { interval } = getState().stats;
+
+    return dispatch({
+      type: ADD_STAT,
+      stat: decorateStats([stat], { interval })[0]
+    });
+  };
+}
+
+export function reorderStats(startIndex, endIndex) {
+  return {
+    type: REORDER_STATS,
+    startIndex,
+    endIndex
   };
 }

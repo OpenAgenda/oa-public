@@ -15,7 +15,25 @@ export default ({
   const selectRef = useRef(null);
 
   const findOption = useCallback(
-    opt => options?.find(v => v.value === opt) ?? { label: opt, value: opt },
+    (opt, array = options, skipDefault = false) => {
+      const result = array?.find(v => {
+        if (Array.isArray(v.options)) {
+          return findOption(opt, v.options, true);
+        }
+
+        return v.value === opt;
+      });
+
+      if (result) {
+        return result;
+      }
+
+      if (skipDefault) {
+        return;
+      }
+
+      return { label: opt, value: opt };
+    },
     [options]
   );
 
@@ -26,7 +44,7 @@ export default ({
       }
 
       return Array.isArray(selectedOption)
-        ? selectedOption.map(findOption)
+        ? selectedOption.map(v => findOption(v))
         : findOption(selectedOption);
     },
     [findOption]
