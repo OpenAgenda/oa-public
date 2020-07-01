@@ -15,7 +15,7 @@ const keysSvc = require( '@openagenda/keys' );
 const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
-const utils = require( '@openagenda/utils' );
+const expressUtils = require( '@openagenda/utils/express' );
 
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
 const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
@@ -71,7 +71,7 @@ module.exports = {
   errorResponse,                // render error page
   catchError,                   // the heir of standard error handling
 
-  https: utils.express.https,   // middleware. force https ( redirect to when not )
+  https: expressUtils.https,   // middleware. force https ( redirect to when not )
 
   requireSuperAdmin,
   loadBaseData,                 // middleware.
@@ -936,7 +936,7 @@ function redirectLegacySearch( req, res, next ) {
 
   if ( req.query.search ) {
 
-    var query = utils.extend( { oaq: req.query.search }, req.query );
+    var query = Object.assign( { oaq: req.query.search }, req.query );
 
     query.search = undefined;
 

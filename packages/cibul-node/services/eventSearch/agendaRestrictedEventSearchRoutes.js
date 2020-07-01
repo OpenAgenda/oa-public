@@ -4,7 +4,7 @@ const log = require('@openagenda/logs')(
   'services/eventSearch/agendaRestrictedEventSearchRoutes'
 );
 const { Router } = require('express');
-const expressUtils = require('@openagenda/utils').express;
+const expressUtils = require('@openagenda/utils/express');
 
 module.exports = (services) => {
   const { core, members } = services;
