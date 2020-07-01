@@ -86,10 +86,13 @@ export default ({
   ...rest
 }) => {
   const SelectComponent = isCreatable ? CreatableSelect : ReactSelect;
-  const styles = useMemo(() => ({
-    ...defaultStyles,
-    ...stylesProp
-  }));
+  const styles = useMemo(
+    () => ({
+      ...defaultStyles,
+      ...stylesProp
+    }),
+    [stylesProp]
+  );
 
   return (
     <>
