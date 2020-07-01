@@ -15,10 +15,7 @@ module.exports = {
   capitalize: capitalize,
   uncapitalize: uncapitalize,
   cleanString: cleanString,
-  deep: require( './deep' ),
-  express: {
-    https: require('./express/https')
-  }
+  deep: require( './deep' )
 };
 
 

@@ -301,6 +301,9 @@ raw.push(knex('event_2').insert([{
   id: 14,
   uid: 19390293,
   slug: 'un-autre-event',
+  image: JSON.stringify({
+    filename: 'fdqfsdq.jpg'
+  }),
   draft: 0,
   owner_uid: 63170203,
   creator_uid: 63170203,

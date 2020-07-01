@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.5...@openagenda/aggregator-sources@1.2.6) (2020-06-30)
+
+
+### Bug Fixes
+
+* **aggregator-sources:** correctif sur le label ([3f375ae](https://bitbucket.org/openagenda/oa/commit/3f375ae418dc6a60e059238a73d08f782454d8db))
+* **aggregator-sources:** missed a btn class for inline link buttons ([f4a7908](https://bitbucket.org/openagenda/oa/commit/f4a790837fb3890849586366683f1fc1c5a901ce))
+* **aggregator-sources:** when required is not specified by values, it is read as false by valuesToRules ([85d92e3](https://bitbucket.org/openagenda/oa/commit/85d92e338876afd91349705b247ae94fb291e64b))
+
+
+
 ### [1.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.4...@openagenda/aggregator-sources@1.2.5) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/aggregator-sources

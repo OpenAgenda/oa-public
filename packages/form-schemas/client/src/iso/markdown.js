@@ -52,12 +52,10 @@ module.exports = {
 
     return convertTextLinks(md);
   },
-  from: (md = '') => {
-    const mk = marked(md.replace(/\n\n/g, 'doublelinebreak'), { breaks: true })
-      .replace(/<br>/g, '</p>\n<p>')
-      .replace(/doublelinebreak/g, '</p>\n<p></p>\n<p>');
+  from: md => {
+    const html = (md || '').split('\n\n').map(md => marked(md, { breaks: true })).join('<p></p>\n');
 
-    return sanitizeHtml(mk, {
+    return sanitizeHtml(html, {
       allowedTags: false,
       allowedAttributes: {
         h1: [],

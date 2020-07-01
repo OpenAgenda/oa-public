@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.13](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.12...@openagenda/abilities@1.1.13) (2020-06-30)
+
+**Note:** Version bump only for package @openagenda/abilities
+
+
+
+
+
 ### [1.1.12](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.11...@openagenda/abilities@1.1.12) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/abilities

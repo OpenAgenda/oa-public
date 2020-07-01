@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.3.0...@openagenda/agenda-contribute@1.4.0) (2020-06-30)
+
+
+### Features
+
+* **agenda-contribute:** fromEventService image parser removes image key if neither credits or filename are specified ([d533539](https://bitbucket.org/openagenda/oa/commit/d53353954ee9f722a88db63b2eb2d8780c3d1eb8))
+
+
+### Bug Fixes
+
+* **agenda-contribute:** handling of edge case for additional fields related to image ([6e2a2a3](https://bitbucket.org/openagenda/oa/commit/6e2a2a3170592b03f95159eb103d665758679557))
+
+
+
 ## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.21...@openagenda/agenda-contribute@1.3.0) (2020-06-18)
 
 

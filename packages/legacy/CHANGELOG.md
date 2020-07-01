@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.10.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.10.1...@openagenda/legacy@1.10.2) (2020-06-30)
+
+
+### Bug Fixes
+
+* **legacy:** non public fields should not be listed in control data tag groups ([e2cefed](https://bitbucket.org/openagenda/oa/commit/e2cefed5ac56757b95bb1a570051628f4dc08749))
+
+
+
 ### [1.10.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.10.0...@openagenda/legacy@1.10.1) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/legacy

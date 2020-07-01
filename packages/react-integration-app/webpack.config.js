@@ -30,12 +30,12 @@ const modulesToInclude = [
   '@openagenda/react-shared',
   '@openagenda/react-utils',
   '@openagenda/supervisor',
-  'react-intl',
+  'debug',
   'intl-messageformat',
   'intl-messageformat-parser',
   'lru-cache',
-  'yallist',
-  'debug'
+  'react-intl',
+  'yallist'
 ];
 const BABEL_EXCLUDE_REGEX = new RegExp(
   `node_modules/(?!(${modulesToInclude.join('|')}))`

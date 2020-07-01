@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.0](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.7.0...cibul-node@0.8.0) (2020-06-30)
+
+
+### Features
+
+* **cibul-node:** add loadMore for keywords chart ([5373c3d](https://bitbucket.org/openagenda/oa/commit/5373c3da29408261bc9897d2cefb1acc5903275c))
+* **cibul-node:** added oembed links to iframe vars ([15b27a8](https://bitbucket.org/openagenda/oa/commit/15b27a8f5b5a396c0d419dc1d76be7142cce44b4))
+* **cibul-node:** provide access to embedded links in iframe variables ([8ac7947](https://bitbucket.org/openagenda/oa/commit/8ac7947bbdf6f9c30f65bc1b8545f68f45a7c3ca))
+* **cibul-node:** provide details on bad request for es aggregations ([8bc7104](https://bitbucket.org/openagenda/oa/commit/8bc71049fb5cfb4d8998efc16f8b0e486b2e8448))
+* **cibul-node:** use qs with arrayLimit to Infinity ([ae2d967](https://bitbucket.org/openagenda/oa/commit/ae2d9677098448658c13a1a0d30d253d7aff8c15))
+
+
+### Bug Fixes
+
+* **agenda-contribute:** handling of edge case for additional fields related to image ([6e2a2a3](https://bitbucket.org/openagenda/oa/commit/6e2a2a3170592b03f95159eb103d665758679557))
+* **cibul-node:** aggregation is blocked when agenda has a non-optional related additional field with unset related field ([66f3605](https://bitbucket.org/openagenda/oa/commit/66f360541d42469e9591ec634361768d98becb03))
+* **cibul-node:** fix agenda.removeMember filtering ([0e1f8cc](https://bitbucket.org/openagenda/oa/commit/0e1f8cc9d4f8be5592fba0e490d6a9f4a691be81))
+* **cibul-node:** loadBySessionOrKey never loads by key ([0050e0b](https://bitbucket.org/openagenda/oa/commit/0050e0bb0acebbdc69b9ef254632a47257e34d1b))
+* **cibul-node:** temporary es7 server certificate is invalid. Deactivate as long as it is used ([5c041ab](https://bitbucket.org/openagenda/oa/commit/5c041ab21988f8a3fbbe8c28ab3da84e5857fcfb))
+
+
+
 ## [0.7.0](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.6.0...cibul-node@0.7.0) (2020-06-18)
 
 

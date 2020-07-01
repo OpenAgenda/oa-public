@@ -17,7 +17,7 @@
   "aggregator-sources.AddSourceModal.defineRulesStep": "Rules",
   "aggregator-sources.AddSourceModal.confirmationStep": "Confirmation",
   "aggregator-sources.AddSourceModal.evaluateMessage": "The agenda {source} is about to be added to the sources of {aggregator} {ruleCount, plural, =0 {without rule} one {with 1 rule} other {with {ruleCount} rules}}.",
-  "aggregator-sources.AddSourceModal.evaluateOption0": "Evaluate only upcoming events",
+  "aggregator-sources.AddSourceModal.evaluateOption0": "Evaluate only events added to the agenda from now on",
   "aggregator-sources.AddSourceModal.evaluateOption1": "Evaluate all events",
   "aggregator-sources.AddSourceModal.cancel": "Cancel",
   "aggregator-sources.AddSourceModal.noAgendas": "No agenda corresponds to your search",

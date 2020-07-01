@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.5.1...@openagenda/event-search@2.6.0) (2020-06-30)
+
+
+### Features
+
+* **event-search:** provide validation error details on invalid aggregation params formatting ([693abad](https://bitbucket.org/openagenda/oa/commit/693abad9b9fc8514df63f658063b2b5ec23adbb7))
+
+
+
 ### [2.5.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.5.0...@openagenda/event-search@2.5.1) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/event-search

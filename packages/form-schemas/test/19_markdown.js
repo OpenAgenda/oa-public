@@ -4,6 +4,11 @@ const markdown = require('../iso/markdown');
 const marked = require('marked');
 const assert = require('assert');
 
+const fs = require('fs');
+
+const withSubtitle = require('./markdown/withSubtitle.json').fr;
+const withSubtitleHTML = fs.readFileSync(__dirname + '/markdown/withSubtitle.html', 'utf-8');
+
 describe('unit - markdown', () => {
 
   describe('markdown.to', () => {
@@ -69,9 +74,32 @@ describe('unit - markdown', () => {
 
     });
 
+    it('list', () => {
+      const r = markdown.from(`A list
+
+*   One
+*   Two
+*   Three
+`);
+
+      assert.equal(r, `<p>A list</p>
+<p></p>
+<ul>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ul>
+`);
+
+    });
+
   });
 
   describe('markdown.from', () => {
+
+    it('from can handle nothingness', () => {
+      assert.equal(markdown.from(), '');
+    });
 
     it('basic', () => {
       assert.equal(
@@ -87,8 +115,16 @@ describe('unit - markdown', () => {
       );
     });
 
-    it('multiple links', () => {
+    it('A line break inserts a <br />', () => {
+      const r = markdown.from([
+        'Here is a line',
+        'Next line'
+      ].join('\n'));
 
+      assert.equal(r, '<p>Here is a line<br />Next line</p>\n');
+    });
+
+    it('multiple links', () => {
       const r = markdown.from([
         'Nothing worked. Here is a first one: [https://le\_monde.fr](https://le_monde.fr)',
         'And the same [https://le\_monde.fr](https://le_monde.fr)',
@@ -97,12 +133,16 @@ describe('unit - markdown', () => {
       ].join('\n'));
 
       assert.equal(r, [
-        '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
-        '<p>And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
+        '<p>Nothing worked. Here is a first one: <a href="https://le_monde.fr">https://le_monde.fr</a><br />And the same <a href="https://le_monde.fr">https://le_monde.fr</a></p>',
         '<p></p>',
         '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
         ''
       ].join('\n'));
+    });
+
+    it('Subtitle', () => {
+      const r = markdown.from(withSubtitle);
+      assert.equal(r, withSubtitleHTML);
     });
 
   });

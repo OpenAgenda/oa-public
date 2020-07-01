@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.2.0...@openagenda/supervisor@1.2.1) (2020-06-30)
+
+**Note:** Version bump only for package @openagenda/supervisor
+
+
+
+
+
 ## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.1.3...@openagenda/supervisor@1.2.0) (2020-06-18)
 
 

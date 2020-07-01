@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.5.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.5.0...@openagenda/agenda-stats@1.5.1) (2020-06-30)
+
+
+### Bug Fixes
+
+* **agenda-stats:** filter additionalFields without option ([4cbf531](https://bitbucket.org/openagenda/oa/commit/4cbf5312dd4bc95af9063191add58df0c3ea214c))
+
+
+
 ## [1.5.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.4.0...@openagenda/agenda-stats@1.5.0) (2020-06-18)
 
 
