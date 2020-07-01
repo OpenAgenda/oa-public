@@ -1,83 +1,42 @@
-import _ from 'lodash';
 import React, { useCallback, useState } from 'react';
 import { useUpdateEffect, usePrevious } from 'react-use';
-import { useIntl, defineMessages } from 'react-intl';
-import { Spinner } from '@openagenda/react-components';
-import getLocaleValue from '../utils/getLocaleValue';
-import IntervalSelect from './basics/IntervalSelect';
+import { useDispatch } from 'react-redux';
+import { defineMessages, useIntl } from 'react-intl';
+import useChartTitle from '../hooks/useChartTitle';
+import * as statsActions from '../reducers/stats';
 import LoadMore from './LoadMore';
+import BorderBox from './BorderBox';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
 const messages = defineMessages({
-  withSelector: {
-    id: 'AgendaStats.AggregationCharts.withSelector',
-    defaultMessage: '{message} by {selector}'
+  remove: {
+    id: 'AgendaStats.ChartWrapper.remove',
+    defaultMessage: 'Remove'
   },
-
-  regions: {
-    id: 'AgendaStats.AggregationCharts.titles.regions',
-    defaultMessage: 'Regions'
-  },
-  departments: {
-    id: 'AgendaStats.AggregationCharts.titles.departments',
-    defaultMessage: 'Departments'
-  },
-  cities: {
-    id: 'AgendaStats.AggregationCharts.titles.cities',
-    defaultMessage: 'Cities'
-  },
-  timings: {
-    id: 'AgendaStats.AggregationCharts.titles.timings',
-    defaultMessage: 'Timings'
-  },
-  createdAtUpdatedAt: {
-    id: 'AgendaStats.AggregationCharts.titles.createdAtUpdatedAt',
-    defaultMessage: 'Saved events'
-  },
-  createdAt: {
-    id: 'AgendaStats.AggregationCharts.titles.createdAt',
-    defaultMessage: 'Created events'
-  },
-  updatedAt: {
-    id: 'AgendaStats.AggregationCharts.titles.updatedAt',
-    defaultMessage: 'Updated events'
-  },
-  members: {
-    id: 'AgendaStats.AggregationCharts.titles.members',
-    defaultMessage: 'Members'
-  },
-  originAgendas: {
-    id: 'AgendaStats.AggregationCharts.titles.originAgendas',
-    defaultMessage: 'Origin agendas'
-  },
-  keywords: {
-    id: 'AgendaStats.AggregationCharts.titles.keywords',
-    defaultMessage: 'Keywords'
-  },
-  states: {
-    id: 'AgendaStats.AggregationCharts.titles.states',
-    defaultMessage: 'States'
+  update: {
+    id: 'AgendaStats.ChartWrapper.update',
+    defaultMessage: 'Update'
   }
 });
 
-function statToTitleMessageKey(aggregation) {
-  let messageKey = '';
-
-  if (Array.isArray(aggregation)) {
-    for (const agg of aggregation) {
-      messageKey += messageKey === '' ? agg.type : _.upperFirst(agg.type);
-    }
-  } else {
-    messageKey += aggregation.type;
+function ContentWrapper({ editMode, children }) {
+  if (!editMode) {
+    return children;
   }
 
-  return messageKey;
+  return (
+    <BorderBox className="padding-h-sm padding-bottom-sm">{children}</BorderBox>
+  );
 }
 
-function ChartWrapper({
-  stat, totalEvents, loadStat, children
-}) {
+function ChartWrapper(
+  {
+    stat, totalEvents, loadStat, editMode, className, children
+  },
+  ref
+) {
   const intl = useIntl();
+  const dispatch = useDispatch();
 
   const [interval, setInterval] = useState(stat.aggregation.interval);
   const previousInterval = usePrevious(interval);
@@ -91,38 +50,23 @@ function ChartWrapper({
     [loadStat, stat.id]
   );
 
-  const titleMessage = (() => {
-    const messageKey = statToTitleMessageKey(stat.aggregation);
+  const titleMessage = useChartTitle({
+    stat,
+    interval,
+    setInterval,
+    loading
+  });
 
-    let message;
-
-    if (stat.fieldSchema) {
-      message = getLocaleValue(stat.fieldSchema.label, intl.locale);
-    } else if (messages[messageKey]) {
-      message = intl.formatMessage(messages[messageKey]);
-    } else {
-      message = messageKey;
-    }
-
-    if (stat.chart.intervalSelector) {
-      message = intl.formatMessage(messages.withSelector, {
-        message,
-        selector: (
-          <>
-            <IntervalSelect value={interval} onChange={setInterval} />
-
-            {loading ? (
-              <span className="margin-left-xs">
-                <Spinner mode="inline" />
-              </span>
-            ) : null}
-          </>
-        )
-      });
-    }
-
-    return message;
-  })();
+  const removeStat = useCallback(
+    () => dispatch(statsActions.removeStat(stat.id)),
+    [dispatch, stat.id]
+  );
+  // const updateStat = useCallback(
+  //   () => {
+  //     // open modal with select for move
+  //   },
+  //   []
+  // );
 
   // Reload the graph with changed `interval` option
   useUpdateEffect(() => {
@@ -138,16 +82,37 @@ function ChartWrapper({
   }, [interval, loadStat, previousInterval, stat.id]);
 
   return (
-    <div className="col-md-12 col-lg-6 margin-top-md">
-      <h3 className="text-center">{titleMessage}</h3>
+    <div className={className} ref={ref}>
+      <ContentWrapper editMode={editMode}>
+        {editMode ? (
+          <div className="text-right margin-top-xs">
+            {/* <button
+              type="button"
+              className="btn btn-link btn-link-inline"
+              onClick={updateStat}
+            >
+              {intl.formatMessage(messages.update)}
+            </button> */}
+            <button
+              type="button"
+              className="btn btn-link btn-link-inline text-danger margin-left-xs"
+              onClick={removeStat}
+            >
+              {intl.formatMessage(messages.remove)}
+            </button>
+          </div>
+        ) : null}
 
-      {children}
+        <h3 className="text-center">{titleMessage}</h3>
 
-      {stat.chart.loadMore ? (
-        <LoadMore stat={stat} total={totalEvents} loadMore={loadMore} />
-      ) : null}
+        {children}
+
+        {stat.chart.loadMore ? (
+          <LoadMore stat={stat} total={totalEvents} loadMore={loadMore} />
+        ) : null}
+      </ContentWrapper>
     </div>
   );
 }
 
-export default ChartWrapper;
+export default React.forwardRef(ChartWrapper);

@@ -31,29 +31,6 @@ const messages = defineMessages({
   }
 });
 
-function getAdditionalFieldStats(agendaSchema) {
-  return agendaSchema.fields
-    .filter(fieldSchema => fieldSchema.options?.length > 0)
-    .map(fieldSchema => {
-      const isCheckbox = fieldSchema.fieldType === 'checkbox' && fieldSchema.options?.length === 1;
-
-      return {
-        aggregation: {
-          type: 'additionalFields',
-          field: fieldSchema.field
-        },
-        chart: {
-          type: isCheckbox ? 'pie' : 'vertical',
-          dataKey: 'eventCount',
-          labelKey: 'label',
-          restItem: isCheckbox,
-          dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
-        },
-        fieldSchema
-      };
-    });
-}
-
 function Dashboard({ agenda, agendaSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -64,6 +41,8 @@ function Dashboard({ agenda, agendaSchema }) {
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
   const stats = useSelector(state => state.stats.data);
   const totalEvents = useSelector(state => state.stats.totalEvents);
+
+  const editing = useSelector(state => state.stats.editing);
 
   const [range, setRange] = useState(undefined);
   const dateRangeModal = useModal();
@@ -84,8 +63,21 @@ function Dashboard({ agenda, agendaSchema }) {
     ).then(() => {
       setRange(value[0]);
     }),
-    [agenda, dateRangeModal, dispatch, stats]
+    [agenda, dispatch, stats]
   );
+
+  const setEditMode = useCallback(
+    () => dispatch(statsActions.setEditMode(true)),
+    [dispatch]
+  );
+  const cancelEdit = useCallback(
+    () => dispatch(statsActions.setEditMode(false)),
+    [dispatch]
+  );
+  const save = useCallback(() => dispatch(statsActions.save(agenda)), [
+    agenda,
+    dispatch
+  ]);
 
   // Load timespan & aggregations
   useEffect(() => {
@@ -118,13 +110,7 @@ function Dashboard({ agenda, agendaSchema }) {
       _.set(query, 'date.gte', defaultRange.startDate);
       _.set(query, 'date.lte', defaultRange.endDate);
 
-      const statsToLoad = configResult.data
-        .concat({ separator: true })
-        .concat(getAdditionalFieldStats(agendaSchema))
-        .map(v => ({
-          id: _.uniqueId(),
-          ...v
-        }));
+      const statsToLoad = configResult.data;
 
       return dispatch(
         statsActions.load(
@@ -135,7 +121,7 @@ function Dashboard({ agenda, agendaSchema }) {
         )
       );
     });
-  }, [agenda, agendaSchema, apiClient, dispatch, loaded, res.jsonExport]);
+  }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
 
   if (loading && !loaded) {
     return (
@@ -167,6 +153,31 @@ function Dashboard({ agenda, agendaSchema }) {
             </button>
           </>
         ) : null}
+
+        {editing ? (
+          <div className="pull-right">
+            <button type="button" className="btn btn-primary" onClick={save}>
+              Sauvegarder
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger btn-bordered margin-left-sm"
+              onClick={cancelEdit}
+            >
+              Annuler
+            </button>
+          </div>
+        ) : (
+          <div className="pull-right">
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={setEditMode}
+            >
+              Editer le rapport
+            </button>
+          </div>
+        )}
       </div>
 
       {typeof totalEvents === 'number' ? (
@@ -181,12 +192,16 @@ function Dashboard({ agenda, agendaSchema }) {
         </div>
       ) : null}
 
+      <div className="clearfix" />
+
       {stats ? (
         <AggregationCharts
           agenda={agenda}
           stats={stats}
           totalEvents={totalEvents}
           range={range}
+          editMode={editing}
+          agendaSchema={agendaSchema}
         />
       ) : null}
 
