@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.10.2",
-    "@formatjs/intl-listformat": "^2.2.8",
     "@openagenda/labels": "^2.2.2",
     "@openagenda/logs": "^1.1.3",
+    "@openagenda/polyfills": "^1.0.0",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.2.9",
