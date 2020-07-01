@@ -9,7 +9,7 @@ const modulesToInclude = [
   'intl-messageformat',
   'intl-messageformat-parser'
 ];
-const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules\\/(?!(${modulesToInclude.join('|')}))`);
+const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules/(?!(${modulesToInclude.join('|')}))`);
 
 module.exports = {
   mode: 'development',

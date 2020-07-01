@@ -8,14 +8,14 @@ const oaModulesToBuild = [
 ];
 const modulesToInclude = [
   '@feathersjs',
-  `@openagenda\\/(?:${oaModulesToBuild.join('|')})`,
+  `@openagenda/(?:${oaModulesToBuild.join('|')})`,
   'react-intl',
   'intl-messageformat',
   'intl-messageformat-parser'
 ];
 
 const BABEL_EXCLUDE_REGEX = new RegExp(
-  `node_modules\\/(?!(${modulesToInclude.join('|')}))`
+  `node_modules/(?!(${modulesToInclude.join('|')}))`
 );
 
 module.exports = ({ config }) => {
