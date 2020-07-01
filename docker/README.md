@@ -37,7 +37,7 @@ In the terminal and at the project root, run:
 sudo docker-compose up devinstaller
 ```
 
-Once the installation is complete, the process should exit.  
+Once the installation is complete, the process should exit.
 
 Add authority certificate to Ubuntu CA store with:
 
