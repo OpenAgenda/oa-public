@@ -222,7 +222,7 @@ export function save(agenda) {
     return dispatch({
       types: [SAVE, SAVE_SUCCESS, SAVE_FAIL],
       promise: ({ client }) => {
-        const url = res.report
+        const url = res.statsConfig
           .replace(':slug', agenda.slug)
           .replace(':uid', agenda.uid);
 
