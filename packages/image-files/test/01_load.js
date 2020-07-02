@@ -60,8 +60,8 @@ describe( 'image-files - functional - load', function() {
     }, ( err, result ) => {
 
       result.uploadedPaths.should.eql( [
-        'https://openagendatst.s3.amazonaws.com/rainfrog_s.jpg',
-        'https://openagendatst.s3.amazonaws.com/rainfrog_o.jpg'
+        'https://openagendatst.s3.eu-west-1.amazonaws.com/rainfrog_s.jpg',
+        'https://openagendatst.s3.eu-west-1.amazonaws.com/rainfrog_o.jpg'
       ] );
 
       done();
@@ -83,8 +83,8 @@ describe( 'image-files - functional - load', function() {
     } );
 
     result.uploadedPaths.should.eql( [
-      'https://openagendatst.s3.amazonaws.com/rainfrog_s.jpg',
-      'https://openagendatst.s3.amazonaws.com/rainfrog_o.jpg'
+      'https://openagendatst.s3.eu-west-1.amazonaws.com/rainfrog_s.jpg',
+      'https://openagendatst.s3.eu-west-1.amazonaws.com/rainfrog_o.jpg'
     ] );
 
   } );
@@ -137,8 +137,8 @@ describe( 'image-files - functional - load', function() {
         should( err ).equal( null );
 
         result.uploadedPaths.should.eql( [
-          'https://openagendatst.s3.amazonaws.com/orchestra_s.jpg',
-          'https://openagendatst.s3.amazonaws.com/orchestra_o.jpg'
+          'https://openagendatst.s3.eu-west-1.amazonaws.com/orchestra_s.jpg',
+          'https://openagendatst.s3.eu-west-1.amazonaws.com/orchestra_o.jpg'
         ] );
 
         done();
@@ -164,8 +164,8 @@ describe( 'image-files - functional - load', function() {
       should( err ).equal( null );
 
       result.uploadedPaths.should.eql( [
-        'https://openagendatst.s3.amazonaws.com/url_orchestra_s.jpg',
-        'https://openagendatst.s3.amazonaws.com/url_orchestra_o.jpg'
+        'https://openagendatst.s3.eu-west-1.amazonaws.com/url_orchestra_s.jpg',
+        'https://openagendatst.s3.eu-west-1.amazonaws.com/url_orchestra_o.jpg'
       ] );
 
       done();
@@ -196,8 +196,8 @@ describe( 'image-files - functional - load', function() {
         should( err ).equal( null );
 
         result.uploadedPaths.should.eql( [
-          'https://openagendatst.s3.amazonaws.com/rainfrog_s.jpg',
-          'https://openagendatst.s3.amazonaws.com/rainfrog_o.jpg'
+          'https://openagendatst.s3.eu-west-1.amazonaws.com/rainfrog_s.jpg',
+          'https://openagendatst.s3.eu-west-1.amazonaws.com/rainfrog_o.jpg'
         ] );
 
         done();

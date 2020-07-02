@@ -6,5 +6,5 @@ yarn-error.log
 testconfig.js
 coverage/
 .cache/
-sandbox/result.json
+sandbox/*result.json
 sandbox/in/_*

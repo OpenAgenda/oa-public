@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import messages from './messages';
 
 import ActionsFormPart from './ActionsFormPart';
-import ExtendedFormPart from './ExtendedFormPart';
+import AdditionalFieldFormPart from './AdditionalFieldFormPart';
 import LocationFormPart from './LocationFormPart';
 import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
@@ -104,7 +104,7 @@ export default function RuleForm({
 
           {values.type === 'extended' ? (
             <div className="radio-sub-block">
-              <ExtendedFormPart
+              <AdditionalFieldFormPart
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
               />

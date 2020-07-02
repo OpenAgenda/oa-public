@@ -90,7 +90,7 @@ export default ({ sourceSchema }) => {
                 noOptionsMessage={() => intl.formatMessage(messages.noOption)}
                 options={valuesOptions}
                 menuPosition="fixed"
-                isMulti={fieldSchema?.fieldType === 'checkbox'}
+                isMulti
                 isSearchable
               />
             </div>

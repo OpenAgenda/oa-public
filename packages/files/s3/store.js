@@ -50,12 +50,18 @@ function store( config, file, options, cb ) {
 
     log( 'storing %s in bucket %s', file, params.bucket );
 
-    _getClient().upload({
+    const s3Params = {
       Bucket: params.bucket,
       Key: path.basename(file),
       Body: fs.createReadStream(file),
       ACL: 'public-read'
-    }, (err, res) => {
+    };
+
+    if (params.ContentType) {
+      s3Params.ContentType = params.ContentType;
+    }
+
+    _getClient().upload(s3Params, (err, res) => {
       if (err) {
         return cb('unable to upload: ' + err);
       }
