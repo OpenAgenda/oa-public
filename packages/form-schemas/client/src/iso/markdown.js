@@ -21,7 +21,9 @@ ts.addRule('line', {
 function convertTextLinks(md) {
   return markdownLinkExtractor(md).reduce(({ md, cursor }, link) => {
     const unescapedLink = _.unescape(link);
-    const index = md.indexOf(unescapedLink, cursor);
+    const linkAsInInput = unescapedLink.replace(/^mailto\:/, '');
+
+    const index = md.indexOf(linkAsInInput, cursor);
     const isMarkdownLink = (index > 2)
       && (md.substr(index + unescapedLink.length, 1) === ')')
       && (md.substr(index - 2, 2) === '](');
@@ -34,10 +36,9 @@ function convertTextLinks(md) {
     }
 
     const before = md.substr(0, index);
-    const after = md.substr(index + unescapedLink.length);
+    const after = md.substr(index + linkAsInInput.length);
 
-    const markdownedLink = `[${unescapedLink}](${unescapedLink.replace(/\\/g, '')})`;
-
+    const markdownedLink = `[${linkAsInInput}](${unescapedLink.replace(/\\/g, '')})`;
     return {
       md: before + markdownedLink + after,
       cursor: index + markdownedLink.length
@@ -48,9 +49,7 @@ function convertTextLinks(md) {
 
 module.exports = {
   to: html => {
-    const md = ts.turndown(html || '');
-
-    return convertTextLinks(md);
+    return convertTextLinks(ts.turndown(html || ''));
   },
   from: md => {
     const html = (md || '').split('\n\n').map(md => marked(md, { breaks: true })).join('<p></p>\n');

@@ -74,25 +74,19 @@ describe('unit - markdown', () => {
 
     });
 
-    it('list', () => {
-      const r = markdown.from(`A list
+    it('emails are also automatically extracted', () => {
+      const r = markdown.to([
+        '<p>kaore@openagenda.com le texte après l\'email</p>',
+        '<p></p>'
+      ].join(''));
 
-*   One
-*   Two
-*   Three
-`);
-
-      assert.equal(r, `<p>A list</p>
-<p></p>
-<ul>
-<li>One</li>
-<li>Two</li>
-<li>Three</li>
-</ul>
-`);
-
+      assert.equal(r, '[kaore@openagenda.com](mailto:kaore@openagenda.com) le texte après l\'email');
     });
 
+    it('emails in italic sentences are extracted too', () => {
+      const r = markdown.to('<p><em>kaore@openagenda.com voilà mon email</em></p>');
+      assert.equal(r, '_[kaore@openagenda.com](mailto:kaore@openagenda.com) voilà mon email_');
+    });
   });
 
   describe('markdown.from', () => {
@@ -138,6 +132,25 @@ describe('unit - markdown', () => {
         '<p><a href="https://le_monde.fr">https://le_monde.fr</a> and a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">https://www.youtube.com/watch?v=io2d_cpoLDg</a> link and one with a <a href="https://www.youtube.com/watch?v=io2d_cpoLDg">label</a></p>',
         ''
       ].join('\n'));
+    });
+
+    it('list', () => {
+      const r = markdown.from(`A list
+
+*   One
+*   Two
+*   Three
+`);
+
+      assert.equal(r, `<p>A list</p>
+<p></p>
+<ul>
+<li>One</li>
+<li>Two</li>
+<li>Three</li>
+</ul>
+`);
+
     });
 
     it('Subtitle', () => {
