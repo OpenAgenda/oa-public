@@ -27,9 +27,6 @@ describe('ReactSelectField', () => {
     const wrapper = mount(
       <Form
         onSubmit={onSubmit}
-        initialValues={{
-          type: ''
-        }}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <ReactSelectField name="type" options={options} />
