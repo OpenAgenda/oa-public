@@ -12,6 +12,8 @@ import {
 import addRestItem from '../utils/addRestItem';
 import CustomTooltip from './basics/CustomTooltip';
 
+const tooltipWrapperStyle = { zIndex: 1000 };
+
 function addColorsToData(data) {
   const colors = distinctColors({
     count: data.length
@@ -121,6 +123,7 @@ export default function OriginAgendasPieChart({ data: rawData, total }) {
         ))}
       </Pie>
       <Tooltip
+        wrapperStyle={tooltipWrapperStyle}
         content={(
           <CustomTooltip
             renderItem={entry => (

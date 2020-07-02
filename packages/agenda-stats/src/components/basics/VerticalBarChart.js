@@ -14,6 +14,8 @@ import defaultDataColors from '../../common/defaultDataColors';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
+const tooltipWrapperStyle = { zIndex: 1000 };
+
 export default function VerticalBarChart({
   data,
   // total,
@@ -39,6 +41,7 @@ export default function VerticalBarChart({
           tick={categoryTick || <EllipsisAxisTick maxLines={3} />}
         />
         <Tooltip
+          wrapperStyle={tooltipWrapperStyle}
           content={
             <CustomTooltip dataKey={labelKey} renderItem={renderTooltipItem} />
           }

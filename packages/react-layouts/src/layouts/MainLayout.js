@@ -9,7 +9,6 @@ import classNames from 'classnames';
 import { useInterval } from 'react-use';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
-import { Modal } from '@openagenda/react-components';
 import * as mainActions from '../reducers/main';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -18,6 +17,7 @@ import Logo from '../components/Logo';
 import Search from '../components/Search';
 import HelpLink from '../components/HelpLink';
 import Announcement from '../components/Announcement';
+import FlashModal from '../components/FlashModal';
 
 const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
 
@@ -130,14 +130,6 @@ function MainLayout({
     [FallbackComponent, intl.locale]
   );
 
-  const [flashMessage, setFlashMessage] = useState(null);
-
-  const removeMessage = useCallback(() => setFlashMessage(null), [
-    setFlashMessage
-  ]);
-
-  useEffect(() => setFlashMessage(session.flash()), [setFlashMessage]);
-
   const [sessionUser, setSessionUser] = useState(
     typeof document !== 'undefined' ? getDefaultSessionUser : null
   );
@@ -190,8 +182,8 @@ function MainLayout({
   useEffect(() => {
     setViewedAnnoucement(
       user?.announcement
-      && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
-      === user.announcement.id
+        && window.localStorage.getItem(STORAGE_ANNOUNCEMENT_KEY)
+          === user.announcement.id
     );
   }, [user]);
 
@@ -360,36 +352,22 @@ function MainLayout({
       ) : null}
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-        {userLoading
-          ? <Loading />
-          : (
-            <ChildLayouts
-              layouts={childLayouts}
-              extraProps={extraProps}
-              onError={onError}
-              FallbackComponent={ErrorComponent}
-              user={user}
-              lang={intl.locale}
-            >
-              {children}
-            </ChildLayouts>
-          )}
+        {userLoading ? (
+          <Loading />
+        ) : (
+          <ChildLayouts
+            layouts={childLayouts}
+            extraProps={extraProps}
+            onError={onError}
+            FallbackComponent={ErrorComponent}
+            user={user}
+            lang={intl.locale}
+          >
+            {children}
+          </ChildLayouts>
+        )}
 
-        {flashMessage && flashMessage !== '' ? (
-          <Modal>
-            <div className="text-center">
-              <p className="margin-top-sm">{flashMessage}</p>
-
-              <button
-                type="button"
-                onClick={removeMessage}
-                className="btn btn-primary"
-              >
-                Ok
-              </button>
-            </div>
-          </Modal>
-        ) : null}
+        <FlashModal />
       </ErrorBoundary>
     </>
   );

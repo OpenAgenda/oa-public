@@ -9,6 +9,8 @@ import {
 import defaultDataColors from '../../common/defaultDataColors';
 import CustomTooltip from './CustomTooltip';
 
+const tooltipWrapperStyle = { zIndex: 1000 };
+
 const labelProps = {
   fill: '#666'
 };
@@ -44,6 +46,7 @@ export default function PieChart({
           ))}
         </Pie>
         <Tooltip
+          wrapperStyle={tooltipWrapperStyle}
           content={
             <CustomTooltip dataKey={labelKey} renderItem={renderTooltipItem} />
           }

@@ -12,6 +12,8 @@ import defaultDataColors from '../../common/defaultDataColors';
 import CustomTooltip from './CustomTooltip';
 import EllipsisAxisTick from './EllipsisAxisTick';
 
+const tooltipWrapperStyle = { zIndex: 1000 };
+
 export default function HorizontalBarChart({
   data,
   // total,
@@ -36,6 +38,7 @@ export default function HorizontalBarChart({
           allowDecimals={false}
         />
         <Tooltip
+          wrapperStyle={tooltipWrapperStyle}
           content={
             <CustomTooltip dataKey={labelKey} renderItem={renderTooltipItem} />
           }
