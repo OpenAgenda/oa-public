@@ -107,7 +107,7 @@ function _upload( v ) {
 
   var d = w.defer();
 
-  files.s3.store( v.formattedPaths, ( err, urls ) => {
+  files.s3.store( v.formattedPaths, { 'ContentType': 'image/jpeg' }, ( err, urls ) => {
 
     if ( err ) return d.reject( err );
 
