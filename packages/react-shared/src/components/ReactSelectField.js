@@ -16,23 +16,31 @@ export default ({
 
   const findOption = useCallback(
     (opt, array = options, skipDefault = false) => {
-      const result = array?.find(v => {
-        if (Array.isArray(v.options)) {
-          return findOption(opt, v.options, true);
-        }
+      let result;
 
-        return v.value === opt;
-      });
+      if (Array.isArray(array)) {
+        for (let i = 0; i < array.length; i++) {
+          const v = array[i];
+
+          if (Array.isArray(v.options)) {
+            result = findOption(opt, v.options, true);
+          } else if (v.value === opt) {
+            result = v;
+          }
+
+          if (typeof result !== 'undefined') {
+            return result;
+          }
+        }
+      }
 
       if (result) {
         return result;
       }
 
-      if (skipDefault) {
-        return;
+      if (!skipDefault) {
+        return { label: opt, value: opt };
       }
-
-      return { label: opt, value: opt };
     },
     [options]
   );
