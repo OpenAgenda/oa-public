@@ -39,7 +39,7 @@ export default ({
       }
 
       if (!skipDefault) {
-        return { label: opt, value: opt };
+        return { label: String(opt), value: opt };
       }
     },
     [options]
