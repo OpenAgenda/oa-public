@@ -125,7 +125,10 @@ function AddChartForm({
                 return false;
               }
 
-              if (stat.aggregation.type === 'additionalFields') {
+              if (
+                v.value.additionalField
+                  && stat.aggregation.type === 'additionalFields'
+              ) {
                 return stat.aggregation.field === v.value.fieldSchema.field;
               }
 
