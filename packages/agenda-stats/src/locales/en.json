@@ -36,7 +36,7 @@
   "AgendaStats.Dashboard.update": "Update",
   "AgendaStats.Dashboard.save": "Save",
   "AgendaStats.Dashboard.cancel": "Cancel",
-  "AgendaStats.Dashboard.edit": "Edit",
+  "AgendaStats.Dashboard.edit": "Edit the report",
   "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {event} one {event} other {events}}",
   "AgendaStats.dateRanges.currentWeek": "Current week",
   "AgendaStats.dateRanges.lastWeek": "Last Week",
