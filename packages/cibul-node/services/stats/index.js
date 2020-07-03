@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const cmn = require('../../lib/commons-app');
 const defaultStats = require('./defaultStats');
 const getAdditionalFieldStats = require('./getAdditionalFieldStats');
+const addFieldSchema = require('./addFieldSchema');
 
 module.exports = {
   init,
@@ -73,7 +74,8 @@ class Stats {
     const stats = await this.redisClient.get(`oa:stats:${agendaUid}`);
 
     if (stats) {
-      return JSON.parse(stats);
+      return JSON.parse(stats)
+        .map(addFieldSchema(agendaSchema));
     }
 
     return defaultStats
