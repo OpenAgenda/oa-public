@@ -32,10 +32,32 @@ const messages = defineMessages({
   remove: {
     id: 'AgendaStats.AggregationCharts.remove',
     defaultMessage: 'Remove'
+  },
+  charts: {
+    id: 'AgendaStats.AggregationCharts.charts',
+    defaultMessage: 'Charts'
+  },
+  others: {
+    id: 'AgendaStats.AggregationCharts.others',
+    defaultMessage: 'Others'
+  },
+  separator: {
+    id: 'AgendaStats.AggregationCharts.separator',
+    defaultMessage: 'Separator'
+  },
+  cancel: {
+    id: 'AgendaStats.AggregationCharts.cancel',
+    defaultMessage: 'Cancel'
+  },
+  add: {
+    id: 'AgendaStats.AggregationCharts.add',
+    defaultMessage: 'Add'
   }
 });
 
-function AddChartForm({ handleSubmit, onCancel, agendaSchema }) {
+function AddChartForm({
+  handleSubmit, onCancel, agendaSchema, stats
+}) {
   const intl = useIntl();
 
   const chartOptions = useMemo(() => {
@@ -59,7 +81,7 @@ function AddChartForm({ handleSubmit, onCancel, agendaSchema }) {
 
     return [
       {
-        label: 'Graphiques',
+        label: intl.formatMessage(messages.charts),
         options: [
           {
             label: intl.formatMessage(titleMessages.regions),
@@ -95,14 +117,30 @@ function AddChartForm({ handleSubmit, onCancel, agendaSchema }) {
             value: 'keywords'
           },
           { label: intl.formatMessage(titleMessages.states), value: 'states' }
-        ].concat(additionalFieldOpts)
+        ]
+          .concat(additionalFieldOpts)
+          .filter(
+            v => !stats.find(stat => {
+              if (!stat.aggregation) {
+                return false;
+              }
+
+              if (stat.aggregation.type === 'additionalFields') {
+                return stat.aggregation.field === v.value.fieldSchema.field;
+              }
+
+              return stat.aggregation.type === v.value;
+            })
+          )
       },
       {
-        label: 'Autres',
-        options: [{ label: 'Séparateur', value: 'separator' }]
+        label: intl.formatMessage(messages.others),
+        options: [
+          { label: intl.formatMessage(messages.separator), value: 'separator' }
+        ]
       }
     ];
-  }, [agendaSchema.fields, intl]);
+  }, [agendaSchema.fields, intl, stats]);
 
   return (
     <form onSubmit={handleSubmit} className="margin-v-lg margin-h-md">
@@ -117,10 +155,10 @@ function AddChartForm({ handleSubmit, onCancel, agendaSchema }) {
           className="btn btn-link btn-link-inline text-danger pull-right margin-top-xs"
           onClick={onCancel}
         >
-          Annuler
+          {intl.formatMessage(messages.cancel)}
         </button>
         <button type="submit" className="btn btn-primary btn-bordered">
-          Ajouter
+          {intl.formatMessage(messages.add)}
         </button>
       </div>
     </form>
@@ -161,7 +199,7 @@ function Separator({ stat, editMode }) {
             </button>
           </div>
           <div className="text-center">
-            <em>Séparateur</em>
+            <em>{intl.formatMessage(messages.separator)}</em>
           </div>
         </div>
       </BorderBox>
@@ -169,7 +207,7 @@ function Separator({ stat, editMode }) {
   );
 }
 
-function ChartAdder({ agenda, agendaSchema }) {
+function ChartAdder({ agenda, agendaSchema, stats }) {
   const intl = useIntl();
   const dispatch = useDispatch();
 
@@ -180,6 +218,10 @@ function ChartAdder({ agenda, agendaSchema }) {
   const addChart = useCallback(
     (values, form) => {
       let statConfig;
+
+      if (!values.type) {
+        return;
+      }
 
       if (values.type.additionalField) {
         const { fieldSchema, isCheckbox } = values.type;
@@ -208,8 +250,9 @@ function ChartAdder({ agenda, agendaSchema }) {
         dispatch(statsActions.loadStat(agenda, stat.id));
       }
 
-      // Ensure that's executed in the next tick
-      setTimeout(form.reset, 0);
+      // Instead of `reset` or `restart`
+      form.change('type', undefined);
+      form.resetFieldState('type');
     },
     [agenda, dispatch]
   );
@@ -223,6 +266,7 @@ function ChartAdder({ agenda, agendaSchema }) {
             onSubmit={addChart}
             onCancel={onCancel}
             agendaSchema={agendaSchema}
+            stats={stats}
           />
         </BorderBox>
       ) : (
@@ -334,6 +378,7 @@ export default function AggregationCharts({
         key="chart-adder"
         agenda={agenda}
         agendaSchema={agendaSchema}
+        stats={stats}
       />
     );
   }
