@@ -43,7 +43,8 @@ function ComposedChart({
   range,
   loadStat
 }) {
-  const { aggregation, chart, data: rawData } = stat;
+  const { aggregation, chart, state } = stat;
+  const { data: rawData } = state;
   const {
     type,
     tooltip: tooltipType,
@@ -64,16 +65,9 @@ function ComposedChart({
     }
 
     if (restItem) {
-      [].concat(dataKey)
-        .forEach((key, index) => {
-          result = addRestItem(
-            result,
-            totalEvents,
-            intl,
-            key,
-            labelKeys[index]
-          );
-        });
+      [].concat(dataKey).forEach((key, index) => {
+        result = addRestItem(result, totalEvents, intl, key, labelKeys[index]);
+      });
     }
 
     labelKeys.forEach(k => {
@@ -112,10 +106,10 @@ function ComposedChart({
           props.array[props.index].payload,
           props.array[props.index].datakey
         )
-        === getValueByDataKey(
-          props.array[props.index - 1].payload,
-          props.array[props.index - 1].datakey
-        );
+          === getValueByDataKey(
+            props.array[props.index - 1].payload,
+            props.array[props.index - 1].datakey
+          );
 
       let tooltipContentMessage;
 
@@ -137,7 +131,7 @@ function ComposedChart({
       if (tooltipType === 'date') {
         return (
           <DateTooltipItem
-            interval={aggregation.interval}
+            interval={stat.state.interval}
             message={tooltipContentMessage}
             hideLabel={hideLabel}
             {...props}
@@ -148,7 +142,7 @@ function ComposedChart({
       if (tooltipType === 'state') {
         return (
           <StateTooltipItem
-            interval={aggregation.interval}
+            interval={stat.state.interval}
             message={tooltipContentMessage}
             hideLabel={hideLabel}
             {...props}
@@ -158,14 +152,14 @@ function ComposedChart({
 
       return <DefaultTooltipItem hideLabel={hideLabel} {...props} />;
     },
-    [aggregation, tooltipType]
+    [aggregation, stat.state.interval, tooltipType]
   );
 
   const categoryTick = useMemo(() => {
     if (categoryTickType === 'date') {
-      return <DateAxisTick interval={aggregation.interval} />;
+      return <DateAxisTick interval={stat.state.interval} />;
     }
-  }, [aggregation.interval, categoryTickType]);
+  }, [stat.state.interval, categoryTickType]);
 
   if (!ChartComponent) {
     return null;

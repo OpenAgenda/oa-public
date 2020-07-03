@@ -241,7 +241,9 @@ function ChartAdder({ agenda, agendaSchema, stats }) {
             restItem: isCheckbox,
             dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
           },
-          fieldSchema
+          state: {
+            fieldSchema
+          }
         };
       } else {
         statConfig = defaultStatConfigs[values.type];
@@ -334,8 +336,8 @@ export default function AggregationCharts({
 
     const multiData = Array.isArray(stat.aggregation);
     const hasData = multiData
-      ? stat.data?.some(v => v.length)
-      : stat.data?.length;
+      ? stat.state.data?.some(v => v.length)
+      : stat.state.data?.length;
 
     if (hasData) {
       pushChart(

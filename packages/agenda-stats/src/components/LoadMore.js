@@ -28,10 +28,10 @@ export default function LoadMore({ stat, total, loadMore }) {
       .then(result => {
         const receivedMore = Array.isArray(stat.aggregation)
           ? stat.aggregation.some(
-            (v, i) => stat.data[i].length
+            (v, i) => stat.state.data[i].length
                 < result.data.aggregations[`${v.type}-${stat.id}`].length
           )
-          : stat.data.length
+          : stat.state.data.length
             < result.data.aggregations[`${stat.aggregation.type}-${stat.id}`]
               .length;
 
@@ -40,17 +40,17 @@ export default function LoadMore({ stat, total, loadMore }) {
         }
       })
       .finally(() => setLoading(false));
-  }, [loadMore, stat.aggregation, stat.data, stat.id]);
+  }, [loadMore, stat.aggregation, stat.state.data, stat.id]);
 
   const hasMore = useMemo(() => {
-    if (!stat.data) {
+    if (!stat.state.data) {
       return false;
     }
 
     if (Array.isArray(stat.aggregation)) {
       return stat.aggregation.some(
         (v, i) => total
-          !== stat.data[i].reduce(
+          !== stat.state.data[i].reduce(
             (accu, next) => accu + _.get(next, stat.chart.dataKey[i]),
             0
           )
@@ -59,19 +59,19 @@ export default function LoadMore({ stat, total, loadMore }) {
 
     return (
       total
-      !== stat.data.reduce(
+      !== stat.state.data.reduce(
         (accu, next) => accu + _.get(next, stat.chart.dataKey),
         0
       )
     );
-  }, [stat.aggregation, stat.chart.dataKey, stat.data, total]);
+  }, [stat.aggregation, stat.chart.dataKey, stat.state.data, total]);
 
   // Reset `hasMore` if data changes
   useLayoutEffect(() => {
     if (hasMore) {
       setNoMore(false);
     }
-  }, [stat.data, hasMore]);
+  }, [stat.state.data, hasMore]);
 
   useLayoutEffect(() => {
     let id;
