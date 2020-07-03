@@ -2553,7 +2553,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.0.0-rc.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.3.4, @babel/runtime@npm:^7.4.0, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.4.5, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.4, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.7.7, @babel/runtime@npm:^7.8.3, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.0.0-rc.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.3.4, @babel/runtime@npm:^7.4.0, @babel/runtime@npm:^7.4.4, @babel/runtime@npm:^7.4.5, @babel/runtime@npm:^7.5.0, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.6.3, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.7.4, @babel/runtime@npm:^7.7.6, @babel/runtime@npm:^7.7.7, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.8.7":
   version: 7.8.7
   resolution: "@babel/runtime@npm:7.8.7"
   dependencies:
@@ -7466,7 +7466,7 @@ __metadata:
     prettier-eslint-cli: ^5.0.0
     react: ^16.12.0
     react-dom: ^16.12.0
-    react-final-form: ^6.5.0
+    react-final-form: ^6.4.0
     react-select: ^3.1.0
     rimraf: ^3.0.1
     shallowequal: ^1.1.0
@@ -8013,13 +8013,6 @@ __metadata:
   dependencies:
     any-observable: ^0.3.0
   checksum: 70b3766c46278d2b0070ecef27f127680ae2b4bd8769757fef34b74a8db18603b597f19c29020d91e839d41817772a1ed4d6df4f7dc277650813ab47857e8cc2
-  languageName: node
-  linkType: hard
-
-"@scarf/scarf@npm:^1.0.5":
-  version: 1.0.6
-  resolution: "@scarf/scarf@npm:1.0.6"
-  checksum: e86e85b0496afe7fab177098f8e41e6dee174c4d7dc1d15dc06ca0aa15876bd1062b7c28e4f54f5220cacd384572458c0031bb05d7e64ad48d7d83565aae711f
   languageName: node
   linkType: hard
 
@@ -19476,12 +19469,12 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"final-form@npm:4.19.1":
-  version: 4.19.1
-  resolution: "final-form@npm:4.19.1"
+"final-form@npm:4.20.1":
+  version: 4.20.1
+  resolution: "final-form@npm:4.20.1"
   dependencies:
-    "@babel/runtime": ^7.8.3
-  checksum: a99755c40d9bb470de5d68c58ffd2348858ec4e05a2f57fe1908f24e0f6bb84c8bdf2909f2447eed84c00af38badb6207c125ed77e7e6a5f9923cbeed729d2b5
+    "@babel/runtime": ^7.10.0
+  checksum: 007bc31ead06ad92ec9a3a917183c8e36cbf2f4a5a7188fa938b8212953e16580db61eedbfca443edcc8402d671b7828b3514f82f5ab03886611f8ccf8f3f847
   languageName: node
   linkType: hard
 
@@ -33332,20 +33325,6 @@ conventional-changelog-conventionalcommits@4.2.3:
   languageName: node
   linkType: hard
 
-"react-final-form@npm:^6.5.0":
-  version: 6.5.0
-  resolution: "react-final-form@npm:6.5.0"
-  dependencies:
-    "@babel/runtime": ^7.10.0
-    "@scarf/scarf": ^1.0.5
-    ts-essentials: ^6.0.5
-  peerDependencies:
-    final-form: ^4.20.0
-    react: ^16.8.0
-  checksum: 81e787f780fa982d293204513c1bcfcd26218d72e033e8356a15d656ff2f8fe9190f3d30dc08d6f970da23af59bd78f71e7a9ca7831f334086dda69b497735d7
-  languageName: node
-  linkType: hard
-
 "react-focus-lock@npm:^2.1.0":
   version: 2.2.1
   resolution: "react-focus-lock@npm:2.2.1"
@@ -38880,15 +38859,6 @@ resolve@^1.17.0:
   peerDependencies:
     typescript: ">=3.7.0"
   checksum: 8ae43078154a9688b181152521c891ea8d653e154894d2d23a798451a3d49e7fc708c0cb8b63664b46fde314b14ea8c3870f2b8b3178700486605f099a49f8bf
-  languageName: node
-  linkType: hard
-
-"ts-essentials@npm:^6.0.5":
-  version: 6.0.7
-  resolution: "ts-essentials@npm:6.0.7"
-  peerDependencies:
-    typescript: ">=3.7.0"
-  checksum: 767c686785d0ab498271b8283eba05d969fa5892aa175329ff2f48964067814aa8368911e3457557d92f99ec010df7fd534bf9c91bbd5ab6cb4a7fabd14782f8
   languageName: node
   linkType: hard
 
