@@ -219,7 +219,7 @@ function ChartAdder({ agenda, agendaSchema, stats }) {
   const enableAddChartMode = useCallback(() => setAddChartMode(true), []);
   const onCancel = useCallback(() => setAddChartMode(false), []);
   const addChart = useCallback(
-    (values, form) => {
+    values => {
       let statConfig;
 
       if (!values.type) {
@@ -253,9 +253,7 @@ function ChartAdder({ agenda, agendaSchema, stats }) {
         dispatch(statsActions.loadStat(agenda, stat.id));
       }
 
-      // Instead of `reset` or `restart`
-      form.change('type', undefined);
-      form.resetFieldState('type');
+      setAddChartMode(false);
     },
     [agenda, dispatch]
   );

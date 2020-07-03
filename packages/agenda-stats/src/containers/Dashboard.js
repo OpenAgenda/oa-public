@@ -28,6 +28,18 @@ const messages = defineMessages({
   update: {
     id: 'AgendaStats.Dashboard.update',
     defaultMessage: 'Update'
+  },
+  save: {
+    id: 'AgendaStats.Dashboard.save',
+    defaultMessage: 'Save'
+  },
+  cancel: {
+    id: 'AgendaStats.Dashboard.cancel',
+    defaultMessage: 'Cancel'
+  },
+  edit: {
+    id: 'AgendaStats.Dashboard.edit',
+    defaultMessage: 'Edit'
   }
 });
 
@@ -157,14 +169,14 @@ function Dashboard({ agenda, agendaSchema }) {
         {editing ? (
           <div className="pull-right">
             <button type="button" className="btn btn-primary" onClick={save}>
-              Sauvegarder
+              {intl.formatMessage(messages.save)}
             </button>
             <button
               type="button"
               className="btn btn-danger btn-bordered margin-left-sm"
               onClick={cancelEdit}
             >
-              Annuler
+              {intl.formatMessage(messages.cancel)}
             </button>
           </div>
         ) : (
@@ -174,7 +186,7 @@ function Dashboard({ agenda, agendaSchema }) {
               className="btn btn-default"
               onClick={setEditMode}
             >
-              Editer le rapport
+              {intl.formatMessage(messages.edit)}
             </button>
           </div>
         )}
