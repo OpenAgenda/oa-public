@@ -30,6 +30,13 @@ describe('20 - event-search - util: cluster', function() {
 
   });
 
+  describe('nodes', () => {
+    it('get info', async () => {
+      const nodes = await service.cluster.nodes();
+      assert.equal(nodes instanceof Array, true);
+    });
+  });
+
   describe('index replicas', () => {
 
     it('update index replica number', async () => {

@@ -5,6 +5,7 @@ const _ = require('lodash');
 module.exports = ({ client, defaultIndex }) => {
   return {
     stats: stats.bind(null, client),
+    nodes: nodesInfo.bind(null, client),
     indices: index => ({
       replicas: {
         set: n => client.indices.putSettings({
@@ -18,6 +19,13 @@ module.exports = ({ client, defaultIndex }) => {
       }
     })
   }
+}
+
+async function nodesInfo(client) {
+  return client.nodes.info().then(({ body }) => Object.keys(body.nodes).map(key => ({
+    key,
+    ...body.nodes[key]
+  })));
 }
 
 async function getIndexSettings({ client, defaultIndex }, index) {
