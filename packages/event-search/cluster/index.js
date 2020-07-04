@@ -2,10 +2,28 @@
 
 const _ = require('lodash');
 
-module.exports = ({ client }) => {
+module.exports = ({ client, defaultIndex }) => {
   return {
-    stats: stats.bind(null, client)
+    stats: stats.bind(null, client),
+    indices: index => ({
+      replicas: {
+        set: n => client.indices.putSettings({
+          index: index || defaultIndex,
+          body: {
+            number_of_replicas: n
+          }
+        }).then(r => r.body),
+        get: () => getIndexSettings({ client, defaultIndex }, index)
+          .then(r => parseInt(r.number_of_replicas))
+      }
+    })
   }
+}
+
+async function getIndexSettings({ client, defaultIndex }, index) {
+  return client.indices.getSettings({
+    index: index || defaultIndex
+  }).then(r => r.body[index || defaultIndex].settings.index)
 }
 
 async function stats(client) {
