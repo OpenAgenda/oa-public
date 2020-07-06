@@ -26,7 +26,7 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.10.2",
+    "@babel/runtime-corejs3": "^7.10.4",
     "@openagenda/polyfills": "^1.0.0",
     "@openagenda/react-shared": "^2.0.2",
     "classnames": "^2.2.6",
@@ -44,22 +44,22 @@
     "text-mask-addons": "^3.8.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/core": "^7.10.2",
+    "@babel/cli": "^7.10.4",
+    "@babel/core": "^7.10.4",
     "@openagenda/babel-preset": "^1.3.3",
     "@openagenda/eslint-config": "^1.2.0",
-    "@storybook/addon-viewport": "^5.3.9",
-    "@storybook/addons": "^5.3.9",
-    "@storybook/react": "^5.3.9",
+    "@storybook/addon-viewport": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
-    "final-form": "^4.19.1",
-    "jest": "^25.1.0",
-    "lint-staged": "^10.0.7",
+    "final-form": "^4.20.1",
+    "jest": "^26.1.0",
+    "lint-staged": "^10.2.11",
     "prettier-eslint-cli": "^5.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "rimraf": "^3.0.1"
   },
   "peerDependencies": {

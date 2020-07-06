@@ -27,7 +27,7 @@
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.13",
-    "verror": "^1.9.0"
+    "verror": "^1.10.0"
   },
   "devDependencies": {
     "debug": "^4.1.1",
