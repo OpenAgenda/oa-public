@@ -205,14 +205,16 @@ services:
     image: elastichq/elasticsearch-hq
     restart: always
     environment:
-      HQ_DEFAULT_URL: ${ELASTICHQ_CLIENT_URL}
-      HQ_ENABLE_SSL: "True"
+      HQ_DEFAULT_URL: ${ELASTICHQ_CLIENT_URL:-http://es7:9200}
+      HQ_ENABLE_SSL: ${ELASTICHQ_ENABLE_SSL:-True}
       CLIENT_KEY: /ssl/key.pem
       CLIENT_CERT: /ssl/cert.pem
       # HQ_DEBUG: "True"
     volumes:
       - ${ELASTICHQ_CLIENT_KEY:-/dev/null}:/ssl/key.pem
       - ${ELASTICHQ_CLIENT_CERT:-/dev/null}:/ssl/cert.pem
+    links:
+      - es7
 
 volumes:
   esdata1:
