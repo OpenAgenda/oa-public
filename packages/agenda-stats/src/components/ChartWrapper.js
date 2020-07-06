@@ -38,24 +38,20 @@ function ChartWrapper(
   const intl = useIntl();
   const dispatch = useDispatch();
 
-  const [interval, setInterval] = useState(stat.aggregation.interval);
+  const [interval, setInterval] = useState(stat.state.interval);
   const previousInterval = usePrevious(interval);
   const [loading, setLoading] = useState(false);
 
   const loadMore = useCallback(
-    () => loadStat(stat.id, (options, actualData) => ({
-      ...options,
-      size: (actualData.length || 0) + 5
+    () => loadStat(stat.id, prevStat => ({
+      ...prevStat,
+      state: {
+        ...prevStat.state,
+        size: (prevStat.state.data?.length || 0) + 5
+      }
     })),
     [loadStat, stat.id]
   );
-
-  const titleMessage = useChartTitle({
-    stat,
-    interval,
-    setInterval,
-    loading
-  });
 
   const removeStat = useCallback(
     () => dispatch(statsActions.removeStat(stat.id)),
@@ -68,6 +64,13 @@ function ChartWrapper(
   //   []
   // );
 
+  const titleMessage = useChartTitle({
+    stat,
+    interval,
+    setInterval,
+    loading
+  });
+
   // Reload the graph with changed `interval` option
   useUpdateEffect(() => {
     if (interval === previousInterval) {
@@ -75,9 +78,12 @@ function ChartWrapper(
     }
 
     setLoading(true);
-    loadStat(stat.id, previousOptions => ({
-      ...previousOptions,
-      interval
+    loadStat(stat.id, prevStat => ({
+      ...prevStat,
+      state: {
+        ...prevStat.state,
+        interval
+      }
     })).finally(() => setLoading(false));
   }, [interval, loadStat, previousInterval, stat.id]);
 

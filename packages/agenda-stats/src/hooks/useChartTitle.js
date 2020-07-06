@@ -42,8 +42,8 @@ export default function useChartTitle({
   return useMemo(() => {
     let result;
 
-    if (stat.fieldSchema) {
-      result = getLocaleValue(stat.fieldSchema.label, intl.locale);
+    if (stat.state.fieldSchema) {
+      result = getLocaleValue(stat.state.fieldSchema.label, intl.locale);
     } else if (titleMessages[messageKey]) {
       result = intl.formatMessage(titleMessages[messageKey]);
     } else {
@@ -75,6 +75,6 @@ export default function useChartTitle({
     messageKey,
     setInterval,
     stat.chart.intervalSelector,
-    stat.fieldSchema
+    stat.state.fieldSchema
   ]);
 }

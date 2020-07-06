@@ -18,7 +18,9 @@ module.exports = function getAdditionalFieldStats(agendaSchema) {
           restItem: isCheckbox,
           dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
         },
-        fieldSchema
+        state: {
+          fieldSchema
+        }
       };
     });
 };

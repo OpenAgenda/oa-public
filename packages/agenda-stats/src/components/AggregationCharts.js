@@ -219,7 +219,7 @@ function ChartAdder({ agenda, agendaSchema, stats }) {
   const enableAddChartMode = useCallback(() => setAddChartMode(true), []);
   const onCancel = useCallback(() => setAddChartMode(false), []);
   const addChart = useCallback(
-    (values, form) => {
+    values => {
       let statConfig;
 
       if (!values.type) {
@@ -241,7 +241,9 @@ function ChartAdder({ agenda, agendaSchema, stats }) {
             restItem: isCheckbox,
             dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
           },
-          fieldSchema
+          state: {
+            fieldSchema
+          }
         };
       } else {
         statConfig = defaultStatConfigs[values.type];
@@ -253,9 +255,7 @@ function ChartAdder({ agenda, agendaSchema, stats }) {
         dispatch(statsActions.loadStat(agenda, stat.id));
       }
 
-      // Instead of `reset` or `restart`
-      form.change('type', undefined);
-      form.resetFieldState('type');
+      setAddChartMode(false);
     },
     [agenda, dispatch]
   );
@@ -336,8 +336,8 @@ export default function AggregationCharts({
 
     const multiData = Array.isArray(stat.aggregation);
     const hasData = multiData
-      ? stat.data?.some(v => v.length)
-      : stat.data?.length;
+      ? stat.state.data?.some(v => v.length)
+      : stat.state.data?.length;
 
     if (hasData) {
       pushChart(

@@ -28,6 +28,18 @@ const messages = defineMessages({
   update: {
     id: 'AgendaStats.Dashboard.update',
     defaultMessage: 'Update'
+  },
+  save: {
+    id: 'AgendaStats.Dashboard.save',
+    defaultMessage: 'Save'
+  },
+  cancel: {
+    id: 'AgendaStats.Dashboard.cancel',
+    defaultMessage: 'Cancel'
+  },
+  edit: {
+    id: 'AgendaStats.Dashboard.edit',
+    defaultMessage: 'Edit'
   }
 });
 
@@ -131,6 +143,25 @@ function Dashboard({ agenda, agendaSchema }) {
     );
   }
 
+  const editButtons = editing ? (
+    <>
+      <button type="button" className="btn btn-primary" onClick={save}>
+        {intl.formatMessage(messages.save)}
+      </button>
+      <button
+        type="button"
+        className="btn btn-danger btn-bordered margin-left-sm"
+        onClick={cancelEdit}
+      >
+        {intl.formatMessage(messages.cancel)}
+      </button>
+    </>
+  ) : (
+    <button type="button" className="btn btn-default" onClick={setEditMode}>
+      {intl.formatMessage(messages.edit)}
+    </button>
+  );
+
   return (
     <div>
       <h2>{intl.formatMessage(messages.title)}</h2>
@@ -154,30 +185,7 @@ function Dashboard({ agenda, agendaSchema }) {
           </>
         ) : null}
 
-        {editing ? (
-          <div className="pull-right">
-            <button type="button" className="btn btn-primary" onClick={save}>
-              Sauvegarder
-            </button>
-            <button
-              type="button"
-              className="btn btn-danger btn-bordered margin-left-sm"
-              onClick={cancelEdit}
-            >
-              Annuler
-            </button>
-          </div>
-        ) : (
-          <div className="pull-right">
-            <button
-              type="button"
-              className="btn btn-default"
-              onClick={setEditMode}
-            >
-              Editer le rapport
-            </button>
-          </div>
-        )}
+        <div className="pull-right">{editButtons}</div>
       </div>
 
       {typeof totalEvents === 'number' ? (
@@ -204,6 +212,8 @@ function Dashboard({ agenda, agendaSchema }) {
           agendaSchema={agendaSchema}
         />
       ) : null}
+
+      <div className="margin-top-md text-right">{editButtons}</div>
 
       {dateRangeModal.isOpen ? (
         <PeriodModal
