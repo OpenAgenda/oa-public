@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.4.0...@openagenda/agenda-contribute@1.4.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* **agenda-contribute:** some modules are note varred ([3b29cd7](https://bitbucket.org/openagenda/oa/commit/3b29cd7ba86ab6c22ed10494069248a5879bc3cd))
+
+
+
 ## [1.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.3.0...@openagenda/agenda-contribute@1.4.0) (2020-06-30)
 
 

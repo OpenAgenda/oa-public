@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/verror@2.1.3...@openagenda/verror@2.1.4) (2020-07-06)
+
+
+### Bug Fixes
+
+* **verror:** conserve ESM exports ([8dba07f](https://bitbucket.org/openagenda/oa/commit/8dba07f7bdd528a010b5a3de634d367a11eaf18e))
+* **verror:** conserve ESM exports ([6d3edea](https://bitbucket.org/openagenda/oa/commit/6d3edeab5485ed9e823fd4a60bf499a433b0d908))
+
+
+
 ### [2.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/verror@2.1.2...@openagenda/verror@2.1.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/verror

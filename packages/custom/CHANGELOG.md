@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/custom@1.3.8...@openagenda/custom@1.3.9) (2020-07-06)
+
+**Note:** Version bump only for package @openagenda/custom
+
+
+
+
+
 ### [1.3.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/custom@1.3.7...@openagenda/custom@1.3.8) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/custom

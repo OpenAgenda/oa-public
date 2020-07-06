@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/keys",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "",
   "main": "service/index.js",
   "scripts": {
@@ -14,10 +14,10 @@
   },
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/keys",
   "dependencies": {
-    "@openagenda/logs": "^1.1.3",
+    "@openagenda/logs": "^1.1.4",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
-    "@openagenda/validators": "^2.2.9",
+    "@openagenda/validators": "^2.2.10",
     "lodash": "^4.17.15",
     "redis": "^2.8.0",
     "uuid": "^3.4.0",

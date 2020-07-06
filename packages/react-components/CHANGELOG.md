@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.3.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-components@2.3.4...@openagenda/react-components@2.3.5) (2020-07-06)
+
+**Note:** Version bump only for package @openagenda/react-components
+
+
+
+
+
 ### [2.3.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-components@2.3.3...@openagenda/react-components@2.3.4) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/react-components

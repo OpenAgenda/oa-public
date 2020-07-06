@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.6...@openagenda/aggregator-sources@1.2.7) (2020-07-06)
+
+
+### Bug Fixes
+
+* **aggregator-sources:** no reason why addional fields filter should not take in multiple values ([2dd7244](https://bitbucket.org/openagenda/oa/commit/2dd72441a32bb26d356ebcbcfe91fe41a7ea7406))
+
+
+
 ### [1.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.5...@openagenda/aggregator-sources@1.2.6) (2020-06-30)
 
 

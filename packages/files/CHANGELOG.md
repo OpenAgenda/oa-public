@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/files@2.0.8...@openagenda/files@2.0.9) (2020-07-06)
+
+
+### Bug Fixes
+
+* **files:** s3 does not find out ContentType from image, sets it as 'document' ([2fab554](https://bitbucket.org/openagenda/oa/commit/2fab554c05c959e6e75e3f3b439cd1b8f4f4c7a8))
+
+
+
 ## <small>2.0.8 (2020-04-03)</small>
 
 * files: replace knox with aws-sdk ([336f617](https://bitbucket.org/openagenda/oa/commits/336f617))

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.0](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.8.0...cibul-node@0.9.0) (2020-07-06)
+
+
+### Features
+
+* **cibul-node:** stats persistence ([156c82d](https://bitbucket.org/openagenda/oa/commit/156c82ddf6ea37f0c5166d992d55542130b84044))
+
+
+### Bug Fixes
+
+* **cibul-node:** express utils are inserted into client-side libs causing transpiling complications ([8d48768](https://bitbucket.org/openagenda/oa/commit/8d48768f3f5ea58c03074021dfeddb85b857fa74))
+* **cibul-node:** fix missing fieldSchema for additionalFields ([e8bcfaa](https://bitbucket.org/openagenda/oa/commit/e8bcfaab167d8510b64ea34b80b7100bfeed0547))
+* **cibul-node:** give adminmod access to event search ([4816316](https://bitbucket.org/openagenda/oa/commit/4816316281531f555b7314854fea16e581a8616e))
+
+
+
 ## [0.8.0](https://bitbucket.org/openagenda/oa/compare/cibul-node@0.7.0...cibul-node@0.8.0) (2020-06-30)
 
 

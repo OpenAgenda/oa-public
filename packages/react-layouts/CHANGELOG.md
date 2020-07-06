@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@2.0.0...@openagenda/react-layouts@2.0.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* **react-layouts:** fix flash message after redirection ([97a5ee5](https://bitbucket.org/openagenda/oa/commit/97a5ee51b96a8001fbeffa0fdd9eeabb270c332b))
+
+
+
 ## [2.0.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.3...@openagenda/react-layouts@2.0.0) (2020-06-18)
 
 

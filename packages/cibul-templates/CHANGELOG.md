@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.5...@openagenda/cibul-templates@1.2.6) (2020-07-06)
+
+
+### Bug Fixes
+
+* **cibul-templates:** fix build ([123d067](https://bitbucket.org/openagenda/oa/commit/123d0672df4c998011837cdfad0e240466deaf89))
+* **cibul-templates:** some modules are note varred ([065cac2](https://bitbucket.org/openagenda/oa/commit/065cac211570c1410de43f6b69d97e2d23af5ee2))
+
+
+
 ### [1.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.4...@openagenda/cibul-templates@1.2.5) (2020-06-30)
 
 

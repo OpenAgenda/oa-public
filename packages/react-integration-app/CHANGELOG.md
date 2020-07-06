@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.3.1...@openagenda/react-integration-app@1.3.2) (2020-07-06)
+
+
+### Bug Fixes
+
+* **react-integration-app:** fix polyfill and build ([011b0be](https://bitbucket.org/openagenda/oa/commit/011b0bed59df0769f9e61af6482b6c0cda3a28ee))
+* **react-integration-app:** some modules are note varred ([b07f3fc](https://bitbucket.org/openagenda/oa/commit/b07f3fc0f43c300a6244a923b60831d578ea4538))
+
+
+
 ### [1.3.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.3.0...@openagenda/react-integration-app@1.3.1) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/react-integration-app
