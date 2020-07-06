@@ -6,7 +6,7 @@ services:
     build:
       context: docker/devinstaller
     user: ${DOCKER_CONTAINER_USER:-}
-    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN} ${PMA_HOST}
+    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN} ${PMA_HOST} ${ELASTICHQ_DOMAIN}
     volumes:
       - .:/home/root/oa
       - ${SF_PROJECT_PATH}:/home/root/cibul-symfony
@@ -35,6 +35,8 @@ services:
       - ${ES7_SSL_KEY:-/dev/null}:/ssl/es7.key.pem
       - ${PMA_SSL_CERT:-/dev/null}:/ssl/pma.cert.pem
       - ${PMA_SSL_KEY:-/dev/null}:/ssl/pma.key.pem
+      - ${ELASTICHQ_SSL_CERT:-/dev/null}:/ssl/elastichq.cert.pem
+      - ${ELASTICHQ_SSL_KEY:-/dev/null}:/ssl/elastichq.key.pem
     command: >
       /bin/bash -c
         "for filename in $$(find /tmp/nginx/ -type f -name '*'); do
@@ -43,7 +45,7 @@ services:
             | envsubst \"`printf '$${%s} ' $$(bash -c \"compgen -A variable\")`\" \
             > $${filename/\/tmp\/nginx/\/etc\/nginx\/conf.d};
         done;
-        /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY:-0} ${DEPLOY_PMA_NGINX_PROXY:-0} ${DEPLOY_MAILCATCHER_NGINX_PROXY:-0};
+        /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY:-0} ${DEPLOY_PMA_NGINX_PROXY:-0} ${DEPLOY_MAILCATCHER_NGINX_PROXY:-0} ${DEPLOY_ELASTICHQ_NGINX_PROXY:-0};
         nginx -g 'daemon off;'"
     links:
       - es1
@@ -52,6 +54,7 @@ services:
       - node
       - phpmyadmin
       - mailcatcher
+      - elastichq
     depends_on:
       - node
       - php
@@ -172,6 +175,8 @@ services:
         hard: -1
     volumes:
       - esdata3:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -179,7 +184,7 @@ services:
     restart: always
     environment:
       PMA_HOST: ${MYSQL_HOST}
-      #PMA_VERBOSE: 1
+      # PMA_VERBOSE: 1
       PMA_SSL_KEY: /ssl/db-key.pem
       PMA_SSL_CERT: /ssl/db-cert.pem
       PMA_SSL_CA: /ssl/db-ca.pem
@@ -192,7 +197,22 @@ services:
       - mysql
 
   mailcatcher:
+    container_name: mailcatcher
     image: schickling/mailcatcher
+
+  elastichq:
+    container_name: elastichq
+    image: elastichq/elasticsearch-hq
+    restart: always
+    environment:
+      HQ_DEFAULT_URL: ${ELASTICHQ_CLIENT_URL}
+      HQ_ENABLE_SSL: "True"
+      CLIENT_KEY: /ssl/key.pem
+      CLIENT_CERT: /ssl/cert.pem
+      # HQ_DEBUG: "True"
+    volumes:
+      - ${ELASTICHQ_CLIENT_KEY:-/dev/null}:/ssl/key.pem
+      - ${ELASTICHQ_CLIENT_CERT:-/dev/null}:/ssl/cert.pem
 
 volumes:
   esdata1:

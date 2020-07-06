@@ -19,5 +19,5 @@ if [ ! -f $1/certs/ca.crt ]; then
   openssl req -new -x509 -days 1095 \
     -key $1/certs/private/ca.key \
     -out $1/certs/ca.crt \
-    -subj /C=FR/ST=/L=Courbevoie/O=OADEV/OU=/CN=auth.openagenda.com/emailAddress=support@openagenda.com
+    -subj /C=FR/L=Courbevoie/O=OADEV/CN=auth.openagenda.com/emailAddress=support@openagenda.com
 fi
