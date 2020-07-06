@@ -272,13 +272,11 @@ class WError extends VError {
 
 WError.prototype.name = 'WError';
 
-export default VError;
+VError.VError = VError;
+VError.WError = WError;
+VError.MultiError = MultiError;
 
-export {
-  VError,
-  WError,
-  MultiError
-};
+export default VError;
 
 /*
  * Usage:
