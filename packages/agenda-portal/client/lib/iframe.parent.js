@@ -1,11 +1,9 @@
-
 const log = require('debug')('iframe.parent');
 const { iframeResize } = require('iframe-resizer');
 
 const getHash = () => window.location.hash.replace(/^#/, '');
 
 function onMessage(state, { message }) {
-  log('ooooooooooooooo', state, message);
   if (message.code === 'ready' && !state.iFrameReady) {
     state.iFrameReady = true;
     if (window.location.hash.length) {
@@ -21,18 +19,54 @@ function onMessage(state, { message }) {
   }
 }
 
-module.exports = iframe => {
-  const src = iframe.getAttribute('data-oa-portal');
+function updateIframeOnHashChange(iframe, base) {
+  window.addEventListener(
+    'hashchange',
+    () => {
+      const src = iframe.getAttribute('src').replace(base, '');
+
+      if (src !== getHash()) {
+        iframe.setAttribute('src', base + getHash());
+      }
+    },
+    false
+  );
+}
+
+module.exports = (iframe, options = {}) => {
+  const { selector, monitorHash } = {
+    selector: 'data-oa-portal',
+    monitorHash: false,
+    ...options
+  };
+
+  log('loading', selector);
+
+  let src = iframe.getAttribute(selector);
 
   iframe.setAttribute('style', 'width: 1px; min-width: 100%;');
 
+  if (iframe.getAttribute('data-query')) {
+    src = `${src}?${iframe.getAttribute('data-query')}`;
+  } else if (monitorHash) {
+    src += getHash();
+  }
+
+  if (iframe.getAttribute('data-count')) {
+    src = `${src
+      + (src.indexOf('?') === -1 ? '?' : '&')
+    }limit=${
+      iframe.getAttribute('data-count')}`;
+  }
+
   if (src) {
-    iframe.setAttribute('src', src + getHash());
+    iframe.setAttribute('src', src);
   }
 
   const state = {
     iframe,
-    iFrameReady: false
+    iFrameReady: false,
+    selector
   };
 
   iframeResize(
@@ -42,4 +76,8 @@ module.exports = iframe => {
     },
     iframe
   );
+
+  if (monitorHash) {
+    updateIframeOnHashChange(iframe, iframe.getAttribute(selector));
+  }
 };

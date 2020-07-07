@@ -35,7 +35,8 @@ Portal({
     featured: 0
   },
   // true if portal is to be displayed within iframe
-  iframable: true,
+  iframable: process.env.PORTAL_IFRAMABLE,
+  iframeParent: process.env.PORTAL_IFRAME_PARENT || 'http://dev.local',
   cache: {
     // interval at which cache is refreshed ( in milliseconds )
     refreshInterval: 60 * 60 * 1000

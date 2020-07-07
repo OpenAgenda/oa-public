@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "start": "browser-refresh dev",
+    "start": "PORTAL_IFRAMABLE=1 browser-refresh dev",
     "build": "webpack-cli --config bin/webpack.build.js",
     "install": "yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",

@@ -15,7 +15,7 @@ function onParentMessage(state, onParentNavUpdate, message) {
 
   const updatedHref = message.nav ? _generateUpdatedHref(message.nav) : null;
 
-  if (updatedHref) {
+  if (updatedHref && onParentNavUpdate) {
     onParentNavUpdate(updatedHref);
   }
 }
@@ -57,10 +57,11 @@ function sendExternalLinkClick(state, link) {
   });
 }
 
-module.exports = ({ onParentNavUpdate }) => {
+module.exports = (options = {}) => {
   const state = {
     parent: null
   };
+  const { onParentNavUpdate } = options;
 
   window.iFrameResizer = {
     onMessage: onParentMessage.bind(null, state, onParentNavUpdate),
