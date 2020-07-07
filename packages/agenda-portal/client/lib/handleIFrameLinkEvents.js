@@ -2,7 +2,7 @@ import debug from 'debug';
 
 const registeredLinks = [];
 
-const log = debug('handleExternalLinks');
+const log = debug('handleFrameLinkEvents');
 
 export default (jQuery, iframeHandler) => {
   for (const elem of jQuery('a')) {
@@ -33,15 +33,16 @@ export default (jQuery, iframeHandler) => {
       isRelative
       || window.location.href.split('/').shift() === href.split('/').shift()
     ) {
-      log('internal link, ignoring', href);
-      continue;
+      log('internal link', href);
+      el.on('click', () => {
+        iframeHandler.sendInternalLinkClick(href);
+      });
+    } else {
+      log('external link', href);
+      el.on('click', e => {
+        e.preventDefault();
+        iframeHandler.sendExternalLinkClick(href);
+      });
     }
-
-    log('processing', 'registering link', href);
-
-    el.on('click', e => {
-      e.preventDefault();
-      iframeHandler.sendExternalLinkClick(href);
-    });
   }
 };

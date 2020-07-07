@@ -1,7 +1,12 @@
 const log = require('debug')('iframe.parent');
 const { iframeResize } = require('iframe-resizer');
 
-const getHash = () => window.location.hash.replace(/^#/, '');
+const getHash = () => (window.location.hash || '').replace(/^#/, '');
+
+const updateRelativePath = (state, relative) => {
+  state.relative = relative;
+  window.location.hash = relative;
+};
 
 function onMessage(state, { message }) {
   if (message.code === 'ready' && !state.iFrameReady) {
@@ -13,21 +18,34 @@ function onMessage(state, { message }) {
       });
     }
   } else if (message.nav) {
-    window.location.hash = message.nav;
+    log('received nav from iframe', message);
+    updateRelativePath(state, message.nav);
+  } else if (message.code === 'internal') {
+    log('received internal link click from iframe');
+    state.iframe.scrollIntoView();
   } else if (message.link) {
     window.location.href = message.link;
   }
 }
 
-function updateIframeOnHashChange(iframe, base) {
+function updateIFrameSource({ iframe, base, relative }) {
+  iframe.setAttribute('src', base + relative);
+}
+
+function updateIframeOnHashChange(state) {
   window.addEventListener(
     'hashchange',
     () => {
-      const src = iframe.getAttribute('src').replace(base, '');
+      const hash = getHash();
+      log('updateIframeOnHashChange - %s vs %s', state.relative, hash);
 
-      if (src !== getHash()) {
-        iframe.setAttribute('src', base + getHash());
+      if (getHash() === state.relative) {
+        return;
       }
+
+      state.relative = getHash();
+
+      updateIFrameSource(state);
     },
     false
   );
@@ -42,32 +60,37 @@ module.exports = (iframe, options = {}) => {
 
   log('loading', selector);
 
-  let src = iframe.getAttribute(selector);
+  const base = iframe.getAttribute(selector);
+  let relative = '';
 
   iframe.setAttribute('style', 'width: 1px; min-width: 100%;');
 
   if (iframe.getAttribute('data-query')) {
-    src = `${src}?${iframe.getAttribute('data-query')}`;
+    relative = `?${iframe.getAttribute('data-query')}`;
   } else if (monitorHash) {
-    src += getHash();
+    relative = getHash();
   }
+
+  // This iframe parent should track base and
 
   if (iframe.getAttribute('data-count')) {
-    src = `${src
-      + (src.indexOf('?') === -1 ? '?' : '&')
-    }limit=${
-      iframe.getAttribute('data-count')}`;
-  }
-
-  if (src) {
-    iframe.setAttribute('src', src);
+    relative = `${relative
+      + (relative.indexOf('?') === -1 ? '?' : '&')}limit=${iframe.getAttribute(
+      'data-count'
+    )}`;
   }
 
   const state = {
     iframe,
     iFrameReady: false,
-    selector
+    selector,
+    base,
+    relative
   };
+
+  if (base) {
+    updateIFrameSource(state);
+  }
 
   iframeResize(
     {
@@ -78,6 +101,6 @@ module.exports = (iframe, options = {}) => {
   );
 
   if (monitorHash) {
-    updateIframeOnHashChange(iframe, iframe.getAttribute(selector));
+    updateIframeOnHashChange(state);
   }
 };

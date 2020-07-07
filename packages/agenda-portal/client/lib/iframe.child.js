@@ -57,6 +57,20 @@ function sendExternalLinkClick(state, link) {
   });
 }
 
+function sendInternalLinkClick(state, link) {
+  log('sendInternalLinkClick %s', link);
+  const { parent } = state;
+
+  if (!parent) {
+    return;
+  }
+
+  parent.sendMessage({
+    code: 'internal',
+    link
+  });
+}
+
 module.exports = (options = {}) => {
   const state = {
     parent: null
@@ -76,6 +90,7 @@ module.exports = (options = {}) => {
 
   return {
     sendNavUpdate: sendNavUpdate.bind(null, state),
-    sendExternalLinkClick: sendExternalLinkClick.bind(null, state)
+    sendExternalLinkClick: sendExternalLinkClick.bind(null, state),
+    sendInternalLinkClick: sendInternalLinkClick.bind(null, state)
   };
 };

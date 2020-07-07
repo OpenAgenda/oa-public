@@ -1,5 +1,5 @@
 import debug from 'debug';
-import handleExternalLinks from './lib/handleExternalLinks';
+import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
 
@@ -123,7 +123,7 @@ function progressiveLoad(pageProps, canvasSelector) {
             .append(eventItemsHTML);
 
           if (pageProps.iframable) {
-            handleExternalLinks($, iframeHandler);
+            handleIFrameLinkEvents($, iframeHandler);
           }
         } else {
           rockBottom = true;
@@ -150,7 +150,7 @@ function onWidgetController({ origin, pageProps }, widget, update, query = {}) {
     $(listSelector).html(result.html);
 
     if (pageProps.iframable) {
-      handleExternalLinks($, iframeHandler);
+      handleIFrameLinkEvents($, iframeHandler);
     }
 
     result.total = updateTotal(result.total);
@@ -196,7 +196,7 @@ $(() => {
   }
 
   if (pageProps.iframable) {
-    handleExternalLinks($, iframeHandler);
+    handleIFrameLinkEvents($, iframeHandler);
   }
 
   updateTotal();
