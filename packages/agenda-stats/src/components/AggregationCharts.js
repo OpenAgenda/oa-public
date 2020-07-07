@@ -13,10 +13,6 @@ import BorderBox from './BorderBox';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
 const messages = defineMessages({
-  noValue: {
-    id: 'AgendaStats.AggregationCharts.noValue',
-    defaultMessage: 'No value.'
-  },
   addChart: {
     id: 'AgendaStats.AggregationCharts.addChart',
     defaultMessage: 'Add a chart'
@@ -295,7 +291,6 @@ export default function AggregationCharts({
   editMode,
   agendaSchema
 }) {
-  const intl = useIntl();
   const dispatch = useDispatch();
 
   const loadStat = useCallback(
@@ -334,45 +329,22 @@ export default function AggregationCharts({
       return null;
     }
 
-    const multiData = Array.isArray(stat.aggregation);
-    const hasData = multiData
-      ? stat.state.data?.some(v => v.length)
-      : stat.state.data?.length;
-
-    if (hasData) {
-      pushChart(
-        <ComposedChart
-          key={stat.id}
-          wrapperComponent={(
-            <ChartWrapper
-              key={stat.id}
-              editMode={editMode}
-              className="col-md-12 col-lg-6 margin-top-md"
-            />
-          )}
-          stat={stat}
-          totalEvents={totalEvents}
-          range={range}
-          loadStat={loadStat}
-        />
-      );
-    } else {
-      pushChart(
-        <ChartWrapper
-          key={stat.id}
-          stat={stat}
-          totalEvents={totalEvents}
-          range={range}
-          loadStat={loadStat}
-          editMode={editMode}
-          className="col-md-12 col-lg-6 margin-top-md"
-        >
-          <div className="margin-v-sm text-center text-muted">
-            {intl.formatMessage(messages.noValue)}
-          </div>
-        </ChartWrapper>
-      );
-    }
+    pushChart(
+      <ComposedChart
+        key={stat.id}
+        wrapperComponent={(
+          <ChartWrapper
+            key={stat.id}
+            editMode={editMode}
+            className="col-md-12 col-lg-6 margin-top-md"
+          />
+        )}
+        stat={stat}
+        totalEvents={totalEvents}
+        range={range}
+        loadStat={loadStat}
+      />
+    );
   });
 
   if (editMode) {

@@ -135,7 +135,7 @@ function Dashboard({ agenda, agendaSchema }) {
     });
   }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
 
-  if (loading && !loaded) {
+  if (!stats?.length && loading) {
     return (
       <div className="padding-v-md" css={{ position: 'relative' }}>
         <Spinner />
