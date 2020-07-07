@@ -11,3 +11,7 @@ fi
 if [ "$3" -lt 1 ]; then
   rm /etc/nginx/conf.d/mailcatcher.conf
 fi
+
+if [ "$4" -lt 1 ]; then
+  rm /etc/nginx/conf.d/elastichq.conf
+fi

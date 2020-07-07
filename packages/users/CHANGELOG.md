@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [3.0.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.10...@openagenda/users@3.0.11) (2020-07-06)
+
+
+### Bug Fixes
+
+* **users:** apply Object.assign if rec exists ([f566af5](https://bitbucket.org/openagenda/oa/commit/f566af58947402d360718ae123bcf74c840317ea))
+
+
+
 ### [3.0.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.9...@openagenda/users@3.0.10) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/users

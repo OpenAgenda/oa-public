@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.15.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/members@1.15.7...@openagenda/members@1.15.8) (2020-07-06)
+
+**Note:** Version bump only for package @openagenda/members
+
+
+
+
+
 ### [1.15.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/members@1.15.6...@openagenda/members@1.15.7) (2020-06-18)
 
 

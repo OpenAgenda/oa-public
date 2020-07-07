@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.12](https://bitbucket.org/openagenda/oa/compare/@openagenda/admin-agendas@1.1.11...@openagenda/admin-agendas@1.1.12) (2020-07-06)
+
+**Note:** Version bump only for package @openagenda/admin-agendas
+
+
+
+
+
 ### [1.1.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/admin-agendas@1.1.10...@openagenda/admin-agendas@1.1.11) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/admin-agendas

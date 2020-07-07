@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.8.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/form-schemas@1.8.0...@openagenda/form-schemas@1.8.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* **form-schemas:** emails set in italic are not properly extracted ([61ce2bf](https://bitbucket.org/openagenda/oa/commit/61ce2bfc6cab3e22585dafecca2b7ef3e0ed5959))
+
+
+
 ## [1.8.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/form-schemas@1.7.8...@openagenda/form-schemas@1.8.0) (2020-06-30)
 
 

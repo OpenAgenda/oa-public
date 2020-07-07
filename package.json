@@ -39,15 +39,14 @@
     "final-form": "4.20.1",
     "react": "16.13.0",
     "react-dom": "16.13.0",
-    "react-hot-loader": "4.12.20",
-    "conventional-changelog-conventionalcommits@^4.2.3": "patch:conventional-changelog-conventionalcommits@4.2.3#./patches/conventional-changelog-conventionalcommits.patch"
+    "react-hot-loader": "4.12.20"
   },
   "dependencies": {
     "mime": "^2.4.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/runtime-corejs3": "^7.10.2",
+    "@babel/core": "^7.10.4",
+    "@babel/runtime-corejs3": "^7.10.4",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@commitlint/config-lerna-scopes": "^8.3.4",
@@ -57,11 +56,11 @@
     "codecov": "^3.6.2",
     "commitizen": "^4.0.3",
     "concurrently": "^5.2.0",
-    "conventional-changelog-conventionalcommits": "^4.2.3",
+    "conventional-changelog-conventionalcommits": "^4.3.1",
     "core-js": "^3.6.5",
     "husky": "^4.2.1",
-    "jest": "^26.0.1",
-    "lerna": "^3.20.2",
+    "jest": "^26.1.0",
+    "lerna": "^3.22.1",
     "regenerator-runtime": "^0.13.5"
   },
   "dependenciesMeta": {

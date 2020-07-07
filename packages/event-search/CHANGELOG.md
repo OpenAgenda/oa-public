@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.6.0...@openagenda/event-search@2.7.0) (2020-07-06)
+
+
+### Features
+
+* **event-search:** allow setting index shard replica values ([5f2257e](https://bitbucket.org/openagenda/oa/commit/5f2257edac8a8f967b95d247908abffe6e9dddfb))
+* **event-search:** get details on cluster nodes ([4213c8a](https://bitbucket.org/openagenda/oa/commit/4213c8afd3fc4c26d3048bc1e8d63dc5460923ea))
+
+
+
 ## [2.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.5.1...@openagenda/event-search@2.6.0) (2020-06-30)
 
 

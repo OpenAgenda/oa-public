@@ -11,12 +11,12 @@ if [ ! -f $1/domains/$2.crt ]; then
   openssl req -x509 -nodes -days 1095 -newkey rsa:2048 \
     -out $1/domains/$2.crt \
     -keyout $1/domains/$2.key \
-    -subj /C=FR/ST=/L=Courbevoie/O=OADEVCHOSE/OU=/CN=$2/emailAddress=support@openagenda.com
+    -subj /C=FR/L=Courbevoie/O=OADEVCHOSE/CN=$2/emailAddress=support@openagenda.com
 
   openssl req -new \
     -key $1/domains/$2.key \
     -out $1/domains/$2.csr \
-    -subj /C=FR/ST=/L=Courbevoie/O=OADEVCHOSE/OU=/CN=$2/emailAddress=support@openagenda.com
+    -subj /C=FR/L=Courbevoie/O=OADEVCHOSE/CN=$2/emailAddress=support@openagenda.com
 
   echo "authorityKeyIdentifier = keyid, issuer
   basicConstraints = CA:FALSE

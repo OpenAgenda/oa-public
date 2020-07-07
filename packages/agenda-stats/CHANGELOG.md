@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.5.1...@openagenda/agenda-stats@1.6.0) (2020-07-06)
+
+
+### Features
+
+* **agenda-stats:** disable add mode after add ([d8d7e82](https://bitbucket.org/openagenda/oa/commit/d8d7e82916c2d762d0f9554f9cf331abca78d823))
+* **agenda-stats:** duplicates edit buttons at the bottom ([3ce0fe5](https://bitbucket.org/openagenda/oa/commit/3ce0fe599694e14f697a66cb870eaee9603ead22))
+* **agenda-stats:** edit mode ([453f96e](https://bitbucket.org/openagenda/oa/commit/453f96e84d5c3bf3e8a64a823895657e711dcbbe))
+* **agenda-stats:** translate ([710082b](https://bitbucket.org/openagenda/oa/commit/710082b169b42a1aadc9078c38c98d92428dc59a))
+* **agenda-stats:** tweaks ([7ecedaf](https://bitbucket.org/openagenda/oa/commit/7ecedaf1952ab2453c2cee38f067ec084554b9ed))
+
+
+### Bug Fixes
+
+* **agenda-stats:** fix option filter ([d84c01d](https://bitbucket.org/openagenda/oa/commit/d84c01dbd15839585238c7c0b2fc065f09e6f5b9))
+* **agenda-stats:** fix res ([1af150b](https://bitbucket.org/openagenda/oa/commit/1af150b376766914f25002166571b6c133cb733d))
+* **agenda-stats:** fix tooltip overlap ([7d705c6](https://bitbucket.org/openagenda/oa/commit/7d705c6f522ab22dd1b36f1b203f4ebe7a8d19a9))
+
+
+
 ### [1.5.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-stats@1.5.0...@openagenda/agenda-stats@1.5.1) (2020-06-30)
 
 

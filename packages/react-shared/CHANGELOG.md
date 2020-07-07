@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@2.0.2...@openagenda/react-shared@2.0.3) (2020-07-06)
+
+
+### Bug Fixes
+
+* **react-shared:** displays stringified value for avoid react error ([5509609](https://bitbucket.org/openagenda/oa/commit/55096099df72d9589cad5768191b7815fd7d1ecf))
+* **react-shared:** fix ReactSelectField ([bc286f1](https://bitbucket.org/openagenda/oa/commit/bc286f1349ad9ce3a653d311408169a03d8d5811))
+* **react-shared:** ReactSelectField works with categories ([90e5f4a](https://bitbucket.org/openagenda/oa/commit/90e5f4a0eee8557edb70d35af1ab604fcf1c8423))
+
+
+
 ### [2.0.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-shared@2.0.1...@openagenda/react-shared@2.0.2) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/react-shared

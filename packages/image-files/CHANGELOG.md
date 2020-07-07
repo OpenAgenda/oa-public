@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/image-files@1.1.6...@openagenda/image-files@1.1.7) (2020-07-06)
+
+
+### Bug Fixes
+
+* **image-files:** explicit Content-Type is given for s3 upload ([7331cf1](https://bitbucket.org/openagenda/oa/commit/7331cf17a4a150599b73f038c0670c735e0bac51))
+
+
+
 ### [1.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/image-files@1.1.5...@openagenda/image-files@1.1.6) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/image-files
