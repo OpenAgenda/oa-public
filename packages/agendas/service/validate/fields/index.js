@@ -351,5 +351,10 @@ module.exports = [{
     description: 'Transfer ownership of event from one member to another within an agenda',
     type: 'boolean',
     default: false
+  }, {
+    field: 'graphs',
+    description: 'Display graph tab on agenda admin',
+    type: 'boolean',
+    default: false
   }]
 }];

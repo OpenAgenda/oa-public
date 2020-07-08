@@ -1,82 +1,102 @@
-[ {
-  "name" : "events",
-  "section" : "manage",
-  "php" : true,
-  "route" : ""
-},
-{
-  "name" : "members",
-  "section" : "manage"
-},
-{
-  "name" : "locations",
-  "section" : "manage",
-  "scriptAnchor" : "<span class=\"js_locations_counter\" data-res=\"/:slug/admin/locations/verifycount\"></span>"
-},
-{
-  "name" : "sources",
-  "section" : "manage",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "inbox",
-  "section" : "manage"
-},
-{
-  "name" : "statistics",
-  "section" : "manage",
-  "roles" : [ "gna" ]
-},
-{
-  "name" : "activities",
-  "section" : "manage"
-},
-{
-  "name" : "facebook",
-  "section" : "export",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "web",
-  "section" : "export",
-  "php" : true,
-  "route" : "/webembed",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "emailstrategie",
-  "section" : "export",
-  "credential" : "emailstrategie",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "settings_profile",
-  "section" : "settings",
-  "route" : "/settings/profile",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "schema",
-  "section" : "settings",
-  "credential" : "useAgendaSchema",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "customized",
-  "section" : "settings",
-  "route" : "/settings/customize",
-  "credential" : "tags",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "settings_contribution",
-  "section" : "settings",
-  "route" : "/settings/contribution",
-  "roles" : [ "administrator" ]
-},
-{
-  "name" : "settings_advanced",
-  "section" : "settings",
-  "route" : "/settings/advanced",
-  "roles" : [ "administrator" ]
-} ]
+[
+  {
+    "name": "events",
+    "section": "manage",
+    "php": true,
+    "route": ""
+  },
+  {
+    "name": "members",
+    "section": "manage"
+  },
+  {
+    "name": "locations",
+    "section": "manage",
+    "scriptAnchor": "<span class=\"js_locations_counter\" data-res=\"/:slug/admin/locations/verifycount\"></span>"
+  },
+  {
+    "name": "sources",
+    "section": "manage",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "inbox",
+    "section": "manage"
+  },
+  {
+    "name": "statistics",
+    "section": "manage",
+    "credential": "graphs"
+  },
+  {
+    "name": "activities",
+    "section": "manage"
+  },
+  {
+    "name": "facebook",
+    "section": "export",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "web",
+    "section": "export",
+    "php": true,
+    "route": "/webembed",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "emailstrategie",
+    "section": "export",
+    "credential": "emailstrategie",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "settings_profile",
+    "section": "settings",
+    "route": "/settings/profile",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "schema",
+    "section": "settings",
+    "credential": "useAgendaSchema",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "customized",
+    "section": "settings",
+    "route": "/settings/customize",
+    "credential": "tags",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "settings_contribution",
+    "section": "settings",
+    "route": "/settings/contribution",
+    "roles": [
+      "administrator"
+    ]
+  },
+  {
+    "name": "settings_advanced",
+    "section": "settings",
+    "route": "/settings/advanced",
+    "roles": [
+      "administrator"
+    ]
+  }
+]
