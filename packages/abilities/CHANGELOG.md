@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.1.14](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.13...@openagenda/abilities@1.1.14) (2020-07-06)
+### [1.1.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.14..@openagenda/abilities@1.1.13) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/abilities
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.13](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.12...@openagenda/abilities@1.1.13) (2020-06-30)
+### [1.1.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.13..@openagenda/abilities@1.1.12) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/abilities
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.12](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.11...@openagenda/abilities@1.1.12) (2020-06-18)
+### [1.1.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.12..@openagenda/abilities@1.1.11) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/abilities
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.10...@openagenda/abilities@1.1.11) (2020-06-09)
+### [1.1.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.11..@openagenda/abilities@1.1.10) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/abilities
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.9...@openagenda/abilities@1.1.10) (2020-05-22)
+### [1.1.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.10..@openagenda/abilities@1.1.9) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/abilities
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.8...@openagenda/abilities@1.1.9) (2020-05-19)
+### [1.1.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.9..@openagenda/abilities@1.1.8) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/abilities
 
@@ -51,16 +51,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.7...@openagenda/abilities@1.1.8) (2020-05-15)
+### [1.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.8..@openagenda/abilities@1.1.7) (2020-05-15)
 
 
 ### Bug Fixes
 
-* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commits/1d164f89d3f1956c8fb791835c280234056124d7))
 
 
 
-### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/abilities@1.1.6...@openagenda/abilities@1.1.7) (2020-04-07)
+### [1.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.1.7..@openagenda/abilities@1.1.6) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/abilities
 

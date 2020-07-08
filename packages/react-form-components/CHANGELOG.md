@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.8...@openagenda/react-form-components@2.1.9) (2020-07-06)
+### [2.1.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-form-components@2.1.9..@openagenda/react-form-components@2.1.8) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/react-form-components
 
@@ -11,25 +11,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.7...@openagenda/react-form-components@2.1.8) (2020-06-18)
+### [2.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-form-components@2.1.8..@openagenda/react-form-components@2.1.7) (2020-06-18)
 
 
 ### Bug Fixes
 
-* **react-form-components:** fix storybook ([9566058](https://bitbucket.org/openagenda/oa/commit/9566058f7ad3dd410cf84148124c8542e987aaca))
-* **react-form-components:** fix urls in tinyMCE ([a1f63ff](https://bitbucket.org/openagenda/oa/commit/a1f63ff167c5a6ca59e17c9e484150d4226bf007))
+* **react-form-components:** fix storybook ([9566058](https://bitbucket.org/openagenda/oa/commits/9566058f7ad3dd410cf84148124c8542e987aaca))
+* **react-form-components:** fix urls in tinyMCE ([a1f63ff](https://bitbucket.org/openagenda/oa/commits/a1f63ff167c5a6ca59e17c9e484150d4226bf007))
 
 
 
-### [2.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.6...@openagenda/react-form-components@2.1.7) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/react-form-components
-
-
-
-
-
-### [2.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.5...@openagenda/react-form-components@2.1.6) (2020-05-22)
+### [2.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-form-components@2.1.7..@openagenda/react-form-components@2.1.6) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/react-form-components
 
@@ -37,7 +29,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.4...@openagenda/react-form-components@2.1.5) (2020-05-19)
+### [2.1.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-form-components@2.1.6..@openagenda/react-form-components@2.1.5) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/react-form-components
 
@@ -45,7 +37,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.3...@openagenda/react-form-components@2.1.4) (2020-05-15)
+### [2.1.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-form-components@2.1.5..@openagenda/react-form-components@2.1.4) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/react-form-components
 
@@ -53,7 +45,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-form-components@2.1.2...@openagenda/react-form-components@2.1.3) (2020-04-07)
+### [2.1.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-form-components@2.1.4..@openagenda/react-form-components@2.1.3) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/react-form-components
+
+
+
+
+
+### [2.1.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-form-components@2.1.3..@openagenda/react-form-components@2.1.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-form-components
 

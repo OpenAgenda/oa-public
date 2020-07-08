@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.13](https://bitbucket.org/openagenda/oa/compare/@openagenda/sdk-js@1.2.12...@openagenda/sdk-js@1.2.13) (2020-07-06)
+### [1.2.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sdk-js@1.2.13..@openagenda/sdk-js@1.2.12) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/sdk-js
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.12](https://bitbucket.org/openagenda/oa/compare/@openagenda/sdk-js@1.2.11...@openagenda/sdk-js@1.2.12) (2020-06-18)
+### [1.2.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sdk-js@1.2.12..@openagenda/sdk-js@1.2.11) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/sdk-js
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/sdk-js@1.2.10...@openagenda/sdk-js@1.2.11) (2020-06-09)
+### [1.2.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sdk-js@1.2.11..@openagenda/sdk-js@1.2.10) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/sdk-js
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/sdk-js@1.2.9...@openagenda/sdk-js@1.2.10) (2020-05-22)
+### [1.2.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sdk-js@1.2.10..@openagenda/sdk-js@1.2.9) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/sdk-js
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/sdk-js@1.2.8...@openagenda/sdk-js@1.2.9) (2020-05-15)
+### [1.2.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sdk-js@1.2.9..@openagenda/sdk-js@1.2.8) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/sdk-js
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/sdk-js@1.2.7...@openagenda/sdk-js@1.2.8) (2020-04-07)
+### [1.2.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sdk-js@1.2.8..@openagenda/sdk-js@1.2.7) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/sdk-js
 

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.0.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.8...@openagenda/member-apps@2.0.9) (2020-07-06)
+### [2.0.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.9..@openagenda/member-apps@2.0.8) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/member-apps
 
@@ -11,24 +11,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.0.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.7...@openagenda/member-apps@2.0.8) (2020-06-18)
+### [2.0.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.8..@openagenda/member-apps@2.0.7) (2020-06-18)
 
 
 ### Bug Fixes
 
-* **member-apps:** search filter is not taken in global message to members ([6fb5913](https://bitbucket.org/openagenda/oa/commit/6fb5913cedd3a4649f29cf2c063cd7f6d294274d))
+* **member-apps:** search filter is not taken in global message to members ([6fb5913](https://bitbucket.org/openagenda/oa/commits/6fb5913cedd3a4649f29cf2c063cd7f6d294274d))
 
 
 
-### [2.0.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.6...@openagenda/member-apps@2.0.7) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/member-apps
-
-
-
-
-
-### [2.0.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.5...@openagenda/member-apps@2.0.6) (2020-05-22)
+### [2.0.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.7..@openagenda/member-apps@2.0.6) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/member-apps
 
@@ -36,7 +28,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.0.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.4...@openagenda/member-apps@2.0.5) (2020-05-19)
+### [2.0.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.6..@openagenda/member-apps@2.0.5) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/member-apps
 
@@ -44,7 +36,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.0.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.3...@openagenda/member-apps@2.0.4) (2020-05-15)
+### [2.0.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.5..@openagenda/member-apps@2.0.4) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/member-apps
 
@@ -52,7 +44,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/member-apps@2.0.2...@openagenda/member-apps@2.0.3) (2020-04-07)
+### [2.0.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.4..@openagenda/member-apps@2.0.3) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/member-apps
+
+
+
+
+
+### [2.0.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.3..@openagenda/member-apps@2.0.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/member-apps
 

@@ -3,26 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.5...@openagenda/cibul-templates@1.2.6) (2020-07-06)
+### [1.2.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.6..@openagenda/cibul-templates@1.2.5) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **cibul-templates:** fix build ([123d067](https://bitbucket.org/openagenda/oa/commit/123d0672df4c998011837cdfad0e240466deaf89))
-* **cibul-templates:** some modules are note varred ([065cac2](https://bitbucket.org/openagenda/oa/commit/065cac211570c1410de43f6b69d97e2d23af5ee2))
+* **cibul-templates:** fix build ([123d067](https://bitbucket.org/openagenda/oa/commits/123d0672df4c998011837cdfad0e240466deaf89))
+* **cibul-templates:** some modules are note varred ([065cac2](https://bitbucket.org/openagenda/oa/commits/065cac211570c1410de43f6b69d97e2d23af5ee2))
 
 
 
-### [1.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.4...@openagenda/cibul-templates@1.2.5) (2020-06-30)
+### [1.2.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.5..@openagenda/cibul-templates@1.2.4) (2020-06-30)
 
 
 ### Bug Fixes
 
-* **cibul-templates:** removed console.log ([58ac00b](https://bitbucket.org/openagenda/oa/commit/58ac00b881b9b0f43129ab203757dc716a420854))
+* **cibul-templates:** removed console.log ([58ac00b](https://bitbucket.org/openagenda/oa/commits/58ac00b881b9b0f43129ab203757dc716a420854))
 
 
 
-### [1.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.3...@openagenda/cibul-templates@1.2.4) (2020-06-18)
+### [1.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.4..@openagenda/cibul-templates@1.2.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/cibul-templates
 
@@ -30,16 +30,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.2...@openagenda/cibul-templates@1.2.3) (2020-06-09)
+### [1.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.3..@openagenda/cibul-templates@1.2.2) (2020-06-09)
 
 
 ### Bug Fixes
 
-* **cibul-templates:** bad import in duplicate feature ([3c26084](https://bitbucket.org/openagenda/oa/commit/3c2608487de713c0b84290af449d132b9fa8b977))
+* **cibul-templates:** bad import in duplicate feature ([3c26084](https://bitbucket.org/openagenda/oa/commits/3c2608487de713c0b84290af449d132b9fa8b977))
 
 
 
-### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.1...@openagenda/cibul-templates@1.2.2) (2020-05-22)
+### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.2..@openagenda/cibul-templates@1.2.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/cibul-templates
 
@@ -47,45 +47,45 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.2.0...@openagenda/cibul-templates@1.2.1) (2020-05-19)
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.1..@openagenda/cibul-templates@1.2.0) (2020-05-19)
 
 
 ### Bug Fixes
 
-* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commit/d0770b1fe6488d4050360b9db2c698c85b02eb85))
+* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commits/d0770b1fe6488d4050360b9db2c698c85b02eb85))
 
 
 
-## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.25...@openagenda/cibul-templates@1.2.0) (2020-05-15)
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.0..@openagenda/cibul-templates@1.1.25) (2020-05-15)
 
 
 ### Features
 
-* **cibul-templates:** accessibility ([846dd17](https://bitbucket.org/openagenda/oa/commit/846dd17bfe42083536aaa1ccdf51eda0df832a57))
+* **cibul-templates:** accessibility ([846dd17](https://bitbucket.org/openagenda/oa/commits/846dd17bfe42083536aaa1ccdf51eda0df832a57))
 
 
 ### Bug Fixes
 
-* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
-* **cibul-templates:** relative path to bs-templates is no longer valid in prodifier script ([b3cddd8](https://bitbucket.org/openagenda/oa/commit/b3cddd86735c7c04aadf1c36506ced7b276bb8c0))
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commits/95101c3bade5aa224003d3ec716571548aeb0d97))
+* **cibul-templates:** relative path to bs-templates is no longer valid in prodifier script ([b3cddd8](https://bitbucket.org/openagenda/oa/commits/b3cddd86735c7c04aadf1c36506ced7b276bb8c0))
 
 
 
-### [1.1.25](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.24...@openagenda/cibul-templates@1.1.25) (2020-04-09)
-
-
-### Bug Fixes
-
-* **cibul-templates:** .css requires no longer load string ([50cb707](https://bitbucket.org/openagenda/oa/commit/50cb707da2f6e553c74643f60031799fa9717094))
-
-
-
-### [1.1.24](https://bitbucket.org/openagenda/oa/compare/@openagenda/cibul-templates@1.1.23...@openagenda/cibul-templates@1.1.24) (2020-04-07)
+### [1.1.25](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.1.25..@openagenda/cibul-templates@1.1.24) (2020-04-09)
 
 
 ### Bug Fixes
 
-* **cibul-templates:** variables from bs-templates are not used for one css build ([42f3f31](https://bitbucket.org/openagenda/oa/commit/42f3f31916328f51c90457e0039128a0a5585d64))
+* **cibul-templates:** .css requires no longer load string ([50cb707](https://bitbucket.org/openagenda/oa/commits/50cb707da2f6e553c74643f60031799fa9717094))
+
+
+
+### [1.1.24](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.1.24..@openagenda/cibul-templates@1.1.23) (2020-04-07)
+
+
+### Bug Fixes
+
+* **cibul-templates:** variables from bs-templates are not used for one css build ([42f3f31](https://bitbucket.org/openagenda/oa/commits/42f3f31916328f51c90457e0039128a0a5585d64))
 
 
 

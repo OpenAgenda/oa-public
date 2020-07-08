@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.2.1...@openagenda/supervisor@1.2.2) (2020-07-06)
+### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.2.2..@openagenda/supervisor@1.2.1) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/supervisor
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.2.0...@openagenda/supervisor@1.2.1) (2020-06-30)
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.2.1..@openagenda/supervisor@1.2.0) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/supervisor
 
@@ -19,24 +19,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.1.3...@openagenda/supervisor@1.2.0) (2020-06-18)
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.2.0..@openagenda/supervisor@1.1.3) (2020-06-18)
 
 
 ### Features
 
-* **supervisor:** allow break lines and fix color of close button ([f1a86f6](https://bitbucket.org/openagenda/oa/commit/f1a86f6789ada663d4302fc6bf9c9cfbf57d1807))
+* **supervisor:** allow break lines and fix color of close button ([f1a86f6](https://bitbucket.org/openagenda/oa/commits/f1a86f6789ada663d4302fc6bf9c9cfbf57d1807))
 
 
 
-### [1.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.1.2...@openagenda/supervisor@1.1.3) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/supervisor
-
-
-
-
-
-### [1.1.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.1.1...@openagenda/supervisor@1.1.2) (2020-05-22)
+### [1.1.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.1.3..@openagenda/supervisor@1.1.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/supervisor
 
@@ -44,12 +36,20 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/supervisor@1.1.0...@openagenda/supervisor@1.1.1) (2020-05-19)
+### [1.1.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.1.2..@openagenda/supervisor@1.1.1) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/supervisor
+
+
+
+
+
+### [1.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.1.1..@openagenda/supervisor@1.1.0) (2020-05-19)
 
 
 ### Bug Fixes
 
-* **supervisor:** fix kind of button ([48b6c1d](https://bitbucket.org/openagenda/oa/commit/48b6c1d4249a8cd69b6a817dad91644ce0916ac8))
+* **supervisor:** fix kind of button ([48b6c1d](https://bitbucket.org/openagenda/oa/commits/48b6c1d4249a8cd69b6a817dad91644ce0916ac8))
 
 
 
@@ -58,9 +58,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **supervisor:** add announcement manager ([9218326](https://bitbucket.org/openagenda/oa/commit/92183263e72e6cce4e68e13be0645635dcb07977))
+* **supervisor:** add announcement manager ([9218326](https://bitbucket.org/openagenda/oa/commits/92183263e72e6cce4e68e13be0645635dcb07977))
 
 
 ### Bug Fixes
 
-* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commits/1d164f89d3f1956c8fb791835c280234056124d7))

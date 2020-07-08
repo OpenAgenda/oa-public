@@ -3,16 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.0.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@2.0.0...@openagenda/react-layouts@2.0.1) (2020-07-06)
+### [2.0.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.1..@openagenda/react-layouts@2.0.0) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **react-layouts:** fix flash message after redirection ([97a5ee5](https://bitbucket.org/openagenda/oa/commit/97a5ee51b96a8001fbeffa0fdd9eeabb270c332b))
+* **react-layouts:** fix flash message after redirection ([97a5ee5](https://bitbucket.org/openagenda/oa/commits/97a5ee51b96a8001fbeffa0fdd9eeabb270c332b))
 
 
 
-## [2.0.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.3...@openagenda/react-layouts@2.0.0) (2020-06-18)
+## [2.0.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.0..@openagenda/react-layouts@1.1.3) (2020-06-18)
 
 
 ### ⚠ BREAKING CHANGES
@@ -21,24 +21,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **react-layouts:** allow break lines and fix color of close button ([c68523a](https://bitbucket.org/openagenda/oa/commit/c68523aa801af8fb37c586f375412348f790ef42))
+* **react-layouts:** allow break lines and fix color of close button ([c68523a](https://bitbucket.org/openagenda/oa/commits/c68523aa801af8fb37c586f375412348f790ef42))
 
 
 ### Code Refactoring
 
-* **react-layouts:** refactor ([97c17b2](https://bitbucket.org/openagenda/oa/commit/97c17b2f6b7449c7f602611b744b86f5e2f1eddc))
+* **react-layouts:** refactor ([97c17b2](https://bitbucket.org/openagenda/oa/commits/97c17b2f6b7449c7f602611b744b86f5e2f1eddc))
 
 
 
-### [1.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.2...@openagenda/react-layouts@1.1.3) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/react-layouts
-
-
-
-
-
-### [1.1.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.1...@openagenda/react-layouts@1.1.2) (2020-05-22)
+### [1.1.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.3..@openagenda/react-layouts@1.1.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/react-layouts
 
@@ -46,31 +38,39 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.1.0...@openagenda/react-layouts@1.1.1) (2020-05-19)
+### [1.1.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.2..@openagenda/react-layouts@1.1.1) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/react-layouts
+
+
+
+
+
+### [1.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.1..@openagenda/react-layouts@1.1.0) (2020-05-19)
 
 
 ### Bug Fixes
 
-* **react-layouts:** fix kind of button ([2966f84](https://bitbucket.org/openagenda/oa/commit/2966f84c2e0869791606eb7fc84432314bacadb9))
+* **react-layouts:** fix kind of button ([2966f84](https://bitbucket.org/openagenda/oa/commits/2966f84c2e0869791606eb7fc84432314bacadb9))
 
 
 
-## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.0.2...@openagenda/react-layouts@1.1.0) (2020-05-15)
+## [1.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.0..@openagenda/react-layouts@1.0.2) (2020-05-15)
 
 
 ### Features
 
-* **react-layouts:** add Announcement to MainLayout ([2f12647](https://bitbucket.org/openagenda/oa/commit/2f12647c521c66daba0e6c1e25b4fd0b7f55bfa2))
+* **react-layouts:** add Announcement to MainLayout ([2f12647](https://bitbucket.org/openagenda/oa/commits/2f12647c521c66daba0e6c1e25b4fd0b7f55bfa2))
 
 
 ### Bug Fixes
 
-* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
-* missing option messagePattern for some extract-messages ([30403ff](https://bitbucket.org/openagenda/oa/commit/30403ff9ab274357122bc51c0539b9e68dc6182d))
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commits/1d164f89d3f1956c8fb791835c280234056124d7))
+* missing option messagePattern for some extract-messages ([30403ff](https://bitbucket.org/openagenda/oa/commits/30403ff9ab274357122bc51c0539b9e68dc6182d))
 
 
 
-### [1.0.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-layouts@1.0.1...@openagenda/react-layouts@1.0.2) (2020-04-07)
+### [1.0.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.0.2..@openagenda/react-layouts@1.0.1) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-layouts
 

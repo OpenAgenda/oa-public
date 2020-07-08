@@ -3,52 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.4.0...@openagenda/agenda-contribute@1.4.1) (2020-07-06)
+### [1.4.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.4.1..@openagenda/agenda-contribute@1.4.0) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **agenda-contribute:** some modules are note varred ([3b29cd7](https://bitbucket.org/openagenda/oa/commit/3b29cd7ba86ab6c22ed10494069248a5879bc3cd))
+* **agenda-contribute:** some modules are note varred ([3b29cd7](https://bitbucket.org/openagenda/oa/commits/3b29cd7ba86ab6c22ed10494069248a5879bc3cd))
 
 
 
-## [1.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.3.0...@openagenda/agenda-contribute@1.4.0) (2020-06-30)
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.4.0..@openagenda/agenda-contribute@1.3.0) (2020-06-30)
 
 
 ### Features
 
-* **agenda-contribute:** fromEventService image parser removes image key if neither credits or filename are specified ([d533539](https://bitbucket.org/openagenda/oa/commit/d53353954ee9f722a88db63b2eb2d8780c3d1eb8))
+* **agenda-contribute:** fromEventService image parser removes image key if neither credits or filename are specified ([d533539](https://bitbucket.org/openagenda/oa/commits/d53353954ee9f722a88db63b2eb2d8780c3d1eb8))
 
 
 ### Bug Fixes
 
-* **agenda-contribute:** handling of edge case for additional fields related to image ([6e2a2a3](https://bitbucket.org/openagenda/oa/commit/6e2a2a3170592b03f95159eb103d665758679557))
+* **agenda-contribute:** handling of edge case for additional fields related to image ([6e2a2a3](https://bitbucket.org/openagenda/oa/commits/6e2a2a3170592b03f95159eb103d665758679557))
 
 
 
-## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.21...@openagenda/agenda-contribute@1.3.0) (2020-06-18)
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.3.0..@openagenda/agenda-contribute@1.2.21) (2020-06-18)
 
 
 ### Features
 
-* **agenda-contribute:** allow for loading custom member schema ([8e2cf35](https://bitbucket.org/openagenda/oa/commit/8e2cf354e070957fcd94cb365ac25fb5ba529631))
+* **agenda-contribute:** allow for loading custom member schema ([8e2cf35](https://bitbucket.org/openagenda/oa/commits/8e2cf354e070957fcd94cb365ac25fb5ba529631))
 
 
 ### Bug Fixes
 
-* **agenda-contribute:** timings transforms are not impacted by global moment locale ([03d34f2](https://bitbucket.org/openagenda/oa/commit/03d34f2511a04fbefb7b350120bd9db4729ed608))
+* **agenda-contribute:** timings transforms are not impacted by global moment locale ([03d34f2](https://bitbucket.org/openagenda/oa/commits/03d34f2511a04fbefb7b350120bd9db4729ed608))
 
 
 
-### [1.2.21](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.20...@openagenda/agenda-contribute@1.2.21) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/agenda-contribute
-
-
-
-
-
-### [1.2.20](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.19...@openagenda/agenda-contribute@1.2.20) (2020-05-22)
+### [1.2.21](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.2.21..@openagenda/agenda-contribute@1.2.20) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agenda-contribute
 
@@ -56,7 +48,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.19](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.18...@openagenda/agenda-contribute@1.2.19) (2020-05-19)
+### [1.2.20](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.2.20..@openagenda/agenda-contribute@1.2.19) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/agenda-contribute
 
@@ -64,17 +56,25 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.18](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.17...@openagenda/agenda-contribute@1.2.18) (2020-05-15)
+### [1.2.19](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.2.19..@openagenda/agenda-contribute@1.2.18) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/agenda-contribute
+
+
+
+
+
+### [1.2.18](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.2.18..@openagenda/agenda-contribute@1.2.17) (2020-05-15)
 
 
 ### Bug Fixes
 
-* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
-* **agenda-contribute:** force moment locale to en ([dc33cda](https://bitbucket.org/openagenda/oa/commit/dc33cda5e4e84c50e216ff41f9015b50e71abdac))
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commits/95101c3bade5aa224003d3ec716571548aeb0d97))
+* **agenda-contribute:** force moment locale to en ([dc33cda](https://bitbucket.org/openagenda/oa/commits/dc33cda5e4e84c50e216ff41f9015b50e71abdac))
 
 
 
-### [1.2.17](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-contribute@1.2.16...@openagenda/agenda-contribute@1.2.17) (2020-04-07)
+### [1.2.17](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.2.17..@openagenda/agenda-contribute@1.2.16) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-contribute
 

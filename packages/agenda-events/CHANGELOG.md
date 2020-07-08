@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.11.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.7...@openagenda/agenda-events@1.11.8) (2020-07-06)
+### [1.11.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-events@1.11.8..@openagenda/agenda-events@1.11.7) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/agenda-events
 
@@ -11,24 +11,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.11.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.6...@openagenda/agenda-events@1.11.7) (2020-06-18)
+### [1.11.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-events@1.11.7..@openagenda/agenda-events@1.11.6) (2020-06-18)
 
 
 ### Bug Fixes
 
-* **agenda-events:** add default createdAt and updatedAt ([91856d6](https://bitbucket.org/openagenda/oa/commit/91856d6b51e9d74713ade8249e1ad80c72e7c209))
+* **agenda-events:** add default createdAt and updatedAt ([91856d6](https://bitbucket.org/openagenda/oa/commits/91856d6b51e9d74713ade8249e1ad80c72e7c209))
 
 
 
-### [1.11.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.5...@openagenda/agenda-events@1.11.6) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/agenda-events
-
-
-
-
-
-### [1.11.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.4...@openagenda/agenda-events@1.11.5) (2020-05-22)
+### [1.11.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-events@1.11.6..@openagenda/agenda-events@1.11.5) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agenda-events
 
@@ -36,7 +28,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.11.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.3...@openagenda/agenda-events@1.11.4) (2020-05-19)
+### [1.11.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-events@1.11.5..@openagenda/agenda-events@1.11.4) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/agenda-events
 
@@ -44,7 +36,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.11.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.2...@openagenda/agenda-events@1.11.3) (2020-05-15)
+### [1.11.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-events@1.11.4..@openagenda/agenda-events@1.11.3) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/agenda-events
 
@@ -52,7 +44,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.11.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-events@1.11.1...@openagenda/agenda-events@1.11.2) (2020-04-07)
+### [1.11.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-events@1.11.3..@openagenda/agenda-events@1.11.2) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/agenda-events
+
+
+
+
+
+### [1.11.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-events@1.11.2..@openagenda/agenda-events@1.11.1) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-events
 

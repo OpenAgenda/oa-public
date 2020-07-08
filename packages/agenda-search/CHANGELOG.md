@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.2.0...@openagenda/agenda-search@1.2.1) (2020-07-06)
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.2.1..@openagenda/agenda-search@1.2.0) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/agenda-search
 
@@ -11,39 +11,31 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.1.0...@openagenda/agenda-search@1.2.0) (2020-06-18)
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.2.0..@openagenda/agenda-search@1.1.0) (2020-06-18)
 
 
 ### Features
 
-* **agenda-search:** log bulk indexing issues ([8c8205b](https://bitbucket.org/openagenda/oa/commit/8c8205b1ff31ea90f61310d404f42afa9c503ee7))
-* **agenda-search:** scored search result ([8cd5cd0](https://bitbucket.org/openagenda/oa/commit/8cd5cd09c1257e59af3b17bba87b495b3baff40b))
+* **agenda-search:** log bulk indexing issues ([8c8205b](https://bitbucket.org/openagenda/oa/commits/8c8205b1ff31ea90f61310d404f42afa9c503ee7))
+* **agenda-search:** scored search result ([8cd5cd0](https://bitbucket.org/openagenda/oa/commits/8cd5cd09c1257e59af3b17bba87b495b3baff40b))
 
 
 ### Bug Fixes
 
-* **agenda-search:** indexing fails for official agendas ([9eb3f33](https://bitbucket.org/openagenda/oa/commit/9eb3f338e718b272f7b7db9a46d47ae970a9a3c2))
+* **agenda-search:** indexing fails for official agendas ([9eb3f33](https://bitbucket.org/openagenda/oa/commits/9eb3f338e718b272f7b7db9a46d47ae970a9a3c2))
 
 
 
-## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.13...@openagenda/agenda-search@1.1.0) (2020-06-09)
+## [1.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.1.0..@openagenda/agenda-search@1.0.13) (2020-06-09)
 
 
 ### Features
 
-* **agenda-search:** service is instanciable ([614cd1b](https://bitbucket.org/openagenda/oa/commit/614cd1b35106d50c97ba521d1c1fdd35cef30e82))
+* **agenda-search:** service is instanciable ([614cd1b](https://bitbucket.org/openagenda/oa/commits/614cd1b35106d50c97ba521d1c1fdd35cef30e82))
 
 
 
-### [1.0.13](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.12...@openagenda/agenda-search@1.0.13) (2020-05-22)
-
-**Note:** Version bump only for package @openagenda/agenda-search
-
-
-
-
-
-### [1.0.12](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.11...@openagenda/agenda-search@1.0.12) (2020-05-19)
+### [1.0.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.0.13..@openagenda/agenda-search@1.0.12) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/agenda-search
 
@@ -51,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.0.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.10...@openagenda/agenda-search@1.0.11) (2020-05-15)
+### [1.0.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.0.12..@openagenda/agenda-search@1.0.11) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/agenda-search
 
@@ -59,7 +51,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.0.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-search@1.0.9...@openagenda/agenda-search@1.0.10) (2020-04-07)
+### [1.0.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.0.11..@openagenda/agenda-search@1.0.10) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/agenda-search
+
+
+
+
+
+### [1.0.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.0.10..@openagenda/agenda-search@1.0.9) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-search
 

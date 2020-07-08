@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.3.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.3.3...@openagenda/babel-preset@1.3.4) (2020-07-06)
+### [1.3.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.4..@openagenda/babel-preset@1.3.3) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/babel-preset
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.3.2...@openagenda/babel-preset@1.3.3) (2020-06-18)
+### [1.3.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.3..@openagenda/babel-preset@1.3.2) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/babel-preset
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.3.1...@openagenda/babel-preset@1.3.2) (2020-06-09)
+### [1.3.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.2..@openagenda/babel-preset@1.3.1) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/babel-preset
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.3.0...@openagenda/babel-preset@1.3.1) (2020-05-22)
+### [1.3.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.1..@openagenda/babel-preset@1.3.0) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/babel-preset
 
@@ -35,23 +35,23 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.2.2...@openagenda/babel-preset@1.3.0) (2020-05-15)
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.0..@openagenda/babel-preset@1.2.2) (2020-05-15)
 
 
 ### Features
 
-* **babel-preset:** add reactIntl option ([5bfdf4e](https://bitbucket.org/openagenda/oa/commit/5bfdf4e13c172cca7ba882ac48b1617b99088960))
-* **babel-preset:** add support of esm env ([25343c5](https://bitbucket.org/openagenda/oa/commit/25343c5aaf5b12e03f8ebd43a2cdca2921337dfd))
-* **babel-preset:** allow to disable transformRuntime ([5091844](https://bitbucket.org/openagenda/oa/commit/50918446cdd370afd2faa9b324b002ea879a3c17))
+* **babel-preset:** add reactIntl option ([5bfdf4e](https://bitbucket.org/openagenda/oa/commits/5bfdf4e13c172cca7ba882ac48b1617b99088960))
+* **babel-preset:** add support of esm env ([25343c5](https://bitbucket.org/openagenda/oa/commits/25343c5aaf5b12e03f8ebd43a2cdca2921337dfd))
+* **babel-preset:** allow to disable transformRuntime ([5091844](https://bitbucket.org/openagenda/oa/commits/50918446cdd370afd2faa9b324b002ea879a3c17))
 
 
 
-### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/babel-preset@1.2.1...@openagenda/babel-preset@1.2.2) (2020-04-07)
+### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.2.2..@openagenda/babel-preset@1.2.1) (2020-04-07)
 
 
 ### Bug Fixes
 
-* **babel-preset:** avoid duplication of helpers ([5e43948](https://bitbucket.org/openagenda/oa/commit/5e4394894a8ad36818bc6dc78960b1d296ccf146))
+* **babel-preset:** avoid duplication of helpers ([5e43948](https://bitbucket.org/openagenda/oa/commits/5e4394894a8ad36818bc6dc78960b1d296ccf146))
 
 
 

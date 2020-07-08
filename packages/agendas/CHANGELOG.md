@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.4.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/agendas@1.4.4...@openagenda/agendas@1.4.5) (2020-07-06)
+### [1.4.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.4.5..@openagenda/agendas@1.4.4) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/agendas
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/agendas@1.4.3...@openagenda/agendas@1.4.4) (2020-06-18)
+### [1.4.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.4.4..@openagenda/agendas@1.4.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/agendas
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/agendas@1.4.2...@openagenda/agendas@1.4.3) (2020-06-09)
+### [1.4.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.4.3..@openagenda/agendas@1.4.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agendas
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/agendas@1.4.1...@openagenda/agendas@1.4.2) (2020-05-22)
+### [1.4.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.4.2..@openagenda/agendas@1.4.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/agendas
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agendas@1.4.0...@openagenda/agendas@1.4.1) (2020-05-19)
+### [1.4.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.4.1..@openagenda/agendas@1.4.0) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/agendas
 
@@ -43,21 +43,21 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agendas@1.3.4...@openagenda/agendas@1.4.0) (2020-05-15)
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.4.0..@openagenda/agendas@1.3.4) (2020-05-15)
 
 
 ### Features
 
-* **agendas:** filterByAccess util function ([817a304](https://bitbucket.org/openagenda/oa/commit/817a304fec99701f729adca1a1d9584a554b2eab))
+* **agendas:** filterByAccess util function ([817a304](https://bitbucket.org/openagenda/oa/commits/817a304fec99701f729adca1a1d9584a554b2eab))
 
 
 ### Bug Fixes
 
-* **agendas:** useContributeApp should be true, advanced embeds should be activated by default ([e74c590](https://bitbucket.org/openagenda/oa/commit/e74c5907b9903be1bd32090d44119ee450b26f1d))
+* **agendas:** useContributeApp should be true, advanced embeds should be activated by default ([e74c590](https://bitbucket.org/openagenda/oa/commits/e74c5907b9903be1bd32090d44119ee450b26f1d))
 
 
 
-### [1.3.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/agendas@1.3.3...@openagenda/agendas@1.3.4) (2020-04-07)
+### [1.3.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.3.4..@openagenda/agendas@1.3.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agendas
 

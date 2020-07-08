@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.2.4...@openagenda/keys@2.2.5) (2020-07-06)
+### [2.2.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/keys@2.2.5..@openagenda/keys@2.2.4) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/keys
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.2.3...@openagenda/keys@2.2.4) (2020-06-18)
+### [2.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/keys@2.2.4..@openagenda/keys@2.2.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/keys
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.2.2...@openagenda/keys@2.2.3) (2020-06-09)
+### [2.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/keys@2.2.3..@openagenda/keys@2.2.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/keys
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.2.1...@openagenda/keys@2.2.2) (2020-05-22)
+### [2.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/keys@2.2.2..@openagenda/keys@2.2.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/keys
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.2.0...@openagenda/keys@2.2.1) (2020-05-19)
+### [2.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/keys@2.2.1..@openagenda/keys@2.2.0) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/keys
 
@@ -43,21 +43,21 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [2.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.1.3...@openagenda/keys@2.2.0) (2020-05-15)
+## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/keys@2.2.0..@openagenda/keys@2.1.3) (2020-05-15)
 
 
 ### Features
 
-* **keys:** key is required by default ([31f9c57](https://bitbucket.org/openagenda/oa/commit/31f9c57454662f314037319666f40d097e1ea209))
+* **keys:** key is required by default ([31f9c57](https://bitbucket.org/openagenda/oa/commits/31f9c57454662f314037319666f40d097e1ea209))
 
 
 ### Bug Fixes
 
-* **keys:** fix remove ([9d512f8](https://bitbucket.org/openagenda/oa/commit/9d512f841d5d85b17774b17773e82d987c083914))
+* **keys:** fix remove ([9d512f8](https://bitbucket.org/openagenda/oa/commits/9d512f841d5d85b17774b17773e82d987c083914))
 
 
 
-### [2.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/keys@2.1.2...@openagenda/keys@2.1.3) (2020-04-07)
+### [2.1.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/keys@2.1.3..@openagenda/keys@2.1.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/keys
 

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/unsubscribed@2.1.4...@openagenda/unsubscribed@2.1.5) (2020-07-06)
+### [2.1.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/unsubscribed@2.1.5..@openagenda/unsubscribed@2.1.4) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/unsubscribed
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/unsubscribed@2.1.3...@openagenda/unsubscribed@2.1.4) (2020-06-18)
+### [2.1.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/unsubscribed@2.1.4..@openagenda/unsubscribed@2.1.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/unsubscribed
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/unsubscribed@2.1.2...@openagenda/unsubscribed@2.1.3) (2020-06-09)
+### [2.1.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/unsubscribed@2.1.3..@openagenda/unsubscribed@2.1.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/unsubscribed
 

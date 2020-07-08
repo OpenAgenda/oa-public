@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.1.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.9...@openagenda/activities@2.1.10) (2020-07-06)
+### [2.1.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.10..@openagenda/activities@2.1.9) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/activities
 
@@ -11,16 +11,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.8...@openagenda/activities@2.1.9) (2020-06-18)
+### [2.1.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.9..@openagenda/activities@2.1.8) (2020-06-18)
 
 
 ### Bug Fixes
 
-* **activities:** updated mysql throws exception on object field without default ([fc6afc8](https://bitbucket.org/openagenda/oa/commit/fc6afc8f359c1df62fd9321816efa0442a62209d))
+* **activities:** updated mysql throws exception on object field without default ([fc6afc8](https://bitbucket.org/openagenda/oa/commits/fc6afc8f359c1df62fd9321816efa0442a62209d))
 
 
 
-### [2.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.7...@openagenda/activities@2.1.8) (2020-06-09)
+### [2.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.8..@openagenda/activities@2.1.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/activities
 
@@ -28,17 +28,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.6...@openagenda/activities@2.1.7) (2020-05-22)
+### [2.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.7..@openagenda/activities@2.1.6) (2020-05-22)
 
 
 ### Bug Fixes
 
-* **activities:** fix groupBy issue in prepareSummary ([cdb4de8](https://bitbucket.org/openagenda/oa/commit/cdb4de876b2360c93b2dbd7d7b0856768f5319fe))
-* **activities:** stop to use ANY_VALUE() ([b2c0453](https://bitbucket.org/openagenda/oa/commit/b2c0453b1f52574c83285069c0de1c1a7ad30181))
+* **activities:** fix groupBy issue in prepareSummary ([cdb4de8](https://bitbucket.org/openagenda/oa/commits/cdb4de876b2360c93b2dbd7d7b0856768f5319fe))
+* **activities:** stop to use ANY_VALUE() ([b2c0453](https://bitbucket.org/openagenda/oa/commits/b2c0453b1f52574c83285069c0de1c1a7ad30181))
 
 
 
-### [2.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.5...@openagenda/activities@2.1.6) (2020-05-19)
+### [2.1.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.6..@openagenda/activities@2.1.5) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/activities
 
@@ -46,16 +46,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.4...@openagenda/activities@2.1.5) (2020-05-15)
+### [2.1.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.5..@openagenda/activities@2.1.4) (2020-05-15)
 
 
 ### Bug Fixes
 
-* **activities:** fix groupBy on mysql 5.7 ([2a35230](https://bitbucket.org/openagenda/oa/commit/2a3523052bb32e66f00454b0919670bf60fab831))
+* **activities:** fix groupBy on mysql 5.7 ([2a35230](https://bitbucket.org/openagenda/oa/commits/2a3523052bb32e66f00454b0919670bf60fab831))
 
 
 
-### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/activities@2.1.3...@openagenda/activities@2.1.4) (2020-04-07)
+### [2.1.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.4..@openagenda/activities@2.1.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/activities
 

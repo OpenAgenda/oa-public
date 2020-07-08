@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.6.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.6.4...@openagenda/events@1.6.5) (2020-07-06)
+### [1.6.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.5..@openagenda/events@1.6.4) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/events
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.6.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.6.3...@openagenda/events@1.6.4) (2020-06-18)
+### [1.6.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.4..@openagenda/events@1.6.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/events
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.6.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.6.2...@openagenda/events@1.6.3) (2020-06-09)
+### [1.6.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.3..@openagenda/events@1.6.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/events
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.6.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.6.1...@openagenda/events@1.6.2) (2020-05-22)
+### [1.6.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.2..@openagenda/events@1.6.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/events
 
@@ -35,25 +35,25 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.6.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.6.0...@openagenda/events@1.6.1) (2020-05-19)
+### [1.6.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.1..@openagenda/events@1.6.0) (2020-05-19)
 
 
 ### Bug Fixes
 
-* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commit/d0770b1fe6488d4050360b9db2c698c85b02eb85))
+* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commits/d0770b1fe6488d4050360b9db2c698c85b02eb85))
 
 
 
-## [1.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.5.6...@openagenda/events@1.6.0) (2020-05-15)
+## [1.6.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.0..@openagenda/events@1.5.6) (2020-05-15)
 
 
 ### Features
 
-* **events:** accessibility code mei for mental impairement added, sign language removed ([9bd930a](https://bitbucket.org/openagenda/oa/commit/9bd930a5a116faa7f094d841fac751e972e23ef8))
+* **events:** accessibility code mei for mental impairement added, sign language removed ([9bd930a](https://bitbucket.org/openagenda/oa/commits/9bd930a5a116faa7f094d841fac751e972e23ef8))
 
 
 
-### [1.5.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/events@1.5.5...@openagenda/events@1.5.6) (2020-04-07)
+### [1.5.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.5.6..@openagenda/events@1.5.5) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/events
 

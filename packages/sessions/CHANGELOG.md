@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [4.0.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@4.0.4...@openagenda/sessions@4.0.5) (2020-07-06)
+### [4.0.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.0.5..@openagenda/sessions@4.0.4) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/sessions
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [4.0.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@4.0.3...@openagenda/sessions@4.0.4) (2020-06-18)
+### [4.0.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.0.4..@openagenda/sessions@4.0.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/sessions
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [4.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@4.0.2...@openagenda/sessions@4.0.3) (2020-06-09)
+### [4.0.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.0.3..@openagenda/sessions@4.0.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/sessions
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [4.0.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@4.0.1...@openagenda/sessions@4.0.2) (2020-05-22)
+### [4.0.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.0.2..@openagenda/sessions@4.0.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/sessions
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [4.0.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@4.0.0...@openagenda/sessions@4.0.1) (2020-05-19)
+### [4.0.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.0.1..@openagenda/sessions@4.0.0) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/sessions
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [4.0.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@3.1.1...@openagenda/sessions@4.0.0) (2020-05-15)
+## [4.0.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.0.0..@openagenda/sessions@3.1.1) (2020-05-15)
 
 
 ### ⚠ BREAKING CHANGES
@@ -52,11 +52,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Code Refactoring
 
-* **sessions:** rename middleware to mw ([41a724b](https://bitbucket.org/openagenda/oa/commit/41a724b357b23c01cc6dff7968664ad84681e544))
+* **sessions:** rename middleware to mw ([41a724b](https://bitbucket.org/openagenda/oa/commits/41a724b357b23c01cc6dff7968664ad84681e544))
 
 
 
-### [3.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/sessions@3.1.0...@openagenda/sessions@3.1.1) (2020-04-07)
+### [3.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@3.1.1..@openagenda/sessions@3.1.0) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/sessions
 

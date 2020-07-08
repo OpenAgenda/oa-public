@@ -32,7 +32,7 @@
     "@openagenda/react-form-components": "^2.1.9",
     "@openagenda/react-shared": "^2.0.3",
     "@openagenda/react-utils": "^4.2.2",
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "lodash": "^4.17.15",
     "prop-types": "^15.5.8",

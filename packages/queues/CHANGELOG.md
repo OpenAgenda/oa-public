@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/queues@1.2.3...@openagenda/queues@1.2.4) (2020-04-08)
+### [1.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/queues@1.2.4..@openagenda/queues@1.2.3) (2020-04-08)
 
 **Note:** Version bump only for package @openagenda/queues
 

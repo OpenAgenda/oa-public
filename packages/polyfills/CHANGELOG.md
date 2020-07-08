@@ -8,4 +8,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **polyfills:** init package ([574893a](https://bitbucket.org/openagenda/oa/commit/574893af44c93ad91a7068b4cd314b7cf7f1c8b2))
+* **polyfills:** init package ([574893a](https://bitbucket.org/openagenda/oa/commits/574893af44c93ad91a7068b4cd314b7cf7f1c8b2))

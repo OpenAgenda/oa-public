@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.1.13](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.12...@openagenda/user-apps@1.1.13) (2020-07-06)
+### [1.1.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.13..@openagenda/user-apps@1.1.12) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.12](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.11...@openagenda/user-apps@1.1.12) (2020-06-30)
+### [1.1.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.12..@openagenda/user-apps@1.1.11) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.10...@openagenda/user-apps@1.1.11) (2020-06-18)
+### [1.1.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.11..@openagenda/user-apps@1.1.10) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.9...@openagenda/user-apps@1.1.10) (2020-06-09)
+### [1.1.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.10..@openagenda/user-apps@1.1.9) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.8...@openagenda/user-apps@1.1.9) (2020-05-22)
+### [1.1.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.9..@openagenda/user-apps@1.1.8) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.7...@openagenda/user-apps@1.1.8) (2020-05-19)
+### [1.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.8..@openagenda/user-apps@1.1.7) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
@@ -51,7 +51,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.6...@openagenda/user-apps@1.1.7) (2020-05-15)
+### [1.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.7..@openagenda/user-apps@1.1.6) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
@@ -59,7 +59,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/user-apps@1.1.5...@openagenda/user-apps@1.1.6) (2020-04-07)
+### [1.1.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.6..@openagenda/user-apps@1.1.5) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/user-apps
 
