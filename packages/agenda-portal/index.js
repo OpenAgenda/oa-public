@@ -10,6 +10,7 @@ const Proxy = require('./lib/Proxy');
 const launch = require('./lib/launch');
 const loadResLocals = require('./lib/loadResLocals');
 const tasks = require('./tasks');
+const utils = require('./utils');
 
 const EventTransforms = require('./lib/events/Transforms');
 
@@ -167,3 +168,5 @@ module.exports = async options => {
 module.exports.loadDevApp = dev => {
   devApp = dev;
 };
+
+module.exports.utils = utils;

@@ -69,6 +69,8 @@ Run the deploy command:
 
     yarn start
 
+Once this is done, all files will be ready to be edited in your project. And .env file lists all project environment variables, which are overwritten by variables already declared on execution of the server script.
+
 See it on your browser on port 3000 if you haven't changed the default port in `server.js`: [localhost:3000](localhost:3000)
 
 You can then edit handlebar templates available in the views folder and the sass files as you wish to adapt the portal design.
