@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.10.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.9.3...@openagenda/agenda-portal@2.10.0) (2020-07-08)
+
+
+### Features
+
+* **agenda-portal:** preview widget added ([e30e435](https://bitbucket.org/openagenda/oa/commit/e30e4351446d636328e41af2ec43d33ca6113092))
+* **agenda-portal:** use .env to store project variables ([5af51bb](https://bitbucket.org/openagenda/oa/commit/5af51bb7347b78c813a2dd21eabbafda4a7a1bdc))
+
+
+### Bug Fixes
+
+* **agenda-portal:** in iframed portal, when event is opened in list, scrolls back to top of iframe ([b4a73a2](https://bitbucket.org/openagenda/oa/commit/b4a73a228e02369af4a3499335cfd337a7adea54))
+
+
+
 ### [2.9.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.9.2...@openagenda/agenda-portal@2.9.3) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/agenda-portal

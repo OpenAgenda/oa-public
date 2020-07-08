@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/verror@2.1.4...@openagenda/verror@2.1.5) (2020-07-08)
+
+**Note:** Version bump only for package @openagenda/verror
+
+
+
+
+
 ### [2.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/verror@2.1.3...@openagenda/verror@2.1.4) (2020-07-06)
 
 

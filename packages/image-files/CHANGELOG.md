@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/image-files@1.1.7...@openagenda/image-files@1.1.8) (2020-07-08)
+
+**Note:** Version bump only for package @openagenda/image-files
+
+
+
+
+
 ### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/image-files@1.1.6...@openagenda/image-files@1.1.7) (2020-07-06)
 
 

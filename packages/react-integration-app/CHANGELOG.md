@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.3.2...@openagenda/react-integration-app@1.3.3) (2020-07-08)
+
+**Note:** Version bump only for package @openagenda/react-integration-app
+
+
+
+
+
 ### [1.3.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.3.1...@openagenda/react-integration-app@1.3.2) (2020-07-06)
 
 

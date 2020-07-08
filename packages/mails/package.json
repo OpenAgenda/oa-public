@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/mails",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "license": "MIT",
   "main": "index.js",
   "bin": {
@@ -14,7 +14,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.4",
+    "@openagenda/logs": "^1.1.5",
     "ejs": "^2.7.4",
     "isemail": "^3.2.0",
     "mjml": "^4.6.2",
@@ -22,7 +22,7 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.2.1",
+    "@openagenda/eslint-config": "^1.2.2",
     "@openagenda/queues": "^1.2.4",
     "eslint": "^6.8.0",
     "express": "^4.17.1",
