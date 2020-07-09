@@ -3,7 +3,13 @@
 const fs = require('fs');
 
 module.exports = dir => {
-  const lines = (fs.readFileSync(`${dir}/.env`, 'utf-8') || '')
+  const envFile = `${dir}/.env`;
+
+  if (!fs.existsSync(envFile)) {
+    return;
+  }
+
+  const lines = (fs.readFileSync(envFile, 'utf-8') || '')
     .split('\n')
     .filter(line => line.length)
     .filter(line => line.substr(0, 1) !== '#');
