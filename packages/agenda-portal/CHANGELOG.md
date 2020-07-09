@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.11.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.10.0...@openagenda/agenda-portal@2.11.0) (2020-07-09)
+
+
+### Features
+
+* **agenda-portal:** specify preview widget target through iframe attribute ([54ef64e](https://bitbucket.org/openagenda/oa/commit/54ef64ee2afcd9862056229a961050a382a861bd))
+
+
+
 ## [2.10.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-portal@2.9.3...@openagenda/agenda-portal@2.10.0) (2020-07-08)
 
 
