@@ -21,6 +21,7 @@ Table of contents:
    * [Available data](#available-data)
    * [Customizing data](#customizing-data)
  * [IFrames](#iframes)
+ * [Preview](#preview)
  * [Miscellaneous](#miscellaneous)
 
 ## Features
@@ -253,12 +254,36 @@ Place the partial `widgets/map.hbs` where the map is to appear. Widget options c
 
 ## IFrames
 
-In some cases, an agenda portal project is integrated into an existing website by loading it within an iframe. In this case, a js controller that will handle iframe height adjustments and url updates needs to be associated to the iframe. Given a portal url `https://myagendaportal.com`, the iframe/controller code should look like this:
+In some cases, an agenda portal project is integrated into an existing website by loading it within an iframe. In this case, a js controller that will handle iframe height adjustments and url updates needs to be associated to the iframe. This controller is a js file made available by the portal implementation: `${youportalurl}/js/oaPreviewController.js`.
+
+To illustrate, given a portal url `https://myagendaportal.com`, the iframe/controller code should look like this:
 
     <iframe data-oa-portal="https://myagendaportal.com" allowtransparency="allowtransparency" frameborder="0"></iframe>
     <script type="text/javascript" src="https://myagendaportal.com/js/oaPortalController.js"></script>
 
 You can use the `iframe-canvas.html` locally when working in a development environment to display the portal within an integrated page.
+
+## Preview
+
+If you need to display an extract / a preview of the content of the portal, say on the homepage of your website for example, where user can click on an event to be redirected to the full view on your portal, a preview template can be customized: `preview.hbs`. Once ready, it is to be pointed to by an iframe/js pair to be placed where you want to display the previewed events:
+
+    <iframe
+      data-oa-preview="http(s)://portal-url.com/preview"
+      data-count="3"
+      data-query="oaq[featured]=1"
+      data-target-url="http://portal-url-or-iframed-portal-hosting-page.com"
+      data-target-iframe
+      allowtransparency="allowtransparency"
+      frameborder="0"></iframe>
+    <script type="text/javascript" src="http(s)://portal-url.com/js/oaPreviewController.js"></script>
+
+The specified iframe attributes:
+
+ * `data-oa-preview`: route to the preview endpoint of your portal
+ * `data-target-url`: base url where the portal is deployed
+ * `data-target-iframe`: set this attribute only if the portal is hosted within an iframe on the target page.
+ * `data-query`: query to filter events to be displayed in preview widget
+ * `allowtransparency, frameborder`: avoid ugly borders and preset background on the iframe
 
 ## Miscellaneous
 

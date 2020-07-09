@@ -23,6 +23,12 @@ function onMessage(state, { message }) {
   } else if (message.code === 'internal') {
     log('received internal link click from iframe');
     state.iframe.scrollIntoView();
+  } else if (message.code === 'preview') {
+    log('received preview slug', message.eventSlug);
+    window.location.href = `${(state.target || '#undefined-data-target-url')
+      + (state.targetIsIframe ? '#' : '')
+    }/events/${
+      message.eventSlug}`;
   } else if (message.link) {
     window.location.href = message.link;
   }
@@ -52,9 +58,13 @@ function updateIframeOnHashChange(state) {
 }
 
 module.exports = (iframe, options = {}) => {
-  const { selector, monitorHash } = {
+  const {
+    selector, monitorHash, targetSelector, targetIsIframeSelector
+  } = {
     selector: 'data-oa-portal',
     monitorHash: false,
+    targetSelector: 'data-target-url',
+    targetIsIframeSelector: 'data-target-iframe',
     ...options
   };
 
@@ -85,7 +95,11 @@ module.exports = (iframe, options = {}) => {
     iFrameReady: false,
     selector,
     base,
-    relative
+    relative,
+    target: iframe.hasAttribute(targetSelector)
+      ? iframe.getAttribute(targetSelector)
+      : null,
+    targetIsIframe: iframe.hasAttribute(targetIsIframeSelector)
   };
 
   if (base) {

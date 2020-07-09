@@ -49,7 +49,7 @@ module.exports = ({
             a => a.slugSchemaOptionIdMap
           )
         }),
-        limit,
+        size: limit,
         offset
       }
       : {

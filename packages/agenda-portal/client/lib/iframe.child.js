@@ -71,6 +71,20 @@ function sendInternalLinkClick(state, link) {
   });
 }
 
+function sendEventPreviewClick(state, eventSlug) {
+  log('sendEventPreviewClick %s', eventSlug);
+  const { parent } = state;
+
+  if (!parent) {
+    return;
+  }
+
+  parent.sendMessage({
+    code: 'preview',
+    eventSlug
+  });
+}
+
 module.exports = (options = {}) => {
   const state = {
     parent: null
@@ -91,6 +105,7 @@ module.exports = (options = {}) => {
   return {
     sendNavUpdate: sendNavUpdate.bind(null, state),
     sendExternalLinkClick: sendExternalLinkClick.bind(null, state),
-    sendInternalLinkClick: sendInternalLinkClick.bind(null, state)
+    sendInternalLinkClick: sendInternalLinkClick.bind(null, state),
+    sendEventPreviewClick: sendEventPreviewClick.bind(null, state)
   };
 };
