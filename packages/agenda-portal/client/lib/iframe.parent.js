@@ -1,11 +1,14 @@
-
 const log = require('debug')('iframe.parent');
 const { iframeResize } = require('iframe-resizer');
 
-const getHash = () => window.location.hash.replace(/^#/, '');
+const getHash = () => (window.location.hash || '').replace(/^#/, '');
+
+const updateRelativePath = (state, relative) => {
+  state.relative = relative;
+  window.location.hash = relative;
+};
 
 function onMessage(state, { message }) {
-  log('ooooooooooooooo', state, message);
   if (message.code === 'ready' && !state.iFrameReady) {
     state.iFrameReady = true;
     if (window.location.hash.length) {
@@ -15,25 +18,91 @@ function onMessage(state, { message }) {
       });
     }
   } else if (message.nav) {
-    window.location.hash = message.nav;
+    log('received nav from iframe', message);
+    updateRelativePath(state, message.nav);
+  } else if (message.code === 'internal') {
+    log('received internal link click from iframe');
+    state.iframe.scrollIntoView();
+  } else if (message.code === 'preview') {
+    log('received preview slug', message.eventSlug);
+    window.location.href = `${(state.target || '#undefined-data-target-url')
+      + (state.targetIsIframe ? '#' : '')}/events/${message.eventSlug}`;
   } else if (message.link) {
     window.location.href = message.link;
   }
 }
 
-module.exports = iframe => {
-  const src = iframe.getAttribute('data-oa-portal');
+function updateIFrameSource({ iframe, base, relative }) {
+  iframe.setAttribute('src', base + relative);
+}
+
+function updateIframeOnHashChange(state) {
+  window.addEventListener(
+    'hashchange',
+    () => {
+      const hash = getHash();
+      log('updateIframeOnHashChange - %s vs %s', state.relative, hash);
+
+      if (getHash() === state.relative) {
+        return;
+      }
+
+      state.relative = getHash();
+
+      updateIFrameSource(state);
+    },
+    false
+  );
+}
+
+module.exports = (iframe, options = {}) => {
+  const {
+    selector, monitorHash, targetSelector, targetIsIframeSelector
+  } = {
+    selector: 'data-oa-portal',
+    monitorHash: false,
+    targetSelector: 'data-target-url',
+    targetIsIframeSelector: 'data-target-iframe',
+    ...options
+  };
+
+  log('loading', selector);
+
+  const base = iframe.getAttribute(selector);
+  let relative = '';
 
   iframe.setAttribute('style', 'width: 1px; min-width: 100%;');
 
-  if (src) {
-    iframe.setAttribute('src', src + getHash());
+  if (iframe.getAttribute('data-query')) {
+    relative = `?${iframe.getAttribute('data-query')}`;
+  } else if (monitorHash) {
+    relative = getHash();
+  }
+
+  // This iframe parent should track base and
+
+  if (iframe.getAttribute('data-count')) {
+    relative = `${relative
+      + (relative.indexOf('?') === -1 ? '?' : '&')}limit=${iframe.getAttribute(
+      'data-count'
+    )}`;
   }
 
   const state = {
     iframe,
-    iFrameReady: false
+    iFrameReady: false,
+    selector,
+    base,
+    relative,
+    target: iframe.hasAttribute(targetSelector)
+      ? iframe.getAttribute(targetSelector)
+      : null,
+    targetIsIframe: iframe.hasAttribute(targetIsIframeSelector)
   };
+
+  if (base) {
+    updateIFrameSource(state);
+  }
 
   iframeResize(
     {
@@ -42,4 +111,8 @@ module.exports = iframe => {
     },
     iframe
   );
+
+  if (monitorHash) {
+    updateIframeOnHashChange(state);
+  }
 };

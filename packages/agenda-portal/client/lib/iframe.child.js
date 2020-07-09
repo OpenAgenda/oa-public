@@ -15,7 +15,7 @@ function onParentMessage(state, onParentNavUpdate, message) {
 
   const updatedHref = message.nav ? _generateUpdatedHref(message.nav) : null;
 
-  if (updatedHref) {
+  if (updatedHref && onParentNavUpdate) {
     onParentNavUpdate(updatedHref);
   }
 }
@@ -57,10 +57,39 @@ function sendExternalLinkClick(state, link) {
   });
 }
 
-module.exports = ({ onParentNavUpdate }) => {
+function sendInternalLinkClick(state, link) {
+  log('sendInternalLinkClick %s', link);
+  const { parent } = state;
+
+  if (!parent) {
+    return;
+  }
+
+  parent.sendMessage({
+    code: 'internal',
+    link
+  });
+}
+
+function sendEventPreviewClick(state, eventSlug) {
+  log('sendEventPreviewClick %s', eventSlug);
+  const { parent } = state;
+
+  if (!parent) {
+    return;
+  }
+
+  parent.sendMessage({
+    code: 'preview',
+    eventSlug
+  });
+}
+
+module.exports = (options = {}) => {
   const state = {
     parent: null
   };
+  const { onParentNavUpdate } = options;
 
   window.iFrameResizer = {
     onMessage: onParentMessage.bind(null, state, onParentNavUpdate),
@@ -75,6 +104,8 @@ module.exports = ({ onParentNavUpdate }) => {
 
   return {
     sendNavUpdate: sendNavUpdate.bind(null, state),
-    sendExternalLinkClick: sendExternalLinkClick.bind(null, state)
+    sendExternalLinkClick: sendExternalLinkClick.bind(null, state),
+    sendInternalLinkClick: sendInternalLinkClick.bind(null, state),
+    sendEventPreviewClick: sendEventPreviewClick.bind(null, state)
   };
 };

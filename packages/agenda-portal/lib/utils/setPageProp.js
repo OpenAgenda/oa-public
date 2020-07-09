@@ -6,10 +6,10 @@ module.exports = (req, path, value) => {
   if (!req.pageProps) {
     req.pageProps = _.pick(req.app.locals, [
       'iframable',
+      'iframeParent',
       'lang',
       'uid',
-      'root',
-      'parentRoot'
+      'root'
     ]);
   }
 

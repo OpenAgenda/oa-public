@@ -2,7 +2,12 @@
 
 const _ = require('lodash');
 
-module.exports = (req, res, next) => {
+function middleware(options, req, res, next) {
+  const { mainScript } = {
+    mainScript: 'main.js',
+    ...(options || {})
+  };
+
   const stylesheets = [`${req.app.locals.assetsRoot}/main.css`].map(s => ({
     href: s
   }));
@@ -12,7 +17,7 @@ module.exports = (req, res, next) => {
   ];
 
   const bottomScripts = [
-    `${req.app.locals.assetsRoot}/js/main.js`,
+    `${req.app.locals.assetsRoot}/js/${mainScript}`,
     'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js',
     `${req.app.locals.assetsRoot}/jquery.spin.js`
   ];
@@ -36,4 +41,8 @@ module.exports = (req, res, next) => {
   });
 
   next();
-};
+}
+
+module.exports = Object.assign(middleware.bind(null, {}), {
+  withOptions: options => middleware.bind(null, options)
+});

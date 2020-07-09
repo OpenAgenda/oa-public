@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.8.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/form-schemas@1.8.2..@openagenda/form-schemas@1.8.1) (2020-07-08)
+
+**Note:** Version bump only for package @openagenda/form-schemas
+
+
+
+
+
 ### [1.8.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/form-schemas@1.8.1..@openagenda/form-schemas@1.8.0) (2020-07-06)
 
 

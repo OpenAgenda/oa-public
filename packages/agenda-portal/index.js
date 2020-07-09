@@ -10,6 +10,7 @@ const Proxy = require('./lib/Proxy');
 const launch = require('./lib/launch');
 const loadResLocals = require('./lib/loadResLocals');
 const tasks = require('./tasks');
+const utils = require('./utils');
 
 const EventTransforms = require('./lib/events/Transforms');
 
@@ -19,6 +20,7 @@ const get = require('./middleware/getEvent');
 const { redirectToNeighbor } = require('./middleware/eventNavigation');
 const list = require('./middleware/listEvents');
 const pageGlobals = require('./middleware/pageGlobals');
+const preview = require('./middleware/renderPreview');
 const webpackSASSMiddleware = require('./dev/webpackSASSMiddleware');
 const redirectLegacyEventQuery = require('./middleware/redirectLegacyEventQuery');
 const renderList = require('./middleware/renderList');
@@ -32,6 +34,7 @@ const mw = {
   get,
   redirectToNeighbor,
   list,
+  preview,
   pageGlobals,
   redirectLegacyEventQuery,
   renderList,
@@ -123,6 +126,14 @@ module.exports = async options => {
 
   app.get('/', mw.redirectLegacyEventQuery, mw.pageGlobals, mw.list, mw.index);
   app.get('/p/:page', mw.pageGlobals, mw.list, mw.index);
+  app.get(
+    '/preview',
+    mw.pageGlobals.withOptions({
+      mainScript: 'preview.js'
+    }),
+    mw.list,
+    mw.preview
+  );
 
   app.get('/events/p/:page', mw.list, mw.renderList);
   app.get('/events', mw.list, mw.renderList);
@@ -157,3 +168,5 @@ module.exports = async options => {
 module.exports.loadDevApp = dev => {
   devApp = dev;
 };
+
+module.exports.utils = utils;

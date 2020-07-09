@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-shared@2.0.4..@openagenda/react-shared@2.0.3) (2020-07-08)
+
+**Note:** Version bump only for package @openagenda/react-shared
+
+
+
+
+
 ### [2.0.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-shared@2.0.3..@openagenda/react-shared@2.0.2) (2020-07-06)
 
 

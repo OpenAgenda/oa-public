@@ -28,7 +28,7 @@ module.exports = ({
   async function _fetch(agendaUid, res, query, forcedLimit = null) {
     const oaq = parseSearchQuery(_.get(query, 'oaq'), { defaultFilter });
 
-    const limit = forcedLimit || defaultLimit;
+    const limit = forcedLimit || query.limit || defaultLimit;
 
     const offset = parseInt(
       _.get(
@@ -49,7 +49,7 @@ module.exports = ({
             a => a.slugSchemaOptionIdMap
           )
         }),
-        limit,
+        size: limit,
         offset
       }
       : {

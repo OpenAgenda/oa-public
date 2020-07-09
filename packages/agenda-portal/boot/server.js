@@ -1,12 +1,9 @@
 'use strict';
 
-const fs = require('fs');
-
-process.env.DEBUG = 'test, middleware/*';
-
+// const log = require('../lib/Log')('server');
 const Portal = require('..');
 
-const devPort = 3000;
+Portal.utils.loadEnvironment(__dirname);
 
 function eventHook(event /* { lang, moment } */) {
   // log( JSON.stringify( event, null, 2 ) );
@@ -15,15 +12,14 @@ function eventHook(event /* { lang, moment } */) {
 }
 
 Portal({
-  root: process.env.PORTAL_ROOT || `http://localhost:${devPort}`,
+  root:
+    process.env.PORTAL_ROOT || `http://localhost:${process.env.PORTAL_PORT}`,
   // agenda uid
-  uid: process.env.UID || /* UID */ 48353388,
+  uid: process.env.PORTAL_AGENDA_UID,
   // site language
-  lang: 'fr',
+  lang: process.env.PORTAL_LANG || 'fr',
   // associated OA account key
-  key:
-    process.env.PORTAL_KEY
-    || fs.readFileSync(`${__dirname}/oa.key`, 'utf-8').trim('\n'),
+  key: process.env.PORTAL_KEY,
   // views folder
   views: `${__dirname}/views`,
   sass: `${__dirname}/sass/main.scss`,
@@ -35,7 +31,8 @@ Portal({
     featured: 0
   },
   // true if portal is to be displayed within iframe
-  iframable: true,
+  iframable: process.env.PORTAL_IFRAMABLE,
+  iframeParent: process.env.PORTAL_IFRAME_PARENT,
   cache: {
     // interval at which cache is refreshed ( in milliseconds )
     refreshInterval: 60 * 60 * 1000
@@ -56,4 +53,4 @@ Portal({
     zoom: 12
   },
   eventHook
-}).then(({ app }) => app.launch(process.env.PORTAL_PORT || devPort));
+}).then(({ app }) => app.launch(process.env.PORTAL_PORT));

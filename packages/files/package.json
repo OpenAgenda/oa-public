@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/files",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "",
   "main": "index.js",
   "keywords": [],
@@ -10,7 +10,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.4",
+    "@openagenda/logs": "^1.1.5",
     "async": "^1.5.0",
     "aws-sdk": "^2.544.0",
     "lodash": "^4.17.15",
