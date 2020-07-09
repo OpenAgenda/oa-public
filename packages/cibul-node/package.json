@@ -1,6 +1,6 @@
 {
   "name": "cibul-node",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
@@ -29,7 +29,7 @@
     "@openagenda/agenda-event-references": "^1.1.12",
     "@openagenda/agenda-events": "^1.11.9",
     "@openagenda/agenda-locations": "^1.8.6",
-    "@openagenda/agenda-portal": "^2.11.0",
+    "@openagenda/agenda-portal": "^2.11.1",
     "@openagenda/agenda-schema": "^1.0.11",
     "@openagenda/agenda-search": "^1.2.2",
     "@openagenda/agenda-settings": "^1.2.11",
