@@ -21,9 +21,12 @@
           <li>
             <h2><%= section.label %></h2>
           </li>
-          <% section.tabs.forEach( function( { name, label, link, selected, scriptAnchor } ) { %>
+          <% section.tabs.forEach( function( { name, label, link, selected, scriptAnchor, newFeature } ) { %>
           <li class="menu-item js_menu_item js_menu_item_<%= name %><%= selected ? ' selected' : '' %>">
             <a class="<%= selected ? 'active' : ''%>" href="<%= link %>"><%= label %></a>
+            <% if (newFeature) { %>
+            <span class="badge badge-primary margin-left-sm"><%= tabLabels.newTab %></span>
+            <% } %>
             <% if ( scriptAnchor ) { %>
             <%= scriptAnchor.replace( ':slug', agenda.slug ) %>
             <% } %>

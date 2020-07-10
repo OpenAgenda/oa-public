@@ -21,6 +21,10 @@ const messages = defineMessages({
   return: {
     id: 'react-layouts.AgendaAdminLayout.return',
     defaultMessage: 'Return'
+  },
+  newTab: {
+    id: 'react-layouts.AgendaAdminLayout.newTab',
+    defaultMessage: 'New !'
   }
 });
 
@@ -37,6 +41,7 @@ const TABS_IN_APP = [
 
 function Sections({ agenda, role }) {
   const location = useLocation();
+  const intl = useIntl();
 
   const sections = useSelector(
     state => _.get(state, 'agendaAdmin.sections', null),
@@ -51,7 +56,9 @@ function Sections({ agenda, role }) {
       </li>
 
       {section.tabs.map(tab => {
-        const { name, label, link } = tab;
+        const {
+          name, label, link, newFeature
+        } = tab;
         const selected = matchPath(location.pathname, {
           path: link,
           exact: name === 'events'
@@ -90,6 +97,11 @@ function Sections({ agenda, role }) {
                 {' '}
                 <span className="badge badge-warning">{locationCount}</span>
               </>
+            ) : null}
+            {newFeature ? (
+              <span className="badge badge-primary margin-left-sm">
+                {intl.formatMessage(messages.newTab)}
+              </span>
             ) : null}
           </li>
         );

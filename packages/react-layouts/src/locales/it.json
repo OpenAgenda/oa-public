@@ -3,6 +3,7 @@
   "react-layouts.components.Search.search": null,
   "react-layouts.AgendaAdminLayout.administration": null,
   "react-layouts.AgendaAdminLayout.return": null,
+  "react-layouts.AgendaAdminLayout.newTab": "Nuovo!",
   "react-layouts.MainLayout.general": null,
   "react-layouts.MainLayout.myEvents": null,
   "react-layouts.MainLayout.settings": null,
