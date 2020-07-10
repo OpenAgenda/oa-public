@@ -33,7 +33,7 @@
     "@openagenda/utils": "^1.2.6",
     "async": "^2.1.4",
     "bootstrap-daterangepicker": "^2.1.25",
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "immutability-helper": "^3.0.0",
     "jquery": "^3.2.1",

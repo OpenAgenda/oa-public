@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.1.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.10...@openagenda/activity-apps@1.1.11) (2020-07-08)
+### [1.1.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.11..@openagenda/activity-apps@1.1.10) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/activity-apps
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.9...@openagenda/activity-apps@1.1.10) (2020-07-06)
+### [1.1.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.10..@openagenda/activity-apps@1.1.9) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/activity-apps
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.8...@openagenda/activity-apps@1.1.9) (2020-06-18)
+### [1.1.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.9..@openagenda/activity-apps@1.1.8) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/activity-apps
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.7...@openagenda/activity-apps@1.1.8) (2020-06-09)
+### [1.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.8..@openagenda/activity-apps@1.1.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/activity-apps
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.6...@openagenda/activity-apps@1.1.7) (2020-05-22)
+### [1.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.7..@openagenda/activity-apps@1.1.6) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/activity-apps
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.5...@openagenda/activity-apps@1.1.6) (2020-05-19)
+### [1.1.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.6..@openagenda/activity-apps@1.1.5) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/activity-apps
 
@@ -51,16 +51,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.4...@openagenda/activity-apps@1.1.5) (2020-05-15)
+### [1.1.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.5..@openagenda/activity-apps@1.1.4) (2020-05-15)
 
 
 ### Bug Fixes
 
-* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commits/95101c3bade5aa224003d3ec716571548aeb0d97))
 
 
 
-### [1.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/activity-apps@1.1.3...@openagenda/activity-apps@1.1.4) (2020-04-07)
+### [1.1.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.1.4..@openagenda/activity-apps@1.1.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/activity-apps
 

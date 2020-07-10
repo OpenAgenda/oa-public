@@ -1,5 +1,5 @@
 {
-  "AgendaStats.AggregationCharts.noValue": "No value.",
+  "AgendaStats.ComposedChart.noValue": "No value.",
   "AgendaStats.AggregationCharts.addChart": "Add a chart",
   "AgendaStats.AggregationCharts.selectElementToAdd": "Select an element to add",
   "AgendaStats.AggregationCharts.update": "Update",

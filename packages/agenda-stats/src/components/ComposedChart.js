@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import ContentLoader from 'react-content-loader';
 import mergeMultiData from '../utils/mergeMultiData';
 import getLocaleValue from '../utils/getLocaleValue';
 import addRestItem from '../utils/addRestItem';
@@ -33,8 +34,30 @@ const messages = defineMessages({
     id: 'AgendaStats.ComposedChart.tooltipContentUpdatedAt',
     defaultMessage:
       '{value, plural, =0 {# updated event} one {# updated event} other {# updated events}}'
+  },
+  noValue: {
+    id: 'AgendaStats.ComposedChart.noValue',
+    defaultMessage: 'No value.'
   }
 });
+
+function ChartLoading() {
+  return (
+    <ContentLoader
+      speed={2}
+      style={{ width: '100%' }}
+      height={210}
+      viewBox="0 0 400 210"
+      backgroundColor="#f3f3f3"
+      foregroundColor="#ecebeb"
+    >
+      <rect x="10" y="10" rx="5" ry="5" width="380" height="40" />
+      <rect x="11" y="60" rx="5" ry="5" width="275" height="40" />
+      <rect x="10" y="110" rx="5" ry="5" width="200" height="40" />
+      <rect x="10" y="160" rx="5" ry="5" width="140" height="40" />
+    </ContentLoader>
+  );
+}
 
 function ComposedChart({
   wrapperComponent,
@@ -57,6 +80,10 @@ function ComposedChart({
   } = chart;
   const intl = useIntl();
   const data = useMemo(() => {
+    if (!rawData?.length) {
+      return [];
+    }
+
     const labelKeys = [].concat(labelKey);
     let result = rawData;
 
@@ -165,17 +192,29 @@ function ComposedChart({
     return null;
   }
 
-  const child = (
-    <ChartComponent
-      data={data}
-      totalEvents={totalEvents}
-      dataKey={dataKey}
-      labelKey={labelKey}
-      renderTooltipItem={renderTooltipItem}
-      categoryTick={categoryTick}
-      dataColors={dataColors}
-    />
-  );
+  let child;
+
+  if (data.length) {
+    child = (
+      <ChartComponent
+        data={data}
+        totalEvents={totalEvents}
+        dataKey={dataKey}
+        labelKey={labelKey}
+        renderTooltipItem={renderTooltipItem}
+        categoryTick={categoryTick}
+        dataColors={dataColors}
+      />
+    );
+  } else if (stat.state.loading) {
+    child = <ChartLoading />;
+  } else {
+    child = (
+      <div className="margin-v-sm text-center text-muted">
+        {intl.formatMessage(messages.noValue)}
+      </div>
+    );
+  }
 
   const wrapper = wrapperComponent || React.Fragment;
   const wrapperProps = wrapperComponent

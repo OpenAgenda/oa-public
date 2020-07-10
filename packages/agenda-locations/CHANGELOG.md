@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.8.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.5...@openagenda/agenda-locations@1.8.6) (2020-07-08)
+### [1.8.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.8.6..@openagenda/agenda-locations@1.8.5) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/agenda-locations
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.8.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.4...@openagenda/agenda-locations@1.8.5) (2020-07-06)
+### [1.8.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.8.5..@openagenda/agenda-locations@1.8.4) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/agenda-locations
 
@@ -19,24 +19,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.8.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.3...@openagenda/agenda-locations@1.8.4) (2020-06-18)
+### [1.8.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.8.4..@openagenda/agenda-locations@1.8.3) (2020-06-18)
 
 
 ### Bug Fixes
 
-* **agenda-locations:** typoe ([d3506e7](https://bitbucket.org/openagenda/oa/commit/d3506e7c84bb9edcd8f91628919b5cc31ba204b8))
+* **agenda-locations:** typoe ([d3506e7](https://bitbucket.org/openagenda/oa/commits/d3506e7c84bb9edcd8f91628919b5cc31ba204b8))
 
 
 
-### [1.8.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.2...@openagenda/agenda-locations@1.8.3) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/agenda-locations
-
-
-
-
-
-### [1.8.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.1...@openagenda/agenda-locations@1.8.2) (2020-05-22)
+### [1.8.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.8.3..@openagenda/agenda-locations@1.8.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agenda-locations
 
@@ -44,7 +36,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.8.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.8.0...@openagenda/agenda-locations@1.8.1) (2020-05-19)
+### [1.8.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.8.2..@openagenda/agenda-locations@1.8.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/agenda-locations
 
@@ -52,21 +44,29 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.8.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.7.4...@openagenda/agenda-locations@1.8.0) (2020-05-15)
+### [1.8.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.8.1..@openagenda/agenda-locations@1.8.0) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/agenda-locations
+
+
+
+
+
+## [1.8.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.8.0..@openagenda/agenda-locations@1.7.4) (2020-05-15)
 
 
 ### Features
 
-* **agenda-locations:** upgrade storybook config ([9b4d834](https://bitbucket.org/openagenda/oa/commit/9b4d8345d9370e64cdcd0e600559fac9ac151015))
+* **agenda-locations:** upgrade storybook config ([9b4d834](https://bitbucket.org/openagenda/oa/commits/9b4d8345d9370e64cdcd0e600559fac9ac151015))
 
 
 ### Bug Fixes
 
-* **agenda-locations:** "fix" the storybook ([1785df8](https://bitbucket.org/openagenda/oa/commit/1785df8fa076a5858d1e5a090d09f70852d0e404))
+* **agenda-locations:** "fix" the storybook ([1785df8](https://bitbucket.org/openagenda/oa/commits/1785df8fa076a5858d1e5a090d09f70852d0e404))
 
 
 
-### [1.7.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-locations@1.7.3...@openagenda/agenda-locations@1.7.4) (2020-04-07)
+### [1.7.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@1.7.4..@openagenda/agenda-locations@1.7.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-locations
 

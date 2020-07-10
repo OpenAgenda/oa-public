@@ -1,8 +1,8 @@
 {
+  "react-layouts.MainLayout.help": "Help",
+  "react-layouts.components.Search.search": "Search",
   "react-layouts.AgendaAdminLayout.administration": "Administration",
   "react-layouts.AgendaAdminLayout.return": "Go to the Agenda Homepage",
-  "react-layouts.components.Search.search": "Search",
-  "react-layouts.MainLayout.help": "Help",
   "react-layouts.MainLayout.general": "General",
   "react-layouts.MainLayout.myEvents": "My events",
   "react-layouts.MainLayout.settings": "Settings",

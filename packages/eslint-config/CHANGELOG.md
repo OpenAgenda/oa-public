@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/eslint-config@1.2.1...@openagenda/eslint-config@1.2.2) (2020-07-08)
+### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/eslint-config@1.2.2..@openagenda/eslint-config@1.2.1) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/eslint-config
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/eslint-config@1.2.0...@openagenda/eslint-config@1.2.1) (2020-07-06)
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/eslint-config@1.2.1..@openagenda/eslint-config@1.2.0) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/eslint-config
 
@@ -19,21 +19,21 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/eslint-config@1.1.0...@openagenda/eslint-config@1.2.0) (2020-06-18)
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/eslint-config@1.2.0..@openagenda/eslint-config@1.1.0) (2020-06-18)
 
 
 ### Features
 
-* **eslint-config:** allow named callback functions ([f3deacc](https://bitbucket.org/openagenda/oa/commit/f3deaccee3e353dd2745f65e3618a592d3478b54))
+* **eslint-config:** allow named callback functions ([f3deacc](https://bitbucket.org/openagenda/oa/commits/f3deaccee3e353dd2745f65e3618a592d3478b54))
 
 
 
-## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/eslint-config@1.0.2...@openagenda/eslint-config@1.1.0) (2020-06-09)
+## [1.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/eslint-config@1.1.0..@openagenda/eslint-config@1.0.2) (2020-06-09)
 
 
 ### Features
 
-* **eslint-config:** lint also the custom effects ([dc8d351](https://bitbucket.org/openagenda/oa/commit/dc8d3514b00963b26239d5f01f6ea802981f3b67))
+* **eslint-config:** lint also the custom effects ([dc8d351](https://bitbucket.org/openagenda/oa/commits/dc8d3514b00963b26239d5f01f6ea802981f3b67))
 
 
 

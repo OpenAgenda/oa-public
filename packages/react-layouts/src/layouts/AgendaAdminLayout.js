@@ -115,8 +115,8 @@ function AgendaAdminLayout({
 
   const dispatch = useDispatch();
   const loadLayoutData = useCallback(
-    () => dispatch(agendaAdminActions.load(params.slug)),
-    [dispatch, params.slug]
+    () => dispatch(agendaAdminActions.load(params.slug, intl.locale)),
+    [dispatch, params.slug, intl.locale]
   );
   const verifyLocationCount = useCallback(
     () => dispatch(agendaAdminActions.verifyLocationCount(params.slug)),
@@ -208,7 +208,10 @@ function AgendaAdminLayout({
         </div>
 
         <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
-          <ErrorBoundary onError={onError} FallbackComponent={FallbackComponent}>
+          <ErrorBoundary
+            onError={onError}
+            FallbackComponent={FallbackComponent}
+          >
             <ChildLayouts
               layouts={childLayouts}
               extraProps={extraProps}

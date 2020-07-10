@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.9...@openagenda/agenda-calendar-apps@1.2.10) (2020-07-08)
+### [1.2.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.10..@openagenda/agenda-calendar-apps@1.2.9) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.8...@openagenda/agenda-calendar-apps@1.2.9) (2020-07-06)
+### [1.2.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.9..@openagenda/agenda-calendar-apps@1.2.8) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.7...@openagenda/agenda-calendar-apps@1.2.8) (2020-06-18)
+### [1.2.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.8..@openagenda/agenda-calendar-apps@1.2.7) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.6...@openagenda/agenda-calendar-apps@1.2.7) (2020-06-09)
+### [1.2.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.7..@openagenda/agenda-calendar-apps@1.2.6) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.5...@openagenda/agenda-calendar-apps@1.2.6) (2020-05-22)
+### [1.2.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.6..@openagenda/agenda-calendar-apps@1.2.5) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.4...@openagenda/agenda-calendar-apps@1.2.5) (2020-05-19)
+### [1.2.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.5..@openagenda/agenda-calendar-apps@1.2.4) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 
@@ -51,7 +51,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.3...@openagenda/agenda-calendar-apps@1.2.4) (2020-05-15)
+### [1.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.4..@openagenda/agenda-calendar-apps@1.2.3) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 
@@ -59,7 +59,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/agenda-calendar-apps@1.2.2...@openagenda/agenda-calendar-apps@1.2.3) (2020-04-07)
+### [1.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.3..@openagenda/agenda-calendar-apps@1.2.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/agenda-calendar-apps
 

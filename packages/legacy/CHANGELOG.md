@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.10.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.10.3...@openagenda/legacy@1.10.4) (2020-07-08)
+### [1.10.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.10.4..@openagenda/legacy@1.10.3) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/legacy
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.10.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.10.2...@openagenda/legacy@1.10.3) (2020-07-06)
+### [1.10.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.10.3..@openagenda/legacy@1.10.2) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/legacy
 
@@ -19,16 +19,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.10.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.10.1...@openagenda/legacy@1.10.2) (2020-06-30)
+### [1.10.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.10.2..@openagenda/legacy@1.10.1) (2020-06-30)
 
 
 ### Bug Fixes
 
-* **legacy:** non public fields should not be listed in control data tag groups ([e2cefed](https://bitbucket.org/openagenda/oa/commit/e2cefed5ac56757b95bb1a570051628f4dc08749))
+* **legacy:** non public fields should not be listed in control data tag groups ([e2cefed](https://bitbucket.org/openagenda/oa/commits/e2cefed5ac56757b95bb1a570051628f4dc08749))
 
 
 
-### [1.10.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.10.0...@openagenda/legacy@1.10.1) (2020-06-18)
+### [1.10.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.10.1..@openagenda/legacy@1.10.0) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/legacy
 
@@ -36,24 +36,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.10.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.8...@openagenda/legacy@1.10.0) (2020-06-09)
+## [1.10.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.10.0..@openagenda/legacy@1.9.8) (2020-06-09)
 
 
 ### Features
 
-* **legacy:** access is added to tag groups ([a27cfa6](https://bitbucket.org/openagenda/oa/commit/a27cfa684b28b6916b896bd95a0cdaacae053199))
+* **legacy:** access is added to tag groups ([a27cfa6](https://bitbucket.org/openagenda/oa/commits/a27cfa684b28b6916b896bd95a0cdaacae053199))
 
 
 
-### [1.9.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.7...@openagenda/legacy@1.9.8) (2020-05-22)
-
-**Note:** Version bump only for package @openagenda/legacy
-
-
-
-
-
-### [1.9.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.6...@openagenda/legacy@1.9.7) (2020-05-19)
+### [1.9.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.9.8..@openagenda/legacy@1.9.7) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/legacy
 
@@ -61,7 +53,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.9.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.5...@openagenda/legacy@1.9.6) (2020-05-15)
+### [1.9.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.9.7..@openagenda/legacy@1.9.6) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/legacy
 
@@ -69,16 +61,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.9.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.4...@openagenda/legacy@1.9.5) (2020-04-09)
+### [1.9.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.9.6..@openagenda/legacy@1.9.5) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/legacy
+
+
+
+
+
+### [1.9.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.9.5..@openagenda/legacy@1.9.4) (2020-04-09)
 
 
 ### Bug Fixes
 
-* **legacy:** utils has to be available via instance ([021f772](https://bitbucket.org/openagenda/oa/commit/021f77290e39a3aac42510885bd1144b9657e6f1))
+* **legacy:** utils has to be available via instance ([021f772](https://bitbucket.org/openagenda/oa/commits/021f77290e39a3aac42510885bd1144b9657e6f1))
 
 
 
-### [1.9.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/legacy@1.9.3...@openagenda/legacy@1.9.4) (2020-04-07)
+### [1.9.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.9.4..@openagenda/legacy@1.9.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/legacy
 

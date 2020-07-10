@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.0.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/files@2.0.9...@openagenda/files@2.0.10) (2020-07-08)
+### [2.0.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/files@2.0.10..@openagenda/files@2.0.9) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/files
 
@@ -11,12 +11,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.0.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/files@2.0.8...@openagenda/files@2.0.9) (2020-07-06)
+### [2.0.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/files@2.0.9..@openagenda/files@2.0.8) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **files:** s3 does not find out ContentType from image, sets it as 'document' ([2fab554](https://bitbucket.org/openagenda/oa/commit/2fab554c05c959e6e75e3f3b439cd1b8f4f4c7a8))
+* **files:** s3 does not find out ContentType from image, sets it as 'document' ([2fab554](https://bitbucket.org/openagenda/oa/commits/2fab554c05c959e6e75e3f3b439cd1b8f4f4c7a8))
 
 
 

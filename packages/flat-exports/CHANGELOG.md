@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.3.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.5...@openagenda/flat-exports@1.3.6) (2020-07-08)
+### [1.3.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.3.6..@openagenda/flat-exports@1.3.5) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/flat-exports
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.4...@openagenda/flat-exports@1.3.5) (2020-07-06)
+### [1.3.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.3.5..@openagenda/flat-exports@1.3.4) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/flat-exports
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.3...@openagenda/flat-exports@1.3.4) (2020-06-18)
+### [1.3.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.3.4..@openagenda/flat-exports@1.3.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/flat-exports
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.2...@openagenda/flat-exports@1.3.3) (2020-06-09)
+### [1.3.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.3.3..@openagenda/flat-exports@1.3.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/flat-exports
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.1...@openagenda/flat-exports@1.3.2) (2020-05-22)
+### [1.3.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.3.2..@openagenda/flat-exports@1.3.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/flat-exports
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.3.0...@openagenda/flat-exports@1.3.1) (2020-05-19)
+### [1.3.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.3.1..@openagenda/flat-exports@1.3.0) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/flat-exports
 
@@ -51,21 +51,21 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.2.3...@openagenda/flat-exports@1.3.0) (2020-05-15)
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.3.0..@openagenda/flat-exports@1.2.3) (2020-05-15)
 
 
 ### Features
 
-* accessibility change ([5937104](https://bitbucket.org/openagenda/oa/commit/5937104f13fb4e574a114ffee896dfabe85c40ef))
+* accessibility change ([5937104](https://bitbucket.org/openagenda/oa/commits/5937104f13fb4e574a114ffee896dfabe85c40ef))
 
 
 ### Bug Fixes
 
-* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
+* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commits/95101c3bade5aa224003d3ec716571548aeb0d97))
 
 
 
-### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/flat-exports@1.2.2...@openagenda/flat-exports@1.2.3) (2020-04-07)
+### [1.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/flat-exports@1.2.3..@openagenda/flat-exports@1.2.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/flat-exports
 

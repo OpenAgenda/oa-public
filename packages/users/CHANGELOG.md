@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [3.0.12](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.11...@openagenda/users@3.0.12) (2020-07-08)
+### [3.0.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.12..@openagenda/users@3.0.11) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/users
 
@@ -11,24 +11,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [3.0.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.10...@openagenda/users@3.0.11) (2020-07-06)
+### [3.0.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.11..@openagenda/users@3.0.10) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **users:** apply Object.assign if rec exists ([f566af5](https://bitbucket.org/openagenda/oa/commit/f566af58947402d360718ae123bcf74c840317ea))
+* **users:** apply Object.assign if rec exists ([f566af5](https://bitbucket.org/openagenda/oa/commits/f566af58947402d360718ae123bcf74c840317ea))
 
 
 
-### [3.0.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.9...@openagenda/users@3.0.10) (2020-06-30)
-
-**Note:** Version bump only for package @openagenda/users
-
-
-
-
-
-### [3.0.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.8...@openagenda/users@3.0.9) (2020-06-18)
+### [3.0.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.10..@openagenda/users@3.0.9) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/users
 
@@ -36,7 +28,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [3.0.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.7...@openagenda/users@3.0.8) (2020-06-09)
+### [3.0.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.9..@openagenda/users@3.0.8) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/users
 
@@ -44,7 +36,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [3.0.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.6...@openagenda/users@3.0.7) (2020-05-22)
+### [3.0.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.8..@openagenda/users@3.0.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/users
 
@@ -52,7 +44,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [3.0.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.5...@openagenda/users@3.0.6) (2020-05-19)
+### [3.0.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.7..@openagenda/users@3.0.6) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/users
 
@@ -60,16 +52,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [3.0.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.4...@openagenda/users@3.0.5) (2020-05-15)
+### [3.0.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.6..@openagenda/users@3.0.5) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/users
+
+
+
+
+
+### [3.0.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.5..@openagenda/users@3.0.4) (2020-05-15)
 
 
 ### Bug Fixes
 
-* **users:** fix tests ([cb5a9f0](https://bitbucket.org/openagenda/oa/commit/cb5a9f049f59b4ac431f633cb63bb0346e77f277))
+* **users:** fix tests ([cb5a9f0](https://bitbucket.org/openagenda/oa/commits/cb5a9f049f59b4ac431f633cb63bb0346e77f277))
 
 
 
-### [3.0.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/users@3.0.3...@openagenda/users@3.0.4) (2020-04-07)
+### [3.0.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.4..@openagenda/users@3.0.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/users
 

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.2.3...@openagenda/labels@2.2.4) (2020-07-08)
+### [2.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.4..@openagenda/labels@2.2.3) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/labels
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.2.2...@openagenda/labels@2.2.3) (2020-07-06)
+### [2.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.3..@openagenda/labels@2.2.2) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/labels
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.2.1...@openagenda/labels@2.2.2) (2020-05-22)
+### [2.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.2..@openagenda/labels@2.2.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/labels
 
@@ -27,26 +27,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.2.0...@openagenda/labels@2.2.1) (2020-05-19)
+### [2.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.1..@openagenda/labels@2.2.0) (2020-05-19)
 
 
 ### Bug Fixes
 
-* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commit/d0770b1fe6488d4050360b9db2c698c85b02eb85))
+* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commits/d0770b1fe6488d4050360b9db2c698c85b02eb85))
 
 
 
-## [2.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/labels@2.1.7...@openagenda/labels@2.2.0) (2020-05-15)
+## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.0..@openagenda/labels@2.1.7) (2020-05-15)
 
 
 ### Features
 
-* **labels:** accessibility labels merge ([7d9b6b7](https://bitbucket.org/openagenda/oa/commit/7d9b6b76cc2168f41bb5e8f74b67e5af15f24d76))
+* **labels:** accessibility labels merge ([7d9b6b7](https://bitbucket.org/openagenda/oa/commits/7d9b6b76cc2168f41bb5e8f74b67e5af15f24d76))
 
 
 ### Bug Fixes
 
-* **labels:** spelling ([a41a899](https://bitbucket.org/openagenda/oa/commit/a41a899a1bbf9fe7c79ce63168a04a85d65c0791))
+* **labels:** spelling ([a41a899](https://bitbucket.org/openagenda/oa/commits/a41a899a1bbf9fe7c79ce63168a04a85d65c0791))
 
 
 

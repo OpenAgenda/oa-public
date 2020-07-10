@@ -56,7 +56,20 @@ export default function reducer(state = initialState, action) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
+        data: action.stats.map(v => {
+          if (!v.aggregation) {
+            return v;
+          }
+
+          return {
+            ...v,
+            state: {
+              ...v.state,
+              loading: true
+            }
+          };
+        })
       };
     case LOAD_SUCCESS:
       return {
@@ -74,6 +87,7 @@ export default function reducer(state = initialState, action) {
             ...v,
             state: {
               ...v.state,
+              loading: false,
               data: Array.isArray(v.aggregation)
                 ? v.aggregation.map(getData)
                 : getData(v.aggregation)

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.2.11](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.10...@openagenda/call-to-action@2.2.11) (2020-07-08)
+### [2.2.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.11..@openagenda/call-to-action@2.2.10) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.9...@openagenda/call-to-action@2.2.10) (2020-07-06)
+### [2.2.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.10..@openagenda/call-to-action@2.2.9) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.8...@openagenda/call-to-action@2.2.9) (2020-06-18)
+### [2.2.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.9..@openagenda/call-to-action@2.2.8) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.7...@openagenda/call-to-action@2.2.8) (2020-06-09)
+### [2.2.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.8..@openagenda/call-to-action@2.2.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.6...@openagenda/call-to-action@2.2.7) (2020-05-22)
+### [2.2.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.7..@openagenda/call-to-action@2.2.6) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.5...@openagenda/call-to-action@2.2.6) (2020-05-19)
+### [2.2.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.6..@openagenda/call-to-action@2.2.5) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 
@@ -51,7 +51,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.4...@openagenda/call-to-action@2.2.5) (2020-05-15)
+### [2.2.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.5..@openagenda/call-to-action@2.2.4) (2020-05-15)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 
@@ -59,7 +59,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/call-to-action@2.2.3...@openagenda/call-to-action@2.2.4) (2020-04-07)
+### [2.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.4..@openagenda/call-to-action@2.2.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/call-to-action
 

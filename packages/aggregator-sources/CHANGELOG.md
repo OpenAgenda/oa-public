@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.2.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.7...@openagenda/aggregator-sources@1.2.8) (2020-07-08)
+### [1.2.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.8..@openagenda/aggregator-sources@1.2.7) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/aggregator-sources
 
@@ -11,75 +11,75 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.6...@openagenda/aggregator-sources@1.2.7) (2020-07-06)
+### [1.2.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.7..@openagenda/aggregator-sources@1.2.6) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **aggregator-sources:** no reason why addional fields filter should not take in multiple values ([2dd7244](https://bitbucket.org/openagenda/oa/commit/2dd72441a32bb26d356ebcbcfe91fe41a7ea7406))
+* **aggregator-sources:** no reason why addional fields filter should not take in multiple values ([2dd7244](https://bitbucket.org/openagenda/oa/commits/2dd72441a32bb26d356ebcbcfe91fe41a7ea7406))
 
 
 
-### [1.2.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.5...@openagenda/aggregator-sources@1.2.6) (2020-06-30)
-
-
-### Bug Fixes
-
-* **aggregator-sources:** correctif sur le label ([3f375ae](https://bitbucket.org/openagenda/oa/commit/3f375ae418dc6a60e059238a73d08f782454d8db))
-* **aggregator-sources:** missed a btn class for inline link buttons ([f4a7908](https://bitbucket.org/openagenda/oa/commit/f4a790837fb3890849586366683f1fc1c5a901ce))
-* **aggregator-sources:** when required is not specified by values, it is read as false by valuesToRules ([85d92e3](https://bitbucket.org/openagenda/oa/commit/85d92e338876afd91349705b247ae94fb291e64b))
-
-
-
-### [1.2.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.4...@openagenda/aggregator-sources@1.2.5) (2020-06-18)
-
-**Note:** Version bump only for package @openagenda/aggregator-sources
-
-
-
-
-
-### [1.2.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.3...@openagenda/aggregator-sources@1.2.4) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/aggregator-sources
-
-
-
-
-
-### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.2...@openagenda/aggregator-sources@1.2.3) (2020-05-22)
-
-**Note:** Version bump only for package @openagenda/aggregator-sources
-
-
-
-
-
-### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.1...@openagenda/aggregator-sources@1.2.2) (2020-05-19)
-
-**Note:** Version bump only for package @openagenda/aggregator-sources
-
-
-
-
-
-### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.2.0...@openagenda/aggregator-sources@1.2.1) (2020-05-15)
+### [1.2.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.6..@openagenda/aggregator-sources@1.2.5) (2020-06-30)
 
 
 ### Bug Fixes
 
-* **aggregator-sources:** add behavior to general aggregation action ([3a09ab6](https://bitbucket.org/openagenda/oa/commit/3a09ab6805ce7f4941afa1dbbda69161ca22f440))
-* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
-* **aggregator-sources:** official badge goes under if agenda title becomes too long in list item ([1aaa978](https://bitbucket.org/openagenda/oa/commit/1aaa978499cd5544cdcb53beb3d9c5708a9f8928))
+* **aggregator-sources:** correctif sur le label ([3f375ae](https://bitbucket.org/openagenda/oa/commits/3f375ae418dc6a60e059238a73d08f782454d8db))
+* **aggregator-sources:** missed a btn class for inline link buttons ([f4a7908](https://bitbucket.org/openagenda/oa/commits/f4a790837fb3890849586366683f1fc1c5a901ce))
+* **aggregator-sources:** when required is not specified by values, it is read as false by valuesToRules ([85d92e3](https://bitbucket.org/openagenda/oa/commits/85d92e338876afd91349705b247ae94fb291e64b))
 
 
 
-## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/aggregator-sources@1.1.9...@openagenda/aggregator-sources@1.2.0) (2020-04-07)
+### [1.2.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.5..@openagenda/aggregator-sources@1.2.4) (2020-06-18)
+
+**Note:** Version bump only for package @openagenda/aggregator-sources
+
+
+
+
+
+### [1.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.4..@openagenda/aggregator-sources@1.2.3) (2020-06-09)
+
+**Note:** Version bump only for package @openagenda/aggregator-sources
+
+
+
+
+
+### [1.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.3..@openagenda/aggregator-sources@1.2.2) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/aggregator-sources
+
+
+
+
+
+### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.2..@openagenda/aggregator-sources@1.2.1) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/aggregator-sources
+
+
+
+
+
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.1..@openagenda/aggregator-sources@1.2.0) (2020-05-15)
+
+
+### Bug Fixes
+
+* **aggregator-sources:** add behavior to general aggregation action ([3a09ab6](https://bitbucket.org/openagenda/oa/commits/3a09ab6805ce7f4941afa1dbbda69161ca22f440))
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commits/1d164f89d3f1956c8fb791835c280234056124d7))
+* **aggregator-sources:** official badge goes under if agenda title becomes too long in list item ([1aaa978](https://bitbucket.org/openagenda/oa/commits/1aaa978499cd5544cdcb53beb3d9c5708a9f8928))
+
+
+
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.0..@openagenda/aggregator-sources@1.1.9) (2020-04-07)
 
 
 ### Features
 
-* **aggregator-sources:** specific message when general rules exist ([59c0dd0](https://bitbucket.org/openagenda/oa/commit/59c0dd018681198c22b3e562ee18e871c3a073dc))
+* **aggregator-sources:** specific message when general rules exist ([59c0dd0](https://bitbucket.org/openagenda/oa/commits/59c0dd018681198c22b3e562ee18e871c3a073dc))
 
 
 

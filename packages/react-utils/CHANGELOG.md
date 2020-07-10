@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [4.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.2.2...@openagenda/react-utils@4.2.3) (2020-07-08)
+### [4.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-utils@4.2.3..@openagenda/react-utils@4.2.2) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/react-utils
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [4.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.2.1...@openagenda/react-utils@4.2.2) (2020-07-06)
+### [4.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-utils@4.2.2..@openagenda/react-utils@4.2.1) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/react-utils
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [4.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.2.0...@openagenda/react-utils@4.2.1) (2020-06-18)
+### [4.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-utils@4.2.1..@openagenda/react-utils@4.2.0) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/react-utils
 
@@ -27,16 +27,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [4.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.1.1...@openagenda/react-utils@4.2.0) (2020-06-09)
+## [4.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-utils@4.2.0..@openagenda/react-utils@4.1.1) (2020-06-09)
 
 
 ### Features
 
-* **react-utils:** add possibility to name the redux store ([4de6f63](https://bitbucket.org/openagenda/oa/commit/4de6f63223dcfb553563a0fc232312a0c683e697))
+* **react-utils:** add possibility to name the redux store ([4de6f63](https://bitbucket.org/openagenda/oa/commits/4de6f63223dcfb553563a0fc232312a0c683e697))
 
 
 
-### [4.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.1.0...@openagenda/react-utils@4.1.1) (2020-05-22)
+### [4.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-utils@4.1.1..@openagenda/react-utils@4.1.0) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/react-utils
 
@@ -44,23 +44,23 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [4.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.0.3...@openagenda/react-utils@4.1.0) (2020-05-15)
+## [4.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-utils@4.1.0..@openagenda/react-utils@4.0.3) (2020-05-15)
 
 
 ### Features
 
-* **react-shared:** add ApiClientContext and useApiClient ([7af942d](https://bitbucket.org/openagenda/oa/commit/7af942dfc592de48e6e6b99e3987cc723cb8fbca))
-* **react-utils:** add axios-hooks to apiClient ([4215970](https://bitbucket.org/openagenda/oa/commit/4215970f3d07a27844feda96c7fdd2e30515f5f6))
-* **react-utils:** move ApiClientContext to react-shared ([ac52bb9](https://bitbucket.org/openagenda/oa/commit/ac52bb98de962bfe11bd3bc91a4d311b2ff0d8b9))
+* **react-shared:** add ApiClientContext and useApiClient ([7af942d](https://bitbucket.org/openagenda/oa/commits/7af942dfc592de48e6e6b99e3987cc723cb8fbca))
+* **react-utils:** add axios-hooks to apiClient ([4215970](https://bitbucket.org/openagenda/oa/commits/4215970f3d07a27844feda96c7fdd2e30515f5f6))
+* **react-utils:** move ApiClientContext to react-shared ([ac52bb9](https://bitbucket.org/openagenda/oa/commits/ac52bb98de962bfe11bd3bc91a4d311b2ff0d8b9))
 
 
 ### Bug Fixes
 
-* **react-utils:** missing dep ([c6a363f](https://bitbucket.org/openagenda/oa/commit/c6a363f5b45b226006d289d96a07740624683488))
+* **react-utils:** missing dep ([c6a363f](https://bitbucket.org/openagenda/oa/commits/c6a363f5b45b226006d289d96a07740624683488))
 
 
 
-### [4.0.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-utils@4.0.2...@openagenda/react-utils@4.0.3) (2020-04-07)
+### [4.0.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-utils@4.0.3..@openagenda/react-utils@4.0.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-utils
 

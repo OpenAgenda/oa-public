@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.3.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.3.2...@openagenda/react-integration-app@1.3.3) (2020-07-08)
+### [1.3.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.3.3..@openagenda/react-integration-app@1.3.2) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/react-integration-app
 
@@ -11,17 +11,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.3.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.3.1...@openagenda/react-integration-app@1.3.2) (2020-07-06)
+### [1.3.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.3.2..@openagenda/react-integration-app@1.3.1) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **react-integration-app:** fix polyfill and build ([011b0be](https://bitbucket.org/openagenda/oa/commit/011b0bed59df0769f9e61af6482b6c0cda3a28ee))
-* **react-integration-app:** some modules are note varred ([b07f3fc](https://bitbucket.org/openagenda/oa/commit/b07f3fc0f43c300a6244a923b60831d578ea4538))
+* **react-integration-app:** fix polyfill and build ([011b0be](https://bitbucket.org/openagenda/oa/commits/011b0bed59df0769f9e61af6482b6c0cda3a28ee))
+* **react-integration-app:** some modules are note varred ([b07f3fc](https://bitbucket.org/openagenda/oa/commits/b07f3fc0f43c300a6244a923b60831d578ea4538))
 
 
 
-### [1.3.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.3.0...@openagenda/react-integration-app@1.3.1) (2020-06-30)
+### [1.3.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.3.1..@openagenda/react-integration-app@1.3.0) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/react-integration-app
 
@@ -29,25 +29,17 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.2.3...@openagenda/react-integration-app@1.3.0) (2020-06-18)
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.3.0..@openagenda/react-integration-app@1.2.3) (2020-06-18)
 
 
 ### Features
 
-* **react-integration-app:** add devServerHost support ([6bcf179](https://bitbucket.org/openagenda/oa/commit/6bcf1798af0189d409828ff0a2e79cbabb0c4bce))
-* **react-integration-app:** use ca certificate when available ([c589f23](https://bitbucket.org/openagenda/oa/commit/c589f23ef90c9f8bf0560c6bc00499713670baeb))
+* **react-integration-app:** add devServerHost support ([6bcf179](https://bitbucket.org/openagenda/oa/commits/6bcf1798af0189d409828ff0a2e79cbabb0c4bce))
+* **react-integration-app:** use ca certificate when available ([c589f23](https://bitbucket.org/openagenda/oa/commits/c589f23ef90c9f8bf0560c6bc00499713670baeb))
 
 
 
-### [1.2.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.2.2...@openagenda/react-integration-app@1.2.3) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/react-integration-app
-
-
-
-
-
-### [1.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.2.1...@openagenda/react-integration-app@1.2.2) (2020-05-22)
+### [1.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.2.3..@openagenda/react-integration-app@1.2.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/react-integration-app
 
@@ -55,7 +47,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.2.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.2.0...@openagenda/react-integration-app@1.2.1) (2020-05-19)
+### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.2.2..@openagenda/react-integration-app@1.2.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/react-integration-app
 
@@ -63,16 +55,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.2.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.1.1...@openagenda/react-integration-app@1.2.0) (2020-05-15)
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.2.1..@openagenda/react-integration-app@1.2.0) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/react-integration-app
+
+
+
+
+
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.2.0..@openagenda/react-integration-app@1.1.1) (2020-05-15)
 
 
 ### Features
 
-* **react-integration-app:** add supervisor app ([05c2c54](https://bitbucket.org/openagenda/oa/commit/05c2c54fafc8da2f2d92beeb226c6fc72f0c662a))
+* **react-integration-app:** add supervisor app ([05c2c54](https://bitbucket.org/openagenda/oa/commits/05c2c54fafc8da2f2d92beeb226c6fc72f0c662a))
 
 
 
-### [1.1.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.1.0...@openagenda/react-integration-app@1.1.1) (2020-04-09)
+### [1.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.1.1..@openagenda/react-integration-app@1.1.0) (2020-04-09)
 
 **Note:** Version bump only for package @openagenda/react-integration-app
 
@@ -80,12 +80,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [1.1.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/react-integration-app@1.0.3...@openagenda/react-integration-app@1.1.0) (2020-04-07)
+## [1.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.1.0..@openagenda/react-integration-app@1.0.3) (2020-04-07)
 
 
 ### Features
 
-* **react-integration-app:** add css and sass support ([9342184](https://bitbucket.org/openagenda/oa/commit/93421843b171daffe95b450120ab67299999c084))
+* **react-integration-app:** add css and sass support ([9342184](https://bitbucket.org/openagenda/oa/commits/93421843b171daffe95b450120ab67299999c084))
 
 
 

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.1.10](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.9...@openagenda/inboxes@1.1.10) (2020-07-08)
+### [1.1.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.10..@openagenda/inboxes@1.1.9) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/inboxes
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.9](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.8...@openagenda/inboxes@1.1.9) (2020-07-06)
+### [1.1.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.9..@openagenda/inboxes@1.1.8) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/inboxes
 
@@ -19,24 +19,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.8](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.7...@openagenda/inboxes@1.1.8) (2020-06-18)
+### [1.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.8..@openagenda/inboxes@1.1.7) (2020-06-18)
 
 
 ### Bug Fixes
 
-* **inboxes:** sync was not updated in refactor of service initialization ([4c4ca58](https://bitbucket.org/openagenda/oa/commit/4c4ca58093573b507982c6f8e4aa8c2207713642))
+* **inboxes:** sync was not updated in refactor of service initialization ([4c4ca58](https://bitbucket.org/openagenda/oa/commits/4c4ca58093573b507982c6f8e4aa8c2207713642))
 
 
 
-### [1.1.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.6...@openagenda/inboxes@1.1.7) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/inboxes
-
-
-
-
-
-### [1.1.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.5...@openagenda/inboxes@1.1.6) (2020-05-22)
+### [1.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.7..@openagenda/inboxes@1.1.6) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/inboxes
 
@@ -44,16 +36,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.4...@openagenda/inboxes@1.1.5) (2020-05-15)
+### [1.1.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.6..@openagenda/inboxes@1.1.5) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/inboxes
+
+
+
+
+
+### [1.1.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.5..@openagenda/inboxes@1.1.4) (2020-05-15)
 
 
 ### Bug Fixes
 
-* **inboxes:** fix mysql groupBy error on version 5.7 ([f0de5e3](https://bitbucket.org/openagenda/oa/commit/f0de5e38895b39f98d53105a0f300c7481bdf0ef))
+* **inboxes:** fix mysql groupBy error on version 5.7 ([f0de5e3](https://bitbucket.org/openagenda/oa/commits/f0de5e38895b39f98d53105a0f300c7481bdf0ef))
 
 
 
-### [1.1.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.1.3...@openagenda/inboxes@1.1.4) (2020-04-07)
+### [1.1.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.4..@openagenda/inboxes@1.1.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/inboxes
 

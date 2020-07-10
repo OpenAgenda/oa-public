@@ -67,13 +67,17 @@ export function isLoaded(globalState) {
   return globalState.agendaAdmin && globalState.agendaAdmin.loaded;
 }
 
-export function load(slug) {
+export function load(slug, lang) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.agendaAdmin.loadAgenda.replace(':slug', slug));
+      return client.get(res.agendaAdmin.loadAgenda.replace(':slug', slug), {
+        params: {
+          lang
+        }
+      });
     }
   };
 }

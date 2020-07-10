@@ -39,7 +39,7 @@
     "@openagenda/react-form-components": "^2.1.10",
     "@openagenda/react-utils": "^4.2.3",
     "@openagenda/validators": "^2.2.11",
-    "classnames": "^2.2.5",
+    "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "history": "^4.10.1",
     "js-base64": "^2.5.1",

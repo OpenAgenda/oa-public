@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [1.4.7](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.6...@openagenda/event-form@1.4.7) (2020-07-08)
+### [1.4.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.7..@openagenda/event-form@1.4.6) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/event-form
 
@@ -11,7 +11,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.6](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.5...@openagenda/event-form@1.4.6) (2020-07-06)
+### [1.4.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.6..@openagenda/event-form@1.4.5) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/event-form
 
@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.5](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.4...@openagenda/event-form@1.4.5) (2020-06-30)
+### [1.4.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.5..@openagenda/event-form@1.4.4) (2020-06-30)
 
 **Note:** Version bump only for package @openagenda/event-form
 
@@ -27,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.4](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.3...@openagenda/event-form@1.4.4) (2020-06-18)
+### [1.4.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.4..@openagenda/event-form@1.4.3) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/event-form
 
@@ -35,7 +35,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.3](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.2...@openagenda/event-form@1.4.3) (2020-06-09)
+### [1.4.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.3..@openagenda/event-form@1.4.2) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/event-form
 
@@ -43,7 +43,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.1...@openagenda/event-form@1.4.2) (2020-05-22)
+### [1.4.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.2..@openagenda/event-form@1.4.1) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/event-form
 
@@ -51,26 +51,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.4.0...@openagenda/event-form@1.4.1) (2020-05-19)
+### [1.4.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.1..@openagenda/event-form@1.4.0) (2020-05-19)
 
 
 ### Bug Fixes
 
-* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commit/d0770b1fe6488d4050360b9db2c698c85b02eb85))
+* it is not mei, it is ii ([d0770b1](https://bitbucket.org/openagenda/oa/commits/d0770b1fe6488d4050360b9db2c698c85b02eb85))
 
 
 
-## [1.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.3.22...@openagenda/event-form@1.4.0) (2020-05-15)
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.0..@openagenda/event-form@1.3.22) (2020-05-15)
 
 
 ### Features
 
-* accessibility change ([5937104](https://bitbucket.org/openagenda/oa/commit/5937104f13fb4e574a114ffee896dfabe85c40ef))
-* **event-form:** removed sl, added mei ([e7f8e11](https://bitbucket.org/openagenda/oa/commit/e7f8e11c388c48b1bf6036c3085cdbb109833364))
+* accessibility change ([5937104](https://bitbucket.org/openagenda/oa/commits/5937104f13fb4e574a114ffee896dfabe85c40ef))
+* **event-form:** removed sl, added mei ([e7f8e11](https://bitbucket.org/openagenda/oa/commits/e7f8e11c388c48b1bf6036c3085cdbb109833364))
 
 
 
-### [1.3.22](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-form@1.3.21...@openagenda/event-form@1.3.22) (2020-04-07)
+### [1.3.22](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.3.22..@openagenda/event-form@1.3.21) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/event-form
 

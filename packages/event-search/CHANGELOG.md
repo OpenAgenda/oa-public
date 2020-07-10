@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.7.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.7.0...@openagenda/event-search@2.7.1) (2020-07-08)
+### [2.7.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.7.1..@openagenda/event-search@2.7.0) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/event-search
 
@@ -11,26 +11,26 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [2.7.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.6.0...@openagenda/event-search@2.7.0) (2020-07-06)
+## [2.7.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.7.0..@openagenda/event-search@2.6.0) (2020-07-06)
 
 
 ### Features
 
-* **event-search:** allow setting index shard replica values ([5f2257e](https://bitbucket.org/openagenda/oa/commit/5f2257edac8a8f967b95d247908abffe6e9dddfb))
-* **event-search:** get details on cluster nodes ([4213c8a](https://bitbucket.org/openagenda/oa/commit/4213c8afd3fc4c26d3048bc1e8d63dc5460923ea))
+* **event-search:** allow setting index shard replica values ([5f2257e](https://bitbucket.org/openagenda/oa/commits/5f2257edac8a8f967b95d247908abffe6e9dddfb))
+* **event-search:** get details on cluster nodes ([4213c8a](https://bitbucket.org/openagenda/oa/commits/4213c8afd3fc4c26d3048bc1e8d63dc5460923ea))
 
 
 
-## [2.6.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.5.1...@openagenda/event-search@2.6.0) (2020-06-30)
+## [2.6.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.6.0..@openagenda/event-search@2.5.1) (2020-06-30)
 
 
 ### Features
 
-* **event-search:** provide validation error details on invalid aggregation params formatting ([693abad](https://bitbucket.org/openagenda/oa/commit/693abad9b9fc8514df63f658063b2b5ec23adbb7))
+* **event-search:** provide validation error details on invalid aggregation params formatting ([693abad](https://bitbucket.org/openagenda/oa/commits/693abad9b9fc8514df63f658063b2b5ec23adbb7))
 
 
 
-### [2.5.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.5.0...@openagenda/event-search@2.5.1) (2020-06-18)
+### [2.5.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.5.1..@openagenda/event-search@2.5.0) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/event-search
 
@@ -38,22 +38,22 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [2.5.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.4.1...@openagenda/event-search@2.5.0) (2020-06-09)
+## [2.5.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.5.0..@openagenda/event-search@2.4.1) (2020-06-09)
 
 
 ### Features
 
-* **event-search:** filter by timestamp ([bc513d4](https://bitbucket.org/openagenda/oa/commit/bc513d4b9df59ab21b6a4235401f719f822bbeac))
-* **event-search:** target field in additionalField aggregation ([399c637](https://bitbucket.org/openagenda/oa/commit/399c637fcbd0ba64231f6143d8ca768077c9a78c))
+* **event-search:** filter by timestamp ([bc513d4](https://bitbucket.org/openagenda/oa/commits/bc513d4b9df59ab21b6a4235401f719f822bbeac))
+* **event-search:** target field in additionalField aggregation ([399c637](https://bitbucket.org/openagenda/oa/commits/399c637fcbd0ba64231f6143d8ca768077c9a78c))
 
 
 ### Bug Fixes
 
-* **event-search:** additionalFields aggregation crashes when no values are retrieved for specific field ([8e11567](https://bitbucket.org/openagenda/oa/commit/8e1156714025918d0e6fa00bf3d21041f92868b0))
+* **event-search:** additionalFields aggregation crashes when no values are retrieved for specific field ([8e11567](https://bitbucket.org/openagenda/oa/commits/8e1156714025918d0e6fa00bf3d21041f92868b0))
 
 
 
-### [2.4.1](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.4.0...@openagenda/event-search@2.4.1) (2020-05-22)
+### [2.4.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.4.1..@openagenda/event-search@2.4.0) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/event-search
 
@@ -61,33 +61,33 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [2.4.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.3.0...@openagenda/event-search@2.4.0) (2020-05-19)
+## [2.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.4.0..@openagenda/event-search@2.3.0) (2020-05-19)
 
 
 ### Features
 
-* **event-search:** registration field holds a list of { type, value } pairs ([a6188f0](https://bitbucket.org/openagenda/oa/commit/a6188f0c0c362a2055663ee4cd01609be3673138))
+* **event-search:** registration field holds a list of { type, value } pairs ([a6188f0](https://bitbucket.org/openagenda/oa/commits/a6188f0c0c362a2055663ee4cd01609be3673138))
 
 
 
-## [2.3.0](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.2.2...@openagenda/event-search@2.3.0) (2020-05-15)
+## [2.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.3.0..@openagenda/event-search@2.2.2) (2020-05-15)
 
 
 ### Features
 
-* **event-search:** add track_total_hits option to queryToDsl ([36053ee](https://bitbucket.org/openagenda/oa/commit/36053eef40fd29e14941df4fcda1c7b6d18c5dfc))
-* **event-search:** createdAt/updatedAt histogram aggregations ([4be1c5b](https://bitbucket.org/openagenda/oa/commit/4be1c5b37d377e479cc6a373e9f229cac7be1478))
-* **event-search:** define keys for aggregation results ([02af384](https://bitbucket.org/openagenda/oa/commit/02af3840d51575b9c29e6f463813bd94e60314be))
+* **event-search:** add track_total_hits option to queryToDsl ([36053ee](https://bitbucket.org/openagenda/oa/commits/36053eef40fd29e14941df4fcda1c7b6d18c5dfc))
+* **event-search:** createdAt/updatedAt histogram aggregations ([4be1c5b](https://bitbucket.org/openagenda/oa/commits/4be1c5b37d377e479cc6a373e9f229cac7be1478))
+* **event-search:** define keys for aggregation results ([02af384](https://bitbucket.org/openagenda/oa/commits/02af3840d51575b9c29e6f463813bd94e60314be))
 
 
 ### Bug Fixes
 
-* **event-search:** source agenda aggregation throws error when there are no source agendas ([9665fc0](https://bitbucket.org/openagenda/oa/commit/9665fc0147eaf555ce26e3d4713a09d01b7bba37))
-* **event-search:** timings aggregation key_as_string provides bad info ([ccc4f14](https://bitbucket.org/openagenda/oa/commit/ccc4f14d40ec2a744b654220cfc70aeef3182b11))
+* **event-search:** source agenda aggregation throws error when there are no source agendas ([9665fc0](https://bitbucket.org/openagenda/oa/commits/9665fc0147eaf555ce26e3d4713a09d01b7bba37))
+* **event-search:** timings aggregation key_as_string provides bad info ([ccc4f14](https://bitbucket.org/openagenda/oa/commits/ccc4f14d40ec2a744b654220cfc70aeef3182b11))
 
 
 
-### [2.2.2](https://bitbucket.org/openagenda/oa/compare/@openagenda/event-search@2.2.1...@openagenda/event-search@2.2.2) (2020-04-07)
+### [2.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.2.2..@openagenda/event-search@2.2.1) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/event-search
 
