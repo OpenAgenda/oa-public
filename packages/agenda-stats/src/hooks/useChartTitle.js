@@ -1,17 +1,8 @@
 import _ from 'lodash';
-import { defineMessages, useIntl } from 'react-intl';
-import React, { useMemo } from 'react';
-import { Spinner } from '@openagenda/react-components';
+import { useIntl } from 'react-intl';
+import { useMemo } from 'react';
 import getLocaleValue from '../utils/getLocaleValue';
-import IntervalSelect from '../components/basics/IntervalSelect';
 import titleMessages from '../titleMessages';
-
-const messages = defineMessages({
-  withSelector: {
-    id: 'AgendaStats.useChartTitle.withSelector',
-    defaultMessage: '{message} by {selector}'
-  }
-});
 
 function statToTitleMessageKey(aggregation) {
   let messageKey = '';
@@ -27,19 +18,25 @@ function statToTitleMessageKey(aggregation) {
   return messageKey;
 }
 
-export default function useChartTitle({
-  stat,
-  interval,
-  setInterval,
-  loading
-}) {
+export function getChartTitle(stat, intl) {
+  const messageKey = statToTitleMessageKey(stat.aggregation);
+
+  if (stat.state.fieldSchema) {
+    return getLocaleValue(stat.state.fieldSchema.label, intl.locale);
+  }
+
+  if (titleMessages[messageKey]) {
+    return intl.formatMessage(titleMessages[messageKey]);
+  }
+
+  return messageKey;
+}
+
+export default function useChartTitle(stat) {
   const intl = useIntl();
 
-  const messageKey = useMemo(() => statToTitleMessageKey(stat.aggregation), [
-    stat.aggregation
-  ]);
-
   return useMemo(() => {
+    const messageKey = statToTitleMessageKey(stat.aggregation);
     let result;
 
     if (stat.state.fieldSchema) {
@@ -50,31 +47,6 @@ export default function useChartTitle({
       result = messageKey;
     }
 
-    if (stat.chart.intervalSelector && interval) {
-      result = intl.formatMessage(messages.withSelector, {
-        message: result,
-        selector: (
-          <>
-            <IntervalSelect value={interval} onChange={setInterval} />
-
-            {loading ? (
-              <span className="margin-left-xs">
-                <Spinner mode="inline" />
-              </span>
-            ) : null}
-          </>
-        )
-      });
-    }
-
     return result;
-  }, [
-    interval,
-    intl,
-    loading,
-    messageKey,
-    setInterval,
-    stat.chart.intervalSelector,
-    stat.state.fieldSchema
-  ]);
+  }, [intl, stat.aggregation, stat.state.fieldSchema]);
 }

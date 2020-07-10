@@ -2,10 +2,12 @@ import React, { useCallback, useState } from 'react';
 import { useUpdateEffect, usePrevious } from 'react-use';
 import { useDispatch } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
+import { Spinner } from '@openagenda/react-components';
 import useChartTitle from '../hooks/useChartTitle';
 import * as statsActions from '../reducers/stats';
 import LoadMore from './LoadMore';
 import BorderBox from './BorderBox';
+import IntervalSelect from './basics/IntervalSelect';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
 const messages = defineMessages({
@@ -16,6 +18,10 @@ const messages = defineMessages({
   update: {
     id: 'AgendaStats.ChartWrapper.update',
     defaultMessage: 'Update'
+  },
+  withSelector: {
+    id: 'AgendaStats.ChartWrapper.withSelector',
+    defaultMessage: '{message} by {selector}'
   }
 });
 
@@ -64,12 +70,7 @@ function ChartWrapper(
   //   []
   // );
 
-  const titleMessage = useChartTitle({
-    stat,
-    interval,
-    setInterval,
-    loading
-  });
+  const titleMessage = useChartTitle(stat);
 
   // Reload the graph with changed `interval` option
   useUpdateEffect(() => {
@@ -109,7 +110,24 @@ function ChartWrapper(
           </div>
         ) : null}
 
-        <h3 className="text-center">{titleMessage}</h3>
+        <h3 className="text-center">
+          {stat.chart.intervalSelector && interval
+            ? intl.formatMessage(messages.withSelector, {
+              message: titleMessage,
+              selector: (
+                <>
+                  <IntervalSelect value={interval} onChange={setInterval} />
+
+                  {loading ? (
+                    <span className="margin-left-xs">
+                      <Spinner mode="inline" />
+                    </span>
+                  ) : null}
+                </>
+              )
+            })
+            : titleMessage}
+        </h3>
 
         {children}
 

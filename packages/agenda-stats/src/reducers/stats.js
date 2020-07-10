@@ -205,6 +205,12 @@ export default function reducer(state = initialState, action) {
         dataBeforeEdit: null
       };
     }
+    case REORDER_STATS: {
+      return {
+        ...state,
+        data: action.statIds.map(id => state.data.find(v => v.id === id))
+      };
+    }
     default:
       return state;
   }
@@ -316,10 +322,9 @@ export function addStat(stat) {
   };
 }
 
-export function reorderStats(startIndex, endIndex) {
+export function reorderStats(statIds) {
   return {
     type: REORDER_STATS,
-    startIndex,
-    endIndex
+    statIds
   };
 }
