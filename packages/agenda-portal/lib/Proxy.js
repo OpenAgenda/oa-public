@@ -12,7 +12,14 @@ const getAgendaSettings = (agendaUid, key) => axios
   .get(
     `https://api.openagenda.com/v2/agendas/${agendaUid}/settings?key=${key}`
   )
-  .then(({ data }) => data);
+  .then(({ data }) => data)
+  .catch(err => {
+    if (err.response.status === 403) {
+      throw new Error('Unauthorized');
+    } else {
+      throw err;
+    }
+  });
 
 const cachedHead = _.memoize((key, agendaUid) => axios
   .get(`https://openagenda.com/agendas/${agendaUid}/settings.json`, { key })
