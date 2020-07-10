@@ -2987,7 +2987,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:^9.0.1":
+"@commitlint/cli@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/cli@npm:9.1.1"
   dependencies:
@@ -3010,7 +3010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^9.0.1":
+"@commitlint/config-conventional@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/config-conventional@npm:9.1.1"
   dependencies:
@@ -3019,7 +3019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-lerna-scopes@npm:^9.0.1":
+"@commitlint/config-lerna-scopes@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/config-lerna-scopes@npm:9.1.1"
   dependencies:
@@ -3102,7 +3102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/load@npm:^9.0.1, @commitlint/load@npm:^9.1.1":
+"@commitlint/load@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/load@npm:9.1.1"
   dependencies:
@@ -28341,10 +28341,10 @@ __metadata:
   dependencies:
     "@babel/core": ^7.10.4
     "@babel/runtime-corejs3": ^7.10.4
-    "@commitlint/cli": ^9.0.1
-    "@commitlint/config-conventional": ^9.0.1
-    "@commitlint/config-lerna-scopes": ^9.0.1
-    "@commitlint/load": ^9.0.1
+    "@commitlint/cli": ^9.1.1
+    "@commitlint/config-conventional": ^9.1.1
+    "@commitlint/config-lerna-scopes": ^9.1.1
+    "@commitlint/load": ^9.1.1
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/cz-conventional-changelog": ^3.2.1
     codecov: ^3.6.2
