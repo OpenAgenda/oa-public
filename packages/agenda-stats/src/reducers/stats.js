@@ -296,7 +296,8 @@ export function save(agenda) {
           data.map(v => ({
             id: v.id,
             aggregation: v.aggregation,
-            chart: v.chart
+            chart: v.chart,
+            separator: v.separator
           }))
         );
       }
