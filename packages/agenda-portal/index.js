@@ -106,7 +106,17 @@ module.exports = async options => {
 
   if (uid) {
     app.locals.assetsRoot = app.locals.root;
-    app.locals.agenda = await app.get('proxy').head(uid);
+    try {
+      app.locals.agenda = await app.get('proxy').head(uid);
+    } catch (e) {
+      if (e.message === 'Unauthorized') {
+        log(
+          '\n\nEXITING: account linked to key must be a member of the agenda\n\n'
+        );
+        return process.exit();
+      }
+      throw e;
+    }
     app.use(express.static(baseAssetsPath));
   } else if (!assetsRoot) {
     throw new Error(

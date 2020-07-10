@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.10.1](https://bitbucket.org/openagenda/oa/branches/compare/cibul-node@0.10.1..cibul-node@0.10.0) (2020-07-10)
+
+**Note:** Version bump only for package cibul-node
+
+
+
+
+
 ## [0.10.0](https://bitbucket.org/openagenda/oa/branches/compare/cibul-node@0.10.0..cibul-node@0.9.3) (2020-07-10)
 
 
