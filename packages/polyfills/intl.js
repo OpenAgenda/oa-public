@@ -13,5 +13,3 @@ require('@formatjs/intl-listformat/polyfill');
 require('@formatjs/intl-numberformat/polyfill');
 require('@formatjs/intl-relativetimeformat/polyfill');
 require('@formatjs/intl-datetimeformat/polyfill');
-
-require('./intl-data');
