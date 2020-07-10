@@ -25,7 +25,7 @@ export default function VerticalBarChart({
   categoryTick
 }) {
   return (
-    <ResponsiveContainer width="100%" height={42 + data.length * 50}>
+    <ResponsiveContainer width="100%" height={42 + data.length * 32}>
       <BarChart layout="vertical" data={data}>
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis
@@ -38,7 +38,7 @@ export default function VerticalBarChart({
           type="category"
           width={100}
           // interval="preserveStartEnd"
-          tick={categoryTick || <EllipsisAxisTick maxLines={3} />}
+          tick={categoryTick || <EllipsisAxisTick />}
         />
         <Tooltip
           wrapperStyle={tooltipWrapperStyle}
