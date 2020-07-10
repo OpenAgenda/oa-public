@@ -1,5 +1,3 @@
-import '@openagenda/polyfills/intl';
-
 import React, { Component } from 'react';
 import _ from 'lodash';
 import axios from 'axios';

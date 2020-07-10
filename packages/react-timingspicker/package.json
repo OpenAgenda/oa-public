@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.10.4",
-    "@openagenda/polyfills": "^1.1.2",
     "@openagenda/react-shared": "^2.0.5",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
