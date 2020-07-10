@@ -158,6 +158,8 @@ services:
   redis:
     container_name: redis
     image: redis:4.0.14
+    ports:
+      - 6379:6379
 
   es7:
     container_name: es7
