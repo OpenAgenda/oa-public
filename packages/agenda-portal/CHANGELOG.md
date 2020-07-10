@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.12.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.1..@openagenda/agenda-portal@2.12.0) (2020-07-10)
+
+
+### Bug Fixes
+
+* **agenda-portal:** digestible error for non member users ([cbf9ec7](https://bitbucket.org/openagenda/oa/commits/cbf9ec73a1662e9d6e94b7692229fed43f415a22))
+
+
+
 ## [2.12.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.0..@openagenda/agenda-portal@2.11.1) (2020-07-10)
 
 

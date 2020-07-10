@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.8.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.8.0..@openagenda/agenda-stats@1.7.0) (2020-07-10)
+
+
+### Features
+
+* **agenda-stats:** allow to change order of stats ([822782c](https://bitbucket.org/openagenda/oa/commits/822782cfb12f82b733c845f4656c45b39390fdf0))
+
+
+
 ## [1.7.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.7.0..@openagenda/agenda-stats@1.6.1) (2020-07-10)
 
 
