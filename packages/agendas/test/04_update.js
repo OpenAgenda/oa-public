@@ -300,7 +300,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             invitationMessage: false,
             calendarView: false,
             docxExport: false,
-            eventOwnershipTransfer: false
+            eventOwnershipTransfer: false,
+            graphs: false
           },
           legacyStore: {
             moderated: false,

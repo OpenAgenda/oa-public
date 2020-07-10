@@ -214,7 +214,8 @@ describe( 'agendas - functional (server): get', function() {
         invitationMessage: false,
         calendarView: false,
         docxExport: false,
-        eventOwnershipTransfer: false
+        eventOwnershipTransfer: false,
+        graphs: false
       } );
 
       done();

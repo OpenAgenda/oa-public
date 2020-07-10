@@ -130,7 +130,8 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         eventOwnershipTransfer: false,
         premiumCustomFields: false,
         useAgendaSchema: true,
-        useContributeApp: true
+        useContributeApp: true,
+        graphs: false
       } );
 
       [ 'moderator', 'tags', 'custom_templates', 'custom_head', 'indesign' ].forEach( f => {
