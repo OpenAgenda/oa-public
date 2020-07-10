@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/images",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "",
   "keywords": [],
   "author": "",
@@ -15,7 +15,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.5",
+    "@openagenda/logs": "^1.1.6",
     "async": "^1.5.0",
     "gm": "^1.21.1",
     "lodash": "^4.17.15",

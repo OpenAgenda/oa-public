@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.0.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.3..@openagenda/react-layouts@2.0.2) (2020-07-10)
+
+
+### Bug Fixes
+
+* fix links in changelogs ([84e2460](https://bitbucket.org/openagenda/oa/commits/84e24609981f4ee3bb9e34ef52109d74abe97a62))
+* **react-layouts:** extract-messages ([90fbca2](https://bitbucket.org/openagenda/oa/commits/90fbca2cc3117d04c11c0c7da436850e55bda0d1))
+* **react-layouts:** load the admin bar in the right language ([83748be](https://bitbucket.org/openagenda/oa/commits/83748be5310a7263c550b636fbc5fb4b4bdca519))
+
+
+
 ### [2.0.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.2..@openagenda/react-layouts@2.0.1) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/react-layouts

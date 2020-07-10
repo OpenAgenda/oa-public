@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/users",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
@@ -24,8 +24,8 @@
   "dependencies": {
     "@feathersjs/errors": "^4.5.1",
     "@feathersjs/hooks": "^0.4.0-alpha.0",
-    "@openagenda/logs": "^1.1.5",
-    "@openagenda/validators": "^2.2.11",
+    "@openagenda/logs": "^1.1.6",
+    "@openagenda/validators": "^2.2.12",
     "debug": "^4.1.1",
     "feathers-hooks-common": "^5.0.2",
     "feathers-knex": "^7.1.0",
@@ -36,12 +36,12 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.2.2",
-    "@openagenda/files": "^2.0.10",
+    "@openagenda/eslint-config": "^1.2.3",
+    "@openagenda/files": "^2.0.11",
     "@openagenda/fixtures": "^2.0.2",
-    "@openagenda/image-files": "^1.1.8",
-    "@openagenda/images": "^1.1.7",
-    "@openagenda/keys": "^2.2.6",
+    "@openagenda/image-files": "^1.1.9",
+    "@openagenda/images": "^1.1.8",
+    "@openagenda/keys": "^2.2.7",
     "eslint": "^6.8.0",
     "jest": "^26.1.0",
     "lint-staged": "^10.2.11",

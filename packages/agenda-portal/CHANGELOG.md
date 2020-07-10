@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.0..@openagenda/agenda-portal@2.11.1) (2020-07-10)
+
+
+### Features
+
+* **agenda-portal:** allow for scroll offset in iframe mode ([38e26ce](https://bitbucket.org/openagenda/oa/commits/38e26ce16a11109c967745859c7fd80d53870662))
+
+
+### Bug Fixes
+
+* fix links in changelogs ([84e2460](https://bitbucket.org/openagenda/oa/commits/84e24609981f4ee3bb9e34ef52109d74abe97a62))
+
+
+
 ### [2.11.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.11.1..@openagenda/agenda-portal@2.11.0) (2020-07-09)
 
 
