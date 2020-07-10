@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.7.0..@openagenda/agenda-stats@1.6.1) (2020-07-10)
+
+
+### Features
+
+* **agenda-stats:** add chart loader ([6fabeda](https://bitbucket.org/openagenda/oa/commits/6fabedae497b39b1aeaa38137e3f2ee0d56906cf))
+
+
+### Bug Fixes
+
+* fix links in changelogs ([84e2460](https://bitbucket.org/openagenda/oa/commits/84e24609981f4ee3bb9e34ef52109d74abe97a62))
+
+
+
 ### [1.6.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.6.1..@openagenda/agenda-stats@1.6.0) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/agenda-stats

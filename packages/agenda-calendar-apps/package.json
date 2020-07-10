@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-calendar-apps",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "Calendar views for an agenda",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.10.4",
-    "@openagenda/labels": "^2.2.4",
+    "@openagenda/labels": "^2.2.5",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "immutability-helper": "^3.0.0",
@@ -27,8 +27,8 @@
   "devDependencies": {
     "@babel/cli": "^7.10.4",
     "@babel/core": "^7.10.4",
-    "@openagenda/babel-preset": "^1.3.5",
-    "@openagenda/bs-templates": "^2.4.4",
+    "@openagenda/babel-preset": "^1.3.6",
+    "@openagenda/bs-templates": "^2.4.5",
     "babel-loader": "^8.1.0",
     "compression-webpack-plugin": "^3.0.0",
     "css-loader": "^0.28.7",

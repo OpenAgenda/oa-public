@@ -263,6 +263,11 @@ To illustrate, given a portal url `https://myagendaportal.com`, the iframe/contr
 
 You can use the `iframe-canvas.html` locally when working in a development environment to display the portal within an integrated page.
 
+Attributes:
+
+  * `data-scroll-offset`: when an event is opened, the page scrolls to the top of the page. Adjust positionning by specifying this offset.
+  * `allowtransparency, frameborder`: avoid ugly borders and preset background on the iframe
+
 ## Preview
 
 If you need to display an extract / a preview of the content of the portal, say on the homepage of your website for example, where user can click on an event to be redirected to the full view on your portal, a preview template can be customized: `preview.hbs`. Once ready, it is to be pointed to by an iframe/js pair to be placed where you want to display the previewed events:

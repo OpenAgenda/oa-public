@@ -23,6 +23,9 @@ function onMessage(state, { message }) {
   } else if (message.code === 'internal') {
     log('received internal link click from iframe');
     state.iframe.scrollIntoView();
+    if (state.iframeScrollOffset) {
+      document.querySelector('html').scrollBy(0, -state.iframeScrollOffset);
+    }
   } else if (message.code === 'preview') {
     log('received preview slug', message.eventSlug);
     window.location.href = `${(state.target || '#undefined-data-target-url')
@@ -57,11 +60,16 @@ function updateIframeOnHashChange(state) {
 
 module.exports = (iframe, options = {}) => {
   const {
-    selector, monitorHash, targetSelector, targetIsIframeSelector
+    selector,
+    monitorHash,
+    scrollOffsetSelector,
+    targetSelector,
+    targetIsIframeSelector
   } = {
     selector: 'data-oa-portal',
     monitorHash: false,
     targetSelector: 'data-target-url',
+    scrollOffsetSelector: 'data-scroll-offset',
     targetIsIframeSelector: 'data-target-iframe',
     ...options
   };
@@ -97,7 +105,10 @@ module.exports = (iframe, options = {}) => {
     target: iframe.hasAttribute(targetSelector)
       ? iframe.getAttribute(targetSelector)
       : null,
-    targetIsIframe: iframe.hasAttribute(targetIsIframeSelector)
+    targetIsIframe: iframe.hasAttribute(targetIsIframeSelector),
+    iframeScrollOffset: iframe.hasAttribute(scrollOffsetSelector)
+      ? parseInt(iframe.getAttribute(scrollOffsetSelector), 10)
+      : 0
   };
 
   if (base) {
