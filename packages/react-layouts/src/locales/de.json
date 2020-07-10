@@ -3,6 +3,7 @@
   "react-layouts.components.Search.search": "Suche",
   "react-layouts.AgendaAdminLayout.administration": "Verwaltung",
   "react-layouts.AgendaAdminLayout.return": "Kalender Startseite",
+  "react-layouts.AgendaAdminLayout.newTab": "Neu !",
   "react-layouts.MainLayout.general": "Allgemein",
   "react-layouts.MainLayout.myEvents": "Meine Veranstaltungen",
   "react-layouts.MainLayout.settings": "Einstellungen",
