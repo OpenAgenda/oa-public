@@ -8,6 +8,7 @@ import { Spinner } from '@openagenda/react-components';
 import { useApiClient, useModal } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
 import PeriodModal from '../components/PeriodModal';
+import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
 import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
@@ -40,6 +41,10 @@ const messages = defineMessages({
   edit: {
     id: 'AgendaStats.Dashboard.edit',
     defaultMessage: 'Edit'
+  },
+  changeOrder: {
+    id: 'AgendaStats.Dashboard.changeOrder',
+    defaultMessage: 'Change ordrer'
   }
 });
 
@@ -58,6 +63,7 @@ function Dashboard({ agenda, agendaSchema }) {
 
   const [range, setRange] = useState(undefined);
   const dateRangeModal = useModal();
+  const orderModal = useModal();
 
   const onPeriodChange = useCallback(
     value => dispatch(
@@ -76,6 +82,10 @@ function Dashboard({ agenda, agendaSchema }) {
       setRange(value[0]);
     }),
     [agenda, dispatch, stats]
+  );
+  const onOrderChange = useCallback(
+    statIds => dispatch(statsActions.reorderStats(statIds)),
+    [dispatch]
   );
 
   const setEditMode = useCallback(
@@ -185,7 +195,18 @@ function Dashboard({ agenda, agendaSchema }) {
           </>
         ) : null}
 
-        <div className="pull-right">{editButtons}</div>
+        <div className="pull-right text-right">
+          <div>{editButtons}</div>
+          {editing ? (
+            <button
+              type="button"
+              className="btn btn-link btn-link-inline margin-top-sm"
+              onClick={() => orderModal.open()}
+            >
+              {intl.formatMessage(messages.changeOrder)}
+            </button>
+          ) : null}
+        </div>
       </div>
 
       {typeof totalEvents === 'number' ? (
@@ -220,6 +241,14 @@ function Dashboard({ agenda, agendaSchema }) {
           initialValues={[range]}
           onSubmit={onPeriodChange}
           onClose={dateRangeModal.close}
+        />
+      ) : null}
+
+      {orderModal.isOpen ? (
+        <OrderModal
+          initialStats={stats}
+          onSubmit={onOrderChange}
+          onClose={orderModal.close}
         />
       ) : null}
     </div>
