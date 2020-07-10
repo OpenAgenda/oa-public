@@ -8,9 +8,10 @@ globalThis.Intl = require('intl');
 require('@formatjs/intl-getcanonicallocales/polyfill');
 require('@formatjs/intl-locale/polyfill');
 require('@formatjs/intl-pluralrules/polyfill');
-require('@formatjs/intl-relativetimeformat/polyfill');
-require('@formatjs/intl-listformat/polyfill');
 require('@formatjs/intl-displaynames/polyfill');
+require('@formatjs/intl-listformat/polyfill');
 require('@formatjs/intl-numberformat/polyfill');
+require('@formatjs/intl-relativetimeformat/polyfill');
+require('@formatjs/intl-datetimeformat/polyfill');
 
 require('./intl-data');

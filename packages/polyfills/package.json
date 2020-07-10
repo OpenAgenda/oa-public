@@ -23,6 +23,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "@formatjs/intl-datetimeformat": "^2.0.2",
     "@formatjs/intl-displaynames": "^3.0.2",
     "@formatjs/intl-getcanonicallocales": "^1.2.10",
     "@formatjs/intl-listformat": "^3.0.2",
