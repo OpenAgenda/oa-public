@@ -3,6 +3,7 @@
 require( '@openagenda/polyfills/web' );
 require( '@openagenda/polyfills/dom' );
 require( '@openagenda/polyfills/intl' );
+require( '@openagenda/polyfills/intl-locales' );
 
 // import ie8 from 'dom-utils/ie8'; // useful for ie11 too
 // import ie9 from 'dom-utils/ie9'; // useful for ie11 too
