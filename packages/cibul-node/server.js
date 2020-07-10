@@ -12,13 +12,14 @@ const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
 const WEB = process.argv.includes('web');
 
-const Core = require('./core');
-
 supervisor(async loadTasks => {
   try {
+    require('@openagenda/polyfills/intl');
+    require('@openagenda/polyfills/intl-locales');
+
     const config = require('./config');
     const services = await require('./services/init')();
-    const core = Core(services, config);
+    const core = require('./core')(services, config);
 
     services.core = core;
 
