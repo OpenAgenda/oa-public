@@ -28,7 +28,8 @@
   {
     "name": "statistics",
     "section": "manage",
-    "credential": "graphs"
+    "credential": "graphs",
+    "newFeature": true
   },
   {
     "name": "activities",
