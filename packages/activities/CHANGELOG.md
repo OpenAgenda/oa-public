@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.2.0..@openagenda/activities@2.1.12) (2020-07-13)
+
+
+### Features
+
+* **abilities,activities,react-timingspicker:** does not use intl polyfill in libs ([926a50f](https://bitbucket.org/openagenda/oa/commits/926a50f51d44506719ee25b2d2749c7a97267c06))
+
+
+
 ### [2.1.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.1.12..@openagenda/activities@2.1.11) (2020-07-10)
 
 

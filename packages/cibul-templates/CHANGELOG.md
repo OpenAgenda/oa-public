@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.3.0..@openagenda/cibul-templates@1.2.8) (2020-07-13)
+
+
+### Features
+
+* **cibul-templates:** update Intl polyfill ([b18a609](https://bitbucket.org/openagenda/oa/commits/b18a6090aeec124048c3eabf1461d2ac256f65f0))
+
+
+
 ### [1.2.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.2.8..@openagenda/cibul-templates@1.2.7) (2020-07-10)
 
 

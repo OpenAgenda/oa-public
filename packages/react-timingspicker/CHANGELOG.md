@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/Oagenda/oa/branches/compare/@openagenda/react-timingspicker@1.1.0..@openagenda/react-timingspicker@1.0.9) (2020-07-13)
+
+
+### Features
+
+* **abilities,activities,react-timingspicker:** does not use intl polyfill in libs ([926a50f](https://github.com/Oagenda/oa/commits/926a50f51d44506719ee25b2d2749c7a97267c06))
+
+
+
 ### [1.0.9](https://github.com/Oagenda/oa/branches/compare/@openagenda/react-timingspicker@1.0.9..@openagenda/react-timingspicker@1.0.8) (2020-07-10)
 
 **Note:** Version bump only for package @openagenda/react-timingspicker

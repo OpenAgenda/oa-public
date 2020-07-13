@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.12..@openagenda/agenda-calendar-apps@1.2.11) (2020-07-13)
+
+**Note:** Version bump only for package @openagenda/agenda-calendar-apps
+
+
+
+
+
 ### [1.2.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-calendar-apps@1.2.11..@openagenda/agenda-calendar-apps@1.2.10) (2020-07-10)
 
 

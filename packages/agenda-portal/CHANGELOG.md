@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.12.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.2..@openagenda/agenda-portal@2.12.1) (2020-07-13)
+
+
+### Bug Fixes
+
+* **agenda-portal:** using minified version of jquery.spin.js ([e11293a](https://bitbucket.org/openagenda/oa/commits/e11293a920a763373feb54f014c6e4839fa62002))
+
+
+
 ### [2.12.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.1..@openagenda/agenda-portal@2.12.0) (2020-07-10)
 
 

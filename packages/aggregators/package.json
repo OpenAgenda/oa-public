@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/aggregators",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -16,14 +16,14 @@
     ]
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.6",
-    "@openagenda/validators": "^2.2.12",
+    "@openagenda/logs": "^1.1.7",
+    "@openagenda/validators": "^2.2.13",
     "deep-diff": "^1.0.2",
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@openagenda/eslint-config": "^1.2.3",
+    "@openagenda/eslint-config": "^1.2.4",
     "eslint": "^6.8.0",
     "jest": "^26.1.0",
     "knex": "^0.19.5",

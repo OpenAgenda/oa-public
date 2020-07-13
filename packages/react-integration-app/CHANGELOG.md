@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.4.0..@openagenda/react-integration-app@1.3.5) (2020-07-13)
+
+
+### Features
+
+* **react-integration-app:** add intl locales ([0f884c0](https://bitbucket.org/openagenda/oa/commits/0f884c002fe83055e1c51f545e1e06b488b650ff))
+
+
+
 ### [1.3.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.3.5..@openagenda/react-integration-app@1.3.4) (2020-07-10)
 
 **Note:** Version bump only for package @openagenda/react-integration-app

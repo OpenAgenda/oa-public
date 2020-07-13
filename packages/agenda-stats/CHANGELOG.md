@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.9.0..@openagenda/agenda-stats@1.8.0) (2020-07-13)
+
+
+### Features
+
+* **agenda-stats:** reduce the size of the bars ([61c3320](https://bitbucket.org/openagenda/oa/commits/61c33201e42515953df1745576df7081f4d934aa))
+* **agenda-stats:** update chart loader ([3997d77](https://bitbucket.org/openagenda/oa/commits/3997d7739b089c5ea19f774feff00f0537e9cbf2))
+
+
+### Bug Fixes
+
+* **agenda-stats:** save correctly the separators ([1832721](https://bitbucket.org/openagenda/oa/commits/18327216ddd49a6bb5065a5104fb74cbf8c6f8a2))
+
+
+
 ## [1.8.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.8.0..@openagenda/agenda-stats@1.7.0) (2020-07-10)
 
 

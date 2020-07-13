@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.1.0..@openagenda/react-layouts@2.0.3) (2020-07-13)
+
+
+### Features
+
+* **react-layouts:** add new badge with tabs.json ([ac80ef3](https://bitbucket.org/openagenda/oa/commits/ac80ef3d97d6c1f78763c029959389de7ab199e6))
+
+
+### Bug Fixes
+
+* badge instead of label ([7890766](https://bitbucket.org/openagenda/oa/commits/7890766ff9e39ea6523820b55ee920ae3fdd70db))
+
+
+
 ### [2.0.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.3..@openagenda/react-layouts@2.0.2) (2020-07-10)
 
 

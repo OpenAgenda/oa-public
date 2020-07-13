@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.6.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.8..@openagenda/events@1.6.7) (2020-07-13)
+
+**Note:** Version bump only for package @openagenda/events
+
+
+
+
+
 ### [1.6.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.7..@openagenda/events@1.6.6) (2020-07-10)
 
 

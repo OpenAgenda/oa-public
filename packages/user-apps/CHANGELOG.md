@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.16](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.16..@openagenda/user-apps@1.1.15) (2020-07-13)
+
+**Note:** Version bump only for package @openagenda/user-apps
+
+
+
+
+
 ### [1.1.15](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.15..@openagenda/user-apps@1.1.14) (2020-07-10)
 
 

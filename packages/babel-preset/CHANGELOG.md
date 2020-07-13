@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.7..@openagenda/babel-preset@1.3.6) (2020-07-13)
+
+**Note:** Version bump only for package @openagenda/babel-preset
+
+
+
+
+
 ### [1.3.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.6..@openagenda/babel-preset@1.3.5) (2020-07-10)
 
 
