@@ -5,24 +5,24 @@ const registeredLinks = [];
 const log = debug('handleFrameLinkEvents');
 
 export default (jQuery, iframeHandler) => {
-  for (const elem of jQuery('a')) {
-    const el = jQuery(elem);
+  jQuery('a').each(function () {
+    const el = jQuery(this);
 
     if (!el.attr('href')) {
       log('no href, ignoring');
-      continue;
+      return;
     }
 
     const href = el.attr('href');
 
     if (el.attr('target') === '_blank') {
       log('target blank, ignoring', href);
-      continue;
+      return;
     }
 
     if (registeredLinks.filter(registered => registered.is(el)).length) {
       log('already registered, ignoring', href);
-      continue;
+      return;
     }
 
     registeredLinks.push(el);
@@ -44,5 +44,5 @@ export default (jQuery, iframeHandler) => {
         iframeHandler.sendExternalLinkClick(href);
       });
     }
-  }
+  });
 };
