@@ -30,7 +30,7 @@ export default function HorizontalBarChart({
           dataKey={labelKey}
           type="category"
           // interval="preserveStartEnd"
-          tick={categoryTick || <EllipsisAxisTick maxLines={3} />}
+          tick={categoryTick || <EllipsisAxisTick />}
         />
         <YAxis
           type="number"

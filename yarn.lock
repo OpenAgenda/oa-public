@@ -2987,7 +2987,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:^9.0.1":
+"@commitlint/cli@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/cli@npm:9.1.1"
   dependencies:
@@ -3010,7 +3010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-conventional@npm:^9.0.1":
+"@commitlint/config-conventional@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/config-conventional@npm:9.1.1"
   dependencies:
@@ -3019,7 +3019,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/config-lerna-scopes@npm:^9.0.1":
+"@commitlint/config-lerna-scopes@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/config-lerna-scopes@npm:9.1.1"
   dependencies:
@@ -3102,7 +3102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/load@npm:^9.0.1, @commitlint/load@npm:^9.1.1":
+"@commitlint/load@npm:^9.1.1":
   version: 9.1.1
   resolution: "@commitlint/load@npm:9.1.1"
   dependencies:
@@ -3559,6 +3559,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/intl-datetimeformat@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@formatjs/intl-datetimeformat@npm:2.0.2"
+  dependencies:
+    "@formatjs/intl-getcanonicallocales": ^1.2.10
+    "@formatjs/intl-utils": ^3.6.0
+  checksum: 950cb388788f57e6f2ad44c8582eb68a557c2bda80cfc9a04a6a65501671d6eac90d0f0da75b998f5f65415d6e06110543256508f535e7624afde1149cf33f9c
+  languageName: node
+  linkType: hard
+
 "@formatjs/intl-displaynames@npm:^1.2.0":
   version: 1.2.10
   resolution: "@formatjs/intl-displaynames@npm:1.2.10"
@@ -3568,21 +3578,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-displaynames@npm:^2.2.9":
-  version: 2.2.9
-  resolution: "@formatjs/intl-displaynames@npm:2.2.9"
+"@formatjs/intl-displaynames@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@formatjs/intl-displaynames@npm:3.0.2"
   dependencies:
-    "@formatjs/intl-utils": ^3.5.0
-  checksum: 8f2acece6d6e02af2896f92ae32d2e01b04cbd885fddb8c288c1ce150d50741de5c838494d222b9e98a27c6d34e6ad9a9932056085b57359eee814eb2eee9736
+    "@formatjs/intl-utils": ^3.6.0
+  checksum: 4937e91071369f9b5d5e31e01464bed6b09956d49ae210620fc872258531b9c13a81a0045f1d6683305d6d264b45f0e7d148db308411fccc584131834907d69e
   languageName: node
   linkType: hard
 
-"@formatjs/intl-getcanonicallocales@npm:^1.2.7":
-  version: 1.2.7
-  resolution: "@formatjs/intl-getcanonicallocales@npm:1.2.7"
+"@formatjs/intl-getcanonicallocales@npm:^1.2.10":
+  version: 1.2.10
+  resolution: "@formatjs/intl-getcanonicallocales@npm:1.2.10"
   dependencies:
     cldr-core: 36.0.0
-  checksum: 13851c79a150d46734bf6493aa6ea7eb374650e34ec35f60f1b53bab288af4b3593c677bc994c85968a7c4fa3d0810fa92a216200ab69b652335baa16348fb40
+  checksum: c989dc3a487d95bcf8170bc47efa483f9555596bf3691f4d433b298d83bbf846506d4e73bc4a8d688f2184c2ec7bb22cc8cbd527c195b8edbb6833195ad87b66
   languageName: node
   linkType: hard
 
@@ -3595,23 +3605,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-listformat@npm:^2.2.9":
-  version: 2.2.9
-  resolution: "@formatjs/intl-listformat@npm:2.2.9"
+"@formatjs/intl-listformat@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@formatjs/intl-listformat@npm:3.0.2"
   dependencies:
-    "@formatjs/intl-utils": ^3.5.0
-  checksum: 51bd5290b1db9656e1bf9b6d301de7f0bae7b6fefaefff1660a56c3fc3f5cd6ce211b95d04d77345d7e1004b581589af184915eb9c365d8cb25eacc3ea8340bb
+    "@formatjs/intl-utils": ^3.6.0
+  checksum: 343655d5fc4b6fa6ad3fb0c4efb1bac36c5fee8ce5e59fab2585c82224d82a3dfd27af6296d6c40feaa65cb717204cf79ce558fc5027bf4a2791666937af5a91
   languageName: node
   linkType: hard
 
-"@formatjs/intl-locale@npm:^2.1.9":
-  version: 2.1.9
-  resolution: "@formatjs/intl-locale@npm:2.1.9"
+"@formatjs/intl-locale@npm:^2.1.12":
+  version: 2.1.12
+  resolution: "@formatjs/intl-locale@npm:2.1.12"
   dependencies:
-    "@formatjs/intl-getcanonicallocales": ^1.2.7
-    "@formatjs/intl-utils": ^3.5.0
+    "@formatjs/intl-getcanonicallocales": ^1.2.10
+    "@formatjs/intl-utils": ^3.6.0
     cldr-core: ^36.0.0
-  checksum: 3e0bf6680aeab9a4a261d29adcfc7b8a4dfe89d6aeb9a8d0210920fa33f6dd06b30ca3f54c51b7d22add2fb587dd9f0dacd2c941892385fd0d4c7e4bba2664de
+  checksum: c9903a4eec957d2a693e086753cba12e55b48f4cdfef69e80fc464ff8e5b9b2929a3c65b66e8ae6fb523644006459dd2b94ec45caa7eade9ab28773dccb6e590
   languageName: node
   linkType: hard
 
@@ -3624,21 +3634,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:^4.2.11":
-  version: 4.2.11
-  resolution: "@formatjs/intl-numberformat@npm:4.2.11"
+"@formatjs/intl-numberformat@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "@formatjs/intl-numberformat@npm:5.0.2"
   dependencies:
-    "@formatjs/intl-utils": ^3.5.0
-  checksum: caddd5205f89bf6377a3c27a25004ffd0125fa1e527e824713ef86fcb69b3d1f814c2e4e358d0becc642c9b98356cc9168c4b5d62b6d5118b16e7b250add5c0c
+    "@formatjs/intl-utils": ^3.6.0
+  checksum: 46b496356f63efe06453b4a3d6b2bd48ca6d5e52ef6fe6671ef0f5be7c130a5bdc578d1f083bf098f97473e642d45938bb207750d81cf1ca1dda644b782007d0
   languageName: node
   linkType: hard
 
-"@formatjs/intl-pluralrules@npm:^2.2.11":
-  version: 2.2.11
-  resolution: "@formatjs/intl-pluralrules@npm:2.2.11"
+"@formatjs/intl-pluralrules@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@formatjs/intl-pluralrules@npm:3.0.2"
   dependencies:
-    "@formatjs/intl-utils": ^3.5.0
-  checksum: 0e1db63bd01dedb724a758173f0bd3b420499a787c85137792719c7c761b4119ee0171b5c895343dd16607fb9066e2b737eb62ebfa2194fb44823794dfea9bea
+    "@formatjs/intl-utils": ^3.6.0
+  checksum: dbca8645d40918c68b5905f677e11fc24e84fa624da797050eb3bf9b1e8dd93af9591914b6d0e2fff8be6bf5912ec548e2ee422f5a54f9a1455c616afb82b134
   languageName: node
   linkType: hard
 
@@ -3651,12 +3661,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-relativetimeformat@npm:^5.2.11":
-  version: 5.2.11
-  resolution: "@formatjs/intl-relativetimeformat@npm:5.2.11"
+"@formatjs/intl-relativetimeformat@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@formatjs/intl-relativetimeformat@npm:6.0.2"
   dependencies:
-    "@formatjs/intl-utils": ^3.5.0
-  checksum: b81ae39f976dd38734c5175acc0bbb1f0b82768c911a00ce5c8512cfe6261ecfdb64f2c2ccd06e0060f7d0009cd30ad5ebab5832afdbfd9516bf55879955b557
+    "@formatjs/intl-utils": ^3.6.0
+  checksum: f8b41983dd2d58202ee705b262844e1e0cf8a6d6bd9f13e02135c827c6e34b02989d0a60a142de932b1cd5baffdbc959e81dcb40640307fafc60af0aec2e952a
   languageName: node
   linkType: hard
 
@@ -3685,12 +3695,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-utils@npm:^3.5.0":
-  version: 3.5.0
-  resolution: "@formatjs/intl-utils@npm:3.5.0"
+"@formatjs/intl-utils@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "@formatjs/intl-utils@npm:3.6.0"
   dependencies:
     emojis-list: ^3.0.0
-  checksum: b169d094d78e2185607a4f03d377a3b0dead197e325193e507b668bd43d4ca5122a106598f3f381329e614615eb2ae1b2847df8c5590fbae03ad11491b71f0e8
+  checksum: 77a1ada4d77a458ef43357b8cd689d1b760f00e30da6e99f9b7f82881f07965f43e28ac2d4a1028773ddc5086c93e43d297c129bde8a4f08efd589d0bebd116d
   languageName: node
   linkType: hard
 
@@ -5065,7 +5075,6 @@ __metadata:
     "@openagenda/eslint-config": ^1.2.3
     "@openagenda/image-files": ^1.1.9
     "@openagenda/logs": ^1.1.6
-    "@openagenda/polyfills": ^1.1.2
     "@openagenda/react-components": ^2.3.7
     "@openagenda/react-shared": ^2.0.5
     "@openagenda/users": ^3.0.13
@@ -5121,7 +5130,6 @@ __metadata:
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/labels": ^2.2.5
     "@openagenda/logs": ^1.1.6
-    "@openagenda/polyfills": ^1.1.2
     "@openagenda/queue": ^1.0.1
     "@openagenda/service-utils": ^2.0.0
     "@openagenda/validators": ^2.2.12
@@ -7158,16 +7166,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:packages/polyfills"
   dependencies:
-    "@formatjs/intl-displaynames": ^2.2.9
-    "@formatjs/intl-getcanonicallocales": ^1.2.7
-    "@formatjs/intl-listformat": ^2.2.9
-    "@formatjs/intl-locale": ^2.1.9
-    "@formatjs/intl-numberformat": ^4.2.11
-    "@formatjs/intl-pluralrules": ^2.2.11
-    "@formatjs/intl-relativetimeformat": ^5.2.11
+    "@formatjs/intl-datetimeformat": ^2.0.2
+    "@formatjs/intl-displaynames": ^3.0.2
+    "@formatjs/intl-getcanonicallocales": ^1.2.10
+    "@formatjs/intl-listformat": ^3.0.2
+    "@formatjs/intl-locale": ^2.1.12
+    "@formatjs/intl-numberformat": ^5.0.2
+    "@formatjs/intl-pluralrules": ^3.0.2
+    "@formatjs/intl-relativetimeformat": ^6.0.2
     "@openagenda/pepjs": ^0.5.4
     core-js: ^3.6.5
     dom4: ^2.1.5
+    globalthis: ^1.0.1
     intl: ^1.2.5
     regenerator-runtime: ^0.13.5
   languageName: unknown
@@ -7449,7 +7459,6 @@ __metadata:
     "@babel/runtime-corejs3": ^7.10.4
     "@openagenda/babel-preset": ^1.3.6
     "@openagenda/eslint-config": ^1.2.3
-    "@openagenda/polyfills": ^1.1.2
     "@openagenda/react-shared": ^2.0.5
     "@storybook/addon-viewport": ^5.3.19
     "@storybook/addons": ^5.3.19
@@ -13629,6 +13638,7 @@ __metadata:
     "@openagenda/newsletter": ^2.0.1
     "@openagenda/oembed": ^2.1.11
     "@openagenda/pdf": ^0.1.3
+    "@openagenda/polyfills": ^1.1.2
     "@openagenda/queue": ^1.0.1
     "@openagenda/queues": ^1.2.5
     "@openagenda/react-integration-app": ^1.3.5
@@ -20266,7 +20276,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globalthis@npm:^1.0.0":
+"globalthis@npm:^1.0.0, globalthis@npm:^1.0.1":
   version: 1.0.1
   resolution: "globalthis@npm:1.0.1"
   dependencies:
@@ -28341,10 +28351,10 @@ __metadata:
   dependencies:
     "@babel/core": ^7.10.4
     "@babel/runtime-corejs3": ^7.10.4
-    "@commitlint/cli": ^9.0.1
-    "@commitlint/config-conventional": ^9.0.1
-    "@commitlint/config-lerna-scopes": ^9.0.1
-    "@commitlint/load": ^9.0.1
+    "@commitlint/cli": ^9.1.1
+    "@commitlint/config-conventional": ^9.1.1
+    "@commitlint/config-lerna-scopes": ^9.1.1
+    "@commitlint/load": ^9.1.1
     "@openagenda/babel-preset": ^1.2.0
     "@openagenda/cz-conventional-changelog": ^3.2.1
     codecov: ^3.6.2

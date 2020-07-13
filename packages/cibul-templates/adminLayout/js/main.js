@@ -1,6 +1,7 @@
 require( '@openagenda/polyfills/web' );
 require( '@openagenda/polyfills/dom' );
 require( '@openagenda/polyfills/intl' );
+require( '@openagenda/polyfills/intl-locales' );
 
 var layout = require( '../../layout/js/layout' ),
 

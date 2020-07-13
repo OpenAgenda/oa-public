@@ -1,5 +1,3 @@
-import '@openagenda/polyfills/intl';
-
 import React, { Component } from 'react';
 import * as dateFns from 'date-fns';
 import ReactResizeDetector from 'react-resize-detector';

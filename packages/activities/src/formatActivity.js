@@ -1,7 +1,5 @@
 'use strict';
 
-require('@openagenda/polyfills/intl');
-
 const merge = require('lodash/merge');
 const escape = require('lodash/escape');
 

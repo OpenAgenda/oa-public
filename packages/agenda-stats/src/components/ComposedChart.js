@@ -51,10 +51,14 @@ function ChartLoading() {
       backgroundColor="#f3f3f3"
       foregroundColor="#ecebeb"
     >
-      <rect x="10" y="10" rx="5" ry="5" width="380" height="40" />
-      <rect x="11" y="60" rx="5" ry="5" width="275" height="40" />
-      <rect x="10" y="110" rx="5" ry="5" width="200" height="40" />
-      <rect x="10" y="160" rx="5" ry="5" width="140" height="40" />
+      <rect x="0" y="20" rx="5" ry="5" width="90" height="14" />
+      <rect x="0" y="62" rx="5" ry="5" width="90" height="14" />
+      <rect x="0" y="104" rx="5" ry="5" width="90" height="14" />
+      <rect x="0" y="146" rx="5" ry="5" width="90" height="14" />
+      <rect x="102" y="10" rx="5" ry="5" width="280" height="32" />
+      <rect x="102" y="52" rx="5" ry="5" width="175" height="32" />
+      <rect x="102" y="94" rx="5" ry="5" width="100" height="32" />
+      <rect x="102" y="136" rx="5" ry="5" width="40" height="32" />
     </ContentLoader>
   );
 }

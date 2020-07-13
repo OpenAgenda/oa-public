@@ -20,7 +20,6 @@
     "@babel/runtime-corejs3": "^7.10.4",
     "@openagenda/labels": "^2.2.5",
     "@openagenda/logs": "^1.1.6",
-    "@openagenda/polyfills": "^1.1.2",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.2.12",
