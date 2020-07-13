@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.12.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.3..@openagenda/agenda-portal@2.12.2) (2020-07-13)
+
+
+### Bug Fixes
+
+* **agenda-portal:** IE11 fix for iframable ([0d8feb5](https://bitbucket.org/openagenda/oa/commits/0d8feb5413afddb6aee44c33b572229e59d61506))
+
+
+
 ### [2.12.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.2..@openagenda/agenda-portal@2.12.1) (2020-07-13)
 
 

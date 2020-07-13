@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/polyfills@1.2.1..@openagenda/polyfills@1.2.0) (2020-07-13)
+
+
+### Bug Fixes
+
+* **polyfills:** /dist does not exist in locale-data folder of module ([2616cc6](https://bitbucket.org/openagenda/oa/commits/2616cc609f4b8741bb3ad55ce0a2cd8c5f2625ed))
+
+
+
 ## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/polyfills@1.2.0..@openagenda/polyfills@1.1.2) (2020-07-13)
 
 
