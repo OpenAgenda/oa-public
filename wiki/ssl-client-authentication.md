@@ -32,7 +32,7 @@ Nous créons la clé privée du certificat de l'autorité dans `ssl/certs/privat
 
 Puis le certificat directement dans `ssl/certs`
 
-    openssl req -new -x509 -days 1095 \
+    openssl req -new -x509 -days 3650 \
       -key certs/private/ca.key \
       -out certs/ca.crt
 
@@ -148,6 +148,14 @@ openssl pkcs12 -export -clcerts \
 echo "-> clients/$1.p12"
 ```
 
+## Vérifications
+
+Vérifier le client à partir de l'autorité:
+
+    openssl verify -verbose -CAfile certs/ca.crt clients/kaore.crt
+
+
+
 ## Astuces
 
 En cas de problème d'autentification par le serveur, il est possible d'activer le log détailler dans la configuration de nginx pour avoir le détail dans le fichier de log d'erreurs. Dans `/etc/nginx/nginx.conf`, il faut mettre `debug` en fin de référence du fichier de log correspondant:
@@ -164,3 +172,7 @@ Le guide le plus complet pour limiter les interactions sur le terminal: https://
 Ne précise pas que l'organisation de l'autorité doit être différente de celle du client. La compilation des certificats n'est pas nécessaire dans notre cas.
 
 Le guide suivant va plus loin en ajoutant la gestion d'une liste de révocation: https://arcweb.co/securing-websites-nginx-and-client-side-certificate-authentication-linux/
+
+Mise à jour d'une autorité de certification sans casser les clés liées: https://serverfault.com/questions/306345/certification-authority-root-certificate-expiry-and-renewal
+
+Extraire des infos des certificats: https://www.shellhacks.com/decode-ssl-certificate/
