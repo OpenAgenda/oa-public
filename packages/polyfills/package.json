@@ -34,7 +34,6 @@
     "@openagenda/pepjs": "^0.5.4",
     "core-js": "^3.6.5",
     "dom4": "^2.1.5",
-    "globalthis": "^1.0.1",
     "intl": "^1.2.5",
     "regenerator-runtime": "^0.13.5"
   }
