@@ -13,6 +13,9 @@ services:
       DEV_SSL_CERT: /ssl/cert.pem
       DEV_SSL_KEY: /ssl/key.pem
       DEV_SSL_CA: /ssl/ca.pem
+      DEBUG_COLORS: "true"
+      TERM: xterm-256color
+      COLORTERM: truecolor
     volumes:
       - ${SITE_SSL_CERT}:/ssl/cert.pem
       - ${SITE_SSL_KEY}:/ssl/key.pem
