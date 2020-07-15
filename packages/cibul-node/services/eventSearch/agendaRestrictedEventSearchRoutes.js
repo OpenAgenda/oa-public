@@ -18,7 +18,10 @@ module.exports = (services) => {
 
       core
         .agendas(req.params.agendaUid)
-        .events.search(req.query, req.query, {
+        .events.search({
+          state: null,
+          ...req.query
+        }, req.query, {
           ...req.query,
           access,
         })
