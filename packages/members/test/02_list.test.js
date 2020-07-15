@@ -331,6 +331,30 @@ describe('members - functional - list', () => {
       expect(members[0].userUid).toBeNull();
     });
 
+    test('withActions is false', async () => {
+      const members = await svc.list(
+        {
+          agendaUid: 1,
+          withActions: false
+        },
+        { limit: 1 }
+      );
+
+      expect(members[0].actionsCounter).toBe(0);
+    });
+
+    test('withActions is true', async () => {
+      const members = await svc.list(
+        {
+          agendaUid: 1,
+          withActions: true
+        },
+        { limit: 1 }
+      );
+
+      expect(members[0].actionsCounter).toBe(12);
+    });
+
     test('search looks in store field', async () => {
       const members = await svc.list({ agendaUid: 1, search: 'Janine' });
 

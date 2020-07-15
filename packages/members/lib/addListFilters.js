@@ -120,9 +120,9 @@ module.exports = (k, query) => {
   }
 
   if (withActions === true) {
-    k.where('actions', '>', 0);
+    k.where('actions_counter', '>', 0);
   } else if (withActions === false) {
-    k.where('actions', '=', 0);
+    k.where('actions_counter', '=', 0);
   }
 
   if (search) {
