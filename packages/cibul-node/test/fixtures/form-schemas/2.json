@@ -25,7 +25,7 @@
     "info": null,
     "label": {
       "en": "Event of inter-municipal interest",
-      "fr": "Événement d''intérêt intercommunal"
+      "fr": "Événement d'intérêt intercommunal"
     },
     "max": null,
     "min": null,
@@ -35,7 +35,7 @@
         "id": 1,
         "label": {
           "en": "Event of inter-municipal interest",
-          "fr": "Événement d''intérêt intercommunal"
+          "fr": "Événement d'intérêt intercommunal"
         },
         "legacyId": null,
         "value": "true"

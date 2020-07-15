@@ -2,7 +2,7 @@
   "react-layouts.MainLayout.help": "Aide",
   "react-layouts.components.Search.search": "Rechercher",
   "react-layouts.AgendaAdminLayout.administration": "Administration",
-  "react-layouts.AgendaAdminLayout.return": "Aller à l''accueil de l''agenda",
+  "react-layouts.AgendaAdminLayout.return": "Aller à l'accueil de l'agenda",
   "react-layouts.AgendaAdminLayout.newTab": "Nouveau !",
   "react-layouts.MainLayout.general": "Général",
   "react-layouts.MainLayout.myEvents": "Mes événements",

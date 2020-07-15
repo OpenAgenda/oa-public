@@ -43,6 +43,7 @@ module.exports.formatDSL = (query, options = {}) => {
         date_histogram: {
           field: 'timings.begin',
           calendar_interval: interval,
+          min_doc_count: 0,
           format
         }
       }
