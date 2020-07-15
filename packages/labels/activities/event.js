@@ -40,10 +40,10 @@ module.exports = {
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",
-    "fr": "{user} a créé {event} dans l''agenda {agenda}.",
+    "fr": "{user} a créé {event} dans l'agenda {agenda}.",
     "de": "{user} Veranstaltung auf der Kalender {agenda} erstellt.",
     "es": "{user} creado {event} en el agenda del {agenda}.",
-    "it": "{user} ha creato {event} dans l''agenda {agenda}."
+    "it": "{user} ha creato {event} dans l'agenda {agenda}."
   },
   "event.update": {
     "en": "{user} updated {event} on {agenda}.",
@@ -76,7 +76,7 @@ module.exports = {
   },
   "unknownActivity": {
     "en": "Activity label missing for {verb}",
-    "fr": "Libellé d''activité manquant pour {verb}",
+    "fr": "Libellé d'activité manquant pour {verb}",
     "it": "Etichetta di attività mancante per {verb}."
   }
 }

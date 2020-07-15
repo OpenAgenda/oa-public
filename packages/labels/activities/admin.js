@@ -7,7 +7,7 @@ module.exports = {
   },
   "agenda.acceptInvitation": {
     "en": "{user} has accepted the invitation of {originMember} to become {credential} on {agenda}.",
-    "fr": "{user} a accepté l''invitation de {originMember} pour devenir {credential} sur {agenda}.",
+    "fr": "{user} a accepté l'invitation de {originMember} pour devenir {credential} sur {agenda}.",
     "de": "{user} has der Einladung von {originMember} angenommen {credential} auf {agenda} geworden.",
     "es": "{user} ha aceptado una invitación para unirse {originMember} {credential} sobre el agenda {agenda}.",
     "it": "{user} ha accettato l'invito de {originMember} ha diventare {credential} su {agenda}."
@@ -43,10 +43,10 @@ module.exports = {
   },
   "agenda.create": {
     "en": "{user} created the agenda {agenda}.",
-    "fr": "{user} a créé l''agenda {agenda}.",
+    "fr": "{user} a créé l'agenda {agenda}.",
     "de": "{user} der Kalender {agenda} erstellt.",
     "es": "{user} ha creado el agenda del {agenda}.",
-    "it": "{user} ha creato l''agenda {agenda}."
+    "it": "{user} ha creato l'agenda {agenda}."
   },
   "agenda.updateContribution": {
     "en": "{user} updated contribution settings on {agenda}.",
@@ -64,24 +64,24 @@ module.exports = {
   },
   "agenda.rename": {
     "en": "{user} renamed the agenda {before} to {after}.",
-    "fr": "{user} a renommé l''agenda {before} en {after}.",
+    "fr": "{user} a renommé l'agenda {before} en {after}.",
     "de": "{user} umbenannt die Kalender {before} auf {after}.",
     "es": "{user} cambió el nombre del agenda {before} a {after}.",
-    "it": "{user} ha rinominato l''agenda {before} en {after}."
+    "it": "{user} ha rinominato l'agenda {before} en {after}."
   },
   "agenda.setOfficial": {
     "en": "The agenda {agenda} became official.",
-    "fr": "L''agenda {agenda} est devenu officiel.",
+    "fr": "L'agenda {agenda} est devenu officiel.",
     "de": "Die Kalender {agenda} wurde offiziell.",
     "es": "El agenda {agenda} se convirtió oficial.",
-    "it": "L''agenda {agenda} è diventato ufficiale."
+    "it": "L'agenda {agenda} è diventato ufficiale."
   },
   "agenda.setUnofficial": {
     "en": "The agenda {agenda} became unofficial.",
-    "fr": "L''agenda {agenda} est devenu non officiel.",
+    "fr": "L'agenda {agenda} est devenu non officiel.",
     "de": "Die Kalender {agenda} wurde inoffiziell.",
     "es": "El agenda {agenda} se convirtió oficial.",
-    "it": "L''agenda {agenda} è diventato ufficioso."
+    "it": "L'agenda {agenda} è diventato ufficioso."
   },
   "agenda.changeEventState": {
     "en": "{user} passed {event} from \"{before}\" to \"{after}\".",
@@ -125,10 +125,10 @@ module.exports = {
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",
-    "fr": "{user} a créé {event} dans l''agenda {agenda}.",
+    "fr": "{user} a créé {event} dans l'agenda {agenda}.",
     "de": "{user} Veranstaltung auf der Kalender {agenda} erstellt.",
     "es": "{user} creado {event} en el agenda del {agenda}.",
-    "it": "{user} ha creato {event} dans l''agenda {agenda}."
+    "it": "{user} ha creato {event} dans l'agenda {agenda}."
   },
   "event.update": {
     "en": "{user} updated {event} on {agenda}.",
@@ -161,14 +161,14 @@ module.exports = {
   },
   "noActivity": {
     "en": "No activity",
-    "fr": "Pas d''activité",
+    "fr": "Pas d'activité",
     "de": "Keine Aktivität",
     "es": "No hay actividad",
     "it": "Nessuna attività"
   },
   "unknownActivity": {
     "en": "Activity label missing for {verb}",
-    "fr": "Libellé d''activité manquant pour {verb}",
+    "fr": "Libellé d'activité manquant pour {verb}",
     "it": "Etichetta di attività mancante per {verb}."
   }
 }

@@ -9,21 +9,21 @@ module.exports = {
     "it": "%agenda%: l’evento %event% ha cambiato stato"
   },
   "title": {
-    "fr": "L''événement **%event%** est passé du statut **%beforeState%** au statut **%afterState%** sur l''agenda **%agenda%**.",
+    "fr": "L'événement **%event%** est passé du statut **%beforeState%** au statut **%afterState%** sur l'agenda **%agenda%**.",
     "en": "The event **%event%** changed from **%beforeState%** status to **%afterState%** status on the agenda **%agenda%**.",
     "de": "Die Veranstaltung **%event% ** geändert von **%beforeState%** Zustand **%afterState%** Zustand auf der Kalender **%agenda%**.",
     "es": "El evento **%event%** ha pasado de **%beforeState%** a **%afterState%** en la agenda ** %agenda%**.",
     "it": "L'evento **%event%** è passato dallo stato **%beforeState%** allo stato **%safterState%** nell'agenda **%agenda%**."
   },
   "titleText": {
-    "fr": "L''événement %event% est passé du statut %beforeState% au statut %afterState% sur l''agenda %agenda%.",
+    "fr": "L'événement %event% est passé du statut %beforeState% au statut %afterState% sur l'agenda %agenda%.",
     "en": "The event %event% changed from %beforeState% status to %afterState% status on the agenda %agenda%.",
     "de": "Die Veranstaltung %event% von %beforeState% Zustand geändert %afterState% Zustand auf der Kalender %agenda%.",
     "es": "El evento %event% ha pasado de estado %beforeState%afterState% en el agenda %agenda%.",
     "it": "L'evento %event% è cambiato da %beforeState% a %afterState% sull'agenda %agenda%."
   },
   "actionDescription": {
-    "fr": "Voir l''événement",
+    "fr": "Voir l'événement",
     "en": "See the event",
     "de": "Siehe die Veranstaltung",
     "es": "Ver evento",
@@ -58,21 +58,21 @@ module.exports = {
     "it": "respinto"
   },
   "unsubscribe": {
-    "fr": "Ne plus recevoir les changements de statut d''événement vers \"{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}\"",
+    "fr": "Ne plus recevoir les changements de statut d'événement vers \"{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}\"",
     "en": "Stop receiving event state changes to \"{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}\"",
     "de": "Beenden des Empfangs von Veranstaltungzustand wechselt zu „{afterState wählen, verweigerten {verweigert} {tocontrol zu steuern} {gesteuert gesteuert} veröffentlicht {veröffentlicht}}“",
     "es": "Ya no recibir cambios de estado de evento a \"{afterState, seleccionar, se negó} {negado tocontrol {controlador}} a {controlada listo para publicar publicadas publicada {}}\"",
     "it": "Non ricevere più le modifiche dello stato dell'evento in \"{afterState, select, refused {refused} tocontrol {to control} controllato {ready to publish} pubblicato {published}\"."
   },
   "memberUnsubscribe": {
-    "fr": "Ne plus recevoir les changements de statut d''événement de cet agenda vers \"{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}\"",
+    "fr": "Ne plus recevoir les changements de statut d'événement de cet agenda vers \"{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}\"",
     "en": "Stop receiving event state changes to \"{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}\" on this agenda",
     "de": "Stop-Veranstaltung Zustandsänderungen empfangen zu „{afterState wählen, verweigerten {verweigert} {tocontrol zu steuern} {gesteuert gesteuert} veröffentlicht {veröffentlicht}}“ auf dieser Agenda",
     "es": "Ya no recibir los cambios de estado de eventos para este agenda \"{afterState, seleccionar, se negó} {negado tocontrol {controlador}} a {controlada listo para publicar publicadas publicada {}}\"",
     "it": "Non ricevere più i cambiamenti di stato dell'evento da questo programma a \"{afterState, select, refused {refused} tocontrol {to control} controllato {ready to publish} pubblicato {published}\"."
   },
   "changeEmailSettings": {
-    "fr": "Modifier mes paramètres d''envoi d''emails",
+    "fr": "Modifier mes paramètres d'envoi d'emails",
     "en": "Change my email sending settings",
     "de": "Ändern Sie per E-Mail zu senden Einstellungen",
     "es": "Cambiar mi configuración para enviar mensajes de correo electrónico",

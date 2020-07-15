@@ -6,7 +6,7 @@ module.exports = {
     "en": "{nbr} notifications not seen since the {date}",
     "de": "{nbr} Benachrichtigungen nicht seit {date} gesehen",
     "es": "{nbr} notificaciones no vistas desde la {date}",
-    "br": "{nbr} a gemennoù n''int ket bet gwelet abaoe an {date}",
+    "br": "{nbr} a gemennoù n'int ket bet gwelet abaoe an {date}",
     "it": "{nbr} notifiche non viste da {date}."
   },
   "dailySummary": {
@@ -30,7 +30,7 @@ module.exports = {
     "en": "No longer receiving a daily summary of notifications",
     "de": "Kein Empfang mehr eine tägliche Zusammenfassung der Meldungen",
     "es": "Dejar de recibir resumen agendas",
-    "br": "Paouez da resev un diverradenn eus ar c''hemennoù bemdez",
+    "br": "Paouez da resev un diverradenn eus ar c'hemennoù bemdez",
     "it": "Non si ricevono più i riepiloghi giornalieri delle notifiche"
   }
 }
