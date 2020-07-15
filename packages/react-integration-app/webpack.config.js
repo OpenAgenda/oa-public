@@ -103,12 +103,11 @@ module.exports = (env = {}, argv = {}) => {
       headers: { 'Access-Control-Allow-Origin': '*' },
       transportMode: 'ws',
       compress: true,
-      quiet: true,
-      noInfo: true,
       hot: true,
       inline: true,
       lazy: false
     },
+    stats: 'minimal',
     module: {
       rules: [
         {
