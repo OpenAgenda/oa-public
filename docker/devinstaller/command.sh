@@ -1,10 +1,10 @@
 #!/bin/bash
-cd /root || exit 1
+cd /root || exit
 
 php /root/cibul-symfony/scripts/create_yamls.php /root/oa/.env
 php /root/cibulapi-symfony/scripts/create_yamls.php /root/oa/.env
 
-cd oa || exit 1
+cd oa || exit
 
 # create the certification authority and the self-signed certificates
 ./docker/devinstaller/ssl/create_oa_authority.sh /root/oa/docker/devinstaller/ssl
@@ -21,5 +21,5 @@ export NPM_TOKEN=""
 
 # build everything
 yarn prepack
-cd packages/cibul-templates || exit 1
+cd packages/cibul-templates || exit
 yarn build:dev

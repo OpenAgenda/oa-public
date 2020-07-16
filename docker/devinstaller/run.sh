@@ -8,7 +8,7 @@ set -a
   source "$env_file"
 set +a
 
-docker build -t devinstaller docker/devinstaller
+docker build -t devinstaller docker/devinstaller || exit
 docker run \
 --name devinstaller \
 -it \

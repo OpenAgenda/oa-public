@@ -1,27 +1,17 @@
 FROM ubuntu:18.04
 
-ENV NVM_DIR /root/.nvm
-ENV NODE_VERSION 14.5.0
-
-WORKDIR /root
-
 RUN apt-get update -y \
-    && apt-get install -y apt-utils sudo curl ssh gnupg2 python python3-distutils g++ make apt-utils
+    && apt-get install -y apt-utils apt-transport-https sudo curl ssh gcc g++ make
 
-RUN mkdir $NVM_DIR \
-    && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash \
-    && . $NVM_DIR/nvm.sh
-
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
-RUN node -v
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs \
+    && node -v
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-    && apt-get install apt-transport-https -y \
     && apt-get update -y \
-    && apt-get install --no-install-recommends yarn -y
+    && apt-get install -y --no-install-recommends yarn \
+    && yarn -v
 
 RUN mkdir -p /root/.ssh \
     && touch /root/.ssh/known_hosts \
@@ -40,6 +30,8 @@ RUN addgroup --system --gid $gid $user \
     && adduser --system --disabled-password --no-create-home --group --gecos '' --shell /bin/bash --home $HOME --uid $uid $user \
     && adduser $user sudo \
     && echo $user' ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/$user
+
+WORKDIR /root
 
 RUN chown -Rh $user .
 
