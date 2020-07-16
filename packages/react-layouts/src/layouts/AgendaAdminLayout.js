@@ -99,7 +99,7 @@ function Sections({ agenda, role }) {
               </>
             ) : null}
             {newFeature ? (
-              <span className="badge badge-primary margin-left-sm">
+              <span className="badge badge-default badge-outline-primary badge-baseline margin-left-sm">
                 {intl.formatMessage(messages.newTab)}
               </span>
             ) : null}
