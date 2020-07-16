@@ -1,16 +1,17 @@
-version: '3.1'
+version: '3.8'
 
 services:
 
   devinstaller:
     build:
       context: docker/devinstaller
-    user: ${DOCKER_CONTAINER_USER:-}
-    command: /home/root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN} ${PMA_HOST} ${ELASTICHQ_DOMAIN}
+    user: ${UID}:${GID}
+    working_dir: /root/oa
+    command: /root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN} ${PMA_HOST} ${ELASTICHQ_DOMAIN}
     volumes:
-      - .:/home/root/oa
-      - ${SF_PROJECT_PATH}:/home/root/cibul-symfony
-      - ${SF_API_PROJECT_PATH}:/home/root/cibulapi-symfony
+      - .:/root/oa
+      - ${SF_PROJECT_PATH}:/root/cibul-symfony
+      - ${SF_API_PROJECT_PATH}:/root/cibulapi-symfony
       - ${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini
     env_file:
       .env
@@ -95,9 +96,15 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    command: bash -c "cd /home/root/oa && yarn start"
+      args:
+        user: ${USER}
+        uid: ${UID}
+        gid: ${GID}
+    user: ${UID}:${GID}
+    working_dir: /root/oa
+    command: yarn start
     volumes:
-      - .:/home/root/oa
+      - .:/root/oa
       - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
       - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
       - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem

@@ -1,10 +1,10 @@
-version: '3.1'
+version: '3.8'
 
 services:
   node:
     command: >
       bash -c
-        "cd /home/root/oa && yarn concurrently -n \"node,ria\" \
+        "cd /root/oa && yarn concurrently -n \"node,ria\" \
         \"yarn workspace cibul-node start\" \
         \"DEV_SERVER_HOST=0.0.0.0 yarn workspace @openagenda/react-integration-app dev\""
     environment:

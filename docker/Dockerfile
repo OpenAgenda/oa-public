@@ -1,20 +1,16 @@
 FROM ubuntu:18.04
 
 ENV NVM_DIR /root/.nvm
-ENV NODE_VERSION 12.16.3
+ENV NODE_VERSION 14.5.0
 
 WORKDIR /root
 
-RUN mkdir $NVM_DIR
-
 RUN apt-get update -y \
-    && apt-get install -y curl ssh gnupg2 python python3-distutils g++ make apt-utils
+    && apt-get install -y apt-utils sudo curl ssh gnupg2 python python3-distutils g++ make apt-utils
 
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | NODE_VERSION="" bash \
-    && . $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION --with-intl=full-icu --download=all \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
+RUN mkdir $NVM_DIR \
+    && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.35.3/install.sh | bash \
+    && . $NVM_DIR/nvm.sh
 
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
@@ -35,3 +31,16 @@ ENV NPM_TOKEN=""
 
 # add the npm token
 RUN echo "npmRegistries:\n  //registry.npmjs.org:\n    npmAuthToken: \"\${NPM_TOKEN}\"\n" >> /root/.yarnrc.yml
+
+# Add user and make it sudoer
+ARG uid=1000
+ARG gid=1000
+ARG user=username
+RUN addgroup --system --gid $gid $user \
+    && adduser --system --disabled-password --no-create-home --group --gecos '' --shell /bin/bash --home $HOME --uid $uid $user \
+    && adduser $user sudo \
+    && echo $user' ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/$user
+
+RUN chown -Rh $user .
+
+USER $user
