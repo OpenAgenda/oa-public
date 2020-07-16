@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.2.1..@openagenda/activities@2.2.0) (2020-07-16)
+
+**Note:** Version bump only for package @openagenda/activities
+
+
+
+
+
 ## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activities@2.2.0..@openagenda/activities@2.1.12) (2020-07-13)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/polyfills@1.2.2..@openagenda/polyfills@1.2.1) (2020-07-16)
+
+
+### Bug Fixes
+
+* **polyfills:** fix intl polyfill ([30cf685](https://bitbucket.org/openagenda/oa/commits/30cf685df5cfa4df273cff47549b614e1f231eb7))
+
+
+
 ### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/polyfills@1.2.1..@openagenda/polyfills@1.2.0) (2020-07-13)
 
 

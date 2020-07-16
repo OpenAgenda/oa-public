@@ -4,6 +4,11 @@ const registeredLinks = [];
 
 const log = debug('handleFrameLinkEvents');
 
+const extractDomain = (url = '') => {
+  const parts = url.replace(/^http(s|):\/\//, '').split('/');
+  return parts.shift();
+};
+
 export default (jQuery, iframeHandler) => {
   jQuery('a').each(function () {
     const el = jQuery(this);
@@ -27,12 +32,10 @@ export default (jQuery, iframeHandler) => {
 
     registeredLinks.push(el);
 
-    const isRelative = href.substr(0, 1) === '/';
+    const isRelative = href.substr(0, 1) === '/' && href.substr(1, 1) !== '/';
+    const isSameDomain = extractDomain(window.location.href) === extractDomain(href);
 
-    if (
-      isRelative
-      || window.location.href.split('/').shift() === href.split('/').shift()
-    ) {
+    if (isRelative || isSameDomain) {
       log('internal link', href);
       el.on('click', () => {
         iframeHandler.sendInternalLinkClick(href);

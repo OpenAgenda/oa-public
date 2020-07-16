@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.12.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.4..@openagenda/agenda-portal@2.12.3) (2020-07-16)
+
+
+### Bug Fixes
+
+* **agenda-portal:** relative and same domain links are not always read as internal ([fb1af22](https://bitbucket.org/openagenda/oa/commits/fb1af22e9a8bf660173346201f368a28fd5525bd))
+
+
+
 ### [2.12.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-portal@2.12.3..@openagenda/agenda-portal@2.12.2) (2020-07-13)
 
 

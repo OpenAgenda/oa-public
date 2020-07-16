@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.7..@openagenda/labels@2.2.6) (2020-07-16)
+
+
+### Bug Fixes
+
+* **labels:** deduplicate quotes ([127d18d](https://bitbucket.org/openagenda/oa/commits/127d18dfb71772ab76d5fe29edd36ae4769f4b60))
+* fix locales ([a591d2e](https://bitbucket.org/openagenda/oa/commits/a591d2efcdd3337c406b4c0f381b1a2d4fdf0b9a))
+
+
+
 ### [2.2.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.6..@openagenda/labels@2.2.5) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/labels

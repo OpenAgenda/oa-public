@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.15.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/members@1.15.12..@openagenda/members@1.15.11) (2020-07-16)
+
+
+### Bug Fixes
+
+* **members:** withActions filter targets wrong db field ([0a77806](https://bitbucket.org/openagenda/oa/commits/0a778063e3800849de6a3539de3003b260b12c40))
+
+
+
 ### [1.15.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/members@1.15.11..@openagenda/members@1.15.10) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/members

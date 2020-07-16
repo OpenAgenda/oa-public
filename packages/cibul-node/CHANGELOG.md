@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.11.2](https://bitbucket.org/openagenda/oa/branches/compare/cibul-node@0.11.2..cibul-node@0.11.1) (2020-07-16)
+
+
+### Bug Fixes
+
+* fix locales ([a591d2e](https://bitbucket.org/openagenda/oa/commits/a591d2efcdd3337c406b4c0f381b1a2d4fdf0b9a))
+* **cibul-node:** by default, stats include events of all states ([b68fa6d](https://bitbucket.org/openagenda/oa/commits/b68fa6ded6669ee16f1f3f0b638aa185af567086))
+
+
+
 ### [0.11.1](https://bitbucket.org/openagenda/oa/branches/compare/cibul-node@0.11.1..cibul-node@0.11.0) (2020-07-13)
 
 **Note:** Version bump only for package cibul-node

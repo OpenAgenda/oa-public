@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/networks",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.7",
-    "@openagenda/validators": "^2.2.13",
+    "@openagenda/validators": "^2.2.14",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "mysql": "^2.13.0",
