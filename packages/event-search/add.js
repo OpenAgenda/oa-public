@@ -35,6 +35,7 @@ module.exports = async function(config, set, event, options = {}) {
       index: getIndexName(set, defaultIndex),
       refresh,
       id: getDocumentId(set, event.uid),
+      routing: set,
       body: {
         ...formatEvent(event, formSchema),
         _set: set
