@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-docx@1.1.14..@openagenda/agenda-docx@1.1.13) (2020-07-16)
+
+**Note:** Version bump only for package @openagenda/agenda-docx
+
+
+
+
+
 ### [1.1.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-docx@1.1.13..@openagenda/agenda-docx@1.1.12) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/agenda-docx

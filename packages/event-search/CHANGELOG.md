@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.7.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.7.4..@openagenda/event-search@2.7.3) (2020-07-16)
+
+
+### Bug Fixes
+
+* fix locales ([a591d2e](https://bitbucket.org/openagenda/oa/commits/a591d2efcdd3337c406b4c0f381b1a2d4fdf0b9a))
+
+
+
 ### [2.7.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.7.3..@openagenda/event-search@2.7.2) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/event-search

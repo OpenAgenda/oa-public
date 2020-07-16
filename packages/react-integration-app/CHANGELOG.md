@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.5.0..@openagenda/react-integration-app@1.4.1) (2020-07-16)
+
+
+### Features
+
+* **react-integration-app:** show minimal stats ([18221d6](https://bitbucket.org/openagenda/oa/commits/18221d6c67dc82a4e9f6addd8240d83ff0dd5b73))
+
+
+### Bug Fixes
+
+* fix locales ([a591d2e](https://bitbucket.org/openagenda/oa/commits/a591d2efcdd3337c406b4c0f381b1a2d4fdf0b9a))
+* **react-integration-app:** remove useless intl dependency ([3d812a2](https://bitbucket.org/openagenda/oa/commits/3d812a2e0fc9458b0a6689a71e43875fb5b00c5d))
+
+
+
 ### [1.4.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.4.1..@openagenda/react-integration-app@1.4.0) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/react-integration-app
