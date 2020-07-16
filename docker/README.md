@@ -34,7 +34,8 @@ Edit it, follow the instructions in comments.
 In the terminal and at the project root, run:
 
 ```shell script
-sudo docker-compose up devinstaller
+chmod +x docker/devinstaller/run.sh
+./docker/devinstaller/run.sh
 ```
 
 Once the installation is complete, the process should exit.
@@ -61,38 +62,32 @@ And import manually `ca.crt` in Chrome and/or Firefox.
 Run the rest and brace yourself:
 
 ```shell script
-sudo docker-compose up nginx
+docker-compose up
 ```
 
 If nothing melted, try it in detached mode:
 
 ```shell script
-sudo docker-compose -d up nginx
+docker-compose -d up
 ```
 
 ## Useful
 
-View `node` logs without deamon:
+View `node` logs without deamon (hide logs from other services):
 
 ```shell script
-sudo docker-compose up nginx node
-```
-
-Run with PhpMyAdmin and MailCatcher:
-
-```shell script
-sudo docker-compose up -d nginx phpmyadmin mailcatcher
+docker-compose up nginx node
 ```
 
 Force recreate containers:
 
 ```shell script
-sudo docker-compose up --force-recreate node nginx phpmyadmin mailcatcher
+docker-compose up --force-recreate
 # or with daemon
-sudo docker-compose up -d --force-recreate nginx phpmyadmin mailcatcher
+docker-compose up -d --force-recreate
 ```
 
-View `node` logs:
+View `node` logs when daemon is launched:
 
 ```shell script
 docker-compose logs -f --tail=100 node
@@ -107,7 +102,7 @@ docker-compose restart node
 Watch mode:
 
 ```shell script
-docker-compose -f docker-compose.yml -f docker-compose.watch.yml up node nginx phpmyadmin mailcatcher
+docker-compose -f docker-compose.yml -f docker-compose.watch.yml up
 # or with daemon
-docker-compose -f docker-compose.yml -f docker-compose.watch.yml up -d nginx phpmyadmin mailcatcher
+docker-compose -f docker-compose.yml -f docker-compose.watch.yml up -d
 ```

@@ -8,7 +8,7 @@ WORKDIR /root
 RUN apt-get update -y \
     && apt-get install -y apt-utils curl ssh git gnupg2 python python3 g++ make
 
-RUN mkdir $NVM_DIR && \
+RUN mkdir $NVM_DIR \
     && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash \
     && . $NVM_DIR/nvm.sh
 
