@@ -10,7 +10,7 @@ set -a
 source "$env_file"
 set +a
 
-docker build -t $image_name docker/devinstaller || exit
+docker build -t $image_name "$ctx/docker/devinstaller" || exit
 docker run \
   --name $container_name \
   -it \
