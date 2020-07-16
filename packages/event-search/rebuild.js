@@ -47,6 +47,10 @@ module.exports = async (config, set, options = {}) => {
         mappings: {
           dynamic: false,
           properties: mapping
+        },
+        settings: {
+          number_of_shards: 5,
+          number_of_replicas: 1
         }
       }
     });
@@ -79,7 +83,8 @@ module.exports = async (config, set, options = {}) => {
             try {
               return bulkOperations.concat([{
                 index: {
-                  _id: getDocumentId(set, event.uid)
+                  _id: getDocumentId(set, event.uid),
+                  routing: set
                 }
               }, {
                 ...formatEvent(event, formSchema),

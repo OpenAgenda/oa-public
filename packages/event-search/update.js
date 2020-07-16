@@ -35,6 +35,7 @@ module.exports = async function(config, set, identifiers, eventPart, options = {
   try {
     result = await client.update({
       index: getIndexName(set, defaultIndex),
+      routing: set,
       body: {
         doc: {
           ...formatEvent(eventPart, formSchema),
