@@ -82,11 +82,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-      args:
-        user: ${USER}
-        uid: ${USERID}
-        gid: ${GROUPID}
-    user: ${USERID}:${GROUPID}
+    user: ${DOCKER_USER:-}
     working_dir: /root/oa
     command: yarn start
     volumes:
