@@ -101,10 +101,10 @@ services:
         uid: ${UID}
         gid: ${GID}
     user: ${UID}:${GID}
-    working_dir: /home/root/oa
+    working_dir: /root/oa
     command: yarn start
     volumes:
-      - .:/home/root/oa
+      - .:/root/oa
       - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
       - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
       - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem
