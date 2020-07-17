@@ -61,7 +61,7 @@
   "AgendaStats.titleMessages.members": "Membres",
   "AgendaStats.titleMessages.originAgendas": "Agendas d'origine",
   "AgendaStats.titleMessages.keywords": "Mots clés",
-  "AgendaStats.titleMessages.states": "Status",
+  "AgendaStats.titleMessages.states": "Statuts",
   "AgendaStats.utils.addRestItem.others": "Autres",
   "AgendaStats.utils.addRestItem.noValue": "Aucune valeur"
 }
