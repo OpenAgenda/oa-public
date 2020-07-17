@@ -2,20 +2,6 @@ version: '3.8'
 
 services:
 
-  devinstaller:
-    build:
-      context: docker/devinstaller
-    user: ${UID}:${GID}
-    working_dir: /root/oa
-    command: /root/oa/docker/devinstaller/command.sh ${SITE_DOMAIN} ${API_DOMAIN} ${PMA_HOST} ${ELASTICHQ_DOMAIN}
-    volumes:
-      - .:/root/oa
-      - ${SF_PROJECT_PATH}:/root/cibul-symfony
-      - ${SF_API_PROJECT_PATH}:/root/cibulapi-symfony
-      - ${SF_PROJECT_PATH}/php.ini:/usr/local/etc/php/php.ini
-    env_file:
-      .env
-
   nginx:
     container_name: nginx
     image: nginx:1.17
@@ -96,11 +82,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-      args:
-        user: ${USER}
-        uid: ${UID}
-        gid: ${GID}
-    user: ${UID}:${GID}
+    user: ${DOCKER_USER:-}
     working_dir: /root/oa
     command: yarn start
     volumes:

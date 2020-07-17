@@ -1,24 +1,25 @@
 #!/bin/bash
-cd /home/root
+cd /root || exit
 
-php cibul-symfony/scripts/create_yamls.php /home/root/oa/.env
-php cibulapi-symfony/scripts/create_yamls.php /home/root/oa/.env
+php /root/cibul-symfony/scripts/create_yamls.php /root/oa/.env
+php /root/cibulapi-symfony/scripts/create_yamls.php /root/oa/.env
 
-cd oa
+cd oa || exit
 
 # create the certification authority and the self-signed certificates
-./docker/devinstaller/ssl/create_oa_authority.sh /home/root/oa/docker/devinstaller/ssl
-./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl "$1"
-./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl "$2"
-./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl "$3"
-./docker/devinstaller/ssl/create_domain_certificates.sh /home/root/oa/docker/devinstaller/ssl "$4"
+./docker/devinstaller/ssl/create_oa_authority.sh /root/oa/docker/devinstaller/ssl
 
-# install oa modules, build everything
+for ((i = 1; i <= $#; i++ )); do
+  ./docker/devinstaller/ssl/create_domain_certificates.sh /root/oa/docker/devinstaller/ssl "${!i}"
+done
+
+# install oa modules
 yarn
-yarn prepack
 
 # remove the npm token
 export NPM_TOKEN=""
 
-cd packages/cibul-templates
+# build everything
+yarn prepack
+cd packages/cibul-templates || exit
 yarn build:dev

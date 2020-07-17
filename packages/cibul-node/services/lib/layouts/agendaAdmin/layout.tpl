@@ -25,7 +25,7 @@
           <li class="menu-item js_menu_item js_menu_item_<%= name %><%= selected ? ' selected' : '' %>">
             <a class="<%= selected ? 'active' : ''%>" href="<%= link %>"><%= label %></a>
             <% if (newFeature) { %>
-            <span class="badge badge-primary margin-left-sm"><%= tabLabels.newTab %></span>
+            <span class="badge badge-default badge-outline-primary badge-baseline margin-left-sm"><%= tabLabels.newTab %></span>
             <% } %>
             <% if ( scriptAnchor ) { %>
             <%= scriptAnchor.replace( ':slug', agenda.slug ) %>
