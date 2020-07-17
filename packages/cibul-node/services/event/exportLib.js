@@ -5,6 +5,8 @@ const pickEventImage = require( './lib/pickImage' );
 const log = require( '@openagenda/logs' )( 'services/event/exportLib' );
 const getLongDescriptionHTML = require('./lib/getLongDescriptionHTML');
 
+const linkValidator = require('@openagenda/validators/link')();
+
 const _ = require( 'lodash' ),
 
   async = require( 'async' ),
@@ -151,6 +153,7 @@ function cleanEvent(services, eInst, options, cb ) {
   }
 
   c.registration = registration( c.registrationUrl );
+  c.registrationUrl = isLink(c.registrationUrl) ? c.registrationUrl : null;
 
   let timezone = eInst.getLocationDetails().timezone;
 
@@ -267,4 +270,13 @@ function _extractKeywords( e ) {
 
   return keywords;
 
+}
+
+function isLink(v) {
+  try {
+    linkValidator(v);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
