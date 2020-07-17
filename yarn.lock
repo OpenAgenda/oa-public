@@ -6836,7 +6836,7 @@ __metadata:
     lodash: ^4.17.15
     r7insight_node: ^1.8.1
     sinon: ^3.2.1
-    winston: ^2.3.1
+    winston: ^2.4.5
   languageName: unknown
   linkType: soft
 
@@ -39545,6 +39545,20 @@ typescript@^3.2.1:
     isstream: 0.1.x
     stack-trace: 0.0.x
   checksum: 48fe51709fee3d6b5e8649ee6a7610fb5573722d864b1e339f7bae74dea19ea3465eed07c386c966d75ffa05f6b92ed3576a7871236739a30f427fe46238dee9
+  languageName: node
+  linkType: hard
+
+"winston@npm:^2.4.5":
+  version: 2.4.5
+  resolution: "winston@npm:2.4.5"
+  dependencies:
+    async: ~1.0.0
+    colors: 1.0.x
+    cycle: 1.0.x
+    eyes: 0.1.x
+    isstream: 0.1.x
+    stack-trace: 0.0.x
+  checksum: edcd5329e011d8a8fc19ad5f7a1accb4560663dc3836d2acb59305686dede4c3d2d33b9140746b7e74ad0a8a7434279495a0babd8754fffbb10064202c4c6919
   languageName: node
   linkType: hard
 
