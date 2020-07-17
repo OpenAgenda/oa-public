@@ -5,6 +5,7 @@ services:
   nginx:
     container_name: nginx
     image: nginx:1.17
+    restart: always
     ports:
       - 80:80
       - 443:443
@@ -49,6 +50,7 @@ services:
   es1:
     container_name: es1
     image: andrewvos/docker-elasticsearch
+    restart: always
     environment:
       - "ES_HEAP_SIZE=512M"
     ulimits:
@@ -62,6 +64,7 @@ services:
     container_name: php
     build:
       context: ./docker/php
+    restart: always
     volumes:
       - .env:/.env
       - ${SF_PROJECT_PATH}:/cibul-symfony
@@ -85,6 +88,7 @@ services:
     user: ${DOCKER_USER:-}
     working_dir: /root/oa
     command: yarn start
+    restart: always
     volumes:
       - .:/root/oa
       - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
@@ -147,12 +151,14 @@ services:
   redis:
     container_name: redis
     image: redis:4.0.14
+    restart: always
     ports:
       - 6379:6379
 
   es7:
     container_name: es7
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+    restart: always
     environment:
       - cluster.name=es-docker-cluster
       - bootstrap.memory_lock=true
@@ -190,6 +196,7 @@ services:
   mailcatcher:
     container_name: mailcatcher
     image: schickling/mailcatcher
+    restart: always
 
   elastichq:
     container_name: elastichq
