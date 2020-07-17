@@ -21,4 +21,4 @@ services:
       - ${SITE_SSL_KEY}:/ssl/key.pem
       - ${SITE_SSL_CA}:/ssl/ca.pem
     ports:
-      - 8905:8905
+      - ${DEV_SERVER_PORT:-8905}:${DEV_SERVER_PORT:-8905}
