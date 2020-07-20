@@ -3569,12 +3569,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/intl-datetimeformat@npm:^2.1.4":
+  version: 2.1.4
+  resolution: "@formatjs/intl-datetimeformat@npm:2.1.4"
+  dependencies:
+    "@formatjs/intl-getcanonicallocales": ^1.3.0
+    "@formatjs/intl-utils": ^3.8.1
+  checksum: f1139f7824f9a39bf5eb89603647d6a05789fc8c09248cba5201f8fc491589450626367d9caa3c969ad50aff27c83ad120259e8d1078a39ee83a18fb4cabfd9f
+  languageName: node
+  linkType: hard
+
 "@formatjs/intl-displaynames@npm:^3.0.2":
   version: 3.0.2
   resolution: "@formatjs/intl-displaynames@npm:3.0.2"
   dependencies:
     "@formatjs/intl-utils": ^3.6.0
   checksum: 4937e91071369f9b5d5e31e01464bed6b09956d49ae210620fc872258531b9c13a81a0045f1d6683305d6d264b45f0e7d148db308411fccc584131834907d69e
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-displaynames@npm:^3.1.4":
+  version: 3.1.4
+  resolution: "@formatjs/intl-displaynames@npm:3.1.4"
+  dependencies:
+    "@formatjs/intl-utils": ^3.8.1
+  checksum: 745e559399e997716914c27e27679b588a054cdc77154a4346508b8e1339f67c148eca67545113dd02ccaf412cda8e88cf14da9d435f06f490c1fa30719fc7a7
   languageName: node
   linkType: hard
 
@@ -3587,6 +3606,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/intl-getcanonicallocales@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@formatjs/intl-getcanonicallocales@npm:1.3.0"
+  dependencies:
+    cldr-core: 36.0.0
+  checksum: 6efb9e7374c18315e55e3e085b876a141911351a67f19a28e8e03494c89bc90a6b39fc21c18e7f95b595de72476a1a45975d1150f2b8fdf4d39bbbfb5cc1e8cc
+  languageName: node
+  linkType: hard
+
 "@formatjs/intl-listformat@npm:^3.0.2":
   version: 3.0.2
   resolution: "@formatjs/intl-listformat@npm:3.0.2"
@@ -3596,14 +3624,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-locale@npm:^2.1.12":
-  version: 2.1.12
-  resolution: "@formatjs/intl-locale@npm:2.1.12"
+"@formatjs/intl-listformat@npm:^3.1.4":
+  version: 3.1.4
+  resolution: "@formatjs/intl-listformat@npm:3.1.4"
   dependencies:
-    "@formatjs/intl-getcanonicallocales": ^1.2.10
-    "@formatjs/intl-utils": ^3.6.0
+    "@formatjs/intl-utils": ^3.8.1
+  checksum: aa2df21226f4f41f2a5dd2d272ab816a2da13f4c6b1ce0c4d412d42fddc0937d7364df157645f787a4e80ea89dd1f01f852043ff3b4bb003427b9040288dbd4f
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-locale@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "@formatjs/intl-locale@npm:2.2.2"
+  dependencies:
+    "@formatjs/intl-getcanonicallocales": ^1.3.0
+    "@formatjs/intl-utils": ^3.8.1
     cldr-core: ^36.0.0
-  checksum: c9903a4eec957d2a693e086753cba12e55b48f4cdfef69e80fc464ff8e5b9b2929a3c65b66e8ae6fb523644006459dd2b94ec45caa7eade9ab28773dccb6e590
+  checksum: 94caf6b65bd63bd79c608ea7e28b8e7a66076ef35ca77068cc33288c246bc1a3413567816d42e4caaa13f2e8b398876a1562c3cfcd705e4e5752a3323199932b
   languageName: node
   linkType: hard
 
@@ -3616,12 +3653,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-pluralrules@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@formatjs/intl-pluralrules@npm:3.0.2"
+"@formatjs/intl-numberformat@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@formatjs/intl-numberformat@npm:5.3.1"
   dependencies:
-    "@formatjs/intl-utils": ^3.6.0
-  checksum: dbca8645d40918c68b5905f677e11fc24e84fa624da797050eb3bf9b1e8dd93af9591914b6d0e2fff8be6bf5912ec548e2ee422f5a54f9a1455c616afb82b134
+    "@formatjs/intl-utils": ^3.8.1
+  checksum: 8f25ae6bc4226f6e9fe4a9707003d6bebcfe4b3f393007ae170a21c363f5f39479859998891142218e028a6d341141d2a2749ba404411cc902116a784d377c60
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-pluralrules@npm:^3.2.3":
+  version: 3.2.3
+  resolution: "@formatjs/intl-pluralrules@npm:3.2.3"
+  dependencies:
+    "@formatjs/intl-getcanonicallocales": ^1.3.0
+    "@formatjs/intl-utils": ^3.8.1
+  checksum: 38f49e40ae91a3b2faeb7f5a5a5327b7c39087d1dfd59a0837a586db2f0743ae1366c4ad703ddc5fb2cde986bdc0292a1d7b481187e4d04f0bff7fd244fa750a
   languageName: node
   linkType: hard
 
@@ -3634,12 +3681,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/intl-relativetimeformat@npm:^6.2.3":
+  version: 6.2.3
+  resolution: "@formatjs/intl-relativetimeformat@npm:6.2.3"
+  dependencies:
+    "@formatjs/intl-utils": ^3.8.1
+  checksum: 446d4a599a4be46511a14d280009010bfa348b4bcf5481d57b04937bdf745fe83543722f226094f64545eac8516d5df790f78b8df966396c05373bca77fc4c55
+  languageName: node
+  linkType: hard
+
 "@formatjs/intl-utils@npm:^3.6.0":
   version: 3.6.0
   resolution: "@formatjs/intl-utils@npm:3.6.0"
   dependencies:
     emojis-list: ^3.0.0
   checksum: 77a1ada4d77a458ef43357b8cd689d1b760f00e30da6e99f9b7f82881f07965f43e28ac2d4a1028773ddc5086c93e43d297c129bde8a4f08efd589d0bebd116d
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-utils@npm:^3.8.1":
+  version: 3.8.1
+  resolution: "@formatjs/intl-utils@npm:3.8.1"
+  dependencies:
+    emojis-list: ^3.0.0
+  checksum: 454a6301f94ad360a7415221747009321df9b0c2b6640d5ae19f4d6de44aec067c05e6886fb453fc04347625627e090f5265faca220a7680531b81831ee7db6f
   languageName: node
   linkType: hard
 
@@ -7105,17 +7170,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/polyfills@workspace:packages/polyfills"
   dependencies:
-    "@formatjs/intl-datetimeformat": ^2.0.2
-    "@formatjs/intl-displaynames": ^3.0.2
-    "@formatjs/intl-getcanonicallocales": ^1.2.10
-    "@formatjs/intl-listformat": ^3.0.2
-    "@formatjs/intl-locale": ^2.1.12
-    "@formatjs/intl-numberformat": ^5.0.2
-    "@formatjs/intl-pluralrules": ^3.0.2
-    "@formatjs/intl-relativetimeformat": ^6.0.2
+    "@formatjs/intl-datetimeformat": ^2.1.4
+    "@formatjs/intl-displaynames": ^3.1.4
+    "@formatjs/intl-getcanonicallocales": ^1.3.0
+    "@formatjs/intl-listformat": ^3.1.4
+    "@formatjs/intl-locale": ^2.2.2
+    "@formatjs/intl-numberformat": ^5.3.1
+    "@formatjs/intl-pluralrules": ^3.2.3
+    "@formatjs/intl-relativetimeformat": ^6.2.3
     "@openagenda/pepjs": ^0.5.4
     core-js: ^3.6.5
     dom4: ^2.1.5
+    globalthis: ^1.0.1
     intl: ^1.2.5
     regenerator-runtime: ^0.13.5
   languageName: unknown
@@ -20213,7 +20279,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globalthis@npm:^1.0.0":
+"globalthis@npm:^1.0.0, globalthis@npm:^1.0.1":
   version: 1.0.1
   resolution: "globalthis@npm:1.0.1"
   dependencies:
