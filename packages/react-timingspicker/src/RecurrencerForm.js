@@ -447,6 +447,7 @@ class RecurrencerForm extends Component {
                   <ul>
                     {submitError.disabledTimings.map(v => (
                       <li key={v.begin.toISOString()}>
+                        {/* TODO more detailed date */}
                         {intl.formatDate(v.begin)}
                       </li>
                     ))}

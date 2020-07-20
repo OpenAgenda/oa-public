@@ -11,12 +11,12 @@ function dayOffset(d, preventNextDayOverlap = false) {
     ref.setHours(ref.getHours() - 2);
   }
 
-  const startOfDay = new Date(ref);
+  const startOfDay = new Date(ref.getTime());
   startOfDay.setHours(0);
   startOfDay.setMinutes(0);
   startOfDay.setSeconds(0);
 
-  const endOfDay = new Date(startOfDay);
+  const endOfDay = new Date(startOfDay.getTime());
   endOfDay.setHours(23);
   endOfDay.setMinutes(0);
   endOfDay.setSeconds(0);
