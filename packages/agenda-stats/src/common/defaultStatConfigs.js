@@ -1,3 +1,5 @@
+import { defaultStateColors } from './defaultDataColors';
+
 const defaultStatConfigs = {
   // Charts
   regions: {
@@ -107,7 +109,8 @@ const defaultStatConfigs = {
       type: 'pie',
       dataKey: 'eventCount',
       labelKey: 'key',
-      tooltip: 'state'
+      tooltip: 'state',
+      dataColors: defaultStateColors
     }
   },
   // Others
