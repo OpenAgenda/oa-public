@@ -101,11 +101,22 @@ function ComposedChart({
       });
     }
 
+    const withDataColors = typeof dataColors === 'object'
+      && dataColors !== null
+      && !Array.isArray(dataColors);
+
     labelKeys.forEach(k => {
-      result = result.map(v => ({
-        ...v,
-        ..._.set({}, k, getLocaleValue(_.get(v, k), intl.locale))
-      }));
+      result = result.map(v => {
+        const label = _.get(v, k);
+        const item = {
+          ...v,
+          color: withDataColors ? dataColors[label] : null
+        };
+
+        _.set(item, k, getLocaleValue(label, intl.locale));
+
+        return item;
+      });
     });
 
     return result;

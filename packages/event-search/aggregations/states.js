@@ -3,7 +3,8 @@
 module.exports.formatDSL = (query, options = {}) => ({
   terms: {
     field: 'state',
-    size: options.size
+    size: options.size,
+    order: { _key: 'desc' }
   }
 });
 

@@ -8,9 +8,6 @@ const debug = require('debug');
 
 const prod = require( './prod' );
 
-// remove this when es7 server certificate is fixed
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
-
 let currentConfig;
 
 const config = {

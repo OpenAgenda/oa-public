@@ -150,7 +150,7 @@ function getCustomProperties(logger) {
 
 function loadMetadata(logger) {
   return metadata => {
-    logger.rewriters.push((level, msg, meta) => {
+    logger.rewriters.push(function _loadMetadata (level, msg, meta) {
       if (meta && meta instanceof Error) {
         return Object.assign(meta, metadata);
       }

@@ -42,7 +42,10 @@ export default function PieChart({
           startAngle={-270} // start to top
         >
           {data.map((entry, index) => (
-            <Cell key={`cell-${entry.key}`} fill={colors[index]} />
+            <Cell
+              key={`cell-${entry.key}`}
+              fill={entry.color || colors[index]}
+            />
           ))}
         </Pie>
         <Tooltip
