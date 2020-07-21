@@ -11,8 +11,8 @@ const defaultMessages = {
   },
   fr: {
     oops: 'Oups !',
-    sorry: "Désolé, une erreur s''est produite.",
-    goToHome: "Aller à l''accueil",
+    sorry: "Désolé, une erreur s'est produite.",
+    goToHome: "Aller à l'accueil",
     contactSupport: 'Contacter le support',
     retry: 'Réessayer'
   }
