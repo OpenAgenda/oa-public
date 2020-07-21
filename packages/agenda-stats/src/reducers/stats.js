@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import statsToAggregations from '../utils/statsToAggregations';
+import defaultStatConfigs from '../common/defaultStatConfigs';
 
 const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';
@@ -19,30 +20,49 @@ const SAVE_FAIL = 'agenda-stats/stats/SAVE_FAIL';
 
 const initialState = {};
 
-const addId = stat => ({
-  ...stat,
-  id: typeof stat.id !== 'undefined' ? stat.id : uuidv4()
-});
-const addState = stat => ({
-  ...stat,
-  state: typeof stat.state !== 'undefined' ? stat.state : {}
-});
+function addId(stat) {
+  return {
+    ...stat,
+    id: typeof stat.id !== 'undefined' ? stat.id : uuidv4()
+  };
+}
 
-const addInterval = interval => stat => {
-  if (!stat.chart) {
-    return stat;
-  }
+function addState(stat) {
+  return {
+    ...stat,
+    state: typeof stat.state !== 'undefined' ? stat.state : {}
+  };
+}
 
-  return stat.chart.intervalSelector && interval
-    ? {
-      ...stat,
-      state: {
-        ...stat.state,
-        interval
-      }
+function addInterval(interval) {
+  return stat => {
+    if (!stat.chart) {
+      return stat;
     }
-    : stat;
-};
+
+    const aggType = stat.aggregation.type;
+    const opt = aggType === 'additionalFields'
+      ? { fieldSchema: stat.state.fieldSchema }
+      : {};
+    const defaultConfig = typeof defaultStatConfigs[aggType] === 'function'
+      ? defaultStatConfigs[aggType](opt)
+      : defaultStatConfigs[aggType];
+    const chart = {
+      ...defaultConfig?.chart,
+      ...stat.chart
+    };
+
+    return chart.intervalSelector && interval
+      ? {
+        ...stat,
+        state: {
+          ...stat.state,
+          interval
+        }
+      }
+      : stat;
+  };
+}
 
 function decorateStats(stats, { interval } = {}) {
   return stats

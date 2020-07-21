@@ -74,6 +74,7 @@ function ComposedChart({
   const { aggregation, chart, state } = stat;
   const { data: rawData } = state;
   const intl = useIntl();
+
   const {
     type,
     tooltip: tooltipType,
@@ -96,6 +97,7 @@ function ComposedChart({
       ...chart
     };
   }, [aggregation.type, chart, state.fieldSchema]);
+
   const data = useMemo(() => {
     if (!rawData?.length) {
       return [];
