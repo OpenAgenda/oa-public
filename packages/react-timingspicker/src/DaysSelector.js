@@ -13,8 +13,8 @@ import timingUtils from './utils/timing';
 
 const ONE_DAY = 60 * 60 * 24;
 
-function formatTimingValue(intl, begin, end, breakpoint) {
-  const formatTime = time => intl.formatTime(time, { hour12: false });
+function formatTimingValue(timingFormat, begin, end, breakpoint) {
+  const formatTime = time => dateFns.format(time, timingFormat);
 
   if (['sm', 'xs'].includes(breakpoint)) {
     return (
@@ -979,7 +979,7 @@ class DaysSelector extends Component {
       cellHeight,
       step,
       selectableStep,
-      intl
+      timingFormat
     } = this.props;
     const {
       disallowedTimings,
@@ -1078,7 +1078,7 @@ class DaysSelector extends Component {
                 )}
                 {first && (
                   <div className={`${classNamePrefix}timing-value`}>
-                    {formatTimingValue(intl, begin, end, breakpoint)}
+                    {formatTimingValue(timingFormat, begin, end, breakpoint)}
                   </div>
                 )}
                 {last && (
@@ -1130,7 +1130,12 @@ class DaysSelector extends Component {
                     )}
                     {first && (
                       <div className={`${classNamePrefix}timing-value`}>
-                        {formatTimingValue(intl, begin, end, breakpoint)}
+                        {formatTimingValue(
+                          timingFormat,
+                          begin,
+                          end,
+                          breakpoint
+                        )}
                       </div>
                     )}
                     {/* last && <div className={`${classNamePrefix}timing-resizer`} /> */}
@@ -1189,7 +1194,12 @@ class DaysSelector extends Component {
                     )}
                     {first && (
                       <div className={`${classNamePrefix}timing-value`}>
-                        {formatTimingValue(intl, begin, end, breakpoint)}
+                        {formatTimingValue(
+                          timingFormat,
+                          begin,
+                          end,
+                          breakpoint
+                        )}
                       </div>
                     )}
                     {last && (
@@ -1250,7 +1260,12 @@ class DaysSelector extends Component {
                     )}
                     {first && (
                       <div className={`${classNamePrefix}timing-value`}>
-                        {formatTimingValue(intl, begin, end, breakpoint)}
+                        {formatTimingValue(
+                          timingFormat,
+                          begin,
+                          end,
+                          breakpoint
+                        )}
                       </div>
                     )}
                     {last && (

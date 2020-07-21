@@ -520,6 +520,7 @@ class Scheduler extends Component {
               allowedTimings={allowedTimings}
               classNamePrefix={classNamePrefix}
               breakpoint={breakpoint}
+              timingFormat={timingFormat}
             />
           </div>
         </div>
