@@ -216,34 +216,21 @@ function ChartAdder({ agenda, agendaSchema, stats }) {
   const onCancel = useCallback(() => setAddChartMode(false), []);
   const addChart = useCallback(
     values => {
-      let statConfig;
-
       if (!values.type) {
         return;
       }
 
-      if (values.type.additionalField) {
-        const { fieldSchema, isCheckbox } = values.type;
+      const opt = values.type.additionalField
+        ? { fieldSchema: values.type.fieldSchema }
+        : {};
+      const defaultConfig = typeof defaultStatConfigs[values.type] === 'function'
+        ? defaultStatConfigs[values.type](opt)
+        : defaultStatConfigs[values.type];
 
-        statConfig = {
-          aggregation: {
-            type: 'additionalFields',
-            field: values.type.fieldSchema.field
-          },
-          chart: {
-            type: isCheckbox ? 'pie' : 'vertical',
-            dataKey: 'eventCount',
-            labelKey: 'label',
-            restItem: isCheckbox,
-            dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
-          },
-          state: {
-            fieldSchema
-          }
-        };
-      } else {
-        statConfig = defaultStatConfigs[values.type];
-      }
+      const statConfig = {
+        ...defaultConfig,
+        chart: {}
+      };
 
       const { stat } = dispatch(statsActions.addStat(statConfig));
 

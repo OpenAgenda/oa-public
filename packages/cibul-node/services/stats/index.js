@@ -2,7 +2,6 @@
 
 const { promisify } = require('util');
 const cmn = require('../../lib/commons-app');
-const defaultStats = require('./defaultStats');
 const getAdditionalFieldStats = require('./getAdditionalFieldStats');
 const addFieldSchema = require('./addFieldSchema');
 
@@ -78,9 +77,23 @@ class Stats {
         .map(addFieldSchema(agendaSchema));
     }
 
-    return defaultStats
+    return [
+      {
+        aggregation: {
+          type: 'timings'
+        },
+        chart: {}
+      },
+      {
+        aggregation: {
+          type: 'keywords'
+        },
+        chart: {}
+      }
+    ]
       .concat({ separator: true })
-      .concat(getAdditionalFieldStats(agendaSchema));
+      .concat(getAdditionalFieldStats(agendaSchema))
+      .map(addFieldSchema(agendaSchema));
   }
 
   // async remove() {
