@@ -72,7 +72,8 @@ module.exports.init = async (config, services) => {
         public: agendaPublicEventSearchRoutes.bind(null, services),
         restricted: agendaRestrictedEventSearchRoutes.bind(null, services)
       }
-    }
+    },
+    cluster: eventSearch.cluster
   };
 }
 
