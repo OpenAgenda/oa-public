@@ -13,9 +13,16 @@ const AnnouncementManager = loadable(() => import(
   './AnnouncementManager'
 ));
 
+const Elasticsearch = loadable(() => import(
+  /* webpackChunkName: "supervisor-Elasticsearch" */
+  './Elasticsearch'
+));
+
 function App({ user }) {
   const { path, url } = useRouteMatch();
   const lang = useSelector(state => state.settings.lang);
+
+  const normalizedPath = url.endsWith('/') ? url.slice(0, -1) : url;
 
   return (
     <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
@@ -30,12 +37,13 @@ function App({ user }) {
 
                 <ul>
                   <li>
-                    <Link
-                      to={`${
-                        url.endsWith('/') ? url.slice(0, -1) : url
-                      }/announcement`}
-                    >
+                    <Link to={`${normalizedPath}/announcement`}>
                       Gérer les annonces OA
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={`${normalizedPath}/elasticsearch`}>
+                      Elasticsearch
                     </Link>
                   </li>
                 </ul>
@@ -43,12 +51,12 @@ function App({ user }) {
             </div>
           </Route>
 
-          <Route
-            path={`${
-              path.endsWith('/') ? path.slice(0, -1) : path
-            }/announcement`}
-          >
+          <Route path={`${normalizedPath}/announcement`}>
             <AnnouncementManager user={user} />
+          </Route>
+
+          <Route path={`${normalizedPath}/elasticsearch`}>
+            <Elasticsearch user={user} />
           </Route>
         </Switch>
       </div>

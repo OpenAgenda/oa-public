@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import breaks from 'remark-breaks';
 import { css } from '@emotion/core';
 import { useConstant, useApiClient } from '@openagenda/react-shared';
+import { Link } from 'react-router-dom';
 
 const getTarget = uri => (uri.match(/^(https?:|)\/\//) ? '_blank' : undefined);
 const reactMdPlugins = [breaks];
@@ -15,12 +16,19 @@ function AnnouncementPreview({ kind = 'info', content }) {
       <div className={`container text-${kind}`}>
         <div className="row padding-top-sm padding-right-sm padding-left-md">
           <div className="pull-right">
-            <button type="button" className={`btn btn-link-inline text-${kind}`}>
+            <button
+              type="button"
+              className={`btn btn-link-inline text-${kind}`}
+            >
               <i className="fa fa-times" aria-hidden="true" />
             </button>
           </div>
 
-          <ReactMarkdown linkTarget={getTarget} source={content} plugins={reactMdPlugins} />
+          <ReactMarkdown
+            linkTarget={getTarget}
+            source={content}
+            plugins={reactMdPlugins}
+          />
         </div>
       </div>
     </div>
@@ -65,6 +73,11 @@ export default function AnnouncementManager({ user }) {
         render={({ handleSubmit, values }) => (
           <form onSubmit={handleSubmit}>
             <div className="container">
+              <div className="margin-bottom-md">
+                <h1>Annonces OA</h1>
+                <Link to="/supervisor">Retour</Link>
+              </div>
+
               <div className="row">
                 <div className="col-sm-9">
                   <Field
@@ -113,7 +126,10 @@ export default function AnnouncementManager({ user }) {
 
             {values.content ? (
               <div className="margin-top-sm">
-                <AnnouncementPreview kind={values.kind} content={values.content} />
+                <AnnouncementPreview
+                  kind={values.kind}
+                  content={values.content}
+                />
               </div>
             ) : null}
           </form>
