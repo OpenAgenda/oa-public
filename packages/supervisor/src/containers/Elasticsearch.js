@@ -17,7 +17,6 @@ export default function Elasticsearch() {
     {
       refetchInterval: 1000,
       onSuccess: data2 => {
-        console.log('onSuccess', data2);
         if (isLoading) {
           // first load
           setReplicas(data2.replicas);
