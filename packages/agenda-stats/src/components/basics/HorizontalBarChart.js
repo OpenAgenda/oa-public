@@ -23,7 +23,7 @@ export default function HorizontalBarChart({
   categoryTick
 }) {
   return (
-    <ResponsiveContainer width="100%" height={450}>
+    <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data} barGap={0}>
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis

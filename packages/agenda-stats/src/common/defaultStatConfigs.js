@@ -113,6 +113,26 @@ const defaultStatConfigs = {
       dataColors: defaultStateColors
     }
   },
+  additionalFields: ({ fieldSchema }) => {
+    const isCheckbox = fieldSchema.fieldType === 'checkbox' && fieldSchema.options.length === 1;
+
+    return {
+      aggregation: {
+        type: 'states',
+        field: fieldSchema.field
+      },
+      chart: {
+        type: isCheckbox ? 'pie' : 'vertical',
+        dataKey: 'eventCount',
+        labelKey: 'label',
+        restItem: isCheckbox,
+        dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
+      },
+      state: {
+        fieldSchema
+      }
+    };
+  },
   // Others
   separator: { separator: true }
 };

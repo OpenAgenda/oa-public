@@ -41,6 +41,7 @@ module.exports = app => {
   require('./services/members')(app);
   require('./agenda/activities.back')(app);
   require('./services/stats').plugApp(app);
+  require('./services/supervisor').plugApp(app, '/supervisor');
   require('./webapp')(app);
   require('./location/back')(app);
   require('./services/agendas').plugApp(app);
@@ -51,6 +52,4 @@ module.exports = app => {
   require('./agenda/facebook.back')(app);
   require('./agenda/actions.front')(app);
   require('./agenda/exports.front')(app);
-  require('./services/announcements').plugApp(app, '/supervisor/announcement');
-
 };

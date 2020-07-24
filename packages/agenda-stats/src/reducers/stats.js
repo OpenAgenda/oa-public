@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import statsToAggregations from '../utils/statsToAggregations';
+import defaultStatConfigs from '../common/defaultStatConfigs';
 
 const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';
@@ -13,36 +14,56 @@ const CANCEL_EDIT = 'agenda-stats/stats/CANCEL_EDIT';
 const REORDER_STATS = 'agenda-stats/stats/REORDER_STATS';
 const REMOVE_STAT = 'agenda-stats/stats/REMOVE_STAT';
 const ADD_STAT = 'agenda-stats/stats/ADD_STAT';
+const UPDATE_STAT = 'agenda-stats/stats/UPDATE_STAT';
 const SAVE = 'agenda-stats/stats/SAVE';
 const SAVE_SUCCESS = 'agenda-stats/stats/SAVE_SUCCESS';
 const SAVE_FAIL = 'agenda-stats/stats/SAVE_FAIL';
 
 const initialState = {};
 
-const addId = stat => ({
-  ...stat,
-  id: typeof stat.id !== 'undefined' ? stat.id : uuidv4()
-});
-const addState = stat => ({
-  ...stat,
-  state: typeof stat.state !== 'undefined' ? stat.state : {}
-});
+function addId(stat) {
+  return {
+    ...stat,
+    id: typeof stat.id !== 'undefined' ? stat.id : uuidv4()
+  };
+}
 
-const addInterval = interval => stat => {
-  if (!stat.chart) {
-    return stat;
-  }
+function addState(stat) {
+  return {
+    ...stat,
+    state: typeof stat.state !== 'undefined' ? stat.state : {}
+  };
+}
 
-  return stat.chart.intervalSelector && interval
-    ? {
-      ...stat,
-      state: {
-        ...stat.state,
-        interval
-      }
+function addInterval(interval) {
+  return stat => {
+    if (!stat.chart) {
+      return stat;
     }
-    : stat;
-};
+
+    const aggType = stat.aggregation.type;
+    const opt = aggType === 'additionalFields'
+      ? { fieldSchema: stat.state.fieldSchema }
+      : {};
+    const defaultConfig = typeof defaultStatConfigs[aggType] === 'function'
+      ? defaultStatConfigs[aggType](opt)
+      : defaultStatConfigs[aggType];
+    const chart = {
+      ...defaultConfig?.chart,
+      ...stat.chart
+    };
+
+    return chart.intervalSelector && interval
+      ? {
+        ...stat,
+        state: {
+          ...stat.state,
+          interval
+        }
+      }
+      : stat;
+  };
+}
 
 function decorateStats(stats, { interval } = {}) {
   return stats
@@ -198,6 +219,26 @@ export default function reducer(state = initialState, action) {
         data: [...state.data, action.stat]
       };
     }
+    case UPDATE_STAT: {
+      const statIndex = state.data.findIndex(v => v.id === action.statId);
+      const actualStat = state.data[statIndex];
+      const newStat = {
+        ...actualStat,
+        chart: {
+          ...actualStat.chart,
+          ...action.values
+        }
+      };
+
+      return {
+        ...state,
+        data: [
+          ...state.data.slice(0, statIndex),
+          newStat,
+          ...state.data.slice(statIndex + 1)
+        ]
+      };
+    }
     case SAVE_SUCCESS: {
       return {
         ...state,
@@ -320,6 +361,14 @@ export function addStat(stat) {
       type: ADD_STAT,
       stat: decorateStats([stat], { interval })[0]
     });
+  };
+}
+
+export function updateStat(statId, values) {
+  return {
+    type: UPDATE_STAT,
+    statId,
+    values
   };
 }
 

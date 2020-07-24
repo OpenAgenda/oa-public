@@ -16,8 +16,8 @@ function init(config) {
   });
 }
 
-function plugApp(app, base = '/supervisor/announcement') {
-  const { sessions, announcements } = app.services;
+function plugApp(app, base = '/announcement') {
+  const { sessions, supervisor: { announcements } } = app.services;
 
   app.post(
     base,

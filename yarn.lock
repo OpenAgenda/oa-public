@@ -7695,6 +7695,7 @@ __metadata:
     react-intl: ^5.0.2
     react-is: ^16.13.1
     react-markdown: ^4.3.1
+    react-query: ^2.5.5
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -32433,6 +32434,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-query@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "react-query@npm:2.5.5"
+  dependencies:
+    ts-toolbelt: ^6.9.4
+  peerDependencies:
+    react: ^16.8.0
+  checksum: 5511ccccc68520e4e11b22f98df3cbbead8c9e9b963afe951fa7d8748c77f0c171eed4183f6f11ed827fa0240c9694011370d85371a950a255a7ea63e1521407
+  languageName: node
+  linkType: hard
+
 "react-redux@npm:^5.0.7":
   version: 5.1.2
   resolution: "react-redux@npm:5.1.2"
@@ -37647,6 +37659,13 @@ resolve@^1.17.0:
     typescript:
       optional: true
   checksum: 0c1ab7d1b85820a4ad12d25f18e6e9b68e57095412cb436266e8d0c58508892d871cd6d39512701e1117b0ad6354f0596d7f9ef9a0e630538ef3c7ff1970e0ef
+  languageName: node
+  linkType: hard
+
+"ts-toolbelt@npm:^6.9.4":
+  version: 6.13.21
+  resolution: "ts-toolbelt@npm:6.13.21"
+  checksum: 36fd9970bb7fb2b513823497c7a4da648a337d59b889484e4f423ec0188064f1bd2bbaa7af42abbc595c59b38efa27e8a41239346d529fb68a6ab3e0b729d11e
   languageName: node
   linkType: hard
 

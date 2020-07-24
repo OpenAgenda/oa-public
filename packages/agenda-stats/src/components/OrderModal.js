@@ -18,13 +18,39 @@ const messages = defineMessages({
   separator: {
     id: 'AgendaStats.OrderModal.separator',
     defaultMessage: 'Separator'
+  },
+  width: {
+    id: 'AgendaStats.OrderModal.width',
+    defaultMessage: 'Width:'
+  },
+  oneColumn: {
+    id: 'AgendaStats.OrderModal.oneColumn',
+    defaultMessage: 'One column'
+  },
+  oneLine: {
+    id: 'AgendaStats.OrderModal.oneLine',
+    defaultMessage: 'One line'
   }
 });
 
 function Chart({ stat }) {
-  const title = useChartTitle(stat);
+  const intl = useIntl();
 
-  return <b>{title}</b>;
+  const title = useChartTitle(stat);
+  const width = stat.chart.width || 1;
+
+  return (
+    <>
+      <b>{title}</b>
+      <div>
+        {intl.formatMessage(messages.width)}{' '}
+        <em>
+          {width === 1 ? intl.formatMessage(messages.oneColumn) : null}
+          {width === 2 ? intl.formatMessage(messages.oneLine) : null}
+        </em>
+      </div>
+    </>
+  );
 }
 
 function Separator() {

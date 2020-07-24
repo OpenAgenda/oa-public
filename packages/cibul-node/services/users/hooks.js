@@ -29,7 +29,7 @@ const populateAnnouncement = () => async (context, next) => {
     return;
   }
 
-  const { announcements } = context.services;
+  const { supervisor: { announcements } } = context.services;
 
   if (context.params.user.uid === context.id) {
     context.result.announcement = await announcements.get();
