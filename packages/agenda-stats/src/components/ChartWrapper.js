@@ -3,11 +3,13 @@ import { useUpdateEffect, usePrevious } from 'react-use';
 import { useDispatch } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { Spinner } from '@openagenda/react-components';
+import { useModal } from '@openagenda/react-shared';
 import useChartTitle from '../hooks/useChartTitle';
 import * as statsActions from '../reducers/stats';
 import LoadMore from './LoadMore';
 import BorderBox from './BorderBox';
 import IntervalSelect from './basics/IntervalSelect';
+import StatEditModal from './StatEditModal';
 // import OriginAgendasPieChart from './OriginAgendasPieChart';
 
 const messages = defineMessages({
@@ -47,6 +49,7 @@ function ChartWrapper(
   const [interval, setInterval] = useState(stat.state.interval);
   const previousInterval = usePrevious(interval);
   const [loading, setLoading] = useState(false);
+  const statEditModal = useModal();
 
   const loadMore = useCallback(
     () => loadStat(stat.id, prevStat => ({
@@ -63,12 +66,16 @@ function ChartWrapper(
     () => dispatch(statsActions.removeStat(stat.id)),
     [dispatch, stat.id]
   );
-  // const updateStat = useCallback(
-  //   () => {
-  //     // open modal with select for move
-  //   },
-  //   []
-  // );
+  const startStatUpdate = useCallback(() => {
+    statEditModal.open();
+  }, [statEditModal]);
+  const updateStat = useCallback(
+    values => {
+      dispatch(statsActions.updateStat(stat.id, values));
+      statEditModal.close();
+    },
+    [dispatch, stat.id, statEditModal]
+  );
 
   const titleMessage = useChartTitle(stat);
 
@@ -93,13 +100,13 @@ function ChartWrapper(
       <ContentWrapper editMode={editMode}>
         {editMode ? (
           <div className="text-right margin-top-xs">
-            {/* <button
+            <button
               type="button"
               className="btn btn-link btn-link-inline"
-              onClick={updateStat}
+              onClick={startStatUpdate}
             >
               {intl.formatMessage(messages.update)}
-            </button> */}
+            </button>
             <button
               type="button"
               className="btn btn-link btn-link-inline text-danger margin-left-xs"
@@ -135,6 +142,14 @@ function ChartWrapper(
           <LoadMore stat={stat} total={totalEvents} loadMore={loadMore} />
         ) : null}
       </ContentWrapper>
+
+      {statEditModal.isOpen ? (
+        <StatEditModal
+          stat={stat}
+          onSubmit={updateStat}
+          onClose={statEditModal.close}
+        />
+      ) : null}
     </div>
   );
 }

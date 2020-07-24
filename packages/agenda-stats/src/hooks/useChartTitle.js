@@ -18,11 +18,11 @@ function statToTitleMessageKey(aggregation) {
   return messageKey;
 }
 
-export function getChartTitle(stat, intl) {
-  const messageKey = statToTitleMessageKey(stat.aggregation);
+export function getChartTitle(aggregation, fieldSchema, intl) {
+  const messageKey = statToTitleMessageKey(aggregation);
 
-  if (stat.state.fieldSchema) {
-    return getLocaleValue(stat.state.fieldSchema.label, intl.locale);
+  if (fieldSchema) {
+    return getLocaleValue(fieldSchema.label, intl.locale);
   }
 
   if (titleMessages[messageKey]) {
@@ -35,18 +35,8 @@ export function getChartTitle(stat, intl) {
 export default function useChartTitle(stat) {
   const intl = useIntl();
 
-  return useMemo(() => {
-    const messageKey = statToTitleMessageKey(stat.aggregation);
-    let result;
-
-    if (stat.state.fieldSchema) {
-      result = getLocaleValue(stat.state.fieldSchema.label, intl.locale);
-    } else if (titleMessages[messageKey]) {
-      result = intl.formatMessage(titleMessages[messageKey]);
-    } else {
-      result = messageKey;
-    }
-
-    return result;
-  }, [intl, stat.aggregation, stat.state.fieldSchema]);
+  return useMemo(
+    () => getChartTitle(stat.aggregation, stat.state.fieldSchema, intl),
+    [intl, stat.aggregation, stat.state.fieldSchema]
+  );
 }

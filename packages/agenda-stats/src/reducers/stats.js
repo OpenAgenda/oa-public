@@ -14,6 +14,7 @@ const CANCEL_EDIT = 'agenda-stats/stats/CANCEL_EDIT';
 const REORDER_STATS = 'agenda-stats/stats/REORDER_STATS';
 const REMOVE_STAT = 'agenda-stats/stats/REMOVE_STAT';
 const ADD_STAT = 'agenda-stats/stats/ADD_STAT';
+const UPDATE_STAT = 'agenda-stats/stats/UPDATE_STAT';
 const SAVE = 'agenda-stats/stats/SAVE';
 const SAVE_SUCCESS = 'agenda-stats/stats/SAVE_SUCCESS';
 const SAVE_FAIL = 'agenda-stats/stats/SAVE_FAIL';
@@ -218,6 +219,26 @@ export default function reducer(state = initialState, action) {
         data: [...state.data, action.stat]
       };
     }
+    case UPDATE_STAT: {
+      const statIndex = state.data.findIndex(v => v.id === action.statId);
+      const actualStat = state.data[statIndex];
+      const newStat = {
+        ...actualStat,
+        chart: {
+          ...actualStat.chart,
+          ...action.values
+        }
+      };
+
+      return {
+        ...state,
+        data: [
+          ...state.data.slice(0, statIndex),
+          newStat,
+          ...state.data.slice(statIndex + 1)
+        ]
+      };
+    }
     case SAVE_SUCCESS: {
       return {
         ...state,
@@ -340,6 +361,14 @@ export function addStat(stat) {
       type: ADD_STAT,
       stat: decorateStats([stat], { interval })[0]
     });
+  };
+}
+
+export function updateStat(statId, values) {
+  return {
+    type: UPDATE_STAT,
+    statId,
+    values
   };
 }
 
