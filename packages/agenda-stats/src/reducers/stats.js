@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import statsToAggregations from '../utils/statsToAggregations';
-import defaultStatConfigs from '../common/defaultStatConfigs';
+import { getChartConfig } from '../common/defaultStatConfigs';
 
 const LOAD = 'agenda-stats/stats/LOAD';
 const LOAD_SUCCESS = 'agenda-stats/stats/LOAD_SUCCESS';
@@ -41,17 +41,7 @@ function addInterval(interval) {
       return stat;
     }
 
-    const aggType = stat.aggregation.type;
-    const opt = aggType === 'additionalFields'
-      ? { fieldSchema: stat.state.fieldSchema }
-      : {};
-    const defaultConfig = typeof defaultStatConfigs[aggType] === 'function'
-      ? defaultStatConfigs[aggType](opt)
-      : defaultStatConfigs[aggType];
-    const chart = {
-      ...defaultConfig?.chart,
-      ...stat.chart
-    };
+    const chart = getChartConfig(stat);
 
     return chart.intervalSelector && interval
       ? {

@@ -118,7 +118,7 @@ const defaultStatConfigs = {
 
     return {
       aggregation: {
-        type: 'states',
+        type: 'additionalFields',
         field: fieldSchema.field
       },
       chart: {
@@ -137,4 +137,44 @@ const defaultStatConfigs = {
   separator: { separator: true }
 };
 
-export default defaultStatConfigs;
+export default function getDefaultStatConfig(aggType, fieldSchema) {
+  const opt = aggType === 'additionalFields' ? { fieldSchema } : {};
+  const result = typeof defaultStatConfigs[aggType] === 'function'
+    ? defaultStatConfigs[aggType](opt)
+    : defaultStatConfigs[aggType];
+
+  return {
+    ...result
+  };
+}
+
+export function getStatConfig(stat) {
+  const defaultConfig = getDefaultStatConfig(
+    stat.aggregation.type,
+    stat.state.fieldSchema
+  );
+
+  return {
+    aggregation: {
+      ...defaultConfig?.aggregation,
+      ...stat.aggregation
+    },
+    chart: {
+      ...defaultConfig?.chart,
+      ...stat.chart
+    },
+    ...stat
+  };
+}
+
+export function getChartConfig(stat) {
+  const defaultConfig = getDefaultStatConfig(
+    stat.aggregation.type,
+    stat.state.fieldSchema
+  );
+
+  return {
+    ...defaultConfig?.chart,
+    ...stat.chart
+  };
+}

@@ -39,7 +39,7 @@ function ContentWrapper({ editMode, children }) {
 
 function ChartWrapper(
   {
-    stat, totalEvents, loadStat, editMode, className, children
+    stat, chartConfig, totalEvents, loadStat, editMode, className, children
   },
   ref
 ) {
@@ -118,7 +118,7 @@ function ChartWrapper(
         ) : null}
 
         <h3 className="text-center">
-          {stat.chart.intervalSelector && interval
+          {chartConfig.intervalSelector && interval
             ? intl.formatMessage(messages.withSelector, {
               message: titleMessage,
               selector: (
@@ -138,7 +138,7 @@ function ChartWrapper(
 
         {children}
 
-        {stat.chart.loadMore ? (
+        {chartConfig.loadMore ? (
           <LoadMore stat={stat} total={totalEvents} loadMore={loadMore} />
         ) : null}
       </ContentWrapper>
