@@ -36,13 +36,20 @@ export default function AggregationCharts({
     sepCount += 1;
     chartsFromLastSep = 0;
   };
-  const pushSeparatorIfEven = () => {
-    if (chartsFromLastSep > 0 && chartsFromLastSep % LAYOUT_WIDTH === 0) {
+  const pushSeparatorIfNeeded = width => {
+    if (chartsFromLastSep === 0) {
+      return;
+    }
+
+    if (
+      chartsFromLastSep % LAYOUT_WIDTH === 0
+      || chartsFromLastSep + width > LAYOUT_WIDTH
+    ) {
       pushSeparator();
     }
   };
   const pushChart = (chart, width) => {
-    pushSeparatorIfEven();
+    pushSeparatorIfNeeded(width);
     result.push(chart);
     chartsFromLastSep += width;
   };
@@ -57,6 +64,7 @@ export default function AggregationCharts({
     }
 
     const chartWidth = stat.chart.width || 1;
+    const chartCol = Math.min((12 / LAYOUT_WIDTH) * chartWidth, 12);
 
     pushChart(
       <ComposedChart
@@ -65,8 +73,7 @@ export default function AggregationCharts({
           <ChartWrapper
             key={stat.id}
             editMode={editMode}
-            className={`col-md-12 col-lg-${(12 / LAYOUT_WIDTH)
-              * chartWidth} margin-top-md`}
+            className={`col-md-12 col-lg-${chartCol} margin-top-md`}
           />
         )}
         stat={stat}
@@ -85,7 +92,8 @@ export default function AggregationCharts({
         agenda={agenda}
         agendaSchema={agendaSchema}
         stats={stats}
-      />
+      />,
+      1
     );
   }
 

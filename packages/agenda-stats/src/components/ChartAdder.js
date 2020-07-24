@@ -2,7 +2,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
-import defaultStatConfigs from '../common/defaultStatConfigs';
+import getDefaultStatConfig from '../common/defaultStatConfigs';
 import * as statsActions from '../reducers/stats';
 import BorderBox from './BorderBox';
 import AddChartForm from './AddChartForm';
@@ -28,18 +28,12 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
         return;
       }
 
-      const opt = values.type.additionalField
-        ? { fieldSchema: values.type.fieldSchema }
-        : {};
-      const defaultStatConfig = typeof defaultStatConfigs[values.type] === 'function'
-        ? defaultStatConfigs[values.type](opt)
-        : defaultStatConfigs[values.type];
+      const aggType = values.type.additionalField
+        ? 'additionalFields'
+        : values.type;
+      const statConfig = getDefaultStatConfig(aggType, values.type.fieldSchema);
 
-      const statConfig = {
-        ...defaultStatConfig
-      };
-
-      if (values.type !== 'separator') {
+      if (!statConfig.separator) {
         statConfig.chart = {
           width: values.width
         };

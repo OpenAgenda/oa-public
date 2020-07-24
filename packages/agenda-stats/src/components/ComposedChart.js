@@ -6,7 +6,7 @@ import ContentLoader from 'react-content-loader';
 import mergeMultiData from '../utils/mergeMultiData';
 import getLocaleValue from '../utils/getLocaleValue';
 import addRestItem from '../utils/addRestItem';
-import defaultStatConfigs from '../common/defaultStatConfigs';
+import { getChartConfig } from '../common/defaultStatConfigs';
 import HorizontalBarChart from './basics/HorizontalBarChart';
 import VerticalBarChart from './basics/VerticalBarChart';
 import PieChart from './basics/PieChart';
@@ -71,10 +71,11 @@ function ComposedChart({
   range,
   loadStat
 }) {
-  const { aggregation, chart, state } = stat;
+  const { aggregation, state } = stat;
   const { data: rawData } = state;
   const intl = useIntl();
 
+  const chartConfig = useMemo(() => getChartConfig(stat), [stat]);
   const {
     type,
     tooltip: tooltipType,
@@ -84,19 +85,7 @@ function ComposedChart({
     labelKey,
     restItem,
     dataColors
-  } = useMemo(() => {
-    const opt = aggregation.type === 'additionalFields'
-      ? { fieldSchema: state.fieldSchema }
-      : {};
-    const defaultConfig = typeof defaultStatConfigs[aggregation.type] === 'function'
-      ? defaultStatConfigs[aggregation.type](opt)
-      : defaultStatConfigs[aggregation.type];
-
-    return {
-      ...defaultConfig?.chart,
-      ...chart
-    };
-  }, [aggregation.type, chart, state.fieldSchema]);
+  } = chartConfig;
 
   const data = useMemo(() => {
     if (!rawData?.length) {
@@ -259,6 +248,7 @@ function ComposedChart({
   const wrapperProps = wrapperComponent
     ? {
       stat,
+      chartConfig,
       totalEvents,
       range,
       loadStat
