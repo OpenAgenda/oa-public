@@ -23,6 +23,10 @@ const messages = defineMessages({
     id: 'AgendaStats.OrderModal.width',
     defaultMessage: 'Width:'
   },
+  oneColumn: {
+    id: 'AgendaStats.OrderModal.oneColumn',
+    defaultMessage: 'One column'
+  },
   oneLine: {
     id: 'AgendaStats.OrderModal.oneLine',
     defaultMessage: 'One line'
@@ -30,18 +34,21 @@ const messages = defineMessages({
 });
 
 function Chart({ stat }) {
-  const title = useChartTitle(stat);
   const intl = useIntl();
+
+  const title = useChartTitle(stat);
+  const width = stat.chart.width || 1;
 
   return (
     <>
       <b>{title}</b>
-      {stat.chart.width === 2 ? (
-        <div>
-          {intl.formatMessage(messages.width)}{' '}
-          <em>{intl.formatMessage(messages.oneLine)}</em>
-        </div>
-      ) : null}
+      <div>
+        {intl.formatMessage(messages.width)}{' '}
+        <em>
+          {width === 1 ? intl.formatMessage(messages.oneColumn) : null}
+          {width === 2 ? intl.formatMessage(messages.oneLine) : null}
+        </em>
+      </div>
     </>
   );
 }

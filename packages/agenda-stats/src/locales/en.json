@@ -37,6 +37,7 @@
   "AgendaStats.OrderModal.modalTitle": "Change order",
   "AgendaStats.OrderModal.separator": "Separator",
   "AgendaStats.OrderModal.width": "Width:",
+  "AgendaStats.OrderModal.oneColumn": "One column",
   "AgendaStats.OrderModal.oneLine": "One line",
   "AgendaStats.PeriodModal.dateRangeModalTitle": "Choose period",
   "AgendaStats.PeriodModal.submit": "Submit",

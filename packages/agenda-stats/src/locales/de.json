@@ -37,6 +37,7 @@
   "AgendaStats.OrderModal.modalTitle": null,
   "AgendaStats.OrderModal.separator": null,
   "AgendaStats.OrderModal.width": null,
+  "AgendaStats.OrderModal.oneColumn": null,
   "AgendaStats.OrderModal.oneLine": null,
   "AgendaStats.PeriodModal.dateRangeModalTitle": null,
   "AgendaStats.PeriodModal.submit": null,
