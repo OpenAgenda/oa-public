@@ -150,6 +150,13 @@ describe('common', () => {
       '    at Object.<anonymous> (dummy filename)'
     ].join('\n')}\n${nodestack}`);
 
+    /* invoked without "new" */
+    err = Cons('my %s string', 'testing!');
+    expect(err.name).toEqual(label);
+    expect(err).toBeInstanceOf(Cons);
+    expect(err).toBeInstanceOf(Error);
+    expect(err.message).toEqual('my testing! string');
+
     /* custom "name" */
     err = new Cons({ name: 'SomeOtherError' }, 'another kind of error');
     expect(err.name).toEqual('SomeOtherError');

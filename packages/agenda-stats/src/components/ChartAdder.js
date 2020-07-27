@@ -2,7 +2,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import React, { useCallback, useState } from 'react';
 import { Form } from 'react-final-form';
-import getDefaultStatConfig from '../common/defaultStatConfigs';
 import * as statsActions from '../reducers/stats';
 import BorderBox from './BorderBox';
 import AddChartForm from './AddChartForm';
@@ -28,15 +27,28 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
         return;
       }
 
-      const aggType = values.type.additionalField
-        ? 'additionalFields'
-        : values.type;
-      const statConfig = getDefaultStatConfig(aggType, values.type.fieldSchema);
+      let statConfig;
 
-      if (!statConfig.separator) {
-        statConfig.chart = {
-          width: values.width
+      if (values.type === 'separator') {
+        statConfig = { separator: true };
+      } else {
+        const isAdditionalField = values.type.additionalField;
+        const aggType = isAdditionalField ? 'additionalFields' : values.type;
+
+        statConfig = {
+          aggregation: {
+            type: aggType
+          },
+          chart: {
+            width: values.width
+          },
+          state: {}
         };
+
+        if (isAdditionalField) {
+          statConfig.aggregation.field = values.type.fieldSchema.field;
+          statConfig.state.fieldSchema = values.type.fieldSchema;
+        }
       }
 
       const { stat } = dispatch(statsActions.addStat(statConfig));
