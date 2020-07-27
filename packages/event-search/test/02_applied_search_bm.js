@@ -360,19 +360,22 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
-      describe('createdAt / updatedAt', () => {
-        let updatedAtAgg, createdAtAgg;
+      describe('createdAt / updatedAt / createdOrUpdatedAt', () => {
+        let updatedAtAgg;
+        let createdAtAgg;
+        let createdOrUpdatedAtAgg;
 
         before(async () => {
-          const result = await service('bdx').search({
+          const aggregations = await service('bdx').search({
             date: { gte: '2020-03-01' }
           }, { size: 0 }, {
             detailed: true,
-            aggregations: ['createdAt', 'updatedAt']
-          });
+            aggregations: ['createdAt', 'updatedAt', 'createdOrUpdatedAt']
+          }).then(({ aggregations }) => aggregations);
 
-          createdAtAgg = result.aggregations.createdAt;
-          updatedAtAgg = result.aggregations.updatedAt;
+          createdAtAgg = aggregations.createdAt;
+          updatedAtAgg = aggregations.updatedAt;
+          createdOrUpdatedAtAgg = aggregations.createdOrUpdatedAt;
         });
 
         it('createdAt agg is a list of { eventCount, key }', () => {
@@ -381,6 +384,10 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('updatedAt agg is a list of { eventCount, key }', () => {
           Object.keys(updatedAtAgg[0]).should.eql(['key', 'eventCount']);
+        });
+
+        it('createdOrUpdatedAt agg is a list of { eventCount, key }', () => {
+          Object.keys(createdOrUpdatedAtAgg[0]).should.eql(['key', 'eventCount']);
         });
 
       });

@@ -18,7 +18,8 @@ const aggregationTypes = {
   states: require('./states'),
   timings: require('./timings'),
   createdAt: timestamp('createdAt'),
-  updatedAt: timestamp('_exclusiveUpdatedAt')
+  updatedAt: timestamp('_exclusiveUpdatedAt'),
+  createdOrUpdatedAt: timestamp('updatedAt')
 }
 
 class BadRequest extends Error {
