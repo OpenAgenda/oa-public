@@ -292,6 +292,8 @@ const config = {
       //key: '32d62d210e9dcf24c0134e',
       key: prod.iframely.key,
       platforms: [
+        "dropbox",
+        "wemap",
         "youtube",
         "dailymotion",
         "/day\.ly/",
