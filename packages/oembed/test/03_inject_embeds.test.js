@@ -32,7 +32,15 @@ describe('03 - injecting embedded items in html render', () => {
       <p>A comment</p>
       <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 80%;"><iframe src="https://player.vimeo.com/video/315339603?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no" allow="encrypted-media"></iframe></div>
     `);
+  });
 
+  test('escaped or not, links are replaced', () => {
+    const html = `<p>Un lien wemap: <a href="https://livemap.getwemap.com/embed.html?emmid=14234&amp;token=K9UCJCEUJ3ZEJ1E3QXTA94YKO#/search@50.6851478,3.1661224,11.00">https://livemap.getwemap.com/embed.html?emmid=14234&token=K9UCJCEUJ3ZEJ1E3QXTA94YKO#/search@50.6851478,3.1661224,11.00</a></p>`;
+    const htmlWithEscapedLink = `<p>Un lien wemap: <a href="https://livemap.getwemap.com/embed.html?emmid=14234&amp;token=K9UCJCEUJ3ZEJ1E3QXTA94YKO#/search@50.6851478,3.1661224,11.00">https://livemap.getwemap.com/embed.html?emmid=14234&amp;token=K9UCJCEUJ3ZEJ1E3QXTA94YKO#/search@50.6851478,3.1661224,11.00</a></p>`;
+    const injected = `<p>Un lien wemap: <div class="iframely-embed"><div class="iframely-responsive" style="padding-bottom: 65.5137%; padding-top: 120px;"><a href="https://livemap.getwemap.com/embed.html?emmid=14234&amp;token=K9UCJCEUJ3ZEJ1E3QXTA94YKO#/search@50.6851478,3.1661224,11.00" data-iframely-url="//cdn.iframe.ly/api/iframe?url=https%3A%2F%2Flivemap.getwemap.com%2Fembed.html%3Femmid%3D14234%26token%3DK9UCJCEUJ3ZEJ1E3QXTA94YKO%23%2Fsearch%4050.6851478%2C3.1661224%2C11.00&amp;key=7db9d78bdbb5e7d79acb1240cae64b0e"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script></p>`;
+
+    expect(oe.injectEmbeds(html, links)).toEqual(injected);
+    expect(oe.injectEmbeds(htmlWithEscapedLink, links)).toEqual(injected);
   });
 
 });

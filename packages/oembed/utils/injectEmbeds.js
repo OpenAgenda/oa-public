@@ -16,9 +16,9 @@ module.exports = (html = '', linkEmbedPairs = []) => {
         return injected;
       }
 
-      const link = aNode.rawAttrs.split('href="').pop().split('"').shift();
-
-      const match = _.find(linkEmbedPairs, { link });
+      const match = _.find(linkEmbedPairs, {
+        link: _.unescape(aNode.rawAttrs.split('href="').pop().split('"').shift())
+      });
 
       if (!match) {
         return injected;
