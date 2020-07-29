@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import statsToAggregations from '../utils/statsToAggregations';
+import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
 import { getChartConfig } from '../common/defaultStatConfigs';
 
 const LOAD = 'agenda-stats/stats/LOAD';
@@ -35,7 +36,7 @@ function addState(stat) {
   };
 }
 
-function addInterval(interval) {
+function addInterval(range) {
   return stat => {
     if (!stat.chart) {
       return stat;
@@ -43,23 +44,27 @@ function addInterval(interval) {
 
     const chart = getChartConfig(stat);
 
-    return chart.intervalSelector && interval
-      ? {
-        ...stat,
-        state: {
-          ...stat.state,
-          interval
-        }
+    if (!range || !chart.intervalSelector) {
+      return stat;
+    }
+
+    const interval = rangeToCalendarInterval(range, chart.width);
+
+    return {
+      ...stat,
+      state: {
+        ...stat.state,
+        interval
       }
-      : stat;
+    };
   };
 }
 
-function decorateStats(stats, { interval } = {}) {
+function decorateStats(stats, { range } = {}) {
   return stats
     .map(addId)
     .map(addState)
-    .map(addInterval(interval));
+    .map(addInterval(range));
 }
 
 export default function reducer(state = initialState, action) {
@@ -106,7 +111,7 @@ export default function reducer(state = initialState, action) {
           };
         }),
         query: action.query,
-        interval: action.interval,
+        range: action.range,
         error: null,
         loading: false
       };
@@ -247,8 +252,8 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export function load(agenda, stats, query, interval) {
-  const decoratedStats = decorateStats(stats, { interval });
+export function load(agenda, stats, query, range) {
+  const decoratedStats = decorateStats(stats, { range });
   const params = {
     oaq: { passed: 1 },
     size: 0,
@@ -269,7 +274,7 @@ export function load(agenda, stats, query, interval) {
     stats: decoratedStats,
     aggregations: decoratedStats,
     query,
-    interval
+    range
   };
 }
 
@@ -345,11 +350,11 @@ export function removeStat(statId) {
 
 export function addStat(stat) {
   return ({ getState, dispatch }) => {
-    const { interval } = getState().stats;
+    const { range } = getState().stats;
 
     return dispatch({
       type: ADD_STAT,
-      stat: decorateStats([stat], { interval })[0]
+      stat: decorateStats([stat], { range })[0]
     });
   };
 }

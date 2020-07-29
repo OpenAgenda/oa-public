@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useUpdateEffect, usePrevious } from 'react-use';
+import { useUpdateEffect, usePrevious, useLatest } from 'react-use';
 import { useDispatch } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { Spinner } from '@openagenda/react-components';
@@ -47,6 +47,7 @@ function ChartWrapper(
   const dispatch = useDispatch();
 
   const [interval, setInterval] = useState(stat.state.interval);
+  const latestInterval = useLatest(interval);
   const previousInterval = usePrevious(interval);
   const [loading, setLoading] = useState(false);
   const statEditModal = useModal();
@@ -79,9 +80,16 @@ function ChartWrapper(
 
   const titleMessage = useChartTitle(stat);
 
-  // Reload the graph with changed `interval` option
+  // Updates interval when state changes (on period change)
   useUpdateEffect(() => {
-    if (interval === previousInterval) {
+    if (stat.state.interval !== latestInterval.current) {
+      setInterval(stat.state.interval);
+    }
+  }, [latestInterval, stat.state.interval]);
+
+  // Reloads the graph when `interval` option changes in the select
+  useUpdateEffect(() => {
+    if (interval === previousInterval || interval === stat.state.interval) {
       return;
     }
 
@@ -93,7 +101,7 @@ function ChartWrapper(
         interval
       }
     })).finally(() => setLoading(false));
-  }, [interval, loadStat, previousInterval, stat.id]);
+  }, [interval, loadStat, previousInterval, stat.id, stat.state.interval]);
 
   return (
     <div className={className} ref={ref}>

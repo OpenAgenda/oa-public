@@ -11,7 +11,6 @@ import PeriodModal from '../components/PeriodModal';
 import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
-import rangeToCalendarInterval from '../utils/rangeToCalendarInterval';
 
 const messages = defineMessages({
   title: {
@@ -76,7 +75,7 @@ function Dashboard({ agenda, agendaSchema }) {
             lte: value[0].endDate
           }
         },
-        rangeToCalendarInterval(value[0])
+        value[0]
       )
     ).then(() => {
       setRange(value[0]);
@@ -135,12 +134,7 @@ function Dashboard({ agenda, agendaSchema }) {
       const statsToLoad = configResult.data;
 
       return dispatch(
-        statsActions.load(
-          agenda,
-          statsToLoad,
-          query,
-          rangeToCalendarInterval(defaultRange)
-        )
+        statsActions.load(agenda, statsToLoad, query, defaultRange)
       );
     });
   }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);

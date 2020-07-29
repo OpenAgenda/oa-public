@@ -1,6 +1,11 @@
 import { differenceInCalendarDays } from 'date-fns';
 
-export default function rangeToCalendarInterval(range) {
+const BREAKPOINTS_BY_WIDTH = {
+  1: [31, 183],
+  2: [61, 365]
+};
+
+export default function rangeToCalendarInterval(range, chartWidth) {
   if (!range) {
     return null;
   }
@@ -10,11 +15,16 @@ export default function rangeToCalendarInterval(range) {
     range.startDate
   );
 
-  if (rangeDurationInDays <= 31) {
+  const [dayBreakpoint, weekBreakpoint] = BREAKPOINTS_BY_WIDTH[chartWidth];
+
+  if (rangeDurationInDays <= dayBreakpoint) {
     return 'day';
   }
 
-  if (rangeDurationInDays > 31 && rangeDurationInDays <= 183) {
+  if (
+    rangeDurationInDays > dayBreakpoint
+    && rangeDurationInDays <= weekBreakpoint
+  ) {
     return 'week';
   }
 
