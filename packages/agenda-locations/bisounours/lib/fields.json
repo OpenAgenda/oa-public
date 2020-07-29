@@ -1,0 +1,106 @@
+[{
+  "field": "id",
+  "read": ["internal"]
+}, {
+  "field": "uid",
+  "read": ["internal", "public"]
+}, {
+  "field": "agendaId",
+  "read": ["internal"]
+}, {
+  "field": "slug",
+  "read": ["internal", "public"]
+}, {
+  "field": "name",
+  "db": "placename",
+  "read": ["internal", "public"]
+}, {
+  "field": "address",
+  "read": ["internal", "public"]
+}, {
+  "field": "city",
+  "read": ["internal", "public"]
+}, {
+  "field": "region",
+  "read": ["internal", "public"]
+}, {
+  "field": "department",
+  "read": ["internal", "public"]
+}, {
+  "field": "postalCode",
+  "read": ["internal", "public"]
+}, {
+  "field": "insee",
+  "read": ["internal", "public"]
+}, {
+  "field": "countryCode",
+  "db": "country",
+  "read": ["internal", "public"]
+}, {
+  "field": "district",
+  "db": "city_district",
+  "read": ["internal", "public"]
+}, {
+  "field": "latitude",
+  "read": ["internal", "public"]
+}, {
+  "field": "longitude",
+  "read": ["internal", "public"]
+}, {
+  "field": "updatedAt",
+  "read": ["internal", "public"]
+}, {
+  "field": "createdAt",
+  "read": ["internal", "public"]
+}, {
+  "field": "image",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "description",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "tags",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "website",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "email",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "phone",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "links",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "access",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "state",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "timezone",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "imageCredits",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "extId",
+  "db": "store",
+  "read": ["internal", "public"]
+}, {
+  "field": "eveId",
+  "read": ["internal"]
+}]
