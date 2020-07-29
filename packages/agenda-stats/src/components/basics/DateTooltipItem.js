@@ -1,6 +1,8 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import endOfWeek from 'date-fns/endOfWeek';
+import getWeekNumber from '../../utils/getWeekNumber';
 
 const messages = defineMessages({
   day: {
@@ -54,6 +56,8 @@ export default function DateTooltipItem({
 
   const label = getValueByDataKey(entry.payload, dataKey);
   const date = new Date(label);
+  const weekEnd = endOfWeek(date, { weekStartsOn: 1 });
+  const [weekNumber, yearOfWeekNumber] = getWeekNumber(date);
 
   return (
     <li className="recharts-tooltip-item">
@@ -61,7 +65,13 @@ export default function DateTooltipItem({
         {!hideLabel ? (
           <>
             <b>
-              {intl.formatMessage(messages[interval], { date })}
+              {intl.formatMessage(messages[interval], {
+                date,
+                weekEnd,
+                weekNumber,
+                yearOfWeekNumber,
+                br: <br />
+              })}
             </b>
             <br />
           </>

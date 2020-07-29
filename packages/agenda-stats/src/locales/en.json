@@ -1,6 +1,6 @@
 {
   "AgendaStats.DateTooltipItem.tooltipDay": "{date, time, ::yyyyMMMMddeeeee}",
-  "AgendaStats.DateTooltipItem.tooltipWeek": "{date, time, ::yyyyMMdd}",
+  "AgendaStats.DateTooltipItem.tooltipWeek": "{date, time, ::yyyyMMdd} - {weekEnd, time, ::yyyyMMdd}{br}Week {weekNumber}",
   "AgendaStats.DateTooltipItem.tooltipMonth": "{date, time, ::yyyyMMMM}",
   "AgendaStats.CustomTooltip.events": "{value, number} events",
   "AgendaStats.IntervalSelect.day": "day",
