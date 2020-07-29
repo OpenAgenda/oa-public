@@ -203,7 +203,8 @@ class Inbox extends Component {
       ContentWrapper, topListForm, prefix, emptyInboxLabel,
       creationSubtitle, maskCreationSubtitle, creationDesc,
       onConversationCreateRedirect, onConversationCreateFlash,
-      displayHelp, allowCreateConversation, focusFistConversation
+      displayHelp, allowCreateConversation, focusFistConversation,
+      hideTitle
     } = settings;
 
     const [unclosedConvs, closedConvs] = _.partition(conversations, o => !o.closedAt);
@@ -218,20 +219,10 @@ class Inbox extends Component {
           <div className="inbox-head">
             {this.renderCreationButton({ unclosedConvs })}
 
-            {displayHelp ? (
-              <a
-                title={getLabel('needHelp')}
-                target="_blank"
-                href="https://openagenda.zendesk.com/hc/fr/articles/360000370713"
-                className="pull-right"
-              >
-                <i className="fa fa-question-circle"></i>
-              </a>
-            ) : null}
-
             {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) && !maskCreationSubtitle
               ? (
                 <Breadcrumb
+                  hideTitle={hideTitle}
                   breadParts={[
                     {
                       component: creationSubtitle ? creationSubtitle : getLabel('newConversation')
@@ -239,7 +230,18 @@ class Inbox extends Component {
                   ]}
                   disableFirstPartLink
                 />
-              ) : <Breadcrumb />}
+              ) : <Breadcrumb hideTitle={hideTitle} />}
+
+            {displayHelp ? (
+              <a
+                title={getLabel('needHelp')}
+                target="_blank"
+                href="https://openagenda.zendesk.com/hc/fr/articles/360000370713"
+                className="pull-right"
+              >
+                <i className="fa fa-question-circle" />
+              </a>
+            ) : null}
           </div>
 
           {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) ? <Fragment>

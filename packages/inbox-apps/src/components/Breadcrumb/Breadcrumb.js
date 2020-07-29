@@ -9,43 +9,45 @@ export default class Breadcrumb extends Component {
   static contextType = I18nContext;
 
   renderParts() {
-    const { breadParts } = this.props;
+    const { breadParts, hideTitle } = this.props;
 
-    if ( !breadParts || !breadParts.length ) {
+    if (!breadParts || !breadParts.length) {
       return null;
     }
 
-    return breadParts.map( ( breadPart, i ) => (
+    return breadParts.map((breadPart, i) => (
       <Fragment key={i}>
-        <i className="fa fa-angle-right"></i>
+        {!(hideTitle && i === 0) ? (
+          <i className="fa fa-angle-right" />
+        ) : null}
         {typeof breadPart.component === 'string' ? (
           <span
-            className={cn( breadPart.className )}
+            className={cn(breadPart.className)}
             dangerouslySetInnerHTML={{ __html: breadPart.component }}
           />
         ) : (
-          <span className={cn( breadPart.className )}>{breadPart.component}</span>
+          <span className={cn(breadPart.className)}>{breadPart.component}</span>
         )}
       </Fragment>
-    ) );
+    ));
   }
 
   render() {
-    const { breadParts, disableFirstPartLink, history, agenda } = this.props;
+    const { breadParts, disableFirstPartLink, history, agenda, hideTitle } = this.props;
     const { getLabel } = this.context;
 
     const noParts = !breadParts || !breadParts.length;
 
     const homePart = disableFirstPartLink || noParts
-      ? getLabel( 'inbox' )
+      ? getLabel('inbox')
       : (
         <LinkContainer to="/" agenda={agenda}>
           {path => (
             <a
               role="button"
-              onClick={() => history.push( { pathname: path, state: { showListAllowed: true } } )}
+              onClick={() => history.push({ pathname: path, state: { showListAllowed: true } })}
             >
-              {getLabel( 'inbox' )}
+              {getLabel('inbox')}
             </a>
           )}
         </LinkContainer>
@@ -53,7 +55,7 @@ export default class Breadcrumb extends Component {
 
     return (
       <h3 className="inbox-breadcrumbs">
-        {homePart}
+        {!hideTitle ? homePart : null}
         {this.renderParts()}
       </h3>
     );

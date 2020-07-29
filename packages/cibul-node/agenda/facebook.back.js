@@ -14,7 +14,7 @@ const layout = require( '../services/lib/layouts' ).load(
 const sessions = require( '../services/sessions' );
 const members = require('../services/members');
 
-const page = _.template( `<div class="margin-bottom-lg"><h2><%= labels.title %></h2></div>
+const page = _.template( `
 <section>
   <p><%= labels.description %></p>
   <div class="margin-v-md">

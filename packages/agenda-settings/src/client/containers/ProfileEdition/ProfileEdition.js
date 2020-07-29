@@ -96,7 +96,6 @@ export default class ProfileEdition extends Component {
 
     return (
       <div className="profile">
-        <h2 className="margin-bottom-md">{getLabel( 'agendaProfile' )}</h2>
         <div className="row">
           <div className="col-md-7">
             <ImageUpload

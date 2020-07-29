@@ -441,48 +441,44 @@ class Dashboard extends Component {
 
     return (
       <div>
-        <h2>
-          {getLabel('members')}
+        <div className="text-right">
+          <div className="btn-group">
+            <DropdownButton
+              title={getLabel('export')}
+              id="nested-export-dropdown"
+            >
+              <MenuItem href={res.exportToXlsx.replace(':slug', agenda.slug)}>
+                XLSX
+              </MenuItem>
+              <MenuItem href={res.exportToCsv.replace(':slug', agenda.slug)}>
+                CSV
+              </MenuItem>
+            </DropdownButton>
 
-          <div className="pull-right">
-            <div className="btn-group">
+            <Button onClick={() => showModal('inviteMembers')}>
+              {getLabel('invite')}
+            </Button>
+
+            {!agenda.credentials.invitationMessage && (
               <DropdownButton
-                title={getLabel('export')}
-                id="nested-export-dropdown"
+                id="nested-more-dropdown"
+                title={<i className="fa fa-ellipsis-v" aria-hidden="true" />}
+                pullRight
+                noCaret
               >
-                <MenuItem href={res.exportToXlsx.replace(':slug', agenda.slug)}>
-                  XLSX
-                </MenuItem>
-                <MenuItem href={res.exportToCsv.replace(':slug', agenda.slug)}>
-                  CSV
+                <MenuItem
+                  onClick={() => openRequestForm({
+                    lang,
+                    subject: 'moderators',
+                    agenda: agenda.slug
+                  })}
+                >
+                  <i className="golden-icon" /> {getLabel('nameModerators')}
                 </MenuItem>
               </DropdownButton>
-
-              <Button onClick={() => showModal('inviteMembers')}>
-                {getLabel('invite')}
-              </Button>
-
-              {!agenda.credentials.invitationMessage && (
-                <DropdownButton
-                  id="nested-more-dropdown"
-                  title={<i className="fa fa-ellipsis-v" aria-hidden="true" />}
-                  pullRight
-                  noCaret
-                >
-                  <MenuItem
-                    onClick={() => openRequestForm({
-                      lang,
-                      subject: 'moderators',
-                      agenda: agenda.slug
-                    })}
-                  >
-                    <i className="golden-icon" /> {getLabel('nameModerators')}
-                  </MenuItem>
-                </DropdownButton>
-              )}
-            </div>
+            )}
           </div>
-        </h2>
+        </div>
 
         <ul className="nav nav-pills" role="tablist">
           {/* <li role="presentation" className={classNames( { active: !credFilters.length } )}>

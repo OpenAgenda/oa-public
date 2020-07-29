@@ -82,8 +82,6 @@ export default class ContributionEdition extends Component {
 
     return (
       <div className="advanced">
-        <h2 className="margin-bottom-lg">{getLabel( 'advanced' )}</h2>
-
         <div className="table-responsive">
           <table className="table">
             <tbody>

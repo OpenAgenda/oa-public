@@ -239,7 +239,8 @@ const initialState = async req => {
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         emptyInboxLabel: 'agendaInboxDesc',
-        displayHelp: true
+        displayHelp: true,
+        hideTitle: true
       },
       res: {
         author: '/agendas/:agendaUid/inbox/author.json',

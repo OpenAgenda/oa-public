@@ -111,7 +111,6 @@ export default class ContributionEdition extends Component {
 
     return (
       <div className="contribution">
-        <h2 className="margin-bottom-md">{getLabel( 'contribution' )}</h2>
         <div className="row">
           <div className="col-md-7">
             <form onSubmit={handleSubmit( ( data, ...args ) => {

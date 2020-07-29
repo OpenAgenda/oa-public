@@ -68,24 +68,20 @@ export default class AgendaDashboard extends Component {
     const { labels, getLabel, lang } = this.context;
 
     return (
-      <div>
-        <h2>{getLabel( 'activities' )}</h2>
+      <div className="padding-top-md">
+        {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
+          {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} labels={labels} lang={lang} /> )}
+        </ul>}
 
-        <div className="padding-top-md">
-          {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-            {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} labels={labels} lang={lang} /> )}
-          </ul>}
+        {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
+          {getLabel( 'noActivity' )}
+        </div>}
 
-          {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
-            {getLabel( 'noActivity' )}
-          </div>}
+        {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner />
+        </div>}
 
-          {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
-          </div>}
-
-          <Waypoint onEnter={this.throttledNextPage} />
-        </div>
+        <Waypoint onEnter={this.throttledNextPage} />
       </div>
     );
 
