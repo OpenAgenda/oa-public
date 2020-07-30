@@ -10,35 +10,45 @@ const yAxisDomain = [0, dataMax => Math.max(10, dataMax)];
 export default function PulseChart({ agendaUid, className }) {
   const apiClient = useApiClient();
 
-  const { data } = useQuery(['AgendaStats.PulseChart', agendaUid], async () => {
-    const now = new Date();
-    const startOfPastYear = subYears(now, 1);
+  const { data } = useQuery(
+    ['AgendaStats.PulseChart', agendaUid],
+    async () => {
+      const now = new Date();
+      const startOfPastYear = subYears(now, 1);
 
-    return (
-      await apiClient.get(
-        `https://d.openagenda.com/agendas/${agendaUid}/admin/events.v2.json`,
-        {
-          params: {
-            oaq: {
-              passed: 1
-            },
-            size: 0,
-            aggregations: [
-              {
-                key: 'pulse',
-                interval: 'week',
-                type: 'createdOrUpdatedAt'
+      return (
+        await apiClient.get(
+          `https://d.openagenda.com/agendas/${agendaUid}/admin/events.v2.json`,
+          {
+            params: {
+              oaq: {
+                passed: 1
+              },
+              size: 0,
+              aggregations: [
+                {
+                  key: 'pulse',
+                  type: 'createdOrUpdatedAt',
+                  interval: 'week',
+                  extendedBounds: {
+                    min: startOfPastYear,
+                    max: now
+                  }
+                }
+              ],
+              updatedAt: {
+                gte: startOfPastYear,
+                lte: now
               }
-            ],
-            date: {
-              gte: startOfPastYear,
-              lte: now
             }
           }
-        }
-      )
-    ).data?.aggregations?.pulse;
-  });
+        )
+      ).data?.aggregations?.pulse;
+    },
+    {
+      refetchOnWindowFocus: false
+    }
+  );
 
   return (
     <LineChart

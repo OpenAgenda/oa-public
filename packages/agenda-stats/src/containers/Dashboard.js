@@ -181,7 +181,7 @@ function Dashboard({ agenda, agendaSchema }) {
 
               <button
                 type="button"
-                className="btn btn-link-inline pull-right"
+                className="btn btn-link-inline margin-left-sm"
                 onClick={() => dateRangeModal.open()}
               >
                 {intl.formatMessage(messages.update)}
