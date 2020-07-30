@@ -3,24 +3,10 @@
  */
 
 import AssertionError from 'assertion-error';
-import { isError, isObject, isFunc, isString } from './assert';
+import { isError, isFunc, isObject, isString } from './assert';
 import parseConstructorArguments from './parseConstructorArguments';
-
-function inheritsFrom(Child, Parent) {
-  Child.prototype = Object.create(Parent.prototype);
-  Child.prototype.constructor = Child;
-  Child.__proto__ = Parent;
-}
-
-function defineProperties(target, props) {
-  for (let i = 0; i < props.length; i++) {
-    const descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ('value' in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
+import inheritsFrom from './inheritsFrom';
+import defineProperties from './defineProperties';
 
 /*
  * See README.md for reference documentation.
@@ -71,10 +57,10 @@ function VError(...args) {
    * this Error particularly) separately from the complete message (which
    * includes the messages of our cause chain).
    */
-  this.jse_shortmsg = shortmessage;
+  this.shortMessage = shortmessage;
 
   if (cause) {
-    this.jse_cause = cause;
+    this.cause = cause;
   }
 
   /*
@@ -83,12 +69,12 @@ function VError(...args) {
    * objects here, but we don't want to use the original object in case
    * the caller modifies it later.
    */
-  this.jse_info = {};
+  this.info = {};
 
   if (options.info) {
     for (const k in options.info) {
       if (Object.prototype.hasOwnProperty.call(options.info, k)) {
-        this.jse_info[k] = options.info[k];
+        this.info[k] = options.info[k];
       }
     }
   }
@@ -124,9 +110,9 @@ defineProperties(VError.prototype, [
       return {
         name: this.name,
         message: this.message,
-        jse_shortmsg: this.jse_shortmsg,
-        jse_cause: this.jse_cause,
-        jse_info: this.jse_info
+        shortMessage: this.shortMessage,
+        cause: this.cause,
+        info: this.info
       };
     }
   }
@@ -138,7 +124,7 @@ defineProperties(VError, [
     value: function cause(err) {
       if (!isError(err)) throw new AssertionError('err must be an Error');
 
-      return isError(err.jse_cause) ? err.jse_cause : null;
+      return isError(err.cause) ? err.cause : null;
     }
   },
   {
@@ -149,10 +135,10 @@ defineProperties(VError, [
       const cause = VError.cause(err);
       const rv = cause !== null ? VError.info(cause) : {};
 
-      if (typeof err.jse_info === 'object' && err.jse_info !== null) {
-        for (const k in err.jse_info) {
-          if (Object.prototype.hasOwnProperty.call(err.jse_info, k)) {
-            rv[k] = err.jse_info[k];
+      if (typeof err.info === 'object' && err.info !== null) {
+        for (const k in err.info) {
+          if (Object.prototype.hasOwnProperty.call(err.info, k)) {
+            rv[k] = err.info[k];
           }
         }
       }
@@ -341,8 +327,8 @@ defineProperties(WError.prototype, [
       if (this.message) {
         str += `: ${this.message}`;
       }
-      if (this.jse_cause && this.jse_cause.message) {
-        str += `; caused by ${this.jse_cause.toString()}`;
+      if (this.cause && this.cause.message) {
+        str += `; caused by ${this.cause.toString()}`;
       }
 
       return str;

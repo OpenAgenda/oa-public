@@ -5,7 +5,7 @@ const BREAKPOINTS_BY_WIDTH = {
   2: [61, 365]
 };
 
-export default function rangeToCalendarInterval(range, chartWidth) {
+export default function rangeToCalendarInterval(range, chartWidth = 1) {
   if (!range) {
     return null;
   }
