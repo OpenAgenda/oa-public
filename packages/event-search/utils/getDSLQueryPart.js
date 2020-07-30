@@ -69,7 +69,7 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
   }
 
   if (_.get(cleanQuery, 'updatedAt.gte') || _.get(cleanQuery, 'updatedAt.lte')) {
-    parts.push(_timestampFilter('updatedAt', cleanQuery.createdAt));
+    parts.push(_timestampFilter('updatedAt', cleanQuery.updatedAt));
   }
 
   if (_.get(cleanQuery, 'sourceAgendaUid', []).length) {
