@@ -67,4 +67,20 @@ describe('agenda-locations - functional - list', () => {
     });
   });
 
+  describe('search', () => {
+    it('queries region field', async () => {
+      const items = await svc(7196947).list({ search: 'nom de région' });
+
+      assert.equal(items.length, 1);
+      assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
+    });
+
+    it('queries department field', async () => {
+      const items = await svc(7196947).list({ search: 'nom de département' })
+
+      assert.equal(items.length, 1);
+      assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
+    });
+  });
+
 });
