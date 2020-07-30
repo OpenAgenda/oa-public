@@ -27,20 +27,36 @@ const validateOptions = schema({
     unique: true,
     options: ['YYYY-MM-dd', 'YYYY-MM', 'YYYY', 'YYYY-MM-dd HH:mm'],
     default: 'YYYY-MM-dd'
+  },
+  extendedBounds: {
+    fields: {
+      min: {
+        type: 'date'
+      },
+      max: {
+        type: 'date'
+      }
+    }
   }
 });
 
 function formatDSL(field, query, options = {}) {
   const {
     interval: calendar_interval,
-    format
+    format,
+    extendedBounds
   } = validateOptions(options);
 
   return {
     date_histogram: {
       field,
       calendar_interval,
-      format
+      format,
+      min_doc_count: 0,
+      extended_bounds: {
+        min: extendedBounds.min ? extendedBounds.min.getTime() : null,
+        max: extendedBounds.max ? extendedBounds.max.getTime() : null
+      }
     }
   }
 }
