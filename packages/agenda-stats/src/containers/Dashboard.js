@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { isSameDay } from 'date-fns';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner, MoreInfo } from '@openagenda/react-components';
 import { useApiClient, useModal } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
 import PeriodModal from '../components/PeriodModal';
@@ -41,6 +41,10 @@ const messages = defineMessages({
   changeOrder: {
     id: 'AgendaStats.Dashboard.changeOrder',
     defaultMessage: 'Change ordrer'
+  },
+  pulseDesc: {
+    id: 'AgendaStats.Dashboard.pulseDesc',
+    defaultMessage: 'Past year of activity'
   }
 });
 
@@ -177,7 +181,7 @@ function Dashboard({ agenda, agendaSchema }) {
 
               <button
                 type="button"
-                className="btn btn-link-inline margin-left-sm"
+                className="btn btn-link-inline pull-right"
                 onClick={() => dateRangeModal.open()}
               >
                 {intl.formatMessage(messages.update)}
@@ -187,14 +191,22 @@ function Dashboard({ agenda, agendaSchema }) {
         </div>
 
         <div className="col-sm-4">
-          <PulseChart
-            agendaUid={agenda.uid}
-            css={{
-              display: 'block',
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}
-          />
+          <MoreInfo
+            id="pulse-chart-more-info"
+            content={intl.formatMessage(messages.pulseDesc)}
+            placement="bottom"
+          >
+            <div
+              css={{
+                width: '155px',
+                display: 'block',
+                marginLeft: 'auto',
+                marginRight: 'auto'
+              }}
+            >
+              <PulseChart agendaUid={agenda.uid} />
+            </div>
+          </MoreInfo>
         </div>
 
         <div className="col-sm-4 text-right">
