@@ -17,32 +17,29 @@ export default function PulseChart({ agendaUid, className }) {
       const startOfPastYear = subYears(now, 1);
 
       return (
-        await apiClient.get(
-          `https://d.openagenda.com/agendas/${agendaUid}/admin/events.v2.json`,
-          {
-            params: {
-              oaq: {
-                passed: 1
-              },
-              size: 0,
-              aggregations: [
-                {
-                  key: 'pulse',
-                  type: 'createdOrUpdatedAt',
-                  interval: 'week',
-                  extendedBounds: {
-                    min: startOfPastYear,
-                    max: now
-                  }
+        await apiClient.get(`/agendas/${agendaUid}/admin/events.v2.json`, {
+          params: {
+            oaq: {
+              passed: 1
+            },
+            size: 0,
+            aggregations: [
+              {
+                key: 'pulse',
+                type: 'createdOrUpdatedAt',
+                interval: 'week',
+                extendedBounds: {
+                  min: startOfPastYear,
+                  max: now
                 }
-              ],
-              updatedAt: {
-                gte: startOfPastYear,
-                lte: now
               }
+            ],
+            updatedAt: {
+              gte: startOfPastYear,
+              lte: now
             }
           }
-        )
+        })
       ).data?.aggregations?.pulse;
     },
     {
@@ -72,7 +69,7 @@ export default function PulseChart({ agendaUid, className }) {
           <stop offset="90%" stopColor="#31a2d7" />
         </linearGradient>
       </defs>
-      <YAxis type="number" domain={yAxisDomain} hide />
+      <YAxis type="number" domain={yAxisDomain} scale="sqrt" hide />
       <Line
         type="monotone"
         dataKey="eventCount"

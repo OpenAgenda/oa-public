@@ -8,16 +8,16 @@ import dateRanges from '../dateRanges';
 
 const messages = defineMessages({
   dateRangeModalTitle: {
-    id: 'AgendaStats.PeriodModal.dateRangeModalTitle',
+    id: 'AgendaStats.RangeModal.dateRangeModalTitle',
     defaultMessage: 'Choose period'
   },
   submit: {
-    id: 'AgendaStats.PeriodModal.submit',
+    id: 'AgendaStats.RangeModal.submit',
     defaultMessage: 'Submit'
   }
 });
 
-export default function PeriodModal({ initialValues, onSubmit, onClose }) {
+export default function RangeModal({ initialValues, onSubmit, onClose }) {
   const intl = useIntl();
 
   const { staticRanges, inputRanges } = useMemo(() => dateRanges(intl), [intl]);
