@@ -1,31 +1,18 @@
 import _ from 'lodash';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { isSameDay } from 'date-fns';
-import { Spinner, MoreInfo } from '@openagenda/react-components';
+import { MoreInfo, Spinner } from '@openagenda/react-components';
 import { useApiClient, useModal } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
-import PeriodModal from '../components/PeriodModal';
 import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
 import PulseChart from '../components/PulseChart';
+import RangeFilter from './RangeFilter';
 
 const messages = defineMessages({
-  sameDayRange: {
-    id: 'AgendaStats.Dashboard.sameDayRange',
-    defaultMessage: 'The {startDate, date}'
-  },
-  range: {
-    id: 'AgendaStats.Dashboard.range',
-    defaultMessage: 'From {startDate, date} to {endDate, date}'
-  },
-  update: {
-    id: 'AgendaStats.Dashboard.update',
-    defaultMessage: 'Update'
-  },
   save: {
     id: 'AgendaStats.Dashboard.save',
     defaultMessage: 'Save'
@@ -57,32 +44,12 @@ function Dashboard({ agenda, agendaSchema }) {
   const loading = useSelector(state => _.get(state, 'stats.loading', true));
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
   const stats = useSelector(state => state.stats.data);
+  const range = useSelector(state => state.stats.range);
   const totalEvents = useSelector(state => state.stats.totalEvents);
-
   const editing = useSelector(state => state.stats.editing);
 
-  const [range, setRange] = useState(undefined);
-  const dateRangeModal = useModal();
   const orderModal = useModal();
 
-  const onPeriodChange = useCallback(
-    value => dispatch(
-      statsActions.load(
-        agenda,
-        stats,
-        {
-          date: {
-            gte: value[0].startDate,
-            lte: value[0].endDate
-          }
-        },
-        value[0]
-      )
-    ).then(() => {
-      setRange(value[0]);
-    }),
-    [agenda, dispatch, stats]
-  );
   const onOrderChange = useCallback(
     statIds => dispatch(statsActions.reorderStats(statIds)),
     [dispatch]
@@ -125,8 +92,6 @@ function Dashboard({ agenda, agendaSchema }) {
       const { first, last } = timespanResult.data.aggregations.timespan;
 
       const defaultRange = determineDefaultRange({ first, last });
-
-      setRange(defaultRange);
 
       const query = {};
       _.set(query, 'date.gte', defaultRange.startDate);
@@ -171,23 +136,7 @@ function Dashboard({ agenda, agendaSchema }) {
     <div>
       <div className="row">
         <div className="col-sm-4">
-          {range ? (
-            <>
-              {isSameDay(range.startDate, range.endDate) ? (
-                <>{intl.formatMessage(messages.sameDayRange, range)}</>
-              ) : (
-                <>{intl.formatMessage(messages.range, range)}</>
-              )}
-
-              <button
-                type="button"
-                className="btn btn-link-inline margin-left-sm"
-                onClick={() => dateRangeModal.open()}
-              >
-                {intl.formatMessage(messages.update)}
-              </button>
-            </>
-          ) : null}
+          <RangeFilter agenda={agenda} />
         </div>
 
         <div className="col-sm-4">
@@ -249,14 +198,6 @@ function Dashboard({ agenda, agendaSchema }) {
       ) : null}
 
       <div className="margin-top-md text-right">{editButtons}</div>
-
-      {dateRangeModal.isOpen ? (
-        <PeriodModal
-          initialValues={[range]}
-          onSubmit={onPeriodChange}
-          onClose={dateRangeModal.close}
-        />
-      ) : null}
 
       {orderModal.isOpen ? (
         <OrderModal

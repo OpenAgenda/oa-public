@@ -80,7 +80,7 @@ function ChartWrapper(
 
   const titleMessage = useChartTitle(stat);
 
-  // Updates interval when state changes (on period change)
+  // Updates interval when state changes (on range change)
   useUpdateEffect(() => {
     if (stat.state.interval !== latestInterval.current) {
       setInterval(stat.state.interval);
