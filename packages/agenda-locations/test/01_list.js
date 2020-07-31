@@ -77,20 +77,42 @@ describe('agenda-locations - functional - list', () => {
     });
   });
 
-  describe('search', () => {
-    it('queries region field', async () => {
+  describe('filters', () => {
+    it('"search" queries region field', async () => {
       const items = await svc(7196947).list({ search: 'nom de région' });
 
       assert.equal(items.length, 1);
       assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
     });
 
-    it('queries department field', async () => {
+    it('"search" queries department field', async () => {
       const items = await svc(7196947).list({ search: 'nom de département' })
 
       assert.equal(items.length, 1);
       assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
     });
+
+    it('"state" filters verified or unverified locations', async () => {
+      const verified = await svc(7196947).list({ state: 1 });
+      const unverified = await svc(7196947).list({ state: 0 });
+
+      assert.equal(verified.length, verified.filter(l => l.state === 1).length);
+      assert.equal(unverified.length, unverified.filter(l => l.state === 0).length);
+    });
+
+    it('"uids" filters by provided location uid list', async () => {
+      const uids = [
+        76248298,
+        10175539,
+        75940684
+      ];
+
+      const selection = await svc(7196947).list({ uids });
+
+      assert.equal(selection.length, 3);
+      assert.deepEqual(selection.map(l => l.uid), uids);
+    });
+
   });
 
   describe('other', () => {

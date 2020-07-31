@@ -14,13 +14,25 @@ const validate = schema({
   search: {
     type: 'text',
     max: 255
+  },
+  state: {
+    type: 'integer',
+    default: null
+  },
+  uids: {
+    type: 'integer',
+    list: {
+      default: null
+    }
   }
 });
 
 module.exports = async (service, k, query) => {
   const {
     agendaUid,
-    search
+    search,
+    state,
+    uids
   } = validate(query);
 
   const agendaId = agendaUid ? await service.interfaces.getAgendaIdByUid(agendaUid) : null;
@@ -37,6 +49,14 @@ module.exports = async (service, k, query) => {
         .orWhere('department', 'like', '%' + search + '%')
         .orWhere('city', 'like', '%' + search + '%');
     });
+  }
+
+  if (uids) {
+    k.whereIn('uid', uids);
+  }
+
+  if (state !== null) {
+    k.where('store', 'like', `%"state":${state}%`);
   }
 
   return k;
