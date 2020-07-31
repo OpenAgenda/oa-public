@@ -17,32 +17,29 @@ export default function PulseChart({ agendaUid, className }) {
       const startOfPastYear = subYears(now, 1);
 
       return (
-        await apiClient.get(
-          `https://d.openagenda.com/agendas/${agendaUid}/admin/events.v2.json`,
-          {
-            params: {
-              oaq: {
-                passed: 1
-              },
-              size: 0,
-              aggregations: [
-                {
-                  key: 'pulse',
-                  type: 'createdOrUpdatedAt',
-                  interval: 'week',
-                  extendedBounds: {
-                    min: startOfPastYear,
-                    max: now
-                  }
+        await apiClient.get(`/agendas/${agendaUid}/admin/events.v2.json`, {
+          params: {
+            oaq: {
+              passed: 1
+            },
+            size: 0,
+            aggregations: [
+              {
+                key: 'pulse',
+                type: 'createdOrUpdatedAt',
+                interval: 'week',
+                extendedBounds: {
+                  min: startOfPastYear,
+                  max: now
                 }
-              ],
-              updatedAt: {
-                gte: startOfPastYear,
-                lte: now
               }
+            ],
+            updatedAt: {
+              gte: startOfPastYear,
+              lte: now
             }
           }
-        )
+        })
       ).data?.aggregations?.pulse;
     },
     {
