@@ -69,7 +69,7 @@ export default function PulseChart({ agendaUid, className }) {
           <stop offset="90%" stopColor="#31a2d7" />
         </linearGradient>
       </defs>
-      <YAxis type="number" domain={yAxisDomain} hide />
+      <YAxis type="number" domain={yAxisDomain} scale="sqrt" hide />
       <Line
         type="monotone"
         dataKey="eventCount"
