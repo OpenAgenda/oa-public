@@ -5818,6 +5818,7 @@ __metadata:
     react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-intl: ^5.0.2
+    react-query: ^2.5.8
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
@@ -32442,6 +32443,17 @@ __metadata:
   peerDependencies:
     react: ^16.8.0
   checksum: 5511ccccc68520e4e11b22f98df3cbbead8c9e9b963afe951fa7d8748c77f0c171eed4183f6f11ed827fa0240c9694011370d85371a950a255a7ea63e1521407
+  languageName: node
+  linkType: hard
+
+"react-query@npm:^2.5.8":
+  version: 2.5.8
+  resolution: "react-query@npm:2.5.8"
+  dependencies:
+    ts-toolbelt: ^6.9.4
+  peerDependencies:
+    react: ^16.8.0
+  checksum: 903ac54016f13f8712a1de83ceb20c3d8ccb094fd1defa940b01001500a4875d1098b1c5e82227f2256cfbf85278f904c6672f621a5d42ead98dfeae1e930ae1
   languageName: node
   linkType: hard
 

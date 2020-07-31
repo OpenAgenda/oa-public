@@ -4,19 +4,16 @@ import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { isSameDay } from 'date-fns';
-import { Spinner } from '@openagenda/react-components';
+import { Spinner, MoreInfo } from '@openagenda/react-components';
 import { useApiClient, useModal } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
 import PeriodModal from '../components/PeriodModal';
 import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
+import PulseChart from '../components/PulseChart';
 
 const messages = defineMessages({
-  title: {
-    id: 'AgendaStats.Dashboard.title',
-    defaultMessage: 'Statistics'
-  },
   sameDayRange: {
     id: 'AgendaStats.Dashboard.sameDayRange',
     defaultMessage: 'The {startDate, date}'
@@ -44,6 +41,10 @@ const messages = defineMessages({
   changeOrder: {
     id: 'AgendaStats.Dashboard.changeOrder',
     defaultMessage: 'Change ordrer'
+  },
+  pulseDesc: {
+    id: 'AgendaStats.Dashboard.pulseDesc',
+    defaultMessage: 'Past year of activity'
   }
 });
 
@@ -168,28 +169,47 @@ function Dashboard({ agenda, agendaSchema }) {
 
   return (
     <div>
-      <h2>{intl.formatMessage(messages.title)}</h2>
+      <div className="row">
+        <div className="col-sm-4">
+          {range ? (
+            <>
+              {isSameDay(range.startDate, range.endDate) ? (
+                <>{intl.formatMessage(messages.sameDayRange, range)}</>
+              ) : (
+                <>{intl.formatMessage(messages.range, range)}</>
+              )}
 
-      <div className="margin-top-sm">
-        {range ? (
-          <>
-            {isSameDay(range.startDate, range.endDate) ? (
-              <>{intl.formatMessage(messages.sameDayRange, range)}</>
-            ) : (
-              <>{intl.formatMessage(messages.range, range)}</>
-            )}
+              <button
+                type="button"
+                className="btn btn-link-inline margin-left-sm"
+                onClick={() => dateRangeModal.open()}
+              >
+                {intl.formatMessage(messages.update)}
+              </button>
+            </>
+          ) : null}
+        </div>
 
-            <button
-              type="button"
-              className="btn btn-link-inline margin-left-sm"
-              onClick={() => dateRangeModal.open()}
+        <div className="col-sm-4">
+          <MoreInfo
+            id="pulse-chart-more-info"
+            content={intl.formatMessage(messages.pulseDesc)}
+            placement="bottom"
+          >
+            <div
+              css={{
+                width: '155px',
+                display: 'block',
+                marginLeft: 'auto',
+                marginRight: 'auto'
+              }}
             >
-              {intl.formatMessage(messages.update)}
-            </button>
-          </>
-        ) : null}
+              <PulseChart agendaUid={agenda.uid} />
+            </div>
+          </MoreInfo>
+        </div>
 
-        <div className="pull-right text-right">
+        <div className="col-sm-4 text-right">
           <div>{editButtons}</div>
           {editing ? (
             <button
