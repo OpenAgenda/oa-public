@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const assert = require('assert');
 
 const config = require('../testconfig');
@@ -20,7 +21,16 @@ describe('agenda-locations - functional - list', () => {
       interfaces: {
         getAgendaIdByUid: async id => ({
           25221: 7196947
-        })[id]
+        })[id],
+        getEventCounts: async (locationUids, { agendaUid }) => [{
+          uid: 60763721,
+          eventCount: 12,
+          agendaEventCount: 8
+        }, {
+          uid: 51665985,
+          eventCount: 9,
+          agendaEventCount: 2
+        }]
       }
     });
   });
@@ -80,6 +90,29 @@ describe('agenda-locations - functional - list', () => {
 
       assert.equal(items.length, 1);
       assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
+    });
+  });
+
+  describe('other', () => {
+    it('if getEventCounts interface is set and eventCount option is true, result includes interface-provided counts', async () => {
+      const items = await svc(7196947).list({}, { limit: 3 }, { eventCounts: true });
+
+      assert.deepEqual(
+        items.map(i => _.pick(i, ['uid', 'eventCount', 'agendaEventCount'])),
+        [{
+          uid: 60763721,
+          eventCount: 12,
+          agendaEventCount: 8
+        }, {
+          uid: 7630649,
+          eventCount: 0,
+          agendaEventCount: 0
+        }, {
+          uid: 51665985,
+          eventCount: 9,
+          agendaEventCount: 2
+        }]
+      );
     });
   });
 

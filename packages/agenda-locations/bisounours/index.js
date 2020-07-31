@@ -14,7 +14,8 @@ module.exports = (c = {}) => {
     imagePath: '//cdn.to.images/',
     schema: 'location',
     interfaces: {
-      getAgendaIdByUid: id => null
+      getAgendaIdByUid: async id => null,
+      getEventCounts: async (identifiers, locationUids = []) => []
     }
   });
 

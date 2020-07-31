@@ -6,6 +6,7 @@ const { promisify } = require('util');
 
 const insee = require('../utils/insee');
 const distance = require('../utils/distance');
+const decorateWithCounts = require('../bisounours/lib/decorateWithCounts');
 
 const redisConfig = { host: 'localhost', port: 6379 };
 
@@ -16,6 +17,38 @@ const redisCli = require('redis').createClient(redisConfig.port, redisConfig.hos
 const rcHGet = promisify(redisCli.hget.bind(redisCli));
 
 describe('utils', () => {
+
+  describe('decorateWithCounts', () => {
+
+    it.only('adds given counts to matching location', () => {
+      const locations = [{
+        uid: 111,
+        name: 'Le Monop'
+      }, {
+        uid: 112,
+        name: 'Le Prisu'
+      }];
+
+      decorateWithCounts(locations, [{
+        uid: 112,
+        agendaEventCount: 12,
+        eventCount: 24
+      }]);
+
+      assert.deepEqual(locations, [{
+        uid: 111,
+        name: 'Le Monop',
+        eventCount: 0,
+        agendaEventCount: 0
+      }, {
+        uid: 112,
+        name: 'Le Prisu',
+        agendaEventCount: 12,
+        eventCount: 24
+      }]);
+    });
+
+  });
 
   describe('insee', () => {
 
