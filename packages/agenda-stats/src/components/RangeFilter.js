@@ -4,7 +4,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { isSameDay } from 'date-fns';
 import { useModal } from '@openagenda/react-shared';
 import * as statsActions from '../reducers/stats';
-import RangeModal from '../components/RangeModal';
+import RangeModal from './RangeModal';
 
 const messages = defineMessages({
   sameDayRange: {
@@ -28,22 +28,10 @@ export default function RangeFilter({ agenda }) {
   const stats = useSelector(state => state.stats.data);
   const range = useSelector(state => state.stats.range);
 
-  const dateRangeModal = useModal();
+  const rangeModal = useModal();
 
-  const onRangeChange = useCallback(
-    value => dispatch(
-      statsActions.load(
-        agenda,
-        stats,
-        {
-          date: {
-            gte: value[0].startDate,
-            lte: value[0].endDate
-          }
-        },
-        value[0]
-      )
-    ),
+  const onSubmit = useCallback(
+    values => dispatch(statsActions.load(agenda, stats, { range: values.range[0] })),
     [agenda, dispatch, stats]
   );
 
@@ -60,18 +48,18 @@ export default function RangeFilter({ agenda }) {
           <button
             type="button"
             className="btn btn-link-inline margin-left-sm"
-            onClick={() => dateRangeModal.open()}
+            onClick={() => rangeModal.open()}
           >
             {intl.formatMessage(messages.update)}
           </button>
         </>
       ) : null}
 
-      {dateRangeModal.isOpen ? (
+      {rangeModal.isOpen ? (
         <RangeModal
-          initialValues={[range]}
-          onSubmit={onRangeChange}
-          onClose={dateRangeModal.close}
+          initialValues={{ range }}
+          onSubmit={onSubmit}
+          onClose={rangeModal.close}
         />
       ) : null}
     </>

@@ -82,10 +82,13 @@ function ChartWrapper(
 
   // Updates interval when state changes (on range change)
   useUpdateEffect(() => {
-    if (stat.state.interval !== latestInterval.current) {
+    if (
+      stat.state.interval !== latestInterval.current
+      && stat.state.interval !== previousInterval
+    ) {
       setInterval(stat.state.interval);
     }
-  }, [latestInterval, stat.state.interval]);
+  }, [latestInterval, previousInterval, stat.state.interval]);
 
   // Reloads the graph when `interval` option changes in the select
   useUpdateEffect(() => {

@@ -110,8 +110,9 @@ export default function reducer(state = initialState, action) {
             }
           };
         }),
-        query: action.query,
+        searchQuery: action.searchQuery,
         range: action.range,
+        rangeType: action.rangeType,
         error: null,
         loading: false
       };
@@ -252,29 +253,41 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export function load(agenda, stats, query, range) {
-  const decoratedStats = decorateStats(stats, { range });
-  const params = {
-    oaq: { passed: 1 },
-    size: 0,
-    aggregations: statsToAggregations(decoratedStats),
-    ...query
-  };
+export function load(agenda, stats, query) {
+  return ({ getState, dispatch }) => {
+    const state = getState();
 
-  return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: ({ client }, { getState }) => {
-      const { res } = getState();
-      const url = res.jsonExport
-        .replace(':slug', agenda.slug)
-        .replace(':uid', agenda.uid);
+    const range = query.range || state.stats.range;
+    const rangeType = query.rangeType || state.stats.rangeType || 'createdAt';
 
-      return client.get(url, { params });
-    },
-    stats: decoratedStats,
-    aggregations: decoratedStats,
-    query,
-    range
+    const decoratedStats = decorateStats(stats, { range });
+
+    const searchQuery = {};
+    _.set(searchQuery, `${rangeType}.gte`, range.startDate);
+    _.set(searchQuery, `${rangeType}.lte`, range.endDate);
+
+    const params = {
+      oaq: { passed: 1 },
+      size: 0,
+      aggregations: statsToAggregations(decoratedStats),
+      ...searchQuery
+    };
+
+    return dispatch({
+      types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+      promise: ({ client }) => {
+        const url = state.res.jsonExport
+          .replace(':slug', agenda.slug)
+          .replace(':uid', agenda.uid);
+
+        return client.get(url, { params });
+      },
+      stats: decoratedStats,
+      aggregations: decoratedStats,
+      searchQuery,
+      range,
+      rangeType
+    });
   };
 }
 
@@ -290,7 +303,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
       oaq: { passed: 1 },
       size: 0,
       aggregations: statsToAggregations(decoratedStats),
-      ...stats.query
+      ...stats.searchQuery
     };
 
     return dispatch({

@@ -7,13 +7,17 @@ import { Modal, Spinner } from '@openagenda/react-components';
 import dateRanges from '../dateRanges';
 
 const messages = defineMessages({
-  dateRangeModalTitle: {
-    id: 'AgendaStats.RangeModal.dateRangeModalTitle',
+  rangeModalTitle: {
+    id: 'AgendaStats.RangeModal.modalTitle',
     defaultMessage: 'Choose period'
   },
   submit: {
     id: 'AgendaStats.RangeModal.submit',
     defaultMessage: 'Submit'
+  },
+  cancel: {
+    id: 'AgendaStats.RangeModal.cancel',
+    defaultMessage: 'Cancel'
   }
 });
 
@@ -21,14 +25,16 @@ export default function RangeModal({ initialValues, onSubmit, onClose }) {
   const intl = useIntl();
 
   const { staticRanges, inputRanges } = useMemo(() => dateRanges(intl), [intl]);
-  const [ranges, setRanges] = useState(initialValues);
+  const [ranges, setRanges] = useState(() => (Array.isArray(initialValues.range)
+    ? initialValues.range
+    : [initialValues.range]));
   const latestRange = useLatest(ranges);
   const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = useCallback(() => {
     setSubmitting(true);
 
-    onSubmit(latestRange.current)
+    onSubmit({ range: latestRange.current })
       .finally(() => {
         setSubmitting(false);
       })
@@ -44,7 +50,7 @@ export default function RangeModal({ initialValues, onSubmit, onClose }) {
 
   return (
     <Modal
-      title={intl.formatMessage(messages.dateRangeModalTitle)}
+      title={intl.formatMessage(messages.rangeModalTitle)}
       onClose={onClose}
       classNames={{
         overlay: 'popup-overlay big'
@@ -66,7 +72,14 @@ export default function RangeModal({ initialValues, onSubmit, onClose }) {
       <div className="text-center margin-top-md">
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-danger btn-bordered"
+          onClick={onClose}
+        >
+          {intl.formatMessage(messages.cancel)}
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary margin-left-sm"
           onClick={handleSubmit}
           disabled={submitting}
         >
