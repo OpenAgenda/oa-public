@@ -116,6 +116,7 @@ describe('agenda-locations - functional - list', () => {
   });
 
   describe('other', () => {
+
     it('if getEventCounts interface is set and eventCount option is true, result includes interface-provided counts', async () => {
       const items = await svc(7196947).list({}, { limit: 3 }, { eventCounts: true });
 
@@ -135,6 +136,15 @@ describe('agenda-locations - functional - list', () => {
           agendaEventCount: 2
         }]
       );
+    });
+
+    it('if total option is provided, list returns an { items, total } object', async () => {
+      const {
+        items,
+        total
+      } = await svc(7196947).list({}, {}, { total: true });
+
+      assert.equal(total, 364);
     });
   });
 

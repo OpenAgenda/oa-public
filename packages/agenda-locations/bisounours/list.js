@@ -19,10 +19,6 @@ async function list(service, query = {}, nav = {}, options = {}) {
     ...(context.agendaUid ? { agendaUid: context.agendaUid } : {})
   });
 
-  if (includeTotal) {
-    total = k.clone();
-  };
-
   const total = includeTotal ? await k.clone()
     .count('id as total')
     .then(r => r[0].total) : null;
