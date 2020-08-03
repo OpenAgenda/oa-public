@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('@openagenda/logs')('list');
+
 const addListQuery = require('./lib/addListQuery');
 const cleanListOptions = require('./lib/cleanListOptions');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
@@ -7,6 +9,7 @@ const addPaginationAndOrder = require('./lib/addPaginationAndOrder');
 const decorateWithCounts = require('./lib/decorateWithCounts');
 
 async function list(service, query = {}, nav = {}, options = {}) {
+  log('received %j %j', query, nav);
   const k = service.clients.knex(service.config.schema);
   const {
     total: includeTotal,
@@ -23,11 +26,15 @@ async function list(service, query = {}, nav = {}, options = {}) {
     .count('id as total')
     .then(r => r[0].total) : null;
 
+  log('total: %s', total);
+
   await addPaginationAndOrder(k, nav);
 
   const items = await k.then(rows => rows.map(r => fromDbEntryToItem(r, {
     imagePath: service.config.imagePath
   })));
+
+  log('fetched %s items', items.length);
 
   if (service.interfaces.getEventCounts && includeEventCounts) {
     decorateWithCounts(
