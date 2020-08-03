@@ -4,27 +4,20 @@ const addListQuery = require('./lib/addListQuery');
 const cleanListOptions = require('./lib/cleanListOptions');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const addPaginationAndOrder = require('./lib/addPaginationAndOrder');
+const decorateWithCounts = require('./lib/decorateWithCounts');
 
-module.exports.byAgendaUid = async (
-  service,
-  agendaUid,
-  query = {},
-  nav = {},
-  options = {}
-) => {
+async function list(service, query = {}, nav = {}, options = {}) {
   const k = service.clients.knex(service.config.schema);
   const {
-    total: includeTotal
+    total: includeTotal,
+    eventCounts: includeEventCounts,
+    context
   } = cleanListOptions(options);
 
   await addListQuery(service, k, {
     ...query,
-    agendaUid
+    ...(context.agendaUid ? { agendaUid: context.agendaUid } : {})
   });
-
-  if (includeTotal) {
-    total = k.clone();
-  };
 
   const total = includeTotal ? await k.clone()
     .count('id as total')
@@ -32,9 +25,16 @@ module.exports.byAgendaUid = async (
 
   await addPaginationAndOrder(k, nav);
 
-  const items = k.then(rows => rows.map(r => fromDbEntryToItem(r, {
+  const items = await k.then(rows => rows.map(r => fromDbEntryToItem(r, {
     imagePath: service.config.imagePath
   })));
+
+  if (service.interfaces.getEventCounts && includeEventCounts) {
+    decorateWithCounts(
+      items,
+      await service.interfaces.getEventCounts(items.map(i => i.uid), context)
+    );
+  }
 
   if (!total) return items;
 
@@ -43,3 +43,14 @@ module.exports.byAgendaUid = async (
     total
   }
 }
+
+module.exports.byAgendaUid = async (
+  service,
+  agendaUid,
+  query = {},
+  nav = {},
+  options = {}
+) => list(service, query, nav, {
+  ...options,
+  context: { agendaUid }
+});
