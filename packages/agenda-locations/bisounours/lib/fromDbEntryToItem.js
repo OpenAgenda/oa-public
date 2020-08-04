@@ -4,7 +4,7 @@ const _ = require('lodash');
 const fields = require('./fields.json');
 
 module.exports = (entry = {}, options = {}) => {
-  const store = JSON.parse(entry.store);
+  const store = entry.store ? JSON.parse(entry.store) : {};
   const access = options.access || 'public';
 
   return fields.filter(f => f.read.includes(access)).reduce((obj, field) => {

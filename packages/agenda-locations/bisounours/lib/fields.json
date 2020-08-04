@@ -3,7 +3,7 @@
   "read": ["internal"]
 }, {
   "field": "uid",
-  "read": ["internal", "public"]
+  "read": ["internal", "public", "list"]
 }, {
   "field": "agendaId",
   "read": ["internal"]
@@ -13,10 +13,10 @@
 }, {
   "field": "name",
   "db": "placename",
-  "read": ["internal", "public"]
+  "read": ["internal", "public", "list"]
 }, {
   "field": "address",
-  "read": ["internal", "public"]
+  "read": ["internal", "public", "list"]
 }, {
   "field": "city",
   "read": ["internal", "public"]
@@ -42,10 +42,10 @@
   "read": ["internal", "public"]
 }, {
   "field": "latitude",
-  "read": ["internal", "public"]
+  "read": ["internal", "public", "list"]
 }, {
   "field": "longitude",
-  "read": ["internal", "public"]
+  "read": ["internal", "public", "list"]
 }, {
   "field": "updatedAt",
   "read": ["internal", "public"]

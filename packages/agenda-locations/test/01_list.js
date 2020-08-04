@@ -6,6 +6,7 @@ const assert = require('assert');
 const config = require('../testconfig');
 const fixtures = require('./fixtures/load');
 const Service = require('../bisounours');
+const fields = require('../bisounours/lib/fields.json');
 
 describe('agenda-locations - functional - list', () => {
   const f = fixtures(config.mysql);
@@ -51,30 +52,34 @@ describe('agenda-locations - functional - list', () => {
     });
 
     it('order is by descending id', async () => {
-      assert.deepEqual(items.map(i => i.slug), [
-        'saint-paul-le-jeune',
-        'st-andre-lachamp',
-        'grotte-chauvet-2-ardeche327',
-        '400-rue-de-vidalon-07430-davezieux',
-        'parc-eolien-de-cros-de-georand',
-        'grotte-saint-marcel',
-        'hameau-de-massas',
-        'mairie-darcens',
-        'village-de-saint-martin-de-valamas',
-        'domaine-marc-seguin-chapelle-de-varagnes',
-        'mairie378',
-        'mairie-villeneuve-de-berg139',
-        'musee-des-sports',
-        'place-olivier-de-serres',
-        'devant-loffice-de-tourisme-le-teil',
-        'colonie-de-vacances-de-saint-andre-en-vivarais',
-        'les-ruches-saint-andre-en-vivarais',
-        'salaisons-teyssier-saint-agreve',
-        'la-chapelle-sous-rochepaule',
-        'grange-de-claviere'
+      assert.deepEqual(items.map(i => i.uid), [
+        60763721,
+        7630649,
+        51665985,
+        30433085,
+        87316763,
+        32049550,
+        41253007,
+        27638359,
+        91723136,
+        79091381,
+        56366303,
+        94482437,
+        80369196,
+        60725900,
+        7749634,
+        24334735,
+        54251470,
+        12084144,
+        56924239,
+        56511938
       ]);
-
     });
+
+    it('provided fields by default are name, address, latitude and longitude', () => {
+      assert.deepEqual(Object.keys(items[0]), ['uid', 'name', 'address', 'latitude', 'longitude']);
+    });
+
   });
 
   describe('filters', () => {
@@ -86,15 +91,15 @@ describe('agenda-locations - functional - list', () => {
     });
 
     it('"search" queries department field', async () => {
-      const items = await svc(7196947).list({ search: 'nom de département' })
+      const items = await svc(7196947).list({ search: 'nom de département' });
 
       assert.equal(items.length, 1);
       assert.equal(items[0].name, 'Abbatiale Sainte-Marie');
     });
 
     it('"state" filters verified or unverified locations', async () => {
-      const verified = await svc(7196947).list({ state: 1 });
-      const unverified = await svc(7196947).list({ state: 0 });
+      const verified = await svc(7196947).list({ state: 1 }, {}, { detailed: true });
+      const unverified = await svc(7196947).list({ state: 0 }, {}, { detailed: true });
 
       assert.equal(verified.length, verified.filter(l => l.state === 1).length);
       assert.equal(unverified.length, unverified.filter(l => l.state === 0).length);
@@ -145,6 +150,14 @@ describe('agenda-locations - functional - list', () => {
       } = await svc(7196947).list({}, {}, { total: true });
 
       assert.equal(total, 364);
+    });
+
+    it('if detailed option is provided, all public fields are given', async () => {
+      const items = await svc(7196947).list({}, {}, { detailed: true });
+      assert.deepEqual(
+        Object.keys(items[0]),
+        fields.filter(f => f.read.includes('public')).map(f => f.field)
+      );
     });
   });
 

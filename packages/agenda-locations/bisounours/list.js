@@ -3,6 +3,7 @@
 const log = require('@openagenda/logs')('list');
 
 const addListQuery = require('./lib/addListQuery');
+const addListSelect = require('./lib/addListSelect');
 const cleanListOptions = require('./lib/cleanListOptions');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const addPaginationAndOrder = require('./lib/addPaginationAndOrder');
@@ -14,8 +15,11 @@ async function list(service, query = {}, nav = {}, options = {}) {
   const {
     total: includeTotal,
     eventCounts: includeEventCounts,
-    context
+    context,
+    detailed
   } = cleanListOptions(options);
+
+  addListSelect(k, detailed);
 
   await addListQuery(service, k, {
     ...query,
@@ -28,10 +32,11 @@ async function list(service, query = {}, nav = {}, options = {}) {
 
   log('total: %s', total);
 
-  await addPaginationAndOrder(k, nav);
+  addPaginationAndOrder(k, nav);
 
   const items = await k.then(rows => rows.map(r => fromDbEntryToItem(r, {
-    imagePath: service.config.imagePath
+    imagePath: service.config.imagePath,
+    access: detailed ? 'public' : 'list'
   })));
 
   log('fetched %s items', items.length);
