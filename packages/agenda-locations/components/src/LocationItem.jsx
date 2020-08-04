@@ -89,8 +89,8 @@ module.exports = createReactClass( {
           <i className={l.image ? "fa fa-picture-o" : "fa fa-picture-o disabled"}></i>
           <i className={l.description ? "fa fa-file-text-o " : "fa fa-file-text-o disabled"}></i>
           { l.state===0 ? <span className="badge badge-warning">{this.props.getLabel( 'verify' )}</span> : null }
-          { l.eventCount ?
-            <a onClick={this.seeEvents}>{this.props.getLabel( l.eventCount === 1 ? 'seeEvent' : 'seeEvents', { count: l.eventCount } )}</a>
+          { l.agendaEventCount ?
+            <a onClick={this.seeEvents}>{this.props.getLabel( l.agendaEventCount === 1 ? 'seeEvent' : 'seeEvents', { count: l.agendaEventCount } )}</a>
           : <span className="text-muted">{this.props.getLabel( 'noEvent' )}</span> }
         </div>
       </div>

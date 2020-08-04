@@ -18,6 +18,10 @@ module.exports = schema({
     type: 'boolean',
     default: false
   },
+  detailed: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     agendaUid: {
       type: 'integer',
