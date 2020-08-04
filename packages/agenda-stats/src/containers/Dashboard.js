@@ -10,7 +10,8 @@ import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
 import determineDefaultRange from '../utils/determineDefaultRange';
 import PulseChart from '../components/PulseChart';
-import RangeFilter from './RangeFilter';
+import RangeFilter from '../components/RangeFilter';
+import RangeTypeFilter from '../components/RangeTypeFilter';
 
 const messages = defineMessages({
   save: {
@@ -91,16 +92,10 @@ function Dashboard({ agenda, agendaSchema }) {
     ]).then(([configResult, timespanResult]) => {
       const { first, last } = timespanResult.data.aggregations.timespan;
 
-      const defaultRange = determineDefaultRange({ first, last });
-
-      const query = {};
-      _.set(query, 'date.gte', defaultRange.startDate);
-      _.set(query, 'date.lte', defaultRange.endDate);
-
-      const statsToLoad = configResult.data;
-
       return dispatch(
-        statsActions.load(agenda, statsToLoad, query, defaultRange)
+        statsActions.load(agenda, configResult.data, {
+          range: determineDefaultRange({ first, last })
+        })
       );
     });
   }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
@@ -135,8 +130,13 @@ function Dashboard({ agenda, agendaSchema }) {
   return (
     <div>
       <div className="row">
-        <div className="col-sm-4">
-          <RangeFilter agenda={agenda} />
+        <div className="col-sm-4 margin-top-xs">
+          <div>
+            <RangeTypeFilter agenda={agenda} />
+          </div>
+          <div className="margin-top-xs">
+            <RangeFilter agenda={agenda} />
+          </div>
         </div>
 
         <div className="col-sm-4">
