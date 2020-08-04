@@ -85,7 +85,7 @@ function getDefault( fields ) {
 
     } else {
 
-      clean[ k ] = fields[ k ].default === undefined ? null : fields[ k ].default;
+      clean[ k ] = !('default' in fields[ k ]) ? null : fields[ k ].default;
 
     }
 

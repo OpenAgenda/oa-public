@@ -274,6 +274,25 @@ describe( 'schema validator', () => {
     } );
 
 
+    it( 'undefined object give defaults value even if it\'s an explicit undefined', () => {
+
+      let validate = schema( {
+          additionalField: {
+            default: undefined,
+            type: 'text',
+            optional: true,
+          }
+      } ),
+
+      clean = validate({});
+
+      expect(clean).toEqual({
+        additionalField: undefined
+      });
+
+    } );
+
+
     it( 'undefined sub object is processed as an empty object', () => {
 
       let errors = [],
