@@ -1,7 +1,7 @@
 import React from 'react';
 import { LineChart, Line, YAxis } from 'recharts';
 import { useQuery } from 'react-query';
-import subYears from 'date-fns/subYears';
+import subDays from 'date-fns/subDays';
 import { useApiClient } from '@openagenda/react-shared';
 
 const defaultData = [];
@@ -14,7 +14,7 @@ export default function PulseChart({ agendaUid, className }) {
     ['AgendaStats.PulseChart', agendaUid],
     async () => {
       const now = new Date();
-      const startOfPastYear = subYears(now, 1);
+      const startOfPastYear = subDays(now, 364);
 
       return (
         await apiClient.get(`/agendas/${agendaUid}/admin/events.v2.json`, {
@@ -27,7 +27,7 @@ export default function PulseChart({ agendaUid, className }) {
               {
                 key: 'pulse',
                 type: 'createdOrUpdatedAt',
-                interval: 'week',
+                fixedInterval: '7d',
                 extendedBounds: {
                   min: startOfPastYear,
                   max: now
