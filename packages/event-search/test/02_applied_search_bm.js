@@ -371,7 +371,8 @@ describe('02 - event search - functional: Applied search', function() {
           }, { size: 0 }, {
             detailed: true,
             aggregations: ['createdAt', 'updatedAt', 'createdOrUpdatedAt']
-          }).then(({ aggregations }) => aggregations);
+          }).then(({ aggregations }) => aggregations)
+            .catch(err => console.log(err.body.error));
 
           createdAtAgg = aggregations.createdAt;
           updatedAtAgg = aggregations.updatedAt;
@@ -388,6 +389,30 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('createdOrUpdatedAt agg is a list of { eventCount, key }', () => {
           Object.keys(createdOrUpdatedAtAgg[0]).should.eql(['key', 'eventCount']);
+        });
+
+      });
+
+      describe('fixedInterval option', () => {
+        let createdAtAgg;
+
+        before(async () => {
+          const aggregations = await service('bdx').search({
+            createdAt: { gte: '2020-01-02' }
+          }, { size: 0 }, {
+            detailed: true,
+            aggregations: [{
+              type: 'createdAt',
+              fixedInterval: '7d'
+            }]
+          }).then(({ aggregations }) => aggregations)
+            .catch(err => console.log(err.body.error));
+
+          createdAtAgg = aggregations.createdAt;
+        });
+
+        it('createdAt agg starts in the middle of the week', () => {
+          createdAtAgg[0].should.eql({ key: '2020-01-02', eventCount: 7 });
         });
 
       });

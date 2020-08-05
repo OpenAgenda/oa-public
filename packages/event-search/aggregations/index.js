@@ -107,6 +107,6 @@ function extractKeyAndType(requested) {
 function getOptions(requested, options = {}) {
   return {
     ...options,
-    ...(requested === 'string' ? {} : requested)
+    ...(typeof requested === 'string' ? {} : requested)
   };
 }

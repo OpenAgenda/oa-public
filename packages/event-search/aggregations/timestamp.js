@@ -17,10 +17,16 @@ module.exports = field => ({
 
 const validateOptions = schema({
   interval: {
-    type: 'choice',
-    unique: true,
-    options: ['hour', 'day', 'week', 'month', 'year'],
-    default: 'day'
+    type: 'regex',
+    regex: /^(minute|hour|day|week|month|quarter|year|\d+(m|h|d|w|M|q|y))$/,
+    optional: true,
+    default: undefined
+  },
+  fixedInterval: {
+    type: 'regex',
+    regex: /^\d+(ms|s|m|h|d)$/,
+    optional: true,
+    default: undefined
   },
   format: {
     type: 'choice',
@@ -42,15 +48,21 @@ const validateOptions = schema({
 
 function formatDSL(field, query, options = {}) {
   const {
-    interval: calendar_interval,
+    interval,
+    fixedInterval,
     format,
     extendedBounds
   } = validateOptions(options);
 
+  const calendarInterval = interval === undefined && fixedInterval === undefined
+    ? '1d'
+    : interval;
+
   return {
     date_histogram: {
       field,
-      calendar_interval,
+      calendar_interval: calendarInterval,
+      fixed_interval: fixedInterval,
       format,
       min_doc_count: 0,
       extended_bounds: {
