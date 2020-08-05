@@ -21,11 +21,11 @@ module.exports = function( config ) {
 
   validator = function( value ) {
 
-    var clean = value ? ( value + '' ) : null;
+    var clean = value !== null && value !== undefined ? ( value + '' ) : value;
 
     if ( params.optional && ( !clean || !clean.length ) ) {
 
-      return clean;
+      return 'default' in params ? params.default : clean;
 
     }
 
