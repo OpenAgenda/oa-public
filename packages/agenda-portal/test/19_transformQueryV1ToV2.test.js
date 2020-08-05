@@ -20,6 +20,22 @@ describe('19 - lib/utils - transformQueryV1ToV2', () => {
     });
   });
 
+  test('oaq passed filter is converted to lte/gte date filter', () => {
+    const v2Query = transformQueryV1ToV2(
+      {
+        passed: '1'
+      },
+      { timezone: 'Europe/Paris' }
+    );
+
+    expect(v2Query).toEqual({
+      date: {
+        lte: 'today',
+        timezone: 'Europe/Paris'
+      }
+    });
+  });
+
   test('oaq tags filter is converted to something', () => {
     const v2Query = transformQueryV1ToV2(
       {

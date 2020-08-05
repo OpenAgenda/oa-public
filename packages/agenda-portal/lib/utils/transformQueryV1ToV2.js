@@ -21,6 +21,13 @@ module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
       gte: fromAtDayStart.format(),
       lte: toAtDayEnd.format()
     };
+  } else if (v1.passed !== undefined) {
+    const passed = parseInt(v1.passed, 10);
+
+    v2.date = {
+      [passed ? 'lte' : 'gte']: 'today',
+      timezone
+    };
   }
 
   if (v1.tags && slugSchemaOptionIdMap) {
