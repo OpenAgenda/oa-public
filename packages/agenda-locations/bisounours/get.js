@@ -41,6 +41,8 @@ async function get(service, identifiers, options = {}) {
   return location;
 }
 
+module.exports = get;
+
 module.exports.byAgendaUid = async (
   service,
   agendaUid,

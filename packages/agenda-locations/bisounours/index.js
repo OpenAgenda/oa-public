@@ -46,6 +46,7 @@ module.exports = (c = {}) => {
     list: service.listByAgendaUid.bind(null, agendaUid),
     get: service.getByAgendaUid.bind(null, agendaUid)
   }), {
+    get: get.bind(null, service),
     utils: {
       getINSEECode: config.redis ? getINSEECode(config.redis) : null
     }

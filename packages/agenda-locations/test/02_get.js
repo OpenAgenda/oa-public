@@ -39,7 +39,7 @@ describe('agenda-locations - functional - get', () => {
     let location;
 
     before(async () => {
-      location = await svc(7196947).get(51665985);
+      location = await svc.get(51665985);
     });
 
     it('location is the result', () => {
