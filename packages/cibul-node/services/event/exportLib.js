@@ -153,7 +153,7 @@ function cleanEvent(services, eInst, options, cb ) {
   }
 
   c.registration = registration( c.registrationUrl );
-  c.registrationUrl = isLink(c.registrationUrl) ? c.registrationUrl : null;
+  c.registrationUrl = ((c.registration || []).filter(v => v.type === 'link').pop() || { value: null }).value;
 
   let timezone = eInst.getLocationDetails().timezone;
 
