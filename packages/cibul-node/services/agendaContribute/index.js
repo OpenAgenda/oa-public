@@ -90,6 +90,7 @@ module.exports = Object.assign((parentApp, path = '') => {
       base: `/${req.agenda.slug}/contribute`,
       edit: _.get(req, 'event.uid') && !_.get(req, 'event.draft'),
       locationRes: {
+        get: `/locations/:uid.json`,
         index: `/agendas/${req.agenda.uid}/contribute/locations`,
         geocode: `/agendas/${req.agenda.uid}/contribute/locations/geocode`,
         reverse: `/agendas/${req.agenda.uid}/contribute/locations/geocode/reverse`,

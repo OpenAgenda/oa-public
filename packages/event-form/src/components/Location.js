@@ -49,7 +49,7 @@ class LocationComponent extends Component {
 
   loadLocation( locationUid ) {
 
-    sa.get( this.props.field.res + '/' + locationUid ).then( res => {
+    sa.get(this.props.field.res.get.replace(':uid', locationUid)).then(res => {
 
       this.setState( {
         initing: false,
@@ -77,6 +77,7 @@ class LocationComponent extends Component {
 
     const detailed = {
       index: getRes(res, 'index', ''),
+      get: getRes(res, 'get', ''),
       geocode: getRes(res, 'geocode', '/geocode'),
       reverseGeocode: getRes(res, 'reverse', '/geocode/reverse'),
       insee: getRes(res, 'insee', `/insee`),

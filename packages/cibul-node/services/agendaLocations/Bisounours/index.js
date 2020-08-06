@@ -6,9 +6,10 @@ const Bisounours = require('@openagenda/agenda-locations/bisounours');
 const getEventCounts = require('./interfaces/getEventCounts');
 const getAgendaIdByUid = require('./interfaces/getAgendaIdByUid');
 
-const plugApp = require('./plugApp');
+const plugAgendaApp = require('./plugAgendaApp');
 const plugEventApp = require('./plugEventApp');
 const plugAdminApp = require('./plugAdminApp');
+const plugApp = require('./plugApp');
 
 const gaTrack = require('../../../lib/gaTrack.mw');
 
@@ -25,10 +26,10 @@ module.exports = (config, services) => {
 
   return {
     ...instance,
-    apps: {
+    apps: Object.assign(plugApp.bind(null, config, services, instance), {
       admin: plugAdminApp.bind(null, config, services, instance),
       event: plugEventApp.bind(null, config, services, instance),
-      public: plugApp.bind(null, config, services, instance)
-    }
+      agenda: plugAgendaApp.bind(null, config, services, instance)
+    })
   }
 }
