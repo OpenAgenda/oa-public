@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest",
     "start": "PORTAL_IFRAMABLE=1 browser-refresh dev",
