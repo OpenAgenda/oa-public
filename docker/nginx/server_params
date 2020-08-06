@@ -71,7 +71,7 @@ location ~ ^/agendas/([0-9]+)/events\.v2\.json$ {
   include conf.d/nodejs_params;
 }
 
-location ~ ^/agendas/([0-9]+)/(events|index|contribute) {
+location ~ ^/agendas/([0-9]+)/(events|index|contribute|locations) {
   include conf.d/nodejs_params;
 }
 

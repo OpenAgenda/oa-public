@@ -21,6 +21,8 @@ const onCreate = require('./interfaces/onCreate');
 const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
 const resyncAllAgendaLocations = require('./tasks/resyncAllAgendaLocations');
 
+const Bisounours = require('./Bisounours');
+
 module.exports.init = async (config, services) => {
 
   const queue = services.queues('locations');
@@ -82,7 +84,10 @@ module.exports.init = async (config, services) => {
 
   module.exports.resync = startId => queue( 'resyncAllAgendaLocations', startId );
 
-  return agendaLocations;
+  return {
+    ...agendaLocations,
+    bisounours: Bisounours(config, services)
+  };
 }
 
 

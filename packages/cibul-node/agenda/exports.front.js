@@ -47,17 +47,6 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas/:uid/locations.json',
-    preMw,
-    agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    _prepareLocationExport,
-    locationMw.list,
-    gaTrack( 'locations', 'export', 'json' ),
-    ( req, res ) => cmn.renderJson( req, res, req.locations )
-  );
-
-  app.get(
     '/agendas/:uid/settings.json',
       preMw,
       agendaSvc.mw.load( 'uid' ),

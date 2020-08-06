@@ -18,15 +18,6 @@ const config = require( '../config' );
 module.exports = app => {
 
   app.get(
-    '/:slug/locations',
-    cmn.loadAgenda,
-    sessions.mw.loadOrRedirect(),
-    cmn.assign( 'req.user.uid', 'req.userUid' ),
-    mw.list,
-    showList
-  );
-
-  app.get(
     '/:slug/admin/locations',
     cmn.loadAgenda,
     sessions.mw.loadOrRedirect(),
@@ -222,7 +213,7 @@ function show( req, res ) {
     mapboxKey: config.mapboxAccessToken,
     res: {
       csv: req.genUrl( 'agendaAdminLocationsCsv', { slug: req.agenda.slug } ),
-      index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
+      index: `/agendas/${req.agenda.uid}/admin/locations.json`,
       geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
       insee: req.genUrl( 'locationINSEE', { slug: req.agenda.slug } ),
       reverseGeocode: req.genUrl( 'locationReverseGeocode', { slug: req.agenda.slug } ),
@@ -280,15 +271,6 @@ function forwardCsvExport( req, res, next ) {
 function _resyncSuccess(req, res, next) {
   sessions.setFlash(req, res, 'resync is ongoing');
   res.redirect(`/${req.agenda.slug}/admin/locations`);
-}
-
-function showList(req, res, next) {
-  return res.json({
-    items: req.locations.items,
-    total: req.locations.total
-  });
-
-  next();
 }
 
 function _checkCreate(req, res, next) {

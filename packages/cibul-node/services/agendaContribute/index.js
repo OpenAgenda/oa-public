@@ -89,7 +89,13 @@ module.exports = Object.assign((parentApp, path = '') => {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
       edit: _.get(req, 'event.uid') && !_.get(req, 'event.draft'),
-      locationRes: `/${req.agenda.slug}/locations`,
+      locationRes: {
+        index: `/agendas/${req.agenda.uid}/contribute/locations`,
+        geocode: `/agendas/${req.agenda.uid}/contribute/locations/geocode`,
+        reverse: `/agendas/${req.agenda.uid}/contribute/locations/geocode/reverse`,
+        insee: `/agendas/${req.agenda.uid}/contribute/locations/insee`,
+        default: `/${req.agenda.slug}/locations`
+      },
       referencesRes: `/agendas/${req.agenda.uid}/events`,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
       fileStore: { type: 's3', bucket },

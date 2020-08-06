@@ -4,8 +4,11 @@ module.exports = app => {
   require('./services/users').plugApp(app);
   require('./services/mails').plugApp(app);
   app.use('/events/search', app.services.eventSearch.apps.events());
-  app.use('/agendas/:agendaUid/events.v2:format', app.services.eventSearch.apps.agendas.public()),
-  app.use('/agendas/:agendaUid/admin/events.v2:format', app.services.eventSearch.apps.agendas.restricted())
+  app.use('/agendas/:agendaUid/events.v2:format', app.services.eventSearch.apps.agendas.public());
+  app.use('/agendas/:agendaUid/admin/events.v2:format', app.services.eventSearch.apps.agendas.restricted());
+  app.services.agendaLocations.bisounours.apps.admin(app, '/agendas/:agendaUid/admin/locations');
+  app.services.agendaLocations.bisounours.apps.event(app, '/agendas/:agendaUid/contribute/locations');
+  app.services.agendaLocations.bisounours.apps.public(app, '/agendas/:agendaUid/locations');
   require('./agenda/back')(app);
   app.use('/', app.services.inboxes.getApp());
   require('./services/agendaContribute')(app);
