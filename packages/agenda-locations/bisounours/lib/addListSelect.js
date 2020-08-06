@@ -5,7 +5,7 @@ const _ = require('lodash');
 const fields = require('./fields.json');
 
 module.exports = (k, detailed = false) => {
-  k.select(fields.filter(f => {
+  k.select(_.uniq(fields.filter(f => {
     return detailed || f.read.includes('list');
-  }).map(f => f.db || _.snakeCase(f.field)));
+  }).map(f => f.db || _.snakeCase(f.field))));
 }

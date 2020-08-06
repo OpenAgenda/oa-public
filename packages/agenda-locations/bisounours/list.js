@@ -19,7 +19,6 @@ async function list(service, query = {}, nav = {}, options = {}) {
     detailed
   } = cleanListOptions(options);
 
-  addListSelect(k, detailed);
 
   await addListQuery(service, k, {
     ...query,
@@ -31,6 +30,8 @@ async function list(service, query = {}, nav = {}, options = {}) {
     .then(r => r[0].total) : null;
 
   log('total: %s', total);
+
+  addListSelect(k, detailed);
 
   addPaginationAndOrder(k, nav);
 
