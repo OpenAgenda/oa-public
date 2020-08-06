@@ -3,7 +3,7 @@
 const log = require('@openagenda/logs')('list');
 
 const addListQuery = require('./lib/addListQuery');
-const addListSelect = require('./lib/addListSelect');
+const addSelect = require('./lib/addSelect');
 const cleanListOptions = require('./lib/cleanListOptions');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const addPaginationAndOrder = require('./lib/addPaginationAndOrder');
@@ -31,7 +31,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
 
   log('total: %s', total);
 
-  addListSelect(k, detailed);
+  addSelect(k, detailed ? 'public' : 'list');
 
   addPaginationAndOrder(k, nav);
 
