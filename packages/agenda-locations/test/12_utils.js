@@ -20,7 +20,7 @@ describe('utils', () => {
 
   describe('decorateWithCounts', () => {
 
-    it.only('adds given counts to matching location', () => {
+    it('adds given counts to matching location', () => {
       const locations = [{
         uid: 111,
         name: 'Le Monop'

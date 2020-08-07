@@ -228,8 +228,6 @@ describe( 'agenda location instanciate', function() {
 
     before( done => svc.init( config, done ) );
 
-    before( done => svc.rebuild( done ) );
-
     beforeEach( done => _copy( __dirname + '/tmp/creep.jpg', srcFilePath, done ) );
 
     before( done => {

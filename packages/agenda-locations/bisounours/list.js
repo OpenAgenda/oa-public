@@ -49,7 +49,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
     );
   }
 
-  if (!total) return items;
+  if (total === null) return items;
 
   return {
     items,

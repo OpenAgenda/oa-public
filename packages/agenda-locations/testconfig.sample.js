@@ -1,16 +1,6 @@
 "use strict";
 
 module.exports = {
-  elasticsearch: {
-    host: 'localhost:9200',
-    log: [ {
-      type: 'stdio',
-      level: [ 'error', 'warning' ]
-    } ],
-    index: 'location_test',
-    apiVersion: '1.3',
-    timeout: 30000
-  },
   mysql: {
     host: 'localhost',
     user: 'root',

@@ -22,8 +22,6 @@ describe( 'middleware', function() {
 
   beforeEach( done => svc.init( config, done ) );
 
-  beforeEach( done => svc.rebuild( done ) );
-
   beforeEach( () => {
 
     middleware = svc.mw( 'agendaId' );
@@ -34,23 +32,19 @@ describe( 'middleware', function() {
 
     svc.set( { uid: 27330589, image: 'fdfdq.jpg' }, err => {
 
-      svc.refresh( () => {
-
-        let req = {
-          params: {
-            uid: 27330589
-          }
+      let req = {
+        params: {
+          uid: 27330589
         }
+      }
 
-        svc.mw.get( req, {}, err => {
+      svc.mw.get( req, {}, err => {
 
-          should( err ).equal( undefined );
+        should( err ).equal( undefined );
 
-          req.location.image.should.equal( '//openagendatst.s3.amazonaws.com/fdfdq.jpg' );
+        req.location.image.should.equal( '//openagendatst.s3.amazonaws.com/fdfdq.jpg' );
 
-          done();
-
-        } );
+        done();
 
       } );
 
@@ -145,8 +139,7 @@ describe( 'middleware', function() {
         json: data => {
 
           data.should.eql( {
-            removed: true,
-            unindexed: true
+            removed: true
           } );
 
           done();
