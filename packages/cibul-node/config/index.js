@@ -565,10 +565,6 @@ const config = {
           method: 'get',
           uri: '/:slug/admin/emailstrategie/unlink'
         },
-        locationIndex: {
-          method: 'get',
-          uri: '/:slug/locations'
-        },
         agendaAdminLocations: {
           method: 'get',
           uri: '/:slug/admin/locations'

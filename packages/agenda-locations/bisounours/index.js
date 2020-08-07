@@ -3,7 +3,9 @@
 const knex = require('knex');
 const logger = require('@openagenda/logs');
 
+const get = require('./get');
 const list = require('./list');
+const getINSEECode = require('./utils/getINSEECode');
 
 module.exports = (c = {}) => {
   const config = Object.keys(c).reduce((config, key) => (
@@ -11,6 +13,7 @@ module.exports = (c = {}) => {
     ...config,
     [key]: c[key]
   } : config), {
+    redis: null,
     imagePath: '//cdn.to.images/',
     schema: 'location',
     interfaces: {
@@ -35,12 +38,19 @@ module.exports = (c = {}) => {
   };
 
   Object.assign(service, {
-    listByAgendaUid: list.byAgendaUid.bind(null, service)
+    listByAgendaUid: list.byAgendaUid.bind(null, service),
+    getByAgendaUid: get.byAgendaUid.bind(null, service)
   });
 
   service.exposed = Object.assign(agendaUid => ({
-    list: service.listByAgendaUid.bind(null, agendaUid)
-  }), {});
+    list: service.listByAgendaUid.bind(null, agendaUid),
+    get: service.getByAgendaUid.bind(null, agendaUid)
+  }), {
+    get: get.bind(null, service),
+    utils: {
+      getINSEECode: config.redis ? getINSEECode(config.redis) : null
+    }
+  });
 
   return service.exposed;
 }

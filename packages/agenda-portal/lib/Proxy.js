@@ -96,9 +96,15 @@ module.exports = ({
             ...(uid ? { uids: [uid] } : {}),
             ...(slug ? { slug } : {})
           }
-        },
-      1
-    ).then(r => _.get(r, 'events.0'));
+        }
+    ).then(r => r.events
+      .filter(e => {
+        if (slug) {
+          return e.slug === slug;
+        }
+        return e.uid === parseInt(uid, 10);
+      })
+      .pop());
   }
 
   const cached = _.memoize(_fetch, (agendaUid, res, query) => [agendaUid, res, qs.stringify(query)].join('|'));

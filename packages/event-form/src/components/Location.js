@@ -9,6 +9,16 @@ import LocationSelector from '@openagenda/agenda-locations/components/build/Loca
 
 import flattenLocationTagSet from '../utils/flattenLocationTagSet';
 
+const getRes = (res, key, suffix) => {
+  if (typeof res === 'string') {
+    return res + suffix;
+  } else if (res[key]) {
+    return res[key];
+  } else {
+    return res.default + suffix
+  };
+}
+
 class LocationComponent extends Component {
 
   constructor( props ) {
@@ -39,7 +49,7 @@ class LocationComponent extends Component {
 
   loadLocation( locationUid ) {
 
-    sa.get( this.props.field.res + '/' + locationUid ).then( res => {
+    sa.get(this.props.field.res.get.replace(':uid', locationUid)).then(res => {
 
       this.setState( {
         initing: false,
@@ -63,25 +73,26 @@ class LocationComponent extends Component {
   }
 
   detailedRes() {
-
     const { res } = this.props.field;
 
-    return {
-      index: `${res}`,
-      geocode: `${res}/geocode`,
-      reverseGeocode: `${res}/geocode/reverse`,
-      insee: `${res}/insee`,
-      set: `${res}`,
-      remove: `${res}/remove`,
+    const detailed = {
+      index: getRes(res, 'index', ''),
+      get: getRes(res, 'get', ''),
+      geocode: getRes(res, 'geocode', '/geocode'),
+      reverseGeocode: getRes(res, 'reverse', '/geocode/reverse'),
+      insee: getRes(res, 'insee', `/insee`),
+      set: getRes(res, 'set', ''),
+      remove: getRes(res, 'remove', '/remove'),
       image: {
-        newUpload: `${res}/image`,
-        newRemove: `${res}/image/remove`,
-        upload: `${res}/:locationUid/image`,
-        remove: `${res}/:locationUid/image/remove`
+        newUpload: getRes(res, 'newImageUpload', `/image`),
+        newRemove: getRes(res, 'newImageRemove', `/image/remove`),
+        upload: getRes(res, 'imageUpload', `/:locationUid/image`),
+        remove: getRes(res, 'imageRemove', `/:locationUid/image/remove`)
       },
-      suggestChange: `${res}/:locationUid/suggest-change/conversation/create`
+      suggestChange: getRes(res, 'suggestChange', `/:locationUid/suggest-change/conversation/create`)
     }
 
+    return detailed;
   }
 
   getSettings() {

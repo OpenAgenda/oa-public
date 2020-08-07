@@ -4,8 +4,12 @@ module.exports = app => {
   require('./services/users').plugApp(app);
   require('./services/mails').plugApp(app);
   app.use('/events/search', app.services.eventSearch.apps.events());
-  app.use('/agendas/:agendaUid/events.v2:format', app.services.eventSearch.apps.agendas.public()),
-  app.use('/agendas/:agendaUid/admin/events.v2:format', app.services.eventSearch.apps.agendas.restricted())
+  app.use('/agendas/:agendaUid/events.v2:format', app.services.eventSearch.apps.agendas.public());
+  app.use('/agendas/:agendaUid/admin/events.v2:format', app.services.eventSearch.apps.agendas.restricted());
+  app.services.agendaLocations.bisounours.apps(app, '/locations');
+  app.services.agendaLocations.bisounours.apps.admin(app, '/agendas/:agendaUid/admin/locations');
+  app.services.agendaLocations.bisounours.apps.event(app, '/agendas/:agendaUid/contribute/locations');
+  app.services.agendaLocations.bisounours.apps.agenda(app, '/agendas/:agendaUid/locations');
   require('./agenda/back')(app);
   app.use('/', app.services.inboxes.getApp());
   require('./services/agendaContribute')(app);
@@ -34,7 +38,6 @@ module.exports = app => {
   require('./auth/reset.front')(app);
   require('./agenda/emailstrategie.back')(app);
   require('./agenda/embeds.back')(app);
-  require('./location/front')(app);
   require('./agenda/customized.back')(app);
   app.services.aggregators.plugApp(app);
   require('./agenda/settings.back')(app);
