@@ -54,7 +54,7 @@ const initialState = async req => {
         },
         agendaAdmin: {
           loadAgenda: '/:slug/admin/layout',
-          verifyLocationCount: '/:slug/admin/locations/verifycount'
+          verifyLocationCount: '/agendas/:uid/admin/locations/unverified'
         }
       }
     },

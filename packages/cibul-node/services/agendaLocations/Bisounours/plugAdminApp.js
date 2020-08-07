@@ -17,10 +17,21 @@ module.exports = (config, services, instance, app, base) => {
         _.pick(req.query, ['offset', 'limit']),
         { total: true, eventCounts: true, detailed: true }
       ).then(({ items, total }) => res.json({ items, total }), next);
-    },
-    (err, req, res) => {
-      res.status(500).json();
-      log('error', err);
     }
   );
+
+  app.get(`${base}/unverified`,
+    expressUtils.https,
+    members.mw.authorizeAdminModOrKey({ agendaUidPath: 'params.agendaUid' }),
+    (req, res, next) => {
+      instance(req.params.agendaUid)
+        .list({ state: 0 }, { limit: 0 }, { total: true })
+        .then(({ total }) => res.json({ count: total }), next);
+    }
+  );
+
+  app.get(base, (err, req, res, next) => {
+    res.status(500).json();
+    log('error', err);
+  });
 };

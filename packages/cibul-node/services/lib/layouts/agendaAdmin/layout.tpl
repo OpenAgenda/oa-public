@@ -28,7 +28,7 @@
             <span class="badge badge-default badge-outline-primary badge-baseline margin-left-sm"><%= tabLabels.newTab %></span>
             <% } %>
             <% if ( scriptAnchor ) { %>
-            <%= scriptAnchor.replace( ':slug', agenda.slug ) %>
+            <%= scriptAnchor.replace( ':slug', agenda.slug ).replace( ':agendaUid', agenda.uid ) %>
             <% } %>
           </li>
           <% } ) %>

@@ -3,7 +3,7 @@
 <% if ( t.key === 'locations' ) { %>
     <span><%= t.label %></span>
     <span class="js_locations_counter" data-options="<%= JSON.stringify( {
-      res: genUrl( 'locationToVerifyCount', { slug: agenda.slug } )
+      res: '/agendas/' + agenda.uid + '/admin/locations/unverified'
     } ) %>"></span>
 <% } else if ( t.call ) { %>
     <span class="js_call_to_action" data-lang="<%= lang %>" data-subject="<%= t.call.subject %>" data-agenda="<%= t.call.agenda %>" style="opacity:0.3;">

@@ -132,15 +132,6 @@ module.exports = app => {
     _resyncSuccess
   );
 
-  app.get(
-    '/:slug/admin/locations/verifycount',
-    cmn.loadAgenda,
-    sessions.mw.load(),
-    checkUser,
-    members.mw.loadAndAuthorize('moderator'),
-    mw.getUnverifiedCount
-  );
-
   app.post(
     '/:slug/locations/image',
     cmn.loadAgenda,
