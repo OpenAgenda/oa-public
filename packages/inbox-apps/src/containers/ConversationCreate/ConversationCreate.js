@@ -173,7 +173,7 @@ class ConversationCreate extends Component {
                     }
                   }
                 }}
-                onFileUploaded={attachFileToMessage}
+                onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
                 autoFocus={settings.autoFocus}
               />
             </div>

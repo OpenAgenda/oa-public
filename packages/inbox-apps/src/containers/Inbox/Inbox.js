@@ -281,7 +281,7 @@ class Inbox extends Component {
                       }
                     }
                   }}
-                  onFileUploaded={attachFileToMessage}
+                  onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
                 />
               </div>
             </div>
