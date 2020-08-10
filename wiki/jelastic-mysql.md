@@ -11,6 +11,8 @@ Sur https://app.jpe.infomaniak.com/
 Lancer la création d'un nouvel environnement à partir de l'URL suivante en laissant les options par défaut:
 https://github.com/jelastic-jps/mysql-cluster/blob/master/manifest.jps
 
+Selectionner depuis le marketplace Jelastic le Cluster MySQL/MariaDB, dans le menu, inclure ProxySQL, et prendre MySQL CE.
+
 L'installation comprend:
 
 - 2 nœuds MySQL (Master-Slave)
@@ -20,17 +22,19 @@ Un fois l'installation terminée un email avec les informations de connexion ser
 
 Il faut ensuite modifier la topologie de l'environement et ajouter une IP publique à ProxySQL, sans ça la base de données n'est pas accessible depuis l'extérieur.
 
+A ce stade, il est possible de se connecter avec un client en non-sécurisé:
+
+    mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -ujelastic-48749
+
 Pour plus d'informations: https://jelastic.com/blog/mysql-mariadb-database-auto-clustering-cloud-hosting/
 
-## Activation du SSL
+## Sécurisation
 
 Pour les données qui transitent sur le web il est important de chiffrer les données, il est donc nécessaire d'activer le SSL au moins pour la connexion à ProxySQL.
 
-Pour plus d'informations: https://proxysql.com/blog/ssl-at-proxysql-part1/
+### Activer le SSL
 
-### SSL: Connexion à ProxySQL
-
-La procédure suivante doit être réalisée sur chaque nœud ProxySQL, en SSH ou WebSSH:
+Se connecter SSH sur chaque serveur "DB Load balancer" ProxySSL, pour éditer la variable "mysql-have_ssl" de la db de configuration:
 
 ```
 $> mysql -h 127.0.0.1 -P6032 -uadmin -padmin
@@ -39,64 +43,49 @@ mysql> LOAD MYSQL VARIABLES TO RUNTIME;
 mysql> SAVE MYSQL VARIABLES TO DISK;
 ```
 
-Une fois que vous avez terminé, redémarrez les serveurs ProxySQL.
+Les certificats à utiliser pour la connexion depuis le client sont dans le dossier `/var/lib/proxysql`. Ils sont automatiquement générés et sont différents sur chaque instance de DB Load balancer. Copier le contenu des fichiers `proxysql-ca.pem`, `proxysql-cert.pem` et `proxysql-key.pem` de la première instance ProxySQL pour les placer dans les autres.
 
-### SSL: ProxySQL -> MySQL
+Les instances ProxySQL où ont été placés les certificats de l'instance de référence doivent être redémarrées.
 
-Le SSL pour la communication entre ProxySQL et MySQL est nécessaire pour les serveurs MySQL qui ne sont pas dans le même environement que ProxySQL.
+Les certificats doivent être également présents sur la machine d'où se fait la connexion sécurisée (l'ordi de dev par ex):
 
-Comme ProxySQL transfère le trafic vers tous les serveurs backend, nous devons conserver les mêmes fichiers `*.pem` sur toutes les instances de base de données. Vous pouvez copier les fichiers suivants de n'importe quel nœud de base de données vers tous les backends.
+    mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -ujelastic-48749 --ssl-ca=/cheminvers/ca.pem --ssl-cert=/cheminvers/cert.pem --ssl-key=/cheminvers/key.pem
 
-N'oubliez pas que vous devez changer leur propriété de l'utilisateur `root` à `mysql`.
+Il est désormais possible de se connecter de manière sécurisée au cluster
 
-```
--rw-r--r-- 1 mysql mysql 1.1K Mar 22 08:07 ca.pem
--rw------- 1 mysql mysql 1.7K Mar 22 08:07 ca-key.pem
--rw------- 1 mysql mysql 1.7K Mar 22 08:07 server-key.pem
--rw-r--r-- 1 mysql mysql 1.1K Mar 22 08:07 server-cert.pem
--rw------- 1 mysql mysql 1.7K Mar 22 08:07 client-key.pem
--rw-r--r-- 1 mysql mysql 1.1K Mar 22 08:07 client-cert.pem
--rw-r--r-- 1 mysql mysql  452 Mar 22 08:07 public_key.pem
--rw------- 1 mysql mysql 1.7K Mar 22 08:07 private_key.pem
-```
+### Désactiver les connexions non sécurisées
 
-Une fois que vous avez terminé, redémarrez les serveurs MySQL.
-
-Nous devons maintenant transférer `ca.pem`, `client-cert.pem` et `client-key.pem` vers tous les serveurs ProxySQL dans le dossier `/var/lib/proxysql/`.
+Pour empecher de se connecter de manière non sécurisée, il faut de nouveau se connecter sur chaque instance de l'environnement "DB Load balancer" pour modifier une variable liée au compte utilisé pour la connexion. Sur un ssh de chaque instance ProxySQL, après une connexion au mysql de configuration (`$> mysql -h 127.0.0.1 -P6032 -uadmin -padmin`), lancer les commandes suivantes:
 
 ```
-$> mysql -h 127.0.0.1 -P6032 -uadmin -padmin
-mysql> UPDATE mysql_servers SET use_ssl=1 WHERE port=3306;
-mysql> SET mysql-ssl_p2s_cert="/var/lib/proxysql/client-cert.pem";  
-mysql> SET mysql-ssl_p2s_key="/var/lib/proxysql/client-key.pem";  
-mysql> SET mysql-ssl_p2s_ca="/var/lib/proxysql/ca.pem";  
-mysql> SET mysql-ssl_p2s_cipher='ECDHE-RSA-AES256-SHA';
-mysql> LOAD MYSQL VARIABLES TO RUNTIME;
-mysql> SAVE MYSQL VARIABLES TO DISK;
+update mysql_users set use_ssl=1;
+LOAD MYSQL USERS TO RUNTIME;
+SAVE MYSQL USERS TO DISK;
 ```
 
-Une fois que vous avez terminé, redémarrez les serveurs ProxySQL.
+La connexion non sécurisée est désormais non autorisée
 
-Pour obliger les serveurs MySQL à verifier les certificats, vous pouvez ajouter les lignes suivantes dans le fichier `my.cnf` sous la catégorie `[mysqld]`:
+### Liens utiles
 
-```
-ssl_ca=ca.pem
-ssl_cert=client-cert.pem
-ssl_key=client-key.pem
-require_secure_transport=ON
-```
-
-Une fois que vous avez terminé, redémarrez les serveurs MySQL.
+[SSL Configuration for frontends](https://github.com/sysown/proxysql/wiki/SSL-Support#ssl-configuration-for-frontends)
+[ProxySQL users configuration](https://proxysql.com/documentation/users-configuration/)
+[https://proxysql.com/blog/ssl-at-proxysql-part1/](SSL at ProxySQL Part 1)
 
 ## Backups automatisés
 
-Pour stocker vos backups de manière permanente vous devez modifier la topologie de l'environement pour y ajouter un conteneur de stockage.
+Pour stocker vos backups de manière permanente vous devez modifier la topologie de l'environement pour y ajouter un conteneur de stockage (NFS, au même niveau que le conteneur ProxySQL dans le diagramme de la topologie)
 
-Sur un des serveurs Mysql seulement, vous devez ajouter un point de montage comme sur l'image suivante.
+Sur un des serveurs Mysql esclaves, vous devez ajouter un point de montage via le menu de configuration du serveur (comme sur l'image suivante):
 
 ![jelastic-mysql-backup-mountpoint](./images/jelastic-mysql-backup-mountpoint.png)
 
-Maintenant nous devons ajouter la ligne suivante dans le fichier `/var/spool/cron/mysql` en remplaçant `USER` et `PASSWORD`:
+Dans la section "Points de montage/Répertoire", cliquer sur "Monter" puis:
+
+ * préciser `/var/lib/jelastic/backup` comme chemin pour le montage
+ * choisir le conteneur de données "Extra storage NFS" créé dans la topologie
+ * préciser un chemin d'accès distant: `/data/backups`
+
+Toujours sur le serveur MySQL esclave, ajouter la ligne suivante dans le fichier `/var/spool/cron/mysql` en remplaçant `USER` et `PASSWORD`:
 
 ```
 0 1 * * * /var/lib/jelastic/bin/backup_script.sh -m dump -c 10 -u USER -p PASSWORD -d oa
