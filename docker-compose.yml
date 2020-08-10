@@ -119,7 +119,7 @@ services:
       OA_MYSQL_DEV_HOST: ${MYSQL_HOST}
       OA_MYSQL_DEV_PASSWORD: ${MYSQL_PASSWORD}
       OA_MYSQL_DEV_USER: ${MYSQL_USER}
-      OA_MYSQL_DEV_SSL_ENABLED: 1
+      OA_MYSQL_DEV_SSL_VERIFY: ${MYSQL_SSL_VERIFY}
       OA_MYSQL_DEV_SSL_CA: /ssl/db-ca.pem
       OA_MYSQL_DEV_SSL_KEY: /ssl/db-key.pem
       OA_MYSQL_DEV_SSL_CERT: /ssl/db-cert.pem

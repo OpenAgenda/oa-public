@@ -319,7 +319,7 @@ class Conversation extends Component {
               onMessageSent={() => {
                 showModal('messageSent');
               }}
-              onFileUploaded={attachFileToMessage}
+              onFileUploaded={(...args) => attachFileToMessage(...args, agenda)}
               conversation={conversation}
               autoFocus={settings.autoFocus}
             />
