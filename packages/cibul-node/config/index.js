@@ -1,12 +1,12 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const knexLib = require( 'knex' );
-const redis = require( 'redis' );
+const _ = require('lodash');
+const fs = require('fs');
+const knexLib = require('knex');
+const redis = require('redis');
 const debug = require('debug');
 
-const prod = require( './prod' );
+const prod = require('./prod');
 
 let currentConfig;
 
@@ -17,52 +17,54 @@ const config = {
     superAdminIds: [1, 2, 11258, 15453],
     jsVersion: 42,
     cssVersion: 2,
-    interfaceLanguages: [ 'fr', 'en', 'de', 'es', 'it', 'br' ],
+    interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br'],
     versions: {
       // unused for now
-      members: [ {
-        version: 2,
-        createdAt: '2016-05-22T00:00:00.000Z',
-        agendaUids: [
-          47863189, // reed expo
-          48959239, // la gargouille
-          93961830, // jerusalem
-          5897476,  // jerusalem
-          96165479,
-          11072140,
-          41715612,
-          28447894,
-          27744304,
-          56907207,
-          26127587,
-          73087674,
-          63338236,
-          47483234,
-          19187305,
-          33332852,
-          66274790, // jerusalem
-          72177774,
-          67130267,
-          68263389,
-          2445326,
-          19678829,
-          49562322, // jerusalem
-          61327284, // toujours jerusalem
-          77097167, // Fête de la musique
-          27437914,
-          30456419,
-          71115381,
-          20168566,
-          22946799,
-          9343334,
-          11919999,
-          85229066,
-          30453876,
-          61665301 // ficepparis
-        ]
-      }, {
-        version: 1
-      } ]
+      members: [
+        {
+          version: 2,
+          createdAt: '2016-05-22T00:00:00.000Z',
+          agendaUids: [
+            47863189, // reed expo
+            48959239, // la gargouille
+            93961830, // jerusalem
+            5897476,  // jerusalem
+            96165479,
+            11072140,
+            41715612,
+            28447894,
+            27744304,
+            56907207,
+            26127587,
+            73087674,
+            63338236,
+            47483234,
+            19187305,
+            33332852,
+            66274790, // jerusalem
+            72177774,
+            67130267,
+            68263389,
+            2445326,
+            19678829,
+            49562322, // jerusalem
+            61327284, // toujours jerusalem
+            77097167, // Fête de la musique
+            27437914,
+            30456419,
+            71115381,
+            20168566,
+            22946799,
+            9343334,
+            11919999,
+            85229066,
+            30453876,
+            61665301 // ficepparis
+          ]
+        }, {
+          version: 1
+        }
+      ]
     },
     port: 8901 || process.env.OA_PORT,
     apiPort: 8902 || process.env.OA_API_PORT,
@@ -106,7 +108,7 @@ const config = {
     useCache: false,
     agendaCacheExpire: 30 * 1000,
     shares: {
-      agenda: [ 'twitter', 'facebook', 'googlePlus', 'linkedIn' ]
+      agenda: ['twitter', 'facebook', 'googlePlus', 'linkedIn']
     },
     adminEmail: 'admin@openagenda.com',
     callToActionEmails: prod.sales.emails,
@@ -198,10 +200,12 @@ const config = {
     },
     es75: prod.elasticsearch.v7_5,
     esLocation: {
-      log: [ {
-        type: 'stdio',
-        level: [ 'error', 'warning' ]
-      } ],
+      log: [
+        {
+          type: 'stdio',
+          level: ['error', 'warning']
+        }
+      ],
       index: prod.elasticsearch.indices.locations,
       apiVersion: '1.3',
       timeout: 30000
@@ -324,7 +328,7 @@ const config = {
     twitter: {
       name: prod.twitter.name
     },
-    imageSizeLimits: [ 2000, 30000000 ],
+    imageSizeLimits: [2000, 30000000],
     comexposium: {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
@@ -819,11 +823,13 @@ const config = {
       user: process.env.OA_MYSQL_DEV_USER || 'root',
       cache: true,
       timezone: 'UTC',
-      ssl: process.env.OA_MYSQL_DEV_SSL_ENABLED ? {
-        ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
-        cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
-        key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY)
-      } : null
+      ssl: parseInt(process.env.OA_MYSQL_DEV_SSL_VERIFY, 10)
+        ? {
+          ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
+          cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
+          key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY)
+        }
+        : true
     },
     auth: {
       local: {
@@ -976,7 +982,7 @@ const config = {
   }
 };
 
-currentConfig = _loadEnv( process.env.NODE_ENV || 'development' );
+currentConfig = _loadEnv(process.env.NODE_ENV || 'development');
 
 currentConfig.loadEnv = _loadEnv;
 
@@ -985,39 +991,39 @@ currentConfig.loadEnv = _loadEnv;
  * emailstrategie database configuration
  */
 
-currentConfig.emailStrategieDb = _.merge( {}, currentConfig.db, {
+currentConfig.emailStrategieDb = _.merge({}, currentConfig.db, {
   database: 'emailStrategie' + (process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '')
-} );
+});
 
-currentConfig.knex = knexLib( {
+currentConfig.knex = knexLib({
   client: 'mysql',
   connection: currentConfig.db,
   pool: { min: 2, max: 20 },
   schemas: currentConfig.schemas
-} );
+});
 
-currentConfig.redisClient = redis.createClient( currentConfig.redis.port, currentConfig.redis.host );
+currentConfig.redisClient = redis.createClient(currentConfig.redis.port, currentConfig.redis.host);
 
-if ( process.env.DEBUG ) {
+if (process.env.DEBUG) {
   currentConfig.logger.debug.enable = process.env.DEBUG;
 }
 
 debug.disable();
-debug.enable( currentConfig.logger.debug.enable );
+debug.enable(currentConfig.logger.debug.enable);
 
-currentConfig.getLogConfig = ( prefix, key, keyInPrefix = true ) => ( {
+currentConfig.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   debug: {
     prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`
   },
-  token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[ key ]
-} );
+  token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[key]
+});
 
 
 module.exports = currentConfig;
 
 
-function _loadEnv( env ) {
+function _loadEnv(env) {
 
-  return _.merge( currentConfig ? currentConfig : {}, config.all, config[ env ] );
+  return _.merge(currentConfig ? currentConfig : {}, config.all, config[env]);
 
 }
