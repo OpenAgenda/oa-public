@@ -12,7 +12,7 @@
   {
     "name": "locations",
     "section": "manage",
-    "scriptAnchor": "<span class=\"js_locations_counter\" data-res=\"/:slug/admin/locations/verifycount\"></span>"
+    "scriptAnchor": "<span class=\"js_locations_counter\" data-res=\"/agendas/:agendaUid/admin/locations/unverified\"></span>"
   },
   {
     "name": "sources",

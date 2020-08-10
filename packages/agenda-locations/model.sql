@@ -24,5 +24,6 @@ create table if not exists location (
   unique index slug_idx (slug),
   index latlng_idx (latitude, longitude),
   index owner_id_idx (owner_id),
+  index agenda_id_idx (agenda_id),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;

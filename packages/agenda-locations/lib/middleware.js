@@ -56,8 +56,7 @@ function getMiddleware( idRef ) {
     imageRemove,
     newImageUpload,
     newImageRemove,
-    getStakeholder,
-    getUnverifiedCount
+    getStakeholder
   }
 
   function load( req, res, next ) {
@@ -287,34 +286,6 @@ function getMiddleware( idRef ) {
     service.resync( agendaId, () => {} );
 
     next();
-
-  }
-
-  function getUnverifiedCount( req, res, next ) {
-
-    const agendaId =_.get( req, idRef, null );
-
-    if ( !agendaId ) {
-
-      return next( {
-        code: 404,
-        message: 'no agenda defined'
-      } );
-
-    }
-
-    service.count( {
-      agendaId,
-      state: states.unverified
-    }, ( err, count ) => {
-
-      if ( err ) return next( err );
-
-      res.json( {
-        count
-      } );
-
-    } );
 
   }
 

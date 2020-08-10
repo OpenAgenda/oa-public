@@ -130,18 +130,10 @@ function AgendaAdminLayout({
     () => dispatch(agendaAdminActions.load(params.slug, intl.locale)),
     [dispatch, params.slug, intl.locale]
   );
-  const verifyLocationCount = useCallback(
-    () => dispatch(agendaAdminActions.verifyLocationCount(params.slug)),
-    [dispatch, params.slug]
-  );
 
   useEffect(() => {
     loadLayoutData();
   }, [loadLayoutData]);
-
-  useEffect(() => {
-    verifyLocationCount();
-  }, [verifyLocationCount]);
 
   const user = useSelector(state => _.get(state, 'main.user', null));
   const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
@@ -166,6 +158,15 @@ function AgendaAdminLayout({
     state => _.get(state, 'agendaAdmin.sections', null),
     shallowEqual
   );
+
+  const verifyLocationCount = useCallback(() => {
+    if (!agenda?.uid) return;
+    dispatch(agendaAdminActions.verifyLocationCount(agenda.uid));
+  }, [dispatch, agenda?.uid]);
+
+  useEffect(() => {
+    verifyLocationCount();
+  }, [verifyLocationCount]);
 
   useIsomorphicLayoutEffect(() => {
     if (loadError) {

@@ -82,7 +82,7 @@ export function load(slug, lang) {
   };
 }
 
-export function verifyLocationCount(slug) {
+export function verifyLocationCount(uid) {
   return {
     types: [
       VERIFY_LOCATION_COUNT,
@@ -93,7 +93,7 @@ export function verifyLocationCount(slug) {
       const { res } = getState();
 
       return client.get(
-        res.agendaAdmin.verifyLocationCount.replace(':slug', slug)
+        res.agendaAdmin.verifyLocationCount.replace(':uid', uid)
       );
     }
   };

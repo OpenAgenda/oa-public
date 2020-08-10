@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const should = require( 'should' ),
 
 fixtures = require( './fixtures' ),
@@ -22,8 +20,6 @@ describe( 'agenda location service', function () {
 
     beforeEach( done => svc.init( config, done ) );
 
-    beforeEach( done => svc.rebuild( done ) );
-
     it( 'unlink sets location agenda reference to null', done => {
 
       const uid = 66638019;
@@ -39,56 +35,6 @@ describe( 'agenda location service', function () {
           con.query( `select id, uid, agenda_id from ${config.mysql.table} where uid = ?`, uid, ( err, rows ) => {
 
             should( rows[ 0 ].agenda_id ).equal( null );
-
-            done();
-
-          } );
-
-        } );
-
-      } );
-
-    } );
-
-
-    it( 'unlink removes the location from search', done => {
-
-      let uid = 66638019;
-
-      svc.list( { uid }, 0, 1, ( err, locations ) => {
-
-        locations.length.should.equal( 1 );
-
-        svc.unlink( { uid }, { refresh: true }, ( err, location ) => {
-
-          svc.list( { uid }, 0, 1, ( err, locations ) => {
-
-            locations.length.should.equal( 0 );
-
-            done();
-
-          } );
-
-        } );
-
-      } );
-
-    } );
-
-
-    it( 'remove removes the location from search', done => {
-
-      let uid = 66638019;
-
-      svc.list( { uid }, 0, 1, ( err, locations ) => {
-
-        locations.length.should.equal( 1 );
-
-        svc.remove( { uid }, { refresh: true }, ( err, location ) => {
-
-          svc.list( { uid }, 0, 1, ( err, locations ) => {
-
-            locations.length.should.equal( 0 );
 
             done();
 
@@ -134,8 +80,6 @@ describe( 'agenda location service', function () {
 
     beforeEach( done => svc.init( config, done ) );
 
-    beforeEach( done => svc.rebuild( done ) );
-
     it( 'gets an instanciated location object', done => {
 
       svc.get( { uid: 66638019 }, ( err, location ) => {
@@ -173,8 +117,6 @@ describe( 'agenda location service', function () {
     beforeEach( done => fixtures( 123, done ) );
 
     beforeEach( done => svc.init( config, done ) );
-
-    beforeEach( done => svc.rebuild( done ) );
 
     it( 'simple location set', done => {
 
@@ -259,8 +201,6 @@ describe( 'agenda location service', function () {
 
     beforeEach( done => svc.init( config, done ) );
 
-    beforeEach( done => svc.rebuild( done ) );
-
     it( 'merge applies changes to merged location', done => {
 
       svc.merge( {
@@ -282,28 +222,6 @@ describe( 'agenda location service', function () {
       } );
 
     } );
-
-
-    it( 'merge reduces the total of locations by the number of merged minus 1', done => {
-
-      svc.list( {}, 0, 10, ( err, items, total ) => {
-
-        svc.merge( {}, { uids: mergeUids }, err => {
-
-          svc.list( {}, 0, 10, ( err, items, newTotal ) => {
-
-            total.should.equal( newTotal + mergeUids.length - 1  );
-
-            done();
-
-          } );
-
-        } );
-
-      } );
-
-    } );
-
 
     it( 'list locations with all fields', done => {
 
@@ -418,11 +336,11 @@ describe( 'agenda location service', function () {
     } );
 
 
-    it( 'first location provided by merge is used as merged location', done => {
+    it( 'last location provided by merge is used as merged location', done => {
 
       svc.merge( {}, { uids: mergeUids }, ( err, result ) => {
 
-        result.location.uid.should.equal( mergeUids[ 0 ] );
+        result.location.uid.should.equal( mergeUids[ mergeUids.length -1 ] );
 
         done();
 

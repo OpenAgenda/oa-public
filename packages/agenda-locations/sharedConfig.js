@@ -9,5 +9,4 @@ module.exports = {
   // max number of locations
   // that can be merged in one go
   mergeMax: 20
-  
 }

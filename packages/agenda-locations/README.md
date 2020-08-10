@@ -16,19 +16,9 @@ run tests with mocha
 
 ## Test configuration
 
-Edit a testconfig.js at the root of this project with configuration to your db, elasticsearch, paths. Example of content:
+Edit a testconfig.js at the root of this project with configuration to your db path. Example of content:
 
     module.exports = {
-      elasticsearch: {
-        host: 'localhost:9200',
-        log: [ {
-          type: 'stdio',
-          level: [ 'error', 'warning' ]
-        } ],
-        index: 'location_test',
-        apiVersion: '1.3',
-        timeout: 30000
-      },
       mysql: {
         host: 'localhost',
         user: 'root',
@@ -107,7 +97,7 @@ When existing, labels prefix the listed alternative under the input field.
 
 #### Associated props
 
-* hideCurrentAlternative: When an alternative is loaded in an input, it is either removed from the list of alternatives or remains, depending on this prop 
+* hideCurrentAlternative: When an alternative is loaded in an input, it is either removed from the list of alternatives or remains, depending on this prop
 
 
 ## TermSelector

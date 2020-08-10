@@ -17,8 +17,6 @@ const distance = require( './utils/distance' );
 const instanciate = require( './lib/instanciate' );
 const mw = require( './lib/middleware' );
 const sharedConfig = require( './sharedConfig' );
-const search = require( './lib/search' );
-const searchLocation = require( './lib/search/location' );
 
 let log;
 let config;
@@ -26,16 +24,13 @@ let config;
 const service = {
   init,
   list,
-  count: search.count,
   set,
   get,
   getNew,
   remove,
   unlink,
   merge,
-  rebuild: search.rebuild,
   resync,
-  refresh: search.refresh,
   validate: require( './lib/validate' ), // useful for isolated value validation
   copy,
   getSettings, // deprecated
@@ -47,9 +42,6 @@ const service = {
   utils: {
     countries,
     distance // in meters
-  },
-  tasks: {
-    setLocationTimezones: require( './tasks/setLocationTimezones' )
   },
   logger,
   interfaces: {} // get those at init
@@ -94,13 +86,7 @@ function init( c, cb ) {
 
   db.init( Object.assign({ query: config.query }, config.mysql), config.interfaces, () => {
 
-    search.setPrimaryDb( db );
-
-    search.init( config.elasticsearch, cb );
-
-    searchLocation.init( {
-      imagePath: '//' + config.files.bucket + '.s3.amazonaws.com/'
-    } );
+    cb();
 
   } );
 
@@ -298,39 +284,12 @@ function set( data, settings, cb ) {
 
   } )
 
-  // index in search
-  .then( v => {
-
-    if ( v.errors.length ) return v;
-
-    const indexOperation = v.create || v.settings.forceIndexCreate ? 'create' : 'update';
-
-    log( 'indexing location %s - ( %s )', v.location.uid, indexOperation );
-
-    const d = w.defer();
-
-    search[ indexOperation ]( v.location, { refresh: indexOperation === 'create' }, ( err, indexedLocation ) => {
-
-      if ( err ) return d.reject( err );
-
-      v.indexedLocation = indexedLocation;
-
-      d.resolve( v );
-
-    } );
-
-    return d.promise;
-
-  } )
-
   .done( v => {
-
-    if ( v.indexedLocation ) delete v.indexedLocation.id;
 
     cb( null, {
       success: !v.errors.length,
       valid: !v.errors.length,
-      location: v.indexedLocation,
+      location: v.location,
       errors: v.errors,
       instance: v.location ? instanciate( v.location, { set } ) : false
     } );
@@ -364,7 +323,7 @@ function merge( data, identifiers, cb ) {
 
     const d = w.defer();
 
-    list( v.identifiers, 0, sharedConfig.mergeLimit, { keepId: true }, ( err, locations ) => {
+    list( v.identifiers, 0, sharedConfig.mergeMax, { keepId: true }, ( err, locations ) => {
 
       if ( err ) return d.reject( err );
 
@@ -447,22 +406,6 @@ function merge( data, identifiers, cb ) {
 
   } )
 
-  .then( v => {
-
-    const d = w.defer();
-
-    search.refresh( err => {
-
-      if ( err ) return d.reject( err );
-
-      d.resolve( v );
-
-    } );
-
-    return d.promise;
-
-  } )
-
   .done( v => {
 
     delete v.merged.id;
@@ -483,9 +426,7 @@ function unlink( identifiers, options, cb ) {
 
   }
 
-  const params = Object.assign( {
-    refresh: false // force refresh of search index after remove
-  }, options );
+  const params = Object.assign({}, options);
 
   log( 'processing remove for location with identifiers %s', JSON.stringify( identifiers ) );
 
@@ -495,13 +436,7 @@ function unlink( identifiers, options, cb ) {
 
     if ( !location ) return cb( { code: 404, message: 'location not found' } );
 
-    db.unlink( { id: location.id }, ( err, unlinkedLocation ) => {
-
-      if ( err ) return cb( err );
-
-      _removeFromSearch( unlinkedLocation, params, cb );
-
-    } );
+    db.unlink( { id: location.id }, cb );
 
   } );
 
@@ -517,9 +452,7 @@ function remove( identifiers, options, cb ) {
 
   }
 
-  const params = Object.assign( {
-    refresh: false // force refresh of search index after remove
-  }, options );
+  const params = Object.assign({}, options);
 
   log( 'processing remove for location with identifiers %s', JSON.stringify( identifiers ) );
 
@@ -544,9 +477,13 @@ function remove( identifiers, options, cb ) {
             unindexed: false
           } );
 
-        }
+        } else {
 
-        _removeFromSearch( removedLocation, params, cb );
+          cb( null, {
+            removed: true
+          } );
+
+        }
 
       } );
 
@@ -556,21 +493,6 @@ function remove( identifiers, options, cb ) {
 
 }
 
-
-function _removeFromSearch( location, options, cb ) {
-
-  search.remove( { id: location.id }, options, ( err, removed ) => {
-
-    if ( err ) return cb( err );
-
-    cb( null, {
-      removed: true,
-      unindexed: true
-    } );
-
-  } );
-
-}
 
 list.terms = db.list.terms;
 
@@ -592,7 +514,7 @@ function list( query, offset, limit, options, cb ) {
     detailed: true  // should be false in new service. true here for backward compatibility
   }, options );
 
-  ( params.fromDb ? db : search ).list( query, offset, limit, ( err, locations, total ) => {
+  db.list( query, offset, limit, ( err, locations, total ) => {
 
     if ( err ) return cb( err );
 
@@ -659,7 +581,7 @@ function get( identifiers, options, cb ) {
 
     const d = w.defer();
 
-    ( v.params.fromDb ? db : search ).get( identifiers, ( err, l ) => {
+    db.get( identifiers, ( err, l ) => {
 
       if ( err ) return d.reject( err );
 
@@ -737,13 +659,7 @@ function get( identifiers, options, cb ) {
 
 function resync( agendaId, cb ) {
 
-  db.resync( agendaId, err => {
-
-    if ( err ) return cb( err );
-
-    search.resync( agendaId, cb );
-
-  } );
+  db.resync( agendaId, cb );
 
 }
 
@@ -751,7 +667,6 @@ function resync( agendaId, cb ) {
 function copy( sourceAgendaId, destinationAgendaId, locationIdentifiers, cb ) {
 
   get( utils.extend( { agendaId: sourceAgendaId }, locationIdentifiers ), {
-    fromDb: true,
     instanciate: false
   }, ( err, location ) => {
 
