@@ -28,15 +28,6 @@ module.exports = app => {
     show
   );
 
-  app.get(
-    '/:slug/admin/locations/exports.csv',
-    cmn.loadAgenda,
-    sessions.mw.loadOrRedirect(),
-    cmn.verifyIPMiddleware,
-    members.mw.loadAndAuthorize('moderator'),
-    forwardCsvExport
-  );
-
   app.post(
     '/:slug/locations',
     cmn.loadAgenda,
@@ -203,7 +194,8 @@ function show( req, res ) {
     },
     mapboxKey: config.mapboxAccessToken,
     res: {
-      csv: req.genUrl( 'agendaAdminLocationsCsv', { slug: req.agenda.slug } ),
+      csv: `/agendas/${req.agenda.uid}/admin/locations.csv`,
+      xlsx: `/agendas/${req.agenda.uid}/admin/locations.xlsx`,
       index: `/agendas/${req.agenda.uid}/admin/locations.json`,
       geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
       insee: req.genUrl( 'locationINSEE', { slug: req.agenda.slug } ),
@@ -241,22 +233,6 @@ function show( req, res ) {
     }
   } ) );
 
-}
-
-function forwardCsvExport( req, res, next ) {
-  const options = ih(config.scriptRoutes.adminLocationReport, {
-    path: {
-      $set: config.scriptRoutes.adminLocationReport.path
-          .replace(':agendaUid', req.agenda.uid)
-          .replace(':userUid', req.user.uid)
-        + '?lang=' + req.lang
-    }
-  });
-
-  http.get( options, response => {
-    res.set(_.pick(response.headers, ['content-type', 'content-disposition']));
-    response.pipe(res);
-  });
 }
 
 function _resyncSuccess(req, res, next) {
