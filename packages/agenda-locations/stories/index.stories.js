@@ -27,6 +27,7 @@ const res = {
   remove: `${apiRoot}/remove`,
   merge: `${apiRoot}/merge`,
   csv: '#csv',
+  xlsx: '#xlsx',
   removeSuggestion: `${apiRoot}/:locationUid/suggestion/remove`,
   image: {
     upload: `${apiRoot}/:locationUid/image`,

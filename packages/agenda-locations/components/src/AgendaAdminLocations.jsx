@@ -308,20 +308,6 @@ module.exports = createReactClass( {
 
   },
 
-  renderCsvAction() {
-
-    if ( this.props.res.csv ) {
-
-      return <a href={this.props.res.csv} className="btn btn-default margin-left-sm">
-        <span>csv</span>
-        <i className="fa fa-download margin-left-xs"></i>
-      </a>
-
-    }
-
-    return null;
-
-  },
 
   getMode() {
 
@@ -368,7 +354,14 @@ module.exports = createReactClass( {
               </div>
               <div className="form-group">
                 {this.renderMergeAction()}
-                {this.renderCsvAction()}
+                <div className="btn-group margin-left-sm">
+                  <a href={this.props.res.csv} className="btn btn-default">
+                    <span>csv</span>
+                  </a>
+                  <a href={this.props.res.xlsx} className="btn btn-default">
+                    <span>xlsx</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
