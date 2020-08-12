@@ -5,6 +5,7 @@ const logger = require('@openagenda/logs');
 
 const get = require('./get');
 const list = require('./list');
+const stream = require('./stream');
 const getINSEECode = require('./utils/getINSEECode');
 
 module.exports = (c = {}) => {
@@ -39,11 +40,13 @@ module.exports = (c = {}) => {
 
   Object.assign(service, {
     listByAgendaUid: list.byAgendaUid.bind(null, service),
+    streamByAgendaUid: stream.byAgendaUid.bind(null, service),
     getByAgendaUid: get.byAgendaUid.bind(null, service)
   });
 
   service.exposed = Object.assign(agendaUid => ({
     list: service.listByAgendaUid.bind(null, agendaUid),
+    stream: service.streamByAgendaUid.bind(null, agendaUid),
     get: service.getByAgendaUid.bind(null, agendaUid)
   }), {
     get: get.bind(null, service),
