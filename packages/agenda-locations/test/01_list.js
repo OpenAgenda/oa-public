@@ -185,6 +185,14 @@ describe('agenda-locations - functional - list', () => {
 
   describe('other', () => {
 
+    it('if fields option is specified, result data only includes fields provided', async () => {
+      const items = await svc(7196947).list({}, { limit: 1 }, {
+        includeFields: ['uid', 'name']
+      });
+
+      assert.deepEqual(Object.keys(items[0]), ['uid', 'name']);
+    });
+
     it('if getEventCounts interface is set and eventCount option is true, result includes interface-provided counts', async () => {
       const items = await svc(7196947).list({}, { limit: 3 }, { eventCounts: true });
 

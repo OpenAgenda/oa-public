@@ -18,7 +18,8 @@ async function list(service, query = {}, nav = {}, options = {}) {
     total: includeTotal,
     eventCounts: includeEventCounts,
     context,
-    detailed
+    detailed,
+    includeFields
   } = cleanListOptions(options);
 
   const {
@@ -37,7 +38,10 @@ async function list(service, query = {}, nav = {}, options = {}) {
 
   log('total: %s', total);
 
-  addSelect(k, detailed ? 'public' : 'list', useAfter ? { include: ['id'] } : {});
+  addSelect(k, detailed ? 'public' : 'list', {
+    include: useAfter ? ['id'] : [],
+    includeFields
+  });
 
   addPaginationAndOrder(k, nav);
 
@@ -45,7 +49,8 @@ async function list(service, query = {}, nav = {}, options = {}) {
 
   const items = rows.map(r => fromDbEntryToItem(r, {
     imagePath: service.config.imagePath,
-    access: detailed ? 'public' : 'list'
+    access: detailed ? 'public' : 'list',
+    includeFields
   }));
 
   log('fetched %s items', items.length);
