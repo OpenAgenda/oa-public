@@ -24,7 +24,7 @@ module.exports = ({ knex }) => async (locationUids, { agendaUid }) => {
     })));
 
   return absoluteCounts.reduce((merged, absCount) => {
-    const index = _.indexOf(merged, { uid: absCount.uid });
+    const index = _.findIndex(merged, { uid: absCount.uid });
 
     if (index === -1) {
       merged.push({
@@ -32,10 +32,7 @@ module.exports = ({ knex }) => async (locationUids, { agendaUid }) => {
         agendaEventCount: 0
       });
     } else {
-      merged[index] = {
-        ...merged[index],
-        agendaEventCount: merged[index].agendaEventCount
-      }
+      merged[index].eventCount = absCount.eventCount;
     }
 
     return merged;
