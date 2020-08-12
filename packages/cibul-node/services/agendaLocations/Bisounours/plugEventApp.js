@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const expressUtils = require('@openagenda/utils/express');
 const OpenCage = require('@openagenda/geocoder/Opencage');
+const log = require('@openagenda/logs')('locations/plugEventApp');
 
 module.exports = (config, services, instance, app, base) => {
   const geocoder = OpenCage(config.opencage);
