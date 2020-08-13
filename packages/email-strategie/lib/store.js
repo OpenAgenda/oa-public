@@ -47,7 +47,7 @@ function set( values, cb ) {
 
   if ( !values.id ) {
 
-    _create( values, cb );    
+    _create( values, cb );
 
   } else {
 
@@ -91,7 +91,7 @@ function get( id, cb ) {
     } );
 
   });
-  
+
 }
 
 function del( id, cb ) {
@@ -156,7 +156,7 @@ function _create( data, cb ) {
 
   con = _createConnection();
 
-  con.query( 
+  con.query(
     'insert into ' + dbConfig.table + ' ( login, password, lists ) values ( ?, ?, ? )',
     [ clean.login, clean.password, JSON.stringify( clean.lists ) ],
     function( err, result ) {
@@ -190,7 +190,7 @@ function _checkSchema( cb ) {
 
     con = _createConnection();
 
-    con.query( [ 'create table if not exists ', dbConfig.table,' (', 
+    con.query( [ 'create table if not exists ', dbConfig.table,' (',
       'id bigint auto_increment,',
       'login varchar(100),',
       'password varchar(100),',
@@ -215,13 +215,9 @@ function _createConnection( useDb ) {
 
   if ( useDb === undefined ) useDb = true;
 
-  var conParams = {
-    host: dbConfig.host,
-    user: dbConfig.user,
-    password: dbConfig.password
-  };
+  var conParams = Object.assign({}, dbConfig);
 
-  if ( useDb ) conParams.database = dbConfig.database;
+  if ( !useDb ) conParams.database = undefined;
 
   return mysql.createConnection( conParams );
 

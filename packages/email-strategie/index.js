@@ -1,7 +1,7 @@
 "use strict";
 
 var config = {
-  redis: false, // required. 
+  redis: false, // required.
   database: false
 },
 
@@ -49,7 +49,7 @@ function linkAccount( login, password, cb ) {
 
     store.set( { login: login, password: password }, function( err, id ) {
 
-      if ( err || !id ) return cb( err || 'could not create link' );
+      if ( err || !id ) return cb( err || 'could not create link' );
 
       getAccount( id, cb );
 
