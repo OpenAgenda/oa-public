@@ -353,7 +353,6 @@ module.exports = createReactClass( {
                   onClick={this.actions.newLocation.bind( null )}>{this.getLabel( 'create' )}</button>
               </div>
               <div className="form-group">
-                {this.renderMergeAction()}
                 <div className="btn-group margin-left-sm">
                   <a href={this.props.res.csv} className="btn btn-default">
                     <span>csv</span>
