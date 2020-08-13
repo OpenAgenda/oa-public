@@ -700,6 +700,10 @@ function _filterWheres( v ) {
 
   v.filteredWheres = {};
 
+  if (v.wheres.uids) {
+    v.wheres.uid = v.wheres.uids;
+  }
+
   [ 'name', 'agendaId', 'uid' ].filter( f => v.wheres[ f ] !== undefined ).forEach( f => {
 
     v.filteredWheres[ f ] = v.wheres[ f ];
