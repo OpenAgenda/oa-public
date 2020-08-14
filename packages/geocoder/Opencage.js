@@ -45,7 +45,7 @@ async function geocode(key, query, { countryCode, language, raw, first }) {
     countryCode: cleanCountryCode
   } = cleanGeocodeQuery(query, countryCode);
 
-  if (!(query || '').length) {
+  if (!cleanQuery.length) {
     return first ? null : [];
   }
 
@@ -68,6 +68,7 @@ async function geocode(key, query, { countryCode, language, raw, first }) {
  * DOMTOM, HONG KONG... country codes are not known by OpenCage
  */
 function cleanGeocodeQuery(query, countryCode) {
+  const cleanQuery = (query || '').trim();
 
   for (const transform of [{
     from: ['YT', 'PF', 'GF', 'PM','MQ', 'GP', 'RE', 'NC'],
@@ -79,20 +80,18 @@ function cleanGeocodeQuery(query, countryCode) {
     from: ['AW'],
     to: 'NL'
   }]) {
-
     if (transform.from.includes(countryCode)) {
-
       return {
         countryCode: transform.to,
-        query
+        query: cleanQuery
       }
-
     }
-
   }
 
-  return { countryCode, query };
-
+  return {
+    countryCode,
+    query: cleanQuery
+  };
 }
 
 function parseResponseItem({ raw }, item) {

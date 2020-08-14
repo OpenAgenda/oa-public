@@ -23,7 +23,7 @@ describe('opencage', function() {
     });
 
     it('Empty string given, empty array returns', async () => {
-      const results = await geocode('', {
+      const results = await geocode(' ', {
         countryCode: 'FR'
       });
 
