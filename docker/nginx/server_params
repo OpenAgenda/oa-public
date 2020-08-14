@@ -21,6 +21,10 @@ location ~ ^/dist {
   include conf.d/nodejs_params;
 }
 
+location ~ ^/agendas/([0-9]+)/pulse\.svg {
+  include conf.d/nodejs_params;
+}
+
 location ~ \.(js|png|html|svg|ttf|woff|gif|ejs|ico|css)$ {
   root /static;
 }
