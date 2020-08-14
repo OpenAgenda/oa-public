@@ -2,128 +2,155 @@
  * tst.multierror.js: tests MultiError class
  */
 
-const VError = require('../lib/verror');
+const { VError, MultiError, errorFromList, errorForEach } = require('../lib/verror');
 const common = require('./common');
 
-const MultiError = VError.MultiError;
-const errorFromList = VError.errorFromList;
-const errorForEach = VError.errorForEach;
+describe('MultiError', () => {
+  const err1 = new Error('error one');
+  const err2 = new Error('error two');
+  const err3 = new Error('error three');
 
-/*
- * Save the generic parts of all stack traces so we can avoid hardcoding
- * Node-specific implementation details in our testing of stack traces.
- * The stack trace limit has to be large enough to capture all of Node's frames,
- * which are more than the default (10 frames) in Node v6.x.
- */
-test('MultiError', () => {
-  Error.stackTraceLimit = 20;
-  const nodestack = new Error().stack.split('\n').slice(2).join('\n');
+  it('throws without argument', () => {
+    expect(() => console.error(new MultiError())).toThrow();
+  });
 
-  let err1, err2, err3, merr, stack;
-  let accum, doAccum;
+  it('throws with empty list', () => {
+    expect(() => console.error(new MultiError([]))).toThrow();
+  });
 
-  expect(function () {
-    console.error(new MultiError());
-  }).toThrow();
+  describe('simple MultiError', () => {
+    const merr = new MultiError([err1, err2, err3]);
+    const nodestack = common.getNodeStack();
 
-  expect(function () {
-    console.error(new MultiError([]));
-  }).toThrow();
+    it('has good cause', () => {
+      expect(VError.cause(merr)).toBe(err1);
+    });
 
-  err1 = new Error('error one');
-  err2 = new Error('error two');
-  err3 = new Error('error three');
-  merr = new MultiError([err1, err2, err3]);
-  expect(VError.cause(merr)).toEqual(err1);
-  expect(merr.message).toEqual('first of 3 errors: error one');
-  expect(merr.name).toEqual('MultiError');
-  stack = common.cleanStack(merr.stack);
-  expect(stack).toBe([
-    'MultiError: first of 3 errors: error one',
-    '    at Object.<anonymous> (dummy filename)'
-  ].join('\n') + '\n' + nodestack);
+    it('has good message', () => {
+      expect(merr.message).toBe('first of 3 errors: error one');
+    });
 
-  merr = new MultiError([err1]);
-  expect(merr.message).toEqual('first of 1 error: error one');
-  expect(merr.name).toEqual('MultiError');
-  stack = common.cleanStack(merr.stack);
-  expect(stack).toEqual([
-    'MultiError: first of 1 error: error one',
-    '    at Object.<anonymous> (dummy filename)'
-  ].join('\n') + '\n' + nodestack);
+    it('has good name', () => {
+      expect(merr.name).toBe('MultiError');
+    });
 
+    it('has good stack', () => {
+      const stack = common.cleanStack(merr.stack);
+      const adjustedStack = stack.split('\n').slice(0, -1).join('\n');
 
-  /* errorFromList */
-  expect(function () {
-    console.error(errorFromList());
-  }).toThrow();
+      expect(adjustedStack).toBe([
+        'MultiError: first of 3 errors: error one',
+        '    at Suite.<anonymous> (dummy filename)'
+      ].join('\n') + '\n' + nodestack);
+    });
+  });
 
-  expect(function () {
-    console.error(errorFromList(null));
-  }).toThrow();
+  describe('MultiError with only one Error', () => {
+    const merr = new MultiError([err1]);
+    const nodestack = common.getNodeStack();
 
-  expect(function () {
-    console.error(errorFromList({}));
-  }).toThrow();
+    it('has good message', () => {
+      expect(merr.message).toBe('first of 1 error: error one');
+    });
 
-  expect(function () {
-    console.error(errorFromList('asdf'));
-  }).toThrow();
+    it('has good name', () => {
+      expect(merr.name).toBe('MultiError');
+    });
 
-  expect(function () {
-    console.error(errorFromList([new Error(), 17]));
-  }).toThrow();
+    it('has good stack', () => {
+      const stack = common.cleanStack(merr.stack);
+      const adjustedStack = stack.split('\n').slice(0, -1).join('\n');
 
-  expect(function () {
-    console.error(errorFromList([new Error(), {}]));
-  }).toThrow();
+      expect(adjustedStack).toBe([
+        'MultiError: first of 1 error: error one',
+        '    at Suite.<anonymous> (dummy filename)'
+      ].join('\n') + '\n' + nodestack);
+    });
+  });
 
-  expect(null).toBe(errorFromList([]));
-  expect(err1 === errorFromList([err1])).toBeTruthy();
-  expect(err2 === errorFromList([err2])).toBeTruthy();
-  merr = errorFromList([err1, err2, err3]);
-  expect(merr instanceof MultiError).toBeTruthy();
-  expect(merr.errors()[0] === err1).toBeTruthy();
-  expect(merr.errors()[1] === err2).toBeTruthy();
-  expect(merr.errors()[2] === err3).toBeTruthy();
+  describe('errorFromList', () => {
+    it('throws whitout argument', () => {
+      expect(() => console.error(errorFromList())).toThrow();
+    });
 
+    it('throws with null', () => {
+      expect(() => console.error(errorFromList(null))).toThrow();
+    });
 
-  /* errorForEach */
-  expect(function () {
-    console.error(errorForEach());
-  }).toThrow();
+    it('throws with an object', () => {
+      expect(() => console.error(errorFromList({}))).toThrow();
+    });
 
-  expect(function () {
-    console.error(errorForEach(null));
-  }).toThrow();
+    it('throws with string', () => {
+      expect(() => console.error(errorFromList('asdf'))).toThrow();
+    });
 
-  expect(function () {
-    console.error(errorForEach(err1));
-  }).toThrow();
+    it('throws with an error and a number', () => {
+      expect(() => console.error(errorFromList([new Error(), 17]))).toThrow();
+    });
 
-  expect(function () {
-    console.error(errorForEach(err1, {}));
-  }).toThrow();
+    it('throws with an error and an object', () => {
+      expect(() => console.error(errorFromList([new Error(), {}]))).toThrow();
+    });
 
-  expect(function () {
-    console.error(errorForEach({}, function () {
-    }));
-  }).toThrow();
+    it('is null with an empty array', () => {
+      expect(errorFromList([])).toBeNull();
+    });
 
-  accum = [];
-  doAccum = function (e) {
-    accum.push(e);
-  };
+    it('works with one error', () => {
+      expect(errorFromList([err1])).toBe(err1);
+    });
 
-  accum = [];
-  errorForEach(err1, doAccum);
-  expect(accum.length).toEqual(1);
-  expect(accum[0] === err1).toBeTruthy();
+    it('works with multiple errors', () => {
+      const merr = errorFromList([err1, err2, err3]);
 
-  accum = [];
-  errorForEach(merr, doAccum);
-  expect(accum.length).toEqual(3);
-  expect(accum[0] === err1).toBeTruthy();
-  expect(accum[1] === err2).toBeTruthy();
-  expect(accum[2] === err3).toBeTruthy();
+      expect(merr).toBeInstanceOf(MultiError);
+      expect(merr.errors()).toEqual([err1, err2, err3]);
+    });
+  });
+
+  describe('errorForEach', () => {
+    it('throws whitout argument', () => {
+      expect(() => console.error(errorForEach())).toThrow();
+    });
+
+    it('throws with null', () => {
+      expect(() => console.error(errorForEach(null))).toThrow();
+    });
+
+    it('throws with an error', () => {
+      expect(() => console.error(errorForEach(err1))).toThrow();
+    });
+
+    it('throws with an error and an object', () => {
+      expect(() => console.error(errorForEach(err1, {}))).toThrow();
+    });
+
+    it('throws with an error and a number', () => {
+      expect(() => console.error(errorForEach([new Error(), 17]))).toThrow();
+    });
+
+    it('throws with an error and a function', () => {
+      expect(() => console.error(errorForEach({}, () => {}))).toThrow();
+    });
+
+    it('works with an Error', () => {
+      const accum = [];
+      errorForEach(err1, e => accum.push(e));
+
+      expect(accum.length).toBe(1);
+      expect(accum[0]).toBe(err1);
+    });
+
+    it('works with multiple errors', () => {
+      const accum = [];
+      const merr = errorFromList([err1, err2, err3]);
+      errorForEach(merr, e => accum.push(e));
+
+      expect(accum.length).toBe(3);
+      expect(accum[0]).toBe(err1);
+      expect(accum[1]).toBe(err2);
+      expect(accum[2]).toBe(err3);
+    });
+  });
 });

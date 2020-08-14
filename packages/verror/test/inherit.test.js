@@ -5,122 +5,195 @@
 const util = require('util');
 const common = require('./common');
 
-const VError = require('../lib/verror');
-const WError = VError.WError;
+const { VError, WError } = require('../lib/verror');
 
-test('inherits', () => {
-  let err, suberr, stack, nodestack;
+class VErrorChild extends VError {
+}
 
-  class VErrorChild extends VError {
-  }
-
-  util.inherits(VErrorChild, VError);
-  VErrorChild.prototype.name = 'VErrorChild';
+util.inherits(VErrorChild, VError);
+VErrorChild.prototype.name = 'VErrorChild';
 
 
-  class WErrorChild extends WError {
-  }
+class WErrorChild extends WError {
+}
 
-  util.inherits(WErrorChild, WError);
-  WErrorChild.prototype.name = 'WErrorChild';
+util.inherits(WErrorChild, WError);
+WErrorChild.prototype.name = 'WErrorChild';
 
-  /*
-   * Save the generic parts of all stack traces so we can avoid hardcoding
-   * Node-specific implementation details in our testing of stack traces.
-   * The stack trace limit has to be large enough to capture all of Node's frames,
-   * which are more than the default (10 frames) in Node v6.x.
-   */
-  Error.stackTraceLimit = 20;
-  nodestack = new Error().stack.split('\n').slice(2).join('\n');
+class VErrorChildNoName extends VError {
+}
 
-  suberr = new Error('root cause');
-  err = new VErrorChild(suberr, 'top');
-  expect(err instanceof Error).toBeTruthy();
-  expect(err instanceof VError).toBeTruthy();
-  expect(err instanceof VErrorChild).toBeTruthy();
-  expect(VError.cause(err)).toEqual(suberr);
-  expect(err.message).toEqual('top: root cause');
-  expect(err.toString()).toEqual('VErrorChild: top: root cause');
-  stack = common.cleanStack(err.stack);
-  expect(stack).toEqual([
-    'VErrorChild: top: root cause',
-    '    at Object.<anonymous> (dummy filename)',
-    nodestack
-  ].join('\n'));
+util.inherits(VErrorChildNoName, VError);
 
-  suberr = new Error('root cause');
-  err = new VErrorChild(suberr);
-  expect(err instanceof Error).toBeTruthy();
-  expect(err instanceof VError).toBeTruthy();
-  expect(err instanceof VErrorChild).toBeTruthy();
-  expect(VError.cause(err)).toEqual(suberr);
-  expect(err.message).toEqual('root cause');
-  expect(err.toString()).toEqual('VErrorChild: root cause');
-  stack = common.cleanStack(err.stack);
-  expect(stack).toEqual([
-    'VErrorChild: root cause',
-    '    at Object.<anonymous> (dummy filename)',
-    nodestack
-  ].join('\n'));
+class WErrorChildNoName extends WError {
+}
 
-  suberr = new Error('root cause');
-  err = new WErrorChild(suberr, 'top');
-  expect(err instanceof Error).toBeTruthy();
-  expect(err instanceof WError).toBeTruthy();
-  expect(err instanceof WErrorChild).toBeTruthy();
-  expect(VError.cause(err)).toEqual(suberr);
-  expect(err.message).toEqual('top');
-  expect(err.toString()).toEqual('WErrorChild: top; caused by Error: root cause');
-  stack = common.cleanStack(err.stack);
+util.inherits(WErrorChildNoName, WError);
 
-  /*
-   * On Node 0.10 and earlier, the 'stack' property appears to use the error's
-   * toString() method.  On newer versions, it appears to use the message
-   * property the first time err.stack is accessed (_not_ when it was
-   * constructed).  Since the point of WError is to omit the cause messages from
-   * the WError's message, there's no way to have the err.stack property show the
-   * detailed message in Node 0.12 and later.
-   */
-  if (common.oldNode()) {
-    expect(stack).toEqual([
-      'WErrorChild: top; caused by Error: root cause',
-      '    at Object.<anonymous> (dummy filename)',
-      nodestack
-    ].join('\n'));
-  } else {
-    expect(stack).toEqual([
-      'WErrorChild: top',
-      '    at Object.<anonymous> (dummy filename)',
-      nodestack
-    ].join('\n'));
-  }
+describe('inherits', () => {
+  describe('extend VError with a cause and a message', () => {
+    const suberr = new Error('root cause');
+    const err = new VErrorChild(suberr, 'top');
+    const nodestack = common.getNodeStack();
 
-  /*
-   * Test that "<Ctor>.toString()" uses the constructor name.
-   */
-  class VErrorChildNoName extends VError {
-  }
+    it('is an instance of Error', () => {
+      expect(err).toBeInstanceOf(Error);
+    });
 
-  util.inherits(VErrorChildNoName, VError);
-  err = new VErrorChildNoName('top');
-  expect(err.toString()).toEqual('VErrorChildNoName: top');
+    it('is an instance of VError', () => {
+      expect(err).toBeInstanceOf(VError);
+    });
 
+    it('is an instance of VErrorChild', () => {
+      expect(err).toBeInstanceOf(VErrorChild);
+    });
 
-  class WErrorChildNoName extends WError {
-  }
+    it('has good cause', () => {
+      expect(VError.cause(err)).toBe(suberr);
+    });
 
-  util.inherits(WErrorChildNoName, WError);
-  err = new WErrorChildNoName('top');
-  expect(err.toString()).toEqual('WErrorChildNoName: top');
+    it('has good message', () => {
+      expect(err.message).toBe('top: root cause');
+    });
 
-  /*
-   * Test that we get an appropriate exception name in toString() output.
-   */
-  err = new VError('top');
-  err.name = 'CustomNameError';
-  expect(err.toString()).toEqual('CustomNameError: top');
+    it('has good result with .toString', () => {
+      expect(err.toString()).toBe('VErrorChild: top: root cause');
+    });
 
-  err = new WError('top');
-  err.name = 'CustomNameError';
-  expect(err.toString()).toEqual('CustomNameError: top');
+    it('has good stack', () => {
+      const stack = common.cleanStack(err.stack);
+      const adjustedStack = stack.split('\n').slice(0, -1).join('\n');
+
+      expect(adjustedStack).toBe([
+        'VErrorChild: top: root cause',
+        '    at Suite.<anonymous> (dummy filename)',
+        nodestack
+      ].join('\n'));
+    });
+  });
+
+  describe('extend VError with a cause', () => {
+    const suberr = new Error('root cause');
+    const err = new VErrorChild(suberr);
+    const nodestack = common.getNodeStack();
+
+    it('is an instance of Error', () => {
+      expect(err).toBeInstanceOf(Error);
+    });
+
+    it('is an instance of VError', () => {
+      expect(err).toBeInstanceOf(VError);
+    });
+
+    it('is an instance of VErrorChild', () => {
+      expect(err).toBeInstanceOf(VErrorChild);
+    });
+
+    it('has good cause', () => {
+      expect(VError.cause(err)).toBe(suberr);
+    });
+
+    it('has good message', () => {
+      expect(err.message).toBe('root cause');
+    });
+
+    it('has good result with .toString', () => {
+      expect(err.toString()).toBe('VErrorChild: root cause');
+    });
+
+    it('has good stack', () => {
+      const stack = common.cleanStack(err.stack);
+      const adjustedStack = stack.split('\n').slice(0, -1).join('\n');
+
+      expect(adjustedStack).toBe([
+        'VErrorChild: root cause',
+        '    at Suite.<anonymous> (dummy filename)',
+        nodestack
+      ].join('\n'));
+    });
+  });
+
+  describe('extend WError with a cause', () => {
+    const suberr = new Error('root cause');
+    const err = new WErrorChild(suberr, 'top');
+    const nodestack = common.getNodeStack();
+
+    it('is an instance of Error', () => {
+      expect(err).toBeInstanceOf(Error);
+    });
+
+    it('is an instance of Error', () => {
+      expect(err).toBeInstanceOf(WError);
+    });
+
+    it('is an instance of Error', () => {
+      expect(err).toBeInstanceOf(WErrorChild);
+    });
+
+    it('has good cause', () => {
+      expect(VError.cause(err)).toBe(suberr);
+    });
+
+    it('has good message', () => {
+      expect(err.message).toBe('top');
+    });
+
+    it('has good result with .toString', () => {
+      expect(err.toString()).toBe('WErrorChild: top; caused by Error: root cause');
+    });
+
+    it('has good stack', () => {
+      const stack = common.cleanStack(err.stack);
+      const adjustedStack = stack.split('\n').slice(0, -1).join('\n');
+      /*
+       * On Node 0.10 and earlier, the 'stack' property appears to use the error's
+       * toString() method.  On newer versions, it appears to use the message
+       * property the first time err.stack is accessed (_not_ when it was
+       * constructed).  Since the point of WError is to omit the cause messages from
+       * the WError's message, there's no way to have the err.stack property show the
+       * detailed message in Node 0.12 and later.
+       */
+      if (common.oldNode()) {
+        expect(adjustedStack).toBe([
+          'WErrorChild: top; caused by Error: root cause',
+          '    at Suite.<anonymous> (dummy filename)',
+          nodestack
+        ].join('\n'));
+      } else {
+        expect(adjustedStack).toBe([
+          'WErrorChild: top',
+          '    at Suite.<anonymous> (dummy filename)',
+          nodestack
+        ].join('\n'));
+      }
+    });
+  });
+
+  describe('"<Ctor>.toString()" uses the constructor name', () => {
+    it('extends VError without name', () => {
+      const err = new VErrorChildNoName('top');
+
+      expect(err.toString()).toBe('VErrorChildNoName: top');
+    });
+
+    it('extends WError without name', () => {
+      const err = new WErrorChildNoName('top');
+
+      expect(err.toString()).toBe('WErrorChildNoName: top');
+    });
+
+    it('set name to an instance of a VError', () => {
+      const err = new VError('top');
+      err.name = 'CustomNameError';
+
+      expect(err.toString()).toBe('CustomNameError: top');
+    });
+
+    it('set name to an instance of a WError', () => {
+      const err = new WError('top');
+      err.name = 'CustomNameError';
+
+      expect(err.toString()).toBe('CustomNameError: top');
+    });
+  });
 });

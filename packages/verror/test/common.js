@@ -14,6 +14,16 @@ module.exports.cleanStack = function cleanStack(stacktxt) {
 };
 
 /*
+ * Save the generic parts of all stack traces so we can avoid hardcoding
+ * Node-specific implementation details in our testing of stack traces.
+ * The stack trace limit has to be large enough to capture all of Node's frames,
+ * which are more than the default (10 frames) in Node v6.x.
+ */
+module.exports.getNodeStack = function getNodeStack(sliceStart = 3, sliceEnd) {
+  return module.exports.cleanStack(new Error().stack.split('\n').slice(sliceStart, sliceEnd).join('\n'));
+};
+
+/*
  * Node's behavior with respect to Error's names and messages changed
  * significantly with v0.12, so a number of tests regrettably need to check for
  * that.

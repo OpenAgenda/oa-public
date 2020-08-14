@@ -3,26 +3,24 @@
  */
 
 const util = require('util');
-const verror = require('../lib/verror');
-
-const VError = verror.VError;
-const WError = verror.WError;
-
-const findCauseByName = VError.findCauseByName;
-const hasCauseWithName = VError.hasCauseWithName;
-const findCauseByType = VError.findCauseByType;
-const hasCauseWithType = VError.hasCauseWithType;
+const {
+  VError,
+  WError,
+  findCauseByName,
+  hasCauseWithName,
+  findCauseByType,
+  hasCauseWithType
+} = require('../lib/verror');
 
 /*
- * This class deliberately doesn't inherit from our error classes.
- */
+  * This class deliberately doesn't inherit from our error classes.
+  */
 function MyError() {
   Error.call(this, 'here is my error');
 }
 
 util.inherits(MyError, Error);
 MyError.prototype.name = 'MyError';
-
 
 /*
  * We'll build up a cause chain using each of our classes and make sure
@@ -31,87 +29,186 @@ MyError.prototype.name = 'MyError';
  * classes.
  */
 
-test('find cause', () => {
-  let err1, err2, err3;
-
-  err1 = new MyError();
-  err2 = new VError({
+describe('find cause', () => {
+  const err = new Error('a very basic error');
+  const err1 = new MyError();
+  const err2 = new VError({
     'name': 'ErrorTwo',
     'cause': err1
   }, 'basic verror (number two)');
-  err3 = new WError({
+  const err3 = new WError({
     'name': 'ErrorThree',
     'cause': err2
   }, 'werror (number Three)');
 
-  /*
-   * By contrast, the next-level errors should have only their own causes.
-   */
-  expect(null).toBe(findCauseByName(err3, 'ErrorFour'));
-  expect(false).toBe(hasCauseWithName(err3, 'ErrorFour'));
-  expect(err3).toBe(findCauseByName(err3, 'ErrorThree'));
-  expect(true).toBe(hasCauseWithName(err3, 'ErrorThree'));
-  expect(err2).toBe(findCauseByName(err3, 'ErrorTwo'));
-  expect(true).toBe(hasCauseWithName(err3, 'ErrorTwo'));
-  expect(err1).toBe(findCauseByName(err3, 'MyError'));
-  expect(true).toBe(hasCauseWithName(err3, 'MyError'));
-  expect(err1).toBe(findCauseByType(err3, MyError));
-  expect(true).toBe(hasCauseWithType(err3, MyError));
+  // err 3
+  it('ErrorFour is not found in err3 causes', () => {
+    expect(findCauseByName(err3, 'ErrorFour')).toBeNull();
+  });
 
-  expect(null).toBe(findCauseByName(err2, 'ErrorFour'));
-  expect(false).toBe(hasCauseWithName(err2, 'ErrorFour'));
-  expect(null).toBe(findCauseByName(err2, 'ErrorThree'));
-  expect(false).toBe(hasCauseWithName(err2, 'ErrorThree'));
-  expect(err2).toBe(findCauseByName(err2, 'ErrorTwo'));
-  expect(true).toBe(hasCauseWithName(err2, 'ErrorTwo'));
-  expect(err1).toBe(findCauseByName(err2, 'MyError'));
-  expect(true).toBe(hasCauseWithName(err2, 'MyError'));
-  expect(err1).toBe(findCauseByType(err2, MyError));
-  expect(true).toBe(hasCauseWithType(err2, MyError));
+  it('err3 has not ErrorFour in its causes', () => {
+    expect(hasCauseWithName(err3, 'ErrorFour')).toBeFalsy();
+  });
+
+  it('ErrorThree is found in err3 causes', () => {
+    expect(findCauseByName(err3, 'ErrorThree')).toBe(err3);
+  });
+
+  it('err3 has ErrorThree in its causes', () => {
+    expect(hasCauseWithName(err3, 'ErrorThree')).toBeTruthy();
+  });
+
+  it('ErrorTwo is found in err3 causes', () => {
+    expect(findCauseByName(err3, 'ErrorTwo')).toBe(err2);
+  });
+
+  it('err3 has ErrorTwo in its causes', () => {
+    expect(hasCauseWithName(err3, 'ErrorTwo')).toBeTruthy();
+  });
+
+  it('MyError is found in err3 causes', () => {
+    expect(findCauseByName(err3, 'MyError')).toBe(err1);
+  });
+
+  it('err3 has MyError in its causes', () => {
+    expect(hasCauseWithName(err3, 'MyError')).toBeTruthy();
+  });
+
+  it('MyError is found in err3 causes (by type)', () => {
+    expect(findCauseByType(err3, MyError)).toBe(err1);
+  });
+
+  it('err3 has MyError in its causes (by type)', () => {
+    expect(hasCauseWithType(err3, MyError)).toBeTruthy();
+  });
+
+  // err2
+  it('ErrorFour is not found in err2 causes', () => {
+    expect(findCauseByName(err2, 'ErrorFour')).toBeNull();
+  });
+
+  it('err2 has not ErrorFour in its causes', () => {
+    expect(hasCauseWithName(err2, 'ErrorFour')).toBeFalsy();
+  });
+
+  it('ErrorThree is not found in err2 causes', () => {
+    expect(findCauseByName(err2, 'ErrorThree')).toBeNull();
+  });
+
+  it('err2 has not ErrorThree in its causes', () => {
+    expect(hasCauseWithName(err2, 'ErrorThree')).toBeFalsy();
+  });
+
+  it('ErrorTwo is found in err2 causes', () => {
+    expect(findCauseByName(err2, 'ErrorTwo')).toBe(err2);
+  });
+
+  it('err2 has ErrorTwo in its causes', () => {
+    expect(hasCauseWithName(err2, 'ErrorTwo')).toBeTruthy();
+  });
+
+  it('MyError is found in err2 causes', () => {
+    expect(findCauseByName(err2, 'MyError')).toBe(err1);
+  });
+
+  it('err2 has MyError in its causes', () => {
+    expect(hasCauseWithName(err2, 'MyError')).toBeTruthy();
+  });
+
+  it('MyError is found in err2 causes (by type)', () => {
+    expect(findCauseByType(err2, MyError)).toBe(err1);
+  });
+
+  it('err2 has MyError in its causes (by type)', () => {
+    expect(hasCauseWithType(err2, MyError)).toBeTruthy();
+  });
 
   /*
    * These functions must work on non-VError errors.
    */
-  expect(null).toBe(findCauseByName(err1, 'ErrorTwo'));
-  expect(false).toBe(hasCauseWithName(err1, 'ErrorTwo'));
-  expect(err1).toBe(findCauseByName(err1, 'MyError'));
-  expect(true).toBe(hasCauseWithName(err1, 'MyError'));
-  expect(err1).toBe(findCauseByType(err1, MyError));
-  expect(true).toBe(hasCauseWithType(err1, MyError));
 
-  err1 = new Error('a very basic error');
-  expect(err1).toBe(findCauseByName(err1, 'Error'));
-  expect(true).toBe(hasCauseWithName(err1, 'Error'));
-  expect(null).toBe(findCauseByName(err1, 'MyError'));
-  expect(false).toBe(hasCauseWithName(err1, 'MyError'));
-  expect(err1).toBe(findCauseByType(err1, Error));
-  expect(true).toBe(hasCauseWithType(err1, Error));
+  // err1
+  it('ErrorTwo is not found in err1 causes', () => {
+    expect(findCauseByName(err1, 'ErrorTwo')).toBeNull();
+  });
+
+  it('err1 has not ErrorTwo in its causes', () => {
+    expect(hasCauseWithName(err1, 'ErrorTwo')).toBeFalsy();
+  });
+
+  it('MyError is found in err1 causes', () => {
+    expect(findCauseByName(err1, 'MyError')).toBe(err1);
+  });
+
+  it('err1 has MyError in its causes', () => {
+    expect(hasCauseWithName(err1, 'MyError')).toBeTruthy();
+  });
+
+  it('MyError is found in err1 causes (by type)', () => {
+    expect(findCauseByType(err1, MyError)).toBe(err1);
+  });
+
+  it('err1 has MyError in its causes (by type)', () => {
+    expect(hasCauseWithType(err1, MyError)).toBeTruthy();
+  });
+
+  // err
+  it('Error is found in err causes', () => {
+    expect(findCauseByName(err, 'Error')).toBe(err);
+  });
+
+  it('err has Error in its causes', () => {
+    expect(hasCauseWithName(err, 'Error')).toBeTruthy();
+  });
+
+  it('MyError is not found in err causes', () => {
+    expect(findCauseByName(err, 'MyError')).toBeNull();
+  });
+
+  it('err has not MyError in its causes', () => {
+    expect(hasCauseWithName(err, 'MyError')).toBeFalsy();
+  });
+
+  it('Error is found in err causes (by type)', () => {
+    expect(findCauseByType(err, Error)).toBe(err);
+  });
+
+  it('err has Error in its causes (by type)', () => {
+    expect(hasCauseWithType(err, Error)).toBeTruthy();
+  });
 
   /*
    * These functions should throw an Error when given bad argument types.
    */
-  expect(function () {
-    findCauseByName(null, 'AnError');
-  }).toThrow();
-  expect(function () {
-    hasCauseWithName(null, 'AnError');
-  }).toThrow();
-  expect(function () {
-    findCauseByName(err1, null);
-  }).toThrow();
-  expect(function () {
-    hasCauseWithName(err1, null);
-  }).toThrow();
-  expect(function () {
-    findCauseByType(null, 'AnError');
-  }).toThrow();
-  expect(function () {
-    hasCauseWithType(null, 'AnError');
-  }).toThrow();
-  expect(function () {
-    findCauseByType(err1, null);
-  }).toThrow();
-  expect(function () {
-    hasCauseWithType(err1, null);
-  }).toThrow();
+  it('findCauseByName throws with bad first argument', () => {
+    expect(() => findCauseByName(null, 'AnError')).toThrow();
+  });
+
+  it('findCauseByName throws with bad second argument', () => {
+    expect(() => findCauseByName(err1, null)).toThrow();
+  });
+
+  it('hasCauseWithName throws with bad first argument', () => {
+    expect(() => hasCauseWithName(null, 'AnError')).toThrow();
+  });
+
+  it('hasCauseWithName throws with bad second argument', () => {
+    expect(() => hasCauseWithName(err1, null)).toThrow();
+  });
+
+  it('findCauseByType throws with bad first argument', () => {
+    expect(() => findCauseByType(null, 'AnError')).toThrow();
+  });
+
+  it('findCauseByType throws with bad second argument', () => {
+    expect(() => findCauseByType(err1, null)).toThrow();
+  });
+
+  it('hasCauseWithType throws with bad first argument', () => {
+    expect(() => hasCauseWithType(null, 'AnError')).toThrow();
+  });
+
+  it('hasCauseWithType throws with bad second argument', () => {
+    expect(() => hasCauseWithType(err1, null)).toThrow();
+  });
 });
