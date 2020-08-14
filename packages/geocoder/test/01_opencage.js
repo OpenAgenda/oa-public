@@ -22,12 +22,21 @@ describe( 'opencage', function() {
 
     } );
 
+    it( 'Empty string given, empty array returns', async () => {
+      const results = await geocode( '', {
+        countryCode: 'FR'
+      } );
+
+      (results instanceof Array).should.equal(true);
+      results.length.should.equal(0);
+    } );
+
     it( 'Postal code is provided', async () => {
 
       ( await geocode( '31 rue des Francs-Bourgeois 75004 Paris', {
         countryCode: 'FR',
         first: true
-      } ) ).postalCode.should.equal( '75003' );
+      } ) ).postalCode.should.eql( '75003' );
 
     } );
 
@@ -222,7 +231,7 @@ describe( 'opencage', function() {
           first: true
         } );
 
-        result.city.should.equal( 'Hong Kong' );
+        result.city.should.equal( '中區 Central District' );
 
       } );
 

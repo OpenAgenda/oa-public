@@ -45,6 +45,10 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
     countryCode: cleanCountryCode
   } = cleanGeocodeQuery( query, countryCode );
 
+  if (!(query || '').length) {
+    return first ? null : [];
+  }
+
   const results = await axios.request( {
     url: forwardURL( cleanQuery, {
       key,
