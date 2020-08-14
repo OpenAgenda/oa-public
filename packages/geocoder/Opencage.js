@@ -1,65 +1,65 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const axios = require( 'axios' );
-const getPolygonField = require( './lib/getPolygonField' );
-const applyTransforms = require( './lib/applyTransforms' );
+const _ = require('lodash');
+const axios = require('axios');
+const getPolygonField = require('./lib/getPolygonField');
+const applyTransforms = require('./lib/applyTransforms');
 
-const forwardURL = ( query, { key, pretty, countryCode, language } ) => [
-  `https://api.opencagedata.com/geocode/v1/json?key=${key}&q=${encodeURIComponent( query )}`,
+const forwardURL = (query, { key, pretty, countryCode, language }) => [
+  `https://api.opencagedata.com/geocode/v1/json?key=${key}&q=${encodeURIComponent(query)}`,
   countryCode ? '&countrycode=' + countryCode : '',
   pretty ? '&pretty=1' : '',
   language ? '&language=' + language : ''
-].join( '' );
+].join('');
 
-const reverseURL = ( latitude, longitude, { key, pretty, language } ) => [
+const reverseURL = (latitude, longitude, { key, pretty, language }) => [
   `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${key}`,
   pretty ? '&pretty=1' : '',
   language ? '&language=' + language : ''
-].join( '' );
+].join('');
 
-module.exports = ( { key } ) => {
+module.exports = ({ key }) => {
 
-  return _.assign( geocode.bind( null, key ), {
-    reverse: reverse.bind( null, key )
-  } );
-
-}
-
-async function reverse( key, latitude, longitude, { first, language, raw } ) {
-
-  const results = await axios.request( {
-    url: reverseURL( latitude, longitude, { key, language } ),
-  } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
-
-  const transformed = await _applyTransforms( results );
-
-  return first ? _.first( transformed ) : transformed;
+  return _.assign(geocode.bind(null, key), {
+    reverse: reverse.bind(null, key)
+  });
 
 }
 
-async function geocode( key, query, { countryCode, language, raw, first } ) {
+async function reverse(key, latitude, longitude, { first, language, raw }) {
+
+  const results = await axios.request({
+    url: reverseURL(latitude, longitude, { key, language }),
+  }).then(r => _.get(r, 'data.results').map(parseResponseItem.bind(null, { raw })));
+
+  const transformed = await _applyTransforms(results);
+
+  return first ? _.first(transformed) : transformed;
+
+}
+
+async function geocode(key, query, { countryCode, language, raw, first }) {
 
   const {
     query: cleanQuery,
     countryCode: cleanCountryCode
-  } = cleanGeocodeQuery( query, countryCode );
+  } = cleanGeocodeQuery(query, countryCode);
 
   if (!(query || '').length) {
     return first ? null : [];
   }
 
-  const results = await axios.request( {
-    url: forwardURL( cleanQuery, {
+  const results = await axios.request({
+    url: forwardURL(cleanQuery, {
       key,
       countryCode: cleanCountryCode,
       language
-    } )
-  } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
+    })
+  }).then(r => _.get(r, 'data.results').map(parseResponseItem.bind(null, { raw })));
 
-  const transformed = await _applyTransforms( results );
+  const transformed = await _applyTransforms(results);
 
-  return first ? _.first( transformed ) : transformed;
+  return first ? _.first(transformed) : transformed;
 
 }
 
@@ -67,20 +67,20 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
 /**
  * DOMTOM, HONG KONG... country codes are not known by OpenCage
  */
-function cleanGeocodeQuery( query, countryCode ) {
+function cleanGeocodeQuery(query, countryCode) {
 
-  for ( const transform of [ {
-    from: [ 'YT', 'PF', 'GF', 'PM','MQ', 'GP', 'RE', 'NC' ],
+  for (const transform of [{
+    from: ['YT', 'PF', 'GF', 'PM','MQ', 'GP', 'RE', 'NC'],
     to: 'FR'
   }, {
-    from: [ 'HK' ],
+    from: ['HK'],
     to: 'CN'
   }, {
-    from: [ 'AW' ],
+    from: ['AW'],
     to: 'NL'
-  } ] ) {
+  }]) {
 
-    if ( transform.from.includes( countryCode ) ) {
+    if (transform.from.includes(countryCode)) {
 
       return {
         countryCode: transform.to,
@@ -95,23 +95,23 @@ function cleanGeocodeQuery( query, countryCode ) {
 
 }
 
-function parseResponseItem( { raw }, item ) {
+function parseResponseItem({ raw }, item) {
 
   const parsed = {
-    address: _.get( item, 'formatted' ),
-    district: _.get( item, 'components.city_district', _.get( item, 'components.suburb', null ) ),
-    city: _.get( item, 'components.village', _.get( item, 'components.town', _.get( item, 'components.city', null ) ) ),
-    postalCode: _.get( item, 'components.postcode', null ),
-    department: _.get( item, 'components.state_district', null ),
-    region: _.get( item, 'components.state', null ),
-    timezone: _.get( item, 'annotations.timezone.name', null ),
-    latitude: _.get( item, 'geometry.lat', null ),
-    longitude: _.get( item, 'geometry.lng', null ),
-    country: _.get( item, 'components.country', null ),
-    countryCode: _.get( item, 'components.country_code', null )
+    address: _.get(item, 'formatted'),
+    district: _.get(item, 'components.city_district', _.get(item, 'components.suburb', null)),
+    city: _.get(item, 'components.village', _.get(item, 'components.town', _.get(item, 'components.city', null))),
+    postalCode: _.get(item, 'components.postcode', null),
+    department: _.get(item, 'components.state_district', null),
+    region: _.get(item, 'components.state', null),
+    timezone: _.get(item, 'annotations.timezone.name', null),
+    latitude: _.get(item, 'geometry.lat', null),
+    longitude: _.get(item, 'geometry.lng', null),
+    country: _.get(item, 'components.country', null),
+    countryCode: _.get(item, 'components.country_code', null)
   };
 
-  if ( raw ) {
+  if (raw) {
     parsed.raw = item;
   }
 
@@ -119,23 +119,23 @@ function parseResponseItem( { raw }, item ) {
 
 }
 
-async function _applyTransforms( geocodeResults ) {
+async function _applyTransforms(geocodeResults) {
 
-  if ( !geocodeResults.length ) return geocodeResults;
+  if (!geocodeResults.length) return geocodeResults;
 
   return Promise.all(
-    geocodeResults.map( _applyTransformsOnGeocodeItem )
-  );
+    geocodeResults.map(_applyTransformsOnGeocodeItem)
+ );
 
 }
 
-async function _applyTransformsOnGeocodeItem( geocodeResult ) {
+async function _applyTransformsOnGeocodeItem(geocodeResult) {
 
-  const updated = applyTransforms( geocodeResult );
+  const updated = applyTransforms(geocodeResult);
 
-  const district = await getPolygonField( 'district', updated );
+  const district = await getPolygonField('district', updated);
 
-  if ( district ) {
+  if (district) {
     updated.district = district;
   }
 
