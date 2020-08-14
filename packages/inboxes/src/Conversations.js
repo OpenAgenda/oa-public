@@ -205,11 +205,11 @@ export default class Conversations {
     let result = await request
       .offset(offset)
       .limit(limit)
-      .map(row => _.reduce(
+      .then(rows => rows.map(row => _.reduce(
         { ...row, ...mapper.toObj(conversationFieldsMap, row, options) },
         (accu, value, key) => _.set(accu, key, value),
         {}
-      ));
+      )));
 
     result = await populateDetails(this.svc, result, this.inbox);
 

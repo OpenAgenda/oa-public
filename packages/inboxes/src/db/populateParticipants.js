@@ -31,7 +31,7 @@ export default async function populateParticipants(svc, entities) {
       `${schemas.inboxConversation}.inbox_id`
     )
     .whereIn('conversation_id', ids)
-    .map(row => _.reduce(row, (r, value, key) => _.set(r, key, value), {}));
+    .then(rows => rows.map(row => _.reduce(row, (r, value, key) => _.set(r, key, value), {})));
 
   result = _.groupBy(await populateDetails(svc, result), 'conversationId');
 
