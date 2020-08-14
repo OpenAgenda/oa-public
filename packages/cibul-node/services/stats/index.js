@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const cmn = require('../../lib/commons-app');
 const getAdditionalFieldStats = require('./getAdditionalFieldStats');
 const addFieldSchema = require('./addFieldSchema');
+const pulseSvgMw = require('./pulseSvgMw');
 
 module.exports = {
   init,
@@ -16,11 +17,20 @@ function init(config) {
   });
 }
 
-function plugApp(app, base = '/:agendaSlug/admin/statistics/config') {
+function plugApp(app) {
   const { sessions, agendas, members, stats } = app.services;
 
+  // Public
+
   app.get(
-    base,
+    '/agendas/:agendaUid/pulse.svg',
+    pulseSvgMw()
+  );
+
+  // AgendaAdmin
+
+  app.get(
+    '/:agendaSlug/admin/statistics/config',
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
     agendas.mw.load,
     members.mw.authorizeAdminModOrKey(),
@@ -38,7 +48,7 @@ function plugApp(app, base = '/:agendaSlug/admin/statistics/config') {
   );
 
   app.put(
-    base,
+    '/:agendaSlug/admin/statistics/config',
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
     agendas.mw.load,
     members.mw.authorizeAdminModOrKey(),
