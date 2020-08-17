@@ -1,9 +1,11 @@
 'use strict';
 
+const _ = require('lodash');
 const log = require('@openagenda/logs')('list');
 
 const addListQuery = require('./lib/addListQuery');
 const addSelect = require('./lib/addSelect');
+const cleanNav = require('./lib/cleanNav');
 const cleanListOptions = require('./lib/cleanListOptions');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const addPaginationAndOrder = require('./lib/addPaginationAndOrder');
@@ -16,9 +18,14 @@ async function list(service, query = {}, nav = {}, options = {}) {
     total: includeTotal,
     eventCounts: includeEventCounts,
     context,
-    detailed
+    detailed,
+    includeFields
   } = cleanListOptions(options);
 
+  const {
+    useAfter,
+    after
+  } = cleanNav(nav);
 
   await addListQuery(service, k, {
     ...query,
@@ -31,14 +38,20 @@ async function list(service, query = {}, nav = {}, options = {}) {
 
   log('total: %s', total);
 
-  addSelect(k, detailed ? 'public' : 'list');
+  addSelect(k, detailed ? 'public' : 'list', {
+    include: useAfter ? ['id'] : [],
+    includeFields
+  });
 
   addPaginationAndOrder(k, nav);
 
-  const items = await k.then(rows => rows.map(r => fromDbEntryToItem(r, {
+  const rows = await k;
+
+  const items = rows.map(r => fromDbEntryToItem(r, {
     imagePath: service.config.imagePath,
-    access: detailed ? 'public' : 'list'
-  })));
+    access: detailed ? 'public' : 'list',
+    includeFields
+  }));
 
   log('fetched %s items', items.length);
 
@@ -49,13 +62,24 @@ async function list(service, query = {}, nav = {}, options = {}) {
     );
   }
 
-  if (total === null) return items;
-
-  return {
-    items,
-    total
+  if (total === null && !useAfter) {
+    return items;
   }
+
+  const response = { items };
+
+  if (total !== null) {
+    response.total = total;
+  }
+
+  if (useAfter) {
+    response.after = rows.length ? _.last(rows).id : null;
+  }
+
+  return response;
 }
+
+module.exports = list;
 
 module.exports.byAgendaUid = async (
   service,

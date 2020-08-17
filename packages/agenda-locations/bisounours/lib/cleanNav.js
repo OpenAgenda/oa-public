@@ -3,13 +3,15 @@
 const schema = require('@openagenda/validators/schema');
 const text = require('@openagenda/validators/text');
 const integer = require('@openagenda/validators/integer');
+const boolean = require('@openagenda/validators/boolean');
 
 schema.register({
   integer,
-  text
+  text,
+  boolean
 });
 
-module.exports = schema({
+const validate = schema({
   after: {
     type: 'integer',
     default: null
@@ -21,5 +23,19 @@ module.exports = schema({
   limit: {
     type: 'integer',
     default: 20
+  },
+  useAfter: {
+    type: 'boolean',
+    default: false
   }
 });
+
+module.exports = nav => {
+  const clean = validate(nav);
+
+  if (clean.after !== null) {
+    clean.useAfter = true;
+  }
+
+  return clean;
+}

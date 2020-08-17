@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS ${agendaEvent} (
   event_id BIGINT NOT NULL,
   state TINYINT,
   is_published TINYINT(1) DEFAULT '0' NOT NULL,
-  `user_id` bigint(20) NOT NULL DEFAULT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
   `content` mediumtext,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,

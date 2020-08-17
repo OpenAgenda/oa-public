@@ -82,6 +82,35 @@ describe('agenda-locations - functional - list', () => {
 
   });
 
+  describe('nav', () => {
+    it('offset & limit', async () => {
+      const items = await svc(7196947).list({}, { offset: 1, limit: 1 });
+      const more = await svc(7196947).list({}, { offset: 0, limit: 2 });
+
+      assert.equal(items[0].uid, more[1].uid);
+    });
+
+    it('nav with after means that response includes an after key', async () => {
+      const {
+        after
+      } = await svc(7196947).list({}, { limit: 2, useAfter: true });
+
+      assert.equal(after, 973787);
+    });
+
+    it('after in previous call can be used to fetch next round of results', async () => {
+      const {
+        after
+      } = await svc(7196947).list({}, { limit: 3, useAfter: true });
+
+      const {
+        items
+      } = await svc(7196947).list({}, { limit: 1, after });
+
+      assert.equal(items[0].uid, 30433085);
+    });
+  });
+
   describe('filters', () => {
     it('"search" queries region field', async () => {
       const items = await svc(7196947).list({ search: 'nom de région' });
@@ -120,7 +149,49 @@ describe('agenda-locations - functional - list', () => {
 
   });
 
+  describe('stream', function () {
+    this.timeout(10000);
+
+    it('stream streams', done => {
+      svc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
+        const stream = svc(7196947).stream();
+        let count = 0;
+
+        stream.on('data', location => {
+          count++;
+        });
+
+        stream.on('end', () => {
+          assert.equal(count, total);
+          done();
+        });
+
+      });
+    });
+
+    it('detailed option and includeTotal streams with totals and detailed fields', done => {
+      const stream = svc(7196947).stream({}, { eventCounts: true, detailed: true });
+
+      stream.on('data', location => {
+        assert.notStrictEqual(location.department, undefined);
+        assert.notStrictEqual(location.eventCount, undefined);
+      });
+
+      stream.on('end', () => {
+        done();
+      });
+    });
+  });
+
   describe('other', () => {
+
+    it('if fields option is specified, result data only includes fields provided', async () => {
+      const items = await svc(7196947).list({}, { limit: 1 }, {
+        includeFields: ['uid', 'name']
+      });
+
+      assert.deepEqual(Object.keys(items[0]), ['uid', 'name']);
+    });
 
     it('if getEventCounts interface is set and eventCount option is true, result includes interface-provided counts', async () => {
       const items = await svc(7196947).list({}, { limit: 3 }, { eventCounts: true });

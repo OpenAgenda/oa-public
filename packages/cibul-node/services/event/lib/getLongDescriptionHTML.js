@@ -1,9 +1,16 @@
 'use strict';
 
-module.exports = ({
-  lang,
-  services
-}, multilingualText = {}, links = []) => {
+module.exports = (options, multilingualText = {}, links = []) => {
+  const {
+    services,
+    lang,
+    useFallbackLang
+  } = {
+    services: null,
+    lang: null,
+    useFallbackLang: true,
+    ...options
+  };
 
   const render = _render.bind(null, services, links);
 
@@ -20,7 +27,11 @@ module.exports = ({
     return render(multilingualText[lang]);
   }
 
-  return render(multilingualText[Object.keys(multilingualText)[0]]);
+  if (useFallbackLang) {
+    return render(multilingualText[Object.keys(multilingualText)[0]]);
+  }
+
+  return '';
 }
 
 function _render(services, links = null, md = '') {

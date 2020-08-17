@@ -7,7 +7,15 @@ module.exports = (entry = {}, options = {}) => {
   const store = entry.store ? JSON.parse(entry.store) : {};
   const access = options.access || 'public';
 
-  return fields.filter(f => f.read.includes(access)).reduce((obj, field) => {
+  return fields.filter(f => {
+    if (!f.read.includes(access)) {
+      return false;
+    }
+    if (options.includeFields && options.includeFields.length && !options.includeFields.includes(f.field)) {
+      return false;
+    }
+    return true;
+  }).reduce((obj, field) => {
     if (field.field === 'image') {
       obj[field.field] = store.image ? (options.imagePath || '') + store.image : null;
     } else if (field.db === 'store') {

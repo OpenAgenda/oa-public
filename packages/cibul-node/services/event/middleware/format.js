@@ -369,7 +369,8 @@ function _main( v ) {
 
   v.formatted.freeText = getLongDescriptionHTML({
     lang: v.req.lang,
-    services: v.req.app.services
+    services: v.req.app.services,
+    useFallbackLang: false
   }, v.req.event.freeText || {}, longDescriptionLinks);
 
   v.formatted.longDescriptionLinks = longDescriptionLinks;
