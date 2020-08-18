@@ -179,6 +179,24 @@ describe( 'link validator', () => {
 
   } );
 
+  describe( 'as a list of links', () => {
+
+    it( 'validates list of links when list bool is set to true', () => {
+
+      let validate = validators.link( {
+        field: 'somelink',
+        list: true,
+        optional: false
+      } );
+
+      expect(
+        validate( [ 'https://openagenda.com', 'http://openagenda.com' ] )
+      ).toEqual( [ 'https://openagenda.com', 'http://openagenda.com' ] );
+
+    } );
+
+  });
+
   describe( 'optional', () => {
 
     const validate = validators.link( { field: 'link', optional: true } );

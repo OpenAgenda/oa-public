@@ -6,6 +6,7 @@ const _ = {
 };
 const isURL = require( 'validator/lib/isURL' );
 
+const listify = require('./listify');
 const rgx = require( './regex' );
 const emailValidator = require( './email' )();
 
@@ -17,6 +18,7 @@ module.exports = config => {
       code: 'link.invalid',
       message: 'value is not a link'
     },
+    list: false,
     type: 'link',
     optional: true
   }, config || {} );
@@ -27,7 +29,14 @@ module.exports = config => {
     /;/
   ];
 
-  function validator( value ) {
+  const validator = Object.assign( validate, {
+    type: 'link',
+    field: params.field
+  } );
+
+  return params.list ? listify( validator, params ) : validator;
+
+  function validate( value ) {
 
     const templateError = {
       field: validator.field,
@@ -102,12 +111,6 @@ module.exports = config => {
     return clean;
 
   };
-
-  validator.type = 'link';
-
-  validator.field = params.field;
-
-  return validator;
 
 }
 
