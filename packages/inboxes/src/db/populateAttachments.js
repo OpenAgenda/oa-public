@@ -17,7 +17,7 @@ export default async function populateAttachments(svc, entities) {
   let result = await knex(schemas.messageAttachment)
     .select()
     .whereIn('message_id', messageIds)
-    .map(row => _.mapKeys(row, (value, key) => _.camelCase(key)));
+    .then(rows => rows.map(row => _.mapKeys(row, (value, key) => _.camelCase(key))));
 
   return entities.map(entity => {
     [attachments, result] = _.partition(result, ['messageId', entity.id]);

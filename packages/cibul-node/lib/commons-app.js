@@ -11,7 +11,6 @@ const qs = require( 'qs' );
 const VError = require( 'verror' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const keysSvc = require( '@openagenda/keys' );
 const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
@@ -25,8 +24,6 @@ const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/errors' );
 const i18n = require( '../i18n/i18n.js' );
 const model = require( '../services/model' );
-const members = require( '../services/members' );
-const usersSvc = require( '../services/users' );
 
 const layouts = require( '../services/lib/layouts' );
 const renderError = _.template( fs.readFileSync( __dirname + '/error.tpl', 'utf-8' ) );
@@ -271,7 +268,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     }
 
-    res.status( error.code || 500 );
+    res.status( Number.isInteger( error.code ) ? error.code : 500 );
 
     if ( req.agenda ) {
 

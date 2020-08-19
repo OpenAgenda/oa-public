@@ -2,10 +2,8 @@
  * tst.context.js: tests that cause works with errors from different contexts.
  */
 
-const verror = require('../lib/verror');
 const vm = require('vm');
-
-const VError = verror.VError;
+const VError = require('../lib/verror');
 
 const prog1 = 'callback(new Error(), "Error")';
 const prog2 = 'const e = new Error(); e.name = "BarError"; callback(e, "BarError")';
@@ -21,43 +19,59 @@ const prog2 = 'const e = new Error(); e.name = "BarError"; callback(e, "BarError
 
 describe('context', () => {
   function runTests(cerr, name) {
-    let verr;
-
     /*
      * The constructor should recognize the other context's Error as an
      * error for wrapping, and not as an options object.
      */
-    verr = new VError(cerr);
-    expect(VError.cause(verr)).toEqual(cerr);
+    it('recognize context\'s Error with cause as argument', () => {
+      const verr = new VError(cerr);
+      expect(VError.cause(verr)).toBe(cerr);
+    });
 
-    verr = new VError({ cause: cerr });
-    expect(VError.cause(verr)).toEqual(cerr);
+    it('recognize context\'s Error with cause in option-argument', () => {
+      const verr = new VError({ cause: cerr });
+      expect(VError.cause(verr)).toBe(cerr);
+    });
 
     /*
      * The assertions done at each step while walking the cause chain
      * should be okay with the other context's Error.
      */
-    expect(verror.findCauseByName(cerr, 'FooError')).toEqual(null);
-    expect(verror.findCauseByName(verr, name)).toEqual(cerr);
+    it('findCauseByName with a bad cause', () => {
+      expect(VError.findCauseByName(cerr, 'FooError')).toBeNull();
+    });
+
+    it('findCauseByName with a valid cause', () => {
+      const verr = new VError(cerr);
+      expect(VError.findCauseByName(verr, name)).toBe(cerr);
+    });
 
     /*
      * Verify that functions that take an Error as an argument
      * accept the Error created in the other context.
      */
-    expect(verror.cause(cerr)).toEqual(null);
-    expect(verror.info(cerr)).toEqual({});
-    expect(typeof (verror.fullStack(cerr))).toEqual('string');
+    it('has a good cause', () => {
+      expect(VError.cause(cerr)).toBeNull();
+    });
+
+    it('has a good info', () => {
+      expect(VError.info(cerr)).toEqual({});
+    });
+
+    it('has a stack', () => {
+      expect(typeof VError.fullStack(cerr)).toBe('string');
+    });
   }
 
   const context = vm.createContext({
-    'callback': runTests
+    callback: runTests
   });
 
-  test('prog 1', () => {
+  describe('prog 1', () => {
     vm.runInContext(prog1, context);
   });
 
-  test('prog 2', () => {
+  describe('prog 2', () => {
     vm.runInContext(prog2, context);
   });
 });

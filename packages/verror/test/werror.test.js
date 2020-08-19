@@ -8,15 +8,8 @@ const common = require('./common');
 const VError = verror.VError;
 const WError = verror.WError;
 
-/*
- * Save the generic parts of all stack traces so we can avoid hardcoding
- * Node-specific implementation details in our testing of stack traces.
- * The stack trace limit has to be large enough to capture all of Node's frames,
- * which are more than the default (10 frames) in Node v6.x.
- */
-test('WError', () => {
-  Error.stackTraceLimit = 20;
-  const nodestack = new Error().stack.split('\n').slice(2).join('\n');
+it('WError', () => {
+  const nodestack = common.getNodeStack();
 
   let err, suberr, stack, stackmessageTop, stackmessageMid;
 

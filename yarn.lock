@@ -5540,7 +5540,6 @@ __metadata:
     core-js: ^3.6.5
     cors: ^2.8.5
     create-react-class: ^15.5.2
-    elasticsearch: ^10.0.1
     errorhandler: ^1.5.0
     express: ^4.17.1
     geolib: ^2.0.24
@@ -17172,19 +17171,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elasticsearch@npm:^10.0.1":
-  version: 10.1.3
-  resolution: "elasticsearch@npm:10.1.3"
-  dependencies:
-    chalk: ^1.0.0
-    forever-agent: ^0.6.0
-    lodash: ^3.10.0
-    lodash-compat: ^3.0.0
-    promise-js: 0.0.6
-  checksum: baea75feb8345fca971757aa151a27e532e19d4ef370679410f022795a3068d34fb4093162a58691d60635b24260dadf3ef27b57dc42ea6263349385e8d92f84
-  languageName: node
-  linkType: hard
-
 "electron-to-chromium@npm:^1.2.7, electron-to-chromium@npm:^1.3.247, electron-to-chromium@npm:^1.3.363":
   version: 1.3.372
   resolution: "electron-to-chromium@npm:1.3.372"
@@ -19359,7 +19345,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"forever-agent@npm:^0.6.0, forever-agent@npm:~0.6.1":
+"forever-agent@npm:~0.6.1":
   version: 0.6.1
   resolution: "forever-agent@npm:0.6.1"
   checksum: 9cc0054dd4ea5fc26e014b8c929d1fb9247e931e81165cbd965a712061d65fb84791b2124f64cd79492e516662b94068d29fe1d824732382237321b3f61955fe
@@ -21911,14 +21897,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"interpret@npm:^1.0.0, interpret@npm:^1.2.0":
+"interpret@npm:^1.0.0":
   version: 1.2.0
   resolution: "interpret@npm:1.2.0"
   checksum: 06d0dd4af01f9d0a99af8fb20c888db99e7c1bd28835951646a7e426dd99ccfffb9d06ad2e8f7cb60dd2ecc3e5bc61fe83e04c2cc47d92c7b144ff935673463c
   languageName: node
   linkType: hard
 
-"interpret@npm:^1.4.0":
+"interpret@npm:^1.2.0, interpret@npm:^1.4.0":
   version: 1.4.0
   resolution: "interpret@npm:1.4.0"
   checksum: f15725d76206525546f559030ddc967db025c6db904eb8798a70ec3c07e42c5537c5cbc73a15eafd4ae5cdabad35601abf8878261c03dcc8217747e8037575fe
@@ -24514,9 +24500,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"knex@npm:^0.20.12":
-  version: 0.20.12
-  resolution: "knex@npm:0.20.12"
+"knex@npm:^0.20.12, knex@npm:^0.20.13, knex@npm:^0.20.8":
+  version: 0.20.15
+  resolution: "knex@npm:0.20.15"
   dependencies:
     colorette: 1.1.0
     commander: ^4.1.1
@@ -24552,91 +24538,7 @@ __metadata:
       optional: true
   bin:
     knex: bin/cli.js
-  checksum: 0f13f78618f2ae64b581aaf72d430bcfedf737a10f35cab2050f7ad0d1641435150dc099bdff0ddfed0e5934635827186e0d152ae1182c6ab141bc677fa0cb21
-  languageName: node
-  linkType: hard
-
-"knex@npm:^0.20.13":
-  version: 0.20.13
-  resolution: "knex@npm:0.20.13"
-  dependencies:
-    colorette: 1.1.0
-    commander: ^4.1.1
-    debug: 4.1.1
-    esm: ^3.2.25
-    getopts: 2.2.5
-    inherits: ~2.0.4
-    interpret: ^2.0.0
-    liftoff: 3.1.0
-    lodash: ^4.17.15
-    mkdirp: ^0.5.1
-    pg-connection-string: 2.1.0
-    tarn: ^2.0.0
-    tildify: 2.0.0
-    uuid: ^7.0.1
-    v8flags: ^3.1.3
-  peerDependencies:
-    mssql: ^6.1.0
-    mysql: ^2.18.1
-    mysql2: ^2.1.0
-    pg: ^7.18.2
-    sqlite3: ^4.1.1
-  peerDependenciesMeta:
-    mssql:
-      optional: true
-    mysql:
-      optional: true
-    mysql2:
-      optional: true
-    pg:
-      optional: true
-    sqlite3:
-      optional: true
-  bin:
-    knex: bin/cli.js
-  checksum: 8df4015211adffb2937e3f22255f5b1cdfcff2b5c40bc4882c42286e940e2846076ee352580931b7c0e773af51971195e76662b31a24ab2ceaecc3edbe31540a
-  languageName: node
-  linkType: hard
-
-"knex@npm:^0.20.8":
-  version: 0.20.11
-  resolution: "knex@npm:0.20.11"
-  dependencies:
-    colorette: 1.1.0
-    commander: ^4.1.1
-    debug: 4.1.1
-    esm: ^3.2.25
-    getopts: 2.2.5
-    inherits: ~2.0.4
-    interpret: ^2.0.0
-    liftoff: 3.1.0
-    lodash: ^4.17.15
-    mkdirp: ^0.5.1
-    pg-connection-string: 2.1.0
-    tarn: ^2.0.0
-    tildify: 2.0.0
-    uuid: ^7.0.1
-    v8flags: ^3.1.3
-  peerDependencies:
-    mssql: ^6.1.0
-    mysql: ^2.18.1
-    mysql2: ^2.1.0
-    pg: ^7.18.2
-    sqlite3: ^4.1.1
-  peerDependenciesMeta:
-    mssql:
-      optional: true
-    mysql:
-      optional: true
-    mysql2:
-      optional: true
-    pg:
-      optional: true
-    sqlite3:
-      optional: true
-  bin:
-    knex: bin/cli.js
-  checksum: f2dcc7f65d2906a70799836c49f41dd0ee08e516dad4d07893f87088204dfdbbcfeebb75aad29be8730072133efc2ac6717bb19bb78e94dc05be27dd878b9cec
+  checksum: 8d9346ae382ff10703dcb80e0243dc50d6d1580e2c591eeafadddaa17d3e3bbee5ef66a3d1fd6ba3049084963ddd4f16773e180dfb8bbffd395dadad99e69326
   languageName: node
   linkType: hard
 
@@ -25074,13 +24976,6 @@ __metadata:
   dependencies:
     es6-promise: ^4.2.5
   checksum: a52d885011b973021b10e39a9cc0dcf82ba4efaecba9b855a249f95707ed8fe8001d6eb70ba27f78192d03df1e552a1dfc211b6d90d46030cdbaf319a9ab055c
-  languageName: node
-  linkType: hard
-
-"lodash-compat@npm:^3.0.0":
-  version: 3.10.2
-  resolution: "lodash-compat@npm:3.10.2"
-  checksum: 06c1c2bb94a06c3365fb9d1827013b5e9f0dfc0a8dc7e6dcfa8fb7ec7a58eed2c879e2bf18abf0b4179b3a07a4be37215c3237919d68fac0772a10166ab1310c
   languageName: node
   linkType: hard
 
@@ -25590,7 +25485,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^3.10.0, lodash@npm:^3.10.1, lodash@npm:^3.7.0":
+"lodash@npm:^3.10.1, lodash@npm:^3.7.0":
   version: 3.10.1
   resolution: "lodash@npm:3.10.1"
   checksum: 0d90e79ce058c8d3e12a027a9fe7bc26107ec5c674c66bfe28c68931c12b7de2a5366477bd639adbf0e60407df3a259b77123c440e1fd2cec09ad1423b574a64
@@ -30824,13 +30719,6 @@ __metadata:
   version: 1.0.1
   resolution: "promise-inflight@npm:1.0.1"
   checksum: c06bce0fc60b1c7979f291e489b9017db9c15f872d5cef0dfbb2b56694e9db574bc5c28f332a7033cdbd3a1d6417c5a1ee03889743638f0241e82e5a6b9c277f
-  languageName: node
-  linkType: hard
-
-"promise-js@npm:0.0.6":
-  version: 0.0.6
-  resolution: "promise-js@npm:0.0.6"
-  checksum: e66a4007a691f0f4e093456972d157173b76df3c5b3b8827a3ded9a098b969910ffa9f6254498c94ff1485f3244e433fbb421146ebdb33970d115a4487e3e0e6
   languageName: node
   linkType: hard
 
@@ -38675,16 +38563,7 @@ typescript@^3.2.1:
   languageName: node
   linkType: hard
 
-"uuid@npm:^7.0.1":
-  version: 7.0.2
-  resolution: "uuid@npm:7.0.2"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 25137594ba74b0ca8bcf582f8c7c2e7556efe621d5cf2459d0c713755cb67c8546768b2d05c62d65a890a44e213551010f169cfa7c6ace4adcdd1bdfab22a627
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^7.0.3":
+"uuid@npm:^7.0.1, uuid@npm:^7.0.3":
   version: 7.0.3
   resolution: "uuid@npm:7.0.3"
   bin:
@@ -38736,12 +38615,21 @@ typescript@^3.2.1:
   languageName: node
   linkType: hard
 
-"v8flags@npm:^3.1.1, v8flags@npm:^3.1.3":
+"v8flags@npm:^3.1.1":
   version: 3.1.3
   resolution: "v8flags@npm:3.1.3"
   dependencies:
     homedir-polyfill: ^1.0.1
   checksum: 7249b0dd76fdf56a3e3444d508ec017463710205b45b20e71404018e744cf72698d63c9dd142b67e6d62450bf8c31960f3262291fda150b0b29e08c681634712
+  languageName: node
+  linkType: hard
+
+"v8flags@npm:^3.1.3":
+  version: 3.2.0
+  resolution: "v8flags@npm:3.2.0"
+  dependencies:
+    homedir-polyfill: ^1.0.1
+  checksum: d68937c42667f91cef97886fab0268d06d37c0de1659f9b3ad57a75aaaed1c21342659bfc80f4558fec21126ef25e486e7717017738b02be4840f465efd6379a
   languageName: node
   linkType: hard
 

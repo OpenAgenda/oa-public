@@ -3,71 +3,148 @@
  * errors.
  */
 
-const verror = require('../lib/verror');
+const VError = require('../lib/verror');
 
-const VError = verror.VError;
+describe('info', () => {
+  describe('base case using "options" to specify cause', () => {
+    const err1 = new Error('bad');
+    const err2 = new VError({
+      cause: err1
+    }, 'worse');
 
-test('info', () => {
-  let err1, err2, err3;
+    it('has good cause', () => {
+      expect(VError.cause(err2)).toBe(err1);
+    });
 
-  /* base case using "options" to specify cause */
-  err1 = new Error('bad');
-  err2 = new VError({
-    'cause': err1
-  }, 'worse');
-  expect(VError.cause(err2)).toEqual(err1);
-  expect(err2.message).toEqual('worse: bad');
-  expect(VError.info(err2)).toEqual({});
+    it('has good message', () => {
+      expect(err2.message).toBe('worse: bad');
+    });
 
-  /* simple info usage */
-  err1 = new VError({
-    'name': 'MyError',
-    'info': {
-      'errno': 'EDEADLK',
-      'anobject': { 'hello': 'world' }
-    }
-  }, 'bad');
-  expect(err1.name).toEqual('MyError');
-  expect(VError.info(err1)).toEqual({
-    'errno': 'EDEADLK',
-    'anobject': { 'hello': 'world' }
+    it('has good info', () => {
+      expect(VError.info(err2)).toEqual({});
+    });
   });
 
-  /* simple property propagation using old syntax */
-  err2 = new VError(err1, 'worse');
-  expect(VError.cause(err2)).toEqual(err1);
-  expect(err2.message).toEqual('worse: bad');
-  expect(VError.info(err2)).toEqual({
-    'errno': 'EDEADLK',
-    'anobject': { 'hello': 'world' }
+  describe('simple info usage', () => {
+    const info = {
+      errno: 'EDEADLK',
+      anobject: { hello: 'world' }
+    };
+    const err1 = new VError({
+      name: 'MyError',
+      info
+    }, 'bad');
+
+    it('has good name', () => {
+      expect(err1.name).toBe('MyError');
+    });
+
+    it('has good info', () => {
+      expect(VError.info(err1)).toEqual(info);
+    });
   });
 
-  /* one property override */
-  err2 = new VError({
-    'cause': err1,
-    'info': {
-      'anobject': { 'hello': 'moon' }
-    }
-  }, 'worse');
-  expect(VError.cause(err2)).toEqual(err1);
-  expect(err2.message).toEqual('worse: bad');
-  expect(VError.info(err2)).toEqual({
-    'errno': 'EDEADLK',
-    'anobject': { 'hello': 'moon' }
+  describe('simple property propagation using old syntax', () => {
+    const info = {
+      errno: 'EDEADLK',
+      anobject: { hello: 'world' }
+    };
+    const err1 = new VError({
+      name: 'MyError',
+      info
+    }, 'bad');
+    const err2 = new VError(err1, 'worse');
+
+    it('has good cause', () => {
+      expect(VError.cause(err2)).toBe(err1);
+    });
+
+    it('has good message', () => {
+      expect(err2.message).toBe('worse: bad');
+    });
+
+    it('has good info', () => {
+      expect(VError.info(err2)).toEqual(info);
+    });
   });
 
-  /* add a third-level to the chain */
-  err3 = new VError({
-    'cause': err2,
-    'name': 'BigError',
-    'info': {
-      'remote_ip': '127.0.0.1'
-    }
-  }, 'what next');
-  expect(err3.name).toEqual('BigError');
-  expect(VError.info(err3).remote_ip).toEqual('127.0.0.1');
-  expect(VError.cause(err3)).toEqual(err2);
-  expect(err3.message).toEqual('what next: worse: bad');
-  expect(VError.info(err3).errno).toEqual('EDEADLK');
-  expect(VError.info(err3).anobject).toEqual({ 'hello': 'moon' });
+  describe('one property override', () => {
+    const info = {
+      errno: 'EDEADLK',
+      anobject: { hello: 'world' }
+    };
+    const err1 = new VError({
+      name: 'MyError',
+      info
+    }, 'bad');
+    const err2 = new VError({
+      cause: err1,
+      info: {
+        anobject: { hello: 'moon' }
+      }
+    }, 'worse');
+
+    it('has good cause', () => {
+      expect(VError.cause(err2)).toEqual(err1);
+    });
+
+    it('has good message', () => {
+      expect(err2.message).toEqual('worse: bad');
+    });
+
+    it('has good info', () => {
+      expect(VError.info(err2)).toEqual({
+        errno: 'EDEADLK',
+        anobject: { hello: 'moon' }
+      });
+    });
+  });
+
+  describe('add a third-level to the chain', () => {
+    const info = {
+      errno: 'EDEADLK',
+      anobject: { hello: 'world' }
+    };
+    const err1 = new VError({
+      name: 'MyError',
+      info
+    }, 'bad');
+    const err2 = new VError({
+      cause: err1,
+      info: {
+        anobject: { hello: 'moon' }
+      }
+    }, 'worse');
+    const err3 = new VError({
+      cause: err2,
+      name: 'BigError',
+      info: {
+        remote_ip: '127.0.0.1'
+      }
+    }, 'what next');
+
+    it('has good name', () => {
+      expect(err3.name).toBe('BigError');
+    });
+
+    it('has good cause', () => {
+      expect(VError.cause(err3)).toBe(err2);
+    });
+
+    it('has good message', () => {
+      expect(err3.message).toBe('what next: worse: bad');
+    });
+
+    it('has good info.remote_ip', () => {
+      expect(VError.info(err3).remote_ip).toBe('127.0.0.1');
+    });
+
+    it('has good info.errno', () => {
+      expect(VError.info(err3).errno).toBe('EDEADLK');
+    });
+
+    it('has good info.anobject', () => {
+      expect(VError.info(err3).anobject).toEqual({ hello: 'moon' });
+    });
+  });
 });

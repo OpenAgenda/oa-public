@@ -8,178 +8,299 @@ const { VError, WError } = require('../lib/verror');
 const common = require('./common');
 
 /*
- * Save the generic parts of all stack traces so we can avoid hardcoding
- * Node-specific implementation details in our testing of stack traces.
- * The stack trace limit has to be large enough to capture all of Node's frames,
- * which are more than the default (10 frames) in Node v6.x.
- */
-
-
-describe('common', () => {
-  Error.stackTraceLimit = 20;
-  let nodestack;
-
-  /*
    * Runs all tests using the class "cons".  We'll apply this to each of the main
    * classes.
    */
-  function runTests(Cons, label) {
-    let err;
-    let stack;
-    let stackname;
+function runTests(Cons, label) {
+  /*
+   * On Node v0.10 and earlier, the name that's used in the "stack" output
+   * is the constructor that was used for this object.  On Node v0.12 and
+   * later, it's the value of the "name" property on the Error when it was
+   * constructed.
+   */
+  const stackname = common.oldNode() ? Cons.name : label;
 
-    /*
-     * On Node v0.10 and earlier, the name that's used in the "stack" output
-     * is the constructor that was used for this object.  On Node v0.12 and
-     * later, it's the value of the "name" property on the Error when it was
-     * constructed.
-     */
-    if (common.oldNode()) {
-      stackname = Cons.name;
-    } else {
-      stackname = label;
-    }
+  describe(label, () => {
+    describe('no arguments', () => {
+      const err = new Cons();
+      const nodestack = common.getNodeStack();
 
-    /* no arguments */
-    err = new Cons();
-    expect(err.name).toEqual(label);
-    expect(err instanceof Error).toBeTruthy();
-    expect(err instanceof Cons).toBeTruthy();
-    expect(err.message).toEqual('');
-    expect(VError.cause(err) === null).toBeTruthy();
-    stack = common.cleanStack(err.stack);
-    expect(stack).toEqual(`${[
-      `${stackname}: `,
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it('has a good name', () => {
+        expect(err.name).toBe(label);
+      });
 
-    /* options-argument form */
-    err = new Cons({});
-    expect(err.name).toEqual(label);
-    expect(err.message).toEqual('');
-    expect(VError.cause(err) === null).toBeTruthy();
+      it('is an instance of Error', () => {
+        expect(err).toBeInstanceOf(Error);
+      });
 
-    /* simple message */
-    err = new Cons('my error');
-    expect(err.name).toEqual(label);
-    expect(err.message).toEqual('my error');
-    expect(VError.cause(err) === null).toBeTruthy();
-    stack = common.cleanStack(err.stack);
-    expect(stack).toEqual(`${[
-      `${stackname}: my error`,
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it(`is an instance of ${label}`, () => {
+        expect(err).toBeInstanceOf(Cons);
+      });
 
-    err = new Cons({}, 'my error');
-    expect(err.name).toEqual(label);
-    expect(err.message).toEqual('my error');
-    expect(VError.cause(err) === null).toBeTruthy();
+      it('has a good message', () => {
+        expect(err.message).toBe('');
+      });
 
-    /* fullStack */
-    err = new Cons('Some error');
-    stack = common.cleanStack(VError.fullStack(err));
-    expect(stack).toEqual(`${[
-      `${stackname}: Some error`,
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
 
-    err = new Error('Some error');
-    stack = common.cleanStack(VError.fullStack(err));
-    expect(stack).toEqual(`${[
-      'Error: Some error',
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it('has a good stack', () => {
+        const stack = common.cleanStack(err.stack);
 
-    /* printf-style message */
-    err = new Cons('%s error: %3d problems', 'very bad', 15);
-    expect(err.message).toEqual('very bad error:  15 problems');
-    expect(VError.cause(err) === null).toBeTruthy();
+        expect(stack).toBe(`${[
+          `${stackname}: `,
+          '    at Suite.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+    });
 
-    err = new Cons({}, '%s error: %3d problems', 'very bad', 15);
-    expect(err.message).toEqual('very bad error:  15 problems');
-    expect(VError.cause(err) === null).toBeTruthy();
+    describe('options-argument form', () => {
+      const err = new Cons({});
 
-    /* null cause (for backwards compatibility with older versions) */
-    err = new Cons(null, 'my error');
-    expect(err.message).toEqual('my error');
-    expect(VError.cause(err) === null).toBeTruthy();
-    stack = common.cleanStack(err.stack);
-    expect(stack).toEqual(`${[
-      `${stackname}: my error`,
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it('has a good name', () => {
+        expect(err.name).toBe(label);
+      });
 
-    err = new Cons({ cause: null }, 'my error');
-    expect(err.message).toEqual('my error');
-    expect(VError.cause(err) === null).toBeTruthy();
+      it('has a good message', () => {
+        expect(err.message).toBe('');
+      });
 
-    err = new Cons(null);
-    expect(err.message).toEqual('');
-    expect(VError.cause(err) === null).toBeTruthy();
-    stack = common.cleanStack(err.stack);
-    expect(stack).toEqual(`${[
-      `${stackname}: `,
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
+    });
 
-    /* constructorOpt */
-    function makeErr(options) {
-      return (new Cons(options, 'test error'));
-    }
+    describe('simple message', () => {
+      const err = new Cons('my error');
+      const nodestack = common.getNodeStack();
 
-    err = makeErr({});
-    stack = common.cleanStack(err.stack);
-    expect(stack).toEqual(`${[
-      `${stackname}: test error`,
-      '    at makeErr (dummy filename)',
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it('has a good name', () => {
+        expect(err.name).toBe(label);
+      });
 
-    err = makeErr({ constructorOpt: makeErr });
-    stack = common.cleanStack(err.stack);
-    expect(stack).toEqual(`${[
-      `${stackname}: test error`,
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
+      it('has a good message', () => {
+        expect(err.message).toBe('my error');
+      });
 
-    /* invoked without "new" */
-    err = Cons('my %s string', 'testing!');
-    expect(err.name).toEqual(label);
-    expect(err).toBeInstanceOf(Cons);
-    expect(err).toBeInstanceOf(Error);
-    expect(err.message).toEqual('my testing! string');
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
 
-    /* custom "name" */
-    err = new Cons({ name: 'SomeOtherError' }, 'another kind of error');
-    expect(err.name).toEqual('SomeOtherError');
-    expect(err instanceof Cons).toBeTruthy();
-    expect(err instanceof Error).toBeTruthy();
-    expect(err.message).toEqual('another kind of error');
-    stack = common.cleanStack(err.stack);
-    expect(stack).toEqual(`${[
-      'SomeOtherError: another kind of error',
-      '    at runTests (dummy filename)',
-      '    at Object.<anonymous> (dummy filename)'
-    ].join('\n')}\n${nodestack}`);
-  }
+      it('has a good stack', () => {
+        const stack = common.cleanStack(err.stack);
 
-  test('VError', () => {
-    nodestack = new Error().stack.split('\n').slice(2).join('\n');
+        expect(stack).toBe(`${[
+          `${stackname}: my error`,
+          '    at Suite.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+    });
 
-    runTests(VError, 'VError');
+    describe('simple message as second parameter', () => {
+      const err = new Cons({}, 'my error');
+
+      it('has a good name', () => {
+        expect(err.name).toBe(label);
+      });
+
+      it('has a good message', () => {
+        expect(err.message).toBe('my error');
+      });
+
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
+    });
+
+    describe('fullStack', () => {
+      it(`works with a ${label}`, () => {
+        const err = new Cons('Some error');
+        const stack = common.cleanStack(VError.fullStack(err));
+        const nodestack = common.getNodeStack();
+
+        expect(stack).toBe(`${[
+          `${stackname}: Some error`,
+          '    at Object.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+
+      it('works with an Error', () => {
+        const err = new Error('Some error');
+        const stack = common.cleanStack(VError.fullStack(err));
+        const nodestack = common.getNodeStack();
+
+        expect(stack).toBe(`${[
+          'Error: Some error',
+          '    at Object.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+    });
+
+    describe('printf-style message', () => {
+      const err = new Cons('%s error: %3d problems', 'very bad', 15);
+
+      it('has a good message', () => {
+        expect(err.message).toBe('very bad error:  15 problems');
+      });
+
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
+    });
+
+    describe('printf-style message as second parameter', () => {
+      const err = new Cons({}, '%s error: %3d problems', 'very bad', 15);
+
+      it('has a good message', () => {
+        expect(err.message).toBe('very bad error:  15 problems');
+      });
+
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
+    });
+
+    describe('null cause (for backwards compatibility with older versions)', () => {
+      const err = new Cons(null, 'my error');
+      const nodestack = common.getNodeStack();
+
+      it('has a good message', () => {
+        expect(err.message).toBe('my error');
+      });
+
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
+
+      it('has a good stack', () => {
+        const stack = common.cleanStack(err.stack);
+
+        expect(stack).toBe(`${[
+          `${stackname}: my error`,
+          '    at Suite.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+    });
+
+    describe('null cause in option-argument (for backwards compatibility with older versions)', () => {
+      const err = new Cons({ cause: null }, 'my error');
+
+      it('has a good message', () => {
+        expect(err.message).toBe('my error');
+      });
+
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
+    });
+
+    describe('null cause without message (for backwards compatibility with older versions)', () => {
+      const err = new Cons(null);
+      const nodestack = common.getNodeStack();
+
+      it('has a good message', () => {
+        expect(err.message).toBe('');
+      });
+
+      it('has a good cause', () => {
+        expect(VError.cause(err)).toBeNull();
+      });
+
+      it('has a good stack', () => {
+        const stack = common.cleanStack(err.stack);
+
+        expect(stack).toBe(`${[
+          `${stackname}: `,
+          '    at Suite.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+    });
+
+    describe('constructorOpt', () => {
+      function makeErr(options) {
+        return (new Cons(options, 'test error'));
+      }
+
+      it('without constructorOpt option', () => {
+        const err = makeErr({});
+        const stack = common.cleanStack(err.stack);
+        const nodestack = common.getNodeStack();
+
+        expect(stack).toBe(`${[
+          `${stackname}: test error`,
+          '    at makeErr (dummy filename)',
+          '    at Object.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+
+      it('with constructorOpt option', () => {
+        const err = makeErr({ constructorOpt: makeErr });
+        const stack = common.cleanStack(err.stack);
+        const nodestack = common.getNodeStack();
+
+        expect(stack).toBe(`${[
+          `${stackname}: test error`,
+          '    at Object.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+    });
+
+    describe('invoked without "new"', () => {
+      const err = Cons('my %s string', 'testing!');
+
+      it('has a good name', () => {
+        expect(err.name).toBe(label);
+      });
+
+      it('is an instance of Error', () => {
+        expect(err).toBeInstanceOf(Error);
+      });
+
+      it(`is an instance of ${label}`, () => {
+        expect(err).toBeInstanceOf(Cons);
+      });
+
+      it('has a good message', () => {
+        expect(err.message).toBe('my testing! string');
+      });
+    });
+
+    describe('custom "name"', () => {
+      const err = new Cons({ name: 'SomeOtherError' }, 'another kind of error');
+      const nodestack = common.getNodeStack();
+
+      it('has a good name', () => {
+        expect(err.name).toBe('SomeOtherError');
+      });
+
+      it('is an instance of Error', () => {
+        expect(err).toBeInstanceOf(Error);
+      });
+
+      it(`is an instance of ${label}`, () => {
+        expect(err).toBeInstanceOf(Cons);
+      });
+
+      it('has a good message', () => {
+        expect(err.message).toBe('another kind of error');
+      });
+
+      it('has a good stack', () => {
+        const stack = common.cleanStack(err.stack);
+
+        expect(stack).toBe(`${[
+          'SomeOtherError: another kind of error',
+          '    at Suite.<anonymous> (dummy filename)'
+        ].join('\n')}\n${nodestack}`);
+      });
+    });
   });
+}
 
-  test('WError', () => {
-    nodestack = new Error().stack.split('\n').slice(2).join('\n');
+describe('common', () => {
+  Error.stackTraceLimit = 25;
 
-    runTests(WError, 'WError');
-  });
+  runTests(VError, 'VError');
+  runTests(WError, 'WError');
 });

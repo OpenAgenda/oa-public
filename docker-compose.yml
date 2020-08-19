@@ -91,9 +91,9 @@ services:
     restart: always
     volumes:
       - .:/root/oa
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-key.pem:/ssl/db-key.pem
-      - ${MYSQL_CONTAINER_DATA_PATH}/client-cert.pem:/ssl/db-cert.pem
-      - ${MYSQL_CONTAINER_DATA_PATH}/ca.pem:/ssl/db-ca.pem
+      - ${MYSQL_SSL_CA}:/ssl/db-ca.pem
+      - ${MYSQL_SSL_CERT}:/ssl/db-cert.pem
+      - ${MYSQL_SSL_KEY}:/ssl/db-key.pem
       - ${REPO_SSL_CLIENT}:/root/.ssh/id_rsa
     links:
       - mysql

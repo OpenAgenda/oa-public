@@ -7,7 +7,12 @@ import { useApiClient } from '@openagenda/react-shared';
 const defaultData = [];
 const yAxisDomain = [0, dataMax => Math.max(10, dataMax)];
 
-export default function PulseChart({ agendaUid, className }) {
+export default function PulseChart({
+  agendaUid,
+  className,
+  height = 30,
+  width = 155
+}) {
   const apiClient = useApiClient();
 
   const { data } = useQuery(
@@ -49,8 +54,8 @@ export default function PulseChart({ agendaUid, className }) {
 
   return (
     <LineChart
-      width={155}
-      height={30}
+      width={width}
+      height={height}
       data={data || defaultData}
       className={className}
     >
@@ -59,7 +64,7 @@ export default function PulseChart({ agendaUid, className }) {
           id="colorUv"
           x1="0"
           x2="0"
-          y1="30" // height
+          y1={height}
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
