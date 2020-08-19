@@ -1,0 +1,59 @@
+'use strict';
+
+const log = require('@openagenda/logs')('update');
+
+const cleanOptions = require('./lib/cleanSetOptions');
+const get = require('./get');
+const validate = require('./lib/validate');
+const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
+const NotFoundError = require('./lib/NotFoundError');
+
+async function update({ service, isPatch }, current, data, options = {}) {
+  log('received %j payload', current.uid);
+
+  const {
+    context
+  } = cleanOptions(options);
+
+  const clean = {
+    ...validate(data, { isPatch }),
+    updatedAt: new Date
+  };
+
+  const entry = fromItemToDbEntry(clean);
+
+  const result = await service.clients.knex(service.config.schema)
+    .update(entry)
+    .where('uid', current.uid);
+
+  log('updated location with uid %s', current.uid);
+
+  return {
+    ...current,
+    ...clean
+  };
+}
+
+module.exports = async ({ service, isPatch }, identifiers, data, options = {}) => {
+  const current = await get(service, identifiers, options);
+  if (!current) {
+    throw NotFoundError('location', identifiers);
+  }
+  return update({ service, isPatch }, current, data, options);
+}
+
+module.exports.byAgendaUid = async (
+  { service, isPatch },
+  agendaUid,
+  identifiers,
+  data,
+  options = {}
+) => {
+  const current = await get.byAgendaUid(service, agendaUid, identifiers, options);
+
+  if (!current) {
+    throw NotFoundError('location', { identifiers, agendaUid });
+  }
+
+  return update({ service, isPatch }, current, data, options = {});
+}

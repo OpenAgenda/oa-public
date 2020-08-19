@@ -3,9 +3,11 @@
 const knex = require('knex');
 const logger = require('@openagenda/logs');
 
+const create = require('./create');
 const get = require('./get');
 const list = require('./list');
 const stream = require('./stream');
+const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
 
 module.exports = (c = {}) => {
@@ -45,6 +47,9 @@ module.exports = (c = {}) => {
   });
 
   service.exposed = Object.assign(agendaUid => ({
+    create: create.byAgendaUid.bind(null, service, agendaUid),
+    update: update.byAgendaUid.bind(null, { service, isPatch: false }, agendaUid),
+    patch: update.byAgendaUid.bind(null, { service, isPatch: true }, agendaUid),
     list: service.listByAgendaUid.bind(null, agendaUid),
     stream: service.streamByAgendaUid.bind(null, agendaUid),
     get: service.getByAgendaUid.bind(null, agendaUid)
