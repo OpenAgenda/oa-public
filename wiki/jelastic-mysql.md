@@ -104,7 +104,7 @@ La surveillance se fait avec [Percona Monitoring and Management](https://www.per
 
 ### Modification de l'environement
 
-Pour la surveillance il faut changer la topologie de l'événement et ajouter un nœud de type "Docker Engine CE" dans la catégorie "Services additionnels", avec une IP publique.
+Il faut d'abord changer la topologie de l'événement et ajouter un nœud de type "Docker Engine CE" dans la catégorie "Services additionnels", avec une IP publique.
 
 En SSH sur ce container, nous allons installer `pmm-server` avec les commandes suivantes:
 
