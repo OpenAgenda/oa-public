@@ -1,106 +1,180 @@
-[{
+[ {
   "field": "id",
-  "read": ["internal"]
+  "optional": false,
+  "type": "integer",
+  "read": ["internal"],
+  "write": ["internal"]
 }, {
   "field": "uid",
-  "read": ["internal", "public", "list"]
+  "type": "integer",
+  "optional": false,
+  "read": ["internal", "public", "list"],
+  "write": ["internal"]
 }, {
   "field": "agendaId",
-  "read": ["internal"]
+  "type": "integer",
+  "optional": false,
+  "read": ["internal"],
+  "write": ["internal"]
 }, {
   "field": "slug",
-  "read": ["internal", "public"]
+  "type": "text",
+  "optional": false,
+  "read": ["internal", "public"],
+  "write": ["internal"]
 }, {
   "field": "name",
   "db": "placename",
-  "read": ["internal", "public", "list"]
+  "optional": false,
+  "read": ["internal", "public", "list"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "text"
 }, {
   "field": "address",
-  "read": ["internal", "public", "list"]
+  "optional": false,
+  "type": "text",
+  "read": ["internal", "public", "list"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "city",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "region",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "department",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "postalCode",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "insee",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "countryCode",
   "db": "country",
-  "read": ["internal", "public"]
+  "type": "text",
+  "optional": false,
+  "max": 2,
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "district",
+  "type": "text",
   "db": "city_district",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "latitude",
-  "read": ["internal", "public", "list"]
+  "type": "latitude",
+  "read": ["internal", "public", "list"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "longitude",
-  "read": ["internal", "public", "list"]
+  "type": "longitude",
+  "read": ["internal", "public", "list"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "updatedAt",
-  "read": ["internal", "public"]
+  "type": "date",
+  "optional": false,
+  "read": ["internal", "public"],
+  "write": ["internal"]
 }, {
   "field": "createdAt",
-  "read": ["internal", "public"]
+  "type": "date",
+  "optional": false,
+  "read": ["internal", "public"],
+  "write": ["internal"]
 }, {
   "field": "image",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "text"
 }, {
   "field": "description",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "multilingual",
+  "languages": []
 }, {
   "field": "tags",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "pass"
 }, {
   "field": "website",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "link"
 }, {
   "field": "email",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "email"
 }, {
   "field": "phone",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "phone"
 }, {
   "field": "links",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "list": true,
+  "type": "link"
 }, {
   "field": "access",
   "db": "store",
-  "read": ["internal", "public"]
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "type": "multilingual",
+  "languages": []
 }, {
   "field": "state",
   "db": "store",
-  "read": ["internal", "public"]
+  "type" : "choice",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "default": 0
 }, {
   "field": "timezone",
   "db": "store",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "imageCredits",
   "db": "store",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "extId",
   "db": "store",
-  "read": ["internal", "public"]
+  "type": "text",
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "eveId",
-  "read": ["internal"]
+  "type": "text",
+  "read": ["internal"],
+  "write": ["internal"]
 }]

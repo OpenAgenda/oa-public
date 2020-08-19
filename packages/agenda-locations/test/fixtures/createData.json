@@ -1,0 +1,50 @@
+{
+  "image": null,
+  "name": "OpenAgenda",
+  "imageCredits": null,
+  "address": "8 rue Alice, Courbevoie",
+  "city": "Courbevoie",
+  "district": "Quartier de Bécon",
+  "department": "Hauts-de-Seine",
+  "region": "Île-de-France",
+  "postalCode": "92400",
+  "insee": "92026",
+  "countryCode": "FR",
+  "description": {
+    "fr": "Une description"
+  },
+  "access": {
+    "fr": "Par la porte"
+  },
+  "website": "https://openagenda.com",
+  "email": "admin@openagenda.com",
+  "extId": "123456",
+  "timezone": "Europe/Paris",
+  "phone": "0650916026",
+  "latitude": 48.9025825,
+  "longitude": 2.279693,
+  "state": 1,
+  "links": [
+    "https://oa.com",
+    "https://apenogenda.com",
+    "https://apenagendo.com"
+  ],
+  "tags": [
+    {
+      "id": 41,
+      "label": "Maison des illustres"
+    },
+    {
+      "id": 33,
+      "label": "Première participation"
+    },
+    {
+      "id": 32,
+      "label": "Ouverture exceptionnelle"
+    },
+    {
+      "id": 1,
+      "label": "Maison, appartement, atelier de personnes célèbres"
+    }
+  ]
+}

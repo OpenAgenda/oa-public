@@ -1,92 +1,68 @@
 "use strict";
 
-const validators = require( '../src' );
+const validators = require('../src');
 
-describe( 'link validator', () => {
+describe('link validator', () => {
 
-  describe( 'required ( default )', () => {
+  describe('required (default)', () => {
 
-    var validate = validators.link( { field: 'link', optional: false } );
+    const validate = validators.link({ field: 'link', optional: false });
 
-    it( 'an email is not a link', () => {
-
+    it('an email is not a link', () => {
       let errors = [];
 
       try {
-
-        validate( 'email@gmail.com' );
-
-      } catch( e ) {
-
+        validate('email@gmail.com');
+      } catch(e) {
         errors = e;
-
       }
 
       expect(errors.length).toBe(1);
+    });
 
-    } );
 
-
-    it( 'an email prefixed with mailto: is a link', () => {
-
-      const clean = validate( 'mailto:email@gmail.com' );
+    it('an email prefixed with mailto: is a link', () => {
+      const clean = validate('mailto:email@gmail.com');
 
       expect(clean).toBe('mailto:email@gmail.com');
+    });
 
-    } );
 
-
-    it( 'an empty input is not a link', () => {
-
+    it('an empty input is not a link', () => {
       let errors = [];
 
       try {
-
         validate();
-
-      } catch( e ) {
-
+      } catch(e) {
         errors = e;
-
       }
 
       expect(errors.length).toBe(1);
+    });
 
-    } );
-
-    it( 'redos! - your processor did not sink', () => {
-
+    it('redos! - your processor did not sink', () => {
       [
         'http://www.scenesetcines.fr/index.php?id=68&no_cache=1&tx_xmloparser_pi1%5Bitem%5D=30002746&tx_xmloparser_pi1%5BbackPid%5D=2&PHPSESSID=11a611c62b026547e8de23e6d6576907, http://www.artefact-lab.com/',
         'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5'
-      ].forEach( l => {
+      ].forEach(l => {
 
-        //console.log( 'redos-able: %s', l );
+        //console.log('redos-able: %s', l);
 
         try {
-
-          validate( l );
-
-        } catch( e ) {
-
-
+          validate(l);
+        } catch(e) {
         }
+      });
+    });
 
-      } );
-
-    } );
-
-    it( 'http is added if missing', () => {
-
-      var clean = validate( 'lemonde.fr' );
+    it('http is added if missing', () => {
+      var clean = validate('lemonde.fr');
 
       expect(clean).toBe('http://lemonde.fr');
+    });
 
-    } );
 
-
-    it( 'are links', () => {
-
+    it('are links', () => {
       let errors = false,
 
       links = [
@@ -102,31 +78,22 @@ describe( 'link validator', () => {
         'http://www.tourisme-ouestvar.com/les-journees-europeennes-du-patrimoine-ollioules-exposition-visites-guidees-animations.html?origine_affinage=true&mid=1&action=result&origine_affinage=true',
         'https://static.wixstatic.com/media/852505_4e3b455f81d2432d871076b2e796d8f7.png/v1/fill/w_184,h_68,al_c,usm_0.66_1.00_0.01/852505_4e3b455f81d2432d871076b2e796d8f7.png',
         'https://www.google.fr/maps/place/Camosine/@46.9932127,3.1608449,17z/data=!3m1!4b1!4m5!3m4!1s0x47f04595dc4cf785:0x5db86960965bd73a!8m2!3d46.9932127!4d3.1630336?hl=fr&shorturl=1'
-      ],
+     ],
 
-      notLinks = links.filter( l => {
-
+      notLinks = links.filter(l => {
         try {
-
-          validate( l );
-
+          validate(l);
           return false;
-
-        } catch( e ) {
-
+        } catch(e) {
           return true;
-
         }
-
-      } );
+      });
 
       expect(notLinks.length).toBe(0);
+    });
 
-    } );
 
-
-    it( 'are not links', () => {
-
+    it('are not links', () => {
       let errors = false,
 
       links = [
@@ -134,87 +101,83 @@ describe( 'link validator', () => {
         'openagenda.com.',
         'http://www/:a-url.com',
         'http://www.bourg-en-gironde.fr;www.remut.fr/actualite/4477'
-      ],
+     ],
 
-      areLinks = links.filter( l => {
-
+      areLinks = links.filter(l => {
         try {
-
-          validate( l );
+          validate(l);
 
           return true;
-
-        } catch( e ) {
-
+        } catch(e) {
           return false;
-
         }
-
-      } );
+      });
 
       expect(areLinks.length).toBe(0);
+    });
 
-    } );
 
-
-    it( 'not a link', () => {
-
+    it('not a link', () => {
       var caught = false;
 
       try {
 
-        validate( 'fsqfsdq' );
+        validate('fsqfsdq');
 
-      } catch( e ) {
+      } catch(e) {
 
         caught = true;
 
-        expect(e[ 0 ].code).toBe('link.invalid');
+        expect(e[0].code).toBe('link.invalid');
 
       }
 
       expect(caught).toBe(true);
+    });
 
-    } );
+  });
 
-  } );
+  describe('as a list of links', () => {
 
-  describe( 'optional', () => {
+    it('validates list of links when list bool is set to true', () => {
+      let validate = validators.link({
+        field: 'somelink',
+        list: true,
+        optional: false
+      });
 
-    const validate = validators.link( { field: 'link', optional: true } );
+      expect(
+        validate(['https://openagenda.com', 'http://openagenda.com'])
+     ).toEqual(['https://openagenda.com', 'http://openagenda.com']);
+    });
 
-    it( 'empty input is ignored', () => {
+  });
 
-      expect( validate() ).toBeUndefined();
+  describe('optional', () => {
+    const validate = validators.link({ field: 'link', optional: true });
 
-    } );
+    it('empty input is ignored', () => {
+      expect(validate()).toBeUndefined();
+    });
 
-    it( 'if default is provided, default is used', () => {
+    it('if default is provided, default is used', () => {
+      const validate = validators.link({ field: 'link', optional: true, default: null });
 
-      const validate = validators.link( { field: 'link', optional: true, default: null } );
+      expect(validate()).toBeNull();
+    });
 
-      expect( validate() ).toBeNull();
-
-    } );
-
-    it( 'link validator is optional by default', () => {
-
+    it('link validator is optional by default', () => {
       let errors = []
 
       try {
-
         validators.link()();
-
-      } catch( e ) {
-
+      } catch(e) {
         errors = e;
-
       }
 
       expect(errors.length).toBe(0);
+    });
 
-    } );
+  });
 
-  } );
-
-} );
+});
