@@ -8,53 +8,69 @@
 
 Sur https://app.jpe.infomaniak.com/
 
-Lancer la création d'un nouvel environnement avec une base de données MySQL.
+### Groupe de serveurs MySQL
+
+Lancer la création d'un nouvel environnement avec une base de données MySQL CE 8.x.x. Pas d'équilibrage, pas d'App Serveurs. En sélectionnant l'item MySQL choisi dans la topologie, sa configuration apparaitra dans le menu central.
+
+La capacité en cloudlets doit être suffisante pour votre besoins. Des ajustements seront probablement nécessaires. Dans notre cas, nous choisissons une capacité fixe de 48 cloudlets par serveur, ce qui équivaut à 6G de RAM pour 19Ghz de capacité de calcul.
 
 Cocher la case **Regroupement automatique**, choisir **Master-slave** comme schéma de regroupement et laisser **ProxySQL**.
 
-Dans la partie **MySQL** il est pas possible de définir des variables d'environement **DB_USER** et **DB_PASS** pour définir les identifiants de connexion de votre choix.
+Préciser les variables d'environnement `DB_USER` et `DB_PASS` pour définir pour définir les identifiants de l'utilisateur associé à la base de données. Le mot de passe devra faire au minimum 8 caractères sans quoi l'environnement ne sera pas correctement créé.
 
-Dans la partie **ProxySQL**, il faut ajouter une adresse publique IPv4 pour pouvoir accéder à la base de données depuis l'exterieur de l'environement.
+Une variable `DB_NAME` peut également être précisée. Elle sera utilisée lors de la mise en place de la sauvegarde automatisée
 
-Ajouter un conteneur de stockage (NFS) de 100Go pour la sauvegarde des backups automatisés.
+### ProxySQL
 
-Dans les volumes de MySQL, éditer le volume `/var/lib/jelastic/backup` en choisissant le serveur NFS avec comme chemin distant `/data/backups`.
+Ce groupe est automatiquement créé lorsque le regroupement automatique est choisi dans la configuration MySQL. Sa configuration est affichée sur un clic de l'item 'ProxySQL' de la partie gauche (topologie) du menu de création.
+
+Une IP publique doit être définie pour permettre un accès depuis l'exterieur de l'environnement. Nous en ajoutons une v4.
+
+### Espace de stockage
+
+De nouveau depuis le menu de topologie à gauche, en ouvrant l'item "Conteneurs de stockage", ajouter un conteneur de stockage (NFS) de 100Go pour la sauvegarde des backups automatisés.
+
+De retour dans la configuration des serveurs MySQL, dans la configuration des volumes, éditer le volume `/var/lib/jelastic/backup` en choisissant le serveur NFS avec comme chemin distant `/data/backups`.
+
+### Création et test
 
 Choisir un nom d'environnement et lancer la création.
 
-Selectionner depuis le marketplace Jelastic le Cluster MySQL/MariaDB, dans le menu, inclure ProxySQL, et prendre MySQL CE.
-
-L'installation comprend:
+Pour résumer, la topologie de l'environnement comprend:
 
 - 2 nœuds MySQL (Master-Slave)
 - 2 nœuds ProxySQL pour la répartition des charges
 - 1 nœud NFS pour le stockage des backups
 
-Un fois l'installation terminée un email avec les informations de connexion vous sera envoyé.
+L'ajout d'un outil de monitoring de la base de donnée est détaillé plus loin dans cette documentation.
 
-A ce stade, il est possible de se connecter avec un client en non-sécurisé:
+Une fois l'installation terminée un email avec les informations de connexion est envoyé. Une fois l'email reçu, un premier test de connexion devient possible.
 
 ```
 mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -ujelastic-48749
 ```
 
-Pour plus d'informations: https://jelastic.com/blog/mysql-mariadb-database-auto-clustering-cloud-hosting/
+[Documentation Jelastic](https://jelastic.com/blog/mysql-mariadb-database-auto-clustering-cloud-hosting/)
 
-### Maintien des connexions TCP en vie
+## Ajustements de configuration ProxySQL
+
+### Persistence des connexions
 
 Par défaut les connexions TCP ont une durée de vie limitée lorsqu'elles sont inactives, ce qui conduit à des erreurs `ECONNRESET` après 15 minutes d'inactivité (par défaut), pour corriger ce problème il faut activer l'option `KeepAlive`.
 
-Sur chaque serveur "DB Load balancer" ProxySSL, exécutez la commande suivante:
+Cette option est activée sur chaque instance du groupe 'DB Load balancer', en ouvrant une connexion ssh puis en se connectant à la base de paramétrages de ProxySLQ:
 
 ```
 mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'SET mysql-use_tcp_keepalive = 1; SET mysql-tcp_keepalive_time = 20; LOAD MYSQL VARIABLES TO RUNTIME; SAVE MYSQL VARIABLES TO DISK; PROXYSQL RESTART;'
 ```
 
-## Sécurisation
+La commande `PROXYSQL RESTART` fermera la connexion et enverra un message d'erreur.
+
+### Sécurisation
 
 Pour les données qui transitent sur le web il est important de chiffrer les données, il est donc nécessaire d'activer le SSL au moins pour la connexion à ProxySQL.
 
-### Activer le SSL
+#### Activer le SSL
 
 Pour éditer la variable `mysql-have_ssl` de la db de configuration:
 
@@ -62,7 +78,7 @@ Pour éditer la variable `mysql-have_ssl` de la db de configuration:
 mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'SET mysql-have_ssl = 1; LOAD MYSQL VARIABLES TO RUNTIME; SAVE MYSQL VARIABLES TO DISK; PROXYSQL RESTART;'
 ```
 
-Les certificats à utiliser pour la connexion depuis le client sont dans le dossier `/var/lib/proxysql`. Ils sont automatiquement générés et sont différents sur chaque instance de DB Load balancer. Copier le contenu des fichiers `proxysql-ca.pem`, `proxysql-cert.pem` et `proxysql-key.pem` de la première instance ProxySQL pour les placer dans les autres.
+Les certificats à utiliser pour la connexion depuis le client sont dans le dossier `/var/lib/proxysql`. Ils sont automatiquement générés et sont différents sur chaque instance de DB Load balancer. Copier le contenu des fichiers `proxysql-ca.pem`, `proxysql-cert.pem` et `proxysql-key.pem` de la première instance ProxySQL vers les instances restantes permet de simplement retrouver les mêmes certificats sur chaque instance.
 
 Les instances ProxySQL où ont été placés les certificats de l'instance de référence doivent être redémarrées.
 
@@ -74,7 +90,7 @@ mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -uj
 
 Il est désormais possible de se connecter de manière sécurisée au cluster
 
-### Désactiver les connexions non sécurisées
+#### Désactiver les connexions non sécurisées
 
 Pour empêcher de se connecter de manière non sécurisée, il faut de nouveau se connecter sur chaque instance de l'environnement "DB Load balancer" pour modifier une variable liée au compte utilisé pour la connexion. Sur un ssh de chaque instance ProxySQL, lancer la commande suivante:
 
@@ -82,21 +98,22 @@ Pour empêcher de se connecter de manière non sécurisée, il faut de nouveau s
 mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'UPDATE mysql_users SET use_ssl=1; LOAD MYSQL USERS TO RUNTIME; SAVE MYSQL USERS TO DISK; PROXYSQL RESTART;'
 ```
 
-La connexion non sécurisée est désormais non autorisée
+La connexion non sécurisée est désormais non autorisée.
 
-### Liens utiles
+#### Liens utiles
 
-[SSL Configuration for frontends](https://github.com/sysown/proxysql/wiki/SSL-Support#ssl-configuration-for-frontends)  
-[ProxySQL users configuration](https://proxysql.com/documentation/users-configuration/)  
+[SSL Configuration for frontends](https://github.com/sysown/proxysql/wiki/SSL-Support#ssl-configuration-for-frontends)
+[ProxySQL users configuration](https://proxysql.com/documentation/users-configuration/)
 [SSL at ProxySQL Part 1](https://proxysql.com/blog/ssl-at-proxysql-part1/)
 
 ## Backups automatisés
 
-Sur un serveur MySQL esclave, ajouter la ligne suivante dans le fichier `/var/spool/cron/mysql`:
+Sur un des serveurs MySQL esclaves, ajouter la ligne suivante dans le fichier `/var/spool/cron/mysql`:
 
 ```
-0 1 * * * /var/lib/jelastic/bin/backup_script.sh -m dump -c 10 -u $DB_USER -p $DB_PASS -d oa
+0 1 * * * /var/lib/jelastic/bin/backup_script.sh -m dump -c 10 -u $DB_USER -p $DB_PASS -d $DB_NAME
 ```
+
 
 ## Surveillance
 
