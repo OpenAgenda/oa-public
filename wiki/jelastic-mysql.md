@@ -104,11 +104,23 @@ La surveillance se fait avec [Percona Monitoring and Management](https://www.per
 
 ### Modification de l'environement
 
-Il faut d'abord changer la topologie de l'événement et ajouter un nœud de type "Docker Engine CE" dans la catégorie "Services additionnels", avec une IP publique.
+Il faut d'abord changer la topologie de l'événement et ajouter un nœud de type "Docker Engine CE" dans la catégorie "Services additionnels", avec:
+
+- Une IP publique.
+- Un volume vers `/var/lib/docker/volumes`
+- Un volume vers `/var/lib/jelastic/keys/grafana`
+
+Uploadez le certificat, la clé et le CA en les nommant respectivement `certificate.crt`, `certificate.key` et `ca-certs.pem` dans le dossier `/var/lib/jelastic/keys/grafana`.
+Le certificat et sa clé peuvent correspondre au domaine du noeud, par exemple:
+
+```
+node40971-oa-mysql.jcloud-ver-jpe.ik-server.com
+node${nodeId}-${envName}.jcloud-ver-jpe.ik-server.com
+```
 
 En SSH sur ce container, nous allons installer `pmm-server` avec les commandes suivantes:
 
-```
+```bash
 docker pull percona/pmm-server:2
 
 docker create --volume /srv \
@@ -117,11 +129,34 @@ docker create --volume /srv \
 docker run --detach --restart always \
 -p 80:80 -p 443:443 \
 --volumes-from pmm-data \
+-v /var/lib/jelastic/keys/grafana/certificate.crt:/srv/nginx/certificate.crt \
+-v /var/lib/jelastic/keys/grafana/certificate.key:/srv/nginx/certificate.key \
+-v /var/lib/jelastic/keys/grafana/ca-certs.pem:/srv/nginx/ca-certs.pem \
 --name pmm-server \
 percona/pmm-server:2
+
+docker exec -it pmm-server bash
 ```
 
-Vous pouvez maintenant accéder à l'interface via l'adresse `https://<ip_publique_du_nœud>`.
+Et lancez les commandes suivantes pour activer le SSL et la redirection vers https:
+
+```bash
+docker exec -it pmm-server bash
+
+# Dans le container:
+sed -i 's/proxy_pass http:\/\/127\.0\.0\.1:3000;/proxy_pass $scheme:\/\/127.0.0.1:3000;/' /etc/nginx/conf.d/pmm.conf
+sed -i '/location \/graph {/a \      if ($scheme = http) {\n        return 301 https://$host$request_uri;\n      }' /etc/nginx/conf.d/pmm.conf
+sed -i 's/;protocol = http/protocol = https/' /etc/grafana/grafana.ini
+sed -i '0,/cert_file/{s/\;cert_file =/cert_file = \/srv\/nginx\/certificate.crt/}' /etc/grafana/grafana.ini
+sed -i '0,/cert_key/{s/\;cert_key =/cert_key = \/srv\/nginx\/certificate.key/}' /etc/grafana/grafana.ini
+
+# Sortie du container
+exit
+```
+
+Puis redémarrez le container
+
+Vous pouvez maintenant accéder à l'interface via l'adresse `https://node${nodeId}-${envName}.jcloud-ver-jpe.ik-server.com`.
 
 Les identifiants par défaut sont:
 
