@@ -151,8 +151,6 @@ docker run --detach --restart always \
 -v /var/lib/jelastic/keys/grafana/ca-certs.pem:/srv/nginx/ca-certs.pem \
 --name pmm-server \
 percona/pmm-server:2
-
-docker exec -it pmm-server bash
 ```
 
 Et lancez les commandes suivantes pour activer le SSL et la redirection vers https:
@@ -161,9 +159,7 @@ Et lancez les commandes suivantes pour activer le SSL et la redirection vers htt
 docker exec -it pmm-server bash
 
 # Dans le container:
-sed -i 's/proxy_pass http:\/\/127\.0\.0\.1:3000;/proxy_pass $scheme:\/\/127.0.0.1:3000;/' /etc/nginx/conf.d/pmm.conf
 sed -i '/location \/graph {/a \      if ($scheme = http) {\n        return 301 https://$host$request_uri;\n      }' /etc/nginx/conf.d/pmm.conf
-sed -i 's/;protocol = http/protocol = https/' /etc/grafana/grafana.ini
 sed -i '0,/cert_file/{s/\;cert_file =/cert_file = \/srv\/nginx\/certificate.crt/}' /etc/grafana/grafana.ini
 sed -i '0,/cert_key/{s/\;cert_key =/cert_key = \/srv\/nginx\/certificate.key/}' /etc/grafana/grafana.ini
 
@@ -215,7 +211,7 @@ mysql> SET GLOBAL slow_query_log = 1; SET PERSIST slow_query_log = 1;
 mysql> SET long_query_time = 0; SET GLOBAL long_query_time = 0; SET PERSIST long_query_time = 0;
 mysql> SET GLOBAL log_slow_extra = 1; SET PERSIST log_slow_extra = 1;
 mysql> SET GLOBAL log_queries_not_using_indexes = 1; SET PERSIST log_queries_not_using_indexes = 1;
-mysql> SET GLOBAL log_throttle_queries_not_using_indexes = 100; SET PERSIST log_queries_not_using_indexes = 100;
+mysql> SET GLOBAL log_throttle_queries_not_using_indexes = 100; SET PERSIST log_throttle_queries_not_using_indexes = 100;
 ```
 
 ### Connexion des agents au serveur
@@ -224,7 +220,7 @@ Sur chaque instance MySQL, éxecutez les commandes suivantes en remplacant les i
 
 ```
 sudo pmm-admin config --server-insecure-tls --server-url=https://admin:grut1234@10.101.7.122:443 --force 10.101.2.245 generic mysql-40776
-pmm-admin register--server-insecure-tls  --server-url https://admin:grut1234@10.101.7.122:443/ --force 10.101.2.245
+pmm-admin register --server-insecure-tls  --server-url https://admin:grut1234@10.101.7.122:443/ --force 10.101.2.245
 pmm-admin add mysql --query-source=slowlog --username=pmm-agent --password=grut1234 mysql-40776-slowlog 127.0.0.1:3306
 ```
 
