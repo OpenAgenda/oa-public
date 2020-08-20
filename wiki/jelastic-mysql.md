@@ -54,18 +54,6 @@ mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -uj
 
 ## Ajustements de configuration ProxySQL
 
-### Persistence des connexions
-
-Par défaut les connexions TCP ont une durée de vie limitée lorsqu'elles sont inactives, ce qui conduit à des erreurs `ECONNRESET` après 15 minutes d'inactivité (par défaut), pour corriger ce problème il faut activer l'option `KeepAlive`.
-
-Cette option est activée sur chaque instance du groupe 'DB Load balancer', en ouvrant une connexion ssh puis en se connectant à la base de paramétrages de ProxySLQ:
-
-```
-mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'SET mysql-use_tcp_keepalive = 1; SET mysql-tcp_keepalive_time = 20; LOAD MYSQL VARIABLES TO RUNTIME; SAVE MYSQL VARIABLES TO DISK; PROXYSQL RESTART;'
-```
-
-La commande `PROXYSQL RESTART` fermera la connexion et enverra un message d'erreur.
-
 ### Sécurisation
 
 Pour les données qui transitent sur le web il est important de chiffrer les données, il est donc nécessaire d'activer le SSL au moins pour la connexion à ProxySQL.
