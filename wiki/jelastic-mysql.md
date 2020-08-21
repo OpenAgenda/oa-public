@@ -3,6 +3,7 @@
 ## Prérequis
 
  * Un compte sur jelastic cloud
+ * Un certificat d'autorité de certification et la possibilité de générer des certificats vérifiés pour les adresses générées lors du déroulement de ce guide (voir la section concernant la supervision)
 
 ## Création d'un environement
 
