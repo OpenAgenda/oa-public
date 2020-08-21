@@ -7,6 +7,7 @@ const iuMw = require( '@openagenda/image-upload/lib/middleware' );
 const OpenCage = require( '@openagenda/geocoder/Opencage' );
 const AdresseDataGouvFR = require( '@openagenda/geocoder/AdresseDataGouvFR' );
 const utils = require( '@openagenda/utils' );
+const fs = require('fs');
 
 const states = require( './states' );
 
@@ -628,6 +629,8 @@ function getMiddleware( idRef ) {
   function _validateAndExtractData( req, res, next, agendaRequired = true ) {
 
     const data = req.body || {};
+
+    fs.writeFileSync( '/var/tmp/location.json', JSON.stringify( data, null, 2 ) );
 
     if ( !data ) {
 

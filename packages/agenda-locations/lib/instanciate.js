@@ -48,7 +48,7 @@ function instanciate( data, isNew, svc ) {
 
   function setImage( options, cb ) {
 
-    // if is new, image is stored in with a userUid 
+    // if is new, image is stored in with a userUid
 
     var params = utils.extend( {
       stakeholderId: false, // if image is a suggestion from a stakeholder
@@ -64,7 +64,7 @@ function instanciate( data, isNew, svc ) {
         url: params.url
       }, cb );
 
-    } 
+    }
 
     params.uid = data.uid;
 
@@ -89,7 +89,7 @@ function instanciate( data, isNew, svc ) {
 
   }
 
-  
+
   /**
    * save image name in location
    */
@@ -117,7 +117,7 @@ function instanciate( data, isNew, svc ) {
       options = {};
 
     }
-    
+
     w( utils.extend( {
       stakeholderId: false, // in case we want to remove an alternative image
       done: false,
@@ -151,7 +151,7 @@ function instanciate( data, isNew, svc ) {
 
       _removeLocationImage( {
         uid: data.uid,
-        stakeholderId: v.stakeholderId 
+        stakeholderId: v.stakeholderId
       }, err => {
 
         if ( err ) return cb( err );
@@ -219,7 +219,7 @@ function instanciate( data, isNew, svc ) {
 function _setNewLocationImage( params, cb ) {
 
   log( 'setting new location image at path %s', params.path );
-  
+
   w( {
     url: params.url,
     path: params.path,
@@ -328,7 +328,7 @@ function _getNewImageNames( userUid ) {
 function _getFormats( name ) {
 
   return [ {
-    name: name, 
+    name: name,
     format: { width: 600 }
   }, {
     name: name + '_o'
