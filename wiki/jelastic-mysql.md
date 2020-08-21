@@ -14,7 +14,7 @@ Lancer la création d'un nouvel environnement avec une base de données MySQL CE
 
 La capacité en cloudlets doit être suffisante pour votre besoins. Des ajustements seront probablement nécessaires. Dans notre cas, nous choisissons une capacité fixe de 48 cloudlets par serveur, ce qui équivaut à 6G de RAM pour 19Ghz de capacité de calcul.
 
-Cocher la case **Regroupement automatique**, choisir **Master-slave** comme schéma de regroupement et laisser **ProxySQL**.
+Cocher la case **Regroupement automatique**, choisir **Master-slave** ou **Master-master** comme schéma de regroupement et laisser **ProxySQL**.
 
 Préciser les variables d'environnement `DB_USER` et `DB_PASS` pour définir pour définir les identifiants de l'utilisateur associé à la base de données. Le mot de passe devra faire au minimum 8 caractères sans quoi l'environnement ne sera pas correctement créé.
 
@@ -23,6 +23,8 @@ Une variable `DB_NAME` peut également être précisée. Elle sera utilisée lor
 ### ProxySQL
 
 Ce groupe est automatiquement créé lorsque le regroupement automatique est choisi dans la configuration MySQL. Sa configuration est affichée sur un clic de l'item 'ProxySQL' de la partie gauche (topologie) du menu de création.
+
+Les valeurs par défaut d'allocation de cloudlets est très limitée, une plus grand scalabilité verticale est utile pour éviter un emballement ponctuel des instances ProxySQL. Il est préférable de placer le max de cloudlets à 36 (par exemple)
 
 Une IP publique doit être définie pour permettre un accès depuis l'exterieur de l'environnement. Nous en ajoutons une v4.
 
@@ -65,19 +67,6 @@ Pour éditer la variable `mysql-have_ssl` de la db de configuration:
 ```
 mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'SET mysql-have_ssl = 1; LOAD MYSQL VARIABLES TO RUNTIME; SAVE MYSQL VARIABLES TO DISK; PROXYSQL RESTART;'
 ```
-
-Les certificats à utiliser pour la connexion depuis le client sont dans le dossier `/var/lib/proxysql`. Ils sont automatiquement générés et sont différents sur chaque instance de DB Load balancer. Copier le contenu des fichiers `proxysql-ca.pem`, `proxysql-cert.pem` et `proxysql-key.pem` de la première instance ProxySQL vers les instances restantes permet de simplement retrouver les mêmes certificats sur chaque instance.
-
-Les instances ProxySQL où ont été placés les certificats de l'instance de référence doivent être redémarrées.
-
-Les certificats doivent être également présents sur la machine d'où se fait la connexion sécurisée (l'ordi de dev par ex):
-
-```
-mysql -h proxy.env-1445653.jcloud-ver-jpe.ik-server.com -pVRsrRHy0449pGcVf50 -ujelastic-48749 --ssl-ca=/cheminvers/ca.pem --ssl-cert=/cheminvers/cert.pem --ssl-key=/cheminvers/key.pem
-```
-
-Il est désormais possible de se connecter de manière sécurisée au cluster
-
 #### Désactiver les connexions non sécurisées
 
 Pour empêcher de se connecter de manière non sécurisée, il faut de nouveau se connecter sur chaque instance de l'environnement "DB Load balancer" pour modifier une variable liée au compte utilisé pour la connexion. Sur un ssh de chaque instance ProxySQL, lancer la commande suivante:
@@ -87,6 +76,16 @@ mysql -h 127.0.0.1 -P6032 -uadmin -padmin -e 'UPDATE mysql_users SET use_ssl=1; 
 ```
 
 La connexion non sécurisée est désormais non autorisée.
+
+#### Pare-feu
+
+Dans la section "pare-feu" des paramètres de l'environnement et dans la section "règles entrantes", une séries de ports sont ouverts par défaut pour chaque groupe.
+
+Pour le groupe "Base de données SQL", toutes les règles peuvent être désactivées, à l'exception de la règle ciblant le port 3306. Cette dernière ne doit avoir pour source que le groupe ProxySQL.
+
+Pour le groupe "Conteneur de stockage", toutes les règles ne doivent cibler que le groupe "Base de données SQL"
+
+Pour le groupe "ProxySQL", toutes les règles peuvent être désactivées, à l'exception de celle ciblant le port 3306. Cette dernière ne doît être accessible que par les IP hébergeant les service nécessitant un accès à la base de données.
 
 #### Liens utiles
 
@@ -102,26 +101,27 @@ Sur un des serveurs MySQL esclaves, ajouter la ligne suivante dans le fichier `/
 0 1 * * * /var/lib/jelastic/bin/backup_script.sh -m dump -c 10 -u $DB_USER -p $DB_PASS -d $DB_NAME
 ```
 
-
-## Surveillance
+## Supervision
 
 La surveillance se fait avec [Percona Monitoring and Management](https://www.percona.com/doc/percona-monitoring-and-management/2.x/index.html).
 
 ### Modification de l'environement
 
-Il faut d'abord changer la topologie de l'événement et ajouter un nœud de type "Docker Engine CE" dans la catégorie "Services additionnels", avec:
+Il faut d'abord changer la topologie de l'environnement et ajouter un nœud de type "Docker Engine CE" dans la catégorie "Services additionnels", avec:
 
 - Une IP publique.
-- Un volume vers `/var/lib/docker/volumes`
-- Un volume vers `/var/lib/jelastic/keys/grafana`
+- Un volume (Fichier système local) vers `/var/lib/docker/volumes`
+- Un volume (Fichier système local) vers `/var/lib/jelastic/keys/grafana`
 
-Uploadez le certificat, la clé et le CA en les nommant respectivement `certificate.crt`, `certificate.key` et `ca-certs.pem` dans le dossier `/var/lib/jelastic/keys/grafana`.
-Le certificat et sa clé peuvent correspondre au domaine du noeud, par exemple:
+Mettre à jour l'environnement pour noter l'url du noeud créé. Il prend la forme suivante:
 
 ```
 node40971-oa-mysql.jcloud-ver-jpe.ik-server.com
 node${nodeId}-${envName}.jcloud-ver-jpe.ik-server.com
 ```
+
+Pour assurer une connexion sécurisée à l'outil de monitoring, il est nécessaire de générer une clé et un certificat correspondant à l'url du noeud. Ceci n'est pas couvert dans ce guide. Une fois généré, uploadez le certificat, la clé et le CA en les nommant respectivement `certificate.crt`, `certificate.key` et `ca-certs.pem` dans le dossier `/var/lib/jelastic/keys/grafana`.
+
 
 En SSH sur ce container, nous allons installer `pmm-server` avec les commandes suivantes:
 
@@ -164,7 +164,7 @@ Les identifiants par défaut sont:
 - identifiant: `admin`
 - mot de passe: `admin`
 
-La première connexion vous demande de changer votre mot de passe.
+La première connexion vous demande de changer votre mot de passe. Notez le mot de passe, cette documentation en fera référence par PMM_SERVER_PWD
 
 ### Installation de `pmm2-client`
 
@@ -183,9 +183,11 @@ sudo yum install pmm2-client -y
 
 Sur chaque instance MySQL, en SSH, nous allons créer un utilisateur MySQL appelé `pmm-agent`, l'agent fait beaucoup de requêtes et ça nous permettra de filtrer les requêtes dans l'analyseur de requêtes:
 
+Remplacer PMM_DB_USER_PWD par un mot de passe à utiliser pour ce nouvel utilisateur.
+
 ```
-$> mysql -udev -pgrut1234
-mysql> CREATE USER 'pmm-agent'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'grut1234';
+$> mysql -u${DB_USER} -p${DB_PASS}
+mysql> CREATE USER 'pmm-agent'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'PMM_DB_USER_PWD';
 mysql> GRANT ALL ON *.* TO 'pmm-agent'@'127.0.0.1';
 ```
 
@@ -194,7 +196,7 @@ mysql> GRANT ALL ON *.* TO 'pmm-agent'@'127.0.0.1';
 Toujours sur chaque instance MySQL:
 
 ```
-$> mysql -udev -pgrut1234
+$> mysql -u${DB_USER} -p${DB_PASS}
 mysql> SET GLOBAL slow_query_log = 1; SET PERSIST slow_query_log = 1;
 mysql> SET long_query_time = 0; SET GLOBAL long_query_time = 0; SET PERSIST long_query_time = 0;
 mysql> SET GLOBAL log_slow_extra = 1; SET PERSIST log_slow_extra = 1;
@@ -204,17 +206,41 @@ mysql> SET GLOBAL log_throttle_queries_not_using_indexes = 100; SET PERSIST log_
 
 ### Connexion des agents au serveur
 
-Sur chaque instance MySQL, éxecutez les commandes suivantes en remplacant les informations nécessaires:
+Sur chaque instance MySQL, éxecutez les commandes suivantes en remplacant les mots clés suivants par les valeurs choisies précédemment:
+
+ * ${IP_PMM}: l'ip privée du noeud contenant le superviseur pmm
+ * ${DB_NODE_IP}: l'ip du noeud mysql édité
+ * ${DB_NODE_ID}: l'identifant du noeud
+
+ * ${PMM_SERVER_PWD}: le mot de passe choisi lors de la première connexion au superviseur
+ * ${PMM_DB_USER_PWD}: le mot de passe choisi lors de la creation de l'utilisateur MySQL pour le superviseur: pmm-agent
 
 ```
-sudo pmm-admin config --server-insecure-tls --server-url=https://admin:grut1234@10.101.7.122:443 --force 10.101.2.245 generic mysql-40776
-pmm-admin register --server-insecure-tls  --server-url https://admin:grut1234@10.101.7.122:443/ --force 10.101.2.245
-pmm-admin add mysql --query-source=slowlog --username=pmm-agent --password=grut1234 mysql-40776-slowlog 127.0.0.1:3306
+sudo pmm-admin config --server-insecure-tls --server-url=https://admin:${PMM_SERVER_PWD}@${IP_PMM}:443 --force ${DB_NODE_IP} generic mysql-${DB_NODE_ID}
+pmm-admin register --server-insecure-tls  --server-url=https://admin:${PMM_SERVER_PWD}@${IP_PMM}:443 --force ${DB_NODE_IP}
+pmm-admin add mysql --query-source=slowlog --username=pmm-agent --password=${PMM_DB_USER_PWD} mysql-${DB_NODE_ID}-slowlog 127.0.0.1:3306
 ```
 
-Les informations à remplacer dans l'exemple:
+### Pare-feu
 
-- `admin:grut1234` correspond au couple `<identifiant>:<mot_de_passe>` du serveur PMM
-- `10.101.7.122` correspond à l'IP locale du serveur
-- `10.101.2.245` correspond à l'IP locale du client
-- `grut1234` dans la commande `pmm-admin add mysql` correspond au mot de passe mysql de l'utilisateur `pmm-agent`.
+Pour que le superviseur puisse se connecter aux agents, une règle entrante doit être ajoutée au pare-feu de l'environnement:
+
+ * Noeud: Base de données SQL
+ * Nom: Percona PMM Ports
+ * Protocole: TCP
+ * Plage de ports: 42000-42005
+ * Source: Noeuds d'environnement
+ * Noeuds associés: (Le noeud contenant le superviseur)
+ * Priorité: 1050
+ * Action: autoriser
+
+Pour le conteneur hébergeant le superviseur, seul le port https peut-être maintenu activé.
+
+
+### Test & chargement d'un panneau préconfiguré
+
+Pour vérifier que le superviseur accède bien aux agents installés, une liste des agents avec leurs statuts est disponible ici:
+
+    https://node${PMM_NODE_ID}-${JELASTIC_ENV_NAME}.jcloud-ver-jpe.ik-server.com/prometheus/targets
+
+Si une configuration d'un panneau est disponible au format JSON, celle-ci peut être chargée via l'icone "Dashboards" puis "Manage".
