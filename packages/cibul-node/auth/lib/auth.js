@@ -77,7 +77,7 @@ exposed.renderInvalidActivation = _render( 'auth/invalidActivation', {} );
 function init( service ) {
 
   const authenticate = serviceAuthenticate( authenticateFields[ service ] );
-  const create = serviceCreate( createFields[ service ], service !== 'twitter' );
+  const create = serviceCreate( createFields[ service ] );
 
   return _.merge( {
     create,
@@ -255,7 +255,9 @@ function init( service ) {
 
         .then( ifUserLoaded( false, errorExistingEmail ) )
 
-        .then( ifUnresolved( ifUserLoaded( true, signin ) ) )
+        .then( ifUnresolved( ifUserLoaded( true, ifUserActivated( false, redirectToComplete ) ) ) )
+
+        .then( ifUnresolved( ifUserLoaded( true, ifUserActivated( true, signin ) ) ) )
 
         .then( ifUnresolved( ifUserLoaded( false, errorDefaultMessage ) ) )
 
@@ -275,7 +277,7 @@ module.exports = init;
 
 lib.extend( init, exposed );
 
-function serviceCreate( fieldName, activate ) {
+function serviceCreate( fieldName, activate = false ) {
 
   return ( values, data, optionals, cb ) => {
 
