@@ -13,6 +13,7 @@ let currentConfig;
 const config = {
   all: {
     env: 'production',
+    manualAccountActivation: prod.manualAccountActivation === undefined ? process.env.MANUAL_ACCOUNT_ACTIVATION : prod.manualAccountActivation,
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
     superAdminIds: [1, 2, 11258, 15453],
     jsVersion: 42,
