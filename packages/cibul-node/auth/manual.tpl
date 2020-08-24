@@ -9,7 +9,8 @@
           <div class="col-sm-12 padding-all-lg">
             <p>En raison d'une quantité importante et récente de création de contenus publicitaires automatisés sur la plateforme, une étape temporaire de vérification des nouveaux comptes est nécessaire.</p>
             <p class="margin-v-lg"><strong>Vous serez notifié rapidement de l'activation de votre compte par email (quelques minutes pendant les heures de bureau).</strong></p>
-            <p>Dans l'éventualité où nous tarderions à traiter votre demande, adressez-nous un message via l'outil de clavadarge disponible sur <a href="/">notre page d'accueil</a>. Alternativement, adressez-nous un email avec celui utilisé lors de la création du compte à <a href="mailto:verif@openagenda.com">verif@openagenda.com</a></p>
+            <p>Dans l'éventualité où nous tarderions à traiter votre demande, adressez-nous un message via l'outil de clavadarge disponible sur <a href="/">notre page d'accueil</a>.
+Alternativement, écrivez-nous à <a href="mailto:verif@openagenda.com">verif@openagenda.com</a> en précisant l'adresse email que vous avez utilisée pour créer votre compte.</p>
           </div>
         </div>
     </div>
