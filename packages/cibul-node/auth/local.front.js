@@ -1,5 +1,6 @@
 "use strict";
 
+const fs = require( 'fs' );
 const https = require( 'https' );
 const _ = require( 'lodash' );
 const qs = require( 'qs' );
@@ -13,6 +14,9 @@ const cmn = require( '../lib/commons-app' );
 const auth = require( './lib/auth' );
 const pLib = require( './lib/passport' );
 const config = require( '../config' );
+
+const layouts = require('../services/lib/layouts');
+const manualTemplate = _.template(fs.readFileSync(__dirname + '/manual.tpl', 'utf-8'));
 
 const useOptions = {
   usernameField: 'email',
@@ -54,6 +58,24 @@ module.exports = app => {
     sessions.mw.ifLogged(_redirectToContribute),
     _presetEmail,
     auth.renderSignin
+  );
+
+  app.get(
+    '/:agendaSlug/signupcheck',
+    agendas.mw.load,
+    preMw,
+    sessions.mw.ifLogged(_redirectToContribute),
+    (req, res, next) => res.send(layouts.agenda(manualTemplate(), req))
+  );
+
+  app.get(
+    '/signupcheck',
+    preMw,
+    sessions.mw.ifLogged(_redirectToContribute),
+    (req, res, next) => res.send(layouts.main(manualTemplate(), {
+      lang: req.lang,
+      title: 'Account check'
+    }))
   );
 
   app.post(
