@@ -11,7 +11,8 @@ module.exports = {
     host: '127.0.0.1',
     database: 'oa_test_users',
     password: 'grut',
-    user: 'root'
+    user: 'root',
+    ssl: true
   },
   schemas: {
     user: 'user',
