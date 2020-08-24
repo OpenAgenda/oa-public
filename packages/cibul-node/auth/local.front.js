@@ -1,43 +1,42 @@
-"use strict";
+'use strict';
 
-const https = require( 'https' );
-const _ = require( 'lodash' );
-const qs = require( 'qs' );
-const w = require( 'when' );
-const invitationsSvc = require( '@openagenda/invitations' );
-const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
-const getErrorLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/errors' ) );
-const log = require( '@openagenda/logs' )( 'auth/local' );
-const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
-const cmn = require( '../lib/commons-app' );
-const auth = require( './lib/auth' );
-const pLib = require( './lib/passport' );
-const config = require( '../config' );
+const https = require('https');
+const axios = require('axios');
+const _ = require('lodash');
+const qs = require('qs');
+const w = require('when');
+const invitationsSvc = require('@openagenda/invitations');
+const getLabel = require('@openagenda/labels')(
+  require('@openagenda/labels/auth/signin')
+);
+const getErrorLabel = require('@openagenda/labels')(
+  require('@openagenda/labels/auth/errors')
+);
+const log = require('@openagenda/logs')('auth/local');
+const __ = require('@openagenda/labels')(
+  require('@openagenda/labels/auth/activation')
+);
+const cmn = require('../lib/commons-app');
+const auth = require('./lib/auth');
+const pLib = require('./lib/passport');
+const config = require('../config');
 
 const useOptions = {
   usernameField: 'email',
   passwordField: 'password',
-  passReqToCallback: true
+  passReqToCallback: true,
 };
 
-const preMw = [
-  cmn.https,
-  cmn.loadBaseData( auth.layoutData, 'oasfmain.css' )
-];
+const preMw = [cmn.https, cmn.loadBaseData(auth.layoutData, 'oasfmain.css')];
 
+module.exports = (app) => {
+  const { sessions, agendas } = app.services;
 
-module.exports = app => {
-  const {
-    sessions,
-    agendas,
-  } = app.services;
+  log('initing');
 
-  log( 'initing' );
+  pLib.loadStrategy('local', 'passport-local');
 
-  pLib.loadStrategy( 'local', 'passport-local' );
-
-  pLib.use( 'local-signin', 'local', useOptions, _handleSigninRequest );
-
+  pLib.use('local-signin', 'local', useOptions, _handleSigninRequest);
 
   app.get(
     '/signin',
@@ -59,7 +58,7 @@ module.exports = app => {
   app.post(
     '/signin',
     preMw,
-    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     signinSubmit
   );
 
@@ -74,7 +73,7 @@ module.exports = app => {
   app.get(
     '/signup',
     preMw,
-    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -93,7 +92,7 @@ module.exports = app => {
   app.post(
     '/signup',
     preMw,
-    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     signupSubmit
   );
 
@@ -108,7 +107,7 @@ module.exports = app => {
   app.get(
     '/signup/complete',
     preMw,
-    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     signupComplete
   );
 
@@ -123,7 +122,7 @@ module.exports = app => {
   app.get(
     '/activate/resend',
     preMw,
-    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     activateResend
   );
 
@@ -138,7 +137,7 @@ module.exports = app => {
   app.get(
     '/activate/:token',
     preMw,
-    sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     activate
   );
 
@@ -149,188 +148,212 @@ module.exports = app => {
     sessions.mw.ifLogged(_redirectToContribute),
     activate
   );
-
 };
 
 function _redirectToContribute(req, res, next) {
   res.redirect(302, `/${req.agenda.slug}/contribute`);
 }
 
+function signinSubmit(req, res, next) {
+  pLib.authenticate(
+    'local-signin',
+    {
+      badRequestMessage: getLabel('incorrectPassword', req.lang),
+    },
+    function (err, user, data) {
+      if (err) {
+        req.log(
+          'error',
+          'passport could not complete signing and received error',
+          err
+        );
+      }
 
-function signinSubmit( req, res, next ) {
+      w({ err, req, res, data, user })
+        .then(
+          auth.ifUserLoaded(false, (v) => {
+            if (v.err && v.err.name !== 'NotFound') {
+              v.req.log(
+                'error',
+                'user could not be loaded with data %j',
+                v.data
+              );
+            }
 
-  pLib.authenticate( 'local-signin', {
-    badRequestMessage: getLabel( 'incorrectPassword', req.lang )
-  }, function ( err, user, data ) {
+            _.merge(v.data, v.req.body);
 
-    if ( err ) {
+            return auth.renderSignin(v);
+          })
+        )
 
-      req.log( 'error', 'passport could not complete signing and received error', err );
+        .then(
+          auth.ifUserLoaded(
+            true,
+            auth.ifUserActivated(false, auth.redirectToResend)
+          )
+        )
 
+        .then(auth.ifUserLoaded(true, auth.signin))
+
+        .done(auth.done, cmn.catchError(req, res));
     }
-
-    w( { err, req, res, data, user } )
-
-      .then( auth.ifUserLoaded( false, v => {
-
-        if ( v.err && v.err.name !== 'NotFound' ) {
-
-          v.req.log( 'error', 'user could not be loaded with data %j', v.data );
-
-        }
-
-        _.merge( v.data, v.req.body );
-
-        return auth.renderSignin( v );
-
-      } ) )
-
-      .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToResend ) ) )
-
-      .then( auth.ifUserLoaded( true, auth.signin ) )
-
-      .done( auth.done, cmn.catchError( req, res ) );
-
-  } )( req, res, next );
-
+  )(req, res, next);
 }
 
-
-function signupSubmit( req, res ) {
-  const {
-    users
-  } = req.app.services;
+function signupSubmit(req, res) {
+  const { users } = req.app.services;
   log('signupSubmit');
 
-  w( { req, res, data: req.body } )
+  w({ req, res, data: req.body })
+    .then(_passwordMatchCheck)
 
-    .then( _passwordMatchCheck )
+    .then(_captchaCheck)
 
-    .then( _captchaCheck )
-
-    .then( async values => {
-
-      if ( values.data.errors ) {
+    .then(async (values) => {
+      if (values.data.errors) {
         return values;
       }
 
-      const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
+      const optionals = _.pickBy(
+        _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda')
+      );
 
-      if ( req.agenda ) {
+      if (req.agenda) {
         optionals.agenda = req.agenda;
       }
 
       try {
         log('creating user');
 
-        const user = await users.create( {
-          fullName: req.body.full_name,
-          email: req.body.email,
-          password: req.body.password,
-          culture: req.body.culture || req.lang
-        }, {
-          detailed: true,
-          tokenOptionals: optionals,
-          optionals
-        } );
+        const user = await users.create(
+          {
+            fullName: req.body.full_name,
+            email: req.body.email,
+            password: req.body.password,
+            culture: req.body.culture || req.lang,
+          },
+          {
+            detailed: true,
+            tokenOptionals: optionals,
+            optionals,
+          }
+        );
 
-        if ( user ) {
+        if (user) {
           log('created user');
           values.user = user;
+
+          if (config.auth.registrationSlackHook) {
+            axios.post(config.auth.registrationSlackHook, makeRegistrationMessage(user))
+              .then()
+              .catch(err => log.error('There was an error with the Slack request', err));
+          }
         }
       } catch (err) {
         log('error', err);
         values.data.errors = {};
 
-        if ( err && _.find( err.errors, { field: 'email', code: 'email.invalid' } ) ) {
+        if (
+          err &&
+          _.find(err.errors, { field: 'email', code: 'email.invalid' })
+        ) {
           values.data.errors = { email: 'invalidEmail' };
         }
 
-        if ( err && _.find( err.errors, { field: 'password', code: 'string.tooshort' } ) ) {
+        if (
+          err &&
+          _.find(err.errors, { field: 'password', code: 'string.tooshort' })
+        ) {
           values.data.errors = { password: 'passwordTooShort' };
         }
 
-        if ( err && _.find( err.errors, { field: 'fullName', code: 'required' } ) ) {
+        if (
+          err &&
+          _.find(err.errors, { field: 'fullName', code: 'required' })
+        ) {
           values.data.errors = { fullName: 'fieldCannotBeEmpty' };
         }
 
-        if ( err && err.message === 'Already exist' ) {
+        if (err && err.message === 'Already exist') {
           values.data.errors = { email: 'usedEmail' };
         }
 
-        if ( _.isObject( err.errors ) && Object.keys( err.errors ) > 0 ) {
+        if (_.isObject(err.errors) && Object.keys(err.errors) > 0) {
           values.data.errors = err.errors;
         }
       }
 
       return values;
+    })
 
-    } )
+    .then(
+      auth.ifUserLoaded(
+        true,
+        auth.ifUserActivated(false, auth.redirectToComplete)
+      )
+    )
 
-    .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) )
+    .then(auth.ifUserLoaded(true, auth.ifUserActivated(true, auth.signin)))
 
-    .then( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) )
+    .then(auth.ifUnresolved(_pLoadCaptcha))
 
-    .then( auth.ifUnresolved( _pLoadCaptcha ) )
+    .then(auth.ifUnresolved(auth.renderSignup))
 
-    .then( auth.ifUnresolved( auth.renderSignup ) )
-
-    .done( auth.done, cmn.catchError( req, res ) );
-
+    .done(auth.done, cmn.catchError(req, res));
 }
 
+function signupComplete(req, res) {
+  const resendQuery = Object.assign(auth.loadOptionals(req), {
+    email: req.query.email,
+  });
 
-function signupComplete( req, res ) {
-
-  const resendQuery = Object.assign( auth.loadOptionals( req ), { email: req.query.email } );
-
-  cmn.render( req, res, 'auth/activation', {
+  cmn.render(req, res, 'auth/activation', {
     indexed: false,
     agenda: req.agenda,
-    resend: ( req.agenda ? `/${req.agenda.slug}/activate/resend` : '/activate/resend' ) + qs.stringify( resendQuery, { addQueryPrefix: true } )
-  } );
-
+    resend:
+      (req.agenda
+        ? `/${req.agenda.slug}/activate/resend`
+        : '/activate/resend') +
+      qs.stringify(resendQuery, { addQueryPrefix: true }),
+  });
 }
 
+async function activateResend(req, res) {
+  const { users, tokens, sessions } = req.app.services;
 
-async function activateResend( req, res ) {
-  const {
-    users,
-    tokens,
-    sessions
-  } = req.app.services;
-
-  if ( !req.query.email ) {
-    auth.renderEmail( { req, res, title: 'Resend activation mail' } );
+  if (!req.query.email) {
+    auth.renderEmail({ req, res, title: 'Resend activation mail' });
   } else {
     let user;
     let token;
 
-    const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
+    const optionals = _.pickBy(
+      _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda')
+    );
 
     try {
-      user = await users.findOne( {
+      user = await users.findOne({
         query: { email: req.query.email },
-        detailed: true
-      } );
+        detailed: true,
+      });
 
-      if ( !user ) {
+      if (!user) {
         throw getErrorLabel('noAccountFound', req.lang);
       }
 
-      if ( user && user.isActivated ) {
+      if (user && user.isActivated) {
         throw getErrorLabel('userAlreadyActivated', req.lang);
       }
 
-      token = await tokens.findOne( {
+      token = await tokens.findOne({
         query: { userId: user.id, email: user.email, type: 'aa' },
-      } );
+      });
 
-      if ( token ) {
-        await users.config.interfaces.sendToken( config )( {
+      if (token) {
+        await users.config.interfaces.sendToken(config)({
           result: token,
-          params: { user, optionals }
-        } );
+          params: { user, optionals },
+        });
       } else {
         token = await tokens.create(
           { userId: user.id, email: user.email, type: 'aa' },
@@ -338,154 +361,137 @@ async function activateResend( req, res ) {
         );
       }
 
-      sessions.setFlash( req, res, __( 'sendAgain', req.lang ) );
+      sessions.setFlash(req, res, __('sendAgain', req.lang));
 
-      auth.redirectToComplete( {
+      auth.redirectToComplete({
         ...optionals,
         req,
         res,
         user,
-        token: token.token
-      } );
-    } catch ( error ) {
-      log( 'error', error );
+        token: token.token,
+      });
+    } catch (error) {
+      log('error', error);
 
-      auth.renderEmail( {
+      auth.renderEmail({
         req,
         res,
         data: {
-          errors: { email: error ? (error.message || error) : error },
-          email: req.query.email
-        }
-      } );
+          errors: { email: error ? error.message || error : error },
+          email: req.query.email,
+        },
+      });
     }
-
   }
-
 }
 
+async function activate(req, res) {
+  const { users, agendas } = req.app.services;
 
-async function activate( req, res ) {
-  const {
-    users,
-    agendas
-  } = req.app.services;
-
-  const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
+  const optionals = _.pickBy(
+    _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda')
+  );
 
   try {
+    const user = await users.activate(
+      0,
+      { token: req.params.token },
+      { optionals }
+    );
 
-    const user = await users.activate( 0, { token: req.params.token }, { optionals } );
-
-    if ( !req.query || !req.query.invitation ) {
-
-      return auth.signin( { req, res, user } );
-
+    if (!req.query || !req.query.invitation) {
+      return auth.signin({ req, res, user });
     }
 
-    invitationsSvc.get( { token: req.query.invitation }, { includeProcessed: true }, ( err, { invitation } ) => {
+    invitationsSvc.get(
+      { token: req.query.invitation },
+      { includeProcessed: true },
+      (err, { invitation }) => {
+        if (err || !invitation) return auth.signin({ req, res, user });
 
-      if ( err || !invitation ) return auth.signin( { req, res, user } );
+        const actions = invitation.data.actions.filter(
+          (v) => v.name === 'linkMember'
+        );
 
-      const actions = invitation.data.actions.filter( v => v.name === 'linkMember' );
+        if (actions.length === 1) {
+          const agendaId = actions[0].params[0].agendaId;
 
-      if ( actions.length === 1 ) {
+          agendas.get({ id: agendaId }, (err, agenda) => {
+            if (err) {
+              req.log('error', err);
+            } else {
+              req.agenda = agenda;
+            }
 
-        const agendaId = actions[ 0 ].params[ 0 ].agendaId;
+            auth.signin({ req, res, user });
+          });
+        }
 
-        agendas.get({ id: agendaId }, (err, agenda) => {
-
-          if (err) {
-            req.log('error', err);
-          } else {
-            req.agenda = agenda;
-          }
-
-          auth.signin({ req, res, user });
-        });
-
+        return auth.signin({ req, res, user });
       }
-
-      return auth.signin( { req, res, user } );
-
-    } );
-
-  } catch ( err ) {
-
-    if ( err.message.includes( 'not found' ) ) {
-      return auth.renderInvalidActivation( req, res );
+    );
+  } catch (err) {
+    if (err.message.includes('not found')) {
+      return auth.renderInvalidActivation(req, res);
     }
 
-    return cmn.catchError( req, res )( err );
-
+    return cmn.catchError(req, res)(err);
   }
-
 }
 
-
-function _handleSigninRequest( req, email, password, cb ) {
+function _handleSigninRequest(req, email, password, cb) {
   const { users } = req.app.services;
 
-  users.verifyPassword( password, {
-    query: { email }
-  } )
-    .then( async validPassword => {
-      if ( !validPassword ) {
-        return cb( null, null, {
+  users
+    .verifyPassword(password, {
+      query: { email },
+    })
+    .then(async (validPassword) => {
+      if (!validPassword) {
+        return cb(null, null, {
           email,
           password,
           user: null,
           errors: {
-            password: getErrorLabel('incorrectPassword', req.lang)
-          }
-        } );
+            password: getErrorLabel('incorrectPassword', req.lang),
+          },
+        });
       }
 
-      const user = await users.findOne( { query: { email }, detailed: true } );
+      const user = await users.findOne({ query: { email }, detailed: true });
 
-      cb( null, user, { email, password, user } );
-    } )
-    .catch( err => {
+      cb(null, user, { email, password, user });
+    })
+    .catch((err) => {
       cb(err);
-    } );
-
+    });
 }
 
-
-function _pLoadCaptcha( v ) {
-
-  return w.promise( function ( rs, rj ) {
-
-    _loadCaptcha( v.req, v.res, function () {
-
-      rs( v );
-
-    } );
-
-  } );
-
+function _pLoadCaptcha(v) {
+  return w.promise(function (rs, rj) {
+    _loadCaptcha(v.req, v.res, function () {
+      rs(v);
+    });
+  });
 }
 
+function _loadCaptcha(req, res, next) {
+  if (config.auth.local.useCaptcha) {
+    if (!req.baseData) req.baseData = {};
 
-function _loadCaptcha( req, res, next ) {
-
-  if ( config.auth.local.useCaptcha ) {
-
-    if ( !req.baseData ) req.baseData = {};
-
-    _.merge( req.baseData, {
+    _.merge(req.baseData, {
       head: {
         js: {
           captcha: {
             src: `https://www.google.com/recaptcha/api.js?hl=${req.lang}`,
             async: true,
-            defer: true
-          }
+            defer: true,
+          },
         },
       },
       bottom: {
         scripts: [
-          ...(_.get( req.baseData, 'bottom.scripts') || []),
+          ...(_.get(req.baseData, 'bottom.scripts') || []),
           `var onSuccessRecaptcha = function(response) {
             var errorDivs = document.getElementsByClassName('recaptcha-error');
             if (errorDivs.length) {
@@ -496,132 +502,163 @@ function _loadCaptcha( req, res, next ) {
               errorMsgs[0].parentNode.removeChild(errorMsgs[0]);
             }
             document.getElementById('signup-form').submit();
-          }`
-        ]
+          }`,
+        ],
       },
       useCaptcha: true,
-      captchaKey: config.auth.local.captchaKey
-    } );
-
+      captchaKey: config.auth.local.captchaKey,
+    });
   }
 
   next();
-
 }
 
-function _presetEmail( req, res, next ) {
+function _presetEmail(req, res, next) {
+  if (!req.query.email) return next();
 
-  if ( !req.query.email ) return next();
-
-  auth.renderSignin( req, res, {
-    email: req.query.email
-  } );
-
+  auth.renderSignin(req, res, {
+    email: req.query.email,
+  });
 }
 
+function _guessFullName(req, res, next) {
+  if (!req.query.email) return next();
 
-function _guessFullName( req, res, next ) {
+  const fullName = auth.fullNameFromEmail(req.query.email);
 
-  if ( !req.query.email ) return next();
+  if (!fullName) return next();
 
-  const fullName = auth.fullNameFromEmail( req.query.email );
-
-  if ( !fullName ) return next();
-
-  auth.renderSignup( req, res, {
+  auth.renderSignup(req, res, {
     full_name: fullName,
-    email: req.query.email
-  } );
-
+    email: req.query.email,
+  });
 }
 
-
-function _passwordMatchCheck( values ) {
-
-  if ( values.req.body.password !== values.req.body.repeat ) {
-
-    if ( !values.data.errors ) values.data.errors = {};
+function _passwordMatchCheck(values) {
+  if (values.req.body.password !== values.req.body.repeat) {
+    if (!values.data.errors) values.data.errors = {};
 
     values.data.errors.repeat = 'passwordNotEqual';
-
   }
 
   return values;
-
 }
 
-function _captchaCheck( values ) {
+function _captchaCheck(values) {
+  if (!config.auth.local.useCaptcha) return values;
 
-  if ( !config.auth.local.useCaptcha ) return values;
+  return w.promise(function (resolve, reject) {
+    const verifyUrl =
+      config.auth.local.captchaVerify +
+      '?' +
+      'secret=' +
+      config.auth.local.captchaSecret +
+      '&response=' +
+      values.req.body['g-recaptcha-response'] +
+      '&remoteip=' +
+      values.req.header('x-forwarded-for');
 
-  return w.promise( function ( resolve, reject ) {
-
-    const verifyUrl = config.auth.local.captchaVerify + '?'
-      + 'secret=' + config.auth.local.captchaSecret
-      + '&response=' + values.req.body[ 'g-recaptcha-response' ]
-      + '&remoteip=' + values.req.header( 'x-forwarded-for' );
-
-    _getAndParse( verifyUrl, function ( err, data ) {
-
-      if ( err || !data.success ) {
-
+    _getAndParse(verifyUrl, function (err, data) {
+      if (err || !data.success) {
         values.data.errors = {
-          captcha: 'captchaTryAgain'
+          captcha: 'captchaTryAgain',
         };
-
       }
 
-      resolve( values );
-
-    } );
-
-  } );
-
-
+      resolve(values);
+    });
+  });
 }
 
-function _getAndParse( url, cb ) {
-
+function _getAndParse(url, cb) {
   let data = '';
 
-  log( 'fetching %s', url );
+  log('fetching %s', url);
 
-  https.get( url, function ( res ) {
-
-    if ( res.statusCode !== 200 ) {
-
+  https.get(url, function (res) {
+    if (res.statusCode !== 200) {
       // log error and fa'ggetabatit
 
-      log( 'error', 'received a status code %s from %s', res.statusCode, url );
+      log('error', 'received a status code %s from %s', res.statusCode, url);
 
-      return cb( true );
-
+      return cb(true);
     }
 
-    res.on( 'data', function ( chunk ) {
-
+    res.on('data', function (chunk) {
       data += chunk;
+    });
 
-    } );
-
-    res.on( 'end', function () {
-
+    res.on('end', function () {
       try {
+        data = JSON.parse(data);
+      } catch (e) {
+        log('error', 'invalid JSON received');
 
-        data = JSON.parse( data );
-
-      } catch ( e ) {
-
-        log( 'error', 'invalid JSON received' );
-
-        return cb( e );
-
+        return cb(e);
       }
 
-      cb( null, data );
+      cb(null, data);
+    });
+  });
+}
 
-    } );
-
-  } );
-
+function makeRegistrationMessage(user) {
+  return {
+    "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda: ${user.email} - ${user.fullName}`,
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "mrkdwn",
+          "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda:\n\nEmail: *${user.email}*\nPrénom Nom: *${user.fullName}*`
+        }
+      },
+      {
+        "type": "actions",
+        "elements": [
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Voir",
+              "emoji": true
+            },
+            "value": "show",
+            "url": `${config.root}/admin/users?userUid=${user.uid}`
+          },
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Activer",
+              "emoji": true
+            },
+            "value": "activate",
+            "style": "primary",
+            "url": `${config.root}/admin/users/activate?uid=${user.uid}`
+          },
+          {
+            "type": "button",
+            "text": {
+              "type": "plain_text",
+              "text": "Bloquer",
+              "emoji": true
+            },
+            "value": "blacklist",
+            "style": "danger",
+            "url": `${config.root}/admin/users/blacklist?userUid=${user.uid}`
+          }
+        ]
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": `Environnement: *${config.env === 'production' ? 'production' : 'développement'}*`
+          }
+        ]
+      }
+    ]
+  };
 }

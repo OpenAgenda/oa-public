@@ -190,7 +190,8 @@ const config = {
       google: {
         id: prod.googleApps.id,
         secret: prod.googleApps.secret
-      }
+      },
+      registrationSlackHook: 'https://hooks.slack.com/services/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'
     },
     es: {
       host: process.env.LEGACY_ES_HOST || prod.elasticsearch.v1_3.host,
