@@ -17,7 +17,6 @@ function handler(namespace, err) {
   try {
     throw err;
   } catch (error) {
-    console.error('%s %s', new Date().toUTCString(), namespace, error);
     log('error', { error, namespace });
   }
 }
