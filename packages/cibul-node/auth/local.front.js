@@ -59,23 +59,6 @@ module.exports = (app) => {
     auth.renderSignin
   );
 
-  app.get(
-    '/:agendaSlug/signupcheck',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(_redirectToContribute),
-    (req, res, next) => res.send(layouts.agenda(manualTemplate(), req))
-  );
-
-  app.get(
-    '/signupcheck',
-    preMw,
-    sessions.mw.ifLogged(_redirectToContribute),
-    (req, res, next) => res.send(layouts.main(manualTemplate(), {
-      lang: req.lang,
-      title: 'Account check'
-    }))
-  );
 
   app.post(
     '/signin',
@@ -413,6 +396,15 @@ async function activate(req, res) {
   const optionals = _.pickBy(
     _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda')
   );
+
+  if (config.manualAccountActivation && req.agenda) {
+    return res.send(layouts.agenda(manualTemplate(), req));
+  } else if (config.manualAccountActivation) {
+    return res.send(layouts.main(manualTemplate(), {
+      lang: req.lang,
+      title: 'Vérification de compte'
+    }));
+  }
 
   try {
     const user = await users.activate(
