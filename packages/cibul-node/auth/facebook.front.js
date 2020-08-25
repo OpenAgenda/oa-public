@@ -22,7 +22,7 @@ module.exports = app => {
   } = app.services;
 
   const preMw = [
-    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+    cmn.loadBaseData( auth.layoutData, 'oasfmain.css' ),
     sessions.mw.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
   ];
 

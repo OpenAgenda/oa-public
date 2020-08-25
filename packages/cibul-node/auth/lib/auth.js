@@ -14,6 +14,7 @@ const cmn = require( '../../lib/commons-app' );
 const lib = require( '../../lib/lib' );
 const config = require( '../../config' );
 const pLib = require( './passport' );
+const captcha = require( './captcha' );
 const loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } );
 
 const authenticateFields = {
@@ -261,6 +262,8 @@ function init( service ) {
 
         .then( ifUnresolved( ifUserLoaded( false, errorDefaultMessage ) ) )
 
+        .then( ifUnresolved( ifUserLoaded( false, name === 'signup' ? _pLoadCaptcha : _.noop ) ) )
+
         .then( ifUnresolved( ifUserLoaded( false, module.exports[ name == 'signup' ? 'renderSignup' : 'renderSignin' ] ) ) )
 
         .done( done , cmn.catchError( req, res ) );
@@ -271,6 +274,14 @@ function init( service ) {
 
   }
 
+}
+
+function _pLoadCaptcha(v) {
+  return w.promise(function (rs, rj) {
+    captcha.load(v.req, v.res, function () {
+      rs(v);
+    });
+  });
 }
 
 module.exports = init;

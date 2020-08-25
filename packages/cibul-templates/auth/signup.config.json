@@ -6,7 +6,7 @@
   },
 
   "labels": "auth/signup",
-  
+
   "helpers" : {
     "_r" : "redirect",
     "_t" : "time",
@@ -14,12 +14,12 @@
     "_txt" : "text",
     "_sl" : "shareLinks"
   },
-  
+
   "base" : {
     "headMessage" : false,
     "pageClass" : "auth",
     "optionals" : {},
-    "useCaptcha" : false,
+    "reCaptchaEnabled" : false,
     "agenda" : false,
     "includeActionLinks" : false,
     "mailto" : false
