@@ -54,8 +54,16 @@ function load({ detailed, redirect, msg } = {}) {
         const redirect = Buffer.from(req.originalUrl, 'utf-8').toString('base64');
         return res.redirect(302, `${req.agenda ? '/' + req.agenda.slug : ''}/signin?redirect=${redirect}&msg=${msg}`);
       }
-      req.user = user;
-      next();
+
+      if (user && user.isBlacklisted) {
+        sessions.setFlash(req, res, '<div class="text-center margin-top-sm"><strong>Votre compte a été ajouté a notre liste de comptes frauduleux.</strong><p>En cas d\'erreur de notre part, contactez-nous soit via notre robot ou depuis le menu d\'Aide.</p></div>');
+        sessions.close(req, () => {
+          res.redirect(302, '/');
+        });
+      } else {
+        req.user = user;
+        next();
+      }
     });
   };
 }
@@ -84,7 +92,8 @@ function getUser(services, imageBucketPath, query, cb) {
         thumbnail: user.image ? imageBucketPath + user.image : null,
         email: user.email,
         culture: user.culture,
-        isNew: !!user.isNew
+        isNew: !!user.isNew,
+        isBlacklisted: user.isBlacklisted
       });
 
     })
