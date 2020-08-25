@@ -26,6 +26,10 @@ function _accessibility(acc, lang) {
       vi: {
         en: 'Visual impairment',
         fr: 'Handicap visuel'
+      },
+      ii: {
+        en: 'Intellectual impairment',
+        fr: 'Handicap intellectuel'
       }
     }[a][lang],
     code: a
