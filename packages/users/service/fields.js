@@ -18,6 +18,7 @@ module.exports = {
     'twitterId',
     'googleId',
     'isActivated',
+    'isBlacklisted',
     'isRemoved',
     'lastNotified',
     'lastSignin',
