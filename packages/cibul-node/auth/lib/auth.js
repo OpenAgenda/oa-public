@@ -546,6 +546,9 @@ function _render( template, defaults ) {
     data.signin = `${req.agenda ? '/' + req.agenda.slug : '' }/signin${qs.stringify( {
       ... loadOptionals( req )
     }, { addQueryPrefix: true } )}`;
+    data.signup = `${req.agenda ? '/' + req.agenda.slug : '' }/signup${qs.stringify( {
+      ... loadOptionals( req )
+    }, { addQueryPrefix: true } )}`;
 
     if ( _.get( config, 'auth.facebook.id' ) ) data.enabledServices.push( 'facebook' );
     if ( _.get( config, 'auth.google.id' ) ) data.enabledServices.push( 'google' );
