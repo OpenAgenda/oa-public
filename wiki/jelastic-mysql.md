@@ -245,3 +245,11 @@ Pour vérifier que le superviseur accède bien aux agents installés, une liste 
     https://node${PMM_NODE_ID}-${JELASTIC_ENV_NAME}.jcloud-ver-jpe.ik-server.com/prometheus/targets
 
 Si une configuration d'un panneau est disponible au format JSON, celle-ci peut être chargée via l'icone "Dashboards" puis "Manage".
+
+## Utilisation de certificats
+
+Dans l'éventualité où une connexion avec certificat était nécessaire, il est possible à partir d'une autorité de certification de générer un certificat et une clé à charger dans les instances ProxySQL. Le certificat doit être généré avec un Common Name (CN) correspondant à l'url du groupe de proxy (préfixe 'proxy.' avant l'url de l'environnement général).
+
+Le certificat autorité (ca.pem) ainsi que la paire certificat (cert.pem) / clé (key.pem) générée doivent alors être placés dans chaque instance ProxySQL, en remplacement des fichiers présents dans le dossier `/var/lib/proxysql`: `proxysql-ca.pem`, `proxysql-cert.pem` et `proxysql-key.pem`.
+
+Une fois chargés, les instances ProxySQL doivent être redémarrées.
