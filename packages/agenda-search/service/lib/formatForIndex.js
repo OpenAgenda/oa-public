@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const imageWithPath = require('./imageWithPath');
 
 module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) => {
   const {
@@ -22,7 +23,7 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
       'updatedAt',
       'createdAt'
     ]),
-    image: agenda.image ? imagePath + agenda.image : defaultImage,
+    image: imageWithPath(defaultImage, imagePath, agenda.image),
     hasUpcomingPublished: !!upcomingPublishedEvents,
     official: !!agenda.official,
     upcomingPublishedEvents,
