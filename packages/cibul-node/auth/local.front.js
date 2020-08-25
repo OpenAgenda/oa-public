@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require( 'fs' );
-const https = require('https');
 const axios = require('axios');
 const _ = require('lodash');
 const qs = require('qs');
@@ -20,6 +19,7 @@ const __ = require('@openagenda/labels')(
 const cmn = require('../lib/commons-app');
 const auth = require('./lib/auth');
 const pLib = require('./lib/passport');
+const captcha = require('./lib/captcha');
 const config = require('../config');
 
 const layouts = require('../services/lib/layouts');
@@ -79,7 +79,7 @@ module.exports = (app) => {
     '/signup',
     preMw,
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    _loadCaptcha,
+    captcha.load,
     _guessFullName,
     auth.renderSignup
   );
@@ -89,7 +89,7 @@ module.exports = (app) => {
     agendas.mw.load,
     preMw,
     sessions.mw.ifLogged(_redirectToContribute),
-    _loadCaptcha,
+    captcha.load,
     _guessFullName,
     auth.renderSignup
   );
@@ -483,55 +483,10 @@ function _handleSigninRequest(req, email, password, cb) {
 
 function _pLoadCaptcha(v) {
   return w.promise(function (rs, rj) {
-    _loadCaptcha(v.req, v.res, function () {
+    captcha.load(v.req, v.res, function () {
       rs(v);
     });
   });
-}
-
-function _loadCaptcha(req, res, next) {
-  if (config.auth.local.useCaptcha) {
-    if (!req.baseData) req.baseData = {};
-
-    _.merge(req.baseData, {
-      head: {
-        js: {
-          captcha: {
-            src: `https://www.google.com/recaptcha/api.js?onload=onloadCaptchaCallback&render=${config.auth.local.captchaKey}&hl=${req.lang}`,
-            async: true,
-            defer: true,
-          },
-        },
-      },
-      bottom: {
-        scripts: [
-          ...(_.get(req.baseData, 'bottom.scripts') || []),
-          `var onloadCaptchaCallback = function() {
-            grecaptcha.render('signup-recaptcha', {
-               'sitekey' : '${config.auth.local.captchaKeyV2}'
-            });
-          }
-
-          var onSuccessRecaptcha = function(response) {
-            var errorDivs = document.getElementsByClassName('recaptcha-error');
-            if (errorDivs.length) {
-              errorDivs[0].className = '';
-            }
-            var errorMsgs = document.getElementsByClassName('recaptcha-error-message');
-            if (errorMsgs.length) {
-              errorMsgs[0].parentNode.removeChild(errorMsgs[0]);
-            }
-            document.getElementById('signup-form').submit();
-          }`,
-        ],
-      },
-      useCaptcha: true,
-      captchaKey: config.auth.local.captchaKey,
-      captchaKeyV2: config.auth.local.captchaKeyV2,
-    });
-  }
-
-  next();
 }
 
 function _presetEmail(req, res, next) {
@@ -566,16 +521,16 @@ function _passwordMatchCheck(values) {
 }
 
 async function _captchaCheck(values) {
-  if (!config.auth.local.useCaptcha) return values;
+  if (!config.reCaptcha.enabled) return values;
 
   const [
     responseV2,
     responseV3
   ] = values.req.body['g-recaptcha-response'];
   const remoteIp = values.req.header('x-forwarded-for');
-  const verifyBaseUrl = config.auth.local.captchaVerify;
-  const secretV2 = config.auth.local.captchaSecretV2;
-  const secretV3 = config.auth.local.captchaSecret;
+  const verifyBaseUrl = config.reCaptcha.verify;
+  const secretV2 = config.reCaptcha.v2.secret;
+  const secretV3 = config.reCaptcha.v3.secret;
 
   const verifyV2Url = `${verifyBaseUrl}?secret=${secretV2}&response=${responseV2}&remoteip=${remoteIp}`;
   const verifyV3Url = `${verifyBaseUrl}?secret=${secretV3}&response=${responseV3}&remoteip=${remoteIp}`;

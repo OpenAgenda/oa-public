@@ -338,7 +338,7 @@ function render( req, res, templatePath, data, maintain ) {
       return catchError( req, res )( err );
     }
 
-    const statusCode = res.code ? res.code : 200;
+    const statusCode = res.statusCode || res.code || 200;
 
     if ( !req.xhr ) {
 
