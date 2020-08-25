@@ -5,6 +5,7 @@ const w = require( 'when' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'google' );
+const captcha = require( './lib/captcha' );
 const genUrl = require( '../services/genUrl' );
 const config = require( '../config' );
 
@@ -58,16 +59,18 @@ module.exports = app => {
     auth.serviceCallback(auth.process('google', 'signin'))
   );
 
-  app.get(
+  app.post(
     '/google/signup',
     preMw,
+    captcha.socialCheck('google'),
     signup
   );
 
-  app.get(
+  app.post(
     '/:agendaSlug/google/signup',
     agendas.mw.load,
     preMw,
+    captcha.socialCheck('google'),
     signup
   );
 

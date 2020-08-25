@@ -173,15 +173,23 @@ const config = {
       rule: 'rule',
       unsubscriptionLink: 'unsubscription_link'
     },
-    auth: {
-      local: {
-        useCaptcha: true,
-        captchaKey: prod.googleCaptcha.key,
-        captchaSecret: prod.googleCaptcha.secret,
-        captchaKeyV2: prod.googleCaptchaV2.key,
-        captchaSecretV2: prod.googleCaptchaV2.secret,
-        captchaVerify: prod.googleCaptcha.verify
+    reCaptcha: {
+      enabled: true,
+      verify: prod.reCaptcha.verify,
+      v3: {
+        key: prod.reCaptcha.v3.key,
+        secret: prod.reCaptcha.v3.secret
       },
+      v2: {
+        key: prod.reCaptcha.v2.key,
+        secret: prod.reCaptcha.v2.secret
+      },
+      v2Invisible: {
+        key: prod.reCaptcha.v2Invisible.key,
+        secret: prod.reCaptcha.v2Invisible.secret
+      }
+    },
+    auth: {
       facebook: {
         id: prod.facebook.appId,
         secret: prod.facebook.appSecret
@@ -835,14 +843,23 @@ const config = {
         }
         : true
     },
-    auth: {
-      local: {
-        useCaptcha: true,
-        captchaKey: '6LfMOpwUAAAAAJID3dgKjFyRVmK1tomtBK2Au8gH',
-        captchaSecret: '6LfMOpwUAAAAAOaiGNVsooxicbF8w6yyQr2lh06-',
-        captchaKeyV2: '6Lc3AsMZAAAAANj4c-HUIFj9Cv9iFAAhlVtTZj_k',
-        captchaSecretV2: '6Lc3AsMZAAAAAHTv4CkkHrOWPm-5jDLrFiOrqhsk'
+    reCaptcha: {
+      enabled: true,
+      verify: prod.reCaptcha.verify,
+      v3: {
+        key: '6LfMOpwUAAAAAJID3dgKjFyRVmK1tomtBK2Au8gH',
+        secret: '6LfMOpwUAAAAAOaiGNVsooxicbF8w6yyQr2lh06-'
       },
+      v2: {
+        key: '6Lc3AsMZAAAAANj4c-HUIFj9Cv9iFAAhlVtTZj_k',
+        secret: '6Lc3AsMZAAAAAHTv4CkkHrOWPm-5jDLrFiOrqhsk'
+      },
+      v2Invisible: {
+        key: '6LcaKMMZAAAAAKys_2tpwE2N5805lp961CZymWAC',
+        secret: '6LcaKMMZAAAAAKfQ6qv504FRtrALVf_lOWtSxfv9'
+      }
+    },
+    auth: {
       facebook: {
         id: '1008853945821827',
         secret: '243737ef67adf832bf1c25c54717ed41'
@@ -925,10 +942,10 @@ const config = {
       password: 'grut',
       timezone: 'UTC'
     },
+    reCaptcha: {
+      enabled: false
+    },
     auth: {
-      local: {
-        useCaptcha: false
-      },
       facebook: {
         id: '160151044018305',
         secret: '12f736eeec5b1be1ee3bf5705e65aa7a',

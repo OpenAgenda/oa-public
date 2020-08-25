@@ -8,6 +8,7 @@ const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'twitter' );
+const captcha = require( './lib/captcha' );
 const genUrl = require( '../services/genUrl' );
 const config = require( '../config' );
 
@@ -26,7 +27,6 @@ const twitterOptions = {
 
 module.exports = app => {
   const {
-    users,
     agendas,
     sessions
   } = app.services;
@@ -69,16 +69,18 @@ module.exports = app => {
     auth.serviceCallback(_processSignin)
   );
 
-  app.get(
+  app.post(
     '/twitter/signup',
     preMw,
+    captcha.socialCheck('twitter'),
     signup
   );
 
-  app.get(
+  app.post(
     '/:agendaSlug/twitter/signup',
     agendas.mw.load,
     preMw,
+    captcha.socialCheck('twitter'),
     signup
   );
 

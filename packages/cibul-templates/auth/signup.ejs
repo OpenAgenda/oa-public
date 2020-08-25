@@ -84,12 +84,12 @@
                   <span class="text-danger"><%= __( errors.culture ) %></span>
                 <% } %>
               </div>
-              <% if ( useCaptcha ) { %>
+              <% if ( reCaptchaEnabled ) { %>
                 <div class="form-group<%= errors.captcha ? ' has-error' : '' %>">
                   <div id="signup-recaptcha"></div>
                   <div
                     class="g-recaptcha"
-                    data-sitekey="<%= captchaKey %>"
+                    data-sitekey="<%= reCaptchaV3Key %>"
                     data-callback="onSuccessRecaptcha"
                     data-bind="signup-submit"
                   >
@@ -108,16 +108,23 @@
             <div class="col-md-6">
               <% if ( enabledServices.includes( 'facebook' ) ) { %>
                 <div class="margin-bottom-md">
-                  <a
-                    href="<%= genUrl(
+                  <form
+                    id="signup-facebook"
+                    action="<%= genUrl(
                       agenda ? 'agendaFacebookSignup' : 'facebookSignup',
                       [ optionals, agenda ? { slug: agenda.slug } : {} ]
                     ) %>"
-                    class="btn btn-facebook btn-block"
+                    method="POST"
                   >
-                    <i class="fa fa-facebook"></i>
-                    Facebook
-                  </a>
+                    <button
+                      id="signup-facebook-button"
+                      class="btn btn-facebook btn-block"
+                      type="submit"
+                    >
+                      <i class="fa fa-facebook"></i>
+                      Facebook
+                    </button>
+                  </form>
                   <% if ( errors.facebookUid ) { %>
                     <span class="text-danger"><%= __( errors.facebookUid ) %></span>
                   <% } %>
@@ -125,16 +132,23 @@
               <% } %>
               <% if ( enabledServices.includes( 'twitter' ) ) { %>
                 <div class="margin-bottom-md">
-                  <a
-                    href="<%= genUrl(
+                  <form
+                    id="signup-twitter"
+                    action="<%= genUrl(
                       agenda ? 'agendaTwitterSignup' : 'twitterSignup',
                       [ optionals, agenda ? { slug: agenda.slug } : {} ]
                     ) %>"
-                    class="btn btn-twitter btn-block"
+                    method="POST"
                   >
-                    <i class="fa fa-twitter"></i>
-                    Twitter
-                  </a>
+                    <button
+                      id="signup-twitter-button"
+                      class="btn btn-twitter btn-block"
+                      type="submit"
+                    >
+                      <i class="fa fa-twitter"></i>
+                      Twitter
+                    </button>
+                  </form>
                   <% if ( errors.twitterUid ) { %>
                     <span class="text-danger"><%= __( errors.twitterUid ) %></span>
                   <% } %>
@@ -142,16 +156,23 @@
               <% } %>
               <% if ( enabledServices.includes( 'google' ) ) { %>
                 <div class="margin-bottom-md">
-                  <a
-                    href="<%= genUrl(
+                  <form
+                    id="signup-google"
+                    action="<%= genUrl(
                       agenda ? 'agendaGoogleSignup' : 'googleSignup',
                       [ optionals, agenda ? { slug: agenda.slug } : {} ]
                     ) %>"
-                    class="btn btn-google btn-block"
+                    method="POST"
                   >
-                    <i class="fa fa-google"></i>
-                    Google
-                  </a>
+                    <button
+                      id="signup-google-button"
+                      class="btn btn-google btn-block"
+                      type="submit"
+                    >
+                      <i class="fa fa-google"></i>
+                      Google
+                    </button>
+                  </form>
                   <% if ( errors.googleUid ) { %>
                     <span class="text-danger"><%= __( errors.googleUid ) %></span>
                   <% } %>
