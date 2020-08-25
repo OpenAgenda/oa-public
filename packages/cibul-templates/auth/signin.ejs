@@ -75,7 +75,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12 margin-v-md">
-            <p><%= __( 'noAccount' ) %> <a href="<%= genUrl( agenda ? 'agendaSignup' : 'signup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __('createAccount') %></a></p>
+            <p><%= __( 'noAccount' ) %> <a href="<%= signup %>"><%= __('createAccount') %></a></p>
             <p><a href="<%= genUrl( 'lostPassword' ) %>"><%= __( 'lostPassword' ) %></a></p>
           </div>
         </div>

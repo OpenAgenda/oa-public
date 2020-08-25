@@ -22,6 +22,7 @@ module.exports = async function(config, set, identifiers, options = {} ) {
     res = await client.delete({
       index: getIndexName(set, defaultIndex),
       id: getDocumentId(set, identifiers.uid),
+      routing: set,
       refresh
     });
   } catch (err) {

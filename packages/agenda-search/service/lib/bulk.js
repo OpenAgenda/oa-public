@@ -4,14 +4,26 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('bulk');
 
 module.exports = async ({ client, index, formatForIndex, operation }, agendas) => {
-  const body = agendas.filter(a => {
+  const body = [];
+
+  const filtered = agendas.filter(a => {
     if (/(t|T)est/.test(a.title)) return false;
     if (/(t|T)est/.test(a.description)) return false;
     return true;
-  }).reduce((bodyItems, agenda) => bodyItems.concat([
-    { [operation]: { _id: agenda.uid } },
-    operation === 'index' ? formatForIndex(agenda) : { doc: formatForIndex(agenda) }
-  ]), []);
+  });
+
+  for (const agenda of agendas) {
+    body.push({
+      [operation]: { _id: agenda.uid }
+    });
+
+    if (operation === 'index') {
+      body.push(await formatForIndex(agenda));
+    } else {
+      body.push({ doc: await formatForIndex(agenda) });
+    }
+
+  };
 
   if (!body.length) return 0;
 

@@ -5,6 +5,7 @@ const assert = require('assert');
 const config = require('../testconfig');
 const Service = require('../service');
 const listInterface = require('./app/listInterface');
+const getAgendaSummary = require('./app/getAgendaSummary');
 
 describe('search', function() {
   let svc;
@@ -15,6 +16,7 @@ describe('search', function() {
       elasticsearch: config.elasticsearch,
       alias: config.alias,
       listAgendas: listInterface.bind(null, 100),
+      getAgendaSummary: getAgendaSummary,
       imagePath: config.imagePath,
       defaultImage: config.defaultImage
     });
