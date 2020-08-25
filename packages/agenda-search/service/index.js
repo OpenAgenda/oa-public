@@ -15,6 +15,7 @@ let log, search, config;
 module.exports = (config = {}) => {
   const {
     alias,
+    getAgendaSummary,
     listAgendas,
     defaultImage,
     imagePath,
@@ -33,6 +34,9 @@ module.exports = (config = {}) => {
   if (!listAgendas) {
     throw new Error('listAgendas function is required');
   }
+  if (!getAgendaSummary) {
+    throw new Error('getAgendaSummary function is required');
+  }
   if (!elasticsearch) {
     throw new Error('elasticsearch config is required');
   }
@@ -43,20 +47,28 @@ module.exports = (config = {}) => {
     logger.setModuleConfig(config.logger);
   }
 
+  const boundFormatForIndex = formatForIndex.bind(null, { imagePath, defaultImage, getAgendaSummary });
+
+  const utilities = {
+    timeout: elasticsearch.timeout,
+    alias,
+    client,
+    listAgendas,
+    formatForIndex: boundFormatForIndex
+  };
+
   const service = {
-    list: list.bind(null, { alias, client }),
-    rebuild: rebuild.bind(null, {
-      timeout: elasticsearch.timeout,
-      alias,
-      client,
-      listAgendas,
-      formatForIndex: formatForIndex.bind(null, { imagePath, defaultImage })
+    list: list.bind(null, utilities),
+    rebuild: rebuild.bind(null, utilities),
+    resyncUpdated: resyncUpdated.bind(null, utilities),
+    set: async agenda => client.index({
+      index: alias,
+      id: agenda.uid,
+      body: await boundFormatForIndex(agenda)
     }),
-    resyncUpdated: resyncUpdated.bind(null, {
-      client,
-      alias,
-      listAgendas,
-      formatForIndex: formatForIndex.bind(null, { imagePath, defaultImage })
+    remove: agenda => client.delete({
+      index: alias,
+      id: agenda.uid
     }),
     getElasticsearchClient: () => client,
     getConfig: () => ({

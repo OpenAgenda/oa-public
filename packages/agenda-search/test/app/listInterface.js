@@ -10,7 +10,8 @@ module.exports = async (total, query, lastId, limit) => {
     .sort((a1, a2) => a1.id > a2.id ? 1 : -1)
     .filter(a => a.id > lastId)
     .filter((a, i) => i < limit)
-    .filter(a => updatedAtGreaterThan ? a.updatedAt > updatedAtGreaterThan : true);
+    .filter(a => updatedAtGreaterThan ? a.updatedAt > updatedAtGreaterThan : true)
+    .map(a => _.pick(a, ['id', 'uid', 'title', 'description', 'official']));
 
   return {
     items: chunk,
