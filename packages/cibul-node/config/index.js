@@ -178,6 +178,8 @@ const config = {
         useCaptcha: true,
         captchaKey: prod.googleCaptcha.key,
         captchaSecret: prod.googleCaptcha.secret,
+        captchaKeyV2: prod.googleCaptchaV2.key,
+        captchaSecretV2: prod.googleCaptchaV2.secret,
         captchaVerify: prod.googleCaptcha.verify
       },
       facebook: {
@@ -837,7 +839,9 @@ const config = {
       local: {
         useCaptcha: true,
         captchaKey: '6LfMOpwUAAAAAJID3dgKjFyRVmK1tomtBK2Au8gH',
-        captchaSecret: '6LfMOpwUAAAAAOaiGNVsooxicbF8w6yyQr2lh06-'
+        captchaSecret: '6LfMOpwUAAAAAOaiGNVsooxicbF8w6yyQr2lh06-',
+        captchaKeyV2: '6Lc3AsMZAAAAANj4c-HUIFj9Cv9iFAAhlVtTZj_k',
+        captchaSecretV2: '6Lc3AsMZAAAAAHTv4CkkHrOWPm-5jDLrFiOrqhsk'
       },
       facebook: {
         id: '1008853945821827',
