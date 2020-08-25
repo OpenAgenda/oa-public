@@ -34,13 +34,32 @@ const sleep = (time = 1000) => new Promise(rs => setTimeout(rs, time));
     ssl: config.ssl
   });
 
-  write('health', await health(client));
-  write('cluster.health', await clusterHealth(client));
-  write('cluster.settings', await clusterSettings(client));
-  write('indices', await indices(client));
-  write('nodes', await nodes(client));
-  write('nodes.usage', await nodesUsage(client));
-  write('shards', await shards(client));
-  write('allocation', await allocation(client));
-})();
+  const result = {};
 
+  //result.getAlias = await client.indices.getAlias().then(r => r.body);
+
+  //result.delete = await client.indices.delete({
+  //  index: ["agendas_20200719_010000", "agendas_20200820_095436"]
+  //});
+
+  /*result.putAlias = await client.indices.putAlias({
+    name: 'agendas',
+    index: 'agendas_20200825_121042'
+  })*/
+
+  result.indices = await indices(client).then(indices => indices.map(i => ({
+    index: i.index,
+    docs: i['i.docs.count']
+  }).index));
+
+  write('result', result);
+
+  //write('health', await health(client));
+  //write('cluster.health', await clusterHealth(client));
+  //write('cluster.settings', await clusterSettings(client));
+  //write('indices', await indices(client));
+  //write('nodes', await nodes(client));
+  //write('nodes.usage', await nodesUsage(client));
+  //write('shards', await shards(client));
+  //write('allocation', await allocation(client));
+})();
