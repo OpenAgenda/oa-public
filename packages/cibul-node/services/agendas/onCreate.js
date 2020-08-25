@@ -95,10 +95,12 @@ module.exports = async (services, agenda) => {
     }
   }
 
-  try {
-    await agendaSearch.set(agenda);
-  } catch (e) {
-    log('error', 'failed to index agenda', e);
+  if (agenda.indexed) {
+    try {
+      await agendaSearch.set(agenda);
+    } catch (e) {
+      log('error', 'failed to index agenda in agenda search', e);
+    }
   }
 
   try {

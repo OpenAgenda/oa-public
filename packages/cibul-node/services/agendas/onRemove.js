@@ -12,7 +12,7 @@ module.exports = async (services, agenda) => {
   try {
     await agendaSearch.remove(agenda);
   } catch (e) {
-    log('error', 'failed to index agenda', e);
+    log('error', 'failed to remove agenda from agenda search', e);
   }
 
   // inbox
