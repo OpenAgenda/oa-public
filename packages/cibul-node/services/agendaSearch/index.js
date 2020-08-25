@@ -6,6 +6,7 @@ const agendaSearch = require('@openagenda/agenda-search');
 const log = require('@openagenda/logs')('services/agendaSearch');
 
 const listAgendas = require('./listAgendas');
+const getAgendaSummary = require('./getAgendaSummary');
 
 module.exports.init = (config, services) => {
   const port = _.get(config, 'es75.port', 9200);
@@ -24,6 +25,7 @@ module.exports.init = (config, services) => {
       url: config.root,
       image: config.logo
     },
-    listAgendas: listAgendas.bind(null, services)
+    listAgendas: listAgendas.bind(null, services),
+    getAgendaSummary: getAgendaSummary.bind(null, services)
   });
 }

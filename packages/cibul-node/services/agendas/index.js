@@ -11,6 +11,7 @@ const middleware = require('./middleware');
 
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
+const onRemove = require('./onRemove');
 
 const log = require('@openagenda/logs')('services/agendas');
 
@@ -119,16 +120,4 @@ function beforeRemove(agenda, cb) {
     cb();
   });
 
-}
-
-
-function onRemove(services, agenda) {
-  const { Inbox } = services.inboxes;
-
-  // inbox
-  log('remove inbox (agenda uid %d)', agenda.uid);
-  new Inbox().remove({ type: 'agenda', identifier: agenda.uid }).then(_.noop);
-
-  // feed / activity
-  activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
 }

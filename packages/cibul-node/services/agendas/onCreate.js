@@ -12,7 +12,8 @@ module.exports = async (services, agenda) => {
     keys,
     activities,
     inboxes: { Inbox },
-    eventSearch
+    eventSearch,
+    agendaSearch
   } = services;
 
   const controlDataSvc = legacy.controlData;
@@ -92,6 +93,12 @@ module.exports = async (services, agenda) => {
     } catch(e) {
       log('error', 'failed to create agenda create activity', e);
     }
+  }
+
+  try {
+    await agendaSearch.set(agenda);
+  } catch (e) {
+    log('error', 'failed to index agenda', e);
   }
 
   try {
