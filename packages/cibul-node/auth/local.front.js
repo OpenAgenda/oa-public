@@ -497,7 +497,7 @@ function _loadCaptcha(req, res, next) {
       head: {
         js: {
           captcha: {
-            src: `https://www.google.com/recaptcha/api.js?hl=${req.lang}`,
+            src: `https://www.google.com/recaptcha/api.js?onload=onloadCaptchaCallback&render=${config.auth.local.captchaKey}&hl=${req.lang}`,
             async: true,
             defer: true,
           },
@@ -506,7 +506,13 @@ function _loadCaptcha(req, res, next) {
       bottom: {
         scripts: [
           ...(_.get(req.baseData, 'bottom.scripts') || []),
-          `var onSuccessRecaptcha = function(response) {
+          `var onloadCaptchaCallback = function() {
+            grecaptcha.render('signup-recaptcha', {
+               'sitekey' : '${config.auth.local.captchaKeyV2}'
+            });
+          }
+
+          var onSuccessRecaptcha = function(response) {
             var errorDivs = document.getElementsByClassName('recaptcha-error');
             if (errorDivs.length) {
               errorDivs[0].className = '';
@@ -521,6 +527,7 @@ function _loadCaptcha(req, res, next) {
       },
       useCaptcha: true,
       captchaKey: config.auth.local.captchaKey,
+      captchaKeyV2: config.auth.local.captchaKeyV2,
     });
   }
 
@@ -558,62 +565,44 @@ function _passwordMatchCheck(values) {
   return values;
 }
 
-function _captchaCheck(values) {
+async function _captchaCheck(values) {
   if (!config.auth.local.useCaptcha) return values;
 
-  return w.promise(function (resolve, reject) {
-    const verifyUrl =
-      config.auth.local.captchaVerify +
-      '?' +
-      'secret=' +
-      config.auth.local.captchaSecret +
-      '&response=' +
-      values.req.body['g-recaptcha-response'] +
-      '&remoteip=' +
-      values.req.header('x-forwarded-for');
+  const [
+    responseV2,
+    responseV3
+  ] = values.req.body['g-recaptcha-response'];
+  const remoteIp = values.req.header('x-forwarded-for');
+  const verifyBaseUrl = config.auth.local.captchaVerify;
+  const secretV2 = config.auth.local.captchaSecretV2;
+  const secretV3 = config.auth.local.captchaSecret;
 
-    _getAndParse(verifyUrl, function (err, data) {
-      if (err || !data.success) {
-        values.data.errors = {
-          captcha: 'captchaTryAgain',
-        };
-      }
+  const verifyV2Url = `${verifyBaseUrl}?secret=${secretV2}&response=${responseV2}&remoteip=${remoteIp}`;
+  const verifyV3Url = `${verifyBaseUrl}?secret=${secretV3}&response=${responseV3}&remoteip=${remoteIp}`;
 
-      resolve(values);
-    });
-  });
-}
+  try {
+    const [
+      resultV2,
+      resultV3
+    ] = await Promise.all([
+      axios.get(verifyV2Url),
+      axios.get(verifyV3Url)
+    ]);
 
-function _getAndParse(url, cb) {
-  let data = '';
-
-  log('fetching %s', url);
-
-  https.get(url, function (res) {
-    if (res.statusCode !== 200) {
-      // log error and fa'ggetabatit
-
-      log('error', 'received a status code %s from %s', res.statusCode, url);
-
-      return cb(true);
+    if (!resultV2.data.success || !resultV3.data.success) {
+      throw new Error('BadCaptcha');
     }
 
-    res.on('data', function (chunk) {
-      data += chunk;
-    });
+    if (resultV3.data.score < 0.5) {
+      throw new Error('BadCaptchaScore');
+    }
+  } catch(err) {
+    values.data.errors = {
+      captcha: 'captchaTryAgain',
+    };
+  }
 
-    res.on('end', function () {
-      try {
-        data = JSON.parse(data);
-      } catch (e) {
-        log('error', 'invalid JSON received');
-
-        return cb(e);
-      }
-
-      cb(null, data);
-    });
-  });
+  return values;
 }
 
 function makeRegistrationMessage(user) {
