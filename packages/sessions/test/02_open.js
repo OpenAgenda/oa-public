@@ -65,7 +65,7 @@ describe( 'session - functional (server): open', () => {
 
         let parsed = JSON.parse( result );
 
-        Object.keys( parsed ).should.eql( [ 'id', 'email', 'latestActivity', 'isNew', 'culture', 'uid', 'name', 'thumbnail' ] );
+        Object.keys( parsed ).should.eql( [ 'id', 'email', 'latestActivity', 'expires', 'isNew', 'isBlacklisted', 'culture', 'uid', 'name', 'thumbnail' ] );
 
         done();
 
@@ -81,7 +81,7 @@ describe( 'session - functional (server): open', () => {
 
     sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
-      request.session.should.eql( {
+      _.omit(request.session, ['expires']).should.eql( {
         user: {
           culture: 'fr',
           uid: 12345678,

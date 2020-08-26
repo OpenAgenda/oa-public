@@ -43,15 +43,17 @@ describe( 'session - functional (server): get', () => {
         Object.keys( session ).should.eql( [
           'culture',
           'uid',
-          'name', 
+          'name',
           'thumbnail',
           'id',
           'email',
           'latestActivity',
-          'isNew'
+          'expires',
+          'isNew',
+          'isBlacklisted'
         ] );
 
-        _.omit( session, [ 'latestActivity' ] )
+        _.omit( session, [ 'latestActivity', 'expires' ] )
 
         .should.eql( {
           id: 1,
@@ -60,7 +62,8 @@ describe( 'session - functional (server): get', () => {
           culture: 'fr',
           isNew: false,
           name: 'Gaetan Latouche',
-          thumbnail: '//graph.facebook.com/100002280111541/picture'
+          thumbnail: '//graph.facebook.com/100002280111541/picture',
+          isBlacklisted: null
         } );
 
         done();
@@ -79,13 +82,14 @@ describe( 'session - functional (server): get', () => {
 
         should( err ).equal( null );
 
-        _.omit( session, [ 'latestActivity' ] )
+        _.omit( session, [ 'latestActivity', 'expires' ] )
 
         .should.eql( {
           id: 1,
           email: 'gaetan@cibul.net',
           uid: 12345678,
           isNew: false,
+          isBlacklisted: null,
           culture: 'fr',
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture'

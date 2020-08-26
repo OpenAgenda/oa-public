@@ -11,6 +11,10 @@ module.exports = ( request, cb ) => {
 
 }
 
+async function closeByUid(uid) {
+  return redisCommand('del', [ config.redis.prefix, uid ].join( ':' ));
+}
+
 async function close( request ) {
 
   const cookieUser = cleanSession( request.session ).user;
@@ -24,7 +28,7 @@ async function close( request ) {
 
   }
 
-  let result = await redisCommand( 'del', [ config.redis.prefix, cookieUser.uid ].join( ':' ) );
+  const result = await closeByUid(cookieUser.uid)
 
   request.session = null;
 
@@ -33,3 +37,5 @@ async function close( request ) {
   }
 
 }
+
+module.exports.byUid = closeByUid;
