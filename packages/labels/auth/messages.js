@@ -1,6 +1,14 @@
 "use strict";
 
 module.exports = {
+  "isBlacklisted": {
+    "fr": "Votre compte a été ajouté a notre liste de comptes frauduleux.",
+    "en": "Your account has been added to our fraudulous accounts list."
+  },
+  "isBlacklistedInfo": {
+    "fr": "En cas d'erreur de notre part, contactez-nous soit via notre robot ou depuis le menu d'Aide.",
+    "en": "In case of an error on our part, contact us either via our chat app or the Help menu."
+  },
   "authRequired": {
     "en": "You need to be authenticated to access this page.",
     "fr": "L' accès à la page demandée est restreint. Connectez-vous pour y accéder.",

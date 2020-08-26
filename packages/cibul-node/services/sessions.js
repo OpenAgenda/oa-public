@@ -4,6 +4,7 @@ const _ = require('lodash');
 const VError = require('verror');
 const sessions = require('@openagenda/sessions');
 const log = require('@openagenda/logs')('sessions');
+const getAuthMessageLabel = require('@openagenda/labels')(require('@openagenda/labels/auth/messages'));
 
 const service = {};
 
@@ -56,7 +57,12 @@ function load({ detailed, redirect, msg } = {}) {
       }
 
       if (user && user.isBlacklisted) {
-        sessions.setFlash(req, res, '<div class="text-center margin-top-sm"><strong>Votre compte a été ajouté a notre liste de comptes frauduleux.</strong><p>En cas d\'erreur de notre part, contactez-nous soit via notre robot ou depuis le menu d\'Aide.</p></div>');
+        sessions.setFlash(req, res, `
+          <div class="text-center margin-top-sm">
+            <strong>${getAuthMessageLabel('isBlacklisted', user.culture)}</strong>
+            <p>${getAuthMessageLabel('isBlacklistedInfo', user.culture)}</p>
+          </div>`
+        );
         sessions.close(req, () => {
           res.redirect(302, '/');
         });
