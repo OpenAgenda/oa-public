@@ -82,13 +82,6 @@ module.exports = (app) => {
     signinSubmit
   );
 
-  app.get(
-    '/signupcheck',
-    (req, res, next) => {
-      res.send(renderManualPage('en'));
-    }
-  );
-
   app.post(
     '/:agendaSlug/signin',
     agendas.mw.load,
