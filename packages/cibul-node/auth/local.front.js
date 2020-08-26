@@ -6,9 +6,9 @@ const _ = require('lodash');
 const qs = require('qs');
 const w = require('when');
 const invitationsSvc = require('@openagenda/invitations');
-const getLabel = require('@openagenda/labels')(
-  require('@openagenda/labels/auth/signin')
-);
+const marked = require('marked');
+const makeLabelsGetter = require('@openagenda/labels');
+const getLabel = makeLabelsGetter(require('@openagenda/labels/auth/signin'));
 const getErrorLabel = require('@openagenda/labels')(
   require('@openagenda/labels/auth/errors')
 );
@@ -24,6 +24,8 @@ const config = require('../config');
 
 const layouts = require('../services/lib/layouts');
 const manualTemplate = _.template(fs.readFileSync(__dirname + '/manual.tpl', 'utf-8'));
+const flattenLabels = require('@openagenda/labels/flatten');
+const manualLabels = require('@openagenda/labels/auth/manual');
 
 const useOptions = {
   usernameField: 'email',
@@ -32,6 +34,19 @@ const useOptions = {
 };
 
 const preMw = [cmn.https, cmn.loadBaseData(auth.layoutData, 'oasfmain.css')];
+
+
+const renderManualPage = (
+  (labels, lang) => manualTemplate(flattenLabels(labels, lang))
+).bind(null, Object.keys(manualLabels)
+  .reduce((html, key) => ({
+    ...html,
+    [key]: Object.keys(manualLabels[key]).reduce((label, lang) => ({
+      ...label,
+      [lang]: marked(manualLabels[key][lang])
+    }), {})
+  }), {})
+);
 
 module.exports = (app) => {
   const { sessions, agendas } = app.services;
@@ -65,6 +80,13 @@ module.exports = (app) => {
     preMw,
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     signinSubmit
+  );
+
+  app.get(
+    '/signupcheck',
+    (req, res, next) => {
+      res.send(renderManualPage('en'));
+    }
   );
 
   app.post(
@@ -390,6 +412,7 @@ async function activateResend(req, res) {
   }
 }
 
+
 async function activate(req, res) {
   const { users, agendas } = req.app.services;
 
@@ -397,12 +420,14 @@ async function activate(req, res) {
     _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda')
   );
 
+  const html = renderManualPage(req.lang);
+
   if (config.manualAccountActivation && req.agenda) {
-    return res.send(layouts.agenda(manualTemplate(), req));
+    return res.send(layouts.agenda(html, req));
   } else if (config.manualAccountActivation) {
-    return res.send(layouts.main(manualTemplate(), {
+    return res.send(layouts.main(html, {
       lang: req.lang,
-      title: 'Vérification de compte'
+      title: getLabel(manualLabels.title, req.lang)
     }));
   }
 
