@@ -622,7 +622,7 @@ function makeRegistrationMessage(user) {
             },
             "value": "blacklist",
             "style": "danger",
-            "url": `${config.root}/admin/users/blacklist?userUid=${user.uid}`
+            "url": `${config.root}/admin/users/blacklist?uid=${user.uid}`
           }
         ]
       },

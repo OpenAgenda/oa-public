@@ -1,73 +1,62 @@
-"use strict";
+'use strict';
 
-const { promisify } = require( 'util' );
-const moment = require( 'moment' );
-const async = require( 'async' );
-const sessions = require( '@openagenda/sessions' );
-const log = require( '@openagenda/logs' )( 'admin/back' );
-const agendasSvc = require( '@openagenda/agendas' );
-const cmn = require( '../lib/commons-app' );
-const lib = require( '../lib/lib' );
-const membersSvc = require( '../services/members' );
-const model = require( '../services/model' );
-const adminSvc = require( '../services/admin/admin' );
+const { promisify } = require('util');
+const moment = require('moment');
+const async = require('async');
+const sessions = require('@openagenda/sessions');
+const log = require('@openagenda/logs')('admin/back');
+const agendasSvc = require('@openagenda/agendas');
+const cmn = require('../lib/commons-app');
+const lib = require('../lib/lib');
+const membersSvc = require('../services/members');
+const model = require('../services/model');
+const adminSvc = require('../services/admin/admin');
 
 const preMw = [
   cmn.loadBaseData(),
-  sessions.mw.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-  cmn.requireSuperAdmin
+  sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
+  cmn.requireSuperAdmin,
 ];
 
-
-module.exports = app => {
-
-  app.get( '/admin', preMw, index );
-  app.get( '/admin/search', preMw, search );
-  app.get( '/admin/users', preMw, getUsers );
-  app.get( '/admin/users/signin', preMw, _loadUser(), userSignin );
-  app.get( '/admin/users/activate', preMw, _loadUser(), userActivate );
-  app.post( '/admin/users/update', preMw, _loadUser( 'post' ), userUpdate );
-  app.get( '/admin/throw', preMw, throwTestError );
-  app.get( '/admin/users/changePassword', preMw, userChangePassword );
-  app.get( '/admin/eventsbyweek', preMw, eventsByWeek );
-  app.get( '/admin/eventsdiff', preMw, eventsDiff );
-
+module.exports = (app) => {
+  app.get('/admin', preMw, index);
+  app.get('/admin/search', preMw, search);
+  app.get('/admin/users', preMw, getUsers);
+  app.get('/admin/users/signin', preMw, _loadUser(), userSignin);
+  app.get('/admin/users/activate', preMw, _loadUser(), userActivate);
+  app.get('/admin/users/blacklist', preMw, _loadUser(), userBlacklist);
+  app.post('/admin/users/update', preMw, _loadUser('post'), userUpdate);
+  app.get('/admin/throw', preMw, throwTestError);
+  app.get('/admin/users/changePassword', preMw, userChangePassword);
+  app.get('/admin/eventsbyweek', preMw, eventsByWeek);
+  app.get('/admin/eventsdiff', preMw, eventsDiff);
 };
 
-
-function index( req, res ) {
-
+function index(req, res) {
   const { services } = req.app;
   const totals = {};
   const totalsWeek = {};
   const totalsMonth = {};
 
-  log( 'rendering index' );
+  log('rendering index');
 
-  res.send(`<html><body><a href="/admin/agendas">Agendas</a> - <a href="/admin/users">Users</a></body></html>`);
-
+  res.send(
+    `<html><body><a href="/admin/agendas">Agendas</a> - <a href="/admin/users">Users</a></body></html>`
+  );
 }
 
-
-function throwTestError( req, res, next ) {
-
-  throw new Error( 'this is a test error' );
-
+function throwTestError(req, res, next) {
+  throw new Error('this is a test error');
 }
 
-
-function search( req, res ) {
-
+function search(req, res) {
   const { services } = req.app;
-  const start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate();
-  const end = moment( req.query.end, 'DD-MM-YYYY' ).endOf( 'day' ).toDate();
+  const start = moment(req.query.begin, 'DD-MM-YYYY').toDate();
+  const end = moment(req.query.end, 'DD-MM-YYYY').endOf('day').toDate();
 
-  _getFork( services, start, end )
-
-    .then( ( [ r, e, u ] ) => {
-
-      cmn.render( req, res, 'admin/index', {
-
+  _getFork(services, start, end)
+    .then(([r, e, u]) => {
+      cmn.render(req, res, 'admin/index', {
         events: {
           total: e,
           totalInWeek: null,
@@ -85,381 +74,396 @@ function search( req, res ) {
           totalInWeek: null,
           totalInMonth: null,
         },
+      });
+    })
 
-      } );
-
-    } )
-
-    .catch( function ( err ) {
-
-      log( err.message );
-
-    } );
-
+    .catch(function (err) {
+      log(err.message);
+    });
 }
 
+function getUsers(req, res, next) {
+  if (req.xhr) {
+    if (req.query.uid) {
+      return _loadUser()(req, res, () => {
+        if (!req.loadedUser.id) return next(new Error('User not found'));
 
-function getUsers( req, res, next ) {
+        membersSvc
+          .list(
+            { userUid: req.loadedUser.uid },
+            { limit: 1000, order: 'id.desc' },
+            { userOptions: { detailed: true } }
+          )
+          .then((members) => {
+            agendasSvc.list(
+              {
+                uid: members.map((m) => m.agendaUid),
+              },
+              0,
+              1000,
+              { private: null },
+              (err, agendas) => {
+                model.lib.query(
+                  'SELECT count(*) as nbrEvents, agenda_uid as agendaUid ' +
+                  'FROM agenda_event WHERE user_uid = ? GROUP BY agenda_uid',
+                  [req.loadedUser.uid],
+                  (err, counters) => {
+                    members = members.map((member) => {
+                      member.agenda = agendas.filter(
+                        (agenda) => agenda.uid == member.agendaUid
+                      )[0];
 
-  if ( req.xhr ) {
+                      const counter = counters.filter(
+                        (counter) => counter.agendaUid == member.agendaUid
+                      )[0];
+                      member.nbrEvents = counter && counter.nbrEvents;
 
-    if ( req.query.uid ) {
+                      return member;
+                    });
 
-      return _loadUser()( req, res, () => {
-
-        if ( !req.loadedUser.id ) return next( new Error( 'User not found' ) );
-
-        membersSvc.list(
-          { userUid: req.loadedUser.uid },
-          { limit: 1000, order: 'id.desc' },
-          { userOptions: { detailed: true } }
-        ).then( members => {
-
-          agendasSvc.list( {
-            uid: members.map( m => m.agendaUid )
-          }, 0, 1000, { private: null }, ( err, agendas ) => {
-
-            model.lib.query( 'SELECT count(*) as nbrEvents, agenda_uid as agendaUid ' +
-              'FROM agenda_event WHERE user_uid = ? GROUP BY agenda_uid',
-              [ req.loadedUser.uid ],
-              ( err, counters ) => {
-
-                members = members.map( member => {
-
-                  member.agenda = agendas.filter( agenda => agenda.uid == member.agendaUid )[ 0 ];
-
-                  const counter = counters.filter( counter => counter.agendaUid == member.agendaUid )[ 0 ];
-                  member.nbrEvents = counter && counter.nbrEvents;
-
-                  return member;
-
-                } );
-
-                cmn.renderJson( req, res, {
-                  user: lib.filterByAttr( req.loadedUser, [
-                    'uid',
-                    'fullName',
-                    'email',
-                    'isActivated',
-                    'isRemoved',
-                    'createdAt',
-                    'updatedAt',
-                    'lastSignin',
-                    'apiKey',
-                    'apiSecret',
-                    'store'
-                  ] ),
-                  members
-                } );
-
-              } );
-
-          } );
-
-        } );
-
-      } );
-
+                    cmn.renderJson(req, res, {
+                      user: req.loadedUser,
+                      members,
+                    });
+                  }
+                );
+              }
+            );
+          });
+      });
     } else {
-
-      return _searchUsers( req, res );
-
+      return _searchUsers(req, res);
     }
-
   }
 
-  cmn.render( req, res, 'admin/users', {
+  cmn.render(req, res, 'admin/users', {
     head: {
       css: {
-        main: '/css/compiledAdmin.css'
-      }
-    }
-  } );
-
+        main: '/css/compiledAdmin.css',
+      },
+    },
+  });
 }
 
-
-function userChangePassword( req, res ) {
-
+function userChangePassword(req, res) {
   const { users: usersSvc } = req.app.services;
   const { uid, password } = req.query;
 
   usersSvc
-    .changePassword( uid, { password } )
-    .then( () => {
-
-      res.json( { success: true } );
-
-    } )
-    .catch( () => {
-
-      res.json( { success: false } );
-
-    } );
-
+    .changePassword(uid, { password })
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch(() => {
+      res.json({ success: false });
+    });
 }
 
-
-async function userActivate( req, res ) {
-
+async function userActivate(req, res, next) {
   const { users: usersSvc } = req.app.services;
 
-  if ( !req.loadedUser.isActivated ) {
-
+  if (!req.loadedUser.isActivated) {
     try {
+      req.loadedUser = await usersSvc.patch(
+        req.loadedUser.uid,
+        { isActivated: true },
+        { internal: true }
+      );
 
-      req.loadedUser = await usersSvc
-        .patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
-
-      return cmn.renderJson( req, res, { success: true } );
-
-    } catch ( err ) {
-
-      return cmn.catchError( req, res )( err );
-
-    }
-
-  }
-
-}
-
-function userUpdate( req, res, next ) {
-
-  const { users: usersSvc } = req.app.services;
-
-  usersSvc.get( req.loadedUser.uid, { detailed: true, removed: null } )
-    .then( async user => {
-
-      const store = user.store || {};
-
-      if ( !store.enable_secret && req.body.enable_secret ) {
-
-        await usersSvc.generateApiKey( user.uid, {
-          secretKey: true
-        }, { removed: null } );
-
-        user = await usersSvc.patch( user.uid, {
-          store: {
-            ...store,
-            enable_secret: true
-          }
-        }, { detailed: true, removed: null, internal: true } );
-
+      if (req.accepts(['json', 'html']) === 'html') {
+        return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
       }
 
-      res.json( {
+      return res.json({ success: true });
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  if (req.accepts(['json', 'html']) === 'html') {
+    return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
+  }
+
+  return res.json({ success: false });
+}
+
+async function userBlacklist(req, res, next) {
+  const { users: usersSvc, sessions } = req.app.services;
+
+  if (!req.loadedUser.isBlacklisted) {
+    const userUid = req.loadedUser.uid;
+
+    try {
+      req.loadedUser = await usersSvc.patch(
+        userUid,
+        { isBlacklisted: true },
+        { internal: true }
+      );
+
+      await sessions.close.byUid(userUid);
+
+      if (req.accepts(['json', 'html']) === 'html') {
+        return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
+      }
+
+      return res.json({ success: true });
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  if (req.accepts(['json', 'html']) === 'html') {
+    return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
+  }
+
+  return res.json({ success: false });
+}
+
+function userUpdate(req, res, next) {
+  const { users: usersSvc } = req.app.services;
+
+  usersSvc
+    .get(req.loadedUser.uid, { detailed: true, removed: null })
+    .then(async (user) => {
+      const store = user.store || {};
+
+      if (!store.enable_secret && req.body.enable_secret) {
+        await usersSvc.generateApiKey(
+          user.uid,
+          {
+            secretKey: true,
+          },
+          { removed: null }
+        );
+
+        user = await usersSvc.patch(
+          user.uid,
+          {
+            store: {
+              ...store,
+              enable_secret: true,
+            },
+          },
+          { detailed: true, removed: null, internal: true }
+        );
+      }
+
+      res.json({
         success: true,
-        user
-      } );
-
-    } )
-    .catch( next );
-
+        user,
+      });
+    })
+    .catch(next);
 }
 
+function userSignin(req, res) {
+  sessions.open(req, res, req.loadedUser, () => {
+    if (req.xhr) return cmn.renderJson(req, res, { success: true });
 
-function userSignin( req, res ) {
-
-  sessions.open( req, res, req.loadedUser, () => {
-
-    if ( req.xhr ) return cmn.renderJson( req, res, { success: true } );
-
-    return res.redirect( 302, '/home' );
-
-  } );
-
+    return res.redirect(302, '/home');
+  });
 }
 
-
-function _loadUser( type = 'get' ) {
-
-  return ( req, res, next ) => {
-
+function _loadUser(type = 'get') {
+  return (req, res, next) => {
     const { users: usersSvc } = req.app.services;
 
-    const request = req[ type === 'get' ? 'query' : 'body' ];
+    const request = req[type === 'get' ? 'query' : 'body'];
 
-    if ( !request.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
+    if (!request.uid)
+      return cmn.renderJson(req, res, {
+        success: false,
+        message: 'user uid is missing',
+      });
 
     const uid = request.uid;
 
-    usersSvc.get( uid, { removed: null, detailed: true } )
-      .then( user => {
-
+    usersSvc
+      .get(uid, { removed: null, detailed: true })
+      .then((user) => {
         req.loadedUser = user;
 
         next();
-
-      } )
-      .catch( cmn.catchError( req, res ) );
-
-  }
-
+      })
+      .catch(cmn.catchError(req, res));
+  };
 }
 
-function _searchUsers( req, res ) {
-
-  var perPage = 40, page = req.query.page ? parseInt( req.query.page, 10 ) : 1,
-
+function _searchUsers(req, res) {
+  var perPage = 40,
+    page = req.query.page ? parseInt(req.query.page, 10) : 1,
     where = ' where is_removed = 0',
-
     entries = [],
-
     total = 0;
 
-  if ( req.query.search ) {
-
+  if (req.query.search) {
     where += ' and email like ? or full_name like ?';
-    entries.push( `%${req.query.search}%`, `%${req.query.search}%` );
-
+    entries.push(`%${req.query.search}%`, `%${req.query.search}%`);
   }
 
   model.lib.query(
     'select count(id) as total from user' + where,
     entries,
-    function ( err, rows ) {
+    function (err, rows) {
+      if (err) return cmn.catchError(req, res)(err);
 
-      if ( err ) return cmn.catchError( req, res )( err );
+      total = rows[0].total;
 
-      total = rows[ 0 ].total;
+      model.lib.query(
+        'select * from user' +
+        where +
+        ' order by created_at desc limit ' +
+        (page - 1) * perPage +
+        ', ' +
+        perPage,
+        entries,
+        function (err, rows) {
+          if (err) return cmn.catchError(req, res)(err);
 
-      model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page - 1) * perPage + ', ' + perPage, entries, function ( err, rows ) {
-
-        if ( err ) return cmn.catchError( req, res )( err );
-
-        cmn.renderJson( req, res, {
-          users: rows.map( function ( row ) {
-
-            return { uid: row.uid, fullName: row.full_name, email: row.email, isRemoved: row.is_removed };
-
-          } ),
-          page: page,
-          total: total,
-          perPage: perPage
-        } )
-
-      } );
-
-    } );
-
+          cmn.renderJson(req, res, {
+            users: rows.map(function (row) {
+              return {
+                uid: row.uid,
+                fullName: row.full_name,
+                email: row.email,
+                isRemoved: row.is_removed,
+              };
+            }),
+            page: page,
+            total: total,
+            perPage: perPage,
+          });
+        }
+      );
+    }
+  );
 }
 
+function eventsByWeek(req, res) {
+  adminSvc.getIndexedEventsByWeek(function (err, result) {
+    if (err) return cmn.errorResponse(req, res, err);
 
-function eventsByWeek( req, res ) {
-
-  adminSvc.getIndexedEventsByWeek( function ( err, result ) {
-
-    if ( err ) return cmn.errorResponse( req, res, err );
-
-    cmn.renderJson( req, res, {
+    cmn.renderJson(req, res, {
       success: true,
-      data: result
-    } );
-
-  } );
-
+      data: result,
+    });
+  });
 }
 
+function eventsDiff(req, res) {
+  adminSvc.getIndexDiff(function (err, diff) {
+    if (err) return cmn.errorResponse(req, res, err);
 
-function eventsDiff( req, res ) {
-
-  adminSvc.getIndexDiff( function ( err, diff ) {
-
-    if ( err ) return cmn.errorResponse( req, res, err );
-
-    cmn.renderJson( req, res, {
+    cmn.renderJson(req, res, {
       success: true,
-      diff: diff
-    } );
-
-  } )
-
+      diff: diff,
+    });
+  });
 }
 
-
-function _getFork( services, begin, end ) {
-
+function _getFork(services, begin, end) {
   const { users: usersSvc } = req.app.services;
 
-  return Promise.all( [
-    promisify( model.reviews().total )( { createdAt: { gte: begin, lte: end } } ),
-    promisify( model.events().total )( { createdAt: { gte: begin, lte: end } } ),
-    usersSvc.find( { query: { $limit: 0, createdAt: { $gte: begin, $lte: end } } } )
-      .then( res => res.total )
-  ] );
-
+  return Promise.all([
+    promisify(model.reviews().total)({ createdAt: { gte: begin, lte: end } }),
+    promisify(model.events().total)({ createdAt: { gte: begin, lte: end } }),
+    usersSvc
+      .find({ query: { $limit: 0, createdAt: { $gte: begin, $lte: end } } })
+      .then((res) => res.total),
+  ]);
 }
 
-function _getTotals( services, cb ) {
-
+function _getTotals(services, cb) {
   const usersSvc = services.users;
 
-  async.parallel( [
+  async.parallel(
+    [
+      async.apply(model.reviews().total),
 
-    async.apply( model.reviews().total ),
+      async.apply(model.events().total),
 
-    async.apply( model.events().total ),
-
-    cb => usersSvc.find( { query: { $limit: 0 } } )
-      .then( res => cb( null, res.total ) )
-
-  ], cb );
+      (cb) =>
+        usersSvc
+          .find({ query: { $limit: 0 } })
+          .then((res) => cb(null, res.total)),
+    ],
+    cb
+  );
 }
 
-function _getTotalsWeek( services, cb ) {
+function _getTotalsWeek(services, cb) {
   const usersSvc = services.users;
 
-  const weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate();
-  const weekStop = moment().subtract( 1, 'week' ).endOf( 'week' ).toDate();
+  const weekStart = moment().subtract(1, 'week').startOf('week').toDate();
+  const weekStop = moment().subtract(1, 'week').endOf('week').toDate();
 
-  async.parallel( [
+  async.parallel(
+    [
+      async.apply(model.reviews().total, {
+        createdAt: { gt: weekStart, lt: weekStop },
+      }),
 
-    async.apply( model.reviews().total, { createdAt: { gt: weekStart, lt: weekStop } } ),
+      async.apply(model.events().total, {
+        createdAt: { gt: weekStart, lt: weekStop },
+      }),
 
-    async.apply( model.events().total, { createdAt: { gt: weekStart, lt: weekStop } } ),
-
-    cb => usersSvc.find( { query: { $limit: 0, createdAt: { $gt: weekStart, $lt: weekStop } } } )
-      .then( res => cb( null, res.total ) )
-
-  ], cb );
+      (cb) =>
+        usersSvc
+          .find({
+            query: { $limit: 0, createdAt: { $gt: weekStart, $lt: weekStop } },
+          })
+          .then((res) => cb(null, res.total)),
+    ],
+    cb
+  );
 }
 
-function _getTotalsMonth( services, cb ) {
+function _getTotalsMonth(services, cb) {
   const usersSvc = services.users;
 
-  const monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate();
-  const monthStop = moment().subtract( 1, 'month' ).endOf( 'month' ).toDate();
+  const monthStart = moment().subtract(1, 'month').startOf('month').toDate();
+  const monthStop = moment().subtract(1, 'month').endOf('month').toDate();
 
-  async.parallel( [
+  async.parallel(
+    [
+      async.apply(model.reviews().total, {
+        createdAt: { gt: monthStart, lt: monthStop },
+      }),
 
-    async.apply( model.reviews().total, { createdAt: { gt: monthStart, lt: monthStop } } ),
+      async.apply(model.events().total, {
+        createdAt: { gt: monthStart, lt: monthStop },
+      }),
 
-    async.apply( model.events().total, { createdAt: { gt: monthStart, lt: monthStop } } ),
-
-    cb => usersSvc.find( { query: { $limit: 0, createdAt: { $gt: monthStart, $lt: monthStop } } } )
-      .then( res => cb( null, res.total ) )
-
-  ], cb );
-
+      (cb) =>
+        usersSvc
+          .find({
+            query: {
+              $limit: 0,
+              createdAt: { $gt: monthStart, $lt: monthStop },
+            },
+          })
+          .then((res) => cb(null, res.total)),
+    ],
+    cb
+  );
 }
 
-
-function _layoutData( totals, totalsWeek, totalsMonth ) {
+function _layoutData(totals, totalsWeek, totalsMonth) {
   return {
     events: {
       total: totals.events,
       totalInWeek: totalsWeek.events,
-      totalInMonth: totalsMonth.events
+      totalInMonth: totalsMonth.events,
     },
     reviews: {
       total: totals.reviews,
       totalInWeek: totalsWeek.reviews,
-      totalInMonth: totalsMonth.reviews
+      totalInMonth: totalsMonth.reviews,
     },
     users: {
       total: totals.users,
       totalInWeek: totalsWeek.users,
-      totalInMonth: totalsMonth.users
-    }
+      totalInMonth: totalsMonth.users,
+    },
   };
-};
+}
