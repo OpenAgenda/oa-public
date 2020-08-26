@@ -137,6 +137,7 @@ describe('methods', () => {
 
       expect(user).toHaveProperty('isRemoved');
       expect(user).toHaveProperty('isActivated');
+      expect(user).toHaveProperty('isBlacklisted');
       expect(user).toHaveProperty('apiKey');
       expect(user).toHaveProperty('apiSecret');
     });
