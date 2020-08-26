@@ -77,7 +77,9 @@ function load(req, res, next) {
     });
   }
 
-  next();
+  if (typeof next === 'function') {
+    next();
+  }
 }
 
 function socialCheck(service) {
