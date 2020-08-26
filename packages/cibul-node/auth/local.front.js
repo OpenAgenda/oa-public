@@ -264,7 +264,7 @@ function signupSubmit(req, res) {
           values.user = user;
 
           if (config.auth.registrationSlackHook) {
-            axios.post(config.auth.registrationSlackHook, makeRegistrationMessage(user))
+            axios.post(config.auth.registrationSlackHook, makeRegistrationMessage(values))
               .then()
               .catch(err => log.error('There was an error with the Slack request', err));
           }
@@ -566,6 +566,8 @@ async function _captchaCheck(values) {
       throw new Error('BadCaptcha');
     }
 
+    values.reCaptchaScore = resultV3.data.score;
+
     if (resultV3.data.score < 0.5) {
       throw new Error('BadCaptchaScore');
     }
@@ -578,7 +580,7 @@ async function _captchaCheck(values) {
   return values;
 }
 
-function makeRegistrationMessage(user) {
+function makeRegistrationMessage({ user, reCaptchaScore }) {
   return {
     "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda: ${user.email} - ${user.fullName}`,
     "blocks": [
@@ -586,7 +588,7 @@ function makeRegistrationMessage(user) {
         "type": "section",
         "text": {
           "type": "mrkdwn",
-          "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda:\n\nEmail: *${user.email}*\nPrénom Nom: *${user.fullName}*`
+          "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda:\n\nEmail: *${user.email}*\nPrénom Nom: *${user.fullName}*\nScore reCaptcha: *${reCaptchaScore}*/1`
         }
       },
       {
