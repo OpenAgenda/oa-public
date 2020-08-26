@@ -7,10 +7,10 @@ const sessions = require('@openagenda/sessions');
 const log = require('@openagenda/logs')('admin/back');
 const agendasSvc = require('@openagenda/agendas');
 const cmn = require('../lib/commons-app');
-const lib = require('../lib/lib');
 const membersSvc = require('../services/members');
 const model = require('../services/model');
 const adminSvc = require('../services/admin/admin');
+const config = require('../config');
 
 const preMw = [
   cmn.loadBaseData(),
@@ -160,7 +160,7 @@ function userChangePassword(req, res) {
 }
 
 async function userActivate(req, res, next) {
-  const { users: usersSvc } = req.app.services;
+  const { users: usersSvc, mails } = req.app.services;
 
   if (!req.loadedUser.isActivated) {
     try {
@@ -169,6 +169,16 @@ async function userActivate(req, res, next) {
         { isActivated: true },
         { internal: true }
       );
+
+      await mails.send( {
+        template: 'activatedAccount',
+        to: req.loadedUser.email,
+        lang: req.loadedUser.culture,
+        data: {
+          activateLink: config.root,
+        },
+        queue: false,
+      } );
 
       if (req.accepts(['json', 'html']) === 'html') {
         return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
