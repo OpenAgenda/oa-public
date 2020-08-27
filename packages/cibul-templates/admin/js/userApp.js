@@ -228,6 +228,14 @@ class UserApp extends Component {
         <div className="row">
           <div className="col-md-12">
             <h2>Users</h2>
+            <div class="margin-bottom-sm">
+              <label>Account activation mode</label>: <span>{this.props.accountActivationMode === 'manual' ? 'Manual' : 'Automatic'}</span> -> 
+              <span>{this.props.accountActivationMode === 'manual' ? 'Accounts must be checked on Slack' : 'Users can activate their own accounts'}</span>
+              <a
+                href={'/admin/users/activationMode?mode=' + (this.props.accountActivationMode === 'manual' ? 'automatic' : 'manual')}
+                className="btn btn-link"
+              >{this.props.accountActivationMode === 'manual' ? 'Switch to automatic' : 'Switch to manual'}</a>
+            </div>
           </div>
         </div>
         <div className="row">
@@ -265,6 +273,6 @@ class UserApp extends Component {
 
 export default canvasElem => {
 
-  ReactDom.render( <UserApp />, canvasElem );
+  ReactDom.render( <UserApp accountActivationMode={canvasElem.getAttribute('data-account-activation-mode')} />, canvasElem );
 
 };

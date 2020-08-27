@@ -407,7 +407,7 @@ async function activateResend(req, res) {
 
 
 async function activate(req, res) {
-  const { users, agendas } = req.app.services;
+  const { users, agendas, redisConfigStore } = req.app.services;
 
   const optionals = _.pickBy(
     _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda')
@@ -415,9 +415,14 @@ async function activate(req, res) {
 
   const html = renderManualPage(req.lang);
 
-  if (config.manualAccountActivation && req.agenda) {
+  const accountActivationMode = await redisConfigStore('accountActivationMode', {
+    defaultValue: 'manual',
+    throwOnError: false
+  });
+
+  if (accountActivationMode === 'manual' && req.agenda) {
     return res.send(layouts.agenda(html, req));
-  } else if (config.manualAccountActivation) {
+  } else if (accountActivationMode === 'manual') {
     return res.send(layouts.main(html, {
       lang: req.lang,
       title: getLabel(manualLabels.title, req.lang)

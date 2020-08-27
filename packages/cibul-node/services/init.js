@@ -43,6 +43,7 @@ module.exports = async function (configObject, options = {}) {
 
   await init('errors', require('./errors'));
   await init('tracker', require('./tracker'));
+  await init('redisConfigStore', require('./redisConfigStore'));
   await init('queues', require('./queues'));
   await init('users', require('./users'));
   await init('abilities', require('./abilities'));

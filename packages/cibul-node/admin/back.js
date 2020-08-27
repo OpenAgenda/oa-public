@@ -27,6 +27,7 @@ module.exports = (app) => {
   app.get('/admin/users/activate', preMw, _loadUser(), userActivate);
   app.get('/admin/users/blacklist', preMw, _loadUser(), userBlacklist);
   app.post('/admin/users/update', preMw, _loadUser('post'), userUpdate);
+  app.get('/admin/users/activationMode', preMw, toggleActivationMode);
   app.get('/admin/throw', preMw, throwTestError);
   app.get('/admin/users/changePassword', preMw, userChangePassword);
   app.get('/admin/eventsbyweek', preMw, eventsByWeek);
@@ -83,7 +84,9 @@ function search(req, res) {
     });
 }
 
-function getUsers(req, res, next) {
+async function getUsers(req, res, next) {
+  const { redisConfigStore } = req.app.services;
+
   if (req.xhr) {
     if (req.query.uid) {
       return _loadUser()(req, res, () => {
@@ -138,6 +141,10 @@ function getUsers(req, res, next) {
   }
 
   cmn.render(req, res, 'admin/users', {
+    accountActivationMode: await redisConfigStore('accountActivationMode', {
+      defaultValue: 'manual',
+      throwOnError: false
+    }),
     head: {
       css: {
         main: '/css/compiledAdmin.css',
@@ -196,6 +203,15 @@ async function userActivate(req, res, next) {
   }
 
   return res.json({ success: false });
+}
+
+async function toggleActivationMode(req, res, next) {
+  const { redisConfigStore, sessions } = req.app.services;
+
+  try {
+    await redisConfigStore.set('accountActivationMode', req.query.mode);
+  } catch (e) {}
+  return res.redirect(`/admin/users`);
 }
 
 async function userBlacklist(req, res, next) {
