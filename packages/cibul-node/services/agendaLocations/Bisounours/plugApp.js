@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const expressUtils = require('@openagenda/utils/express');
 const gaTrack = require('../../../lib/gaTrack.mw');
+const log = require('@openagenda/logs')('services/locations/plugApp');
 
 module.exports = (config, services, instance, app, base) => {
   app.use(base, expressUtils.https);
