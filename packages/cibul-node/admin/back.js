@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const { promisify } = require('util');
 const moment = require('moment');
 const async = require('async');
@@ -200,33 +201,29 @@ async function userActivate(req, res, next) {
 async function userBlacklist(req, res, next) {
   const { users: usersSvc, sessions } = req.app.services;
 
-  if (!req.loadedUser.isBlacklisted) {
-    const userUid = req.loadedUser.uid;
+  const userUid = req.loadedUser.uid;
 
-    try {
-      req.loadedUser = await usersSvc.patch(
-        userUid,
-        { isBlacklisted: true },
-        { internal: true }
-      );
+  try {
+    const isBlacklisted = _.get(req.query, 'isBlacklisted', 'true') === 'true';
 
+    req.loadedUser = await usersSvc.patch(
+      userUid,
+      { isBlacklisted },
+      { internal: true }
+    );
+
+    if (isBlacklisted) {
       await sessions.close.byUid(userUid);
-
-      if (req.accepts(['json', 'html']) === 'html') {
-        return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
-      }
-
-      return res.json({ success: true });
-    } catch (err) {
-      return next(err);
     }
+  } catch (err) {
+    return next(err);
   }
 
   if (req.accepts(['json', 'html']) === 'html') {
     return res.redirect(`/admin/users?userUid=${req.loadedUser.uid}`);
   }
 
-  return res.json({ success: false });
+  return res.json({ success: true });
 }
 
 function userUpdate(req, res, next) {

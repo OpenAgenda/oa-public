@@ -13,6 +13,7 @@ const defaults = {
     res: {
       users: '/admin/users',
       activate: '/admin/users/activate',
+      blacklist: '/admin/users/blacklist',
       update: '/admin/users/update',
       signin: '/admin/users/signin',
       changePassword: '/admin/users/changePassword'
@@ -39,6 +40,7 @@ class UserApp extends Component {
     this.handlePageSelect = ::this.handlePageSelect;
     this.handleSearchSubmit = ::this.handleSearchSubmit;
     this.handleUserActivation = ::this.handleUserActivation;
+    this.handleUserIsBlacklistedToggle = ::this.handleUserIsBlacklistedToggle;
     this.handleUserUpdate = ::this.handleUserUpdate;
     this.handleUserSignin = ::this.handleUserSignin;
   }
@@ -162,6 +164,24 @@ class UserApp extends Component {
 
   }
 
+  handleUserIsBlacklistedToggle() {
+
+    remote.getXmlHttp( config.res.blacklist, { data: { uid: this.state.user.uid, isBlacklisted: !this.state.user.isBlacklisted } }, ( responseType, data ) => {
+
+      if ( responseType !== 'success' ) return alert( 'schplof.' );
+
+      if ( !data.success ) return alert( data.message );
+
+      var user = this.state.user;
+
+      user.isBlacklisted = !user.isBlacklisted;
+
+      this.setState( { user: user } );
+
+    } );
+
+  }
+
   handleUserSignin( e ) {
 
     e.preventDefault();
@@ -231,6 +251,7 @@ class UserApp extends Component {
               user={user}
               members={members}
               onUserActivation={this.handleUserActivation}
+              onUserIsBlacklistedToggle={this.handleUserIsBlacklistedToggle}
               onUserSignin={this.handleUserSignin}
               onUserChangePassword={this.handleChangePassword}
               onUserUpdate={this.handleUserUpdate}

@@ -123,6 +123,19 @@ export default class UserShow extends Component {
               />
             </td>
           </tr>
+          <tr>
+            <td>Blacklisted</td>
+            <td>
+              <Switch
+                ref="blacklist-switch"
+                className="rc-switch"
+                checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                onChange={() => this.props.onUserIsBlacklistedToggle()}
+                checked={!!user.isBlacklisted}
+              />
+            </td>
+          </tr>
           </tbody>
         </table>
         <a onClick={this.props.onUserSignin} href="#">Signin as user</a><br />
