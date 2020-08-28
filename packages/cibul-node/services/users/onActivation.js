@@ -1,11 +1,14 @@
 'use strict';
 
+const _ = require( 'lodash' );
+
 module.exports = function onActivation() {
   return async context => {
     const {
       invitations,
       activities,
-      users
+      users,
+      inboxes: { Inbox }
     } = context.services;
     const user = context.result;
 
@@ -17,7 +20,7 @@ module.exports = function onActivation() {
       publicKey: true
     });
 
-    const { invitation } = context.params.optionals || {};
+    new Inbox().create( { type: 'user', identifier: user.uid } ).then( _.noop );
 
     try {
       await activities.feed({
@@ -29,6 +32,8 @@ module.exports = function onActivation() {
         throw err;
       }
     }
+
+    const { invitation } = context.params.optionals || {};
 
     if (invitation) {
       await invitations.execute({ token: invitation }, { user });
