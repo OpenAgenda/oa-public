@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const fs = require('fs');
-const knexLib = require('knex');
 const redis = require('redis');
 const debug = require('debug');
 
@@ -1018,13 +1017,6 @@ currentConfig.loadEnv = _loadEnv;
 
 currentConfig.emailStrategieDb = _.merge({}, currentConfig.db, {
   database: 'emailStrategie' + (process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '')
-});
-
-currentConfig.knex = knexLib({
-  client: 'mysql',
-  connection: currentConfig.db,
-  pool: { min: 0, max: 20 },
-  schemas: currentConfig.schemas
 });
 
 currentConfig.redisClient = redis.createClient(currentConfig.redis.port, currentConfig.redis.host);
