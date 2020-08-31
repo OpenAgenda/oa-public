@@ -6,6 +6,7 @@ const logger = require('@openagenda/logs');
 const create = require('./create');
 const get = require('./get');
 const list = require('./list');
+const merge = require('./merge');
 const stream = require('./stream');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
