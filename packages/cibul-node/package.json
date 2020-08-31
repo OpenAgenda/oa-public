@@ -91,6 +91,7 @@
     "@openagenda/users": "^3.0.15",
     "@openagenda/utils": "^1.2.9",
     "@openagenda/validators": "^2.2.14",
+    "@slack/interactive-messages": "^1.7.0",
     "async": "^2.3.0",
     "aws-sdk": "^2.544.0",
     "axios": "^0.19.2",

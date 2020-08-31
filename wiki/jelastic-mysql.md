@@ -82,7 +82,7 @@ La connexion non sécurisée est désormais non autorisée.
 
 Dans la section "pare-feu" des paramètres de l'environnement et dans la section "règles entrantes", une séries de ports sont ouverts par défaut pour chaque groupe.
 
-Pour le groupe "Base de données SQL", toutes les règles peuvent être désactivées, à l'exception de la règle ciblant le port 3306. Cette dernière ne doit avoir pour source que le groupe ProxySQL.
+Pour le groupe "Base de données SQL", toutes les règles peuvent être désactivées, à l'exception de la règle ciblant le port 3306. Cette dernière ne doit avoir pour source que le réseau local.
 
 Pour le groupe "Conteneur de stockage", toutes les règles ne doivent cibler que le groupe "Base de données SQL"
 
@@ -228,7 +228,7 @@ Pour que le superviseur puisse se connecter aux agents, une règle entrante doit
 
  * Noeud: Base de données SQL
  * Nom: Percona PMM Ports
- * Protocole: TCP
+ * Protocole: TCP/UDP
  * Plage de ports: 42000-42005
  * Source: Noeuds d'environnement
  * Noeuds associés: (Le noeud contenant le superviseur)

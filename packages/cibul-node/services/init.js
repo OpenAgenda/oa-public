@@ -41,6 +41,7 @@ module.exports = async function (configObject, options = {}) {
 
   // init services
 
+  await init('knex', require('./knex'));
   await init('errors', require('./errors'));
   await init('tracker', require('./tracker'));
   await init('redisConfigStore', require('./redisConfigStore'));

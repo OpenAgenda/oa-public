@@ -1,19 +1,14 @@
-const _ = require( 'lodash' );
 const invitationsSvc = require( '@openagenda/invitations' );
 
 
 module.exports = function onCreate() {
   return async context => {
-    const { Inbox } = context.services.inboxes;
-
     const user = context.result;
     const { optionals } = context.params;
 
     if ( !user ) {
       return context;
     }
-
-    new Inbox().create( { type: 'user', identifier: user.uid } ).then( _.noop );
 
     if ( optionals.invitation ) {
       const { invitation } = await invitationsSvc.get( { token: optionals.invitation } );

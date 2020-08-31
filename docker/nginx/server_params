@@ -277,6 +277,10 @@ location ~ ^/supervisor {
   include conf.d/nodejs_params;
 }
 
+location ~ ^/slack {
+  include conf.d/nodejs_params;
+}
+
 
 ##########################################################
 #             SF1.4 - SPECIFIC PREFIXED

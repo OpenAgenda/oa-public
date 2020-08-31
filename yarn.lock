@@ -5534,6 +5534,7 @@ __metadata:
     "@openagenda/validators": ^2.2.14
     "@storybook/react": ^5.3.19
     async: ^1.5.0
+    aws-sdk: ^2.544.0
     babel-loader: ^8.1.0
     body-parser: ^1.19.0
     concurrently: ^5.1.0
@@ -5543,6 +5544,7 @@ __metadata:
     errorhandler: ^1.5.0
     express: ^4.17.1
     geolib: ^2.0.24
+    gm: ^1.21.1
     immutability-helper: ^3.0.0
     knex: ^0.19.5
     languages: 0.1.3
@@ -5550,6 +5552,7 @@ __metadata:
     lodash: ^4.17.15
     mocha: ^7.0.1
     morgan: ^1.9.1
+    multer: ^1.3.1
     mysql: ^2.9.0
     prop-types: ^15.5.8
     qs: 6.9.1
@@ -8055,6 +8058,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@slack/interactive-messages@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "@slack/interactive-messages@npm:1.7.0"
+  dependencies:
+    "@types/debug": ^4.1.4
+    "@types/express": ^4.17.0
+    "@types/lodash.isfunction": ^3.0.6
+    "@types/lodash.isregexp": ^4.0.6
+    "@types/lodash.isstring": ^4.0.6
+    "@types/node": ">=4.2.0"
+    axios: ^0.19.0
+    debug: ^3.1.0
+    lodash.isfunction: ^3.0.9
+    lodash.isplainobject: ^4.0.6
+    lodash.isregexp: ^4.0.1
+    lodash.isstring: ^4.0.1
+    raw-body: ^2.3.3
+    tsscmp: ^1.0.6
+  checksum: 3e770d82ec21e948e2b516dec6936d7c4207eced8b54022cadff680777e7bad3e5c82ce6cdfae9ee8ddefcea2df28a7c15e46f12bf8fdbc5d8395850ed5bef70
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-actions@npm:^5.3.19":
   version: 5.3.19
   resolution: "@storybook/addon-actions@npm:5.3.19"
@@ -8737,6 +8762,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/debug@npm:^4.1.4":
+  version: 4.1.5
+  resolution: "@types/debug@npm:4.1.5"
+  checksum: 416ad24bc589be0fb8c78bea972aa7d4ffdf6b136239701b1792674463b2dbf8c6707f6055ec484f79ec1f2b528ffef90c87e55df7e4a0f458184cad5bf0cfc8
+  languageName: node
+  linkType: hard
+
 "@types/eslint-visitor-keys@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/eslint-visitor-keys@npm:1.0.0"
@@ -8758,6 +8790,18 @@ __metadata:
     "@types/node": "*"
     "@types/range-parser": "*"
   checksum: edf28e5a9cb6b47a57eec81739a206ee3c21444422182e797df78d6ea0e7676e0cc66207672b7cfe71c090968ff9fefb12d7452defa8adb365ff8a58f98f90ae
+  languageName: node
+  linkType: hard
+
+"@types/express@npm:^4.17.0":
+  version: 4.17.7
+  resolution: "@types/express@npm:4.17.7"
+  dependencies:
+    "@types/body-parser": "*"
+    "@types/express-serve-static-core": "*"
+    "@types/qs": "*"
+    "@types/serve-static": "*"
+  checksum: 99b795c60e7368b575794574c35d0ffd0d119c52bc681af6beda2fee70aada78e8aef07fc0db3b88f594d5d935847de4187561d2456760eeb4fde5d10dbb3780
   languageName: node
   linkType: hard
 
@@ -8904,6 +8948,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.isfunction@npm:^3.0.6":
+  version: 3.0.6
+  resolution: "@types/lodash.isfunction@npm:3.0.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 3f7de436f2079eeac731999553e86c472be44bee9dcee862512c4d1c432252e189253db9038f66bd2f44baf3c6ec4ec752ca2c10fd67746e11974b0cc70919b3
+  languageName: node
+  linkType: hard
+
+"@types/lodash.isregexp@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@types/lodash.isregexp@npm:4.0.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 67e7c57da4082169749df90b795ba8d150c72489f876607becf4540e9157fed6fdc1b4179c5841828ca7caa0eb88867ab0b84a89f772302ba05a448cccc00ecd
+  languageName: node
+  linkType: hard
+
+"@types/lodash.isstring@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@types/lodash.isstring@npm:4.0.6"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 41e6185fb70bde213e31f89a7b0a114227ed7440011fd20e1f4c57f7a30bb6c6802704f97a86d38b6e7662fb2b793679ea838de47abdfb2c8febdfab0fb90f6e
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.160
+  resolution: "@types/lodash@npm:4.14.160"
+  checksum: 9182b5745430de03597537619a90a849b733963409b30476bb01824b8047a5406da77069e25d259d6f3739bdf1719de01637ce50fb0440008964e67c1d134b83
+  languageName: node
+  linkType: hard
+
 "@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
@@ -8929,6 +9007,13 @@ __metadata:
   version: 13.9.2
   resolution: "@types/node@npm:13.9.2"
   checksum: d462ab643ff00eb7b64883cd9a42b2318e5283b397afbe96310cac62e4f48ec97983ee99aa59c6a63c3e302fcd004d30d549889dbc6c712abb566572d92fa533
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:>=4.2.0":
+  version: 14.6.0
+  resolution: "@types/node@npm:14.6.0"
+  checksum: ff23553ab77516d0f90b6710a041a49723fc1b1ca33a5379d5746068cac8b9ddbec428d3a4913afaee50bcdc69b9583843740a18a3519ae997982694f5287c6b
   languageName: node
   linkType: hard
 
@@ -8978,6 +9063,13 @@ __metadata:
   version: 1.5.2
   resolution: "@types/q@npm:1.5.2"
   checksum: e3d8fcf9aaf9e0c597b9279a7ffe8f0b96f71a7e921bf986ee735e7f698e88f629414d759ab401a71dc38cee7f88ef2d15e4811fec14c37aab3f9f7abe3b1371
+  languageName: node
+  linkType: hard
+
+"@types/qs@npm:*":
+  version: 6.9.4
+  resolution: "@types/qs@npm:6.9.4"
+  checksum: 152d2431f7d3ff20bb1525e40a4074aadc8dcde9368b0b1c153014f84cd49ef87218119e7e9d4a2ccd8a4a71c94523361fb4796d90b4328c2222816c0e422483
   languageName: node
   linkType: hard
 
@@ -13659,6 +13751,7 @@ __metadata:
     "@openagenda/users": ^3.0.15
     "@openagenda/utils": ^1.2.9
     "@openagenda/validators": ^2.2.14
+    "@slack/interactive-messages": ^1.7.0
     async: ^2.3.0
     aws-sdk: ^2.544.0
     axios: ^0.19.2
@@ -25277,6 +25370,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.isregexp@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "lodash.isregexp@npm:4.0.1"
+  checksum: 132e1fc95fb431adcab20c805b2b62b5c6e4bb2aec0210d4f859623c0998a6ef2b6eba8c5a44a6f7316e185d3cae231b464d6548c58c04993006ab3a2f4c0d82
+  languageName: node
+  linkType: hard
+
 "lodash.isstring@npm:^4.0.1":
   version: 4.0.1
   resolution: "lodash.isstring@npm:4.0.1"
@@ -31514,7 +31614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raw-body@npm:^2.2.0":
+"raw-body@npm:^2.2.0, raw-body@npm:^2.3.3":
   version: 2.4.1
   resolution: "raw-body@npm:2.4.1"
   dependencies:
@@ -37583,7 +37683,7 @@ resolve@^1.17.0:
   languageName: node
   linkType: hard
 
-"tsscmp@npm:1.0.6":
+"tsscmp@npm:1.0.6, tsscmp@npm:^1.0.6":
   version: 1.0.6
   resolution: "tsscmp@npm:1.0.6"
   checksum: 1a5b76eb37c1a331f7e0b99f6414fdb1d58dffbc95301931a00e8728bc9fcb15b676d8e5eb2aecf884f424e8c9a218af388492cffe106539ffc0f8d09d8ab7c1

@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const fs = require('fs');
-const knexLib = require('knex');
 const redis = require('redis');
 const debug = require('debug');
 
@@ -201,7 +200,8 @@ const config = {
         id: prod.googleApps.id,
         secret: prod.googleApps.secret
       },
-      registrationSlackHook: 'https://hooks.slack.com/services/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'
+      registrationSlackHook: prod.registrationSlackHook,
+      registrationSlackSecret: prod.registrationSlackSecret
     },
     es: {
       host: process.env.LEGACY_ES_HOST || prod.elasticsearch.v1_3.host,
@@ -870,7 +870,9 @@ const config = {
       google: {
         id: '493901398908-njdc3qepd1j08arb37ptb8okhm6klu05.apps.googleusercontent.com',
         secret: 'VmmU8IWHXKT_BGXghqrvFyXI'
-      }
+      },
+      registrationSlackHook: 'https://hooks.slack.com/services/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',
+      registrationSlackSecret: 'd87b1fab0342f49acd148c0c33ac43af'
     },
     es: {
       host: process.env.OA_ELASTICSEARCH_134_DEV_HOST || 'localhost',
@@ -1015,13 +1017,6 @@ currentConfig.loadEnv = _loadEnv;
 
 currentConfig.emailStrategieDb = _.merge({}, currentConfig.db, {
   database: 'emailStrategie' + (process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '')
-});
-
-currentConfig.knex = knexLib({
-  client: 'mysql',
-  connection: currentConfig.db,
-  pool: { min: 0, max: 20 },
-  schemas: currentConfig.schemas
 });
 
 currentConfig.redisClient = redis.createClient(currentConfig.redis.port, currentConfig.redis.host);
