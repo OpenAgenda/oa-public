@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('@openagenda/logs')('Images');
+
 const gm = require('gm').subClass({
   imageMagick: true
 });
@@ -15,15 +17,16 @@ module.exports = (config = {}) => {
   const {
     aws,
     temporaryDirectory,
-    transforms
+    transforms,
+    ContentType
   } = {
+    ContentType: 'image/jpeg',
     aws: {
       key: null,
       secret: null,
-      bucket: null,
-      ContentType: 'image/jpeg'
+      bucket: null
     },
-    temporaryDirectory: '/tmp',
+    temporaryDirectory: '/tmp/',
     transforms: [],
     ...config
   };
@@ -34,16 +37,39 @@ module.exports = (config = {}) => {
     apiVersion: '2006-03-01'
   });
 
-  return {
-    transform: path => Promise.all(transforms.map(t => transform({ temporaryDirectory }, t, path))),
+  const methods = {
+    transform: (path, name) => Promise.all(transforms.map(t => transform({ temporaryDirectory }, t, path, name))),
     removeUploaded: removeUploaded.bind(null, { client: s3Client, bucket: aws.bucket }),
-    renameUploaded: renameUploaded.bind(null, { client: s3Client, bucket: aws.bucket, ContentType: aws.ContentType }),
-    upload: upload.bind(null,{ client: s3Client, bucket: aws.bucket, ContentType: aws.ContentType }),
+    renameUploaded: renameUploaded.bind(null, { client: s3Client, bucket: aws.bucket, ContentType }),
+    renameUploadedTransforms: renameUploadedTransforms.bind(null, { transforms, client: s3Client, bucket: aws.bucket, ContentType }),
+    upload: upload.bind(null,{ client: s3Client, bucket: aws.bucket, ContentType }),
     multer: multer({ dest: temporaryDirectory }).single('image')
-  }
+  };
+
+  return Object.assign(async (path, name) => {
+    const transformed = await methods.transform(path, name);
+
+    const urls = await methods.upload(transformed);
+
+    await Promise.all([path].concat(transformed).map(f => promisify(fs.unlink)(f)));
+
+    return urls;
+  }, methods);
+}
+
+async function renameUploadedTransforms({ transforms, client, bucket, ContentType }, name, newName, extension = '.jpg') {
+  const clean = {
+    name: name.split('.').shift(),
+    newName: newName.split('.').shift()
+  };
+  return Promise.all(transforms.map(t => ({
+    from: t.name.replace('{{name}}', clean.name) + extension,
+    to: t.name.replace('{{name}}', clean.newName) + extension
+  })).map(async ({ from, to }) => renameUploaded({ client, bucket, ContentType }, from, to )));
 }
 
 async function renameUploaded({ client, bucket, ContentType }, filename, newFilename) {
+  log('renaming uploaded %s to %s', filename, newFilename);
   await client.copyObject({
     Bucket: bucket,
     CopySource: `${bucket}/${filename}`,
@@ -79,6 +105,9 @@ async function removeUploaded({ client, bucket }, filename) {
 }
 
 async function upload({ client, bucket, ContentType }, file) {
+  if (file instanceof Array) {
+    return Promise.all(file.map(f => upload({ client, bucket, ContentType }, f)));
+  }
   return client.upload({
     Bucket: bucket,
     Key: path.basename(file),
@@ -88,11 +117,11 @@ async function upload({ client, bucket, ContentType }, file) {
   }).promise().then(({ Location }) => Location);
 }
 
-async function transform({ temporaryDirectory }, transform, imagePath) {
+async function transform({ temporaryDirectory }, transform, imagePath, name = null) {
   const {
     filename,
     extension,
-    name
+    name: nameFromPath
   } = deriveFromPath(imagePath);
 
   const image = gm(imagePath);
@@ -111,7 +140,7 @@ async function transform({ temporaryDirectory }, transform, imagePath) {
     image.resize(transformedSize.width, transformedSize.height);
   }
 
-  const destination = temporaryDirectory + '/' + transform.name.replace('{{name}}', name) + '.' + (transform.extension || 'jpg');
+  const destination = temporaryDirectory + transform.name.replace('{{name}}', name || nameFromPath) + '.' + (transform.extension || 'jpg');
 
   await promisify(image.write).bind(image)(destination);
 

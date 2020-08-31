@@ -14,6 +14,10 @@ module.exports = schema({
     type: 'boolean',
     default: false
   },
+  includeImagePath: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     agendaUid: {
       type: 'integer',

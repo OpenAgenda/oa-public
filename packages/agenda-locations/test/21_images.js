@@ -56,7 +56,7 @@ describe('agenda-locations - unit - images', () => {
 
   });
 
-  describe.only('cdn', () => {
+  describe('cdn', () => {
 
     it('upload method puts files on cdn', async () => {
       const url = await images.upload(__dirname + '/fixtures/images/vieilles_pierres.jpg');
@@ -83,6 +83,38 @@ describe('agenda-locations - unit - images', () => {
     });
   });
 
+  describe('group', function() {
+    this.timeout(10000);
 
+    const tmpFile = '/tmp/21_images';
+    let urls, movedUrls;
+
+    before(() => {
+      fs.copyFileSync(__dirname + '/fixtures/images/vieilles_pierres.jpg', tmpFile);
+    });
+
+    before(async () => {
+      urls = await images(tmpFile, '21_images_transformed');
+      movedUrls = await images.renameUploadedTransforms('21_images_transformed', '21_images_transformed_and_moved');
+    });
+
+    it('transforms and puts on cdn', () => {
+      for (const url of urls) {
+        assert.notEqual(url.indexOf('.amazonaws.com'), -1);
+      }
+    });
+
+    it('moves what was put on cdn', () => {
+      for (const url of movedUrls) {
+        assert.notEqual(url.indexOf('.amazonaws.com'), -1);
+        assert.notEqual(url.indexOf('_and_moved'), -1);
+      }
+    });
+
+    it('origin local file is removed', () => {
+      assert.equal(fs.existsSync(tmpFile), false)
+    });
+
+  });
 
 });
