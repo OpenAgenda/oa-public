@@ -12,7 +12,8 @@ async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
 
   const {
-    context
+    context,
+    includeImagePath
   } = cleanOptions(options);
 
   const clean = {
@@ -27,6 +28,10 @@ async function update({ service, isPatch }, current, data, options = {}) {
     .where('uid', current.uid);
 
   log('updated location with uid %s', current.uid);
+
+  if (includeImagePath && clean.image) {
+    clean.image = service.config.imagePath + clean.image;
+  }
 
   return {
     ...current,
@@ -55,5 +60,5 @@ module.exports.byAgendaUid = async (
     throw NotFoundError('location', { identifiers, agendaUid });
   }
 
-  return update({ service, isPatch }, current, data, options = {});
+  return update({ service, isPatch }, current, data, options);
 }

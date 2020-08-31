@@ -38,8 +38,12 @@ describe('agenda-locations - functional - create', () => {
       assert.equal(created.name, payload.name);
     });
 
-    it('uid is added during created', async () => {
+    it('uid is added during create', () => {
       assert.equal(typeof created.uid, 'number');
+    });
+
+    it('slug is added during create', () => {
+      assert.equal(typeof created.slug, 'string');
     });
 
     it('new entry is in db', async () => {

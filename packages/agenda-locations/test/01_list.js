@@ -183,6 +183,35 @@ describe('agenda-locations - functional - list', () => {
     });
   });
 
+  describe('detailed', () => {
+    let items;
+
+    before(async () => {
+      items = await svc(7196947).list({}, {}, { detailed: true });
+    });
+
+    it('if detailed option is provided, all public fields are given', async () => {
+      assert.deepEqual(
+        Object.keys(items[0]),
+        fields.filter(f => f.read.includes('public')).map(f => f.field)
+      );
+    });
+
+    it('images do not include path by default', () => {
+      assert.equal(items[0].image.split('/').length, 1);
+    });
+
+    it('images include path is includeImagePath option is true', async () => {
+      const items = await svc(7196947).list({}, {}, {
+        includeImagePath: true,
+        detailed: true
+      });
+
+      assert.ok(items[0].image.split('/').length > 1);
+    });
+
+  });
+
   describe('other', () => {
 
     it('if fields option is specified, result data only includes fields provided', async () => {
@@ -223,13 +252,6 @@ describe('agenda-locations - functional - list', () => {
       assert.equal(total, 364);
     });
 
-    it('if detailed option is provided, all public fields are given', async () => {
-      const items = await svc(7196947).list({}, {}, { detailed: true });
-      assert.deepEqual(
-        Object.keys(items[0]),
-        fields.filter(f => f.read.includes('public')).map(f => f.field)
-      );
-    });
   });
 
 });

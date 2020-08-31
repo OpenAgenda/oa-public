@@ -12,7 +12,8 @@ async function get(service, identifiers, options = {}) {
   const k = service.clients.knex(service.config.schema);
   const {
     eventCounts: includeEventCounts,
-    context
+    context,
+    includeImagePath
   } = cleanGetOptions(options);
 
   await addGetQuery(service, k, {
@@ -23,7 +24,7 @@ async function get(service, identifiers, options = {}) {
   addSelect(k, 'public', { first: true });
 
   const location = await k.then(l => l ? fromDbEntryToItem(l, {
-    imagePath: service.config.imagePath,
+    imagePath: includeImagePath ? service.config.imagePath : null,
     access: 'public'
   }): null);
 

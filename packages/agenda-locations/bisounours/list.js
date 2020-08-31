@@ -19,7 +19,8 @@ async function list(service, query = {}, nav = {}, options = {}) {
     eventCounts: includeEventCounts,
     context,
     detailed,
-    includeFields
+    includeFields,
+    includeImagePath
   } = cleanListOptions(options);
 
   const {
@@ -48,7 +49,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
   const rows = await k;
 
   const items = rows.map(r => fromDbEntryToItem(r, {
-    imagePath: service.config.imagePath,
+    imagePath: includeImagePath ? service.config.imagePath : null,
     access: detailed ? 'public' : 'list',
     includeFields
   }));

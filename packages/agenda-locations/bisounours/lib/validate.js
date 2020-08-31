@@ -23,10 +23,10 @@ const validate = schema(fields
     // keep this basic for now.
     return field.write.includes('contributor')
   })
-  .reduce((schema, field) => {
-    schema[field.field] = _.omit(field, ['field', 'db', 'read']);
-    return schema;
-  }, {}));
+  .reduce((schema, field) => ({
+    ...schema,
+    [field.field]: _.omit(field, ['field', 'db', 'read'])
+  }), {}));
 
 module.exports = (values, options = {}) => {
   const {

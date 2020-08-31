@@ -30,6 +30,10 @@ module.exports = schema({
     type: 'choice',
     options: fields.map(f => f.field)
   },
+  includeImagePath: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     agendaUid: {
       type: 'integer',

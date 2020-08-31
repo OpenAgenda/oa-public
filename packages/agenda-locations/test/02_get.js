@@ -49,6 +49,10 @@ describe('agenda-locations - functional - get', () => {
     it('requested location is provided location', () => {
       assert.equal(location.uid, 51665985);
     });
+
+    it('image is provided without path', () => {
+      assert.equal(location.image.split('/').length, 1);
+    });
   });
 
   describe('other', () => {
@@ -58,6 +62,14 @@ describe('agenda-locations - functional - get', () => {
 
       assert.equal(location.eventCount, 12);
       assert.equal(location.agendaEventCount, 8);
+    });
+
+    it('when includeImagePath is provided, image path is in image value', async () => {
+      const {
+        image
+      } = await svc.get(51665985, { includeImagePath: true });
+
+      assert.ok(image.split('/').length > 1);
     });
 
   });

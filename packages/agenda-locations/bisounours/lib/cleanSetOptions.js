@@ -2,9 +2,11 @@
 
 const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
+const boolean = require('@openagenda/validators/boolean');
 
 schema.register({
-  integer
+  integer,
+  boolean
 });
 
 module.exports = schema({
@@ -13,5 +15,9 @@ module.exports = schema({
       type: 'integer',
       default: null
     }
+  },
+  includeImagePath: {
+    type: 'boolean',
+    default: false
   }
 });

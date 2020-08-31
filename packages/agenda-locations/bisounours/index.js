@@ -9,6 +9,7 @@ const list = require('./list');
 const stream = require('./stream');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
+const Images = require('./utils/Images');
 
 module.exports = (c = {}) => {
   const config = Object.keys(c).reduce((config, key) => (
@@ -16,12 +17,24 @@ module.exports = (c = {}) => {
     ...config,
     [key]: c[key]
   } : config), {
+    imageTransforms: [{
+      name: '{{name}}',
+      width: 600
+    }, {
+      name: '{{name}}_o'
+    }, {
+      name: '{{name}}_sm',
+      width: 300
+    }],
+    temporaryDirectory: '/tmp/',
+    aws: { key: null, secret: null, bucket: null },
     redis: null,
     imagePath: '//cdn.to.images/',
     schema: 'location',
     interfaces: {
       getAgendaIdByUid: async id => null,
-      getEventCounts: async (identifiers, locationUids = []) => []
+      getEventCounts: async (identifiers, locationUids = []) => [],
+      locationsWillMerge: async (mergeIn, mergedLocations) => {}
     }
   });
 
@@ -37,7 +50,14 @@ module.exports = (c = {}) => {
         connection: config.mysql
       })
     },
-    interfaces: config.interfaces
+    interfaces: config.interfaces,
+    utils: {
+      images: Images({
+        transforms: config.imageTransforms,
+        temporaryDirectory: config.temporaryDirectory,
+        aws: config.aws
+      })
+    }
   };
 
   Object.assign(service, {
@@ -51,12 +71,14 @@ module.exports = (c = {}) => {
     update: update.byAgendaUid.bind(null, { service, isPatch: false }, agendaUid),
     patch: update.byAgendaUid.bind(null, { service, isPatch: true }, agendaUid),
     list: service.listByAgendaUid.bind(null, agendaUid),
+    merge: merge.byAgendaUid.bind(null, service, agendaUid),
     stream: service.streamByAgendaUid.bind(null, agendaUid),
     get: service.getByAgendaUid.bind(null, agendaUid)
   }), {
     get: get.bind(null, service),
     utils: {
-      getINSEECode: config.redis ? getINSEECode(config.redis) : null
+      getINSEECode: config.redis ? getINSEECode(config.redis) : null,
+      images: service.utils.images
     }
   });
 
