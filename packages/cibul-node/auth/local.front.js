@@ -422,23 +422,21 @@ async function activate(req, res) {
   });
 
   if (accountActivationMode === 'manual') {
-    if (config.auth.registrationSlackHook) {
-      const token = await tokens.findOne({
-        query: {
-          token: req.params.token,
-          type: 'aa'
-        },
+    const token = await tokens.findOne({
+      query: {
+        token: req.params.token,
+        type: 'aa'
+      },
+    });
+
+    if (token) {
+      const user = await users.findOne({ query: { id: token.userId }, detailed: true });
+
+      await tokens.remove(token.id);
+
+      sendRegistrationSlackMessage(req.app, user, false).catch(error => {
+        log.error('Error while sending registration slack message:', error);
       });
-
-      if (token) {
-        const user = await users.findOne({ query: { id: token.userId }, detailed: true });
-
-        await tokens.remove(token.id);
-
-        sendRegistrationSlackMessage(users, user, false).catch(error => {
-          log.error('Error while sending registration slack message:', error);
-        });
-      }
     }
 
     const html = renderManualPage(req.lang);
@@ -460,11 +458,9 @@ async function activate(req, res) {
       { optionals, detailed: true }
     );
 
-    if (config.auth.registrationSlackHook) {
-      sendRegistrationSlackMessage(users, user, true).catch(error => {
-        log.error('Error while sending registration slack message:', error);
-      });
-    }
+    sendRegistrationSlackMessage(req.app, user, true).catch(error => {
+      log.error('Error while sending registration slack message:', error);
+    });
 
     if (!req.query || !req.query.invitation) {
       return auth.signin({ req, res, user });
@@ -632,16 +628,28 @@ async function getRecaptchaScore(usersSvc, uid) {
   return store.registrationCaptchaScore || NaN;
 }
 
-async function sendRegistrationSlackMessage(users, user, automaticActivation) {
+async function sendRegistrationSlackMessage(app, user, automaticActivation) {
+  const { slackApp, users } = app.services;
+
   const reCaptchaScore = await getRecaptchaScore(users, user.uid);
 
-  return axios.post(config.auth.registrationSlackHook, makeRegistrationMessage({
-    user,
-    reCaptchaScore,
-    automaticActivation
-  }))
-    .then()
-    .catch(err => log.error('There was an error with the Slack request', err));
+  const res = await slackApp.client.chat.postMessage({
+    token: config.slackApp.token,
+    channel: config.slackApp.channels.registration,
+    ...makeRegistrationMessage({
+      user,
+      reCaptchaScore,
+      automaticActivation
+    })
+  });
+
+  if (!res.ok) {
+    throw new Error('Slack message (user registration) can not be sent');
+  }
+
+  // TODO save `ts` in the user store
+
+  console.log(res);
 }
 
 function makeRegistrationMessage({ user, reCaptchaScore, automaticActivation }) {

@@ -6565,6 +6565,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@slack/bolt@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@slack/bolt@npm:2.3.0"
+  dependencies:
+    "@slack/logger": ^2.0.0
+    "@slack/oauth": ^1.2.0
+    "@slack/types": ^1.6.0
+    "@slack/web-api": ^5.9.0
+    "@types/express": ^4.16.1
+    "@types/node": ">=10"
+    "@types/promise.allsettled": ^1.0.3
+    axios: ^0.19.0
+    express: ^4.16.4
+    please-upgrade-node: ^3.2.0
+    promise.allsettled: ^1.0.2
+    raw-body: ^2.3.3
+    tsscmp: ^1.0.6
+  checksum: 6455dbf37f296096b7f31876dc80fd1c9b90d900286c63a79ce5fd6c81053397c8d13b81922d44220f2ff2347d27bb9860af1a5b1eee0d24b63a74702b00f73a
+  languageName: node
+  linkType: hard
+
 "@slack/interactive-messages@npm:^1.7.0":
   version: 1.7.0
   resolution: "@slack/interactive-messages@npm:1.7.0"
@@ -6584,6 +6605,55 @@ __metadata:
     raw-body: ^2.3.3
     tsscmp: ^1.0.6
   checksum: 3e770d82ec21e948e2b516dec6936d7c4207eced8b54022cadff680777e7bad3e5c82ce6cdfae9ee8ddefcea2df28a7c15e46f12bf8fdbc5d8395850ed5bef70
+  languageName: node
+  linkType: hard
+
+"@slack/logger@npm:>=1.0.0 <3.0.0, @slack/logger@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@slack/logger@npm:2.0.0"
+  dependencies:
+    "@types/node": ">=8.9.0"
+  checksum: 65853a45f7ce3040c46ff9c8d0ae1c21b5500a144684ddeb3c937f501d8f2dc8bcb8446400fb4052e94ffd2a908d5e7de859650244046bd4151e9b69708bb11c
+  languageName: node
+  linkType: hard
+
+"@slack/oauth@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "@slack/oauth@npm:1.2.0"
+  dependencies:
+    "@slack/logger": ^2.0.0
+    "@slack/web-api": ^5.7.0
+    "@types/jsonwebtoken": ^8.3.7
+    "@types/node": ">=6.0.0"
+    jsonwebtoken: ^8.5.1
+    lodash.isstring: ^4.0.1
+  checksum: 69cfe474798f8b55bd36c64b977520173c9bd5daac025d07c8822f0ed3d5ee8d14ebe4d72160f49515220bef9201b97db686f456bed00383cfbb416f4c2945c3
+  languageName: node
+  linkType: hard
+
+"@slack/types@npm:^1.6.0, @slack/types@npm:^1.7.0":
+  version: 1.8.0
+  resolution: "@slack/types@npm:1.8.0"
+  checksum: 64af4bbb137335a9af9de2ed91a9f7f77be9d5c19dee6d7cdbdc68df22e08b51dc0c1b1ccf589825f4d04c51dfa11892ff451b8ff62f247ada3d0aa7c71ac5c3
+  languageName: node
+  linkType: hard
+
+"@slack/web-api@npm:^5.7.0, @slack/web-api@npm:^5.9.0":
+  version: 5.11.0
+  resolution: "@slack/web-api@npm:5.11.0"
+  dependencies:
+    "@slack/logger": ">=1.0.0 <3.0.0"
+    "@slack/types": ^1.7.0
+    "@types/is-stream": ^1.1.0
+    "@types/node": ">=8.9.0"
+    "@types/p-queue": ^2.3.2
+    axios: ^0.19.0
+    eventemitter3: ^3.1.0
+    form-data: ^2.5.0
+    is-stream: ^1.1.0
+    p-queue: ^2.4.2
+    p-retry: ^4.0.0
+  checksum: 1fba5eab0c04d55eaa4193ffbaa093147fdbebb1c24a086c9c005f355224edee744ad5ce139042b5680f86e30f63a513b7f1549ff1c71a23cc744db211ac9124
   languageName: node
   linkType: hard
 
@@ -7300,7 +7370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.17.0, @types/express@npm:^4.17.2":
+"@types/express@npm:^4.16.1, @types/express@npm:^4.17.0, @types/express@npm:^4.17.2":
   version: 4.17.7
   resolution: "@types/express@npm:4.17.7"
   dependencies:
@@ -7381,6 +7451,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/is-stream@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@types/is-stream@npm:1.1.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 38dff1c099c628dddbe8afe58fe4924288a5d225481171cc628c22772a2012f26224a482dcff9bca961c1f47e68cc7d9822ac167aa62b50ac51d2ee0b475ab01
+  languageName: node
+  linkType: hard
+
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.1
   resolution: "@types/istanbul-lib-coverage@npm:2.0.1"
@@ -7432,6 +7511,15 @@ __metadata:
   version: 7.0.4
   resolution: "@types/json-schema@npm:7.0.4"
   checksum: 5094037431e4b29d5cc9d6938ea596d1145cc46d305d8d302a477a54d0a7a83ba4629abbf52fcabc3ffdb31cf94647bc366a7bcc544770cbb80212d903018e2b
+  languageName: node
+  linkType: hard
+
+"@types/jsonwebtoken@npm:^8.3.7":
+  version: 8.5.0
+  resolution: "@types/jsonwebtoken@npm:8.5.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: d1a6b28f826898bc4f5596d91705aa864419c4a5ca49215507260644af8ceff9edb6db1901a108207cfb22558d035655b55309f38b75fa081da01be9f5408b21
   languageName: node
   linkType: hard
 
@@ -7499,6 +7587,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:>=10, @types/node@npm:>=6.0.0, @types/node@npm:>=8.9.0":
+  version: 14.6.2
+  resolution: "@types/node@npm:14.6.2"
+  checksum: e88f4749fd95d7358a719dee27bb3c02aa7d93a69d95887b4baaeae3fcc21c65d8675e6a9633e499de22fa77651fc12188fd3657a6729dbce9e44a4fe5c0691b
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^12.12.17":
   version: 12.12.29
   resolution: "@types/node@npm:12.12.29"
@@ -7520,6 +7615,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/p-queue@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "@types/p-queue@npm:2.3.2"
+  checksum: cf191979c56da45617ff123fd86d3e9a8a6c69ce39ef50948a89146658c1f759b5f4b300f2e9cd897832ec83eae5ce6d2b89e17db059f708af82a24c1a0200d0
+  languageName: node
+  linkType: hard
+
 "@types/parse-json@npm:^4.0.0":
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
@@ -7531,6 +7633,13 @@ __metadata:
   version: 2.0.0
   resolution: "@types/prettier@npm:2.0.0"
   checksum: aee539015e8c815b211ffdb1a4b6e6aab24bd5665b3c71cc1aa95b9b65b3452f3e2b8541146577ba25535317532e6c8d9626e27568a89fad1888f248142a19bb
+  languageName: node
+  linkType: hard
+
+"@types/promise.allsettled@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@types/promise.allsettled@npm:1.0.3"
+  checksum: df97f00baed578c34690b6130c6edfdb4d40109905ce29c2797929b02e4f62209ab30ab269a2f4fd98421f2b4b7d9456e347e24b884c7e1d1ad62a229d54f38c
   languageName: node
   linkType: hard
 
@@ -7615,6 +7724,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: e6e6613c800aeda63e2331e753e8d21df1a2c9aa7a4bc71ed792a848e4811fc96e609759089355314a2318c76eff1f161499cd242044838ab1e6f56e463ebb9c
+  languageName: node
+  linkType: hard
+
+"@types/retry@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "@types/retry@npm:0.12.0"
+  checksum: 0755164f2c8d615a0385609c478aaa20b17e55bc8b16d5d56ffe6a5d30b0a9845d49452a2e8903ec7c43fa361f19daf5e68c60e7381ad10a95dd3d0bb5c9f7fd
   languageName: node
   linkType: hard
 
@@ -11910,6 +12026,7 @@ __metadata:
     "@openagenda/users": ^3.0.15
     "@openagenda/utils": ^1.2.9
     "@openagenda/validators": ^2.2.14
+    "@slack/bolt": ^2.3.0
     "@slack/interactive-messages": ^1.7.0
     async: ^2.3.0
     aws-sdk: ^2.544.0
@@ -16570,7 +16687,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^4.16.0, express@npm:^4.16.3, express@npm:^4.17.0, express@npm:^4.17.1":
+"express@npm:^4.16.0, express@npm:^4.16.3, express@npm:^4.16.4, express@npm:^4.17.0, express@npm:^4.17.1":
   version: 4.17.1
   resolution: "express@npm:4.17.1"
   dependencies:
@@ -17483,7 +17600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^2.3.1":
+"form-data@npm:^2.3.1, form-data@npm:^2.5.0":
   version: 2.5.1
   resolution: "form-data@npm:2.5.1"
   dependencies:
@@ -22213,7 +22330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:^8.0.1":
+"jsonwebtoken@npm:^8.0.1, jsonwebtoken@npm:^8.5.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
   dependencies:
@@ -26790,6 +26907,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-queue@npm:^2.4.2":
+  version: 2.4.2
+  resolution: "p-queue@npm:2.4.2"
+  checksum: 38ba081c3875e2eefd0faac861e92e646a06b8d3b0a5094daf74460f85ac88b0da186df8e70db4c7c099e4c34b53b3b31784d4fc3095e91d6a240903e15e2e40
+  languageName: node
+  linkType: hard
+
 "p-queue@npm:^4.0.0":
   version: 4.0.0
   resolution: "p-queue@npm:4.0.0"
@@ -26812,6 +26936,16 @@ __metadata:
   dependencies:
     retry: ^0.12.0
   checksum: 26c888de4e64e62e9b6112219fae2c2f45ddc2face5d6c7c98e1b8762bcd4a54bea4f50cdff275b2ee5ebb11b633bfb16f4dd473ecd4d07081385cb716e961cf
+  languageName: node
+  linkType: hard
+
+"p-retry@npm:^4.0.0":
+  version: 4.2.0
+  resolution: "p-retry@npm:4.2.0"
+  dependencies:
+    "@types/retry": ^0.12.0
+    retry: ^0.12.0
+  checksum: bf106e5424a598a26423d0efc43b67c48de42b8b007dc0f788b65832d3d907180bc607207f9ecbc35b3195b0f561bd0e09fc44fe8efe13558c572ff6f2ce12bf
   languageName: node
   linkType: hard
 
@@ -28710,7 +28844,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"promise.allsettled@npm:^1.0.0":
+"promise.allsettled@npm:^1.0.0, promise.allsettled@npm:^1.0.2":
   version: 1.0.2
   resolution: "promise.allsettled@npm:1.0.2"
   dependencies:
