@@ -7,7 +7,9 @@ const create = require('./create');
 const get = require('./get');
 const list = require('./list');
 const merge = require('./merge');
+const remove = require('./remove');
 const stream = require('./stream');
+const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
 const Images = require('./utils/Images');
@@ -61,20 +63,16 @@ module.exports = (c = {}) => {
     }
   };
 
-  Object.assign(service, {
-    listByAgendaUid: list.byAgendaUid.bind(null, service),
-    streamByAgendaUid: stream.byAgendaUid.bind(null, service),
-    getByAgendaUid: get.byAgendaUid.bind(null, service)
-  });
-
-  service.exposed = Object.assign(agendaUid => ({
+  return Object.assign(agendaUid => ({
     create: create.byAgendaUid.bind(null, service, agendaUid),
     update: update.byAgendaUid.bind(null, { service, isPatch: false }, agendaUid),
     patch: update.byAgendaUid.bind(null, { service, isPatch: true }, agendaUid),
-    list: service.listByAgendaUid.bind(null, agendaUid),
+    remove: remove.byAgendaUid.bind(null, service, agendaUid),
+    list: list.byAgendaUid.bind(null, service, agendaUid),
+    terms: terms.byAgendaUid.bind(null, service, agendaUid),
     merge: merge.byAgendaUid.bind(null, service, agendaUid),
-    stream: service.streamByAgendaUid.bind(null, agendaUid),
-    get: service.getByAgendaUid.bind(null, agendaUid)
+    stream: stream.byAgendaUid.bind(null, service, agendaUid),
+    get: get.byAgendaUid.bind(null, service, agendaUid)
   }), {
     get: get.bind(null, service),
     utils: {
@@ -83,5 +81,4 @@ module.exports = (c = {}) => {
     }
   });
 
-  return service.exposed;
 }
