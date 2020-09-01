@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+ENV HOME /root
+
 RUN apt-get update -y \
     && apt-get install -y apt-utils apt-transport-https curl ssh gcc g++ make
 
@@ -26,5 +28,3 @@ WORKDIR /root
 
 # give access to all users
 RUN chmod -R a+rwX .
-
-RUN ls -la .

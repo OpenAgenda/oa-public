@@ -429,11 +429,16 @@ async function activate(req, res) {
           type: 'aa'
         },
       });
-      const user = await users.findOne({ query: { id: token.userId }, detailed: true });
 
-      sendRegistrationSlackMessage(users, user, false).catch(error => {
-        log.error('Error while sending registration slack message:', error);
-      });
+      if (token) {
+        const user = await users.findOne({ query: { id: token.userId }, detailed: true });
+
+        await tokens.remove(token.id);
+
+        sendRegistrationSlackMessage(users, user, false).catch(error => {
+          log.error('Error while sending registration slack message:', error);
+        });
+      }
     }
 
     const html = renderManualPage(req.lang);

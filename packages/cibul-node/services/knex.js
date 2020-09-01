@@ -1,8 +1,11 @@
 'use strict';
 
 const knexLib = require('knex');
+const log = require('@openagenda/logs')('services/knex');
 
 module.exports.init = config => {
+  log.setConfig(config.getLogConfig('oa', 'knexErrors'));
+
   const knex = knexLib({
     client: 'mysql',
     connection: config.db,
@@ -11,6 +14,10 @@ module.exports.init = config => {
   });
 
   config.knex = knex;
+
+  knex.on('query-error', error => {
+    log.error('Knex query error:', { error });
+  });
 
   return knex;
 };
