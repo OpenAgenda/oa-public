@@ -409,7 +409,8 @@ async function activate(req, res) {
     users,
     agendas,
     tokens,
-    redisConfigStore
+    redisConfigStore,
+    slackApp
   } = req.app.services;
 
   const optionals = _.pickBy(
@@ -434,7 +435,10 @@ async function activate(req, res) {
 
       await tokens.remove(token.id);
 
-      sendRegistrationSlackMessage(req.app, user, false).catch(error => {
+      slackApp.postMessage.userRegistration({
+        user,
+        automaticActivation: false
+      }).catch(error => {
         log.error('Error while sending registration slack message:', error);
       });
     }
@@ -458,7 +462,10 @@ async function activate(req, res) {
       { optionals, detailed: true }
     );
 
-    sendRegistrationSlackMessage(req.app, user, true).catch(error => {
+    slackApp.postMessage.userRegistration({
+      user,
+      automaticActivation: true
+    }).catch(error => {
       log.error('Error while sending registration slack message:', error);
     });
 
@@ -618,103 +625,4 @@ async function saveRecaptchaScore(usersSvc, uid, score) {
   store.registrationCaptchaScore = score;
 
   await usersSvc._patch(uid, { store: JSON.stringify(store) }, { query: { $select: ['store'] } });
-}
-
-async function getRecaptchaScore(usersSvc, uid) {
-  const rawUser = await usersSvc._get(uid, { query: { $select: ['store'] } });
-
-  const store = rawUser.store ? JSON.parse(rawUser.store) : {};
-
-  return store.registrationCaptchaScore || NaN;
-}
-
-async function sendRegistrationSlackMessage(app, user, automaticActivation) {
-  const { slackApp, users } = app.services;
-
-  const reCaptchaScore = await getRecaptchaScore(users, user.uid);
-
-  const res = await slackApp.client.chat.postMessage({
-    token: config.slackApp.token,
-    channel: config.slackApp.channel,
-    ...makeRegistrationMessage({
-      user,
-      reCaptchaScore,
-      automaticActivation
-    })
-  });
-
-  if (!res.ok) {
-    throw new Error('Slack message (user registration) can not be sent');
-  }
-
-  // TODO save `ts` in the user store
-
-  console.log(res);
-}
-
-function makeRegistrationMessage({ user, reCaptchaScore, automaticActivation }) {
-  return {
-    "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda: ${user.email} - ${user.fullName}`,
-    "blocks": [
-      {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda:\n\nEmail: *${user.email}*\nPrénom Nom: *${user.fullName}*\nScore reCaptcha: *${reCaptchaScore}*/1`
-        }
-      },
-      {
-        "type": "actions",
-        "block_id": "actions",
-        "elements": [
-          {
-            "type": "button",
-            "action_id": "show",
-            "text": {
-              "type": "plain_text",
-              "text": "Voir",
-              "emoji": true
-            },
-            "value": "show",
-            "url": `${config.root}/admin/users?userUid=${user.uid}`
-          }
-        ].concat(automaticActivation ? [] : {
-          "type": "button",
-          "action_id": "activate",
-          "text": {
-            "type": "plain_text",
-            "text": "Activer",
-            "emoji": true
-          },
-          "value": String(user.uid),
-          "style": "primary",
-          // "url": `${config.root}/admin/users/activate?uid=${user.uid}`
-        }).concat({
-          "type": "button",
-          "action_id": "blacklist",
-          "text": {
-            "type": "plain_text",
-            "text": "Bloquer",
-            "emoji": true
-          },
-          "value": String(user.uid),
-          "style": "danger",
-          // "url": `${config.root}/admin/users/blacklist?uid=${user.uid}`
-        })
-      },
-      {
-        "type": "context",
-        "elements": [
-          {
-            "type": "mrkdwn",
-            "text": `Environnement: *${config.env === 'production' ? 'production' : 'développement'}*`
-          },
-          {
-            "type": "mrkdwn",
-            "text": `Mode d'activation: *${automaticActivation ? 'Automatique' : 'Manuel'}*`
-          }
-        ]
-      }
-    ]
-  };
 }
