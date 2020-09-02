@@ -635,7 +635,7 @@ async function sendRegistrationSlackMessage(app, user, automaticActivation) {
 
   const res = await slackApp.client.chat.postMessage({
     token: config.slackApp.token,
-    channel: config.slackApp.channels.registration,
+    channel: config.slackApp.channel,
     ...makeRegistrationMessage({
       user,
       reCaptchaScore,
