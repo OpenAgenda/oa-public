@@ -20,10 +20,11 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   log('received for agenda %s', agendaUid);
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+  const locationUid =  _.get(data, 'location.uid', _.get(data, 'locationUid'));
 
-  const location = await services.agendaLocations.get({
-    uid: _.get(data, 'location.uid', _.get(data, 'locationUid'))
-  });
+  const location = locationUid ? await services.agendaLocations.get({
+    uid: locationUid
+  }) : null;
 
   log('fetched agenda and location');
 

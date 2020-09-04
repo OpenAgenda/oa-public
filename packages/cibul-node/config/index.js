@@ -202,8 +202,8 @@ const config = {
       }
     },
     slackApp: {
-      signingSecret: prod.slackApp.signingSecret,
-      token: prod.slackApp.token,
+      signingSecret: _.get(prod, 'slackApp.signingSecret'),
+      token: _.get(prod, 'slackApp.token'),
       channel: 'G019D3L6NTD'
     },
     es: {

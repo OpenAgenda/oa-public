@@ -104,7 +104,10 @@ describe('core - functional (server): core.agendas().events.list()', function() 
         'uid', 'slug', 'name', 'address',
         'city', 'region', 'department', 'postalCode',
         'insee', 'countryCode', 'district',
-        'latitude', 'longitude', 'updatedAt'
+        'latitude', 'longitude', 'updatedAt',
+        'createdAt', 'image', 'description', 'tags',
+        'website', 'email', 'phone', 'links', 'access',
+        'state', 'timezone', 'imageCredits', 'extId'
       ]);
     });
 

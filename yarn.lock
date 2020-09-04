@@ -6586,28 +6586,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@slack/interactive-messages@npm:^1.7.0":
-  version: 1.7.0
-  resolution: "@slack/interactive-messages@npm:1.7.0"
-  dependencies:
-    "@types/debug": ^4.1.4
-    "@types/express": ^4.17.0
-    "@types/lodash.isfunction": ^3.0.6
-    "@types/lodash.isregexp": ^4.0.6
-    "@types/lodash.isstring": ^4.0.6
-    "@types/node": ">=4.2.0"
-    axios: ^0.19.0
-    debug: ^3.1.0
-    lodash.isfunction: ^3.0.9
-    lodash.isplainobject: ^4.0.6
-    lodash.isregexp: ^4.0.1
-    lodash.isstring: ^4.0.1
-    raw-body: ^2.3.3
-    tsscmp: ^1.0.6
-  checksum: 3e770d82ec21e948e2b516dec6936d7c4207eced8b54022cadff680777e7bad3e5c82ce6cdfae9ee8ddefcea2df28a7c15e46f12bf8fdbc5d8395850ed5bef70
-  languageName: node
-  linkType: hard
-
 "@slack/logger@npm:>=1.0.0 <3.0.0, @slack/logger@npm:^2.0.0":
   version: 2.0.0
   resolution: "@slack/logger@npm:2.0.0"
@@ -7339,13 +7317,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/debug@npm:^4.1.4":
-  version: 4.1.5
-  resolution: "@types/debug@npm:4.1.5"
-  checksum: 416ad24bc589be0fb8c78bea972aa7d4ffdf6b136239701b1792674463b2dbf8c6707f6055ec484f79ec1f2b528ffef90c87e55df7e4a0f458184cad5bf0cfc8
-  languageName: node
-  linkType: hard
-
 "@types/eslint-visitor-keys@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/eslint-visitor-keys@npm:1.0.0"
@@ -7370,7 +7341,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^4.16.1, @types/express@npm:^4.17.0, @types/express@npm:^4.17.2":
+"@types/express@npm:^4.16.1, @types/express@npm:^4.17.2":
   version: 4.17.7
   resolution: "@types/express@npm:4.17.7"
   dependencies:
@@ -7532,40 +7503,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash.isfunction@npm:^3.0.6":
-  version: 3.0.6
-  resolution: "@types/lodash.isfunction@npm:3.0.6"
-  dependencies:
-    "@types/lodash": "*"
-  checksum: 3f7de436f2079eeac731999553e86c472be44bee9dcee862512c4d1c432252e189253db9038f66bd2f44baf3c6ec4ec752ca2c10fd67746e11974b0cc70919b3
-  languageName: node
-  linkType: hard
-
-"@types/lodash.isregexp@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "@types/lodash.isregexp@npm:4.0.6"
-  dependencies:
-    "@types/lodash": "*"
-  checksum: 67e7c57da4082169749df90b795ba8d150c72489f876607becf4540e9157fed6fdc1b4179c5841828ca7caa0eb88867ab0b84a89f772302ba05a448cccc00ecd
-  languageName: node
-  linkType: hard
-
-"@types/lodash.isstring@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "@types/lodash.isstring@npm:4.0.6"
-  dependencies:
-    "@types/lodash": "*"
-  checksum: 41e6185fb70bde213e31f89a7b0a114227ed7440011fd20e1f4c57f7a30bb6c6802704f97a86d38b6e7662fb2b793679ea838de47abdfb2c8febdfab0fb90f6e
-  languageName: node
-  linkType: hard
-
-"@types/lodash@npm:*":
-  version: 4.14.160
-  resolution: "@types/lodash@npm:4.14.160"
-  checksum: 9182b5745430de03597537619a90a849b733963409b30476bb01824b8047a5406da77069e25d259d6f3739bdf1719de01637ce50fb0440008964e67c1d134b83
-  languageName: node
-  linkType: hard
-
 "@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
@@ -7580,7 +7517,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>= 8, @types/node@npm:>=4.2.0":
+"@types/node@npm:*, @types/node@npm:>= 8":
   version: 14.6.0
   resolution: "@types/node@npm:14.6.0"
   checksum: ff23553ab77516d0f90b6710a041a49723fc1b1ca33a5379d5746068cac8b9ddbec428d3a4913afaee50bcdc69b9583843740a18a3519ae997982694f5287c6b
@@ -12027,7 +11964,6 @@ __metadata:
     "@openagenda/utils": ^1.2.9
     "@openagenda/validators": ^2.2.14
     "@slack/bolt": ^2.3.0
-    "@slack/interactive-messages": ^1.7.0
     async: ^2.3.0
     aws-sdk: ^2.544.0
     axios: ^0.19.2
@@ -23392,13 +23328,6 @@ __metadata:
   version: 4.0.6
   resolution: "lodash.isplainobject@npm:4.0.6"
   checksum: 72a114b610ec32a42b8cb47680d1729398caea0ee0631c0b220b97b21e7df19312377cb077acb6593bf6c5abdbdb43c530aa66b440e30d53324986d386808cd0
-  languageName: node
-  linkType: hard
-
-"lodash.isregexp@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "lodash.isregexp@npm:4.0.1"
-  checksum: 132e1fc95fb431adcab20c805b2b62b5c6e4bb2aec0210d4f859623c0998a6ef2b6eba8c5a44a6f7316e185d3cae231b464d6548c58c04993006ab3a2f4c0d82
   languageName: node
   linkType: hard
 
