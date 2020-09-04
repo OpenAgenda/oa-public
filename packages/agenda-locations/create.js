@@ -28,13 +28,13 @@ async function create(service, data, options = {}) {
     clean.agendaId = await service.interfaces.getAgendaIdByUid(context.agendaUid);
   }
 
-  const entry = fromItemToDbEntry(clean);
-
   if (clean.image) {
     const finalImageName = `location${clean.uid}.jpg`;
     await service.utils.images.renameUploadedTransforms(clean.image, finalImageName);
     clean.image = finalImageName;
   }
+
+  const entry = fromItemToDbEntry(clean);
 
   const [ insertedID ] = await service.clients
     .knex(service.config.schema)

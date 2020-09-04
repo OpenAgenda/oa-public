@@ -7,6 +7,11 @@ const addSelect = require('./lib/addSelect');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
 
+const cleanGetIdentifiers = identifiers => [
+  'number',
+  'string'
+].includes(typeof identifiers) ? { uid: identifiers } : identifiers;
+
 async function get(service, identifiers, options = {}) {
   log('received %j', identifiers);
   const k = service.clients.knex(service.config.schema);
@@ -17,7 +22,7 @@ async function get(service, identifiers, options = {}) {
   } = cleanGetOptions(options);
 
   await addGetQuery(service, k, {
-    uid: identifiers,
+    ...cleanGetIdentifiers(identifiers),
     ...(context.agendaUid ? { agendaUid: context.agendaUid } : {})
   });
 

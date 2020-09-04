@@ -6,11 +6,14 @@ const { promisify } = require('util');
 
 const config = require('../testconfig');
 
-const Images = require('../bisounours/utils/Images');
+const Images = require('../utils/Images');
 
 const copyFile = promisify(fs.copyFile);
 
-describe('agenda-locations - unit - images', () => {
+describe('agenda-locations - unit - images', function () {
+
+  this.timeout(60000);
+
   let images;
 
   before(() => {
@@ -84,7 +87,6 @@ describe('agenda-locations - unit - images', () => {
   });
 
   describe('group', function() {
-    this.timeout(10000);
 
     const tmpFile = '/tmp/21_images';
     let urls, movedUrls;

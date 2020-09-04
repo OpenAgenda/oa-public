@@ -33,10 +33,16 @@ async function update({ service, isPatch }, current, data, options = {}) {
     clean.image = service.config.imagePath + clean.image;
   }
 
-  return {
+  const updated = {
     ...current,
     ...clean
   };
+
+  if (service.interfaces.onUpdate) {
+    await service.interfaces.onUpdate(current, updated);
+  }
+
+  return updated;
 }
 
 module.exports = async ({ service, isPatch }, identifiers, data, options = {}) => {
@@ -57,7 +63,7 @@ module.exports.byAgendaUid = async (
   const current = await get.byAgendaUid(service, agendaUid, identifiers, options);
 
   if (!current) {
-    throw NotFoundError('location', { identifiers, agendaUid });
+    throw new NotFoundError('location', { identifiers, agendaUid });
   }
 
   return update({ service, isPatch }, current, data, options);

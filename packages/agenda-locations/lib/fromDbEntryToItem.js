@@ -5,7 +5,15 @@ const fields = require('./fields.json');
 
 module.exports = (entry = {}, options = {}) => {
   const store = entry.store ? JSON.parse(entry.store) : {};
-  const access = options.access || 'public';
+
+  const {
+    access,
+    omitUndefinedFields
+  } = {
+    access: 'public',
+    omitUndefinedFields: false,
+    ...options
+  };
 
   return fields.filter(f => {
     if (!f.read.includes(access)) {
@@ -16,18 +24,24 @@ module.exports = (entry = {}, options = {}) => {
     }
     return true;
   }).reduce((obj, field) => {
+    let value;
     if (field.field === 'image') {
-      obj[field.field] = store.image ? (options.imagePath || '') + store.image : null;
+      value = store.image ? (options.imagePath || '') + store.image : null;
     } else if (field.db === 'store') {
-      obj[field.field] = store[field.field];
+      value = store[field.field];
     } else if (field.db) {
-      obj[field.field] = entry[field.db];
+      value = entry[field.db];
     } else {
-      obj[field.field] = entry[_.snakeCase(field.field)];
+      value = entry[_.snakeCase(field.field)];
     }
-    if (obj[field.field] === undefined) {
+    const isUndefined =  value === undefined;
+
+    if (isUndefined && !omitUndefinedFields) {
       obj[field.field] = null;
+    } else if (!isUndefined) {
+      obj[field.field] = value;
     }
+
     return obj;
   }, {});
 }

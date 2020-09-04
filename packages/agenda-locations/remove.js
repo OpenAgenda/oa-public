@@ -22,7 +22,7 @@ module.exports.byAgendaUid = async (
   const current = await get.byAgendaUid(service, agendaUid, identifiers, options);
 
   if (!current) {
-    throw NotFoundError('location', { identifiers, agendaUid });
+    throw new NotFoundError('location', { identifiers, agendaUid });
   }
 
   return remove(service, current);

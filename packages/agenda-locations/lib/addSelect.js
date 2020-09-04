@@ -4,6 +4,8 @@ const _ = require('lodash');
 
 const fields = require('./fields.json');
 
+const getMatchingDatabaseField = field => field.db || _.snakeCase(field.field);
+
 module.exports = (k, access, options = {}) => {
   (options.first ? k.first : k.select).bind(k)(_.uniq(fields
     .filter(f => {
@@ -17,6 +19,8 @@ module.exports = (k, access, options = {}) => {
         return options.includeFields.includes(f.field);
       }
       return true;
-    }).map(f => f.db || _.snakeCase(f.field))
+    }).map(getMatchingDatabaseField)
   ));
 }
+
+module.exports.getMatchingDatabaseField = getMatchingDatabaseField;

@@ -153,13 +153,12 @@ module.exports = createReactClass( {
   onRemoveLocation( location, index ) {
 
     xhr( {
-      uri: this.props.res.remove,
-      method: 'post',
+      uri: this.props.res.remove.replace(':locationUid', location.uid),
+      method: 'delete',
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify( { uid: location.uid } )
+      }
     }, ( err, result ) => {
 
       if ( err || result.statusCode !== 200 ) {
@@ -168,7 +167,7 @@ module.exports = createReactClass( {
 
       } else {
 
-        if ( JSON.parse( result.body ).removed ) {
+        if ( JSON.parse( result.body ).location ) {
 
           this.actions.removedLocation( index );
 
@@ -255,9 +254,9 @@ module.exports = createReactClass( {
           case 'withEvents':
 
             return <div>
-              <p className="text-center">{this.getLabel( 'cannotRemove', { '%eventCount%': eventCount } )}</p>
+              <p className="text-center">{this.getLabel( 'cannotRemove', { eventCount } )}</p>
               <div className="text-center">
-                <a className="btn btn-primary" href={seeEventsLink}>{this.getLabel( 'seeEvents' )}</a>
+                <a className="btn btn-primary" href={seeEventsLink}>{this.getLabel( 'seeEvents', { count: l.agendaEventCount } )}</a>
               </div>
             </div>
 

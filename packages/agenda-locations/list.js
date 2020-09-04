@@ -5,6 +5,7 @@ const log = require('@openagenda/logs')('list');
 
 const addListQuery = require('./lib/addListQuery');
 const addSelect = require('./lib/addSelect');
+const BadRequestError = require('./lib/BadRequestError');
 const cleanNav = require('./lib/cleanNav');
 const cleanListOptions = require('./lib/cleanListOptions');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
@@ -88,7 +89,13 @@ module.exports.byAgendaUid = async (
   query = {},
   nav = {},
   options = {}
-) => list(service, query, nav, {
-  ...options,
-  context: { agendaUid }
-});
+) => {
+  if (!agendaUid) {
+    throw new BadRequestError('agendaUid is not specified');
+  }
+
+  return list(service, query, nav, {
+    ...options,
+    context: { agendaUid }
+  })
+};

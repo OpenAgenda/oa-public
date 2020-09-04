@@ -26,7 +26,7 @@
   "field": "name",
   "db": "placename",
   "optional": false,
-  "read": ["internal", "public", "list"],
+  "read": ["internal", "public", "list", "terms"],
   "write": ["internal", "administrator", "moderator", "contributor"],
   "type": "text"
 }, {
@@ -37,73 +37,83 @@
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "city",
+  "optional": true,
   "type": "text",
-  "read": ["internal", "public"],
+  "read": ["internal", "public", "terms"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "region",
+  "optional": true,
   "type": "text",
-  "read": ["internal", "public"],
+  "read": ["internal", "public", "terms"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "department",
+  "optional": true,
   "type": "text",
-  "read": ["internal", "public"],
+  "read": ["internal", "public", "terms"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "postalCode",
+  "optional": true,
   "type": "text",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "insee",
+  "optional": true,
   "type": "text",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "countryCode",
   "db": "country",
-  "type": "text",
   "optional": false,
+  "type": "text",
   "max": 2,
-  "read": ["internal", "public"],
+  "read": ["internal", "public", "terms"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "district",
+  "optional": true,
   "type": "text",
   "db": "city_district",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "latitude",
+  "optional": false,
   "type": "latitude",
   "read": ["internal", "public", "list"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "longitude",
+  "optional": false,
   "type": "longitude",
   "read": ["internal", "public", "list"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "updatedAt",
-  "type": "date",
   "optional": false,
+  "type": "date",
   "read": ["internal", "public"],
   "write": ["internal"]
 }, {
   "field": "createdAt",
-  "type": "date",
   "optional": false,
+  "type": "date",
   "read": ["internal", "public"],
   "write": ["internal"]
 }, {
   "field": "image",
+  "optional": true,
   "db": "store",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
   "type": "text"
 }, {
   "field": "description",
+  "optional": true,
   "db": "store",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
@@ -111,6 +121,7 @@
   "languages": []
 }, {
   "field": "tags",
+  "optional": true,
   "db": "store",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
@@ -118,23 +129,27 @@
 }, {
   "field": "website",
   "db": "store",
+  "optional": true,
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
   "type": "link"
 }, {
   "field": "email",
   "db": "store",
+  "optional": true,
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
   "type": "email"
 }, {
   "field": "phone",
   "db": "store",
+  "optional": true,
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
   "type": "phone"
 }, {
   "field": "links",
+  "optional": true,
   "db": "store",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
@@ -142,6 +157,7 @@
   "type": "link"
 }, {
   "field": "access",
+  "optional": true,
   "db": "store",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
@@ -149,31 +165,38 @@
   "languages": []
 }, {
   "field": "state",
+  "optional": true,
   "db": "store",
   "type" : "choice",
-  "read": ["internal", "public"],
+  "unique": true,
+  "read": ["internal", "public", "list"],
   "write": ["internal", "administrator", "moderator", "contributor"],
-  "default": 0
+  "default": 0,
+  "options": [0, 1]
 }, {
   "field": "timezone",
+  "optional": true,
   "db": "store",
   "type": "text",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "imageCredits",
+  "optional": true,
   "db": "store",
   "type": "text",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "extId",
+  "optional": true,
   "db": "store",
   "type": "text",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"]
 }, {
   "field": "eveId",
+  "optional": true,
   "type": "text",
   "read": ["internal"],
   "write": ["internal"]

@@ -597,7 +597,7 @@ module.exports = createReactClass( {
 
   post( partial, clean ) {
 
-    post( this.props.getSetRes ? this.props.getSetRes() : this.props.res.set, clean, ( err, result ) => {
+    post( this.props.getSetRes ? this.props.getSetRes() : this.props.postRes, clean, ( err, result ) => {
 
       if ( err ) {
 

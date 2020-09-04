@@ -16,13 +16,17 @@ async function merge(service, items, data) {
   const merged = items.slice(0, -1);
   const mergeIn = items[items.length -1];
 
+  log('updating merged location');
   const updatedMerged = await update({ service, isPatch: true }, mergeIn.uid, data);
 
   await service.interfaces.locationsWillMerge(mergeIn, merged);
 
+  log('removing other locations');
   await service.clients.knex(service.config.schema)
     .whereIn('uid', merged.map(l => l.uid))
     .del();
+
+  log('merge complete');
 
   return updatedMerged;
 }
