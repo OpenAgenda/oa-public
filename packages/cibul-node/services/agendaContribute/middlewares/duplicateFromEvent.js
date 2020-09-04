@@ -52,11 +52,11 @@ async function _maintainLocationReference(services, agenda, sourceAgendaUid, eve
     agendaLocations
   } = services;
 
-  const location = await promisify(agendaLocations.get)({ uid: event.locationUid });
+  const location = await agendaLocations.get({ uid: event.locationUid });
 
   if (!location) return false;
 
-  if (agenda.id === location.agendaId) return true;
+  if (agenda.uid === location.agendaUid) return true;
 
   if (sourceAgendaUid ===agenda.uid) return true;
 

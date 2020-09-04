@@ -1,109 +1,60 @@
-"use strict";
+'use strict';
 
-const { promisify } = require( 'util' );
+const _ = require('lodash');
+const AgendaLocations = require('@openagenda/agenda-locations');
+const log = require('@openagenda/logs')('services/agendaLocations');
 
-const _ = require( 'lodash' );
-
-const agendaLocations = require('@openagenda/agenda-locations');
-const log = require( '@openagenda/logs' )( 'services/agendaLocations' );
-
-const internalEventSvc = require( '../event' );
-
-const getLocationSettings = require('./interfaces/getLocationSettings');
-const locationsWillMerge = require('./interfaces/locationsWillMerge');
-const locationWillRemove = require('./interfaces/locationWillRemove');
-const getAgendaSettings = require( './interfaces/getAgendaSettings' );
-const getEventCounts = require( './interfaces/getEventCounts' );
-
+const getEventCounts = require('./interfaces/getEventCounts');
+const getAgendaIdByUid = require('./interfaces/getAgendaIdByUid');
+const beforeMerge = require('./interfaces/beforeMerge');
+const beforeRemove = require('./interfaces/beforeRemove');
 const onUpdate = require('./interfaces/onUpdate');
-const onCreate = require('./interfaces/onCreate');
+
+const plugAgendaApp = require('./plugAgendaApp');
+const plugEventApp = require('./plugEventApp');
+const plugAgendaAdminApp = require('./plugAgendaAdminApp');
+const plugApp = require('./plugApp');
 
 const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
 const resyncAllAgendaLocations = require('./tasks/resyncAllAgendaLocations');
 
-const Bisounours = require('./Bisounours');
-
 module.exports.init = async (config, services) => {
-
   const queue = services.queues('locations');
 
   queue.register({
     syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas.bind(null, services),
-    resyncAllAgendaLocations: resyncAllAgendaLocations.bind(null, services, config.knex),
+    resyncAllAgendaLocations: resyncAllAgendaLocations.bind(null, services),
   });
 
-  queue.on( 'error', ( task, args, err ) => log( 'error', 'task %s error', task, err ) );
+  queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
 
-  await promisify( agendaLocations.init )( {
-    opencage: config.opencage,
-    redis: config.redis,
-    elasticsearch: {
-      host: (_.get(config, 'es.ssl') ? 'https://' : 'http://') + _.get( config, 'es.host', 'localhost' ) + ':' + _.get( config, 'es.port', '9200' ),
-      log: _.get( config, 'esLocation.log' ),
-      index: _.get( config, 'esLocation.index' ),
-      apiVersion: _.get( config, 'esLocation.apiVersion' ),
-      timeout: _.get( config, 'esLocation.timeout' ),
-      ssl: _.get( config, 'es.ssl', null )
-    },
-    mysql: {
-      host: config.db.host,
-      user: config.db.user,
-      password: config.db.password,
-      database: config.db.database,
-      table: 'location',
-      agendaSettingsTableName: 'location_agenda_settings',
-      ssl: config.db.ssl
-    },
-    query: _query.bind( null, config ),
-    files: {
-      tmpPath: config.tmpFolderPath,
-      bucket: config.aws.bucket,
-      accessKeyId: config.aws.accessKeyId,
-      secretAccessKey: config.aws.secretAccessKey
-    },
-    maxLimit: 300,
-    // callbacks for updating other app services when changes occur
+  const instance = AgendaLocations({
+    knex: config.knex,
+    redis: config.redisClient,
+    imagePath: config.aws.imageBucketPath,
     interfaces: {
-      ...internalEventSvc.locations,
-      getAgendaSettings: getAgendaSettings.bind(null, services),
-      getLocationSettings: getLocationSettings.bind(null, services),
-      locationsWillMerge: locationsWillMerge.bind(null, services),
-      locationWillRemove: locationWillRemove.bind(null, services),
-      onUpdate: onUpdate.bind( null, {
-        queue
-      } ),
-      onCreate: onCreate.bind( null, {
-        queue
-      } ),
-      getEventCounts: getEventCounts.bind(null, services, config.knex)
+      getAgendaIdByUid: getAgendaIdByUid(config, services),
+      getEventCounts: getEventCounts(config, services),
+      locationsWillMerge: beforeMerge(services),
+      locationWillRemove: beforeRemove(services),
+      onUpdate: onUpdate(queue)
     },
-    logger: config.getLogConfig( 'svc', 'agendaLocations' )
-  } );
-
-  module.exports.task = queue.run;
-
-  module.exports.resync = startId => queue( 'resyncAllAgendaLocations', startId );
+    temporaryDirectory: config.tmpFolderPath,
+    aws: {
+      key: config.aws.accessKeyId,
+      secret: config.aws.secretAccessKey,
+      bucket: config.aws.bucket
+    },
+    logger: config.getLogConfig('svc', 'agendaLocations')
+  });
 
   return {
-    ...agendaLocations,
-    bisounours: Bisounours(config, services)
-  };
-}
-
-
-function _query(config, queryStr, values, cb) {
-  const query = config.knex.raw(queryStr, values);
-
-  query
-    .then(
-      result => {
-        return result[0];
-      },
-      err => {
-        process.nextTick(() => cb(err));
-      }
-    )
-    .then(rows => {
-      process.nextTick(() => cb(null, rows));
-    });
+    ...instance,
+    apps: Object.assign(plugApp.bind(null, config, services, instance), {
+      agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
+      event: plugEventApp.bind(null, config, services, instance),
+      agenda: plugAgendaApp.bind(null, config, services, instance)
+    }),
+    task: queue.run
+  }
 }

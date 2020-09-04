@@ -7,7 +7,6 @@ const getSchema = require('./getSchema');
 const updateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
 const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
 const updateLegacy = require('./legacy/update');
-const resyncLocationsIndex = require('./resyncLocationsIndex');
 const resyncInbox = require('./resyncInbox');
 
 const updateSchemaFields = require('./updateSchemaFields');
@@ -32,7 +31,6 @@ module.exports = core => {
     updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
     updateLegacy: agendaUid => updateLegacy(core, agendaUid),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
-    resyncLocationsIndex: agendaUid => resyncLocationsIndex(services, agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
     createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
     pushDataToFormSchema: agendaUid => pushDataToFormSchema(services, agendaUid)
@@ -57,7 +55,6 @@ module.exports = core => {
       createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(null, agendaUid),
       pushDataToFormSchema: resyncFn.pushDataToFormSchema.bind(null, agendaUid)
     },
-    resyncLocationsIndex: resyncFn.resyncLocationsIndex.bind(null, agendaUid),
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
     batchResync: async (resyncs = []) => {
       log('processing resyncs for agenda %s', agendaUid, resyncs);

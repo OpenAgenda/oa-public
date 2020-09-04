@@ -43,7 +43,7 @@ const AdminEventsHeader = createReactClass( {
 
       geographicFields: {
 
-        region: 'region,country',
+        region: 'region,countryCode',
 
         department: 'department,region',
 

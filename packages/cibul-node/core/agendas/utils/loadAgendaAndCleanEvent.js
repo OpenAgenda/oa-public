@@ -6,7 +6,7 @@ const { promisify } = require('util');
 
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
-const log = require('@openagenda/logs')('core/agendas/events/validate');
+const log = require('@openagenda/logs')('core/agendas/utils/loadAgendaAndCleanEvent');
 const validate = require('@openagenda/events/service/validate');
 
 const eventSchema = require('@openagenda/event-form/build/schema');
@@ -17,8 +17,15 @@ const getAgendaWithNetworkAndSchemas = require('./getAgendaWithNetworkAndSchemas
 const ValidationError = require('../../utils/ValidationError');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
+  log('received for agenda %s', agendaUid);
+
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
-  const location = await _getLocation(services.agendaLocations, data);
+
+  const location = await services.agendaLocations.get({
+    uid: _.get(data, 'location.uid', _.get(data, 'locationUid'))
+  });
+
+  log('fetched agenda and location');
 
   return {
     clean: validateEvent(services, {
@@ -177,16 +184,6 @@ function _distributeCleanData(consolidatedClean, schemaExtensions) {
     networkCustom: _.pick(consolidatedClean, fieldsPerSchema.network),
     event: _.pick(consolidatedClean, fieldsPerSchema.event)
   }
-}
-
-
-function _getLocation(agendaLocations, data) {
-  return promisify(agendaLocations.get)({
-    uid: _.get(data, 'location.uid', _.get(data, 'locationUid')),
-  }, {
-    instanciate: false,
-    fromDb: true
-  });
 }
 
 function _consolidatedValidate(schema, data, { draft }) {

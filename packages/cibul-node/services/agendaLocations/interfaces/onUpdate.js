@@ -4,7 +4,7 @@ const _ = require('lodash');
 const { diff } = require('deep-diff');
 const log = require('@openagenda/logs')('agendaLocations/onUpdate');
 
-module.exports = async ({ queue }, before, after) => {
+module.exports = queue => async (before, after) => {
   try {
     if (diff(
       _.omit(before, ['updatedAt']),

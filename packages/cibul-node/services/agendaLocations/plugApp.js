@@ -1,20 +1,28 @@
 'use strict';
 
 const _ = require('lodash');
-const expressUtils = require('@openagenda/utils/express');
 const OpenCage = require('@openagenda/geocoder/Opencage');
-const log = require('@openagenda/logs')('services/locations/plugEventApp');
+
+const expressUtils = require('@openagenda/utils/express');
+const gaTrack = require('../../lib/gaTrack.mw');
+const log = require('@openagenda/logs')('services/locations/plugApp');
 
 module.exports = (config, services, instance, app, base) => {
   const geocoder = OpenCage(config.opencage);
 
   app.use(base, expressUtils.https);
 
-  app.get(`${base}`, (req, res, next) => {
-    instance(req.params.agendaUid).list(req.query, _.pick(req.query, ['offset', 'limit']), {
-      total: true
-    }).then(({ items, total }) => res.json({ items, total }), next);
-  });
+  app.get(`${base}/:locationUid.json`,
+    (req, res, next) => {
+      instance.get(req.params.locationUid, {
+        includeImagePath: true,
+      }).then(location => res.json(location), next);
+    },
+    (err, req, res) => {
+      res.status(500).json();
+      log('error', err);
+    }
+  );
 
   app.get(`${base}/geocode`, (req, res, next) => geocoder(req.query.address, {
     countryCode: req.query.countryCode,
@@ -35,5 +43,4 @@ module.exports = (config, services, instance, app, base) => {
     res.status(500).json();
     log('error', err);
   });
-
 }

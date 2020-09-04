@@ -34,7 +34,7 @@
     "@openagenda/admin-agendas": "^1.1.16",
     "@openagenda/agenda-categories": "^1.0.5",
     "@openagenda/agenda-event-references": "^1.1.15",
-    "@openagenda/agenda-locations": "^1.8.9",
+    "@openagenda/agenda-locations": "^2.0.0",
     "@openagenda/agenda-search": "^1.2.5",
     "@openagenda/agenda-settings": "^1.2.14",
     "@openagenda/agenda-tags": "^1.0.7",

@@ -24,6 +24,7 @@ CREATE TABLE `user` (
   `last_signin` datetime DEFAULT NULL,
   `comexposium_id` varchar(255) DEFAULT NULL,
   `is_new` tinyint(4) DEFAULT '1',
+  `is_blacklisted` tinyint(4) DEFAULT '0',
   `last_inbox_check` datetime DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=50305 DEFAULT CHARSET=utf8;
 

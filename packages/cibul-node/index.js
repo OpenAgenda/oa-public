@@ -6,7 +6,6 @@ global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   services: {
-    location: require( './services/location' ),
     event: require( './services/event' ),
     agenda: require( './services/agenda' ),
     embed: require( './services/embed' ),

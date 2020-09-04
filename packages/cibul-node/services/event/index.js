@@ -22,9 +22,6 @@ module.exports.mw = require( './middleware' )( module.exports );
 
 module.exports.exports = require( './exportLib' )( module.exports );
 
-module.exports.locations = require( './locations' )( module.exports );
-
-
 function get( params, cb ) {
 
   model.events().get( params, ( err, result ) => {
