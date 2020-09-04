@@ -4,6 +4,7 @@ const _ = require('lodash');
 const moment = require('moment-timezone');
 const ih = require('immutability-helper');
 const validateLink = require('@openagenda/validators/link')({ optional: false });
+const log = require('@openagenda/logs')('parse');
 
 /**
  * Event service follows a deep schema that form-schema cannot emulate.
@@ -20,6 +21,7 @@ module.exports = {
 
 
 function fromEventServiceFormat(eventServiceEvent, options = {}) {
+  log('fromEventServiceFormat');
   const { location, partial, unsetImage } = _.assign({
     location: null,
     partial: false,
@@ -74,6 +76,7 @@ function fromEventServiceFormat(eventServiceEvent, options = {}) {
 }
 
 function toEventServiceFormat(formSchemaEvent, files = {}, options = {}) {
+  log('toEventServiceFormat');
   const {
     raw,
     partial
