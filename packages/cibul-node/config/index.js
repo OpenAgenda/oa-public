@@ -199,9 +199,12 @@ const config = {
       google: {
         id: prod.googleApps.id,
         secret: prod.googleApps.secret
-      },
-      registrationSlackHook: prod.registrationSlackHook,
-      registrationSlackSecret: prod.registrationSlackSecret
+      }
+    },
+    slackApp: {
+      signingSecret: prod.slackApp.signingSecret,
+      token: prod.slackApp.token,
+      channel: 'G019D3L6NTD'
     },
     es: {
       host: process.env.LEGACY_ES_HOST || prod.elasticsearch.v1_3.host,
@@ -870,9 +873,11 @@ const config = {
       google: {
         id: '493901398908-njdc3qepd1j08arb37ptb8okhm6klu05.apps.googleusercontent.com',
         secret: 'VmmU8IWHXKT_BGXghqrvFyXI'
-      },
-      registrationSlackHook: 'https://hooks.slack.com/services/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',
-      registrationSlackSecret: 'd87b1fab0342f49acd148c0c33ac43af'
+      }
+    },
+    slackApp: {
+      signingSecret: 'd87b1fab0342f49acd148c0c33ac43af',
+      token: 'xoxb-2602725364-1335364695348-UhXJ9AJOgD4y0pIFfxdW97jC'
     },
     es: {
       host: process.env.OA_ELASTICSEARCH_134_DEV_HOST || 'localhost',

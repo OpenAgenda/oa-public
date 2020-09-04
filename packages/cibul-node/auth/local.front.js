@@ -409,7 +409,8 @@ async function activate(req, res) {
     users,
     agendas,
     tokens,
-    redisConfigStore
+    redisConfigStore,
+    slackApp
   } = req.app.services;
 
   const optionals = _.pickBy(
@@ -422,23 +423,24 @@ async function activate(req, res) {
   });
 
   if (accountActivationMode === 'manual') {
-    if (config.auth.registrationSlackHook) {
-      const token = await tokens.findOne({
-        query: {
-          token: req.params.token,
-          type: 'aa'
-        },
+    const token = await tokens.findOne({
+      query: {
+        token: req.params.token,
+        type: 'aa'
+      },
+    });
+
+    if (token) {
+      const user = await users.findOne({ query: { id: token.userId }, detailed: true });
+
+      await tokens.remove(token.id);
+
+      slackApp.postMessage.userRegistration({
+        user,
+        automaticActivation: false
+      }).catch(error => {
+        log.error('Error while sending registration slack message:', error);
       });
-
-      if (token) {
-        const user = await users.findOne({ query: { id: token.userId }, detailed: true });
-
-        await tokens.remove(token.id);
-
-        sendRegistrationSlackMessage(users, user, false).catch(error => {
-          log.error('Error while sending registration slack message:', error);
-        });
-      }
     }
 
     const html = renderManualPage(req.lang);
@@ -460,11 +462,12 @@ async function activate(req, res) {
       { optionals, detailed: true }
     );
 
-    if (config.auth.registrationSlackHook) {
-      sendRegistrationSlackMessage(users, user, true).catch(error => {
-        log.error('Error while sending registration slack message:', error);
-      });
-    }
+    slackApp.postMessage.userRegistration({
+      user,
+      automaticActivation: true
+    }).catch(error => {
+      log.error('Error while sending registration slack message:', error);
+    });
 
     if (!req.query || !req.query.invitation) {
       return auth.signin({ req, res, user });
@@ -622,91 +625,4 @@ async function saveRecaptchaScore(usersSvc, uid, score) {
   store.registrationCaptchaScore = score;
 
   await usersSvc._patch(uid, { store: JSON.stringify(store) }, { query: { $select: ['store'] } });
-}
-
-async function getRecaptchaScore(usersSvc, uid) {
-  const rawUser = await usersSvc._get(uid, { query: { $select: ['store'] } });
-
-  const store = rawUser.store ? JSON.parse(rawUser.store) : {};
-
-  return store.registrationCaptchaScore || NaN;
-}
-
-async function sendRegistrationSlackMessage(users, user, automaticActivation) {
-  const reCaptchaScore = await getRecaptchaScore(users, user.uid);
-
-  return axios.post(config.auth.registrationSlackHook, makeRegistrationMessage({
-    user,
-    reCaptchaScore,
-    automaticActivation
-  }))
-    .then()
-    .catch(err => log.error('There was an error with the Slack request', err));
-}
-
-function makeRegistrationMessage({ user, reCaptchaScore, automaticActivation }) {
-  return {
-    "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda: ${user.email} - ${user.fullName}`,
-    "blocks": [
-      {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda:\n\nEmail: *${user.email}*\nPrénom Nom: *${user.fullName}*\nScore reCaptcha: *${reCaptchaScore}*/1`
-        }
-      },
-      {
-        "type": "actions",
-        "block_id": "actions",
-        "elements": [
-          {
-            "type": "button",
-            "action_id": "show",
-            "text": {
-              "type": "plain_text",
-              "text": "Voir",
-              "emoji": true
-            },
-            "value": "show",
-            "url": `${config.root}/admin/users?userUid=${user.uid}`
-          }
-        ].concat(automaticActivation ? [] : {
-          "type": "button",
-          "action_id": "activate",
-          "text": {
-            "type": "plain_text",
-            "text": "Activer",
-            "emoji": true
-          },
-          "value": String(user.uid),
-          "style": "primary",
-          // "url": `${config.root}/admin/users/activate?uid=${user.uid}`
-        }).concat({
-          "type": "button",
-          "action_id": "blacklist",
-          "text": {
-            "type": "plain_text",
-            "text": "Bloquer",
-            "emoji": true
-          },
-          "value": String(user.uid),
-          "style": "danger",
-          // "url": `${config.root}/admin/users/blacklist?uid=${user.uid}`
-        })
-      },
-      {
-        "type": "context",
-        "elements": [
-          {
-            "type": "mrkdwn",
-            "text": `Environnement: *${config.env === 'production' ? 'production' : 'développement'}*`
-          },
-          {
-            "type": "mrkdwn",
-            "text": `Mode d'activation: *${automaticActivation ? 'Automatique' : 'Manuel'}*`
-          }
-        ]
-      }
-    ]
-  };
 }
