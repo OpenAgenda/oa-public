@@ -10,82 +10,86 @@ async function getRecaptchaScore(usersSvc, uid) {
   return store.registrationCaptchaScore || NaN;
 }
 
+async function saveSlackMessageId(usersSvc, uid, messageId) {
+  const rawUser = await usersSvc._get(uid, { query: { $select: ['store'] } });
+
+  const store = rawUser.store ? JSON.parse(rawUser.store) : {};
+  store.registrationSlackMessageId = messageId;
+
+  await usersSvc._patch(
+    uid,
+    { store: JSON.stringify(store) },
+    { query: { $select: ['store'] } }
+  );
+}
+
 function makeMessage({ user, reCaptchaScore, automaticActivation }) {
   return {
-    "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda: ${user.email} - ${user.fullName}`,
-    "blocks": [
+    text: `Nouvel utilisateur: ${user.email} | ${user.fullName}`,
+    blocks: [
       {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": `Un nouvel utilisateur s'est inscrit sur OpenAgenda:\n\nEmail: *${user.email}*\nPrénom Nom: *${user.fullName}*\nScore reCaptcha: *${reCaptchaScore}*/1`
+        type: 'section',
+        block_id: 'user',
+        text: {
+          type: 'mrkdwn',
+          text: `*Nouvel utilisateur*: ${user.email} | ${user.fullName} | ${reCaptchaScore}/1`
         }
       },
       {
-        "type": "actions",
-        "block_id": "actions",
-        "elements": [
+        type: 'actions',
+        block_id: 'actions',
+        elements: [
           {
-            "type": "button",
-            "action_id": "show",
-            "text": {
-              "type": "plain_text",
-              "text": "Voir",
-              "emoji": true
+            type: 'button',
+            action_id: 'show',
+            text: {
+              type: 'plain_text',
+              text: 'Voir',
+              emoji: true
             },
-            "value": "show",
-            "url": `${config.root}/admin/users?userUid=${user.uid}`
-          }
-        ].concat(automaticActivation ? [] : [
-          {
-            "type": "button",
-            "action_id": "activate",
-            "text": {
-              "type": "plain_text",
-              "text": "Activer",
-              "emoji": true
-            },
-            "value": String(user.uid),
-            "style": "primary",
-            // "url": `${config.root}/admin/users/activate?uid=${user.uid}`
-          }
-        ]).concat([
-          {
-            "type": "button",
-            "action_id": "blacklist",
-            "text": {
-              "type": "plain_text",
-              "text": "Bloquer",
-              "emoji": true
-            },
-            "value": String(user.uid),
-            "style": "danger",
-            // "url": `${config.root}/admin/users/blacklist?uid=${user.uid}`
-          }
-        ])
-      },
-      {
-        "type": "context",
-        "elements": [
-          {
-            "type": "mrkdwn",
-            "text": `Environnement: *${config.env === 'production' ? 'production' : 'développement'}*`
-          },
-          {
-            "type": "mrkdwn",
-            "text": `Mode d'activation: *${automaticActivation ? 'Automatique' : 'Manuel'}*`
+            value: 'show',
+            url: `${config.root}/admin/users?userUid=${user.uid}`
           }
         ]
+          .concat(
+            automaticActivation
+              ? []
+              : [
+                {
+                  type: 'button',
+                  action_id: 'activate',
+                  text: {
+                    type: 'plain_text',
+                    text: 'Activer',
+                    emoji: true
+                  },
+                  value: String(user.uid),
+                  style: 'primary'
+                  // "url": `${config.root}/admin/users/activate?uid=${user.uid}`
+                }
+              ]
+          )
+          .concat([
+            {
+              type: 'button',
+              action_id: 'blacklist',
+              text: {
+                type: 'plain_text',
+                text: 'Bloquer',
+                emoji: true
+              },
+              value: String(user.uid),
+              style: 'danger'
+              // "url": `${config.root}/admin/users/blacklist?uid=${user.uid}`
+            }
+          ])
       }
     ]
   };
 }
 
 function postMessage(slackApp, services) {
-  return async ({
-    user,
-    automaticActivation
-  }) => {
+  return async ({ user, automaticActivation }) => {
     const { users } = services;
     const reCaptchaScore = await getRecaptchaScore(users, user.uid);
 
@@ -103,9 +107,7 @@ function postMessage(slackApp, services) {
       throw new Error('Slack message (user registration) can not be sent');
     }
 
-    // TODO save `ts` in the user store
-
-    console.log(res);
+    await saveSlackMessageId(users, user.uid, res.ts);
   };
 }
 
@@ -119,7 +121,10 @@ function registerEvents(slackApp, services) {
       const { users: usersSvc, mails } = services;
 
       try {
-        const user = await usersSvc.get(userUid, { removed: null, detailed: true });
+        const user = await usersSvc.get(userUid, {
+          removed: null,
+          detailed: true
+        });
 
         if (user && !user.isActivated) {
           await usersSvc.patch(
@@ -133,28 +138,28 @@ function registerEvents(slackApp, services) {
             to: user.email,
             lang: user.culture,
             data: {
-              activateLink: config.root,
+              activateLink: config.root
             },
-            queue: false,
+            queue: false
           });
         }
 
         const newMessage = {
           text: body.message.text,
-          blocks: body.message.blocks
-            .map(block => {
-              if (block.block_id !== payload.block_id) {
-                return block;
-              }
+          blocks: body.message.blocks.map(block => {
+            if (block.block_id !== payload.block_id) {
+              return block;
+            }
 
-              return {
-                type: 'section',
-                text: {
-                  type: 'mrkdwn',
-                  text: `:heavy_check_mark: L\'utilisateur a été activé. <${config.root}/admin/users?userUid=${userUid}|Voir>`
-                }
-              };
-            })
+            return {
+              type: 'section',
+              block_id: 'actions',
+              text: {
+                type: 'mrkdwn',
+                text: `:heavy_check_mark: L\'utilisateur a été activé. <${config.root}/admin/users?userUid=${userUid}|Voir>`
+              }
+            };
+          })
         };
 
         await respond({ replace_original: true, ...newMessage });
@@ -164,6 +169,7 @@ function registerEvents(slackApp, services) {
           blocks: [
             {
               type: 'section',
+              block_id: 'error',
               text: {
                 type: 'mrkdwn',
                 text: `Désolé, il y a eu une erreur. Réessayez plus tard.\nMessage d'erreur: *${error.message}*`
@@ -186,7 +192,10 @@ function registerEvents(slackApp, services) {
       const { users: usersSvc, sessions } = services;
 
       try {
-        const user = await usersSvc.get(userUid, { removed: null, detailed: true });
+        const user = await usersSvc.get(userUid, {
+          removed: null,
+          detailed: true
+        });
 
         if (user && !user.isBlacklisted) {
           await usersSvc.patch(
@@ -200,20 +209,20 @@ function registerEvents(slackApp, services) {
 
         const newMessage = {
           text: body.message.text,
-          blocks: body.message.blocks
-            .map(block => {
-              if (block.block_id !== payload.block_id) {
-                return block;
-              }
+          blocks: body.message.blocks.map(block => {
+            if (block.block_id !== payload.block_id) {
+              return block;
+            }
 
-              return {
-                type: 'section',
-                text: {
-                  type: 'mrkdwn',
-                  text: `:x: L\'utilisateur a été bloqué. <${config.root}/admin/users?userUid=${userUid}|Voir>`
-                }
-              };
-            })
+            return {
+              type: 'section',
+              block_id: 'actions',
+              text: {
+                type: 'mrkdwn',
+                text: `:x: L\'utilisateur a été bloqué. <${config.root}/admin/users?userUid=${userUid}|Voir>`
+              }
+            };
+          })
         };
 
         await respond({ replace_original: true, ...newMessage });
@@ -223,6 +232,7 @@ function registerEvents(slackApp, services) {
           blocks: [
             {
               type: 'section',
+              block_id: 'error',
               text: {
                 type: 'mrkdwn',
                 text: `Désolé, il y a eu une erreur. Réessayez plus tard.\nMessage d'erreur: *${error.message}*`

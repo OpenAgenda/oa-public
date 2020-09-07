@@ -2,6 +2,7 @@
 
 const { App } = require('@slack/bolt');
 const userRegistration = require('./userRegistration');
+const agendaCreation = require('./agendaCreation');
 
 function init(config, services) {
   const slackApp = new App({
@@ -12,11 +13,13 @@ function init(config, services) {
 
   // Shortcuts for sending messages
   slackApp.postMessage = {
-    userRegistration: userRegistration.postMessage(slackApp, services)
+    userRegistration: userRegistration.postMessage(slackApp, services),
+    agendaCreation: agendaCreation.postMessage(slackApp, services)
   };
 
   // Listen actions and events
   userRegistration.registerEvents(slackApp, services);
+  agendaCreation.registerEvents(slackApp, services);
 
   return slackApp;
 }
