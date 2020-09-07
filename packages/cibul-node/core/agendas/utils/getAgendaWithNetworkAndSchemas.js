@@ -2,11 +2,13 @@
 
 const _ = require('lodash');
 const VError = require('verror');
+const log = require('@openagenda/logs')('core/agendas/utils/getAgendaWithNetworkAndSchemas');
 
 const getNetwork = require('./getNetwork');
 const getSchemas = require('./getSchemas');
 
 module.exports = async (services, agendaUid) => {
+  log('received for %s', agendaUid);
 
   const {
     agendas,

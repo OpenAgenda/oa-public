@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const tagSvc = require( '@openagenda/agenda-tags' );
 const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
 const categorySvc = require( '@openagenda/agenda-categories' );
-const locationMw = require( '@openagenda/agenda-locations' ).mw();
 const utils = require( '@openagenda/utils' );
 const cbify = require( '@openagenda/utils/cbify' );
 const keysSvc = require( '@openagenda/keys' );
@@ -54,7 +53,6 @@ module.exports = app => {
       _loadTagSet,
       _loadCategorySet,
       _loadEmbedUids,
-      locationMw.loadSettings( 'locationSettings', true ),
       gaTrack( 'settings', 'export', 'json' ),
       ( req, res ) => cmn.renderJson( req, res, _.assign(
         _.pick( req.agenda, [ 'title', 'description', 'slug', 'url' ] ),
@@ -73,7 +71,6 @@ module.exports = app => {
     preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    locationMw.loadSettings( 'locationSettings' ),
     gaTrack( 'events', 'export', 'csv' ),
     agendaSvc.mw.buildCsv( false )
   );
@@ -92,7 +89,6 @@ module.exports = app => {
     preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    locationMw.loadSettings( 'locationSettings' ),
     gaTrack( 'events', 'export', 'xlsx' ),
     agendaSvc.mw.buildXlsx( false )
   );

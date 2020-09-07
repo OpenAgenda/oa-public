@@ -5,8 +5,8 @@ const assert = require('assert');
 
 const config = require('../testconfig');
 const fixtures = require('./fixtures/load');
-const Service = require('../bisounours');
-const fields = require('../bisounours/lib/fields.json');
+const Service = require('../');
+const fields = require('../lib/fields.json');
 
 describe('agenda-locations - functional - list', () => {
   const f = fixtures(config.mysql);
@@ -77,7 +77,7 @@ describe('agenda-locations - functional - list', () => {
     });
 
     it('provided fields by default are name, address, latitude and longitude', () => {
-      assert.deepEqual(Object.keys(items[0]), ['uid', 'name', 'address', 'latitude', 'longitude']);
+      assert.deepEqual(Object.keys(items[0]), ['uid', 'name', 'address', 'latitude', 'longitude', 'state']);
     });
 
   });

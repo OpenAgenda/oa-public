@@ -21,8 +21,6 @@ const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 const eventsSvc = require('../services/events');
 const customSvc = require( '@openagenda/custom' );
 
-const agendaLocations = require( '@openagenda/agenda-locations' );
-
 const logger = require( '@openagenda/logs' );
 
 const apiLog = logger( 'legacyApi' );
@@ -79,12 +77,6 @@ module.exports = app => {
     '/legacy/api',
     preMw,
     api
-  );
-
-  app.get(
-    '/legacy/api/agendas/:agendaUid/locations/:locationUid/sync',
-    preMw,
-    locationSync
   );
 
   app.get(
@@ -317,36 +309,6 @@ function referencesSave( req, res, next ) {
   } );
 
 }
-
-
-function locationSync( req, res ) {
-
-  agendaLocations.get( { uid: req.params.locationUid }, { instanciate: false }, ( err, location ) => {
-
-    if ( err ) {
-
-      return req.log( 'error', 'locationSync.get', req.params.locationUid, err );
-
-    }
-
-    if ( !location ) {
-
-      return req.log( 'error', 'locationSync.get', req.params.locationUid, 'no location found' );
-
-    }
-
-    agendaLocations.set( location, { forceIndexCreate: true }, ( err, result ) => {
-
-      if ( err ) return req.log( 'error', 'locationSync.set', req.params.locationUid, err );
-
-      req.log( 'info', 'locationSync done for location %s', req.params.locationUid );
-
-    } );
-
-  } );
-
-}
-
 
 function api( req, res ) {
 

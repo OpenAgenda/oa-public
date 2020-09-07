@@ -611,7 +611,6 @@ function buildCsv( includePrivateData ) {
   return function( req, res, next ) {
 
     req.agenda.flattener( {
-      includeDetailedLocation: _includeDetailedLocation( req ),
       includePrivateData,
       lang: req.lang,
       exclusiveLang: _.get( req, [ 'query', 'cols.lang' ] )
@@ -714,20 +713,6 @@ function buildCsv( includePrivateData ) {
   }
 
 }
-
-
-function _includeDetailedLocation( req ) {
-
-  if ( !req.locationSettings ) return true;
-
-  if ( !req.locationSettings.admin ) return true;
-
-  if ( req.locationSettings.admin.detailed === undefined ) return true;
-
-  return req.locationSettings.admin.detailed;
-
-}
-
 
 
 function _loadIsPassed( agenda, cb ) {

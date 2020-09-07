@@ -37,6 +37,7 @@ module.exports = createReactClass( {
     let formState = this.props.actions.getState().form;
 
     return <LocationForm
+      postRes={this.props.res.update.replace(':locationUid', formState.location.uid)}
       Header={this.renderHeader( formState.location ) }
       location={formState.location}
       enableGeocode={this.props.enableGeocode}

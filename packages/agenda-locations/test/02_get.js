@@ -5,7 +5,7 @@ const assert = require('assert');
 
 const config = require('../testconfig');
 const fixtures = require('./fixtures/load');
-const Service = require('../bisounours');
+const Service = require('../');
 
 describe('agenda-locations - functional - get', () => {
   const f = fixtures(config.mysql);
@@ -56,6 +56,18 @@ describe('agenda-locations - functional - get', () => {
   });
 
   describe('other', () => {
+
+    it('uid can be provided within object', async () => {
+      const location = await svc.get({ uid: 51665985 });
+
+      assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
+    });
+
+    it('uid can be provided as a string', async () => {
+      const location = await svc.get('51665985');
+
+      assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
+    });
 
     it('if getEventCounts interface is set and eventCount option is true, location includes interface-provided event counts', async () => {
       const location = await svc(7196947).get(60763721, { eventCounts: true });

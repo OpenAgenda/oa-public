@@ -138,7 +138,7 @@ describe( 'agendas - functional (server): list', function () {
       includeImagePath: true,
       detailed: true
     }, ( err, agendas ) => {
-      agendas[ 0 ].image.should.equal( '//openagendatst.s3.amazonaws.com/review_sylvie-et-pascal-verger_00.jpg' );
+      agendas[ 0 ].image.should.equal( '//openagendatst.s3.eu-west-1.amazonaws.com/review_sylvie-et-pascal-verger_00.jpg' );
       done();
     } );
 

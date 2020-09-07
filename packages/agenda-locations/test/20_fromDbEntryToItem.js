@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 
-const fromDbEntryToItem = require('../bisounours/lib/fromDbEntryToItem');
+const fromDbEntryToItem = require('../lib/fromDbEntryToItem');
 const fixtures = require('./fixtures/fromDbEntryToItem');
 
 describe('agenda-locations - unit - fromDbEntryToItem', () => {

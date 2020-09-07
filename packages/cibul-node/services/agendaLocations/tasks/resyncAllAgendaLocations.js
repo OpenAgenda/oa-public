@@ -5,9 +5,10 @@ const { promisify } = require( 'util' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/resyncAllAgendaLocations' );
 
-module.exports = async function(services, knex, startFromId) {
+module.exports = async function(services, startFromId) {
   const {
-    agendaLocations
+    agendaLocations,
+    knex
   } = services;
 
   const resync = promisify(agendaLocations.resync);

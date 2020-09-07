@@ -154,18 +154,18 @@ module.exports = (event, formSchema = null) => {
   return ih(event, transform);
 }
 
-function _secondsMidnightDiff(d, timezone = 'Europe/Paris') {
-  const tz = moment(d).tz(timezone);
+function _secondsMidnightDiff(d, timezone) {
+  const tz = moment(d).tz(timezone || 'Europe/Paris');
   return parseInt(tz.format('HH')) * 60 * 60 + parseInt(tz.format('mm')) * 60 + parseInt(tz.format('ss'));
 }
 
-function _dateRange(timings = [], timezone = 'Europe/Paris', languages = []) {
+function _dateRange(timings = [], timezone, languages = []) {
   return languages.reduce((ranges, lang) => ({
     ...ranges,
     [lang]: dateRange(timings.map(t => ({
       start: new Date(t.begin),
       end: new Date(t.end)
-    })), lang, timezone)
+    })), lang, timezone || 'Europe/Paris')
   }), {});
 }
 

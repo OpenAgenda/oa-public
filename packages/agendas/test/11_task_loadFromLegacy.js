@@ -11,7 +11,7 @@ const svc = require( '../' );
 
 describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
 
-  this.timeout( 60000 );
+  this.timeout( 120000 );
 
   before( () => {
     svc.init( config );

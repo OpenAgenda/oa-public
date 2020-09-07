@@ -81,7 +81,7 @@ class LocationComponent extends Component {
       geocode: getRes(res, 'geocode', '/geocode'),
       reverseGeocode: getRes(res, 'reverse', '/geocode/reverse'),
       insee: getRes(res, 'insee', `/insee`),
-      set: getRes(res, 'set', ''),
+      create: getRes(res, 'create', ``),
       remove: getRes(res, 'remove', '/remove'),
       image: {
         newUpload: getRes(res, 'newImageUpload', `/image`),

@@ -92,10 +92,13 @@ module.exports = Object.assign((parentApp, path = '') => {
       locationRes: {
         get: `/locations/:uid.json`,
         index: `/agendas/${req.agenda.uid}/contribute/locations`,
-        geocode: `/agendas/${req.agenda.uid}/contribute/locations/geocode`,
-        reverse: `/agendas/${req.agenda.uid}/contribute/locations/geocode/reverse`,
-        insee: `/agendas/${req.agenda.uid}/contribute/locations/insee`,
-        default: `/${req.agenda.slug}/locations`
+        create: `/agendas/${req.agenda.uid}/contribute/locations`,
+        geocode: `/locations/geocode`,
+        reverse: `/locations/geocode/reverse`,
+        insee: `/locations/insee`,
+        newImageUpload: `/agendas/${req.agenda.uid}/contribute/locations/images`,
+        newImageRemove: `/agendas/${req.agenda.uid}/contribute/locations/images/remove`,
+        default: `/agendas/${req.agenda.uid}/contribute/locations`
       },
       referencesRes: `/agendas/${req.agenda.uid}/events`,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,

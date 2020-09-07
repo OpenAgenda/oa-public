@@ -5,7 +5,7 @@ const assert = require('assert');
 
 const config = require('../testconfig');
 const fixtures = require('./fixtures/load');
-const Service = require('../bisounours');
+const Service = require('../');
 
 const payload = require('./fixtures/updateData.json');
 
@@ -65,6 +65,15 @@ describe('agenda-locations - functional - update', () => {
   describe('other', () => {
 
     it('uid cannot be modified through update', async () => {
+      const updated = await svc(7196947).update(95301591, {
+        ...payload,
+        uid: 1
+      });
+
+      assert.equal(updated.uid, 95301591);
+    });
+
+    it('uid cannot be modified through patch', async () => {
       const updated = await svc(7196947).update(95301591, {
         ...payload,
         uid: 1

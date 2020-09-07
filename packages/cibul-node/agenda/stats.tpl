@@ -38,26 +38,6 @@
 </div>
 
 <div class="row">
-  <h3>La saisie est faite sur l'ancien formulaire</h3>
-
-  <h4 class="margin-v-lg">Transfer de configuration</h4>
-  <div class="margin-v-lg">
-    <p>Les groupes de tags et catégories sont utilisés, on veut préparer la bascule vers le nouveau formulaire</p>
-    <a class="btn btn-danger" href="<%= actions.legacyToFormSchema %>">Créer le schema de l'agenda</a>
-  </div>
-
-  <h4 class="margin-v-lg">Transfer de données</h4>
-  <div class="margin-v-lg">
-    <p>Créer les jeux de données consolidées en partant des tags, catégories et anciens champs custom de l'agenda</p>
-    <a class="btn btn-danger" href="<%= actions.resyncLegacyDatasetToCustom %>">Créer les jeux de données custom consolidées pour tous les événements</a>
-  </div>
-
-  <ul class="list-unstyled">
-    <li>
-    </li>
-  </ul>
-</div>
-<div class="row">
   <h3>Autres</h3>
   <a class="margin-v-sm btn btn-default" href="<%= actions.rebuildSearch %>">rebuildSearch</a>
   <a class="margin-v-sm btn btn-default" href="<%= actions.resyncAgendaEvents %>">resyncAgendaEvents</a>

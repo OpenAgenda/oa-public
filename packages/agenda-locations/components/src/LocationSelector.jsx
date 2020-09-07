@@ -116,6 +116,7 @@ class LocationSelector extends Component {
 
   renderCreateForm() {
     return <LocationForm
+      postRes={this.props.res.create}
       Header={this.renderHeader()}
       settings={this.props.settings}
       detailedInfo={(this.props.settings.eventForm && this.props.settings.eventForm.detailed) || this.props.detailedInfo}

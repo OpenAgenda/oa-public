@@ -5,7 +5,7 @@ const assert = require('assert');
 
 const config = require('../testconfig');
 const fixtures = require('./fixtures/load');
-const Service = require('../bisounours');
+const Service = require('../');
 
 const payload = require('./fixtures/createData.json');
 
@@ -44,6 +44,10 @@ describe('agenda-locations - functional - create', () => {
 
     it('slug is added during create', () => {
       assert.equal(typeof created.slug, 'string');
+    });
+
+    it('by default state value is 0', () => {
+      assert.equal(created.state, 0);
     });
 
     it('new entry is in db', async () => {

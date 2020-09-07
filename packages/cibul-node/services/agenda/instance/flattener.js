@@ -4,9 +4,9 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const moment = require( 'moment-timezone' );
 
+const countries = require('@openagenda/countries');
 const accessibilityLabels = require( '@openagenda/labels/event/accessibility' );
 const agendaCategories = require( '@openagenda/agenda-categories' );
-const agendaLocations = require( '@openagenda/agenda-locations' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' );
 const stateLabels = require( '@openagenda/labels/event/states' );
@@ -652,7 +652,7 @@ function _state( lang ) {
 
 function _defineCountryLabel( lang ) {
 
-  return code => agendaLocations.utils.countries.getLabel( code.toUpperCase(), lang );
+  return code => countries.getLabel(code.toUpperCase(), lang);
 
 }
 

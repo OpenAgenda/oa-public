@@ -2,7 +2,26 @@
 
 const utils = require( '@openagenda/utils' );
 
-const suggestables = require( '../../lib/suggestables' );
+const suggestables = [
+  'name',
+  'address',
+  'access',
+  'description',
+  'website',
+  'phone',
+  'address',
+  'city',
+  'region',
+  'department',
+  'countryCode',
+  'postalCode',
+  'latitude',
+  'longitude',
+  'image',
+  'tags',
+  'links',
+  'timezone'
+];
 
 module.exports = {
   prepareAlternatives,
@@ -126,7 +145,7 @@ function prepareAlternatives( location, props, labels, suggestionIndex ) {
   // if location does not have tags, they won't appear by themselves.
   fields.forEach( f => {
 
-    if ( userSuggestion && [ 
+    if ( userSuggestion && [
       'phone',
       'timezone',
       'tags'
@@ -165,7 +184,7 @@ function prepareAlternatives( location, props, labels, suggestionIndex ) {
 
       if ( ( location.links || [] ).join( ';' ) !== ( alternative.location.links || [] ).join( ';' ) ) {
 
-        alternative.location.links = location.links;        
+        alternative.location.links = location.links;
 
       }
 
@@ -192,7 +211,7 @@ function prepareAlternatives( location, props, labels, suggestionIndex ) {
     }
 
   } );
-  
+
   return {
     location: baseLocation,
     alternatives: [ alternative ]

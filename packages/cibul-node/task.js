@@ -85,7 +85,7 @@ module.exports = (config, core, services) => {
 
   core.tasks();
 
-  require( './services/agendaLocations' ).task();
+  services.agendaLocations.task();
 
   require( './services/members' ).task();
 
@@ -99,8 +99,6 @@ module.exports = (config, core, services) => {
     }, ( err, res ) => console.log( 'FINI', err, res ) );*/
 
   }
-
-  //require( './services/agendaLocations' ).resync();
 
   // require( './services/agendaStatistics' ).task.resyncLegacySearch();
 

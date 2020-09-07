@@ -114,7 +114,13 @@ module.exports = (app, config, services) => {
     }),
     members.mw.load,
     cmn.loadBaseData('oasfmain.css'),
-    agendaLocations.mw('agenda.id').load,
+    (req, res, next) => {
+      agendaLocations(req.agenda.uid).get(req.params.locationUid)
+        .then(location => {
+          req.location = location;
+          next();
+        }, next);
+    },
     renderSuggestLocationChangeApp.bind(null, { config, services })
   );
 }

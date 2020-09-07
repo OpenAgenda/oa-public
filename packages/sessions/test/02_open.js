@@ -75,7 +75,7 @@ describe( 'session - functional (server): open', () => {
 
   } );
 
-  it( 'open updates given request object with cookie session information', done => {
+  it( 'open updates given request object with cookie sqession information', done => {
 
     request.session.should.eql( {} );
 

@@ -126,10 +126,10 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   }
 
   if (detailed && load.event && fetched.events.length) {
-    fetched.locations = await listLocations(
-      agendaLocations,
-      fetched.events.map(e => e.locationUid)
-    );
+    const locationUids = fetched.events.map(e => e.locationUid);
+    fetched.locations = await agendaLocations.list({
+      uids: locationUids
+    }, { offset: 0, limit: locationUids.length }, { detailed: true });
   }
 
   if (detailed && load.member) {
@@ -170,18 +170,4 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     formSchema
   } : compiledEvents;
 
-}
-
-
-function listLocations(agendaLocations, uids) {
-  return new Promise((rs, rj) => {
-    agendaLocations.list({
-      uid: uids
-    }, 0, uids.length, { fromDb: true }, (err, locations) => {
-      if (err) {
-        return rj(err);
-      }
-      rs(locations.map(l => _.omit(l, ['store', 'agendaId', 'eveId'])));
-    });
-  });
 }

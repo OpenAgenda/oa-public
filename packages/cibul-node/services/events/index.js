@@ -9,7 +9,6 @@ const onUpdate = require( './onUpdate' );
 const beforeRemove = require( './beforeRemove' );
 const onRemove = require( './onRemove' );
 const getOriginAgendas = require( './getOriginAgendas' );
-const getLocations = require( './getLocations' );
 
 module.exports = {
   init
@@ -55,7 +54,26 @@ function init(config, services) {
       beforeRemove: beforeRemove.bind(null, services),
       onRemove: onRemove.bind(null, services),
       getOriginAgendas,
-      getLocations
+      getLocations: (uids, options, cb) => services.agendaLocations
+        .list({ uids }, { limit: uids.length }, {
+          detailed: true,
+          includeFields: [
+            'uid',
+            'slug',
+            'name',
+            'address',
+            'city',
+            'region',
+            'department',
+            'postalCode',
+            'insee',
+            'countryCode',
+            'district',
+            'latitude',
+            'longitude',
+            'updatedAt'
+          ]
+        }).then(cb.bind(null, null), cb)
     }
   } );
 

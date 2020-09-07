@@ -1,6 +1,5 @@
 "use strict";
 
-const locationMw = require('@openagenda/agenda-locations').mw();
 const gaTrack = require('../lib/gaTrack.mw');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
@@ -21,7 +20,6 @@ module.exports = app => {
     '/agendas/:uid/admin/events.csv',
     preMw,
     members.mw.authorizeAdminModOrKey(),
-    locationMw.loadSettings('locationSettings'),
     gaTrack('events', 'admin/export', 'csv'),
     agendaSvc.mw.buildCsv(true)
   );
@@ -30,7 +28,6 @@ module.exports = app => {
     '/agendas/:uid/admin/events.xlsx',
     preMw,
     members.mw.authorizeAdminModOrKey(),
-    locationMw.loadSettings('locationSettings'),
     gaTrack('events', 'admin/export', 'xlsx'),
     agendaSvc.mw.buildXlsx(true)
   );
