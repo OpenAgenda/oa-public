@@ -41,8 +41,6 @@ module.exports = (config, services, instance, app, base) => {
     getLocationSettings,
     (req, res, next) => {
 
-      const detailedInfo = req.locationLegacySettings.admin && req.locationLegacySettings.admin.detailed !== undefined ? req.locationLegacySettings.admin.detailed : true;
-
       res.send(layout('<div class="js_canvas"></div>', {
         role: req.member.role,
         lang: req.lang,
@@ -50,7 +48,7 @@ module.exports = (config, services, instance, app, base) => {
         bodyAttributes: [{
           name: 'data-options',
           value: JSON.stringify({
-            detailedInfo,
+            detailedInfo: _.get(req, 'locationLegacySettings.admin.detailed', true),
             settings: req.locationLegacySettings,
             lang: req.lang,
             enableGeocode: true,
