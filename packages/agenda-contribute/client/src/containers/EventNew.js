@@ -28,6 +28,7 @@ export default connect(
   <EventForm
     role={_.get( member, 'role' )}
     withErrors={false}
+    maxFileSize={config.maxFileSize}
     schemaExtensions={config.schemaExtensions}
     fileStore={config.fileStore}
     locationRes={config.locationRes}

@@ -61,6 +61,7 @@ class EventEdit extends Component {
             <div className="wsq">
               <EventForm
                 role={_.get( member, 'role' )}
+                maxFileSize={config.maxFileSize}
                 schemaExtensions={config.schemaExtensions}
                 withErrors={false}
                 fileStore={config.fileStore}
