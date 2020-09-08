@@ -14,7 +14,7 @@
     "immutability-helper": "^3.0.0",
     "locutus": "^2.0.11",
     "lodash": "^4.17.15",
-    "moment-timezone": "^0.5.13",
+    "moment-timezone": "^0.5.31",
     "verror": "^1.10.0"
   },
   "devDependencies": {
