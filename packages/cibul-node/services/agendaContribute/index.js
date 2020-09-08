@@ -150,6 +150,10 @@ function init(config, services) {
     middlewares,
     interfaces: interfaces(services)
   });
+
+  return {
+    mw: middlewares
+  }
 }
 
 
