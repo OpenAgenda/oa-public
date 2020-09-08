@@ -62,6 +62,10 @@ dev.post('/:page',
   bodyParser.json(),
   (req, res, next) => {
 
+    if (req.params.page === 'imageuploadtoolarge') {
+      return res.status(413).send();
+    }
+
     // when resources are loaded or posted for a specific instance,
     // created or yet to be created, the server
     // should know what schema is being created
