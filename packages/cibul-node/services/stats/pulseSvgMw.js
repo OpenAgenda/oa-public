@@ -16,33 +16,25 @@ module.exports = function pulseSvgMw() {
       const now = new Date();
       const startOfPastYear = subDays(now, 364);
 
-      const query = {
-        oaq: {
-          passed: 1
-        },
-        size: 0,
-        aggregations: [
-          {
-            key: 'pulse',
-            type: 'createdOrUpdatedAt',
-            fixedInterval: '7d',
-            extendedBounds: {
-              min: startOfPastYear,
-              max: now
-            }
-          }
-        ],
-        updatedAt: {
-          gte: startOfPastYear,
-          lte: now
-        }
-      };
-
       const searchResult = await core
         .agendas(agendaUid)
-        .events.search(query, query, {
-          ...query,
-          access: 'public'
+        .events.search({
+          updatedAt: {
+            gte: startOfPastYear,
+            lte: now
+          }
+        }, { size: 0 }, {
+          aggregations: [
+            {
+              key: 'pulse',
+              type: 'createdOrUpdatedAt',
+              fixedInterval: '7d',
+              extendedBounds: {
+                min: startOfPastYear,
+                max: now
+              }
+            }
+          ]
         });
 
       const prefetchedData = searchResult && searchResult.aggregations && searchResult.aggregations.pulse;
