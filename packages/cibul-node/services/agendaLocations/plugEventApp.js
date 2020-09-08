@@ -13,7 +13,8 @@ const {
 module.exports = (config, services, instance, app, base) => {
   const {
     members,
-    agendas
+    agendas,
+    agendaContribute
   } = services;
 
   app.use(base,
@@ -22,7 +23,8 @@ module.exports = (config, services, instance, app, base) => {
       path: 'params.agendaUid',
       field: 'uid'
     }),
-    members.mw.loadAndAuthorize('contributor'),
+    members.mw.load,
+    agendaContribute.mw.verifyMemberAuthorization,
     (req, res, next) => {
       req.locations = instance(req.params.agendaUid);
       next();
