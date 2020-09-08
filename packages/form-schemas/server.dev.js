@@ -1,72 +1,78 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const express = require( 'express' );
-const webpack = require( 'webpack' );
+const _ = require('lodash');
+const express = require('express');
+const webpack = require('webpack');
 
-const bodyParser = require( 'body-parser' );
+const bodyParser = require('body-parser');
 
-const webpackConfig = require( './webpack.dev' );
-const compiler = webpack( webpackConfig );
+const log = require('@openagenda/logs')('server.dev');
 
-const filesMw = require( './server/middleware/files' );
-const schemaMw = require( './server/middleware/schema' );
+const webpackConfig = require('./webpack.dev');
+const compiler = webpack(webpackConfig);
 
-const devMw = require( './dev/middleware' );
+const filesMw = require('./server/middleware/files');
+const schemaMw = require('./server/middleware/schema');
 
-const config = require( './testconfig' );
+const devMw = require('./dev/middleware');
+
+const config = require('./testconfig');
 
 // normally done through init of service
-filesMw.init( {
+filesMw.init({
   tmpFolder: __dirname + '/dev/tmp',
-  s3: _.pick( config.s3, [ 'accessKeyId', 'secretAccessKey', 'region', 'bucket' ] )
-} );
+  s3: _.pick(config.s3, ['accessKeyId', 'secretAccessKey', 'region', 'bucket'])
+});
 
-const devSchemas = require( './dev/schemas' );
+const devSchemas = require('./dev/schemas');
 
 const dev = express();
 
-const style = require( '@openagenda/bs-templates' ).getCss( 'main' );
+const style = require('@openagenda/bs-templates').getCss('main');
 
-dev.use( require( 'webpack-dev-middleware' )( compiler, {
+dev.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: '/js'
-} ) );
+}));
 
-dev.use( require( 'webpack-hot-middleware' )( compiler ) );
+dev.use(require('webpack-hot-middleware')(compiler));
 
-dev.get( '/', ( req, res ) => res.send( render( 'index' ) ) )
+dev.get('/', (req, res) => res.send(render('index')))
 
-dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
+dev.get('/style.css', (req, res) => res.set('Content-Type', 'text/css').send(style));
 
-dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts' ) );
+dev.use('/fonts', express.static(__dirname + '/../bs-templates/templates/fonts'));
 
-dev.get( '/:page', ( req, res ) => res.send( render( req.params.page ) ) );
+dev.get('/:page', (req, res) => res.send(render(req.params.page)));
 
-dev.post( '/formbuilder',
+dev.post('/formbuilder',
   bodyParser.json(),
-  ( req, res, next ) => {
+  (req, res, next) => {
 
-  console.log( req.body );
-  console.log( 'waiting for a while...' );
+    console.log(req.body);
+    console.log('waiting for a while...');
 
-  setTimeout( () => {
+    setTimeout(() => {
+      res.status(200).send();
+    }, 3000);
+  }
+);
 
-    res.status( 200 ).send();
-
-  }, 3000 );
-
-} );
-
-dev.post( '/:page',
+dev.post('/:page',
   bodyParser.json(),
-  ( req, res, next ) => {
+  (req, res, next) => {
+
+    if (req.params.page === 'imageuploadtoolarge') {
+      return res.status(413).send();
+    }
 
     // when resources are loaded or posted for a specific instance,
     // created or yet to be created, the server
     // should know what schema is being created
 
-    const { schema, values, fileKey } = _.get( devSchemas, req.params.page );
+    const { schema, values, fileKey } = _.get(devSchemas, req.params.page);
+
+    log('received post for %j', schema);
 
     req.schema = schema;
     req.values = values; // these are the current values
@@ -75,32 +81,31 @@ dev.post( '/:page',
     next();
 
   },
-  filesMw.putInTemporary.bind( null, { /* use defaults */ } ),
-  filesMw.uploadFilesToS3.bind( null, { /* defaults */ } ),
-  filesMw.cleanFileValues.bind( null, {} ),
-  schemaMw.clean.bind( null, {} ),
+  filesMw.putInTemporary.bind(null, { /* use defaults */ }),
+  filesMw.uploadFilesToS3.bind(null, { /* defaults */ }),
+  filesMw.cleanFileValues.bind(null, {}),
+  schemaMw.clean.bind(null, {}),
   devMw,
-  ( req, res, next ) => {
+  (req, res, next) => {
 
     // this here should include file values
-    console.log( 'clean', req.clean );
+    console.log('clean', req.clean);
 
     next();
 
   },
-  ( req, res ) => {
+  (req, res) => {
 
-    res.json( {
+    res.json({
       message: 'ok, ' + req.params.page
-    } );
+    });
 
   }
 );
 
-dev.listen( 3000 );
+dev.listen(3000);
 
-function render( filename ) {
-
+function render(filename) {
   return `<!DOCTYPE html>
     <head>
       <link rel="stylesheet" href="/style.css">
@@ -111,5 +116,4 @@ function render( filename ) {
         <script src="js/${filename}.js"></script>
       </body>
     </html>`;
-
 }

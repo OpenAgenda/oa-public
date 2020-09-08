@@ -20,6 +20,7 @@ class Main extends Component {
         redirect: '/'
       },
       lang: 'fr',
+      maxFileSize: 20,
       values,
       schema
     };

@@ -342,6 +342,7 @@ const config = {
     twitter: {
       name: prod.twitter.name
     },
+    maxFileSize: 20000000,
     imageSizeLimits: [2000, 30000000],
     comexposium: {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated

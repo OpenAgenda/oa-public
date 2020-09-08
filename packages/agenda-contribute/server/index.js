@@ -55,6 +55,7 @@ function init( c ) {
       config: {
         ...req.config,
         mapboxKey: config.mapboxKey,
+        maxFileSize: config.maxFileSize,
         schemaExtensions: _.get(req, 'schemaExtensions', [])
       },
       state: {

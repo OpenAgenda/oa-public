@@ -168,19 +168,23 @@ export default class FormSchemaComponent extends Component {
 
     } else {
 
-      this.onServerException();
+      this.onServerException(res);
 
     }
 
   }
 
-  onServerException( err ) {
+  onServerException(res) {
+    let globalErrorPath = 'state.labels.errors.serverException';
 
-    this.set( {
-      globalError: _.get( this, 'state.labels.errors.serverException' ),
+    if (res.statusCode === 413) {
+      globalErrorPath = 'state.labels.errors.serverErrorTooLargeFile';
+    }
+
+    this.set({
+      globalError: _.get(this, globalErrorPath).replace('%max%', this.props.maxFileSize || 22),
       loading: false
-    } );
-
+    });
   }
 
   _getFieldObject(name) {

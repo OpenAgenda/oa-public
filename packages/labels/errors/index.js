@@ -125,6 +125,10 @@ module.exports = {
     "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
     "it": "C'è stato un problema durante il backup, riprovare tra un attimo."
   },
+  "serverErrorTooLargeFile": {
+    "fr": "L'enregistrement a échoué: une image ou un fichier trop volumineux a été chargé dans le formulaire. La taille maximale autorisée est de %max% mégaoctets",
+    "en": "The submission failed: a too large image or file was loaded in the form. Maximum allowed size is %max% megabytes"
+  },
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",
     "en": "This event is unavailable as it is not associated to any agenda.",

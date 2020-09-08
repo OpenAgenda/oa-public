@@ -116,8 +116,6 @@ export default class EventForm extends Component {
 
     const p = props || this.props;
 
-    console.log(p);
-
     return {
       schema: eventSchema({
         interfaceLanguage: p.lang,
@@ -144,7 +142,8 @@ export default class EventForm extends Component {
       actionComponents,
       onSubmitSuccess,
       classNames,
-      role
+      role,
+      maxFileSize
     } = this.props;
 
     const {
@@ -156,6 +155,7 @@ export default class EventForm extends Component {
     return <FormSchemaComponent
       role={role}
       stateless={true}
+      maxFileSize={maxFileSize}
       lang={lang}
       components={eventFormComponents}
       values={values}

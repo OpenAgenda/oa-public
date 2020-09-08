@@ -125,6 +125,11 @@ module.exports = {
     link: '/imageupload',
     group: 'types'
   }, {
+    name: 'An image upload field with a too large image',
+    description: 'A field for uploading an image erroring because of the uploaded file size',
+    link: '/imageuploadtoolarge',
+    group: 'types'
+  }, {
     name: 'Multilingual fields with one language',
     description: 'Multilingual fields when only one language is active',
     link: '/multilingualwithonelanguage'

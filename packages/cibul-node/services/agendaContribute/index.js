@@ -144,6 +144,7 @@ function init(config, services) {
     logger: config.getLogConfig('svc', 'agendaContribute'),
     CDNPath: config.aws.servicesBucketPath,
     mapboxKey: config.mapboxAccessToken,
+    maxFileSize: parseInt(config.maxFileSize / 1000000),
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/contribute' : null,
     layout,
     middlewares,
