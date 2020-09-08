@@ -5,6 +5,10 @@ module.exports = {
     type: 'boolean',
     optional: true
   },
+  isBlacklisted: {
+    type: 'boolean',
+    optional: true
+  },
   isRemoved: {
     type: 'boolean',
     optional: true
