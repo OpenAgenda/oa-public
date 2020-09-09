@@ -12,7 +12,7 @@ const mjml2html = mjml.__esModule ? mjml.default : mjml;
 const readFile = promisify(fs.readFile);
 
 async function render(config, templateName, data = {}, opts = {}) {
-  const templateDir = path.join(config.templatesDir || '', templateName);
+  const templateDir = templateName ? path.join(config.templatesDir || '', templateName) : null;
   const lang = data.lang || opts.lang;
 
   let __ = data.__ || opts.__;
@@ -27,94 +27,74 @@ async function render(config, templateName, data = {}, opts = {}) {
     __
   };
 
-  let rawHtml = null;
-  let rawText = null;
-  let rawSubject = null;
-  let html = null;
-  let text = null;
-  let subject = null;
+  let html = opts.html || null;
+  let text = opts.text || null;
+  let subject = opts.subject || null;
 
   // Html
   if (!opts.disableHtml) {
-    if (rawHtml === null) {
-      try {
-        rawHtml = await readFile(path.join(templateDir, 'index.mjml'), 'utf8');
-      } catch (e) {
-        log.error(
-          new VError(
-            e,
-            `Error rendering html of the template '${templateName}'`
+    try {
+      if (templateDir) {
+        const rawHtml = await readFile(path.join(templateDir, 'index.mjml'), 'utf8');
+
+        const preHtml = ejs.render(rawHtml, templateData, {
+          ...opts,
+          filename: path.join(
+            config.templatesDir || '',
+            templateName,
+            'index.mjml'
           )
-        );
-      }
-    }
+        });
+        const { html: renderedHtml, errors } = mjml2html(preHtml);
 
-    if (rawHtml !== null) {
-      const preHtml = ejs.render(rawHtml, templateData, {
-        ...opts,
-        filename: path.join(
-          config.templatesDir || '',
-          templateName,
-          'index.mjml'
+        if (errors && errors.length) {
+          throw new VError(
+            {
+              info: { errors }
+            },
+            `Error rendering html of the template '${templateName}'`
+          );
+        }
+
+        html = renderedHtml;
+      }
+    } catch (e) {
+      log.error(
+        new VError(
+          e,
+          `Error rendering html of the template '${templateName}'`
         )
-      });
-      const { html: renderedHtml, errors } = mjml2html(preHtml);
-
-      if (errors && errors.length) {
-        throw new VError(
-          {
-            info: { errors }
-          },
-          'Invalid MJML'
-        );
-      }
-
-      html = renderedHtml;
+      );
     }
   }
 
   // Text
   if (!opts.disableText) {
-    if (rawText === null) {
-      try {
-        rawText = await readFile(path.join(templateDir, 'text.ejs'), 'utf8');
-      } catch (e) {
-        log.error(
-          new VError(
-            e,
-            `Error rendering text of the template '${templateName}'`
-          )
-        );
-      }
-    }
+    try {
+      const rawText = await readFile(path.join(templateDir, 'text.ejs'), 'utf8');
 
-    if (rawText !== null) {
       text = ejs.render(rawText, templateData, {
         ...opts,
         filename: path.join(config.templatesDir || '', templateName, 'text.ejs')
       });
+    } catch (e) {
+      log.error(
+        new VError(
+          e,
+          `Error rendering text of the template '${templateName}'`
+        )
+      );
     }
   }
 
   // Subject
   if (!opts.disableSubject) {
-    if (rawSubject === null) {
-      try {
-        rawSubject = await readFile(
-          path.join(templateDir, 'subject.ejs'),
-          'utf8'
-        );
-      } catch (e) {
-        log.error(
-          new VError(
-            e,
-            `Error rendering subject of the template '${templateName}'`
-          )
-        );
-      }
-    }
+    try {
+      const rawSubject = await readFile(
+        path.join(templateDir, 'subject.ejs'),
+        'utf8'
+      );
 
-    if (rawSubject !== null) {
       subject = ejs.render(rawSubject, templateData, {
         ...opts,
         filename: path.join(
@@ -123,6 +103,13 @@ async function render(config, templateName, data = {}, opts = {}) {
           'subject.ejs'
         )
       });
+    } catch (e) {
+      log.error(
+        new VError(
+          e,
+          `Error rendering subject of the template '${templateName}'`
+        )
+      );
     }
   }
 

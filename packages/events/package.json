@@ -27,7 +27,7 @@
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "marked": "^0.7.0",
-    "moment-timezone": "^0.5.7",
+    "moment-timezone": "^0.5.31",
     "mysql": "^2.11.1",
     "uuid": "^3.4.0",
     "verror": "^1.10.0",

@@ -12,7 +12,7 @@
   "dependencies": {
     "@openagenda/labels": "^2.2.7",
     "@openagenda/utils": "^1.2.9",
-    "moment-timezone": "^0.5.3"
+    "moment-timezone": "^0.5.31"
   },
   "devDependencies": {
     "mocha": "^7.0.1",

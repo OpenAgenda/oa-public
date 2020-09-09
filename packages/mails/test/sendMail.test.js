@@ -125,6 +125,28 @@ describe('sendMail', () => {
         queue: false
       })
     ).rejects.toThrow("Email template 'unknow' does not exist"));
+
+    it('sendMail with a text email', async () => {
+      const res = await mails.send({
+        to: {
+          address: 'admin@openagenda.com',
+          name: ''
+        },
+        subject: 'Nouvel inscrit à la newsletter',
+        text: '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter.',
+        data: {
+          root: 'https://openagenda.com',
+          emailSettingsLink: 'https://openagenda.com/settings/emails',
+          isRegisteredUser: false
+        },
+        queue: false
+      });
+
+      const message = JSON.parse(res.results[0].message);
+
+      expect(message.subject).toBe('Nouvel inscrit à la newsletter');
+      expect(message.text).toBe('"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter.');
+    });
   });
 
   describe('Euthreal transport', () => {

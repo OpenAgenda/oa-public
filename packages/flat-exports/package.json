@@ -23,8 +23,8 @@
     "fast-csv": "^2.4.1",
     "global": "^4.3.2",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.13",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
     "rss": "^1.2.2",
     "xlsx-writestream": "^0.5.1"
   },
