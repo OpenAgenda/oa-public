@@ -133,7 +133,7 @@ describe('sendMail', () => {
           name: ''
         },
         subject: 'Nouvel inscrit à la newsletter',
-        text: '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter.',
+        text: '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. <%- root %>',
         data: {
           root: 'https://openagenda.com',
           emailSettingsLink: 'https://openagenda.com/settings/emails',
@@ -145,7 +145,7 @@ describe('sendMail', () => {
       const message = JSON.parse(res.results[0].message);
 
       expect(message.subject).toBe('Nouvel inscrit à la newsletter');
-      expect(message.text).toBe('"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter.');
+      expect(message.text).toBe('"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. https://openagenda.com');
     });
   });
 
