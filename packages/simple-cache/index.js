@@ -17,7 +17,8 @@ module.exports = c => {
 
     return {
       get: (key, cb) => client.get(getRedisKey(key), cb),
-      set: (key, value, ttl, cb) => client.set(getRedisKey(key), value, 'ex', ttl, cb)
+      set: (key, value, ttl, cb) => client.set(getRedisKey(key), value, 'ex', ttl, cb),
+      ttl: (key, cb) => client.ttl(getRedisKey(key), cb)
     }
   }
 }
