@@ -17,7 +17,7 @@ module.exports = (config, services, service, app, base) => {
     agendas
   } = services;
 
-  app.use(base,
+  app.use(`${base}*`,
     expressUtils.https,
     agendas.mw.loadBy({
       path: 'params.agendaUid',
@@ -41,8 +41,8 @@ module.exports = (config, services, service, app, base) => {
         { total: true, detailed: true, includeImagePath: true }
       ).then(({ items, total }) => res.json({
         total,
-        offset: req.query.offset || 0,
-        limit: req.query.limit || 20,
+        offset: parseInt(req.query.offset || 0),
+        limit: parseInt(req.query.limit || 20),
         items
       }), next);
     },
