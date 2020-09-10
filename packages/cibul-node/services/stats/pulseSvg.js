@@ -4,7 +4,10 @@ const { ReactQueryCacheProvider, makeQueryCache } = require('react-query');
 const { subDays } = require('date-fns');
 const PulseChart = require('@openagenda/agenda-stats/dist/components/PulseChart');
 
-module.exports = function pulseSvgMw() {
+const xmlHead = '<?xml version="1.0" encoding="UTF-8"?>';
+const svgDoctype = '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">';
+
+module.exports = function pulseSvg() {
   return async (req, res, next) => {
     try {
       const { core } = req.app.services;
@@ -54,16 +57,15 @@ module.exports = function pulseSvgMw() {
         )
       );
       const result = ReactDOMServer.renderToStaticMarkup(element);
-      const svgXml = result.replace(/<svg([^>]*)>(.*)<\/svg>/, '<svg$1 xmlns="http://www.w3.org/2000/svg">$2</svg>');
 
-      res.setHeader('Content-Type', 'image/svg+xml');
-      res.send(svgXml);
+      res.data = result
+        .replace(
+          /^.*<svg([^>]*)>(.*)<\/svg>.*$/,
+          `${xmlHead}\n${svgDoctype}\n<svg xmlns="http://www.w3.org/2000/svg"$1>$2</svg>`
+        );
+
+      next();
     } catch (e) {
-      if (e.name === 'NotFoundError') {
-        res.sendStatus(404);
-        return;
-      }
-
       next(e);
     }
   };
