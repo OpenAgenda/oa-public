@@ -134,16 +134,15 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/embeds/:embedUid/events',
     preMw,
-    cacheMw.send( 'customEmbedShow', 'params.embedUid', ( cached, req, res ) => res.send( cached ) ),
-    cmn.redirectLegacySearch,
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    //useless if cache is used cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    embedSvc.mw.browserCache,
-    agendaSvc.mw.search( perPage ),
-    middlewares.embedShow,
-    cacheMw.set( 'customEmbedShow', 'params.embedUid', 30, req => req.render ),
-    ( req, res ) => res.send( req.render )
+    cacheMw( 'customEmbedShow', 'params.embedUid', 30, [
+      cmn.redirectLegacySearch,
+      agendaSvc.mw.load( 'uid', { cache: true } ),
+      //useless if cache is used cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+      embedSvc.mw.load( 'embedUid', 'uid' ),
+      embedSvc.mw.browserCache,
+      agendaSvc.mw.search( perPage ),
+      middlewares.embedShow
+    ] )
   );
 
   app.get(
@@ -445,6 +444,7 @@ function renderEmbedShow( req, res, next ) {
       if ( err ) return next( err );
 
       req.render = render;
+      res.data = render;
 
       next();
 
