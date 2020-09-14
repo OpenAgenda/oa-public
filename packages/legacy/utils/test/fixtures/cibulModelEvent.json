@@ -1,0 +1,105 @@
+{
+  "id": 831166,
+  "ownerId": 1,
+  "slug": "this-is-a-test",
+  "createdAt": "2020-09-14T12:11:36.000Z",
+  "updatedAt": "2020-09-14T12:11:36.000Z",
+  "uid": 65206069,
+  "store": "{\"images\":{\"filename\":null,\"credits\":null,\"size\":{\"height\":null,\"width\":null},\"variants\":[],\"base\":\"https://cibuldev.s3.amazonaws.com/\"},\"links\":[]}",
+  "title": {
+    "en": "this is a test"
+  },
+  "description": {
+    "en": "test"
+  },
+  "tags": {
+    "en": "test"
+  },
+  "freeText": {
+    "en": "test"
+  },
+  "isPublished": 1,
+  "fileKey": null,
+  "age": null,
+  "accessibility": [],
+  "locations": [
+    {
+      "id": 991951,
+      "uid": 3762953,
+      "slug": "fdsqfdsq_4897278",
+      "verified": 0,
+      "name": "fdsqfdsq",
+      "address": "Paris",
+      "city": "Paris",
+      "department": "Paris",
+      "region": "Île-de-France",
+      "district": null,
+      "postcode": null,
+      "country": "FR",
+      "latitude": 48.856697,
+      "longitude": 2.351462,
+      "updatedAt": "2020-09-07T08:55:19.000Z",
+      "timings": [
+        {
+          "start": "2020-09-19T09:00:00.000Z",
+          "end": "2020-09-19T11:30:00.000Z"
+        },
+        {
+          "start": "2020-09-20T09:00:00.000Z",
+          "end": "2020-09-20T11:30:00.000Z"
+        }
+      ],
+      "agendaId": 26519,
+      "store": {
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "pricingInfo": {
+        "en": "test"
+      }
+    }
+  ],
+  "articles": [
+    {
+      "userId": 1,
+      "state": 2,
+      "featured": 0,
+      "store": null,
+      "review": {
+        "id": 26519,
+        "uid": 638590,
+        "slug": "test-des-lieux",
+        "title": "Test des lieux",
+        "description": "gfdsqgfdsqfdsq",
+        "thumbnail": false
+      },
+      "tags": [],
+      "reviewer": {
+        "organization": null,
+        "contactName": null,
+        "contactNumber": null,
+        "contactPosition": null,
+        "email": null,
+        "organizationSlug": null
+      }
+    }
+  ],
+  "origin": {
+    "uid": 638590,
+    "title": "Test des lieux",
+    "url": null,
+    "slug": "test-des-lieux",
+    "oaUrl": "https://openagenda.com/agendas/638590"
+  },
+  "reviewId": 26519,
+  "customFields": {},
+  "_instanceType": "event"
+}

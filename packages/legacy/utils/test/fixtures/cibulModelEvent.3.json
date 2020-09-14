@@ -1,0 +1,151 @@
+{
+  "id": 831133,
+  "ownerId": 21435,
+  "slug": "four-a-chaux-de-venesmes-18190-lieu-dit-ecleneuil",
+  "createdAt": "2020-08-06T07:12:35.000Z",
+  "updatedAt": "2020-08-06T07:12:35.000Z",
+  "uid": 10677601,
+  "store": "{\"images\":{\"filename\":\"387d15b964454f11b04a761d6c2d6177.base.image.jpg\",\"size\":{\"width\":700,\"height\":467},\"variants\":[{\"filename\":\"387d15b964454f11b04a761d6c2d6177.full.image.jpg\",\"type\":\"full\",\"size\":{\"width\":4320,\"height\":2880}},{\"filename\":\"387d15b964454f11b04a761d6c2d6177.thumb.image.jpg\",\"type\":\"thumbnail\",\"size\":{\"width\":200,\"height\":200}}],\"credits\":\"Gesset  Bernard\",\"base\":\"https://cibul.s3.amazonaws.com/\"},\"links\":[]}",
+  "title": {
+    "fr": "FOUR A CHAUX DE VENESMES 18190 LIEU DIT ECLENEUIL"
+  },
+  "description": {
+    "fr": "VISITE D'UN SITE INDUSTRIEL"
+  },
+  "freeText": {
+    "fr": "VISITE DU SITE"
+  },
+  "isPublished": 1,
+  "fileKey": null,
+  "age": {
+    "min": 5,
+    "max": 99
+  },
+  "accessibility": [
+    "mi",
+    "pi"
+  ],
+  "locations": [
+    {
+      "id": 973912,
+      "uid": 50302823,
+      "slug": "18190-venesmes-3-route-de-lignieres-lieu-dit-ecleneuil",
+      "verified": 0,
+      "name": "Four à chaux",
+      "address": "3 Route de Lignieres, lieu dit Écleneuil 18190 Venesme",
+      "city": "Venesmes",
+      "department": "Cher",
+      "region": "Centre-Val de Loire",
+      "district": null,
+      "postcode": "18190",
+      "country": "FR",
+      "latitude": 46.841994,
+      "longitude": 2.292709,
+      "updatedAt": "2020-07-22T08:45:58.000Z",
+      "timings": [
+        {
+          "start": "2020-09-19T07:00:00.000Z",
+          "end": "2020-09-19T10:00:00.000Z"
+        },
+        {
+          "start": "2020-09-19T12:00:00.000Z",
+          "end": "2020-09-19T16:00:00.000Z"
+        },
+        {
+          "start": "2020-09-20T07:00:00.000Z",
+          "end": "2020-09-20T10:00:00.000Z"
+        },
+        {
+          "start": "2020-09-20T12:00:00.000Z",
+          "end": "2020-09-20T16:00:00.000Z"
+        }
+      ],
+      "agendaId": 25224,
+      "store": {
+        "image": "location50302823.jpg",
+        "description": {},
+        "tags": [
+          {
+            "id": 8,
+            "label": "Édifice industriel, scientifique et technique"
+          },
+          {
+            "id": 33,
+            "label": "First participation"
+          },
+          {
+            "id": 39,
+            "label": "Tourisme et handicap"
+          },
+          {
+            "id": 32,
+            "label": "Exceptional opening"
+          }
+        ],
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "Gesset Bernard",
+        "extId": null
+      },
+      "ticketLink": "0248605785"
+    }
+  ],
+  "articles": [
+    {
+      "userId": 21435,
+      "state": 0,
+      "featured": 0,
+      "store": null,
+      "review": {
+        "id": 25224,
+        "uid": 7312856,
+        "slug": "jep-2020-centre-val-de-loire",
+        "title": "Journées européennes du patrimoine 2020 : Centre-Val de Loire",
+        "description": "La 37e édition des JEP se déroulera les 19 et 20 septembre 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site Internet",
+        "thumbnail": "rwtbagenda96303603.jpg"
+      },
+      "tags": [
+        {
+          "id": 76873,
+          "slug": "visite-commentee-conference",
+          "label": "Visite commentée / Conférence"
+        },
+        {
+          "id": 76874,
+          "slug": "patrimoine-et-education",
+          "label": "Patrimoine et éducation"
+        },
+        {
+          "id": 76875,
+          "slug": "gratuit",
+          "label": "Gratuit"
+        }
+      ],
+      "reviewer": {
+        "organization": "LES AMIS DU FOUR A CHAUX DE VENESMES",
+        "contactNumber": "0248605785",
+        "contactName": "BERNARD GESSET",
+        "contactPosition": "MEMBRE",
+        "email": "bernard.gesset@neuf.fr",
+        "organizationSlug": "les-amis-du-four-a-chaux-de-venesmes"
+      }
+    }
+  ],
+  "origin": {
+    "uid": 7312856,
+    "title": "Journées européennes du patrimoine 2020 : Centre-Val de Loire",
+    "url": "http://www.journeesdupatrimoine.fr",
+    "slug": "jep-2020-centre-val-de-loire",
+    "oaUrl": "https://openagenda.com/agendas/7312856"
+  },
+  "reviewId": 25224,
+  "image": "387d15b964454f11b04a761d6c2d6177.base.image.jpg",
+  "thumbnail": "evtb387d15b964454f11b04a761d6c2d6177.base.image.jpg",
+  "credits": "Gesset  Bernard",
+  "customFields": {},
+  "_instanceType": "event"
+}
