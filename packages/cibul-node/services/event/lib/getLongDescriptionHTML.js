@@ -1,5 +1,20 @@
 'use strict';
 
+function renderHTMLFromMarkdown(services, links = null, md = '') {
+  const {
+    oembed,
+    formSchemas
+  } = services;
+
+  const html = formSchemas.utils.markdown.from(md);
+
+  if (!links) {
+    return html;
+  }
+
+  return oembed.injectEmbeds(html, links);
+}
+
 module.exports = (options, multilingualText = {}, links = []) => {
   const {
     services,
@@ -12,7 +27,7 @@ module.exports = (options, multilingualText = {}, links = []) => {
     ...options
   };
 
-  const render = _render.bind(null, services, links);
+  const render = renderHTMLFromMarkdown.bind(null, services, links);
 
   if (typeof multilingualText === 'string') return render(multilingualText);
 
@@ -34,17 +49,4 @@ module.exports = (options, multilingualText = {}, links = []) => {
   return '';
 }
 
-function _render(services, links = null, md = '') {
-  const {
-    oembed,
-    formSchemas
-  } = services;
-
-  const html = formSchemas.utils.markdown.from(md);
-
-  if (!links) {
-    return html;
-  }
-
-  return oembed.injectEmbeds(html, links);
-}
+module.exports.renderHTMLFromMarkdown = renderHTMLFromMarkdown;

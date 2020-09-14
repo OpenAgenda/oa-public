@@ -2,11 +2,13 @@
 
 const ControlData = require( '@openagenda/legacy/controlData' );
 const TagsAndCustom = require( '@openagenda/legacy/tagsAndCustom' );
+const utils = require( '@openagenda/legacy/utils' );
 
 const Queues = require( './queues' );
 
 module.exports.controlData = {};
 module.exports.tagsAndCustom = {};
+module.exports.utils = utils;
 
 module.exports.init = config => {
 

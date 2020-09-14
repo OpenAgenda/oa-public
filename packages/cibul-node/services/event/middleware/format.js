@@ -6,7 +6,9 @@ const du = require( '@openagenda/dom-utils' );
 const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 
-const getLongDescriptionHTML = require('../lib/getLongDescriptionHTML');
+const {
+  renderHTMLFromMarkdown
+} = require('../lib/getLongDescriptionHTML');
 
 
 /**
@@ -347,9 +349,6 @@ function _main( v ) {
   const map = {
     uid: 'getUid',
     slug: 'getSlug',
-    title: 'getTitle',
-    description: 'getDescription',
-    keywords: 'getTags',
     dateRange: 'getRange',
     isUpcoming: 'isUpcoming',
     placeName: 'getLocationName',
@@ -365,20 +364,15 @@ function _main( v ) {
     age: 'getAge'
   };
 
-  const longDescriptionLinks = v.req.event.getLinks();
+  Object.assign(v.formatted, v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang));
 
-  v.formatted.freeText = getLongDescriptionHTML({
-    lang: v.req.lang,
-    services: v.req.app.services,
-    useFallbackLang: false
-  }, v.req.event.freeText || {}, longDescriptionLinks);
+  v.formatted.longDescriptionLinks = v.req.event.getLinks();
 
-  v.formatted.longDescriptionLinks = longDescriptionLinks;
+  v.formatted.freeText = renderHTMLFromMarkdown(v.req.app.services, v.formatted.longDescriptionLinks, v.formatted.freeText);
 
   Object.keys(map).forEach( k => {
     v.formatted[ k ] = v.req.event[ map[ k ] ]();
   });
 
   return v;
-
 }
