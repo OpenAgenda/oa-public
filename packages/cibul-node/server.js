@@ -80,7 +80,13 @@ supervisor(async loadTasks => {
       }
 
       res.format({
-        'application/json': function () {
+        text() {
+          res.send(res.data);
+        },
+        html() {
+          res.send(res.data);
+        },
+        json() {
           res.json(res.data);
         }
       });

@@ -163,18 +163,17 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/embeds/:embedUid/events/:eventUid',
-    cacheMw.send( 'customEmbedShow', 'params.embedUid', ( cached, req, res ) => res.send( cached ) ),
-    preMw,
-    legacyAgendaSvc.mw.load( 'uid' ),
-    embedSvc.mw.load( 'embedUid', 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    _switchEmbedLang,
-    eventSvc.mw.format,
-    eventSvc.mw.components,
-    _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
-    middlewares.customEmbedEventShow,
-    cacheMw.set( 'customEmbedShow', 'params.embedUid', 30, req => req.render ),
-    ( req, res ) => res.send( req.render )
+    cacheMw( 'customEmbedShow', 'params.embedUid', 30, [
+      preMw,
+      legacyAgendaSvc.mw.load( 'uid' ),
+      embedSvc.mw.load( 'embedUid', 'uid' ),
+      eventSvc.mw.load( 'eventUid', 'uid' ),
+      _switchEmbedLang,
+      eventSvc.mw.format,
+      eventSvc.mw.components,
+      _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
+      middlewares.customEmbedEventShow
+    ] ),
   );
 
   app.get(
@@ -315,6 +314,7 @@ function renderAgendaEmbedEvent( req, res, next ) {
     if ( err ) return next( err );
 
     req.render = render;
+    res.data = render;
 
     next();
 

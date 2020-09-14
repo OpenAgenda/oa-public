@@ -33,14 +33,15 @@ module.exports = app => {
     '/agendas/:uid/events.json',
     preMw,
     _checkKey( ( req, res, next ) => res.status( 400 ).json( { error: 'Provided key is invalid' } ) ),
-    cacheMw.send('agendas', 'params.uid', cachedJson),
-    agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    agendaSvc.mw.search( perPage ),
-    eventSvc.mw.cleanEvents,
-    agendaSvc.mw.decorateEvents(),
-    agendaSvc.mw.cleanJson,
-    cacheMw.set('agendas', 'params.uid', 30, _cacheContent),
+    cacheMw('agendas', 'params.uid', 30, [
+      agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
+      agendaSvc.mw.search( perPage ),
+      eventSvc.mw.cleanEvents,
+      agendaSvc.mw.decorateEvents(),
+      agendaSvc.mw.cleanJson,
+      _cacheContent,
+    ]),
     gaTrack( 'events', 'export', 'json' ),
     json
   );
@@ -184,40 +185,6 @@ function _sleep( ms ) {
 
 }
 
-function json( req, res ) {
-
-  const events = !_.get( req, 'query.ods', false ) ? req.formatted : ODSJSONParser( req.agenda.tagSet, req.formatted );
-
-  cmn.renderJson( req, res, {
-    readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
-    total: req.total,
-    offset: req.offset,
-    limit: req.limit,
-    events,
-  } );
-
-}
-
-function cachedJson( cached, req, res ) {
-
-  const parsedCache = JSON.parse( cached );
-
-  _.set( req, 'agenda', {
-    uid: req.params.uid,
-    settings: cached.settings
-  } );
-
-  gaTrack( 'events', 'export', 'json' )( req );
-
-  res.set( 'Content-Type', 'application/json' );
-
-  if (req.query.callback) {
-    res.send(req.query.callback + '(' + JSON.stringify(parsedCache.response) + ')');
-  } else {
-    res.send(parsedCache.response);
-  }
-}
-
 function addSource(req, res, next) {
   req.app.services.aggregators.sources.add(req.aggregatorAgenda, req.agenda).then(() => {
     sessions.setFlash(req, res, getAggLabel('sourceAdded', {
@@ -347,9 +314,8 @@ function _loadEmbedUids( req, res, next ) {
 
 }
 
-function _cacheContent( req ) {
-
-  return JSON.stringify( {
+function _cacheContent( req, res, next ) {
+  res.data = {
     settings: req.agenda.getSettings(),
     response: {
       readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
@@ -358,6 +324,26 @@ function _cacheContent( req ) {
       limit: req.limit,
       events: req.formatted,
     }
-  } );
+  };
+
+  next();
+}
+
+function json( req, res ) {
+
+  const { response } = res.data;
+
+  const events = !_.get( req, 'query.ods', false ) ? response.events : ODSJSONParser( req.agenda.tagSet, response.events );
+
+  const result = {
+    ...response,
+    events
+  };
+
+  if (req.query.callback) {
+    return res.send(req.query.callback + '(' + JSON.stringify(result) + ')');
+  }
+
+  cmn.renderJson( req, res, result );
 
 }

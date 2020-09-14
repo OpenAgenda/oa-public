@@ -4,7 +4,8 @@ const { promisify } = require('util');
 const cmn = require('../../lib/commons-app');
 const getAdditionalFieldStats = require('./getAdditionalFieldStats');
 const addFieldSchema = require('./addFieldSchema');
-const pulseSvgMw = require('./pulseSvgMw');
+const pulseSvg = require('./pulseSvg');
+const cacheMw = require('../../lib/cache.mw');
 
 module.exports = {
   init,
@@ -24,7 +25,8 @@ function plugApp(app) {
 
   app.get(
     '/agendas/:agendaUid/pulse.svg',
-    pulseSvgMw()
+    cacheMw('agendas', 'params.agendaUid', 60 * 60 * 24, pulseSvg()),
+    pulseSvgHeaders
   );
 
   // AgendaAdmin
@@ -109,4 +111,12 @@ class Stats {
   // async remove() {
   //   return this.redisClient.del(ANNOUNCEMENT_KEY);
   // }
+}
+
+function pulseSvgHeaders(req, res, next) {
+  // res.set('Cache-Control', `public, max-age=${delay}`);
+  res.set('Expires', res.cacheExpires.toUTCString());
+  res.set('Content-Type', 'image/svg+xml');
+
+  next();
 }

@@ -1,55 +1,84 @@
 'use strict';
 
+const { promisify } = require('util');
 const _ = require('lodash');
+const express = require('express');
 
-module.exports.send = (namespace, path, onSuccess) => {
-  return (req, res, next) => {
-    req.app.services.simpleCache(namespace, _.get(req, path)).get(_sanitizeUrl(req), (err, value) => {
-      if (err) return next(err);
+module.exports = (namespace, path, delay, cacheMw) => {
+  const cacheRouter = express.Router({ mergeParams: true }).use(cacheMw);
 
-      if (value !== null) {
-        req.log('info', {
-          cached: namespace + ':' + _.get(req, path),
-          message: 'cached response'
-        });
-
-        return onSuccess(value, req, res);
-      }
-
-      next();
-    });
-  }
-}
-
-module.exports.set = (namespace, path, delay, cacheFunc) => {
-  return (req, res, next) => {
-    req.log('caching');
+  return async (req, res, next) => {
+    const { simpleCache } = req.app.services;
 
     const identifier = _.get(req, path);
+    const get = promisify(simpleCache(namespace, identifier).get);
+    const set = promisify(simpleCache(namespace, identifier).set);
+    const ttl = promisify(simpleCache(namespace, identifier).ttl);
+    const sanitizedUrl = _sanitizeUrl(req);
 
-    req.app.services.simpleCache(namespace, identifier).set(_sanitizeUrl(req), cacheFunc(req), delay, err => {
-      if (err) {
-        req.log('error', {
-          cached: namespace + ':' + identifier,
-          error: err, message: 'caching error'
-        });
-      } else {
+    async function saveExpiration() {
+      const cacheTtl = await ttl(sanitizedUrl);
+      const expires = new Date(Date.now() + cacheTtl * 1000);
+
+      res.cacheDelay = delay;
+      res.cacheTtl = cacheTtl;
+      res.cacheExpires = expires;
+    }
+
+    try {
+      const cached = await get(sanitizedUrl);
+
+      if (cached) {
         req.log('info', {
-          cached: namespace + ':' + identifier,
-          message: 'caching successful'
+          cached: `${namespace}:${identifier}`,
+          message: `cached response`
+        });
+
+        res.data = JSON.parse(cached);
+
+        await saveExpiration();
+
+        next();
+      } else {
+        cacheRouter(req, res, async () => {
+          try {
+            await set(sanitizedUrl, JSON.stringify(res.data), delay);
+
+            req.log('info', {
+              cached: `${namespace}:${identifier}`,
+              message: 'caching successful'
+            });
+            await saveExpiration();
+
+            next();
+          } catch (e) {
+            req.log('error', {
+              cached: `${namespace}:${identifier}`,
+              error: e,
+              message: 'caching error'
+            });
+
+            next(e);
+          }
         });
       }
-    });
+    } catch (e) {
+      req.log('error', {
+        cached: `${namespace}:${identifier}`,
+        error: e,
+        message: 'caching error'
+      });
 
-    next();
-  }
+      next(e);
+    }
+  };
 }
 
 /**
  * remove the bits irrelevent for cache key
  */
 function _sanitizeUrl(req) {
-  if (req.url.indexOf('?')===-1) return req.url;
+  if (req.url.indexOf('?') === -1) return req.url;
 
   const parts = req.url.split('?');
 
