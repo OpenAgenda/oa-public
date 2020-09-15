@@ -565,7 +565,7 @@ function _render( template, defaults ) {
     if ( _.get( config, 'auth.google.id' ) ) data.enabledServices.push( 'google' );
     if ( _.get( config, 'auth.twitter.key' ) ) data.enabledServices.push( 'twitter' );
 
-    if (Object.keys(data.errors).length > 0) {
+    if (data.errors && Object.keys(data.errors).length > 0) {
       res.status(400);
     }
 
