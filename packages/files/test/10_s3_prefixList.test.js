@@ -8,7 +8,6 @@ const _ = require( 'lodash' );
 const config = require( '../testconfig.js' );
 const fs = require( 'fs' );
 const prefixList = require( '../s3/prefixList' );
-const should = require( 'should' );
 const svc = require( '../' );
 
 const filePath = __dirname + '/files/testfiletoupload.txt';
@@ -16,14 +15,14 @@ const filePath2 = __dirname + '/files/testfiletoupload2.txt';
 const srcPath = __dirname + '/files/src1.txt';
 const srcPath2 = __dirname + '/files/src2.txt';
 
-describe( 'files - unit ( server ): s3/prefixList', function() {
+describe( 'files - unit ( server ): s3/prefixList', () => {
 
-  this.timeout( 30000 );
+  jest.setTimeout( 30000 );
 
   svc.init( config );
 
   // copy test files ( they are removed when stored on s3 by default )
-  before( done => {
+  beforeAll(done => {
 
     fs.createReadStream( srcPath ).pipe( fs.createWriteStream( filePath ) );
 
@@ -31,12 +30,12 @@ describe( 'files - unit ( server ): s3/prefixList', function() {
 
     done();
 
-  } );
+  });
 
   // store test files on s3
-  before( done => svc.s3.store( [ filePath, filePath2 ], done ) );
+  beforeAll(done => svc.s3.store( [ filePath, filePath2 ], done ));
 
-  after( done => {
+  afterAll(done => {
 
     svc.s3.remove( [
       filePath.split('/').pop(),
@@ -45,14 +44,14 @@ describe( 'files - unit ( server ): s3/prefixList', function() {
 
   });
 
-  it( 'prefixList lists files by their given prefix', () => {
+  it('prefixList lists files by their given prefix', () => {
 
     return prefixList( _.pick( config, [ 'accessKeyId', 'secretAccessKey', 'bucket' ] ), 'testfiletoupload' ).then( filenames => {
 
-      filenames.should.eql( [ 'testfiletoupload.txt', 'testfiletoupload2.txt' ] );
+      expect(filenames).toEqual([ 'testfiletoupload.txt', 'testfiletoupload2.txt' ]);
 
     } );
 
-  } );
+  });
 
 });

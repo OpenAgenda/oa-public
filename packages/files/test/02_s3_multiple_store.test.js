@@ -6,7 +6,6 @@ process.env.NODE_ENV = 'test';
 
 const svc = require( '../' );
 const s3Svc = svc.s3;
-const should = require( 'should' );
 const fs = require( 'fs' );
 const filePath = __dirname + '/files/testfiletoupload.txt';
 const filePath2 = __dirname + '/files/testfiletoupload2.txt';
@@ -16,11 +15,11 @@ const config = require( '../testconfig.js' );
 
 svc.init( config );
 
-describe( 'files - functional ( server ): s3.store multiple files', function() {
+describe( 'files - functional ( server ): s3.store multiple files', () => {
 
-  this.timeout( 30000 );
+  jest.setTimeout( 30000 );
 
-  beforeEach( function( done ) {
+  beforeEach(done => {
 
     fs.createReadStream( srcPath ).pipe( fs.createWriteStream( filePath ) );
 
@@ -30,7 +29,7 @@ describe( 'files - functional ( server ): s3.store multiple files', function() {
 
   });
 
-  beforeEach( function( done ) {
+  beforeEach(done => {
 
     s3Svc.remove( [
       filePath.split('/').pop(),
@@ -43,17 +42,17 @@ describe( 'files - functional ( server ): s3.store multiple files', function() {
 
   });
 
-  it( 'uploads multiple files', function( done ) {
+  it('uploads multiple files', done => {
 
     s3Svc.store( [ filePath, filePath2 ], function( err ) {
 
       s3Svc.exists( filePath.split('/').pop(), function( err, exists ) {
 
-        exists.should.equal( true );
+        expect(exists).toBe(true);
 
         s3Svc.exists( filePath2.split('/').pop(), function( err, exists ) {
 
-          exists.should.equal( true );
+          expect(exists).toBe(true);
 
           done();
 
@@ -63,6 +62,6 @@ describe( 'files - functional ( server ): s3.store multiple files', function() {
 
     });
 
-  } );
+  });
 
 });

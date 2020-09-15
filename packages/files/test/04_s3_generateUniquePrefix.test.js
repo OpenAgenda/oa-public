@@ -8,7 +8,6 @@ const _ = require( 'lodash' );
 const config = require( '../testconfig.js' );
 const fs = require( 'fs' );
 const prefixList = require( '../s3/prefixList' );
-const should = require( 'should' );
 const svc = require( '../' );
 
 const filePath = __dirname + '/files/testfiletoupload.txt';
@@ -16,14 +15,14 @@ const filePath2 = __dirname + '/files/testfiletoupload2.txt';
 const srcPath = __dirname + '/files/src1.txt';
 const srcPath2 = __dirname + '/files/src2.txt';
 
-describe( 'files - functional ( server ): s3.generateUniquePrefix', function() {
+describe( 'files - functional ( server ): s3.generateUniquePrefix', () => {
 
-  this.timeout( 30000 );
+  jest.setTimeout( 30000 );
 
   svc.init( config );
 
   // copy test files ( they are removed when stored on s3 by default )
-  before( done => {
+  beforeAll(done => {
 
     fs.createReadStream( srcPath ).pipe( fs.createWriteStream( filePath ) );
 
@@ -31,12 +30,12 @@ describe( 'files - functional ( server ): s3.generateUniquePrefix', function() {
 
     done();
 
-  } );
+  });
 
   // store test files on s3
-  before( done => svc.s3.store( [ filePath, filePath2 ], done ) );
+  beforeAll(done => svc.s3.store( [ filePath, filePath2 ], done ));
 
-  after( done => {
+  afterAll(done => {
 
     svc.s3.remove( [
       filePath.split('/').pop(),
@@ -45,18 +44,18 @@ describe( 'files - functional ( server ): s3.generateUniquePrefix', function() {
 
   });
 
-  it( 'generateUniquePrefix generates a prefix unused in s3 bucket', () => {
+  it('generateUniquePrefix generates a prefix unused in s3 bucket', () => {
 
     return svc.s3.generateUniquePrefix().then( prefix => {
 
       return prefixList( config, prefix ).then( filenames => {
 
-        filenames.length.should.equal( 0 );
+        expect(filenames.length).toBe(0);
 
       } );
 
     } );
 
-  } );
+  });
 
 });
