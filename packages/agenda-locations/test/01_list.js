@@ -152,33 +152,39 @@ describe('agenda-locations - functional - list', () => {
   describe('stream', function () {
     this.timeout(10000);
 
+
     it('stream streams', done => {
       svc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
-        const stream = svc(7196947).stream();
-        let count = 0;
+        svc(7196947).list({}, {}, { stream: true }).then(stream => {
 
-        stream.on('data', location => {
-          count++;
+          let count = 0;
+          stream.on('data', location => {
+            count++;
+          });
+
+          stream.on('end', () => {
+            assert.equal(count, total);
+            done();
+          });
+
         });
-
-        stream.on('end', () => {
-          assert.equal(count, total);
-          done();
-        });
-
       });
     });
 
     it('detailed option and includeTotal streams with totals and detailed fields', done => {
-      const stream = svc(7196947).stream({}, { eventCounts: true, detailed: true });
+      svc(7196947).list({}, {}, {
+        stream: true,
+        eventCounts: true,
+        detailed: true
+      }).then(stream => {
+        stream.on('data', location => {
+          assert.notStrictEqual(location.department, undefined);
+          assert.notStrictEqual(location.eventCount, undefined);
+        });
 
-      stream.on('data', location => {
-        assert.notStrictEqual(location.department, undefined);
-        assert.notStrictEqual(location.eventCount, undefined);
-      });
-
-      stream.on('end', () => {
-        done();
+        stream.on('end', () => {
+          done();
+        });
       });
     });
   });

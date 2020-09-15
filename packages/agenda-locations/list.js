@@ -4,30 +4,27 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('list');
 
 const addListQuery = require('./lib/addListQuery');
+const addPagination = require('./lib/addPagination');
 const addSelect = require('./lib/addSelect');
 const BadRequestError = require('./lib/BadRequestError');
-const cleanNav = require('./lib/cleanNav');
-const cleanListOptions = require('./lib/cleanListOptions');
-const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
-const addPaginationAndOrder = require('./lib/addPaginationAndOrder');
-const decorateWithCounts = require('./lib/decorateWithCounts');
+const createStream = require('./lib/createStream');
+const validateNav = require('./lib/validateNav');
+const validateListOptions = require('./lib/validateListOptions');
+const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
 
 async function list(service, query = {}, nav = {}, options = {}) {
   log('received %j %j', query, nav);
   const k = service.clients.knex(service.config.schema);
+  const cleanListOptions = validateListOptions(options);
   const {
     total: includeTotal,
-    eventCounts: includeEventCounts,
     context,
     detailed,
     includeFields,
-    includeImagePath
-  } = cleanListOptions(options);
+    stream: streamOptions
+  } = cleanListOptions;
 
-  const {
-    useAfter,
-    after
-  } = cleanNav(nav);
+  const cleanNav = validateNav(nav);
 
   await addListQuery(service, k, {
     ...query,
@@ -41,44 +38,39 @@ async function list(service, query = {}, nav = {}, options = {}) {
   log('total: %s', total);
 
   addSelect(k, detailed ? 'public' : 'list', {
-    include: useAfter ? ['id'] : [],
+    include: cleanNav.useAfter ? ['id'] : [],
     includeFields
   });
 
-  addPaginationAndOrder(k, nav);
-
-  const rows = await k;
-
-  const items = rows.map(r => fromDbEntryToItem(r, {
-    imagePath: includeImagePath ? service.config.imagePath : null,
-    access: detailed ? 'public' : 'list',
-    includeFields
-  }));
-
-  log('fetched %s items', items.length);
-
-  if (service.interfaces.getEventCounts && includeEventCounts) {
-    decorateWithCounts(
-      items,
-      await service.interfaces.getEventCounts(items.map(i => i.uid), context)
-    );
+  if (!streamOptions) {
+    addPagination(k, cleanNav);
   }
 
-  if (total === null && !useAfter) {
-    return items;
+  k.orderBy('id', 'desc');
+
+  const result = {};
+
+  if (cleanListOptions.stream) {
+    result.stream = createStream(service, k, cleanListOptions);
+  } else {
+    result.rows = await k;
+    result.items = await transformAndDecorateItems(service, result.rows, cleanListOptions);
+    log('fetched %s items', result.rows.length);
   }
 
-  const response = { items };
+  if (total === null && !cleanNav.useAfter) {
+    return cleanListOptions.stream ? result.stream : result.items;
+  }
 
   if (total !== null) {
-    response.total = total;
+    result.total = total;
   }
 
-  if (useAfter) {
-    response.after = rows.length ? _.last(rows).id : null;
+  if (cleanNav.useAfter) {
+    result.after = result.rows.length ? _.last(result.rows).id : null;
   }
 
-  return response;
+  return _.omit(result, ['rows']);
 }
 
 module.exports = list;
