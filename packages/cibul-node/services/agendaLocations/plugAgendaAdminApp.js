@@ -96,14 +96,16 @@ module.exports = (config, services, instance, app, base) => {
   });
 
   app.get([`${base}.csv`, `${base}.xlsx`], (req, res, next) => {
-    req.stream = req.locations.stream(req.query, {
+    req.locations.list(req.query, {}, {
+      stream: true,
       eventCounts: true,
       detailed: true,
       includeImagePath: true,
-      includeFields: ['uid', 'name', 'address', 'city', 'department', 'postalCode', 'region', 'countryCode', 'latitude', 'longitude', 'state', 'extId'],
-      transform: transformLocationForFlatExport({ lang: req.lang })
-    });
-    next();
+      includeFields: ['uid', 'name', 'address', 'city', 'department', 'postalCode', 'region', 'countryCode', 'latitude', 'longitude', 'state', 'extId']
+    }).then(stream => {
+      req.stream = stream.pipe(transformLocationForFlatExport({ lang: req.lang }));
+      next();
+    }, next);
   });
 
   app.get(`${base}.csv`, (req, res, next) => {

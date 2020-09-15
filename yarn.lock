@@ -4594,9 +4594,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/cibul-model@npm:^1.1.6":
-  version: 1.1.6
-  resolution: "@openagenda/cibul-model@npm:1.1.6"
+"@openagenda/cibul-model@npm:^1.1.7":
+  version: 1.1.7
+  resolution: "@openagenda/cibul-model@npm:1.1.7"
   dependencies:
     "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/utils": ^1.2.2
@@ -4607,12 +4607,12 @@ __metadata:
     locutus: ^2.0.11
     lodash: ^4.17.4
     marked: ^0.7.0
-    moment: 2.8.3
-    moment-timezone: ^0.5.14
+    moment: ^2.27.0
+    moment-timezone: ^0.5.31
     mysql: 2.6.2
     validator: 4.1.0
     when: ~3.4
-  checksum: 0451d88e5d1d9ff137eabee0efc344e755ba9c6cc9fdf8b0bcc0818d5b0e4b2de4ad0d264777ee7c569c621fa8a587d936c798a483970648444efb1f514a6b03
+  checksum: e284e32e1efd0c13ac5ad6b975d088167ce5df7ed904d18fd88ed292bcfa626a92f0e1178a151aabd5a3a08499028557626c1daeb425dd905dea04ef470d2529
   languageName: node
   linkType: hard
 
@@ -4806,19 +4806,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/es-node@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "@openagenda/es-node@npm:1.2.4"
+"@openagenda/es-node@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "@openagenda/es-node@npm:1.2.5"
   dependencies:
     "@openagenda/utils": ^1.2.2
     async: ~0.9
     debug: ~2.0
     deep-extend: ~0.2
     i18n-iso-countries: ~0.7
-    moment: ^2.18.0
-    moment-timezone: ^0.5.11
+    moment: ^2.27.0
+    moment-timezone: ^0.5.31
     should: ~4.0
-  checksum: 93ff0463366c2d195cb5a5eaef337b2b77e3e3a9d2cf931de23741d5344da9ca5302a98d1b97a8f91ec554e192a1845db6a11202de97fcd4136b1238cb75575c
+  checksum: 77e50d70b489526719c18548cedc938058028694a484ffc75da5bf738cb2379e49048bd0219fa49e6ae513ef20f6df5d34ede56e68deaac640b012b17893099c
   languageName: node
   linkType: hard
 
@@ -11903,13 +11903,13 @@ __metadata:
     "@openagenda/aggregator-sources": ^1.2.11
     "@openagenda/aggregators": ^1.11.5
     "@openagenda/call-to-action": ^2.2.14
-    "@openagenda/cibul-model": ^1.1.6
+    "@openagenda/cibul-model": ^1.1.7
     "@openagenda/cibul-templates": ^1.3.2
     "@openagenda/custom": ^1.3.13
     "@openagenda/date-range": ^2.2.12
     "@openagenda/dom-utils": ^2.2.11
     "@openagenda/email-strategie": ^0.1.11
-    "@openagenda/es-node": ^1.2.4
+    "@openagenda/es-node": ^1.2.5
     "@openagenda/event-form": ^1.4.10
     "@openagenda/event-search": ^2.7.4
     "@openagenda/events": ^1.6.9
@@ -25168,7 +25168,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.11, moment-timezone@npm:^0.5.14, moment-timezone@npm:^0.5.25, moment-timezone@npm:^0.5.31":
+"moment-timezone@npm:^0.5.25, moment-timezone@npm:^0.5.31":
   version: 0.5.31
   resolution: "moment-timezone@npm:0.5.31"
   dependencies:
@@ -25177,17 +25177,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:2.27.0, moment@npm:>= 2.9.0, moment@npm:^2.18.0, moment@npm:^2.27.0, moment@npm:^2.9.0":
+"moment@npm:2.27.0, moment@npm:>= 2.9.0, moment@npm:^2.27.0, moment@npm:^2.9.0":
   version: 2.27.0
   resolution: "moment@npm:2.27.0"
   checksum: 72d9a7d8dba59e3d538440cdc0b59fa895b123361e370be231896478aaf157a484355ce32bd8daf6f731d6d1636d3a67ecb67531e536e093ca18b43e0cbae194
-  languageName: node
-  linkType: hard
-
-"moment@npm:2.8.3":
-  version: 2.8.3
-  resolution: "moment@npm:2.8.3"
-  checksum: f7c0506052aaa89e9e2040b3260188f4f55a755d32f7a15094368ccd3fef074111349168cd9d9c2eb896836e7cda085969603b08cb43e2a8592f615fd91bf8ef
   languageName: node
   linkType: hard
 
