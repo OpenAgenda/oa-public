@@ -8,8 +8,8 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const templater = require('@openagenda/cibul-templates');
 
-const References = React.createFactory( require( '@openagenda/agenda-event-references/react/build/Show' ) );
-const Registration = React.createFactory( require( '@openagenda/registration/lib/Display' ) );
+const References = require( '@openagenda/agenda-event-references/react/build/Show' );
+const Registration = require( '@openagenda/registration/lib/Display' );
 
 const config = require( '../../../config' );
 const eventSvc = require( '../../event' );
@@ -187,7 +187,7 @@ function _registration( v ) {
 
 function renderComponent( component, data ) {
 
-  let rendered = ReactDOMServer.renderToStaticMarkup( component( data ) );
+  let rendered = ReactDOMServer.renderToStaticMarkup( React.createElement(component, data) );
 
   return rendered === '<noscript></noscript>' ? false : rendered;
 
