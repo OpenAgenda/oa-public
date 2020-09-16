@@ -113,7 +113,8 @@ module.exports = (options = {}) => {
       "fieldType" : "text",
       "optional" : true,
       "label" : labels.imageCredits,
-      "enableWith" : "image"
+      "enableWith" : "image",
+      "max": 255
     }, {
       field : 'languages',
       fieldType : 'languages',
