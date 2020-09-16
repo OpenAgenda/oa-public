@@ -62,6 +62,8 @@ describe('v3', () => {
       Key: 'src3_renamed.png',
       Bucket: `${bucket}`
     });
+
+    await upload.providers.s3.remove('src3_renamed.png');
   });
 
   it('can upload multiple stream', async () => {
@@ -97,6 +99,8 @@ describe('v3', () => {
       Key: 'une simple image_renamed.png',
       Bucket: `${bucket}`
     });
+
+    await upload.providers.s3.remove('une simple image_renamed.png');
   });
 
   it('can upload multiple stream for multiple output', async () => {
@@ -166,6 +170,9 @@ describe('v3', () => {
 
     const largeImage = await axios.get(large.uploadValue.Location);
     expect(largeImage.headers['content-length']).toBe(stream.bytesRead.toString());
+
+    await upload.providers.s3.remove('image-de-profil_small.png');
+    await upload.providers.s3.remove('image-de-profil_large.png');
   });
 
   describe('with server', () => {
@@ -237,6 +244,8 @@ describe('v3', () => {
       const uploadedImage = await axios.get(data.uploadValue.Location);
 
       expect(uploadedImage.headers['content-length']).toBe(stream.bytesRead.toString());
+
+      await upload.providers.s3.remove('src3_renamed.png');
     });
   });
 
@@ -279,6 +288,8 @@ describe('v3', () => {
         Key: 'josep_aff_renamed.jpg',
         Bucket: `${bucket}`
       });
+
+      await upload.providers.s3.remove('josep_aff_renamed.jpg');
     });
 
     it('fails', async () => {
@@ -321,10 +332,16 @@ describe('v3', () => {
       })).rejects.toThrow('Ca ne marche pas !');
 
       // Images removed
-      await expect(axios.get('https://oadev.s3.amazonaws.com/src3.png'))
+      await expect(axios.get(`https://${bucket}.s3.amazonaws.com/src3_renamed.png`))
         .rejects.toThrow('Request failed with status code 404');
-      await expect(axios.get('https://oadev.s3.amazonaws.com/josep_aff.jpg'))
+      await expect(axios.get(`https://${bucket}.s3.amazonaws.com/josep_aff_work.jpg`))
         .rejects.toThrow('Request failed with status code 404');
+      await expect(axios.get(`https://${bucket}.s3.amazonaws.com/josep_aff_fail.jpg`))
+        .rejects.toThrow('Request failed with status code 404');
+
+      await upload.providers.s3.remove('src3_renamed.png');
+      await upload.providers.s3.remove('josep_aff_work.jpg');
+      await upload.providers.s3.remove('josep_aff_fail.jpg');
     });
   });
 });

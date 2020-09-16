@@ -89,6 +89,8 @@ module.exports = cfg => {
       storage: new StreamStorage(cfg, providers, options)
     });
 
+    process.providers = providers;
+
     return process;
   };
 };
