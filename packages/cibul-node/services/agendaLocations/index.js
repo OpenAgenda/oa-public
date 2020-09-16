@@ -11,7 +11,6 @@ const beforeRemove = require('./interfaces/beforeRemove');
 const onUpdate = require('./interfaces/onUpdate');
 
 const plugAgendaApp = require('./plugAgendaApp');
-const plugEventApp = require('./plugEventApp');
 const plugAgendaAdminApp = require('./plugAgendaAdminApp');
 const plugApp = require('./plugApp');
 
@@ -51,7 +50,6 @@ module.exports.init = async (config, services) => {
   return Object.assign(instance, {
     apps: Object.assign(plugApp.bind(null, config, services, instance), {
       agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
-      event: plugEventApp.bind(null, config, services, instance),
       agenda: plugAgendaApp.bind(null, config, services, instance)
     }),
     task: queue.run

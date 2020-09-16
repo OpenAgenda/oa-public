@@ -10,7 +10,6 @@ const get = require('./get');
 const list = require('./list');
 const merge = require('./merge');
 const remove = require('./remove');
-const stream = require('./stream');
 const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
@@ -74,7 +73,6 @@ module.exports = Object.assign((c = {}) => {
     list: list.byAgendaUid.bind(null, service, agendaUid),
     terms: terms.byAgendaUid.bind(null, service, agendaUid),
     merge: merge.byAgendaUid.bind(null, service, agendaUid),
-    stream: stream.byAgendaUid.bind(null, service, agendaUid),
     get: get.byAgendaUid.bind(null, service, agendaUid)
   }), {
     get: get.bind(null, service),
