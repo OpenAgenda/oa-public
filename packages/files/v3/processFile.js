@@ -124,15 +124,15 @@ module.exports = async function processFile(cfg, providers, data, options, conte
   const variantsRegistry = new Map();
 
   for (const variant of variants) {
-    const pass = new PassThrough();
+    const variantStream = info.stream.pipe(new PassThrough());
 
     const response = {
       ...info,
       key: variant.key,
+      stream: variantStream,
       provider: providerKey,
       revert: () => provider.remove(response.filename),
-      abort: () => abortUpload(response),
-      registry: variantsRegistry
+      abort: () => abortUpload(response)
     };
 
     variantsRegistry.set(variant, response);
@@ -141,13 +141,13 @@ module.exports = async function processFile(cfg, providers, data, options, conte
     promises.push(
       Promise.resolve()
         .then(async () => {
-          response.filename = await variant.getFilename(info, ctx);
+          response.filename = await variant.getFilename(response, ctx);
 
           if (typeof variant.transform === 'function') {
-            response.stream = await variant.transform(info, ctx);
+            response.stream = await variant.transform(response, ctx);
           }
 
-          return provider.upload(response.stream.pipe(pass), response.filename);
+          return provider.upload(response.stream, response.filename);
         })
         .then(result => {
           response.uploadValue = result;
