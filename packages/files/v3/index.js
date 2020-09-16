@@ -26,13 +26,16 @@ function transformResult(result) {
   return result;
 }
 
-function abortUploads(promises) {
-  return error => {
-    console.log(promises);
-    console.log(error);
+function abortAllUploads(filesRegistry) {
+  const promises = [];
 
-    throw error;
-  };
+  for (const [, variantsRegistry] of filesRegistry) {
+    for (const [, item] of variantsRegistry) {
+      promises.push(item.abort());
+    }
+  }
+
+  return Promise.all(promises);
 }
 
 module.exports = cfg => {
@@ -51,20 +54,34 @@ module.exports = cfg => {
 
       if (isMultiple) {
         const promises = [];
+        const filesRegistry = new Map();
 
         for (const fileOptions of options) {
           if (!data[fileOptions.key]) {
             continue;
           }
 
-          promises.push(processFile(cfg, providers, data[fileOptions.key], fileOptions, context));
+          const {
+            promise,
+            registry
+          } = await processFile(cfg, providers, data[fileOptions.key], fileOptions, context, true);
+
+          promises.push(promise);
+          filesRegistry.set(fileOptions, registry);
         }
 
         return Promise.all(promises)
-          .then(transformResult, abortUploads(promises));
+          .then(
+            transformResult,
+            async error => {
+              await abortAllUploads(filesRegistry);
+
+              throw error;
+            }
+          );
       } else {
         return processFile(cfg, providers, data, options, context)
-          .then(transformResult, abortUploads(promises));
+          .then(transformResult);
       }
     };
 

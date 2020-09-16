@@ -159,6 +159,13 @@ describe('v3', () => {
       Key: 'image-de-profil_large.png',
       Bucket: `${bucket}`
     });
+
+    // Check image sizes
+    const smallImage = await axios.get(small.uploadValue.Location);
+    expect(smallImage.headers['content-length']).toBe(stream.bytesRead.toString());
+
+    const largeImage = await axios.get(large.uploadValue.Location);
+    expect(largeImage.headers['content-length']).toBe(stream.bytesRead.toString());
   });
 
   describe('with server', () => {
@@ -275,7 +282,6 @@ describe('v3', () => {
     });
 
     it('fails', async () => {
-
       const upload = service([
         {
           key: 'image',
@@ -286,38 +292,39 @@ describe('v3', () => {
         },
         {
           key: 'buggy',
-          getFilename: (
-            info,
-            context
-          ) => `${path.parse(context.originalname).name}_renamed${path.parse(context.originalname).ext}`,
-          transform: () => {
-            throw new Error('Ca ne marche pas !')
-          }
+          variants: [
+            {
+              getFilename: (
+                info,
+                context
+              ) => `${path.parse(context.originalname).name}_work${path.parse(context.originalname).ext}`
+            },
+            {
+              getFilename: (
+                info,
+                context
+              ) => `${path.parse(context.originalname).name}_fail${path.parse(context.originalname).ext}`,
+              transform: () => {
+                throw new Error('Ca ne marche pas !');
+              }
+            }
+          ]
         }
       ]);
 
       const stream1 = fs.createReadStream(path.join(__dirname, 'files/src3.png'));
       const stream2 = fs.createReadStream(path.join(__dirname, 'files/josep_aff.jpg'));
 
-      const result = await upload({
+      await expect(upload({
         image: stream1,
         buggy: stream2
-      });
+      })).rejects.toThrow('Ca ne marche pas !');
 
-      expect(result).toMatchObject({
-        key: 'image',
-        filename: 'josep_aff_renamed.jpg',
-        fileType: { ext: 'webp', mime: 'image/webp' },
-        isImage: true,
-        provider: 's3'
-      });
-      expect(isStream(result.stream)).toBe(true);
-      expect(result.uploadValue).toMatchObject({
-        Location: s3UrlMatching('josep_aff_renamed.jpg'),
-        key: 'josep_aff_renamed.jpg',
-        Key: 'josep_aff_renamed.jpg',
-        Bucket: `${bucket}`
-      });
+      // Images removed
+      await expect(axios.get('https://oadev.s3.amazonaws.com/src3.png'))
+        .rejects.toThrow('Request failed with status code 404');
+      await expect(axios.get('https://oadev.s3.amazonaws.com/josep_aff.jpg'))
+        .rejects.toThrow('Request failed with status code 404');
     });
   });
 });

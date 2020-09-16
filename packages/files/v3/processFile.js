@@ -1,5 +1,6 @@
 'use strict';
 
+const { PassThrough } = require('stream');
 const FileType = require('file-type');
 const VError = require('verror');
 
@@ -74,7 +75,30 @@ function getFileVariants(options) {
   return result;
 }
 
-module.exports = async function processFile(cfg, providers, data, options, context) {
+function abortUpload(item) {
+  // Destroy stream for current upload
+  item.stream.destroy();
+
+  // Revert upload for finished upload
+  if (item.uploadValue) {
+    return item.revert();
+  }
+
+  // Nothing to do for erroneous uploads
+  return true;
+}
+
+function abortAllVariants(registry) {
+  const promises = [];
+
+  for (const [, item] of registry) {
+    promises.push(item.abort());
+  }
+
+  return Promise.all(promises);
+}
+
+module.exports = async function processFile(cfg, providers, data, options, context, returnRegistry) {
   // Get file's stream and context
   const [fileStream, fileContext] = extractStreamAndContext(data);
 
@@ -97,63 +121,64 @@ module.exports = async function processFile(cfg, providers, data, options, conte
   }
 
   const promises = [];
+  const variantsRegistry = new Map();
 
   for (const variant of variants) {
-    const { key, getFilename, transform, ...variantRest } = variant;
+    const pass = new PassThrough();
 
-    let stream = info.stream;
-    let filename;
+    const response = {
+      ...info,
+      key: variant.key,
+      provider: providerKey,
+      revert: () => provider.remove(response.filename),
+      abort: () => abortUpload(response),
+      registry: variantsRegistry
+    };
+
+    variantsRegistry.set(variant, response);
 
     // Start upload
     promises.push(
       Promise.resolve()
         .then(async () => {
-          filename = await variant.getFilename(info, ctx);
+          response.filename = await variant.getFilename(info, ctx);
 
           if (typeof variant.transform === 'function') {
-            stream = await variant.transform(info, ctx);
+            response.stream = await variant.transform(info, ctx);
           }
 
-          return provider.upload(stream, filename, variantRest);
+          return provider.upload(response.stream.pipe(pass), response.filename);
         })
-        .then(result => ({
-          ...info,
-          key,
-          filename,
-          provider: providerKey,
-          ...variantRest,
-          uploadValue: result
-        }))
+        .then(result => {
+          response.uploadValue = result;
+
+          return response;
+        })
         .catch(error => {
+          response.uploadReason = error;
+
           throw new VError({
             cause: error,
-            info: {
-              ...info,
-              key,
-              filename,
-              provider: providerKey,
-              ...variantRest
-            }
+            info: response
           });
         })
     );
   }
 
-  if (!Array.isArray(options.variants)) {
-    return promises[0]
-      .catch(error => {
-        // TODO abort and/or remove all others
-        console.log('CA PLANTE, on destroy tout', error);
-        throw error;
-      });
+  const ret = !Array.isArray(options.variants)
+    ? promises[0]
+    : Promise.all(promises);
+
+  if (returnRegistry) {
+    return {
+      promise: ret,
+      registry: variantsRegistry
+    };
   }
 
-  return Promise.all(promises)
-    .catch(error => {
-      // TODO abort and/or remove all others
-      console.log('CA PLANTE, on destroy tout', error);
-
-      console.log(promises);
+  return ret
+    .catch(async error => {
+      await abortAllVariants(variantsRegistry);
 
       throw error;
     });
