@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require('util');
 const AWS = require( 'aws-sdk' );
 
 module.exports = function createS3Provider(cfg) {
@@ -16,10 +15,8 @@ module.exports = function createS3Provider(cfg) {
     // apiVersion: '2006-03-01'
   });
 
-  const s3Upload = promisify(s3.upload).bind(s3);
-
   return {
-    upload(stream, filename, params) {
+    upload(stream, filename, params = {}) {
       const s3Params = {
         Key: filename,
         Body: stream,
@@ -28,17 +25,16 @@ module.exports = function createS3Provider(cfg) {
         Bucket: params.bucket || defaultBucket
       };
 
-      return s3Upload(s3Params);
+      return s3.upload(s3Params).promise();
+    },
+    remove(filename, params = {}) {
+      const s3Params = {
+        Key: filename,
+        ...params,
+        Bucket: params.bucket || defaultBucket
+      };
 
-      // return new Promise((resolve, reject) => {
-      //   stream.on('error', error => {
-      //     console.log('ERROR', error);
-      //     stream.destroy();
-      //     reject(error);
-      //   })
-      //
-      //   s3Upload(s3Params).then(resolve, reject);
-      // });
+      return s3.deleteObject(s3Params).promise();
     }
     // move
   };
