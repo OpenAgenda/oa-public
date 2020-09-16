@@ -41,7 +41,7 @@ module.exports = class StreamStorage {
 
     // stream is already in file
     cb(null, {
-      transformAndUpload : this.transformAndUpload.bind(this, file)
+      transformAndUpload: this.transformAndUpload.bind(this, file)
     });
   }
 

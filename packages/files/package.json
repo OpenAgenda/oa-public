@@ -17,12 +17,13 @@
     "is-stream": "^2.0.0",
     "lodash": "^4.17.15",
     "multer": "^1.4.2",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "verror": "^1.10.0"
   },
   "devDependencies": {
-    "busboy": "^0.3.1",
     "express": "^4.17.1",
     "form-data": "^3.0.0",
+    "gm": "^1.23.1",
     "jest": "^26.4.2"
   }
 }

@@ -29,6 +29,16 @@ module.exports = function createS3Provider(cfg) {
       };
 
       return s3Upload(s3Params);
+
+      // return new Promise((resolve, reject) => {
+      //   stream.on('error', error => {
+      //     console.log('ERROR', error);
+      //     stream.destroy();
+      //     reject(error);
+      //   })
+      //
+      //   s3Upload(s3Params).then(resolve, reject);
+      // });
     }
     // move
   };

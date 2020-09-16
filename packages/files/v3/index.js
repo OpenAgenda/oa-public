@@ -26,6 +26,15 @@ function transformResult(result) {
   return result;
 }
 
+function abortUploads(promises) {
+  return error => {
+    console.log(promises);
+    console.log(error);
+
+    throw error;
+  };
+}
+
 module.exports = cfg => {
   const providers = {
     s3: cfg.s3 ? s3(cfg.s3) : null
@@ -52,10 +61,10 @@ module.exports = cfg => {
         }
 
         return Promise.all(promises)
-          .then(transformResult);
+          .then(transformResult, abortUploads(promises));
       } else {
         return processFile(cfg, providers, data, options, context)
-          .then(transformResult);
+          .then(transformResult, abortUploads(promises));
       }
     };
 

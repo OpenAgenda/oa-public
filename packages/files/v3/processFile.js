@@ -1,7 +1,7 @@
 'use strict';
 
-const path = require('path');
 const FileType = require('file-type');
+const VError = require('verror');
 
 const imageExts = new Set([
   'jpg',
@@ -101,16 +101,21 @@ module.exports = async function processFile(cfg, providers, data, options, conte
   for (const variant of variants) {
     const { key, getFilename, transform, ...variantRest } = variant;
 
-    const filename = await variant.getFilename(info, ctx);
     let stream = info.stream;
-
-    if (typeof variant.transform === 'function') {
-      stream = await variant.transform(info, ctx);
-    }
+    let filename;
 
     // Start upload
     promises.push(
-      provider.upload(stream, filename, variantRest)
+      Promise.resolve()
+        .then(async () => {
+          filename = await variant.getFilename(info, ctx);
+
+          if (typeof variant.transform === 'function') {
+            stream = await variant.transform(info, ctx);
+          }
+
+          return provider.upload(stream, filename, variantRest);
+        })
         .then(result => ({
           ...info,
           key,
@@ -119,20 +124,37 @@ module.exports = async function processFile(cfg, providers, data, options, conte
           ...variantRest,
           uploadValue: result
         }))
-        .catch(error => ({
-          ...info,
-          key,
-          filename,
-          provider: providerKey,
-          ...variantRest,
-          uploadReason: error
-        }))
+        .catch(error => {
+          throw new VError({
+            cause: error,
+            info: {
+              ...info,
+              key,
+              filename,
+              provider: providerKey,
+              ...variantRest
+            }
+          });
+        })
     );
   }
 
   if (!Array.isArray(options.variants)) {
-    return promises[0];
+    return promises[0]
+      .catch(error => {
+        // TODO abort and/or remove all others
+        console.log('CA PLANTE, on destroy tout', error);
+        throw error;
+      });
   }
 
-  return Promise.all(promises);
+  return Promise.all(promises)
+    .catch(error => {
+      // TODO abort and/or remove all others
+      console.log('CA PLANTE, on destroy tout', error);
+
+      console.log(promises);
+
+      throw error;
+    });
 };
