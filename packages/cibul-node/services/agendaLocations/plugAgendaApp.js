@@ -6,15 +6,14 @@ const gaTrack = require('../../lib/gaTrack.mw');
 const log = require('@openagenda/logs')('locations/plugAgendaApp');
 
 const {
-  loadLocation,
-  setImageOnExistingLocation,
   setImageOnNewLocation
 } = require('./lib/middleware');
 
 module.exports = (config, services, service, app, base) => {
   const {
     members,
-    agendas
+    agendas,
+    agendaContribute
   } = services;
 
   app.use(`${base}*`,
@@ -38,7 +37,7 @@ module.exports = (config, services, service, app, base) => {
       service(req.params.agendaUid).list(
         req.query,
         _.pick(req.query, ['offset', 'limit']),
-        { total: true, detailed: true, includeImagePath: true }
+        { total: true, detailed: !req.query.sample, includeImagePath: true }
       ).then(({ items, total }) => res.json({
         total,
         offset: parseInt(req.query.offset || 0),
@@ -52,8 +51,44 @@ module.exports = (config, services, service, app, base) => {
     }
   );
 
-  app.use((err, req, res, next) => {
-    res.status(500).json();
-    log('error', err);
+  app.post(`${base}`,
+    members.mw.load,
+    agendaContribute.mw.verifyMemberAuthorization,
+    (req, res, next) => {
+      service(req.params.agendaUid).create({
+        ...req.body,
+        state: 0
+      }, {
+        includeImagePath: true
+      }).then(location => {
+        res.json({
+          location,
+          success: true
+        });
+      }, next);
+    }
+  );
+
+  app.post(`${base}/images`,
+    members.mw.load,
+    agendaContribute.mw.verifyMemberAuthorization,
+    service.utils.images.multer,
+    setImageOnNewLocation(service)
+  );
+
+  app.post(`${base}/images/remove`, (req, res, next) => {
+    res.send('ok');
+  });
+
+  app.use(base, (err, req, res, next) => {
+    if (err.name === 'ValidationError') {
+      res.status(400).json({
+        errors: err.detail,
+        success: false
+      });
+    } else {
+      res.status(500).json();
+      log('error', err);
+    }
   });
 }
