@@ -18,11 +18,7 @@ config = require( '../../../config' ),
 
 imageSvc = require( '@openagenda/images' ),
 
-moment = require( 'moment-timezone' ),
-
 s3Svc = require( '@openagenda/files' ).s3,
-
-fileSvc = require( '@openagenda/files' ).file,
 
 exportable = require( './exportable' ),
 
