@@ -75,24 +75,24 @@ function getFileVariants(options) {
   return result;
 }
 
-function abortUpload(item) {
+function abortUpload(item, error) {
   // Destroy stream for current upload
-  item.stream.destroy();
-
-  // Revert upload for finished upload
-  if (item.uploadValue) {
-    return item.revert();
+  if (item.stream) {
+    if (typeof item.stream.end === 'function') {
+      item.stream.end();
+    }
+    item.stream.destroy(error);
   }
 
-  // Nothing to do for erroneous uploads
-  return true;
+  // Revert upload
+  return item.revert();
 }
 
-function abortAllVariants(registry) {
+function abortAllVariants(registry, error) {
   const promises = [];
 
   for (const [, item] of registry) {
-    promises.push(item.abort());
+    promises.push(item.abort(error));
   }
 
   return Promise.all(promises);
@@ -124,15 +124,14 @@ module.exports = async function processFile(cfg, providers, data, options, conte
   const variantsRegistry = new Map();
 
   for (const variant of variants) {
-    const variantStream = info.stream.pipe(new PassThrough());
+    const pass = new PassThrough();
 
     const response = {
       ...info,
       key: variant.key,
-      stream: variantStream,
       provider: providerKey,
       revert: () => provider.remove(response.filename),
-      abort: () => abortUpload(response)
+      abort: error => abortUpload(response, error)
     };
 
     variantsRegistry.set(variant, response);
@@ -147,14 +146,23 @@ module.exports = async function processFile(cfg, providers, data, options, conte
             response.stream = await variant.transform(response, ctx);
           }
 
-          return provider.upload(response.stream, response.filename);
+          const managedUpload = provider.upload(response.stream.pipe(pass), response.filename);
+
+          response.abort = error => {
+            managedUpload.abort();
+            return abortUpload(response, error);
+          };
+
+          return managedUpload.promise();
         })
         .then(result => {
+          response.uploadStatus = 'fulfilled';
           response.uploadValue = result;
 
           return response;
         })
         .catch(error => {
+          response.uploadStatus = 'rejected';
           response.uploadReason = error;
 
           throw new VError({
@@ -162,12 +170,21 @@ module.exports = async function processFile(cfg, providers, data, options, conte
             info: response
           });
         })
+        .finally(() => {
+          pass.destroy();
+        })
     );
   }
 
-  const ret = !Array.isArray(options.variants)
-    ? promises[0]
-    : Promise.all(promises);
+  const ret = (
+    !Array.isArray(options.variants)
+      ? promises[0]
+      : Promise.all(promises)
+  )
+    .finally(() => {
+      info.stream.destroy();
+      fileStream.destroy();
+    });
 
   if (returnRegistry) {
     return {
@@ -178,8 +195,8 @@ module.exports = async function processFile(cfg, providers, data, options, conte
 
   return ret
     .catch(async error => {
-      await abortAllVariants(variantsRegistry);
+      await abortAllVariants(variantsRegistry, error);
 
       throw error;
-    });
+    })
 };

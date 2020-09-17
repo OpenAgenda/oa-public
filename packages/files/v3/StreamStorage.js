@@ -41,11 +41,14 @@ module.exports = class StreamStorage {
 
     // stream is already in file
     cb(null, {
+      stream: file.stream,
       transformAndUpload: this.transformAndUpload.bind(this, file)
     });
   }
 
   _removeFile(req, file, cb) {
+    file.stream.destroy();
+
     cb(null);
   }
 };
