@@ -1,0 +1,19 @@
+{
+  "id": 2,
+  "uid": 18927679,
+  "agenda_id": 218,
+  "slug": "chatteau-des-lebv",
+  "placename": "Château des Lebres",
+  "address": "07460 Banne",
+  "city": "Banne",
+  "region": "Auvergne-Rhône-Alpes",
+  "department": "Ardèche",
+  "postal_code": "07460",
+  "insee": "07024",
+  "country": "FR",
+  "city_district": null,
+  "latitude": 44.369683,
+  "longitude": 4.167885,
+  "updated_at": "2019-04-29T16:48:26.000Z",
+  "store": "{\"image\":null,\"description\":{\"fr\":\"Situé au pied du village de Banne, le château des Lèbres trouve ses origines au XVIème siècle. Ancienne maison forte et relais de chasse des comtes du Roure, la famille Colomb en fera une de ses résidences principales au XIXe siècle. Elle l’agrémentera d’un remarquable parc orné d’arbres rares et d’un ingénieux système d’irrigation.\",\"it\":\"Situato al piede del villaggio di Tenda di riparo, il castello di Lèbres trova le sue origini nel secolo XVIth. La casa forte(solida) (Vecchia) precedente e il relé di caccia dei numeri(conti,capi d'accusa) di Roure, la famiglia di Colomb farà una della sua casa principale nel secolo XIXth. Lo decorerà con un parco notevole adornato d'alberi(di tendiscarpe) rari(non comuni) e di un sistema ingegnoso d'irrigazione.\",\"es\":\"Situado al pie del pueblo de Cesto, el castillo de los Lèbres encuentra sus orígenes en el siglo XVI. Antigua casa fuerte y enlace(albergue) de caza de los condes de Roure, la familia Colomb hará una de sus residencias principales en el siglo XIX. Ella la adornará de un parque notable adornado de árboles raros y de un sistema ingenioso de irrigación.\",\"de\":\"Das am Fuß des Dorfes Sonnendaches gelegene Schloss von Lèbres findet seine Ursprünge im XVI. Jahrhundert. Ehemaliges starkes und übermittelndes Haus der Jagd der Grafen von Roure, der Familie Colomb wird daraus einen seiner Hauptwohnsitze im XIX. Jahrhundert machen. Sie wird es mit einem bemerkenswerten mit seltenen Bäumen und mit einem erfinderischen Bewässerungssystem geschmückten Park verzieren.\",\"en\":\"Located at the foot of the village of Awning, the castle of Lèbres finds its origins in the XVIth century. Old(Former) strong house and relay of hunting of the counts of Roure, the Colomb family will make one of its main home in the XIXth century. It will decorate it with a remarkable park adorned with rare trees and with an ingenious system of irrigation.\"},\"tags\":[{\"id\":2,\"label\":\"Château, hôtel urbain, palais, manoir\"}],\"website\":\"http://www.domainedeslebres.com/\",\"phone\":\"0475363414\",\"links\":[\"https://fr-fr.facebook.com/domainedeslebres/\"],\"access\":{},\"state\":1,\"timezone\":\"Europe/Paris\",\"imageCredits\":null,\"extId\":null}"
+}

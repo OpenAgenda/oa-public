@@ -6,6 +6,7 @@ const create = require('./create');
 const update = require('./update');
 const remove = require('./remove');
 const members = require('./members');
+const locations = require('./locations');
 const get = require('./get');
 
 module.exports = core => {
@@ -16,6 +17,7 @@ module.exports = core => {
     update: update.bind(null, core, agendaUid),
     remove: remove.bind(null, agendaUid),
     events: events(core, agendaUid),
+    locations: locations(core, agendaUid),
     members: members(core.services, agendaUid),
     settings: settings(agendaUid)
   }), {

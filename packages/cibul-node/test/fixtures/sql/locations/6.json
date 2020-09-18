@@ -1,0 +1,19 @@
+{
+  "id": 6,
+  "uid": 42197191,
+  "agenda_id": 218,
+  "placename": "Eglise",
+  "slug": "uneautreeglise",
+  "address": "07320 Saint-Agrève",
+  "city": "Saint-Agrève",
+  "region": "Auvergne-Rhône-Alpes",
+  "department": "Ardèche",
+  "postal_code": "07320",
+  "insee": "07204",
+  "country": "FR",
+  "city_district": null,
+  "latitude": 45.032146,
+  "longitude": 4.403335,
+  "updated_at": "2019-08-20T11:43:37.000Z",
+  "store": "{\"image\":\"//cibuldev.s3.amazonaws.com/location32522324.jpg\",\"description\":{},\"tags\":[{\"id\":42,\"label\":\"Monument historique\"},{\"id\":3,\"label\":\"Édifice religieux\"}],\"email\":null,\"phone\":null,\"links\":[],\"access\":{},\"state\":1,\"timezone\":\"Europe/Paris\",\"imageCredits\":\"APPVL\",\"extId\":null}"
+}

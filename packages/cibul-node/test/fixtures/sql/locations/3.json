@@ -1,0 +1,19 @@
+{
+  "id": 3,
+  "uid": 9955517,
+  "agenda_id": 218,
+  "slug": "eglise",
+  "placename": "Eglise",
+  "address": "07140 Gravières",
+  "city": "Gravières",
+  "region": "Auvergne-Rhône-Alpes",
+  "department": "Ardèche",
+  "postal_code": "07140",
+  "insee": "07100",
+  "country": "FR",
+  "city_district": null,
+  "latitude": 44.420841,
+  "longitude": 4.09162,
+  "updated_at": "2019-04-29T16:16:30.000Z",
+  "store": "{\"image\":null,\"description\":{\"fr\":\"Eglise romane du XIIe siècle avec des ajouts  gothiques des XIVe et XVIe siècles. Elle renferme un retable du XIVe siècle \\\"Arbre de Jessé\\\".\",\"it\":\"Chiesa romanza del secolo XIIth con aggiunte gotiche dello XIVth e secoli XVIth. Lei contiene un ritavolo(ritabella) del secolo XIVth \\\"L'albero(Il tendiscarpe) di Jessé\\\".\",\"es\":\"Iglesia romance del siglo XII con añadidos góticos de los XIVos y XVIos siglos. Ella cierra un retable del siglo XIV \\\"Árbol de Jessé\\\".\",\"de\":\"Romanische Kirche des XII. Jahrhunderts mit gotischen Zusätzen die XIV. und XVI. Jahrhunderte. Sie enthält einen Retable des XIV. Jahrhunderts \\\"Baum von Jessé\\\".\",\"en\":\"Romance church of the XIIth century with Gothic additions of the XIVth and XVIth centuries. She(It) contains a retable of the XIVth century \\\"Tree of Jessé\\\".\"},\"tags\":[{\"id\":3,\"label\":\"Édifice religieux\"},{\"id\":42,\"label\":\"Monument historique\"}],\"phone\":\"04 75 37 31 07\",\"links\":[],\"access\":{},\"state\":1,\"timezone\":\"Europe/Paris\",\"imageCredits\":null}"
+}
