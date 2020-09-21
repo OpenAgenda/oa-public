@@ -13,6 +13,7 @@ module.exports = {
   boolean: require('./boolean'),
   labels: require('./labels'),
   set: require('./set'),
+  stream: require('./stream'),
   object: require('./object'),
   latitude: require('./latitude'),
   longitude: require('./longitude'),

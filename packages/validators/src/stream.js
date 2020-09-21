@@ -10,7 +10,7 @@ export default config => {
   };
 
   return Object.assign(value => {
-    if (value === undefined && params.optional) {
+    if (value === undefined || value === null && params.optional) {
       return value;
     }
 
