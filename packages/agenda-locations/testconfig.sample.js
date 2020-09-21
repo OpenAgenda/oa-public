@@ -2,12 +2,12 @@
 
 module.exports = {
   mysql: {
-    host: 'localhost',
-    user: 'root',
-    password: 'grut',
+    host: process.env.OA_MYSQL_DEV_HOST,
+    user: process.env.OA_MYSQL_DEV_USER,
+    password: process.env.OA_MYSQL_DEV_PASSWORD,
     database: 'location_test',
     table: 'location',
-    agendaSettingsTableName: 'location_agenda_settings'
+    ssl: true
   },
   schemas: {
     location: 'location',

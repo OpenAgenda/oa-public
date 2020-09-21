@@ -23,18 +23,13 @@ const res = {
   reverseGeocode: `${apiRoot}/geocode/reverse`,
   insee: `${apiRoot}/insee`,
   get: `${apiRoot}/:locationUid`,
-  set: `${apiRoot}/`,
+  update: `${apiRoot}/:locationUid`,
+  create: `${apiRoot}/`,
   remove: `${apiRoot}/remove`,
   merge: `${apiRoot}/merge`,
   csv: '#csv',
   xlsx: '#xlsx',
   removeSuggestion: `${apiRoot}/:locationUid/suggestion/remove`,
-  image: {
-    upload: `${apiRoot}/:locationUid/image`,
-    remove: `${apiRoot}/:locationUid/image/remove`,
-    newUpload: `${apiRoot}/image`,
-    newRemove: `${apiRoot}/image/remove`
-  },
   seeEvents: `${apiRoot}/:agendaSlug/admin?locationUid=:locationUid`,
   suggestChange: `https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create`
 };

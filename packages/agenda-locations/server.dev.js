@@ -1,97 +1,191 @@
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
-global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
+'use strict';
 
-const http = require('http');
-const express = require('express');
-const morgan = require('morgan');
+const _ = require('lodash');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
-const testconfig = require('./testconfig');
-const locationsEditor = require('./');
+const http = require('http');
+const knex = require('knex');
+const express = require('express');
+const morgan = require('morgan');
+const log = require('@openagenda/logs')('server.dev');
 
-const mw = locationsEditor.mw( 'agendaId' );
+const fixtures = require('./test/fixtures');
 
-const app = express();
+(async () => {
 
-const server = http.createServer( app );
+  const f = fixtures({
+    host: process.env.OA_MYSQL_DEV_HOST,
+    user: process.env.OA_MYSQL_DEV_USER,
+    password: process.env.OA_MYSQL_DEV_PASSWORD,
+    database: 'location_test',
+    ssl: true
+  });
 
-app.server = server;
+  await f.load();
 
-/*
- * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
- * */
+  const app = express();
 
-if ( process.env.NODE_ENV !== 'test' ) {
-  locationsEditor.init( testconfig );
-}
+  const server = http.createServer(app);
 
-if ( [ 'development', 'test' ].includes( process.env.NODE_ENV ) ) {
-  app.use( morgan( 'dev' ) );
-}
+  const svc = require('.')({
+    knex: f.client,
+    imagePath: '//cibuldev.s3.amazonaws.com/',
+    interfaces: {
+      getAgendaIdByUid: async id => ({
+        25221: 7196947
+      })[id],
+      getEventCounts: async (locationUids, { agendaUid }) => [{
+        uid: 60763721,
+        eventCount: 12,
+        agendaEventCount: 8
+      }, {
+        uid: 51665985,
+        eventCount: 9,
+        agendaEventCount: 2
+      }]
+    }
+  });
 
-app.use( cors() );
-app.use( express.json() );
-app.use( express.urlencoded( { extended: true } ) );
+  // load fixtures.
 
-app.use( ( req, res, next ) => {
-  req.log = console.log;
-  req.agendaId = 123;
-  req.userUid = 456;
-  next();
-} );
+  app.server = server;
 
-app.get(
-  '/',
-  mw.list,
-  ( req, res, next ) => {
+  /*
+   * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
+   * */
 
-    setTimeout( () => {
+  //if (['development', 'test'].includes(process.env.NODE_ENV)) {
+    app.use(morgan('dev'));
+  //}
 
-      res.json( {
-        items: req.locations.items,
-        total: req.locations.total
-      } );
+  app.use(cors());
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-    }, 2000 );
+  app.use((req, res, next) => {
+    req.log = console.log;
+    req.agendaId = 123;
+    req.userUid = 456;
+    next();
+  });
 
-  }
-);
+  app.get('/', (req, res, next) => svc(7196947)
+    .list(req.query, _.pick(req.query, ['offset', 'limit']), {
+      total: true,
+      eventCounts: true,
+      detailed: true,
+      includeImagePath: true
+    }).then(result => res.json({
+      success: true,
+      ...result
+    }))
+  );
 
-app.get( '/resync', mw.resync );
-app.get( '/toverify', mw.getUnverifiedCount );
-app.get( '/geocode', mw.geocode );
-app.get( '/insee', mw.insee );
-app.get( '/geocode/reverse', mw.reverseGeocode );
-app.get( '/terms', mw.list.terms );
-app.get( '/:locationUid', mw.load, ( req, res ) => res.json( req.location ) );
-app.post( '/', mw.set );
-app.post( '/remove', mw.remove );
-app.post( '/image', mw.newImageUpload );
-app.post( '/image/remove', mw.newImageRemove );
+  //app.get('/toverify', mw.getUnverifiedCount);
+  app.get('/geocode', (req, res, next) => res.json({
+    "results": [{
+      "address": "Rue Alice, 92400 Courbevoie, France",
+      "district": "Quartier de Bécon",
+      "city": "Courbevoie",
+      "postalCode": "92400",
+      "department": "Hauts-de-Seine",
+      "region": "Île-de-France",
+      "timezone": "Europe/Paris",
+      "latitude": 48.9025825,
+      "longitude": 2.279693,
+      "country": "France",
+      "countryCode": "fr"
+    }]
+  }));
 
-app.get( '/:locationUid/suggestion*', ( req, res, next ) => {
-  // preload stakeholderId
-  req.stakeholderId = 456;
-  next();
-} );
+  app.get('/insee', (req, res, next) => svc.utils.getINSEECode(
+    _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
+  ).then(code => res.json({ code }), next));
 
-app.post( '/:locationUid/suggestion*', ( req, res, next ) => {
-  req.stakeholderId = 456;
-  next();
-} );
+  app.get('/geocode/reverse', (req, res, next) => res.json({
+    "results": [
+      {
+        "address": "École Maternelle Alphonse Daudet, Rue Fallet, 92400 Courbevoie, France",
+        "district": "Quartier de Bécon",
+        "city": "Courbevoie",
+        "postalCode": "92400",
+        "department": "Hauts-de-Seine",
+        "region": "Île-de-France",
+        "timezone": "Europe/Paris",
+        "latitude": 48.9019071,
+        "longitude": 2.2789371,
+        "country": "France",
+        "countryCode": "fr"
+      }
+    ]
+  }));
 
-app.post( '/:locationUid/image', mw.imageUpload );
-app.post( '/:locationUid/image/remove', mw.imageRemove );
-app.post( '/merge', mw.merge );
+  app.get('/terms', (req, res, next) => {
+    svc(7196947).terms(req.query.field.split(','), {}, { filterNulls: true })
+      .then(terms => res.json({ terms }));
+  });
 
-app.use( errorHandler( { log: true } ) );
+  app.get('/:locationUid', (req, res, next) => {
+    svc(7196947).get(req.params.locationUid, {
+      includeImagePath: true,
+    }).then(location => res.json(location), next);
+  });
 
-if ( process.env.NODE_ENV !== 'test' ) {
-  server.listen( process.env.PORT || 3000, () => {
+  app.post('/', (req, res, next) => {
+    svc(7196947).create({ ...req.body, state: 1 }, {
+      includeImagePath: true
+    }).then(location => {
+      res.json({
+        location,
+        success: true
+      });
+    }, next);
+  });
+
+  app.delete('/:locationUid', (req, res, next) => {
+    svc(7196947).remove(req.params.locationUid, {
+      includeImagePath: true
+    }).then(location => {
+      res.json({
+        location,
+        success: true
+      });
+    }, next);
+  });
+
+  app.post('/merge', (req, res, next) => {
+    const fieldsToOmit = Object.keys(req.body || {})
+      .filter(field => req.body[field] === null)
+      .concat(['agendaId', 'uid']);
+
+    svc(7196947).merge(
+      req.query,
+      _.omit(req.body || {}, fieldsToOmit)
+   ).then(location => res.json({
+      location,
+      success: true
+    }), next);
+  });
+
+  app.use('', (err, req, res, next) => {
+    if (err.name === 'ValidationError') {
+      res.status(400).json({
+        errors: err.detail,
+        success: false
+      });
+    } else {
+      res.status(500).json();
+      log('error', err);
+    }
+  });
+
+  //if (process.env.NODE_ENV !== 'test') {
+  server.listen(process.env.PORT || 3000, () => {
     // eslint-disable-next-line no-console
     console.log(
       `\nDev server started on => http://localhost:${server.address().port}/`
-    );
-  } );
-}
+   );
+  });
+  //}
+})();
+

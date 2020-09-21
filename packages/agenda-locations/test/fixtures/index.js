@@ -1,136 +1,45 @@
-"use strict";
+'use strict';
 
-var mysql = require( 'mysql' ),
+const fs = require('fs');
+const { promisify } = require('util');
+const _ = require('lodash');
+const knex = require('knex');
+const mysql = require('mysql');
 
-fs = require( 'fs' ),
+function _sql(SQLDataRelativePath) {
+  const k = knex({ client: 'mysql' });
 
-utils = require( '@openagenda/utils' ),
+  const raw = [
+    fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
+    fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8'),
+    fs.readFileSync(`${__dirname}/${SQLDataRelativePath}`, 'utf-8')
+  ];
 
-dbConfig = utils.extend( {}, require( '../../testconfig.js' ).mysql ),
-
-tableName = dbConfig.table,
-
-agendaSettingsTableName = dbConfig.agendaSettingsTableName,
-
-agendaSettings = require( './agendaTestSettings.js' ),
-
-dbName = dbConfig.database,
-
-utils = require( '@openagenda/utils' );
-
-delete dbConfig.database;
-delete dbConfig.table;
-
-module.exports = function( agendaId, fixtureSet, reset, cb ) {
-
-  if ( arguments.length == 3 ) {
-
-    cb = reset;
-
-    reset = false;
-
-  } else if ( arguments.length == 2 ) {
-
-    cb = fixtureSet;
-
-    reset = true;
-
-    fixtureSet = '1';
-
-  }
-
-  var con = _getConnection(),
-
-  queries = [];
-
-  if ( reset ) {
-
-    queries = queries.concat( [
-      `drop database if exists ${dbName}`, 
-      `create database ${dbName}`,
-      `use ${dbName}`,
-      `CREATE TABLE IF NOT EXISTS ${tableName}
-        (id BIGINT AUTO_INCREMENT,
-        uid BIGINT UNIQUE,
-        agenda_id bigint,
-        slug VARCHAR(100) NOT NULL UNIQUE,
-        placename VARCHAR(100) NOT NULL,
-        address VARCHAR(255),
-        city VARCHAR(100),
-        country VARCHAR(2),
-        latitude DECIMAL(10, 6) NOT NULL,
-        longitude DECIMAL(10, 6) NOT NULL,
-        owner_id BIGINT NOT NULL,
-        main TINYINT(1) DEFAULT '0' NOT NULL,
-        store LONGTEXT,
-        processed_at datetime,
-        region VARCHAR(255),
-        department VARCHAR(255),
-        city_district VARCHAR(255),
-        postal_code VARCHAR(20),
-        insee VARCHAR(10),
-        eve_id VARCHAR(100),
-        created_at DATETIME NOT NULL,
-        updated_at DATETIME NOT NULL, 
-        UNIQUE INDEX slug_idx (slug), 
-        INDEX latlng_idx (latitude, longitude),
-        INDEX owner_id_idx (owner_id),
-        PRIMARY KEY(id)) DEFAULT CHARACTER 
-        SET utf8 COLLATE utf8_general_ci ENGINE = INNODB`, 
-        `delete from ${tableName}`,
-      `CREATE TABLE IF NOT EXISTS ${agendaSettingsTableName}
-        (agenda_id BIGINT UNIQUE NOT NULL,
-        store LONGTEXT,
-        PRIMARY KEY(agenda_id)) DEFAULT CHARACTER
-        SET utf8 COLLATE utf8_general_ci ENGINE = INNODB`, 
-        `delete from ${agendaSettingsTableName}`
-    ] );
-
-  } else {
-
-    queries.push( `use ${dbName}` );
-
-  }
-
-  queries.push( _read( fixtureSet, agendaId ) );
-
-  con.query( queries.join( ';' ), ( err ) => {
-
-    con.end();
-
-    cb( err );
-
-  } );
-
+  return raw.join('\n');
 }
 
-function _read( fixtureSet, agendaId ) {
+async function _load(dbConfig, SQLDataRelativePath) {
+  const con = mysql.createConnection({
+    multipleStatements: true,
+    ...dbConfig,
+  });
 
-  var con = _getConnection();
+  const query = promisify(con.query.bind(con));
 
-  var qstr = fs.readFileSync( __dirname + '/' + fixtureSet, 'utf-8' )
-
-  .replace( '${tableName}', tableName )
-
-  .replace( '${dbName}', dbName )
-
-  .replace( '${agendaSettingsTableName}', agendaSettingsTableName )
-
-  .replace( '${agendaSettings}', con.escape( JSON.stringify( agendaSettings ) ) )
-
-  .replace( /\$\{agendaId\}/g, agendaId );
+  await query(_sql(SQLDataRelativePath));
 
   con.end();
-
-  return qstr;
-
 }
 
+module.exports = (dbConfig, SQLDataRelativePath = 'ardeche/rows.sql') => {
+  const client = knex({
+    client: 'mysql',
+    connection: dbConfig
+  });
 
-function _getConnection() {
-
-  return mysql.createConnection( utils.extend( {
-    multipleStatements: true
-  }, dbConfig ) );
-
-}
+  return {
+    destroyClient: () => client.destroy(),
+    client,
+    load: () => _load(dbConfig, SQLDataRelativePath)
+  };
+};

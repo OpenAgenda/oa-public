@@ -4,7 +4,7 @@ const assert = require('assert');
 const slug = require('slug');
 
 const config = require('../testconfig');
-const fixtures = require('./fixtures/load');
+const fixtures = require('./fixtures');
 const Service = require('../');
 
 describe('agenda-locations - functional - terms', () => {

@@ -24,7 +24,6 @@
     "@openagenda/dom-utils": "^2.2.11",
     "@openagenda/files": "^2.0.12",
     "@openagenda/geocoder": "^1.2.7",
-    "@openagenda/image-upload": "^1.0.9",
     "@openagenda/images": "^1.1.9",
     "@openagenda/labels": "^2.2.7",
     "@openagenda/logs": "^1.1.7",

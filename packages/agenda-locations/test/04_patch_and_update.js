@@ -4,7 +4,7 @@ const _ = require('lodash');
 const assert = require('assert');
 
 const config = require('../testconfig');
-const fixtures = require('./fixtures/load');
+const fixtures = require('./fixtures');
 const Service = require('../');
 
 const payload = require('./fixtures/updateData.json');
