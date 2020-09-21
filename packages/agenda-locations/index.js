@@ -17,7 +17,6 @@ const remove = require('./remove');
 const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
-const Images = require('./utils/Images');
 
 module.exports = Object.assign((c = {}) => {
   const config = Object.keys(c).reduce((config, key) => (
@@ -65,13 +64,6 @@ module.exports = Object.assign((c = {}) => {
       })
     },
     interfaces: config.interfaces,
-    utils: {
-      images: Images({
-        transforms: config.imageTransforms,
-        temporaryDirectory: config.temporaryDirectory,
-        aws: config.aws
-      })
-    },
     imageTransformAndUpload: config.Files({
       key: 'image',
       variants: [{
@@ -106,7 +98,6 @@ module.exports = Object.assign((c = {}) => {
     list: list.bind(null, service),
     utils: {
       getINSEECode: config.redis ? getINSEECode(config.redis) : null,
-      images: service.utils.images,
       countries
     }
   });
