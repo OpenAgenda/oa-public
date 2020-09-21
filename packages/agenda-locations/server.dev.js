@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const fs = require('fs');
 const cors = require('cors');
 const errorHandler = require('errorhandler');
 const http = require('http');
@@ -8,6 +9,9 @@ const knex = require('knex');
 const express = require('express');
 const morgan = require('morgan');
 const log = require('@openagenda/logs')('server.dev');
+
+const Files = require('@openagenda/files/v3');
+const multer = require('multer');
 
 const fixtures = require('./test/fixtures');
 
@@ -29,7 +33,16 @@ const fixtures = require('./test/fixtures');
 
   const svc = require('.')({
     knex: f.client,
-    imagePath: '//cibuldev.s3.amazonaws.com/',
+    Files: Files({
+      s3: {
+        accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+        region: process.env.AWS_DEV_REGION,
+        defaultBucket: process.env.AWS_DEV_BUCKET
+      },
+      defaultProvider: 's3'
+    }),
+    imagePath: '//oadev.s3.amazonaws.com/',
     interfaces: {
       getAgendaIdByUid: async id => ({
         25221: 7196947
@@ -131,8 +144,22 @@ const fixtures = require('./test/fixtures');
     }).then(location => res.json(location), next);
   });
 
+  app.post(['/', '/:locationUid'],
+    multer({ dest: '/tmp/' }).single('image'),
+    (req, res, next) => {
+      req.data = JSON.parse(req.body.data);
+      if (req.file) {
+        req.data.image = fs.createReadStream(req.file.path);
+        req.data.image.on('end', () => {
+          fs.unlink(req.file.path, () => {});
+        });
+      }
+      next();
+    }
+  );
+
   app.post('/', (req, res, next) => {
-    svc(7196947).create({ ...req.body, state: 1 }, {
+    svc(7196947).create({ ...req.data, state: 1 }, {
       includeImagePath: true
     }).then(location => {
       res.json({

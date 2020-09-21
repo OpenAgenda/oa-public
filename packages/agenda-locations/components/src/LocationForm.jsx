@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 
@@ -12,7 +13,7 @@ import InputField from '@openagenda/react-form-components/build/InputField';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import MultiInputField from '@openagenda/react-form-components/build/MultiInputField';
 import MultilingualInputField from '@openagenda/react-form-components/build/MultilingualInputField';
-import post from '@openagenda/utils/post';
+import post from './post';
 import { Spinner } from '@openagenda/react-components';
 import utils from '@openagenda/utils';
 
@@ -402,6 +403,7 @@ class LocationForm extends Component {
     try {
       clean = validate(data, this.props.settings, partial);
     } catch (errors) {
+      console.log('???', errors);
       return this.actions.setError(errors);
     }
 
@@ -614,8 +616,20 @@ class LocationForm extends Component {
 
     return <div className="form-group">
 
-      <div className={this.isFieldEnabled('image') ? 'form-group' : 'form-group disabled'}>
-        <div>image component</div>
+      <div
+        className={this.isFieldEnabled('image') ? 'form-group' : 'form-group disabled'}>
+        <div className="file-upload">
+          <Dropzone onDrop={acceptedFiles => this.onChange('image', acceptedFiles)}>
+            {({getRootProps, getInputProps}) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+        </div>
       </div>
 
       <InputField
@@ -626,7 +640,7 @@ class LocationForm extends Component {
         lang={this.props.lang}
         info="imageCreditsInfo"
         placeholder="imageCreditsPlaceholder"
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         bottom={this.renderAlternative('imageCredits')}
         validator={validate.field('imageCredits')} />
 
@@ -647,7 +661,7 @@ class LocationForm extends Component {
           value={this.getMultilingual('description')}
           languages={this.getLanguages()}
           getLabel={this.getLabel.bind(this)}
-          onChange={this.onChange}
+          onChange={this.onChange.bind(this)}
           placeholder={this.getLabel('descriptionPlaceholder')}
           info={this.getLabel('descriptionInfo')}
           bottom={this.renderMultilingualAlternatives('description')}
@@ -659,7 +673,7 @@ class LocationForm extends Component {
           value={this.getMultilingual('access')}
           languages={this.getLanguages()}
           getLabel={this.getLabel.bind(this)}
-          onChange={this.onChange}
+          onChange={this.onChange.bind(this)}
           placeholder={this.getLabel('accessPlaceholder')}
           info={this.getLabel('accessInfo')}
           bottom={this.renderMultilingualAlternatives('access')}
@@ -673,7 +687,7 @@ class LocationForm extends Component {
         value={this.state.location.phone}
         getLabel={this.getLabel.bind(this)}
         lang={this.props.lang}
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         info="phoneInfo"
         placeholder="phonePlaceholder"
         bottom={this.renderAlternative('phone')}
@@ -687,7 +701,7 @@ class LocationForm extends Component {
         lang={this.props.lang}
         info="websiteInfo"
         placeholder="websitePlaceholder"
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         bottom={this.renderAlternative('website')}
         validator={validate.field('website')} />
 
@@ -699,7 +713,7 @@ class LocationForm extends Component {
         lang={this.props.lang}
         info="emailInfo"
         placeholder="emailPlaceholder"
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         bottom={this.renderAlternative('email')}
         validator={validate.field('email')} />
 
@@ -711,7 +725,7 @@ class LocationForm extends Component {
         value={this.state.location.links}
         getLabel={this.getLabel.bind(this)}
         lang={this.props.lang}
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         bottom={this.renderAlternative('links')}
         validator={validate.field('links')} />
 
@@ -722,7 +736,7 @@ class LocationForm extends Component {
           lang={this.props.lang}
           name='tags'
           set={flattenTagSetLabels(this.props.settings.tagSet, this.props.lang)}
-          onChange={this.onChange}
+          onChange={this.onChange.bind(this)}
           tagBottom={this.renderTagAlternative.bind(this)}
           disabledTagIds={this.props.disableNoAlternatives ? suggestionHelpers.getSameAsSuggestedTagIds(this.props.settings.tagSet, this.props.location, this.props.alternatives) : []}
           value={this.state.location.tags || []}/>
@@ -826,7 +840,7 @@ class LocationForm extends Component {
         placeholder="namePlaceholder"
         getLabel={this.getLabel.bind(this)}
         lang={this.props.lang}
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         validator={validate.field('name')}
         bottom={this.renderAlternative('name')} />
 
@@ -834,7 +848,7 @@ class LocationForm extends Component {
         enabled={this.isFieldEnabled('countryCode')}
         value={this.state.location.countryCode}
         lang={this.props.lang}
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         getLabel={this.getLabel.bind(this)} />
 
       <InputField
@@ -843,7 +857,7 @@ class LocationForm extends Component {
         value={this.state.location.address}
         info="addressInfo"
         placeholder="addressPlaceholder"
-        onChange={this.onAddressChange}
+        onChange={this.onAddressChange.bind(this)}
         validator={validate.field('address')}
         lang={this.props.lang}
         getLabel={this.getLabel.bind(this)}
@@ -882,7 +896,7 @@ class LocationForm extends Component {
         lang={this.props.lang}
         info="extIdInfo"
         placeholder="extIdplaceholder"
-        onChange={this.onChange}
+        onChange={this.onChange.bind(this)}
         validator={validate.field('extId')} />
       : <div className="form-group">
         <a className="muted" href="#" onClick={e=>{ e.preventDefault(); this.actions.showExtId() } }>{this.getLabel('extIdLink')}</a>

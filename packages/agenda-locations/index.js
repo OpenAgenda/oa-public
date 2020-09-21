@@ -4,6 +4,10 @@ const knex = require('knex');
 const logger = require('@openagenda/logs');
 const countries = require('@openagenda/countries');
 
+const gm = require('gm').subClass({
+  imageMagick: true
+});
+
 const create = require('./create');
 const geolib = require('geolib');
 const get = require('./get');
@@ -72,13 +76,18 @@ module.exports = Object.assign((c = {}) => {
       key: 'image',
       variants: [{
         getFilename: (info, context) => `location${context.uid}_sm.jpg`,
-        transform: info => info.stream
+        transform: (info, context) => gm(info.stream, context.originalname)
+          .resize(300)
+          .stream('jpg')
       }, {
         getFilename: (info, context) => `location${context.uid}_o.jpg`,
-        transform: info => info.stream
+        transform: (info, context) => gm(info.stream, context.originalname)
+          .resize(600)
+          .stream('jpg')
       }, {
         getFilename: (info, context) => `location${context.uid}.jpg`,
-        transform: info => info.stream
+        transform: (info, context) => gm(info.stream, context.originalname)
+          .stream('jpg')
       }]
     })
   };
