@@ -11,6 +11,7 @@ schema.register({
   pass: require('@openagenda/validators/pass'),
   phone: require('@openagenda/validators/phone'),
   text: require('@openagenda/validators/text'),
+  stream: require('@openagenda/validators/stream'),
   multilingual: require('@openagenda/validators/multilingual')
 });
 

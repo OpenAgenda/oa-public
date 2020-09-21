@@ -34,6 +34,7 @@ module.exports = Object.assign((c = {}) => {
     aws: { key: null, secret: null, bucket: null },
     redis: null,
     imagePath: '//cdn.to.images/',
+    Files: null,
     schema: 'location',
     interfaces: {
       getAgendaIdByUid: async id => null,
@@ -46,6 +47,10 @@ module.exports = Object.assign((c = {}) => {
   if (c.logger) {
     logger.setModuleConfig(c.logger);
   };
+
+  if (!config.Files) {
+    throw new Error('@openagenda/files instance is required for handling images');
+  }
 
   const service = {
     config,
@@ -62,7 +67,20 @@ module.exports = Object.assign((c = {}) => {
         temporaryDirectory: config.temporaryDirectory,
         aws: config.aws
       })
-    }
+    },
+    imageTransformAndUpload: config.Files({
+      key: 'image',
+      variants: [{
+        getFilename: (info, context) => `location${context.uid}_sm.jpg`,
+        transform: info => info.stream
+      }, {
+        getFilename: (info, context) => `location${context.uid}_o.jpg`,
+        transform: info => info.stream
+      }, {
+        getFilename: (info, context) => `location${context.uid}.jpg`,
+        transform: info => info.stream
+      }]
+    })
   };
 
   return Object.assign(agendaUid => ({

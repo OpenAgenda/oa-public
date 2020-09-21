@@ -2,10 +2,16 @@
 
 const _ = require('lodash');
 const assert = require('assert');
+const fs = require('fs');
 
-const config = require('../testconfig');
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
+
 const fixtures = require('./fixtures');
 const Service = require('../');
+const Files = require('@openagenda/files/v3');
 
 const payload = require('./fixtures/createData.json');
 
@@ -23,7 +29,8 @@ describe('agenda-locations - functional - create', () => {
         getAgendaIdByUid: async uid => ({
           7196947: 25221
         })[uid]
-      }
+      },
+      Files: Files(dConfig.files)
     });
   });
 
@@ -54,6 +61,28 @@ describe('agenda-locations - functional - create', () => {
       const entry = await f.client('location').first('placename').where('uid', created.uid);
 
       assert.equal(entry.placename, created.name);
+    });
+  });
+
+  describe('with image', function() {
+    this.timeout(10000);
+    let created;
+
+    before(async () => {
+      try {
+        created = await svc().create({
+          ...payload,
+          image: fs.createReadStream(__dirname + '/fixtures/images/vieilles_pierres.jpg')
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    it('image filename is referenced in db entry', async () => {
+      const entry = await f.client('location').first('store').where('uid', created.uid);
+
+      assert.equal(JSON.parse(entry.store).image, `location${created.uid}.jpg`);
     });
   });
 });

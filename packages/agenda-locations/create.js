@@ -29,9 +29,9 @@ async function create(service, data, options = {}) {
   }
 
   if (clean.image) {
-    const finalImageName = `location${clean.uid}.jpg`;
-    await service.utils.images.renameUploadedTransforms(clean.image, finalImageName);
-    clean.image = finalImageName;
+    const { image } = await service.imageTransformAndUpload(clean.image, { uid: clean.uid });
+
+    clean.image = image.filename;
   }
 
   const entry = fromItemToDbEntry(clean);

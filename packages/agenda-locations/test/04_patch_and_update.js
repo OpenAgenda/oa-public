@@ -2,8 +2,15 @@
 
 const _ = require('lodash');
 const assert = require('assert');
+const fs = require('fs');
 
-const config = require('../testconfig');
+const Files = require('@openagenda/files/v3');
+
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
+
 const fixtures = require('./fixtures');
 const Service = require('../');
 
@@ -23,7 +30,8 @@ describe('agenda-locations - functional - update', () => {
         getAgendaIdByUid: async uid => ({
           7196947: 25221
         })[uid]
-      }
+      },
+      Files: Files(dConfig.files)
     });
   });
 
@@ -59,6 +67,23 @@ describe('agenda-locations - functional - update', () => {
 
     it('updatedAt is updated', async () => {
       assert.notEqual(JSON.stringify(entry.before.updated_at), JSON.stringify(entry.after.updated_at));
+    });
+  });
+
+  describe('patching image', function () {
+    let entry;
+    this.timeout(10000);
+
+    before(async () => {
+      await svc().patch(94482437, {
+        image: fs.createReadStream(__dirname + '/fixtures/images/vieilles_pierres.jpg')
+      });
+
+      entry = await f.client('location').first().where('uid', 94482437);
+    });
+
+    it('saves uploaded image name in db', () => {
+      assert.equal(JSON.parse(entry.store).image, `location94482437.jpg`);
     });
   });
 

@@ -21,6 +21,12 @@ async function update({ service, isPatch }, current, data, options = {}) {
     updatedAt: new Date
   };
 
+  if (clean.image) {
+    const { image } = await service.imageTransformAndUpload(clean.image, { uid: current.uid });
+
+    clean.image = image.filename;
+  }
+
   const entry = fromItemToDbEntry(clean);
 
   const result = await service.clients.knex(service.config.schema)
