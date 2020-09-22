@@ -51,6 +51,7 @@ module.exports.init = (config, services) => {
       onRemove: onRemove.bind(null, services),
       onUpdate: onUpdate.bind(null, services),
       beforeRemove,
+      removeImage: removeImage.bind(null, services),
       imageFilesLoad: imageFiles.load,
       imageFilesClear: imageFiles.clear,
       imageFilesGetBasePath: imageFiles.getBucketPath
@@ -114,10 +115,27 @@ module.exports.plugApp = app => {
 
 
 function beforeRemove(agenda, cb) {
-
   controlDataSvc.clear(agenda.uid).then(cb.bind(null, null), err => {
     log('warn', 'could not clear agenda control data', agenda.uid, err);
     cb();
   });
+}
 
+function removeImage(services, imagePath) {
+  const { files } = services;
+  const { s3 } = files.providers;
+
+  const match = imagePath.match(/(?<name>.*)(?<ext>\..*)(?<query>\?.*)/);
+
+  if (!match) {
+    return;
+  }
+
+  const { name, ext } = match.groups;
+
+  return s3.remove([
+    `${name}${ext}`,
+    `rwtb${name}${ext}`,
+    `${name}_o${ext}`
+  ]);
 }
