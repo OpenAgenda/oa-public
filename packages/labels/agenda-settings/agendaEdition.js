@@ -630,5 +630,33 @@ module.exports = {
     "de": "Folge den Besucherandrang auf den öffentlichen Seiten deinerVerwaltungskalender auf openagenda.com",
     "es": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com",
     "it": "Segui il flusso di visitatori sulle pagine pubbliche del tuo agenda su openagenda.com"
+  },
+  "imageUpdate": {
+    "fr": "Mettre à jour l'image",
+    "en": "Update the image",
+    "de": "Aktualisieren Sie das Bild",
+    "es": "Cambiar imagen",
+    "it": "Aggiorna l'immagine"
+  },
+  "imageUpload": {
+    "fr": "Charger une image",
+    "en": "Upload an image",
+    "de": "Lade ein Bild hoch",
+    "es": "Cargar imagen",
+    "it": "Carica un'immagine"
+  },
+  "imageAcceptedExtensions": {
+    "fr": "Fichiers acceptés",
+    "en": "Accepted files",
+    "de": "akzeptiert Dateien",
+    "es": "formatos aceptados",
+    "it": "File accettati"
+  },
+  "imageRemove": {
+    "fr": "Supprimer",
+    "en": "Remove",
+    "de": "Löschen",
+    "es": "Eliminar",
+    "it": "Cancellare"
   }
 }
