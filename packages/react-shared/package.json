@@ -36,6 +36,8 @@
     "dedent": "^0.7.0",
     "glob": "^7.1.6",
     "lodash": "^4.17.15",
+    "prop-types": "^15.7.2",
+    "react-dropzone": "^11.2.0",
     "shallowequal": "^1.1.0",
     "yargs": "^15.1.0"
   },
