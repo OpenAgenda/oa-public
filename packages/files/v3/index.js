@@ -56,8 +56,8 @@ module.exports = cfg => {
     s3: cfg.s3 ? s3(cfg.s3) : null
   };
 
-  return options => {
-    const process = async (data, context) => {
+  function filesManager(options) {
+    async function upload(data, context) {
       const isMultiple = Array.isArray(options);
       const keyedData = !isStream(data) && (typeof data === 'object' && !Array.isArray(data));
 
@@ -98,13 +98,13 @@ module.exports = cfg => {
         return processFile(cfg, providers, fileData, options, context)
           .then(transformResult);
       }
-    };
+    }
 
-    process.multer = multer({
+    upload.multer = multer({
       storage: new TempStorage({ cfg, providers, options })
     });
 
-    process.cleanup = () => (req, res, next) => {
+    upload.cleanup = () => (req, res, next) => {
       const _cleanup = file => {
         if (Array.isArray(file)) {
           return file.forEach(f => _cleanup(f));
@@ -128,10 +128,14 @@ module.exports = cfg => {
       next();
     };
 
-    process.providers = providers;
+    upload.providers = providers;
 
-    return process;
-  };
+    return upload;
+  }
+
+  filesManager.providers = providers;
+
+  return filesManager;
 };
 
 
