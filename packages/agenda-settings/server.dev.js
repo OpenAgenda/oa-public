@@ -6,6 +6,7 @@ import http from 'http';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import knexLib from 'knex';
 import errorHandler from 'errorhandler';
 import bodyParser from 'body-parser';
 import service from './src/service';
@@ -14,10 +15,10 @@ import * as keysMw from '@openagenda/keys/middleware';
 import agendasSvc from '@openagenda/agendas';
 import testconfig from './testconfig';
 
-const mw = require( './src/middleware' );
+const mw = require('./src/middleware');
 const app = express();
 
-export const server = http.createServer( app );
+export const server = http.createServer(app);
 
 app.server = server;
 
@@ -25,55 +26,61 @@ app.server = server;
  * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
  * */
 
-if ( process.env.NODE_ENV !== 'test' ) {
+if (process.env.NODE_ENV !== 'test') {
   (async () => {
-    agendasSvc.init( testconfig );
+    agendasSvc.init(testconfig);
 
-    service.init( Object.assign( testconfig, {
+    service.init(Object.assign(testconfig, {
       services: {
         agendas: agendasSvc
       }
-    } ) );
+    }));
 
     // avoid migrations and do it in fixtures.js
-    await keysSvc.init( Object.assign( testconfig, { migrations: null } ) );
+    await keysSvc.init(Object.assign(testconfig, {
+      migrations: null, knex: knexLib({
+        client: 'mysql',
+        connection: testconfig.mysql
+      })
+    }));
   })();
 }
 
-if ( [ 'development', 'test' ].includes( process.env.NODE_ENV ) ) {
-  app.use( morgan( 'dev' ) );
+if (['development', 'test'].includes(process.env.NODE_ENV)) {
+  app.use(morgan('dev'));
 }
 
-app.use( cors() );
-app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded( { extended: true } ) );
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 /*******/
 
-app.use( ( req, res, next ) => {
+app.use((req, res, next) => {
   req.user = { id: 2 };
   req.agenda = {
     uid: 17026855,
     slug: 'proces-d-assises-2016'
   }
   next();
-} );
+});
 
-app.post( '/', mw.create );
-app.get( '/:uid/agenda.json', mw.get );
-app.post( '/:slug/edit', mw.set );
-app.post( '/:slug/setImage', mw.setImage );
-app.post( '/:slug/clearImage', mw.clearImage );
-app.post( '/slugs/available', mw.slugs.available );
-app.post( '/:slug/remove', [
+app.post('/', mw.create);
+app.get('/:uid/agenda.json', mw.get);
+app.post('/:slug/edit', mw.set);
+app.post('/:slug/setImage', mw.setImage);
+app.post('/:slug/clearImage', mw.clearImage);
+app.post('/slugs/available', mw.slugs.available);
+app.post('/:slug/remove', [
   // mw.removeAgenda,
-  ( req, res ) => {
-    res.json( { redirectTo: '/' } );
+  (req, res) => {
+    res.json({ redirectTo: '/' });
   }
-] );
+]);
 
-app.post( '/:slug/keys/create',
-  ( req, res, next ) => {
+app.post(
+  '/:slug/keys/create',
+  (req, res, next) => {
     req.identifiers = {
       type: 'agendaFullRead',
       identifier: req.agenda.uid
@@ -81,11 +88,12 @@ app.post( '/:slug/keys/create',
     next();
   },
   keysMw.create(),
-  ( req, res, next ) => res.send( req.result )
+  (req, res, next) => res.send(req.result)
 );
 
-app.get( '/:slug/keys/get',
-  ( req, res, next ) => {
+app.get(
+  '/:slug/keys/get',
+  (req, res, next) => {
     req.identifiers = {
       type: 'agendaFullRead',
       identifier: req.agenda.uid,
@@ -94,11 +102,12 @@ app.get( '/:slug/keys/get',
     next();
   },
   keysMw.get(),
-  ( req, res, next ) => res.send( req.result )
+  (req, res, next) => res.send(req.result)
 );
 
-app.get( '/:slug/keys/list',
-  ( req, res, next ) => {
+app.get(
+  '/:slug/keys/list',
+  (req, res, next) => {
     req.identifiers = {
       type: 'agendaFullRead',
       identifier: req.agenda.uid
@@ -107,11 +116,12 @@ app.get( '/:slug/keys/list',
     next();
   },
   keysMw.list(),
-  ( req, res, next ) => res.send( req.result )
+  (req, res, next) => res.send(req.result)
 );
 
-app.patch( '/:slug/keys/update',
-  ( req, res, next ) => {
+app.patch(
+  '/:slug/keys/update',
+  (req, res, next) => {
     req.identifiers = {
       type: 'agendaFullRead',
       identifier: req.agenda.uid,
@@ -120,11 +130,12 @@ app.patch( '/:slug/keys/update',
     next();
   },
   keysMw.update(),
-  ( req, res, next ) => res.send( req.result )
+  (req, res, next) => res.send(req.result)
 );
 
-app.delete( '/:slug/keys/remove',
-  ( req, res, next ) => {
+app.delete(
+  '/:slug/keys/remove',
+  (req, res, next) => {
     req.identifiers = {
       type: 'agendaFullRead',
       identifier: req.agenda.uid,
@@ -133,20 +144,20 @@ app.delete( '/:slug/keys/remove',
     next();
   },
   keysMw.remove(),
-  ( req, res, next ) => res.send( { rowAffected: req.result } )
+  (req, res, next) => res.send({ rowAffected: req.result })
 );
 
 /*******/
 
-app.use( errorHandler( { log: true } ) );
+app.use(errorHandler({ log: true }));
 
-if ( process.env.NODE_ENV !== 'test' ) {
-  server.listen( process.env.PORT || 3000, () => {
+if (process.env.NODE_ENV !== 'test') {
+  server.listen(process.env.PORT || 3000, () => {
     // eslint-disable-next-line no-console
     console.log(
       `\nDev server started on => http://localhost:${server.address().port}/`
     );
-  } );
+  });
 }
 
 export default app;

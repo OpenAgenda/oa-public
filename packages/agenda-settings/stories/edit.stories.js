@@ -28,7 +28,9 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
       update: '/:slug/keys/update',
       remove: '/:slug/keys/remove'
     }
-  }
+  },
+  agenda: {},
+  modals: {}
 });
 
 const wrapAppOptions = {
