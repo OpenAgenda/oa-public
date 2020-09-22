@@ -20,4 +20,4 @@ module.exports.init = config => {
 
     defaultProvider: 's3'
   });
-}
+};
