@@ -1,24 +1,20 @@
 'use strict';
 
+const fs = require('fs');
 const isStream = require('is-stream');
 const multer = require('multer');
 const processFile = require('./processFile');
-const StreamStorage = require('./StreamStorage');
+const TempStorage = require('./TempStorage');
 const s3 = require('./providers/s3');
 
 function transformResult(result) {
   if (Array.isArray(result)) {
     return result.reduce((accu, current) => {
-      if (Array.isArray(current)) {
-        return {
-          ...accu,
-          [current[0].key]: current
-        }
-      }
+      const key = Array.isArray(current) ? current[0].key : current.key;
 
       return {
         ...accu,
-        [current.key]: current
+        [key]: accu[key] ? [].concat(accu[key]).concat(current) : current
       };
     }, {})
   }
@@ -80,14 +76,40 @@ module.exports = cfg => {
             }
           );
       } else {
-        return processFile(cfg, providers, data, options, context)
+        const fileData = keyedData ? data[options.key] : data;
+
+        return processFile(cfg, providers, fileData, options, context)
           .then(transformResult);
       }
     };
 
     process.multer = multer({
-      storage: new StreamStorage(cfg, providers, options)
+      storage: new TempStorage({ cfg, providers, options })
     });
+
+    process.cleanup = () => (req, res, next) => {
+      const _cleanup = file => {
+        if (Array.isArray(file)) {
+          return file.forEach(f => _cleanup(f));
+        }
+
+        if (fs.existsSync(file.path)) {
+          fs.unlinkSync(file.path);
+        }
+      }
+
+      res.on('finish', () => {
+        if (req.file) {
+          _cleanup(req.file);
+        }
+
+        if (req.files) {
+          Object.keys(req.files).forEach(name => _cleanup(req.files[name]));
+        }
+      });
+
+      next();
+    };
 
     process.providers = providers;
 

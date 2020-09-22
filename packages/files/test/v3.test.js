@@ -34,6 +34,8 @@ function s3UrlMatching(filename) {
 describe('v3', () => {
   let service;
 
+  jest.setTimeout(30000);
+
   beforeAll(() => {
     service = Files(testconfig);
   });
@@ -223,6 +225,7 @@ describe('v3', () => {
           });
       };
 
+      app.use(upload.cleanup());
       app.use('/upload', upload.multer.single('image'), checkMw);
       app.use((err, req, res, next) => {
         console.log('Server error:', err);
@@ -284,6 +287,7 @@ describe('v3', () => {
         }
       };
 
+      app.use(upload.cleanup());
       app.use('/upload', upload.multer.fields([{ name: 'image', maxCount: 1 }]), checkMw);
       app.use((err, req, res, next) => {
         res.status(500).send(err);
@@ -343,6 +347,7 @@ describe('v3', () => {
         }
       };
 
+      app.use(upload.cleanup());
       app.use('/upload', upload.multer.fields([{ name: 'image', maxCount: 5 }]), checkMw);
       app.use((err, req, res, next) => {
         console.log(err);
@@ -358,6 +363,8 @@ describe('v3', () => {
       const { data } = await axios.post(`http://localhost:${port}/upload`, form, { headers: form.getHeaders() });
 
       await finished(stream);
+
+      expect(count).toBe(2);
 
       const [first, second] = data;
 
@@ -399,6 +406,59 @@ describe('v3', () => {
 
       await upload.providers.s3.remove('src3-0.png');
       await upload.providers.s3.remove('src3-1.png');
+    });
+
+    it('cleanup on response finish', async () => {
+      let count = 0;
+      const upload = service(
+        {
+          key: 'image',
+          getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        }
+      );
+
+      const stream = fs.createReadStream(filePath);
+
+      const checkMw = (req, res, next) => {
+        expect(req.body).toEqual({
+          password: 'gnagnagna',
+          text: 'Un champ!'
+        });
+
+        try {
+          const paths = req.files.image.map(file => file.path);
+          expect(paths).toHaveLength(2);
+
+          res.on('finish', () => {
+            paths.forEach(p => {
+              expect(fs.existsSync(p)).toBe(false);
+            });
+          });
+
+          res.sendStatus(200);
+        } catch (error) {
+          next(error);
+        }
+      };
+
+      app.use(upload.cleanup());
+      app.use('/upload', upload.multer.fields([{ name: 'image', maxCount: 5 }]), checkMw);
+      app.use((err, req, res, next) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+
+      const form = new FormData();
+      form.append('image', stream);
+      form.append('image', stream);
+      form.append('text', 'Un champ!');
+      form.append('password', 'gnagnagna');
+
+      await axios.post(`http://localhost:${port}/upload`, form, { headers: form.getHeaders() });
+
+      await finished(stream);
+
+      expect(count).toBe(0);
     });
   });
 
@@ -500,6 +560,66 @@ describe('v3', () => {
       await upload.providers.s3.remove('src3_renamed.png');
       await upload.providers.s3.remove('josep_aff_work.jpg');
       await upload.providers.s3.remove('josep_aff_fail.jpg');
+    });
+
+    it('set content type', async () => {
+      const upload = service({
+        key: 'image',
+        variants: [
+          {
+            getFilename: (
+              info,
+              context
+            ) => `${path.parse(context.originalname).name}_detected${path.parse(context.originalname).ext}`
+          },
+          {
+            getFilename: (
+              info,
+              context
+            ) => `${path.parse(context.originalname).name}_binary${path.parse(context.originalname).ext}`,
+            transform: info => info.stream
+          },
+          {
+            getFilename: (
+              info,
+              context
+            ) => `${path.parse(context.originalname).name}_image${path.parse(context.originalname).ext}`,
+            transform: (info, context) => {
+              context.providerParams.ContentType = 'image/png';
+
+              return info.stream;
+            }
+          }
+        ]
+      });
+
+      const stream = fs.createReadStream(path.join(__dirname, 'files/src3.png'));
+
+      const result = await upload({
+        image: stream
+      });
+
+      const [detected, binary, image] = result.image;
+
+      await finished(stream);
+
+      const imagesFromS3 = await Promise.all([
+        axios.get(detected.uploadValue.Location),
+        axios.get(binary.uploadValue.Location),
+        axios.get(image.uploadValue.Location)
+      ]);
+
+      const headers = imagesFromS3.map(v => v.headers['content-type']);
+
+      expect(headers).toEqual([
+        'image/png',
+        'application/octet-stream',
+        'image/png'
+      ]);
+
+      await upload.providers.s3.remove('src3_detected.png');
+      await upload.providers.s3.remove('src3_binary.png');
+      await upload.providers.s3.remove('src3_image.png');
     });
   });
 });

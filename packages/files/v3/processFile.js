@@ -105,13 +105,6 @@ module.exports = async function processFile(cfg, providers, data, options, conte
   // Detect type
   const info = await getStreamInfo(fileStream, options);
 
-  // Make context
-  const ctx = {
-    originalname: fileStream.path,
-    ...context,
-    ...fileContext
-  };
-
   const variants = getFileVariants(options);
   const providerKey = options.provider || cfg.defaultProvider;
   const provider = providers[providerKey];
@@ -125,6 +118,17 @@ module.exports = async function processFile(cfg, providers, data, options, conte
 
   for (const variant of variants) {
     const pass = new PassThrough();
+
+    const ctx = {
+      originalname: fileStream.path,
+      providerParams: {
+        ContentType: typeof variant.transform === 'function'
+          ? 'application/octet-stream'
+          : (info.fileType.mime || context.mimetype)
+      },
+      ...context,
+      ...fileContext
+    };
 
     const response = {
       ...info,
@@ -146,7 +150,7 @@ module.exports = async function processFile(cfg, providers, data, options, conte
             response.stream = await variant.transform(response, ctx);
           }
 
-          const managedUpload = provider.upload(response.stream.pipe(pass), response.filename);
+          const managedUpload = provider.upload(response.stream.pipe(pass), response.filename, ctx.providerParams);
 
           response.abort = error => {
             managedUpload.abort();
