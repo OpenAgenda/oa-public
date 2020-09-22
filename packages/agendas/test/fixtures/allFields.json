@@ -236,7 +236,8 @@
     "default": null
   },
   "image": {
-    "type": "text"
+    "type": "pass",
+    "default": null
   },
   "private": {
     "type": "boolean",

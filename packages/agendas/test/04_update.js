@@ -163,7 +163,7 @@ describe( 'agendas - functional (server): set (update)', function() {
 
     svc.set( 4875, { title: 'Le mur' }, { includeImagePath: true }, ( err, result ) => {
 
-      result.agenda.image.should.equal( '//openagendatst.s3.eu-west-1.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg' );
+      result.agenda.image.should.equal( '//openagendatst.s3.amazonaws.com/review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg' );
 
       done();
 
