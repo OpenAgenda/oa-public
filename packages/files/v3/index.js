@@ -8,13 +8,30 @@ const TempStorage = require('./TempStorage');
 const s3 = require('./providers/s3');
 
 function transformResult(result) {
+  const asArray = {};
+
   if (Array.isArray(result)) {
     return result.reduce((accu, current) => {
       const key = Array.isArray(current) ? current[0].key : current.key;
 
+      if (accu[key]) {
+        if (asArray[key]) {
+          accu[key].push(current);
+
+          return accu;
+        }
+
+        asArray[key] = true;
+
+        return {
+          ...accu,
+          [key]: [accu[key], current]
+        };
+      }
+
       return {
         ...accu,
-        [key]: accu[key] ? [].concat(accu[key]).concat(current) : current
+        [key]: current
       };
     }, {})
   }
