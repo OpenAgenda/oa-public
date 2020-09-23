@@ -110,11 +110,10 @@ module.exports = core => {
     handleError(new VError({
       cause: err,
       info: {
-        url: req.originalUrl,
         body: req.body,
         query: req.query
       }
-    }));
+    }), req);
 
     if (err.name === 'ValidationError') {
       return res.status(400).json({

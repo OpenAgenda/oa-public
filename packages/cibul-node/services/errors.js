@@ -13,10 +13,23 @@ module.exports.init = c => {
   return handler;
 }
 
-function handler(namespace, err) {
+function handler(namespace, err, req) {
   try {
     throw err;
   } catch (error) {
-    log('error', { error, namespace });
+    const obj = {
+      error,
+      namespace
+    };
+
+    if (req) {
+      Object.assign(obj, {
+        url: req.originalUrl,
+        ip: (req.header('x-forwarded-for') || '').split(', ').shift(),
+        userUid: req.user && req.user.uid ? req.user.uid : null
+      });
+    }
+
+    log('error', obj);
   }
 }
