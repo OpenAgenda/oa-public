@@ -86,7 +86,8 @@ module.exports = [{
 }, {
   field: 'image',
   read: ['public', 'legacy', 'legacyPrivate'],
-  type: 'text'
+  type: 'pass',
+  default: null
 }, {
   field: 'private',
   type: 'boolean',

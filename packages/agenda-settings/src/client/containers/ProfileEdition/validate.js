@@ -31,7 +31,7 @@ export function asyncValidate( values, dispatch, props ) {
 
   return dispatch( checkSlug( {
     slug: values.slug,
-    excludeUid: props.initialValues.uid
+    excludeUid: props.agenda.uid
   } ) )
     .catch( error => {
       if ( error && error.errors ) {

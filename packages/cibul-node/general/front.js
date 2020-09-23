@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 
 const { callbackify } = require( 'util' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) );
-const files = require( '@openagenda/files' );
 const landing = require( '@openagenda/landing' );
 const sessions = require( '@openagenda/sessions' );
 const unsubscribedSvc = require( '@openagenda/unsubscribed' );
@@ -116,25 +115,6 @@ module.exports = app => {
     _redirectLegacyLinks,
     corpo.bind(null, cache)
   );
-
-  app.get(
-    '/filekey/new',
-    preMw,
-    newFileKey
-  );
-
-}
-
-
-async function newFileKey( req, res, next ) {
-
-  res.set( 'Content-Type', 'text/plain' );
-
-  const prefix = await files.s3.generateUniquePrefix();
-
-  req.log( 'generated %s', prefix );
-
-  res.send( prefix );
 
 }
 

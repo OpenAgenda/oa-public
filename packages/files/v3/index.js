@@ -1,24 +1,37 @@
 'use strict';
 
+const fs = require('fs');
 const isStream = require('is-stream');
 const multer = require('multer');
 const processFile = require('./processFile');
-const StreamStorage = require('./StreamStorage');
+const TempStorage = require('./TempStorage');
 const s3 = require('./providers/s3');
 
 function transformResult(result) {
+  const asArray = {};
+
   if (Array.isArray(result)) {
     return result.reduce((accu, current) => {
-      if (Array.isArray(current)) {
+      const key = Array.isArray(current) ? current[0].key : current.key;
+
+      if (accu[key]) {
+        if (asArray[key]) {
+          accu[key].push(current);
+
+          return accu;
+        }
+
+        asArray[key] = true;
+
         return {
           ...accu,
-          [current[0].key]: current
-        }
+          [key]: [accu[key], current]
+        };
       }
 
       return {
         ...accu,
-        [current.key]: current
+        [key]: current
       };
     }, {})
   }
@@ -43,8 +56,8 @@ module.exports = cfg => {
     s3: cfg.s3 ? s3(cfg.s3) : null
   };
 
-  return options => {
-    const process = async (data, context) => {
+  function filesManager(options) {
+    async function upload(data, context) {
       const isMultiple = Array.isArray(options);
       const keyedData = !isStream(data) && (typeof data === 'object' && !Array.isArray(data));
 
@@ -80,19 +93,49 @@ module.exports = cfg => {
             }
           );
       } else {
-        return processFile(cfg, providers, data, options, context)
+        const fileData = keyedData ? data[options.key] : data;
+
+        return processFile(cfg, providers, fileData, options, context)
           .then(transformResult);
       }
-    };
+    }
 
-    process.multer = multer({
-      storage: new StreamStorage(cfg, providers, options)
+    upload.multer = multer({
+      storage: new TempStorage({ cfg, providers, options })
     });
 
-    process.providers = providers;
+    upload.cleanup = () => (req, res, next) => {
+      const _cleanup = file => {
+        if (Array.isArray(file)) {
+          return file.forEach(f => _cleanup(f));
+        }
 
-    return process;
-  };
+        if (fs.existsSync(file.path)) {
+          fs.unlinkSync(file.path);
+        }
+      }
+
+      res.on('finish', () => {
+        if (req.file) {
+          _cleanup(req.file);
+        }
+
+        if (req.files) {
+          Object.keys(req.files).forEach(name => _cleanup(req.files[name]));
+        }
+      });
+
+      next();
+    };
+
+    upload.providers = providers;
+
+    return upload;
+  }
+
+  filesManager.providers = providers;
+
+  return filesManager;
 };
 
 

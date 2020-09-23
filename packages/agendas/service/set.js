@@ -1,214 +1,216 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const w = require( 'when' );
-const slug = require( 'slug' );
+const _ = require('lodash');
+const w = require('when');
+const slug = require('slug');
 
 const MODES = {
   CREATE: 'create',
   UPDATE: 'update'
 };
 
-const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
-const verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' );
+const defineUnique = require('@openagenda/mysql-utils/defineUnique');
+const verifyUnique = require('@openagenda/mysql-utils/verifyUnique');
 
-const get = require( './get' );
-const legacy = require( './legacy' );
-const map = require( './databaseFieldMap' );
-const validate = require( './validate' );
+const get = require('./get');
+const legacy = require('./legacy');
+const map = require('./databaseFieldMap');
+const validate = require('./validate');
 
-const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
-const log = require( '@openagenda/logs' )( 'set' );
+const dbParse = require('@openagenda/mysql-utils/mapper')(map);
+const log = require('@openagenda/logs')('set');
 
 let knex, schemas, mysqlConfig, interfaces;
 
-module.exports = _.extend( set, { init } );
+module.exports = _.extend(set, { init });
 
-function set( identifiers, data, options, cb ) {
+function set(identifiers, data, options, cb) {
 
-  if ( _areIdentifiers( identifiers ) ) {
+  if (_areIdentifiers(identifiers)) {
 
-    _update( identifiers, data, options, cb );
+    _update(identifiers, data, options, cb);
 
   } else {
 
-    _create( identifiers, data, options );
+    _create(identifiers, data, options);
 
   }
 
 }
 
 
-function _update( identifiers, data, options, cb ) {
+function _update(identifiers, data, options, cb) {
 
-  if ( cb === undefined ) {
+  if (cb === undefined) {
 
     cb = options;
     options = {};
 
   }
 
-  let params = _.extend( {
+  let params = _.extend({
     // option defaults
     protected: true, // protected fields cannot be tampered with
     internal: false, // retrieve internal fields when update is done
     private: false,
     includeImagePath: false,
     context: null
-  }, options );
+  }, options);
 
-  w( _.extend( {}, params, {
+  w(_.extend({}, params, {
     // unoptionables
     identifiers,
     id: false,
-    data: Object.assign( {}, data ),
+    data: Object.assign({}, data),
     filteredData: null, // after protected values have been removed from input
     current: false, // what is in db before update
     merged: false, // merge of input and current db values
     clean: null, // after validation
     updated: null,
     errors: [] // validation errors
-  } ) )
+  }))
 
-  .then( _get( { target: 'current', internal: true, private: params.private } ) )
+    .then(_get({ target: 'current', internal: true, private: params.private }))
 
-  .then( _merge )
+    .then(_merge)
 
-  .then( _setToNow( 'merged', 'updatedAt' ) )
+    .then(_setToNow('merged', 'updatedAt'))
 
-  .then( _timestampOfficial )
+    .then(_timestampOfficial)
 
-  .then( _validate( 'merged' ) )
+    .then(_validate('merged'))
 
-  // filter must happen after validate to avoid
-  // incomplete data validation errors
-  .then( _filterProtected.bind( null, 'clean' ) )
+    // filter must happen after validate to avoid
+    // incomplete data validation errors
+    .then(_filterProtected.bind(null, 'clean'))
 
-  .then( _verifyUnique( 'slug' ) )
+    .then(_verifyUnique('slug'))
 
-  .then( _doUpdate )
+    .then(_profileImage)
 
-  .then( _applyToLegacy )
+    .then(_doUpdate)
 
-  .then( _get( {
-    target: 'updated',
-    internal: true,
-    prerequisite: v => v.success && !v.errors.length,
-    includeImagePath: params.includeImagePath,
-    private: params.private
-  } ) )
+    .then(_applyToLegacy)
 
-  .done( v => {
+    .then(_get({
+      target: 'updated',
+      internal: true,
+      prerequisite: v => v.success && !v.errors.length,
+      includeImagePath: params.includeImagePath,
+      private: params.private
+    }))
 
-    if ( v.success && interfaces ) {
+    .done(v => {
 
-      interfaces.onUpdate( v.current, v.updated, v.context );
+      if (v.success && interfaces) {
 
-    }
+        interfaces.onUpdate(v.current, v.updated, v.context);
 
-    cb( null, {
-      agenda: params.internal ? v.updated : dbParse.exclude( v.updated, 'internal' ),
-      valid: !v.errors.length,
-      success: v.success,
-      errors: v.errors
-    } );
+      }
 
-  }, cb );
+      cb(null, {
+        agenda: params.internal ? v.updated : dbParse.exclude(v.updated, 'internal'),
+        valid: !v.errors.length,
+        success: v.success,
+        errors: v.errors
+      });
+
+    }, cb);
 
 }
 
 
-function _create( data, options, cb ) {
+function _create(data, options, cb) {
 
-  if ( cb === undefined ) {
+  if (cb === undefined) {
 
     cb = options;
     options = {};
 
   }
 
-  let params = _.extend( {
+  let params = _.extend({
     internal: false,
     includeImagePath: false
-  }, options );
+  }, options);
 
-  w( _.extend( {}, params, {
+  w(_.extend({}, params, {
     id: false,
-    data: Object.assign( {}, data ),
+    data: Object.assign({}, data),
     clean: null,
     created: null,
     errors: [],
     identifiers: null,
     success: false
-  } ) )
+  }))
 
-  .then( _createUid )
+    .then(_createUid)
 
-  .then( _createSlugIfNotSet )
+    .then(_createSlugIfNotSet)
 
-  .then( _verifyUnique( 'slug' ) )
+    .then(_verifyUnique('slug'))
 
-  .then( _setToNow( 'data', 'updatedAt' ) )
+    .then(_setToNow('data', 'updatedAt'))
 
-  .then( _setToNow( 'data', 'createdAt' ) )
+    .then(_setToNow('data', 'createdAt'))
 
-  .then( _validate( 'data' ) )
+    .then(_validate('data'))
 
-  .then( _doCreate )
+    .then(_doCreate)
 
-  .then( _applyToLegacy )
+    .then(_applyToLegacy)
 
-  .then( _get( {
-    target: 'created',
-    internal: true,
-    prerequisite: v => v.success && !v.errors.length,
-    includeImagePath: params.includeImagePath
-  } ) )
+    .then(_get({
+      target: 'created',
+      internal: true,
+      prerequisite: v => v.success && !v.errors.length,
+      includeImagePath: params.includeImagePath
+    }))
 
-  .done( async v => {
+    .done(async v => {
 
-    const response = {
-      agenda: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
-      valid: !v.errors.length,
-      success: v.success,
-      errors: v.errors
-    };
+      const response = {
+        agenda: params.internal ? v.created : dbParse.exclude(v.created, 'internal'),
+        valid: !v.errors.length,
+        success: v.success,
+        errors: v.errors
+      };
 
-    if (v.success && _.get(interfaces, 'onCreate')) {
-      try {
-        await interfaces.onCreate(v.created);
-      } catch (e) {
-        log('error', 'interface onCreate call errored', e);
+      if (v.success && _.get(interfaces, 'onCreate')) {
+        try {
+          await interfaces.onCreate(v.created);
+        } catch (e) {
+          log('error', 'interface onCreate call errored', e);
+        }
       }
-    }
 
-    cb( null, response );
+      cb(null, response);
 
-  }, cb );
+    }, cb);
 
 }
 
 
-function _hasCallback( fn ) {
+function _hasCallback(fn) {
 
   return fn.length === 2;
 
 }
 
 
-function _validate( target ) {
+function _validate(target) {
 
   return v => {
 
     try {
 
-      v.clean = validate( v[ target ] );
+      v.clean = validate(v[target]);
 
-    } catch( e ) {
+    } catch (e) {
 
-      log( 'validation failed with %s errors: %s', e.length, JSON.stringify( e ) );
+      log('validation failed with %s errors: %s', e.length, e);
 
-      v.errors = v.errors.concat( e );
+      v.errors = v.errors.concat(e);
 
     }
 
@@ -218,215 +220,257 @@ function _validate( target ) {
 
 }
 
+async function _profileImage(v) {
+  const { image } = v.data;
 
-function _doUpdate( v ) {
+  if (image && typeof image.transformAndUpload === 'function') {
+    try {
+      log.info('start uploading the agenda profile image');
 
-  if ( v.errors.length ) return v;
+      const result = await image.transformAndUpload({ uid: v.current.uid });
 
-  return knex( schemas.agenda )
+      v.clean.image = `${result[0].uploadValue.key}?__ts=${new Date().getTime()}`;
 
-  .where( {
-    id: v.id
-  } )
+      log.info('upload completed');
+    } catch (e) {
+      log.error('upload error:', e);
 
-  .update( dbParse.toDb( v.clean ) )
-
-  .then( affected => {
-
-    v.success = !!affected;
-
-    if ( v.success ) {
-
-      log( 'info', 'updated agenda %s', v.id );
-
+      v.errors.push({
+        field: 'image',
+        code: 'image.invalid',
+        message: 'invalid image'
+      });
     }
+  } else if (image === null) {
+    try {
+      v.clean.image = null;
 
-    return v;
+      if (interfaces && typeof interfaces.removeImage === 'function') {
+        await interfaces.removeImage(v.current.image);
+      }
+    } catch (e) {
+      log.error('error deleting the profile image:', e);
 
-  } );
+      v.errors.push({
+        field: 'image',
+        code: 'image.remove',
+        message: 'invalid image'
+      });
+    }
+  }
+
+  return v;
+}
+
+
+function _doUpdate(v) {
+
+  if (v.errors.length) return v;
+
+  return knex(schemas.agenda)
+
+    .where({
+      id: v.id
+    })
+
+    .update(dbParse.toDb(v.clean))
+
+    .then(affected => {
+
+      v.success = !!affected;
+
+      if (v.success) {
+
+        log('info', 'updated agenda %s', v.id);
+
+      }
+
+      return v;
+
+    });
 
 }
 
 
-function _applyToLegacy( v ) {
+function _applyToLegacy(v) {
 
-  if ( !v.success ) return v;
+  if (!v.success) return v;
 
   let d = w.defer();
 
-  legacy( v.id ).applyToLegacy( v.clean, err => {
+  legacy(v.id).applyToLegacy(v.clean, err => {
 
-    if ( err ) {
+    if (err) {
 
-      log( 'error', {
+      log('error', {
         message: 'agenda legacy save triggered error',
         error: err
-      } );
+      });
 
     } else {
 
-      log( 'applied agenda configuration to legacy data structure' );
+      log('applied agenda configuration to legacy data structure');
 
     }
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
 }
 
 
-function _doCreate( v ) {
+function _doCreate(v) {
 
-  if ( v.errors.length ) {
+  if (v.errors.length) {
 
-    log( 'create will not proceed' );
+    log('create will not proceed');
 
     return v;
 
   }
 
-  _.set( v, 'clean.credentials.useContributeApp', true );
-  _.set( v, 'clean.credentials.useAgendaSchema', true );
+  _.set(v, 'clean.credentials.useContributeApp', true);
+  _.set(v, 'clean.credentials.useAgendaSchema', true);
 
-  return knex( schemas.agenda )
+  return knex(schemas.agenda)
 
-  .insert( dbParse.toDb( v.clean ) )
+    .insert(dbParse.toDb(v.clean))
 
-  .then( result => {
+    .then(result => {
 
-    v.success = !!( result && result[ 0 ] );
+      v.success = !!(result && result[0]);
 
-    if ( !v.success ) return v;
+      if (!v.success) return v;
 
-    log( 'info', 'agenda of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
+      log('info', 'agenda of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[0]);
 
-    v.identifiers = {
-      id: result[ 0 ]
-    };
+      v.identifiers = {
+        id: result[0]
+      };
 
-    v.id = result[ 0 ];
+      v.id = result[0];
 
-    return v;
+      return v;
 
-  } );
+    });
 
 }
 
 
-function _areIdentifiers( identifiers ) {
+function _areIdentifiers(identifiers) {
 
-  if ( typeof identifiers === 'number' ) return true;
+  if (typeof identifiers === 'number') return true;
 
-  return !Object.keys( identifiers )
+  return !Object.keys(identifiers)
 
-    .filter( k => [ 'id', 'uid', 'slug' ].indexOf( k ) == -1 )
+    .filter(k => ['id', 'uid', 'slug'].indexOf(k) == -1)
 
     .length;
 
 }
 
 
-function _createUid( v ) {
+function _createUid(v) {
 
   let d = w.defer();
 
-  defineUnique( {
+  defineUnique({
     table: schemas.agenda,
     field: 'uid',
     mysql: mysqlConfig
-  }, () => Math.ceil( Math.random() * 99999999 ), ( err, uid ) => {
+  }, () => Math.ceil(Math.random() * 99999999), (err, uid) => {
 
-    if ( err ) return d.reject( err );
+    if (err) return d.reject(err);
 
     v.data.uid = uid;
 
-    log( 'created uid %s', uid );
+    log('created uid %s', uid);
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
 }
 
 
-function _createSlugIfNotSet( v ) {
+function _createSlugIfNotSet(v) {
 
-  if ( v.data.slug ) return v;
+  if (v.data.slug) return v;
 
   let d = w.defer();
 
-  defineUnique( {
+  defineUnique({
     table: schemas.agenda,
     field: 'slug',
     mysql: mysqlConfig
   }, previousSlug => {
 
-    return slug( v.data.title || '', { lower: true } ) + ( previousSlug ? Math.ceil( Math.random() * 1000 ) : '' );
+    return slug(v.data.title || '', { lower: true }) + (previousSlug ? Math.ceil(Math.random() * 1000) : '');
 
-  }, ( err, slug ) => {
+  }, (err, slug) => {
 
-    if ( err ) return d.reject( err );
+    if (err) return d.reject(err);
 
-    log( 'created slug %s', slug );
+    log('created slug %s', slug);
 
     v.data.slug = slug;
 
-    d.resolve( v );
+    d.resolve(v);
 
-  } );
+  });
 
   return d.promise;
 
 }
 
 
-function _verifyUnique( field ) {
+function _verifyUnique(field) {
 
   return v => {
 
-    log( 'verifying unique %s', field );
+    log('verifying unique %s', field);
 
     let d = w.defer(),
 
-    // value checked for unicity is from data for create
-    // from merged values in case of update
-    value = dbParse.toDb( v.id ? v.merged : v.data )[ field ];
+      // value checked for unicity is from data for create
+      // from merged values in case of update
+      value = dbParse.toDb(v.id ? v.merged : v.data)[field];
 
-    verifyUnique( {
+    verifyUnique({
       table: schemas.agenda,
       field,
       value,
       exclude: v.id ? { id: v.id } : false,
       mysql: mysqlConfig
-    }, ( err, is ) => {
+    }, (err, is) => {
 
-      if ( err ) return d.reject( err );
+      if (err) return d.reject(err);
 
-      if ( is ) {
+      if (is) {
 
-        log( '%s is unique', field );
+        log('%s is unique', field);
 
-        return d.resolve( v );
+        return d.resolve(v);
 
       }
 
-      log( '%s is not unique', field );
+      log('%s is not unique', field);
 
-      v.errors.push( {
+      v.errors.push({
         field,
         code: 'duplicate',
         message: 'duplicate value found',
         origin: value
-      } );
+      });
 
-      return d.resolve( v );
+      return d.resolve(v);
 
-    } );
+    });
 
     return d.promise;
 
@@ -438,49 +482,49 @@ function _verifyUnique( field ) {
 /**
  * filters out protected fileds from given object if protected option is set
  */
-function _filterProtected( namespace, v ) {
+function _filterProtected(namespace, v) {
 
-  if ( !v.protected ) return v;
+  if (!v.protected) return v;
 
-  let data = v[ namespace ] || {};
+  let data = v[namespace] || {};
 
-  v[ namespace ] = {};
+  v[namespace] = {};
 
-  Object.keys( data ).forEach( k => {
+  Object.keys(data).forEach(k => {
 
-    if ( !dbParse.is( 'obj', k, 'protected' ) ) {
+    if (!dbParse.is('obj', k, 'protected')) {
 
-      v[ namespace ][ k ] = data[ k ];
+      v[namespace][k] = data[k];
 
     }
 
-  } );
+  });
 
   return v;
 
 }
 
 
-function _merge( v ) {
+function _merge(v) {
 
-  const customizer = ( obj, src, key ) => {
-    if ( _.isArray( src ) && key === 'moderateOnChangeBy' ) {
+  const customizer = (obj, src, key) => {
+    if (_.isArray(src) && key === 'moderateOnChangeBy') {
       return src;
     }
   };
 
-  v.merged = _.mergeWith( {}, v.current, v.data, customizer );
+  v.merged = _.mergeWith({}, v.current, v.data, customizer);
 
   return v;
 
 }
 
 
-function _setToNow( target, field ) {
+function _setToNow(target, field) {
 
   return v => {
 
-    v[ target ][ field ] = new Date();
+    v[target][field] = new Date();
 
     return v;
 
@@ -489,21 +533,21 @@ function _setToNow( target, field ) {
 }
 
 
-function _get( options ) {
+function _get(options) {
 
-  let params = _.extend( {
+  let params = _.extend({
     clean: false,
     target: 'agenda',
     internal: false,
     private: false,
     prerequisite: () => true
-  }, options );
+  }, options);
 
   return v => {
 
-    if ( !params.prerequisite( v ) ) {
+    if (!params.prerequisite(v)) {
 
-      log( 'get will not proceed for target %s', params.target );
+      log('get will not proceed for target %s', params.target);
 
       return v;
 
@@ -511,25 +555,25 @@ function _get( options ) {
 
     let d = w.defer();
 
-    get( v.id ? { id: v.id } : v.identifiers, {
+    get(v.id ? { id: v.id } : v.identifiers, {
       internal: params.internal,
       includeImagePath: params.includeImagePath,
       private: params.private
-    }, ( err, data ) => {
+    }, (err, data) => {
 
-      if ( err ) return d.reject( err );
+      if (err) return d.reject(err);
 
-      if ( !data ) return d.reject( new Error( 'agenda not found' ) );
+      if (!data) return d.reject(new Error('agenda not found'));
 
-      log( 'retrieved agenda of uid %s', data.uid );
+      log('retrieved agenda of uid %s', data.uid);
 
       v.id = data.id;
 
-      v[ params.target ] = data;
+      v[params.target] = data;
 
-      d.resolve( v );
+      d.resolve(v);
 
-    } );
+    });
 
     return d.promise;
 
@@ -538,9 +582,9 @@ function _get( options ) {
 }
 
 
-function _timestampOfficial( v ) {
+function _timestampOfficial(v) {
 
-  if ( !v.current.official && v.merged.official ) {
+  if (!v.current.official && v.merged.official) {
 
     v.merged.officializedAt = new Date();
 
@@ -551,7 +595,7 @@ function _timestampOfficial( v ) {
 }
 
 
-function init( s, k ) {
+function init(s, k) {
 
   schemas = s.getConfig().schemas;
 

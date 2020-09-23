@@ -58,10 +58,12 @@ function get( req, res, next ) {
 }
 
 function set( req, res, next ) {
+  const image = req.files && req.files.image && req.files.image[0];
+  const body = Object.assign({ image }, JSON.parse(req.body.data));
 
   agendasSvc.set(
     { slug: req.params.slug },
-    req.body,
+    body,
     {
       includeImagePath: true,
       private: null,

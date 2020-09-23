@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { updateSyncErrors } from 'redux-form/lib/actions';
-import ImageUpload from '@openagenda/image-upload';
 import { Modal } from '@openagenda/react-components';
+import { ImageInput } from '@openagenda/react-shared';
 import * as agendaActions from '../../reducers/agenda';
 import * as modalsActions from '../../reducers/modals';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';
@@ -12,13 +12,12 @@ import { renderInput, renderTextarea, renderInputGroup } from '../../utils/input
 
 @connect(
   (state, props) => {
-    const { uid, title, description, url, slug } = props.agenda;
+    const { title, description, url, slug, image } = props.agenda;
 
     return {
-      initialValues: { uid, title, description, url, slug },
+      initialValues: { title, description, url, slug, image },
       res: state.res,
-      modals: state.modals,
-      imageChanged: state.agenda.imageChanged
+      modals: state.modals
     };
   },
   { ...agendaActions, ...modalsActions, onSubmit: agendaActions.edit }
@@ -71,10 +70,10 @@ export default class ProfileEdition extends Component {
   }
 
   renderSubmitBtn = () => {
-    const { dirty, submitting, submitSucceeded, valid, imageChanged } = this.props;
+    const { dirty, submitting, submitSucceeded, valid } = this.props;
     const { getLabel } = this.context;
 
-    if ( !dirty && !imageChanged && submitSucceeded ) {
+    if ( !dirty && submitSucceeded ) {
       return <button type="submit" className="btn btn-success" disabled>{getLabel( 'saved' )}</button>;
     } else if ( submitting ) {
       return <button type="submit" className="btn btn-primary" disabled>{getLabel( 'saving' )}</button>;
@@ -89,25 +88,30 @@ export default class ProfileEdition extends Component {
 
   render() {
     const {
-      handleSubmit, agenda, modals, imageUploaded,
-      imageChanged, res, showModal, closeModal, remove
+      handleSubmit, modals, showModal, closeModal, remove
     } = this.props;
-    const { getLabel, lang } = this.context;
+    const { getLabel } = this.context;
 
     return (
       <div className="profile">
         <div className="row">
           <div className="col-md-7">
-            <ImageUpload
-              frameName="profileAgendaEdition"
-              lang={lang}
-              value={agenda.image}
-              handleUpdate={imageUploaded}
-              upload={res.uploadImage.replace( ':slug', agenda.slug )}
-              remove={res.clearImage.replace( ':slug', agenda.slug )}
-              rand={!!imageChanged}
-            />
             <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="title">Image</label>
+                <Field
+                  name="image"
+                  component={ImageInput}
+                  type="file"
+                  extensions={['jpg', 'bmp', 'png', 'jpeg']}
+                  labels={{
+                    update: getLabel('imageUpdate'),
+                    upload: getLabel('imageUpload'),
+                    acceptedExtensions: getLabel('imageAcceptedExtensions'),
+                    remove: getLabel('imageRemove')
+                  }}
+                />
+              </div>
               <Field
                 name="title"
                 component={this.renderInput}

@@ -26,20 +26,6 @@ module.exports = function reduxMiddleware(layoutStore) {
         });
         break;
       }
-      case 'agenda-settings/agenda/IMAGE_UPLOADED': {
-        const layoutState = layoutStore.getState();
-
-        layoutStore.dispatch({
-          type: 'react-layouts/agendaAdmin/UPDATE_AGENDA',
-          payload: {
-            agenda: {
-              ...layoutState.agendaAdmin.agenda,
-              image: action.image
-            }
-          }
-        });
-        break;
-      }
       default:
         break;
     }
