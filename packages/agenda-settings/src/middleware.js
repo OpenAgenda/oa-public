@@ -1,5 +1,4 @@
 const logs = require( '@openagenda/logs' );
-const mwUploadImage = require( '@openagenda/image-upload/lib/middleware' );
 
 let service, config;
 let agendasSvc;
@@ -9,8 +8,6 @@ module.exports = {
   create,
   get,
   set,
-  setImage,
-  clearImage,
   slugs: {
     available: slugAvailable
   }
@@ -78,49 +75,6 @@ function set( req, res, next ) {
       return res.json( result );
 
     } );
-
-}
-
-function setImage( req, res, next ) {
-
-  agendasSvc.get( { slug: req.params.slug }, { instanciate: true, private: null }, ( err, result ) => {
-
-    if ( err ) return next( err );
-
-    mwUploadImage( {
-      dest: '/var/tmp',
-      handler: ( tmpPath, info, cb ) => {
-
-        result.setImage( { path: tmpPath }, ( err, paths ) => {
-
-          if ( err ) return cb( err );
-
-          cb( null, paths[ 0 ] );
-
-        } );
-
-      }
-    } )( req, res, next );
-
-  } );
-
-}
-
-function clearImage( req, res, next ) {
-
-  agendasSvc.get( { slug: req.params.slug }, { instanciate: true, private: null }, ( err, result ) => {
-
-    if ( err ) return next( err );
-
-    result.clearImage( err => {
-
-      if ( err ) next( err );
-
-      res.json();
-
-    } );
-
-  } );
 
 }
 

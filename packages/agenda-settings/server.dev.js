@@ -68,8 +68,6 @@ app.use((req, res, next) => {
 app.post('/', mw.create);
 app.get('/:uid/agenda.json', mw.get);
 app.post('/:slug/edit', mw.set);
-app.post('/:slug/setImage', mw.setImage);
-app.post('/:slug/clearImage', mw.clearImage);
 app.post('/slugs/available', mw.slugs.available);
 app.post('/:slug/remove', [
   // mw.removeAgenda,
