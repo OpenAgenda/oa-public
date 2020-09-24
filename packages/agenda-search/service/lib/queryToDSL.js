@@ -22,6 +22,13 @@ module.exports = (query, from = 0, size = 10) => {
             }
           }
         }, {
+          range: {
+            updatedAt: {
+              boost: 10,
+              gte: (new Date).getTime() - 7*24*60*60*1000 // 1 week ago
+            }
+          }
+        }, {
           term: {
             hasUpcomingPublished: {
               value: true,

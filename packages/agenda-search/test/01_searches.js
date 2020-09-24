@@ -15,7 +15,10 @@ describe('search', function() {
     svc = Service({
       elasticsearch: config.elasticsearch,
       alias: config.alias,
-      listAgendas: listInterface.bind(null, 100),
+      listAgendas: listInterface.bind(null, 100, a => {
+        if (a.uid === 3) a.updatedAt = new Date;
+        return a;
+      }),
       getAgendaSummary,
       imagePath: config.imagePath,
       defaultImage: config.defaultImage
@@ -23,6 +26,19 @@ describe('search', function() {
   });
 
   before(() => svc.rebuild());
+
+  describe('Default (no searches, no filters)', () => {
+    let result;
+
+    before(async () => {
+      result = await svc({}, 0, 10);
+    });
+
+    it('updated recently appears first', () => {
+      assert.equal(result.items[0].uid, 3);
+    });
+
+  });
 
   describe('Title', () => {
 

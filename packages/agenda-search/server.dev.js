@@ -21,7 +21,7 @@ app.server = server;
 (async () => {
   const service = Service({
     elasticsearch: testconfig.elasticsearch,
-    listAgendas: listInterface.bind(null, 100),
+    listAgendas: listInterface.bind(null, 100, a => a),
     imagePath: testconfig.imagePath,
     defaultImage: testconfig.defaultImage,
     getAgendaSummary
