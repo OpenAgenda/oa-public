@@ -5,6 +5,7 @@ const csv = require('fast-csv');
 const XlsxStream = require('xlsx-writestream');
 const expressUtils = require('@openagenda/utils/express');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
+const multer = require('multer');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
 
 const layout = require( '../lib/layouts' ).load(
@@ -12,10 +13,9 @@ const layout = require( '../lib/layouts' ).load(
 );
 
 const {
-  setImageOnExistingLocation,
-  setImageOnNewLocation,
   loadLocation,
-  getLocationSettings
+  getLocationSettings,
+  parseDataWithImageStream
 } = require('./lib/middleware');
 
 module.exports = (config, services, instance, app, base) => {
@@ -70,13 +70,7 @@ module.exports = (config, services, instance, app, base) => {
               update: `/${req.agenda.slug}/admin/locations/:locationUid`,
               get: `/${req.agenda.slug}/admin/locations/:locationUid.json`,
               remove: `/${req.agenda.slug}/admin/locations/:locationUid`,
-              merge: `/${req.agenda.slug}/admin/locations/merge`,
-              image: {
-                newUpload: `/${req.agenda.slug}/admin/locations/images`,
-                newRemove: `/${req.agenda.slug}/admin/locations/images/remove`,
-                upload: `/${req.agenda.slug}/admin/locations/images/:locationUid`,
-                remove: `/${req.agenda.slug}/admin/locations/images/:locationUid/remove`,
-              }
+              merge: `/${req.agenda.slug}/admin/locations/merge`
             }
           })
         }],
@@ -148,7 +142,9 @@ module.exports = (config, services, instance, app, base) => {
  );
 
   app.post(`${base}`, (req, res, next) => {
-    req.locations.create({ ...req.body, state: 1 }, {
+    multer({ dest: config.tmpFolderPath }).single('image'),
+    parseDataWithImageStream,
+    req.locations.create({ ...req.data, state: 1 }, {
       includeImagePath: true
     }).then(location => {
       res.json({
@@ -182,27 +178,11 @@ module.exports = (config, services, instance, app, base) => {
       .then(terms => res.json({ terms }));
   });
 
-  app.post(`${base}/images`,
-    instance.utils.images.multer,
-    setImageOnNewLocation(instance)
- );
-
-  app.post(`${base}/images/remove`, (req, res, next) => {
-    res.send('ok');
-  });
-
-  app.post(`${base}/images/:locationUid`,
-    instance.utils.images.multer,
-    setImageOnExistingLocation(instance)
- );
-
-  app.post(`${base}/images/:locationUid/remove`, (req, res, next) => {
-    res.send('ok');
-  });
-
   app.post(`${base}/:locationUid`,
+    multer({ dest: config.tmpFolderPath }).single('image'),
+    parseDataWithImageStream,
     (req, res, next) => {
-      req.locations.update(req.params.locationUid, req.body, {
+      req.locations.update(req.params.locationUid, req.data, {
         includeImagePath: true
       }).then(location => {
         res.json({

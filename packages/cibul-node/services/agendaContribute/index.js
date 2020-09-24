@@ -96,8 +96,6 @@ module.exports = Object.assign((parentApp, path = '') => {
         geocode: `/locations/geocode`,
         reverse: `/locations/geocode/reverse`,
         insee: `/locations/insee`,
-        newImageUpload: `/agendas/${req.agenda.uid}/locations/images`,
-        newImageRemove: `/agendas/${req.agenda.uid}/locations/images/remove`,
         default: `/agendas/${req.agenda.uid}/locations`
       },
       referencesRes: `/agendas/${req.agenda.uid}/events`,

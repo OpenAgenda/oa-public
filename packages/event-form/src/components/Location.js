@@ -83,12 +83,6 @@ class LocationComponent extends Component {
       insee: getRes(res, 'insee', `/insee`),
       create: getRes(res, 'create', ``),
       remove: getRes(res, 'remove', '/remove'),
-      image: {
-        newUpload: getRes(res, 'newImageUpload', `/image`),
-        newRemove: getRes(res, 'newImageRemove', `/image/remove`),
-        upload: getRes(res, 'imageUpload', `/:locationUid/image`),
-        remove: getRes(res, 'imageRemove', `/:locationUid/image/remove`)
-      },
       suggestChange: getRes(res, 'suggestChange', `/:locationUid/suggest-change/conversation/create`)
     }
 

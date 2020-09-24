@@ -38,12 +38,7 @@ module.exports.init = async (config, services) => {
       locationWillRemove: beforeRemove(services),
       onUpdate: onUpdate(queue)
     },
-    temporaryDirectory: config.tmpFolderPath,
-    aws: {
-      key: config.aws.accessKeyId,
-      secret: config.aws.secretAccessKey,
-      bucket: config.aws.bucket
-    },
+    Files: services.files,
     logger: config.getLogConfig('svc', 'agendaLocations')
   });
 
