@@ -85,22 +85,6 @@ module.exports = app => {
   );
 
   app.post(
-    '/:slug/admin/settings/setImage',
-    sessions.mw.loadOrRedirect(),
-    cmn.loadAgenda,
-    members.mw.loadAndAuthorize('administrator'),
-    mw.setImage
-  );
-
-  app.post(
-    '/:slug/admin/settings/clearImage',
-    sessions.mw.loadOrRedirect(),
-    cmn.loadAgenda,
-    members.mw.loadAndAuthorize('administrator'),
-    mw.clearImage
-  );
-
-  app.post(
     '/:slug/admin/settings/remove',
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
