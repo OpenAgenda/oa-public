@@ -7,8 +7,10 @@ import update from 'immutability-helper';
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
 import formLabels from '@openagenda/labels/agenda-locations/form';
+import imageUploadLabels from '@openagenda/labels/form-schemas/imageUpload';
 import get from '@openagenda/utils/get';
 import GroupTagSelector from '@openagenda/react-form-components/build/GroupTagSelector';
+import { ImageInput } from '@openagenda/react-shared';
 import InputField from '@openagenda/react-form-components/build/InputField';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import MultiInputField from '@openagenda/react-form-components/build/MultiInputField';
@@ -25,6 +27,10 @@ import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers.js';
 import validate from './validate';
 import extraGeoFields from './extraGeoFields';
+
+import makeLabelGetter from '@openagenda/labels';
+
+const getImageUploadLabels = makeLabelGetter(imageUploadLabels);
 
 const alternativeMaxLength = 50;
 
@@ -403,7 +409,7 @@ class LocationForm extends Component {
     try {
       clean = validate(data, this.props.settings, partial);
     } catch (errors) {
-      console.log('???', errors);
+      log('validation errors', errors);
       return this.actions.setError(errors);
     }
 
@@ -417,6 +423,7 @@ class LocationForm extends Component {
   }
 
   post(partial, clean) {
+    log('post', clean);
     post(this.props.getSetRes ? this.props.getSetRes() : this.props.postRes, clean, (err, result) => {
       if (err) {
         log('error', err);
@@ -614,22 +621,25 @@ class LocationForm extends Component {
 
   renderDetailedInfo() {
 
+    console.log();
+
     return <div className="form-group">
 
       <div
         className={this.isFieldEnabled('image') ? 'form-group' : 'form-group disabled'}>
-        <div className="file-upload">
-          <Dropzone onDrop={acceptedFiles => this.onChange('image', acceptedFiles)}>
-            {({getRootProps, getInputProps}) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>Drag 'n' drop some files here, or click to select files</p>
-                </div>
-              </section>
-            )}
-          </Dropzone>
-        </div>
+        <ImageInput
+          extensions={['jpg', 'bmp', 'png', 'jpeg']}
+          labels={{
+            update: getImageUploadLabels('update', this.props.lang),
+            upload: getImageUploadLabels('upload', this.props.lang),
+            acceptedExtensions: getImageUploadLabels('acceptedExtensions', this.props.lang),
+            remove: getImageUploadLabels('remove', this.props.lang)
+          }}
+          input={{
+            onChange: file => this.onChange('image', file),
+            value: this.state?.location.image
+          }}
+        />
       </div>
 
       <InputField

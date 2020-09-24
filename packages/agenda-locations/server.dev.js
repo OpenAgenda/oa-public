@@ -169,6 +169,17 @@ const fixtures = require('./test/fixtures');
     }, next);
   });
 
+  app.post('/:locationUid', (req, res, next) => {
+    svc(7196947).update(req.params.locationUid, req.data, {
+      includeImagePath: true
+    }).then(location => {
+      res.json({
+        location,
+        success: true
+      });
+    }, next);
+  });
+
   app.delete('/:locationUid', (req, res, next) => {
     svc(7196947).remove(req.params.locationUid, {
       includeImagePath: true

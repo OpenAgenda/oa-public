@@ -11,36 +11,31 @@ export default (res, values, cb) => {
   }, { fileless: {}, files: {} });
 
   // IE11 does not like empty strings;
-  const req = sa.post(res || window.location.href);
+  const req = sa.post(res || window?.location?.href);
 
   req.ok(res => res.status < 500);
 
   if (!Object.keys(files).length) {
-    return req.send({
+    req.send({
       data: JSON.stringify(fileless)
     });
+  } else {
+    Object.keys(files).forEach(fieldName => {
+      // handle multiple files if need be
+      const fieldFiles = [].concat(files[fieldName]);
+      fieldFiles.forEach((file, index) => {
+        req.attach(fieldName, fieldFiles[index]);
+      });
+    });
+
+    req.field('data', JSON.stringify(fileless));
   }
 
-  Object.keys(files).forEach(fieldName => {
-    // handle multiple files if need be
-    [].concat(files[fieldName]).forEach((file, index) => {
-      if (!files[fieldName]) throw new Error('file field is not defined: ' + fieldName);
-      req.attach(fieldName, files[fieldName][index]);
-    });
-  });
-
-  req.field('data', JSON.stringify(fileless));
-
-  req.end((err, res) => {
-    if (err) return cb(err);
-
-    cb(null, res.body);
-  });
-
+  req.end((err, res) => cb(err, res?.body));
 }
 
 function _areFiles(value) {
-  if (!(value instanceof Array)) return false;
-  if (!value.length) return false;
-  return value[0] instanceof File
+  const values = value ? [].concat(value) : [];
+  if (!values.length) return false;
+  return values[0] instanceof File
 }

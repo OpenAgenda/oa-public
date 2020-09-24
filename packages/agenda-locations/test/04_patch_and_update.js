@@ -83,7 +83,7 @@ describe('agenda-locations - functional - update', () => {
     });
 
     it('saves uploaded image name in db', () => {
-      assert.equal(JSON.parse(entry.store).image, `location94482437.jpg`);
+      assert.equal(JSON.parse(entry.store).image.split('?').shift(), `location94482437.jpg`);
     });
   });
 

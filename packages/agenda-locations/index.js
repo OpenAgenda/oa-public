@@ -24,17 +24,6 @@ module.exports = Object.assign((c = {}) => {
     ...config,
     [key]: c[key]
   } : config), {
-    imageTransforms: [{
-      name: '{{name}}',
-      width: 600
-    }, {
-      name: '{{name}}_o'
-    }, {
-      name: '{{name}}_sm',
-      width: 300
-    }],
-    temporaryDirectory: '/tmp/',
-    aws: { key: null, secret: null, bucket: null },
     redis: null,
     imagePath: '//cdn.to.images/',
     Files: null,
@@ -67,19 +56,28 @@ module.exports = Object.assign((c = {}) => {
     imageTransformAndUpload: config.Files({
       key: 'image',
       variants: [{
+        getFilename: (info, context) => `location${context.uid}.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+          return gm(info.stream, context.originalname).stream('jpg')
+        }
+      }, {
         getFilename: (info, context) => `location${context.uid}_sm.jpg`,
-        transform: (info, context) => gm(info.stream, context.originalname)
-          .resize(300)
-          .stream('jpg')
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+          return gm(info.stream, context.originalname)
+            .resize(600)
+            .stream('jpg');
+        }
       }, {
         getFilename: (info, context) => `location${context.uid}_o.jpg`,
-        transform: (info, context) => gm(info.stream, context.originalname)
-          .resize(600)
-          .stream('jpg')
-      }, {
-        getFilename: (info, context) => `location${context.uid}.jpg`,
-        transform: (info, context) => gm(info.stream, context.originalname)
-          .stream('jpg')
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .resize(300)
+            .stream('jpg')
+        }
       }]
     })
   };

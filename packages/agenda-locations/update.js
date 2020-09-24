@@ -16,16 +16,29 @@ async function update({ service, isPatch }, current, data, options = {}) {
     includeImagePath
   } = cleanOptions(options);
 
+  const ignoreImage = current.image && !validate.isStream(data.image);
+
+  if (ignoreImage) {
+    log('image is not stream, will be ignored');
+  }
+
   const clean = {
-    ...validate(data, { isPatch }),
+    ...validate(data, { isPatch, ignoreImage }),
     updatedAt: new Date
   };
 
-  if (clean.image) {
-    const { image } = await service.imageTransformAndUpload(clean.image, { uid: current.uid });
+  if (current.image && (data.image === null)) {
+    clean.image = null;
+  } else if (clean.image && !ignoreImage) {
+    log('uploading image');
+    const result = await service.imageTransformAndUpload(clean.image, { uid: current.uid });
 
-    clean.image = image.filename;
+    clean.image = result.image[0].filename + '?__ts=' + (new Date).getTime();
+  } else if (ignoreImage && current.image) {
+    clean.image = current.image.split('/').pop();
   }
+
+  // string image means image is unchanged.
 
   const entry = fromItemToDbEntry(clean);
 
