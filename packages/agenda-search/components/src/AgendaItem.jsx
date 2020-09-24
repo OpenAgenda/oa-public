@@ -20,34 +20,39 @@ module.exports = createReactClass( {
   },
 
   render() {
+    const href=url.agenda(this.props.agenda, {
+      lang: this.props.lang
+    });
 
     return <div className="agenda-item media">
-      <a href={url.agenda( this.props.agenda, {
-        lang: this.props.lang
-      } )}>
-        <div className="media-left">
+      <div className="media-left">
+        <a href={href}>
           <img
             className="media-object ill avatar"
             src={this.props.agenda.image}
             alt={this.props.agenda.title}
           />
-        </div>
-        <div className="media-body">
-          <div className="title media-heading">
-            {this.props.agenda.network ? <div className="network">
-              <a href={url.network(this.props.agenda.network)}>{this.props.agenda.network.title} ›</a>
-            </div> : null }
+        </a>
+      </div>
+      <div className="media-body">
+        <div className="title media-heading">
+          {this.props.agenda.network ? <div className="network">
+            <a href={url.network(this.props.agenda.network)}>{this.props.agenda.network.title} ›</a>
+          </div> : null }
+          <a href={href}>
             <strong>{this.props.agenda.title}</strong>
-            { this.props.agenda.official ?
-              <div className="official">
-                <img src="//s3.eu-central-1.amazonaws.com/oastatic/official14.png" alt="officiel" />
-                <div className="tooltip right" role="tooltip">
-                  <div className="tooltip-arrow"></div>
-                  <div className="tooltip-inner">{getLabel( 'official', this.props.lang) }</div>
-                </div>
+          </a>
+          { this.props.agenda.official ?
+            <div className="official">
+              <img src="//s3.eu-central-1.amazonaws.com/oastatic/official14.png" alt="officiel" />
+              <div className="tooltip right" role="tooltip">
+                <div className="tooltip-arrow"></div>
+                <div className="tooltip-inner">{getLabel( 'official', this.props.lang) }</div>
               </div>
-            : null }
-          </div>
+            </div>
+          : null }
+        </div>
+        <a href={href}>
           <p className="description">{this.props.agenda.description}</p>
           <div>
             { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? <span className="badge badge-default">{getLabel( 'publishedEvent', this.props.lang )}</span> : null }
@@ -55,8 +60,8 @@ module.exports = createReactClass( {
             { this.props.agenda.upcomingPublishedEvents === 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvent', this.props.lang )}</span> : null }
             { this.props.agenda.upcomingPublishedEvents > 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvents', { count: this.props.agenda.upcomingPublishedEvents }, this.props.lang )}</span> : null }
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
 
   }

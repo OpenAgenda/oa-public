@@ -167,6 +167,7 @@ module.exports = app => {
     cmn.https,
     _redirectSlashed,
     _modifiedSince1am,
+    _loadNetwork,
     agendaSearch.mw.list,
     agendaSearchPage
   );
@@ -264,6 +265,19 @@ module.exports = app => {
   );
 
 };
+
+
+function _loadNetwork(req, res, next) {
+  if (!req.query.network) return next();
+
+  req.app.services.networks.get(req.query.network).then(network => {
+    if (!network) return next();
+
+    req.network = _.pick(network, ['uid', 'title']);
+
+    next();
+  }, next);
+}
 
 
 /**
@@ -469,6 +483,7 @@ function agendaSearchPage( req, res, next ) {
       name: 'data-options',
       value: JSON.stringify( {
         lang: req.lang,
+        network: req.network,
         canvas: '.js_search_canvas',
         agendas: req.data.agendas,
         total: req.data.total,

@@ -12,7 +12,8 @@ module.exports = options => {
     res: '/', // where to fetch list.
     canvas: '.js_search_canvas',
     dataTag: 'data-options',
-    lang: 'en'
+    lang: 'en',
+    network: null
   }, options );
 
   const data = du.parseJsonAttribute( 'body', params.dataTag, {
@@ -26,6 +27,7 @@ module.exports = options => {
     query: dl.getQuery(),
     page: parseInt( dl.getQueryPart( 'page', 1 ), 10 ),
     agendas: data.agendas,
+    network: params.network,
     total: data.total
   } );
 
