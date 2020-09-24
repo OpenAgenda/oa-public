@@ -24,7 +24,6 @@
     "@babel/runtime-corejs3": "^7.10.4",
     "@openagenda/agendas": "^1.5.2",
     "@openagenda/call-to-action": "^2.2.14",
-    "@openagenda/image-upload": "^1.0.9",
     "@openagenda/labels": "^2.2.7",
     "@openagenda/logs": "^1.1.7",
     "@openagenda/react-components": "^2.3.9",
