@@ -7,7 +7,8 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
   const {
     upcomingPublishedEvents,
     publishedEvents,
-    keywords
+    keywords,
+    network
   } = await getAgendaSummary(agenda);
 
   return {
@@ -28,6 +29,7 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
     official: !!agenda.official,
     upcomingPublishedEvents,
     publishedEvents,
-    keywords
+    keywords,
+    ...(network ? { network } : {} )
   };
 }

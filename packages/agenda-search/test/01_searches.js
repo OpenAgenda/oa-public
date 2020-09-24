@@ -16,7 +16,7 @@ describe('search', function() {
       elasticsearch: config.elasticsearch,
       alias: config.alias,
       listAgendas: listInterface.bind(null, 100),
-      getAgendaSummary: getAgendaSummary,
+      getAgendaSummary,
       imagePath: config.imagePath,
       defaultImage: config.defaultImage
     });
@@ -129,7 +129,7 @@ describe('search', function() {
 
   });
 
-  describe('Misc', () => {
+  describe('Filters', () => {
 
     it('fetch official only', async () => {
       const { total, items } = await svc.list({
@@ -139,6 +139,14 @@ describe('search', function() {
       items.forEach(agenda => {
         assert.equal(agenda.official, true);
       });
+    });
+
+    it('fetch for certain network only', async () => {
+      const { total, items } = await svc.list({
+        network: 1
+      }, 0, 10);
+
+      assert.equal(items.pop().network.uid, 1);
     });
 
   });

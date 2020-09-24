@@ -39,5 +39,15 @@
   },
   "keywords": {
     "type": "keyword"
+  },
+  "network": {
+    "properties": {
+      "uid": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "text"
+      }
+    }
   }
 }

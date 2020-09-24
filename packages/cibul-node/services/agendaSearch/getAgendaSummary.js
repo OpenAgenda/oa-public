@@ -17,9 +17,14 @@ module.exports = async (services, agenda) => {
   const upcomingPublishedEvents = result.aggregations.pastAndUpcoming.filter(a => a.key === 'upcoming').pop().eventCount;
   const publishedEvents = agenda.upcomingPublishedEvents + result.aggregations.pastAndUpcoming.filter(a => a.key === 'past').pop().eventCount;
 
+  if (agenda.networkUid) {
+    console.log(await services.networks.get(agenda.networkUid));
+  }
+
   return {
     upcomingPublishedEvents,
     publishedEvents,
-    keywords
+    keywords,
+    network: agenda.networkUid ? await services.networks.get(agenda.networkUid) : null
   }
 }

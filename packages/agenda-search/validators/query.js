@@ -1,14 +1,15 @@
 "use strict";
 
-const schemas = require( '@openagenda/validators/schema' );
+const schemas = require('@openagenda/validators/schema');
 
-schemas.register( {
-  text: require( '@openagenda/validators/text' ),
-  regex: require( '@openagenda/validators/regex' ),
-  boolean: require( '@openagenda/validators/boolean' )
-} );
+schemas.register({
+  text: require('@openagenda/validators/text'),
+  regex: require('@openagenda/validators/regex'),
+  boolean: require('@openagenda/validators/boolean'),
+  integer: require('@openagenda/validators/integer')
+});
 
-module.exports = schemas( {
+module.exports = schemas({
   search: {
     type: 'text',
     optional: true,
@@ -16,6 +17,11 @@ module.exports = schemas( {
   },
   official: {
     type: 'boolean',
+    optional: true,
+    default: null
+  },
+  network: {
+    type: 'integer',
     optional: true,
     default: null
   },
@@ -29,4 +35,4 @@ module.exports = schemas( {
     regex: /createdAt\.desc/,
     default: null
   }
-} );
+});

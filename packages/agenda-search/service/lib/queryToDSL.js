@@ -69,6 +69,14 @@ module.exports = (query, from = 0, size = 10) => {
     });
   }
 
+  if (clean.network !== null) {
+    filteredPart.push({
+      term: {
+        'network.uid': clean.network
+      }
+    })
+  }
+
   if (mustPart.length) {
     dsl.query.bool.must = mustPart;
   }

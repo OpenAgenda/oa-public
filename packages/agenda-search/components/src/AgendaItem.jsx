@@ -34,6 +34,9 @@ module.exports = createReactClass( {
         </div>
         <div className="media-body">
           <div className="title media-heading">
+            {this.props.agenda.network ? <div className="network">
+              <a href={url.network(this.props.agenda.network)}>{this.props.agenda.network.title} ›</a>
+            </div> : null }
             <strong>{this.props.agenda.title}</strong>
             { this.props.agenda.official ?
               <div className="official">
