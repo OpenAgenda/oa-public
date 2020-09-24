@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import deepExtend from 'deep-extend';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import makeGetterLabel from '@openagenda/labels';
-import ImageUpload from '@openagenda/image-upload';
 import labels from '@openagenda/labels/agenda-admin/gettingStarted';
 import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 
@@ -46,11 +45,6 @@ class GettingStarted extends Component {
     image: this.props.image
   };
 
-  imageUploaded = ( image, error ) => {
-    if ( error ) return;
-    this.setState( { image } );
-  };
-
   onCopied = () => {
 
     this.setState( { copied: true } );
@@ -76,22 +70,6 @@ class GettingStarted extends Component {
             <a className="btn btn-primary" href={res.addEvent}>
               {getLabel( 'addEvent' )}
             </a>
-          </div>
-        </div>
-
-        <div className="margin-v-lg">
-          <b>{getLabel( 'addProfileImage' )}</b><br />
-          <div className="margin-top-md">
-            <ImageUpload
-              label={false}
-              frameName="bravoModalSetImage"
-              lang={lang}
-              value={this.state.image}
-              handleUpdate={this.imageUploaded}
-              upload={res.setImage}
-              remove={res.clearImage}
-              rand={false}
-            />
           </div>
         </div>
 
