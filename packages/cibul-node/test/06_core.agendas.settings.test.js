@@ -38,6 +38,7 @@ describe('core - functional (server): core.agendas().settings.get()', function()
     const services = await Services(testConfig, {
       enabled: [
         'queues',
+        'files',
         'events',
         'agendas',
         'aggregators',

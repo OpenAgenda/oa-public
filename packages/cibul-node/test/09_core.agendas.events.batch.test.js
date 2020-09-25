@@ -39,6 +39,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
     const services = await Services(testConfig, {
       enabled: [
         'queues',
+        'files',
         'events',
         'agendas',
         'agendaEvents',
