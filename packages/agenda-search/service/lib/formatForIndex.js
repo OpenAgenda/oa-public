@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const imageWithPath = require('./imageWithPath');
+const log = require('@openagenda/logs')('formatForIndex');
 
 module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) => {
   const {
