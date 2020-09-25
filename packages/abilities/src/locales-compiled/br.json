@@ -1,0 +1,56 @@
+{
+  "Abilities.AbilitiesEditor.error": [
+  ],
+  "Abilities.AbilitiesForm.save": [
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEvent": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveInvitation": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
+  ],
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [
+  ],
+  "Abilities.RulesCheckbox.states.controlled": [
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+  ],
+  "Abilities.RulesCheckbox.states.refused": [
+  ],
+  "Abilities.RulesCheckbox.states.toControl": [
+  ]
+}

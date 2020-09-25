@@ -245,8 +245,5 @@ service.middleware = {
 };
 
 export default service;
+export { middleware, rulesLib as rules, createAbility, createBuilder };
 export { default as config, init } from './config';
-export * as rules from './rules';
-export * as middleware from './middleware';
-export createAbility from './createAbility';
-export createBuilder from './createBuilder';

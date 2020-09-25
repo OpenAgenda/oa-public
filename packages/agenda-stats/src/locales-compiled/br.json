@@ -1,0 +1,176 @@
+{
+  "AgendaStats.ChartAdder.addChart": [
+  ],
+  "AgendaStats.ChartWrapper.remove": [
+  ],
+  "AgendaStats.ChartWrapper.update": [
+  ],
+  "AgendaStats.ChartWrapper.withSelector": [
+  ],
+  "AgendaStats.ComposedChart.noValue": [
+  ],
+  "AgendaStats.ComposedChart.tooltipContentCreatedAt": [
+  ],
+  "AgendaStats.ComposedChart.tooltipContentEvents": [
+  ],
+  "AgendaStats.ComposedChart.tooltipContentTimings": [
+  ],
+  "AgendaStats.ComposedChart.tooltipContentUpdatedAt": [
+  ],
+  "AgendaStats.CustomTooltip.events": [
+  ],
+  "AgendaStats.Dashboard.cancel": [
+  ],
+  "AgendaStats.Dashboard.changeOrder": [
+  ],
+  "AgendaStats.Dashboard.edit": [
+  ],
+  "AgendaStats.Dashboard.pulseDesc": [
+  ],
+  "AgendaStats.Dashboard.save": [
+  ],
+  "AgendaStats.Dashboard.totalEvents": [
+  ],
+  "AgendaStats.DateTooltipItem.tooltipDay": [
+  ],
+  "AgendaStats.DateTooltipItem.tooltipMonth": [
+  ],
+  "AgendaStats.DateTooltipItem.tooltipWeek": [
+  ],
+  "AgendaStats.IntervalSelect.day": [
+  ],
+  "AgendaStats.IntervalSelect.month": [
+  ],
+  "AgendaStats.IntervalSelect.week": [
+  ],
+  "AgendaStats.LoadMore.loadMore": [
+  ],
+  "AgendaStats.LoadMore.nothingMore": [
+  ],
+  "AgendaStats.OrderModal.modalTitle": [
+  ],
+  "AgendaStats.OrderModal.oneColumn": [
+  ],
+  "AgendaStats.OrderModal.oneLine": [
+  ],
+  "AgendaStats.OrderModal.separator": [
+  ],
+  "AgendaStats.OrderModal.submit": [
+  ],
+  "AgendaStats.OrderModal.width": [
+  ],
+  "AgendaStats.RangeFilter.range": [
+  ],
+  "AgendaStats.RangeFilter.sameDayRange": [
+  ],
+  "AgendaStats.RangeFilter.update": [
+  ],
+  "AgendaStats.RangeModal.cancel": [
+  ],
+  "AgendaStats.RangeModal.modalTitle": [
+  ],
+  "AgendaStats.RangeModal.submit": [
+  ],
+  "AgendaStats.RangeTypeFilter.range": [
+  ],
+  "AgendaStats.RangeTypeFilter.sameDayRange": [
+  ],
+  "AgendaStats.RangeTypeFilter.submit": [
+  ],
+  "AgendaStats.RangeTypeFilter.typeCreatedAt": [
+  ],
+  "AgendaStats.RangeTypeFilter.typeDate": [
+  ],
+  "AgendaStats.RangeTypeModal.createdAtDesc": [
+  ],
+  "AgendaStats.RangeTypeModal.dateDesc": [
+  ],
+  "AgendaStats.RangeTypeModal.modalTitle": [
+  ],
+  "AgendaStats.RangeTypeModal.rangeTypeDesc": [
+  ],
+  "AgendaStats.Separator.remove": [
+  ],
+  "AgendaStats.Separator.separator": [
+  ],
+  "AgendaStats.StatEditModal.modalTitle": [
+  ],
+  "AgendaStats.StateTooltipItem.controlled": [
+  ],
+  "AgendaStats.StateTooltipItem.published": [
+  ],
+  "AgendaStats.StateTooltipItem.refused": [
+  ],
+  "AgendaStats.StateTooltipItem.tocontrol": [
+  ],
+  "AgendaStats.dateRanges.currentMonth": [
+  ],
+  "AgendaStats.dateRanges.currentWeek": [
+  ],
+  "AgendaStats.dateRanges.currentYear": [
+  ],
+  "AgendaStats.dateRanges.daysStartingToday": [
+  ],
+  "AgendaStats.dateRanges.daysUpToToday": [
+  ],
+  "AgendaStats.dateRanges.lastMonth": [
+  ],
+  "AgendaStats.dateRanges.lastWeek": [
+  ],
+  "AgendaStats.dateRanges.lastYear": [
+  ],
+  "AgendaStats.form.add": [
+  ],
+  "AgendaStats.form.cancel": [
+  ],
+  "AgendaStats.form.charts": [
+  ],
+  "AgendaStats.form.componentWidth": [
+  ],
+  "AgendaStats.form.oneColumn": [
+  ],
+  "AgendaStats.form.oneLine": [
+  ],
+  "AgendaStats.form.others": [
+  ],
+  "AgendaStats.form.remove": [
+  ],
+  "AgendaStats.form.separator": [
+  ],
+  "AgendaStats.form.typeSelectPlaceholder": [
+  ],
+  "AgendaStats.form.update": [
+  ],
+  "AgendaStats.form.widthSelectPlaceholder": [
+  ],
+  "AgendaStats.titleMessages.cities": [
+  ],
+  "AgendaStats.titleMessages.createdAt": [
+  ],
+  "AgendaStats.titleMessages.createdAtUpdatedAt": [
+  ],
+  "AgendaStats.titleMessages.departments": [
+  ],
+  "AgendaStats.titleMessages.keywords": [
+  ],
+  "AgendaStats.titleMessages.members": [
+  ],
+  "AgendaStats.titleMessages.originAgendas": [
+  ],
+  "AgendaStats.titleMessages.regions": [
+  ],
+  "AgendaStats.titleMessages.states": [
+  ],
+  "AgendaStats.titleMessages.timings": [
+  ],
+  "AgendaStats.titleMessages.updatedAt": [
+  ],
+  "AgendaStats.utils.addRestItem.noValue": [
+  ],
+  "AgendaStats.utils.addRestItem.others": [
+  ],
+  "aggregator-sources.RangeTypeModal.cancel": [
+  ],
+  "aggregator-sources.RangeTypeModal.submit": [
+  ]
+}

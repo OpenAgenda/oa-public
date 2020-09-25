@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import modalsReducer from '../reducers/modals';
 import sourcesReducer from '../reducers/sources';
-import locales from '../locales';
+import locales from '../locales-compiled';
 
 function App({
   route, agenda, agendaSchema, role, lang

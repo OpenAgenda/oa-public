@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 import Stats from './Stats';
 import Header from './Header';
 import Scheduler from './Scheduler';
-import locales from './locales';
+import locales from './locales-compiled';
 
 const ONE_DAY = 60 * 60 * 24;
 

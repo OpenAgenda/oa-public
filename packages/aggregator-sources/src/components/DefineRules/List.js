@@ -103,7 +103,6 @@ export default function List({
           messages={messages}
         />
 
-        {/* eslint-disable react/jsx-props-no-spreading */}
         <div className="margin-v-sm">
           <DragDropContext className="list-group" onDragEnd={onDragEnd}>
             <Droppable droppableId="droppable">

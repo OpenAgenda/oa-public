@@ -15,7 +15,7 @@
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged",
-    "extract-messages": "yarn oa:extract-messages --messages-pattern 'dist/messages/**/*.json'"
+    "extract-messages": "yarn oa:extract-messages"
   },
   "lint-staged": {
     "**/*.js": [
@@ -40,7 +40,7 @@
     "react-date-range": "^1.0.3",
     "react-final-form": "^6.4.0",
     "react-hot-loader": "^4.12.20",
-    "react-intl": "^5.0.2",
+    "react-intl": "^5.8.2",
     "react-query": "^2.5.8",
     "react-redux": "^7.1.3",
     "react-router-config": "^5.1.1",

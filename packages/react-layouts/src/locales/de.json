@@ -1,15 +1,15 @@
 {
-  "react-layouts.MainLayout.help": "Hilfe",
-  "react-layouts.components.Search.search": "Suche",
   "react-layouts.AgendaAdminLayout.administration": "Verwaltung",
-  "react-layouts.AgendaAdminLayout.return": "Kalender Startseite",
   "react-layouts.AgendaAdminLayout.newTab": "Neu !",
-  "react-layouts.MainLayout.general": "Allgemein",
-  "react-layouts.MainLayout.myEvents": "Meine Veranstaltungen",
-  "react-layouts.MainLayout.settings": "Einstellungen",
-  "react-layouts.MainLayout.signout": "Abmelden",
-  "react-layouts.MainLayout.myAgendas": "Meine Agendas",
-  "react-layouts.MainLayout.searchAgenda": "Finde eine Agenda",
+  "react-layouts.AgendaAdminLayout.return": "Kalender Startseite",
   "react-layouts.MainLayout.createAgenda": "Agenda Anlegen",
-  "react-layouts.MainLayout.signin": "Login"
+  "react-layouts.MainLayout.general": "Allgemein",
+  "react-layouts.MainLayout.help": "Hilfe",
+  "react-layouts.MainLayout.myAgendas": "Meine Agendas",
+  "react-layouts.MainLayout.myEvents": "Meine Veranstaltungen",
+  "react-layouts.MainLayout.searchAgenda": "Finde eine Agenda",
+  "react-layouts.MainLayout.settings": "Einstellungen",
+  "react-layouts.MainLayout.signin": "Login",
+  "react-layouts.MainLayout.signout": "Abmelden",
+  "react-layouts.components.Search.search": "Suche"
 }
