@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import statsReducer from '../reducers/stats';
-import locales from '../locales';
+import locales from '../locales-compiled';
 
 function App({
   route, user, agenda, agendaSchema, role

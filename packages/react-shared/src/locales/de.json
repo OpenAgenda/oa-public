@@ -1,0 +1,10 @@
+{
+  "ReactShared.ImageInput.acceptedFiles": "akzeptiert Dateien",
+  "ReactShared.ImageInput.fileTooLarge": "",
+  "ReactShared.ImageInput.fileTooSmall": "",
+  "ReactShared.ImageInput.notSupported": "",
+  "ReactShared.ImageInput.remove": "Löschen",
+  "ReactShared.ImageInput.tooManyFiles": "",
+  "ReactShared.ImageInput.update": "Aktualisieren Sie das Bild",
+  "ReactShared.ImageInput.upload": "Lade ein Bild hoch"
+}

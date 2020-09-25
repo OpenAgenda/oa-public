@@ -22,6 +22,7 @@ async function updateUserRegistrationMessage(slackApp, messageId, agenda) {
   });
 
   const message = result.messages[0];
+  const agendaLink = `<${config.root}/admin/agendas?agendaUid=${agenda.uid}|${agenda.title}>`;
 
   const agendaCreatedIndex = message.blocks.findIndex(block => block.block_id === 'agendasCreated');
   let blocks = [...message.blocks];
@@ -33,7 +34,7 @@ async function updateUserRegistrationMessage(slackApp, messageId, agenda) {
       ...block,
       text: {
         ...block.text,
-        text: `${block.text.text}\n- ${agenda.title}`
+        text: `${block.text.text}\n- ${agendaLink}`
       }
     });
   } else {
@@ -42,7 +43,7 @@ async function updateUserRegistrationMessage(slackApp, messageId, agenda) {
       type: 'section',
       text: {
         type: 'mrkdwn',
-        text: `Agendas créés après inscription (< 30 min.):\n- ${agenda.title}`,
+        text: `Agendas créés après inscription (< 1h):\n- ${agendaLink}`,
         verbatim: false
       }
     });
@@ -62,6 +63,9 @@ async function updateUserRegistrationMessage(slackApp, messageId, agenda) {
 }
 
 function makeMessage({ user, agenda }) {
+  const agendaLink = `<${config.root}/admin/agendas?agendaUid=${user.uid}|${agenda.title}>`;
+  const userLink = `<${config.root}/admin/users?userUid=${user.uid}|${user.fullName}> (${user.email})`;
+
   return {
     text: `Nouvel agenda: ${agenda.title}`,
     blocks: [
@@ -69,11 +73,11 @@ function makeMessage({ user, agenda }) {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `*Nouvel agenda*: ${agenda.title} / ${user.fullName} (${user.email})`
+          text: `*Nouvel agenda*: ${agendaLink} / ${userLink}`
         }
       }
     ]
-  }
+  };
 }
 
 function postMessage(slackApp, services) {
@@ -94,7 +98,7 @@ function postMessage(slackApp, services) {
       throw new Error('Slack message (agenda creation) can not be sent');
     }
 
-    if (differenceInMinutes(new Date(), new Date(user.createdAt)) < 30) {
+    if (differenceInMinutes(new Date(), new Date(user.createdAt)) < 60) {
       const userRegistrationMessageId = await getRegistrationSlackMessageId(services.users, user.uid);
 
       if (!userRegistrationMessageId) {

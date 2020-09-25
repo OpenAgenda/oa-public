@@ -10,7 +10,7 @@
     "knex": "babel-node ../../node_modules/.bin/knex",
     "test": "STORYBOOK_MODE=test jest --testEnvironment=node --forceExit --detectOpenHandles",
     "build": "rimraf build && babel --copy-files -d build src -s",
-    "extract-messages": "yarn oa:extract-messages --messages-pattern 'build/messages/**/*.json'",
+    "extract-messages": "yarn oa:extract-messages",
     "prepack": "yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
@@ -41,7 +41,7 @@
     "prop-types": "^15.6.2",
     "rc-collapse": "^1.11.1",
     "react-final-form": "^4.1.0",
-    "react-intl": "^5.0.2",
+    "react-intl": "^5.8.2",
     "recompose": "^0.30.0",
     "regenerator-runtime": "^0.13.5"
   },

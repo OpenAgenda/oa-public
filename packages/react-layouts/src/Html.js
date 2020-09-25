@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading, react/no-danger */
+/* eslint-disable react/no-danger */
 
 import React from 'react';
 

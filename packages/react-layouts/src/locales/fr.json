@@ -1,15 +1,15 @@
 {
-  "react-layouts.MainLayout.help": "Aide",
-  "react-layouts.components.Search.search": "Rechercher",
   "react-layouts.AgendaAdminLayout.administration": "Administration",
-  "react-layouts.AgendaAdminLayout.return": "Aller à l'accueil de l'agenda",
   "react-layouts.AgendaAdminLayout.newTab": "Nouveau !",
-  "react-layouts.MainLayout.general": "Général",
-  "react-layouts.MainLayout.myEvents": "Mes événements",
-  "react-layouts.MainLayout.settings": "Paramètres",
-  "react-layouts.MainLayout.signout": "Se déconnecter",
-  "react-layouts.MainLayout.myAgendas": "Mes agendas",
-  "react-layouts.MainLayout.searchAgenda": "Rechercher un agenda",
+  "react-layouts.AgendaAdminLayout.return": "Aller à l'accueil de l'agenda",
   "react-layouts.MainLayout.createAgenda": "Créer un agenda",
-  "react-layouts.MainLayout.signin": "Se connecter"
+  "react-layouts.MainLayout.general": "Général",
+  "react-layouts.MainLayout.help": "Aide",
+  "react-layouts.MainLayout.myAgendas": "Mes agendas",
+  "react-layouts.MainLayout.myEvents": "Mes événements",
+  "react-layouts.MainLayout.searchAgenda": "Rechercher un agenda",
+  "react-layouts.MainLayout.settings": "Paramètres",
+  "react-layouts.MainLayout.signin": "Se connecter",
+  "react-layouts.MainLayout.signout": "Se déconnecter",
+  "react-layouts.components.Search.search": "Rechercher"
 }

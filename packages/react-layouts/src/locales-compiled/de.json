@@ -1,0 +1,80 @@
+{
+  "react-layouts.AgendaAdminLayout.administration": [
+    {
+      "type": 0,
+      "value": "Verwaltung"
+    }
+  ],
+  "react-layouts.AgendaAdminLayout.newTab": [
+    {
+      "type": 0,
+      "value": "Neu !"
+    }
+  ],
+  "react-layouts.AgendaAdminLayout.return": [
+    {
+      "type": 0,
+      "value": "Kalender Startseite"
+    }
+  ],
+  "react-layouts.MainLayout.createAgenda": [
+    {
+      "type": 0,
+      "value": "Agenda Anlegen"
+    }
+  ],
+  "react-layouts.MainLayout.general": [
+    {
+      "type": 0,
+      "value": "Allgemein"
+    }
+  ],
+  "react-layouts.MainLayout.help": [
+    {
+      "type": 0,
+      "value": "Hilfe"
+    }
+  ],
+  "react-layouts.MainLayout.myAgendas": [
+    {
+      "type": 0,
+      "value": "Meine Agendas"
+    }
+  ],
+  "react-layouts.MainLayout.myEvents": [
+    {
+      "type": 0,
+      "value": "Meine Veranstaltungen"
+    }
+  ],
+  "react-layouts.MainLayout.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Finde eine Agenda"
+    }
+  ],
+  "react-layouts.MainLayout.settings": [
+    {
+      "type": 0,
+      "value": "Einstellungen"
+    }
+  ],
+  "react-layouts.MainLayout.signin": [
+    {
+      "type": 0,
+      "value": "Login"
+    }
+  ],
+  "react-layouts.MainLayout.signout": [
+    {
+      "type": 0,
+      "value": "Abmelden"
+    }
+  ],
+  "react-layouts.components.Search.search": [
+    {
+      "type": 0,
+      "value": "Suche"
+    }
+  ]
+}

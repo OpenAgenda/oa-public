@@ -1,0 +1,34 @@
+{
+  "ReactShared.ImageInput.acceptedFiles": [
+    {
+      "type": 0,
+      "value": "File accettati"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooLarge": [
+  ],
+  "ReactShared.ImageInput.fileTooSmall": [
+  ],
+  "ReactShared.ImageInput.notSupported": [
+  ],
+  "ReactShared.ImageInput.remove": [
+    {
+      "type": 0,
+      "value": "Cancellare"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "Aggiorna l'immagine"
+    }
+  ],
+  "ReactShared.ImageInput.upload": [
+    {
+      "type": 0,
+      "value": "Carica un'immagine"
+    }
+  ]
+}

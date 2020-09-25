@@ -6,7 +6,7 @@ import {
   Switch, Route, Link, useRouteMatch
 } from 'react-router-dom';
 import loadable from '@openagenda/react-utils/dist/loadable';
-import locales from '../locales';
+import locales from '../locales-compiled';
 
 const AnnouncementManager = loadable(() => import(
   /* webpackChunkName: "supervisor-AnnouncementManager" */

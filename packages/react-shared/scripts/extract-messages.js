@@ -8,9 +8,14 @@ const _ = require('lodash');
 const { sync: globSync } = require('glob');
 const { argv } = require('yargs');
 const dedent = require('dedent');
+const mkdirp = require('mkdirp');
+const { extract, compile } = require('@formatjs/cli');
 
-const MESSAGES_PATTERN = argv.messagesPattern || 'lib/messages/**/*.json';
-const LOCALES_DIR = argv.localesDir || 'src/locales';
+const FILES = argv._[0] || 'src/**/*.js';
+const OUT_DIR = argv.outDir || 'src/locales';
+const COMPILED_DIR = argv.compiledDir || 'src/locales-compiled';
+const ID_INTERPOLATION_PATTERN = argv.idInterpolationPattern || '[sha512:contenthash:base64:6]';
+const FORMAT = 'simple';
 
 const DEFAULT_LANG = argv.defaultLang || 'en';
 let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br'];
@@ -21,27 +26,8 @@ if (Array.isArray(argv.langs)) {
   LANGS = argv.langs.split(',').map(v => v.trim());
 }
 
-// Aggregates the default messages that were extracted from the example app's
-// React components via the React Intl Babel plugin. An error will be thrown if
-// there are messages in different components that use the same `id`. The result
-// is a flat collection of `id: message` pairs for the app's default locale.
-const defaultMessages = globSync(MESSAGES_PATTERN)
-  .map(filename => fs.readFileSync(filename, 'utf8'))
-  .map(file => JSON.parse(file))
-  .reduce((collection, descriptors) => {
-    descriptors.forEach(({ id, defaultMessage }) => {
-      if (Object.prototype.hasOwnProperty.call(collection, id)) {
-        throw new Error(`Duplicate message id: ${id}`);
-      }
-
-      collection[id] = defaultMessage;
-    });
-
-    return collection;
-  }, {});
-
-function extractLang(lang) {
-  const localesPath = path.join(process.cwd(), LOCALES_DIR, `${lang}.json`);
+async function extractLang(defaultMessages, lang) {
+  const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
   let existantLocales;
 
   // local translations
@@ -55,15 +41,34 @@ function extractLang(lang) {
     {},
     lang === DEFAULT_LANG
       ? defaultMessages
-      : _.mapValues(defaultMessages, () => null),
+      : _.mapValues(defaultMessages, () => ''),
     _.pick(existantLocales, _.keysIn(defaultMessages))
   );
 
   fs.writeFileSync(localesPath, `${JSON.stringify(messages, null, 2)}\n`);
 }
 
-function createIndex() {
-  const localesPath = path.join(process.cwd(), LOCALES_DIR, 'index.js');
+async function compileLang(lang) {
+  const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
+  const compiledLocalesPath = path.join(process.cwd(), COMPILED_DIR, `${lang}.json`);
+  let compiledLocales;
+
+  // local translations
+  try {
+    compiledLocales = await compile([localesPath], {
+      ast: true,
+      format: FORMAT
+    });
+  } catch (e) {
+    console.log(`Error while compiling ${lang}`, e);
+    return;
+  }
+
+  fs.writeFileSync(compiledLocalesPath, compiledLocales);
+}
+
+function createIndex(dir) {
+  const localesPath = path.join(process.cwd(), dir, 'index.js');
 
   fs.writeFileSync(
     localesPath,
@@ -87,6 +92,38 @@ function createIndex() {
   );
 }
 
-LANGS.forEach(extractLang);
+(async () => {
+  await mkdirp(OUT_DIR);
+  await mkdirp(COMPILED_DIR);
 
-createIndex();
+  const defaultMessages = JSON.parse(await extract(globSync(FILES), {
+    idInterpolationPattern: ID_INTERPOLATION_PATTERN,
+    extractFromFormatMessageCall: true,
+    format: FORMAT
+  }));
+
+  // Extract
+  const extractResults = await Promise.allSettled(LANGS.map(
+    lang => extractLang(defaultMessages, lang)
+  ));
+
+  extractResults.forEach(result => {
+    if (result.status === 'rejected') {
+      console.log('Extract error:', result.reason);
+    }
+  });
+
+  // Compile
+  const compileResults = await Promise.allSettled(LANGS.map(
+    lang => compileLang(lang)
+  ));
+
+  compileResults.forEach(result => {
+    if (result.status === 'rejected') {
+      console.log('Compile error:', result.reason);
+    }
+  });
+
+  createIndex(OUT_DIR);
+  createIndex(COMPILED_DIR);
+})();

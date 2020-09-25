@@ -252,6 +252,9 @@ const config = {
     cookie: {
       name: 'cibul'
     },
+    blacklistedDomains: [
+      'intrees.org'
+    ],
     mails: {
       defaults: {
         from: '"OpenAgenda" <no-reply@mail.openagenda.com>',

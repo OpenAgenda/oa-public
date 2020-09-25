@@ -2,11 +2,23 @@
 
 const invitationsSvc = require( '@openagenda/invitations' );
 const agendasSvc = require( '@openagenda/agendas' );
+const config = require('../../config');
 
+function blacklistByDomain(context) {
+  const { data } = context;
+
+  const domain = data.email.split('@')[1];
+
+  if (config.blacklistedDomains.includes(domain)) {
+    data.isBlacklisted = true;
+  }
+}
 
 module.exports = function beforeCreate() {
   return async context => {
     const { data } = context;
+
+    blacklistByDomain(context);
 
     if ( data.isActivated ) {
       return context;

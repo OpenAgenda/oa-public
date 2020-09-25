@@ -1,0 +1,28 @@
+{
+  "react-layouts.AgendaAdminLayout.administration": [
+  ],
+  "react-layouts.AgendaAdminLayout.newTab": [
+  ],
+  "react-layouts.AgendaAdminLayout.return": [
+  ],
+  "react-layouts.MainLayout.createAgenda": [
+  ],
+  "react-layouts.MainLayout.general": [
+  ],
+  "react-layouts.MainLayout.help": [
+  ],
+  "react-layouts.MainLayout.myAgendas": [
+  ],
+  "react-layouts.MainLayout.myEvents": [
+  ],
+  "react-layouts.MainLayout.searchAgenda": [
+  ],
+  "react-layouts.MainLayout.settings": [
+  ],
+  "react-layouts.MainLayout.signin": [
+  ],
+  "react-layouts.MainLayout.signout": [
+  ],
+  "react-layouts.components.Search.search": [
+  ]
+}

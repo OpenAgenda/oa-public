@@ -235,6 +235,8 @@ async function _profileImage(v) {
     } catch (e) {
       log.error('upload error:', e);
 
+      v.clean.image = v.current.image;
+
       v.errors.push({
         field: 'image',
         code: 'image.invalid',
@@ -257,6 +259,8 @@ async function _profileImage(v) {
         message: 'invalid image'
       });
     }
+  } else {
+    v.clean.image = v.current.image;
   }
 
   return v;

@@ -1,1 +1,1 @@
-export default from './TimingsPicker';
+export { default } from './TimingsPicker';

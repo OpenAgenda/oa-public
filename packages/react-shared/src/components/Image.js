@@ -88,7 +88,6 @@ class Image extends PureComponent {
 
     return (
       <img
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...propsToPass}
         ref={this.assignImageRef}
         src={currentSrc}

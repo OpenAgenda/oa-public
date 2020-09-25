@@ -59,7 +59,6 @@ function Separator() {
   return <em>{intl.formatMessage(messages.separator)}</em>;
 }
 
-/* eslint-disable react/jsx-props-no-spreading */
 export default function OrderModal({ initialStats, onSubmit, onClose }) {
   const intl = useIntl();
 

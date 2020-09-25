@@ -6,7 +6,7 @@ import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-components';
-import locales from '../locales';
+import locales from '../locales-compiled';
 import AbilitiesForm from './AbilitiesForm';
 import withFetcher from './withFetcher';
 import getChildCheckboxDecorator from './getChildCheckboxDecorator';
@@ -53,7 +53,7 @@ export default class AbilitiesEditor extends Component {
 
     const { entityName, identifier } = this.props;
 
-    this.handleSubmit = ::this.handleSubmit;
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.childCheckboxDecorator = getChildCheckboxDecorator({
       entityName,
