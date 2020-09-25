@@ -10,6 +10,8 @@ import * as modalsActions from '../../reducers/modals';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
 
+const MAX_SIZE = 1024 * 1024 * 20; // 20MB
+
 @connect(
   (state, props) => {
     const { title, description, url, slug, image } = props.agenda;
@@ -90,7 +92,7 @@ export default class ProfileEdition extends Component {
     const {
       handleSubmit, modals, showModal, closeModal, remove
     } = this.props;
-    const { getLabel } = this.context;
+    const { getLabel, lang } = this.context;
 
     return (
       <div className="profile">
@@ -104,12 +106,8 @@ export default class ProfileEdition extends Component {
                   component={ImageInput}
                   type="file"
                   extensions={['jpg', 'bmp', 'png', 'jpeg']}
-                  labels={{
-                    update: getLabel('imageUpdate'),
-                    upload: getLabel('imageUpload'),
-                    acceptedExtensions: getLabel('imageAcceptedExtensions'),
-                    remove: getLabel('imageRemove')
-                  }}
+                  locale={lang}
+                  maxSize={MAX_SIZE}
                 />
               </div>
               <Field
