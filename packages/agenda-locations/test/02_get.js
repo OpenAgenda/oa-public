@@ -3,8 +3,14 @@
 const _ = require('lodash');
 const assert = require('assert');
 
-const config = require('../testconfig');
-const fixtures = require('./fixtures/load');
+const Files = require('@openagenda/files/v3');
+
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
+
+const fixtures = require('./fixtures');
 const Service = require('../');
 
 describe('agenda-locations - functional - get', () => {
@@ -17,6 +23,7 @@ describe('agenda-locations - functional - get', () => {
 
     svc = Service({
       knex: f.client,
+      Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
         getAgendaIdByUid: async id => ({

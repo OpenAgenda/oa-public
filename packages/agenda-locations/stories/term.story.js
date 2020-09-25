@@ -20,7 +20,7 @@ class BaseTermStory extends Component {
     return <div className="top-margined col-sm-8 col-sm-offset-2 wsq content">
       <TermApp
         lang="fr"
-        field="region,country"
+        field="region,countryCode"
         res={`${this.props.apiRoot}/terms`}
         value={this.state.term}
         onChange={term => this.setState({ term })}
@@ -29,7 +29,7 @@ class BaseTermStory extends Component {
       <TermPickerApp
         lang={this.state.lang}
         fields={{
-          region: 'region,country',
+          region: 'region,countryCode',
           department: 'department,region',
           city: 'city,region'
         }}

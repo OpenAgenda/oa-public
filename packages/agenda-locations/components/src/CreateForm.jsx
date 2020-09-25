@@ -8,29 +8,24 @@ import makeLabelGetter from '@openagenda/labels';
 import LocationForm from './LocationForm';
 import CreateFormHeader from './CreateFormHeader';
 
-var getLabel = makeLabelGetter( utils.extend( {}, formLabels, createLabels ) );
+const getLabel = makeLabelGetter({ ...formLabels, ...createLabels });
 
 module.exports = createReactClass( {
-
   propTypes: {
     lang: PropTypes.string,
     actions: PropTypes.object,
     res: PropTypes.object,
     settings: PropTypes.object
   },
-
   renderHeader() {
-
     return <CreateFormHeader
       settings={ this.props.settings }
       actions={ this.props.actions }
       lang={ this.props.lang }
     />
-
   },
 
   render() {
-
     return <LocationForm
       postRes={this.props.res.create}
       Header={ this.renderHeader() }
@@ -45,7 +40,5 @@ module.exports = createReactClass( {
       detailedInfo={ this.props.detailedInfo }
       settings={ this.props.settings }
     />
-
   }
-
-} );
+});

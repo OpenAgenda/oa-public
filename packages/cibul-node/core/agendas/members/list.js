@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 const validateNav = require('./lib/validateNav');
 const format = require('./lib/format');
+const NotFoundError = require('../../utils/NotFoundError');
 
 module.exports = async (services, agendaOrUid, nav) => {
   const {
@@ -19,7 +20,7 @@ module.exports = async (services, agendaOrUid, nav) => {
   });
 
   if (!agenda) {
-    throw new Error('Not found')
+    throw new NotFoundError('agendas', agendaUid);
   }
 
   return membersSvc.list({

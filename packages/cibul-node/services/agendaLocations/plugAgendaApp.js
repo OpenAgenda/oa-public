@@ -2,11 +2,12 @@
 
 const _ = require('lodash');
 const expressUtils = require('@openagenda/utils/express');
+const multer = require('multer');
 const gaTrack = require('../../lib/gaTrack.mw');
 const log = require('@openagenda/logs')('locations/plugAgendaApp');
 
 const {
-  setImageOnNewLocation
+  parseDataWithImageStream
 } = require('./lib/middleware');
 
 module.exports = (config, services, service, app, base) => {
@@ -54,9 +55,11 @@ module.exports = (config, services, service, app, base) => {
   app.post(`${base}`,
     members.mw.load,
     agendaContribute.mw.verifyMemberAuthorization,
+    multer({ dest: config.tmpFolderPath }).single('image'),
+    parseDataWithImageStream,
     (req, res, next) => {
       service(req.params.agendaUid).create({
-        ...req.body,
+        ...req.data,
         state: 0
       }, {
         includeImagePath: true
@@ -68,17 +71,6 @@ module.exports = (config, services, service, app, base) => {
       }, next);
     }
   );
-
-  app.post(`${base}/images`,
-    members.mw.load,
-    agendaContribute.mw.verifyMemberAuthorization,
-    service.utils.images.multer,
-    setImageOnNewLocation(service)
-  );
-
-  app.post(`${base}/images/remove`, (req, res, next) => {
-    res.send('ok');
-  });
 
   app.use(base, (err, req, res, next) => {
     if (err.name === 'ValidationError') {

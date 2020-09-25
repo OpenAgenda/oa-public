@@ -4,6 +4,10 @@ const knex = require('knex');
 const logger = require('@openagenda/logs');
 const countries = require('@openagenda/countries');
 
+const gm = require('gm').subClass({
+  imageMagick: true
+});
+
 const create = require('./create');
 const geolib = require('geolib');
 const get = require('./get');
@@ -13,7 +17,6 @@ const remove = require('./remove');
 const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
-const Images = require('./utils/Images');
 
 module.exports = Object.assign((c = {}) => {
   const config = Object.keys(c).reduce((config, key) => (
@@ -21,19 +24,9 @@ module.exports = Object.assign((c = {}) => {
     ...config,
     [key]: c[key]
   } : config), {
-    imageTransforms: [{
-      name: '{{name}}',
-      width: 600
-    }, {
-      name: '{{name}}_o'
-    }, {
-      name: '{{name}}_sm',
-      width: 300
-    }],
-    temporaryDirectory: '/tmp/',
-    aws: { key: null, secret: null, bucket: null },
     redis: null,
     imagePath: '//cdn.to.images/',
+    Files: null,
     schema: 'location',
     interfaces: {
       getAgendaIdByUid: async id => null,
@@ -47,6 +40,10 @@ module.exports = Object.assign((c = {}) => {
     logger.setModuleConfig(c.logger);
   };
 
+  if (!config.Files) {
+    throw new Error('@openagenda/files instance is required for handling images');
+  }
+
   const service = {
     config,
     clients: {
@@ -56,13 +53,33 @@ module.exports = Object.assign((c = {}) => {
       })
     },
     interfaces: config.interfaces,
-    utils: {
-      images: Images({
-        transforms: config.imageTransforms,
-        temporaryDirectory: config.temporaryDirectory,
-        aws: config.aws
-      })
-    }
+    imageTransformAndUpload: config.Files({
+      key: 'image',
+      variants: [{
+        getFilename: (info, context) => `location${context.uid}.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+          return gm(info.stream, context.originalname).stream('jpg')
+        }
+      }, {
+        getFilename: (info, context) => `location${context.uid}_sm.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+          return gm(info.stream, context.originalname)
+            .resize(600)
+            .stream('jpg');
+        }
+      }, {
+        getFilename: (info, context) => `location${context.uid}_o.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .resize(300)
+            .stream('jpg')
+        }
+      }]
+    })
   };
 
   return Object.assign(agendaUid => ({
@@ -79,7 +96,6 @@ module.exports = Object.assign((c = {}) => {
     list: list.bind(null, service),
     utils: {
       getINSEECode: config.redis ? getINSEECode(config.redis) : null,
-      images: service.utils.images,
       countries
     }
   });

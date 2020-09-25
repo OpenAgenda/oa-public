@@ -1,63 +1,65 @@
 "use strict";
 
-const should = require( 'should' ),
+const should = require('should'),
 
-validators = require( '../validators' );
+validators = require('../validators');
 
 /**
- * this is a validator created from schemas of the 
+ * this is a validator created from schemas of the
  * validator repo, extensive tests are done there.
  * Only few specific tests are done here for documentation
  * purposes
  */
 
-describe( 'validators - query', () => {
+describe('validators - query', () => {
 
-  it( 'give it nothing and get default query values', () => {
+  it('give it nothing and get default query values', () => {
 
     validators.query()
 
-    .should.eql( {
+    .should.eql({
       search: null,
       official: null,
-      sort: null
-    } );
+      sort: null,
+      network: null
+    });
 
-  } );
+  });
 
-  it( 'possible values for sort are not random', () => {
+  it('possible values for sort are not random', () => {
 
     let errors = [];
 
     try {
 
-      validators.query( {
+      validators.query({
         sort: 'fqfdsqdf'
-      } );
+      });
 
-    } catch( e ) { errors = e; }
+    } catch(e) { errors = e; }
 
-    errors.should.eql( [ { 
+    errors.should.eql([{
       origin: 'fqfdsqdf',
       field: 'sort',
       code: 'sort.invalid',
-      message: 'sort value is not valid' 
-    } ] );
+      message: 'sort value is not valid'
+    } ]);
 
-  } );
+  });
 
-  it( 'sort value can be createdAt.desc', () => {
+  it('sort value can be createdAt.desc', () => {
 
-    validators.query( {
+    validators.query({
       sort: 'createdAt.desc'
-    } )
+    })
 
-    .should.eql( {
+    .should.eql({
       search: null,
       official: null,
+      network: null,
       sort: 'createdAt.desc'
-    } );
+    });
 
-  } );
+  });
 
-} );
+});

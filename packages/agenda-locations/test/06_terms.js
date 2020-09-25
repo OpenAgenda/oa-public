@@ -3,8 +3,14 @@
 const assert = require('assert');
 const slug = require('slug');
 
-const config = require('../testconfig');
-const fixtures = require('./fixtures/load');
+const Files = require('@openagenda/files/v3');
+
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
+
+const fixtures = require('./fixtures');
 const Service = require('../');
 
 describe('agenda-locations - functional - terms', () => {
@@ -17,6 +23,7 @@ describe('agenda-locations - functional - terms', () => {
 
     svc = Service({
       knex: f.client,
+      Files: Files(dConfig.files),
       interfaces: {
         getAgendaIdByUid: async uid => ({
           7196947: 25221

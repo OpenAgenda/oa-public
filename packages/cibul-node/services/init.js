@@ -47,6 +47,7 @@ module.exports = async function (configObject, options = {}) {
   await init('redisConfigStore', require('./redisConfigStore'));
   await init('queues', require('./queues'));
   await init('slackApp', require('./slackApp'));
+  await init('files', require('./files'));
   await init('users', require('./users'));
   await init('abilities', require('./abilities'));
   await init('accessTokens', require('./accessTokens'));
@@ -74,7 +75,6 @@ module.exports = async function (configObject, options = {}) {
   await init('eventSearch', require('./eventSearch'));
   await init('events', require('./events'));
   await init('facebook', require('./facebook'));
-  await init('files', require('./files'));
   await init('formSchemas', require('./formSchemas'));
   await init('custom', require('./custom'));
   await init('genUrl', require('./genUrl'));

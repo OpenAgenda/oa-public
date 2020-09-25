@@ -20,6 +20,7 @@ module.exports = async (services, agenda) => {
   return {
     upcomingPublishedEvents,
     publishedEvents,
-    keywords
+    keywords,
+    network: agenda.networkUid ? await services.networks.get(agenda.networkUid) : null
   }
 }

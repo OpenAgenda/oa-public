@@ -78,6 +78,7 @@ function list(service, req, res, next) {
     req.content = ReactDOMServer.renderToString(Body({
       lang: req.lang,
       page: nav.page,
+      network: req.network,
       query,
       agendas,
       total

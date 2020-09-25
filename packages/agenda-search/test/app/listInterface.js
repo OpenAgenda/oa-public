@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const agendas = require('../fixtures/agendas.json');
 
-module.exports = async (total, query, lastId, limit) => {
+module.exports = async (total, decorate, query, lastId, limit) => {
   const updatedAtGreaterThan = _.get(query, 'updatedAtGreaterThan');
 
   const chunk = agendas
@@ -11,7 +11,8 @@ module.exports = async (total, query, lastId, limit) => {
     .filter(a => a.id > lastId)
     .filter((a, i) => i < limit)
     .filter(a => updatedAtGreaterThan ? a.updatedAt > updatedAtGreaterThan : true)
-    .map(a => _.pick(a, ['id', 'uid', 'title', 'description', 'official']));
+    .map(decorate)
+    .map(a => _.pick(a, ['id', 'uid', 'title', 'description', 'official', 'updatedAt']));
 
   return {
     items: chunk,

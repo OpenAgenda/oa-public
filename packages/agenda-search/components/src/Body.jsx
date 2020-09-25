@@ -97,7 +97,7 @@ module.exports = createReactClass( {
 
     this.setState( { loading: true } );
 
-    get( this.props.res, this.getHrefQuery( utils.extend( { preventCache: Math.random(), page }, this.state.query ) ), ( err, data ) => {
+    get( this.props.res, this.getHrefQuery( utils.extend( { preventCache: Math.random(), page }, this.state.query ) ), ( err, data ) => {
 
       if ( err ) {
 
@@ -159,7 +159,7 @@ module.exports = createReactClass( {
 
   },
 
-  renderHead() {
+  renderDefaultHead() {
 
     return <div className="header">
       <h1>{getLabel( 'latestUpdated', this.props.lang )}</h1>
@@ -167,13 +167,27 @@ module.exports = createReactClass( {
 
   },
 
-  renderSearchHead() {
+  renderNetworkHead() {
+    return <div className="header">
+      <h1>{this.props.network.title}</h1>
+    </div>
+  },
 
+  renderSearchHead() {
     return <div className="header">
       <h1>{getLabel( 'results', { search: this.state.query.search }, this.props.lang )}</h1>
       <span>{getLabel( 'found', { count: this.state.total }, this.props.lang )}</span>
     </div>
+  },
 
+  renderHead() {
+    if (this.state.query.search) {
+      return this.renderSearchHead();
+    } else if (this.props.network) {
+      return this.renderNetworkHead();
+    } else {
+      return this.renderDefaultHead();
+    }
   },
 
   render() {
@@ -182,7 +196,7 @@ module.exports = createReactClass( {
       <div className="row">
         <div className="wsq col-sm-8 col-sm-offset-2">
           { this.state.loading ? <Spinner/> : null }
-          { this.state.query.search ? this.renderSearchHead() : this.renderHead() }
+          { this.renderHead() }
           <div className="body media-list">
             {this.state.agendas.length ? <List
               query={this.state.query}

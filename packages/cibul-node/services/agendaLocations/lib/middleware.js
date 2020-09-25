@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const fs = require('fs');
 
 const flattenLocationTagSet = require('@openagenda/event-form/build/utils/flattenLocationTagSet');
 
@@ -17,17 +18,15 @@ module.exports.loadLocation = service => (req, res, next) => {
   }, next);
 }
 
-module.exports.setImageOnExistingLocation = service => (req, res, next) => {
-  service.utils.images(req.file.path, `location${req.params.locationUid}`)
-    .then(uploaded => {
-      res.send(`<html><head><script type="text/javascript">parent.${req.body.callback}(null, '${uploaded.shift()}')</script></head><body></body></html>`);
-    }, next);
-}
-
-module.exports.setImageOnNewLocation = service => (req, res, next) => {
-  service.utils.images(req.file.path, `location${req.user.uid}new`).then(uploaded => {
-      res.send(`<html><head><script type="text/javascript">parent.${req.body.callback}(null, '${uploaded.shift()}')</script></head><body></body></html>`);
-  }, next);
+module.exports.parseDataWithImageStream = (req, res, next) => {
+  req.data = JSON.parse(req.body.data);
+  if (req.file) {
+    req.data.image = fs.createReadStream(req.file.path);
+    req.data.image.on('end', () => {
+      fs.unlink(req.file.path, () => {});
+    });
+  }
+  next();
 }
 
 module.exports.getLocationSettings = async (req, res, next) => {

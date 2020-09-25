@@ -9,7 +9,22 @@ module.exports = async (services, query, lastId, limit) => {
   } = await services.agendas.list(query, lastId, limit, {
     indexed: true,
     offsetAsLastId: true,
-    keywords: []
+    keywords: [],
+    includeFields: [
+      'uid',
+      'slug',
+      'official',
+      'title',
+      'description',
+      'url',
+      'image',
+      'updatedAt',
+      'createdAt',
+      'officializedAt',
+      'private',
+      'indexed',
+      'networkUid'
+    ]
   });
 
   log('info', 'listed %s agendas for reindexing', agendas.length);

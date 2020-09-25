@@ -15,14 +15,30 @@ describe('search', function() {
     svc = Service({
       elasticsearch: config.elasticsearch,
       alias: config.alias,
-      listAgendas: listInterface.bind(null, 100),
-      getAgendaSummary: getAgendaSummary,
+      listAgendas: listInterface.bind(null, 100, a => {
+        if (a.uid === 3) a.updatedAt = new Date;
+        return a;
+      }),
+      getAgendaSummary,
       imagePath: config.imagePath,
       defaultImage: config.defaultImage
     });
   });
 
   before(() => svc.rebuild());
+
+  describe('Default (no searches, no filters)', () => {
+    let result;
+
+    before(async () => {
+      result = await svc({}, 0, 10);
+    });
+
+    it('updated recently appears first', () => {
+      assert.equal(result.items[0].uid, 3);
+    });
+
+  });
 
   describe('Title', () => {
 
@@ -129,7 +145,7 @@ describe('search', function() {
 
   });
 
-  describe('Misc', () => {
+  describe('Filters', () => {
 
     it('fetch official only', async () => {
       const { total, items } = await svc.list({
@@ -139,6 +155,14 @@ describe('search', function() {
       items.forEach(agenda => {
         assert.equal(agenda.official, true);
       });
+    });
+
+    it('fetch for certain network only', async () => {
+      const { total, items } = await svc.list({
+        network: 1
+      }, 0, 10);
+
+      assert.equal(items.pop().network.uid, 1);
     });
 
   });

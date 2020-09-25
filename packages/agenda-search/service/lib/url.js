@@ -3,7 +3,20 @@
 const _ = require('lodash');
 
 module.exports = {
-  agenda
+  agenda,
+  network
+}
+
+function network(network, options) {
+  const params = {
+    paths: undefined,
+    lang: undefined,
+    ...options
+  };
+
+  const prefix = params.path === undefined ? '' : params.path;
+
+  return prefix + '?network=' + network.uid;
 }
 
 function agenda(agenda, options = {}) {

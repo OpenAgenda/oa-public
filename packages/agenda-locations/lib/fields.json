@@ -110,7 +110,7 @@
   "db": "store",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
-  "type": "text"
+  "type": "stream"
 }, {
   "field": "description",
   "optional": true,

@@ -1,50 +1,57 @@
 "use strict";
 
 module.exports = {
-  mysql: {
-    host: 'localhost',
-    user: 'root',
-    password: 'grut',
-    database: 'location_test',
-    table: 'location',
-    agendaSettingsTableName: 'location_agenda_settings'
-  },
-  schemas: {
-    location: 'location',
-    agendaSettings: 'location_agenda_settings'
-  },
-  files: {
-    tmpPath: __dirname + '/test/tmp',
-    bucket: 'openagendatst',
-    accessKeyId: 'ACCESSKEY',
-    secretAccessKey: 'SECRETKEY'
-  },
-  redis: {
-    host: 'localhost',
-    port: 6379
-  },
-  interfaces: {
-    getEventCount: ( l, cb ) => {
-
-      cb( null, 0, 0 );
-
+  service: {
+    mysql: {
+      host: process.env.OA_MYSQL_DEV_HOST,
+      user: process.env.OA_MYSQL_DEV_USER,
+      password: process.env.OA_MYSQL_DEV_PASSWORD,
+      database: 'location_test',
+      table: 'location',
+      ssl: true
     },
-    getAgendaSettings: ( agendaId, cb ) => {
+    schemas: {
+      location: 'location',
+      agendaSettings: 'location_agenda_settings'
+    },
+    redis: {
+      host: 'localhost',
+      port: 6379
+    },
+    interfaces: {
+      getEventCount: ( l, cb ) => {
 
-      cb( null, {
-        translation: {
-          enabled: true,
-          options: 'eyJ1c2VyIjoiQ1VMVFVSRSIsInBhcAAAAAAAAAAAAlU3elQ3cWhhIAA=',
-          service: 'reverso',
-          sets: [ {
-            source: "fr",
-            checked: [ "it", "es", "de", "en" ],
-            target: [ "it", "es", "de", "en" ]
-          } ],
-          "source": "fr"
-        }
-      } );
+        cb( null, 0, 0 );
 
+      },
+      getAgendaSettings: ( agendaId, cb ) => {
+
+        cb( null, {
+          translation: {
+            enabled: true,
+            options: 'eyJ1c2VyIjoiQ1VMVFVSRSIsInBhcAAAAAAAAAAAAlU3elQ3cWhhIAA=',
+            service: 'reverso',
+            sets: [ {
+              source: "fr",
+              checked: [ "it", "es", "de", "en" ],
+              target: [ "it", "es", "de", "en" ]
+            } ],
+            "source": "fr"
+          }
+        } );
+
+      }
+    }
+  },
+  dependencies: {
+    files: {
+      s3: {
+        accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+        region: process.env.AWS_DEV_REGION,
+        defaultBucket: process.env.AWS_DEV_BUCKET
+      },
+      defaultProvider: 's3'
     }
   }
 }

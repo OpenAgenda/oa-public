@@ -59,7 +59,11 @@
     "official": true,
     "officializedAt": "2018-01-03T10:48:52.000Z",
     "publishedEvents": 389,
-    "upcomingPublishedEvents": 0
+    "upcomingPublishedEvents": 0,
+    "network": {
+      "uid": 1,
+      "title": "Nuit européenne des musées"
+    }
   },
   {
     "id": 23849,
@@ -70,7 +74,11 @@
     "officializedAt": "2020-01-16T12:51:33.000Z",
     "publishedEvents": 59,
     "upcomingPublishedEvents": 59,
-    "keywords": []
+    "keywords": [],
+    "network": {
+      "uid": 1,
+      "title": "Nuit européenne des musées"
+    }
   },
   {
     "id": 18212,
@@ -81,7 +89,11 @@
     "officializedAt": null,
     "publishedEvents": 351,
     "upcomingPublishedEvents": 0,
-    "keywords": []
+    "keywords": [],
+    "network": {
+      "uid": 1,
+      "title": "Nuit européenne des musées"
+    }
   },
   {
     "id": 17902,

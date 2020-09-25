@@ -14,7 +14,8 @@ const validators = {
   longitude: require( '@openagenda/validators/longitude' ),
   pass: require( '@openagenda/validators/pass' ),
   multilingual: require( '@openagenda/validators/multilingual' ),
-  regex: require( '@openagenda/validators/regex' )
+  regex: require( '@openagenda/validators/regex' ),
+  pass: require( '@openagenda/validators/pass' )
 };
 
 const STATES = {
@@ -27,9 +28,8 @@ const utils = require( '@openagenda/utils' );
 // validators applying for all locations of all agendas
 const baseValidators = [
   validators.number( { field: 'agendaId', optional: true } ),
-  _customImageValidator( { field: 'image', optional: true } ),
   validators.text( { field: 'name', min: 3, max: 100, optional: false } ),
-  validators.regex( { field: 'image', regex: /[^\/]+$/, clean: true, optional: true } ),
+  validators.pass( { field: 'image' } ),
   validators.text( { field: 'imageCredits', max: 255, optional: true } ),
   validators.text( { field: 'address', min: 3, max: 255 } ),
   validators.text( { field: 'city', min: 2, max: 300, optional: true } ),
