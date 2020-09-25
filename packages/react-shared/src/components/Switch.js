@@ -17,4 +17,4 @@ export default function Switch({ test, children }) {
 
 Switch.Case = Case;
 
-export Case from './Case';
+export { default as Case } from './Case';
