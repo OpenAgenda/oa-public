@@ -141,18 +141,19 @@ module.exports = (config, services, instance, app, base) => {
     }
  );
 
-  app.post(`${base}`, (req, res, next) => {
+  app.post(`${base}`,
     multer({ dest: config.tmpFolderPath }).single('image'),
     parseDataWithImageStream,
-    req.locations.create({ ...req.data, state: 1 }, {
-      includeImagePath: true
-    }).then(location => {
-      res.json({
-        location,
-        success: true
-      });
-    }, next);
-  });
+    (req, res, next) => {
+      req.locations.create({ ...req.data, state: 1 }, {
+        includeImagePath: true
+      }).then(location => {
+        res.json({
+          location,
+          success: true
+        });
+      }, next);
+    });
 
   app.post(`${base}/merge`, (req, res, next) => {
     const fieldsToOmit = Object.keys(req.body || {})
