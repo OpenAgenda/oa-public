@@ -120,6 +120,20 @@ module.exports = {
     "es": "guardar cambios",
     "it": "Salva"
   },
+  "saving": {
+    "fr": "Sauvegarde en cours",
+    "en": "Saving...",
+    "de": "Speichern ...",
+    "es": "Ahorro",
+    "it": "Backup in corso"
+  },
+  "saved": {
+    "fr": "Modifications sauvegardées",
+    "en": "Changes saved",
+    "de": "Änderungen gespeichert",
+    "es": "Cambios guardan",
+    "it": "Modifiche salvate"
+  },
   "image": {
     "en": "Image",
     "fr": "Image",
