@@ -249,8 +249,8 @@ function MainLayout({
                       aria-expanded={userPanelOpened}
                       className="btn btn-link-inline"
                     >
-                      {user.thumbnail ? (
-                        <img alt="user thumbnail" src={user.thumbnail} />
+                      {user.image ? (
+                        <img alt="user thumbnail" src={user.image} />
                       ) : (
                         <span>{user.fullName}</span>
                       )}
