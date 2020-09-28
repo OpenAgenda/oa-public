@@ -1,10 +1,10 @@
 "use strict";
 
-const log = require( '@openagenda/logs' )('uncaught');
+const log = require('@openagenda/logs')('uncaught');
 
-process.on( 'uncaughtException', handler.bind( null, 'uncaughtException' ) );
+process.on('uncaughtException', (err, origin) => handler(origin, err));
 
-process.on( 'unhandledRejection', handler.bind( null, 'unhandledRejection' ) );
+process.on('unhandledRejection', (err, origin) => handler(origin, err));
 
 module.exports = handler;
 
