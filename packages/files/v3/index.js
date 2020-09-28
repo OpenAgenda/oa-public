@@ -6,6 +6,8 @@ const multer = require('multer');
 const processFile = require('./processFile');
 const TempStorage = require('./TempStorage');
 const s3 = require('./providers/s3');
+const makeMiddleware = require('./makeMiddleware');
+const gm = require('./gm');
 
 function transformResult(result) {
   const asArray = {};
@@ -49,6 +51,32 @@ function abortAllUploads(filesRegistry) {
   }
 
   return Promise.all(promises);
+}
+
+function cleanup() {
+  return (req, res, next) => {
+    const _cleanup = file => {
+      if (Array.isArray(file)) {
+        return file.forEach(f => _cleanup(f));
+      }
+
+      if (fs.existsSync(file.path)) {
+        fs.unlinkSync(file.path);
+      }
+    }
+
+    res.on('finish', () => {
+      if (req.file) {
+        _cleanup(req.file);
+      }
+
+      if (req.files) {
+        Object.keys(req.files).forEach(name => _cleanup(req.files[name]));
+      }
+    });
+
+    next();
+  };
 }
 
 module.exports = cfg => {
@@ -104,29 +132,9 @@ module.exports = cfg => {
       storage: new TempStorage({ cfg, providers, options })
     });
 
-    upload.cleanup = () => (req, res, next) => {
-      const _cleanup = file => {
-        if (Array.isArray(file)) {
-          return file.forEach(f => _cleanup(f));
-        }
+    upload.cleanup = cleanup;
 
-        if (fs.existsSync(file.path)) {
-          fs.unlinkSync(file.path);
-        }
-      }
-
-      res.on('finish', () => {
-        if (req.file) {
-          _cleanup(req.file);
-        }
-
-        if (req.files) {
-          Object.keys(req.files).forEach(name => _cleanup(req.files[name]));
-        }
-      });
-
-      next();
-    };
+    upload.middleware = makeMiddleware(upload);
 
     upload.providers = providers;
 
@@ -134,6 +142,8 @@ module.exports = cfg => {
   }
 
   filesManager.providers = providers;
+
+  filesManager.gm = gm;
 
   return filesManager;
 };

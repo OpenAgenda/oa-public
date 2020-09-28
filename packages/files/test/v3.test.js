@@ -13,10 +13,6 @@ const testconfig = require('../testconfig');
 
 const finished = promisify(stream.finished);
 
-const gm = require('gm').subClass({
-  imageMagick: true
-});
-
 const bucket = testconfig.s3.defaultBucket;
 const filePath = path.join(__dirname, 'files/src3.png');
 
@@ -471,7 +467,7 @@ describe('v3', () => {
           context
         ) => `${path.parse(context.originalname).name}_renamed${path.parse(context.originalname).ext}`,
         transform: async (info, context) => {
-          const image = gm(info.stream, context.originalname);
+          const image = service.gm(info.stream, context.originalname);
 
           const size = await promisify(image.size).call(image, { bufferStream: true });
 
