@@ -141,34 +141,6 @@ module.exports = (config, services, instance, app, base) => {
     }
  );
 
-  app.post(`${base}`,
-    multer({ dest: config.tmpFolderPath }).single('image'),
-    parseDataWithImageStream,
-    (req, res, next) => {
-      req.locations.create({ ...req.data, state: 1 }, {
-        includeImagePath: true
-      }).then(location => {
-        res.json({
-          location,
-          success: true
-        });
-      }, next);
-    });
-
-  app.post(`${base}/merge`, (req, res, next) => {
-    const fieldsToOmit = Object.keys(req.body || {})
-      .filter(field => req.body[field] === null)
-      .concat(['agendaId', 'uid']);
-
-    req.locations.merge(
-      req.query,
-      _.omit(req.body || {}, fieldsToOmit)
-   ).then(location => res.json({
-      location,
-      success: true
-    }), next);
-  });
-
   app.get(`${base}/unverified`, (req, res, next) => {
     req.locations.list({ state: 0 }, { limit: 0 }, { total: true })
       .then(({ total }) => res.json({ count: total }), next);
@@ -179,33 +151,60 @@ module.exports = (config, services, instance, app, base) => {
       .then(terms => res.json({ terms }));
   });
 
-  app.post(`${base}/:locationUid`,
-    multer({ dest: config.tmpFolderPath }).single('image'),
-    parseDataWithImageStream,
-    (req, res, next) => {
-      req.locations.update(req.params.locationUid, req.data, {
-        includeImagePath: true
-      }).then(location => {
-        res.json({
-          location,
-          success: true
-        });
-      }, next);
-    }
- );
+  app.post([
+    `${base}`,
+    `${base}/merge`,
+    `${base}/:locationUid`
+  ], multer({ dest: config.tmpFolderPath }).single('image'),
+    parseDataWithImageStream
+  );
 
-  app.delete(`${base}/:locationUid`,
-    (req, res, next) => {
-      req.locations.remove(req.params.locationUid, {
-        includeImagePath: true
-      }).then(location => {
-        res.json({
-          location,
-          success: true
-        });
-      }, next);
-    }
- );
+  app.post(`${base}`, (req, res, next) => {
+    req.locations.create({ ...req.data, state: 1 }, {
+      includeImagePath: true
+    }).then(location => {
+      res.json({
+        location,
+        success: true
+      });
+    }, next);
+  });
+
+  app.post(`${base}/merge`, (req, res, next) => {
+    const fieldsToOmit = Object.keys(req.data || {})
+      .filter(field => req.data[field] === null)
+      .concat(['agendaId', 'uid']);
+
+    req.locations.merge(
+      req.query,
+      _.omit(req.data || {}, fieldsToOmit)
+   ).then(location => res.json({
+      location,
+      success: true
+    }), next);
+  });
+
+  app.post(`${base}/:locationUid`, (req, res, next) => {
+    req.locations.update(req.params.locationUid, req.data, {
+      includeImagePath: true
+    }).then(location => {
+      res.json({
+        location,
+        success: true
+      });
+    }, next);
+  });
+
+  app.delete(`${base}/:locationUid`, (req, res, next) => {
+    req.locations.remove(req.params.locationUid, {
+      includeImagePath: true
+    }).then(location => {
+      res.json({
+        location,
+        success: true
+      });
+    }, next);
+  });
 
   app.use(base, (err, req, res, next) => {
     if (err.name === 'ValidationError') {
