@@ -61,12 +61,6 @@ module.exports = {
   remove: [
     restrictToCurrentUserIfExternal()
   ],
-  setImageProfile: [
-    restrictToCurrentUserIfExternal()
-  ],
-  clearImageProfile: [
-    restrictToCurrentUserIfExternal()
-  ],
   requestChangeEmail: [
     restrictToCurrentUserIfExternal()
   ],

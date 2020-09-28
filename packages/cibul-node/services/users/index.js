@@ -15,7 +15,6 @@ const onCreate = require('./onCreate');
 const onGenerateApiKey = require('./onGenerateApiKey');
 const onActivation = require('./onActivation');
 const sendToken = require('./sendToken');
-const setImageProfile = require('./middleware/setImageProfile');
 const resyncSession = require('./middleware/resyncSession');
 const sendChangeEmail = require('./middleware/sendChangeEmail');
 const setFlashChangeEmail = require('./middleware/setFlashChangeEmail');
@@ -49,6 +48,49 @@ module.exports = {
 function plugApp(app) {
   const cmn = require('../../lib/commons-app'); // avoid circular reference
   const service = module.exports; // or this
+  const { files: filesSvc } = app.services;
+  const { gm } = filesSvc;
+
+  const files = filesSvc({
+    key: 'image',
+    variants: [
+      {
+        getFilename: (info, context) => `user.profile.${context.uid}.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
+            .resize('600', null)
+            .stream('jpg');
+        }
+      },
+      {
+        getFilename: (info, context) => `user.profile.${context.uid}_o.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
+            .stream('jpg');
+        }
+      },
+      {
+        getFilename: (info, context) => `user.profile.${context.uid}_sm.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
+            .resize('300', null)
+            .stream('jpg');
+        }
+      }
+    ]
+  });
 
   express(feathers(), app); // extend app with .configure, .service and .use
   app.configure(express.rest(null)); // add handler for requests
@@ -63,10 +105,7 @@ function plugApp(app) {
     }
   );
 
-  app.post(
-    '/users/:__feathersId/setImageProfile',
-    setImageProfile(service)
-  );
+  app.use('/users/me', files.middleware([{ name: 'image', unique: true }]));
 
   app.get('/users', getHandler('find', ['params'])(service));
   app.get('/users/:__feathersId', getHandler('get', ['id', 'params'])(service));
@@ -78,9 +117,10 @@ function plugApp(app) {
   app.delete('/users/:__feathersId', getHandler('remove', ['id', 'params'])(service));
   app.delete('/users', getHandler('remove', ['id', 'params'])(service));
 
-  app.post('/users/:__feathersId/setImageProfile', getHandler('setImageProfile', ['id', 'data', 'params'])(service));
-  app.post('/users/:__feathersId/clearImageProfile', getHandler('clearImageProfile', ['id', 'params'])(service));
-  app.patch('/users/:__feathersId/requestChangeEmail', getHandler('requestChangeEmail', ['id', 'data', 'params'])(service));
+  app.patch(
+    '/users/:__feathersId/requestChangeEmail',
+    getHandler('requestChangeEmail', ['id', 'data', 'params'])(service)
+  );
   app.get('/users/:__feathersId/confirmChangeEmail', getHandler('confirmChangeEmail', ['id', 'params'])(service));
   app.patch('/users/:__feathersId/changePassword', getHandler('changePassword', ['id', 'data', 'params'])(service));
   app.get('/users/:__feathersId/generateApiKey', getHandler('generateApiKey', ['id', 'params'])(service));
