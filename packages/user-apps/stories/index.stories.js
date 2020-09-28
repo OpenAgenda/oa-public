@@ -19,9 +19,7 @@ const getDefaultState = ( { apiRoot } = {} ) => ({
     deleteAccount: '/users/me',
     changeEmail: '/users/me/requestChangeEmail',
     changePassword: '/users/me/changePassword',
-    generateApiKey: '/users/me/generateApiKey',
-    uploadProfileImage: '/users/me/setImageProfile',
-    removeProfileImage: '/users/me/clearImageProfile'
+    generateApiKey: '/users/me/generateApiKey'
   }
 });
 

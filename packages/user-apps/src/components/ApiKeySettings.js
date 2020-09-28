@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import I18nContext from '../contexts/I18nContext';
 
 
 @connect( state => ({
@@ -14,7 +15,8 @@ export default class ApiKeySettings extends Component {
   };
 
   static contextTypes = {
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   render() {
