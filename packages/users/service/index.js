@@ -16,7 +16,6 @@ const { hooks, withParams } = require('@feathersjs/hooks');
 const errors = require('@feathersjs/errors');
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');
-const imageFiles = require('@openagenda/image-files');
 const crypto = require('../utils/crypto');
 const { wrap } = require('../utils/wrappers');
 const {
@@ -41,6 +40,7 @@ const {
   keepFields,
   parseStore,
   populateAccountTypes,
+  profileImage,
   removedParamHook,
   searchByKey,
   searchKeyword,
@@ -109,24 +109,6 @@ class Users extends Service {
     this.config = config;
   }
 
-  static getImageFormats(name, includeExtension = false) {
-    const extension = includeExtension ? `.${includeExtension}` : '';
-
-    return [
-      {
-        name: name + extension,
-        format: { width: 600 }
-      },
-      {
-        name: `${name}_o${extension}`
-      },
-      {
-        name: `${name}_sm${extension}`,
-        format: { width: 300 }
-      }
-    ];
-  }
-
   async findOne(params = {}) {
     params.query = params.query || {};
     params.query.$limit = 1;
@@ -136,42 +118,6 @@ class Users extends Service {
     const data = result.data || result;
 
     return Array.isArray(data) ? data[0] : data;
-  }
-
-  async setImageProfile(uid, { path, url }, params = {}) {
-    const result = await imageFiles.load({
-      path,
-      url,
-      formats: Users.getImageFormats(`user.profile.${uid}`)
-    });
-
-    await this._patch(
-      uid,
-      {
-        image: result.uploadedPaths[0].split('/').pop()
-      },
-      { internal: true }
-    );
-
-    result.user = await this.get(uid, params);
-
-    return result;
-  }
-
-  async clearImageProfile(uid) {
-    const user = await this.get(uid);
-
-    const extension = user.image.split('.').pop();
-    const paths = Users.getImageFormats(
-      `user.profile.${user.uid}`,
-      extension
-    ).map(v => v.name);
-
-    await promisify(imageFiles.clear)(paths);
-
-    await this._patch(user.uid, { image: null });
-
-    return { success: true };
   }
 
   async requestChangeEmail(uid, data, params = {}) {
@@ -361,8 +307,9 @@ hooks(Users.prototype, {
         iff(
           context => context.params.internal !== true,
           context => validate(_.pick(patchSchema, Object.keys(context.data)))(context),
-          keep('fullName', 'culture')
+          keep('fullName', 'culture', 'image')
         ),
+        profileImage(),
         setNow('updatedAt'),
         paramsFromClient('detailed', 'removed', 'includeImagePath'),
         softDelete(),
@@ -392,18 +339,6 @@ hooks(Users.prototype, {
         snakeCase(),
         snakeCaseQuery()
       ]
-    })
-  },
-  setImageProfile: {
-    context: withParams('id', 'data', ['params', {}]),
-    middleware: wrap({
-      before: softDelete()
-    })
-  },
-  clearImageProfile: {
-    context: withParams('id', ['params', {}]),
-    middleware: wrap({
-      before: softDelete()
     })
   },
   requestChangeEmail: {

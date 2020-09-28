@@ -10,5 +10,9 @@ module.exports = {
     type: 'text',
     min: 2,
     max: 2
+  },
+  image: {
+    optional: true,
+    type: 'pass'
   }
 };

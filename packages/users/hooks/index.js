@@ -23,6 +23,7 @@ const isValidToken = require('./isValidToken');
 const keepFields = require('./keepFields');
 const parseStore = require('./parseStore');
 const populateAccountTypes = require('./populateAccountTypes');
+const profileImage = require('./profileImage');
 const removedParamHook = require('./removedParamHook');
 const searchByKey = require('./searchByKey');
 const searchKeyword = require('./searchKeyword');
@@ -60,6 +61,7 @@ module.exports = {
   keepFields,
   parseStore,
   populateAccountTypes,
+  profileImage,
   removedParamHook,
   searchByKey,
   searchKeyword,

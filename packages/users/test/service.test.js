@@ -8,8 +8,6 @@ const knexLib = require('knex');
 const fixtures = require('@openagenda/fixtures');
 const keysSvc = require('@openagenda/keys/test/service');
 const keysConfig = require('@openagenda/keys/service/config');
-const imageFiles = require('@openagenda/image-files');
-const images = require('@openagenda/images');
 const files = require('@openagenda/files');
 const crypto = require('../utils/crypto');
 const config = require('../testconfig');
@@ -64,8 +62,6 @@ beforeEach(async () => {
 
   fixtures.init({ mysql: { ...config.mysql, database } });
   files.init(config.files);
-  images.init({ tmpPath: config.files.tmpPath });
-  imageFiles.init({ images, files });
 
   await knex.migrate.latest({
     directory: path.join(__dirname, '../../keys/migrations'),
@@ -288,34 +284,6 @@ describe('methods', () => {
       expect(user.apiKey).toBe(key);
     });
   });
-
-  // describe('setImageProfile', () => {
-  //   it('setImageProfile with a path', async () => {
-  //     const tmpFile = tmp.fileSync({ postfix: '.jpg' });
-  //
-  //     fs.createReadStream(path.join(__dirname, 'files/phteven.jpg'))
-  //       .pipe(fs.createWriteStream(tmpFile.name));
-  //
-  //     copySync(path.resolve(__dirname, 'files/googlelogo_color_272x92dp.png'), tmpFile.name);
-  //
-  //     const result = await service.setImageProfile(kaoreUid, {
-  //       path: tmpFile.name
-  //     });
-  //
-  //     expect(result.uploadedPaths).toHaveLength(3);
-  //     expect(result.uploadedPaths[0]).toContain('user.profile.75052324');
-  //   });
-  // });
-  //
-  // describe('clearImageProfile', () => {
-  //   it('clear image profile of a user', async () => {
-  //     await service.clearImageProfile(kaoreUid);
-  //
-  //     const user = await service.get(kaoreUid);
-  //
-  //     expect(user.image).toBeNull();
-  //   });
-  // });
 
   describe('create', () => {
     it('create a user with an already taken email', async () => {
