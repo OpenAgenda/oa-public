@@ -100,7 +100,7 @@ export default class ProfileEdition extends Component {
           <div className="col-md-7">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="title">Image</label>
+                <label htmlFor="title">{getLabel('image')}</label>
                 <Field
                   name="image"
                   component={ImageInput}
