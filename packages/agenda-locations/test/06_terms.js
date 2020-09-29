@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const slug = require('slug');
+const slug = require('slugify');
 
 const Files = require('@openagenda/files/v3');
 

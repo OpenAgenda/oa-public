@@ -1,7 +1,7 @@
 'use strict';
 
 const log = require('@openagenda/logs')('create');
-const slug = require('slug');
+const slug = require('slugify');
 
 const cleanOptions = require('./lib/cleanSetOptions');
 const validate = require('./lib/validate');
