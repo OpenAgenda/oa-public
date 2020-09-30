@@ -36,6 +36,7 @@ describe('10 - core - functional (server): core.users().get()', function() {
     const services = await Services(testConfig, {
       enabled: [
         'accessTokens',
+        'files',
         'queues',
         'events',
         'agendas',

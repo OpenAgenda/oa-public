@@ -35,6 +35,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     const services = await Services(testConfig, {
       enabled: [
         'accessTokens',
+        'files',
         'queues',
         'events',
         'agendas',

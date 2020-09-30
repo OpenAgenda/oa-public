@@ -48,6 +48,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     const services = await Services(testConfig, {
       enabled: [
         'queues',
+        'files',
         'events',
         'agendas',
         'aggregators',

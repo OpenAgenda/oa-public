@@ -373,20 +373,26 @@ class LocationForm extends Component {
     } else {
 
       // auto-geocode is on; we wait for the user to stop typing away
-      // for a short while and we launch the request
+      // for a short while and we launch the request only if something has been typed.
 
       if (this.bufferTimeout) {
         clearTimeout(this.bufferTimeout);
       }
 
+      const doGeocode = value && value.trim().length >= 2;
+
       this.setState(update(this.state, {
-        geocodeLoading: { $set: true },
+        geocodeLoading: { $set: doGeocode },
         location: {
           address: {
             $set: value
           }
         }
       }));
+
+      if (!doGeocode) {
+        return;
+      }
 
       this.bufferTimeout = setTimeout(() => {
         this.updateLocationGeocode(value);

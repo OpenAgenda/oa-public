@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const NS = 'insee';
-const slug = require('slug');
+const slug = require('slugify');
 const sa = require('superagent');
 const { promisify } = require('util');
 

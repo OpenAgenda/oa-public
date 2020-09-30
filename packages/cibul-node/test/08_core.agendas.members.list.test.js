@@ -37,6 +37,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
     const services = await Services(testConfig, {
       enabled: [
         'accessTokens',
+        'files',
         'queues',
         'events',
         'agendas',

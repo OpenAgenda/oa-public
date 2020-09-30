@@ -1,5 +1,6 @@
 .pagination {
   display: inline-block;
+  margin-bottom: 0;
 
   .page-item {
     display: inline-block;
@@ -14,8 +15,8 @@
       border-radius: 100px;
     }
 
-    &.next, &.previous {
-
+    &.next,
+    &.previous {
       position: relative;
       height: 1em;
 
@@ -27,11 +28,9 @@
         border: none;
       }
 
-      &.previous .page-link{
+      &.previous .page-link {
         right: 0;
       }
-
     }
-
   }
 }
