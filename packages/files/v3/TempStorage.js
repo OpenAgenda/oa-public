@@ -41,24 +41,7 @@ class TempStorage {
       throw new Error(`Unable to find options for file '${file.fieldname}'`);
     }
 
-    const {
-      fieldname,
-      originalname,
-      encoding,
-      mimetype
-    } = file;
-
-    const newContext = {
-      fieldname,
-      originalname,
-      encoding,
-      mimetype,
-      ...context
-    };
-
-    const stream = fs.createReadStream(file.path);
-
-    return processFile(this.cfg, this.providers, stream, fileOptions, newContext);
+    return processFile(this.cfg, this.providers, file, fileOptions, context);
   }
 
   _handleFile(req, file, cb) {

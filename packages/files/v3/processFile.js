@@ -1,7 +1,9 @@
 'use strict';
 
+const fs = require('fs');
 const { PassThrough } = require('stream');
 const FileType = require('file-type');
+const isStream = require('is-stream');
 const VError = require('verror');
 
 const imageExts = new Set([
@@ -42,10 +44,31 @@ async function getStreamInfo(data) {
 function extractStreamAndContext(data) {
   const hasFileContext = Array.isArray(data);
 
-  const stream = hasFileContext ? data[0] : data
-  const context = hasFileContext ? data[1] : {};
+  const file = hasFileContext ? data[0] : data
+  const fileContext = hasFileContext ? data[1] : {};
 
-  return [stream, context];
+  // from multer
+  if (!isStream(file) && file.path) {
+    const stream = fs.createReadStream(file.path)
+    const {
+      fieldname,
+      originalname,
+      encoding,
+      mimetype
+    } = file;
+
+    const context = {
+      fieldname,
+      originalname,
+      encoding,
+      mimetype,
+      ...fileContext
+    };
+
+    return [stream, context];
+  }
+
+  return [file, fileContext];
 }
 
 function getFileVariants(options) {
@@ -78,14 +101,13 @@ function getFileVariants(options) {
 function abortUpload(item, error) {
   // Destroy stream for current upload
   if (item.stream) {
-    if (typeof item.stream.end === 'function') {
-      item.stream.end();
-    }
     item.stream.destroy(error);
   }
 
   // Revert upload
-  return item.revert();
+  if (!item.existedBefore) {
+    return item.revert();
+  }
 }
 
 function abortAllVariants(registry, error) {
@@ -150,7 +172,11 @@ module.exports = async function processFile(cfg, providers, data, options, conte
             response.stream = await variant.transform(response, ctx);
           }
 
-          const managedUpload = provider.upload(response.stream.pipe(pass), response.filename, ctx.providerParams);
+          const variantStream = response.stream.pipe(pass);
+
+          response.existedBefore = await provider.exists(response.filename);
+
+          const managedUpload = provider.upload(variantStream, response.filename, ctx.providerParams);
 
           response.abort = error => {
             managedUpload.abort();

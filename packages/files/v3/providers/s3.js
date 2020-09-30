@@ -36,10 +36,30 @@ module.exports = function createS3Provider(cfg) {
         Delete: {
           Objects: keys.map(Key => ({ Key }))
         },
+        ...params,
         Bucket: params.bucket || defaultBucket
       };
 
       return s3.deleteObjects(s3Params).promise();
+    },
+    exists(filename, params = {}) {
+      const s3Params = {
+        Key: filename,
+        ...params,
+        Bucket: params.bucket || defaultBucket
+      };
+
+      return s3.headObject(s3Params).promise()
+        .then(
+          () => true,
+          err => {
+            if (err.name === 'NotFound') {
+              return false;
+            }
+
+            throw err;
+          }
+        );
     }
   };
 };

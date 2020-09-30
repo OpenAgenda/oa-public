@@ -1,12 +1,12 @@
 'use strict';
 
 const fs = require('fs');
-const isStream = require('is-stream');
 const multer = require('multer');
 const processFile = require('./processFile');
 const TempStorage = require('./TempStorage');
 const s3 = require('./providers/s3');
 const makeMiddleware = require('./makeMiddleware');
+const isFile = require('./isFile');
 const gm = require('./gm');
 
 function transformResult(result) {
@@ -87,45 +87,62 @@ module.exports = cfg => {
   function filesManager(options) {
     async function upload(data, context) {
       const isMultiple = Array.isArray(options);
-      const keyedData = !isStream(data) && (typeof data === 'object' && !Array.isArray(data));
+      const keyedData = !isFile(data) && (typeof data === 'object' && !Array.isArray(data));
 
       if (isMultiple && !keyedData) {
         throw new Error('Cannot process multiple files without keyed data');
       }
 
-      if (isMultiple) {
-        const promises = [];
-        const filesRegistry = new Map();
+      const promises = [];
+      const filesRegistry = new Map();
 
-        for (const fileOptions of options) {
-          if (!data[fileOptions.key]) {
-            continue;
-          }
+      async function addFile(file, fileOptions) {
+        const {
+          promise,
+          registry
+        } = await processFile(cfg, providers, file, fileOptions, context, true);
 
-          const {
-            promise,
-            registry
-          } = await processFile(cfg, providers, data[fileOptions.key], fileOptions, context, true);
+        promises.push(promise);
+        filesRegistry.set(fileOptions, registry);
+      }
 
-          promises.push(promise);
-          filesRegistry.set(fileOptions, registry);
+      for (const fileOptions of (isMultiple ? options : [options])) {
+        if (isMultiple && !data[fileOptions.key]) {
+          continue;
         }
 
-        return Promise.all(promises)
-          .then(
-            transformResult,
-            async error => {
-              await abortAllUploads(filesRegistry);
+        if (
+          Array.isArray(data[fileOptions.key])
+          && (data[fileOptions.key].every(isFile) || data[fileOptions.key].every(Array.isArray))
+        ) {
+          for (const file of data[fileOptions.key]) {
+            await addFile(file, fileOptions);
+          }
+        } else if (Array.isArray(data[fileOptions.key]) && Array.isArray(data[fileOptions.key][0])) {
+          for (const file of data[fileOptions.key][0]) {
+            await addFile([file, data[fileOptions.key][1]], fileOptions);
+          }
+        } else {
+          if (!isMultiple) {
+            const fileData = keyedData ? data[options.key] : data;
 
-              throw error;
-            }
-          );
-      } else {
-        const fileData = keyedData ? data[options.key] : data;
+            return processFile(cfg, providers, fileData, options, context)
+              .then(transformResult)
+          }
 
-        return processFile(cfg, providers, fileData, options, context)
-          .then(transformResult);
+          await addFile(!isMultiple && !keyedData ? data : data[fileOptions.key], fileOptions);
+        }
       }
+
+      return Promise.all(promises)
+        .then(
+          transformResult,
+          async error => {
+            await abortAllUploads(filesRegistry);
+
+            throw error;
+          }
+        );
     }
 
     upload.multer = multer({
