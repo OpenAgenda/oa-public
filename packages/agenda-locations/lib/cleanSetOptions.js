@@ -19,5 +19,9 @@ module.exports = schema({
   includeImagePath: {
     type: 'boolean',
     default: false
+  },
+  geocodeIfUndefined: {
+    type: 'boolean',
+    default: false
   }
 });
