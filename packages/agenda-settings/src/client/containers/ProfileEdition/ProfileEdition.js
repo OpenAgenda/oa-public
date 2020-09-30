@@ -108,6 +108,9 @@ export default class ProfileEdition extends Component {
                   extensions={['jpg', 'bmp', 'png', 'jpeg']}
                   locale={lang}
                   maxSize={MAX_SIZE}
+                  width="300px"
+                  height="300px"
+                  rounded
                 />
               </div>
               <Field
