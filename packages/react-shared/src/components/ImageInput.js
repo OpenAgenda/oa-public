@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
+import { css } from '@emotion/core';
 import locales from '../locales-compiled';
 import Image from './Image';
 
@@ -72,7 +73,10 @@ function ImageInput({
   extensions,
   input,
   maxSize,
-  minSize
+  minSize,
+  width = '300px',
+  height = '300px',
+  rounded
 }) {
   const intl = useIntl();
   const [rejections, setRejections] = useState(null);
@@ -112,37 +116,53 @@ function ImageInput({
     ? value
     : value?.preview;
 
+  const rootProps = getRootProps();
+
   return (
     <>
       <div className="file-upload">
         <div
-          {...getRootProps()}
-          className={preview ? 'file-dropzone image-preview' : 'file-dropzone'}
+          {...rootProps}
+          css={css`
+            background: #eee;
+            height: 160px;
+            border-color: #ccc;
+            border-width: 1px;
+            border-style: dashed;
+            text-align: center;
+            ${preview ? `
+              height: auto;
+              position: relative;
+              min-height: 140px;
+            ` : null}
+            
+            &:hover {
+              background: rgba(255, 255, 255, 0.1);
+            }
+          `}
         >
           <input {...input} value="" {...getInputProps()} />
 
           {value ? (
             <>
-              <div className="center-button margin-bottom-sm">
-                <button type="button" className="btn btn-primary margin-all-sm">
-                  <FormattedMessage
-                    id="ReactShared.ImageInput.update"
-                    defaultMessage="Update the image"
-                  />
-                </button>
-              </div>
-
               {preview ? (
-                <Image
-                  className="padding-all-sm"
-                  alt=""
-                  src={preview}
-                  fallbackSrc={
-                    process.env.NODE_ENV === 'development'
-                      ? preview.replace('cibuldev', 'cibul')
-                      : null
-                  }
-                />
+                <div className="padding-all-sm margin-bottom-sm">
+                  <Image
+                    alt=""
+                    src={preview}
+                    fallbackSrc={
+                      process.env.NODE_ENV === 'development'
+                        ? preview.replace('cibuldev', 'cibul')
+                        : null
+                    }
+                    css={css`
+                      width: ${width};
+                      height: ${height};
+                      object-fit: cover;
+                      ${rounded ? 'border-radius: 50%' : ''}
+                    `}
+                  />
+                </div>
               ) : null}
             </>
           ) : (
@@ -150,7 +170,7 @@ function ImageInput({
               <button type="button" className="btn btn-primary">
                 <FormattedMessage
                   id="ReactShared.ImageInput.upload"
-                  defaultMessage="Update an image"
+                  defaultMessage="Upload an image"
                 />
               </button>
             </div>
@@ -167,19 +187,41 @@ function ImageInput({
           ) : null}
         </div>
 
-        {value ? (
+        <div
+          css={css`
+            position: absolute;
+            top: 5px;
+            right: 5px;
+          `}
+        >
           <button
             type="button"
-            onClick={onRemove}
-            className="btn btn-danger margin-all-sm remove-file"
+            onClick={rootProps.onClick}
+            className="btn btn-default margin-all-xs"
             title={intl.formatMessage({
-              id: 'ReactShared.ImageInput.remove',
-              defaultMessage: 'Remove'
+              id: 'ReactShared.ImageInput.update',
+              defaultMessage: 'Update the image'
             })}
           >
-            <i className="fa fa-trash" />
+            <i className="fa fa-upload" />
           </button>
-        ) : null}
+
+          <br />
+
+          {value ? (
+            <button
+              type="button"
+              onClick={onRemove}
+              className="btn btn-danger margin-all-xs"
+              title={intl.formatMessage({
+                id: 'ReactShared.ImageInput.remove',
+                defaultMessage: 'Remove'
+              })}
+            >
+              <i className="fa fa-trash" />
+            </button>
+          ) : null}
+        </div>
       </div>
 
       {rejections?.length ? (
@@ -199,13 +241,10 @@ function ImageInput({
   );
 }
 
-export default function InltImageInput({
-  extensions,
-  input,
-  maxSize,
-  minSize,
+export default function IntlImageInput({
   locale,
-  messages: _messages
+  messages: _messages,
+  ...props
 }) {
   const messages = useMemo(() => ({
     ...locales[locale],
@@ -214,12 +253,7 @@ export default function InltImageInput({
 
   return (
     <IntlProvider locale={locale} key={locale} messages={messages}>
-      <ImageInput
-        extensions={extensions}
-        input={input}
-        maxSize={maxSize}
-        minSize={minSize}
-      />
+      <ImageInput {...props} />
     </IntlProvider>
   );
 }
