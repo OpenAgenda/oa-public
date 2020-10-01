@@ -36,7 +36,6 @@
     "core-js": "^3.6.5",
     "create-react-class": "^15.5.2",
     "geolib": "^2.0.24",
-    "gm": "^1.21.1",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
     "languages": "0.1.3",

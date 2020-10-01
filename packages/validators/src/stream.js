@@ -1,4 +1,8 @@
-import { Stream } from 'stream';
+import isStream from 'is-stream';
+
+function isFile(value) {
+  return isStream(value) || (value && value.path);
+}
 
 export default config => {
   const params = {
@@ -14,12 +18,7 @@ export default config => {
       return value;
     }
 
-    if (
-      typeof value === 'object' &&
-      value instanceof Stream &&
-      typeof (value._read === 'function') &&
-      typeof (value._readableState === 'object')
-    ) {
+    if (isFile(value)) {
       return value;
     }
 
