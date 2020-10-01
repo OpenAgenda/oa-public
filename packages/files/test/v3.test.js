@@ -464,6 +464,96 @@ describe('v3', () => {
         image
       } = data;
 
+      console.log(data);
+
+      expect(image[0]).toMatchObject({
+        key: 'image',
+        filename: 'src3-0.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-0.png'),
+          key: 'src3-0.png',
+          Key: 'src3-0.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      expect(image[1]).toMatchObject({
+        key: 'image',
+        filename: 'src3-1.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-1.png'),
+          key: 'src3-1.png',
+          Key: 'src3-1.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      await Promise.all([
+        upload.providers.s3.remove('src3-0.png'),
+        upload.providers.s3.remove('src3-1.png'),
+        upload.providers.s3.remove('src3-2.png'),
+        upload.providers.s3.remove('src3-3.png'),
+        upload.providers.s3.remove('src3-4.png'),
+        upload.providers.s3.remove('src3-5.png')
+      ]);
+    });
+
+    it('works with a programmatically call to upload (simple and not keyed)', async () => {
+      let count = 0;
+      const upload = service({
+        key: 'image',
+        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+      });
+
+      const stream = fs.createReadStream(filePath);
+
+      const checkMw = async (req, res, next) => {
+        try {
+          res.send({
+            image: await upload(req.files.image),
+            other: await upload([req.files.other, { uid: 42 }]),
+            foo: await upload(req.files.foo.map((v, i) => [v, { uid: i }]))
+          });
+        } catch (error) {
+          next(error);
+        }
+      };
+
+      app.use(upload.cleanup());
+      app.use('/upload', upload.multer.fields([
+        { name: 'image', maxCount: 5 },
+        { name: 'other', maxCount: 5 },
+        { name: 'foo', maxCount: 5 }
+        ]), checkMw);
+      app.use((err, req, res, next) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+
+      const form = new FormData();
+      form.append('image', stream);
+      form.append('image', stream);
+      form.append('other', stream);
+      form.append('other', stream);
+      form.append('foo', stream);
+      form.append('foo', stream);
+
+      const { data } = await axios.post(`http://localhost:${port}/upload`, form, { headers: form.getHeaders() });
+
+      await finished(stream);
+
+      expect(count).toBe(6);
+
+      const {
+        image
+      } = data;
+
       expect(image[0]).toMatchObject({
         key: 'image',
         filename: 'src3-0.png',

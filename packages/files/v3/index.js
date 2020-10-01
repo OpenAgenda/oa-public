@@ -9,36 +9,39 @@ const makeMiddleware = require('./makeMiddleware');
 const isFile = require('./isFile');
 const gm = require('./gm');
 
-function transformResult(result) {
-  const asArray = {};
+function transformResult(resultKey) {
+  return value => {
+    const asArray = {};
+    let result = value;
 
-  if (Array.isArray(result)) {
-    return result.reduce((accu, current) => {
-      const key = Array.isArray(current) ? current[0].key : current.key;
+    if (Array.isArray(value)) {
+      result = value.reduce((accu, current) => {
+        const key = Array.isArray(current) ? current[0].key : current.key;
 
-      if (accu[key]) {
-        if (asArray[key]) {
-          accu[key].push(current);
+        if (accu[key]) {
+          if (asArray[key]) {
+            accu[key].push(current);
 
-          return accu;
+            return accu;
+          }
+
+          asArray[key] = true;
+
+          return {
+            ...accu,
+            [key]: [accu[key], current]
+          };
         }
-
-        asArray[key] = true;
 
         return {
           ...accu,
-          [key]: [accu[key], current]
+          [key]: current
         };
-      }
+      }, {});
+    }
 
-      return {
-        ...accu,
-        [key]: current
-      };
-    }, {})
-  }
-
-  return result;
+    return resultKey && result[resultKey] ? result[resultKey] : result;
+  };
 }
 
 function abortAllUploads(filesRegistry) {
@@ -106,37 +109,32 @@ module.exports = cfg => {
         filesRegistry.set(fileOptions, registry);
       }
 
-      for (const fileOptions of (isMultiple ? options : [options])) {
-        if (isMultiple && !data[fileOptions.key]) {
+      for (const fileOptions of (Array.isArray(options) ? options : [options])) {
+        const fileData = keyedData ? data[fileOptions.key] : data
+
+        if (keyedData && !data[fileOptions.key]) {
           continue;
         }
 
         if (
-          Array.isArray(data[fileOptions.key])
-          && (data[fileOptions.key].every(isFile) || data[fileOptions.key].every(Array.isArray))
+          Array.isArray(fileData)
+          && (fileData.every(isFile) || fileData.every(Array.isArray))
         ) {
-          for (const file of data[fileOptions.key]) {
+          for (const file of fileData) {
             await addFile(file, fileOptions);
           }
-        } else if (Array.isArray(data[fileOptions.key]) && Array.isArray(data[fileOptions.key][0])) {
-          for (const file of data[fileOptions.key][0]) {
-            await addFile([file, data[fileOptions.key][1]], fileOptions);
+        } else if (Array.isArray(fileData) && Array.isArray(fileData[0])) {
+          for (const file of fileData[0]) {
+            await addFile([file, fileData[1]], fileOptions);
           }
         } else {
-          if (!isMultiple) {
-            const fileData = keyedData ? data[options.key] : data;
-
-            return processFile(cfg, providers, fileData, options, context)
-              .then(transformResult)
-          }
-
-          await addFile(!isMultiple && !keyedData ? data : data[fileOptions.key], fileOptions);
+          await addFile(fileData, fileOptions);
         }
       }
 
       return Promise.all(promises)
         .then(
-          transformResult,
+          transformResult(!isMultiple && !keyedData ? options.key : null),
           async error => {
             await abortAllUploads(filesRegistry);
 
