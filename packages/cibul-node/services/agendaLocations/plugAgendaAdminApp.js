@@ -151,16 +151,22 @@ module.exports = (config, services, instance, app, base) => {
       .then(terms => res.json({ terms }));
   });
 
-  app.post([
-    `${base}`,
-    `${base}/merge`,
-    `${base}/:locationUid`
-  ], multer({ dest: config.tmpFolderPath }).single('image'),
-    parseDataWithImageStream
+  app.post(
+    [
+      `${base}`,
+      `${base}/merge`,
+      `${base}/:locationUid`
+    ],
+    instance.imageTransformAndUpload.middleware([
+      {
+        name: 'image',
+        unique: true
+      }
+    ])
   );
 
   app.post(`${base}`, (req, res, next) => {
-    req.locations.create({ ...req.data, state: 1 }, {
+    req.locations.create({ ...req.body, state: 1 }, {
       includeImagePath: true
     }).then(location => {
       res.json({
@@ -171,13 +177,13 @@ module.exports = (config, services, instance, app, base) => {
   });
 
   app.post(`${base}/merge`, (req, res, next) => {
-    const fieldsToOmit = Object.keys(req.data || {})
-      .filter(field => req.data[field] === null)
+    const fieldsToOmit = Object.keys(req.body || {})
+      .filter(field => req.body[field] === null)
       .concat(['agendaId', 'uid']);
 
     req.locations.merge(
       req.query,
-      _.omit(req.data || {}, fieldsToOmit)
+      _.omit(req.body || {}, fieldsToOmit)
    ).then(location => res.json({
       location,
       success: true
@@ -185,7 +191,9 @@ module.exports = (config, services, instance, app, base) => {
   });
 
   app.post(`${base}/:locationUid`, (req, res, next) => {
-    req.locations.update(req.params.locationUid, req.data, {
+    console.log(req.body);
+
+    req.locations.update(req.params.locationUid, req.body, {
       includeImagePath: true
     }).then(location => {
       res.json({

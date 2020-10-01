@@ -2,13 +2,8 @@
 
 const _ = require('lodash');
 const expressUtils = require('@openagenda/utils/express');
-const multer = require('multer');
 const gaTrack = require('../../lib/gaTrack.mw');
 const log = require('@openagenda/logs')('locations/plugAgendaApp');
-
-const {
-  parseDataWithImageStream
-} = require('./lib/middleware');
 
 module.exports = (config, services, service, app, base) => {
   const {
@@ -55,11 +50,13 @@ module.exports = (config, services, service, app, base) => {
   app.post(`${base}`,
     members.mw.load,
     agendaContribute.mw.verifyMemberAuthorization,
-    multer({ dest: config.tmpFolderPath }).single('image'),
-    parseDataWithImageStream,
+    service.imageTransformAndUpload.middleware([{
+      name: 'image',
+      unique: true
+    }]),
     (req, res, next) => {
       service(req.params.agendaUid).create({
-        ...req.data,
+        ...req.body,
         state: 0
       }, {
         includeImagePath: true

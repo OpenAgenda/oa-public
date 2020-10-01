@@ -18,17 +18,6 @@ module.exports.loadLocation = service => (req, res, next) => {
   }, next);
 }
 
-module.exports.parseDataWithImageStream = (req, res, next) => {
-  req.data = JSON.parse(req.body.data);
-  if (req.file) {
-    req.data.image = fs.createReadStream(req.file.path);
-    req.data.image.on('end', () => {
-      fs.unlink(req.file.path, () => {});
-    });
-  }
-  next();
-}
-
 module.exports.getLocationSettings = async (req, res, next) => {
   const {
     core,
