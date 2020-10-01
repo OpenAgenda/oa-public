@@ -20,7 +20,7 @@ const get = require('./middleware/getEvent');
 const { redirectToNeighbor } = require('./middleware/eventNavigation');
 const list = require('./middleware/listEvents');
 const pageGlobals = require('./middleware/pageGlobals');
-const preview = require('./middleware/renderPreview');
+const renderSelection = require('./middleware/renderSelection');
 const webpackSASSMiddleware = require('./dev/webpackSASSMiddleware');
 const redirectLegacyEventQuery = require('./middleware/redirectLegacyEventQuery');
 const renderList = require('./middleware/renderList');
@@ -34,11 +34,12 @@ const mw = {
   get,
   redirectToNeighbor,
   list,
-  preview,
+  preview: renderSelection('preview'),
   pageGlobals,
   redirectLegacyEventQuery,
   renderList,
   redirect,
+  share: renderSelection('share'),
   showPage,
   navigationLinks
 };
@@ -138,11 +139,15 @@ module.exports = async options => {
   app.get('/p/:page', mw.pageGlobals, mw.list, mw.index);
   app.get(
     '/preview',
-    mw.pageGlobals.withOptions({
-      mainScript: 'preview.js'
-    }),
+    mw.pageGlobals.withOptions({ mainScript: 'preview.js' }),
     mw.list,
     mw.preview
+  );
+  app.get(
+    '/share',
+    mw.pageGlobals.withOptions({ mainScript: 'share.js' }),
+    mw.list,
+    mw.share
   );
 
   app.get('/events/p/:page', mw.list, mw.renderList);

@@ -26,8 +26,8 @@ function onMessage(state, { message }) {
     if (state.iframeScrollOffset) {
       document.querySelector('html').scrollBy(0, -state.iframeScrollOffset);
     }
-  } else if (message.code === 'preview') {
-    log('received preview slug', message.eventSlug);
+  } else if (message.code === 'fromSelection') {
+    log('received selection slug', message.eventSlug);
     window.location.href = `${(state.target || '#undefined-data-target-url')
       + (state.targetIsIframe ? '#' : '')}/events/${message.eventSlug}`;
   } else if (message.link) {
