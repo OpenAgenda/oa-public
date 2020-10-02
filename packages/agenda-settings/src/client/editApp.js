@@ -14,8 +14,6 @@ const defaults = {
       get: '/agendas/:uid/admin/settings.json',
       slugAvailable: '/agendas/slugs/available',
       set: '/:slug/admin/settings/edit',
-      uploadImage: '/:slug/admin/settings/setImage',
-      clearImage: '/:slug/admin/settings/clearImage',
       remove: '/:slug/admin/settings/remove'
     }
   }

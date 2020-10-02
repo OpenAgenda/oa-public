@@ -19,8 +19,6 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
     get: '/:uid/agenda.json',
     set: '/:slug/edit',
     slugAvailable: '/slugs/available',
-    uploadImage: `${apiRoot}/:slug/setImage`,
-    clearImage: `${apiRoot}/:slug/clearImage`,
     remove: '/:slug/remove',
     keys: {
       create: '/:slug/keys/create',
