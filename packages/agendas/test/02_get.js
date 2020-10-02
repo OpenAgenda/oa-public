@@ -6,8 +6,12 @@ const _ = require( 'lodash' );
 
 const async = require( 'async' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 const svc = require( '../' );
 
 describe( 'agendas - functional (server): get', function() {
@@ -32,7 +36,10 @@ describe( 'agendas - functional (server): get', function() {
   } ) );
 
   before( () => {
-    svc.init( config );
+    svc.init( {
+      ...config,
+      Files: Files(dConfig.files)
+    } );
   } );
 
   it( 'get works on promise', async () => {

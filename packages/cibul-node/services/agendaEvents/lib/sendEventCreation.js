@@ -2,13 +2,9 @@
 
 const _ = require( 'lodash' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-
-const membersSvc = require( '../../members' );
-const usersSvc = require( '../../users' );
-
 const agendaLogo = require('./utils/agendaLogo');
 const eventLink = require('./utils/eventLink');
-const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
+const listAdminMods = require('./utils/listAdminMods');
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventCreation' );
 
@@ -18,7 +14,9 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
   } = config;
 
   const {
-    mails
+    mails,
+    users,
+    members: membersSvc
   } = services;
 
   log('processing');
@@ -26,7 +24,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
   if (!event.creatorUid) {
     throw new Error('event creator reference is missing');
   }
-  const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
+  const creatorUser = await users.findOne( { query: { uid: event.creatorUid } } );
   const creatorMemberId = await membersSvc.get( {
     agendaUid: agendaEvent.agendaUid,
     userUid: creatorUser.uid
@@ -55,7 +53,7 @@ module.exports = async ({ config, services }, { agendaEvent, context }) => {
 
   const logo = agendaLogo(agenda);
 
-  const members = await listAdminMods(agenda.uid);
+  const members = await listAdminMods(membersSvc, agenda.uid);
 
   if (!mails) {
     log('warn', 'mails service was not initialized');

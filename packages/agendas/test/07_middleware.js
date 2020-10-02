@@ -4,16 +4,23 @@ process.env.NODE_ENV = 'test';
 
 const async = require( 'async' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
 const svc = require( '../' );
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 
 describe( 'agendas - functional (server): middleware', function () {
 
   this.timeout( 30000 );
 
-  before( () => svc.init( config ) );
+  before( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
   before( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,

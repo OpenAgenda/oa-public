@@ -33,9 +33,6 @@ const service = {
     isTaken: slugs.isTaken,
     generate: slugs.generate,
   },
-  tasks: {
-    loadFromLegacy: require( '../tasks/loadFromLegacy' )
-  },
   getConfig: () => config,
   contributionTypes: require( './validate/contributionTypes' ),
   utils: {
@@ -68,6 +65,53 @@ function init( c ) {
 
   }
 
+  const { gm } = c.Files;
+
+  config.upload = c.Files({
+    key: 'image',
+    variants: [
+      {
+        getFilename: (info, context) => `agenda${context.uid}.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
+            .resize('300', '300', '^')
+            .gravity('Center')
+            .crop('300', '300')
+            .stream('jpg');
+        }
+      },
+      {
+        getFilename: (info, context) => `rwtbagenda${context.uid}.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
+            .resize('100', '100', '^')
+            .gravity('Center')
+            .crop('100', '100')
+            .stream('jpg');
+        }
+      },
+      {
+        getFilename: (info, context) => `agenda${context.uid}_o.jpg`,
+        transform: (info, context) => {
+          context.providerParams.ContentType = 'image/jpeg';
+
+          return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
+            .stream('jpg');
+        }
+      }
+    ]
+  });
+
   imagePath = service.getConfig().imagePath;
 
   details.init( schemas, knex );
@@ -87,12 +131,6 @@ function init( c ) {
   legacy.init( schemas, knex );
 
   middleware.init( c, service );
-
-  Object.keys( service.tasks ).forEach( k => {
-
-    service.tasks[ k ].init( service );
-
-  } );
 
 }
 

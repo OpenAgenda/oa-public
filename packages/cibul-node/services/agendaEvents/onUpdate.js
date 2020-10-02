@@ -18,7 +18,7 @@ const createActivities = require( './lib/createActivities' );
 module.exports = async ({ config, services }, before, after, context) => {
   log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
-  const { agenda, event, user } = await fallbackContextGet( 'onUpdate', after, context );
+  const { agenda, event, user } = await fallbackContextGet( { services }, 'onUpdate', after, context );
 
 
   if ( after.state === 2 ) {

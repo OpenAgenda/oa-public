@@ -22,7 +22,6 @@ const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
 const loadBySessionOrKey = require('./middleware/loadBySessionOrKey');
 const getHandler = require('./getHandler');
 const svcHooks = require('./hooks.js');
-const walkProtoChain = require('../../lib/walkProtoChain');
 
 function replaceIdMe() {
   return async (context, next) => {
@@ -47,50 +46,7 @@ module.exports = {
 
 function plugApp(app) {
   const cmn = require('../../lib/commons-app'); // avoid circular reference
-  const service = module.exports; // or this
-  const { files: filesSvc } = app.services;
-  const { gm } = filesSvc;
-
-  const files = filesSvc({
-    key: 'image',
-    variants: [
-      {
-        getFilename: (info, context) => `user.profile.${context.uid}.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .resize('600', null)
-            .stream('jpg');
-        }
-      },
-      {
-        getFilename: (info, context) => `user.profile.${context.uid}_o.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .stream('jpg');
-        }
-      },
-      {
-        getFilename: (info, context) => `user.profile.${context.uid}_sm.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .resize('300', null)
-            .stream('jpg');
-        }
-      }
-    ]
-  });
+  const service = app.services.users;
 
   express(feathers(), app); // extend app with .configure, .service and .use
   app.configure(express.rest(null)); // add handler for requests
@@ -105,7 +61,7 @@ function plugApp(app) {
     }
   );
 
-  app.use('/users/me', files.middleware([{ name: 'image', unique: true }]));
+  app.use('/users/me', service.upload.middleware([{ name: 'image', unique: true }]));
 
   app.get('/users', getHandler('find', ['params'])(service));
   app.get('/users/:__feathersId', getHandler('get', ['id', 'params'])(service));
@@ -185,12 +141,7 @@ async function init(config, services) {
       'user', 'apiKeySet', 'unsubscribed', 'key', 'userToken'
     ]),
     imagePath: config.aws.imageBucketPath,
-    files: {
-      bucket: config.aws.bucket,
-      accessKeyId: config.aws.accessKeyId, // required
-      secretAccessKey: config.aws.secretAccessKey,
-      tmpPath: config.tmpFolderPath
-    },
+    Files: services.files,
     services,
     getTokensService: () => tokensService,
     interfaces: {
@@ -220,12 +171,6 @@ async function init(config, services) {
   service.mw = {
     loadBySessionOrKey
   };
-
-  for (const prop of walkProtoChain(service)) {
-    module.exports[prop] = typeof service[prop] === 'function'
-      ? service[prop].bind(service)
-      : service[prop];
-  }
 
   services.tokens = tokensService;
 

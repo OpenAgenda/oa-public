@@ -5,14 +5,15 @@ const { BadRequest } = require('@feathersjs/errors');
 
 module.exports = function profileImage() {
   return async context => {
+    const { upload } = context.self;
     const { image } = context.data;
     const { before } = context.params;
 
-    if (image && typeof image.transformAndUpload === 'function') {
+    if (image && typeof image !== 'string') {
       try {
         log.info('start uploading the agenda profile image');
 
-        const result = await image.transformAndUpload({ uid: before.uid });
+        const result = await upload(image, { uid: before.uid });
 
         context.data.image = `${
           result[0].uploadValue.key
@@ -38,10 +39,7 @@ module.exports = function profileImage() {
       try {
         context.data.image = null;
 
-        // TODO remove image
-        // if (interfaces && typeof interfaces.removeImage === 'function') {
-        //   await interfaces.removeImage(v.current.image);
-        // }
+        await upload.providers.s3.remove(before.image);
       } catch (e) {
         log.error('error deleting the profile image:', e);
 

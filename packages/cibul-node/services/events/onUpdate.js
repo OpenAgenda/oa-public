@@ -11,7 +11,7 @@ module.exports = async (services, before, after, context) => {
   if (after.draft) return;
 
   try {
-    await createActivity(before, after, context);
+    await createActivity(services, before, after, context);
   } catch (e) {
     log('error', 'failed to create activity', e);
   }

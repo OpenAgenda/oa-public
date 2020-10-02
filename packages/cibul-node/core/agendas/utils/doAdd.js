@@ -122,7 +122,7 @@ module.exports = async (services, payload, clean, options = {}) => {
 
   if (userUid && agendaIsOpen(agenda) && await userIsNotMember(agenda, userUid)) {
     log('user %s is not a member on open contribution agenda that does not require member info.', userUid);
-    await addContributor(agenda, userUid);
+    await addContributor(services, agenda, userUid);
   }
 
   try {

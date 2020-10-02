@@ -2,7 +2,6 @@ import React, { Component, useContext } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
-import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import { ImageInput } from '@openagenda/react-shared';
 import I18nContext from '../contexts/I18nContext';
 

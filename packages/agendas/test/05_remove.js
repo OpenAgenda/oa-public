@@ -4,8 +4,12 @@ process.env.NODE_ENV = 'test';
 
 const mysql = require( 'mysql' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 const svc = require( '../' );
 
 describe( 'agendas - functional (server): remove', function() {
@@ -29,9 +33,15 @@ describe( 'agendas - functional (server): remove', function() {
     }
   } ) );
 
-  before( () => svc.init( config ) );
+  before( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
-  afterEach( () => svc.init( config ) );
+  afterEach( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
   it( 'agenda remove removes db entry', done => {
 
@@ -94,6 +104,7 @@ describe( 'agendas - functional (server): remove', function() {
 
     // do this as part of unique init
     svc.init( Object.assign( {}, config, {
+      Files: Files(dConfig.files),
       interfaces: {
         beforeRemove: ( agenda, cb ) => {
 

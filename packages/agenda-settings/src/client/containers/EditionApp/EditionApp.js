@@ -21,7 +21,7 @@ import * as modalsActions from '../../reducers/modals';
     keys: keysActions.default,
     modals: modalsActions.default
   }),
-  fetch: async ({ store: { dispatch, getState } }) => {
+  defer: async ({ store: { dispatch, getState } }) => {
     const promises = [];
 
     // if ( !agendaActions.isLoaded( getState() ) ) {

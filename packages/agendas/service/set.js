@@ -20,7 +20,7 @@ const validate = require('./validate');
 const dbParse = require('@openagenda/mysql-utils/mapper')(map);
 const log = require('@openagenda/logs')('set');
 
-let knex, schemas, mysqlConfig, interfaces;
+let knex, schemas, mysqlConfig, interfaces, upload;
 
 module.exports = _.extend(set, { init });
 
@@ -223,11 +223,11 @@ function _validate(target) {
 async function _profileImage(v) {
   const { image } = v.data;
 
-  if (image && typeof image.transformAndUpload === 'function') {
+  if (image && typeof image !== 'string') {
     try {
       log.info('start uploading the agenda profile image');
 
-      const result = await image.transformAndUpload({ uid: v.current.uid });
+      const result = await upload(image, { uid: v.current.uid });
 
       v.clean.image = `${result[0].uploadValue.key}?__ts=${new Date().getTime()}`;
 
@@ -247,9 +247,7 @@ async function _profileImage(v) {
     try {
       v.clean.image = null;
 
-      if (interfaces && typeof interfaces.removeImage === 'function') {
-        await interfaces.removeImage(v.current.image);
-      }
+      await upload.providers.s3.remove(v.current.image);
     } catch (e) {
       log.error('error deleting the profile image:', e);
 
@@ -608,5 +606,7 @@ function init(s, k) {
   mysqlConfig = s.getConfig().mysql;
 
   interfaces = s.getConfig().interfaces;
+
+  upload = s.getConfig().upload;
 
 }

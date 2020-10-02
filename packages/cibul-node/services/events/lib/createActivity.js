@@ -5,17 +5,16 @@ const { diff } = require( 'deep-diff' );
 const VError = require( 'verror' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const usersSvc = require( '../../users' );
-const activitiesSvc = require( '../../activities' );
 
 const log = require( '@openagenda/logs' )( 'events/createActivity' );
 
-module.exports = async ( before, after, context ) => {
+module.exports = async ( services, before, after, context ) => {
   log( 'processing' );
 
-  if (!activitiesSvc.feed) {
-    return log('warn', 'activities service is not initialized');
-  }
+  const {
+    users,
+    activities
+  } = services;
 
   let user;
   let agenda;
@@ -25,7 +24,7 @@ module.exports = async ( before, after, context ) => {
   }
 
   try {
-    user = await usersSvc.get( context.userUid );
+    user = await users.get( context.userUid );
   } catch ( e ) {
     return log( 'error', new VError( e, 'Error to get user %s', context.userUid ) );
   }
@@ -36,7 +35,7 @@ module.exports = async ( before, after, context ) => {
     return log( 'error', new VError( e, 'Error to get agenda %s', context.agendaUid ) );
   }
 
-  await activitiesSvc.feed( { entityType: 'event', entityUid: after.uid } ).activities.add( {
+  await activities.feed( { entityType: 'event', entityUid: after.uid } ).activities.add( {
     actor: 'user:' + user.uid,
     verb: 'event.update',
     object: 'event:' + after.uid,
