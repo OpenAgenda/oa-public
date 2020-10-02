@@ -3,71 +3,78 @@
 const keysSvc = require('@openagenda/keys');
 
 module.exports = {
-  paginate: {
-    default: 20,
-    max: 100
-  },
-  mysql: {
-    host: '127.0.0.1',
-    database: 'oa_test_users',
-    password: 'grut',
-    user: 'root',
-    ssl: true
-  },
-  schemas: {
-    user: 'user',
-    apiKeySet: 'api_key_set',
-    unsubscribed: 'unsubscribed',
-    key: 'key',
-    userToken: 'user_token'
-  },
-  files: {
-    tmpPath: '/var/tmp',
-    bucket: 'openagendatst',
-    accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
-    secretAccessKey: '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'
-  },
-  imagePath: '//openagendatst.s3.amazonaws.com/',
-  interfaces: {
-    getAgenda: (agendaUid, cb) => cb(
-      null,
-      agendaUid === 85870128
-        ? {
-          slug: 'journees-arts-culture-sup-2017',
-          title:
-                "2017 : Journées des Arts et de la Culture dans l'Enseignement Supérieur"
-        }
-        : {
-          slug: 'semaineindustrie2017',
-          title: "Semaine de l'Industrie 2017"
-        }
-    ),
-    onActivation() {
-      return async context => {
-        const user = context.result;
-
-        if (!user) {
-          return context;
-        }
-
-        await context.self.generateApiKey(user.uid, {
-          publicKey: true
-        });
-      };
+  service: {
+    paginate: {
+      default: 20,
+      max: 100
     },
-    keys: {
-      get: identifiers => keysSvc(identifiers).get({ optionalKey: !('key' in identifiers) }),
-      create: (identifiers, data) => keysSvc(identifiers).create(data),
-      remove: identifiers => keysSvc(identifiers).remove()
+    mysql: {
+      host: '127.0.0.1',
+      database: 'oa_test_users',
+      password: 'grut',
+      user: 'root',
+      ssl: true
+    },
+    schemas: {
+      user: 'user',
+      apiKeySet: 'api_key_set',
+      unsubscribed: 'unsubscribed',
+      key: 'key',
+      userToken: 'user_token'
+    },
+    imagePath: '//openagendatst.s3.amazonaws.com/',
+    interfaces: {
+      getAgenda: (agendaUid, cb) => cb(
+        null,
+        agendaUid === 85870128
+          ? {
+            slug: 'journees-arts-culture-sup-2017',
+            title:
+              "2017 : Journées des Arts et de la Culture dans l'Enseignement Supérieur"
+          }
+          : {
+            slug: 'semaineindustrie2017',
+            title: "Semaine de l'Industrie 2017"
+          }
+      ),
+      onActivation() {
+        return async context => {
+          const user = context.result;
+
+          if (!user) {
+            return context;
+          }
+
+          await context.self.generateApiKey(user.uid, {
+            publicKey: true
+          });
+        };
+      },
+      keys: {
+        get: identifiers => keysSvc(identifiers).get({ optionalKey: !('key' in identifiers) }),
+        create: (identifiers, data) => keysSvc(identifiers).create(data),
+        remove: identifiers => keysSvc(identifiers).remove()
+      }
+    },
+    redis: {
+      connection: {
+        host: 'localhost',
+        port: 6379
+      }
+    },
+    cache: {
+      duration: 60
     }
   },
-  redis: {
-    connection: {
-      host: 'localhost',
-      port: 6379
+  dependencies: {
+    files: {
+      s3: {
+        accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+        region: process.env.AWS_DEV_REGION,
+        defaultBucket: process.env.AWS_DEV_BUCKET
+      },
+      defaultProvider: 's3'
     }
-  },
-  cache: {
-    duration: 60
   }
 };

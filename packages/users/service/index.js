@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require('util');
 const _ = require('lodash');
 const { Service } = require('feathers-knex');
 const {
@@ -104,9 +103,52 @@ class Users extends Service {
       ])
     };
 
+    const { gm } = config.Files;
+
     super(config);
 
     this.config = config;
+
+    this.upload = config.Files({
+      key: 'image',
+      variants: [
+        {
+          getFilename: (info, context) => `user.profile.${context.uid}.jpg`,
+          transform: (info, context) => {
+            context.providerParams.ContentType = 'image/jpeg';
+
+            return gm(info.stream, context.originalname)
+              .autoOrient()
+              .noProfile()
+              .resize('600', null)
+              .stream('jpg');
+          }
+        },
+        {
+          getFilename: (info, context) => `user.profile.${context.uid}_o.jpg`,
+          transform: (info, context) => {
+            context.providerParams.ContentType = 'image/jpeg';
+
+            return gm(info.stream, context.originalname)
+              .autoOrient()
+              .noProfile()
+              .stream('jpg');
+          }
+        },
+        {
+          getFilename: (info, context) => `user.profile.${context.uid}_sm.jpg`,
+          transform: (info, context) => {
+            context.providerParams.ContentType = 'image/jpeg';
+
+            return gm(info.stream, context.originalname)
+              .autoOrient()
+              .noProfile()
+              .resize('300', null)
+              .stream('jpg');
+          }
+        }
+      ]
+    });
   }
 
   async findOne(params = {}) {

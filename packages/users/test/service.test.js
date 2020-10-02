@@ -8,9 +8,12 @@ const knexLib = require('knex');
 const fixtures = require('@openagenda/fixtures');
 const keysSvc = require('@openagenda/keys/test/service');
 const keysConfig = require('@openagenda/keys/service/config');
-const files = require('@openagenda/files');
+const Files = require('@openagenda/files/v3');
 const crypto = require('../utils/crypto');
-const config = require('../testconfig');
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig');
 const Service = require('..');
 
 const database = `${config.mysql.database}_service`;
@@ -25,8 +28,8 @@ const getConfig = options => ({
   multi: true,
   interfaces: config.interfaces,
   imagePath: config.imagePath,
-  files: config.files,
   schemas: config.schemas,
+  Files: Files(dConfig.files),
   ...options
 });
 
@@ -61,7 +64,6 @@ beforeEach(async () => {
   knex.client.config.connection.database = database;
 
   fixtures.init({ mysql: { ...config.mysql, database } });
-  files.init(config.files);
 
   await knex.migrate.latest({
     directory: path.join(__dirname, '../../keys/migrations'),
