@@ -21,7 +21,8 @@ export default class ProfileSettings extends Component {
   };
 
   static contextTypes = {
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   renderFullNameInput = field => (

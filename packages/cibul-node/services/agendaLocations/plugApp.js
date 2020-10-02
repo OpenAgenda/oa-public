@@ -1,14 +1,13 @@
 'use strict';
 
 const _ = require('lodash');
-const OpenCage = require('@openagenda/geocoder/Opencage');
 
 const expressUtils = require('@openagenda/utils/express');
 const gaTrack = require('../../lib/gaTrack.mw');
 const log = require('@openagenda/logs')('services/locations/plugApp');
 
 module.exports = (config, services, instance, app, base) => {
-  const geocoder = OpenCage(config.opencage);
+  const { geocoder } = config;
 
   app.use(base, expressUtils.https);
 

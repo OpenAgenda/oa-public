@@ -16,9 +16,7 @@ export default (res, values, cb) => {
   req.ok(res => res.status < 500);
 
   if (!Object.keys(files).length) {
-    req.send({
-      data: JSON.stringify(fileless)
-    });
+    req.send(fileless);
   } else {
     Object.keys(files).forEach(fieldName => {
       // handle multiple files if need be

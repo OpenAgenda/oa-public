@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor';
+import I18nContext from '../contexts/I18nContext';
 
 
 @connect( state => ({
@@ -11,8 +12,8 @@ import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor'
 @withRouter
 export default class UnsubscribedSettings extends Component {
   static contextTypes = {
-    lang: PropTypes.string,
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   render() {

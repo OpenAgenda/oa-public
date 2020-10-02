@@ -35,7 +35,8 @@ const initialState = async req => {
   const { services } = req.app;
 
   const user = req.user && req.user.uid ? await services.users.get(req.user.uid, {
-    user: req.user
+    user: req.user,
+    includeImagePath: true
   }) : null;
 
   return {
@@ -101,9 +102,7 @@ const initialState = async req => {
         deleteAccount: '/users/me',
         changeEmail: '/users/me/requestChangeEmail',
         changePassword: '/users/me/changePassword',
-        generateApiKey: '/users/me/generateApiKey',
-        uploadProfileImage: '/users/me/setImageProfile',
-        removeProfileImage: '/users/me/clearImageProfile'
+        generateApiKey: '/users/me/generateApiKey'
       }
     },
     agendaSettingsNew: {

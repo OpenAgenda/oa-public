@@ -13,10 +13,6 @@ const testconfig = require('../testconfig');
 
 const finished = promisify(stream.finished);
 
-const gm = require('gm').subClass({
-  imageMagick: true
-});
-
 const bucket = testconfig.s3.defaultBucket;
 const filePath = path.join(__dirname, 'files/src3.png');
 
@@ -60,54 +56,65 @@ describe('v3', () => {
       filename: 'src3_renamed.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
-      provider: 's3'
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('src3_renamed.png'),
+        key: 'src3_renamed.png',
+        Key: 'src3_renamed.png',
+        Bucket: `${bucket}`
+      })
     });
     expect(isStream(result.stream)).toBe(true);
-    expect(result.uploadValue).toMatchObject({
-      Location: s3UrlMatching('src3_renamed.png'),
-      key: 'src3_renamed.png',
-      Key: 'src3_renamed.png',
-      Bucket: `${bucket}`
-    });
 
     await upload.providers.s3.remove('src3_renamed.png');
   });
 
   it('can upload multiple stream', async () => {
-    const upload = service([
-      {
-        key: 'simple',
-        getFilename: (
-          info,
-          context
-        ) => `${path.parse(context.originalname).name}_renamed${path.parse(context.originalname).ext}`
-      }
-    ]);
+    const upload = service({
+      key: 'simple',
+      getFilename: (
+        info,
+        context
+      ) => `${path.parse(context.originalname).name}_renamed${path.parse(context.originalname).ext}`
+    });
 
     const stream = fs.createReadStream(filePath);
+    const stream2 = fs.createReadStream(filePath);
 
-    const result = await upload({
-      simple: [stream, { originalname: 'une simple image.png' }]
-    }, { sharedContext: 42 });
+    const result = await upload([stream, stream2], { originalname: 'une simple image.png' });
 
     await finished(stream);
+    await finished(stream2);
 
-    const { simple } = result;
-
-    expect(simple).toMatchObject({
+    expect(result[0]).toMatchObject({
       key: 'simple',
       filename: 'une simple image_renamed.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
-      provider: 's3'
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('une%20simple%20image_renamed.png'),
+        key: 'une simple image_renamed.png',
+        Key: 'une simple image_renamed.png',
+        Bucket: `${bucket}`
+      })
     });
-    expect(isStream(simple.stream)).toBe(true);
-    expect(simple.uploadValue).toMatchObject({
-      Location: s3UrlMatching('une%20simple%20image_renamed.png'),
-      key: 'une simple image_renamed.png',
-      Key: 'une simple image_renamed.png',
-      Bucket: `${bucket}`
+    expect(isStream(result[0].stream)).toBe(true);
+
+    expect(result[1]).toMatchObject({
+      key: 'simple',
+      filename: 'une simple image_renamed.png',
+      fileType: { ext: 'png', mime: 'image/png' },
+      isImage: true,
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('une%20simple%20image_renamed.png'),
+        key: 'une simple image_renamed.png',
+        Key: 'une simple image_renamed.png',
+        Bucket: `${bucket}`
+      })
     });
+    expect(isStream(result[1].stream)).toBe(true);
 
     await upload.providers.s3.remove('une simple image_renamed.png');
   });
@@ -133,57 +140,91 @@ describe('v3', () => {
     ]);
 
     const stream = fs.createReadStream(filePath);
+    const stream2 = fs.createReadStream(filePath);
 
     const result = await upload({
-      profileImage: [stream, { originalname: 'image-de-profil.png' }]
+      profileImage: [[stream, stream2], { originalname: 'image-de-profil.png' }]
     }, { sharedContext: 42 });
 
     await finished(stream);
+    await finished(stream2);
 
     const { profileImage } = result;
-    const [small, large] = profileImage;
+    const [first, second] = profileImage;
 
-    // small
-    expect(small).toMatchObject({
+    // first
+    expect(first[0]).toMatchObject({
       key: 'profileImage',
       filename: 'image-de-profil_small.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
-      provider: 's3'
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('image-de-profil_small.png'),
+        key: 'image-de-profil_small.png',
+        Key: 'image-de-profil_small.png',
+        Bucket: `${bucket}`
+      })
     });
-    expect(isStream(small.stream)).toBe(true);
-    expect(small.uploadValue).toMatchObject({
-      Location: s3UrlMatching('image-de-profil_small.png'),
-      key: 'image-de-profil_small.png',
-      Key: 'image-de-profil_small.png',
-      Bucket: `${bucket}`
-    });
+    expect(isStream(first[0].stream)).toBe(true);
 
-    // large
-    expect(large).toMatchObject({
+    expect(first[1]).toMatchObject({
       key: 'profileImage',
       filename: 'image-de-profil_large.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
-      provider: 's3'
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('image-de-profil_large.png'),
+        key: 'image-de-profil_large.png',
+        Key: 'image-de-profil_large.png',
+        Bucket: `${bucket}`
+      })
     });
-    expect(isStream(large.stream)).toBe(true);
-    expect(large.uploadValue).toMatchObject({
-      Location: s3UrlMatching('image-de-profil_large.png'),
-      key: 'image-de-profil_large.png',
-      Key: 'image-de-profil_large.png',
-      Bucket: `${bucket}`
+    expect(isStream(first[1].stream)).toBe(true);
+
+    // second
+    expect(second[0]).toMatchObject({
+      key: 'profileImage',
+      filename: 'image-de-profil_small.png',
+      fileType: { ext: 'png', mime: 'image/png' },
+      isImage: true,
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('image-de-profil_small.png'),
+        key: 'image-de-profil_small.png',
+        Key: 'image-de-profil_small.png',
+        Bucket: `${bucket}`
+      })
     });
+    expect(isStream(second[0].stream)).toBe(true);
+
+    expect(second[1]).toMatchObject({
+      key: 'profileImage',
+      filename: 'image-de-profil_large.png',
+      fileType: { ext: 'png', mime: 'image/png' },
+      isImage: true,
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('image-de-profil_large.png'),
+        key: 'image-de-profil_large.png',
+        Key: 'image-de-profil_large.png',
+        Bucket: `${bucket}`
+      })
+    });
+    expect(isStream(second[1].stream)).toBe(true);
 
     // Check image sizes
-    const smallImage = await axios.get(small.uploadValue.Location);
+    const smallImage = await axios.get(first[0].uploadValue.Location);
     expect(smallImage.headers['content-length']).toBe(stream.bytesRead.toString());
 
-    const largeImage = await axios.get(large.uploadValue.Location);
+    const largeImage = await axios.get(first[1].uploadValue.Location);
     expect(largeImage.headers['content-length']).toBe(stream.bytesRead.toString());
 
-    await upload.providers.s3.remove('image-de-profil_small.png');
-    await upload.providers.s3.remove('image-de-profil_large.png');
+    await Promise.all([
+      upload.providers.s3.remove('image-de-profil_small.png'),
+      upload.providers.s3.remove('image-de-profil_large.png')
+    ]);
   });
 
   describe('with server', () => {
@@ -246,13 +287,13 @@ describe('v3', () => {
         filename: 'src3_renamed.png',
         fileType: { ext: 'png', mime: 'image/png' },
         isImage: true,
-        provider: 's3'
-      });
-      expect(data.uploadValue).toMatchObject({
-        Location: s3UrlMatching('src3_renamed.png'),
-        key: 'src3_renamed.png',
-        Key: 'src3_renamed.png',
-        Bucket: `${bucket}`
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3_renamed.png'),
+          key: 'src3_renamed.png',
+          Key: 'src3_renamed.png',
+          Bucket: `${bucket}`
+        })
       });
 
       const uploadedImage = await axios.get(data.uploadValue.Location);
@@ -373,13 +414,13 @@ describe('v3', () => {
         filename: 'src3-0.png',
         fileType: { ext: 'png', mime: 'image/png' },
         isImage: true,
-        provider: 's3'
-      });
-      expect(first.uploadValue).toMatchObject({
-        Location: s3UrlMatching('src3-0.png'),
-        key: 'src3-0.png',
-        Key: 'src3-0.png',
-        Bucket: `${bucket}`
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-0.png'),
+          key: 'src3-0.png',
+          Key: 'src3-0.png',
+          Bucket: `${bucket}`
+        })
       });
 
       expect(second).toMatchObject({
@@ -387,13 +428,13 @@ describe('v3', () => {
         filename: 'src3-1.png',
         fileType: { ext: 'png', mime: 'image/png' },
         isImage: true,
-        provider: 's3'
-      });
-      expect(second.uploadValue).toMatchObject({
-        Location: s3UrlMatching('src3-1.png'),
-        key: 'src3-1.png',
-        Key: 'src3-1.png',
-        Bucket: `${bucket}`
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-1.png'),
+          key: 'src3-1.png',
+          Key: 'src3-1.png',
+          Bucket: `${bucket}`
+        })
       });
 
       const [firstImage, secondImage] = await Promise.all([
@@ -404,8 +445,317 @@ describe('v3', () => {
       expect(firstImage.headers['content-length']).toBe(stream.bytesRead.toString());
       expect(secondImage.headers['content-length']).toBe(stream.bytesRead.toString());
 
-      await upload.providers.s3.remove('src3-0.png');
-      await upload.providers.s3.remove('src3-1.png');
+      await Promise.all([
+        upload.providers.s3.remove('src3-0.png'),
+        upload.providers.s3.remove('src3-1.png')
+      ]);
+    });
+
+    it('works with a programmatically call to upload (simple)', async () => {
+      let count = 0;
+      const upload = service({
+        key: 'image',
+        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+      });
+
+      const stream = fs.createReadStream(filePath);
+
+      const checkMw = async (req, res, next) => {
+        try {
+          res.send({
+            image: (await upload({
+              image: req.files.image
+            })).image,
+            other: (await upload({
+              image: [req.files.other, { uid: 42 }]
+            })).image,
+            foo: (await upload({
+              image: req.files.foo.map((v, i) => [v, { uid: i }])
+            })).image
+          });
+        } catch (error) {
+          next(error);
+        }
+      };
+
+      app.use(upload.cleanup());
+      app.use('/upload', upload.multer.fields([
+        { name: 'image', maxCount: 5 },
+        { name: 'other', maxCount: 5 },
+        { name: 'foo', maxCount: 5 }
+      ]), checkMw);
+      app.use((err, req, res, next) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+
+      const form = new FormData();
+      form.append('image', stream);
+      form.append('image', stream);
+      form.append('other', stream);
+      form.append('other', stream);
+      form.append('foo', stream);
+      form.append('foo', stream);
+
+      const { data } = await axios.post(`http://localhost:${port}/upload`, form, { headers: form.getHeaders() });
+
+      await finished(stream);
+
+      expect(count).toBe(6);
+
+      const {
+        image
+      } = data;
+
+      console.log(data);
+
+      expect(image[0]).toMatchObject({
+        key: 'image',
+        filename: 'src3-0.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-0.png'),
+          key: 'src3-0.png',
+          Key: 'src3-0.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      expect(image[1]).toMatchObject({
+        key: 'image',
+        filename: 'src3-1.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-1.png'),
+          key: 'src3-1.png',
+          Key: 'src3-1.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      await Promise.all([
+        upload.providers.s3.remove('src3-0.png'),
+        upload.providers.s3.remove('src3-1.png'),
+        upload.providers.s3.remove('src3-2.png'),
+        upload.providers.s3.remove('src3-3.png'),
+        upload.providers.s3.remove('src3-4.png'),
+        upload.providers.s3.remove('src3-5.png')
+      ]);
+    });
+
+    it('works with a programmatically call to upload (simple and not keyed)', async () => {
+      let count = 0;
+      const upload = service({
+        key: 'image',
+        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+      });
+
+      const stream = fs.createReadStream(filePath);
+
+      const checkMw = async (req, res, next) => {
+        try {
+          res.send({
+            image: await upload(req.files.image),
+            other: await upload([req.files.other, { uid: 42 }]),
+            foo: await upload(req.files.foo.map((v, i) => [v, { uid: i }]))
+          });
+        } catch (error) {
+          next(error);
+        }
+      };
+
+      app.use(upload.cleanup());
+      app.use('/upload', upload.multer.fields([
+        { name: 'image', maxCount: 5 },
+        { name: 'other', maxCount: 5 },
+        { name: 'foo', maxCount: 5 }
+      ]), checkMw);
+      app.use((err, req, res, next) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+
+      const form = new FormData();
+      form.append('image', stream);
+      form.append('image', stream);
+      form.append('other', stream);
+      form.append('other', stream);
+      form.append('foo', stream);
+      form.append('foo', stream);
+
+      const { data } = await axios.post(`http://localhost:${port}/upload`, form, { headers: form.getHeaders() });
+
+      await finished(stream);
+
+      expect(count).toBe(6);
+
+      const {
+        image
+      } = data;
+
+      expect(image[0]).toMatchObject({
+        key: 'image',
+        filename: 'src3-0.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-0.png'),
+          key: 'src3-0.png',
+          Key: 'src3-0.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      expect(image[1]).toMatchObject({
+        key: 'image',
+        filename: 'src3-1.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-1.png'),
+          key: 'src3-1.png',
+          Key: 'src3-1.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      await Promise.all([
+        upload.providers.s3.remove('src3-0.png'),
+        upload.providers.s3.remove('src3-1.png'),
+        upload.providers.s3.remove('src3-2.png'),
+        upload.providers.s3.remove('src3-3.png'),
+        upload.providers.s3.remove('src3-4.png'),
+        upload.providers.s3.remove('src3-5.png')
+      ]);
+    });
+
+    it('works with a programmatically call to upload', async () => {
+      let count = 0;
+      const upload = service([
+        {
+          key: 'image',
+          getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        },
+        {
+          key: 'other',
+          getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        },
+        {
+          key: 'foo',
+          getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        }
+      ]);
+
+      const stream = fs.createReadStream(filePath);
+
+      const checkMw = async (req, res, next) => {
+        expect(req.body).toEqual({
+          password: 'gnagnagna',
+          text: 'Un champ!'
+        });
+
+        try {
+          const result = await upload({
+            image: req.files.image,
+            other: [req.files.other, { uid: 42 }],
+            foo: req.files.foo.map((v, i) => [v, { uid: i }])
+          });
+
+          res.send(result)
+        } catch (error) {
+          next(error);
+        }
+      };
+
+      app.use(upload.cleanup());
+      app.use('/upload', upload.multer.fields([
+        { name: 'image', maxCount: 5 },
+        { name: 'other', maxCount: 5 },
+        { name: 'foo', maxCount: 5 }
+      ]), checkMw);
+      app.use((err, req, res, next) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+
+      const form = new FormData();
+      form.append('image', stream);
+      form.append('image', stream);
+      form.append('other', stream);
+      form.append('other', stream);
+      form.append('foo', stream);
+      form.append('foo', stream);
+      form.append('text', 'Un champ!');
+      form.append('password', 'gnagnagna');
+
+      const { data } = await axios.post(`http://localhost:${port}/upload`, form, { headers: form.getHeaders() });
+
+      await finished(stream);
+
+      expect(count).toBe(6);
+
+      const {
+        image,
+        other,
+        foo
+      } = data;
+
+      expect(image[0]).toMatchObject({
+        key: 'image',
+        filename: 'src3-0.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-0.png'),
+          key: 'src3-0.png',
+          Key: 'src3-0.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      expect(other[0]).toMatchObject({
+        key: 'other',
+        filename: 'src3-2.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-2.png'),
+          key: 'src3-2.png',
+          Key: 'src3-2.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      expect(foo[0]).toMatchObject({
+        key: 'foo',
+        filename: 'src3-4.png',
+        fileType: { ext: 'png', mime: 'image/png' },
+        isImage: true,
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('src3-4.png'),
+          key: 'src3-4.png',
+          Key: 'src3-4.png',
+          Bucket: `${bucket}`
+        })
+      });
+
+      await Promise.all([
+        upload.providers.s3.remove('src3-0.png'),
+        upload.providers.s3.remove('src3-1.png'),
+        upload.providers.s3.remove('src3-2.png'),
+        upload.providers.s3.remove('src3-3.png'),
+        upload.providers.s3.remove('src3-4.png'),
+        upload.providers.s3.remove('src3-5.png')
+      ]);
     });
 
     it('cleanup on response finish', async () => {
@@ -471,7 +821,7 @@ describe('v3', () => {
           context
         ) => `${path.parse(context.originalname).name}_renamed${path.parse(context.originalname).ext}`,
         transform: async (info, context) => {
-          const image = gm(info.stream, context.originalname);
+          const image = service.gm(info.stream, context.originalname);
 
           const size = await promisify(image.size).call(image, { bufferStream: true });
 
@@ -494,15 +844,15 @@ describe('v3', () => {
         filename: 'josep_aff_renamed.jpg',
         fileType: { ext: 'webp', mime: 'image/webp' },
         isImage: true,
-        provider: 's3'
+        provider: 's3',
+        uploadValue: expect.objectContaining({
+          Location: s3UrlMatching('josep_aff_renamed.jpg'),
+          key: 'josep_aff_renamed.jpg',
+          Key: 'josep_aff_renamed.jpg',
+          Bucket: `${bucket}`
+        })
       });
       expect(isStream(result.stream)).toBe(true);
-      expect(result.uploadValue).toMatchObject({
-        Location: s3UrlMatching('josep_aff_renamed.jpg'),
-        key: 'josep_aff_renamed.jpg',
-        Key: 'josep_aff_renamed.jpg',
-        Bucket: `${bucket}`
-      });
 
       await upload.providers.s3.remove('josep_aff_renamed.jpg');
     });
@@ -557,9 +907,11 @@ describe('v3', () => {
       await expect(axios.get(`https://${bucket}.s3.amazonaws.com/josep_aff_fail.jpg`))
         .rejects.toThrow('Request failed with status code 404');
 
-      await upload.providers.s3.remove('src3_renamed.png');
-      await upload.providers.s3.remove('josep_aff_work.jpg');
-      await upload.providers.s3.remove('josep_aff_fail.jpg');
+      await Promise.all([
+        upload.providers.s3.remove('src3_renamed.png'),
+        upload.providers.s3.remove('josep_aff_work.jpg'),
+        upload.providers.s3.remove('josep_aff_fail.jpg')
+      ]);
     });
 
     it('set content type', async () => {
@@ -617,9 +969,11 @@ describe('v3', () => {
         'image/png'
       ]);
 
-      await upload.providers.s3.remove('src3_detected.png');
-      await upload.providers.s3.remove('src3_binary.png');
-      await upload.providers.s3.remove('src3_image.png');
+      await Promise.all([
+        upload.providers.s3.remove('src3_detected.png'),
+        upload.providers.s3.remove('src3_binary.png'),
+        upload.providers.s3.remove('src3_image.png')
+      ]);
     });
   });
 });

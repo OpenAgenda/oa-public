@@ -68,7 +68,13 @@ export function getUser() {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.main.getUser);
+      return client.get(res.main.getUser, {
+        params: {
+          $client: {
+            includeImagePath: true
+          }
+        }
+      });
     }
   };
 }

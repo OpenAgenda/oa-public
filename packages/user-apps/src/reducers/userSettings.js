@@ -1,4 +1,5 @@
 import { SubmissionError, change as changeFieldValue, reset as resetForm } from 'redux-form';
+import toMixedMultipart from '@openagenda/utils/toMixedMultipart';
 
 const LOAD = 'user-apps/userSettings/LOAD';
 const LOAD_SUCCESS = 'user-apps/userSettings/LOAD_SUCCESS';
@@ -26,7 +27,7 @@ const DISPLAY_MESSAGE = 'user-apps/userSettings/DISPLAY_MESSAGE';
 function getFormFirstErrors( validatorErrors ) {
   let errors = {};
 
-  if ( validatorErrors ) {
+  if ( Array.isArray(validatorErrors) ) {
     let oneErrorPerField = validatorErrors.filter( ( e, i, a ) => {
       return a.findIndex( _e => e.field === _e.field ) === i
     } );
@@ -174,7 +175,7 @@ export function updateUser( data = {} ) {
       const { res, userSettings } = getState();
 
       try {
-        const result = await client.patch( res.updateProfile, data, {
+        const result = await client.patch( res.updateProfile, toMixedMultipart(data), {
           params: {
             $client: {
               includeImagePath: true,

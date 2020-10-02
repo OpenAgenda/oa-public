@@ -100,7 +100,7 @@ export default class ProfileEdition extends Component {
           <div className="col-md-7">
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="title">Image</label>
+                <label htmlFor="title">{getLabel('image')}</label>
                 <Field
                   name="image"
                   component={ImageInput}
@@ -108,6 +108,9 @@ export default class ProfileEdition extends Component {
                   extensions={['jpg', 'bmp', 'png', 'jpeg']}
                   locale={lang}
                   maxSize={MAX_SIZE}
+                  width="300px"
+                  height="300px"
+                  rounded
                 />
               </div>
               <Field

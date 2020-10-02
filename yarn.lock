@@ -1877,6 +1877,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/core@npm:^10.0.35":
+  version: 10.0.35
+  resolution: "@emotion/core@npm:10.0.35"
+  dependencies:
+    "@babel/runtime": ^7.5.5
+    "@emotion/cache": ^10.0.27
+    "@emotion/css": ^10.0.27
+    "@emotion/serialize": ^0.11.15
+    "@emotion/sheet": 0.9.4
+    "@emotion/utils": 0.11.3
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: c47657ac54efba4fca7595cef950164594873345db70abda2a6066e2889aad5f088c7f14ce29a15c4c787494eb3e143c331bf875d849ca9ed7caeda307a8aad9
+  languageName: node
+  linkType: hard
+
 "@emotion/css@npm:^10.0.27, @emotion/css@npm:^10.0.9":
   version: 10.0.27
   resolution: "@emotion/css@npm:10.0.27"
@@ -2166,10 +2182,10 @@ __metadata:
   linkType: hard
 
 "@formatjs/cli@npm:^2.11.3":
-  version: 2.12.0
-  resolution: "@formatjs/cli@npm:2.12.0"
+  version: 2.11.3
+  resolution: "@formatjs/cli@npm:2.11.3"
   dependencies:
-    "@formatjs/ts-transformer": ^2.11.0
+    "@formatjs/ts-transformer": ^2.10.1
     "@types/json-stable-stringify": ^1.0.32
     "@types/lodash": ^4.14.150
     "@types/loud-rejection": ^2.0.0
@@ -2185,7 +2201,7 @@ __metadata:
     typescript: ^4.0
   bin:
     formatjs: bin/formatjs
-  checksum: ffe63aa4ff9ee4a633f5cf7e2c584980547cf2f70de7918aa427c7adbc2c087a794131b1ef91518eda522c7562d5129b6d7e67badc89b51b36bcf57aed6bc026
+  checksum: 822a3d3c6b7a6c23e2baf87d434887168af45528c6d8b0385f1f768bd3603144cff7cda9eea6ed5e6c5b1051654453011de8e289dca551a89668bfd77ccadc35
   languageName: node
   linkType: hard
 
@@ -2215,12 +2231,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-displaynames@npm:^3.3.9":
-  version: 3.3.9
-  resolution: "@formatjs/intl-displaynames@npm:3.3.9"
+"@formatjs/intl-displaynames@npm:^3.3.8":
+  version: 3.3.8
+  resolution: "@formatjs/intl-displaynames@npm:3.3.8"
   dependencies:
     "@formatjs/ecma402-abstract": ^1.2.2
-  checksum: 76fa8fc166e6d03ab4a641d8dfd3373d9a451ba3105fdaf0cf5e5f50f35aeebe0d54b5d27d9f67298d2702dc7a98267ab031e365debfc07891ccd96e98257e47
+  checksum: 3ed1d72759053d81d43158a3bb8f2b6dbbc13e03fea4edfeeae24effe03291020c4fc2a3d6c95a18e493623190135a8800ea854051ed590ae15165bdc7ca25e7
   languageName: node
   linkType: hard
 
@@ -2308,30 +2324,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl@npm:^1.3.3":
-  version: 1.3.3
-  resolution: "@formatjs/intl@npm:1.3.3"
+"@formatjs/intl@npm:^1.3.2":
+  version: 1.3.2
+  resolution: "@formatjs/intl@npm:1.3.2"
   dependencies:
     "@formatjs/ecma402-abstract": ^1.2.2
-    "@formatjs/intl-displaynames": ^3.3.9
+    "@formatjs/intl-displaynames": ^3.3.8
     "@formatjs/intl-listformat": ^4.2.7
     "@formatjs/intl-relativetimeformat": ^7.2.7
     fast-memoize: ^2.5.2
     intl-messageformat: ^9.3.8
     intl-messageformat-parser: ^6.0.7
-  checksum: 8896751bfa6f613d636f04095ae6a4bd2fcc53ce5bd7dd777db7a90434e1354bbba3d8ca6448ad1fd3cf7826623b1d670f6703e9ef2f0055ec9e57f107aadab9
+  checksum: 0258e60b21c44445bb0fd0bfe0d7c0ea917238806c42f8a2fd8c8fb9c8101214ffbdc194fe33bbfadbc79e2535df6e3b5790990ce4cf839480e8c3fcbbd8ce2d
   languageName: node
   linkType: hard
 
-"@formatjs/ts-transformer@npm:^2.11.0":
-  version: 2.11.0
-  resolution: "@formatjs/ts-transformer@npm:2.11.0"
+"@formatjs/ts-transformer@npm:^2.10.1":
+  version: 2.10.1
+  resolution: "@formatjs/ts-transformer@npm:2.10.1"
   dependencies:
     intl-messageformat-parser: ^6.0.7
     typescript: ^4.0
-  peerDependencies:
-    ts-jest: ^26.4.0
-  checksum: 0374b85b6ed361781ed865b084380dc217fd3c1c01c64246dd1aa9586ef8ef3471d209032c59b8d4f5e9e6db51025ea1b9295449208a33753c11220afb2df08e
+  checksum: 97106782ba83de72cfe2e8329042ea581a952f967485bcbe93b494e53acb1cfd311e9b1179979252c04ac1df4258f82a3aa9e84a6474030c4ae847070c75acb3
   languageName: node
   linkType: hard
 
@@ -4357,7 +4371,6 @@ __metadata:
     errorhandler: ^1.5.0
     express: ^4.17.1
     geolib: ^2.0.24
-    gm: ^1.21.1
     immutability-helper: ^3.0.0
     knex: ^0.19.5
     languages: 0.1.3
@@ -4552,6 +4565,7 @@ __metadata:
     "@openagenda/react-form-components": ^2.1.13
     "@openagenda/react-shared": ^2.0.7
     "@openagenda/react-utils": ^4.2.6
+    "@openagenda/utils": ^1.2.9
     "@openagenda/validators": ^2.2.14
     "@storybook/react": ^5.3.19
     babel-loader: ^8.1.0
@@ -5277,6 +5291,7 @@ __metadata:
     lodash: ^4.17.15
     mkdirp: ^1.0.4
     multer: ^1.4.2
+    type-is: ^1.6.18
     uuid: ^3.4.0
     verror: ^1.10.0
   languageName: unknown
@@ -6236,7 +6251,8 @@ __metadata:
     "@babel/cli": ^7.10.4
     "@babel/core": ^7.10.4
     "@babel/runtime-corejs3": ^7.10.4
-    "@emotion/core": ^10.0.28
+    "@emotion/babel-preset-css-prop": ^10.0.27
+    "@emotion/core": ^10.0.35
     "@formatjs/cli": ^2.11.3
     "@openagenda/babel-preset": ^1.3.8
     "@openagenda/eslint-config": ^1.2.4
@@ -6633,6 +6649,7 @@ __metadata:
     "@openagenda/keys": ^2.2.9
     "@openagenda/labels": ^2.2.7
     "@openagenda/react-components": ^2.3.9
+    "@openagenda/react-shared": ^2.0.7
     "@openagenda/react-utils": ^4.2.6
     "@openagenda/unsubscribed": ^2.1.8
     "@openagenda/users": ^3.0.15
@@ -6645,6 +6662,7 @@ __metadata:
     cors: ^2.8.5
     errorhandler: ^1.5.0
     express: ^4.17.1
+    final-form: ^4.20.1
     history: ^4.10.1
     knex: ^0.19.5
     lodash: ^4.17.15
@@ -6666,6 +6684,7 @@ __metadata:
     rimraf: ^3.0.1
   peerDependencies:
     "@loadable/component": ^5.12.0
+    final-form: ^4.18.5
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -6682,8 +6701,6 @@ __metadata:
     "@openagenda/eslint-config": ^1.2.4
     "@openagenda/files": ^2.0.12
     "@openagenda/fixtures": ^2.0.2
-    "@openagenda/image-files": ^1.1.10
-    "@openagenda/images": ^1.1.9
     "@openagenda/keys": ^2.2.9
     "@openagenda/logs": ^1.1.7
     "@openagenda/validators": ^2.2.14
@@ -6701,8 +6718,6 @@ __metadata:
     tmp: ^0.1.0
     uuid: ^3.4.0
     verror: ^1.10.0
-  peerDependencies:
-    "@openagenda/image-files": ^1.1.2
   languageName: unknown
   linkType: soft
 
@@ -6732,24 +6747,11 @@ __metadata:
     "@openagenda/utils": ^1.2.9
     babel-jest: ^26.0.1
     core-js: ^3.6.5
+    is-stream: ^2.0.0
     jest: ^26.1.0
     lodash: ^4.17.15
     should: ^13.2.3
     validator: ^12.2.0
-  languageName: unknown
-  linkType: soft
-
-"@openagenda/verror@workspace:packages/verror":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/verror@workspace:packages/verror"
-  dependencies:
-    "@babel/cli": ^7.10.4
-    "@babel/core": ^7.10.4
-    "@openagenda/babel-preset": ^1.3.8
-    assertion-error: ^1.1.0
-    jest: ^26.1.0
-    rimraf: ^3.0.1
-    sprintf-js: ^1.1.2
   languageName: unknown
   linkType: soft
 
@@ -10358,18 +10360,18 @@ __metadata:
   linkType: hard
 
 "babel-plugin-react-intl@npm:^8.2.3":
-  version: 8.2.4
-  resolution: "babel-plugin-react-intl@npm:8.2.4"
+  version: 8.2.3
+  resolution: "babel-plugin-react-intl@npm:8.2.3"
   dependencies:
     "@babel/core": ^7.9.0
     "@babel/helper-plugin-utils": ^7.8.3
     "@babel/types": ^7.9.5
-    "@formatjs/ts-transformer": ^2.11.0
+    "@formatjs/ts-transformer": ^2.10.1
     "@types/babel__core": ^7.1.7
     "@types/schema-utils": ^2.4.0
     intl-messageformat-parser: ^6.0.7
     schema-utils: ^2.6.6
-  checksum: 3b045a07f94764ea16221dd52e0247caa81575d8bc23be6c7b443a74d6436ad54c32b237c3736ec3acf1babed3de6f0ac0682b495e430968cade07138d81b2b8
+  checksum: 2f2888f6812050af8a45169df1065a3ba342c4c4b17d6c3da5aee628e893c74d3b5c468d02e2b7d234868a090ab8fd79e6431ce6906db53d14080e1d2b50217c
   languageName: node
   linkType: hard
 
@@ -12396,7 +12398,6 @@ __metadata:
     feathers-authentication-hooks: ^0.3.0
     feathers-hooks-common: ^4.20.7
     final-form: ^4.20.1
-    gm: ^1.23.1
     history: ^4.10.1
     http-proxy: ^1.18.0
     immutability-helper: ^3.0.0
@@ -18231,14 +18232,14 @@ __metadata:
   linkType: hard
 
 "fs-extra@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "fs-extra@npm:9.0.0"
+  version: 9.0.1
+  resolution: "fs-extra@npm:9.0.1"
   dependencies:
     at-least-node: ^1.0.0
     graceful-fs: ^4.2.0
     jsonfile: ^6.0.1
     universalify: ^1.0.0
-  checksum: 518828d6e5c33d71cb075f3c25629f857b4a0d1fca5c3b6c8cdee876fa972e0661003491fc7d49d9e4d1c19aec8af6edf045e849a1110f2f879880975f4f6955
+  checksum: b7374cb05819bd95fa15bf74a30fbec3d2b64a0c00d2df67d6e1d6a901a9a7582a1243fe652d27a6cd042b38a2c1cd9ae3b3d100bc98dd041cc2f3e29964884f
   languageName: node
   linkType: hard
 
@@ -31171,12 +31172,12 @@ __metadata:
   linkType: hard
 
 "react-intl@npm:^5.8.2":
-  version: 5.8.3
-  resolution: "react-intl@npm:5.8.3"
+  version: 5.8.2
+  resolution: "react-intl@npm:5.8.2"
   dependencies:
     "@formatjs/ecma402-abstract": ^1.2.2
-    "@formatjs/intl": ^1.3.3
-    "@formatjs/intl-displaynames": ^3.3.9
+    "@formatjs/intl": ^1.3.2
+    "@formatjs/intl-displaynames": ^3.3.8
     "@formatjs/intl-listformat": ^4.2.7
     "@formatjs/intl-relativetimeformat": ^7.2.7
     "@types/hoist-non-react-statics": ^3.3.1
@@ -31188,7 +31189,7 @@ __metadata:
   peerDependencies:
     react: ^16.3.0
     typescript: 3.8 || 4
-  checksum: 6824b1ae02c050fd40fb08ba8a54086ca6b92f59a776fe98b0c82ccb98db59a8dcee842fdb84cb58de300107365ccc82db4d1022cb06155a27f82e744aa947e9
+  checksum: 80df23dba6718072395b3ed4a9b1a349d12013a6935e6a66837c3071147b812ff6d57f5f087054a7d72936c779424187d6f487d8d999059de4e126b06500692e
   languageName: node
   linkType: hard
 
@@ -34791,13 +34792,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sprintf-js@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "sprintf-js@npm:1.1.2"
-  checksum: 50d2008328a3cafac658a40de7fb7d3d899b8e12906b3784113a97199618531bc4237ef2779cc5a9cd6df06b58036fedf4578648a5bbfd01825ecb56546e3982
-  languageName: node
-  linkType: hard
-
 "sprintf-js@npm:~1.0.2":
   version: 1.0.3
   resolution: "sprintf-js@npm:1.0.3"
@@ -36683,7 +36677,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-is@npm:^1.6.4, type-is@npm:~1.6.15, type-is@npm:~1.6.17, type-is@npm:~1.6.18, type-is@npm:~1.6.4, type-is@npm:~1.6.6":
+"type-is@npm:^1.6.18, type-is@npm:^1.6.4, type-is@npm:~1.6.15, type-is@npm:~1.6.17, type-is@npm:~1.6.18, type-is@npm:~1.6.4, type-is@npm:~1.6.6":
   version: 1.6.18
   resolution: "type-is@npm:1.6.18"
   dependencies:

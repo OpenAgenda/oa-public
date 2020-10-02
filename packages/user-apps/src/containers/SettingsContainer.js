@@ -77,9 +77,7 @@ export default class SettingsContainer extends Component {
                 <ImageSettings
                   activeTab={route.activeTab === 'image'}
                   history={history}
-                  onUpdate={image => updateUser( { image } )}
-                  uploadImageRes={res.uploadProfileImage}
-                  removeImageRes={res.removeProfileImage}
+                  onUpdate={updateUser}
                   image={user && user.image || ''}
                   user={user}
                   lang={lang}

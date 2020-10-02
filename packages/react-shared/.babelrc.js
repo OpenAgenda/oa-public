@@ -11,7 +11,8 @@ module.exports = {
           ast: true
         }
       }
-    ]
+    ],
+    require.resolve('@emotion/babel-preset-css-prop')
   ],
   sourceType: 'unambiguous'
 };

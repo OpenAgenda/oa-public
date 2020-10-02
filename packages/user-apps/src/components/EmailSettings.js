@@ -20,7 +20,8 @@ export default class EmailSettings extends Component {
   };
 
   static contextTypes = {
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   renderNewEmailInput = field => (

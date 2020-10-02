@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const AgendaLocations = require('@openagenda/agenda-locations');
+const OpenCage = require('@openagenda/geocoder/Opencage');
 const log = require('@openagenda/logs')('services/agendaLocations');
 
 const getEventCounts = require('./interfaces/getEventCounts');
@@ -27,6 +28,8 @@ module.exports.init = async (config, services) => {
 
   queue.on('error', (task, args, err) => log('error', 'task %s error', task, err));
 
+  const geocoder = OpenCage(config.opencage);
+
   const instance = AgendaLocations({
     knex: config.knex,
     redis: config.redisClient,
@@ -36,14 +39,15 @@ module.exports.init = async (config, services) => {
       getEventCounts: getEventCounts(config, services),
       locationsWillMerge: beforeMerge(services),
       locationWillRemove: beforeRemove(services),
-      onUpdate: onUpdate(queue)
+      onUpdate: onUpdate(queue),
+      geocode: (address, { countryCode, language }) => geocoder(address, { countryCode, language })
     },
     Files: services.files,
     logger: config.getLogConfig('svc', 'agendaLocations')
   });
 
   return Object.assign(instance, {
-    apps: Object.assign(plugApp.bind(null, config, services, instance), {
+    apps: Object.assign(plugApp.bind(null, { ...config, geocoder }, services, instance), {
       agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
       agenda: plugAgendaApp.bind(null, config, services, instance)
     }),

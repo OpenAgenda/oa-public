@@ -4,10 +4,6 @@ const knex = require('knex');
 const logger = require('@openagenda/logs');
 const countries = require('@openagenda/countries');
 
-const gm = require('gm').subClass({
-  imageMagick: true
-});
-
 const create = require('./create');
 const geolib = require('geolib');
 const get = require('./get');
@@ -44,6 +40,8 @@ module.exports = Object.assign((c = {}) => {
     throw new Error('@openagenda/files instance is required for handling images');
   }
 
+  const { gm } = config.Files;
+
   const service = {
     config,
     clients: {
@@ -59,13 +57,19 @@ module.exports = Object.assign((c = {}) => {
         getFilename: (info, context) => `location${context.uid}.jpg`,
         transform: (info, context) => {
           context.providerParams.ContentType = 'image/jpeg';
-          return gm(info.stream, context.originalname).stream('jpg')
+
+          return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
+            .stream('jpg');
         }
       }, {
         getFilename: (info, context) => `location${context.uid}_sm.jpg`,
         transform: (info, context) => {
           context.providerParams.ContentType = 'image/jpeg';
           return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
             .resize(600)
             .stream('jpg');
         }
@@ -75,8 +79,10 @@ module.exports = Object.assign((c = {}) => {
           context.providerParams.ContentType = 'image/jpeg';
 
           return gm(info.stream, context.originalname)
+            .autoOrient()
+            .noProfile()
             .resize(300)
-            .stream('jpg')
+            .stream('jpg');
         }
       }]
     })
@@ -97,7 +103,8 @@ module.exports = Object.assign((c = {}) => {
     utils: {
       getINSEECode: config.redis ? getINSEECode(config.redis) : null,
       countries
-    }
+    },
+    imageTransformAndUpload: service.imageTransformAndUpload
   });
 
 }, {
