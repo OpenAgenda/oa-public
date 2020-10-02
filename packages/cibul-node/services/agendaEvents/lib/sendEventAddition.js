@@ -3,8 +3,6 @@
 const _ = require('lodash');
 const agendasSvc = require('@openagenda/agendas');
 const agendaEventStates = require('@openagenda/agenda-events/iso/states');
-const usersSvc = require('../../users');
-const membersSvc = require('../../members');
 
 const log = require('@openagenda/logs')(
   'agendaEvents/sendEventAddition'
@@ -16,7 +14,9 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
   } = config;
 
   const {
-    mails
+    mails,
+    users,
+    members: membersSvc
   } = services;
 
   log('processing');
@@ -55,7 +55,7 @@ module.exports = async ({ config, services }, { agendaEvent, user, context }) =>
     includeImagePath: true
   });
 
-  const creatorUser = await usersSvc.findOne({
+  const creatorUser = await users.findOne({
     query: {
       uid: event.creatorUid
     }

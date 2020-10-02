@@ -3,12 +3,11 @@
 const _ = require( 'lodash' );
 const contributionTypes = require( '@openagenda/agendas' ).contributionTypes;
 const members = require( '../../../services/members' );
-const users = require( '../../../services/users' );
 
-module.exports = Object.assign( async ( agenda, userUid ) => {
+module.exports = Object.assign( async ( services, agenda, userUid ) => {
   return members.create( { agendaUid: agenda.uid, userUid, role: 1,
     custom: {
-      email: ( await users.get( userUid ) ).email
+      email: ( await services.users.get( userUid ) ).email
     }
   }, { requireCustom: false } );
 }, {

@@ -27,7 +27,7 @@ module.exports = async ({ config, services }, ae, context) => {
   log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
   // use context.userUid. will be null when nothing was specified at create
-  const { agenda, event } = await fallbackContextGet('onCreate', ae, context);
+  const { agenda, event } = await fallbackContextGet({ services }, 'onCreate', ae, context);
   let user;
 
   context.agenda = context.agenda || agenda;

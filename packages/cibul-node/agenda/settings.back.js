@@ -10,53 +10,7 @@ const members = require( '../services/members' );
 
 
 module.exports = app => {
-  const { files: filesSvc } = app.services;
-  const { gm } = filesSvc;
-
-  const files = filesSvc({
-    key: 'image',
-    variants: [
-      {
-        getFilename: (info, context) => `agenda${context.uid}.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .resize('300', '300', '^')
-            .gravity('Center')
-            .crop('300', '300')
-            .stream('jpg');
-        }
-      },
-      {
-        getFilename: (info, context) => `rwtbagenda${context.uid}.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .resize('100', '100', '^')
-            .gravity('Center')
-            .crop('100', '100')
-            .stream('jpg');
-        }
-      },
-      {
-        getFilename: (info, context) => `agenda${context.uid}_o.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .stream('jpg');
-        }
-      }
-    ]
-  });
+  const { agendas } = app.services;
 
   app.post(
     '/new',
@@ -83,7 +37,7 @@ module.exports = app => {
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    files.middleware([{ name: 'image', unique: true }]),
+    agendas.getConfig().upload.middleware([{ name: 'image', unique: true }]),
     ( req, res, next ) => {
       req.context = { user: req.user };
       next();

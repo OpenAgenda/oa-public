@@ -37,12 +37,7 @@ module.exports.init = (config, services) => {
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib
     schemas: config.schemas,
-    files: {
-      tmpPath: config.tmpFolderPath,
-      bucket: config.aws.bucket,
-      accessKeyId: config.aws.accessKeyId,
-      secretAccessKey: config.aws.secretAccessKey
-    },
+    Files: services.files,
     imagePath: config.aws.imageBucketPath,
     defaultImagePath: config.aws.defaultImagePath,
     logger: config.getLogConfig('svc', 'agendas'),
@@ -50,11 +45,7 @@ module.exports.init = (config, services) => {
       onCreate: onCreate.bind(null, services),
       onRemove: onRemove.bind(null, services),
       onUpdate: onUpdate.bind(null, services),
-      beforeRemove,
-      removeImage: removeImage.bind(null, services),
-      imageFilesLoad: imageFiles.load,
-      imageFilesClear: imageFiles.clear,
-      imageFilesGetBasePath: imageFiles.getBucketPath
+      beforeRemove
     }
   });
 
