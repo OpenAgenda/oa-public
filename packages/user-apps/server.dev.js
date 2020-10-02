@@ -6,7 +6,6 @@ import http from 'http';
 import usersSvc from '@openagenda/users';
 import usersSvcHooks from '@openagenda/users/hooks';
 import unsubscribedSvc from '@openagenda/unsubscribed';
-import filesSvc from '@openagenda/files';
 import keysSvc from '@openagenda/keys';
 import express from 'express';
 import morgan from 'morgan';
@@ -27,7 +26,6 @@ app.server = server;
 
 if ( process.env.NODE_ENV !== 'test' ) {
   (async () => {
-    filesSvc.init( testconfig.files );
     await usersSvc.init( testconfig );
     unsubscribedSvc.init( testconfig );
     await keysSvc.init( testconfig );
