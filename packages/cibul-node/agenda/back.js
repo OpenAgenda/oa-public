@@ -130,8 +130,6 @@ function _gettingStarted(req, res, next) {
         value: JSON.stringify({
           res: {
             agenda: req.genUrl('agendaShow', { slug: req.agenda.slug }),
-            setImage: req.genUrl('agendaSettingsSetImage', { slug: req.agenda.slug }),
-            clearImage: req.genUrl('agendaSettingsClearImage', { slug: req.agenda.slug }),
             addEvent: `/${req.agenda.slug}/contribute`,
             createEmbed: `/${req.agenda.slug}/admin/webembed`
           },

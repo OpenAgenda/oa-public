@@ -679,14 +679,6 @@ const config = {
           method: 'post',
           uri: '/:slug/admin/settings/edit'
         },
-        agendaSettingsSetImage: {
-          method: 'post',
-          uri: '/:slug/admin/settings/setImage'
-        },
-        agendaSettingsClearImage: {
-          method: 'post',
-          uri: '/:slug/admin/settings/clearImage'
-        },
         agendaSettingsRemoveAgenda: {
           method: 'post',
           uri: '/:slug/admin/settings/remove'
