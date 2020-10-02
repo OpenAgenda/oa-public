@@ -42,7 +42,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
     log('uploading image');
     const result = await service.imageTransformAndUpload(clean.image, { uid: current.uid });
 
-    clean.image = result.image[0].filename + '?__ts=' + (new Date).getTime();
+    clean.image = result[0].filename + '?__ts=' + (new Date).getTime();
   } else if (ignoreImage && current.image) {
     clean.image = current.image.split('/').pop();
   }
