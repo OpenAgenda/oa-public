@@ -4,9 +4,6 @@ const _ = require( 'lodash' );
 
 const logger = require( '@openagenda/logs' );
 
-const image = require( './image' );
-const validate = require( '../validate' );
-
 const publicValidate = require( '../validate/public' );
 
 let service, log = console.log;
@@ -33,9 +30,9 @@ function Agenda( data ) {
 
 Object.assign(
   Agenda.prototype,
-  image,
   {
     getData,
+    getImage,
     _loadInternals
   }
 );
@@ -69,6 +66,18 @@ function getData( options ) {
   }, options || {} );
 
   return params.internal ? this.data : publicValidate( this.data );
+
+}
+
+function getImage( includePath = false, useDefaultImage = false ) {
+
+  const { defaultImagePath } = this.service.getConfig();
+  const path = this.service.getConfig().imagePath;
+  const image = this.data.image ? this.data.image.split( '/' ).pop() : null;
+
+  if ( image === null ) return useDefaultImage ? defaultImagePath : null;
+
+  return ( includePath ? path : '' ) + image;
 
 }
 

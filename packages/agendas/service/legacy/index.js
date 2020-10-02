@@ -26,8 +26,7 @@ module.exports = Object.assign( agenda, {
 function agenda( agendaId ) {
 
   return {
-    applyToLegacy,
-    loadFromLegacy
+    applyToLegacy
   }
 
 
@@ -45,63 +44,6 @@ function agenda( agendaId ) {
     .done( v => cb(), cb );
 
   }
-
-
-  /**
-   * apply current legacy config to agenda model
-   */
-  function loadFromLegacy( cb ) {
-
-    w( { agendaId, loaded: {
-      settings: {
-        contribution: {
-          message: null,
-          moderateOnChangeBy: [],
-          type: 0
-        }
-      }
-    } } )
-
-    .then( _loadDefaultState )
-
-    .then( _loadCredentials )
-
-    .done( v => cb( null, v.loaded ), cb );
-
-  }
-
-}
-
-
-function _loadCredentials( v ) {
-
-  return knex( schemas.legacyCredentialSet )
-
-    .select( '*' )
-
-    .where( { review_id: v.agendaId } )
-
-    .then( rows => {
-
-      if ( !rows.length ) return v;
-
-      let row = rows[ 0 ];
-
-      v.loaded.credentials = {
-        indesign: row.indesign,
-        activatingInvitations: row.activating_invitations,
-        embedsTemplates: row.custom_templates,
-        moderators: row.moderator,
-        embedsHead: row.custom_head,
-        emailstrategie: row.emailstrategie,
-        aggregator: row.aggregator,
-        eventOwnershipTransfer: row.event_transfer,
-        tags: row.tags
-      };
-
-      return v;
-
-    } );
 
 }
 
@@ -198,25 +140,6 @@ function _updateDefaultState( v ) {
   store( v.agendaId, 'moderated', defaultState !== 2, err => {
 
     if ( err ) return d.reject( err );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
-
-function _loadDefaultState( v ) {
-
-  let d = w.defer();
-
-  store.get( v.agendaId, 'moderated', ( err, value ) => {
-
-    if ( err ) return d.reject( v );
-
-    utils.deep.set( v.loaded, 'settings.contribution.defaultState', value ? 0 : 2 );
 
     d.resolve( v );
 

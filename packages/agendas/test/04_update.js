@@ -1,9 +1,13 @@
 "use strict";
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 
 const mysql = require( 'mysql' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
 const svc = require( '../' );
 
@@ -30,9 +34,15 @@ describe( 'agendas - functional (server): set (update)', function() {
     }
   } ) );
 
-  before( () => svc.init( config ) );
+  before( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
-  afterEach( () => svc.init( config ) );
+  afterEach( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
   it( 'set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
 
@@ -409,6 +419,7 @@ describe( 'agendas - functional (server): set (update)', function() {
   it( 'onUpdate callbacks with agenda data before and after update', done => {
 
     svc.init( Object.assign( {}, config, {
+      Files: Files(dConfig.files),
       interfaces: {
         onUpdate: ( before, after ) => {
 
@@ -436,6 +447,7 @@ describe( 'agendas - functional (server): set (update)', function() {
   it( 'onUpdate callbacks with agenda data that includes internal fields', done => {
 
     svc.init( Object.assign( {}, config, {
+      Files: Files(dConfig.files),
       interfaces: {
         onUpdate: ( before, after ) => {
 

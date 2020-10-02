@@ -3,8 +3,12 @@
 process.env.NODE_ENV = 'test';
 
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 const svc = require( '../' );
 
 describe( 'agendas - functional (server): slugs', function() {
@@ -13,7 +17,10 @@ describe( 'agendas - functional (server): slugs', function() {
 
   before( () => {
 
-    svc.init( config );
+    svc.init( {
+      ...config,
+      Files: Files(dConfig.files)
+    } );
 
   } );
 

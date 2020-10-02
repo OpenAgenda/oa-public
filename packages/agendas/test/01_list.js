@@ -4,8 +4,12 @@ process.env.NODE_ENV = 'test';
 
 const async = require( 'async' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 
 const svc = require( '../' );
 
@@ -31,7 +35,10 @@ describe( 'agendas - functional (server): list', function () {
   } ) );
 
   before( () => {
-    svc.init( config )
+    svc.init( {
+      ...config,
+      Files: Files(dConfig.files)
+    } )
   } );
 
   it( 'list as a promise', async () => {

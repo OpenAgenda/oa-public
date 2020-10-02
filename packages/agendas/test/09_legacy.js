@@ -5,8 +5,12 @@ process.env.NODE_ENV = 'test';
 const knex = require( 'knex' );
 const mysql = require( 'mysql' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 const legacy = require( '../service/legacy' );
 const svc = require( '../' );
 
@@ -14,7 +18,10 @@ describe( 'agendas - unit (server): legacy bridging', function() {
 
   this.timeout( 30000 );
 
-  before( () => svc.init( config ) );
+  before( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
   beforeEach( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,
@@ -34,42 +41,6 @@ describe( 'agendas - unit (server): legacy bridging', function() {
       legacyCredential: 'legacy_credential_set'
     }
   } ) );
-
-  describe( 'loadFromLegacy', () => {
-
-    it( 'loads settings information from legacy data structure', done => {
-
-      legacy( 4878 ).loadFromLegacy( ( err, data ) => {
-
-        data.should.eql( {
-          settings: {
-            contribution: {
-              type: 0,
-              moderateOnChangeBy: [],
-              defaultState: 2,
-              message: null
-            }
-          },
-          credentials: {
-            indesign: 0,
-            activatingInvitations: 0,
-            eventOwnershipTransfer: 0,
-            embedsTemplates: 1,
-            moderators: 0,
-            embedsHead: 0,
-            emailstrategie: 0,
-            tags: 1,
-            aggregator: 0
-          }
-        } );
-
-        done();
-
-      } );
-
-    } );
-
-  } );
 
   describe( 'applyToLegacy', () => {
 

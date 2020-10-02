@@ -4,14 +4,15 @@ process.env.NODE_ENV = 'test';
 
 const async = require( 'async' );
 const fs = require( 'fs' );
-const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 const svc = require( '../' );
-
-const externalServices = require( './fixtures/externalServices' );
 
 describe( 'agendas - functional (server): instanciate', function () {
 
@@ -19,15 +20,10 @@ describe( 'agendas - functional (server): instanciate', function () {
 
   before( () => {
 
-    externalServices.init( config.tests );
-
-    svc.init( ih( config, {
-      interfaces: {
-        imageFilesLoad: { $set: externalServices.imageFiles.load },
-        imageFilesClear: { $set: externalServices.imageFiles.clear },
-        imageFilesGetBasePath: { $set: externalServices.imageFiles.getBucketPath }
-      }
-    } ) );
+    svc.init( {
+      ...config,
+      Files: Files(dConfig.files)
+    } );
 
   } );
 
@@ -107,7 +103,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
       svc.get( aId, { instanciate: true }, ( err, agenda ) => {
 
-        agenda.setImage( { path: __dirname + '/files/tmp.jpg' }, wcb );
+        svc.set( aId, { image: { path: __dirname + '/files/tmp.jpg' } }, wcb );
 
       } );
 
@@ -115,71 +111,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
       con.query( 'select * from agenda where id = ?', aId, ( err, rows ) => {
 
-        should( rows[ 0 ].image ).equal( 'agenda' + rows[ 0 ].uid + '.jpg' );
-
-        con.end();
-
-        wcb();
-
-      } );
-
-    } ], done );
-
-  } );
-
-  it( 'setImage - successful set gives list of image paths', done => {
-
-    svc.get( 4922, { instanciate: true }, ( err, agenda ) => {
-
-      agenda.setImage( { path: __dirname + '/files/tmp.jpg' }, ( err, result ) => {
-
-        should( err ).equal( null );
-
-        result.should.eql( [
-          'https://openagendatst.s3.eu-west-1.amazonaws.com/agenda93716628.jpg',
-          'https://openagendatst.s3.eu-west-1.amazonaws.com/rwtbagenda93716628.jpg',
-          'https://openagendatst.s3.eu-west-1.amazonaws.com/agenda93716628_o.jpg'
-        ] );
-
-        done();
-
-      } );
-
-    } );
-
-  } );
-
-  it( 'clearImage - successful clear empties image field', done => {
-
-    async.waterfall( [ wcb => {
-
-      svc.get( 4922, { instanciate: true }, ( err, a ) => {
-
-        wcb( null, a );
-
-      } );
-
-    }, ( agenda, wcb ) => {
-
-      agenda.setImage( { path: __dirname + '/files/tmp.jpg' }, () => wcb( null, agenda ) );
-
-    }, ( agenda, wcb ) => {
-
-      agenda.clearImage( err => {
-
-        should( err ).equal( null );
-
-        wcb();
-
-      } );
-
-    }, wcb => {
-
-      let con = mysql.createConnection( config.mysql );
-
-      con.query( 'select image from agenda where id = ?', 4922, ( err, rows ) => {
-
-        should( rows[ 0 ].image ).equal( null );
+        should( rows[ 0 ].image.split('?')[0] ).equal( 'agenda' + rows[ 0 ].uid + '.jpg' );
 
         con.end();
 
@@ -196,7 +128,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4820, { instanciate: true }, ( err, a ) => {
 
-      a.getImage().should.equal( 'review_planning-intervenants_00.jpg' );
+      a.getImage().split('?')[0].should.equal( 'review_planning-intervenants_00.jpg' );
 
       done();
 
@@ -209,7 +141,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
     svc.get( 4820, { instanciate: true }, ( err, a ) => {
 
-      a.getImage( true ).should.equal( 'https://openagendatst.s3.amazonaws.com/review_planning-intervenants_00.jpg' );
+      a.getImage( true ).should.equal( '//openagendatst.s3.amazonaws.com/review_planning-intervenants_00.jpg' );
 
       done();
 
@@ -233,7 +165,7 @@ describe( 'agendas - functional (server): instanciate', function () {
 
   it( 'getImage - no image returns default path if config allows this', done => {
 
-    svc.init( Object.assign( {}, config, { useDefaultImage: true } ) );
+    svc.init( Object.assign( {}, config, { useDefaultImage: true, Files: Files(dConfig.files) } ) );
 
     svc.get( 4832, { instanciate: true }, ( err, a ) => {
 
@@ -241,7 +173,10 @@ describe( 'agendas - functional (server): instanciate', function () {
 
       should( a.getImage( true, true ) ).equal( config.defaultImagePath );
 
-      svc.init( config );
+      svc.init( {
+        ...config,
+        Files: Files(dConfig.files)
+      } );
 
       done();
 

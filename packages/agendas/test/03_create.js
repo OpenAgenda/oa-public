@@ -2,8 +2,12 @@
 
 const _ = require( 'lodash' );
 const should = require( 'should' );
+const Files = require('@openagenda/files/v3');
 
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require( '../testconfig' );
 const svc = require( '../' );
 
 describe( 'agendas - functional (server): set (create)', function() {
@@ -27,9 +31,15 @@ describe( 'agendas - functional (server): set (create)', function() {
     }
   } ) );
 
-  before( () => svc.init( config ) );
+  before( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
-  afterEach( () => svc.init( config ) );
+  afterEach( () => svc.init( {
+    ...config,
+    Files: Files(dConfig.files)
+  } ) );
 
   it( 'simplest create is with a title, a description and an owner', done => {
 
@@ -50,7 +60,7 @@ describe( 'agendas - functional (server): set (create)', function() {
       _.pick( result, [ 'valid', 'success', 'errors' ] ).should.eql( {
         valid: true,
         success: true,
-        errors: [] 
+        errors: []
       } );
 
       done();
@@ -70,21 +80,21 @@ describe( 'agendas - functional (server): set (create)', function() {
 
       result.valid.should.equal( false );
 
-      result.errors.should.eql( [ { 
+      result.errors.should.eql( [ {
         field: 'title',
         code: 'required',
         message: 'a string is required',
         origin: undefined
-      }, { 
+      }, {
         field: 'description',
         code: 'required',
         message: 'a string is required',
         origin: undefined
-      }, { 
+      }, {
         field: 'slug',
         code: 'required',
         message: 'value must not be empty',
-        origin: '' } 
+        origin: '' }
       ] );
 
       done();
@@ -138,6 +148,7 @@ describe( 'agendas - functional (server): set (create)', function() {
   it( 'set in create mode calls onCreate callback with created agenda including internal values', done => {
 
     svc.init( Object.assign( {}, config, {
+      Files: Files(dConfig.files),
       interfaces: {
         onCreate: ( agenda ) => {
 
