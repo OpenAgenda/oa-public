@@ -191,8 +191,6 @@ module.exports = (config, services, instance, app, base) => {
   });
 
   app.post(`${base}/:locationUid`, (req, res, next) => {
-    console.log(req.body);
-
     req.locations.update(req.params.locationUid, req.body, {
       includeImagePath: true
     }).then(location => {
