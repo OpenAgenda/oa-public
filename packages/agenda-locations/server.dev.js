@@ -198,8 +198,6 @@ const fixtures = require('./test/fixtures');
   });
 
   app.delete('/:locationUid', (req, res, next) => {
-    console.log('*******');
-    console.log(req.params);
     svc(7196947).remove(req.params.locationUid, {
       includeImagePath: true
     }).then(location => {

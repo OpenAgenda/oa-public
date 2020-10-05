@@ -21,8 +21,6 @@ module.exports.byAgendaUid = async (
 ) => {
   const current = await get.byAgendaUid(service, agendaUid, identifiers, options);
 
-  console.log(current);
-
   if (!current) {
     throw new NotFoundError('location', { identifiers, agendaUid });
   }
