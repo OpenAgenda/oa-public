@@ -920,7 +920,7 @@ class LocationForm extends Component {
         {this.props.cancel ||
         <a
           href="#"
-          onClick={this.onCancel}>{this.getLabel('cancel')}</a>}
+          onClick={this.onCancel.bind(this)}>{this.getLabel('cancel')}</a>}
 
         <button
           className="btn btn-primary"
