@@ -6,6 +6,7 @@ const cors = require('cors');
 const errorHandler = require('errorhandler');
 const http = require('http');
 const knex = require('knex');
+const redis = require('redis');
 const express = require('express');
 const morgan = require('morgan');
 const log = require('@openagenda/logs')('server.dev');
@@ -33,6 +34,7 @@ const fixtures = require('./test/fixtures');
 
   const svc = require('.')({
     knex: f.client,
+    redis: redis.createClient(),
     Files: Files({
       s3: {
         accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
@@ -144,10 +146,11 @@ const fixtures = require('./test/fixtures');
     }).then(location => res.json(location), next);
   });
 
-  app.post(['/', '/:locationUid'],
+
+  app.post(['/', '/:locationUid', '/merge'],
     multer({ dest: '/tmp/' }).single('image'),
     (req, res, next) => {
-      req.data = JSON.parse(req.body.data);
+      req.data = req.body.data ? JSON.parse(req.body.data) : req.body;
       if (req.file) {
         req.data.image = fs.createReadStream(req.file.path);
         req.data.image.on('end', () => {
@@ -157,6 +160,20 @@ const fixtures = require('./test/fixtures');
       next();
     }
   );
+
+  app.post('/merge', (req, res, next) => {
+    const fieldsToOmit = Object.keys(req.data || {})
+      .filter(field => req.data[field] === null)
+      .concat(['agendaId', 'uid']);
+
+    svc(7196947).merge(
+      req.query,
+      _.omit(req.data || {}, fieldsToOmit)
+   ).then(location => res.json({
+      location,
+      success: true
+    }), next);
+  });
 
   app.post('/', (req, res, next) => {
     svc(7196947).create({ ...req.data, state: 1 }, {
@@ -181,6 +198,8 @@ const fixtures = require('./test/fixtures');
   });
 
   app.delete('/:locationUid', (req, res, next) => {
+    console.log('*******');
+    console.log(req.params);
     svc(7196947).remove(req.params.locationUid, {
       includeImagePath: true
     }).then(location => {
@@ -189,20 +208,6 @@ const fixtures = require('./test/fixtures');
         success: true
       });
     }, next);
-  });
-
-  app.post('/merge', (req, res, next) => {
-    const fieldsToOmit = Object.keys(req.body || {})
-      .filter(field => req.body[field] === null)
-      .concat(['agendaId', 'uid']);
-
-    svc(7196947).merge(
-      req.query,
-      _.omit(req.body || {}, fieldsToOmit)
-   ).then(location => res.json({
-      location,
-      success: true
-    }), next);
   });
 
   app.use('', (err, req, res, next) => {
