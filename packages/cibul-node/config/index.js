@@ -114,7 +114,7 @@ const config = {
     contactResource: prod.sales.pipedriveForm,
     mapboxAccessToken: prod.mapbox.token,
     opencage: {
-      key: prod.opencage.key
+      key: process.env.OPENCAGE_KEY || prod.opencage.key
     },
     db: {
       database: prod.db.name,

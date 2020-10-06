@@ -40,6 +40,9 @@ module.exports = {
     apiVersion: '1.3',
     timeout: 30000
   },
+  opencage: {
+    key: process.env.OPENCAGE_KEY
+  },
   es: {
     host: process.env.OA_ELASTICSEARCH_134_DEV_HOST,
     port: process.env.OA_ELASTICSEARCH_134_DEV_PORT,

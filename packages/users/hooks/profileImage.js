@@ -15,7 +15,9 @@ module.exports = function profileImage() {
 
         const result = await upload(image, { uid: before.uid });
 
-        context.data.image = `${result[0].uploadValue.key}?__ts=${new Date().getTime()}`;
+        context.data.image = `${
+          result[0].uploadValue.key
+        }?__ts=${new Date().getTime()}`;
 
         log.info('upload completed');
       } catch (e) {

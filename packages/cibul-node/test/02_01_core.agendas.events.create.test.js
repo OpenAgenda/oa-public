@@ -372,6 +372,25 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       expect(ae).toBeNull();
     });
 
+    it('incomplete event with default location data and undefined location can be saved', async () => {
+      const event = await core.agendas(agendaUid).events.create({
+        title: {
+          fr: 'Un autre événement brouillon'
+        },
+        location: {
+          countryCode: 'CH'
+        }
+      }, {
+        context: {
+          userUid: memberUserUid
+        },
+        draft: true,
+        access: 'contributor'
+      });
+
+      expect(event.title.fr).toEqual('Un autre événement brouillon');
+    });
+
     it('no legacy event is created for draft', done => {
       core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
         expect(legacyEvent).toBeNull();

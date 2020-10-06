@@ -5,7 +5,11 @@ const registeredLinks = [];
 const log = debug('handleFrameLinkEvents');
 
 const extractDomain = (url = '') => {
-  const parts = url.replace(/^http(s|):\/\//, '').split('/');
+  const parts = url
+    .split('?')
+    .shift()
+    .replace(/^http(s|):\/\//, '')
+    .split('/');
   return parts.shift();
 };
 

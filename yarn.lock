@@ -4412,6 +4412,7 @@ __metadata:
     bootstrap: ^4.3.1
     browser-refresh: ^1.7.3
     clean-webpack-plugin: ^3.0.0
+    copy-to-clipboard: ^3.3.1
     core-js: ^3.6.5
     cors: ^2.8.5
     css-loader: ^3.4.2
@@ -13716,7 +13717,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-to-clipboard@npm:^3, copy-to-clipboard@npm:^3.0.8, copy-to-clipboard@npm:^3.2.0":
+"copy-to-clipboard@npm:^3, copy-to-clipboard@npm:^3.0.8, copy-to-clipboard@npm:^3.2.0, copy-to-clipboard@npm:^3.3.1":
   version: 3.3.1
   resolution: "copy-to-clipboard@npm:3.3.1"
   dependencies:

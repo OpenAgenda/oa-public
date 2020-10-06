@@ -7,17 +7,21 @@ const cleanOptions = require('./lib/cleanSetOptions');
 const validate = require('./lib/validate');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const defineUnique = require('./lib/defineUnique');
+const geocode = require('./lib/geocode');
 
 async function create(service, data, options = {}) {
   log('received %j payload', data.name);
 
   const {
     context,
-    includeImagePath
+    includeImagePath,
+    geocodeIfUndefined
   } = cleanOptions(options);
 
+  const geocodeResult = geocodeIfUndefined && (data.latitude === undefined) ? await geocode(service.interfaces, data) : null;
+
   const clean = {
-    ...validate(data),
+    ...validate(geocodeResult ? { ...geocodeResult, ...data } : data),
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
     slug: await defineUnique(service, 'slug', () => slug(data.name, { lower: true }) + '_' + Math.ceil(Math.random() * 9999999)),
     createdAt: new Date,
@@ -31,7 +35,7 @@ async function create(service, data, options = {}) {
   if (clean.image) {
     const result = await service.imageTransformAndUpload(clean.image, { uid: clean.uid });
 
-    clean.image = result.image[0].filename;
+    clean.image = result[0].filename;
   }
 
   const entry = fromItemToDbEntry(clean);

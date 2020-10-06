@@ -1,11 +1,8 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
-
-const log = require( '@openagenda/logs' )( 'services/agendaContribute/interfaces/setEvent' );
-
-const config = require( '../../../config' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
+const log = require('@openagenda/logs')('services/agendaContribute/interfaces/setEvent');
 
 module.exports = async (services, agenda, user, current, data, options = {}) => {
   const {
@@ -45,7 +42,7 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
 
     transforms.state = { $set: 0 };
   } else if (isNew || isUndrafted) {
-    log( 'event is new or undrafted; it should take the state requested by the agenda' );
+    log('event is new or undrafted; it should take the state requested by the agenda');
 
     transforms.state = { $set: _.get(agenda, 'settings.contribution.defaultState') };
   } else {

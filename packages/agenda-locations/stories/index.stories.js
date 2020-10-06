@@ -25,11 +25,10 @@ const res = {
   get: `${apiRoot}/:locationUid`,
   update: `${apiRoot}/:locationUid`,
   create: `${apiRoot}/`,
-  remove: `${apiRoot}/remove`,
+  remove: `${apiRoot}/:locationUid`,
   merge: `${apiRoot}/merge`,
   csv: '#csv',
   xlsx: '#xlsx',
-  removeSuggestion: `${apiRoot}/:locationUid/suggestion/remove`,
   seeEvents: `${apiRoot}/:agendaSlug/admin?locationUid=:locationUid`,
   suggestChange: `https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create`
 };

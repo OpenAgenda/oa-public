@@ -12,45 +12,53 @@ const FILE_TOO_SMALL = 'file-too-small';
 const TOO_MANY_FILES = 'too-many-files';
 
 function FileError({
-  file,
-  errors,
-  minSize,
-  maxSize
+  file, errors, minSize, maxSize
 }) {
   const intl = useIntl();
 
   let errorLabel;
 
-  const notSupported = intl.formatMessage({
-    id: 'ReactShared.ImageInput.notSupported',
-    defaultMessage: 'File {fileName} is not supported'
-  }, {
-    fileName: file.name
-  });
+  const notSupported = intl.formatMessage(
+    {
+      id: 'ReactShared.ImageInput.notSupported',
+      defaultMessage: 'File {fileName} is not supported'
+    },
+    {
+      fileName: file.name
+    }
+  );
 
   switch (errors[0].code) {
     case FILE_INVALID_TYPE:
       errorLabel = notSupported;
       break;
     case FILE_TOO_LARGE:
-      errorLabel = intl.formatMessage({
-        id: 'ReactShared.ImageInput.fileTooLarge',
-        defaultMessage: 'File {fileName} is {fileSize}, the upper limit for file size is {maxSize}'
-      }, {
-        fileName: file.name,
-        fileSize: bytes(file.size),
-        maxSize: bytes(maxSize)
-      });
+      errorLabel = intl.formatMessage(
+        {
+          id: 'ReactShared.ImageInput.fileTooLarge',
+          defaultMessage:
+            'File {fileName} is {fileSize}, the upper limit for file size is {maxSize}'
+        },
+        {
+          fileName: file.name,
+          fileSize: bytes(file.size),
+          maxSize: bytes(maxSize)
+        }
+      );
       break;
     case FILE_TOO_SMALL:
-      errorLabel = intl.formatMessage({
-        id: 'ReactShared.ImageInput.fileTooSmall',
-        defaultMessage: 'File {fileName} is {fileSize}, the lower limit for file size is {minSize}'
-      }, {
-        fileName: file.name,
-        fileSize: bytes(file.size),
-        minSize: bytes(minSize)
-      });
+      errorLabel = intl.formatMessage(
+        {
+          id: 'ReactShared.ImageInput.fileTooSmall',
+          defaultMessage:
+            'File {fileName} is {fileSize}, the lower limit for file size is {minSize}'
+        },
+        {
+          fileName: file.name,
+          fileSize: bytes(file.size),
+          minSize: bytes(minSize)
+        }
+      );
       break;
     case TOO_MANY_FILES:
       errorLabel = intl.formatMessage({
@@ -62,11 +70,7 @@ function FileError({
       errorLabel = notSupported;
   }
 
-  return (
-    <div className="text-danger">
-      {errorLabel}
-    </div>
-  );
+  return <div className="text-danger">{errorLabel}</div>;
 }
 
 function ImageInput({
@@ -81,28 +85,28 @@ function ImageInput({
   const intl = useIntl();
   const [rejections, setRejections] = useState(null);
 
-  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-    setRejections(rejectedFiles);
+  const onDrop = useCallback(
+    (acceptedFiles, rejectedFiles) => {
+      setRejections(rejectedFiles);
 
-    if (acceptedFiles.length) {
-      const file = acceptedFiles[0];
+      if (acceptedFiles.length) {
+        const file = acceptedFiles[0];
 
-      Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      });
+        Object.assign(file, {
+          preview: URL.createObjectURL(file)
+        });
 
-      input.onChange(file);
-    }
-  }, [input]);
+        input.onChange(file);
+      }
+    },
+    [input]
+  );
 
   const onRemove = useCallback(() => {
     input.onChange(null);
   }, [input]);
 
-  const {
-    getRootProps,
-    getInputProps
-  } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false,
     accept: extensions?.length ? `.${extensions.join(',.')}` : null,
@@ -112,9 +116,7 @@ function ImageInput({
 
   const { value } = input;
 
-  const preview = typeof value === 'string'
-    ? value
-    : value?.preview;
+  const preview = typeof value === 'string' ? value : value?.preview;
 
   const rootProps = getRootProps();
 
@@ -130,12 +132,14 @@ function ImageInput({
             border-width: 1px;
             border-style: dashed;
             text-align: center;
-            ${preview ? `
+            ${preview
+            ? `
               height: auto;
               position: relative;
               min-height: 140px;
-            ` : null}
-            
+            `
+            : null}
+
             &:hover {
               background: rgba(255, 255, 255, 0.1);
             }
@@ -246,10 +250,13 @@ export default function IntlImageInput({
   messages: _messages,
   ...props
 }) {
-  const messages = useMemo(() => ({
-    ...locales[locale],
-    ...(_messages && _messages[locale])
-  }), [_messages, locale]);
+  const messages = useMemo(
+    () => ({
+      ...locales[locale],
+      ...(_messages && _messages[locale])
+    }),
+    [_messages, locale]
+  );
 
   return (
     <IntlProvider locale={locale} key={locale} messages={messages}>

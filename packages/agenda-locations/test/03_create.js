@@ -28,7 +28,8 @@ describe('agenda-locations - functional - create', () => {
       interfaces: {
         getAgendaIdByUid: async uid => ({
           7196947: 25221
-        })[uid]
+        })[uid],
+        geocode: async address => [{ latitude: 10, longitude: 11 }]
       },
       Files: Files(dConfig.files)
     });
@@ -83,6 +84,23 @@ describe('agenda-locations - functional - create', () => {
       const entry = await f.client('location').first('store').where('uid', created.uid);
 
       assert.equal(JSON.parse(entry.store).image, `location${created.uid}.jpg`);
+    });
+  });
+
+  describe('other', function() {
+    this.timeout(10000);
+
+    it('if latitude is not provided at creation and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {
+      const created = await svc(7196947).create({
+        name: 'Le Colisée',
+        address: '31 rue de l’Epeule Parvis du Colisée, Roubaix',
+        countryCode: 'FR'
+      }, {
+        geocodeIfUndefined: true
+      });
+
+      assert.equal(created.latitude, 10);
+      assert.equal(created.longitude, 11);
     });
   });
 });

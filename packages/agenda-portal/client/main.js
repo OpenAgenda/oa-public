@@ -2,6 +2,8 @@ import debug from 'debug';
 import handleIFrameLinkEvents from './lib/handleIFrameLinkEvents';
 import setListPageHrefFromContext from './lib/setListPageHrefFromContext';
 import readPageProps from './lib/readPageProps';
+import updateTotal from './lib/updateTotal';
+import updateShare from './lib/updateShare';
 
 const log = debug('main');
 
@@ -54,37 +56,6 @@ function loadListContent(url, data, cb) {
       cb(null, result);
     }
   });
-}
-
-function updateTotal(total) {
-  log('updateTotal');
-  if (!$('.js_total').length) {
-    return;
-  }
-
-  let result;
-
-  const cleanTotal = total === undefined
-    ? parseInt($('.js_total').attr('data-total'), 10)
-    : total;
-
-  let attr;
-
-  if (total === 0) {
-    attr = 'data-label-none';
-  } else if (total === 1) {
-    attr = 'data-label-one';
-  } else {
-    attr = 'data-label-plural';
-  }
-
-  $('.js_total').html(
-    $('.js_total')
-      .attr(attr)
-      .replace('%total%', cleanTotal)
-  );
-
-  return result;
 }
 
 function progressiveLoad(pageProps, canvasSelector) {
@@ -154,6 +125,7 @@ function onWidgetController({ origin, pageProps }, widget, update, query = {}) {
     }
 
     result.total = updateTotal(result.total);
+    updateShare(pageProps);
 
     const pageMatch = window.location.href.match(/\/p\/[0-9]+/);
 
@@ -190,6 +162,8 @@ $(() => {
   log('page ready', pageProps);
 
   $('.js_trigger_spin').on('click', spin);
+
+  updateShare(pageProps);
 
   if (pageProps.pageType === 'list') {
     progressiveLoad(pageProps, '.js_progressive_load');

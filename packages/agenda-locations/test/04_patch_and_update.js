@@ -29,7 +29,8 @@ describe('agenda-locations - functional - update', () => {
       interfaces: {
         getAgendaIdByUid: async uid => ({
           7196947: 25221
-        })[uid]
+        })[uid],
+        geocode: async address => [{ latitude: 10, longitude: 11 }]
       },
       Files: Files(dConfig.files)
     });
@@ -105,6 +106,15 @@ describe('agenda-locations - functional - update', () => {
       });
 
       assert.equal(updated.uid, 95301591);
+    });
+
+    it('if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {
+      const updated = await svc(7196947).update(95301591, _.omit(payload, ['latitude', 'longitude']), {
+        geocodeIfUndefined: true
+      });
+
+      assert.equal(updated.latitude, 10);
+      assert.equal(updated.longitude, 11);
     });
 
   });

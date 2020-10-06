@@ -116,7 +116,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   const errors = [];
 
   // clean consolidated schemas data
-
   try {
     const validate = new FormSchema(consolidatedSchema, {
       requireLabels: false
@@ -153,7 +152,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
-  if (clean.event && clean.event.location && !location) {
+  if (!draft && clean.event && clean.event.location && !location) {
     errors.push({
       field: 'location',
       code: 'invalid',

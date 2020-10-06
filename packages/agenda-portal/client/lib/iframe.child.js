@@ -80,7 +80,7 @@ function sendEventPreviewClick(state, eventSlug) {
   }
 
   parent.sendMessage({
-    code: 'preview',
+    code: 'fromSelection',
     eventSlug
   });
 }
