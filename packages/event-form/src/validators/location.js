@@ -11,7 +11,7 @@ schema.register( {
   longitude: require( '@openagenda/validators/longitude' )
 } );
 
-const validate = schema( {
+const locationSchema = {
   uid: {
     type: 'integer',
     optional: false
@@ -31,11 +31,18 @@ const validate = schema( {
   timezone: {
     type: 'text'
   }
-} );
+};
+
+const validate = schema(locationSchema);
+const validateDraft = schema({ ...locationSchema, uid: {
+  type: 'integer'
+} });
 
 module.exports = options => value => {
 
-  if ( _.get( options, 'optional' ) && !value ) {
+  const optional = _.get( options, 'optional' );
+
+  if ( optional && !value ) {
 
     return _.get( options, 'default' );
 
@@ -43,7 +50,7 @@ module.exports = options => value => {
 
   try {
 
-    return validate( value );
+    return ( optional ? validateDraft : validate )( value );
 
   } catch ( errors ) {
 
