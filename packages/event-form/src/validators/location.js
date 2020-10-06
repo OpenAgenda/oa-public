@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
 
-schema.register( {
-  text: require( '@openagenda/validators/text' ),
-  integer: require( '@openagenda/validators/integer' ),
-  latitude: require( '@openagenda/validators/latitude' ),
-  longitude: require( '@openagenda/validators/longitude' )
-} );
+schema.register({
+  text: require('@openagenda/validators/text'),
+  integer: require('@openagenda/validators/integer'),
+  latitude: require('@openagenda/validators/latitude'),
+  longitude: require('@openagenda/validators/longitude')
+});
 
 const locationSchema = {
   uid: {
@@ -34,31 +34,27 @@ const locationSchema = {
 };
 
 const validate = schema(locationSchema);
-const validateDraft = schema({ ...locationSchema, uid: {
-  type: 'integer'
-} });
+const validateDraft = schema({
+  ...locationSchema,
+  uid: {
+    type: 'integer'
+  }
+});
 
 module.exports = options => value => {
+  const optional = _.get(options, 'optional');
 
-  const optional = _.get( options, 'optional' );
-
-  if ( optional && !value ) {
-
-    return _.get( options, 'default' );
-
+  if (optional && !value) {
+    return _.get(options, 'default');
   }
 
   try {
-
-    return ( optional ? validateDraft : validate )( value );
-
-  } catch ( errors ) {
-
-    throw errors.map( e => _.assign( e, {
+    return (optional ? validateDraft : validate)(value);
+  } catch (errors) {
+    throw errors.map(e => ({
+      ...e,
       field: 'location',
       code: 'location.' + e.code
-    } ) );
-
+    }));
   }
-
 }
