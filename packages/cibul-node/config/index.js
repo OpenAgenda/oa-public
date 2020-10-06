@@ -352,16 +352,6 @@ const config = {
     },
     routes: {
       globals: {
-        agendaEventEdit: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug/edit',
-          legacy: true
-        },
-        agendaEventShow: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug',
-          legacy: true
-        },
         agendaFeed: {
           method: 'get',
           uri: '/agendas/:uid.atom',
@@ -400,11 +390,6 @@ const config = {
         eventRemove: {
           method: 'get',
           uri: '/event/:eventUid/remove',
-          legacy: true
-        },
-        conversationDiscussion: {
-          method: 'get',
-          uri: '/messages/new?uuid=:uid&redirect=:redirect',
           legacy: true
         },
         signup: {

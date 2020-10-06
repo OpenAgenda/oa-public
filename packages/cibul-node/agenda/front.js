@@ -676,14 +676,12 @@ function _formatShowLinks( req, res, next ) {
   req.templateData.events.forEach(  e => {
 
     const params = {
-      slug: req.agenda.slug,
-      eventSlug : e.slug,
       lang : req.lang
     };
 
     if ( req.query.oaq ) params.search = req.query.oaq;
 
-    e.link = req.genUrl( 'agendaEventShow', params );
+    e.link = `/${req.agenda.slug}/events/${e.slug}${qs.stringify(params, { addQueryPrefix: true })}`;
 
     /*e.importUri = req.genUrl('agendaEventActionShow', {
       slug: req.agenda.slug,

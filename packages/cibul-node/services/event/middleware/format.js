@@ -2,6 +2,7 @@
 
 const w = require( 'when' );
 const _ = require( 'lodash' );
+const qs = require( 'qs' );
 const du = require( '@openagenda/dom-utils' );
 const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
@@ -121,25 +122,19 @@ function _registration( v ) {
 
 function _uri( v ) {
 
-  const reqParams = {
-    eventSlug: v.req.event.slug
-  }
-
   if ( v.req.agenda ) {
 
-    reqParams.slug = v.req.agenda.slug;
+    const query = {};
 
     if ( v.req.query.admin_nav ) {
-
-      reqParams.admin_nav = v.req.query.admin_nav;
-
+      query.admin_nav = v.req.query.admin_nav;
     }
 
-    v.formatted.uri = v.req.genUrl( 'agendaEventShow', reqParams );
+    v.formatted.uri = `/${v.req.agenda.slug}/events/${v.req.event.slug}${qs.stringify(query, { addQueryPrefix: true })}`;
 
   } else {
 
-    v.formatted.uri = v.req.genUrl( 'eventShow', reqParams );
+    v.formatted.uri = `/events/${v.req.event.slug}`;
 
   }
 

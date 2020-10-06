@@ -255,8 +255,6 @@ async function agendaEventShow( req, res, next ) {
 
   _addLanguageLinks( req, eventUrl, reqParams );
 
-  _addContactLink( req );
-
   const member = req.user ? await members.get( {
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
@@ -271,6 +269,7 @@ async function agendaEventShow( req, res, next ) {
         ? `${config.aws.imageBucketPath}${req.agenda.image}`
         : config.aws.defaultImagePath
     },
+    oaRoot: config.root,
     agendaId: req.agenda.id,
     private: req.agenda.private,
     adminNav: req.query.admin_nav,
@@ -290,12 +289,7 @@ function redirect( req, res, next ) {
 
   if ( !req.agenda || !req.event ) return next( { code: 404 } );
 
-  res.redirect( 301, req.genUrl( 'agendaEventShow', {
-    slug: req.agenda.slug,
-    eventSlug: req.event.slug
-  }, {
-    protocol: 'https://'
-  } ) );
+  res.redirect( 301, `${config.root}/${req.agenda.slug}/events/${req.event.slug}` );
 
 }
 
@@ -338,17 +332,6 @@ function agendaCustomEmbedEventShow( req, res ) {
 }
 
 
-function show( req, res ) {
-
-  _addLanguageLinks( req, `/events/${req.params.eventSlug}` );
-
-  _addContactLink( req );
-
-  cmn.render( req, res, 'event/show', { event: req.formatted } );
-
-}
-
-
 function _appendFacebookParams( req, res, next ) {
 
   if ( !req.query.fb ) return next();
@@ -383,22 +366,6 @@ function _addLanguageLinks( req, url, urlParams ) {
   req.formatted.languages.selection = linkedLanguages;
 
 }
-
-
-function _addContactLink( req ) {
-
-  if ( !req.formatted.owner ) return;
-
-  req.formatted.owner.contactLink = req.genUrl( 'conversationDiscussion', {
-    uid: req.formatted.owner.uid,
-    redirect: Buffer.from( req.genUrl( req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? {
-      slug: req.agenda.slug,
-      eventSlug: req.event.slug
-    } : { eventSlug: req.event.slug }, { abs: true } ) ).toString( 'base64' )
-  } );
-
-}
-
 
 function _switchEmbedLang( req, res, next ) {
 
@@ -659,26 +626,17 @@ function _formatSocialLinks( req, res, next ) {
 
     eventUrl,
 
-    fbAppId,
-
     externalSite = false;
 
   if ( req.agenda ) {
 
-    eventUrl = req.genUrl( 'agendaEventShow', {
-      slug: req.agenda.slug,
-      eventSlug: req.event.slug
-    }, { protocol: 'https://' } );
+    eventUrl = `${config.root}/${req.agenda.slug}/events/${req.event.slug}`;
 
-    siteUrl = req.genUrl( 'agendaShow', {
-      slug: req.agenda.slug
-    }, { protocol: 'https://' } );
+    siteUrl = `${config.root}/${req.agenda.slug}`;
 
   } else {
 
-    eventUrl = req.genUrl( 'eventShow', {
-      eventSlug: req.event.slug
-    }, { protocol: 'https://' } );
+    eventUrl = `${config.root}/events/${req.event.slug}`;
 
   }
 

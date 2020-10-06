@@ -4,13 +4,11 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const w = require( 'when' );
 
-const agendaCategories = require( '@openagenda/agenda-categories' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
 const slugs = require( '@openagenda/slugs' );
 const utils = require( '@openagenda/utils' );
 
-const genUrl = require( '../genUrl' );
 const config = require( '../../config' );
 
 let svc;
@@ -71,10 +69,7 @@ function _loadTagSet( v ) {
 
 function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
-  toDecorate.canonicalUrl = genUrl( 'agendaEventShow', {
-    slug: agenda.slug,
-    eventSlug: event.slug
-  }, { protocol: 'https://' } );
+  toDecorate.canonicalUrl = `${config.root}/${agenda.slug}/events/${event.slug}`;
 
   w( utils.extend( {
     multiLang: true,

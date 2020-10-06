@@ -596,10 +596,7 @@ function _defineEventUrl( instance ) {
 
   return function( slug ) {
 
-    return genUrl( 'agendaEventShow', {
-      slug: instance.slug,
-      eventSlug: slug
-    } );
+    return `/${instance.slug}/events/${slug}`;
 
   }
 

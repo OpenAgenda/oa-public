@@ -4,8 +4,8 @@ const moment = require( 'moment' );
 const utils = require( '@openagenda/utils' );
 const makeGetterLabel = require('@openagenda/labels');
 const labels = require('@openagenda/labels/exports');
+const config = require('../../../config');
 
-const genUrl = require( '../../genUrl' );
 const esc = utils.escape;
 
 const getLabel = makeGetterLabel(labels);
@@ -15,10 +15,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
   const l = ev.getLocationDetails();
 
-  const url = genUrl( 'agendaEventShow', {
-    slug: agenda.slug,
-    eventSlug: ev.slug
-  }, { protocol: 'https://' } );
+  const url = `${config.root}/${agenda.slug}/events/${ev.slug}`;
 
   const truncatedDescription = _esc( utils.truncate( ev.getFreeText(), 30, '...' ) );
 

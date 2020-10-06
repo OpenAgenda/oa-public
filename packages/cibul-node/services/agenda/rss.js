@@ -2,9 +2,9 @@
 
 const _ = require( 'lodash' );
 
-const src = require( './' ),
+const qs = require( 'qs' );
 
-  rss = require( 'rss' ),
+const rss = require( 'rss' ),
 
   eventSvc = require( '../event' ),
 
@@ -55,7 +55,7 @@ module.exports = function( req, res ) {
       let item = {
         title: eInst.getTitle(),
         description: _buildRssDescription( eInst, exp, req.lang ),
-        url: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: eInst.slug, lang: req.lang }, { abs: true } ),
+        url: `${config.root}/${req.agenda.slug}/events/${eInst.slug}${qs.stringify({ lang: req.lang }, { addQueryPrefix: true })}`,
         guid: req.agenda.uid + '/' + eInst.uid,
         date: eInst.createdAt,
         lat: exp.latitude,

@@ -283,11 +283,7 @@ async function eventMailSend(req, res, next) {
         width: '300px'
       };
 
-    const link = req.genUrl(
-      'agendaEventShow',
-      { slug: req.agenda.slug, eventSlug: req.event.slug },
-      { abs: true, protocol: 'https://' }
-    );
+    const link = `${config.root}/${req.agenda.slug}/events/${e.slug}`;
 
     log('info', 'queuing event mails for %s', emails.join('|'), emails.length);
 

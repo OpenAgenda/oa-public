@@ -165,13 +165,7 @@ function layoutData( req, res ) {
     loner: !req.agenda
   };
 
-  const uri = req.agenda ? 'agendaEventShow' : 'eventShow';
-
-  const uriParams = { eventSlug: req.event.slug };
-
   if ( req.agenda ) {
-
-    uriParams.slug = req.agenda.slug;
 
     utils.extend( data, {
       uid: req.agenda.uid,
@@ -190,9 +184,13 @@ function layoutData( req, res ) {
 
     req.event.getLanguages().forEach( function( lang ) {
 
+      const href = req.agenda
+        ? `${config.root}/${req.agenda.slug}/events/${req.event.slug}`
+        : `${config.root}/events/${req.event.slug}`;
+
       data.headLinks.push({
         rel: 'alternate',
-        href: req.genUrl( uri, utils.extend( {}, uriParams, { lang } ), { abs: true } ),
+        href: `${href}${qs.stringify({ lang }, { addQueryPrefix: true })}`,
         hreflang: lang
       });
 
@@ -202,7 +200,7 @@ function layoutData( req, res ) {
 
   data.headLinks.push({
     rel: 'canonical',
-    href: req.genUrl( 'eventShow', { eventSlug: req.event.slug }, { abs: true, protocol: 'https://' } )
+    href: `${config.root}/events/${req.event.slug}`
   });
 
   if ( req.event.image ) {
