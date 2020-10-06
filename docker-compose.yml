@@ -95,6 +95,8 @@ services:
       - ${MYSQL_SSL_CERT}:/ssl/db-cert.pem
       - ${MYSQL_SSL_KEY}:/ssl/db-key.pem
       - ${REPO_SSL_CLIENT}:/root/.ssh/id_rsa
+      - ${CLIENT_SSL_KEY}:/root/.ssh/client.key
+      - ${CLIENT_SSL_CERT}:/root/.ssh/client.cert
     links:
       - mysql
       - redis
@@ -134,8 +136,8 @@ services:
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET}
       MAILCATCHER_PORT: ${MAILCATCHER_PORT}
       MAILCATCHER_HOST: ${MAILCATCHER_HOST}
-      OA_CLIENT_SSL_KEY: ${CLIENT_SSL_KEY}
-      OA_CLIENT_SSL_CERT: ${CLIENT_SSL_CERT}
+      OA_CLIENT_SSL_KEY: /root/.ssh/client.key
+      OA_CLIENT_SSL_CERT: /root/.ssh/client.cert
 
   mysql:
     container_name: mysql
