@@ -54,7 +54,7 @@
       <% if ( useContributeApp ) { %>
       <a class="edge-link" href="<%= `/${slug}/contribute/event/${event.uid}?redirect=${redirect}` %>" rel="nofollow"><%= __( 'edit' ) %></a>
       <% } else { %>
-      <a class="edge-link" href="<%= genUrl( 'agendaEventEdit', { eventSlug: event.slug, slug: slug } ) %>" rel="nofollow"><%= __( 'edit' ) %></a>
+      <a class="edge-link" href="<%= `/${slug}/events/${event.slug}/edit` %>" rel="nofollow"><%= __( 'edit' ) %></a>
       <% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25" data-toggle="js_dropdown_menu">

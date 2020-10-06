@@ -4,7 +4,7 @@
   "@type" : "Event",
   "name" : "<%= event.title %>",
   "description" : "<%= event.description %>",
-  "url" : "<%= genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) %>",
+  "url" : "<%= `${oaRoot}${event.uri}` %>",
 <% if ( event.image ) { %>
   "image" : "<%= _i( event.image ) %>",
 <% } %>

@@ -92,7 +92,7 @@
     "outdated-browser-rework": "^1.0.2",
     "point-in-polygon": "^1.0.1",
     "prop-types": "^15.5.8",
-    "qs": "6.9.1",
+    "qs": "^6.9.1",
     "raven-js": "^3.9.1",
     "raw-loader": "^4.0.0",
     "rc-switch": "^1.4.3",
