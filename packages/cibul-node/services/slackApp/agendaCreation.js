@@ -63,7 +63,7 @@ async function updateUserRegistrationMessage(slackApp, messageId, agenda) {
 }
 
 function makeMessage({ user, agenda }) {
-  const agendaLink = `<${config.root}/admin/agendas?agendaUid=${user.uid}|${agenda.title}>`;
+  const agendaLink = `<${config.root}/admin/agendas?agendaUid=${agenda.uid}|${agenda.title}>`;
   const userLink = `<${config.root}/admin/users?userUid=${user.uid}|${user.fullName}> (${user.email})`;
 
   return {
