@@ -120,7 +120,9 @@ class Users extends Service {
             return gm(info.stream, context.originalname)
               .autoOrient()
               .noProfile()
-              .resize('600', null)
+              .resize('600', '600', '^')
+              .gravity('Center')
+              .crop('600', '600')
               .stream('jpg');
           }
         },
@@ -143,7 +145,9 @@ class Users extends Service {
             return gm(info.stream, context.originalname)
               .autoOrient()
               .noProfile()
-              .resize('300', null)
+              .resize('300', '300', '^')
+              .gravity('Center')
+              .crop('300', '300')
               .stream('jpg');
           }
         }
