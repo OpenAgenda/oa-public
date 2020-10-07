@@ -632,7 +632,6 @@ class LocationForm extends Component {
       <div
         className={this.isFieldEnabled('image') ? 'form-group' : 'form-group disabled'}>
         <ImageInput
-          extensions={['jpg', 'bmp', 'png', 'jpeg']}
           locale={this.props.lang}
           input={{
             onChange: file => this.onChange('image', file),

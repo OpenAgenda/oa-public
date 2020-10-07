@@ -105,7 +105,6 @@ export default class ProfileEdition extends Component {
                   name="image"
                   component={ImageInput}
                   type="file"
-                  extensions={['jpg', 'bmp', 'png', 'jpeg']}
                   locale={lang}
                   maxSize={MAX_SIZE}
                   width="300px"

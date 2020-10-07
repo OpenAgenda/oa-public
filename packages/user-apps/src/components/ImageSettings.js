@@ -34,7 +34,6 @@ function ImageForm({ handleSubmit, dirty, submitting, submitSucceeded, valid }) 
           name="image"
           component={ImageInput}
           type="file"
-          extensions={['jpg', 'bmp', 'png', 'jpeg']}
           locale={lang}
           maxSize={MAX_SIZE}
         />

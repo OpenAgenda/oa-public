@@ -74,7 +74,7 @@ function FileError({
 }
 
 function ImageInput({
-  extensions,
+  accept = 'image/bmp, image/jpeg, image/png, image/webp',
   input,
   maxSize,
   minSize,
@@ -109,7 +109,7 @@ function ImageInput({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: false,
-    accept: extensions?.length ? `.${extensions.join(',.')}` : null,
+    accept,
     maxSize,
     minSize
   });
