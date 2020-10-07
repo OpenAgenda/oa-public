@@ -15,14 +15,14 @@ module.exports = {
     "es": "Descripción",
     "it": "Descrizione"
   },
-  "name": {
-    "fr": "Nom",
-    "en": "Name",
-    "de": "Name",
-    "es": "Apellido",
-    "it": "Nome"
+  "title": {
+    "en": "Title",
+    "fr": "Titre",
+    "de": "Titel",
+    "es": "título",
+    "it": "Titolo"
   },
-  "namePlaceholder": {
+  "titlePlaceholder": {
     "fr": "Mon organisation, mon festival, ma ville, autre",
     "en": "My organization, my festival, my city, other",
     "de": "Meine Organisation, mein Fest, meine Stadt, andere",

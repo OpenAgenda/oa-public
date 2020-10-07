@@ -36,14 +36,14 @@ module.exports = {
     "es": "Una agenda es una lista de eventos",
     "it": "Un'agenda è un elenco di eventi"
   },
-  "name": {
-    "fr": "Nom",
-    "en": "Name",
-    "de": "Name",
-    "es": "Apellido",
-    "it": "Nome"
+  "title": {
+    "en": "Title",
+    "fr": "Titre",
+    "de": "Titel",
+    "es": "título",
+    "it": "Titolo"
   },
-  "namePlaceholder": {
+  "titlePlaceholder": {
     "fr": "Mon organisation, mon festival, ma ville, autre",
     "en": "My organization, my festival, my city, other",
     "de": "Meine Organisation, mein Fest, meine Stadt, andere",
