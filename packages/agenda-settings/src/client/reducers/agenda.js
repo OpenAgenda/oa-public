@@ -101,7 +101,7 @@ export function create(data) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.create, data).catch(catchValidation);
+      return client.post(res.create, toMixedMultipart(data)).catch(catchValidation);
     }
   };
 }

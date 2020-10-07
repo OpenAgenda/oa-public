@@ -1,6 +1,13 @@
 "use strict";
 
 module.exports = {
+  "image":  {
+    "fr": "Image",
+    "en": "Image",
+    "de": "Bild",
+    "es": "imagen",
+    "it": "Immagine"
+  },
   "description": {
     "fr": "Description",
     "en": "Description",

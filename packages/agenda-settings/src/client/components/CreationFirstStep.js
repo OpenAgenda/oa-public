@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import { ImageInput } from '@openagenda/react-shared';
 import { validate, asyncValidate, schema as agendaSchema } from '../containers/AgendaCreation/validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../utils/inputs';
+
+const MAX_SIZE = 1024 * 1024 * 20; // 20MB
 
 @reduxForm( {
   form: 'agendaCreation',
@@ -22,7 +25,8 @@ import { renderInput, renderTextarea, renderInputGroup } from '../utils/inputs';
 export default class CreationFirstStep extends Component {
 
   static contextTypes = {
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   constructor( props ) {
@@ -34,13 +38,26 @@ export default class CreationFirstStep extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    const { getLabel } = this.context;
+    const { getLabel, lang } = this.context;
 
     return (
       <div>
         <h2>{getLabel( 'yourAgenda' )}</h2>
         <h4 className="text-muted">{getLabel( 'subtitle' )}</h4>
         <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="title">{getLabel('image')}</label>
+            <Field
+              name="image"
+              component={ImageInput}
+              type="file"
+              locale={lang}
+              maxSize={MAX_SIZE}
+              width="300px"
+              height="300px"
+              rounded
+            />
+          </div>
           <Field
             name="title"
             component={this.renderInput}

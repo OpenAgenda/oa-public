@@ -156,6 +156,8 @@ function _create(data, options, cb) {
 
     .then(_validate('data'))
 
+    .then(_profileImage)
+
     .then(_doCreate)
 
     .then(_applyToLegacy)
@@ -227,7 +229,8 @@ async function _profileImage(v) {
     try {
       log.info('start uploading the agenda profile image');
 
-      const result = await upload(image, { uid: v.current.uid });
+      const uid = v.current ? v.current.uid : v.data.uid;
+      const result = await upload(image, { uid });
 
       v.clean.image = `${result[0].uploadValue.key}?__ts=${new Date().getTime()}`;
 
@@ -235,7 +238,9 @@ async function _profileImage(v) {
     } catch (e) {
       log.error('upload error:', e);
 
-      v.clean.image = v.current.image;
+      if (v.current) {
+        v.clean.image = v.current.image;
+      }
 
       v.errors.push({
         field: 'image',
@@ -247,7 +252,9 @@ async function _profileImage(v) {
     try {
       v.clean.image = null;
 
-      await upload.providers.s3.remove(v.current.image);
+      if (v.current) {
+        await upload.providers.s3.remove(v.current.image);
+      }
     } catch (e) {
       log.error('error deleting the profile image:', e);
 
@@ -257,7 +264,7 @@ async function _profileImage(v) {
         message: 'invalid image'
       });
     }
-  } else {
+  } else if (v.current) {
     v.clean.image = v.current.image;
   }
 
