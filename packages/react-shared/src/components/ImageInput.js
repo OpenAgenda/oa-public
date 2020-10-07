@@ -75,6 +75,7 @@ function FileError({
 
 function ImageInput({
   accept = 'image/bmp, image/jpeg, image/png, image/webp',
+  extensions = ['jpg', 'bmp', 'png', 'jpeg', 'webp'], // just for the message
   input,
   maxSize,
   minSize,
@@ -122,23 +123,19 @@ function ImageInput({
 
   return (
     <>
-      <div className="file-upload">
+      <div
+        css={css`
+          position: relative;
+        `}
+      >
         <div
-          {...rootProps}
           css={css`
-            background: #eee;
-            height: 160px;
-            border-color: #ccc;
-            border-width: 1px;
-            border-style: dashed;
             text-align: center;
-            ${preview
-            ? `
+            ${preview ? `
               height: auto;
               position: relative;
               min-height: 140px;
-            `
-            : null}
+            ` : ''}
 
             &:hover {
               background: rgba(255, 255, 255, 0.1);
@@ -150,7 +147,7 @@ function ImageInput({
           {value ? (
             <>
               {preview ? (
-                <div className="padding-all-sm margin-bottom-sm">
+                <div className="padding-all-sm">
                   <Image
                     alt=""
                     src={preview}
@@ -165,54 +162,74 @@ function ImageInput({
                       object-fit: cover;
                       ${rounded ? 'border-radius: 50%' : ''}
                     `}
+                    {...rootProps}
                   />
                 </div>
               ) : null}
             </>
           ) : (
-            <div className="center-button margin-bottom-sm">
-              <button type="button" className="btn btn-primary">
-                <FormattedMessage
-                  id="ReactShared.ImageInput.upload"
-                  defaultMessage="Upload an image"
-                />
-              </button>
+            <div
+              className="margin-all-sm"
+              css={css`
+                margin-left: auto;
+                margin-right: auto;
+              `}
+            >
+              <div
+                css={css`
+                  margin-left: auto;
+                  margin-right: auto;
+                  background: #eee;
+                  border-color: #ccc;
+                  border-width: 1px;
+                  border-style: dashed;
+                  width: ${width};
+                  height: ${height};
+                  ${rounded ? 'border-radius: 50%' : ''}
+                `}
+                  {...rootProps}
+              >
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  css={css`
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                `}
+                >
+                  <FormattedMessage
+                    id="ReactShared.ImageInput.upload"
+                    defaultMessage="Upload an image"
+                  />
+                </button>
+              </div>
             </div>
           )}
-
-          {extensions?.length ? (
-            <span className="accepted-image-info">
-              <FormattedMessage
-                id="ReactShared.ImageInput.acceptedFiles"
-                defaultMessage="Accepted files"
-              />
-              : .{[].concat(extensions).join(', .')}
-            </span>
-          ) : null}
         </div>
 
-        <div
-          css={css`
-            position: absolute;
-            top: 5px;
-            right: 5px;
+        {value ? (
+          <div
+            css={css`
+              position: absolute;
+              top: 5px;
+              right: 5px;
           `}
-        >
-          <button
-            type="button"
-            onClick={rootProps.onClick}
-            className="btn btn-default margin-all-xs"
-            title={intl.formatMessage({
-              id: 'ReactShared.ImageInput.update',
-              defaultMessage: 'Update the image'
-            })}
           >
-            <i className="fa fa-upload" />
-          </button>
+            <button
+              type="button"
+              onClick={rootProps.onClick}
+              className="btn btn-default margin-all-xs"
+              title={intl.formatMessage({
+                id: 'ReactShared.ImageInput.update',
+                defaultMessage: 'Update the image'
+              })}
+            >
+              <i className="fa fa-upload" />
+            </button>
 
-          <br />
-
-          {value ? (
+            <br />
             <button
               type="button"
               onClick={onRemove}
@@ -224,9 +241,19 @@ function ImageInput({
             >
               <i className="fa fa-trash" />
             </button>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
+
+      {extensions?.length ? (
+        <div className="text-right">
+          <FormattedMessage
+            id="ReactShared.ImageInput.acceptedFiles"
+            defaultMessage="Accepted files"
+          />
+          : .{[].concat(extensions).join(', .')}
+        </div>
+      ) : null}
 
       {rejections?.length ? (
         <div>
