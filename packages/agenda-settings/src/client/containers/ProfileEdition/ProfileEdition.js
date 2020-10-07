@@ -116,9 +116,9 @@ export default class ProfileEdition extends Component {
                 name="title"
                 component={this.renderInput}
                 type="text"
-                placeholder={getLabel( 'namePlaceholder' )}
+                placeholder={getLabel( 'titlePlaceholder' )}
                 className="form-control"
-                label={`${getLabel( 'name' )} *`}
+                label={`${getLabel( 'title' )} *`}
                 max={agendaSchema.title.max}
               />
               <Field

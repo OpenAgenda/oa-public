@@ -45,8 +45,25 @@ export default class CreationFirstStep extends Component {
         <h2>{getLabel( 'yourAgenda' )}</h2>
         <h4 className="text-muted">{getLabel( 'subtitle' )}</h4>
         <form onSubmit={handleSubmit}>
+          <Field
+            name="title"
+            component={this.renderInput}
+            type="text"
+            placeholder={getLabel( 'titlePlaceholder' )}
+            className="form-control"
+            label={`${getLabel( 'title' )} *`}
+            max={agendaSchema.title.max}
+          />
+          <Field
+            name="description"
+            component={this.renderTextarea}
+            rows={6}
+            className="form-control"
+            label={`${getLabel( 'description' )} *`}
+            max={agendaSchema.description.max}
+          />
           <div className="form-group">
-            <label htmlFor="title">{getLabel('image')}</label>
+            <label htmlFor="image">{getLabel('image')}</label>
             <Field
               name="image"
               component={ImageInput}
@@ -58,23 +75,6 @@ export default class CreationFirstStep extends Component {
               rounded
             />
           </div>
-          <Field
-            name="title"
-            component={this.renderInput}
-            type="text"
-            placeholder={getLabel( 'namePlaceholder' )}
-            className="form-control"
-            label={`${getLabel( 'name' )} *`}
-            max={agendaSchema.title.max}
-          />
-          <Field
-            name="description"
-            component={this.renderTextarea}
-            rows={6}
-            className="form-control"
-            label={`${getLabel( 'description' )} *`}
-            max={agendaSchema.description.max}
-          />
           <Field
             type="text"
             name="url"
