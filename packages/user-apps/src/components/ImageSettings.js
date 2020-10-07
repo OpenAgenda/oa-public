@@ -36,6 +36,8 @@ function ImageForm({ handleSubmit, dirty, submitting, submitSucceeded, valid }) 
           type="file"
           locale={lang}
           maxSize={MAX_SIZE}
+          width="300px"
+          height="300px"
         />
       </div>
       <div className="pull-right">
