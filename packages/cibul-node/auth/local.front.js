@@ -579,19 +579,23 @@ function _passwordMatchCheck(values) {
 async function _captchaCheck(values) {
   if (!config.reCaptcha.enabled) return values;
 
-  const [
-    responseV2,
-    responseV3
-  ] = values.req.body['g-recaptcha-response'];
-  const remoteIp = values.req.header('x-forwarded-for');
-  const verifyBaseUrl = config.reCaptcha.verify;
-  const secretV2 = config.reCaptcha.v2.secret;
-  const secretV3 = config.reCaptcha.v3.secret;
-
-  const verifyV2Url = `${verifyBaseUrl}?secret=${secretV2}&response=${responseV2}&remoteip=${remoteIp}`;
-  const verifyV3Url = `${verifyBaseUrl}?secret=${secretV3}&response=${responseV3}&remoteip=${remoteIp}`;
-
   try {
+    if (!values.req.body['g-recaptcha-response']) {
+      throw new Error('MissingCaptcha');
+    }
+
+    const [
+      responseV2,
+      responseV3
+    ] = values.req.body['g-recaptcha-response'];
+    const remoteIp = values.req.header('x-forwarded-for');
+    const verifyBaseUrl = config.reCaptcha.verify;
+    const secretV2 = config.reCaptcha.v2.secret;
+    const secretV3 = config.reCaptcha.v3.secret;
+
+    const verifyV2Url = `${verifyBaseUrl}?secret=${secretV2}&response=${responseV2}&remoteip=${remoteIp}`;
+    const verifyV3Url = `${verifyBaseUrl}?secret=${secretV3}&response=${responseV3}&remoteip=${remoteIp}`;
+
     const [
       resultV2,
       resultV3
