@@ -11,25 +11,12 @@
 
     padding: 20px;
 
-    .agenda-logo img {
-
-      max-width: 100%;
-
-    }
-
-  }
-
-  .getting-started {
-
-    .image-upload form {
+    .agenda-logo {
+      display: block;
       border-radius: 50%;
-
-      min-height: 250px;
-      height: 250px;
-      max-width: 250px;
-
+      overflow: hidden;
       img {
-        border-radius: 50%;
+        max-width: 100%;
       }
     }
 
