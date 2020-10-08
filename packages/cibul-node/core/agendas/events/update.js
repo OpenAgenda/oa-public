@@ -79,7 +79,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   let result;
 
-  const eventServiceDataFormat = toEventServiceFormat(clean.event, null, {
+  const eventServiceDataFormat = toEventServiceFormat(clean.event, {
     raw: data,
     partial
   });

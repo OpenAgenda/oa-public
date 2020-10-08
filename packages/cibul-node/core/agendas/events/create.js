@@ -74,7 +74,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   let result;
 
   const eventServiceDataFormat = {
-    ...toEventServiceFormat(clean.event, null, { raw: data }),
+    ...toEventServiceFormat(clean.event, { raw: data }),
     ..._extractOwnerAndCreator(data, contextUserUid),
     agendaUid // at create, current agenda is origin agenda
   };
