@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const qs = require('qs');
 
 const sessions = require( '@openagenda/sessions' );
 const utils = require( '@openagenda/utils' );
@@ -14,18 +15,16 @@ const { getRoleSlug } = membersSvc.utils;
 let svc;
 
 module.exports = function( eventService ) {
-
   svc = eventService;
 
   return {
     load: loadEvent,
-    format: require( './format' ),
-    components: require( './components' ),
+    format: require('./format'),
+    components: require('./components'),
     cleanEvents,
     search,
     layoutData
   }
-
 }
 
 
