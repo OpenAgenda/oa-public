@@ -92,7 +92,7 @@
   "ReactShared.ImageInput.upload": [
     {
       "type": 0,
-      "value": "Update an image"
+      "value": "Upload an image"
     }
   ]
 }

@@ -24,11 +24,15 @@
     },
     {
       "type": 0,
-      "value": ", la limite maximale par fichier est de "
+      "value": ", la limite maximale est de "
     },
     {
       "type": 1,
       "value": "maxSize"
+    },
+    {
+      "type": 0,
+      "value": "."
     }
   ],
   "ReactShared.ImageInput.fileTooSmall": [
@@ -50,11 +54,15 @@
     },
     {
       "type": 0,
-      "value": ", la limite minimale par fichier est de "
+      "value": ", la limite minimale est de "
     },
     {
       "type": 1,
       "value": "minSize"
+    },
+    {
+      "type": 0,
+      "value": "."
     }
   ],
   "ReactShared.ImageInput.notSupported": [
@@ -68,7 +76,7 @@
     },
     {
       "type": 0,
-      "value": " n'est pas supporté"
+      "value": " n'est pas accepté."
     }
   ],
   "ReactShared.ImageInput.remove": [
@@ -80,7 +88,7 @@
   "ReactShared.ImageInput.tooManyFiles": [
     {
       "type": 0,
-      "value": "Trop de fichiers, un seul fichier accepté"
+      "value": "Trop de fichiers, un seul fichier accepté."
     }
   ],
   "ReactShared.ImageInput.update": [

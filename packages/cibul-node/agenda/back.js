@@ -9,6 +9,7 @@ const layout = require('../services/lib/layouts').load('agendaAdmin');
 const agendaLoad = require('@openagenda/agendas').middleware.load({
   private: null,
   internal: true,
+  includeImagePath: true,
   namespaces: {
     identifiers: {
       slug: 'params.agendaSlug',
