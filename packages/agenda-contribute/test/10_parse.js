@@ -23,7 +23,7 @@ describe('agenda-contribute - parse - unit (server)', () => {
     test('places loaded image in path sub key', () => {
       expect(parse.toEventServiceFormat({
         image: 'path.jpg'
-      }, null, { raw: {
+      }, { raw: {
         image: {
           path: '/the/full/path.jpg'
         }
@@ -37,7 +37,7 @@ describe('agenda-contribute - parse - unit (server)', () => {
       expect(parse.toEventServiceFormat({
         image: null,
         imageCredits: credits
-      }, null, { raw: {
+      }, { raw: {
         image: { url }
       } }).image).toEqual({ url, credits });
     });
@@ -45,7 +45,7 @@ describe('agenda-contribute - parse - unit (server)', () => {
     test('maintains preexisting image data in image key', () => {
       expect(parse.toEventServiceFormat({
         image: { filename: 'something' },
-      }, null, {
+      }, {
         raw: {
           image: {
             credits: 'the credits',
@@ -68,6 +68,15 @@ describe('agenda-contribute - parse - unit (server)', () => {
           uid: 123
         }
       }).locationUid).toBe(123);
+    });
+
+    test('empty object is input, empty object is output', () => {
+      expect(parse.toEventServiceFormat({}, {
+        raw: {
+          state: 1
+        },
+        partial: true
+      })).toEqual({});
     });
 
     test('timings are converted to date format in default timezone', () => {
@@ -146,7 +155,7 @@ describe('agenda-contribute - parse - unit (server)', () => {
         title: {
           fr: 'Un titre'
         }
-      }, null, { partial :true }))).toEqual(['title']);
+      }, { partial: true }))).toEqual(['title']);
     });
 
   });

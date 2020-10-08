@@ -75,7 +75,7 @@ function fromEventServiceFormat(eventServiceEvent, options = {}) {
   return ih(eventServiceEvent, update);
 }
 
-function toEventServiceFormat(formSchemaEvent, files = {}, options = {}) {
+function toEventServiceFormat(formSchemaEvent, options = {}) {
   log('toEventServiceFormat');
   const {
     raw,
