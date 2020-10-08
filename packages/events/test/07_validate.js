@@ -55,7 +55,7 @@ describe('events -07- unit (iso): validation', () => {
           hi: false,
           mi: false,
           pi: false,
-          sl: false,
+          ii: false,
           vi: false
         },
         fileKey: null,
@@ -158,7 +158,7 @@ describe('events -07- unit (iso): validation', () => {
           hi: false,
           mi: false,
           pi: false,
-          sl: false,
+          ii: false,
           vi: false
         },
         fileKey: null,

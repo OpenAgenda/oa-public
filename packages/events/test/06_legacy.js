@@ -134,7 +134,7 @@ describe( 'events - functional (server): legacy bridge', function() {
           hi: true,
           mi: true,
           pi: false,
-          sl: true,
+          ii: false,
           vi: false
         },
         fileKey: 'reai4iufo57yuqo3fdy6qqoi5fy3iqo',

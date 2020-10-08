@@ -93,7 +93,7 @@ describe( 'events -03- functional (server): create', function() {
               hi: false,
               pi: false,
               vi: false,
-              sl: false
+              ii: false
             },
             age: {
               min: null,
@@ -409,7 +409,7 @@ describe( 'events -03- functional (server): create', function() {
         hi: true,
         pi: false,
         vi: false,
-        sl: false
+        ii: false
       } );
 
     } );
