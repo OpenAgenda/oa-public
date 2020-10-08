@@ -1,11 +1,12 @@
 CREATE TABLE `${schema}` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `uid` bigint(20) DEFAULT NULL,
   `type` varchar(50) NOT NULL,
   `deleted_at` datetime NOT NULL,
   `store` longtext,
-  `deleted_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `deleted_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `${schema}` (`id`, `uid`, `type`, `deleted_at`, `store`, `deleted_id`) VALUES
 (5331, 97173517, 'Event', '2016-11-02 10:19:24', '{"id":"148819","ownerId":"28012","slug":"rendez-vous-a3n-du-mois-de-novembre-2016","createdAt":"2016-10-28 15:39:26","updatedAt":"2016-10-31 15:54:39","uid":"97173517","store":{"imageThumb":"evtbevent_rendez-vous-a3n-du-mois-de-novembre-2016_55242.jpg","imageFull":"evfevent_rendez-vous-a3n-du-mois-de-novembre-2016_55242.jpg","links":"[{\\"link\\":\\"www.a3n.org\\"}]"},"image":"event_rendez-vous-a3n-du-mois-de-novembre-2016_55242.jpg","articles":[{"review":{"id":"5613","title":"L''agenda de la ville d''Issy-les-Moulineaux","description":"Retrouvez tous les \\u00e9v\\u00e8nements d''Issy-Les-Moulineaux dans cet agenda!"}}]}', 148819),

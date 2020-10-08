@@ -1,11 +1,11 @@
 CREATE TABLE IF NOT EXISTS `${schema}` (
   `id` bigint(20) NOT NULL DEFAULT '0',
   `title` varchar(140) NOT NULL,
-  `description` varchar(200) NOT NULL,
+  `description` varchar(200) DEFAULT NULL,
   `free_text` varchar(10000) DEFAULT NULL,
   `lang` char(2) NOT NULL DEFAULT '',
   `tags` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `${schema}` (`id`, `title`, `description`, `free_text`, `lang`, `tags`) VALUES

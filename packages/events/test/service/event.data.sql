@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   INDEX agenda_uid_idx (agenda_uid),
   INDEX owner_uid_idx (owner_uid),
   INDEX location_uid_idx (location_uid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `${schema}` (`id`, `uid`, `owner_uid`, `agenda_uid`, `location_uid`, `slug`, `title`, `description`, `long_description`, `keywords`, `conditions`, `image`, `draft`, `private`, `timezone`, `timings`, `accessibility`, `age`, `registration`, `created_at`, `updated_at`, `deleted_at` ) VALUES

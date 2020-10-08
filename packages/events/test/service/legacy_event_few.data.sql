@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `accessibility` varchar(255) DEFAULT NULL,
   `type` varchar(2) DEFAULT NULL,
   PRIMARY KEY(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `${schema}` (`id`, `slug`, `url`, `image`, `background_image`, `background_color`, `owner_id`, `is_published`, `is_new`, `created_at`, `updated_at`, `uid`, `store`, `eve_id`, `custom_fields`, `age_min`, `age_max`, `accessibility`, `type`) VALUES
 (147292, 'revenu-universel-ou-salaire-a-vie', NULL, 'event_revenu-universel-ou-salaire-a-vie_563915.jpg', NULL, NULL, 26004, 1, 0, '2016-10-12 09:41:23', '2016-10-12 09:42:13', 21397863, 'a:3:{s:5:"links";s:53:"[{"link":"http://www.reseau-salariat.info/?lang=fr"}]";s:10:"imageThumb";s:54:"evtbevent_revenu-universel-ou-salaire-a-vie_563915.jpg";s:9:"imageFull";s:53:"evfevent_revenu-universel-ou-salaire-a-vie_563915.jpg";}', NULL, '', NULL, NULL, '', ''),

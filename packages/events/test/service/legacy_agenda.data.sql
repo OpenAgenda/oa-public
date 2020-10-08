@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `official` tinyint(1) DEFAULT NULL,
   `credentials` text,
   `settings` text
-) ENGINE=InnoDB AUTO_INCREMENT=7230 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7230 DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `${schema}` (`id`, `title`, `owner_id`, `slug`, `description`, `image`, `url`, `collaborative`, `created_at`, `updated_at`, `uid`, `main`, `store`, `contribution_type`, `contribution_info`, `official`, `credentials`, `settings` ) VALUES

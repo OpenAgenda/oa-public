@@ -446,7 +446,7 @@ describe( 'events -03- functional (server): create', function() {
       result.event.links.should.eql( [ {
         link: 'https://someoembeddablelink.com',
         data: {
-          description: "« CEINTURE NOIRE » ?\nNouvel Album maintenant disponible :\nhttps://maitregims.lnk.to/CeintureNoire\n\nEn tournée dans toute la France et au Stade de France le 28/09/2019\nBilletterie sur www.FuegoTour.com\n--\nFacebook : https://www.facebook.com/maitregimsoff\nInstagram : https://instagram.com/maitregims\nTwitter : https://twitter.com/maitregims\nSnapchat : Warano75\n--\nAbonne-toi à la chaîne : http://bit.ly/2q6P6Ni"
+          description: "« CEINTURE NOIRE » 🥋\nNouvel Album maintenant disponible :\nhttps://maitregims.lnk.to/CeintureNoire\n\nEn tournée dans toute la France et au Stade de France le 28/09/2019\nBilletterie sur www.FuegoTour.com\n--\nFacebook : https://www.facebook.com/maitregimsoff\nInstagram : https://instagram.com/maitregims\nTwitter : https://twitter.com/maitregims\nSnapchat : Warano75\n--\nAbonne-toi à la chaîne : http://bit.ly/2q6P6Ni"
         },
         type: 'oembed'
       } ] );
