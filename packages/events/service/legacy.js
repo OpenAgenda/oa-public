@@ -138,9 +138,9 @@ async function update( identifiers, options ) {
       return {
         event_id: 'TBD',
         location_id: locationId,
-        date: moment.tz( t.begin, event.timezone ).format( 'YYYY-MM-DD' ),
-        time_start: moment.tz( t.begin, event.timezone ).format( 'HH:mm' ),
-        time_end: moment.tz( t.end, event.timezone ).format( 'HH:mm' ),
+        date: moment.tz( t.begin, event.timezone ).locale('en').format( 'YYYY-MM-DD' ),
+        time_start: moment.tz( t.begin, event.timezone ).locale('en').format( 'HH:mm' ),
+        time_end: moment.tz( t.end, event.timezone ).locale('en').format( 'HH:mm' ),
         created_at: event.createdAt,
         updated_at: event.updatedAt
       }
