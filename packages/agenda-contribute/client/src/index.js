@@ -11,59 +11,55 @@ import { createLogger } from 'redux-logger';
 import { Router } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 
-if ( module.hot ) module.hot.accept();
+if (module.hot) module.hot.accept();
 
 import getRoutes from './getRoutes';
 import reducers from './reducers';
 import scrollToTopMiddleware from './lib/scrollToTopMiddleware';
 
-const init = JSON.parse(document.getElementById( 'init' ).innerHTML);
+const init = JSON.parse(document.getElementById('init').innerHTML);
 
 const loggerMiddleware = createLogger();
 
-const initState = _.get( init, 'state' );
+const initState = _.get(init, 'state');
 
-const config = _.get( init, 'config' );
+const config = _.get(init, 'config');
 
 const history = createBrowserHistory();
 
-const store = createStore( combineReducers( {
+const store = createStore(combineReducers({
   ...reducers,
   config: () => config,
-} ), initState, applyMiddleware(
-  thunkMiddleware.withExtraArgument( history ),
+}), initState, applyMiddleware(
+  thunkMiddleware.withExtraArgument(history),
   loggerMiddleware,
-  scrollToTopMiddleware( {
+  scrollToTopMiddleware({
     scrollableTypes: [
       reducers.event.actionTypes.UPDATE,
       reducers.event.actionTypes.CREATE,
       reducers.member.actionTypes.UPDATE
     ],
     scrollToAnchor: 'stepper'
-  } )
-) );
+  })
+));
 
-const routes = getRoutes( config.base || '' );
+const routes = getRoutes(config.base || '');
 
 ReactDOM.render(
   <Provider store={store} context={ReactReduxContext}>
     <div>
       <Router history={history}>
-        {renderRoutes( routes )}
+        {renderRoutes(routes)}
       </Router>
     </div>
   </Provider>,
-  document.getElementById( 'app' )
+  document.getElementById('app')
 );
 
-if ( module.hot ) {
+if (module.hot) {
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers');
 
-  module.hot.accept( './reducers', () => {
-
-    const nextRootReducer = require( './reducers' );
-
-    store.replaceReducer( nextRootReducer );
-
-  } );
-
+    store.replaceReducer(nextRootReducer);
+  });
 }
