@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import { unloadWarning } from '@openagenda/react-shared';
 import labels from './lib/labels';
 
 import isEmptySchema from './lib/isEmptySchema';
@@ -85,10 +86,7 @@ export default class FormSchemaBuilder extends Component {
 
   updateSchema( schema ) {
 
-    this.setState( {
-      schema,
-      saveState: saveStates.CHANGED
-    } );
+    this.setSaveState(saveStates.CHANGED, { schema });
 
     this.props.onUpdate( schema );
 
@@ -103,21 +101,30 @@ export default class FormSchemaBuilder extends Component {
 
   }
 
-  onSave() {
+  setSaveState(newSaveState, otherStateSet = {}) {
+    if (newSaveState === saveStates.SAVED) {
+      unloadWarning.unset();
+    } else {
+      unloadWarning.set();
+    }
 
-    this.setState( { saveState: saveStates.LOADING } );
+    this.setState({
+      saveState: newSaveState,
+      ...otherStateSet
+    });
+
+  }
+
+  onSave() {
+    this.setSaveState(saveStates.LOADING);
 
     submit( { values: restrictLabelLanguages.applyToSchema(
       this.getSchema(),
       this.state.labelLanguages
     ) } ).then( () => {
-
-      this.setState( { saveState: saveStates.SAVED } );
-
+      this.setSaveState(saveStates.SAVED);
     }, err => {
-
-      this.setState( { saveState: saveStates.ERROR } );
-
+      this.setSaveState(saveStates.ERROR);
     } );
 
   }
