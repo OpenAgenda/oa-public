@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import sa from 'superagent';
+import { unloadWarning } from '@openagenda/react-shared';
 
 const actionTypes = {
   CREATE: 'agenda-contribute/event/CREATE',
@@ -30,6 +31,7 @@ function reducer(state = {}, action = {}) {
 function deleteDraft() {
   return (dispatch, getState) => {
     sa.delete('').then(() => {
+      unloadWarning.unset();
       window.location.href = _.get(getState(), 'config.redirects.draft');
     });
   }
@@ -38,6 +40,8 @@ function deleteDraft() {
 
 function updated(values, response) {
   return (dispatch, getState) => {
+    unloadWarning.unset();
+
     const state = getState();
 
     const event = _.get(response, 'body.event');
@@ -62,6 +66,7 @@ function updated(values, response) {
 
 function created(values, response) {
   return (dispatch, getState, history) => {
+    unloadWarning.unset();
     const state = getState();
 
     const { base } = state.config;

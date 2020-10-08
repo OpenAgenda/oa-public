@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import isMemberValid from '../lib/isMemberValid';
+import { unloadWarning } from '@openagenda/react-shared';
 
 module.exports = Object.assign(reducer, {
   evaluate
@@ -17,6 +18,7 @@ function reducer(state = {}, action = {}) {
 function evaluate(step, requested = false) {
   return (dispatch, getState, history) => {
 
+    unloadWarning.set();
     const state = getState();
 
     const {
