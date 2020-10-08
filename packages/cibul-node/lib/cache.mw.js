@@ -4,7 +4,12 @@ const { promisify } = require('util');
 const _ = require('lodash');
 const express = require('express');
 
-async function saveExpiration(ttl, sanitizedUrl, delay, res) {
+async function saveExpiration(delay, req, res) {
+  const {
+    sanitizedUrl,
+    ttl
+  } = req.cache;
+
   const cacheTtl = await ttl(sanitizedUrl);
   const expires = new Date(Date.now() + cacheTtl * 1000);
 
@@ -13,8 +18,10 @@ async function saveExpiration(ttl, sanitizedUrl, delay, res) {
   res.cacheExpires = expires;
 }
 
-module.exports = (namespace, path, delay, cacheMw) => {
-  const cacheRouter = express.Router({ mergeParams: true }).use(cacheMw);
+module.exports = (namespace, path, delay, mwIfNoCache) => {
+  const cacheRouter = express.Router({ mergeParams: true })
+    .use(mwIfNoCache)
+    .use(saveToCache(namespace, delay));
 
   return async (req, res, next) => {
     const { simpleCache } = req.app.services;
@@ -22,14 +29,16 @@ module.exports = (namespace, path, delay, cacheMw) => {
     const identifier = _.get(req, path);
     const sanitizedUrl = _sanitizeUrl(req);
 
-    const cache = {
+    req.cache = {
+      identifier,
+      sanitizedUrl,
       get: promisify(simpleCache(namespace, identifier).get),
       set: promisify(simpleCache(namespace, identifier).set),
-      ttl: promisify(simpleCache(namespace, identifier).ttl),
+      ttl: promisify(simpleCache(namespace, identifier).ttl)
     };
 
     try {
-      const cached = await cache.get(sanitizedUrl);
+      const cached = await req.cache.get(sanitizedUrl);
 
       if (cached) {
         req.log('info', {
@@ -39,12 +48,10 @@ module.exports = (namespace, path, delay, cacheMw) => {
 
         res.data = JSON.parse(cached);
 
-        await saveExpiration(cache.ttl, sanitizedUrl, delay, res);
+        await saveExpiration(delay, req, res);
 
         next();
       } else {
-        cacheRouter.use(saveToCache(cache, namespace, identifier, sanitizedUrl, delay));
-
         cacheRouter(req, res, next);
       }
     } catch (e) {
@@ -59,16 +66,23 @@ module.exports = (namespace, path, delay, cacheMw) => {
   };
 }
 
-function saveToCache(cache, namespace, identifier, sanitizedUrl, delay) {
+function saveToCache(namespace, delay) {
   return async (req, res, next) => {
+    const {
+      identifier,
+      sanitizedUrl,
+      set
+    } = req.cache;
+
     try {
-      await cache.set(sanitizedUrl, JSON.stringify(res.data), delay);
+      await set(sanitizedUrl, JSON.stringify(res.data), delay);
 
       req.log('info', {
         cached: `${namespace}:${identifier}`,
         message: 'caching successful'
       });
-      await saveExpiration(cache.ttl, sanitizedUrl, delay, res);
+
+      await saveExpiration(delay, req, res);
 
       next();
     } catch (e) {
