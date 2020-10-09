@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `ticket_link` varchar(255) DEFAULT NULL,
   `id` bigint(20) NOT NULL,
   PRIMARY KEY(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `${schema}`

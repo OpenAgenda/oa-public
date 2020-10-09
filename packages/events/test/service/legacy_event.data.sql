@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `accessibility` varchar(255) DEFAULT NULL,
   `type` varchar(2) DEFAULT NULL,
   PRIMARY KEY(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `${schema}` (`id`, `slug`, `url`, `image`, `background_image`, `background_color`, `owner_id`, `is_published`, `is_new`, `created_at`, `updated_at`, `uid`, `store`, `eve_id`, `custom_fields`, `age_min`, `age_max`, `accessibility`, `type`, `origin_uid`, `file_key`, `image_credits` ) VALUES
 (147621,

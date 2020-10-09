@@ -20,7 +20,7 @@ CREATE TABLE `${schema}` (
   age VARCHAR( 50 ),
   registration VARCHAR(2000),
   `references` VARCHAR(2000),
-  links TEXT,
+  links TEXT character set utf8mb4,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   deleted_at DATETIME,
@@ -31,4 +31,4 @@ CREATE TABLE `${schema}` (
   INDEX agenda_uid_idx (agenda_uid),
   INDEX owner_uid_idx (owner_uid),
   INDEX location_uid_idx (location_uid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

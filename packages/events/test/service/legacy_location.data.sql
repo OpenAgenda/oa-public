@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `postal_code` varchar(20) DEFAULT NULL,
   `eve_id` varchar(100) DEFAULT NULL,
   `agenda_id` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `${schema}` (`id`, `slug`, `placename`, `address`, `city`, `country`, `latitude`, `longitude`, `owner_id`, `created_at`, `updated_at`, `main`, `uid`, `store`, `processed_at`, `department`, `region`, `city_district`, `postal_code`, `eve_id`, `agenda_id`) VALUES
 (293903, 'bibliotheque-universitaire841_8822', 'Bibliothèque universitaire du Havre', '25 rue Philippe Lebon, 76600 Le Havre, Seine-Maritime, Normandie', 'Le Havre', 'FR', 49.496388, 0.129342, NULL, '2017-03-24 18:01:01', '2017-03-24 18:01:00', 0, 7105588, '{"image":"location83375787.jpg","description":{"fr":"Inaugurée en 2006, la bibliothèque universitaire est l\'œuvre de René et Phire Week Dottelonde.\\n© Université du Havre, Direction de la communication"},"tags":[{"id":10,"label":"Édifice scolaire et éducatif"}],"website":"http://bu.univ-lehavre.fr","phone":"02 32 74 44 14","links":["https://fr-fr.facebook.com/BUduHavre/","https://twitter.com/buhavre"],"access":{"fr":null},"state":1,"timezone":"Europe/Paris"}', '2016-06-10 11:12:01', 'Seine-Maritime', 'Normandie', NULL, '76600', NULL, 8822),
