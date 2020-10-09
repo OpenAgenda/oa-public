@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `uid` bigint(20) DEFAULT NULL,
   `last_signin` datetime DEFAULT NULL,
   `comexposium_id` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27738 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27738 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `${schema}`

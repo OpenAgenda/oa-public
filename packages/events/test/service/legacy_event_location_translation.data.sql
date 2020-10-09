@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `id` bigint(20) NOT NULL DEFAULT '0',
   `pricing_info` varchar(255) DEFAULT NULL,
   `lang` char(2) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `${schema}`

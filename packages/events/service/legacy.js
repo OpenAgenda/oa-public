@@ -152,7 +152,6 @@ async function update( identifiers, options ) {
     } ) ) : []
   }
 
-
   if ( legacyEventId ) {
 
     log( 'legacy event found, updating', legacyEventId );

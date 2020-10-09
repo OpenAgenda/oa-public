@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `facebook_id` bigint(20) DEFAULT NULL,
   `state` tinyint(4) DEFAULT NULL,
   `featured` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=887122 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=887122 DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
 (803307, 6488, 27071, 145552, NULL, '2016-09-26 09:06:04', '2016-09-26 09:06:04', NULL, '{"firstPublicationFlag":true}', 1, NULL, NULL, 1, 0),

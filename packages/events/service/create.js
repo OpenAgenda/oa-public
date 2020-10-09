@@ -213,6 +213,8 @@ async function createPromise( data, options ) {
 
     try {
 
+      cleanEvent
+
       createdId = _.head( await knex( schemas.event ).insert( dbParse.toDb( cleanEvent ) ) );
 
     } catch( e ) {

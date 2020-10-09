@@ -29,7 +29,7 @@ function _endIsAfterBegin( timing ) {
 function _readOccurrenceTime( o, t, timezone ) {
   return new Date(
     moment.tz(
-      moment( o.date ).format( 'YYYY-MM-DD' )
+      moment( o.date ).locale('en').format( 'YYYY-MM-DD' )
       + ' '
       + o[ t ],
       timezone

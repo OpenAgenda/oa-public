@@ -31,11 +31,11 @@ CREATE TABLE `${schema}` (
   INDEX agenda_uid_idx (agenda_uid),
   INDEX owner_uid_idx (owner_uid),
   INDEX location_uid_idx (location_uid)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO `${schema}` (`id`, `uid`, `owner_uid`, `agenda_uid`, `location_uid`, `slug`, `title`, `description`, `long_description`, `keywords`, `conditions`, `image`, `draft`, `private`, `timezone`, `timings`, `accessibility`, `age`, `registration`, `created_at`, `updated_at`, `deleted_at` ) VALUES
-(147291, 71477747, 65570947, 21475128, 88670536, 
+(147291, 71477747, 65570947, 21475128, 88670536,
   'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
   '{"fr":"Découverte du handball et valorisation du mondial de Handball"}',
   '{"fr":"Animation de proximité sur les city-stade des quartiers prioritaires ou veille de la politique de la ville  du 24 au 28 octobre"}',
@@ -44,23 +44,23 @@ INSERT INTO `${schema}` (`id`, `uid`, `owner_uid`, `agenda_uid`, `location_uid`,
 (146651, 53583605, 38565623, 27545135, 72989933, 'decouverte-du-milieu-marin-de-martinique-visite-de-1h-par-groupe-de-12-personnes', '{"fr":"Découverte du milieu marin de Martinique. Visite de 1h par groupe de 12 personnes"}', '{"fr":"Ecotourisme Nautique en Martinique"}', '{"fr":"Dénébola développe l’Ecotourisme Nautique en Martinique et propose de venir participer à ses ateliers pédagogiques sur les écosystèmes marins. Un premier échange sera fait sur l’écotourisme nautique (comment réduire notre impact sur le milieu marin lors de la pratique de loisirs nautiques : les éco-gestes, la réglementation, l’éconavigation...). Ensuite l’intervenant donnera quelques notions sur la navigation à la voile, à bord du voilier qui sera à quai, afin de partager avec le public cette passion pour une navigation plus douce et plus silencieuse. Puis, il présentera le CHATROU (outil pédagogique à bord du voilier) et le visiteur choisira parmi les 8 thèmes développés celui qui lui plait (poissons, coraux, tortues et cétacés, mollusques et crustacés, oiseaux marins, mangrove, 7ème continent et iguanes endémiques). Le CHATROU a été réalisé avec des partenaires spécialistes de chaque thème et a été conçu spécialement pour un public de loisir. C’est donc l’idéal pour enrichir ses connaissances tout en s’amusant !\\n\\nVisite de 1h par groupe de 12 personnes."}', '{"fr":",    Ecotourisme,    Nautisme,   Martinique, atelié pédagogique"}', NULL, '{"filename":"event_decouverte-du-milieu-marin-de-martinique-visite-de-1h-par-groupe-de-12-personnes_633546.jpg","credits":null,"size":{"height":null,"width":null},"variants":[{"type":"full","filename":"evfevent_decouverte-du-milieu-marin-de-martinique-visite-de-1h-par-groupe-de-12-personnes_633546.jpg","size":{"height":null,"width":null}},{"type":"thumbnail","filename":"evtbevent_decouverte-du-milieu-marin-de-martinique-visite-de-1h-par-groupe-de-12-personnes_633546.jpg","size":{"height":null,"width":null}}]}', 1, 0, 'Europe/Paris', '[{"begin":"2016-10-15T08:00:00.000Z","end":"2016-10-15T09:00:00.000Z"},{"begin":"2016-10-15T09:00:00.000Z","end":"2016-10-15T10:00:00.000Z"},{"begin":"2016-10-15T12:00:00.000Z","end":"2016-10-15T13:00:00.000Z"},{"begin":"2016-10-15T13:00:00.000Z","end":"2016-10-15T14:00:00.000Z"}]', '{"mi":true,"hi":true,"pi":true,"vi":true,"sl":true}', '{"min":10,"max":99}', '["0696 170 700"]', '2016-11-04 09:19:18', '2016-11-04 09:19:18', NULL );
 
 INSERT INTO `${schema}` (`id`, `uid`, `owner_uid`, `agenda_uid`, `location_uid`, `slug`, `title`, `description`, `long_description`, `keywords`, `conditions`, `image`, `draft`, `private`, `timezone`, `timings`, `accessibility`, `age`, `registration`, `created_at`, `updated_at`, `deleted_at`, `references` ) VALUES
-(146687, 2875149, 38565623, 27545135, 64235133, 
-  'decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma', 
-  '{"fr":"Découverte du pavillon pédagogique «Energies renouvelables» du RSMA"}', 
-  '{"fr":"Visite du pavillon pédagogique du RSMA"}', 
-  '{"fr":"Déroulement de la visite :\\n\\n- Départ en bus vers le site (le lieu de RDV sera communiqué à l’inscription).\\n\\n- Accueil du RSMA\\n\\n- Visite du pavillon pédagogique. Objectif : expliquer au visiteur le fonctionnement d’un chauffe-eau solaire,\\n\\n- Intervention des apprentis sur leur métier, leurs visions de la filière chauffe-eau solaire (solariste)\\n\\n- Présentation de la filière solaire en Martinique, les acteurs, la réglementation, les métiers, les dispositifs d’aides."}', 
-  '{"fr":["RSMA", "Energie solaire", "Energies renouvelables", "Martinique"]}', 
-  NULL, 
-  '{"filename":"event_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","credits":null,"size":{"height":null,"width":null},"variants":[{"type":"full","filename":"evfevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","size":{"height":null,"width":null}},{"type":"thumbnail","filename":"evtbevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","size":{"height":null,"width":null}}]}', 
-  1, 
-  0, 
-  'Europe/Paris', 
-  '[{"begin":"2016-10-12T11:00:00.000Z","end":"2016-10-12T14:30:00.000Z"}]', 
-  '{"mi":true,"hi":true,"pi":true,"vi":true,"sl":true}', 
-  '{"min":18,"max":99}', 
-  '["vie@pnr-martinique.com","0696 220 310"]', 
-  '2016-11-04 09:19:16', 
-  '2016-11-04 09:19:16', 
+(146687, 2875149, 38565623, 27545135, 64235133,
+  'decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma',
+  '{"fr":"Découverte du pavillon pédagogique «Energies renouvelables» du RSMA"}',
+  '{"fr":"Visite du pavillon pédagogique du RSMA"}',
+  '{"fr":"Déroulement de la visite :\\n\\n- Départ en bus vers le site (le lieu de RDV sera communiqué à l’inscription).\\n\\n- Accueil du RSMA\\n\\n- Visite du pavillon pédagogique. Objectif : expliquer au visiteur le fonctionnement d’un chauffe-eau solaire,\\n\\n- Intervention des apprentis sur leur métier, leurs visions de la filière chauffe-eau solaire (solariste)\\n\\n- Présentation de la filière solaire en Martinique, les acteurs, la réglementation, les métiers, les dispositifs d’aides."}',
+  '{"fr":["RSMA", "Energie solaire", "Energies renouvelables", "Martinique"]}',
+  NULL,
+  '{"filename":"event_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","credits":null,"size":{"height":null,"width":null},"variants":[{"type":"full","filename":"evfevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","size":{"height":null,"width":null}},{"type":"thumbnail","filename":"evtbevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","size":{"height":null,"width":null}}]}',
+  1,
+  0,
+  'Europe/Paris',
+  '[{"begin":"2016-10-12T11:00:00.000Z","end":"2016-10-12T14:30:00.000Z"}]',
+  '{"mi":true,"hi":true,"pi":true,"vi":true,"sl":true}',
+  '{"min":18,"max":99}',
+  '["vie@pnr-martinique.com","0696 220 310"]',
+  '2016-11-04 09:19:16',
+  '2016-11-04 09:19:16',
   NULL,
   '[78596875,39592710,85595460]'
 ),
