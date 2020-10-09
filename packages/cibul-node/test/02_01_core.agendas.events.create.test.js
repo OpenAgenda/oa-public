@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const axios = require('axios');
+const fs = require('fs');
 const ih = require('immutability-helper');
 const request = require('superagent');
 
@@ -635,6 +636,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     describe('create with one language in input', () => {
       let response;
 
+      fs.createReadStream(`${__dirname}/fixtures/pirates.jpg`)
+        .pipe(fs.createWriteStream('/tmp/pirates.jpg'));
+
       const data = {
         title: 'Un autre événement créé par API',
         description: 'Un tout petit événement',
@@ -643,7 +647,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           end: new Date('2019-05-06T11:00:00')
         }],
         image: {
-          path: `${__dirname}/fixtures/pirates.jpg`
+          path: '/tmp/pirates.jpg'
         },
         keywords: ['un', 'deux', 'trois'],
         location: {
@@ -655,16 +659,20 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       }
 
       beforeAll(async () => {
-        response = await axios({
-          method: 'post',
-          url: 'http://localhost:3000/v2/agendas/17026855/events',
-          headers: {
-            'access-token': accessToken,
-            nonce: 123456,
-            'content-type': 'application/json'
-          },
-          data
-        }).then(r => r.data);
+        try {
+          response = await axios({
+            method: 'post',
+            url: 'http://localhost:3000/v2/agendas/17026855/events',
+            headers: {
+              'access-token': accessToken,
+              nonce: 123456,
+              'content-type': 'application/json'
+            },
+            data
+          }).then(r => r.data);
+        } catch (e) {
+          console.log(e.response.data.errors[0]);
+        }
       });
 
       it('Event is created in english if lang is not specified', async () => {
