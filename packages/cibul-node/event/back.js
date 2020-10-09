@@ -14,7 +14,7 @@ const legacyAgendaSvc = require( '../services/agenda' );
 const activitiesSvc = require( '../services/activities' );
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
-
+const { getRoleSlug } = require('@openagenda/members').utils;
 
 module.exports = app => {
   const {
@@ -220,7 +220,7 @@ function getPrivateEventData( req, res, next ) {
     req,
     res,
     custom: req.formatted.custom
-      .filter( _filterByRole.bind( null, req.role ) )
+      .filter( _filterByRole.bind( null, req.member.role ) )
       .filter( c => c.access !== 'public' ),
     labels: req.formatted.customLabels,
     contributor: false
@@ -239,7 +239,7 @@ function getPrivateEventData( req, res, next ) {
         name: g.name,
         access: g.access || 'public',
         tags: g.tags.filter( t => tags.map( t => t.id ).includes( t.id ) )
-      } ) ).filter( _filterByRole.bind( null, req.role ) );
+      } ) ).filter( _filterByRole.bind( null, req.member.role ) );
 
       return v;
 
@@ -298,7 +298,7 @@ function _filterByRole( role, item ) {
 
   if ( item.access === 'administrator' ) {
 
-    return [ 'administrator', 'moderator' ].includes( role );
+    return [ 'administrator', 'moderator' ].includes( getRoleSlug(role) );
 
   }
 
