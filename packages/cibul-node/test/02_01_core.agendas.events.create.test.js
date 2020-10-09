@@ -1,7 +1,5 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const axios = require('axios');
 const ih = require('immutability-helper');
@@ -63,7 +61,10 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         'users',
         'keys',
         'accessTokens',
-        'tracker'
+        'tracker',
+        'images',
+        'files',
+        'imageFiles'
       ]
     });
 
@@ -562,36 +563,49 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     describe('successful create', () => {
 
       beforeAll(async () => {
-        response = await axios({
-          method: 'post',
-          url: 'http://localhost:3000/v2/agendas/17026855/events',
-          headers: {
-            'access-token': accessToken,
-            nonce: 123,
-            'content-type': 'application/json'
-          },
-          data: {
-            title: {
-              fr: 'Un événement créé par API'
+        try {
+          response = await axios({
+            method: 'post',
+            url: 'http://localhost:3000/v2/agendas/17026855/events',
+            headers: {
+              'access-token': accessToken,
+              nonce: 123,
+              'content-type': 'application/json'
             },
-            description: {
-              fr: 'Un tout petit événement'
-            },
-            timings: [ {
-              begin: new Date( '2019-05-06T10:00:00' ),
-              end: new Date( '2019-05-06T11:00:00' )
-            } ],
-            keywords: {
-              fr: [ 'un', 'deux', 'trois' ]
-            },
-            location: {
-              uid: 123
-            },
-            'categories-agenda-metropolitain': 42,
-            'thematiques-bordeaux-metropole' : [3, 4],
-            accessibility: { sl: true }
-          }
-        }).then(r => r.data);
+            data: {
+              title: {
+                fr: 'Un événement créé par API'
+              },
+              description: {
+                fr: 'Un tout petit événement'
+              },
+              image: {
+                url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg'
+              },
+              timings: [ {
+                begin: new Date( '2019-05-06T10:00:00' ),
+                end: new Date( '2019-05-06T11:00:00' )
+              } ],
+              keywords: {
+                fr: [ 'un', 'deux', 'trois' ]
+              },
+              location: {
+                uid: 123
+              },
+              'categories-agenda-metropolitain': 42,
+              'thematiques-bordeaux-metropole' : [3, 4],
+              accessibility: { sl: true }
+            }
+          }).then(r => r.data);
+        } catch (e) {
+          console.log(e.response.data);
+        }
+      });
+
+      it('image is uploaded to cdn when provided by url', async () => {
+        const uploadedHead = await request.head(response.event.image.base + response.event.image.filename).then(res => res.header);
+        const sinceLastModified = (new Date).getTime() - (new Date(uploadedHead['last-modified'])).getTime();
+        expect(sinceLastModified).toBeLessThan(10000);
       });
 
       it('response gives success key at true if creation was a success', () => {
@@ -628,6 +642,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           begin: new Date('2019-05-06T10:00:00'),
           end: new Date('2019-05-06T11:00:00')
         }],
+        image: {
+          path: `${__dirname}/fixtures/pirates.jpg`
+        },
         keywords: ['un', 'deux', 'trois'],
         location: {
           uid: 123
@@ -637,8 +654,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         accessibility: { sl: true }
       }
 
-      it('Event is created in english if lang is not specified', async () => {
-        const response = await axios({
+      beforeAll(async () => {
+        response = await axios({
           method: 'post',
           url: 'http://localhost:3000/v2/agendas/17026855/events',
           headers: {
@@ -648,10 +665,18 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           },
           data
         }).then(r => r.data);
+      });
 
+      it('Event is created in english if lang is not specified', async () => {
         expect(response.event.title).toEqual({
           en: 'Un autre événement créé par API'
         });
+      });
+
+      it('image is uploaded to cdn when provided by local file path', async () => {
+        const uploadedHead = await request.head(response.event.image.base + response.event.image.filename).then(res => res.header);
+        const sinceLastModified = (new Date).getTime() - (new Date(uploadedHead['last-modified'])).getTime();
+        expect(sinceLastModified).toBeLessThan(10000);
       });
 
       it('Event is created in french if lang is set to french in header', async () => {
@@ -664,7 +689,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
             'content-type': 'application/json',
             lang: 'fr'
           },
-          data
+          data: _.omit(data, ['image'])
         }).then(r => r.data);
 
         expect(response.event.title).toEqual({
