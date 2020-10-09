@@ -3,7 +3,7 @@
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig' );
+} = require( '../testconfig.sample' );
 
 const mysql = require( 'mysql' );
 const should = require( 'should' );

@@ -11,7 +11,7 @@ const svc = require( '../' );
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig' );
+} = require( '../testconfig.sample' );
 
 describe( 'agendas - functional (server): middleware', function () {
 

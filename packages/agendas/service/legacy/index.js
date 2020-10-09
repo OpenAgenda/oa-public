@@ -50,7 +50,7 @@ function agenda( agendaId ) {
 
 function _updateCredentials( v ) {
 
-  if ( !v.data.credentials ) return v;
+  if (!v.data.credentials || !schemas.legacyCredentialSet) return v;
 
   log( 'updating credentials' );
 
