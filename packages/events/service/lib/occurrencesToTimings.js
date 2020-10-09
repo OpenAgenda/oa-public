@@ -33,6 +33,6 @@ function _readOccurrenceTime( o, t, timezone ) {
       + ' '
       + o[ t ],
       timezone
-    ).format()
+    ).locale('en').format()
   );
 }
