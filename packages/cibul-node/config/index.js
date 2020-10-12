@@ -17,54 +17,6 @@ const config = {
     jsVersion: 42,
     cssVersion: 2,
     interfaceLanguages: ['fr', 'en', 'de', 'es', 'it', 'br'],
-    versions: {
-      // unused for now
-      members: [
-        {
-          version: 2,
-          createdAt: '2016-05-22T00:00:00.000Z',
-          agendaUids: [
-            47863189, // reed expo
-            48959239, // la gargouille
-            93961830, // jerusalem
-            5897476,  // jerusalem
-            96165479,
-            11072140,
-            41715612,
-            28447894,
-            27744304,
-            56907207,
-            26127587,
-            73087674,
-            63338236,
-            47483234,
-            19187305,
-            33332852,
-            66274790, // jerusalem
-            72177774,
-            67130267,
-            68263389,
-            2445326,
-            19678829,
-            49562322, // jerusalem
-            61327284, // toujours jerusalem
-            77097167, // Fête de la musique
-            27437914,
-            30456419,
-            71115381,
-            20168566,
-            22946799,
-            9343334,
-            11919999,
-            85229066,
-            30453876,
-            61665301 // ficepparis
-          ]
-        }, {
-          version: 1
-        }
-      ]
-    },
     port: 8901 || process.env.OA_PORT,
     apiPort: 8902 || process.env.OA_API_PORT,
     multiCore: true,
@@ -253,7 +205,8 @@ const config = {
       name: 'cibul'
     },
     blacklistedDomains: [
-      'intrees.org'
+      'intrees.org',
+      'luxusmail.gq'
     ],
     mails: {
       defaults: {
