@@ -26,7 +26,6 @@ module.exports = app => {
   require('./general/session.back')(app);
   require('./general/back')(app);
   require('./search/front')(app);
-  require('./event/form.back')(app);
   require('./event/tagsForm.back')(app);
   require('./event/back')(app);
   require('./event/front')(app);
