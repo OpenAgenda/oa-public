@@ -11,7 +11,6 @@ if ( module.hot ) module.hot.accept();
 class Main extends Component {
 
   render() {
-
     const props = {
       lang: 'fr',
       withErrors: true,
@@ -52,9 +51,8 @@ class Main extends Component {
         <FormSchemaComponent { ...props } />
       </div>
     </div>
-
   }
 
 }
 
-render( <Main />, document.getElementById( 'app' ) );
+render(<Main />, document.getElementById('app'));
