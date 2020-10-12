@@ -68,6 +68,10 @@ module.exports = (namespace, path, delay, mwIfNoCache) => {
 
 function saveToCache(namespace, delay) {
   return async (req, res, next) => {
+    if (!res.data) {
+      return next();
+    }
+
     const {
       identifier,
       sanitizedUrl,
