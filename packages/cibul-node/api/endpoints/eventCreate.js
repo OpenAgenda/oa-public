@@ -8,11 +8,6 @@ const log = require('@openagenda/logs')('api/eventCreate');
 module.exports = async (req, res, next) => {
   const create = req.app.core.agendas(req.agenda.uid).events.create;
 
-  // if there was an image uploaded with the post, it is loaded in req.file.path with multer
-  if (_.get(req, 'file.path')) {
-    _.set(req.parsedData, 'image.path', _.get(req, 'file.path', undefined));
-  }
-
   try {
     const event = await create(ih(req.parsedData, {
       ownerUid: { $set: req.user.uid },
