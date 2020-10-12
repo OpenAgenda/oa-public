@@ -78,8 +78,6 @@ module.exports = async function (configObject, options = {}) {
   await init('formSchemas', require('./formSchemas'));
   await init('custom', require('./custom'));
   await init('genUrl', require('./genUrl'));
-  await init('imageFiles', require('./imageFiles'));
-  await init('images', require('./images'));
   await init('invitations', require('./invitations'));
   await init('keys', require('./keys'));
   await init('legacy', require('./legacy'));
