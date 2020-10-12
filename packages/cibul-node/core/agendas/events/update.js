@@ -96,6 +96,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
       transferToLegacy: !draft,
       draft
     });
+    log('updated event %s', eventUid);
   } catch (e) {
     log('error', 'failed to update event', {
       agendaUid: agenda.uid,
@@ -125,6 +126,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
       }
     );
     if (result.success) {
+      log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
       payload.setItem('custom.agenda', result.before, result.custom);
     }
   }
@@ -141,12 +143,14 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     );
 
     if (result.success) {
+      log('updated network custom data %s.%s', agenda.network.formSchemaId, eventUid);
       payload.setItem('custom.network', result.before, result.custom);
     }
   }
 
   if (draft) {
     const response = await payload.getResponse('updated', access);
+    log('sending response for draft update');
     return returnPayload ? response : response.updated;
   }
 
@@ -170,6 +174,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
         },
         decorate: ['member']
       });
+      log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
     } catch(e) {
       log('error', 'failed to update agendaEvent ref', e);
       throw e;
@@ -186,7 +191,8 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
       ], [
         partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
         partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom
-      ] );
+      ]);
+      log('set legacy tag & custom values');
     } catch (e) {
       log('error', 'failed to set legacy tags and custom data', e);
     }
@@ -194,6 +200,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   try {
     await legacyEventSearch.updateEvent({ uid: eventUid });
+    log('updated legacy ES index for event %s', eventUid);
   } catch (e) {
     log('error', 'could not update legacy search for event %s', eventUid, e);
   }
@@ -202,6 +209,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   try {
     await eventSearch.update(response);
+    log('updated search for event %s', eventUid);
   } catch (e) {
     log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
   }

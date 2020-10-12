@@ -240,7 +240,7 @@ function _addTagGroups( v ) {
 function _addTags( v ) {
 
   // if tags are already loaded no need to fetch again
-  if ( v.decorated.tags ) return v;
+  if ( v.decorated.tags instanceof Array ) return v;
 
   let d = w.defer();
 

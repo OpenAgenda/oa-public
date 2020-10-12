@@ -18,7 +18,8 @@ module.exports = {
     port: 6379
   },
   schemas: schemaNames,
-  tmpFolderPath: '/var/tmp',
+  tmpFolderPath: '/var/tmp/',
+  imageSizeLimits: [2000, 30000000],
   aws: {
     bucket: 'openagendatest',
     accessKeyId: config.aws.accessKeyId,

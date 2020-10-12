@@ -12,7 +12,9 @@ const getLabel = require('@openagenda/labels')(require('@openagenda/labels/agend
 const url = require('./url');
 const validators = require('../../validators');
 
-const Body = React.createFactory(require('../../components/lib/Body.js'));
+const createFactory = type => React.createElement.bind(null, type);
+
+const Body = createFactory(require('../../components/lib/Body.js'));
 
 module.exports = service => ({
   rebuild: rebuild.bind(null, service),

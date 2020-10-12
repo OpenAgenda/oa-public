@@ -260,7 +260,6 @@ async function agendaEventShow( req, res, next ) {
     userUid: req.user.uid
   } ) : null;
 
-
   cmn.render( req, res, 'event/show', {
     scriptParams: {
       contributor: member ? { uid: member.userUid } : null,

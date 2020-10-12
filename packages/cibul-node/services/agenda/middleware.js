@@ -13,7 +13,6 @@ const tabLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/
 const svcConfig = require( './config' );
 const eventSvc = require( '../event' );
 const config = require( '../../config' );
-const version = require( './helpers/version' );
 
 const mwh = require( '../lib/middlewareHelpers' );
 
@@ -194,19 +193,6 @@ function loadAdminLayout( req, res, next ) {
           if ( credentials.includes( tab.requiredCred ) ) return true;
 
           return !!tab.call;
-
-        } )
-
-        // filter out tabs not matching adequate version
-        .filter( tab => {
-
-          if ( !tab.version ) {
-
-            return true;
-
-          }
-
-          return version( tab.version.split( ':' )[ 0 ], parseInt( tab.version.split( ':' )[ 1 ] ), { agendaUid: req.agenda.uid, createdAt: req.agenda.createdAt } );
 
         } )
 

@@ -8,7 +8,7 @@ const Files = require('@openagenda/files/v3');
 const {
   service: config,
   dependencies: dConfig
-} = require( '../testconfig' );
+} = require( '../testconfig.sample' );
 const svc = require( '../' );
 
 describe( 'agendas - functional (server): slugs', function() {
