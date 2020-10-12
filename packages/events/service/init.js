@@ -1,5 +1,6 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const knex = require( 'knex' );
 const logger = require( '@openagenda/logs' );
 const _ = require( 'lodash' );
@@ -37,6 +38,70 @@ module.exports = endpoints => {
       logger.setModuleConfig( config.logger );
 
     }
+
+    const { gm } = c.Files;
+
+    config.upload = c.Files({
+      key: 'image',
+      variants: [
+        {
+          getFilename: (info, context) => `${context.fileKey}.base.image.jpg`,
+          transform: async (info, context) => {
+            const image = gm(info.stream, context.originalname)
+              .autoOrient()
+              .noProfile()
+              .resize(700)
+              .stream('jpg');
+
+            context.providerParams.ContentType = 'image/jpeg';
+            info.type = 'base';
+
+            const sizeGm = gm(image);
+
+            info.size = await promisify(sizeGm.size).call(sizeGm, { bufferStream: true });
+
+            return sizeGm.stream('jpg');
+          }
+        },
+        {
+          getFilename: (info, context) => `${context.fileKey}.full.image.jpg`,
+          transform: async (info, context) => {
+            const image = gm(info.stream, context.originalname)
+              .autoOrient()
+              .noProfile()
+              .stream('jpg');
+
+            context.providerParams.ContentType = 'image/jpeg';
+            info.type = 'full';
+
+            const sizeGm = gm(image);
+
+            info.size = await promisify(sizeGm.size).call(sizeGm, { bufferStream: true });
+
+            return sizeGm.stream('jpg');
+          }
+        },
+        {
+          getFilename: (info, context) => `${context.fileKey}.thumb.image.jpg`,
+          transform: (info, context) => {
+            context.providerParams.ContentType = 'image/jpeg';
+            info.type = 'thumbnail';
+            info.size = {
+              width: 200,
+              height: 200
+            };
+
+            return gm(info.stream, context.originalname)
+              .autoOrient()
+              .noProfile()
+              .resize(200, 200, '^')
+              .gravity('Center')
+              .crop(200, 200)
+              .stream('jpg');
+          }
+        }
+      ]
+    });
 
     _.keys( endpoints ).filter( e => endpoints[ e ].init ).forEach( e => {
 
