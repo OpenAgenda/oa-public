@@ -11,8 +11,7 @@ const agendaTags = require( '@openagenda/agenda-tags' );
 const exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' );
 const stateLabels = require( '@openagenda/labels/event/states' );
 const utils = require( '@openagenda/utils' );
-
-const genUrl = require( '../../genUrl' ).abs;
+const config = require( '../../../config' );
 const possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ];
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
@@ -596,7 +595,7 @@ function _defineEventUrl( instance ) {
 
   return function( slug ) {
 
-    return `/${instance.slug}/events/${slug}`;
+    return `${config.root}/${instance.slug}/events/${slug}`;
 
   }
 
