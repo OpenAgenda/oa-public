@@ -11,7 +11,7 @@ const {
 
 const fixtures = require('./fixtures');
 const Service = require('../');
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 
 const payload = require('./fixtures/createData.json');
 

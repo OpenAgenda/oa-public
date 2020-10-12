@@ -11,7 +11,7 @@ const express = require('express');
 const morgan = require('morgan');
 const log = require('@openagenda/logs')('server.dev');
 
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 const multer = require('multer');
 
 const fixtures = require('./test/fixtures');

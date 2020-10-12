@@ -78,9 +78,9 @@ function init( c ) {
           return gm(info.stream, context.originalname)
             .autoOrient()
             .noProfile()
-            .resize('300', '300', '^')
+            .resize(300, 300, '^')
             .gravity('Center')
-            .crop('300', '300')
+            .crop(300, 300)
             .stream('jpg');
         }
       },
@@ -92,9 +92,9 @@ function init( c ) {
           return gm(info.stream, context.originalname)
             .autoOrient()
             .noProfile()
-            .resize('100', '100', '^')
+            .resize(100, 100, '^')
             .gravity('Center')
-            .crop('100', '100')
+            .crop(100, 100)
             .stream('jpg');
         }
       },
