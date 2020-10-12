@@ -233,6 +233,12 @@ async function _fetch( knex, identifier ) {
 
   if ( !location ) throw new Error( 'no location record' );
 
+  ['description', 'access'].forEach(locationField => {
+    if (location[locationField] instanceof Array) {
+      location[locationField] = {};
+    }
+  });
+
   const articles = _.uniqBy( await knex( 'review_article as ra' ).select( [
     'ra.id as id',
     'ra.user_id as userId',
