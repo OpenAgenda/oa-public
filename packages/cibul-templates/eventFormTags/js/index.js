@@ -185,6 +185,8 @@ App = createReactClass( {
 
     }
 
+    console.log('eventFormTags', this.state.customSet);
+
     return <div className="form-page">
       <div className="form-head">
         <h2>{this.getTitle()}</h2>
@@ -204,7 +206,7 @@ App = createReactClass( {
         onChange={ this.onChange( 'tags' ) }
         labels={tagSetLabels}
       /> : null }
-      { this.state.customSet.length ? this.state.customSet.filter( c => c.fieldType !== 'image' ).map( field =>
+      { this.state.customSet.length ? this.state.customSet.filter( c => !['image', 'file'].includes( c.fieldType ) ).map( field =>
         <CustomField
           key={field.name}
           labels={labels}
