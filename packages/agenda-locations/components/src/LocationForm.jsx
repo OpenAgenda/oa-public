@@ -890,7 +890,7 @@ class LocationForm extends Component {
           defaultZoom={this.props.enableGeocode ? null : 3}
           location={this.state.location}
           draggableMarker={true}
-          onMarkerDragged={this.onMarkerDragged}
+          onMarkerDragged={this.onMarkerDragged.bind(this)}
           draggable={true} />
       </div>
 
