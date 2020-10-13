@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const fs = require('fs');
@@ -587,12 +587,12 @@ describe('02 - event search - functional: Applied search', function() {
         });
 
         it('each aggregation key is the user uid of the member', () => {
-          agg[0].key.should.equal('75052324');
+          agg[0].key.should.equal(75052324);
         });
 
         it('each aggregation provides name and uid of member', () => {
           agg[0].should.eql({
-            key: '75052324',
+            key: 75052324,
             member: { uid: 75052324, name: 'Kaoré - OpenAgenda' },
             eventCount: 204
           });
@@ -613,7 +613,7 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('source agendas are listed with corresponding event counts', () => {
           agg[0].should.eql({
-            key: '38598267',
+            key: 38598267,
             agenda: {
               uid: 38598267,
               title: 'Ville de CENON',
@@ -636,12 +636,12 @@ describe('02 - event search - functional: Applied search', function() {
         });
 
         it('each aggregation key is the uid of the agenda', () => {
-          originAgendaAggregation[0].key.should.equal('94573624');
+          originAgendaAggregation[0].key.should.equal(94573624);
         });
 
         it('each aggregation provides basic info on agenda', () => {
           originAgendaAggregation[0].should.eql({
-            key: '94573624',
+            key: 94573624,
             eventCount: 174,
             agenda: {
               uid: 94573624,

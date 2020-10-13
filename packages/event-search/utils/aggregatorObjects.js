@@ -1,15 +1,12 @@
 'use strict';
 
-module.exports.flatten = (obj, fields = []) => {
-  return fields.map(field => [field, obj[field]].join(':'))
-    .join('|');
-}
+const { encode, decode } = require('@openagenda/utils/base64');
 
-module.exports.inflate = key => key.split('|')
-  .reduce((obj, fieldValuePair) => {
-    const [field, value] = fieldValuePair.split(':');
-    return {
-      ...obj,
-      [field]: value
-    }
-  }, {});
+module.exports.flatten = (obj, fields) => encode(JSON.stringify(fields
+  .reduce((picked, field) => ({
+    ...picked,
+    [field]: obj[field]
+  }), {}))
+);
+
+module.exports.inflate = obj => JSON.parse(decode(obj));
