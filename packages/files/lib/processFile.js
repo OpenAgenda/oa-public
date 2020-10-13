@@ -29,7 +29,7 @@ const imageExts = new Set([
 
 async function getStreamInfo(data) {
   const stream = await FileType.stream(data);
-  const fileType = stream.fileType;
+  const { fileType } = stream;
   const isImage = imageExts.has(fileType && fileType.ext);
 
   stream.isImage = isImage;
@@ -44,12 +44,12 @@ async function getStreamInfo(data) {
 function extractStreamAndContext(data) {
   const hasFileContext = Array.isArray(data);
 
-  const file = hasFileContext ? data[0] : data
+  const file = hasFileContext ? data[0] : data;
   const fileContext = hasFileContext ? data[1] : {};
 
   // from multer
   if (!isStream(file) && file.path) {
-    const stream = fs.createReadStream(file.path)
+    const stream = fs.createReadStream(file.path);
     const {
       fieldname,
       originalname,
@@ -228,5 +228,5 @@ module.exports = async function processFile(cfg, providers, data, options, conte
       await abortAllVariants(variantsRegistry, error);
 
       throw error;
-    })
+    });
 };

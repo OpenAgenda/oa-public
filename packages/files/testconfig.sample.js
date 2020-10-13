@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   bucket: 'cibultest',
   tmpBucketPath: 'https://cibultmp.s3.amazonaws.com/',

@@ -7,10 +7,20 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc"
+    ]
   },
   "dependencies": {
     "aws-sdk": "^2.544.0",
+    "express": "^4.17.1",
     "file-type": "^15.0.0",
     "gm": "^1.23.1",
     "is-stream": "^2.0.0",
@@ -21,8 +31,12 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "express": "^4.17.1",
+    "@openagenda/eslint-config": "^1.2.4",
+    "axios": "^0.20.0",
+    "eslint": "^6.8.0",
     "form-data": "^3.0.0",
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "lint-staged": "^10.2.11",
+    "prettier-eslint-cli": "^5.0.0"
   }
 }

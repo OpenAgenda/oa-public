@@ -66,7 +66,7 @@ function cleanup() {
       if (fs.existsSync(file.path)) {
         fs.unlinkSync(file.path);
       }
-    }
+    };
 
     res.on('finish', () => {
       if (req.file) {
@@ -110,7 +110,7 @@ module.exports = cfg => {
       }
 
       for (const fileOptions of (Array.isArray(options) ? options : [options])) {
-        const fileData = keyedData ? data[fileOptions.key] : data
+        const fileData = keyedData ? data[fileOptions.key] : data;
 
         if (keyedData && !data[fileOptions.key]) {
           continue;
@@ -162,5 +162,3 @@ module.exports = cfg => {
 
   return filesManager;
 };
-
-
