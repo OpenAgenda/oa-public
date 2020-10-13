@@ -205,6 +205,7 @@ const config = {
       name: 'cibul'
     },
     blacklistedDomains: [
+      'getnada.com',
       'intrees.org',
       'luxusmail.gq',
       'kweekendci.com',
