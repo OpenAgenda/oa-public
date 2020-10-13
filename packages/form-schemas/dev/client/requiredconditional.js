@@ -11,7 +11,6 @@ if ( module.hot ) module.hot.accept();
 class Main extends Component {
 
   render() {
-
     const props = {
       lang: 'fr',
       withErrors: true,
@@ -30,7 +29,15 @@ class Main extends Component {
           field: 'checkboxes',
           fieldType: 'checkbox',
           label: 'Some checkboxes',
-          options: [ { id: 1, label: 'Check this', value: 'check-this' } ]
+          options: [{
+            id: 1,
+            label: 'Check this',
+            value: 'check-this'
+          }, {
+            id: 2,
+            label: 'Or that',
+            value: 'or-that'
+          }]
         }, {
           field: 'moreconditioned',
           fieldType: 'text',
@@ -43,6 +50,16 @@ class Main extends Component {
           optional: false,
           label: 'This should be a number when enabled',
           enableWith: 'checkboxes'
+        }, {
+          field: 'textfield',
+          fieldType: 'text',
+          optional: false,
+          label: 'Write in that',
+          info: 'Activated if "Or that" value is checked',
+          enableWith: {
+            field: 'checkboxes',
+            value: 2
+          }
         }]
       }
     }
@@ -52,9 +69,8 @@ class Main extends Component {
         <FormSchemaComponent { ...props } />
       </div>
     </div>
-
   }
 
 }
 
-render( <Main />, document.getElementById( 'app' ) );
+render(<Main />, document.getElementById('app'));

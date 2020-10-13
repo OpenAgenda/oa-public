@@ -1,15 +1,19 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const getEnableWithFieldName = require('../iso/getEnableWithFieldName');
 
-module.exports = ( field, values, disabledForm = false ) => {
+module.exports = (field, values, disabledForm = false) => {
+  if (disabledForm) return false;
 
-  if ( disabledForm ) return false;
+  if (!field.enableWith) return true;
 
-  if ( !field.enableWith ) return true;
+  const relatedFieldValue = _.get(values, getEnableWithFieldName(field.enableWith));
+  const isEnabledWithValue = typeof field.enableWith === 'object';
 
-  const enableWithValue = _.get( values, field.enableWith );
+  if (isEnabledWithValue) {
+    return ([].concat(relatedFieldValue)).includes(field.enableWith.value);
+  }
 
-  return !!( _.isArray( enableWithValue ) ? enableWithValue.length : enableWithValue );
-
+  return !!(relatedFieldValue instanceof Array ? relatedFieldValue.length : relatedFieldValue);
 }

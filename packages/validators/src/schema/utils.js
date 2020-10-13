@@ -1,11 +1,9 @@
-"use strict";
+'use strict';
 
 const _ = {
-  extend: require( 'lodash/extend' ),
-  keys: require( 'lodash/keys' ),
-  get: require( 'lodash/get' ),
-  pick: require( 'lodash/pick' ),
-  isArray: require( 'lodash/isArray' )
+  get: require('lodash/get'),
+  pick: require('lodash/pick'),
+  isArray: require('lodash/isArray')
 }
 
 module.exports = {
@@ -16,109 +14,104 @@ module.exports = {
 
 const registeredValidators = {};
 
-
-function mapValuesToValidators( fields, values ) {
-
-  return _.keys( fields ).map( fieldName => ( {
+function mapValuesToValidators(fields, values) {
+  return Object.keys(fields).map(fieldName => ({
     field: fieldName,
     validator: _makeValidator(
-      _extractType( _.get( fields, fieldName ) ),
+      _extractType(_.get(fields, fieldName)),
       fieldName,
-      _.get( fields, fieldName ), // options
+      _.get(fields, fieldName), // options
       values
-    ),
-    value: _extractValue( _.get( values, fieldName ), values, fields[ fieldName ] )
-  } ) );
-
+   ),
+    value: _extractValue(_.get(values, fieldName), values, fields[fieldName])
+  }));
 }
 
 
-function _extractValue( value, values, fieldOptions = {} ) {
+function _extractValue(value, values, fieldOptions = {}) {
+  const enableWith = _.get(fieldOptions, 'enableWith');
 
-  if ( !_.get( fieldOptions, 'enableWith' ) ) return value;
+  if (!enableWith) {
+    return value;
+  }
 
-  if ( _.get( values, _.get( fieldOptions, 'enableWith' ) ) ) return value;
+  if (_enableWithFieldValueMatches(enableWith, values)) {
+    return value;
+  }
 
   return null;
-
 }
 
 
-function _makeValidator( type, field, options, values ) {
+function _enableWithFieldValueMatches(enableWith, values) {
+  const enableWithField = typeof enableWith === 'string' ? enableWith : enableWith.field;
+  const value = values === undefined ? undefined : values[enableWithField];
 
-  let validatorOptions = _.extend( { field }, options );
+  const evaluateRefFieldAsTruthy = typeof enableWith === 'string';
 
-  if ( type === 'list' ) {
+  if (evaluateRefFieldAsTruthy && (value instanceof Array) && !value.length) {
+    return false;
+  } else if (evaluateRefFieldAsTruthy && [undefined, null].includes(value)) {
+    return false;
+  } else if (evaluateRefFieldAsTruthy) {
+    return true;
+  }
 
+  if (value instanceof Array) {
+    return value.includes(enableWith.value);
+  }
+
+  return value === enableWith.value;
+}
+
+function _makeValidator(type, field, options, values) {
+  const validatorOptions = {
+    field,
+    ...options
+  };
+
+  if (type === 'list') {
     validatorOptions.validators = registeredValidators;
-
   }
 
-  if ( validatorOptions.enableWith && _isFalsy( _.get( values, validatorOptions.enableWith ) ) ) {
-
+  if (validatorOptions.enableWith && !_enableWithFieldValueMatches(validatorOptions.enableWith, values)) {
     validatorOptions.optional = true;
-
   }
 
-  const validate = registeredValidators[ type ]( validatorOptions );
+  const validate = registeredValidators[type](validatorOptions);
 
-  if ( typeof validate !== 'function' ) {
-
-    throw new Error( 'There is no registered validator for field type ' + type );
-
+  if (typeof validate !== 'function') {
+    throw new Error('There is no registered validator for field type ' + type);
   }
 
   return validate;
-
 }
 
 
-function getDefault( fields ) {
-
+function getDefault(fields) {
   let clean = {};
 
-  _.keys( fields ).forEach( k => {
-
-    if ( fields[ k ].type === 'schema' ) {
-
-      clean[ k ] = fields[ k ].list ? [] : getDefault( fields[ k ].fields );
-
+  Object.keys(fields).forEach(k => {
+    if (fields[k].type === 'schema') {
+      clean[k] = fields[k].list ? [] : getDefault(fields[k].fields);
     } else {
-
-      clean[ k ] = !('default' in fields[ k ]) ? null : fields[ k ].default;
-
+      clean[k] = !('default' in fields[k]) ? null : fields[k].default;
     }
-
-  } );
+  });
 
   return clean;
-
 }
 
 
-function _extractType( fieldOptions ) {
-
-  if ( typeof registeredValidators[ fieldOptions.type ] === 'undefined' ) {
-
-    throw new Error( 'Unregistered type: ' + fieldOptions.type );
-
+function _extractType(fieldOptions) {
+  if (typeof registeredValidators[fieldOptions.type] === 'undefined') {
+    throw new Error('Unregistered type: ' + fieldOptions.type);
   }
 
   return fieldOptions.type;
-
 }
 
 
-function registerValidators( validators ) {
-
-  _.extend( registeredValidators, validators );
-
-}
-
-function _isFalsy( value ) {
-
-  if ( _.isArray( value ) && !value.length ) return true;
-
-  return [ undefined, null ].includes( value );
-
+function registerValidators(validators) {
+  Object.assign(registeredValidators, validators);
 }

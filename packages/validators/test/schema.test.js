@@ -1018,7 +1018,6 @@ describe('schema validator', () => {
       });
 
       it('enableWith with a list value enables field only when the list is not empty', () => {
-
         const validate = schema({
           selection: {
             type: 'choice'
@@ -1043,7 +1042,89 @@ describe('schema validator', () => {
         }
 
         expect(errored).toBe(false);
+      });
 
+      it('enableWith can target a specific value of reference field', () => {
+        const validate = schema({
+          selection: {
+            type: 'choice',
+            options: [13, 14, 15]
+          },
+          someField: {
+            optional: false,
+            enableWith: {
+              field: 'selection',
+              value: 14
+            },
+            type: 'text'
+          }
+        });
+
+        let errors;
+
+        try {
+          validate({
+            selection: 14,
+          });
+        } catch (e) {
+          errors = e;
+        }
+
+        expect(errors[0].code).toEqual('required');
+      });
+
+      it('when enableWith with value is different, field is not evaluated', () => {
+        const validate = schema({
+          selection: {
+            type: 'choice',
+            unique: true,
+            options: [13, 14, 15]
+          },
+          someField: {
+            optional: false,
+            enableWith: {
+              field: 'selection',
+              value: 14
+            },
+            type: 'text'
+          }
+        });
+
+        const clean = validate({
+          selection: 13,
+        });
+
+        expect(clean).toEqual({
+          selection: 13,
+          someField: null
+        });
+      });
+
+      it('when enableWith with value matches, valid value is cleaned', () => {
+        const validate = schema({
+          selection: {
+            type: 'choice',
+            options: [13, 14, 15]
+          },
+          someField: {
+            optional: false,
+            enableWith: {
+              field: 'selection',
+              value: 14
+            },
+            type: 'text'
+          }
+        });
+
+        const clean = validate({
+          selection: 14,
+          someField: 'some text'
+        });
+
+        expect(clean).toEqual({
+          selection: [14],
+          someField: 'some text'
+        });
       });
 
       it('enableWith fields still throw errors with wrong input', () => {
