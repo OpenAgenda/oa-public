@@ -1,11 +1,8 @@
 'use strict';
 
-const _ = require('lodash');
 const agendas = require('@openagenda/agendas');
-const imageFiles = require('@openagenda/image-files');
 const cmn = require('../../lib/commons-app');
 const controlDataSvc = require('../legacy').controlData;
-const activities = require('../activities');
 const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
 const middleware = require('./middleware');
 
@@ -110,23 +107,4 @@ function beforeRemove(agenda, cb) {
     log('warn', 'could not clear agenda control data', agenda.uid, err);
     cb();
   });
-}
-
-function removeImage(services, imagePath) {
-  const { files } = services;
-  const { s3 } = files.providers;
-
-  const match = imagePath.match(/(?<name>.*)(?<ext>\..*)(?<query>\?.*)/);
-
-  if (!match) {
-    return;
-  }
-
-  const { name, ext } = match.groups;
-
-  return s3.remove([
-    `${name}${ext}`,
-    `rwtb${name}${ext}`,
-    `${name}_o${ext}`
-  ]);
 }

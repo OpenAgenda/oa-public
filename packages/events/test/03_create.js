@@ -11,8 +11,6 @@ const should = require( 'should' );
 const svc = require( './service' );
 const config = require( '../testconfig' );
 
-const externalServices = require( './service/externalServices' );
-
 describe( 'events -03- functional (server): create', function() {
 
   this.timeout( 30000 );
@@ -29,15 +27,7 @@ describe( 'events -03- functional (server): create', function() {
 
   before( done => {
 
-    externalServices.init( config.tests );
-
-    svc.initAndLoad( ih( config, {
-      interfaces: {
-        imageFilesLoad: {
-          $set: externalServices.imageFiles.load
-        }
-      }
-    } ), [
+    svc.initAndLoad( config, [
       config.schemas.event + '_empty',
       config.legacy.schemas.event
     ], { reset: true }, done );
@@ -124,7 +114,7 @@ describe( 'events -03- functional (server): create', function() {
         }
       }, { draft: true } );
 
-      event.image.size.should.eql( { width: 600, height: 600 } );
+      event.image.size.should.eql( { width: 700, height: 700 } );
 
       /* {
         filename: '636eaeeeb44243e4a76a3c12b8928045.base.image.jpg',
@@ -151,7 +141,7 @@ describe( 'events -03- functional (server): create', function() {
         }
       }, { draft: true } );
 
-      event.image.size.should.eql( { width: 600, height: 913 } );
+      event.image.size.should.eql( { width: 700, height: 1065 } );
 
       event.image.variants.map( v => v.type ).should.eql( [ 'full', 'thumbnail' ] );
 
@@ -474,7 +464,7 @@ describe( 'events -03- functional (server): create', function() {
 
       result.valid.should.equal( false );
 
-      _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
+      _.get( result, 'errors.0.code' ).should.equal( 'invalid.image' );
 
       _.get( result, 'errors.0.step' ).should.equal( 'image' );
 
@@ -498,7 +488,7 @@ describe( 'events -03- functional (server): create', function() {
 
       result.valid.should.equal( false );
 
-      _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
+      _.get( result, 'errors.0.code' ).should.equal( 'invalid.image' );
 
       _.get( result, 'errors.0.step' ).should.equal( 'image' );
 
@@ -521,7 +511,7 @@ describe( 'events -03- functional (server): create', function() {
 
       result.valid.should.equal( false );
 
-      _.get( result, 'errors.0.code' ).should.equal( 'invalid.status' );
+      _.get( result, 'errors.0.message' ).should.equal( 'Request failed with status code 403' );
 
     } );
 

@@ -110,7 +110,7 @@ async function updatePromise( identifiers, data, options ) {
 
     } catch ( e ) {
 
-      v.errors.push( { step: 'image', code: _.get( e, 'code' ), caught: e } );
+      v.errors.push( { step: 'image', code: 'invalid.image', message: _.get( e, 'message' ), caught: e } );
 
     }
 

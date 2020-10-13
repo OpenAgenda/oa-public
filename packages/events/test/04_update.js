@@ -5,7 +5,6 @@ process.env.NODE_ENV = 'test';
 const _ = require( 'lodash' );
 
 const ih = require( 'immutability-helper' );
-const mysql = require( 'mysql' );
 const should = require( 'should' );
 
 const config = require( '../testconfig' );
@@ -15,12 +14,8 @@ const externalServices = require( './service/externalServices' );
 
 const testService = {
   init: cb => {
-    externalServices.init(config.tests);
     svc.initAndLoad(ih( config, {
       interfaces: {
-        imageFilesLoad: {
-          $set: externalServices.imageFiles.load
-        },
         getLocations: {
           $set: externalServices.getLocations
         }
@@ -120,7 +115,7 @@ describe( 'events -04- functional (server): update', function() {
       }
     } );
 
-    event.image.size.should.eql( { width: 600, height: 600 } );
+    event.image.size.should.eql( { width: 700, height: 700 } );
 
   } );
 
@@ -299,7 +294,7 @@ describe( 'events -04- functional (server): update', function() {
 
       result.valid.should.equal( false );
 
-      _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
+      _.get( result, 'errors.0.code' ).should.equal( 'invalid.image' );
 
       _.get( result, 'errors.0.step' ).should.equal( 'image' );
 

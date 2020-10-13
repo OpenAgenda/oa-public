@@ -4,7 +4,7 @@ const assert = require('assert');
 const fixtures = require('./fixtures');
 const Service = require('../');
 
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 
 const {
   service: config,

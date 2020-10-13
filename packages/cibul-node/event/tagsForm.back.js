@@ -226,7 +226,7 @@ function _validateCategories( req, res, next ) {
 
 function _updateCustom( req, res, next ) {
 
-  if ( !req.customSet || ( !req.body.event && !req.body.event.custom ) ) {
+  if ( !req.customSet || ( !req.body.event || !req.body.event.custom ) ) {
 
     return next();
 

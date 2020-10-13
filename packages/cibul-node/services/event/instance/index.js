@@ -8,17 +8,11 @@ state = require( './state' ),
 
 ics = require( './ics' ),
 
-custom = require( './custom' ),
-
 dispatcher = require( './dispatcher' ),
 
 utils = require( '../../../lib/utils' ),
 
 config = require( '../../../config' ),
-
-imageSvc = require( '@openagenda/images' ),
-
-s3Svc = require( '@openagenda/files' ).s3,
 
 exportable = require( './exportable' ),
 
@@ -37,7 +31,6 @@ function instanciate( data ) {
   var instance = model.events().instance( data ),
 
   svcInstance = utils.extend( {}, instance, {
-    setImage: setImage,
     getImage: _imageGetter( 'getImage' ),
     getThumbnail: _imageGetter( 'getThumbnail' ),
     getFullImage: _imageGetter( 'getFullImage' ),
@@ -55,13 +48,6 @@ function instanciate( data ) {
     'setOnStateChange'
   ] );
 
-  custom( svcInstance, instance, [
-    'loadAgendaCustomContext', // load agenda context
-    'setCustomFile',          // process custom image upload
-    'unsetCustomFile',        // take a wild guess
-    'evaluateCustomImageDuplication'
-  ] );
-
   exportable( svcInstance, instance, [
     'exportable'
   ] );
@@ -71,47 +57,6 @@ function instanciate( data ) {
   instance.onSave = svcInstance.onSave = dsp.onSave;
 
   return svcInstance;
-
-  // assuming for now that input is url
-  function setImage( url, cb ) {
-
-    // assuming event is created
-    var name = 'event' + instance.uid;
-
-    imageSvc.multi( {
-      url: url
-    }, [
-      { name: name, format: { width: 600 } },
-      { name: 'evf' + name },
-      { name: 'evtb' + name, format: { width: 240, height: 320, crop: true } }
-    ], function( err, imagePaths ) {
-
-      if ( err ) return cb( err );
-
-      s3Svc.store( imagePaths, function( err ) {
-
-        if ( err ) return cb( err );
-
-        if ( instance.getImage() === name + '.jpg' ) {
-
-          return cb();
-
-        }
-
-        instance.setImage( name + '.jpg', function( err ) {
-
-          if ( err ) return cb( err );
-
-          instance.save( { image: name + '.jpg' }, cb );
-
-        } );
-
-      });
-
-    } );
-
-  }
-
 
   function transferOwnership( userId, cb ) {
 

@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const should = require( 'should' );
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 
 const {
   service: config,

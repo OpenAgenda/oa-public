@@ -3,7 +3,7 @@
 const assert = require('assert');
 const slug = require('slugify');
 
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 
 const {
   service: config,

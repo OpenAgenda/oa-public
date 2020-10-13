@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const mysql = require( 'mysql' );
 const should = require( 'should' );
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 
 const {
   service: config,

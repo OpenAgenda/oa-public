@@ -4,7 +4,6 @@
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
-    "test": "mocha",
     "start": "nodemon --ignore build --ignore node_modules app.js",
     "build:dev": "bnr build:dev",
     "build:prod": "bnr build:prod"
@@ -44,7 +43,6 @@
     "@openagenda/call-to-action": "^2.2.14",
     "@openagenda/dom-utils": "^2.2.11",
     "@openagenda/home": "^2.1.16",
-    "@openagenda/image-upload": "^1.0.9",
     "@openagenda/inbox-apps": "^1.1.15",
     "@openagenda/labels": "^2.2.7",
     "@openagenda/leaflet.markercluster": "^0.4.0",
@@ -123,9 +121,5 @@
     "webpackbar": "^4.0.0",
     "when": "~3.7.8",
     "xhr": "^2.2.0"
-  },
-  "devDependencies": {
-    "mocha": "^7.0.1",
-    "should": "^13.2.3"
   }
 }

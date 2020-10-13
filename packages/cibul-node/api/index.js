@@ -2,7 +2,6 @@
 
 const VError = require('verror');
 const express = require('express');
-const multer = require('multer');
 
 const logRequests = require('../services/logRequests');
 const log = require('@openagenda/logs')('api');
@@ -28,16 +27,18 @@ module.exports = core => {
   app.core = core;
   app.services = core.services;
 
-  const upload = multer({
-    dest: core.getConfig().tmpFolderPath
-  });
+  // const upload = multer({
+  //   dest: core.getConfig().tmpFolderPath
+  // });
+
+  const { upload } = app.services.events;
 
   log('middleware');
   app.use(logRequests.middleware);
 
   // should only apply to create and upload really
-  app.post(/^\/v2.+/, upload.single('image'));
-  app.patch(/^\/v2.+/, upload.single('image'));
+  app.post(/^\/v2.+/, upload.middleware([{ name: 'image', unique: true }]));
+  app.patch(/^\/v2.+/, upload.middleware([{ name: 'image', unique: true }]));
 
   app.post(/^\/v2.+/, mw.parseBodyData);
   app.patch(/^\/v2.+/, mw.parseBodyData);

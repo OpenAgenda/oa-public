@@ -8,7 +8,7 @@ const knexLib = require('knex');
 const fixtures = require('@openagenda/fixtures');
 const keysSvc = require('@openagenda/keys/test/service');
 const keysConfig = require('@openagenda/keys/service/config');
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 const crypto = require('../utils/crypto');
 const {
   service: config,

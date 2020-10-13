@@ -17,23 +17,8 @@ module.exports = {
 
   image: {
     base: '//openagendatst.s3.amazonaws.com/',
-    default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
-    formats: [ {
-      name: '{fileKey}.base.image.jpg',
-      format: { width: 600 },
-      variant: 'base'
-    }, {
-      name: '{fileKey}.full.image.jpg',
-      variant: 'full'
-    }, {
-      name: '{fileKey}.thumb.image.jpg',
-      format: { width: 200, height: 200, crop: true },
-      variant: 'thumbnail'
-    } ]
+    default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
   },
-
-  // imagePath: ,
-  //defaultImagePath: ,
 
   redis: {
     host: 'localhost',
@@ -97,8 +82,6 @@ module.exports = {
       } ) ) );
 
     },
-
-    imageFilesLoad: () => {}, // load func of inited image-files service
 
     getLocations: ( uids, options, cb ) => {
 

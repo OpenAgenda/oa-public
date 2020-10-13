@@ -4,7 +4,7 @@ const _ = require('lodash');
 const assert = require('assert');
 const fs = require('fs');
 
-const Files = require('@openagenda/files/v3');
+const Files = require('@openagenda/files');
 
 const {
   service: config,

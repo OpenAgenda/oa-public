@@ -202,7 +202,7 @@ async function createPromise( data, options ) {
 
     } catch ( e ) {
 
-      errors.push( { step: 'image', code: _.get( e, 'code' ), caught: e } );
+      errors.push( { step: 'image', code: 'invalid.image', message: _.get( e, 'message' ), caught: e } );
 
     }
 
@@ -212,8 +212,6 @@ async function createPromise( data, options ) {
   if ( !errors.length ) {
 
     try {
-
-      cleanEvent
 
       createdId = _.head( await knex( schemas.event ).insert( dbParse.toDb( cleanEvent ) ) );
 

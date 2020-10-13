@@ -1522,7 +1522,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime-corejs2@npm:^7.0.0, @babel/runtime-corejs2@npm:^7.2.0, @babel/runtime-corejs2@npm:^7.3.1, @babel/runtime-corejs2@npm:^7.4.2":
+"@babel/runtime-corejs2@npm:^7.0.0, @babel/runtime-corejs2@npm:^7.3.1, @babel/runtime-corejs2@npm:^7.4.2":
   version: 7.8.7
   resolution: "@babel/runtime-corejs2@npm:7.8.7"
   dependencies:
@@ -3905,7 +3905,6 @@ __metadata:
     "@openagenda/babel-preset": ^1.3.8
     "@openagenda/bs-templates": ^2.4.6
     "@openagenda/eslint-config": ^1.2.4
-    "@openagenda/image-files": ^1.1.10
     "@openagenda/logs": ^1.1.7
     "@openagenda/react-components": ^2.3.9
     "@openagenda/react-shared": ^2.0.7
@@ -4173,6 +4172,7 @@ __metadata:
     "@openagenda/labels": ^2.2.7
     "@openagenda/logs": ^1.1.7
     "@openagenda/react-components": ^2.3.9
+    "@openagenda/react-shared": ^2.0.7
     "@openagenda/validators": ^2.2.14
     babel-jest: ^26.0.1
     babel-loader: ^8.1.0
@@ -4349,10 +4349,9 @@ __metadata:
     "@openagenda/bs-templates": ^2.2.0
     "@openagenda/countries": ^0.1.1
     "@openagenda/dom-utils": ^2.2.11
-    "@openagenda/files": ^2.0.12
+    "@openagenda/files": ^3.0.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/geocoder": ^1.2.7
-    "@openagenda/images": ^1.1.9
     "@openagenda/labels": ^2.2.7
     "@openagenda/logs": ^1.1.7
     "@openagenda/react-components": ^2.3.9
@@ -4750,7 +4749,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/agendas@workspace:packages/agendas"
   dependencies:
-    "@openagenda/files": ^2.0.12
+    "@openagenda/files": ^3.0.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/logs": ^1.1.7
     "@openagenda/mysql-utils": ^2.0.4
@@ -5005,7 +5004,6 @@ __metadata:
     "@openagenda/call-to-action": ^2.2.14
     "@openagenda/dom-utils": ^2.2.11
     "@openagenda/home": ^2.1.16
-    "@openagenda/image-upload": ^1.0.9
     "@openagenda/inbox-apps": ^1.1.15
     "@openagenda/labels": ^2.2.7
     "@openagenda/leaflet.markercluster": ^0.4.0
@@ -5047,7 +5045,6 @@ __metadata:
     marked: ^0.7.0
     masonry-layout: 4.2.2
     mkdirp: ^0.5.1
-    mocha: ^7.0.1
     moment: 2.27.0
     moment-timezone: ^0.5.31
     node-sass: ^4.5.2
@@ -5073,7 +5070,6 @@ __metadata:
     redbox-react: ^1.5.0
     redux: ^4.0.5
     regenerator-runtime: ^0.13.3
-    should: ^13.2.3
     source-map-loader: ^0.2.1
     spin.js: 2.3.2
     st: 1.2.2
@@ -5282,10 +5278,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
-    "@openagenda/files": ^2.0.12
     "@openagenda/fixtures": ^2.0.2
-    "@openagenda/image-files": ^1.1.10
-    "@openagenda/images": ^1.1.9
     "@openagenda/logs": ^1.1.7
     "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/queue": ^1.0.1
@@ -5293,6 +5286,7 @@ __metadata:
     "@openagenda/slugs": ^1.1.0
     "@openagenda/validators": ^2.2.14
     async: ^2.1.2
+    axios: ^0.19.0
     immutability-helper: ^2.3.0
     knex: ^0.19.5
     lodash: ^4.17.15
@@ -5321,7 +5315,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/files@^2.0.12, @openagenda/files@workspace:packages/files":
+"@openagenda/files@^3.0.0, @openagenda/files@workspace:packages/files":
   version: 0.0.0-use.local
   resolution: "@openagenda/files@workspace:packages/files"
   dependencies:
@@ -5397,6 +5391,7 @@ __metadata:
     "@openagenda/labels": ^2.2.7
     "@openagenda/logs": ^1.1.7
     "@openagenda/react-components": ^2.3.9
+    "@openagenda/react-shared": ^2.0.7
     "@openagenda/react-utils": ^4.2.6
     "@openagenda/validators": ^2.2.14
     aws-sdk: ^2.544.0
@@ -5507,57 +5502,6 @@ __metadata:
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
-  languageName: unknown
-  linkType: soft
-
-"@openagenda/image-files@^1.1.10, @openagenda/image-files@workspace:packages/image-files":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/image-files@workspace:packages/image-files"
-  dependencies:
-    "@openagenda/files": ^2.0.12
-    "@openagenda/images": ^1.1.9
-    "@openagenda/logs": ^1.1.7
-    lodash: ^4.17.15
-    mocha: ^7.0.1
-    should: ^13.2.3
-    when: ^3.7.8
-  languageName: unknown
-  linkType: soft
-
-"@openagenda/image-upload@npm:^1.0.9":
-  version: 1.0.9
-  resolution: "@openagenda/image-upload@npm:1.0.9"
-  dependencies:
-    "@babel/runtime-corejs2": ^7.2.0
-    "@openagenda/utils": ^1.2.2
-    create-react-class: ^15.5.3
-    gm: 1.20.0
-    multer: 1.0.5
-    prop-types: ^15.5.8
-    react-copy-to-clipboard: ^5.0.1
-    spin.js: 2.3.2
-    when: 3.7.3
-    xhr: 2.1.0
-  peerDependencies:
-    react: 15 || 16
-    react-dom: 15 || 16
-  checksum: 31be96bb8cac7d32fd90a82898ed5d751bb8b3938bee6fc75c38cf7a7bafe1851a8b6b41dbd6c4bdc6331d2aa308deb7145b8fccdf00f117ba0daa2e2670ee82
-  languageName: node
-  linkType: hard
-
-"@openagenda/images@^1.1.9, @openagenda/images@workspace:packages/images":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/images@workspace:packages/images"
-  dependencies:
-    "@openagenda/logs": ^1.1.7
-    async: ^1.5.0
-    gm: ^1.21.1
-    lodash: ^4.17.15
-    mocha: ^7.0.1
-    request: ^2.88.0
-    should: ^13.2.3
-    verror: ^1.10.0
-    when: ^3.7.8
   languageName: unknown
   linkType: soft
 
@@ -6743,7 +6687,7 @@ __metadata:
     "@feathersjs/errors": ^4.5.1
     "@feathersjs/hooks": ^0.4.0-alpha.0
     "@openagenda/eslint-config": ^1.2.4
-    "@openagenda/files": ^2.0.12
+    "@openagenda/files": ^3.0.0
     "@openagenda/fixtures": ^2.0.2
     "@openagenda/keys": ^2.2.9
     "@openagenda/logs": ^1.1.7
@@ -9309,13 +9253,6 @@ __metadata:
   version: 1.0.2
   resolution: "app-root-dir@npm:1.0.2"
   checksum: 223fed876cbeae036506897d24cb172e55e2dc550f07e233934b42a40fd6b10abb342f9ad77e3e98117de05430a98ccb2327a8708f9fb148fbb80254624ec34c
-  languageName: node
-  linkType: hard
-
-"append-field@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "append-field@npm:0.1.0"
-  checksum: af0f3e502427d9546ff2cb721d90639c7ef78407e387aac679deb2719ccd932f590cf9a496914f89bb6d62366e45f74cac4b6d94ef5dfcda9048b19309ccb03e
   languageName: node
   linkType: hard
 
@@ -12386,15 +12323,12 @@ __metadata:
     "@openagenda/event-search": ^2.7.4
     "@openagenda/events": ^1.6.9
     "@openagenda/facebook": ^0.1.5
-    "@openagenda/files": ^2.0.12
+    "@openagenda/files": ^3.0.0
     "@openagenda/flat-exports": ^1.3.9
     "@openagenda/flattener": ^1.1.0
     "@openagenda/form-schemas": ^1.8.5
     "@openagenda/geocoder": ^1.2.7
     "@openagenda/home": ^2.1.16
-    "@openagenda/image-files": ^1.1.10
-    "@openagenda/image-upload": ^1.0.9
-    "@openagenda/images": ^1.1.9
     "@openagenda/inbox-apps": ^1.1.15
     "@openagenda/inboxes": ^1.1.13
     "@openagenda/invitations": ^1.1.5
@@ -19050,18 +18984,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gm@npm:1.20.0":
-  version: 1.20.0
-  resolution: "gm@npm:1.20.0"
-  dependencies:
-    array-parallel: ~0.1.3
-    array-series: ~0.1.5
-    debug: ~2.2.0
-  checksum: 1477982aaad1501db2e05fe0de1035de144aeef74171ed4c96ba36d14976a3f9dc26414d921ba5fc17a68f39d8d98e0715cfd83e39bb5c5a5d21ae2628701c20
-  languageName: node
-  linkType: hard
-
-"gm@npm:^1.17.0, gm@npm:^1.21.1, gm@npm:^1.23.1":
+"gm@npm:^1.17.0, gm@npm:^1.23.1":
   version: 1.23.1
   resolution: "gm@npm:1.23.1"
   dependencies:
@@ -26350,22 +26273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"multer@npm:1.0.5":
-  version: 1.0.5
-  resolution: "multer@npm:1.0.5"
-  dependencies:
-    append-field: ^0.1.0
-    busboy: ^0.2.11
-    concat-stream: ^1.5.0
-    mkdirp: ^0.5.1
-    object-assign: ^3.0.0
-    on-finished: ^2.3.0
-    type-is: ^1.6.4
-    xtend: ^4.0.0
-  checksum: bae23b88c104e2d77d8fadc690b1678c13155b2d0e2d255d3f9c12bc758d534388bedb7fe97c612f0de0f084899645a2ea7d620b9ddc32de113238a943d9c7d4
-  languageName: node
-  linkType: hard
-
 "multer@npm:^1.3.0, multer@npm:^1.3.1, multer@npm:^1.4.2":
   version: 1.4.2
   resolution: "multer@npm:1.4.2"
@@ -27356,13 +27263,6 @@ __metadata:
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: 66cf021898fc1b13ea573ea8635fbd5a76533f50cecbc2fcd5eee1e8029af41bcebe7023788b6d0e06cbe4401ecea075d972f78ec74467cdc571a0f1a4d1a081
-  languageName: node
-  linkType: hard
-
-"object-assign@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "object-assign@npm:3.0.0"
-  checksum: e3e258e5712f28d4541b1efb666ca7549d868884e01568367830b1f9d52310b91b4852768efeef0a4dcd766a5ff1330c5fb83ad5a966c194e7609b2d8b7c90ce
   languageName: node
   linkType: hard
 
@@ -30863,7 +30763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-copy-to-clipboard@npm:^5.0.1, react-copy-to-clipboard@npm:^5.0.2":
+"react-copy-to-clipboard@npm:^5.0.2":
   version: 5.0.2
   resolution: "react-copy-to-clipboard@npm:5.0.2"
   dependencies:
@@ -38337,13 +38237,6 @@ typescript@^4.0:
   languageName: node
   linkType: hard
 
-"when@npm:3.7.3":
-  version: 3.7.3
-  resolution: "when@npm:3.7.3"
-  checksum: 279d96893360bc681cf8325518440e18147d3cf31f9a0d92273cc0d288dc88778b1addc65a6e901483680d03fb25bce328f6bbf01fead1205201c57c8252cc38
-  languageName: node
-  linkType: hard
-
 "when@npm:3.7.4":
   version: 3.7.4
   resolution: "when@npm:3.7.4"
@@ -38770,17 +38663,6 @@ typescript@^4.0:
   version: 4.0.0
   resolution: "xdg-basedir@npm:4.0.0"
   checksum: 928953cb7dda8e2475932f748847a3aae751f44864a0067b03e5ca66820a36e1e9ffb647f9b06fb68ebcb0b9d06d5aee630717a1d2501be14cec99f82efa2fe6
-  languageName: node
-  linkType: hard
-
-"xhr@npm:2.1.0":
-  version: 2.1.0
-  resolution: "xhr@npm:2.1.0"
-  dependencies:
-    global: ~4.3.0
-    once: ~1.1.1
-    parse-headers: ^2.0.0
-  checksum: fef36534618cb2caaafc08891aab9c2e1987c9dda30c9827ee490315af27c7d9884c3a3f1cbbffcdb460a1a661209dea533a3db95e331dcef1b16d9674b0386f
   languageName: node
   linkType: hard
 
