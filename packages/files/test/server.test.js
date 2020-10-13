@@ -2,16 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const stream = require('stream');
 const { promisify } = require('util');
+const finished = promisify(require('stream').finished);
 const express = require('express');
 const axios = require('axios');
 const FormData = require('form-data');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
 const { s3UrlMatching } = require('./utils');
-
-const finished = promisify(stream.finished);
 
 const bucket = testconfig.s3.defaultBucket;
 const filePath = path.join(__dirname, 'files/src3.png');
@@ -51,18 +49,20 @@ describe('with server', () => {
 
     const stream = fs.createReadStream(filePath);
 
-    const checkMw = (req, res) => {
+    const checkMw = async (req, res) => {
       expect(req.body).toEqual({
         password: 'gnagnagna',
         text: 'Un champ!'
       });
 
-      req.file.transformAndUpload()
-        .then(result => res.send(result))
-        .catch(error => {
-          console.log('error', error);
-          res.status(400).send(error);
-        });
+      try {
+        const result = await req.file.transformAndUpload();
+
+        res.send(result);
+      } catch (error) {
+        console.log('error', error);
+        res.status(400).send(error);
+      }
     };
 
     app.use(upload.cleanup());
@@ -121,7 +121,7 @@ describe('with server', () => {
       try {
         const result = await req.image.transformAndUpload();
 
-        res.send(result)
+        res.send(result);
       } catch (error) {
         next(error);
       }
@@ -129,6 +129,7 @@ describe('with server', () => {
 
     app.use(upload.cleanup());
     app.use('/upload', upload.multer.fields([{ name: 'image', maxCount: 1 }]), checkMw);
+    // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
       res.status(500).send(err);
     });
@@ -164,7 +165,10 @@ describe('with server', () => {
     const upload = service(
       {
         key: 'image',
-        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        getFilename: (info, context) => {
+          count += 1;
+          return `${path.parse(context.originalname).name}-${count}.png`;
+        }
       }
     );
 
@@ -181,7 +185,7 @@ describe('with server', () => {
           req.files.image.map(image => image.transformAndUpload())
         );
 
-        res.send(result)
+        res.send(result);
       } catch (error) {
         next(error);
       }
@@ -189,6 +193,7 @@ describe('with server', () => {
 
     app.use(upload.cleanup());
     app.use('/upload', upload.multer.fields([{ name: 'image', maxCount: 5 }]), checkMw);
+    // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
       console.log(err);
       res.status(500).send(err);
@@ -210,20 +215,6 @@ describe('with server', () => {
 
     expect(first).toMatchObject({
       key: 'image',
-      filename: 'src3-0.png',
-      fileType: { ext: 'png', mime: 'image/png' },
-      isImage: true,
-      provider: 's3',
-      uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-0.png'),
-        key: 'src3-0.png',
-        Key: 'src3-0.png',
-        Bucket: `${bucket}`
-      })
-    });
-
-    expect(second).toMatchObject({
-      key: 'image',
       filename: 'src3-1.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
@@ -232,6 +223,20 @@ describe('with server', () => {
         Location: s3UrlMatching('src3-1.png'),
         key: 'src3-1.png',
         Key: 'src3-1.png',
+        Bucket: `${bucket}`
+      })
+    });
+
+    expect(second).toMatchObject({
+      key: 'image',
+      filename: 'src3-2.png',
+      fileType: { ext: 'png', mime: 'image/png' },
+      isImage: true,
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('src3-2.png'),
+        key: 'src3-2.png',
+        Key: 'src3-2.png',
         Bucket: `${bucket}`
       })
     });
@@ -245,8 +250,8 @@ describe('with server', () => {
     expect(secondImage.headers['content-length']).toBe(stream.bytesRead.toString());
 
     await Promise.all([
-      upload.providers.s3.remove('src3-0.png'),
-      upload.providers.s3.remove('src3-1.png')
+      upload.providers.s3.remove('src3-1.png'),
+      upload.providers.s3.remove('src3-2.png')
     ]);
   });
 
@@ -254,7 +259,10 @@ describe('with server', () => {
     let count = 0;
     const upload = service({
       key: 'image',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+      getFilename: (info, context) => {
+        count += 1;
+        return `${path.parse(context.originalname).name}-${count}.png`;
+      }
     });
 
     const stream = fs.createReadStream(filePath);
@@ -283,6 +291,7 @@ describe('with server', () => {
       { name: 'other', maxCount: 5 },
       { name: 'foo', maxCount: 5 }
     ]), checkMw);
+    // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
       console.log(err);
       res.status(500).send(err);
@@ -308,20 +317,6 @@ describe('with server', () => {
 
     expect(image[0]).toMatchObject({
       key: 'image',
-      filename: 'src3-0.png',
-      fileType: { ext: 'png', mime: 'image/png' },
-      isImage: true,
-      provider: 's3',
-      uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-0.png'),
-        key: 'src3-0.png',
-        Key: 'src3-0.png',
-        Bucket: `${bucket}`
-      })
-    });
-
-    expect(image[1]).toMatchObject({
-      key: 'image',
       filename: 'src3-1.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
@@ -334,13 +329,27 @@ describe('with server', () => {
       })
     });
 
+    expect(image[1]).toMatchObject({
+      key: 'image',
+      filename: 'src3-2.png',
+      fileType: { ext: 'png', mime: 'image/png' },
+      isImage: true,
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('src3-2.png'),
+        key: 'src3-2.png',
+        Key: 'src3-2.png',
+        Bucket: `${bucket}`
+      })
+    });
+
     await Promise.all([
-      upload.providers.s3.remove('src3-0.png'),
       upload.providers.s3.remove('src3-1.png'),
       upload.providers.s3.remove('src3-2.png'),
       upload.providers.s3.remove('src3-3.png'),
       upload.providers.s3.remove('src3-4.png'),
-      upload.providers.s3.remove('src3-5.png')
+      upload.providers.s3.remove('src3-5.png'),
+      upload.providers.s3.remove('src3-6.png')
     ]);
   });
 
@@ -348,7 +357,10 @@ describe('with server', () => {
     let count = 0;
     const upload = service({
       key: 'image',
-      getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+      getFilename: (info, context) => {
+        count += 1;
+        return `${path.parse(context.originalname).name}-${count}.png`;
+      }
     });
 
     const stream = fs.createReadStream(filePath);
@@ -371,6 +383,7 @@ describe('with server', () => {
       { name: 'other', maxCount: 5 },
       { name: 'foo', maxCount: 5 }
     ]), checkMw);
+    // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
       console.log(err);
       res.status(500).send(err);
@@ -396,20 +409,6 @@ describe('with server', () => {
 
     expect(image[0]).toMatchObject({
       key: 'image',
-      filename: 'src3-0.png',
-      fileType: { ext: 'png', mime: 'image/png' },
-      isImage: true,
-      provider: 's3',
-      uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-0.png'),
-        key: 'src3-0.png',
-        Key: 'src3-0.png',
-        Bucket: `${bucket}`
-      })
-    });
-
-    expect(image[1]).toMatchObject({
-      key: 'image',
       filename: 'src3-1.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
@@ -422,13 +421,27 @@ describe('with server', () => {
       })
     });
 
+    expect(image[1]).toMatchObject({
+      key: 'image',
+      filename: 'src3-2.png',
+      fileType: { ext: 'png', mime: 'image/png' },
+      isImage: true,
+      provider: 's3',
+      uploadValue: expect.objectContaining({
+        Location: s3UrlMatching('src3-2.png'),
+        key: 'src3-2.png',
+        Key: 'src3-2.png',
+        Bucket: `${bucket}`
+      })
+    });
+
     await Promise.all([
-      upload.providers.s3.remove('src3-0.png'),
       upload.providers.s3.remove('src3-1.png'),
       upload.providers.s3.remove('src3-2.png'),
       upload.providers.s3.remove('src3-3.png'),
       upload.providers.s3.remove('src3-4.png'),
-      upload.providers.s3.remove('src3-5.png')
+      upload.providers.s3.remove('src3-5.png'),
+      upload.providers.s3.remove('src3-6.png')
     ]);
   });
 
@@ -437,15 +450,24 @@ describe('with server', () => {
     const upload = service([
       {
         key: 'image',
-        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        getFilename: (info, context) => {
+          count += 1;
+          return `${path.parse(context.originalname).name}-${count}.png`;
+        }
       },
       {
         key: 'other',
-        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        getFilename: (info, context) => {
+          count += 1;
+          return `${path.parse(context.originalname).name}-${count}.png`;
+        }
       },
       {
         key: 'foo',
-        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        getFilename: (info, context) => {
+          count += 1;
+          return `${path.parse(context.originalname).name}-${count}.png`;
+        }
       }
     ]);
 
@@ -464,7 +486,7 @@ describe('with server', () => {
           foo: req.files.foo.map((v, i) => [v, { uid: i }])
         });
 
-        res.send(result)
+        res.send(result);
       } catch (error) {
         next(error);
       }
@@ -476,6 +498,7 @@ describe('with server', () => {
       { name: 'other', maxCount: 5 },
       { name: 'foo', maxCount: 5 }
     ]), checkMw);
+    // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
       console.log(err);
       res.status(500).send(err);
@@ -505,53 +528,53 @@ describe('with server', () => {
 
     expect(image[0]).toMatchObject({
       key: 'image',
-      filename: 'src3-0.png',
+      filename: 'src3-1.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-0.png'),
-        key: 'src3-0.png',
-        Key: 'src3-0.png',
+        Location: s3UrlMatching('src3-1.png'),
+        key: 'src3-1.png',
+        Key: 'src3-1.png',
         Bucket: `${bucket}`
       })
     });
 
     expect(other[0]).toMatchObject({
       key: 'other',
-      filename: 'src3-2.png',
+      filename: 'src3-3.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-2.png'),
-        key: 'src3-2.png',
-        Key: 'src3-2.png',
+        Location: s3UrlMatching('src3-3.png'),
+        key: 'src3-3.png',
+        Key: 'src3-3.png',
         Bucket: `${bucket}`
       })
     });
 
     expect(foo[0]).toMatchObject({
       key: 'foo',
-      filename: 'src3-4.png',
+      filename: 'src3-5.png',
       fileType: { ext: 'png', mime: 'image/png' },
       isImage: true,
       provider: 's3',
       uploadValue: expect.objectContaining({
-        Location: s3UrlMatching('src3-4.png'),
-        key: 'src3-4.png',
-        Key: 'src3-4.png',
+        Location: s3UrlMatching('src3-5.png'),
+        key: 'src3-5.png',
+        Key: 'src3-5.png',
         Bucket: `${bucket}`
       })
     });
 
     await Promise.all([
-      upload.providers.s3.remove('src3-0.png'),
       upload.providers.s3.remove('src3-1.png'),
       upload.providers.s3.remove('src3-2.png'),
       upload.providers.s3.remove('src3-3.png'),
       upload.providers.s3.remove('src3-4.png'),
-      upload.providers.s3.remove('src3-5.png')
+      upload.providers.s3.remove('src3-5.png'),
+      upload.providers.s3.remove('src3-6.png')
     ]);
   });
 
@@ -560,7 +583,10 @@ describe('with server', () => {
     const upload = service(
       {
         key: 'image',
-        getFilename: (info, context) => `${path.parse(context.originalname).name}-${count++}.png`
+        getFilename: (info, context) => {
+          count += 1;
+          return `${path.parse(context.originalname).name}-${count}.png`;
+        }
       }
     );
 
@@ -590,6 +616,7 @@ describe('with server', () => {
 
     app.use(upload.cleanup());
     app.use('/upload', upload.multer.fields([{ name: 'image', maxCount: 5 }]), checkMw);
+    // eslint-disable-next-line no-unused-vars
     app.use((err, req, res, next) => {
       console.log(err);
       res.status(500).send(err);

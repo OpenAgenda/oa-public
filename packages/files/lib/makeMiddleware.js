@@ -27,15 +27,18 @@ function getMulterMw(svc, fields) {
 
 function uniqueFields(fields) {
   return (req, res, next) => {
-    if (!req.files) {
+    const { files } = req;
+
+    if (!files) {
       return next();
     }
 
     for (const field of fields) {
-      const value = req.files[field.name];
+      const value = files[field.name];
 
       if (field.unique && Array.isArray(value)) {
-        req.files[field.name] = value[0];
+        // eslint-disable-next-line prefer-destructuring
+        files[field.name] = value[0];
       }
     }
 
@@ -84,4 +87,4 @@ module.exports = function makeMiddleware(svc) {
 
     return router;
   };
-}
+};

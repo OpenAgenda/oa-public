@@ -2,15 +2,14 @@
 
 const fs = require('fs');
 const path = require('path');
-const stream = require('stream');
 const { promisify } = require('util');
+const finished = promisify(require('stream').finished);
 const axios = require('axios');
 const isStream = require('is-stream');
 const Files = require('../lib');
 const testconfig = require('../testconfig');
 const { s3UrlMatching } = require('./utils');
 
-const finished = promisify(stream.finished);
 
 const bucket = testconfig.s3.defaultBucket;
 const filePath = path.join(__dirname, 'files/src3.png');

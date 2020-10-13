@@ -1,6 +1,8 @@
+'use strict';
+
 const fs = require('fs');
 const os = require('os');
-const path = require('path');
+const { join } = require('path');
 const crypto = require('crypto');
 const mkdirp = require('mkdirp');
 const processFile = require('./processFile');
@@ -16,7 +18,9 @@ function getDestination(req, file, cb) {
 }
 
 class TempStorage {
-  constructor({ cfg, providers, options, tmpFilename, tmpDestination }) {
+  constructor({
+    cfg, providers, options, tmpFilename, tmpDestination
+  }) {
     this.cfg = cfg;
     this.providers = providers;
     this.options = options;
@@ -50,10 +54,10 @@ class TempStorage {
     that.getDestination(req, file, (err, destination) => {
       if (err) return cb(err);
 
-      that.getFilename(req, file, (err, filename) => {
-        if (err) return cb(err);
+      that.getFilename(req, file, (err2, filename) => {
+        if (err2) return cb(err2);
 
-        const finalPath = path.join(destination, filename);
+        const finalPath = join(destination, filename);
         const outStream = fs.createWriteStream(finalPath);
 
         file.stream.pipe(outStream);
@@ -73,8 +77,9 @@ class TempStorage {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   _removeFile(req, file, cb) {
-    const path = file.path;
+    const { path } = file;
 
     delete file.destination;
     delete file.filename;
