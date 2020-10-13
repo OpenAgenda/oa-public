@@ -29,13 +29,40 @@ function mapValuesToValidators(fields, values) {
 
 
 function _extractValue(value, values, fieldOptions = {}) {
-  if (!_.get(fieldOptions, 'enableWith')) return value;
+  const enableWith = _.get(fieldOptions, 'enableWith');
 
-  if (_.get(values, _.get(fieldOptions, 'enableWith'))) return value;
+  if (!enableWith) {
+    return value;
+  }
+
+  if (_enableWithFieldValueMatches(enableWith, values)) {
+    return value;
+  }
 
   return null;
 }
 
+
+function _enableWithFieldValueMatches(enableWith, values) {
+  const enableWithField = typeof enableWith === 'string' ? enableWith : enableWith.field;
+  const value = values === undefined ? undefined : values[enableWithField];
+
+  const evaluateRefFieldAsTruthy = typeof enableWith === 'string';
+
+  if (evaluateRefFieldAsTruthy && (value instanceof Array) && !value.length) {
+    return false;
+  } else if (evaluateRefFieldAsTruthy && [undefined, null].includes(value)) {
+    return false;
+  } else if (evaluateRefFieldAsTruthy) {
+    return true;
+  }
+
+  if (value instanceof Array) {
+    return value.includes(enableWith.value);
+  }
+
+  return value === enableWith.value;
+}
 
 function _makeValidator(type, field, options, values) {
   const validatorOptions = {
@@ -47,7 +74,7 @@ function _makeValidator(type, field, options, values) {
     validatorOptions.validators = registeredValidators;
   }
 
-  if (validatorOptions.enableWith && _isFalsy(_.get(values, validatorOptions.enableWith))) {
+  if (validatorOptions.enableWith && !_enableWithFieldValueMatches(validatorOptions.enableWith, values)) {
     validatorOptions.optional = true;
   }
 
@@ -87,10 +114,4 @@ function _extractType(fieldOptions) {
 
 function registerValidators(validators) {
   Object.assign(registeredValidators, validators);
-}
-
-function _isFalsy(value) {
-  if (_.isArray(value) && !value.length) return true;
-
-  return [undefined, null].includes(value);
 }
