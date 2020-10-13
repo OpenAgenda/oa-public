@@ -147,7 +147,7 @@ function ImageInput({
           {value ? (
             <>
               {preview ? (
-                <div className="padding-all-sm">
+                <div>
                   <Image
                     alt=""
                     src={preview}
@@ -169,7 +169,6 @@ function ImageInput({
             </>
           ) : (
             <div
-              className="margin-all-sm"
               css={css`
                 margin-left: auto;
                 margin-right: auto;
@@ -185,9 +184,10 @@ function ImageInput({
                   border-style: dashed;
                   width: ${width};
                   height: ${height};
+                  min-height: 160px;
                   ${rounded ? 'border-radius: 50%' : ''}
                 `}
-                  {...rootProps}
+                {...rootProps}
               >
                 <button
                   type="button"
@@ -246,7 +246,7 @@ function ImageInput({
       </div>
 
       {extensions?.length ? (
-        <div className="text-right">
+        <div className="text-right margin-top-xs">
           <FormattedMessage
             id="ReactShared.ImageInput.acceptedFiles"
             defaultMessage="Accepted files"
@@ -256,7 +256,7 @@ function ImageInput({
       ) : null}
 
       {rejections?.length ? (
-        <div>
+        <div className="margin-top-xs">
           {rejections.map(({ file, errors }, index) => (
             <FileError
               key={String(index)}
