@@ -5319,8 +5319,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/files@workspace:packages/files"
   dependencies:
-    "@openagenda/logs": ^1.1.7
-    async: ^1.5.0
     aws-sdk: ^2.544.0
     express: ^4.17.1
     file-type: ^15.0.0
@@ -5328,7 +5326,6 @@ __metadata:
     gm: ^1.23.1
     is-stream: ^2.0.0
     jest: ^26.4.2
-    lodash: ^4.17.15
     mkdirp: ^1.0.4
     multer: ^1.4.2
     type-is: ^1.6.18
