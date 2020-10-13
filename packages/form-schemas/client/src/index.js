@@ -10,6 +10,7 @@ import { Spinner } from '@openagenda/react-components';
 
 import FormSchema from './iso/FormSchema';
 import getErrorLabel from './iso/getErrorLabel';
+import getEnableWithFieldName from './iso/getEnableWithFieldName';
 
 import flatten from './lib/flatten';
 import submit from './lib/submit';
@@ -171,7 +172,8 @@ export default class FormSchemaComponent extends Component {
     values[field] = value;
 
     if (fieldObject.enableWith) {
-      values[fieldObject.enableWith] = this.getCurrentValues()[fieldObject.enableWith];
+      const enableWithFieldName = getEnableWithFieldName(fieldObject.enableWith);
+      values[enableWithFieldName] = this.getCurrentValues()[enableWithFieldName];
     }
 
     const { clean, errors } = this.sanitize(values);
@@ -247,7 +249,10 @@ export default class FormSchemaComponent extends Component {
 
     updateValues[field] = { $set: value };
 
-    const impactedFields = this._getFormSchema().getFields().filter(f => f.enableWith === field).map(f => f.field);
+    const impactedFields = this._getFormSchema()
+      .getFields()
+      .filter(f => getEnableWithFieldName(f.enableWith) === field)
+      .map(f => f.field);
 
     const updatedErrors = this.get('errors', [])
       .filter(e => !impactedFields.concat(field).includes(e.field)) // keep other errors

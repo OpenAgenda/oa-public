@@ -6,7 +6,8 @@ const choice = require('@openagenda/validators/choice');
 const schema = require('@openagenda/validators/schema');
 
 const types = Object.keys(require('./types'));
-const areFieldLabelsMultilingual = require('./areFieldLabelsMultilingual')
+const areFieldLabelsMultilingual = require('./areFieldLabelsMultilingual');
+const getEnableWithFieldName = require('./getEnableWithFieldName');
 
 _.extend(_, {
   assign: require('lodash/assign'),
@@ -84,55 +85,46 @@ function validate(value, options = {}) {
 
   // enableWith tells validator it is active if field specified has a value.
   // if set, the field must be part of related fields
-  if (clean.enableWith && !_.get(clean, 'related', []).includes(clean.enableWith)) {
-    clean.related = _.get(clean, 'related', []).concat(clean.enableWith);
+  if (clean.enableWith) {
+    const enableWithFieldName = getEnableWithFieldName(clean.enableWith);
+    if (!_.get(clean, 'related', []).includes(enableWithFieldName)) {
+      clean.related = _.get(clean, 'related', []).concat(enableWithFieldName);
+    }
   }
 
   // if is custom or abstract field, do not filter out remaining values
   if (isCustomField || isAbstract) {
-    _.keys(value)
-      .filter(key => !_.includes(_.keys(clean)))
-      .forEach(key => clean[key] = value[key]);
+    _.keys(value).forEach(key => clean[key] = value[key]);
   }
 
   // validate any optioned type
   if (optionedTypes.includes(type)) {
-
     const unique = _.get(value, 'options', []).reduce((unique, v) => unique.indexOf(v.value) === -1 ? unique.concat(v.value) : unique, []);
 
     if (unique.length !== _.get(value, 'options', []).length) {
-
       errors = errors.concat({
         field: 'options',
         code: 'duplicate',
         message: 'option values must be unique',
         origin: value
       });
-
     }
-
   }
 
   // validate any
   if ((minMaxedTypes.includes(type) || isCustomField) && value.min !== undefined && value.max !== undefined) {
-
     if (value.max < value.min) {
-
       errors = errors.concat({
         field: 'max',
         code: 'smallerthan.min',
         message: 'max cannot be smaller than min',
         origin: value
       })
-
     }
-
   }
 
   if (multilingualTypes.includes(type) && _.isArray(value.languages)) {
-
     clean.languages = value.languages;
-
   }
 
   if (errors.length) throw errors;
@@ -257,7 +249,7 @@ function buildFieldSchema(type, options = {}) {
 
     // other field that defines if this field should be enabled
     enableWith: {
-      type: 'text',
+      type: 'pass',
       default: null
     },
 
