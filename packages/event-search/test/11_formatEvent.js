@@ -97,11 +97,11 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('originAgenda._agg is a string with info on agenda', () => {
-    formatted.originAgenda._agg.should.eql('uid:123456|title:L\'agenda d\'origine je crois|image:https://fdqfdq.jpg')
+    formatted.originAgenda._agg.should.eql('eyJ1aWQiOjEyMzQ1NiwidGl0bGUiOiJMJ2FnZW5kYSBkJ29yaWdpbmUgamUgY3JvaXMiLCJpbWFnZSI6Imh0dHBzOi8vZmRxZmRxLmpwZyJ9')
   });
 
   it('sourceAgendas[]._agg is a string with info on the agenda', () => {
-    formatted.sourceAgendas[0]._agg.should.eql('uid:7891011|title:Un agenda source|image:');
+    formatted.sourceAgendas[0]._agg.should.eql('eyJ1aWQiOjc4OTEwMTEsInRpdGxlIjoiVW4gYWdlbmRhIHNvdXJjZSIsImltYWdlIjpudWxsfQ==');
   });
 
   it('_search_title contains the titles of the event', () => {

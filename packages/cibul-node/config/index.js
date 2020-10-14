@@ -205,8 +205,17 @@ const config = {
       name: 'cibul'
     },
     blacklistedDomains: [
+      'getnada.com',
       'intrees.org',
-      'luxusmail.gq'
+      'luxusmail.gq',
+      'kweekendci.com',
+      'truthfinderlogin.com',
+      'temporary-mail.net',
+      'besttempmail.com',
+      'powerencry.com',
+      'truthfinderlogin.com',
+      'wellsfargocomcardholders.com',
+      'chasefreedomactivate.com'
     ],
     mails: {
       defaults: {
