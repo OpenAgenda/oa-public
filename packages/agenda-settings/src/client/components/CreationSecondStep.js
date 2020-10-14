@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import { Spinner } from '@openagenda/react-components';
 import { validate, asyncValidate } from '../containers/AgendaCreation/validate';
 import { get } from 'lodash';
 
@@ -23,7 +24,7 @@ export default class CreationSecondStep extends Component {
   };
 
   render() {
-    const { previousPage, handleSubmit, errors, fields, title } = this.props;
+    const { previousPage, handleSubmit, errors, fields, title, submitting } = this.props;
     const { getLabel } = this.context;
 
     const getError = fieldname => {
@@ -90,9 +91,28 @@ export default class CreationSecondStep extends Component {
               </label>
             </div>
           </div>
-          <button type="button" className="btn btn-default" onClick={previousPage}>{getLabel( 'previous' )}</button>
+          <button
+            type="button"
+            className="btn btn-default"
+            onClick={previousPage}
+            disabled={submitting}
+          >
+            {getLabel( 'previous' )}
+          </button>
           <div className="pull-right">
-            <button type="submit" className="btn btn-primary">{getLabel( 'createAgenda' )}</button>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={submitting}
+            >
+              {getLabel( 'createAgenda' )}
+
+              {submitting ? (
+                <span className="margin-left-xs">
+                  <Spinner mode="inline" />
+                </span>
+              ) : null}
+            </button>
           </div>
         </form>
       </div>

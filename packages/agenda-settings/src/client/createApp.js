@@ -23,6 +23,7 @@ export default function (options) {
   const { apiRoot, prefix } = initialState.settings;
 
   const getApp = () => createApp({
+    name: 'agenda-settings/create',
     ...options,
     initialState,
     apiRoot,
