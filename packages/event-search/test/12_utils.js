@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const elasticsearch = require('@elastic/elasticsearch');
 const moment = require('moment');
-const should = require('should');
+const assert = require('assert');
 
 const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
 const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
@@ -60,9 +60,8 @@ describe('event-search - unit: utils', function() {
         }, last]
       });
 
-      nextTiming.should.eql(next);
-
-      lastTiming.should.eql(last);
+      assert.deepEqual(nextTiming, next);
+      assert.deepEqual(lastTiming, last);
     });
   });
 
@@ -78,8 +77,11 @@ describe('event-search - unit: utils', function() {
         }
       });
 
-      result.should.eql({
-        title: { fr: 'La guerre des gaules', en: 'War of the Gauls' }
+      assert.deepEqual(result, {
+        title: {
+          fr: 'La guerre des gaules',
+          en: 'War of the Gauls'
+        }
       });
     });
 
@@ -93,7 +95,7 @@ describe('event-search - unit: utils', function() {
         registration: null
       });
 
-      result.should.eql({
+      assert.deepEqual(result, {
         title: 'Gros',
         description: 'Bonjour',
         registration: null
@@ -115,7 +117,7 @@ describe('event-search - unit: utils', function() {
         }
       });
 
-      result.should.eql({
+      assert.deepEqual(result, {
         title: 'Un caballo',
         description: 'A cow'
       });
@@ -124,9 +126,9 @@ describe('event-search - unit: utils', function() {
     it('unset field is ignored', () => {
       const h = monolingual.bind(null, ['title', 'description'], ['es', 'en']);
 
-      h({
+      assert.deepEqual(h({
         title: { es: 'La luna llena' }
-      }).should.eql({
+      }), {
         title: 'La luna llena'
       });
     });
@@ -136,15 +138,13 @@ describe('event-search - unit: utils', function() {
   describe('convertToLocalTimezone', () => {
 
     it('when timings and local timezone are available in event, timings are converted', () => {
-      convertToLocalTimezone({
+      assert.deepEqual(convertToLocalTimezone({
         timings: [{
           begin: '2016-10-24T12:00:00.000Z',
           end: '2016-10-24T13:00:00.000Z'
         }],
         timezone: 'Europe/Paris'
-      })
-
-      .should.eql({
+      }), {
         timings: [{
           begin: '2016-10-24T14:00:00+02:00',
           end: '2016-10-24T15:00:00+02:00'
@@ -166,14 +166,14 @@ describe('event-search - unit: utils', function() {
         end: _dateStrFromNow(2)
       }];
 
-      lastTimingEndsIn({ timings }).should.greaterThan(3);
+      assert(lastTimingEndsIn({ timings }) > 3);
     });
 
   });
 
   describe('other', () => {
     it('geoJSON post parsers transforms search result into geoJSON data', () => {
-      geoJSON(fx.geo.in).should.eql(fx.geo.out);
+      assert.deepEqual(geoJSON(fx.geo.in), fx.geo.out);
     });
 
     it('derelativize - converts relative term with absolute', () => {
@@ -184,7 +184,7 @@ describe('event-search - unit: utils', function() {
         }
       });
 
-      (query.date.gte instanceof Date).should.equal(true);
+      assert.equal(query.date.gte instanceof Date, true);
     });
 
     it('gives the number of days between now and the last timing ends also in the past', () => {
@@ -192,7 +192,7 @@ describe('event-search - unit: utils', function() {
         end: _getYesterdayDate(1)
       }];
 
-      lastTimingEndsIn({ timings }).should.equal(-1);
+      assert.equal(lastTimingEndsIn({ timings }), -1);
     });
   });
 

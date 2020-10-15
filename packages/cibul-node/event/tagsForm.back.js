@@ -1,31 +1,33 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 const log = require('@openagenda/logs')('tagsForm');
-const async = require( 'async' );
-const agendaTags = require( '@openagenda/agenda-tags' );
-const agendaCategories = require( '@openagenda/agenda-categories' );
-const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/tagsForm' ) );
-const cmn = require( '../lib/commons-app' );
+const agendaTags = require('@openagenda/agenda-tags');
+const agendaCategories = require('@openagenda/agenda-categories');
+const cmn = require('../lib/commons-app');
 
-const agendaSvc = require( '../services/agenda' );
-const legacyEventSearch = require('../services/elasticsearch');
-const eventSvc = require( '../services/event' );
-const members = require('../services/members');
-const sessions = require('../services/sessions');
-
-const preMw = [
-  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-  eventSvc.mw.load( 'eventSlug', 'slug' ),
-  sessions.mw.loadOrRedirect(),
-  members.mw.loadAndAuthorize('moderator')
-];
-
+const eventSvc = require('../services/event');
+const agendaSvc = require('../services/agenda')
 
 module.exports = app => {
 
+  const {
+    agendas,
+    core,
+    legacy,
+    sessions,
+    members
+  } = app.services;
+
+  const preMw = [
+    eventSvc.mw.load('eventSlug', 'slug'),
+    sessions.mw.loadOrRedirect(),
+    members.mw.loadAndAuthorize('moderator')
+  ];
+
   app.get(
     '/:slug/events/:eventSlug/tagcat',
+    agendaSvc.mw.load('slug', { basicLoad: true, cache: true }),
     preMw,
     _loadTagSet,
     _loadTags,
@@ -35,41 +37,65 @@ module.exports = app => {
     _loadCustom,
     xhrGet,
     eventSvc.mw.format,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+    cmn.loadBaseData(eventSvc.mw.layoutData, 'oasfmain.css'),
     page
-  );
+ );
 
   app.post(
     '/:slug/events/:eventSlug/tagcat',
+    agendas.mw.loadBy({ path: 'params.slug', field: 'slug' }),
     preMw,
     _loadTagSet,
     _loadCategorySet,
-    _loadCustomSet,
-    _validateTags,
-    _validateCategories,
-    _updateCustom,
-    update
-  );
+    (req, res, next) => {
+      core.agendas(req.agenda.uid).settings.schema.getMerged({
+        includeEvent: false,
+        access: members.utils.getRoleSlug(req.member.role)
+      }).then(schema => {
+        req.schema = schema;
+        next();
+      }, next);
+    },
+    (req, res, next) => {
+
+      const additionalFieldData = legacy.tagsAndCustom.utils.legacyToFormSchemaDataTransform({
+        schema: req.schema,
+        tagSet: req.tagSet,
+        customSet: req.agenda.legacyStore.customFields
+      }, req.body);
+      core.agendas(req.agenda.uid).events.patch(req.event.uid, additionalFieldData, {
+        context: {
+          userUid: req.user.uid
+        },
+        access: members.utils.getRoleSlug(req.member.role)
+      }).then(result => {
+        res.json({ success: true });
+      }, err => {
+        log('error', err);
+        res.json({ success: false });
+      });
+    }
+ );
 
 };
 
 
-function _loadTags( req, res, next ) {
+function _loadTags(req, res, next) {
 
-  req.event.getAgendaTags( ( err, tags ) => {
+  req.event.getAgendaTags((err, tags) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
     req.agendaTags = tags;
 
     next();
 
-  } );
+  });
 
 }
 
 
-function _loadCustomSet( req, res, next ) {
+function _loadCustomSet(req, res, next) {
 
   req.customSet = req.agenda.getCustomFieldsConfig();
 
@@ -77,94 +103,93 @@ function _loadCustomSet( req, res, next ) {
 
 }
 
-function _loadCustom( req, res, next ) {
+function _loadCustom(req, res, next) {
 
-  req.agenda.getEventPublicCustomData( req.event, ( err, customFields ) => {
+  req.agenda.getEventPublicCustomData(req.event, (err, customFields) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
     req.agendaCustom = {};
 
-    if ( !_.isArray( customFields ) ) return next();
+    if (!_.isArray(customFields)) return next();
 
-    req.agendaCustom = customFields.reduce( ( carry, c ) => {
+    req.agendaCustom = customFields.reduce((carry, c) => {
 
-      carry[ c.name ] = c.value;
+      carry[c.name] = c.value;
 
       return carry;
 
-    }, {} );
+    }, {});
 
     next();
 
-  } );
+  });
 
 }
 
 
-function _loadCategory( req, res, next ) {
+function _loadCategory(req, res, next) {
 
-  req.event.getAgendaCategory( ( err, category ) => {
+  req.event.getAgendaCategory((err, category) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
     req.agendaCategory = category;
 
     next();
 
-  } );
+  });
 
 }
 
 
-function _loadTagSet( req, res, next ) {
+function _loadTagSet(req, res, next) {
 
-  agendaTags.get( req.agenda.id, ( err, tagSet ) => {
+  agendaTags.get(req.agenda.id, (err, tagSet) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
     req.tagSet = tagSet;
 
     next();
 
-  } );
+  });
 
 }
 
 
-function _loadCategorySet( req, res, next ) {
+function _loadCategorySet(req, res, next) {
 
-  agendaCategories.get( req.agenda.id, ( err, categorySet ) => {
+  agendaCategories.get(req.agenda.id, (err, categorySet) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
     req.categorySet = categorySet;
 
     next();
 
-  } );
+  });
 
 }
 
 
-function page( req, res ) {
+function page(req, res) {
 
-  cmn.render( req, res, 'eventFormTags/index', {
+  cmn.render(req, res, 'eventFormTags/index', {
     agenda: req.agenda,
     scriptParams: {
       lang: req.lang,
       redirect: req.query.redirect || `/agendas/${req.agenda.uid}/events/${req.event.uid}`
     }
-  } );
+  });
 
 }
 
 
-function xhrGet( req, res, next ) {
+function xhrGet(req, res, next) {
+  if (!req.xhr) return next();
 
-  if ( !req.xhr ) return next();
-
-  res.json( {
+  res.json({
     event: {
       title: req.event.title,
       tags: req.agendaTags,
@@ -175,104 +200,5 @@ function xhrGet( req, res, next ) {
     categorySet: req.categorySet,
     tagSet: req.tagSet,
     customSet: req.customSet
-  } );
-
-}
-
-
-function _validateTags( req, res, next ) {
-
-  let possibleTags = req.tagSet.groups.reduce( ( p, g ) => g.tags.concat( p ), [] ),
-
-  submittedTags = ( req.body.event || { tags: [] } ).tags;
-
-  if ( submittedTags.filter( st => !possibleTags.filter( t => st.slug === t.slug ).length ).length ) {
-
-    return res.json( {
-      success: false,
-      message: getLabel( 'invalidTags', req.lang )
-    } );
-
-  }
-
-  req.tags = submittedTags;
-
-  next();
-
-}
-
-
-function _validateCategories( req, res, next ) {
-
-  let possibleCategories = req.categorySet.categories,
-
-  submittedCategory = ( req.body.event || { category: null } ).category;
-
-  if ( submittedCategory && !possibleCategories.filter( c => c.id === submittedCategory.id ).length ) {
-
-    return res.json( {
-      success: false,
-      message: getLabel( 'invalidCategories', req.lang )
-    } );
-
-  }
-
-  req.category = submittedCategory;
-
-  next();
-
-}
-
-
-function _updateCustom( req, res, next ) {
-
-  if ( !req.customSet || ( !req.body.event || !req.body.event.custom ) ) {
-
-    return next();
-
-  }
-
-  let fieldNames = req.customSet.map( c => c.name ),
-
-    lastField = fieldNames.pop();
-
-  async.eachSeries( fieldNames, ( field, ecb ) => {
-
-    req.event.setCustomField( field, req.body.event.custom[ field ], false, ecb );
-
-  }, err => {
-
-    if ( err ) return next( err );
-
-    req.event.setCustomField( lastField, req.body.event.custom[ lastField ], true, err => {
-
-      if ( err ) return next( err );
-
-      next();
-
-    } );
-
-  } );
-
-}
-
-
-function update( req, res, next ) {
-
-  req.agenda.setEventTagsAndCategory( req.event, req.tags, req.category, async err => {
-
-    if ( err ) return next( err );
-
-    try {
-      await legacyEventSearch.updateEvent(_.pick(req.event, ['uid']));
-    } catch ( e ) {
-      log('error', 'could not update legacy search for event %s', req.event.slug );
-    }
-
-    res.json( {
-      success: true
-    } );
-
-  } );
-
+  });
 }

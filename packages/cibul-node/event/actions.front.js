@@ -283,7 +283,7 @@ async function eventMailSend(req, res, next) {
         width: '300px'
       };
 
-    const link = `${config.root}/${req.agenda.slug}/events/${e.slug}`;
+    const link = `${config.root}/${req.agenda.slug}/events/${req.event.slug}`;
 
     log('info', 'queuing event mails for %s', emails.join('|'), emails.length);
 

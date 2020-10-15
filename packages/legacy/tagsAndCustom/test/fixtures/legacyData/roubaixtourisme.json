@@ -1,0 +1,780 @@
+{
+  "schema": {
+    "custom": {},
+    "fields": [
+      {
+        "field": "categorie-annexes",
+        "label": {
+          "fr": "Catégorie annexes"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 15,
+            "value": "jeune-public",
+            "label": {
+              "fr": "Jeune Public"
+            }
+          },
+          {
+            "id": 16,
+            "value": "cyclisme",
+            "label": {
+              "fr": "Cyclisme"
+            }
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 374
+      },
+      {
+        "field": "tags-du-site-internet",
+        "label": {
+          "fr": "Tags du site internet"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 19,
+            "label": {
+              "fr": "Offre du Mois"
+            },
+            "value": "offre-du-mois"
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 374
+      },
+      {
+        "field": "categories-metropolitaines",
+        "label": "Catégories Métropolitaines",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 101,
+            "value": "atelier",
+            "label": {
+              "fr": "Atelier"
+            }
+          },
+          {
+            "id": 102,
+            "value": "braderie-brocante",
+            "label": {
+              "fr": "Braderie - Brocante"
+            }
+          },
+          {
+            "id": 104,
+            "value": "cinema",
+            "label": {
+              "fr": "Cinéma"
+            }
+          },
+          {
+            "id": 105,
+            "value": "conference-rencontre",
+            "label": {
+              "fr": "Conférence - Rencontre"
+            }
+          },
+          {
+            "id": 107,
+            "value": "danse",
+            "label": {
+              "fr": "Danse"
+            }
+          },
+          {
+            "id": 110,
+            "value": "exposition",
+            "label": {
+              "fr": "Exposition"
+            }
+          },
+          {
+            "id": 111,
+            "value": "fete-festival",
+            "label": {
+              "fr": "Fête - Festival"
+            }
+          },
+          {
+            "id": 113,
+            "value": "lecture",
+            "label": {
+              "fr": "Lecture"
+            }
+          },
+          {
+            "id": 114,
+            "value": "mode",
+            "label": {
+              "fr": "Mode"
+            }
+          },
+          {
+            "id": 115,
+            "value": "musique",
+            "label": {
+              "fr": "Musique"
+            }
+          },
+          {
+            "id": 118,
+            "value": "spectacle",
+            "label": {
+              "fr": "Spectacle"
+            }
+          },
+          {
+            "id": 119,
+            "value": "sport",
+            "label": {
+              "fr": "Sport"
+            }
+          },
+          {
+            "id": 120,
+            "value": "theatre",
+            "label": {
+              "fr": "Théâtre"
+            }
+          },
+          {
+            "id": 121,
+            "value": "visite-balade",
+            "label": {
+              "fr": "Visite - Balade"
+            }
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 374
+      },
+      {
+        "field": "languages",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "description",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "longDescription",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "image",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "imageCredits",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "title",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "keywords",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "conditions",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "age",
+        "fieldType": "abstract",
+        "display": false,
+        "schemaId": null
+      },
+      {
+        "field": "registration",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "accessibility",
+        "fieldType": "abstract",
+        "display": false,
+        "schemaId": null
+      },
+      {
+        "field": "location",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "timings",
+        "fieldType": "abstract",
+        "component": "@openagenda/react-timingspicker",
+        "schemaId": null
+      },
+      {
+        "field": "schedule_description",
+        "label": "Description horaires",
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "custom",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": 255,
+        "fieldType": "text",
+        "schemaId": 374
+      }
+    ]
+  },
+  "agenda": {
+    "uid": 64260763,
+    "title": "Office de Tourisme de Roubaix",
+    "description": "Découvrez toute l'actualité roubaisienne !",
+    "slug": "officedutourismeroubaix",
+    "url": "http://www.roubaixtourisme.com",
+    "official": 1,
+    "networkUid": null,
+    "ownerId": 41303,
+    "updatedAt": "2020-08-06T07:28:52.000Z",
+    "createdAt": "2017-07-03T09:25:59.000Z",
+    "formSchemaId": 374,
+    "officializedAt": "2018-04-09T09:18:44.000Z",
+    "image": "https://cibuldev.s3.amazonaws.com/agenda64260763.jpg",
+    "private": 0,
+    "indexed": 1,
+    "settings": {
+      "tracking": {
+        "googleAnalytics": null
+      },
+      "inbox": {
+        "mailto": {
+          "enabled": false,
+          "email": null,
+          "subject": null,
+          "body": null
+        }
+      },
+      "contribution": {
+        "type": 2,
+        "defaultState": 2,
+        "canPublish": [
+          "administrators",
+          "moderators"
+        ],
+        "moderateOnChangeBy": [],
+        "defaultLang": null,
+        "allowLocationCreate": true,
+        "messages": {
+          "instructions": null,
+          "complete": null,
+          "publication": null
+        },
+        "useFields": false,
+        "authorizedIPAddresses": []
+      },
+      "translation": {
+        "enabled": false,
+        "source": "fr",
+        "sets": [],
+        "service": "reverso",
+        "options": null
+      }
+    },
+    "credentials": {
+      "useContributeApp": true,
+      "useAgendaSchema": true,
+      "premiumCustomFields": true,
+      "moderators": true,
+      "tags": false,
+      "embedsHead": false,
+      "embedsTemplates": true,
+      "indesign": false,
+      "activatingInvitations": false,
+      "emailstrategie": false,
+      "aggregator": true,
+      "invitationMessage": false,
+      "prioritizedAggregator": false,
+      "docxExport": false,
+      "calendarView": false,
+      "eventOwnershipTransfer": false
+    },
+    "id": 11286,
+    "legacyStore": {
+      "moderated": false,
+      "cFields": {
+        "organization": [],
+        "contact_number": [],
+        "contact_name": [],
+        "contact_position": [],
+        "email": []
+      },
+      "form": {
+        "fields": [
+          {
+            "name": "registration",
+            "label": {
+              "fr": "Outils d'inscription (*)",
+              "en": "Registration (*)"
+            },
+            "optional": false
+          },
+          {
+            "name": "conditions",
+            "info": {
+              "fr": "Entrée libre, sur inscription, autre...",
+              "en": "Free access, registration required, other..."
+            },
+            "optional": false
+          }
+        ]
+      },
+      "customFields": [
+        {
+          "name": "reseau-metropole-de-lille",
+          "type": "administrator",
+          "fieldType": "checkbox",
+          "optional": true,
+          "label": {
+            "fr": "Réseau Métropole de Lille",
+            "en": "Réseau Métropole de Lille"
+          }
+        },
+        {
+          "name": "descriptionville",
+          "type": "public",
+          "fieldType": "textarea",
+          "optional": true,
+          "label": {
+            "fr": "Description ville de Roubaix",
+            "en": "Description ville de Roubaix"
+          },
+          "max": 3000
+        },
+        {
+          "name": "schedule_description",
+          "type": "public",
+          "fieldType": "text",
+          "optional": true,
+          "label": {
+            "fr": "Description horaires",
+            "en": "Description horaires"
+          },
+          "max": 255
+        }
+      ]
+    }
+  },
+  "tagSet": {
+    "groups": [
+      {
+        "name": "Catégorie annexes",
+        "tags": [
+          {
+            "id": 15129,
+            "label": "Jeune Public",
+            "slug": "jeune-public",
+            "schemaOptionId": "374.15"
+          },
+          {
+            "id": 15130,
+            "label": "Cyclisme",
+            "slug": "cyclisme",
+            "schemaOptionId": "374.16"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      },
+      {
+        "name": "Tags du site internet",
+        "tags": [
+          {
+            "id": 15739,
+            "label": "Place de Marché",
+            "slug": "place-de-marche",
+            "schemaOptionId": "374.17"
+          },
+          {
+            "id": 15740,
+            "label": "Agenda MEL",
+            "slug": "agenda-mel",
+            "schemaOptionId": "374.18"
+          },
+          {
+            "id": 15741,
+            "label": "Offre du Mois",
+            "slug": "offre-du-mois",
+            "schemaOptionId": "374.19"
+          },
+          {
+            "id": 15742,
+            "label": "Newsletter",
+            "slug": "newsletter",
+            "schemaOptionId": "374.20"
+          },
+          {
+            "id": 15743,
+            "label": "Application Iphone",
+            "slug": "application-iphone",
+            "schemaOptionId": "374.21"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      },
+      {
+        "name": "Catégories Métropolitaines",
+        "tags": [
+          {
+            "id": 15115,
+            "label": "Atelier",
+            "slug": "atelier",
+            "schemaOptionId": "374.101"
+          },
+          {
+            "id": 15116,
+            "label": "Braderie - Brocante",
+            "slug": "braderie-brocante",
+            "schemaOptionId": "374.102"
+          },
+          {
+            "id": 67302,
+            "label": "Cérémonie",
+            "slug": "ceremonie",
+            "schemaOptionId": "374.103"
+          },
+          {
+            "id": 15117,
+            "label": "Cinéma",
+            "slug": "cinema",
+            "schemaOptionId": "374.104"
+          },
+          {
+            "id": 15118,
+            "label": "Conférence - Rencontre",
+            "slug": "conference-rencontre",
+            "schemaOptionId": "374.105"
+          },
+          {
+            "id": 67301,
+            "label": "Conseil Municipal",
+            "slug": "conseil-municipal",
+            "schemaOptionId": "374.106"
+          },
+          {
+            "id": 15119,
+            "label": "Danse",
+            "slug": "danse",
+            "schemaOptionId": "374.107"
+          },
+          {
+            "id": 67303,
+            "label": "Développement durable",
+            "slug": "developpement-durable",
+            "schemaOptionId": "374.108"
+          },
+          {
+            "id": 67304,
+            "label": "Emploi",
+            "slug": "emploi",
+            "schemaOptionId": "374.109"
+          },
+          {
+            "id": 15120,
+            "label": "Exposition",
+            "slug": "exposition",
+            "schemaOptionId": "374.110"
+          },
+          {
+            "id": 15121,
+            "label": "Fête - Festival",
+            "slug": "fete-festival",
+            "schemaOptionId": "374.111"
+          },
+          {
+            "id": 67305,
+            "label": "Formation",
+            "slug": "formation",
+            "schemaOptionId": "374.112"
+          },
+          {
+            "id": 15122,
+            "label": "Lecture",
+            "slug": "lecture",
+            "schemaOptionId": "374.113"
+          },
+          {
+            "id": 15123,
+            "label": "Mode",
+            "slug": "mode",
+            "schemaOptionId": "374.114"
+          },
+          {
+            "id": 15124,
+            "label": "Musique",
+            "slug": "musique",
+            "schemaOptionId": "374.115"
+          },
+          {
+            "id": 67306,
+            "label": "Réunion publique",
+            "slug": "reunion-publique",
+            "schemaOptionId": "374.116"
+          },
+          {
+            "id": 67307,
+            "label": "Santé",
+            "slug": "sante",
+            "schemaOptionId": "374.117"
+          },
+          {
+            "id": 15125,
+            "label": "Spectacle",
+            "slug": "spectacle",
+            "schemaOptionId": "374.118"
+          },
+          {
+            "id": 15126,
+            "label": "Sport",
+            "slug": "sport",
+            "schemaOptionId": "374.119"
+          },
+          {
+            "id": 15127,
+            "label": "Théâtre",
+            "slug": "theatre",
+            "schemaOptionId": "374.120"
+          },
+          {
+            "id": 15128,
+            "label": "Visite - Balade",
+            "slug": "visite-balade",
+            "schemaOptionId": "374.121"
+          }
+        ],
+        "access": "public",
+        "required": true,
+        "unique": false
+      },
+      {
+        "name": "Participation",
+        "tags": [
+          {
+            "id": 67308,
+            "label": "Événement gratuit",
+            "slug": "evenement-gratuit",
+            "schemaOptionId": "374.122"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      },
+      {
+        "name": "roubaix.fr",
+        "tags": [
+          {
+            "id": 67309,
+            "label": "Newsletter",
+            "slug": "newsletter",
+            "schemaOptionId": "374.123"
+          },
+          {
+            "id": 67310,
+            "label": "A la une",
+            "slug": "a-la-une",
+            "schemaOptionId": "374.124"
+          },
+          {
+            "id": 67311,
+            "label": "A ne pas rater",
+            "slug": "a-ne-pas-rater",
+            "schemaOptionId": "374.125"
+          },
+          {
+            "id": 67312,
+            "label": "Site Zéro Déchet",
+            "slug": "site-zero-dechet",
+            "schemaOptionId": "374.126"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      },
+      {
+        "name": "Quartiers",
+        "tags": [
+          {
+            "id": 67313,
+            "label": "Quartiers Nord",
+            "slug": "quartiers-nord",
+            "schemaOptionId": "374.127"
+          },
+          {
+            "id": 67314,
+            "label": "Quartiers Sud",
+            "slug": "quartiers-sud",
+            "schemaOptionId": "374.128"
+          },
+          {
+            "id": 67315,
+            "label": "Quartiers Est",
+            "slug": "quartiers-est",
+            "schemaOptionId": "374.129"
+          },
+          {
+            "id": 67316,
+            "label": "Quartiers Ouest",
+            "slug": "quartiers-ouest",
+            "schemaOptionId": "374.130"
+          },
+          {
+            "id": 67317,
+            "label": "Quartiers Centre",
+            "slug": "quartiers-centre",
+            "schemaOptionId": "374.131"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      },
+      {
+        "name": "Public",
+        "tags": [
+          {
+            "id": 67318,
+            "label": "Famille",
+            "slug": "famille",
+            "schemaOptionId": "374.132"
+          },
+          {
+            "id": 67319,
+            "label": "Étudiant",
+            "slug": "etudiant",
+            "schemaOptionId": "374.133"
+          },
+          {
+            "id": 67320,
+            "label": "Seniors",
+            "slug": "seniors",
+            "schemaOptionId": "374.134"
+          },
+          {
+            "id": 67321,
+            "label": "Tout public",
+            "slug": "tout-public",
+            "schemaOptionId": "374.135"
+          },
+          {
+            "id": 67322,
+            "label": "Jeune Public",
+            "slug": "jeune-public",
+            "schemaOptionId": "374.136"
+          },
+          {
+            "id": 67323,
+            "label": "Professionnel",
+            "slug": "professionnel",
+            "schemaOptionId": "374.137"
+          }
+        ],
+        "access": "public",
+        "required": false,
+        "unique": false
+      }
+    ]
+  },
+  "categorySet": {
+    "name": null,
+    "info": null,
+    "categories": []
+  },
+  "body": {
+    "event": {
+      "title": {
+        "fr": "#XU : Atelier d'écriture rap"
+      },
+      "tags": [
+        {
+          "id": 15129,
+          "slug": "jeune-public",
+          "label": "Jeune Public"
+        },
+        {
+          "id": 15115,
+          "slug": "atelier",
+          "label": "Atelier"
+        }
+      ],
+      "custom": {
+        "descriptionville": "fggdfs",
+        "schedule_description": "15h30"
+      }
+    }
+  }
+}
