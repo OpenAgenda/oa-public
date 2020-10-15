@@ -7,7 +7,8 @@ const setAll = require('./lib/setAll');
 const utils = {
   generateTagSet: require('./lib/utils/generateTagSet'),
   generateCustomSet: require('./lib/utils/generateCustomSet'),
-  generateCategorySet: require('./lib/utils/generateCategorySet')
+  generateCategorySet: require('./lib/utils/generateCategorySet'),
+  legacyToFormSchemaDataTransform: require('./lib/utils/legacyToFormSchemaDataTransform'),
 };
 
 module.exports = ({ knex, queue }) => {
