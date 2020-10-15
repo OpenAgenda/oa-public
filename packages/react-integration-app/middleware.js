@@ -79,16 +79,6 @@ module.exports = function match({ initialState, lang, publicPath }) {
         ],
         ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
         [
-          'aggregatorSources',
-          createAggregatorSourcesApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
-        ],
-        [
-          'agendaSettingsEdit',
-          createAgendaSettingsEditApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
-        ],
-        [
           'inboxUser',
           createInboxApp,
           [MainLayout, RequiredUser, InboxUserLayout]
@@ -97,6 +87,12 @@ module.exports = function match({ initialState, lang, publicPath }) {
           'support',
           createInboxApp,
           [MainLayout, RequiredUser, InboxUserLayout]
+        ],
+        // agenda admin
+        [
+          'aggregatorSources',
+          createAggregatorSourcesApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
         ],
         [
           'agendaAdminInbox',
@@ -118,6 +114,12 @@ module.exports = function match({ initialState, lang, publicPath }) {
           createAgendaStatsApp,
           [MainLayout, RequiredUser, AgendaAdminLayout]
         ],
+        [
+          'agendaSettingsEdit',
+          createAgendaSettingsEditApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
+        ],
+        // superadmin
         [
           'adminSupport',
           createInboxApp,

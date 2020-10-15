@@ -70,18 +70,14 @@ const apps = [
   ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],
   ['agendaSettingsNew', createAgendaSettingsNewApp, [MainLayout, RequiredUser]],
   ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
+  ['inboxUser', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
+  ['support', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
+  // agenda admin
   [
     'aggregatorSources',
     createAggregatorSourcesApp,
     [MainLayout, RequiredUser, AgendaAdminLayout]
   ],
-  [
-    'agendaSettingsEdit',
-    createAgendaSettingsEditApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout]
-  ],
-  ['inboxUser', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
-  ['support', createInboxApp, [MainLayout, RequiredUser, InboxUserLayout]],
   [
     'agendaAdminInbox',
     createInboxApp,
@@ -98,6 +94,12 @@ const apps = [
     createAgendaStatsApp,
     [MainLayout, RequiredUser, AgendaAdminLayout]
   ],
+  [
+    'agendaSettingsEdit',
+    createAgendaSettingsEditApp,
+    [MainLayout, RequiredUser, AgendaAdminLayout]
+  ],
+  // superadmin
   [
     'adminSupport',
     createInboxApp,
