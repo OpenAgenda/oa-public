@@ -38,7 +38,8 @@ if (process.env.NODE_ENV !== 'test') {
 
     // avoid migrations and do it in fixtures.js
     await keysSvc.init(Object.assign(testconfig, {
-      migrations: null, knex: knexLib({
+      migrations: null,
+      knex: knexLib({
         client: 'mysql',
         connection: testconfig.mysql
       })

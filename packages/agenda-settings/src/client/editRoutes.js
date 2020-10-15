@@ -3,6 +3,9 @@ import loadable from '@openagenda/react-utils/dist/loadable';
 const EditionApp = loadable(() =>
   import( /* webpackChunkName: "agendaSettings-EditionApp" */ './containers/EditionApp/EditionApp' )
 );
+const GettingStarted = loadable(() =>
+  import( /* webpackChunkName: "agendaSettings-GettingStarted" */ './components/GettingStarted' )
+);
 const ProfileEdition = loadable(() =>
   import( /* webpackChunkName: "agendaSettings-ProfileEdition" */ './containers/ProfileEdition/ProfileEdition' )
 );
@@ -19,12 +22,12 @@ export default function editRoutes(prefix = '') {
       path: prefix,
       component: EditionApp,
       routes: [
-        { path: `${prefix}/`, exact: true, component: ProfileEdition },
-        { path: `${prefix}/profile`, component: ProfileEdition },
-        { path: `${prefix}/contribution`, component: ContributionEdition },
-        { path: `${prefix}/advanced`, component: AdvancedEdition }
+        { path: `${prefix}/getting-started`, exact: true, component: GettingStarted },
+        { path: `${prefix}/settings`, exact: true, component: ProfileEdition },
+        { path: `${prefix}/settings/profile`, component: ProfileEdition },
+        { path: `${prefix}/settings/contribution`, component: ContributionEdition },
+        { path: `${prefix}/settings/advanced`, component: AdvancedEdition }
       ]
     }
   ];
-
 }

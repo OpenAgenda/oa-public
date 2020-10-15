@@ -10,6 +10,7 @@ import labels from '@openagenda/labels/agenda-settings/agendaEdition';
 import * as agendaActions from '../../reducers/agenda';
 import * as keysActions from '../../reducers/keys';
 import * as modalsActions from '../../reducers/modals';
+import I18nContext from '../../contexts/I18nContext';
 
 
 @provideHooks({
@@ -48,27 +49,29 @@ export default class App extends Component {
     getLabel: PropTypes.func
   };
 
-  getChildContext() {
-    const { lang } = this.props;
+  i18nContextValue = {
+    lang: this.props.lang,
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang)
+  };
 
-    return {
-      lang,
-      getLabel: (label, values) => makeGetterLabel(labels, lang)(label, values)
-    };
+  getChildContext() {
+    return this.i18nContextValue;
   }
 
   render() {
     const { route, loading, agenda, role } = this.props;
 
     return (
-      <div className="agenda-settings-edit">
-        {loading
-          ? (
-            <div style={{ margin: '150px 0' }}>
-              <Spinner />
-            </div>
-          ) : renderRoutes(route.routes, { agenda, role })}
-      </div>
+      <I18nContext.Provider value={this.i18nContextValue}>
+        <div className="agenda-settings-edit">
+          {loading
+            ? (
+              <div style={{ margin: '150px 0' }}>
+                <Spinner />
+              </div>
+            ) : renderRoutes(route.routes, { agenda, role })}
+        </div>
+      </I18nContext.Provider>
     );
   }
 
