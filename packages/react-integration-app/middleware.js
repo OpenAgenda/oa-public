@@ -154,19 +154,19 @@ module.exports = function match({ initialState, lang, publicPath }) {
         return next();
       }
 
-      // Triggers hooks
-      await Promise.all(
+      const triggerHooks = () => Promise.all(
         Object.values(apps)
-          .filter(v => v.triggerHooks)
-          .map(v => v.triggerHooks())
+          .filter(app => app.triggerHooks)
+          .map(app => app.triggerHooks())
       );
+
+      // Triggers hooks
+      await triggerHooks();
 
       // Check if redirect in hooks
       if (redirectIfNeeded(req, res, history)) {
         return;
       }
-
-      const triggerHooks = () => Promise.all(Object.values(apps).map(app => app.triggerHooks()));
 
       const staticContext = {};
       const helmetContext = {};
