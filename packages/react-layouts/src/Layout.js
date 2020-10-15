@@ -9,11 +9,17 @@ import locales from './locales-compiled';
 
 const defaultLocale = 'fr';
 
-function getVisibleAppsByLayout(apps, pathname) {
+function getVisibleAppsByLayout(apps, pathname, firstOnly) {
   return Object.keys(apps).reduce((accu, appName) => {
+    if (firstOnly && accu.length) {
+      return accu;
+    }
+
     const { routes } = apps[appName];
     const match = matchRoutes(routes, pathname);
     const app = apps[appName];
+
+    console.log('MATCH', match);
 
     if (match.length) {
       const found = accu.find(v => shallowEqual(v.layout, app.layout));
@@ -73,7 +79,11 @@ const AppsDisplayer = React.memo(
 
 AppsDisplayer.displayName = 'AppsDisplayer';
 
-function Layout({ apps, ...props }) {
+function Layout({
+  firstOnly = true,
+  apps,
+  ...props
+}) {
   const history = useHistory();
   const location = useLocation();
 
@@ -101,8 +111,8 @@ function Layout({ apps, ...props }) {
   }, [userLang]);
 
   const layouts = useMemo(
-    () => getVisibleAppsByLayout(apps, location.pathname),
-    [apps, location.pathname]
+    () => getVisibleAppsByLayout(apps, location.pathname, firstOnly),
+    [apps, location.pathname, firstOnly]
   );
 
   return (
@@ -112,9 +122,8 @@ function Layout({ apps, ...props }) {
       defaultLocale={defaultLocale}
       otherKey={i18n.locale}
     >
-      {layouts.map(({ key, ...layoutProps }) => (
+      {layouts.map(layoutProps => (
         <AppsDisplayer
-          key={key}
           {...props}
           {...layoutProps}
           history={history}
