@@ -52,30 +52,27 @@ function mixedMultipartMw(dataKey = 'data') {
 
     try {
       const rawBody = req.body[dataKey];
-      const body = JSON.parse(rawBody);
 
-      req.body = Object.assign(body, req.files);
+      if (rawBody) {
+        const body = JSON.parse(rawBody);
 
-      next();
+        req.body = Object.assign(body, req.files);
+      }
     } catch (e) {
-      next(new Error('Body parse error'));
+      return next(new Error('Body parse error'));
     }
+
+    next();
   };
 }
 
 module.exports = function makeMiddleware(svc) {
   return (fields = 'none', options = {}) => {
-    const {
-      cleanup = true,
-      mixedMultipart = 'data'
-    } = options;
+    const { cleanup = true, mixedMultipart = 'data' } = options;
 
     const router = Router({ mergeParams: true });
 
-    router.use(
-      getMulterMw(svc, fields),
-      uniqueFields(fields)
-    );
+    router.use(getMulterMw(svc, fields), uniqueFields(fields));
 
     if (cleanup) {
       router.use(svc.cleanup());
