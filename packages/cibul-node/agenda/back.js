@@ -23,13 +23,6 @@ const statsTemplate = _.template(fs.readFileSync(__dirname + '/stats.tpl', 'utf-
 module.exports = app => {
   const { members, sessions } = app.services;
 
-  app.use('/:agendaSlug/admin/getting-started', [
-    sessions.mw.loadOrRedirect(),
-    agendaLoad,
-    members.mw.loadAndAuthorize('administrator'),
-    _gettingStarted
-  ]);
-
   /**
    * stats routes are hit by a ping script and need to be accessible
    */
@@ -113,34 +106,4 @@ function agendaAdminRedirect(req, res, next) {
 
     res.redirect(req.originalUrl.replace(`/agendas/${agenda.uid}`, `/${agenda.slug}`));
   });
-}
-
-
-/**
- * getting started route
- */
-
-function _gettingStarted(req, res, next) {
-  return res.send(layout(`<div class="js_canvas getting-started"></div>`, {
-    lang: req.lang,
-    agenda: req.agenda,
-    role: req.member.role,
-    bodyAttributes: [
-      {
-        name: 'data-options',
-        value: JSON.stringify({
-          res: {
-            agenda: req.genUrl('agendaShow', { slug: req.agenda.slug }),
-            addEvent: `/${req.agenda.slug}/contribute`,
-            createEmbed: `/${req.agenda.slug}/admin/webembed`
-          },
-          lang: _.get(req, 'lang', 'fr')
-        })
-      }
-    ],
-    scripts: {
-      bottom: [{ src: '/js/agendaAdminGettingStarted.js' }]
-    }
-  }));
-
 }

@@ -63,7 +63,7 @@ function loadEvent(config, req, res, next) {
       lang: req.lang,
       internal: true,
       returnPayload: true
-    }).then(({ event, agenda }) => {
+    }).then(({ event, agenda } = {}) => {
       if (!event) {
         return next(404);
       }

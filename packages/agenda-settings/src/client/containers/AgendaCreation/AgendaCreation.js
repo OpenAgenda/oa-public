@@ -39,10 +39,11 @@ export default class AgendaCreation extends Component {
   }
 
   handleSubmit( values ) {
-    const { create, res: { onCreated } } = this.props;
+    const { history, create, res: { onCreated } } = this.props;
+
     return create( values )
       .then( result => {
-        window.location.assign( window.location.origin + onCreated.replace( ':slug', result.agenda.slug ) );
+        history.push(onCreated.replace( ':slug', result.agenda.slug ));
       } );
   }
 

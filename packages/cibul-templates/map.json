@@ -9,7 +9,6 @@
   "agenda/show",
   "agenda/embedShow",
   "agenda/action",
-  "agendaAdmin/gettingStarted",
   "agendaSearch/index",
   "auth/signin",
   "auth/signup",

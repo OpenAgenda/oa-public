@@ -9,13 +9,24 @@ import '@openagenda/bs-templates/compiled/main.css';
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
+const agenda = {
+  uid: 17026855,
+  slug: 'proces-d-assises-2016',
+  title: 'Proces d\'assices 2016',
+  settings: {},
+  credentials: {}
+};
+
+const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
   settings: {
     lang,
     apiRoot,
-    prefix: ''
+    prefix: `/:slug/admin`
   },
   res: {
+    agenda: '/:slug',
+    addEvent: '/:slug/contribute',
+    createEmbed: '/:slug/admin/webembed',
     get: '/:uid/agenda.json',
     set: '/:slug/edit',
     slugAvailable: '/slugs/available',
@@ -28,30 +39,31 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
     }
   },
   agenda: {},
-  modals: {}
+  modals: {},
+  form: {}
 });
 
 const wrapAppOptions = {
   extraProps: {
-    agenda: {
-      uid: 17026855,
-      slug: 'proces-d-assises-2016',
-      title: 'Proces d\'assices 2016'
-    }
+    agenda
   }
 };
 
-storiesOf( 'Edit', module )
-  .addDecorator( EditDecorator )
-  .add( 'settings', () => wrapApp( createApp( {
-    history: createMemoryHistory(),
-    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-  } ), wrapAppOptions ) )
-  .add( 'contribution', () => wrapApp( createApp( {
-    history: createMemoryHistory( { initialEntries: [ '/contribution' ] } ),
-    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-  } ), wrapAppOptions ) )
-  .add( 'advanced', () => wrapApp( createApp( {
-    history: createMemoryHistory( { initialEntries: [ '/advanced' ] } ),
-    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-  } ), wrapAppOptions ) );
+storiesOf('Edit', module)
+  .addDecorator(EditDecorator)
+  .add('getting started', () => wrapApp(createApp({
+    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/getting-started`] }),
+    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+  }), wrapAppOptions))
+  .add('profile', () => wrapApp(createApp({
+    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/profile`] }),
+    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+  }), wrapAppOptions))
+  .add('contribution', () => wrapApp(createApp({
+    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/contribution`] }),
+    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+  }), wrapAppOptions))
+  .add('advanced', () => wrapApp(createApp({
+    history: createMemoryHistory({ initialEntries: [`/${agenda.slug}/admin/settings/advanced`] }),
+    initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+  }), wrapAppOptions));

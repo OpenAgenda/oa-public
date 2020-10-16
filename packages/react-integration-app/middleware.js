@@ -13,7 +13,11 @@ const wrapApp = require('@openagenda/react-utils/dist/wrapApp');
 const {
   matchRoutes
 } = require('@openagenda/react-utils/dist/asyncMatchRoutes');
-const { Html, LayoutManager, createLayoutStore } = require('@openagenda/react-layouts');
+const {
+  Html,
+  LayoutManager,
+  createLayoutStore
+} = require('@openagenda/react-layouts');
 const {
   AgendaAdminLayout,
   InboxUserLayout,
@@ -79,16 +83,6 @@ module.exports = function match({ initialState, lang, publicPath }) {
         ],
         ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
         [
-          'aggregatorSources',
-          createAggregatorSourcesApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
-        ],
-        [
-          'agendaSettingsEdit',
-          createAgendaSettingsEditApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
-        ],
-        [
           'inboxUser',
           createInboxApp,
           [MainLayout, RequiredUser, InboxUserLayout]
@@ -97,6 +91,12 @@ module.exports = function match({ initialState, lang, publicPath }) {
           'support',
           createInboxApp,
           [MainLayout, RequiredUser, InboxUserLayout]
+        ],
+        // agenda admin
+        [
+          'aggregatorSources',
+          createAggregatorSourcesApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
         ],
         [
           'agendaAdminInbox',
@@ -118,6 +118,12 @@ module.exports = function match({ initialState, lang, publicPath }) {
           createAgendaStatsApp,
           [MainLayout, RequiredUser, AgendaAdminLayout]
         ],
+        [
+          'agendaSettingsEdit',
+          createAgendaSettingsEditApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout]
+        ],
+        // superadmin
         [
           'adminSupport',
           createInboxApp,
@@ -154,19 +160,19 @@ module.exports = function match({ initialState, lang, publicPath }) {
         return next();
       }
 
-      // Triggers hooks
-      await Promise.all(
+      const triggerHooks = () => Promise.all(
         Object.values(apps)
-          .filter(v => v.triggerHooks)
-          .map(v => v.triggerHooks())
+          .filter(app => app.triggerHooks)
+          .map(app => app.triggerHooks())
       );
+
+      // Triggers hooks
+      await triggerHooks();
 
       // Check if redirect in hooks
       if (redirectIfNeeded(req, res, history)) {
         return;
       }
-
-      const triggerHooks = () => Promise.all(Object.values(apps).map(app => app.triggerHooks()));
 
       const staticContext = {};
       const helmetContext = {};

@@ -148,11 +148,14 @@ const initialState = async req => {
     },
     agendaSettingsEdit: {
       settings: {
-        prefix: '/:slug/admin/settings',
+        prefix: '/:slug/admin',
         lang: req.lang,
         apiRoot: `http://localhost:${config.port}`
       },
       res: {
+        agenda: '/:slug',
+        addEvent: '/:slug/contribute',
+        createEmbed: '/:slug/admin/webembed',
         slugAvailable: '/agendas/slugs/available',
         set: '/:slug/admin/settings/edit',
         remove: '/:slug/admin/settings/remove',
@@ -365,8 +368,9 @@ module.exports = app => {
       '/:slug/admin/sources(/*?)?',
       '/:slug/admin/members(/*?)?',
       '/:slug/admin/activities(/*?)?',
-      '/:slug/admin/settings(/*?)?',
       '/:slug/admin/statistics(/*?)?',
+      '/:slug/admin/getting-started(/*?)?',
+      '/:slug/admin/settings(/*?)?',
       // Admin
       '/admin/support(/*?)?',
       '/supervisor(/*?)?'
