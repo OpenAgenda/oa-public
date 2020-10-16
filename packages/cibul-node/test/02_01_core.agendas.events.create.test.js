@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const axios = require('axios');
+const FormData = require('form-data');
 const fs = require('fs');
 const ih = require('immutability-helper');
 const request = require('superagent');
@@ -633,7 +634,29 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     });
 
-    describe('create with one language in input', () => {
+    /*
+    var newFile = fs.createReadStream(file.path);
+
+// personally I'd function out the inner body here and just call
+// to the function and pass in the newFile
+newFile.on('end', function() {
+  const form_data = new FormData();
+  form_data.append("file", newFile);
+  const request_config = {
+    method: "post",
+    url: url,
+    headers: {
+        "Authorization": "Bearer " + access_token,
+        "Content-Type": "multipart/form-data"
+    },
+    data: form_data
+  };
+  return axios(request_config);
+});
+
+     */
+
+    describe('create with one language in input and with a file attached', () => {
       let response;
 
       fs.createReadStream(`${__dirname}/fixtures/pirates.jpg`)
@@ -646,9 +669,6 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           begin: new Date('2019-05-06T10:00:00'),
           end: new Date('2019-05-06T11:00:00')
         }],
-        image: {
-          path: '/tmp/pirates.jpg'
-        },
         keywords: ['un', 'deux', 'trois'],
         location: {
           uid: 123
@@ -656,22 +676,26 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [3, 4],
         accessibility: { sl: true }
-      }
+      };
 
       beforeAll(async () => {
         try {
+          const form = new FormData();
+
+          form.append('image', fs.createReadStream('/tmp/pirates.jpg'));
+          form.append('access_token', accessToken);
+          form.append('nonce', 123456);
+          form.append('data', JSON.stringify(data));
+
           response = await axios({
             method: 'post',
             url: 'http://localhost:3000/v2/agendas/17026855/events',
-            headers: {
-              'access-token': accessToken,
-              nonce: 123456,
-              'content-type': 'application/json'
-            },
-            data
+            data: form,
+            headers: form.getHeaders()
           }).then(r => r.data);
+
         } catch (e) {
-          console.log(e.response.data.errors[0]);
+          console.log(e);
         }
       });
 
@@ -681,7 +705,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         });
       });
 
-      it('image is uploaded to cdn when provided by local file path', async () => {
+      it('image is uploaded to cdn when provided by file given as multipart', async () => {
         const uploadedHead = await request.head(response.event.image.base + response.event.image.filename).then(res => res.header);
         const sinceLastModified = (new Date).getTime() - (new Date(uploadedHead['last-modified'])).getTime();
         expect(sinceLastModified).toBeLessThan(10000);

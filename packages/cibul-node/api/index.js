@@ -36,12 +36,14 @@ module.exports = core => {
   log('middleware');
   app.use(logRequests.middleware);
 
-  // should only apply to create and upload really
-  app.post(/^\/v2.+/, upload.middleware([{ name: 'image', unique: true }]));
-  app.patch(/^\/v2.+/, upload.middleware([{ name: 'image', unique: true }]));
+  const postMw = [
+    upload.middleware([{ name: 'image', unique: true }]),
+    mw.parseBodyData
+  ];
 
-  app.post(/^\/v2.+/, mw.parseBodyData);
-  app.patch(/^\/v2.+/, mw.parseBodyData);
+  // should only apply to create and upload really
+  app.post(/^\/v2.+/, postMw);
+  app.patch(/^\/v2.+/, postMw);
 
   app.post('/v2/requestAccessToken', mw.requestAccessToken);
 
