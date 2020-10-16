@@ -51,12 +51,12 @@ function mixedMultipartMw(dataKey = 'data') {
     if (!is(req, ['multipart'])) return next();
 
     try {
-      const rawBody = req.body[dataKey];
+      const rawBody = req.body && req.body[dataKey];
 
       if (rawBody) {
         const body = JSON.parse(rawBody);
 
-        req.body = Object.assign(body, req.files);
+        Object.assign(req.body, body, req.files);
       }
     } catch (e) {
       return next(new Error('Body parse error'));
