@@ -1,7 +1,6 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
+const assert = require('assert');
 const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
@@ -106,8 +105,8 @@ describe('10 - core - functional (server): core.users().get()', function() {
       secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
     }).generateToken();
 
-    expect(token.id).toBe(3);
-    expect(token.lifespan).toBe(3600);
+    assert.equal(token.id, 3);
+    assert(token.lifespan >= 3600);
   });
 
 });

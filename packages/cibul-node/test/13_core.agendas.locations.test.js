@@ -64,7 +64,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     testConfig.redisClient.quit();
   });
 
-  describe('result contents', function() {
+  describe('list', function() {
     let result;
 
     beforeAll(async () => {
@@ -73,10 +73,57 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       }).locations.list();
     });
 
-    afterAll(() => server.close());
-
     it('locations are placed in an items key', () => {
       assert.equal(result.items[0].name, 'Eglise');
+    });
+  });
+
+  describe('create', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas({
+        uid: 17026855
+      }).locations.create({
+        name: 'Bar le Richemont',
+        address: 'Place de l\'église',
+        city: 'Sarzeau',
+        countryCode: 'FR'
+      });
+    });
+
+    it('location is created', () => {
+      assert(typeof result.uid === 'number');
+    });
+  });
+
+  describe('patch', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas({
+        uid: 17026855
+      }).locations.patch(24505639, {
+        name: 'Patched location'
+      });
+    });
+
+    it('the location is patched', () => {
+      assert(result.name === 'Patched location');
+    });
+  });
+
+  describe('remove', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas({
+        uid: 9955517
+      }).locations.remove(9955517);
+    });
+
+    it('location is removed', async () => {
+      assert(await testConfig.knex('location').first().where('uid', 9955517) === undefined);
     });
   });
 

@@ -224,7 +224,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       let result;
 
       beforeAll(async () => {
-        result = await core.agendas(17026855).events.search({ uid: event.uid });
+        result = await core.agendas(17026855).events.search({
+          uid: event.uid
+        });
       });
 
       it('event is retrieved by its uid', async () => {

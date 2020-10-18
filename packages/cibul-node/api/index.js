@@ -27,10 +27,6 @@ module.exports = core => {
   app.core = core;
   app.services = core.services;
 
-  // const upload = multer({
-  //   dest: core.getConfig().tmpFolderPath
-  // });
-
   const { upload } = app.services.events;
 
   log('middleware');
