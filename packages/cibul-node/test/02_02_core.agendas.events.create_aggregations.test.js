@@ -43,6 +43,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
+        'knex',
         'tracker', // for testing
         'queues',
         'files',
@@ -70,7 +71,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
   afterAll(async () => {
     await stopTask();
-    testConfig.knex.destroy();
+    core.services.knex.destroy();
     testConfig.redisClient.quit();
   });
 

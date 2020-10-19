@@ -1,12 +1,7 @@
-"use strict";
+'use strict';
 
-const knex = require( 'knex' );
-const redis = require( 'redis' );
+const redis = require('redis');
 
-module.exports = c => Object.assign( c, {
-  knex: knex( {
-    client: 'mysql',
-    connection: c.db,
-  } ),
+module.exports = c => Object.assign(c, {
   redisClient: redis.createClient()
-} );
+});

@@ -1,7 +1,5 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
@@ -36,6 +34,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
+        'knex',
         'queues',
         'files',
         'events',
@@ -57,7 +56,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   });
 
   afterAll(() => {
-    testConfig.knex.destroy();
+    core.services.knex.destroy();
     testConfig.redisClient.quit();
   });
 

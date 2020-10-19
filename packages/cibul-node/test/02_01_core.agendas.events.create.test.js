@@ -47,6 +47,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
+        'knex',
         'queues',
         'files',
         'events',
@@ -74,7 +75,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
   });
 
   afterAll(() => {
-    testConfig.knex.destroy();
+    core.services.knex.destroy();
     testConfig.redisClient.quit();
   });
 
@@ -710,7 +711,7 @@ newFile.on('end', function() {
       it('image is uploaded to cdn when provided by file given as multipart', async () => {
         const uploadedHead = await request.head(response.event.image.base + response.event.image.filename).then(res => res.header);
         const sinceLastModified = (new Date).getTime() - (new Date(uploadedHead['last-modified'])).getTime();
-        expect(sinceLastModified).toBeLessThan(10000);
+        expect(sinceLastModified).toBeLessThan(20000);
       });
 
       it('Event is created in french if lang is set to french in header', async () => {

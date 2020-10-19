@@ -36,6 +36,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
   beforeAll(async () => {
     const services = await Services(testConfig, {
       enabled: [
+        'knex',
         'accessTokens',
         'files',
         'queues',
@@ -59,7 +60,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
   });
 
   afterAll(() => {
-    testConfig.knex.destroy();
+    core.services.knex.destroy();
     testConfig.redisClient.quit();
   });
 
