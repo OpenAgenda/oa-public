@@ -31,6 +31,7 @@ const config = {
       notificationSendSummary: 'notificationSendSummary',
       inboxesSync: 'inboxesSync'
     },
+    agendaSearchRecentThreshold: parseInt(process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14, 10),
     legacyQueue: 'bgestack',
     tmpFolderPath: '/var/tmp/',
     logPath: '/var/tmp/cibul-node.log',

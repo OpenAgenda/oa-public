@@ -26,6 +26,6 @@ module.exports.init = (config, services) => {
       image: config.logo
     },
     listAgendas: listAgendas.bind(null, services),
-    getAgendaSummary: getAgendaSummary.bind(null, services)
+    getAgendaSummary: getAgendaSummary.bind(null, config, services)
   });
 }
