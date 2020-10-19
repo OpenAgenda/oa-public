@@ -143,6 +143,30 @@ describe('search', function() {
       ]);
     });
 
+    it('createdAt.desc sort', async () => {
+      const {
+        items
+      } = await svc({ sort: 'createdAt.desc' }, 0, 3);
+
+      assert.deepEqual(items.map(i => i.title), [
+        'La Gargouille',
+        'Journées Européennes du Patrimoine',
+        'Métropole Européenne de Lille'
+      ]);
+    });
+
+    it('recentlyContributed.desc sort', async () => {
+      const {
+        items
+      } = await svc({ sort: 'recentlyContributed.desc' }, 0, 3);
+
+      assert.deepEqual(items.map(i => i.title), [
+        'Nuit européenne des musées 2018 : Île-de-France',
+        'Meudon',
+        'Froid estival'
+      ]);
+    });
+
   });
 
   describe('Filters', () => {

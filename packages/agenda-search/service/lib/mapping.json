@@ -11,6 +11,9 @@
   "upcomingPublishedEvents": {
     "type": "integer"
   },
+  "recentlyContributedEvents": {
+    "type": "integer"
+  },
   "slug": {
     "type": "keyword"
   },

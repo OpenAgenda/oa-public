@@ -46,6 +46,11 @@ module.exports = (query, from = 0, size = 10) => {
         createdAt: {
           order: 'desc'
         }
+      }],
+      'recentlyContributed.desc' : [{
+        recentlyContributedEvents: {
+          order: 'desc'
+        }
       }]
     })[clean.sort];
   }

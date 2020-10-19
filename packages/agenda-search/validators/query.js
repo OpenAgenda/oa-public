@@ -32,7 +32,7 @@ module.exports = schemas({
       code: 'sort.invalid',
       message: 'sort value is not valid'
     },
-    regex: /createdAt\.desc/,
+    regex: /(createdAt|recentlyContributed)\.desc/,
     default: null
   }
 });

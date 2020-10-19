@@ -12,7 +12,7 @@ module.exports = async (total, decorate, query, lastId, limit) => {
     .filter((a, i) => i < limit)
     .filter(a => updatedAtGreaterThan ? a.updatedAt > updatedAtGreaterThan : true)
     .map(decorate)
-    .map(a => _.pick(a, ['id', 'uid', 'title', 'description', 'official', 'updatedAt']));
+    .map(a => _.pick(a, ['id', 'uid', 'title', 'description', 'official', 'updatedAt', 'createdAt']));
 
   return {
     items: chunk,
