@@ -81,7 +81,7 @@ module.exports = {
     "es": "agenda",
     "it": "agenda ufficiale"
   },
-  "welcome": {
+  "welcomeTitle": {
     "fr": "Bienvenue sur votre compte OpenAgenda!",
     "en": "Welcome to your OpenAgenda account!",
     "de": "Willkommen in Ihrem OpenAgenda-Konto!",
@@ -89,13 +89,37 @@ module.exports = {
     "es": "Bienvenido a su cuenta OpenAgenda!",
     "it": "Benvenuti nel vostro conto OpenAgenda!"
   },
-  "orContributeToExisting": {
-    "fr": "Ou contribuez à un agenda existant",
-    "en": "Or contribute to an existing agenda",
-    "de": "Oder fügen Sie Ihre Veranstaltung einem bestehenden Kalender hinzu.",
-    "br": "Pe labourit war un deiziataer hag a zo anezhañ dija",
-    "es": "O contribuir a un agenda existente",
-    "it": "Oppure contribuire ad un'agenda esistente"
+  "welcomeMessage": {
+    "fr": "Vous pouvez créer votre propre agenda ou contribuer à des agendas déjà ouverts.",
+    "en": "You can create your own calendar or contribute to already open agenda.",
+    "de": "Sie können Ihren eigenen Kalender erstellen oder zu bereits geöffneten Kalendern beitragen.",
+    "br": "",
+    "es": "Puede crear su propio calendario o contribuir a calendarios ya abiertos.",
+    "it": "Puoi creare il tuo calendario o contribuire a calendari già aperti."
+  },
+  "openAgendasOfMoment": {
+    "fr": "Les agendas ouverts du moment :",
+    "en": "The open agendas of the moment :",
+    "de": "Aktuelle offene Tagebücher :",
+    "br": "",
+    "es": "Diarios abiertos actuales :",
+    "it": "Diari aperti attuali :"
+  },
+  "contributeToExisting": {
+    "fr": "Contribuez à un agenda existant",
+    "en": "Contribute to an existing agenda",
+    "de": "Fügen Sie Ihre Veranstaltung einem bestehenden Kalender hinzu.",
+    "br": "Labourit war un deiziataer hag a zo anezhañ dija",
+    "es": "Contribuir a un agenda existente",
+    "it": "Contribuire ad un'agenda esistente"
+  },
+  "orCreateYourAgenda": {
+    "fr": "Ou créez votre propre agenda",
+    "en": "Contribute to an existing agenda",
+    "de": "Fügen Sie Ihre Veranstaltung einem bestehenden Kalender hinzu.",
+    "br": "Labourit war un deiziataer hag a zo anezhañ dija",
+    "es": "Contribuir a un agenda existente",
+    "it": "Contribuire ad un'agenda esistente"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -214,5 +238,13 @@ module.exports = {
     "en": "Open",
     "de": "Ansehen",
     "es": "Ver"
+  },
+  "seeMore": {
+    "fr": "Voir plus",
+    "en": "See more",
+    "de": "Mehr sehen",
+    "br": "",
+    "es": "Ver más",
+    "it": "Vedere di più"
   }
 }
