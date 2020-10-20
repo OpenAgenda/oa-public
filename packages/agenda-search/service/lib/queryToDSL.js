@@ -48,6 +48,14 @@ module.exports = (query, from = 0, size = 10) => {
     });
   }
 
+  if (clean.uid) {
+    filteredPart.push({
+      terms: {
+        uid: clean.uid
+      }
+    });
+  }
+
   if (clean.sort) {
     dsl.sort = ({
       'createdAt.desc' : [{
