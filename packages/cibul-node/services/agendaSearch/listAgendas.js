@@ -23,7 +23,8 @@ module.exports = async (services, query, lastId, limit) => {
       'officializedAt',
       'private',
       'indexed',
-      'networkUid'
+      'networkUid',
+      'settings'
     ]
   });
 
