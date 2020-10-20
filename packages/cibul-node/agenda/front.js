@@ -11,7 +11,6 @@ const agendaSvc = require( '../services/agenda' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const fb = require( '@openagenda/facebook' );
-const getAgendaSearchLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) );
 const getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/show' ) );
 const sessions = require( '../services/sessions' );
@@ -29,9 +28,7 @@ const eventFormat = require( '../services/event/middleware/format' );
 const pickEventImage = require( '../services/event/lib/pickImage' );
 const eventSvc = require( '../services/event' );
 const getLongDescriptionHTML = require('../services/event/lib/getLongDescriptionHTML');
-const layouts = require( '../services/lib/layouts' );
 const lib = require( '../lib/lib' );
-const mwHelpers = require( '../services/lib/middlewareHelpers' );
 
 const perPage = 20;
 
@@ -66,11 +63,6 @@ const middlewares = {
 
 
 module.exports = app => {
-
-  const {
-    agendaSearch
-  } = app.services;
-
   app.options( '*/controldata*', ( req, res ) => res.sendStatus(200) );
 
   app.get(
@@ -162,37 +154,6 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas',
-    preMw,
-    cmn.https,
-    _redirectSlashed,
-    _modifiedSince1am,
-    _loadNetwork,
-    agendaSearch.mw.list,
-    agendaSearchPage
-  );
-
-  app.get(
-    '/agendas.:format',
-    preMw,
-    agendaSearch.mw.list
-  );
-
-  app.get(
-    '/agendas/rebuild',
-    preMw,
-    agendaSearch.mw.rebuild,
-    agendaSearchRedirect.bind( null, 'rebuilding agenda search index' )
-  );
-
-  app.get(
-    '/agendas/update',
-    preMw,
-    agendaSearch.mw.update,
-    agendaSearchRedirect.bind( null, 'updating agenda search index ( with agendas updated less than 1 hour ago )' )
-  );
-
-  app.get(
     '/agendas/:uid',
     preMw,
     cmn.redirectLegacySearch,
@@ -267,17 +228,7 @@ module.exports = app => {
 };
 
 
-function _loadNetwork(req, res, next) {
-  if (!req.query.network) return next();
 
-  req.app.services.networks.get(req.query.network).then(network => {
-    if (!network) return next();
-
-    req.network = _.pick(network, ['uid', 'title']);
-
-    next();
-  }, next);
-}
 
 
 /**
@@ -469,39 +420,6 @@ function renderEmbedShow( req, res, next ) {
 }
 
 
-function agendaSearchPage( req, res, next ) {
-
-  if ( req.xhr ) return next();
-
-  res.send( layouts.main( `<div class="js_search_canvas">${req.content}</div>`, {
-    lang: req.lang,
-    title: getAgendaSearchLabel( 'searchTitle', req.lang ),
-    scripts: {
-      bottom: [ { src: '/js/agendaSearchIndex.js' } ]
-    },
-    bodyAttributes: [ {
-      name: 'data-options',
-      value: JSON.stringify( {
-        lang: req.lang,
-        network: req.network,
-        canvas: '.js_search_canvas',
-        agendas: req.data.agendas,
-        total: req.data.total,
-        res: '/agendas.json'
-      } )
-    } ]
-  } ) );
-
-}
-
-
-function agendaSearchRedirect( message, req, res, next ) {
-
-  sessions.setFlash( req, res, message );
-
-  res.redirect( 302, req.genUrl( 'agendaSearch' ) );
-
-}
 
 
 /**
@@ -927,29 +845,5 @@ function unauthorizedIP( req, res ) {
       label: unauthorizedIpLabel( 'back', req.lang )
     } ]
   } );
-
-}
-
-
-function _redirectSlashed( req, res, next ) {
-
-  if ( req.url.slice( -1 ) === '/' ) {
-
-    return res.redirect( 301, req.genUrl( 'agendaSearch' ) );
-
-  }
-
-  next();
-
-}
-
-
-function _modifiedSince1am( req, res, next ) {
-
-  let today1am = new Date();
-
-  today1am.setHours( 1, 0, 0, 0 );
-
-  mwHelpers.compareModifiedSince( today1am, req, res, next );
 
 }

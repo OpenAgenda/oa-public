@@ -29,6 +29,10 @@ module.exports = schemas({
     optional: true,
     default: null
   },
+  uid: {
+    type: 'integer',
+    list: { default: null }
+  },
   sort: {
     type: 'regex',
     optional: true,

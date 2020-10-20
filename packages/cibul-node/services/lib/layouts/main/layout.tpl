@@ -73,7 +73,11 @@
     <script type="text/javascript">window.templates='bs';</script>
     <script type="text/javascript" src="/js/bsLayoutMain.js"></script>
 <% for ( script of scripts.bottom ) { %>
+  <% if (script.src) { %>
     <script type="text/javascript" src="<%= script.src %>"></script>
+  <% } else if (script.body) { %>
+    <script type="text/javascript"><%= script.body %></script>
+  <% } %>
 <% } %>
   </body>
 </html>

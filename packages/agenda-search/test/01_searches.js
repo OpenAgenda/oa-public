@@ -199,6 +199,16 @@ describe('search', function() {
       });
     });
 
+    it('fetch by uid', async () => {
+      const uids = [4602853, 91785059];
+
+      const { total, items } = await svc.list({
+        uid: uids
+      }, 0, 10);
+
+      assert.deepEqual(items.map(i => i.uid), uids);
+    });
+
     it('fetch for certain network only', async () => {
       const { total, items } = await svc.list({
         network: 1

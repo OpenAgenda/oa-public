@@ -52,8 +52,8 @@ const config = {
     domain: prod.domains.main,
     root: prod.root,
     logo: prod.logo,
-    googleAnalyticsId: prod.googleAnalytics.id,
-    embedGoogleAnalyticsId: prod.googleAnalytics.embedId,
+    googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || prod.googleAnalytics.id,
+    embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || prod.googleAnalytics.embedId,
     externalScripts: {
       zendesk: prod.zendesk.widget
     },

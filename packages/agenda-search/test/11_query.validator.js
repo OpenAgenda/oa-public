@@ -1,8 +1,7 @@
-"use strict";
+'use strict';
 
-const should = require('should'),
-
-validators = require('../validators');
+const assert = require('assert');
+const validators = require('../validators');
 
 /**
  * this is a validator created from schemas of the
@@ -14,54 +13,37 @@ validators = require('../validators');
 describe('validators - query', () => {
 
   it('give it nothing and get default query values', () => {
-
-    validators.query()
-
-    .should.eql({
+    assert.deepEqual(validators.query(), {
+      uid: null,
       contributionType: null,
       search: null,
       official: null,
       sort: null,
       network: null
     });
-
   });
 
   it('possible values for sort are not random', () => {
-
     let errors = [];
 
     try {
-
       validators.query({
         sort: 'fqfdsqdf'
       });
-
     } catch(e) { errors = e; }
 
-    errors.should.eql([{
+    assert.deepEqual(errors, [{
       origin: 'fqfdsqdf',
       field: 'sort',
       code: 'sort.invalid',
       message: 'sort value is not valid'
-    } ]);
-
+    }]);
   });
 
   it('sort value can be createdAt.desc', () => {
-
-    validators.query({
+    assert.equal(validators.query({
       sort: 'createdAt.desc'
-    })
-
-    .should.eql({
-      contributionType: null,
-      search: null,
-      official: null,
-      network: null,
-      sort: 'createdAt.desc'
-    });
-
+    }).sort, 'createdAt.desc');
   });
 
 });
