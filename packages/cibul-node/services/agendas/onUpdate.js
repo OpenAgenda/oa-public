@@ -36,22 +36,21 @@ module.exports = async (services, before, after, context) => {
     updateType = 'profile';
   }
 
-  if (before.indexed && !after.indexed) {
-    try {
-      await agendaSearch.remove(after);
-    } catch (e) {
-      log('error', 'failed to remove agenda from agenda search', e);
-    }
-  } else if (!before.indexed && after.indexed) {
+  const shouldIndex = (!before.indexed && after.indexed) || (before.private && !after.private && after.indexed);
+  const shouldUnindex = (before.indexed && !after.indexed) || (before.indexed && !before.private && after.private);
+
+  if (shouldIndex) {
     try {
       await agendaSearch.set(after);
     } catch (e) {
       log('error', 'failed to index agenda in agenda search', e);
     }
-  }
-
-  if (!context || !context.user) {
-    return;
+  } else if (shouldUnindex) {
+    try {
+      await agendaSearch.remove(after);
+    } catch (e) {
+      log('error', 'failed to remove agenda from agenda search', e);
+    }
   }
 
   if (before.title !== after.title) {
