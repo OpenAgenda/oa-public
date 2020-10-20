@@ -14,6 +14,28 @@
   "recentlyContributedEvents": {
     "type": "integer"
   },
+  "settings": {
+    "properties": {
+      "contribution": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          }
+        }
+      }
+    }
+  },
+  "eventCountsByState": {
+    "type": "nested",
+    "properties": {
+      "key": {
+        "type": "integer"
+      },
+      "eventCount": {
+        "type": "integer"
+      }
+    }
+  },
   "slug": {
     "type": "keyword"
   },

@@ -7,6 +7,7 @@ module.exports = async agenda => _.pick(agendas.filter(a => agenda.uid === a.uid
   'publishedEvents',
   'recentlyContributedEvents',
   'upcomingPublishedEvents',
+  'eventCountsByState',
   'keywords',
   'network'
 ]);

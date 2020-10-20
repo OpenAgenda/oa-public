@@ -40,6 +40,14 @@ module.exports = (query, from = 0, size = 10) => {
     }
   };
 
+  if (clean.contributionType) {
+    filteredPart.push({
+      terms: {
+        'settings.contribution.type' : clean.contributionType
+      }
+    });
+  }
+
   if (clean.sort) {
     dsl.sort = ({
       'createdAt.desc' : [{

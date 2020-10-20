@@ -169,6 +169,24 @@ describe('search', function() {
 
   });
 
+  describe('Structure', () => {
+
+    it('detailed event count by state is given', async () => {
+      const {
+        items
+      } = await svc({
+        search: 'Nuit européenne des musées 2018 : Île-de-France'
+      }, 0, 1);
+
+      assert.deepEqual(items[0].eventCountsByState, [
+        { eventCount: 20, key: -1 },
+        { eventCount: 150, key: 1 },
+        { eventCount: 389, key: 2 }
+      ]);
+    });
+
+  });
+
   describe('Filters', () => {
 
     it('fetch official only', async () => {
@@ -187,6 +205,16 @@ describe('search', function() {
       }, 0, 10);
 
       assert.equal(items.pop().network.uid, 1);
+    });
+
+    it('fetch agendas open & members only contribution types', async () => {
+      const { total, items } = await svc.list({
+        contributionType: [0, 1]
+      }, 0, 10);
+
+      items.forEach(agenda => {
+        assert([0, 1].includes(agenda.settings.contribution.type));
+      });
     });
 
   });

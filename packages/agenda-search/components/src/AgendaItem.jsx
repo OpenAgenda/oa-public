@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require('lodash');
+
 var React = require( 'react' ),
 
   getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) ),
@@ -23,6 +25,8 @@ module.exports = createReactClass( {
     const href=url.agenda(this.props.agenda, {
       lang: this.props.lang
     });
+
+    const isContributive = !![0, 1].includes(_.get(this.props.agenda, 'settings.contribution.type'));
 
     return <div className="agenda-item media">
       <div className="media-left">
@@ -54,12 +58,15 @@ module.exports = createReactClass( {
         </div>
         <a href={href}>
           <p className="description">{this.props.agenda.description}</p>
-          <div>
-            { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? <span className="badge badge-default">{getLabel( 'publishedEvent', this.props.lang )}</span> : null }
-            { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents > 1 ? <span className="badge badge-default">{getLabel( 'publishedEvents', { count: this.props.agenda.publishedEvents }, this.props.lang )}</span> : null }
-            { this.props.agenda.upcomingPublishedEvents === 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvent', this.props.lang )}</span> : null }
-            { this.props.agenda.upcomingPublishedEvents > 1 ? <span className="badge badge-info">{getLabel( 'upcomingEvents', { count: this.props.agenda.upcomingPublishedEvents }, this.props.lang )}</span> : null }
-          </div>
+          <ul class="list-inline">
+            { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents === 1 ? <li><span className="badge badge-default">{getLabel( 'publishedEvent', this.props.lang )}</span></li> : null }
+            { this.props.agenda.upcomingPublishedEvents === 0 && this.props.agenda.publishedEvents > 1 ? <li><span className="badge badge-default">{getLabel( 'publishedEvents', { count: this.props.agenda.publishedEvents }, this.props.lang )}</span></li> : null }
+            { this.props.agenda.upcomingPublishedEvents === 1 ? <li><span className="badge badge-info">{getLabel( 'upcomingEvent', this.props.lang )}</span></li> : null }
+            { this.props.agenda.upcomingPublishedEvents > 1 ? <li><span className="badge badge-info">{getLabel( 'upcomingEvents', { count: this.props.agenda.upcomingPublishedEvents }, this.props.lang )}</span></li> : null }
+            { isContributive ? <li><a href={url.contribute(this.props.agenda, {
+              lang: this.props.lang
+            })}>{getLabel('addEvent', this.props.lang )}</a></li> : null }
+          </ul>
         </a>
       </div>
     </div>

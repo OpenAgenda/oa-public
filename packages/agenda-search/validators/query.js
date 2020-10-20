@@ -20,6 +20,10 @@ module.exports = schemas({
     optional: true,
     default: null
   },
+  contributionType: {
+    type: 'integer',
+    list: { default: null }
+  },
   network: {
     type: 'integer',
     optional: true,

@@ -91,5 +91,12 @@ module.exports = {
     "de": "Nächste Ergebnisse laden",
     "es": "Cargar más resultados",
     "it": "Caricare i seguenti risultati"
+  },
+  "addEvent": {
+    "fr": "Ajouter un événement",
+    "en": "Add an event",
+    "de": "Veranstaltung hinzufügen",
+    "es": "Añadir un evento",
+    "it": "Aggiungi un evento"
   }
 }

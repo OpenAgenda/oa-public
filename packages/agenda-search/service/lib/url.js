@@ -4,7 +4,20 @@ const _ = require('lodash');
 
 module.exports = {
   agenda,
-  network
+  network,
+  contribute
+}
+
+function contribute(agenda, options = {}) {
+  const params ={
+    path: undefined,
+    lang: undefined,
+    ...options
+  };
+
+  const prefix = params.path === undefined ? '' : params.path;
+
+  return prefix + '/agendas/' + agenda.uid + '/contribute' + (params.lang ? '?lang=' + params.lang : '');
 }
 
 function network(network, options) {

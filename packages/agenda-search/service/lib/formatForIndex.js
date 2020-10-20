@@ -9,6 +9,7 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
     upcomingPublishedEvents,
     publishedEvents,
     recentlyContributedEvents,
+    eventCountsByState,
     keywords,
     network
   } = await getAgendaSummary(agenda);
@@ -23,6 +24,7 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
       'image',
       'keywords',
       'officializedAt',
+      'settings',
       'updatedAt',
       'createdAt'
     ]),
@@ -31,6 +33,7 @@ module.exports = async ({ imagePath, defaultImage, getAgendaSummary }, agenda) =
     official: !!agenda.official,
     upcomingPublishedEvents,
     publishedEvents,
+    eventCountsByState,
     recentlyContributedEvents,
     keywords,
     ...(network ? { network } : {} )

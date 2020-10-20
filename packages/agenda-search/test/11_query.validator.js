@@ -18,6 +18,7 @@ describe('validators - query', () => {
     validators.query()
 
     .should.eql({
+      contributionType: null,
       search: null,
       official: null,
       sort: null,
@@ -54,6 +55,7 @@ describe('validators - query', () => {
     })
 
     .should.eql({
+      contributionType: null,
       search: null,
       official: null,
       network: null,

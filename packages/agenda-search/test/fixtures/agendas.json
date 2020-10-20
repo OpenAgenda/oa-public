@@ -6,6 +6,18 @@
     "description": "Agenda des événements de la ville de roubaix",
     "publishedEvents": 30,
     "upcomingPublishedEvents": 12,
+    "eventCountsByState": [{
+      "key": 0,
+      "eventCount": 10
+    }, {
+      "key": 2,
+      "eventCount": 30
+    }],
+    "settings": {
+      "contribution": {
+        "type": 1
+      }
+    },
     "official": true
   },
   {
@@ -15,6 +27,13 @@
     "description": "Evénements insolites à Paris",
     "publishedEvents": 2019,
     "upcomingPublishedEvents": 30,
+    "eventCountsByState": [{
+      "key": 1,
+      "eventCount": 150
+    }, {
+      "key": 2,
+      "eventCount": 2019
+    }],
     "officializedAt": "2020-07-21T17:03:00Z",
     "createdAt": "2019-07-12T08:30:28.000Z",
     "official": true
@@ -29,7 +48,12 @@
     "official": false,
     "keywords": [
       "France"
-    ]
+    ],
+    "settings": {
+      "contribution": {
+        "type": 1
+      }
+    }
   },
   {
     "id": 4,
@@ -41,7 +65,12 @@
     "official": true,
     "officializedAt": "2017-05-21T17:03:00Z",
     "createdAt": "2018-07-12T08:30:28.000Z",
-    "keywords": [ "mcc" ]
+    "keywords": [ "mcc" ],
+    "settings": {
+      "contribution": {
+        "type": 1
+      }
+    }
   },
   {
     "id": 14783,
@@ -51,8 +80,13 @@
     "official": true,
     "officializedAt": "2019-04-11T14:15:25.000Z",
     "publishedEvents": 52,
-    "upcomingPublishedEvents": 12
-  },
+    "upcomingPublishedEvents": 12,
+      "settings": {
+        "contribution": {
+          "type": 0
+        }
+      }
+    },
   {
     "id": 13330,
     "uid": 44848501,
@@ -66,7 +100,17 @@
     "network": {
       "uid": 1,
       "title": "Nuit européenne des musées"
-    }
+    },
+    "eventCountsByState": [{
+      "key": -1,
+      "eventCount": 20
+    }, {
+      "key": 1,
+      "eventCount": 150
+    }, {
+      "key": 2,
+      "eventCount": 389
+    }]
   },
   {
     "id": 23849,
