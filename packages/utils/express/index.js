@@ -1,5 +1,6 @@
 'use strict';
 
 module.exports = {
-  https: require('./https')
+  https: require('./https'),
+  compareModifiedSince: require('./compareModifiedSince')
 };
