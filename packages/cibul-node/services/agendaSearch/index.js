@@ -7,13 +7,14 @@ const log = require('@openagenda/logs')('services/agendaSearch');
 
 const listAgendas = require('./listAgendas');
 const getAgendaSummary = require('./getAgendaSummary');
+const plugApp = require('./plugApp');
 
 module.exports.init = (config, services) => {
   const port = _.get(config, 'es75.port', 9200);
   const protocol = _.get(config, 'es75.protocol', _.get(config, 'es75.ssl') ? 'https' : 'http');
   const host = _.get(config, 'es75.host', 'localhost');
 
-  return agendaSearch({
+  const search = agendaSearch({
     elasticsearch: {
       node: protocol + '://' + host + ':' + port,
       ssl: _.get(config, 'es75.ssl')
@@ -27,5 +28,9 @@ module.exports.init = (config, services) => {
     },
     listAgendas: listAgendas.bind(null, services),
     getAgendaSummary: getAgendaSummary.bind(null, config, services)
+  });
+
+  return Object.assign(search, {
+    plugApp: plugApp.bind(null, config, services, search)
   });
 }
