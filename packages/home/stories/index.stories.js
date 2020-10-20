@@ -11,8 +11,13 @@ import '@openagenda/bs-templates/compiled/main.css';
 
 const mock = new MockAdapter(axios);
 
-const mockApi = () => {
-  mock.onGet('/agendas.json').reply(200, agendasJson);
+const mockApi = ({ isNew } = {}) => {
+  mock.onGet('/agendas.json').reply(200, isNew
+    ? {
+      total: 0,
+      agendas: []
+    }
+    : agendasJson);
   mock.onGet('/events.json').reply(200, eventsJson);
 };
 
@@ -53,7 +58,29 @@ const getDefaultState = ({ apiRoot } = {}) => ({
 });
 
 storiesOf('App', module)
-  .add('all', () => {
+  .add('welcome', () => {
+    mockApi({ isNew: true });
+
+    return wrapApp(
+      createApp({
+        history: createMemoryHistory(),
+        initialState: getDefaultState({
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
+        })
+      }),
+      {
+        extraProps: {
+          user: {
+            id: 2,
+            uid: 99999999,
+            isNew: true
+          },
+          lang: 'fr'
+        }
+      }
+    );
+  })
+  .add('home agendas', () => {
     mockApi();
 
     return wrapApp(
@@ -75,7 +102,7 @@ storiesOf('App', module)
       }
     );
   })
-  .add('with search query', () => {
+  .add('home agendas with search query', () => {
     mockApi();
 
     return wrapApp(
