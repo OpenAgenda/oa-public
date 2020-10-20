@@ -3,11 +3,16 @@
  */
 .official {
 
-  display: inline-block;
+  display: inline;
   position: relative;
   margin-left: 5px;
   vertical-align: middle;
   line-height: 1em;
+  white-space: nowrap;
+
+  &:before {
+    content: "\feff"; // zero width no-break space
+  }
 
   .tooltip {
 
@@ -19,7 +24,7 @@
 
     width: 14px;
     height: 14px;
-    background: url( "//s3.eu-central-1.amazonaws.com/oastatic/official.png" ) no-repeat scroll 0 0 transparent;
+    background: url("//s3.eu-central-1.amazonaws.com/oastatic/official.png") no-repeat scroll 0 0 transparent;
     display: inline-block;
 
     &:hover {
