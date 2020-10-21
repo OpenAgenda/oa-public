@@ -6,44 +6,7 @@ let service, config;
 
 module.exports = {
   init,
-  load,
-  evaluateIPAddress
-}
-
-function evaluateIPAddress( options ) {
-
-  const params = _.merge( {
-    namespaces: {
-      agenda: 'agenda' // loaded agenda
-    },
-    onUnauthorizedIPAddress: ( req, res, next ) => { next( { code: 403 } ) }
-  }, options || {} );
-
-  return ( req, res, next ) => {
-
-    // annoying. when evaluating an instance, data is in .data
-    const data = req[ params.namespaces.agenda ].data || req[ params.namespaces.agenda ];
-
-    const authorizedIPs = data.settings.contribution.authorizedIPAddresses;
-
-    if ( !authorizedIPs || !authorizedIPs.length ) {
-
-      return next();
-
-    }
-
-    const IP = ( req.header( 'x-forwarded-for' ) || '' ).split( ', ' )[ 0 ];
-
-    if ( authorizedIPs.includes( IP ) ) {
-
-      return next();
-
-    }
-
-    params.onUnauthorizedIPAddress( req, res, next );
-
-  }
-
+  load
 }
 
 function load( options ) {
