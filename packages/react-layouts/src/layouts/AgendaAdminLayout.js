@@ -159,10 +159,12 @@ function AgendaAdminLayout({
     shallowEqual
   );
 
+  const agendaUid = agenda?.uid;
+
   const verifyLocationCount = useCallback(() => {
-    if (!agenda?.uid) return;
-    dispatch(agendaAdminActions.verifyLocationCount(agenda.uid));
-  }, [dispatch, agenda?.uid]);
+    if (!agendaUid) return;
+    dispatch(agendaAdminActions.verifyLocationCount(agendaUid));
+  }, [dispatch, agendaUid]);
 
   useEffect(() => {
     verifyLocationCount();
@@ -170,13 +172,15 @@ function AgendaAdminLayout({
 
   useIsomorphicLayoutEffect(() => {
     if (loadError) {
-      if (user) {
+      if (loadError?.response?.status === 403) {
+        window.location.href = `/${params.slug}/unauthorized`;
+      } else if (user) {
         history.replace('/home');
       } else {
         window.location.href = '/';
       }
     }
-  }, [history, loadError, user]);
+  }, [history, loadError, params.slug, user]);
 
   if (loadError) {
     // Display Loading waiting redirection

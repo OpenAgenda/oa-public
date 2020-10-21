@@ -19,8 +19,6 @@ function getVisibleAppsByLayout(apps, pathname, firstOnly) {
     const match = matchRoutes(routes, pathname);
     const app = apps[appName];
 
-    console.log('MATCH', match);
-
     if (match.length) {
       const found = accu.find(v => shallowEqual(v.layout, app.layout));
 
