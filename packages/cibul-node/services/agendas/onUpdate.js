@@ -53,6 +53,10 @@ module.exports = async (services, before, after, context) => {
     }
   }
 
+  if (!activities) {
+    return;
+  }
+
   if (before.title !== after.title) {
     activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
       actor: 'user:' + context.user.uid,

@@ -14,7 +14,9 @@ const fixtures = require('./fixtures');
 const Service = require('../');
 const fields = require('../lib/fields.json');
 
-describe('agenda-locations - functional - list', () => {
+describe('agenda-locations - functional - list', function() {
+  this.timeout(10000);
+
   const f = fixtures(config.mysql);
 
   let svc;

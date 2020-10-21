@@ -10,7 +10,7 @@ module.exports = async (config, services, agenda) => {
   const { total: recentlyContributedEvents } = await services.core.agendas(agenda.uid).events.search({
     originAgendaUid: agenda.uid, // own contributions
     state: null, // ... of any state
-    updatedAt: {
+    createdAt: {
       gte: recentThreshold
     }
   }, { size: 0 });

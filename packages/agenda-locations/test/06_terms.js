@@ -13,7 +13,9 @@ const {
 const fixtures = require('./fixtures');
 const Service = require('../');
 
-describe('agenda-locations - functional - terms', () => {
+describe('agenda-locations - functional - terms', function() {
+  this.timeout(10000);
+
   const f = fixtures(config.mysql);
 
   let svc;

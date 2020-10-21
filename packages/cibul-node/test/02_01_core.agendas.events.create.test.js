@@ -637,28 +637,6 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     });
 
-    /*
-    var newFile = fs.createReadStream(file.path);
-
-// personally I'd function out the inner body here and just call
-// to the function and pass in the newFile
-newFile.on('end', function() {
-  const form_data = new FormData();
-  form_data.append("file", newFile);
-  const request_config = {
-    method: "post",
-    url: url,
-    headers: {
-        "Authorization": "Bearer " + access_token,
-        "Content-Type": "multipart/form-data"
-    },
-    data: form_data
-  };
-  return axios(request_config);
-});
-
-     */
-
     describe('create with one language in input and with a file attached', () => {
       let response;
 

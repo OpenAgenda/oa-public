@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
       expires_in: token.lifespan
     });
   } catch (e) {
-    res.status(403);
+    res.status(401);
     res.json({
       message: e.message
     });

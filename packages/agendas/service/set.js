@@ -252,7 +252,7 @@ async function _profileImage(v) {
     try {
       v.clean.image = null;
 
-      if (v.current) {
+      if (v.current && v.current.image) {
         await upload.providers.s3.remove(v.current.image);
       }
     } catch (e) {

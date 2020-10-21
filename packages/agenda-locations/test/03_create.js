@@ -15,7 +15,9 @@ const Files = require('@openagenda/files');
 
 const payload = require('./fixtures/createData.json');
 
-describe('agenda-locations - functional - create', () => {
+describe('agenda-locations - functional - create', function() {
+  this.timeout(10000);
+
   const f = fixtures(config.mysql);
 
   let svc;
