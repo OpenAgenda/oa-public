@@ -5,18 +5,13 @@ const csv = require('fast-csv');
 const XlsxStream = require('xlsx-writestream');
 const expressUtils = require('@openagenda/utils/express');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
-const multer = require('multer');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
 
 const layout = require( '../lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'locations' }
 );
 
-const {
-  loadLocation,
-  getLocationSettings,
-  parseDataWithImageStream
-} = require('./lib/middleware');
+const { getLocationSettings } = require('./lib/middleware');
 
 module.exports = (config, services, instance, app, base) => {
   const {
@@ -30,6 +25,7 @@ module.exports = (config, services, instance, app, base) => {
       path: 'params.agendaSlug',
       field: 'slug'
     }),
+    agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
     (req, res, next) => {
       req.locations = instance(req.agenda.uid);
@@ -134,10 +130,6 @@ module.exports = (config, services, instance, app, base) => {
       instance.get(req.params.locationUid, {
         includeImagePath: true
       }).then(location => res.json(location), next);
-    },
-    (err, req, res) => {
-      res.status(500).json();
-      log('error', err);
     }
  );
 
@@ -219,8 +211,7 @@ module.exports = (config, services, instance, app, base) => {
         success: false
       });
     } else {
-      res.status(500).json();
-      log('error', err);
+      next(err);
     }
   });
 };

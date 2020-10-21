@@ -3,18 +3,18 @@
 const cmn = require( '../lib/commons-app' );
 
 const legacyAgendaSvc = require( '../services/agenda' );
-const members = require('../services/members');
-
-const preMw = [
-  legacyAgendaSvc.mw.load('slug'),
-  members.mw.loadAndAuthorize('administrator'),
-  cmn.checkCredential('emailstrategie'),
-  legacyAgendaSvc.mw.loadAdminLayout,
-  cmn.loadBaseData()
-];
-
 
 module.exports = app => {
+  const { agendas, members } = app.services;
+
+  const preMw = [
+    legacyAgendaSvc.mw.load('slug'),
+    agendas.mw.authorizeByIPAddress(),
+    members.mw.loadAndAuthorize('administrator'),
+    cmn.checkCredential('emailstrategie'),
+    legacyAgendaSvc.mw.loadAdminLayout,
+    cmn.loadBaseData()
+  ];
 
   app.get( '/:slug/admin/emailstrategie/new', preMw, newShow );
 

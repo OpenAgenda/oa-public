@@ -52,6 +52,7 @@ module.exports = (app, config, services) => {
       path: 'params.slug',
       field: 'slug'
     }),
+    agendas.mw.authorizeByIPAddress(),
     members.mw.loadTarget.options({ detailed: true }),
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oasfmain.css'),
@@ -64,6 +65,7 @@ module.exports = (app, config, services) => {
       path: 'params.slug',
       field: 'slug'
     }),
+    agendas.mw.authorizeByIPAddress(),
     cmn.loadBaseData( 'oasfmain.css' ),
     members.mw.loadAndAuthorize('moderator'),
     loadEvent,
@@ -89,6 +91,7 @@ module.exports = (app, config, services) => {
       path: 'params.slug',
       field: 'slug'
     }),
+    agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
     cmn.loadBaseData('oasfmain.css'),
     loadEvent,

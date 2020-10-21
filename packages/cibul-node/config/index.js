@@ -687,10 +687,6 @@ const config = {
           method: 'get',
           uri: '/:slug'
         },
-        agendaUnauthorized: {
-          method: 'get',
-          uri: '/:slug/unauthorized/ip'
-        },
         facebookShow: {
           method: 'get',
           uri: '/:slug/admin/facebook'

@@ -21,10 +21,6 @@ const onCreate = require('./onCreate');
 const onRemove = require('./onRemove');
 const onPatch = require('./onPatch');
 
-const {
-  middleware: agendasMw
-} = require('@openagenda/agendas');
-
 const mw = {
   authorize: require('./middleware/authorize'),
   list: require('./middleware/list'),
@@ -105,8 +101,10 @@ function init(c, services) {
   );
 }
 
-function plugApp(parentApp) {
-  parentApp.all([
+function plugApp(app) {
+  const { agendas } = app.services;
+
+  app.all([
     '/:agendaSlug/admin/members',
     '/:agendaSlug/admin/members.:format',
     '/:agendaSlug/admin/members/stats',
@@ -117,14 +115,13 @@ function plugApp(parentApp) {
     '/:agendaSlug/admin/members/:id/invite/resend'
   ], [
     mw.loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
     sessions.mw.loadOrRedirect(),
     mw.load.andAuthorize('moderator'),
-    agendasMw.evaluateIPAddress({
-      onUnauthorizedIPAddress: _onUnauthorizedIPAddress
-    })
+    agendas.mw.authorizeByIPAddress()
   ]);
 
-  parentApp.get(
+  app.get(
     '/:agendaSlug/admin/members.:format',
     (req, res, next) => {
       req.order = 'actionsCounter.desc';
@@ -132,7 +129,7 @@ function plugApp(parentApp) {
     }
   );
 
-  parentApp.get(
+  app.get(
     '/:agendaSlug/admin/members.json',
     (req, res, next) => {
       req.order = req.query.order || req.order;
@@ -141,31 +138,31 @@ function plugApp(parentApp) {
     mw.list.bind(null, members)
   );
 
-  parentApp.get(
+  app.get(
     '/:agendaSlug/admin/members/stats',
     mw.list.stats.bind(null, members)
   );
 
-  parentApp.get([
+  app.get([
     '/:agendaSlug/admin/members.csv',
     '/:agendaSlug/admin/members.xlsx'
   ], mw.spreadsheet.stream.bind(null, members));
 
-  parentApp.post(
+  app.post(
     '/:agendaSlug/admin/members/invite',
     mw.authorize.moderatorCannotInviteAdministrator,
     mw.loadContext,
     mw.invite.bind(null, members)
   );
 
-  parentApp.post(
+  app.post(
     '/:agendaSlug/admin/members/send-message',
     mw.authorize.agendaHasCredential.bind(null, 'invitationMessage'),
     mw.sendMessage
   );
 
   // keep 'details' part as long as there are controllers in agenda/members.back.js
-  parentApp.get(
+  app.get(
     '/:agendaSlug/admin/members/:id/details',
     mw.loadTarget.options.bind(null, members, { detailed: true }),
     (req, res, next) => res.json({
@@ -179,7 +176,7 @@ function plugApp(parentApp) {
     })
   );
 
-  parentApp.delete(
+  app.delete(
     '/:agendaSlug/admin/members/:id',
     mw.loadTarget.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
@@ -190,7 +187,7 @@ function plugApp(parentApp) {
     }, next)
   );
 
-  parentApp.patch(
+  app.patch(
     '/:agendaSlug/admin/members/:id',
     mw.loadTarget.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
@@ -203,7 +200,7 @@ function plugApp(parentApp) {
     }, next)
   );
 
-  parentApp.put(
+  app.put(
     '/:agendaSlug/admin/members/:id/invite/resend',
     mw.loadContext,
     mw.loadTarget.bind(null, members),
@@ -227,7 +224,7 @@ function plugApp(parentApp) {
   );
 
   // should be put
-  parentApp.post(
+  app.post(
     '/:agendaSlug/admin/members/transfer/:eventSlug',
     mw.loadAgenda,
     mw.loadEvent,
@@ -240,17 +237,6 @@ function plugApp(parentApp) {
     }, next)
   );
 
-  parentApp.get('/:agendaSlug/admin/members.csv', streamCsv);
-  parentApp.get('/:agendaSlug/admin/members.xlsx', streamXlsx);
+  app.get('/:agendaSlug/admin/members.csv', streamCsv);
+  app.get('/:agendaSlug/admin/members.xlsx', streamXlsx);
 };
-
-function _onUnauthorizedIPAddress(req, res, next) {
-  if (process.env.NODE_ENV === 'development') return next();
-  log(
-    'info',
-    'IP %s is not authorized for agenda %s',
-    req.header('x-forwarded-for'),
-    req.agenda.slug
-  );
-  res.redirect(302, `/${req.agenda.slug}/unauthorized/ip`);
-}

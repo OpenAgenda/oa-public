@@ -18,10 +18,10 @@ module.exports = async ({ config, services }, req, res, next) => {
     members
   } = services;
 
-  if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
-    sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
-    return res.redirect(302, `/${req.agenda.slug}`);
-  }
+  // if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
+  //   sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
+  //   return res.redirect(302, `/${req.agenda.slug}`);
+  // }
 
   const lang = req.lang || 'fr';
   const staticContext = {};

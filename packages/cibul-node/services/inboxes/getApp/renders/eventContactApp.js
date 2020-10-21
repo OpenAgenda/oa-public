@@ -20,10 +20,10 @@ module.exports = async ({ services, config }, req, res, next) => {
     members
   } = services;
 
-  if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
-    sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
-    return res.redirect(302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`);
-  }
+  // if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
+  //   sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
+  //   return res.redirect(302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact`);
+  // }
 
   const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 

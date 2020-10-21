@@ -12,12 +12,13 @@ const layout = require( '../services/lib/layouts' ).load(
 );
 
 module.exports = app => {
+  const { agendas } = app.services;
 
   app.get(
     '/:slug/admin/settings/customize',
-    cmn.loadAgenda,
     sessions.mw.loadOrRedirect(),
-    cmn.verifyIPMiddleware,
+    cmn.loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('administrator'),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
@@ -29,7 +30,7 @@ module.exports = app => {
     '/:slug/admin/settings/customize',
     cmn.loadAgenda,
     sessions.mw.loadOrRedirect(),
-    cmn.verifyIPMiddleware,
+    agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('administrator'),
     tagMw.set,
     categoryMw.set,

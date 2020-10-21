@@ -32,13 +32,15 @@ const { promisify } = require('util');
 
 const eventLegacyTransfer = promisify(eventsSvc.legacy.transfer);
 
-const preMw = [
-  cmn.loadLogger( 'legacy' ),
-  _checkLocalhost
-];
-
 
 module.exports = app => {
+
+  const { agendas } = app.services;
+
+  const preMw = [
+    cmn.loadLogger( 'legacy' ),
+    _checkLocalhost
+  ];
 
   /**
    * provide to sf the html of the head section of an agenda
@@ -54,6 +56,7 @@ module.exports = app => {
     '/legacy/:slug/admin/layout/:tab',
     preMw,
     _loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
     agendaAdminLayout
   );
 

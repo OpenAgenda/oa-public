@@ -16,7 +16,7 @@ const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
 const expressUtils = require( '@openagenda/utils/express' );
 
-const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
+const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedPrivate' ) );
 const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
 
 const config = require( '../config' );
@@ -33,28 +33,6 @@ const log = logger( 'commons-app' );
 const labels = {
   unauthorized: require( '@openagenda/labels/errors/unauthorized' )
 };
-
-const verifyIPMiddleware = [
-  agendasSvc.middleware.load( {
-    namespaces: {
-      identifiers: { slug: 'params.slug' },
-      result: 'agendaFromService'
-    },
-    private: null
-  } ),
-  agendasSvc.middleware.evaluateIPAddress( {
-    namespaces: {
-      agenda: 'agendaFromService'
-    },
-    onUnauthorizedIPAddress: ( req, res, next ) => {
-
-      if ( process.env.NODE_ENV === 'development' ) return next();
-
-      res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaFromService.slug } ) );
-
-    }
-  } )
-];
 
 module.exports = {
 
@@ -78,8 +56,6 @@ module.exports = {
   checkCredential,              // middleware. check that request agenda has required credential
   checkAgendaCredential,
   renderUnauthorized,
-
-  verifyIPMiddleware,
 
   useEmbedGoogleAnalytics,
 
@@ -506,7 +482,9 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    next();
+    if (typeof next === 'function') {
+      next();
+    }
 
   }
 

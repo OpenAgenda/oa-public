@@ -18,6 +18,7 @@ module.exports = (config, parentApp) => {
   ], [
     sessions.mw.loadOrRedirect(),
     agendas.mw.load,
+    agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('administrator')
   ]);
 

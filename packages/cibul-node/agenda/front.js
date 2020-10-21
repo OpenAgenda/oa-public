@@ -16,7 +16,7 @@ const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/a
 const sessions = require( '../services/sessions' );
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 const slugs = require( '@openagenda/slugs' );
-const unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) );
+const forbiddenLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/forbidden' ) );
 const utils = require( '@openagenda/utils' );
 
 const cacheMw = require( '../lib/cache.mw' );
@@ -218,7 +218,7 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/unauthorized/ip',
+    '/:slug/unauthorized',
     preMw,
     cmn.loadBaseData( 'oasfmain.css' ),
     agendaSvc.mw.load( 'slug', { cache: true } ),
@@ -831,18 +831,16 @@ function unauthorizedIP( req, res ) {
 
   cmn.render( req, res, 'dialog/index', {
     agenda: req.agenda,
-    title: unauthorizedIpLabel( 'title', req.lang ),
-    content: unauthorizedIpLabel( 'content', req.lang ),
+    title: forbiddenLabel( 'title', req.lang ),
+    content: forbiddenLabel( 'content', req.lang ),
     actions: [ {
       type: 'primary',
-      href: `/messages/new?type=7&aUid=${req.agenda.uid}`,
-      label: unauthorizedIpLabel( 'contact', req.lang )
+      href: `/${req.agenda.slug}/contact`,
+      label: forbiddenLabel( 'contact', req.lang )
     }, {
       type: 'default',
-      href: req.genUrl( 'agendaShow', {
-        slug: req.agenda.slug,
-      } ),
-      label: unauthorizedIpLabel( 'back', req.lang )
+      href: `/${req.agenda.slug}`,
+      label: forbiddenLabel( 'back', req.lang )
     } ]
   } );
 

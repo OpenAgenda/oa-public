@@ -114,6 +114,7 @@ function plugApp(parentApp) {
   parentApp.post('/:agendaSlug/admin/events/states',
     sessions.mw.loadOrRedirect(),
     mw.loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState.batched
   );

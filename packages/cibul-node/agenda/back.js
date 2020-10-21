@@ -21,7 +21,7 @@ const agendaLoad = require('@openagenda/agendas').middleware.load({
 const statsTemplate = _.template(fs.readFileSync(__dirname + '/stats.tpl', 'utf-8'));
 
 module.exports = app => {
-  const { members, sessions } = app.services;
+  const { agendas, members, sessions } = app.services;
 
   /**
    * stats routes are hit by a ping script and need to be accessible
@@ -32,6 +32,7 @@ module.exports = app => {
   ], [
     sessions.mw.load(),
     agendaLoad,
+    agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey()
   ]);
 

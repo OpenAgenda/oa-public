@@ -142,15 +142,4 @@ module.exports = app => {
     keysMw.remove(),
     ( req, res, next ) => res.send( { rowAffected: req.result } )
   );
-
-  // app.get(
-  //   '/:slug/admin/settings(/*?)?',
-  //   cmn.loadAgenda,
-  //   sessions.mw.loadOrRedirect(),
-  //   cmn.verifyIPMiddleware, TODO on webapp
-  //   members.mw.loadAndAuthorize('administrator'),
-  //   agendaSvc.mw.loadAdminLayout,
-  //   cmn.loadBaseData( 'oasfmain.css' ),
-  //   agendaSettingsApp
-  // );
 };

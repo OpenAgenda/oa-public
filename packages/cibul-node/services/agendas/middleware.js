@@ -2,11 +2,14 @@
 
 const _ = require('lodash');
 const express = require('express');
+const cmn = require('../../lib/commons-app');
+const forbiddenLabel = require('@openagenda/labels')(require('@openagenda/labels/agendas/forbidden'));
 
 module.exports = agendasSvc => ({
   load: loadBy.bind(null, agendasSvc)({ path: 'params.agendaSlug', field: 'slug' }),
   loadBy: loadBy.bind(null, agendasSvc),
-  authorizeByKey
+  authorizeByKey,
+  authorizeByIPAddress
 });
 
 function loadBy(agendasSvc, { path, field, target }) {
@@ -56,4 +59,68 @@ async function _authorizeByKey(options, req) {
   }).get();
 
   return !!agendaKey;
+}
+
+function defaultOnUnauthorizedIPAddress(options = {}) {
+  const params = _.merge({
+    namespaces: {
+      agenda: 'agenda' // loaded agenda
+    }
+  }, options);
+
+  const loadBaseData = cmn.loadBaseData('oasfmain.css');
+
+  return (req, res) => {
+    const agenda = req[params.namespaces.agenda].data || req[params.namespaces.agenda];
+
+    res.status(403);
+
+    loadBaseData(req, res);
+
+    cmn.render(req, res, 'dialog/index', {
+      agenda: agenda,
+      title: forbiddenLabel('title', req.lang),
+      content: forbiddenLabel('content', req.lang),
+      actions: [
+        {
+          type: 'primary',
+          href: `/agendas/${agenda.uid}/contact`,
+          label: forbiddenLabel('contact', req.lang)
+        }, {
+          type: 'default',
+          href: `/agendas/${agenda.uid}`,
+          label: forbiddenLabel('back', req.lang)
+        }
+      ]
+    });
+  };
+}
+
+
+function authorizeByIPAddress(options = {}) {
+  const params = _.merge({
+    namespaces: {
+      agenda: 'agenda' // loaded agenda
+    },
+    onUnauthorizedIPAddress: defaultOnUnauthorizedIPAddress(options)
+  }, options);
+
+  return (req, res, next) => {
+    // annoying. when evaluating an instance, data is in .data
+    const data = req[params.namespaces.agenda].data || req[params.namespaces.agenda];
+
+    const authorizedIPs = data.settings.contribution.authorizedIPAddresses;
+
+    if (!authorizedIPs || !authorizedIPs.length) {
+      return next();
+    }
+
+    const IP = (req.header('x-forwarded-for') || '').split(', ')[0];
+
+    if (authorizedIPs.includes(IP)) {
+      return next();
+    }
+
+    params.onUnauthorizedIPAddress(req, res, next);
+  };
 }

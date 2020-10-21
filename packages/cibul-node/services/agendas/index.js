@@ -21,6 +21,15 @@ const throwUnauthorized = (req, res, next) => {
   next(error);
 };
 
+const throwForbidden = (req, res, next) => {
+  const error = new Error('Forbidden');
+
+  error.statusCode = 403;
+  res.statusCode = 403;
+
+  next(error);
+};
+
 const checkUser = (req, res, next) => {
   if (!req.user) {
     return throwUnauthorized(req, res, next);
@@ -54,6 +63,7 @@ module.exports.init = (config, services) => {
 
 module.exports.plugApp = app => {
   const {
+    agendas,
     sessions,
     members,
     core
@@ -64,7 +74,8 @@ module.exports.plugApp = app => {
     sessions.mw.load(),
     checkUser,
     cmn.loadAgenda,
-    members.mw.loadAndAuthorize('moderator', { or: throwUnauthorized }),
+    members.mw.loadAndAuthorize('moderator', { or: throwForbidden }),
+    agendas.mw.authorizeByIPAddress(),
     async (req, res, next) => {
       try {
         res.send({

@@ -11,9 +11,6 @@ const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'facebook' }
 );
 
-const sessions = require( '../services/sessions' );
-const members = require('../services/members');
-
 const page = _.template( `
 <section>
   <p><%= labels.description %></p>
@@ -24,11 +21,13 @@ const page = _.template( `
 </section>` );
 
 module.exports = app => {
+  const { sessions, agendas, members } = app.services;
 
   app.get(
     '/:slug/admin/facebook',
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('administrator'),
     show
   );
@@ -72,6 +71,8 @@ function show( req, res ) {
 
 
 function _onComplete( req, res, next ) {
+
+  const { sessions } = req.app.services;
 
   agendaSvc.get( {
     id: req.agendaId

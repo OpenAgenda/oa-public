@@ -35,6 +35,7 @@ function plugApp(app) {
     '/:agendaSlug/admin/statistics/config',
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
     agendas.mw.load,
+    agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey(),
     async (req, res, next) => {
       try {
