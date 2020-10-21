@@ -13,7 +13,7 @@ function AgendaItem({ agenda }) {
       <div className="media-left">
         <a href={`/${agenda.slug}`}>
           <img
-            src="https://cibul.s3.amazonaws.com/agenda54134478.jpg"
+            src={agenda.image}
             className="media-object ill avatar"
             alt={agenda.title}
           />
@@ -27,18 +27,18 @@ function AgendaItem({ agenda }) {
 
           {agenda.official ? (
             <span className="official">
-                  <i />
-                  <div className="tooltip right" role="tooltip">
-                    <div className="tooltip-arrow" />
-                    <div className="tooltip-inner">{getLabel('officialAgenda')}</div>
-                  </div>
-                </span>
+              <i />
+              <div className="tooltip right" role="tooltip">
+                <div className="tooltip-arrow" />
+                <div className="tooltip-inner">
+                  {getLabel('officialAgenda')}
+                </div>
+              </div>
+            </span>
           ) : null}
         </div>
         <div className="actions">
-          <a href={`/agendas/${agenda.uid}`}>
-            {getLabel('see')}
-          </a>
+          <a href={`/agendas/${agenda.uid}`}>{getLabel('see')}</a>
           <a href={`/agendas/${agenda.uid}/contribute`}>
             {getLabel('addAnEvent')}
           </a>
@@ -54,17 +54,14 @@ export default function Welcome() {
 
   const apiClient = useApiClient();
 
-  const agendasQuery = useQuery(
-    'welcome-agendas',
-    () => apiClient.get('/agendas.json', {
-      params: {
-        sort: 'recentlyContributed.desc',
-        contributionType: [1, 0],
-        official: 1,
-        limit: 5
-      }
-    })
-  );
+  const agendasQuery = useQuery('welcome-agendas', () => apiClient.get('/agendas.json', {
+    params: {
+      sort: 'recentlyContributed.desc',
+      contributionType: [1, 0],
+      official: 1,
+      limit: 5
+    }
+  }));
 
   return (
     <div className="content">
@@ -74,19 +71,13 @@ export default function Welcome() {
             {getLabel('welcomeTitle')}
           </h2>
 
-          <p>
-            {getLabel('welcomeMessage')}
-          </p>
+          <p>{getLabel('welcomeMessage')}</p>
 
           <h4 className="margin-v-md text-center">
             {getLabel('contributeToExisting')}
           </h4>
 
-          <form
-            action="/agendas"
-            method="GET"
-            className="margin-top-sm"
-          >
+          <form action="/agendas" method="GET" className="margin-top-sm">
             <input type="hidden" name="sort" value="recentlyContributed.desc" />
             <input type="hidden" name="official" value="1" />
             <input type="hidden" name="contributionType[]" value="1" />
@@ -102,9 +93,7 @@ export default function Welcome() {
             </div>
           </form>
 
-          <p className="margin-top-md">
-            {getLabel('openAgendasOfMoment')}
-          </p>
+          <p className="margin-top-md">{getLabel('openAgendasOfMoment')}</p>
 
           <ul className="list-group margin-top-sm">
             {agendasQuery.isLoading && !agendasQuery.data?.agendas ? (
@@ -113,11 +102,11 @@ export default function Welcome() {
               </div>
             ) : null}
 
-            {agendasQuery.data?.agendas ? (
-              agendasQuery.data.agendas.map(agenda => (
+            {agendasQuery.data?.agendas
+              ? agendasQuery.data.agendas.map(agenda => (
                 <AgendaItem agenda={agenda} />
               ))
-            ) : null}
+              : null}
 
             <div className="margin-top-sm">
               <a href="/agendas?sort=recentlyContributed.desc&official=1&contributionType[]=1&contributionType[]=0">
