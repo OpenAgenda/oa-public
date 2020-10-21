@@ -13,6 +13,7 @@ const remove = require('./remove');
 const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
+const imageVariants = require('./lib/imageVariants');
 
 module.exports = Object.assign((c = {}) => {
   const config = Object.keys(c).reduce((config, key) => (
@@ -40,8 +41,6 @@ module.exports = Object.assign((c = {}) => {
     throw new Error('@openagenda/files instance is required for handling images');
   }
 
-  const { gm } = config.Files;
-
   const service = {
     config,
     clients: {
@@ -53,38 +52,7 @@ module.exports = Object.assign((c = {}) => {
     interfaces: config.interfaces,
     imageTransformAndUpload: config.Files({
       key: 'image',
-      variants: [{
-        getFilename: (info, context) => `location${context.uid}.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .stream('jpg');
-        }
-      }, {
-        getFilename: (info, context) => `location${context.uid}_sm.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .resize(600)
-            .stream('jpg');
-        }
-      }, {
-        getFilename: (info, context) => `location${context.uid}_o.jpg`,
-        transform: (info, context) => {
-          context.providerParams.ContentType = 'image/jpeg';
-
-          return gm(info.stream, context.originalname)
-            .autoOrient()
-            .noProfile()
-            .resize(300)
-            .stream('jpg');
-        }
-      }]
+      variants: imageVariants(config.Files)
     })
   };
 

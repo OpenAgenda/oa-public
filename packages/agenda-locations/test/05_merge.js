@@ -13,7 +13,9 @@ const {
 
 const payload = require('./fixtures/mergeData.json');
 
-describe('agenda-locations - functional - merge', () => {
+describe('agenda-locations - functional - merge', function() {
+  this.timeout(10000);
+
   const f = fixtures(config.mysql);
 
   let svc;
