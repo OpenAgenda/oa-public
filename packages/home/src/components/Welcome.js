@@ -57,7 +57,7 @@ export default function Welcome() {
   const agendasQuery = useQuery('welcome-agendas', () => apiClient.get('/agendas.json', {
     params: {
       sort: 'recentlyContributed.desc',
-      contributionType: [1, 0],
+      contributionType: 1,
       official: 1,
       limit: 5
     }
@@ -80,8 +80,7 @@ export default function Welcome() {
           <form action="/agendas" method="GET" className="margin-top-sm">
             <input type="hidden" name="sort" value="recentlyContributed.desc" />
             <input type="hidden" name="official" value="1" />
-            <input type="hidden" name="contributionType[]" value="1" />
-            <input type="hidden" name="contributionType[]" value="0" />
+            <input type="hidden" name="contributionType" value="1" />
 
             <div className="form-group input-icon-right search center-block">
               <div className="input-icon-right">
@@ -109,7 +108,7 @@ export default function Welcome() {
               : null}
 
             <div className="margin-top-sm">
-              <a href="/agendas?sort=recentlyContributed.desc&official=1&contributionType[]=1&contributionType[]=0">
+              <a href="/agendas?sort=recentlyContributed.desc&official=1&contributionType=1">
                 {getLabel('seeMore')}
               </a>
             </div>
