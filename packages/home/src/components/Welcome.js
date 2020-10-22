@@ -9,12 +9,19 @@ function AgendaItem({ agenda }) {
   const { getLabel } = useContext(I18nContext);
 
   return (
-    <div className="agenda-item media">
+    <div
+      className="agenda-item media"
+      style={{ padding: '0' }}
+    >
       <div className="media-left">
         <a href={`/${agenda.slug}`}>
           <img
             src={agenda.image}
             className="media-object ill avatar"
+            style={{
+              width: '50px',
+              height: '50px'
+            }}
             alt={agenda.title}
           />
         </a>
@@ -73,7 +80,7 @@ export default function Welcome() {
 
           <p>{getLabel('welcomeMessage')}</p>
 
-          <h4 className="margin-v-md text-center">
+          <h4 className="margin-v-md">
             {getLabel('contributeToExisting')}
           </h4>
 
@@ -82,9 +89,14 @@ export default function Welcome() {
             <input type="hidden" name="official" value="1" />
             <input type="hidden" name="contributionType" value="1" />
 
-            <div className="form-group input-icon-right search center-block">
+            <div className="form-group input-icon-right search">
               <div className="input-icon-right">
-                <input type="text" name="search" className="form-control" />
+                <input
+                  type="text"
+                  name="search"
+                  className="form-control"
+                  placeholder={getLabel('searchAgenda')}
+                />
                 <button type="submit" className="btn">
                   <i className="fa fa-search" aria-hidden="true" />
                 </button>
@@ -114,15 +126,13 @@ export default function Welcome() {
             </div>
           </ul>
 
-          <h4 className="margin-v-md text-center">
+          <h4 className="margin-v-md">
             {getLabel('orCreateYourAgenda')}
           </h4>
 
-          <div className="text-center">
-            <a href={res.agendas.create} className="btn btn-primary">
-              {getLabel('createAgenda')}
-            </a>
-          </div>
+          <a href={res.agendas.create} className="btn btn-primary">
+            {getLabel('createAgenda')}
+          </a>
         </div>
       </div>
     </div>
