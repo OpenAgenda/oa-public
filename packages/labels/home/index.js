@@ -90,12 +90,12 @@ module.exports = {
     "it": "Benvenuti nel vostro conto OpenAgenda!"
   },
   "welcomeMessage": {
-    "fr": "Vous pouvez créer votre propre agenda ou rejoindre des agendas ouverts à la contribution.",
-    "en": "You can create your own calendar or join ones that are open to contribution.",
-    "de": "Sie können Ihren eigenen Kalender erstellen oder zu bereits geöffneten Kalendern beitragen.",
+    "fr": "Vous pouvez rejoindre des agendas ouverts à la contribution ou créer votre propre agenda.",
+    "en": "You can join agendas that are open to contribution or create your own agenda.",
+    "de": "Sie können Kalendern beitreten, die für Beiträge geöffnet sind, oder Ihren eigenen Kalender erstellen.",
     "br": "",
-    "es": "Puede crear su propio calendario o contribuir a calendarios ya abiertos.",
-    "it": "Puoi creare il tuo calendario o contribuire a calendari già aperti."
+    "es": "Puedes unirte a calendarios abiertos a contribución o crear tu propio calendario.",
+    "it": "Puoi iscriverti a calendari aperti al contributo o creare il tuo calendario."
   },
   "openAgendasOfMoment": {
     "fr": "Les agendas du moment ouverts à la contribution :",
