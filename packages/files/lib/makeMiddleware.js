@@ -46,6 +46,52 @@ function uniqueFields(fields) {
   };
 }
 
+function filterFakeFiles(fields) {
+  return (req, res, next) => {
+    const { body } = req;
+
+    if (!body) {
+      return next();
+    }
+
+    for (const field of fields) {
+      const value = body[field.name];
+
+      if (!value) {
+        continue;
+      }
+
+      if (Array.isArray(value)) {
+        body[field.name] = value.reduce((accu, file) => {
+          if ('path' in file) {
+            if (Object.keys(file).length > 1) {
+              delete file.path;
+              accu.push(file);
+            }
+
+            return accu;
+          }
+
+          accu.push(file);
+          return accu;
+        }, []);
+
+        if (body[field.name].length === 0) {
+          delete body[field.name];
+        }
+      } else if ('path' in value) {
+        if (Object.keys(value).length === 1) {
+          delete body[field.name];
+        } else {
+          delete value.path;
+        }
+      }
+    }
+
+    next();
+  };
+}
+
 function mixedMultipartMw(dataKey = 'data') {
   return (req, res, next) => {
     if (!is(req, ['multipart'])) return next();
@@ -76,7 +122,10 @@ module.exports = function makeMiddleware(svc) {
 
     const router = Router({ mergeParams: true });
 
-    router.use(getMulterMw(svc, fields), uniqueFields(fields));
+    router.use(
+      getMulterMw(svc, fields),
+      uniqueFields(fields)
+    );
 
     if (cleanup) {
       router.use(svc.cleanup());
@@ -85,6 +134,8 @@ module.exports = function makeMiddleware(svc) {
     if (mixedMultipart) {
       router.use(mixedMultipartMw(mixedMultipart));
     }
+
+    router.use(filterFakeFiles(fields));
 
     return router;
   };

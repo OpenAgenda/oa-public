@@ -102,6 +102,57 @@ describe('with server', () => {
     await upload.providers.s3.remove('src3_renamed.png');
   });
 
+  it('filter fake files', async () => {
+    const upload = service(
+      {
+        key: 'image',
+        getFilename: (info, context) => `${path.parse(context.originalname).name}_renamed.png`
+      }
+    );
+
+    const checkMw = async (req, res) => {
+      expect(req.body).toEqual({
+        password: 'gnagnagna',
+        pdf: [
+          {
+            url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'
+          },
+          { info: 'un truc' },
+          { url: 'https://d.openagenda.com/images/openagenda.png' }
+        ],
+        truc: 42
+      });
+
+      res.send('ok');
+    };
+
+    app.use(upload.cleanup());
+    app.use('/upload', upload.middleware([{ name: 'image', maxCount: 1 }, { name: 'pdf', maxCount: 4 }]), checkMw);
+    app.use((err, req, res, next) => {
+      console.log('Server error:', err);
+      next(err);
+    });
+
+    const form = new FormData();
+    form.append('data', JSON.stringify({
+      image: { path: '/etc/passwd' },
+      pdf: [
+        { url: 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png' },
+        { path: '/etc/passwd' },
+        { path: '/etc/passwd', info: 'un truc' },
+        { url: 'https://d.openagenda.com/images/openagenda.png' }
+      ],
+      truc: 42
+    }));
+    form.append('password', 'gnagnagna');
+
+    const { data } = await axios.post(
+      `http://localhost:${port}/upload`, form, { headers: form.getHeaders() }
+    );
+
+    expect(data).toBe('ok');
+  });
+
   it('fails with multer limit', async () => {
     const upload = service(
       {
