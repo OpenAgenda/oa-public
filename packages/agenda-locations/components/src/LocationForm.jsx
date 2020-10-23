@@ -1,13 +1,10 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import Dropzone from 'react-dropzone';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 
 import errorLabels from '@openagenda/labels/errors';
-import flattenLabels from '@openagenda/labels/flatten';
 import formLabels from '@openagenda/labels/agenda-locations/form';
-import imageUploadLabels from '@openagenda/labels/form-schemas/imageUpload';
 import get from '@openagenda/utils/get';
 import GroupTagSelector from '@openagenda/react-form-components/build/GroupTagSelector';
 import { ImageInput } from '@openagenda/react-shared';
@@ -27,10 +24,6 @@ import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers.js';
 import validate from './validate';
 import extraGeoFields from './extraGeoFields';
-
-import makeLabelGetter from '@openagenda/labels';
-
-const getImageUploadLabels = makeLabelGetter(imageUploadLabels);
 
 const alternativeMaxLength = 50;
 
