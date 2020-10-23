@@ -274,7 +274,6 @@ const initialState = async req => {
         resend: '/:slug/admin/members/:id/invite/resend',
         stats: '/:slug/admin/members/stats',
         showContributor: '/:slug/admin?contributorId=:contributorId',
-        writeToMember: '/messages/new?uuid=:uid&redirect=:redirect',
         exportToCsv: '/:slug/admin/members.csv',
         exportToXlsx: '/:slug/admin/members.xlsx',
         sendMessage: '/:slug/admin/members/send-message'
