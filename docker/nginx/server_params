@@ -6,7 +6,9 @@ if ($http_x_forwarded_for) {
   set $client_ip $http_x_forwarded_for;
 }
 
-root /cibul-symfony/web;
+# script locked on offset 9400 for > 1 week
+# 52.16.191.0: wemap dev server
+#if ($client_ip = "52.31.143.17") { return 403; }
 
 gzip on;
 gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
@@ -26,16 +28,16 @@ location ~ ^/agendas/([0-9]+)/pulse\.svg {
 }
 
 location ~ \.(js|png|html|svg|ttf|woff|gif|ejs|ico|css)$ {
-  root /static;
+  include conf.d/static_params;
 }
 
 location /fonts {
   add_header Access-Control-Allow-Origin *;
-  root /static;
+  include conf.d/static_params;
 }
 
-location ~^/js/ {
-  root /static;
+location ~ ^/js/ {
+  include conf.d/static_params;
 }
 
 location ~ /\.ht {
@@ -47,11 +49,11 @@ location = /robots.txt {
 }
 
 location = /favicon.ico {
-  root /static;
+  include conf.d/static_params;
 }
 
 location ^~ /sf/ {
-  alias /cibul-symfony/lib/vendor/symfony/data/web/sf/;
+  include conf.d/php_static_params;
 }
 
 
