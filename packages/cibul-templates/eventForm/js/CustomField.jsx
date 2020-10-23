@@ -7,7 +7,6 @@ import CheckboxField from './CheckboxField.jsx';
 import RadioFields from './RadioFields.jsx';
 import SelectField from './SelectField.jsx';
 import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent';
-import FileUpload from './FileUpload.jsx';
 import classNames from 'classnames';
 
 export default createReactClass({
@@ -161,26 +160,6 @@ export default createReactClass({
           error= { this.props.error || false }
           label= { field.label }
           onChange= { this.props.onChange } />
-      </div>
-
-    } else if ( field.fieldType === 'file' ) {
-
-      return <div className={classNames( {
-          'margin-v-md' : true,
-          'display-none' : field.hidden
-        } )}>
-        <FileUpload
-          name={ field.name }
-          label={ field.label }
-          info= { field.info }
-          optional= { field.optional }
-          path={ this.props.res.path }
-          value={ this.props.value }
-          onChange={ this.props.onChange }
-          upload={ this.props.res.upload.replace( '{field}', field.name ) }
-          remove={ this.props.res.remove.replace( '{field}', field.name ) }
-          extension={ field.extension }
-        />
       </div>
 
     } else {
