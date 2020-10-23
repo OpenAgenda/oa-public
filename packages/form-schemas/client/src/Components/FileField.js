@@ -15,22 +15,6 @@ module.exports = class FileField extends Component {
 
   onDrop( acceptedFiles, rejectedFiles ) {
 
-    // revoke preview to avoid memory leaks
-    // https://github.com/react-dropzone/react-dropzone#proptypes
-    acceptedFiles.forEach( file => {
-
-      try {
-
-        window.URL.revokeObjectURL( file.preview );
-
-      } catch ( e ) {
-
-        console.error( 'could not revoke preview', e );
-
-      }
-
-    } );
-
     this.props.onChange( {
       originalName: _.get( acceptedFiles, '0.name' )
     }, acceptedFiles );
@@ -57,23 +41,27 @@ module.exports = class FileField extends Component {
     return <div className="file-upload">
       <Dropzone
         accept={ '.' + extensions.join( ',.' ) }
-        className="file-dropzone"
         multiple={false}
         name={ name }
         onDrop={this.onDrop.bind( this )}
       >
-        <div className="margin-top-lg margin-bottom-sm">
-          <button className="btn btn-primary margin-top-sm">
-            <label>{labels.upload}</label>
-          </button>
-          {this.hasValue() && <div className="margin-v-xs">
-            <label className="control-label">
-              <i className="fa fa-check margin-right-xs"></i>
-              <span>{_.get( this.props, 'value.originalName' )}</span>
-            </label>
-          </div>}
-        </div>
-        <span className="accepted-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
+        {({getRootProps, getInputProps}) => (
+          <div className="file-dropzone" {...getRootProps()}>
+            <input {...getInputProps()} />
+            <div className="margin-top-lg margin-bottom-sm">
+              <button className="btn btn-primary margin-top-sm">
+                <label>{labels.upload}</label>
+              </button>
+              {this.hasValue() && <div className="margin-v-xs">
+                <label className="control-label">
+                  <i className="fa fa-check margin-right-xs"></i>
+                  <span>{_.get( this.props, 'value.originalName' )}</span>
+                </label>
+              </div>}
+            </div>
+            <span className="accepted-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
+          </div>
+        )}
       </Dropzone>
       { this.props.value ? <a
         onClick={this.onRemove.bind( this )}

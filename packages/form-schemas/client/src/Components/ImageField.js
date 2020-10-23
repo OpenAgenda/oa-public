@@ -35,13 +35,17 @@ module.exports = class ImageField extends Component {
 
   onDrop( acceptedFiles, rejectedFiles ) {
 
+    const files = acceptedFiles.map(file => Object.assign(file, {
+      preview: URL.createObjectURL(file)
+    }));
+
     this.setState( {
-      preview: _.get( acceptedFiles, '0.preview' )
+      preview: _.get( files, '0.preview' )
     } );
 
     this.props.onChange( {
-      originalName: _.get( acceptedFiles, '0.name' )
-    }, acceptedFiles );
+      originalName: _.get( files, '0.name' )
+    }, files );
 
   }
 
@@ -58,29 +62,39 @@ module.exports = class ImageField extends Component {
 
     return <div className="file-upload">
       <Dropzone
-        accept={ '.' + extensions.join( ',.' ) }
-        className={ this.state.preview ? 'file-dropzone image-preview' : 'file-dropzone' }
+        accept={"." + extensions.join(",.")}
         multiple={false}
         name={name}
-        onDrop={this.onDrop.bind( this )}
+        onDrop={this.onDrop.bind(this)}
       >
-        { this.state.preview &&
-          <div className="center-button margin-bottom-sm">
-            <button className="btn btn-primary margin-all-sm">
-              <label>{labels.update}</label>
-            </button>
-          </div> }
-        { this.state.preview &&
-          <img className="padding-all-sm" src={this.state.preview} />
-        }
-        { !this.state.preview &&
-          <div className="center-button margin-bottom-sm">
-            <button className="btn btn-primary">
-              <label>{labels.upload}</label>
-            </button>
+        {({ getRootProps, getInputProps }) => (
+          <div
+            className={this.state.preview ? "file-dropzone image-preview" : "file-dropzone"}
+            {...getRootProps()}
+          >
+            <input {...getInputProps()} />
+            {this.state.preview && (
+              <div className="center-button margin-bottom-sm">
+                <button className="btn btn-primary margin-all-sm">
+                  <label>{labels.update}</label>
+                </button>
+              </div>
+            )}
+            {this.state.preview && (
+              <img className="padding-all-sm" src={this.state.preview} />
+            )}
+            {!this.state.preview && (
+              <div className="center-button margin-bottom-sm">
+                <button className="btn btn-primary">
+                  <label>{labels.upload}</label>
+                </button>
+              </div>
+            )}
+            <span className="accepted-image-info">
+              {labels.acceptedExtensions}:&nbsp; .{[].concat(extensions).join(", .")}
+            </span>
           </div>
-        }
-        <span className="accepted-image-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
+        )}
       </Dropzone>
       { this.props.value ? <a
         onClick={this.onRemove.bind( this )}
