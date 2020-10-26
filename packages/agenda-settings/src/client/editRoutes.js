@@ -1,4 +1,4 @@
-import loadable from '@openagenda/react-utils/dist/loadable';
+import { loadable } from '@openagenda/react-shared';
 
 const EditionApp = loadable(() =>
   import( /* webpackChunkName: "agendaSettings-EditionApp" */ './containers/EditionApp/EditionApp' )

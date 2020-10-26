@@ -8,8 +8,7 @@ import { Value } from 'slate';
 
 import richTextLabels from '@openagenda/labels/form-schemas/richText';
 import flatten from '@openagenda/labels/flatten';
-
-import nl2br from '@openagenda/react-utils/dist/nl2br';
+import { nl2br } from '@openagenda/react-shared';
 
 const DEFAULT_NODE = 'paragraph';
 

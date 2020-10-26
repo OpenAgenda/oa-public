@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import nl2br from '@openagenda/react-utils/dist/nl2br';
+import { nl2br } from '@openagenda/react-shared';
 
 
 @reduxForm( {

@@ -28,7 +28,6 @@ const modulesToInclude = [
   '@openagenda/user-apps',
   '@openagenda/react-layouts',
   '@openagenda/react-shared',
-  '@openagenda/react-utils',
   '@openagenda/supervisor',
   'debug',
   'intl-messageformat',

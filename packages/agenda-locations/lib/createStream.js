@@ -20,7 +20,9 @@ module.exports = (service, knexQuery, options = {}) => {
     if (buffer.length < options.stream.highWaterMark) {
       return cb();
     }
-    processBufferedItems(stream, service, buffer, options, cb);
+
+    processBufferedItems(stream, service, buffer, options, cb)
+      .then(cb, cb);
   }
 
   knexStream.on('error', e => stream.emit('error', e));
@@ -31,14 +33,10 @@ module.exports = (service, knexQuery, options = {}) => {
 }
 
 
-async function processBufferedItems(stream, service, buffer, options, cb) {
-  try {
-    const transformed = await transformAndDecorateItems(service, buffer.splice(0, buffer.length), options);
-    while(transformed.length) {
-      stream.push(transformed.shift());
-    }
-  } catch (e) {
-    return stream.emit('error', e);
+async function processBufferedItems(stream, service, buffer, options) {
+  const transformed = await transformAndDecorateItems(service, buffer.splice(0, buffer.length), options);
+
+  while(transformed.length) {
+    stream.push(transformed.shift());
   }
-  cb();
 }

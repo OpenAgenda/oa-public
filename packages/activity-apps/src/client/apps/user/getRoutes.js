@@ -1,4 +1,4 @@
-import loadable from '@openagenda/react-utils/dist/loadable';
+import { loadable } from '@openagenda/react-shared';
 
 const UserApp = loadable(() =>
   import( /* webpackChunkName: "activities-UserActivitiesApp" */ '../../containers/UserApp/UserApp' )

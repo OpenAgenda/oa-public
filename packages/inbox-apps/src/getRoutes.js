@@ -1,4 +1,4 @@
-import NotFound from '@openagenda/react-utils/dist/NotFound';
+import { NotFound } from '@openagenda/react-shared';
 import { App, Inbox, Conversation, ConversationCreate } from './containers';
 
 export default function ( prefix = '' ) {

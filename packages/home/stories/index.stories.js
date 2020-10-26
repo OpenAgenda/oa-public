@@ -2,7 +2,7 @@ import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { storiesOf } from '@storybook/react';
-import wrapApp from '@openagenda/react-utils/dist/wrapApp';
+import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import agendasJson from './mocks/agendas.json';
 import eventsJson from './mocks/events.json';

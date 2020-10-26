@@ -51,7 +51,7 @@
     "@openagenda/react-components": "^2.3.9",
     "@openagenda/react-form-components": "^2.1.13",
     "@openagenda/react-layouts": "^2.1.1",
-    "@openagenda/react-utils": "^4.2.6",
+    "@openagenda/react-shared": "^2.0.7",
     "@openagenda/registration": "^1.1.2",
     "@openagenda/sessions": "^4.0.9",
     "@openagenda/sync-button": "^0.0.7",

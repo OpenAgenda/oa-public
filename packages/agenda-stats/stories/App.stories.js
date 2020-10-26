@@ -1,6 +1,6 @@
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
-import wrapApp from '@openagenda/react-utils/dist/wrapApp';
+import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
 

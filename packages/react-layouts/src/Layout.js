@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { matchRoutes } from 'react-router-config';
 import { useHistory, useLocation } from 'react-router-dom';
 import shallowEqual from 'shallowequal';
 import qs from 'qs';
-import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import locales from './locales-compiled';
 
 const defaultLocale = 'fr';

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import withContext from '@openagenda/react-utils/dist/withContext';
+import { withContext } from '@openagenda/react-shared';
 import qs from 'qs';
 import { Spinner } from '@openagenda/react-components';
 import I18nContext from '../../contexts/I18nContext';

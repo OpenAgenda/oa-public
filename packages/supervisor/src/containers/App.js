@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import {
   Switch, Route, Link, useRouteMatch
 } from 'react-router-dom';
-import loadable from '@openagenda/react-utils/dist/loadable';
+import { loadable } from '@openagenda/react-shared';
 import locales from '../locales-compiled';
 
 const AnnouncementManager = loadable(() => import(

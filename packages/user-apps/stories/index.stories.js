@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
-import wrapApp from '@openagenda/react-utils/dist/wrapApp';
+import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 
 import '@openagenda/bs-templates/compiled/main.css';

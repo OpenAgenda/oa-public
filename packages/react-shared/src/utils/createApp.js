@@ -3,11 +3,11 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { ApiClientContext } from '@openagenda/react-shared';
-import apiClient from './apiClient';
-import createStore from './createStore';
-import clientMiddleware from './clientMiddleware';
-import makeTriggerHooks from './makeTriggerHooks';
+import { ApiClientContext } from '../contexts';
+import apiClient from './lib/apiClient';
+import createStore from './lib/createStore';
+import clientMiddleware from './lib/clientMiddleware';
+import makeTriggerHooks from './lib/makeTriggerHooks';
 
 function getDefaultHistory(req) {
   return req
@@ -58,7 +58,12 @@ export default function createApp(options) {
     location: history.location
   });
 
-  const triggerHooks = makeTriggerHooks({ routes, history, helpers, req });
+  const triggerHooks = makeTriggerHooks({
+    routes,
+    history,
+    helpers,
+    req
+  });
 
   const Content = React.memo(({ extraProps, switchProps }) => (
     <Provider store={store}>

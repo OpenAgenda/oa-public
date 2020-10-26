@@ -1,7 +1,7 @@
 import { applyMiddleware, compose } from 'redux';
-import createReduxStore from '@openagenda/react-utils/dist/createStore';
-import apiClient from '@openagenda/react-utils/dist/apiClient';
-import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
+import createReduxStore from '@openagenda/react-shared/lib/utils/lib/createStore';
+import apiClient from '@openagenda/react-shared/lib/utils/lib/apiClient';
+import clientMiddleware from '@openagenda/react-shared/lib/utils/lib/clientMiddleware';
 import mainReducer from './reducers/main';
 import agendaAdminReducer from './reducers/agendaAdmin';
 

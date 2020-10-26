@@ -5,14 +5,12 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom/server');
 const { HelmetProvider } = require('react-helmet-async');
+const { matchRoutes } = require('react-router-config');
 const { createMemoryHistory } = require('history');
 const { stringify } = require('flatted/cjs');
 const he = require('he');
 const { ChunkExtractor } = require('@loadable/server');
-const wrapApp = require('@openagenda/react-utils/dist/wrapApp');
-const {
-  matchRoutes
-} = require('@openagenda/react-utils/dist/asyncMatchRoutes');
+const { wrapApp } = require('@openagenda/react-shared');
 const {
   Html,
   LayoutManager,

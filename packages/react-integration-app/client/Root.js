@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import wrapApp from '@openagenda/react-utils/dist/wrapApp';
+import { wrapApp } from '@openagenda/react-shared';
 import { LayoutManager } from '@openagenda/react-layouts/src';
 import RootHelmet from '../RootHelmet';
 import NotFoundDisplayer from './NotFoundDisplayer';

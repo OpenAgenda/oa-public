@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
+import { matchRoutes } from 'react-router-config';
 
 export default class NotFoundDisplayer extends Component {
   unlisten = this.props.history.listen(this.handleLocationChange);

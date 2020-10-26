@@ -32,7 +32,6 @@
     "@openagenda/form-schemas": "^1.8.5",
     "@openagenda/react-components": "^2.3.9",
     "@openagenda/react-shared": "^2.0.7",
-    "@openagenda/react-utils": "^4.2.6",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "final-form-arrays": "^3.0.2",

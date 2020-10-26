@@ -1,12 +1,12 @@
 import React from 'react';
 import { Router, StaticRouter } from 'react-router-dom';
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED as LoadableSecret } from '@loadable/component';
-import RouterTrigger from './RouterTrigger';
-import ScrollToTop from './ScrollToTop';
+import RouterTrigger from './lib/RouterTrigger';
+import ScrollToTop from './lib/ScrollToTop';
 
 const { Context: LoadableContext } = LoadableSecret;
 
-export default function wrapApp( app, options = {} ) {
+export default function wrapApp(app, options = {}) {
   const {
     Content,
     history,
@@ -16,16 +16,23 @@ export default function wrapApp( app, options = {} ) {
     req,
     staticContext,
     extractor,
-    extraProps
+    extraProps,
+    disableScrollToTop
   } = options;
 
-  const baseElement = (
-    <ScrollToTop>
-      <RouterTrigger trigger={triggerHooks}>
-        <Content extraProps={extraProps} />
-      </RouterTrigger>
-    </ScrollToTop>
+  let baseElement = (
+    <RouterTrigger trigger={triggerHooks}>
+      <Content extraProps={extraProps} />
+    </RouterTrigger>
   );
+
+  if (!disableScrollToTop) {
+    baseElement = (
+      <ScrollToTop>
+        {baseElement}
+      </ScrollToTop>
+    );
+  }
 
   const element = req ? (
     <LoadableContext.Provider value={extractor}>

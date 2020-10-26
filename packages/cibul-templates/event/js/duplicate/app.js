@@ -2,9 +2,9 @@ import _ from 'lodash';
 import React from 'react';
 import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
-import apiClient from '@openagenda/react-utils/dist/apiClient';
-import createStore from '@openagenda/react-utils/dist/createStore';
-import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
+import apiClient from '@openagenda/react-shared/lib/utils/lib/apiClient';
+import createStore from '@openagenda/react-shared/lib/utils/lib/createStore';
+import clientMiddleware from '@openagenda/react-shared/lib/utils/lib/clientMiddleware';
 import agendasReducer from './redux/modules/agendas';
 import * as modalsActions from './redux/modules/modals';
 import App from './containers/App'

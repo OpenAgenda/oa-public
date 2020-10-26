@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import MockAdapter from 'axios-mock-adapter';
 import { storiesOf } from '@storybook/react';
-import wrapApp from '@openagenda/react-utils/dist/wrapApp';
+import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app';
 import PageDecorator from './decorators/PageDecorator';
 

@@ -8,7 +8,7 @@ const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 const ReactDOM = require('react-dom/server');
-const wrapApp = require('@openagenda/react-utils/dist/wrapApp');
+import { wrapApp } from '@openagenda/react-shared';
 
 module.exports = async ({ config, services }, req, res, next) => {
   const {

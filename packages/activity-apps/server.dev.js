@@ -8,10 +8,16 @@ import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
 import bodyParser from 'body-parser';
+import knexLib from 'knex';
 import sessions from '@openagenda/sessions';
 import sessionsMw from '@openagenda/sessions/middleware';
 import Activities from '@openagenda/activities/test/service';
 import testconfig from './testconfig';
+
+testconfig.knex = knexLib( {
+  client: 'mysql',
+  connection: testconfig.mysql
+} );
 
 const mw = require( './src/middleware' );
 const app = express();
