@@ -5,7 +5,7 @@ const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const labels = require('@openagenda/labels/inboxes');
 const getLabel = require('@openagenda/labels')(labels);
 const ReactDOM = require('react-dom/server');
-import { wrapApp } from '@openagenda/react-shared';
+const { wrapApp } = require('@openagenda/react-shared');
 const { parsePath } = require('history');
 
 
