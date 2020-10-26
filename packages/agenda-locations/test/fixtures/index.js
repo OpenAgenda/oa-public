@@ -2,13 +2,10 @@
 
 const fs = require('fs');
 const { promisify } = require('util');
-const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 
 function _sql(SQLDataRelativePath) {
-  const k = knex({ client: 'mysql' });
-
   const raw = [
     fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
     fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8'),

@@ -14,6 +14,26 @@ const fixtures = require('./fixtures');
 const Service = require('../');
 const fields = require('../lib/fields.json');
 
+async function getAgendaIdByUid(id) {
+  return {
+    25221: 7196947
+  }[id];
+}
+
+async function getEventCounts(locationUids, { agendaUid }) {
+  return [
+    {
+      uid: 60763721,
+      eventCount: 12,
+      agendaEventCount: 8
+    }, {
+      uid: 51665985,
+      eventCount: 9,
+      agendaEventCount: 2
+    }
+  ];
+}
+
 describe('agenda-locations - functional - list', function() {
   this.timeout(10000);
 
@@ -23,27 +43,19 @@ describe('agenda-locations - functional - list', function() {
 
   before(async () => {
     await f.load();
+  });
 
+  beforeEach(() => {
     svc = Service({
       knex: f.client,
       Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
-        getAgendaIdByUid: async id => ({
-          25221: 7196947
-        })[id],
-        getEventCounts: async (locationUids, { agendaUid }) => [{
-          uid: 60763721,
-          eventCount: 12,
-          agendaEventCount: 8
-        }, {
-          uid: 51665985,
-          eventCount: 9,
-          agendaEventCount: 2
-        }]
+        getAgendaIdByUid,
+        getEventCounts
       }
     });
-  });
+  })
 
   describe('defaults', () => {
     let items;
@@ -161,12 +173,11 @@ describe('agenda-locations - functional - list', function() {
   describe('stream', function () {
     this.timeout(10000);
 
-
     it('stream streams', done => {
       svc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
         svc(7196947).list({}, {}, { stream: true }).then(stream => {
-
           let count = 0;
+
           stream.on('data', location => {
             count++;
           });
@@ -175,7 +186,34 @@ describe('agenda-locations - functional - list', function() {
             assert.equal(count, total);
             done();
           });
+        });
+      });
+    });
 
+    it('emit an error', done => {
+      svc = Service({
+        knex: f.client,
+        Files: Files(dConfig.files),
+        imagePath: '//cibuldev.s3.amazonaws.com/',
+        interfaces: {
+          getAgendaIdByUid,
+          getEventCounts: () => {
+            throw new Error('getEventCounts');
+          }
+        }
+      });
+
+      svc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
+        svc(7196947).list({}, {}, { stream: true, eventCounts: true }).then(stream => {
+          let count = 0;
+          stream.on('data', location => {
+            count++;
+          });
+
+          stream.on('error', err => {
+            assert.equal(err.message, 'getEventCounts');
+            done();
+          });
         });
       });
     });

@@ -21,8 +21,7 @@ module.exports = (service, knexQuery, options = {}) => {
       return cb();
     }
 
-    processBufferedItems(stream, service, buffer, options, cb)
-      .then(cb, cb);
+    processBufferedItems(stream, service, buffer, options, cb);
   }
 
   knexStream.on('error', e => stream.emit('error', e));
@@ -33,10 +32,16 @@ module.exports = (service, knexQuery, options = {}) => {
 }
 
 
-async function processBufferedItems(stream, service, buffer, options) {
-  const transformed = await transformAndDecorateItems(service, buffer.splice(0, buffer.length), options);
+function processBufferedItems(stream, service, buffer, options, cb) {
+  transformAndDecorateItems(service, buffer.splice(0, buffer.length), options)
+    .then(
+      transformed => {
+        while(transformed.length) {
+          stream.push(transformed.shift());
+        }
 
-  while(transformed.length) {
-    stream.push(transformed.shift());
-  }
+        cb();
+      },
+      cb
+    );
 }
