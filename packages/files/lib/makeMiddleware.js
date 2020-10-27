@@ -66,7 +66,7 @@ function filterFakeFiles(fields) {
         body[field.name] = value.reduce((accu, file, index) => {
           const originalPath = originalValue && originalValue[index] && originalValue[index].path;
 
-          if ('path' in file && file.path !== originalPath) {
+          if (typeof file === 'object' && file !== null && 'path' in file && file.path !== originalPath) {
             if (Object.keys(file).length > 1) {
               delete file.path;
               accu.push(file);
@@ -82,7 +82,7 @@ function filterFakeFiles(fields) {
         if (body[field.name].length === 0) {
           delete body[field.name];
         }
-      } else if ('path' in value && value.path !== (originalValue && originalValue.path)) {
+      } else if (typeof value === 'object' && value !== null && 'path' in value && value.path !== (originalValue && originalValue.path)) {
         if (Object.keys(value).length === 1) {
           delete body[field.name];
         } else {
