@@ -39,6 +39,7 @@ module.exports = Object.assign((parentApp, path = '') => {
   ], [
     agendas.mw.load,
     (req, res, next) => _.get(req, 'agenda') ? next() : cmn.errorResponse(req, res, { code: 404 }),
+    agendas.mw.authorizeByIPAddress(),
     (req, res, next) => {
       if (!req.agenda.credentials.useContributeApp) {
         return res.redirect(`/${req.agenda.slug}/addevent`);
