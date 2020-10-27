@@ -48,7 +48,7 @@ function uniqueFields(fields) {
 
 function filterFakeFiles(fields) {
   return (req, res, next) => {
-    const { body } = req;
+    const { body, files } = req;
 
     if (!body) {
       return next();
@@ -56,14 +56,15 @@ function filterFakeFiles(fields) {
 
     for (const field of fields) {
       const value = body[field.name];
+      const originalValue = files?.[field.name];
 
       if (!value) {
         continue;
       }
 
       if (Array.isArray(value)) {
-        body[field.name] = value.reduce((accu, file) => {
-          if ('path' in file) {
+        body[field.name] = value.reduce((accu, file, index) => {
+          if ('path' in file && file.path !== originalValue?.[index]?.path) {
             if (Object.keys(file).length > 1) {
               delete file.path;
               accu.push(file);
@@ -79,7 +80,7 @@ function filterFakeFiles(fields) {
         if (body[field.name].length === 0) {
           delete body[field.name];
         }
-      } else if ('path' in value) {
+      } else if ('path' in value && value.path !== originalValue?.path) {
         if (Object.keys(value).length === 1) {
           delete body[field.name];
         } else {

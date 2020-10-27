@@ -337,7 +337,7 @@ describe('with server', () => {
     };
 
     app.use(upload.cleanup());
-    app.use('/upload', upload.multer.fields([
+    app.use('/upload', upload.middleware([
       { name: 'image', maxCount: 5 },
       { name: 'other', maxCount: 5 },
       { name: 'foo', maxCount: 5 }
