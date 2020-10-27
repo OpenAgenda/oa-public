@@ -56,7 +56,7 @@ function filterFakeFiles(fields) {
 
     for (const field of fields) {
       const value = body[field.name];
-      const originalValue = files && files.[field.name];
+      const originalValue = files && files[field.name];
 
       if (!value) {
         continue;
