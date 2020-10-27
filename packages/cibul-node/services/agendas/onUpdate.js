@@ -57,6 +57,11 @@ module.exports = async (services, before, after, context) => {
     return;
   }
 
+  if (!context) {
+    // no user is provided if it an update of a referenced event is the origin of the call
+    return;
+  }
+
   if (before.title !== after.title) {
     activities.feed({ entityType: 'agenda', entityUid: after.uid }).activities.add({
       actor: 'user:' + context.user.uid,
