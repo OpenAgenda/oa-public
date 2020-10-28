@@ -11,6 +11,14 @@ describe('11 - event-search - unit: formatEvent', function() {
       schemaId: 13,
       field: 'someAdditionalValue',
       fieldType: 'email'
+    }, {
+      schemaId: 13,
+      field: 'someAdditionalPlaces',
+      fieldType: 'integer'
+    }, {
+      schemaId: 13,
+      field: 'someAdditionalPrice',
+      fieldType: 'number'
     }]
   };
 
@@ -53,7 +61,9 @@ describe('11 - event-search - unit: formatEvent', function() {
       title: 'Un agenda source',
       'image': null
     }],
-    someAdditionalValue: 'oa@oa.com'
+    someAdditionalValue: 'oa@oa.com',
+    someAdditionalPrice: 29.99,
+    someAdditionalPlaces: 5
   };
 
   let formatted;
@@ -146,6 +156,13 @@ describe('11 - event-search - unit: formatEvent', function() {
       lat: 48.9076369,
       lon: 2.2836904
     });
+  });
+
+  it('_search_additional_numbers contains values coming from additional fields of number or integer types', () => {
+    formatted['_search_additional_numbers'].should.eql([
+      { field: 'someAdditionalPlaces', integer: 5, number: 5 },
+      { field: 'someAdditionalPrice', integer: 29, number: 29.99 }
+    ]);
   });
 
   it('additional field of email type is indexed in _search_additional_keywords', () => {

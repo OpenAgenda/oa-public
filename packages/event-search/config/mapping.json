@@ -115,6 +115,20 @@
     "type": "text",
     "analyzer": "simple"
   },
+  "_search_additional_numbers": {
+    "type": "nested",
+    "properties": {
+      "field": {
+        "type": "text"
+      },
+      "integer": {
+        "type": "integer"
+      },
+      "number": {
+        "type": "float"
+      }
+    }
+  },
   "_search_description": {
     "type": "text"
   },

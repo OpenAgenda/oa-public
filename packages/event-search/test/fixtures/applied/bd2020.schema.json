@@ -885,6 +885,13 @@
       "schemaId": 20178
     },
     {
+      "field": "places",
+      "label": "Nombre de places disponibles",
+      "fieldType": "integer",
+      "optional": true,
+      "schemaId": 20178
+    },
+    {
       "field": "siret",
       "label": "Numéro SIRET de mon établissement (ou à défaut, numéro de SIREN)",
       "help": null,

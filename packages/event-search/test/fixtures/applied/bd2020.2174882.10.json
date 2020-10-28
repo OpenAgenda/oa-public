@@ -104,6 +104,7 @@
       "autre-type-devenement": null,
       "type-de-public-concerne": 760,
       "gratuite": 66,
+      "places": 22,
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
@@ -224,6 +225,7 @@
         "min": null,
         "max": null
       },
+      "places": 10,
       "registration": [],
       "location": {
         "uid": 57891537,
@@ -343,6 +345,7 @@
         ],
         "base": "https://cibuldev.s3.amazonaws.com/"
       },
+      "places": 54,
       "draft": 0,
       "private": 0,
       "timezone": "Europe/Paris",
@@ -551,6 +554,7 @@
       "type-devenement": 704,
       "autre-type-devenement": null,
       "type-de-public-concerne": 762,
+      "places": 5,
       "gratuite": 66,
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
@@ -698,6 +702,7 @@
       "autre-type-devenement": null,
       "type-de-public-concerne": 760,
       "gratuite": 66,
+      "places": 200,
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
@@ -844,6 +849,7 @@
       "autre-type-devenement": null,
       "type-de-public-concerne": 761,
       "gratuite": 66,
+      "places": 90,
       "tarif": null,
       "animation-accessible-aux-publics-empeches": 740,
       "type-de-public-empeche": null,
@@ -934,6 +940,7 @@
       },
       "draft": 0,
       "private": 0,
+      "places": 13,
       "timezone": "Europe/Paris",
       "timings": [
         {
@@ -1062,6 +1069,7 @@
       "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
+      "places": 50,
       "si-autre-precisez": null,
       "structure-partenaire": null,
       "diffusion-sur-le-pass-culture": [],
@@ -1282,6 +1290,7 @@
       "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
       "type-de-structure": 623,
       "si-autre-precisez": null,
+      "places": 150,
       "structure-partenaire": null,
       "diffusion-sur-le-pass-culture": [],
       "siret": null,
