@@ -39,6 +39,7 @@ describe( 'agendas - unit (server): validate', () => {
         slug: 'title-of-the-agenda',
         official: false,
         networkUid: null,
+        locationSetUid: null,
         settings: {
           inbox: {
             mailto: {
@@ -183,6 +184,7 @@ describe( 'agendas - unit (server): validate', () => {
         ownerId: 1,
         formSchemaId: null,
         networkUid: null,
+        locationSetUid: null,
         settings: {
           tracking: {
             googleAnalytics: null
