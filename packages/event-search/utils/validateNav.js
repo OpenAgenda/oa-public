@@ -15,7 +15,8 @@ module.exports = nav => {
     size: clean.size
   } : {
     from: clean.from,
-    size: clean.size
+    size: clean.size,
+    searchAfter: clean.searchAfter
   }
 }
 
@@ -34,5 +35,10 @@ const navValidator = schema({
     type: 'integer',
     optional: true,
     default: 20
+  },
+  searchAfter: {
+    type: 'integer',
+    list: { default: null },
+    optional: true
   }
 });

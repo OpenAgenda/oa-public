@@ -5,6 +5,7 @@ module.exports = (nav = {}) => {
 
   return {
     from: nav.from,
-    size: nav.size
+    size: nav.size,
+    search_after: nav.searchAfter || undefined
   }
 }

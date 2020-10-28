@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const assert = require('assert');
 const fs = require('fs');
 const should = require('should');
 
@@ -176,6 +177,10 @@ describe('02 - event search - functional: Applied search', function() {
         total.should.equal(509);
       });
 
+    });
+
+    describe('Sort and navigation', () => {
+
       it('scroll through results', async () => {
         const {
           total,
@@ -204,10 +209,41 @@ describe('02 - event search - functional: Applied search', function() {
 
         events.length.should.equal(total);
 
+        const now = new Date();
+
         events.forEach(e => {
-          //console.log(e.location);
+          const begin = e.timings[0].begin;
+          const end = e.timings[e.timings.length - 1].end;
+          const upcomingTimings = e.timings.filter(t => new Date(t.end) > now);
+          const pastTimings = e.timings.filter(t => new Date(t.end) < now);
+          //console.log(e.slug, _ft(begin), _ft((upcomingTimings.length ? upcomingTimings.shift() : pastTimings.pop()).end), _ft(end));
         });
       });
+
+      function _ft(t) {
+        return t.split(':00.000').shift();
+      }
+
+      it('navigation with search after and default sort', async () => {
+        const {
+          events: chunkOfEvents,
+        } = await service('bdx').search({}, { size: 10 });
+
+        const {
+          events: firstSmallerChunkOfEvents,
+          sort: searchAfter
+        } = await service('bdx').search({}, { size: 2 });
+
+        const {
+          events: secondSmallerChunkOfEvents,
+        } = await service('bdx').search({}, { size: 2, searchAfter });
+
+        assert.equal(
+          chunkOfEvents[2].uid,
+          secondSmallerChunkOfEvents[0].uid
+        );
+      });
+
 
     });
 

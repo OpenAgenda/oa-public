@@ -9,6 +9,7 @@ const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
 const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
 const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
+const getDSLSortPart = require('../utils/getDSLSortPart');
 const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
 const monolingual = require('../utils/monolingualize');
 
@@ -169,6 +170,47 @@ describe('event-search - unit: utils', function() {
       assert(lastTimingEndsIn({ timings }) > 3);
     });
 
+  });
+
+
+  describe('getDSLSortPart', () => {
+
+    it('default is sort by timings future asc, passed desc', () => {
+      assert.deepEqual(
+        getDSLSortPart(), [{
+          'timings.end': {
+            mode: 'min',
+            order: 'asc',
+            nested_path: 'timings',
+            nested_filter: {
+              range: { 'timings.end' : { gte: 'now' } }
+            }
+          }
+        }, {
+          _search_last_timing: { order: 'desc' }
+        }, {
+          uid: { order: 'asc' }
+        }]
+      );
+    });
+
+    it('sort can be on a mapped field', () => {
+      assert.deepEqual(
+        getDSLSortPart('featured.desc'),
+        [{ featured: 'desc' }]
+      );
+    });
+
+    it('sort can be on multiple mapped fields', () => {
+      assert.deepEqual(
+        getDSLSortPart(['featured.desc', 'updatedAt.asc']),
+        [{ featured: 'desc' }, { updatedAt: 'asc' }]
+      );
+    });
+
+    it('if sort is by score, no explicit score is passed to elasticsearch DSL', () => {
+      assert.equal(getDSLSortPart('score'), null);
+    });
   });
 
   describe('other', () => {
