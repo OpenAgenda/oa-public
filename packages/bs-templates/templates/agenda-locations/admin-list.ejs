@@ -1,14 +1,15 @@
 <% include ../layout/_top.ejs %>
 <div class="container agenda-admin">
   <% include ../agenda-admin/_admin-header.ejs %>
-  
+
   <div class="row wsq">
     <% include ../agenda-admin/_admin-tabs.ejs %>
-    
+
     <div class="col col-sm-9 body">
-      
+
       <div class="agenda-admin-locations">
         <div>
+          <% include ./_location-set %>
           <div class="row list-actions">
             <div class="col col-sm-12">
               <div class="form-inline">
@@ -65,9 +66,9 @@
         </div>
       </div>
     </div>
-    
+
   </div>
-  
+
 <div class="item">
   <div class="actions btn-group">
     <button class="btn btn-default" aria-label="modifier"><i class="fa fa-edit"></i></button>
