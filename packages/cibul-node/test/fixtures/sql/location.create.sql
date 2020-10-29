@@ -19,9 +19,10 @@ create table if not exists `location` (
   city_district VARCHAR(255),
   postal_code VARCHAR(20),
   eve_id VARCHAR(100),
+  set_uid bigint,
   created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL, 
-  UNIQUE INDEX slug_idx (slug), 
+  updated_at DATETIME NOT NULL,
+  UNIQUE INDEX slug_idx (slug),
   INDEX latlng_idx (latitude, longitude),
   INDEX owner_id_idx (owner_id),
   primary key(id)
