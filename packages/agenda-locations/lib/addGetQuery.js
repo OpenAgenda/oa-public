@@ -10,6 +10,9 @@ const validate = schema({
   agendaUid: {
     type: 'integer'
   },
+  setUid: {
+    type: 'integer'
+  },
   uid: {
     type: 'integer',
     optional: false
@@ -18,6 +21,7 @@ const validate = schema({
 
 module.exports = async (service, k, query) => {
   const {
+    setUid,
     agendaUid,
     uid
   } = validate(query);
@@ -26,6 +30,10 @@ module.exports = async (service, k, query) => {
 
   if (agendaId) {
     k.where('agenda_id', agendaId);
+  }
+
+  if (setUid) {
+    k.where('set_uid', setUid);
   }
 
   k.where('uid', uid);

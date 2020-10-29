@@ -20,10 +20,22 @@ create table if not exists location (
   postal_code varchar(20) default null,
   eve_id varchar(100) default null,
   agenda_id bigint(20) default null,
+  set_uid bigint(20) default null,
   insee varchar(10) default null,
   unique index slug_idx (slug),
   index latlng_idx (latitude, longitude),
   index owner_id_idx (owner_id),
   index agenda_id_idx (agenda_id),
+  index set_uid_idx (set_uid),
+  primary key(id)
+) engine=InnoDB default character set utf8 collate utf8_general_ci;
+
+create table if not exists location_set (
+  id bigint(20) not null auto_increment,
+  created_at datetime not null,
+  updated_at datetime not null,
+  uid bigint(20) default null unique,
+  title varchar(255) default null,
+  unique index uid_idx (uid),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;

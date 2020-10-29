@@ -3,6 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import createReactClass from 'create-react-class';
 import agendaTestSettings from './agendaTestSettings.json';
+import locationSet from './locationSet.json';
 
 import adminStory from './admin.story';
 import selectorStory from './selector.story';
@@ -37,7 +38,13 @@ storiesOf('Administration app', module)
   .add('Main', () => adminStory({
     res,
     settings: agendaTestSettings
+  }))
+  .add('with location set', () => adminStory({
+    res,
+    settings: agendaTestSettings,
+    set: locationSet
   }));
+
 
 storiesOf('Location form component', module)
   .add('Search mode', () => selectorStory({
@@ -73,7 +80,7 @@ storiesOf('Location form component', module)
     enableGeocode: true,
     mode: 'confirm'
   }))
-  .add('Creation mode with gelocation disabled', () => selectorStory({
+  .add('Creation mode with geolocation disabled', () => selectorStory({
     res,
     settings: agendaTestSettings,
     initialLocation: undefined,

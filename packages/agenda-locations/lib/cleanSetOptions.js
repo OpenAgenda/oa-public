@@ -14,6 +14,10 @@ module.exports = schema({
     agendaUid: {
       type: 'integer',
       default: null
+    },
+    setUid: {
+      type: 'integer',
+      default: null
     }
   },
   includeImagePath: {

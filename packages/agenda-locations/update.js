@@ -96,3 +96,19 @@ module.exports.byAgendaUid = async (
 
   return update({ service, isPatch }, current, data, options);
 }
+
+module.exports.bySetUid = async (
+  { service, isPatch },
+  setUid,
+  identifiers,
+  data,
+  options = {}
+) => {
+  const current = await get.bySetUid(service, setUid, identifiers, options);
+
+  if (!current) {
+    throw new NotFoundError('location', { identifiers, setUid });
+  }
+
+  return update({ service, isPatch }, current, data, options);
+}

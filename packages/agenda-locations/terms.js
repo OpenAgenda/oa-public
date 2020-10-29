@@ -6,6 +6,7 @@ const addListQuery = require('./lib/addListQuery');
 const BadRequestError = require('./lib/BadRequestError');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const termFields = require('./lib/fields.json').filter(f => f.read.includes('terms'));
+const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 const { getMatchingDatabaseField } = require('./lib/addSelect');
 
@@ -35,7 +36,7 @@ async function terms(service, requestedTerms, query = {}, options = {}) {
 
   await addListQuery(service, k, {
     ...query,
-    ...(context.agendaUid ? { agendaUid: context.agendaUid } : {})
+    ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
   });
 
   const dbFields = requestedTermFields.map(getMatchingDatabaseField);
@@ -64,4 +65,15 @@ module.exports.byAgendaUid = async (
 ) => terms(service, requestedTerms, query, {
   ...options,
   context: { agendaUid }
+});
+
+module.exports.bySetUid = async (
+  service,
+  setUid,
+  requestedTerms = [],
+  query = {},
+  options = {}
+) => terms(service, requestedTerms, query, {
+  ...options,
+  context: { setUid }
 });

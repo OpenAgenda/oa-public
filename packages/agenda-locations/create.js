@@ -8,6 +8,7 @@ const validate = require('./lib/validate');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const defineUnique = require('./lib/defineUnique');
 const geocode = require('./lib/geocode');
+const NotFoundError = require('./lib/NotFoundError');
 
 async function create(service, data, options = {}) {
   log('received %j payload', data.name);
@@ -30,6 +31,8 @@ async function create(service, data, options = {}) {
 
   if (context.agendaUid) {
     clean.agendaId = await service.interfaces.getAgendaIdByUid(context.agendaUid);
+  } else if (context.setUid) {
+    clean.setUid = context.setUid;
   }
 
   if (clean.image) {
@@ -62,3 +65,18 @@ module.exports.byAgendaUid = async (
   ...options,
   context: { agendaUid }
 });
+
+module.exports.bySetUid = async (
+  service,
+  setUid,
+  data,
+  options = {}
+) => {
+  if (!await service.sets.get(setUid)) {
+    throw new NotFoundError('location set', { setUid });
+  }
+  return create(service, data, {
+    ...options,
+    context: { setUid }
+  });
+}

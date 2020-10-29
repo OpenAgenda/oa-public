@@ -11,6 +11,9 @@ const validate = schema({
   agendaUid: {
     type: 'integer'
   },
+  setUid: {
+    type: 'integer'
+  },
   search: {
     type: 'text',
     max: 255
@@ -30,6 +33,7 @@ const validate = schema({
 module.exports = async (service, k, query) => {
   const {
     agendaUid,
+    setUid,
     search,
     state,
     uids
@@ -39,6 +43,10 @@ module.exports = async (service, k, query) => {
 
   if (agendaId) {
     k.where('agenda_id', agendaId);
+  }
+
+  if (setUid) {
+    k.where('set_uid', setUid);
   }
 
   if (search) {

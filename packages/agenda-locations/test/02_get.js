@@ -64,6 +64,19 @@ describe('agenda-locations - functional - get', function() {
     });
   });
 
+  describe('set', () => {
+    it('location in set is the result', async () => {
+      const location = await svc.sets(1903810).locations.get(7630649);
+
+      assert.equal(location.name, 'St André Lachamp');
+    });
+
+    it('location out of set is not found', async () => {
+      const location = await svc.sets(1903810).locations.get(72498112);
+      assert.equal(location, null);
+    });
+  });
+
   describe('other', () => {
 
     it('uid can be provided within object', async () => {

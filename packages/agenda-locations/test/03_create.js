@@ -67,6 +67,43 @@ describe('agenda-locations - functional - create', function() {
     });
   });
 
+  describe('set', () => {
+    let created;
+
+    before(async () => {
+      created = await svc.sets(1903810).locations.create({
+        name: 'Bruchon',
+        address: 'Bruchon, Lamastre',
+        countryCode: 'FR'
+      }, { geocodeIfUndefined: true });
+    });
+
+    it('created location is associated to set', () => {
+      assert.equal(created.setUid, 1903810);
+    });
+
+    it('entry has set uid', async () => {
+      assert.equal(
+        await f.client('location').first('set_uid').where('uid', created.uid).then(r => r.set_uid),
+        1903810
+      );
+    });
+
+    it('location cannot be created if specified set does not exist', async () => {
+      try {
+        await svc.sets(90389033829).locations.create({
+          name: 'Bruchon',
+          address: 'Bruchon, Lamastre',
+          countryCode: 'FR'
+        }, { geocodeIfUndefined: true });
+      } catch(e) {
+        assert.equal(e.message, 'Not found');
+        return;
+      }
+      throw new Error('Should not reach here');
+    });
+  });
+
   describe('with image', function() {
     this.timeout(10000);
     let created;

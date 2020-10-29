@@ -16,6 +16,7 @@ import CreateForm from './CreateForm';
 import Filters from './Filters';
 import List from './List/List';
 import LocationItem from './LocationItem';
+import SetHeader from './SetHeader';
 import MergeForm from './MergeForm';
 import UpdateForm from './UpdateForm';
 
@@ -25,6 +26,8 @@ module.exports = createReactClass( {
 
   propTypes: {
 
+    lang: PropTypes.text,
+
     // general agenda info ( title, slug, )
     agenda: PropTypes.object,
 
@@ -32,13 +35,17 @@ module.exports = createReactClass( {
     settings: PropTypes.object,
 
     // server endpoints
-    res: PropTypes.object
+    res: PropTypes.object,
+
+    // set details
+    set: PropTypes.object
 
   },
 
   getDefaultProps() {
 
     return {
+      set: null,
       enableGeocode: true,
       settings: {}
     }
@@ -343,6 +350,7 @@ module.exports = createReactClass( {
 
     return <div className="agenda-admin-locations">
       <div>
+        {this.props.set ? <SetHeader set={this.props.set} lang={this.props.lang} /> : null}
         <div className="row list-actions">
           <div className="col col-sm-12">
             <div className="form-inline">

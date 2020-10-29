@@ -44,3 +44,9 @@ module.exports.byAgendaUid = async (service, agendaUid, query, data, options = {
   await list.byAgendaUid(service, agendaUid, query, {}, { ...options, total: null, detailed: true }),
   data
 );
+
+module.exports.bySetUid = async (service, setUid, query, data, options = {}) => merge(
+  service,
+  await list.bySetUid(service, setUid, query, {}, { ...options, total: null, detailed: true }),
+  data
+);

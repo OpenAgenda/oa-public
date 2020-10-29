@@ -1,0 +1,31 @@
+[{
+  "field": "id",
+  "optional": false,
+  "type": "integer",
+  "read": ["internal"],
+  "write": ["internal"]
+}, {
+  "field": "uid",
+  "type": "integer",
+  "optional": false,
+  "read": ["internal", "public"],
+  "write": ["internal"]
+}, {
+  "field": "title",
+  "type": "text",
+  "max": 255,
+  "read": ["internal", "public"],
+  "write": ["internal", "administrator"]
+}, {
+  "field": "updatedAt",
+  "optional": false,
+  "type": "date",
+  "read": ["internal", "public"],
+  "write": ["internal"]
+}, {
+  "field": "createdAt",
+  "optional": false,
+  "type": "date",
+  "read": ["internal", "public"],
+  "write": ["internal"]
+}]

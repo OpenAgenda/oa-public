@@ -17,6 +17,12 @@
   "read": ["internal"],
   "write": ["internal"]
 }, {
+  "field": "setUid",
+  "type": "integer",
+  "optional": true,
+  "read": ["internal"],
+  "write": ["internal"]
+}, {
   "field": "slug",
   "type": "text",
   "optional": false,

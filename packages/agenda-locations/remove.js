@@ -27,3 +27,18 @@ module.exports.byAgendaUid = async (
 
   return remove(service, current);
 }
+
+module.exports.bySetUid = async (
+  service,
+  setUid,
+  identifiers,
+  options = {}
+) => {
+  const current = await get.bySetUid(service, setUid, identifiers, options);
+
+  if (!current) {
+    throw new NotFoundError('location', { identifiers, setUid });
+  }
+
+  return remove(service, current);
+}
