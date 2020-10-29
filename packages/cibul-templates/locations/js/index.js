@@ -31,6 +31,7 @@ window.hook( function( options ) {
     agenda={params.agenda}
     settings={params.settings}
     lang={params.lang}
+    set={params.set}
     detailedInfo={params.detailedInfo}
     res={params.res} />,
   du.el( params.selectors.canvas ) );

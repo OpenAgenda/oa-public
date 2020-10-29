@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const expressUtils = require('@openagenda/utils/express');
 const gaTrack = require('../../lib/gaTrack.mw');
+const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaApp');
 
 module.exports = (config, services, service, app, base) => {
@@ -29,8 +30,9 @@ module.exports = (config, services, service, app, base) => {
       }
     },
     gaTrack('locations', 'export', 'json'),
+    loadLocationEndpoints(service),
     (req, res, next) => {
-      service(req.params.agendaUid).list(
+      req.locations.list(
         req.query,
         _.pick(req.query, ['offset', 'limit']),
         { total: true, detailed: !req.query.sample, includeImagePath: true }
@@ -55,7 +57,7 @@ module.exports = (config, services, service, app, base) => {
       unique: true
     }]),
     (req, res, next) => {
-      service(req.params.agendaUid).create({
+      req.locations.create({
         ...req.body,
         state: 0
       }, {

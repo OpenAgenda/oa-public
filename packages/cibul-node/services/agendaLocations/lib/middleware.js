@@ -4,6 +4,17 @@ const _ = require('lodash');
 
 const flattenLocationTagSet = require('@openagenda/event-form/build/utils/flattenLocationTagSet');
 
+module.exports.getLocationSet = service => (req, res, next) => {
+  req.locationSet = null;
+  if (!req.agenda || !req.agenda.locationSetUid) {
+    return next();
+  }
+  service.sets.get(req.agenda.locationSetUid, { detailed: true }).then(set => {
+    req.locationSet = set;
+    next();
+  }, next);
+}
+
 module.exports.loadLocation = service => (req, res, next) => {
   service(req.agenda.uid).get(req.params.locationUid, {
     includeImagePath: true,

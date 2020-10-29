@@ -7,6 +7,7 @@ const log = require('@openagenda/logs')('services/agendaLocations');
 
 const getEventCounts = require('./interfaces/getEventCounts');
 const getAgendaIdByUid = require('./interfaces/getAgendaIdByUid');
+const getSetAgendasCount = require('./interfaces/getSetAgendasCount');
 const beforeMerge = require('./interfaces/beforeMerge');
 const beforeRemove = require('./interfaces/beforeRemove');
 const onUpdate = require('./interfaces/onUpdate');
@@ -39,6 +40,7 @@ module.exports.init = async (config, services) => {
       getEventCounts: getEventCounts(config, services),
       locationsWillMerge: beforeMerge(services),
       locationWillRemove: beforeRemove(services),
+      getSetAgendasCount: getSetAgendasCount(services),
       onUpdate: onUpdate(queue),
       geocode: (address, { countryCode, language }) => geocoder(address, { countryCode, language })
     },
