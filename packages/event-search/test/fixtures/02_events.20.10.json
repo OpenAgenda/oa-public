@@ -188,7 +188,11 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+      "originAgenda": {
+        "uid": 7678114,
+        "title": "Un agenda",
+        "url": "http://www.site.com"
+      },
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -328,7 +332,11 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+      "originAgenda": {
+        "uid": 7678114,
+        "title": "Un agenda",
+        "url": "http://www.site.com"
+      },
       "location": {
         "uid": 65918542,
         "name": "Musée de Valence - arts et archéologie",
@@ -690,7 +698,11 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+      "originAgenda": {
+        "uid": 7678114,
+        "title": "Un agenda",
+        "url": "http://www.site.com"
+      },
       "location": {
         "uid": 10096987,
         "name": "Monument A La Victoire",

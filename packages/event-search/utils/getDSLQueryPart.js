@@ -82,8 +82,8 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
       parts.push(_terms(termsFiltersMap[key], cleanQuery[key]));
     });
 
-  if (![undefined, null].includes(cleanQuery.state)) {
-    parts.push(_mustPart('term', 'state', cleanQuery.state));
+  if (_.get(cleanQuery, 'state', []).filter(s => s !== null).length) {
+    parts.push(_mustPart('terms', 'state', cleanQuery.state));
   }
 
   additionalFields.forEach(field => {
@@ -97,9 +97,9 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
       ));
     } else if (['radio', 'checkbox'].includes(field.fieldType)) {
       parts.push(_mustPart(
-        'term',
+        Array.isArray(cleanQuery[field.field]) ? 'terms' : 'term',
         '_search_additional_keywords',
-        [field.schemaId, cleanQuery[field.field]].join('.')
+        Array.isArray(cleanQuery[field.field]) ? cleanQuery[field.field].map(v => [field.schemaId, v].join('.')) : [field.schemaId, cleanQuery[field.field]].join('.')
       ));
     }
   });
