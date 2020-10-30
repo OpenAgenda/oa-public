@@ -16,14 +16,26 @@ const { fromEventServiceFormat } = require('@openagenda/agenda-contribute/server
 const getAgendaWithNetworkAndSchemas = require('./getAgendaWithNetworkAndSchemas');
 const ValidationError = require('../../utils/ValidationError');
 
+const invalidLocationUidErrorItem = uid => ({
+  field: 'location',
+  code: 'invalid',
+  message: 'provided location uid is invalid',
+  origin: uid,
+  step: 'validation'
+})
+
 module.exports = async (services, agendaUid, data, options = {}) => {
   log('received for agenda %s', agendaUid);
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
-  const locationUid =  _.get(data, 'location.uid', _.get(data, 'locationUid'));
 
+  const locationUid =  _.get(data, 'location.uid', _.get(data, 'locationUid'));
   const location = locationUid ? await services.agendaLocations.get({
     uid: locationUid
+  }).catch(e => {
+    if (e.name !== 'BadRequestError') {
+      throw e;
+    }
   }) : null;
 
   log('fetched agenda and location');
@@ -153,13 +165,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   }
 
   if (!draft && clean.event && clean.event.location && !location) {
-    errors.push({
-      field: 'location',
-      code: 'invalid',
-      message: 'provided location uid is invalid',
-      origin: clean.locationUid,
-      step: 'validation'
-    });
+    errors.push(invalidLocationUidErrorItem(clean.locationUid));
   }
 
   if (errors.length) {
@@ -168,7 +174,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
 
   return clean;
 }
-
 
 function _distributeCleanData(consolidatedClean, schemaExtensions) {
   const fieldsPerSchema = {
