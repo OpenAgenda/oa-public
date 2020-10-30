@@ -146,7 +146,7 @@ async function init(config, services) {
     getTokensService: () => tokensService,
     interfaces: {
       beforeRemove,
-      beforeCreate,
+      beforeCreate: beforeCreate.bind(null, config, services),
       onCreate,
       onGenerateApiKey,
       onActivation,
