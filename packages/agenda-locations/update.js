@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const log = require('@openagenda/logs')('update');
 
 const cleanOptions = require('./lib/cleanSetOptions');
