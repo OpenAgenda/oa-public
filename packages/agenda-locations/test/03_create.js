@@ -78,6 +78,10 @@ describe('agenda-locations - functional - create', function() {
 
       assert.equal(entry.placename, created.name);
     });
+
+    it('result does not provide agendaId', () => {
+      assert(created.agendaId === undefined);
+    });
   });
 
   describe('set', () => {

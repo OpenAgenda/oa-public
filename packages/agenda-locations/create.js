@@ -4,10 +4,11 @@ const log = require('@openagenda/logs')('create');
 const slug = require('slugify');
 
 const cleanOptions = require('./lib/cleanSetOptions');
-const validate = require('./lib/validate');
-const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const defineUnique = require('./lib/defineUnique');
+const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
+const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const NotFoundError = require('./lib/NotFoundError');
+const validate = require('./lib/validate');
 
 async function create(service, data, options = {}) {
   log('received %j payload', data.name);
@@ -56,7 +57,7 @@ async function create(service, data, options = {}) {
     clean.image = service.config.imagePath + clean.image;
   }
 
-  return clean;
+  return filterFieldsByAccess(clean);
 }
 
 module.exports.byAgendaUid = async (

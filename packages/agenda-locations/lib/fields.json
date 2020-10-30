@@ -20,7 +20,7 @@
   "field": "setUid",
   "type": "integer",
   "optional": true,
-  "read": ["internal"],
+  "read": ["internal", "public"],
   "write": ["internal"]
 }, {
   "field": "slug",
