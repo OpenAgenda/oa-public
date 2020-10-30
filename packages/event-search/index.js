@@ -13,6 +13,8 @@ const remove = require('./remove');
 const searchIncludes = require('./config/searchIncludes.json');
 const update = require('./update');
 const Cluster = require('./cluster');
+const mapping = require('./config/mapping.json');
+const updateMapping = require('./utils/updateMapping');
 
 module.exports = c => {
   const config = Object.assign({
@@ -41,7 +43,8 @@ module.exports = c => {
     };
   }, {
     getConfig: () => config,
-    cluster: Cluster(config)
+    cluster: Cluster(config),
+    updateMapping: updateMapping.bind(null, config, config.defaultIndex, mapping)
   });
 }
 
