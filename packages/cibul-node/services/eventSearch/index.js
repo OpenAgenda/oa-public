@@ -53,7 +53,7 @@ module.exports.init = async (config, services) => {
   });
 
   return {
-    task: task.bind(null, { queue, rebuildQueue }),
+    task: task.bind(null, { queue, rebuildQueue, updateMapping: eventSearch.updateMapping }),
     update: update(services, queue, eventSearch),
     remove: remove(services, queue, eventSearch),
     add: add(services, queue, eventSearch),
@@ -77,7 +77,7 @@ module.exports.init = async (config, services) => {
   };
 }
 
-function task({ queue, rebuildQueue }) {
+function task({ queue, rebuildQueue, updateMapping }) {
   log('task');
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -88,4 +88,6 @@ function task({ queue, rebuildQueue }) {
 
   rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
   rebuildQueue.run();
+
+  updateMapping();
 }
