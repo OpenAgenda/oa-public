@@ -13,7 +13,6 @@ async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
 
   const {
-    context,
     includeImagePath,
     geocodeIfUndefined
   } = cleanOptions(options);

@@ -30,9 +30,14 @@ describe('agenda-locations - functional - create', function() {
       knex: f.client,
       redis: redis.createClient(),
       interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid],
+        getAgendaDetailsByUid: async (uid, fields = []) => _.pick({
+          id: ({
+            7196947: 25221
+          })[uid],
+          locationSetUid: ({
+            7196947: 1903810
+          })[uid]
+        }, fields),
         geocode: async address => [{
           latitude: 47.6576571,
           longitude: -2.7834928,
@@ -109,6 +114,11 @@ describe('agenda-locations - functional - create', function() {
         return;
       }
       throw new Error('Should not reach here');
+    });
+
+    it('location created on agendas endpoints and on an agenda associated with set is also associated to set', async () => {
+      const created = await svc(7196947).create(payload);
+      assert.equal(created.setUid, 1903810);
     });
   });
 

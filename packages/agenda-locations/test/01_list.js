@@ -14,10 +14,11 @@ const fixtures = require('./fixtures');
 const Service = require('../');
 const fields = require('../lib/fields.json');
 
-async function getAgendaIdByUid(id) {
-  return {
-    25221: 7196947
-  }[id];
+async function getAgendaDetailsByUid(uid, fields = []) {
+  return _.pick({
+    id: ({ 7196947: 25221 })[uid],
+    locationSetUid: ({ 7196947: 1903810 })[uid]
+  }, fields);
 }
 
 async function getEventCounts(locationUids, { agendaUid }) {
@@ -51,7 +52,7 @@ describe('agenda-locations - functional - list', function() {
       Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
-        getAgendaIdByUid,
+        getAgendaDetailsByUid,
         getEventCounts
       }
     });
@@ -196,7 +197,7 @@ describe('agenda-locations - functional - list', function() {
         Files: Files(dConfig.files),
         imagePath: '//cibuldev.s3.amazonaws.com/',
         interfaces: {
-          getAgendaIdByUid,
+          getAgendaDetailsByUid,
           getEventCounts: () => {
             throw new Error('getEventCounts');
           }

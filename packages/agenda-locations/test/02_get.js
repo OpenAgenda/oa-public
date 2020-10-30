@@ -28,9 +28,14 @@ describe('agenda-locations - functional - get', function() {
       Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
-        getAgendaIdByUid: async id => ({
-          25221: 7196947
-        })[id],
+        getAgendaDetailsByUid: async (uid, fields = []) => _.pick({
+          id: ({
+            7196947: 25221
+          })[uid],
+          locationSetUid: ({
+            7196947: 1903810
+          })[uid]
+        }, fields),
         getEventCounts: async (locationUids, { agendaUid }) => [{
           uid: 60763721,
           eventCount: 12,

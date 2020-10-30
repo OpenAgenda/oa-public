@@ -29,9 +29,11 @@ describe('agenda-locations - functional - patch & update', function() {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid],
+        getAgendaDetailsByUid: async uid => ({
+          id: ({
+            7196947: 25221
+          })[uid]
+        }),
         geocode: async address => [{ latitude: 10, longitude: 11 }]
       },
       Files: Files(dConfig.files)

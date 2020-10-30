@@ -29,9 +29,11 @@ describe('agenda-locations - functional - merge', function() {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid],
+        getAgendaDetailsByUid: async uid => ({
+          id: ({
+            7196947: 25221
+          })[uid]
+        }),
         locationsWillMerge: async (mergeIn, merged) => {}
       }
     });

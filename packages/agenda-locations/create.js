@@ -27,7 +27,13 @@ async function create(service, data, options = {}) {
   };
 
   if (context.agendaUid) {
-    clean.agendaId = await service.interfaces.getAgendaIdByUid(context.agendaUid);
+    Object.assign(clean, await service.interfaces
+      .getAgendaDetailsByUid(context.agendaUid, ['id', 'locationSetUid'])
+      .then(a => ({
+        agendaId: a.id,
+        setUid: a.locationSetUid
+      }))
+    );
   } else if (context.setUid) {
     clean.setUid = context.setUid;
   }

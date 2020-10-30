@@ -24,12 +24,7 @@ describe('agenda-locations - functional - sets create', function() {
 
     svc = Service({
       knex: f.client,
-      interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid],
-        geocode: async address => [{ latitude: 10, longitude: 11 }]
-      },
+      interfaces: {},
       Files: Files(dConfig.files)
     });
   });

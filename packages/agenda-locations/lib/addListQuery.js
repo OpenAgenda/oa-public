@@ -39,7 +39,9 @@ module.exports = async (service, k, query) => {
     uids
   } = validate(query);
 
-  const agendaId = agendaUid ? await service.interfaces.getAgendaIdByUid(agendaUid) : null;
+  const agendaId = agendaUid ? await service.interfaces
+    .getAgendaDetailsByUid(agendaUid, ['id'])
+    .then(r => r ? r.id : null) : null;
 
   if (agendaId) {
     k.where('agenda_id', agendaId);
