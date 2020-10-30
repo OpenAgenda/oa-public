@@ -6,7 +6,7 @@ const OpenCage = require('@openagenda/geocoder/Opencage');
 const log = require('@openagenda/logs')('services/agendaLocations');
 
 const getEventCounts = require('./interfaces/getEventCounts');
-const getAgendaIdByUid = require('./interfaces/getAgendaIdByUid');
+const getAgendaDetailsByUid = require('./interfaces/getAgendaDetailsByUid');
 const getSetAgendasCount = require('./interfaces/getSetAgendasCount');
 const beforeMerge = require('./interfaces/beforeMerge');
 const beforeRemove = require('./interfaces/beforeRemove');
@@ -36,7 +36,7 @@ module.exports.init = async (config, services) => {
     redis: config.redisClient,
     imagePath: config.aws.imageBucketPath,
     interfaces: {
-      getAgendaIdByUid: getAgendaIdByUid(config, services),
+      getAgendaDetailsByUid: getAgendaDetailsByUid(config, services),
       getEventCounts: getEventCounts(config, services),
       locationsWillMerge: beforeMerge(services),
       locationWillRemove: beforeRemove(services),
