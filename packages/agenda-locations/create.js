@@ -7,7 +7,6 @@ const cleanOptions = require('./lib/cleanSetOptions');
 const validate = require('./lib/validate');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const defineUnique = require('./lib/defineUnique');
-const geocode = require('./lib/geocode');
 const NotFoundError = require('./lib/NotFoundError');
 
 async function create(service, data, options = {}) {
@@ -19,10 +18,8 @@ async function create(service, data, options = {}) {
     geocodeIfUndefined
   } = cleanOptions(options);
 
-  const geocodeResult = geocodeIfUndefined && (data.latitude === undefined) ? await geocode(service.interfaces, data) : null;
-
   const clean = {
-    ...validate(geocodeResult ? { ...geocodeResult, ...data } : data),
+    ...validate(geocodeIfUndefined ? await service.decorateWithGeocodeData(data) : data),
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
     slug: await defineUnique(service, 'slug', () => slug(data.name, { lower: true }) + '_' + Math.ceil(Math.random() * 9999999)),
     createdAt: new Date,

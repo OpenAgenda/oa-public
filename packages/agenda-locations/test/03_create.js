@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const assert = require('assert');
 const fs = require('fs');
+const redis = require('redis');
 
 const {
   service: config,
@@ -27,11 +28,18 @@ describe('agenda-locations - functional - create', function() {
 
     svc = Service({
       knex: f.client,
+      redis: redis.createClient(),
       interfaces: {
         getAgendaIdByUid: async uid => ({
           7196947: 25221
         })[uid],
-        geocode: async address => [{ latitude: 10, longitude: 11 }]
+        geocode: async address => [{
+          latitude: 47.6576571,
+          longitude: -2.7834928,
+          department: 'Morbihan',
+          region: 'La région',
+          city: 'Vannes'
+        }]
       },
       Files: Files(dConfig.files)
     });
@@ -110,7 +118,7 @@ describe('agenda-locations - functional - create', function() {
 
     before(async () => {
       try {
-        created = await svc().create({
+        created = await svc(7196947).create({
           ...payload,
           image: fs.createReadStream(__dirname + '/fixtures/images/vieilles_pierres.jpg')
         });
@@ -126,20 +134,29 @@ describe('agenda-locations - functional - create', function() {
     });
   });
 
-  describe('other', function() {
+  describe('geocodeIfUndefined', async () => {
     this.timeout(10000);
 
-    it('if latitude is not provided at creation and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {
-      const created = await svc(7196947).create({
+    let location;
+
+    before(async () => {
+      location = await svc(7196947).create({
         name: 'Le Colisée',
         address: '31 rue de l’Epeule Parvis du Colisée, Roubaix',
         countryCode: 'FR'
       }, {
         geocodeIfUndefined: true
       });
+    });
 
-      assert.equal(created.latitude, 10);
-      assert.equal(created.longitude, 11);
+    it('latitude and longitude are defined in created location', () => {
+      assert.equal(location.latitude, 47.6576571);
+      assert.equal(location.longitude, -2.7834928);
+    });
+
+    it('insee code is defined if provided by interface', () => {
+      assert.equal(location.insee, '56260');
     });
   });
+
 });

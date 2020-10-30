@@ -1,10 +1,9 @@
 'use strict';
 
-const log = require('@openagenda/logs')('lib/geocode');
-
+const log = require('@openagenda/logs')('lib/decorateWithGeocodeData');
 const deduceLanguageFromCountry = require('./deduceLanguageFromCountry');
 
-module.exports = async (interfaces, data) => {
+async function geocode(interfaces, data) {
   try {
     if (!interfaces.geocode) {
       throw new Error('geocode interface is not set');
@@ -24,12 +23,29 @@ module.exports = async (interfaces, data) => {
     });
 
     if (!results.length) {
-      return null;
+      return {};
     }
 
     return results[0];
   } catch (e) {
     log('error', e.message);
-    return null;
+    return {};
+  }
+}
+
+module.exports = service => async data => {
+  if (!data || data.latitude) {
+    return;
+  }
+
+  const geocodeResult = await geocode(service.interfaces, data);
+  const inseeResult = service.getINSEECode ? {
+    insee: await service.getINSEECode(geocodeResult)
+  } : {};
+
+  return {
+    ...geocodeResult,
+    ...inseeResult,
+    ...data
   }
 }

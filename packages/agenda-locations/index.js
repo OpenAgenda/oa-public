@@ -13,6 +13,7 @@ const remove = require('./remove');
 const terms = require('./terms');
 const update = require('./update');
 const getINSEECode = require('./utils/getINSEECode');
+const decorateWithGeocodeData = require('./lib/decorateWithGeocodeData');
 const imageVariants = require('./lib/imageVariants');
 
 const sets = {
@@ -53,14 +54,18 @@ module.exports = Object.assign((c = {}) => {
       knex: c.knex || knex({
         client: 'mysql',
         connection: config.mysql
-      })
+      }),
+      redis: c.redis
     },
     interfaces: config.interfaces,
     imageTransformAndUpload: config.Files({
       key: 'image',
       variants: imageVariants(config.Files)
-    })
+    }),
+    getINSEECode: c.redis ? getINSEECode(c.redis) : null
   };
+
+  service.decorateWithGeocodeData = decorateWithGeocodeData(service);
 
   service.sets = {
     create: sets.create.bind(null, service),
@@ -95,7 +100,7 @@ module.exports = Object.assign((c = {}) => {
     get: get.bind(null, service),
     list: list.bind(null, service),
     utils: {
-      getINSEECode: config.redis ? getINSEECode(config.redis) : null,
+      getINSEECode: service.getINSEECode,
       countries
     },
     imageTransformAndUpload: service.imageTransformAndUpload,

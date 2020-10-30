@@ -7,7 +7,6 @@ const get = require('./get');
 const validate = require('./lib/validate');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const NotFoundError = require('./lib/NotFoundError');
-const geocode = require('./lib/geocode');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
@@ -18,7 +17,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
     geocodeIfUndefined
   } = cleanOptions(options);
 
-  const geocodeResult = geocodeIfUndefined && (data.latitude === undefined) ? await geocode(service.interfaces, data) : null;
+  const geocodeResult = geocodeIfUndefined ? await service.decorateWithGeocodeData(data): null;
 
   const ignoreImage = current.image && !validate.isStream(data.image);
 
