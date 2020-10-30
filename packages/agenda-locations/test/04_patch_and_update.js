@@ -109,6 +109,14 @@ describe('agenda-locations - functional - patch & update', function() {
       );
     });
 
+    it('update through agendas endpoint does not clear set uid of location', async () => {
+      const result = await svc(7196947).update(30433085, payload);
+      assert.equal(
+        await f.client('location').first().where('uid', 30433085).then(r => r.set_uid),
+        1903810
+      );
+    })
+
   });
 
   describe('other', () => {
