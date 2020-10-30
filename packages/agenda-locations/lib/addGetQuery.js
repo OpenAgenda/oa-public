@@ -1,5 +1,6 @@
 'use strict';
 
+const BadRequestError = require('./BadRequestError');
 const schema = require('@openagenda/validators/schema');
 
 schema.register({
@@ -20,11 +21,19 @@ const validate = schema({
 });
 
 module.exports = async (service, k, query) => {
+  const cleanQuery = {};
+
+  try {
+    Object.assign(cleanQuery, validate(query));
+  } catch (e) {
+    throw new BadRequestError('Invalid location identifier', e);
+  }
+
   const {
     setUid,
     agendaUid,
     uid
-  } = validate(query);
+  } = cleanQuery;
 
   const agendaId = agendaUid ? await service.interfaces.getAgendaIdByUid(agendaUid) : null;
 
