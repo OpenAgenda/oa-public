@@ -115,6 +115,50 @@ module.exports = core => {
       }), next)
   ]);
 
+  app.post('/v2/agendas/:agendaUid/locations', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .create(req.parsedData)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
+  app.post('/v2/agendas/:agendaUid/locations/:locationUid', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .update(req.params.locationUid, req.parsedData)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
+  app.patch('/v2/agendas/:agendaUid/locations/:locationUid', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .patch(req.params.locationUid, req.parsedData)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
+  app.delete('/v2/agendas/:agendaUid/locations/:locationUid', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .remove(req.params.locationUid)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
   app.post('/v2/agendas/:agendaUid/settings/resync', [
     mw.verifySuperAdmin,
     settings.resync

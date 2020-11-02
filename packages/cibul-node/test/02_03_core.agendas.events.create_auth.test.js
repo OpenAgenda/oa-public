@@ -3,8 +3,6 @@
 const _ = require('lodash');
 const assert = require('assert');
 const axios = require('axios');
-const FormData = require('form-data');
-const fs = require('fs');
 const ih = require('immutability-helper');
 const request = require('superagent');
 
