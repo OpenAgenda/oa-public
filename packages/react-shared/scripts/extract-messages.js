@@ -50,21 +50,32 @@ async function extractLang(defaultMessages, lang) {
 
 async function compileLang(lang) {
   const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
-  const compiledLocalesPath = path.join(process.cwd(), COMPILED_DIR, `${lang}.json`);
-  let compiledLocales;
+  const compiledLocalesPath = path.join(
+    process.cwd(),
+    COMPILED_DIR,
+    `${lang}.json`
+  );
+  let compiledLocales = {};
 
   // local translations
   try {
-    compiledLocales = await compile([localesPath], {
-      ast: true,
-      format: FORMAT
-    });
+    compiledLocales = JSON.parse(
+      await compile([localesPath], {
+        ast: true,
+        format: FORMAT
+      })
+    );
+
+    compiledLocales = _.mapValues(compiledLocales, item => (Array.isArray(item) && item.length === 0 ? null : item));
   } catch (e) {
     console.log(`Error while compiling ${lang}`, e);
     return;
   }
 
-  fs.writeFileSync(compiledLocalesPath, compiledLocales);
+  fs.writeFileSync(
+    compiledLocalesPath,
+    `${JSON.stringify(compiledLocales, null, 2)}\n`
+  );
 }
 
 function createIndex(dir) {
@@ -96,16 +107,18 @@ function createIndex(dir) {
   await mkdirp(OUT_DIR);
   await mkdirp(COMPILED_DIR);
 
-  const defaultMessages = JSON.parse(await extract(globSync(FILES), {
-    idInterpolationPattern: ID_INTERPOLATION_PATTERN,
-    extractFromFormatMessageCall: true,
-    format: FORMAT
-  }));
+  const defaultMessages = JSON.parse(
+    await extract(globSync(FILES), {
+      idInterpolationPattern: ID_INTERPOLATION_PATTERN,
+      extractFromFormatMessageCall: true,
+      format: FORMAT
+    })
+  );
 
   // Extract
-  const extractResults = await Promise.allSettled(LANGS.map(
-    lang => extractLang(defaultMessages, lang)
-  ));
+  const extractResults = await Promise.allSettled(
+    LANGS.map(lang => extractLang(defaultMessages, lang))
+  );
 
   extractResults.forEach(result => {
     if (result.status === 'rejected') {
@@ -114,9 +127,9 @@ function createIndex(dir) {
   });
 
   // Compile
-  const compileResults = await Promise.allSettled(LANGS.map(
-    lang => compileLang(lang)
-  ));
+  const compileResults = await Promise.allSettled(
+    LANGS.map(lang => compileLang(lang))
+  );
 
   compileResults.forEach(result => {
     if (result.status === 'rejected') {
