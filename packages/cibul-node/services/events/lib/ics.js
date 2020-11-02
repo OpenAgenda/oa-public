@@ -43,13 +43,25 @@ function icsHead(agenda, lang) {
   ].join('\n');
 }
 
+function usedTimings(event, timingIndex = -1) {
+  const cleanTimingIndex = parseInt(timingIndex, 10);
+
+  if (cleanTimingIndex === -1) {
+    return event.timings || [];
+  }
+
+  const chosenTiming = event.timings[cleanTimingIndex];
+
+  if (!chosenTiming) {
+    return [];
+  } else {
+    return [chosenTiming];
+  }
+}
+
 function icsBody(agenda, event, lang, timingIndex = -1) {
   const url = `${config.root}/${agenda.slug}/events/${event.slug}`;
   const description = /*truncateWithEllipses(*/getLocaleValue(event.description, lang)/*, 30)*/;
-  const parsedTimingIndex = parseInt(timingIndex, 10);
-  const usedTimings = parsedTimingIndex === -1
-    ? event.timings
-    : [event.timings[parsedTimingIndex]];
   const now = new Date();
 
   const repeatedParts = [
@@ -64,8 +76,7 @@ function icsBody(agenda, event, lang, timingIndex = -1) {
     'LAST-MODIFIED:' + formatIcsDate(event.updatedAt)
   ];
 
-  return usedTimings
-  // .filter(t => (new Date(t.begin) >= now))
+  return usedTimings(event, timingIndex)
     .filter((t, i) => (i < 10))
     .map(timing => [
       'BEGIN:VEVENT',
