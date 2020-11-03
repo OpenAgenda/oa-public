@@ -56,7 +56,7 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push({ term: { _set:  cleanQuery.set } });
   }
 
-  if (_.get( cleanQuery, 'localTime.gte') || _.get(cleanQuery, 'localTime.lte')) {
+  if (_.get(cleanQuery, 'localTime.gte') || _.get(cleanQuery, 'localTime.lte')) {
     parts.push(_localTime(cleanQuery.localTime));
   }
 
@@ -94,13 +94,13 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
         'term',
         '_search_additional_keywords',
         cleanQuery[field.field]
-      ));
+     ));
     } else if (['radio', 'checkbox'].includes(field.fieldType)) {
       parts.push(_mustPart(
         Array.isArray(cleanQuery[field.field]) ? 'terms' : 'term',
         '_search_additional_keywords',
         Array.isArray(cleanQuery[field.field]) ? cleanQuery[field.field].map(v => [field.schemaId, v].join('.')) : [field.schemaId, cleanQuery[field.field]].join('.')
-      ));
+     ));
     }
   });
 
@@ -116,17 +116,17 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
   [
     ['keyword', '_search_keywords', true],
     ['lang', '_search_languages', true],
-  ].forEach(field => {
+ ].forEach(field => {
     const fromField = _.isArray(field) ? field[0] : field;
     const toField = _.isArray(field) ? field[1] : field;
     const and = _.isArray(field) ? field[2] : false;
 
-    if ( _.get(cleanQuery, fromField, [] ).length > 1 && !and) {
-      parts.push(_mustPart('terms', toField, cleanQuery[ fromField ]));
+    if (_.get(cleanQuery, fromField, []).length > 1 && !and) {
+      parts.push(_mustPart('terms', toField, cleanQuery[fromField]));
     } else {
-      _.get( cleanQuery, fromField, [] )
-        .map(_mustPart.bind(null, 'term', toField) )
-        .forEach( p => parts.push( p ) );
+      _.get(cleanQuery, fromField, [])
+        .map(_mustPart.bind(null, 'term', toField))
+        .forEach(p => parts.push(p));
     }
   });
 
@@ -136,7 +136,7 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
     && _.get(cleanQuery, 'geo.northEast.lng')
     && _.get(cleanQuery, 'geo.southWest.lat')
     && _.get(cleanQuery, 'geo.southWest.lng')
-  ) {
+ ) {
     parts.push(_geoBounds(cleanQuery.geo));
   }
 
@@ -150,7 +150,7 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
           '_search_description',
           '_search_keywords_text',
           '_search_full_address_text',
-        ]
+       ]
       }
     });
   }
@@ -159,7 +159,7 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
 }
 
 
-function _timingsExcludingOngoing( d ) {
+function _timingsExcludingOngoing(d) {
   let range = {};
   if (d.gte) range.gte = d.gte;
   if (d.lte) range.lte = d.lte;
@@ -218,12 +218,12 @@ function _timestampFilter(field, { gte, lte }) {
   };
 }
 
-function _localTime( t ) {
+function _localTime(t) {
   let range = {};
 
-  if ( t.gte ) range.gte = t.gte;
+  if (t.gte) range.gte = t.gte;
 
-  if ( t.lte ) range.lte = t.lte;
+  if (t.lte) range.lte = t.lte;
 
   return {
     nested: {
@@ -236,7 +236,7 @@ function _localTime( t ) {
   };
 }
 
-function _geoBounds( b ) {
+function _geoBounds(b) {
   return {
     geo_bounding_box: {
       _search_location: {
