@@ -60,8 +60,8 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_localTime(cleanQuery.localTime));
   }
 
-  if (_.get(cleanQuery, 'date.gte') || _.get(cleanQuery, 'date.lte')) {
-    parts.push(_dateExcludingOngoing(cleanQuery.date));
+  if (_.get(cleanQuery, 'timings.gte') || _.get(cleanQuery, 'timings.lte')) {
+    parts.push(_timingsExcludingOngoing(cleanQuery.timings));
   }
 
   if (_.get(cleanQuery, 'createdAt.gte') || _.get(cleanQuery, 'createdAt.lte')) {
@@ -159,7 +159,7 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
 }
 
 
-function _dateExcludingOngoing( d ) {
+function _timingsExcludingOngoing( d ) {
   let range = {};
   if (d.gte) range.gte = d.gte;
   if (d.lte) range.lte = d.lte;

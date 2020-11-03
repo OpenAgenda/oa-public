@@ -10,6 +10,7 @@ const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
 const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const getDSLSortPart = require('../utils/getDSLSortPart');
+const transformFromLegacyQuery = require('../utils/transformFromLegacyQuery');
 const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
 const monolingual = require('../utils/monolingualize');
 
@@ -172,6 +173,23 @@ describe('event-search - unit: utils', function() {
 
   });
 
+  describe('transformFromLegacyQuery', () => {
+
+    it('replaces date with timings', () => {
+      assert.deepEqual(transformFromLegacyQuery({
+        city: 'Courbevoie',
+        date: {
+          gte: '2020-11-03'
+        }
+      }), {
+        city: 'Courbevoie',
+        timings: {
+          gte: '2020-11-03'
+        }
+      });
+    });
+
+  });
 
   describe('getDSLSortPart', () => {
 
