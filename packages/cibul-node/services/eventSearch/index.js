@@ -89,5 +89,5 @@ function task({ queue, rebuildQueue, updateMapping }) {
   rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
   rebuildQueue.run();
 
-  updateMapping();
+  updateMapping({ force: true });
 }
