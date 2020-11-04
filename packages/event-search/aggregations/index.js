@@ -5,6 +5,7 @@ const timestamp = require('./timestamp');
 
 const aggregationTypes = {
   additionalFields: require('./additionalFields'),
+  additionalFieldMetrics: require('./additionalFieldMetrics'),
   cities: geo('city'),
   eventsByDateRanges: require('./eventsByDateRanges'),
   departments: geo('department'),

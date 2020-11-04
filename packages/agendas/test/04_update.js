@@ -99,7 +99,8 @@ describe( 'agendas - functional (server): set (update)', function() {
         createdAt: result.agenda.createdAt,
         official: 0,
         private: 0,
-        indexed: 1
+        indexed: 1,
+        locationSetUid: null
       } );
 
       done();
@@ -247,6 +248,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           ownerId: 7388,
           formSchemaId: null,
           networkUid: null,
+          locationSetUid: null,
           slug: 'agenda-culturel-auvergne',
           uid: 65903437,
           official: 0,

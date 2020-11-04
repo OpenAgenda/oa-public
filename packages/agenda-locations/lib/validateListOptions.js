@@ -40,6 +40,10 @@ const validate = schema({
     agendaUid: {
       type: 'integer',
       default: null
+    },
+    setUid: {
+      type: 'integer',
+      default: null
     }
   },
   stream: {

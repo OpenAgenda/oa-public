@@ -1,12 +1,19 @@
 'use strict';
 
+const _ = require('lodash');
 const validate = require('../../validators/query');
 
 module.exports = (query, from = 0, size = 10) => {
   const mustPart = [];
   const filteredPart = [];
 
-  const clean = validate(query);
+  const inflatedQuery = Object.keys(query).reduce((inflated, key) => _.set(
+    inflated,
+    key.split('.'),
+    query[key]
+  ), {});
+
+  const clean = validate(inflatedQuery);
 
   const dsl = {
     from,
@@ -46,6 +53,10 @@ module.exports = (query, from = 0, size = 10) => {
         'settings.contribution.type' : clean.contributionType
       }
     });
+  }
+
+  if (clean.updatedAt.lte || clean.updatedAt.gte) {
+    filteredPart.push(_timestampFilter('updatedAt', clean.updatedAt));
   }
 
   if (clean.uid) {
@@ -114,4 +125,21 @@ module.exports = (query, from = 0, size = 10) => {
   }
 
   return dsl;
+}
+
+function _timestampFilter(field, { gte, lte }) {
+  const range = {};
+
+  if (gte) {
+    range.gte = gte;
+  }
+  if (lte) {
+    range.lte = lte;
+  }
+
+  return {
+    range: {
+      [field]: range
+    }
+  };
 }

@@ -19,7 +19,11 @@ describe('validators - query', () => {
       search: null,
       official: null,
       sort: null,
-      network: null
+      network: null,
+      updatedAt: {
+        gte: null,
+        lte: null
+      }
     });
   });
 

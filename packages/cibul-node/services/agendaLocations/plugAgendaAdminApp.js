@@ -4,6 +4,7 @@ const _ = require('lodash');
 const csv = require('fast-csv');
 const XlsxStream = require('xlsx-writestream');
 const expressUtils = require('@openagenda/utils/express');
+const loadLocationEndpoints = require('./lib/loadLocationEndpoints');
 const log = require('@openagenda/logs')('locations/plugAgendaAdminApp');
 const transformLocationForFlatExport = require('./lib/transformLocationForFlatExport');
 
@@ -11,7 +12,12 @@ const layout = require( '../lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'locations' }
 );
 
-const { getLocationSettings } = require('./lib/middleware');
+const {
+  loadLocation,
+  getLocationSettings,
+  getLocationSet,
+  parseDataWithImageStream
+} = require('./lib/middleware');
 
 module.exports = (config, services, instance, app, base) => {
   const {
@@ -27,14 +33,12 @@ module.exports = (config, services, instance, app, base) => {
     }),
     agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey({ agendaUidPath: 'agenda.uid' }),
-    (req, res, next) => {
-      req.locations = instance(req.agenda.uid);
-      next();
-    }
+    loadLocationEndpoints(instance)
  );
 
   app.get(base,
     getLocationSettings,
+    getLocationSet(instance),
     (req, res, next) => {
 
       res.send(layout('<div class="js_canvas"></div>', {
@@ -54,6 +58,7 @@ module.exports = (config, services, instance, app, base) => {
               uid: req.agenda.uid
             },
             mapboxKey: config.mapboxAccessToken,
+            set: req.locationSet,
             res: {
               csv: `/${req.agenda.slug}/admin/locations.csv`,
               xlsx: `/${req.agenda.slug}/admin/locations.xlsx`,

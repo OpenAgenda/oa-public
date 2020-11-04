@@ -7,6 +7,7 @@ module.exports = {
   verifySuperAdmin: require('./verifySuperAdmin'),
   member: require('./member'),
   loadAgenda: require('./loadAgenda'),
+  eventUpdate: require('./eventUpdate'),
   redirectIfPrivate: require('./redirectIfPrivate'),
   loadEvent: require('./loadEvent'),
   parseBodyData: require('./parseBodyData'),

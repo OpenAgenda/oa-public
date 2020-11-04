@@ -82,6 +82,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     events,
     total,
     aggregations: aggregationResults,
+    sort,
     scrollId
   } = await postDSL(_.pick(config, ['client']), index, cleanDSL, cleanNav.scroll ? cleanNav : {});
 
@@ -100,7 +101,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   return Object.assign({
     total,
     events: parsedEvents,
-    scrollId
+    scrollId,
+    sort
   }, aggregationResults ? { aggregations: aggregationResults } : {});
 }
 

@@ -6,12 +6,7 @@ const express = require('express');
 const logRequests = require('../services/logRequests');
 const log = require('@openagenda/logs')('api');
 const mw = require('./middleware');
-
-const events = {
-  create: require('./endpoints/eventCreate'),
-  update: require('./endpoints/eventUpdate'),
-  remove: require('./endpoints/eventRemove')
-};
+const ih = require('immutability-helper');
 
 const settings = {
   get: require('./endpoints/settingsGet'),
@@ -72,15 +67,38 @@ module.exports = core => {
     access: req.access
   })));
 
-  // create the thing
-  app.post('/v2/agendas/:agendaUid/events', events.create);
+  app.post('/v2/agendas/:agendaUid/events', (req, res, next) => req.app.core
+    .agendas(req.agenda.uid).events
+    .create(ih(req.parsedData, {
+      ownerUid: { $set: req.user.uid },
+      creatorUid: { $set: req.user.uid },
+      agendaUid: { $set: req.agenda.uid }
+    }), {
+      context: {
+        userUid: req.member.userUid
+      },
+      access: req.access,
+      defaultLang: req.headers.lang
+    }).then(event => res.json({
+      success: true,
+      event
+    }), next)
+  );
 
   // update the thing
-  app.post('/v2/agendas/:agendaUid/events/:eventUid', events.update);
-  app.patch('/v2/agendas/:agendaUid/events/:eventUid', events.update);
+  app.post('/v2/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
+  app.patch('/v2/agendas/:agendaUid/events/:eventUid', mw.eventUpdate);
 
   // remove the thing
-  app.delete('/v2/agendas/:agendaUid/events/:eventUid', events.remove);
+  app.delete('/v2/agendas/:agendaUid/events/:eventUid', (req, res, next) => req.app.core
+    .agendas(req.agenda.uid).events
+    .remove(req.event.uid, {
+      context: {
+        agendaUid: req.agenda.uid,
+        userUid: req.user.uid
+      }
+    }).then(event => res.json({ success: true, event }), next)
+  );
 
   app.get('/v2/agendas/:agendaUid/settings', [
     mw.member.allow(['administrator']),
@@ -91,7 +109,54 @@ module.exports = core => {
     mw.member.allow(['administrator']),
     (req, res, next) => req.app.core
       .agendas(req.agenda.uid).members.list(req.query)
-      .then(data => res.json({...data, success: true }), next)
+      .then(data => res.json({
+        ...data,
+        success: true
+      }), next)
+  ]);
+
+  app.post('/v2/agendas/:agendaUid/locations', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .create(req.parsedData)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
+  app.post('/v2/agendas/:agendaUid/locations/:locationUid', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .update(req.params.locationUid, req.parsedData)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
+  app.patch('/v2/agendas/:agendaUid/locations/:locationUid', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .patch(req.params.locationUid, req.parsedData)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
+  app.delete('/v2/agendas/:agendaUid/locations/:locationUid', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .remove(req.params.locationUid)
+      .then(location => res.json({
+        success: true,
+        location
+      }), next)
   ]);
 
   app.post('/v2/agendas/:agendaUid/settings/resync', [
@@ -104,8 +169,17 @@ module.exports = core => {
       .then(data => res.json({...data, success: true }), next);
   });
 
-
   app.use((err, req, res, next) => {
+    if ([
+      'BadRequestError',
+      'NotFoundError',
+      'ValidationError'
+    ].includes(err.name)) {
+      return res.status(err.statusCode).json({
+        errors: err.detail
+      });
+    }
+
     handleError(new VError({
       cause: err,
       info: {
@@ -113,12 +187,6 @@ module.exports = core => {
         query: req.query
       }
     }), req);
-
-    if (err.name === 'ValidationError') {
-      return res.status(400).json({
-        errors: err.detail
-      });
-    }
 
     return res.status(500).json({
       message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com'

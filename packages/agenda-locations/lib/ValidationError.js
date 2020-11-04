@@ -5,6 +5,6 @@ module.exports = class ValidationError extends Error {
     super('Invalid data');
     this.name = 'ValidationError';
     this.detail = errors;
-    this.code = 400;
+    this.statusCode = 400;
   }
 }

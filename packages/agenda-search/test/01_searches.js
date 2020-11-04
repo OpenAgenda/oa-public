@@ -7,7 +7,7 @@ const Service = require('../service');
 const listInterface = require('./app/listInterface');
 const getAgendaSummary = require('./app/getAgendaSummary');
 
-describe('search', function() {
+describe('Search', function() {
   let svc;
   this.timeout(30000);
 
@@ -207,6 +207,22 @@ describe('search', function() {
       }, 0, 10);
 
       assert.deepEqual(items.map(i => i.uid), uids);
+    });
+
+    it('fetch updated after a certain date', async () => {
+      const { total, items } = await svc.list({
+        updatedAt: { gte: JSON.stringify('2020-04-01') }
+      });
+
+      assert.equal(total, 2);
+    });
+
+    it('query can be given with flat keys', async () => {
+      const { total, items } = await svc.list({
+        'updatedAt.gte': JSON.stringify('2020-04-01')
+      });
+
+      assert.equal(total, 2);
     });
 
     it('fetch for certain network only', async () => {

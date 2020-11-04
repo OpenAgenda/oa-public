@@ -16,7 +16,7 @@ const Service = require('../');
 
 const payload = require('./fixtures/updateData.json');
 
-describe('agenda-locations - functional - update', function() {
+describe('agenda-locations - functional - patch & update', function() {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -29,9 +29,11 @@ describe('agenda-locations - functional - update', function() {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid],
+        getAgendaDetailsByUid: async uid => ({
+          id: ({
+            7196947: 25221
+          })[uid]
+        }),
         geocode: async address => [{ latitude: 10, longitude: 11 }]
       },
       Files: Files(dConfig.files)
@@ -75,7 +77,6 @@ describe('agenda-locations - functional - update', function() {
 
   describe('patching image', function () {
     let entry;
-    this.timeout(10000);
 
     before(async () => {
       await svc().patch(94482437, {
@@ -88,6 +89,36 @@ describe('agenda-locations - functional - update', function() {
     it('saves uploaded image name in db', () => {
       assert.equal(JSON.parse(entry.store).image.split('?').shift(), `location94482437.jpg`);
     });
+  });
+
+  describe('set', () => {
+
+    it('updates', async () => {
+      const result = await svc.sets(1903810).locations.update(30433085, payload);
+      assert.equal(
+        await f.client('location').first().where('uid', 30433085).then(r => r.placename),
+        payload.name
+      );
+    });
+
+    it('patches', async () => {
+      await svc.sets(1903810).locations.patch(30433085, {
+        name: 'Patched'
+      });
+      assert.equal(
+        await f.client('location').first().where('uid', 30433085).then(r => r.placename),
+        'Patched'
+      );
+    });
+
+    it('update through agendas endpoint does not clear set uid of location', async () => {
+      const result = await svc(7196947).update(30433085, payload);
+      assert.equal(
+        await f.client('location').first().where('uid', 30433085).then(r => r.set_uid),
+        1903810
+      );
+    })
+
   });
 
   describe('other', () => {

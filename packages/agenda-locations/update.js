@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const log = require('@openagenda/logs')('update');
 
 const cleanOptions = require('./lib/cleanSetOptions');
@@ -7,18 +8,16 @@ const get = require('./get');
 const validate = require('./lib/validate');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
 const NotFoundError = require('./lib/NotFoundError');
-const geocode = require('./lib/geocode');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
 
   const {
-    context,
     includeImagePath,
     geocodeIfUndefined
   } = cleanOptions(options);
 
-  const geocodeResult = geocodeIfUndefined && (data.latitude === undefined) ? await geocode(service.interfaces, data) : null;
+  const geocodeResult = geocodeIfUndefined ? await service.decorateWithGeocodeData(data): null;
 
   const ignoreImage = current.image && !validate.isStream(data.image);
 
@@ -92,6 +91,22 @@ module.exports.byAgendaUid = async (
 
   if (!current) {
     throw new NotFoundError('location', { identifiers, agendaUid });
+  }
+
+  return update({ service, isPatch }, current, data, options);
+}
+
+module.exports.bySetUid = async (
+  { service, isPatch },
+  setUid,
+  identifiers,
+  data,
+  options = {}
+) => {
+  const current = await get.bySetUid(service, setUid, identifiers, options);
+
+  if (!current) {
+    throw new NotFoundError('location', { identifiers, setUid });
   }
 
   return update({ service, isPatch }, current, data, options);

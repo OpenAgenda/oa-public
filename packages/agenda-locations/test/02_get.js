@@ -28,9 +28,14 @@ describe('agenda-locations - functional - get', function() {
       Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
-        getAgendaIdByUid: async id => ({
-          25221: 7196947
-        })[id],
+        getAgendaDetailsByUid: async (uid, fields = []) => _.pick({
+          id: ({
+            7196947: 25221
+          })[uid],
+          locationSetUid: ({
+            7196947: 1903810
+          })[uid]
+        }, fields),
         getEventCounts: async (locationUids, { agendaUid }) => [{
           uid: 60763721,
           eventCount: 12,
@@ -61,6 +66,19 @@ describe('agenda-locations - functional - get', function() {
 
     it('image is provided without path', () => {
       assert.equal(location.image.split('/').length, 1);
+    });
+  });
+
+  describe('set', () => {
+    it('location in set is the result', async () => {
+      const location = await svc.sets(1903810).locations.get(7630649);
+
+      assert.equal(location.name, 'St André Lachamp');
+    });
+
+    it('location out of set is not found', async () => {
+      const location = await svc.sets(1903810).locations.get(72498112);
+      assert.equal(location, null);
     });
   });
 

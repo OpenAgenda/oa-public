@@ -54,6 +54,12 @@ module.exports = [{
   read: ['internal', 'public', 'legacy', 'legacyPublic'],
   write: ['internal']
 }, {
+  field: 'locationSetUid',
+  type: 'integer',
+  optional: true,
+  read: ['internal', 'public', 'legacy', 'legacyPublic'],
+  write: ['internal']
+}, {
   field: 'ownerId',
   type: 'integer',
   optional: false,

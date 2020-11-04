@@ -13,7 +13,7 @@ const {
 const fixtures = require('./fixtures');
 const Service = require('../');
 
-describe('agenda-locations - functional - update', function() {
+describe('agenda-locations - functional - remove', function() {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -27,27 +27,49 @@ describe('agenda-locations - functional - update', function() {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid]
+        getAgendaDetailsByUid: async uid => ({
+          id: ({
+            7196947: 25221
+          })[uid]
+        })
       }
     });
   });
 
-  let removed;
+  describe('basic', () => {
+    let removed;
 
-  before(async () => {
-    removed = await svc(7196947).remove(95301591);
+    before(async () => {
+      removed = await svc(7196947).remove(95301591);
+    });
+
+    it('remove provides removed location in response', () => {
+      assert.equal(removed.uid, 95301591);
+    });
+
+    it('removed location is no longer present in db', async () => {
+      const entry = await f.client('location').first().where('uid', removed.uid);
+
+      assert.ok(entry === undefined);
+    });
   });
 
-  it('remove provides removed location in response', () => {
-    assert.equal(removed.uid, 95301591);
-  });
+  describe('set', () => {
+    let removed;
 
-  it('removed location is no longer present in db', async () => {
-    const entry = await f.client('location').first().where('uid', removed.uid);
+    before(async () => {
+      removed = await svc.sets(1903810).locations.remove(51665985);
+    });
 
-    assert.ok(entry === undefined);
+    it('remove provides removed location in response', () => {
+      assert.equal(removed.uid, 51665985);
+    });
+
+    it('removed location is no longer present in db', async () => {
+      const entry = await f.client('location').first().where('uid', removed.uid);
+
+      assert.ok(entry === undefined);
+    });
   });
 
 });

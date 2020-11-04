@@ -103,7 +103,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
 
     it('location is provided', () => {
       expect(Object.keys(events[0].location)).toEqual([
-        'uid', 'slug', 'name', 'address',
+        'uid', 'setUid', 'slug', 'name', 'address',
         'city', 'region', 'department', 'postalCode',
         'insee', 'countryCode', 'district',
         'latitude', 'longitude', 'updatedAt',

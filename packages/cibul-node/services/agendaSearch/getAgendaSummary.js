@@ -12,6 +12,9 @@ module.exports = async (config, services, agenda) => {
     state: null, // ... of any state
     createdAt: {
       gte: recentThreshold
+    },
+    date: {
+      gte: new Date()
     }
   }, { size: 0 });
 

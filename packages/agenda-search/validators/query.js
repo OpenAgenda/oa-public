@@ -6,7 +6,8 @@ schemas.register({
   text: require('@openagenda/validators/text'),
   regex: require('@openagenda/validators/regex'),
   boolean: require('@openagenda/validators/boolean'),
-  integer: require('@openagenda/validators/integer')
+  integer: require('@openagenda/validators/integer'),
+  date: require('@openagenda/validators/date')
 });
 
 module.exports = schemas({
@@ -23,6 +24,18 @@ module.exports = schemas({
   contributionType: {
     type: 'integer',
     list: { default: null }
+  },
+  updatedAt: {
+    fields: {
+      gte: {
+        type: 'date',
+        default: null
+      },
+      lte: {
+        type: 'date',
+        default: null
+      }
+    }
   },
   network: {
     type: 'integer',

@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const assert = require('assert');
 const fs = require('fs');
 const should = require('should');
 
@@ -149,7 +150,7 @@ describe('02 - event search - functional: Applied search', function() {
           }
         }, {});
 
-        total.should.equal(427);
+        total.should.equal(425);
       });
 
       it('events can be filtered by source agenda', async () => {
@@ -173,8 +174,28 @@ describe('02 - event search - functional: Applied search', function() {
           department: 'Gironde'
         }, {});
 
-        total.should.equal(509);
+        total.should.equal(507);
       });
+
+      it('get events matching one state', async () => {
+        const { total, events } = await service('bdx').search({
+          state: 2
+        }, {});
+
+        total.should.equal(518);
+      });
+
+      it('search for multiple states', async () => {
+        const { total, events } = await service('bdx').search({
+          state: [1, 0]
+        }, {});
+
+        total.should.equal(3);
+      });
+
+    });
+
+    describe('Sort and navigation', () => {
 
       it('scroll through results', async () => {
         const {
@@ -204,10 +225,41 @@ describe('02 - event search - functional: Applied search', function() {
 
         events.length.should.equal(total);
 
+        const now = new Date();
+
         events.forEach(e => {
-          //console.log(e.location);
+          const begin = e.timings[0].begin;
+          const end = e.timings[e.timings.length - 1].end;
+          const upcomingTimings = e.timings.filter(t => new Date(t.end) > now);
+          const pastTimings = e.timings.filter(t => new Date(t.end) < now);
+          //console.log(e.slug, _ft(begin), _ft((upcomingTimings.length ? upcomingTimings.shift() : pastTimings.pop()).end), _ft(end));
         });
       });
+
+      function _ft(t) {
+        return t.split(':00.000').shift();
+      }
+
+      it('navigation with search after and default sort', async () => {
+        const {
+          events: chunkOfEvents,
+        } = await service('bdx').search({}, { size: 10 });
+
+        const {
+          events: firstSmallerChunkOfEvents,
+          sort: searchAfter
+        } = await service('bdx').search({}, { size: 2 });
+
+        const {
+          events: secondSmallerChunkOfEvents,
+        } = await service('bdx').search({}, { size: 2, searchAfter });
+
+        assert.equal(
+          chunkOfEvents[2].uid,
+          secondSmallerChunkOfEvents[0].uid
+        );
+      });
+
 
     });
 
@@ -229,6 +281,22 @@ describe('02 - event search - functional: Applied search', function() {
             .length.should.equal(1);
         }
       });
+
+      it('search by additional optioned field with multiple values (matches either)', async () => {
+        const {
+          total,
+          events
+        } = await service('bdx').search({
+          'thematiques-bordeaux-metropole' : [9, 13, 23]
+        }, {}, { formSchema });
+
+        events.forEach(e => {
+          e['thematiques-bordeaux-metropole'].filter(id => [9, 13, 23].includes(id)).length.should.greaterThan(0);
+        });
+
+        total.should.equal(127);
+
+      })
 
     });
 
@@ -432,7 +500,7 @@ describe('02 - event search - functional: Applied search', function() {
           });
 
           it('there are as many items in timings aggregation as there are dates in lifespan of result', () => {
-            agg.length.should.equal(757);
+            agg.length.should.equal(748);
           });
 
           it('each item is a { key, timingCount } pair, the key being a date (YYYY-MM-DD)', () => {
@@ -441,7 +509,7 @@ describe('02 - event search - functional: Applied search', function() {
               timingCount: 1
             });
             _.last(agg).should.eql({
-              key: '2021-01-09',
+              key: '2020-12-31',
               timingCount: 1
             });
           });
@@ -505,15 +573,15 @@ describe('02 - event search - functional: Applied search', function() {
 
           it('day keys matching date filter are the only ones to be provided', () => {
             agg.timingsByDay.should.eql([
-              { key: '2020-04-01', timingCount: 8 },
-              { key: '2020-04-02', timingCount: 7 }
+              { key: '2020-04-01', timingCount: 7 },
+              { key: '2020-04-02', timingCount: 6 }
             ]);
           });
 
           it('month keys matching date filter are the only ones to be provided', () => {
             agg.timingsByMonth.should.eql([{
               key: '2020-04',
-              timingCount: 163
+              timingCount: 133
             }]);
           });
         });
@@ -545,7 +613,7 @@ describe('02 - event search - functional: Applied search', function() {
 
         it('regions aggregation', () => {
           agg.regions.should.eql([
-            { key: 'Nouvelle-Aquitaine', eventCount: 514 },
+            { key: 'Nouvelle-Aquitaine', eventCount: 512 },
             { key: 'Île-de-France', eventCount: 1 }
           ]);
         });
@@ -553,7 +621,7 @@ describe('02 - event search - functional: Applied search', function() {
         it('departments aggregation', () => {
           agg.departments[0].should.eql({
             key: 'Gironde',
-            eventCount: 509
+            eventCount: 507
           });
         });
 
@@ -704,7 +772,7 @@ describe('02 - event search - functional: Applied search', function() {
           );
 
           timespanAggregation.last.should.eql(
-            new Date('2021-01-09T13:00:00.000Z')
+            new Date('2020-12-31T09:30:00.000Z')
           );
         });
       });
@@ -724,10 +792,13 @@ describe('02 - event search - functional: Applied search', function() {
         it('provides count for each state', () => {
           statesAggregation.should.eql([{
             key: 2,
-            eventCount: 520
+            eventCount: 518
+          }, {
+            key: 1,
+            eventCount: 1
           }, {
             key: 0,
-            eventCount: 1
+            eventCount: 2
           }]);
         });
       });

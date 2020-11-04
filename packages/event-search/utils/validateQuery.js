@@ -3,6 +3,7 @@
 const schema = require('@openagenda/validators/schema');
 
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
+const transformFromLegacyQuery = require('./transformFromLegacyQuery');
 
 schema.register({
   text: require('@openagenda/validators/text'),
@@ -74,7 +75,6 @@ const validate = schema({
   state: {
     optional: true,
     type: 'choice',
-    unique: true,
     options: [null, -1, 0, 1, 2],
     default: 2
   },
@@ -134,7 +134,7 @@ const validate = schema({
       }
     }
   },
-  date: {
+  timings: {
     fields: {
       gte: {
         type: 'date'
@@ -162,7 +162,9 @@ const validate = schema({
 });
 
 module.exports = (dirty, formSchema) => {
-  const clean = validate(dirty);
+  const preCleaned = transformFromLegacyQuery(dirty);
+
+  const clean = validate(preCleaned);
 
   const additionalFields = getFormSchemaAdditionalFields(formSchema)
     .map(f => f.field);

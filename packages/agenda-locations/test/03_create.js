@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const assert = require('assert');
 const fs = require('fs');
+const redis = require('redis');
 
 const {
   service: config,
@@ -27,11 +28,23 @@ describe('agenda-locations - functional - create', function() {
 
     svc = Service({
       knex: f.client,
+      redis: redis.createClient(),
       interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid],
-        geocode: async address => [{ latitude: 10, longitude: 11 }]
+        getAgendaDetailsByUid: async (uid, fields = []) => _.pick({
+          id: ({
+            7196947: 25221
+          })[uid],
+          locationSetUid: ({
+            7196947: 1903810
+          })[uid]
+        }, fields),
+        geocode: async address => [{
+          latitude: 47.6576571,
+          longitude: -2.7834928,
+          department: 'Morbihan',
+          region: 'La région',
+          city: 'Vannes'
+        }]
       },
       Files: Files(dConfig.files)
     });
@@ -65,6 +78,52 @@ describe('agenda-locations - functional - create', function() {
 
       assert.equal(entry.placename, created.name);
     });
+
+    it('result does not provide agendaId', () => {
+      assert(created.agendaId === undefined);
+    });
+  });
+
+  describe('set', () => {
+    let created;
+
+    before(async () => {
+      created = await svc.sets(1903810).locations.create({
+        name: 'Bruchon',
+        address: 'Bruchon, Lamastre',
+        countryCode: 'FR'
+      }, { geocodeIfUndefined: true });
+    });
+
+    it('created location is associated to set', () => {
+      assert.equal(created.setUid, 1903810);
+    });
+
+    it('entry has set uid', async () => {
+      assert.equal(
+        await f.client('location').first('set_uid').where('uid', created.uid).then(r => r.set_uid),
+        1903810
+      );
+    });
+
+    it('location cannot be created if specified set does not exist', async () => {
+      try {
+        await svc.sets(90389033829).locations.create({
+          name: 'Bruchon',
+          address: 'Bruchon, Lamastre',
+          countryCode: 'FR'
+        }, { geocodeIfUndefined: true });
+      } catch(e) {
+        assert.equal(e.message, 'Not found');
+        return;
+      }
+      throw new Error('Should not reach here');
+    });
+
+    it('location created on agendas endpoints and on an agenda associated with set is also associated to set', async () => {
+      const created = await svc(7196947).create(payload);
+      assert.equal(created.setUid, 1903810);
+    });
   });
 
   describe('with image', function() {
@@ -73,7 +132,7 @@ describe('agenda-locations - functional - create', function() {
 
     before(async () => {
       try {
-        created = await svc().create({
+        created = await svc(7196947).create({
           ...payload,
           image: fs.createReadStream(__dirname + '/fixtures/images/vieilles_pierres.jpg')
         });
@@ -89,20 +148,29 @@ describe('agenda-locations - functional - create', function() {
     });
   });
 
-  describe('other', function() {
+  describe('geocodeIfUndefined', async () => {
     this.timeout(10000);
 
-    it('if latitude is not provided at creation and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {
-      const created = await svc(7196947).create({
+    let location;
+
+    before(async () => {
+      location = await svc(7196947).create({
         name: 'Le Colisée',
         address: '31 rue de l’Epeule Parvis du Colisée, Roubaix',
         countryCode: 'FR'
       }, {
         geocodeIfUndefined: true
       });
+    });
 
-      assert.equal(created.latitude, 10);
-      assert.equal(created.longitude, 11);
+    it('latitude and longitude are defined in created location', () => {
+      assert.equal(location.latitude, 47.6576571);
+      assert.equal(location.longitude, -2.7834928);
+    });
+
+    it('insee code is defined if provided by interface', () => {
+      assert.equal(location.insee, '56260');
     });
   });
+
 });

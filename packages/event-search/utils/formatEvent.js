@@ -139,7 +139,7 @@ module.exports = (event, formSchema = null) => {
           field,
           value: event[field.field]
         }))
-        .filter(({ field, value }) => (
+        .filter(({ value, field }) => (
           ![undefined, null].includes(value) // there is a value
         ) && (
           ['email', 'radio', 'checkbox'].includes(field.fieldType)
@@ -148,6 +148,24 @@ module.exports = (event, formSchema = null) => {
           return keywords.concat(['radio', 'checkbox'].includes(field.fieldType)
             ? [].concat(value).map(v => [field.schemaId, v].join('.')) : value)
         }, [])
+      };
+
+    transform['_search_additional_numbers'] = {
+      $set: schemaAdditionalFields
+        .map(field => ({
+          field,
+          value: event[field.field]
+        }))
+        .filter(({ value, field }) => (
+          ![undefined, null].includes(value) // there is a value
+        ) && (
+          ['number', 'integer'].includes(field.fieldType)
+        ))
+        .reduce((nested, { field, value }) => nested.concat({
+          field: field.field,
+          integer: parseInt(value, 10),
+          number: parseFloat(value)
+        }), [])
       };
   }
 

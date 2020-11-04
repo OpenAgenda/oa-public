@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS ${agenda} (
   owner_id BIGINT NOT NULL,
   form_schema_id BIGINT,
   network_uid BIGINT,
+  location_set_uid BIGINT,
   slug VARCHAR(255) NOT NULL UNIQUE,
   description VARCHAR(165), /* 150 in real world */
   image VARCHAR(255),

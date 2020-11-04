@@ -802,7 +802,7 @@
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
-      "state": 2,
+      "state": 1,
       "featured": false,
       "sourcePaths": [
         5598423
@@ -2343,7 +2343,7 @@
       "recurring": [],
       "categories-agenda-metropolitain": 52,
       "thematiques-bordeaux-metropole": [],
-      "state": 2,
+      "state": 0,
       "featured": false,
       "sourcePaths": [
         5598423

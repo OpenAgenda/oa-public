@@ -9,10 +9,7 @@ function AgendaItem({ agenda }) {
   const { getLabel } = useContext(I18nContext);
 
   return (
-    <div
-      className="agenda-item media"
-      style={{ padding: '0' }}
-    >
+    <div className="agenda-item media" style={{ padding: '0' }}>
       <div className="media-left">
         <a href={`/${agenda.slug}`}>
           <img
@@ -61,12 +58,18 @@ export default function Welcome() {
 
   const apiClient = useApiClient();
 
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(oneWeekAgo.getDate() - 14);
+
   const agendasQuery = useQuery('welcome-agendas', () => apiClient.get('/agendas.json', {
     params: {
       sort: 'recentlyContributed.desc',
       contributionType: 1,
       official: 1,
-      limit: 5
+      limit: 5,
+      updatedAt: {
+        gte: oneWeekAgo
+      }
     }
   }));
 
@@ -80,9 +83,7 @@ export default function Welcome() {
 
           <p>{getLabel('welcomeMessage')}</p>
 
-          <h4 className="margin-v-md">
-            {getLabel('contributeToExisting')}
-          </h4>
+          <h4 className="margin-v-md">{getLabel('contributeToExisting')}</h4>
 
           <form action="/agendas" method="GET" className="margin-top-sm">
             <input type="hidden" name="sort" value="recentlyContributed.desc" />
@@ -120,15 +121,15 @@ export default function Welcome() {
               : null}
 
             <div className="margin-top-sm">
-              <a href="/agendas?sort=recentlyContributed.desc&official=1&contributionType=1">
+              <a
+                href={`/agendas?sort=recentlyContributed.desc&official=1&contributionType=1&updatedAt.gte=${oneWeekAgo.toISOString()}`}
+              >
                 {getLabel('seeMore')}
               </a>
             </div>
           </ul>
 
-          <h4 className="margin-v-md">
-            {getLabel('orCreateYourAgenda')}
-          </h4>
+          <h4 className="margin-v-md">{getLabel('orCreateYourAgenda')}</h4>
 
           <a href={res.agendas.create} className="btn btn-primary">
             {getLabel('createAgenda')}

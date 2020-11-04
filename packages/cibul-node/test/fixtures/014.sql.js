@@ -26,7 +26,8 @@ raw.push(knex('review').insert([
 
 raw.push(knex('reviewer').insert([
   require('./sql/members/71385.json'),
-  require('./sql/members/71386.json')
+  require('./sql/members/71386.json'),
+  require('./sql/members/71387.json')
 ]));
 
 raw.push(knex('location').insert([
@@ -35,7 +36,8 @@ raw.push(knex('location').insert([
   require('./sql/locations/3.json'),
   require('./sql/locations/4.json'),
   require('./sql/locations/5.json'),
-  require('./sql/locations/6.json')
+  require('./sql/locations/6.json'),
+  require('./sql/locations/7.json')
 ]));
 
 module.exports = raw.join(';\n') + ';';

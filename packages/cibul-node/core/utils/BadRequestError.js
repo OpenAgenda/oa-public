@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = class BadRequest extends Error {
+module.exports = class BadRequestError extends Error {
   constructor(message) {
     super(message);
-    this.name = 'BadRequest';
+    this.name = 'BadRequestError';
   }
 }

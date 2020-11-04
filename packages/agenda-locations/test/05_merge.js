@@ -29,29 +29,55 @@ describe('agenda-locations - functional - merge', function() {
       knex: f.client,
       Files: Files(dConfig.files),
       interfaces: {
-        getAgendaIdByUid: async uid => ({
-          7196947: 25221
-        })[uid],
+        getAgendaDetailsByUid: async uid => ({
+          id: ({
+            7196947: 25221
+          })[uid]
+        }),
         locationsWillMerge: async (mergeIn, merged) => {}
       }
     });
   });
 
-  before(async () => {
-    beforeCount = await f.client('location').count().then(r => r[0]['count(*)']);
+  describe('basic', () => {
+    before(async () => {
+      beforeCount = await f.client('location').count().then(r => r[0]['count(*)']);
+    });
+
+    before(async () => {
+      location = await svc(7196947).merge({ uids: [40305210, 52758960, 95301591] }, { name: 'fusionné'})
+    });
+
+    it('result is merged location', () => {
+      assert.equal(location.uid, 95301591);
+    });
+
+    it('count after merge is total - (merge count + 1)', async () => {
+      const afterCount = await f.client('location').count().then(r => r[0]['count(*)']);
+
+      assert.equal(afterCount, beforeCount - 2);
+    });
   });
 
-  before(async () => {
-    location = await svc(7196947).merge({ uids: [40305210, 52758960, 95301591] }, { name: 'fusionné'})
-  });
+  describe('set', () => {
+    before(async () => {
+      beforeCount = await f.client('location').count().then(r => r[0]['count(*)']);
+    });
 
-  it('result is merged location', () => {
-    assert.equal(location.uid, 95301591);
-  });
+    before(async () => {
+      location = await svc.sets(1903810).locations.merge({ uids: [51665985, 7630649, 60763721] }, { name: 'fusionné'})
+    });
 
-  it('count after merge is total - (merge count + 1)', async () => {
-    const afterCount = await f.client('location').count().then(r => r[0]['count(*)']);
+    it('result is merged location', () => {
+      assert.equal(location.uid, 51665985);
+    });
 
-    assert.equal(afterCount, beforeCount - 2);
+    it('count after merge is total - (merge count + 1)', async () => {
+      const afterCount = await f.client('location').count().then(r => r[0]['count(*)']);
+
+      assert.equal(afterCount, beforeCount - 2);
+    });
   });
 });
+
+

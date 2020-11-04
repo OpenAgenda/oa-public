@@ -99,7 +99,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
 
       it('error name is BadRequest', () => {
-        expect(error.name).toBe('BadRequest');
+        expect(error.name).toBe('BadRequestError');
       });
 
       it('error provides detailed message', () => {
@@ -146,8 +146,8 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         }
       });
 
-      it('error name is BadRequest', () => {
-        expect(error.name).toBe('BadRequest');
+      it('error name is BadRequestError', () => {
+        expect(error.name).toBe('BadRequestError');
       });
 
       it('error provides detailed message', () => {

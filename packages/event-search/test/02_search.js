@@ -835,6 +835,17 @@ describe('02 - event search - functional: search', function() {
       events[0].originAgenda.uid.should.equal(21475128);
     });
 
+    it('events matching a selection of origin agendas', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
+        originAgendaUid : [21475128, 7678114]
+      }, {}, { detailed: true });
+
+      _.uniq(events.map(e => e.originAgenda.uid)).sort().should.eql([21475128, 7678114]);
+    });
+
   });
 
 });

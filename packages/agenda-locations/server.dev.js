@@ -46,9 +46,11 @@ const fixtures = require('./test/fixtures');
     }),
     imagePath: '//oadev.s3.amazonaws.com/',
     interfaces: {
-      getAgendaIdByUid: async id => ({
-        25221: 7196947
-      })[id],
+      getAgendaDetailsByUid: async uid => ({
+        id: ({
+          25221: 7196947
+        })[uid]
+      }),
       getEventCounts: async (locationUids, { agendaUid }) => [{
         uid: 60763721,
         eventCount: 12,

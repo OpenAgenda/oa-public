@@ -11,6 +11,7 @@ const createStream = require('./lib/createStream');
 const validateNav = require('./lib/validateNav');
 const validateListOptions = require('./lib/validateListOptions');
 const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
+const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 async function list(service, query = {}, nav = {}, options = {}) {
   log('received %j %j', query, nav);
@@ -28,7 +29,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
 
   await addListQuery(service, k, {
     ...query,
-    ...(context.agendaUid ? { agendaUid: context.agendaUid } : {})
+    ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
   });
 
   const total = includeTotal ? await k.clone()
@@ -89,5 +90,22 @@ module.exports.byAgendaUid = async (
   return list(service, query, nav, {
     ...options,
     context: { agendaUid }
+  })
+};
+
+module.exports.bySetUid = async (
+  service,
+  setUid,
+  query = {},
+  nav = {},
+  options = {}
+) => {
+  if (!setUid) {
+    throw new BadRequestError('set uid is not specified');
+  }
+
+  return list(service, query, nav, {
+    ...options,
+    context: { setUid }
   })
 };

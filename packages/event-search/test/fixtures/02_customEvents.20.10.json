@@ -184,6 +184,11 @@
       "createdAt": "2016-11-04T05:18:42.000Z",
       "deletedAt": null,
       "agendaUid": 7678114,
+      "originAgenda": {
+        "uid": 7678114,
+        "title": "Un agenda",
+        "url": "http://www.site.com"
+      },
       "locationUid": 1,
       "accessibility": {},
       "age": {
@@ -326,6 +331,11 @@
       "createdAt": "2016-11-04T05:18:42.000Z",
       "deletedAt": null,
       "agendaUid": 7678114,
+      "originAgenda": {
+        "uid": 7678114,
+        "title": "Un agenda",
+        "url": "http://www.site.com"
+      },
       "locationUid": 65918542,
       "accessibility": {},
       "age": {
@@ -693,6 +703,11 @@
       "createdAt": "2016-11-04T05:18:42.000Z",
       "deletedAt": null,
       "agendaUid": 7678114,
+      "originAgenda": {
+        "uid": 7678114,
+        "title": "Un agenda",
+        "url": "http://www.site.com"
+      },
       "locationUid": 10096987,
       "accessibility": {},
       "age": {

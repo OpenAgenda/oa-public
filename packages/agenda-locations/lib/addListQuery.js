@@ -11,6 +11,9 @@ const validate = schema({
   agendaUid: {
     type: 'integer'
   },
+  setUid: {
+    type: 'integer'
+  },
   search: {
     type: 'text',
     max: 255
@@ -30,15 +33,22 @@ const validate = schema({
 module.exports = async (service, k, query) => {
   const {
     agendaUid,
+    setUid,
     search,
     state,
     uids
   } = validate(query);
 
-  const agendaId = agendaUid ? await service.interfaces.getAgendaIdByUid(agendaUid) : null;
+  const agendaId = agendaUid ? await service.interfaces
+    .getAgendaDetailsByUid(agendaUid, ['id'])
+    .then(r => r ? r.id : null) : null;
 
   if (agendaId) {
     k.where('agenda_id', agendaId);
+  }
+
+  if (setUid) {
+    k.where('set_uid', setUid);
   }
 
   if (search) {

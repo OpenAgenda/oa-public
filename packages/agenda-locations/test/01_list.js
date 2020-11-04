@@ -14,10 +14,11 @@ const fixtures = require('./fixtures');
 const Service = require('../');
 const fields = require('../lib/fields.json');
 
-async function getAgendaIdByUid(id) {
-  return {
-    25221: 7196947
-  }[id];
+async function getAgendaDetailsByUid(uid, fields = []) {
+  return _.pick({
+    id: ({ 7196947: 25221 })[uid],
+    locationSetUid: ({ 7196947: 1903810 })[uid]
+  }, fields);
 }
 
 async function getEventCounts(locationUids, { agendaUid }) {
@@ -45,13 +46,13 @@ describe('agenda-locations - functional - list', function() {
     await f.load();
   });
 
-  beforeEach(() => {
+  before(() => {
     svc = Service({
       knex: f.client,
       Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
-        getAgendaIdByUid,
+        getAgendaDetailsByUid,
         getEventCounts
       }
     });
@@ -191,20 +192,20 @@ describe('agenda-locations - functional - list', function() {
     });
 
     it('emit an error', done => {
-      svc = Service({
+      const throwingErrorSvc = Service({
         knex: f.client,
         Files: Files(dConfig.files),
         imagePath: '//cibuldev.s3.amazonaws.com/',
         interfaces: {
-          getAgendaIdByUid,
+          getAgendaDetailsByUid,
           getEventCounts: () => {
             throw new Error('getEventCounts');
           }
         }
       });
 
-      svc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
-        svc(7196947).list({}, {}, { stream: true, eventCounts: true }).then(stream => {
+      throwingErrorSvc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
+        throwingErrorSvc(7196947).list({}, {}, { stream: true, eventCounts: true }).then(stream => {
           let count = 0;
           stream.on('data', location => {
             count++;
@@ -263,6 +264,18 @@ describe('agenda-locations - functional - list', function() {
       assert.ok(items[0].image.split('/').length > 1);
     });
 
+  });
+
+  describe('set', () => {
+    let items;
+
+    before(async () => {
+      items = await svc.sets(1903810).locations.list();
+    });
+
+    it('retrieved locations belong to set', () => {
+      assert(items.length === 4);
+    });
   });
 
   describe('other', () => {

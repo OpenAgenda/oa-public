@@ -18,7 +18,7 @@ describe('02 - event search - functional: bd2020', function() {
     service = Service(config);
   });
 
- before(async () => {
+  before(async () => {
     try {
       await service.getConfig().client.indices.delete({
         index: 'test'
@@ -93,5 +93,30 @@ describe('02 - event search - functional: bd2020', function() {
     it('explicit includes limit retured fields to specified value including specified access', () => {
       Object.keys(eventForAdmin).should.eql(['uid', 'particularites', 'type-devenement']);
     });
+  });
+
+
+  describe('Metric aggregation', () => {
+
+    it('gets a max and an average', async () => {
+      const agg = await service('bd2020').search({
+        state: null
+      }, { size: 0 }, {
+        detailed: true,
+        formSchema,
+        aggregations: [{
+          key: 'des_metriques_sur_les_places',
+          type: 'additionalFieldMetrics',
+          field: 'places',
+          metrics: ['max', 'avg']
+        }]
+      }).then(r => r.aggregations['des_metriques_sur_les_places']);
+
+      agg.should.eql({
+        max: 1324,
+        avg: 210.5
+      });
+    });
+
   });
 });

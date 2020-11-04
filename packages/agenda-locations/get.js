@@ -6,6 +6,7 @@ const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
+const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 const cleanGetIdentifiers = identifiers => [
   'number',
@@ -23,7 +24,7 @@ async function get(service, identifiers, options = {}) {
 
   await addGetQuery(service, k, {
     ...cleanGetIdentifiers(identifiers),
-    ...(context.agendaUid ? { agendaUid: context.agendaUid } : {})
+    ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
   });
 
   addSelect(k, 'public', { first: true });
@@ -55,3 +56,10 @@ module.exports.byAgendaUid = async (
   identifiers,
   options = {}
 ) => get(service, identifiers, { ...options, context: { agendaUid } });
+
+module.exports.bySetUid = async (
+  service,
+  setUid,
+  identifiers,
+  options = {}
+) => get(service, identifiers, { ...options, context: { setUid } });

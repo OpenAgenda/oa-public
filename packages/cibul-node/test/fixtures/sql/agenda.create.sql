@@ -1,7 +1,7 @@
 CREATE TABLE agenda (
-  id BIGINT AUTO_INCREMENT, 
+  id BIGINT AUTO_INCREMENT,
   uid BIGINT UNIQUE,
-  main TINYINT(1) DEFAULT '0' NOT NULL, 
+  main TINYINT(1) DEFAULT '0' NOT NULL,
   official TINYINT(1) DEFAULT '0' NOT NULL,
   officialized_at DATETIME,
   private TINYINT(1) DEFAULT '0' NOT NULL,
@@ -9,6 +9,7 @@ CREATE TABLE agenda (
   owner_id BIGINT NOT NULL,
   form_schema_id BIGINT,
   network_uid BIGINT,
+  location_set_uid bigint,
   slug VARCHAR(255) NOT NULL UNIQUE,
   description VARCHAR(165), /* 150 in real world */
   image VARCHAR(255),
@@ -22,7 +23,7 @@ CREATE TABLE agenda (
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   indexed TINYINT DEFAULT 1,
-  INDEX owner_id_idx (owner_id), 
+  INDEX owner_id_idx (owner_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
