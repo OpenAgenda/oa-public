@@ -118,8 +118,8 @@
   "_search_additional_numbers": {
     "type": "nested",
     "properties": {
-      "field": {
-        "type": "text"
+      "fieldName": {
+        "type": "keyword"
       },
       "integer": {
         "type": "integer"
