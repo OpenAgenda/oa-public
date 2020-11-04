@@ -52,6 +52,7 @@ module.exports = (config, services, service, app, base) => {
   app.post(`${base}`,
     members.mw.load,
     agendaContribute.mw.verifyMemberAuthorization,
+    loadLocationEndpoints(service),
     service.imageTransformAndUpload.middleware([{
       name: 'image',
       unique: true
