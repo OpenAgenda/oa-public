@@ -27,50 +27,58 @@
   "type": "text",
   "optional": false,
   "read": ["internal", "public"],
-  "write": ["internal"]
+  "write": ["internal"],
+  "max": 100
 }, {
   "field": "name",
   "db": "placename",
   "optional": false,
   "read": ["internal", "public", "list", "terms"],
   "write": ["internal", "administrator", "moderator", "contributor"],
-  "type": "text"
+  "type": "text",
+  "max": 100
 }, {
   "field": "address",
   "optional": false,
   "type": "text",
   "read": ["internal", "public", "list"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "max": 255
 }, {
   "field": "city",
   "optional": true,
   "type": "text",
   "read": ["internal", "public", "terms"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "max": 100
 }, {
   "field": "region",
   "optional": true,
   "type": "text",
   "read": ["internal", "public", "terms"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "max": 255
 }, {
   "field": "department",
   "optional": true,
   "type": "text",
   "read": ["internal", "public", "terms"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "max": 255
 }, {
   "field": "postalCode",
   "optional": true,
   "type": "text",
   "read": ["internal", "public"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "max": 20
 }, {
   "field": "insee",
   "optional": true,
   "type": "text",
   "read": ["internal", "public"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "max": 10
 }, {
   "field": "countryCode",
   "db": "country",
@@ -85,7 +93,8 @@
   "type": "text",
   "db": "city_district",
   "read": ["internal", "public"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "max": 255
 }, {
   "field": "latitude",
   "optional": false,
@@ -124,7 +133,8 @@
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
   "type": "multilingual",
-  "languages": []
+  "languages": [],
+  "max": 5000
 }, {
   "field": "tags",
   "optional": true,
@@ -168,7 +178,8 @@
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
   "type": "multilingual",
-  "languages": []
+  "languages": [],
+  "max": 1000
 }, {
   "field": "state",
   "optional": true,
@@ -192,11 +203,11 @@
   "db": "store",
   "type": "text",
   "read": ["internal", "public"],
-  "write": ["internal", "administrator", "moderator", "contributor"]
+  "write": ["internal", "administrator", "moderator", "contributor"],
+  "enableWith": "image"
 }, {
   "field": "extId",
   "optional": true,
-  "db": "store",
   "type": "text",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"]
