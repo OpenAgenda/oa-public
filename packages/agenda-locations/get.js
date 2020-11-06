@@ -1,17 +1,13 @@
 'use strict';
 
 const log = require('@openagenda/logs')('get');
+const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
-
-const cleanGetIdentifiers = identifiers => [
-  'number',
-  'string'
-].includes(typeof identifiers) ? { uid: identifiers } : identifiers;
 
 async function get(service, identifiers, options = {}) {
   log('received %j', identifiers);
