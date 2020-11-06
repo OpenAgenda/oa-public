@@ -115,5 +115,13 @@ describe('agenda-locations - functional - get', function() {
       assert.ok(image.split('/').length > 1);
     });
 
+    it('if extId is stored in store, it is loaded', async () => {
+      const {
+        extId
+      } = await svc.get(87202261);
+
+      assert.equal(extId, 'ard_leg_01');
+    });
+
   });
 });
