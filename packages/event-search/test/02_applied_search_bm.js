@@ -193,6 +193,14 @@ describe('02 - event search - functional: Applied search', function() {
         total.should.equal(3);
       });
 
+      it('state can be passed as string or array of string', async () => {
+        const { total, events } = await service('bdx').search({
+          state: ['1', '0']
+        });
+
+        total.should.equal(3);
+      })
+
     });
 
     describe('Sort and navigation', () => {

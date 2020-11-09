@@ -3,7 +3,7 @@
 const schema = require('@openagenda/validators/schema');
 
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
-const transformFromLegacyQuery = require('./transformFromLegacyQuery');
+const preCleanRawQuery = require('./preCleanRawQuery');
 
 schema.register({
   text: require('@openagenda/validators/text'),
@@ -162,7 +162,7 @@ const validate = schema({
 });
 
 module.exports = (dirty, formSchema) => {
-  const preCleaned = transformFromLegacyQuery(dirty);
+  const preCleaned = preCleanRawQuery(dirty);
 
   const clean = validate(preCleaned);
 

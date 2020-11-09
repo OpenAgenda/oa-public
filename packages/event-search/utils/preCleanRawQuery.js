@@ -7,6 +7,16 @@ module.exports = (query = {}) => {
     $unset: []
   };
 
+  try {
+    if (query.state) {
+      update.state = {
+        $set: [].concat(query.state).map(s => typeof s === 'string' ? parseInt(s) : s)
+      }
+    }
+  } catch (e) {
+    log('error', 'provided state is invalid %j', query);
+  }
+
   if (query.date && (query.date.gte || query.date.lte)) {
     update['$unset'].push('date');
     update.timings = {
