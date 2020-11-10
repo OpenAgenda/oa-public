@@ -61,6 +61,7 @@ export default function VerticalBarChart({
               || defaultDataColors[defaultDataColors.length - 1]
             }
             xAxisId={0}
+            isAnimationActive={false}
           />
         ))}
       </BarChart>

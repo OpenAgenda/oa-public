@@ -68,7 +68,7 @@ function ComposedChart({
   wrapperComponent,
   stat,
   totalEvents,
-  range,
+  query,
   loadStat
 }) {
   const { aggregation, state } = stat;
@@ -234,7 +234,7 @@ function ComposedChart({
         dataColors={dataColors}
       />
     );
-  } else if (stat.state.loading) {
+  } else if (stat.state.loaded) {
     child = <ChartLoading />;
   } else {
     child = (
@@ -250,7 +250,7 @@ function ComposedChart({
       stat,
       chartConfig,
       totalEvents,
-      range,
+      query,
       loadStat
     }
     : null;

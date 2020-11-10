@@ -1,17 +1,26 @@
 import _ from 'lodash';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState
+} from 'react';
 import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLatest } from 'react-use';
 import { MoreInfo, Spinner } from '@openagenda/react-components';
 import { useApiClient, useModal } from '@openagenda/react-shared';
+import {
+  FiltersProvider,
+  Filters,
+  DateRangeFilter,
+  MultiChoiceFilter
+} from '@openagenda/react-filters';
 import * as statsActions from '../reducers/stats';
 import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
-import determineDefaultRange from '../utils/determineDefaultRange';
 import PulseChart from '../components/PulseChart';
-import RangeFilter from '../components/RangeFilter';
-import RangeTypeFilter from '../components/RangeTypeFilter';
+import determineDefaultRange from '../utils/determineDefaultRange';
+import getLocaleValue from '../utils/getLocaleValue';
+import stateMessages from '../messages/states';
 
 const messages = defineMessages({
   save: {
@@ -36,16 +45,92 @@ const messages = defineMessages({
   }
 });
 
+function FiltersPart({ agenda, agendaSchema }) {
+  const intl = useIntl();
+  const dispatch = useDispatch();
+
+  const stats = useSelector(state => state.stats.data);
+  const loading = useSelector(state => state.stats.loading);
+  const query = useSelector(state => state.stats.query);
+  const latestStats = useLatest(stats);
+
+  const stateOptions = useMemo(
+    () => [
+      {
+        label: intl.formatMessage(stateMessages.refused),
+        value: -1
+      },
+      {
+        label: intl.formatMessage(stateMessages.tocontrol),
+        value: 0
+      },
+      {
+        label: intl.formatMessage(stateMessages.controlled),
+        value: 1
+      },
+      {
+        label: intl.formatMessage(stateMessages.published),
+        value: 2
+      }
+    ],
+    [intl]
+  );
+
+  const [initialQuery] = useState(query);
+
+  const filters = useMemo(() => {
+    const basicFilters = [
+      { name: 'timings', type: 'dateRange' },
+      { name: 'createdAt', type: 'dateRange' },
+      { name: 'updatedAt', type: 'dateRange' },
+      { name: 'state', type: 'radio', options: stateOptions }
+    ];
+
+    const additionalFieldFilters = agendaSchema.fields
+      .filter(
+        fieldSchema => fieldSchema.options && fieldSchema.options.length > 0
+      )
+      .map(fieldSchema => ({
+        name: fieldSchema.field,
+        type: fieldSchema.fieldType,
+        label: getLocaleValue(fieldSchema.label, intl.locale),
+        options: fieldSchema.options.map(option => ({
+          ...option,
+          value: option.id
+        }))
+      }));
+
+    return basicFilters.concat(additionalFieldFilters);
+  }, [agendaSchema.fields, intl.locale, stateOptions]);
+
+  const onFilterChange = useCallback(
+    // TODO should reload aggregations (managed by react-filters in future)
+    async values => dispatch(statsActions.load(agenda, latestStats.current, values)),
+    [agenda, dispatch, latestStats]
+  );
+
+  return (
+    <FiltersProvider onSubmit={onFilterChange} initialValues={initialQuery}>
+      <div className="rc-collapse">
+        <Filters
+          filters={filters}
+          loading={loading}
+          dateRangeComponent={DateRangeFilter}
+          checkboxComponent={MultiChoiceFilter}
+          radioComponent={MultiChoiceFilter}
+        />
+      </div>
+    </FiltersProvider>
+  );
+}
+
 function Dashboard({ agenda, agendaSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
 
   const res = useSelector(state => state.res);
-  const loading = useSelector(state => _.get(state, 'stats.loading', true));
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
-  const stats = useSelector(state => state.stats.data);
-  const range = useSelector(state => state.stats.range);
   const totalEvents = useSelector(state => state.stats.totalEvents);
   const editing = useSelector(state => state.stats.editing);
 
@@ -92,15 +177,20 @@ function Dashboard({ agenda, agendaSchema }) {
     ]).then(([configResult, timespanResult]) => {
       const { first, last } = timespanResult.data.aggregations.timespan;
 
+      // Timespan is a `timings` query
+      // TODO update query instead of load directly
+      // TODO mark as readyToLoad
+      // TODO if readyToLoad and not loaded then load
+
       return dispatch(
         statsActions.load(agenda, configResult.data, {
-          range: determineDefaultRange({ first, last })
+          timings: determineDefaultRange({ first, last })
         })
       );
     });
   }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
 
-  if (!stats?.length && loading) {
+  if (!loaded) {
     return (
       <div className="padding-v-md" css={{ position: 'relative' }}>
         <Spinner />
@@ -128,15 +218,20 @@ function Dashboard({ agenda, agendaSchema }) {
   );
 
   return (
-    <div>
-      <div className="row">
+    <>
+      <FiltersPart agenda={agenda} agendaSchema={agendaSchema} />
+
+      <div className="row margin-top-sm">
         <div className="col-sm-4 margin-top-xs">
-          <div>
-            <RangeTypeFilter agenda={agenda} />
-          </div>
-          <div className="margin-top-xs">
-            <RangeFilter agenda={agenda} />
-          </div>
+          {typeof totalEvents === 'number' ? (
+            <FormattedMessage
+              id="AgendaStats.Dashboard.totalEvents"
+              defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
+              values={{
+                total: totalEvents
+              }}
+            />
+          ) : null}
         </div>
 
         <div className="col-sm-4">
@@ -172,41 +267,16 @@ function Dashboard({ agenda, agendaSchema }) {
         </div>
       </div>
 
-      {typeof totalEvents === 'number' ? (
-        <div className="margin-top-xs">
-          <FormattedMessage
-            id="AgendaStats.Dashboard.totalEvents"
-            defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
-            values={{
-              total: totalEvents
-            }}
-          />
-        </div>
-      ) : null}
-
       <div className="clearfix" />
 
-      {stats ? (
-        <AggregationCharts
-          agenda={agenda}
-          stats={stats}
-          totalEvents={totalEvents}
-          range={range}
-          editMode={editing}
-          agendaSchema={agendaSchema}
-        />
-      ) : null}
+      <AggregationCharts agenda={agenda} agendaSchema={agendaSchema} />
 
       <div className="margin-top-md text-right">{editButtons}</div>
 
       {orderModal.isOpen ? (
-        <OrderModal
-          initialStats={stats}
-          onSubmit={onOrderChange}
-          onClose={orderModal.close}
-        />
+        <OrderModal onSubmit={onOrderChange} onClose={orderModal.close} />
       ) : null}
-    </div>
+    </>
   );
 }
 

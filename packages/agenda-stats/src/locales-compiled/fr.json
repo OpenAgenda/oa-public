@@ -757,67 +757,68 @@
       "value": "Séléctionner"
     }
   ],
-  "AgendaStats.titleMessages.cities": [
+  "AgendaStats.messages.chartTitles.cities": [
     {
       "type": 0,
       "value": "Villes"
     }
   ],
-  "AgendaStats.titleMessages.createdAt": [
+  "AgendaStats.messages.chartTitles.createdAt": [
     {
       "type": 0,
       "value": "Événements créés"
     }
   ],
-  "AgendaStats.titleMessages.createdAtUpdatedAt": [
+  "AgendaStats.messages.chartTitles.createdAtUpdatedAt": [
     {
       "type": 0,
       "value": "Événements sauvegardés"
     }
   ],
-  "AgendaStats.titleMessages.departments": [
+  "AgendaStats.messages.chartTitles.date": null,
+  "AgendaStats.messages.chartTitles.departments": [
     {
       "type": 0,
       "value": "Départements"
     }
   ],
-  "AgendaStats.titleMessages.keywords": [
+  "AgendaStats.messages.chartTitles.keywords": [
     {
       "type": 0,
       "value": "Mots clés"
     }
   ],
-  "AgendaStats.titleMessages.members": [
+  "AgendaStats.messages.chartTitles.members": [
     {
       "type": 0,
       "value": "Membres"
     }
   ],
-  "AgendaStats.titleMessages.originAgendas": [
+  "AgendaStats.messages.chartTitles.originAgendas": [
     {
       "type": 0,
       "value": "Agendas d'origine"
     }
   ],
-  "AgendaStats.titleMessages.regions": [
+  "AgendaStats.messages.chartTitles.regions": [
     {
       "type": 0,
       "value": "Régions"
     }
   ],
-  "AgendaStats.titleMessages.states": [
+  "AgendaStats.messages.chartTitles.states": [
     {
       "type": 0,
       "value": "Statuts"
     }
   ],
-  "AgendaStats.titleMessages.timings": [
+  "AgendaStats.messages.chartTitles.timings": [
     {
       "type": 0,
       "value": "Horaires"
     }
   ],
-  "AgendaStats.titleMessages.updatedAt": [
+  "AgendaStats.messages.chartTitles.updatedAt": [
     {
       "type": 0,
       "value": "Événements mis à jour"

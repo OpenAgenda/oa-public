@@ -58,6 +58,7 @@ export default function HorizontalBarChart({
               || defaultDataColors[defaultDataColors.length - 1]
             }
             yAxisId={0}
+            isAnimationActive={false}
           />
         ))}
       </BarChart>

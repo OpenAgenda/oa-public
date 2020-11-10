@@ -36,7 +36,7 @@ function addState(stat) {
   };
 }
 
-function addInterval(range) {
+function addInterval(query) {
   return stat => {
     if (!stat.chart) {
       return stat;
@@ -44,11 +44,14 @@ function addInterval(range) {
 
     const chart = getChartConfig(stat);
 
-    if (!range || !chart.intervalSelector) {
+    if (!chart.intervalSelector) {
       return stat;
     }
 
-    const interval = rangeToCalendarInterval(range, chart.width);
+    const range = query[stat.aggregation.type];
+    const interval = range
+      ? rangeToCalendarInterval(range, chart.width)
+      : stat.state.interval || 'month';
 
     return {
       ...stat,
@@ -60,11 +63,11 @@ function addInterval(range) {
   };
 }
 
-function decorateStats(stats, { range } = {}) {
+function decorateStats(stats, query = {}) {
   return stats
     .map(addId)
     .map(addState)
-    .map(addInterval(range));
+    .map(addInterval(query));
 }
 
 export default function reducer(state = initialState, action) {
@@ -104,15 +107,14 @@ export default function reducer(state = initialState, action) {
             state: {
               ...v.state,
               loading: false,
+              loaded: true,
               data: Array.isArray(v.aggregation)
                 ? v.aggregation.map(getData)
                 : getData(v.aggregation)
             }
           };
         }),
-        searchQuery: action.searchQuery,
-        range: action.range,
-        rangeType: action.rangeType,
+        query: action.query,
         error: null,
         loading: false
       };
@@ -257,20 +259,13 @@ export function load(agenda, stats, query) {
   return ({ getState, dispatch }) => {
     const state = getState();
 
-    const range = query.range || state.stats.range;
-    const rangeType = query.rangeType || state.stats.rangeType || 'createdAt';
-
-    const decoratedStats = decorateStats(stats, { range });
-
-    const searchQuery = {};
-    _.set(searchQuery, `${rangeType}.gte`, range.startDate);
-    _.set(searchQuery, `${rangeType}.lte`, range.endDate);
+    const decoratedStats = decorateStats(stats, query);
 
     const params = {
       oaq: { passed: 1 },
       size: 0,
       aggregations: statsToAggregations(decoratedStats),
-      ...searchQuery
+      ...query
     };
 
     return dispatch({
@@ -284,9 +279,7 @@ export function load(agenda, stats, query) {
       },
       stats: decoratedStats,
       aggregations: decoratedStats,
-      searchQuery,
-      range,
-      rangeType
+      query
     });
   };
 }
@@ -303,7 +296,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
       oaq: { passed: 1 },
       size: 0,
       aggregations: statsToAggregations(decoratedStats),
-      ...stats.searchQuery
+      ...stats.query
     };
 
     return dispatch({
@@ -363,11 +356,11 @@ export function removeStat(statId) {
 
 export function addStat(stat) {
   return ({ getState, dispatch }) => {
-    const { range } = getState().stats;
+    const { query } = getState().stats;
 
     return dispatch({
       type: ADD_STAT,
-      stat: decorateStats([stat], { range })[0]
+      stat: decorateStats([stat], query)[0]
     });
   };
 }

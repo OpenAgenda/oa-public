@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import * as statsActions from '../reducers/stats';
 import ComposedChart from './ComposedChart';
 import ChartWrapper from './ChartWrapper';
@@ -10,20 +10,22 @@ import ChartAdder from './ChartAdder';
 
 const LAYOUT_WIDTH = 2;
 
-export default function AggregationCharts({
-  agenda,
-  stats,
-  totalEvents,
-  range,
-  editMode,
-  agendaSchema
-}) {
+function AggregationCharts({ agenda, agendaSchema }) {
   const dispatch = useDispatch();
+
+  const stats = useSelector(state => state.stats.data, shallowEqual);
+  const query = useSelector(state => state.stats.query);
+  const totalEvents = useSelector(state => state.stats.totalEvents);
+  const editMode = useSelector(state => state.stats.editing);
 
   const loadStat = useCallback(
     (statId, getOptions) => dispatch(statsActions.loadStat(agenda, statId, getOptions)),
     [agenda, dispatch]
   );
+
+  if (!stats) {
+    return null;
+  }
 
   const result = [];
 
@@ -78,7 +80,7 @@ export default function AggregationCharts({
         )}
         stat={stat}
         totalEvents={totalEvents}
-        range={range}
+        query={query}
         loadStat={loadStat}
       />,
       chartWidth
@@ -99,3 +101,5 @@ export default function AggregationCharts({
 
   return <div className="row">{result}</div>;
 }
+
+export default React.memo(AggregationCharts);
