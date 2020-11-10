@@ -32,6 +32,7 @@ describe('utils - registration addType', () => {
     });
   });
 
+
   it('throws error if type is not known', () => {
     let error;
     try {
@@ -66,6 +67,11 @@ describe('utils - registration addType', () => {
       type: 'email',
       value: 'support@openagenda.com'
     }]);
+  });
+
+  it('fix - does not throw Exception if null is provided', () => {
+    const result = addType([null], { unknownAsUndefined: true });
+    expect(result[0].value).toEqual(null);
   });
 
 });

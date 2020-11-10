@@ -19,6 +19,7 @@ create table if not exists location (
   city_district varchar(255) default null,
   postal_code varchar(20) default null,
   eve_id varchar(100) default null,
+  ext_id varchar(100) default null,
   agenda_id bigint(20) default null,
   set_uid bigint(20) default null,
   insee varchar(10) default null,
@@ -27,6 +28,7 @@ create table if not exists location (
   index owner_id_idx (owner_id),
   index agenda_id_idx (agenda_id),
   index set_uid_idx (set_uid),
+  index ext_id_idx (ext_id),
   primary key(id)
 ) engine=InnoDB default character set utf8 collate utf8_general_ci;
 

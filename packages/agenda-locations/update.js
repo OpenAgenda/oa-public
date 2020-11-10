@@ -48,7 +48,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   // string image means image is unchanged.
 
-  const entry = fromItemToDbEntry(clean);
+  const entry = fromItemToDbEntry(clean, current);
 
   const result = await service.clients.knex(service.config.schema)
     .update(entry)

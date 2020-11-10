@@ -14,9 +14,11 @@ const validate = schema({
   setUid: {
     type: 'integer'
   },
+  extId: {
+    type: 'text'
+  },
   uid: {
-    type: 'integer',
-    optional: false
+    type: 'integer'
   }
 });
 
@@ -25,6 +27,9 @@ module.exports = async (service, k, query) => {
 
   try {
     Object.assign(cleanQuery, validate(query));
+    if (!cleanQuery.uid && !cleanQuery.extId) {
+      throw new Error('identifier is missing');
+    }
   } catch (e) {
     throw new BadRequestError('Invalid location identifier', e);
   }
@@ -32,7 +37,8 @@ module.exports = async (service, k, query) => {
   const {
     setUid,
     agendaUid,
-    uid
+    uid,
+    extId
   } = cleanQuery;
 
   const agendaId = agendaUid ? await service.interfaces
@@ -47,5 +53,9 @@ module.exports = async (service, k, query) => {
     k.where('set_uid', setUid);
   }
 
-  k.where('uid', uid);
+  if (extId) {
+    k.where('ext_id', extId);
+  } else {
+    k.where('uid', uid);
+  }
 }

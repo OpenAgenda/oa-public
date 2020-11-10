@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-const cleanRequestedMetrics = metrics => metrics && metrics.length ? metrics.filter(m => [
+const cleanRequestedMetrics = metrics => metrics && [].concat(metrics).length ? [].concat(metrics).filter(m => [
   'sum', 'avg', 'max', 'min'
 ].includes(m)) : ['avg'];
 
@@ -23,7 +23,7 @@ module.exports.formatDSL = (query, options = {}) => {
       inner: {
         filter: {
           term: {
-            '_search_additional_numbers.field': fieldName
+            '_search_additional_numbers.fieldName': fieldName
           }
         },
         aggs: cleanRequestedMetrics(metrics).reduce((aggs, metric) => ({

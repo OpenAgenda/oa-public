@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const fields = require('./fields.json');
+const legacy = require('./legacy');
 
 module.exports = (entry = {}, options = {}) => {
   const store = entry.store ? JSON.parse(entry.store) : {};
@@ -42,6 +43,6 @@ module.exports = (entry = {}, options = {}) => {
       obj[field.field] = value;
     }
 
-    return obj;
+    return legacy.load(obj, entry, store, options);
   }, {});
 }

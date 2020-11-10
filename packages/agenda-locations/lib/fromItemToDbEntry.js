@@ -3,7 +3,9 @@
 const _ = require('lodash');
 const fields = require('./fields.json');
 
-module.exports = (item) => {
+const legacy = require('./legacy');
+
+module.exports = (item, current = null) => {
   const { entry, store } = fields.reduce(({ entry, store }, field) => {
     const value = item[field.field];
     if (field.db === 'store') {
@@ -16,8 +18,10 @@ module.exports = (item) => {
     return { entry, store };
   }, { entry: {}, store: {} });
 
+  const patched = legacy.patch(entry, store, current);
+
   return {
-    ...entry,
-    store: JSON.stringify(store)
+    ...patched.entry,
+    store: JSON.stringify(patched.store)
   }
 }

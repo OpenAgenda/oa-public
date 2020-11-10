@@ -1,11 +1,17 @@
-"use strict";
+'use strict';
+
+const fs = require('fs');
 
 module.exports = {
-
   elasticsearch: {
-    node: 'localhost:9205',
-    //log: 'trace'
+    //node: 'https://es7.openagenda.com',
+    node: 'https://' + process.env.OA_ELASTICSEARCH_750_DEV_HOST,
+    log: 'trace',
+    ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
+      key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
+      cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8')
+    } : null
   },
-
-  interfaces: {}
+  defaultIndex: 'test',
+  interfaces: {},
 }

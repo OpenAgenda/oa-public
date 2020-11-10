@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('utils/updateMapping');
 
-module.exports = async ({ client }, index, mapping) => {
+module.exports = async ({ client }, index, mapping, options = {}) => {
   const currentMapping = await client.indices
     .getMapping({ index })
     .then(({ body }) => body[index].mappings.properties);
@@ -10,7 +10,7 @@ module.exports = async ({ client }, index, mapping) => {
   const currentFields = Object.keys(currentMapping);
   const newFields = Object.keys(mapping).filter(f => !currentFields.includes(f));
 
-  if (!newFields.length) {
+  if (!options.force && !newFields.length) {
     log('no new fields, no need to update');
     return;
   }
@@ -24,11 +24,11 @@ module.exports = async ({ client }, index, mapping) => {
     index,
     body: {
       dynamic: false,
-      properties: amendedMapping
+      properties: options.force ? mapping : amendedMapping
     }
   }).then(r => r.body);
 
-  log('info', 'updated mapping with %j', newFields);
+  log('info', 'updated mapping with %j', options.force ? mapping : newFields);
 
   return response;
 }

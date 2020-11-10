@@ -160,8 +160,8 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('_search_additional_numbers contains values coming from additional fields of number or integer types', () => {
     formatted['_search_additional_numbers'].should.eql([
-      { field: 'someAdditionalPlaces', integer: 5, number: 5 },
-      { field: 'someAdditionalPrice', integer: 29, number: 29.99 }
+      { fieldName: 'someAdditionalPlaces', integer: 5, number: 5 },
+      { fieldName: 'someAdditionalPrice', integer: 29, number: 29.99 }
     ]);
   });
 
