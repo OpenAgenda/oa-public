@@ -141,6 +141,36 @@ describe('agenda-locations - functional - patch & update', function() {
       assert.equal(updated.uid, 95301591);
     });
 
+    it('if extId is not part of patch, it is synced from legacy', async () => {
+      await svc.sets(1903810).locations.patch(7630649, {});
+
+      const entry = await f.client('location')
+        .first('ext_id')
+        .where('uid', 7630649);
+
+      assert.equal(entry.ext_id, 'leg_ard_03');
+    });
+
+    it('if extId is part of patch, it is synced to legacy and set in dedicated field', async () => {
+      await svc.sets(1903810).locations.patch(60763721, {
+        extId: 'ard_leg_1200'
+      });
+
+      const { store, extId } = await f.client('location')
+        .first(['store', 'ext_id'])
+        .where('uid', 60763721)
+        .then(r => ({
+          store: JSON.parse(r.store),
+          extId: r.ext_id
+        }));
+
+      await svc.sets(1903810).locations.patch(60763721, {
+        extId: 'ard_leg_1200'
+      });
+
+      assert.equal(store.extId, 'ard_leg_1200');
+    });
+
     it('if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {
       const updated = await svc(7196947).update(95301591, _.omit(payload, ['latitude', 'longitude']), {
         geocodeIfUndefined: true

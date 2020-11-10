@@ -1,0 +1,57 @@
+{
+  "title": "Nested field metrics aggregation",
+  "description": "Aggregations metriques blabla",
+  "value": {
+    "query": {
+      "bool": {
+        "filter": [
+          {
+            "term": {
+              "_set": "bd2020"
+            }
+          }
+        ]
+      }
+    },
+    "from": 0,
+    "size": 0,
+    "aggs": {
+      "places": {
+        "nested": {
+          "path": "_search_additional_numbers"
+        },
+        "aggs": {
+          "inner": {
+            "filter": {
+              "term": {
+                "_search_additional_numbers.field": "places"
+              }
+            },
+            "aggs": {
+              "sum_places": {
+                "sum": {
+                  "field": "_search_additional_numbers.integer"
+                }
+              },
+              "avg_places": {
+                "avg": {
+                  "field": "_search_additional_numbers.integer"
+                }
+              },
+              "min_places": {
+                "min": {
+                  "field": "_search_additional_numbers.integer"
+                }
+              },
+              "max_places": {
+                "max": {
+                  "field": "_search_additional_numbers.integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,19 +5,19 @@ const isURL = require('validator/lib/isURL');
 const isPhone = v => !!v.match(/^(\+|)([\d\s\.\-]|\([\d\s]\))+$/);
 
 const extractType = (value, options = {}) => {
-  if (isEmail(value)) {
+  if (isEmail(value || '')) {
     return {
       value,
       type: 'email'
     };
   }
-  if (isURL(value)) {
+  if (isURL(value || '')) {
     return {
       value,
       type: 'link'
     }
   }
-  if (isPhone(value)) {
+  if (isPhone(value || '')) {
     return {
       value,
       type: 'phone'

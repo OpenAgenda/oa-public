@@ -101,7 +101,9 @@ module.exports = (event, formSchema = null) => {
 
   if (event.registration) {
     transform.registration = {
-      $set: addRegistrationType(event.registration)
+      $set: addRegistrationType(event.registration, {
+        filterUnknown: true
+      })
     }
   }
 
@@ -162,10 +164,12 @@ module.exports = (event, formSchema = null) => {
           ['number', 'integer'].includes(field.fieldType)
         ))
         .reduce((nested, { field, value }) => nested.concat({
-          field: field.field,
+          fieldName: field.field,
           integer: parseInt(value, 10),
           number: parseFloat(value)
         }), [])
+        // ES integers cannot exceed 2^31-1
+        .filter(({ integer }) => integer < 2147483648)
       };
   }
 

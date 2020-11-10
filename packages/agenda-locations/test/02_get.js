@@ -90,6 +90,10 @@ describe('agenda-locations - functional - get', function() {
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
     });
 
+    it('location can be fetched by its extId', async () => {
+      const location = await svc.get({ extId: 'ard_03' });
+    });
+
     it('uid can be provided as a string', async () => {
       const location = await svc.get('51665985');
 
@@ -109,6 +113,14 @@ describe('agenda-locations - functional - get', function() {
       } = await svc.get(51665985, { includeImagePath: true });
 
       assert.ok(image.split('/').length > 1);
+    });
+
+    it('if extId is stored in store, it is loaded', async () => {
+      const {
+        extId
+      } = await svc.get(87202261);
+
+      assert.equal(extId, 'ard_leg_01');
     });
 
   });
