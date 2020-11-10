@@ -40,7 +40,8 @@
     "react-hot-loader": "4.12.20"
   },
   "dependencies": {
-    "mime": "^2.4.4"
+    "mime": "^2.4.4",
+    "react-intl": "^5.8.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",

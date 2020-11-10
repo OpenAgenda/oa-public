@@ -62,7 +62,7 @@
     "@openagenda/bs-templates": "^2.4.6",
     "@openagenda/fixtures": "^2.0.2",
     "@openagenda/inboxes": "^1.1.13",
-    "@storybook/react": "^5.3.19",
+    "@storybook/react": "^6.0.28",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.18.3",

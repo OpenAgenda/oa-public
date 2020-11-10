@@ -18,7 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "font-awesome": "4.7.0",
-    "rc-collapse": "^1.11.1",
+    "rc-collapse": "^2.1.0",
     "react-datepicker": "^1.6.0",
     "react-day-picker": "^7.3.0"
   },

@@ -58,7 +58,7 @@
     "@openagenda/bs-templates": "^2.4.6",
     "@openagenda/files": "^3.0.0",
     "@openagenda/keys": "^2.2.9",
-    "@storybook/react": "^5.3.19",
+    "@storybook/react": "^6.0.28",
     "babel-loader": "^8.1.0",
     "body-parser": "^1.15.2",
     "concurrently": "^5.1.0",

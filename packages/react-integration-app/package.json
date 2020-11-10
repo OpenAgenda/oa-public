@@ -35,7 +35,7 @@
     "@openagenda/react-shared": "^2.0.7",
     "@openagenda/supervisor": "^1.2.6",
     "@openagenda/user-apps": "^1.1.17",
-    "@welldone-software/why-did-you-render": "^4.2.5",
+    "@welldone-software/why-did-you-render": "^6.0.0-rc.1",
     "core-js": "^3.6.5",
     "final-form": "^4.20.1",
     "flatted": "^2.0.1",

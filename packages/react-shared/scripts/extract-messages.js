@@ -42,7 +42,7 @@ async function extractLang(defaultMessages, lang) {
     lang === DEFAULT_LANG
       ? defaultMessages
       : _.mapValues(defaultMessages, () => ''),
-    _.pick(existantLocales, _.keysIn(defaultMessages))
+    _.pickBy(existantLocales, (value, key) => key in defaultMessages && value)
   );
 
   fs.writeFileSync(localesPath, `${JSON.stringify(messages, null, 2)}\n`);
