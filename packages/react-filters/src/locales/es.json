@@ -1,0 +1,21 @@
+{
+  "ReactFilters.dateRanges.currentMonth": "",
+  "ReactFilters.dateRanges.currentWeek": "",
+  "ReactFilters.dateRanges.currentYear": "",
+  "ReactFilters.dateRanges.daysStartingToday": "",
+  "ReactFilters.dateRanges.daysUpToToday": "",
+  "ReactFilters.dateRanges.lastMonth": "",
+  "ReactFilters.dateRanges.lastWeek": "",
+  "ReactFilters.dateRanges.lastYear": "",
+  "ReactFilters.messages.filterTitles.cities": "",
+  "ReactFilters.messages.filterTitles.createdAt": "",
+  "ReactFilters.messages.filterTitles.createdAtUpdatedAt": "",
+  "ReactFilters.messages.filterTitles.date": "",
+  "ReactFilters.messages.filterTitles.departments": "",
+  "ReactFilters.messages.filterTitles.keywords": "",
+  "ReactFilters.messages.filterTitles.members": "",
+  "ReactFilters.messages.filterTitles.originAgendas": "",
+  "ReactFilters.messages.filterTitles.regions": "",
+  "ReactFilters.messages.filterTitles.states": "",
+  "ReactFilters.messages.filterTitles.updatedAt": ""
+}

@@ -1,0 +1,116 @@
+{
+  "ReactFilters.dateRanges.currentMonth": [
+    {
+      "type": 0,
+      "value": "Current month"
+    }
+  ],
+  "ReactFilters.dateRanges.currentWeek": [
+    {
+      "type": 0,
+      "value": "Current week"
+    }
+  ],
+  "ReactFilters.dateRanges.currentYear": [
+    {
+      "type": 0,
+      "value": "Current year"
+    }
+  ],
+  "ReactFilters.dateRanges.daysStartingToday": [
+    {
+      "type": 0,
+      "value": "days starting today"
+    }
+  ],
+  "ReactFilters.dateRanges.daysUpToToday": [
+    {
+      "type": 0,
+      "value": "days up to today"
+    }
+  ],
+  "ReactFilters.dateRanges.lastMonth": [
+    {
+      "type": 0,
+      "value": "Last month"
+    }
+  ],
+  "ReactFilters.dateRanges.lastWeek": [
+    {
+      "type": 0,
+      "value": "Last week"
+    }
+  ],
+  "ReactFilters.dateRanges.lastYear": [
+    {
+      "type": 0,
+      "value": "Last year"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.cities": [
+    {
+      "type": 0,
+      "value": "Cities"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.createdAt": [
+    {
+      "type": 0,
+      "value": "Creation date"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.createdAtUpdatedAt": [
+    {
+      "type": 0,
+      "value": "Last save"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.date": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.departments": [
+    {
+      "type": 0,
+      "value": "Departments"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.keywords": [
+    {
+      "type": 0,
+      "value": "Keywords"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.members": [
+    {
+      "type": 0,
+      "value": "Members"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.originAgendas": [
+    {
+      "type": 0,
+      "value": "Origin agendas"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.regions": [
+    {
+      "type": 0,
+      "value": "Regions"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.states": [
+    {
+      "type": 0,
+      "value": "States"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.updatedAt": [
+    {
+      "type": 0,
+      "value": "Date of update"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "ReactFilters.dateRanges.currentMonth": "Current month",
+  "ReactFilters.dateRanges.currentWeek": "Current week",
+  "ReactFilters.dateRanges.currentYear": "Current year",
+  "ReactFilters.dateRanges.daysStartingToday": "days starting today",
+  "ReactFilters.dateRanges.daysUpToToday": "days up to today",
+  "ReactFilters.dateRanges.lastMonth": "Last month",
+  "ReactFilters.dateRanges.lastWeek": "Last week",
+  "ReactFilters.dateRanges.lastYear": "Last year",
+  "ReactFilters.messages.filterTitles.cities": "Cities",
+  "ReactFilters.messages.filterTitles.createdAt": "Creation date",
+  "ReactFilters.messages.filterTitles.createdAtUpdatedAt": "Last save",
+  "ReactFilters.messages.filterTitles.date": "Timings",
+  "ReactFilters.messages.filterTitles.departments": "Departments",
+  "ReactFilters.messages.filterTitles.keywords": "Keywords",
+  "ReactFilters.messages.filterTitles.members": "Members",
+  "ReactFilters.messages.filterTitles.originAgendas": "Origin agendas",
+  "ReactFilters.messages.filterTitles.regions": "Regions",
+  "ReactFilters.messages.filterTitles.states": "States",
+  "ReactFilters.messages.filterTitles.updatedAt": "Date of update"
+}
