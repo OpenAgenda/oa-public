@@ -20,6 +20,7 @@ const sendChangeEmail = require('./middleware/sendChangeEmail');
 const setFlashChangeEmail = require('./middleware/setFlashChangeEmail');
 const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
 const loadBySessionOrKey = require('./middleware/loadBySessionOrKey');
+const verifySuperAdmin = require('./middleware/verifySuperAdmin');
 const getHandler = require('./getHandler');
 const svcHooks = require('./hooks.js');
 
@@ -169,7 +170,8 @@ async function init(config, services) {
   hooks(service, svcHooks);
 
   service.mw = {
-    loadBySessionOrKey
+    loadBySessionOrKey,
+    verifySuperAdmin: verifySuperAdmin(config.superAdminIds)
   };
 
   services.tokens = tokensService;

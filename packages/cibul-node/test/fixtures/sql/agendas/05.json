@@ -3,5 +3,7 @@
   "title": "Parc de la Villette",
   "slug": "parcvilletteparis",
   "owner_id": 1,
-  "uid": 11
+  "uid": 11,
+  "created_at": "2020-04-08T17:00:00",
+  "updated_at": "2020-04-08T17:19:00"
 }

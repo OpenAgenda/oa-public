@@ -4,15 +4,15 @@
     "uid": 18992813,
     "slug": "encore-un-autre-event",
     "owner_id": 50304,
-    "created_at": "2020-03-02T10:00:00.000Z",
-    "updated_at": "2020-03-02T10:00:00.000Z"
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
   },
   "eventLocation": {
     "id": 124,
     "location_id": 1,
     "event_id": 4,
-    "created_at": "2020-03-02T10:00:00.000Z",
-    "updated_at": "2020-03-02T10:00:00.000Z"
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
   },
   "occurrences": [{
     "id": 32,
@@ -20,7 +20,9 @@
     "event_id": 4,
     "date": "2020-03-14",
     "time_start": "10:00:00",
-    "time_end": "20:00:00"
+    "time_end": "20:00:00",
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
   }],
   "event": {
     "id": 15,
@@ -28,6 +30,7 @@
     "slug": "encore-un-autre-event",
     "title": "{\"fr\":\"Encore un autre event\"}",
     "description": "{\"fr\":\"Voilà\"}",
+    "timezone": "Europe/Paris",
     "owner_uid": 63170203,
     "creator_uid": 63170203,
     "agenda_uid": 17026855,
@@ -35,12 +38,14 @@
     "draft": 0,
     "timings": "[{\"begin\":\"2020-03-14T10:00:00+0200\",\"end\":\"2020-03-14T10:00:00+0200\"}]",
     "location_uid": 123,
-    "created_at": "2020-03-02T10:00:00.000Z",
-    "updated_at": "2020-03-02T10:00:00.000Z"
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
   },
   "agendaEvents": [{
     "event_uid": 18992813,
     "agenda_uid": 17026855,
-    "state": 2
+    "state": 2,
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
   }]
 }

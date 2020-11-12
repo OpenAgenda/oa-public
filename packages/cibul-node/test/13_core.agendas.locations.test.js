@@ -23,7 +23,12 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
   let core;
 
   beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
+    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
+      'user',
+      'password',
+      'host',
+      'ssl'
+    ]), {
       multipleStatements: true
     }));
 
@@ -216,6 +221,37 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         const uploadedHead = await axios.head(response.data.location.image);
         const sinceLastModified = (new Date).getTime() - (new Date(uploadedHead.headers['last-modified'])).getTime();
         assert(sinceLastModified < 5000);
+      });
+    });
+
+    describe('successful create with multipart/form-data enc type', () => {
+      let response;
+
+      beforeAll(async () => {
+        try {
+          const form = new FormData();
+
+          form.append('access_token', accessToken);
+          form.append('nonce', 567489456);
+          form.append('data', JSON.stringify({
+            name: 'Un lieu sans image mais en enctype form-data',
+            address: '8 rue Alice, Courbevoie',
+            countryCode: 'FR'
+          }));
+
+          response = await axios({
+            method: 'post',
+            url: 'http://localhost:3000/v2/agendas/17026855/locations',
+            headers: form.getHeaders(),
+            data: form
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+
+      it('response contains created location', () => {
+        assert.equal(response.data.location.name, 'Un lieu sans image mais en enctype form-data');
       });
     });
 

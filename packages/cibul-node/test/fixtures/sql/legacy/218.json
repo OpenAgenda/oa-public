@@ -1,5 +1,7 @@
 {
   "tag_set": {
+    "created_at": "2020-11-10",
+    "updated_at": "2020-11-10",
     "groups": [
       {
         "tags": [
@@ -20,6 +22,8 @@
     ]
   },
   "category_set": {
+    "created_at": "2020-11-10",
+    "updated_at": "2020-11-10",
     "categories": [
       {
         "id": 3454,
@@ -48,25 +52,33 @@
       "category": "Animation - Loto",
       "id": 3454,
       "review_id": 218,
-      "slug": "animation-loto"
+      "slug": "animation-loto",
+      "created_at": "2020-11-10",
+      "updated_at": "2020-11-10"
     },
     {
       "category": "Atelier",
       "id": 3455,
       "review_id": 218,
-      "slug": "atelier"
+      "slug": "atelier",
+      "created_at": "2020-11-10",
+      "updated_at": "2020-11-10"
     },
     {
       "category": "Cérémonie",
       "id": 3456,
       "review_id": 218,
-      "slug": "ceremonie"
+      "slug": "ceremonie",
+      "created_at": "2020-11-10",
+      "updated_at": "2020-11-10"
     },
     {
       "category": "Cinéma - Projection",
       "id": 3457,
       "review_id": 218,
-      "slug": "cinema-projection"
+      "slug": "cinema-projection",
+      "created_at": "2020-11-10",
+      "updated_at": "2020-11-10"
     }
   ]
 }

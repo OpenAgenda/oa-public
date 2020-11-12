@@ -14,6 +14,7 @@
   "city_district": null,
   "latitude": 45.032146,
   "longitude": 4.403335,
-  "updated_at": "2019-08-20T11:43:37.000Z",
+  "updated_at": "2019-08-20T11:43:37.000",
+  "created_at": "2017-10-30 14:21:07",
   "store": "{\"image\":\"//cibuldev.s3.amazonaws.com/location32522324.jpg\",\"description\":{},\"tags\":[{\"id\":42,\"label\":\"Monument historique\"},{\"id\":3,\"label\":\"Édifice religieux\"}],\"email\":null,\"phone\":null,\"links\":[],\"access\":{},\"state\":1,\"timezone\":\"Europe/Paris\",\"imageCredits\":\"APPVL\",\"extId\":null}"
 }
