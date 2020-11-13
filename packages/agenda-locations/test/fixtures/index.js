@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const fs = require('fs');
 const { promisify } = require('util');
 const knex = require('knex');
@@ -18,7 +19,7 @@ function _sql(SQLDataRelativePath) {
 async function _load(dbConfig, SQLDataRelativePath) {
   const con = mysql.createConnection({
     multipleStatements: true,
-    ...dbConfig,
+    ..._.omit(dbConfig, ['database']),
   });
 
   const query = promisify(con.query.bind(con));

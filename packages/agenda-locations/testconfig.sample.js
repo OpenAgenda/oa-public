@@ -1,4 +1,6 @@
-"use strict";
+'use strict';
+
+const fs = require('fs');
 
 module.exports = {
   service: {
@@ -8,7 +10,13 @@ module.exports = {
       password: process.env.OA_MYSQL_DEV_PASSWORD,
       database: 'location_test',
       table: 'location',
-      ssl: true
+      ssl: parseInt(process.env.OA_MYSQL_DEV_SSL_VERIFY, 10)
+        ? {
+          ca: fs.readFileSync(process.env.OA_MYSQL_SSL_CA),
+          cert: fs.readFileSync(process.env.OA_MYSQL_SSL_CERT),
+          key: fs.readFileSync(process.env.OA_MYSQL_SSL_KEY)
+        }
+        : true
     },
     schemas: {
       location: 'location',
