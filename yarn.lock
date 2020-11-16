@@ -4995,6 +4995,7 @@ __metadata:
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
+    react-uid: ^2.3.0
     react-use: ^15.3.4
     recharts: ^2.0.0-beta.6
     redial: ^0.5.0
@@ -5209,7 +5210,6 @@ __metadata:
     node-sass: ^4.5.2
     node-sass-import-once: ^1.2.0
     node-watch: ^0.3.5
-    rc-collapse: ^2.1.0
     react: ^16.13.1
     react-datepicker: ^1.6.0
     react-day-picker: ^7.3.0
@@ -12632,16 +12632,16 @@ __metadata:
   linkType: hard
 
 "caniuse-db@npm:^1.0.30000529, caniuse-db@npm:^1.0.30000634, caniuse-db@npm:^1.0.30000639":
-  version: 1.0.30001033
-  resolution: "caniuse-db@npm:1.0.30001033"
-  checksum: 63d50066841f8428dc151e13a8bf7b5e5e597571ca919b96c1b32bde8fbb5d95aada206c4f48973baa2b88de1ab7791058f35c6b1d01b8244731f16f951488e5
+  version: 1.0.30001158
+  resolution: "caniuse-db@npm:1.0.30001158"
+  checksum: 1b5fd0f314ba1299af1f7e22be9bbb9c89eed7493f15d5f63331cc2e131cee59d342055b2cc420ca3f0044c36d2e75da0b838261ebef63ded4b959055ec66ad1
   languageName: node
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001020, caniuse-lite@npm:^1.0.30001035, caniuse-lite@npm:^1.0.30001043":
-  version: 1.0.30001066
-  resolution: "caniuse-lite@npm:1.0.30001066"
-  checksum: 998397a0188a66fcdce84e1e55681e02bb7a15e6365bd204ad976f4cb266a0737f7007611e6c00890d3ec2224172c188af15381de85566e6b6644aa21575ca9b
+  version: 1.0.30001158
+  resolution: "caniuse-lite@npm:1.0.30001158"
+  checksum: 5e8e370bd6bf104dcec4761f88721ed8140ae45bf7cf69e9a82ff4f31d3cc1da6bf339c0231e3c67aa227108ce0fc18e990b4a251c73216f8c473837fe9f361b
   languageName: node
   linkType: hard
 
