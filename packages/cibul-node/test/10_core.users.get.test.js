@@ -18,7 +18,12 @@ describe('10 - core - functional (server): core.users().get()', function() {
   let core;
 
   beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
+    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
+      'user',
+      'password',
+      'host',
+      'ssl'
+    ]), {
       multipleStatements: true
     }));
 
@@ -93,7 +98,7 @@ describe('10 - core - functional (server): core.users().get()', function() {
     }).generateToken();
 
     expect(token.id).toBe(2);
-    expect(token.lifespan).toBe(3600);
+    assert(token.lifespan >= 3599);
   });
 
   it('new access token is created when previous is outdated', async () => {
@@ -106,8 +111,8 @@ describe('10 - core - functional (server): core.users().get()', function() {
       secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
     }).generateToken();
 
-    assert.equal(token.id, 3);
-    assert(token.lifespan >= 3600);
+    assert(token.id > 2);
+    assert(token.lifespan >= 3599);
   });
 
 });

@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `reviewer` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) DEFAULT NULL,
   `user_uid` bigint(20) DEFAULT NULL,
   `review_id` bigint(20) NOT NULL,
@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS `reviewer` (
   `organization` varchar(255) DEFAULT NULL,
   `creator_id` bigint(20) DEFAULT NULL,
   `deleted_user` tinyint(1) DEFAULT '0',
-  `actions_counter` smallint(6) NOT NULL DEFAULT '0'
+  `actions_counter` smallint(6) NOT NULL DEFAULT '0',
+  UNIQUE INDEX id_idx (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=71390 DEFAULT CHARSET=latin1;
 
 ALTER TABLE `reviewer` ADD PRIMARY KEY (`id`), ADD KEY `user_id_idx` (`user_id`), ADD KEY `review_id_idx` (`review_id`);

@@ -7,33 +7,6 @@ const {
 
 const raw = resetAndCreateTables();
 
-/*const raw = [
-  'reset.sql',
-  'agenda.create.sql',
-  'network.create.sql',
-  'user.create.sql',
-  'formSchema.create.sql',
-  'member.create.sql',
-  'event.create.sql',
-  'custom.create.sql',
-  'agendaEvent.create.sql',
-  'location.create.sql',
-  'legacyEvent.create.sql',
-  'legacyEventLocation.create.sql',
-  'legacyEventTranslation.create.sql',
-  'legacyEventLocationTranslation.create.sql',
-  'legacyOccurrence.create.sql',
-  'legacyEventEditor.create.sql',
-  'legacyAgendaEvent.create.sql',
-  'legacyEventReference.create.sql',
-  'legacyAgendaEventTag.create.sql',
-  'legacyDeleted.create.sql',
-  'legacyAgendaCategory.create.sql',
-  'legacyAgendaTag.create.sql',
-  'legacyTagSet.create.sql'
-].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );*/
-
-
 raw.push( knex( 'agenda' ).insert( [ {
   id: 13901,
   title: 'Custom fielded agenda',
@@ -41,6 +14,8 @@ raw.push( knex( 'agenda' ).insert( [ {
   owner_id: 1,
   uid: 60934473,
   form_schema_id: 26,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06',
   store: JSON.stringify( `{
     "customFields": [ {
       "name": "cle_session",
@@ -65,6 +40,8 @@ raw.push( knex( 'agenda' ).insert( [ {
   uid: 60935574,
   form_schema_id: 26,
   network_uid: 1,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06',
   store: JSON.stringify( `{
     "customFields": [ {
       "name": "cle_session",
@@ -87,29 +64,42 @@ raw.push( knex( 'network' ).insert( {
   id: 1,
   uid: 1,
   title: 'My very second network',
-  form_schema_id: 27
+  form_schema_id: 27,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 } ) );
 
 raw.push( knex( 'user' ).insert( {
   id: 1,
   full_name: 'Kevin B.',
-  uid: 92
+  uid: 92,
+  password: 'xxx',
+  salt: 'xxx',
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 } ) );
 
 raw.push(knex('reviewer').insert({
   id: 1,
   user_id: 1,
   review_id: 1,
-  credential: 2
+  credential: 2,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06',
+  agenda_uid: 60935574,
+  user_uid: 92
 }));
 
 raw.push( knex( 'location' ).insert( {
   id: 1,
+  slug: 'la-boutique',
   placename: 'La boutique',
   address: '29 passage du ponceau, Paris',
   latitude: 1,
   longitude: 1,
-  uid: 65208887
+  uid: 65208887,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 } ) );
 
 

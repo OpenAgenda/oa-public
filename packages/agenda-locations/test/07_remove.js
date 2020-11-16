@@ -20,6 +20,8 @@ describe('agenda-locations - functional - remove', function() {
 
   let svc;
 
+  let passedToInterface;
+
   before(async () => {
     await f.load();
 
@@ -31,7 +33,10 @@ describe('agenda-locations - functional - remove', function() {
           id: ({
             7196947: 25221
           })[uid]
-        })
+        }),
+        locationWillRemove: async l => {
+          passedToInterface = l;
+        }
       }
     });
   });
@@ -51,6 +56,10 @@ describe('agenda-locations - functional - remove', function() {
       const entry = await f.client('location').first().where('uid', removed.uid);
 
       assert.ok(entry === undefined);
+    });
+
+    it('removed location is passed to interface before it is removed', async () => {
+      assert.equal(passedToInterface && passedToInterface.uid, 95301591);
     });
   });
 

@@ -42,20 +42,20 @@ const config = {
         prefix: 'oa:',
         enable: false
       },
-      token: prod.insightOps.main,
+      token: prod.insightOps && prod.insightOps.main || null,
       errorsTracking: {
-        insightOpsKey: prod.insightOps.clientErrors,
-        sentryDsn: prod.sentry.dsn
+        insightOpsKey: prod.insightOps && prod.insightOps.clientErrors || null,
+        sentryDsn: prod.sentry && prod.sentry.dsn || null
       }
     },
     name: 'cibul-node',
-    domain: prod.domains.main,
+    domain: prod.domains ? prod.domains.main : null,
     root: prod.root,
     logo: prod.logo,
-    googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || prod.googleAnalytics.id,
-    embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || prod.googleAnalytics.embedId,
+    googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID || (prod.googleAnalytics && prod.googleAnalytics.id),
+    embedGoogleAnalyticsId: process.env.GOOGLE_ANALYTICS_EMBED_ID || (prod.googleAnalytics && prod.googleAnalytics.embedId),
     externalScripts: {
-      zendesk: prod.zendesk.widget
+      zendesk: prod.zendesk && prod.zendesk.widget
     },
     useCache: false,
     agendaCacheExpire: 30 * 1000,
@@ -63,18 +63,18 @@ const config = {
       agenda: ['twitter', 'facebook', 'googlePlus', 'linkedIn']
     },
     adminEmail: 'admin@openagenda.com',
-    callToActionEmails: prod.sales.emails,
-    contactResource: prod.sales.pipedriveForm,
-    mapboxAccessToken: prod.mapbox.token,
+    callToActionEmails: prod.sales && prod.sales.emails,
+    contactResource: prod.sales && prod.sales.pipedriveForm,
+    mapboxAccessToken: prod.sales && prod.mapbox.token,
     opencage: {
-      key: process.env.OPENCAGE_KEY || prod.opencage.key
+      key: process.env.OPENCAGE_KEY || prod.opencage && prod.opencage.key
     },
     db: {
-      database: prod.db.name,
-      host: prod.db.host,
-      port: prod.db.port,
-      user: prod.db.user,
-      password: prod.db.password,
+      database: prod.db && prod.db.name,
+      host: prod.db && prod.db.host,
+      port: prod.db && prod.db.port,
+      user: prod.db && prod.db.user,
+      password: prod.db && prod.db.password,
       cache: true,
       timezone: 'UTC',
       charset: 'utf8mb4'
@@ -125,34 +125,34 @@ const config = {
       unsubscriptionLink: 'unsubscription_link'
     },
     reCaptcha: {
-      enabled: true,
-      verify: prod.reCaptcha.verify,
-      v3: {
+      enabled: !!prod.reCaptcha,
+      verify: prod.reCaptcha && prod.reCaptcha.verify,
+      v3: prod.reCaptcha ? {
         key: prod.reCaptcha.v3.key,
         secret: prod.reCaptcha.v3.secret
-      },
-      v2: {
+      } : null,
+      v2: prod.reCaptcha ? {
         key: prod.reCaptcha.v2.key,
         secret: prod.reCaptcha.v2.secret
-      },
-      v2Invisible: {
+      } : null,
+      v2Invisible: prod.reCaptcha ? {
         key: prod.reCaptcha.v2Invisible.key,
         secret: prod.reCaptcha.v2Invisible.secret
-      }
+      } : null
     },
     auth: {
-      facebook: {
+      facebook: prod.facebook && {
         id: prod.facebook.appId,
         secret: prod.facebook.appSecret
-      },
-      twitter: {
+      } || null,
+      twitter: prod.twitter && {
         key: prod.twitter.key,
         secret: prod.twitter.secret
-      },
-      google: {
+      } || null,
+      google: prod.google && {
         id: prod.googleApps.id,
         secret: prod.googleApps.secret
-      }
+      } || null,
     },
     slackApp: {
       signingSecret: _.get(prod, 'slackApp.signingSecret'),
@@ -160,42 +160,24 @@ const config = {
       channel: 'G019D3L6NTD'
     },
     es: {
-      host: process.env.LEGACY_ES_HOST || prod.elasticsearch.v1_3.host,
-      port: prod.elasticsearch.v1_3.port,
-      indexName: prod.elasticsearch.indices.legacyEvents,
+      host: process.env.LEGACY_ES_HOST || (prod.elasticsearch && prod.elasticsearch.v1_3.host),
+      port: prod.elasticsearch ? prod.elasticsearch.v1_3.port : 9200,
+      indexName: prod.elasticsearch ? prod.elasticsearch.indices.legacyEvents : 'cibul',
       channel: 'main'
     },
-    es75: prod.elasticsearch.v7_5,
-    esLocation: {
-      log: [
-        {
-          type: 'stdio',
-          level: ['error', 'warning']
-        }
-      ],
-      index: prod.elasticsearch.indices.locations,
-      apiVersion: '1.3',
-      timeout: 30000
-    },
+    es75: prod.elasticsearch ? prod.elasticsearch.v7_5 : null,
     esEvents: {
       maxIndexableTimingCount: 3000
     },
     redis: {
-      host: prod.redis.host,
-      port: prod.redis.port
-    },
-    scriptRoutes: { // on prodifier server
-      adminLocationReport: {
-        port: 3000,
-        host: '54.229.143.166',
-        path: '/agendas/:agendaUid/locations/report/:userUid'
-      }
+      host: _.get(prod, 'redis.host', 'localhost'),
+      port: _.get(prod, 'redis.port', 6379)
     },
     session: {
       name: 'oa', // session cookie name
       writableName: 'oa.rw', // store client-editable data
-      keys: prod.session.keys,
-      secret: prod.session.secret,
+      keys: prod.session ? prod.session.keys : process.env.OA_SESSION_KEYS.split(','),
+      secret: prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET,
       maxAge: 1000 * 60 * 60 * 48,
       httpOnly: false,
       namespace: 'sessions',
@@ -231,16 +213,16 @@ const config = {
       }
     },
     aws: {
-      accessKeyId: prod.aws.key,
-      secretAccessKey: prod.aws.secret,
+      accessKeyId: prod.aws && prod.aws.key,
+      secretAccessKey: prod.aws && prod.aws.secret,
       region: 'eu-west-1',
-      imageBucketPath: `https://${prod.aws.buckets.main}.s3.amazonaws.com/`,
-      tmpBucketPath: `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/`,
-      staticBucketPath: `https://${prod.aws.buckets.static}.s3.amazonaws.com/`,
-      servicesBucketPath: `https://${prod.aws.buckets.services}.s3.amazonaws.com/`,
-      bucket: prod.aws.buckets.main,
-      tmpBucket: prod.aws.buckets.temporary,
-      defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
+      imageBucketPath: prod.aws && `https://${prod.aws.buckets.main}.s3.amazonaws.com/`,
+      tmpBucketPath: prod.aws && `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/`,
+      staticBucketPath: prod.aws && `https://${prod.aws.buckets.static}.s3.amazonaws.com/`,
+      servicesBucketPath: prod.aws && `https://${prod.aws.buckets.services}.s3.amazonaws.com/`,
+      bucket: prod.aws && prod.aws.buckets.main,
+      tmpBucket: prod.aws && prod.aws.buckets.temporary,
+      defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH || `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
       oaLogoIcon: 'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg'
     },
     authorizedMimeTypes: {
@@ -262,19 +244,19 @@ const config = {
       secret: 'DUy=dBGY1,(B]Yj'
     },
     mailjet: {
-      apiKey: prod.mailjet.apiKey,
-      apiSecret: prod.mailjet.apiSecret,
-      contactsListId: prod.mailjet.contactsListId
+      apiKey: prod.mailjet && prod.mailjet.apiKey,
+      apiSecret: prod.mailjet && prod.mailjet.apiSecret,
+      contactsListId: prod.mailjet && prod.mailjet.contactsListId
     },
     mailgun: {
-      domain: prod.mailgun.domain,
-      apiKey: prod.mailgun.apiKey
+      domain: prod.mailgun && prod.mailgun.domain,
+      apiKey: prod.mailgun && prod.mailgun.apiKey
     },
     oembed: {
       res: 'https://iframe.ly/api/oembed',
       //key: '044c4cbd91d65eab056738',
       //key: '32d62d210e9dcf24c0134e',
-      key: prod.iframely.key,
+      key: process.env.IFRAMELY_KEY || (prod.iframely && prod.iframely.key),
       platforms: [
         "dropbox",
         "wemap",
@@ -306,7 +288,7 @@ const config = {
       selectionLimit: 30  // maximum number of events displayable in the selection of a newsletter campaign
     },
     twitter: {
-      name: prod.twitter.name
+      name: prod.twitter && prod.twitter.name
     },
     maxFileSize: 20000000,
     imageSizeLimits: [2000, 30000000],
@@ -786,8 +768,8 @@ const config = {
         : true
     },
     reCaptcha: {
-      enabled: true,
-      verify: prod.reCaptcha.verify,
+      enabled: !!prod.reCaptcha,
+      verify: prod.reCaptcha && prod.reCaptcha.verify,
       v3: {
         key: '6LfMOpwUAAAAAJID3dgKjFyRVmK1tomtBK2Au8gH',
         secret: '6LfMOpwUAAAAAOaiGNVsooxicbF8w6yyQr2lh06-'
@@ -946,7 +928,7 @@ const config = {
 
   production: {
     mails: {
-      transport: prod.mails.transport
+      transport: prod.mails && prod.mails.transport
     }
   }
 };

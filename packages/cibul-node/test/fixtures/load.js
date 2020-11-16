@@ -7,7 +7,7 @@ const { promisify } = require('util');
 module.exports = async (config, jsFile) => {
   const sql = require('./' + jsFile);
 
-  const con = mysql.createConnection(Object.assign(_.pick(config, ['user', 'password']), {
+  const con = mysql.createConnection(Object.assign(_.pick(config, ['user', 'password', 'host', 'ssl']), {
     multipleStatements: true
   }));
 

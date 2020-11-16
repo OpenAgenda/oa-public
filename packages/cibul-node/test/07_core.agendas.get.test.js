@@ -20,7 +20,12 @@ describe('07 - core - functional (server): core.agendas().get', function() {
   let core;
 
   beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
+    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
+      'user', 
+      'password',
+      'ssl',
+      'host'
+    ]), {
       multipleStatements: true
     }));
 

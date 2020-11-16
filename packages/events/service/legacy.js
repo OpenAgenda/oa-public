@@ -118,7 +118,7 @@ async function update( identifiers, options ) {
       id: 'TBD',
       lang,
       title: _.get( event.title, lang ),
-      description: _.get( event.description, lang ),
+      description: _.get( event.description, lang, ''),
       free_text: _.get( event.longDescription, lang, null ),
       tags: _.get( event.keywords, lang, [] ).join( ', ' )
     } ) ),

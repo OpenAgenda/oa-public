@@ -122,29 +122,39 @@ raw.push(knex('location').insert([{
   longitude: 2.351739,
   store: JSON.stringify({
     extId: 'fdsqfdsq'
-  })
+  }),
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }]));
 
 raw.push(knex('review_category').insert([{
   id: 3454,
   slug: 'animation-loto',
   category: 'Animation - Loto',
-  review_id: 218
+  review_id: 218,
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }, {
   id: 3455,
   slug: 'atelier',
   category: 'Atelier',
-  review_id: 218
+  review_id: 218,
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }, {
   id: 3456,
   slug: 'ceremonie',
   category: 'Cérémonie',
-  review_id: 218
+  review_id: 218,
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }, {
   id: 3457,
   slug: 'cinema-projection',
   category: 'Cinéma - Projection',
-  review_id: 218
+  review_id: 218,
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }]));
 
 raw.push(knex('category_set').insert([{
@@ -209,221 +219,295 @@ raw.push(knex('review_tag').insert([{
   id: 9661,
   slug: 'administration',
   review_id: 218,
-  tag: 'Administration'
+  tag: 'Administration',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }, {
   id: 9662,
   slug: 'aeronautique',
   review_id: 218,
-  tag: 'Aéronotique'
+  tag: 'Aéronotique',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }, {
   id: 22441,
   review_id: 218,
   tag: 'Culture',
-  slug: 'culture'
+  slug: 'culture',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22446,
   review_id: 218,
   tag: 'Éducation',
-  slug: 'education'
+  slug: 'education',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22447,
   review_id: 218,
   tag: 'Nature - Environnement',
-  slug: 'nature-environnement'
+  slug: 'nature-environnement',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22449,
   review_id: 218,
   tag: 'Economie - Innovation',
-  slug: 'economie-innovation'
+  slug: 'economie-innovation',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22450,
   review_id: 218,
   tag: 'International',
-  slug: 'international'
+  slug: 'international',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22451,
   review_id: 218,
   tag: 'Loisirs',
-  slug: 'loisirs'
+  slug: 'loisirs',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22453,
   review_id: 218,
   tag: 'Patrimoine',
-  slug: 'patrimoine'
+  slug: 'patrimoine',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22454,
   review_id: 218,
   tag: 'Social - Santé' ,
-  slug: 'social-sante'
+  slug: 'social-sante',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22457,
   review_id: 218,
   tag: 'Transports - Déplacements',
-  slug: 'transports-deplacements'
+  slug: 'transports-deplacements',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22458,
   review_id: 218,
   tag: 'Urbanisme',
-  slug: 'urbanisme'
+  slug: 'urbanisme',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22459,
   review_id: 218,
   tag: 'Tous',
-  slug: 'tous'
+  slug: 'tous',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22460,
   review_id: 218,
   tag: 'Conférence',
-  slug: 'conference'
+  slug: 'conference',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22461,
   review_id: 218,
   tag: 'Congrès - Colloque',
-  slug: 'congres-colloque'
+  slug: 'congres-colloque',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22462,
   review_id: 218,
   tag: 'Conseil de Métropole ',
-  slug: 'conseil-de-metropole'
+  slug: 'conseil-de-metropole',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22463,
   review_id: 218,
   tag: 'Événement sportif ',
-  slug: 'evenement-sportif'
+  slug: 'evenement-sportif',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22464,
   review_id: 218,
   tag: 'Exposition',
-  slug: 'exposition'
+  slug: 'exposition',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22465,
   review_id: 218,
   tag: 'Foire - Salon',
-  slug: 'foire-salon'
+  slug: 'foire-salon',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22466,
   review_id: 218,
   tag: 'Fête - Festival',
-  slug: 'fete-festival'
+  slug: 'fete-festival',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22467,
   review_id: 218,
   tag: 'Réunion publique',
-  slug: 'reunion-publique'
+  slug: 'reunion-publique',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22468,
   review_id: 218,
   tag: 'Spectacle',
-  slug: 'spectacle'
+  slug: 'spectacle',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22541,
   review_id: 218,
   tag: 'Tout Public ',
-  slug: 'tout-public'
+  slug: 'tout-public',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22542,
   review_id: 218,
   tag: 'Adulte',
-  slug: 'adulte'
+  slug: 'adulte',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22543,
   review_id: 218,
   tag: 'Jeune Public',
-  slug: 'jeune-public'
+  slug: 'jeune-public',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22545,
   review_id: 218,
   tag: 'Personne en situation de handicap',
-  slug: 'personne-en-situation-de-handicap'
+  slug: 'personne-en-situation-de-handicap',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22546,
   review_id: 218,
   tag: 'Collectivité',
-  slug: 'collectivite'
+  slug: 'collectivite',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22547,
   review_id: 218,
   tag: 'Association',
-  slug: 'association'
+  slug: 'association',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22548,
   review_id: 218,
   tag: 'Partenaire',
-  slug: 'partenaire'
+  slug: 'partenaire',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22549,
   review_id: 218,
   tag: 'Particulier',
-  slug: 'particulier'
+  slug: 'particulier',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 22695,
   review_id: 218,
   tag: 'Stage - Atelier',
-  slug: 'stage-atelier'
+  slug: 'stage-atelier',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 23507,
   review_id: 218,
   tag: 'Entrée Libre',
-  slug: 'entree-libre'
+  slug: 'entree-libre',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 23539,
   review_id: 218,
   tag: 'Professionnel',
-  slug: 'professionnel'
+  slug: 'professionnel',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 23559,
   review_id: 218,
   tag: 'Sports',
-  slug: 'sports'
+  slug: 'sports',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 28250,
   review_id: 218,
   tag: 'Emploi',
-  slug: 'emploi'
+  slug: 'emploi',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 48913,
   review_id: 218,
   tag: 'Événement ponctuel',
-  slug: 'evenement-ponctuel'
+  slug: 'evenement-ponctuel',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 },
 {
   id: 62941,
   review_id: 218,
   tag: 'Entrée libre',
-  slug: 'entree-libre'
+  slug: 'entree-libre',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }]));
 
 const eventSets = [
@@ -436,30 +520,30 @@ raw.push(knex('event').insert([{
   uid: 19201989,
   slug: 'un-event',
   owner_id: 50304,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2019-12-14T10:00:00.000',
+  updated_at: '2019-12-14T10:00:00.000'
 }, {
   id: 2,
   uid: 18992812,
   slug: 'encore-un-event',
   image: 'an-image.jpg',
   owner_id: 50304,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2019-12-14T10:00:00.000',
+  updated_at: '2019-12-14T10:00:00.000'
 }, eventSets[0].legacyEvent, eventSets[1].legacyEvent ]));
 
 raw.push(knex('event_location').insert([{
   id: 1,
   location_id: 1,
   event_id: 1,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2019-12-14T10:00:00.000',
+  updated_at: '2019-12-14T10:00:00.000'
 }, {
   id: 2,
   location_id: 1,
   event_id: 2,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2019-12-14T10:00:00.000',
+  updated_at: '2019-12-14T10:00:00.000'
 }, eventSets[0].eventLocation, eventSets[1].eventLocation]));
 
 raw.push(knex('occurrence').insert([{
@@ -468,14 +552,18 @@ raw.push(knex('occurrence').insert([{
   event_id: 1,
   date: '2019-05-06',
   time_start: '10:00:00',
-  time_end: '11:00:00'
+  time_end: '11:00:00',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }, {
   id: 2,
   location_id: 1,
   event_id: 2,
   date: '2019-05-06',
   time_start: '10:00:00',
-  time_end: '11:00:00'
+  time_end: '11:00:00',
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }].concat(eventSets[0].occurrences).concat(eventSets[1].occurrences)));
 
 raw.push(knex('event_2').insert([{
@@ -489,6 +577,13 @@ raw.push(knex('event_2').insert([{
     end: new Date('2019-05-06T11:00:00')
   }]),
   location_uid: 123,
+  title: JSON.stringify({
+    fr: 'Title 1'
+  }),
+  description: JSON.stringify({
+    fr: 'Description 1'
+  }),
+  timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
 }, {
@@ -505,6 +600,13 @@ raw.push(knex('event_2').insert([{
     filename: 'an-image.jpg'
   }),
   location_uid: 123,
+  title: JSON.stringify({
+    fr: 'Title 2'
+  }),
+  description: JSON.stringify({
+    fr: 'Description 2'
+  }),
+  timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
 }, eventSets[0].event, eventSets[1].event]));
@@ -537,7 +639,7 @@ raw.push(knex('review_article').insert([{
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')
 }, {
-  id: 123,
+  id: 124,
   event_id: 1,
   review_id: 218,
   state: 2,
@@ -553,7 +655,9 @@ raw.push(knex('custom').insert([{
   identifier: 19201989,
   store: JSON.stringify({
     'categories-agenda-metropolitain': 46
-  })
+  }),
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07'
 }]));
 
 module.exports = raw.join(';\n') + ';';

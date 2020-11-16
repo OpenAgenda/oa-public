@@ -5571,7 +5571,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
-    "@openagenda/fixtures": ^2.0.2
+    "@openagenda/files": ^3.0.0
     "@openagenda/logs": ^1.1.7
     "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/queue": ^1.0.1

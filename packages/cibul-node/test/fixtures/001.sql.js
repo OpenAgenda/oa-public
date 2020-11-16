@@ -27,11 +27,14 @@ raw.push(knex('reviewer').insert([
 
 raw.push(knex('location').insert([{
   id: 1,
+  slug: 'la-boutique',
   placename: 'La boutique',
   address: '29 passage du ponceau, Paris',
   latitude: 48.867583,
   longitude: 2.3502635,
-  uid: 1
+  uid: 1,
+  created_at: new Date(),
+  updated_at: new Date()
 }]));
 
 raw.push(knex('event_2').insert([{
@@ -56,6 +59,7 @@ raw.push(knex('event_2').insert([{
     end: new Date('2019-09-27T12:00:00+0200')
   }]),
   location_uid: 1,
+  timezone: 'Europe/Paris',
   created_at: new Date(),
   updated_at: new Date()
 }, {
@@ -80,6 +84,7 @@ raw.push(knex('event_2').insert([{
     end: new Date('2019-09-27T12:00:00+0200')
   }]),
   location_uid: 1,
+  timezone: 'Europe/Paris',
   created_at: new Date(),
   updated_at: new Date()
 }]));
@@ -143,7 +148,9 @@ raw.push(knex('custom').insert({
   store: JSON.stringify({
     thematique: 2,
     note: 'Une note interne pour les administrateurs'
-  })
+  }),
+  created_at: new Date(),
+  updated_at: new Date()
 }));
 
 module.exports = raw.join(';\n') + ';';
