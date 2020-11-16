@@ -10,9 +10,6 @@ set -a
 source "$env_file"
 set +a
 
-#prevent access restriction issues with non-root docker usage
-mkdir ${TMP_INSTALL_DIR} ${TMP_INSTALL_DIR}/oa ${TMP_INSTALL_DIR}/cibul-symfony ${TMP_INSTALL_DIR}/cibulapi-symfony
-
 docker build -t $image_name "$ctx/docker/devinstaller" || exit
 
 docker run \
@@ -20,7 +17,6 @@ docker run \
   -it \
   --rm \
   -u "${DOCKER_USER:-}" \
-  -v "${TMP_INSTALL_DIR}:/root" \
   -v "$ctx:/root/oa" \
   -v "${SF_PROJECT_PATH}:/root/cibul-symfony" \
   -v "${SF_API_PROJECT_PATH}:/root/cibulapi-symfony" \
@@ -28,5 +24,3 @@ docker run \
   --env-file "$env_file" \
   -w /root/oa \
   $image_name /root/oa/docker/devinstaller/command.sh "${SITE_DOMAIN}" "${API_DOMAIN}" "${PMA_HOST}" "${ELASTICHQ_DOMAIN}"
-
-rm -r ${TMP_INSTALL_DIR}

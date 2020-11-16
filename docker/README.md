@@ -34,7 +34,7 @@ Edit it, follow the instructions in comments.
 
 ## Run the devinstaller
 
-[Ensure that you can run docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/) and that the parent folder for the path defined in the variable `TMP_INSTALL_DIR` exists.
+Ensure that you can run docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/)
 
 In the terminal and at the project root, run:
 
