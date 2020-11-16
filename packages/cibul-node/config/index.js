@@ -67,7 +67,7 @@ const config = {
     contactResource: prod.sales && prod.sales.pipedriveForm,
     mapboxAccessToken: prod.sales && prod.mapbox.token,
     opencage: {
-      key: process.env.OPENCAGE_KEY || prod.opencage.key
+      key: process.env.OPENCAGE_KEY || prod.opencage && prod.opencage.key
     },
     db: {
       database: prod.db && prod.db.name,
@@ -176,8 +176,8 @@ const config = {
     session: {
       name: 'oa', // session cookie name
       writableName: 'oa.rw', // store client-editable data
-      keys: prod.session ? prod.session.keys : 'session.key' + Math.random(),
-      secret: prod.session ? prod.session.secret : 'session.secret' + Math.random(),
+      keys: prod.session ? prod.session.keys : process.env.OA_SESSION_KEYS.split(','),
+      secret: prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET,
       maxAge: 1000 * 60 * 60 * 48,
       httpOnly: false,
       namespace: 'sessions',
@@ -256,7 +256,7 @@ const config = {
       res: 'https://iframe.ly/api/oembed',
       //key: '044c4cbd91d65eab056738',
       //key: '32d62d210e9dcf24c0134e',
-      key: prod.iframely && prod.iframely.key,
+      key: process.env.IFRAMELY_KEY || (prod.iframely && prod.iframely.key),
       platforms: [
         "dropbox",
         "wemap",

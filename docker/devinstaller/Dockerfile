@@ -21,5 +21,3 @@ ENV NPM_TOKEN=""
 
 # add the npm token
 RUN echo "npmRegistries:\n  //registry.npmjs.org:\n    npmAuthToken: \"\${NPM_TOKEN}\"\n" >> /root/.yarnrc.yml
-
-WORKDIR /root
