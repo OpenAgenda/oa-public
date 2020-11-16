@@ -1,8 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { action } from '@storybook/addon-actions';
 import { FiltersProvider, DateRangeFilter } from '../src';
-import locales from '../src/locales-compiled';
 
 require('@openagenda/bs-templates/compiled/main.css');
 
@@ -13,15 +11,13 @@ export default {
 };
 
 export const CompleteExample = () => (
-  <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
-    <FiltersProvider onSubmit={action('onSubmit')}>
-      <div className="rc-collapse">
-        <DateRangeFilter name="date" />
-        <DateRangeFilter name="createdAt" />
-        <DateRangeFilter name="updatedAt" />
-      </div>
-    </FiltersProvider>
-  </IntlProvider>
+  <FiltersProvider onSubmit={action('onSubmit')} locale={lang}>
+    <div className="rc-collapse">
+      <DateRangeFilter name="date" />
+      <DateRangeFilter name="createdAt" />
+      <DateRangeFilter name="updatedAt" />
+    </div>
+  </FiltersProvider>
 );
 CompleteExample.storyName = 'Complete example';
 CompleteExample.argTypes = { onClick: { action: 'clicked' } };

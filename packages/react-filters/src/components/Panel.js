@@ -25,27 +25,35 @@ export default function Panel({
 
   return (
     <div
-      className={cn('rc-collapse-item', { 'rc-collapse-item-active': !value })}
+      className={cn('oa-collapse-item', { 'oa-collapse-item-active': !value })}
     >
       <div
-        className="rc-collapse-header"
+        className="oa-collapse-header"
         role="tab"
         tabIndex="0"
         aria-expanded={!value}
         onClick={toggleCollapsed}
         onKeyPress={toggleCollapsed}
       >
-        <i className="arrow" />
         {header}
+        <span className="oa-collapse-arrow">
+          <i
+            className={cn('fa fa-lg', {
+              'fa-angle-up': !value,
+              'fa-angle-down': value
+            })}
+            aria-hidden="true"
+          />
+        </span>
       </div>
       <div
-        className={cn('rc-collapse-content', {
-          'rc-collapse-content-active': !value,
-          'rc-collapse-content-inactive': value
+        className={cn('oa-collapse-content', {
+          'oa-collapse-content-active': !value,
+          'oa-collapse-content-inactive': value
         })}
         role="tabpanel"
       >
-        <div className="rc-collapse-content-box">{children}</div>
+        <div className="oa-collapse-content-box">{children}</div>
       </div>
     </div>
   );

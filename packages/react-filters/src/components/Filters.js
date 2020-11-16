@@ -5,7 +5,8 @@ function Filters({
   filters,
   dateRangeComponent: DateRangeComponent,
   checkboxComponent: CheckboxComponent,
-  radioComponent: RadioComponent
+  radioComponent: RadioComponent,
+  ...additionnalProps
 }) {
   const seed = useUIDSeed();
 
@@ -19,6 +20,7 @@ function Filters({
                 key={seed(filter.name)}
                 name={filter.name}
                 filter={filter}
+                {...additionnalProps}
               />
             );
           case 'checkbox':
@@ -28,6 +30,7 @@ function Filters({
                 name={filter.name}
                 options={filter.options}
                 filter={filter}
+                {...additionnalProps}
               />
             );
           case 'radio':
@@ -37,6 +40,7 @@ function Filters({
                 name={filter.name}
                 options={filter.options}
                 filter={filter}
+                {...additionnalProps}
               />
             );
           default:

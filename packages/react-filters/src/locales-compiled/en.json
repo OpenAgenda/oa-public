@@ -11,46 +11,22 @@
       "value": "Current week"
     }
   ],
-  "ReactFilters.dateRanges.currentYear": [
+  "ReactFilters.dateRanges.thisWeekend": [
     {
       "type": 0,
-      "value": "Current year"
+      "value": "This week-end"
     }
   ],
-  "ReactFilters.dateRanges.daysStartingToday": [
+  "ReactFilters.dateRanges.today": [
     {
       "type": 0,
-      "value": "days starting today"
+      "value": "Today"
     }
   ],
-  "ReactFilters.dateRanges.daysUpToToday": [
+  "ReactFilters.dateRanges.tomorrow": [
     {
       "type": 0,
-      "value": "days up to today"
-    }
-  ],
-  "ReactFilters.dateRanges.lastMonth": [
-    {
-      "type": 0,
-      "value": "Last month"
-    }
-  ],
-  "ReactFilters.dateRanges.lastWeek": [
-    {
-      "type": 0,
-      "value": "Last week"
-    }
-  ],
-  "ReactFilters.dateRanges.lastYear": [
-    {
-      "type": 0,
-      "value": "Last year"
-    }
-  ],
-  "ReactFilters.messages.filterTitles.cities": [
-    {
-      "type": 0,
-      "value": "Cities"
+      "value": "Tomorrow"
     }
   ],
   "ReactFilters.messages.filterTitles.createdAt": [
@@ -59,58 +35,73 @@
       "value": "Creation date"
     }
   ],
-  "ReactFilters.messages.filterTitles.createdAtUpdatedAt": [
+  "ReactFilters.messages.filterTitles.state": [
     {
       "type": 0,
-      "value": "Last save"
+      "value": "State"
     }
   ],
-  "ReactFilters.messages.filterTitles.date": [
+  "ReactFilters.messages.filterTitles.timings": [
     {
       "type": 0,
       "value": "Timings"
-    }
-  ],
-  "ReactFilters.messages.filterTitles.departments": [
-    {
-      "type": 0,
-      "value": "Departments"
-    }
-  ],
-  "ReactFilters.messages.filterTitles.keywords": [
-    {
-      "type": 0,
-      "value": "Keywords"
-    }
-  ],
-  "ReactFilters.messages.filterTitles.members": [
-    {
-      "type": 0,
-      "value": "Members"
-    }
-  ],
-  "ReactFilters.messages.filterTitles.originAgendas": [
-    {
-      "type": 0,
-      "value": "Origin agendas"
-    }
-  ],
-  "ReactFilters.messages.filterTitles.regions": [
-    {
-      "type": 0,
-      "value": "Regions"
-    }
-  ],
-  "ReactFilters.messages.filterTitles.states": [
-    {
-      "type": 0,
-      "value": "States"
     }
   ],
   "ReactFilters.messages.filterTitles.updatedAt": [
     {
       "type": 0,
       "value": "Date of update"
+    }
+  ],
+  "ReactShared.DateRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "From "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " to "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "endDate"
+    }
+  ],
+  "ReactShared.DateRangeFilter.singleDate": [
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
     }
   ]
 }

@@ -17,10 +17,6 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.timings',
     defaultMessage: 'Timings'
   },
-  createdAtUpdatedAt: {
-    id: 'ReactFilters.messages.filterTitles.createdAtUpdatedAt',
-    defaultMessage: 'Last save'
-  },
   createdAt: {
     id: 'ReactFilters.messages.filterTitles.createdAt',
     defaultMessage: 'Creation date'

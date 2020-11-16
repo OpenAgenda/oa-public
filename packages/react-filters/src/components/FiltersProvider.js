@@ -2,6 +2,8 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import { useConstant } from '@openagenda/react-shared';
 import { createForm } from 'final-form';
+import { IntlProvider } from 'react-intl';
+import messages from '../locales-compiled';
 
 function FiltersForm({ children }) {
   return children;
@@ -14,7 +16,8 @@ function FiltersProvider({
   onSubmit,
   children,
   staticContext,
-  subscription = defaultSubscription
+  subscription = defaultSubscription,
+  locale = 'en'
 }) {
   const form = useConstant(() => {
     const finalForm = createForm({
@@ -30,11 +33,13 @@ function FiltersProvider({
   });
 
   return (
-    <Form form={form} component={FiltersForm} subscription={subscription}>
-      {children}
+    <IntlProvider messages={messages[locale]} locale={locale} key={locale}>
+      <Form form={form} component={FiltersForm} subscription={subscription}>
+        {children}
 
-      {/* TODO portals from outside, add <Filter /> with classNames for each */}
-    </Form>
+        {/* TODO portals from outside, add <Filter /> with classNames for each */}
+      </Form>
+    </IntlProvider>
   );
 }
 

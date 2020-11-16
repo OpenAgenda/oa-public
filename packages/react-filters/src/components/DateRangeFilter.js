@@ -21,8 +21,7 @@ const messages = defineMessages({
   }
 });
 
-const titleSubscription = { value: true };
-const fieldSubscription = { value: true, submitting: true };
+const subscription = { value: true, submitting: true };
 
 // For display (store -> form)
 function formatValue(value) {
@@ -70,8 +69,32 @@ function parseValue(value) {
     lte: selection.endDate ? endOfDay(selection.endDate) : selection.endDate
   };
 }
+function ValuePreview({ value, input, meta }) {
+  const removeValue = useCallback(
+    e => {
+      e.stopPropagation();
 
-function Title({ input, staticRanges }) {
+      input.onChange(undefined);
+    },
+    [input]
+  );
+
+  return (
+    <div className="badge badge-info">
+      {value}
+      <button
+        type="button"
+        className="btn btn-link btn-link-inline margin-left-xs"
+        disabled={meta.submitting}
+        onClick={removeValue}
+      >
+        <i className="fa fa-times" aria-hidden="true" />
+      </button>
+    </div>
+  );
+}
+
+function Title({ input, meta, staticRanges }) {
   const intl = useIntl();
   const title = useFilterTitle(input.name);
 
@@ -87,52 +110,29 @@ function Title({ input, staticRanges }) {
     [input.value]
   );
 
-  const { onChange } = input;
-
-  const onReset = useCallback(
-    e => {
-      e.stopPropagation();
-      onChange(undefined);
-    },
-    [onChange]
-  );
-
   if (!input?.value) {
     return <div>{title}</div>;
   }
 
-  const resetButton = (
-    <div className="pull-right">
-      <button
-        type="button"
-        className="btn btn-link btn-link-inline"
-        onClick={onReset}
-      >
-        <i className="fa fa-trash text-danger" aria-hidden="true" />
-      </button>
-    </div>
-  );
+  let value;
 
   if (selectedStaticRange) {
-    return (
-      <div className="flex-auto">
-        {resetButton}
-        {title} - {selectedStaticRange.label}
-      </div>
-    );
+    value = selectedStaticRange.label;
+  } else {
+    value = singleDay
+      ? intl.formatMessage(messages.singleDate, { date: input.value.gte })
+      : intl.formatMessage(messages.dateRange, {
+        startDate: input.value.gte,
+        endDate: input.value.lte
+      });
   }
-
-  const valueMessage = singleDay
-    ? intl.formatMessage(messages.singleDate, { date: input.value.gte })
-    : intl.formatMessage(messages.dateRange, {
-      startDate: input.value.gte,
-      endDate: input.value.lte
-    });
 
   return (
     <div className="flex-auto">
-      {resetButton}
-      {title} - {valueMessage}
+      {title}
+      <div className="oa-filter-value-preview">
+        <ValuePreview value={value} input={input} meta={meta} />
+      </div>
     </div>
   );
 }
@@ -150,7 +150,7 @@ function DateRangeFilter({ name }) {
       header={(
         <Field
           name={name}
-          subscription={titleSubscription}
+          subscription={subscription}
           component={Title}
           staticRanges={staticRanges}
         />
@@ -158,7 +158,7 @@ function DateRangeFilter({ name }) {
     >
       <Field
         name={name}
-        subscription={fieldSubscription}
+        subscription={subscription}
         parse={parseValue}
         format={formatValue}
         component={DateRangePicker}

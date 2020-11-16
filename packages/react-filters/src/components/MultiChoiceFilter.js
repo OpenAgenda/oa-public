@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { Field, useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
-import { useIntl } from 'react-intl';
 import { OnChange } from 'react-final-form-listeners';
 import { useDebouncedCallback } from 'use-debounce';
 import cn from 'classnames';
@@ -9,8 +8,7 @@ import useFilterTitle from '../hooks/useFilterTitle';
 import getLocaleValue from '../utils/getLocaleValue';
 import Panel from './Panel';
 
-const titleSubscription = { value: true };
-const fieldSubscription = { value: true, submitting: true };
+const subscription = { value: true, submitting: true };
 
 function parseValue(value) {
   if (Array.isArray(value) && !value.length) {
@@ -24,52 +22,65 @@ function formatValue(value) {
   return value;
 }
 
-function Title({ input, options, label }) {
-  const intl = useIntl();
-  const title = useFilterTitle(input.name, { label });
+function ValuePreview({ option, input, meta }) {
+  const label = useMemo(() => getLocaleValue(option.label), [option.label]);
 
-  const values = useMemo(
-    () => input.value
-      && input.value.map(v => getLocaleValue(options.find(option => option.value === v).label)),
-    [input.value, options]
-  );
-
-  const { onChange } = input;
-
-  const onReset = useCallback(
+  const removeValue = useCallback(
     e => {
       e.stopPropagation();
-      onChange(undefined);
+
+      input.onChange(input.value.filter(v => v !== option.value));
     },
-    [onChange]
-  );
-
-  if (!values) {
-    return <div>{title}</div>;
-  }
-
-  const resetButton = (
-    <div className="pull-right">
-      <button
-        type="button"
-        className="btn btn-link btn-link-inline"
-        onClick={onReset}
-      >
-        <i className="fa fa-trash text-danger" aria-hidden="true" />
-      </button>
-    </div>
+    [input, option.value]
   );
 
   return (
-    <div className="flex-auto">
-      {resetButton}
-      {title} - {intl.formatList(values)}
+    <div className="badge badge-info">
+      {label}
+      <button
+        type="button"
+        className="btn btn-link btn-link-inline margin-left-xs"
+        disabled={meta.submitting}
+        onClick={removeValue}
+      >
+        <i className="fa fa-times" aria-hidden="true" />
+      </button>
     </div>
   );
 }
 
-function Checkbox({ input, meta, option }) {
+function Title({
+  input, meta, options, label
+}) {
+  const title = useFilterTitle(input.name, { label });
+
+  const valueOptions = useMemo(
+    () => input.value
+      && input.value.map(v => options.find(option => option.value === v)),
+    [input.value, options]
+  );
+
+  if (!valueOptions) {
+    return <div>{title}</div>;
+  }
+
+  return (
+    <div className="flex-auto">
+      {title}
+      <div className="oa-filter-value-preview">
+        {valueOptions.map(option => (
+          <ValuePreview option={option} input={input} meta={meta} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Checkbox({
+  input, meta, getTotal, filter, option
+}) {
   const seed = useUIDSeed();
+  const total = getTotal(filter, option);
 
   return (
     <div className={cn('checkbox', { disabled: meta.submitting })}>
@@ -81,12 +92,15 @@ function Checkbox({ input, meta, option }) {
           {...input}
         />{' '}
         {getLocaleValue(option.label)}
+        {total ? <span className="oa-filter-total">{total}</span> : null}
       </label>
     </div>
   );
 }
 
-function MultiChoiceFilter({ name, options, filter }) {
+function MultiChoiceFilter({
+  name, options, filter, getTotal
+}) {
   const form = useForm();
   const seed = useUIDSeed();
 
@@ -97,7 +111,7 @@ function MultiChoiceFilter({ name, options, filter }) {
       header={(
         <Field
           name={name}
-          subscription={titleSubscription}
+          subscription={subscription}
           component={Title}
           options={options}
           label={filter.label}
@@ -108,13 +122,15 @@ function MultiChoiceFilter({ name, options, filter }) {
         <Field
           key={seed(option)}
           name={name}
-          subscription={fieldSubscription}
+          subscription={subscription}
           parse={parseValue}
           format={formatValue}
           component={Checkbox}
           type="checkbox"
           value={option.value}
           option={option}
+          filter={filter}
+          getTotal={getTotal}
         />
       ))}
       <OnChange name={name}>{onChange}</OnChange>

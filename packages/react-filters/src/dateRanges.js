@@ -7,37 +7,12 @@ import {
   startOfDay,
   endOfDay,
   isSameDay,
-  eachWeekendOfInterval
+  getISODay
 } from 'date-fns';
 import * as dateFnsLocales from 'date-fns/locale';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
-  lastWeek: {
-    id: 'ReactFilters.dateRanges.lastWeek',
-    defaultMessage: 'Last week'
-  },
-  lastMonth: {
-    id: 'ReactFilters.dateRanges.lastMonth',
-    defaultMessage: 'Last month'
-  },
-  currentYear: {
-    id: 'ReactFilters.dateRanges.currentYear',
-    defaultMessage: 'Current year'
-  },
-  lastYear: {
-    id: 'ReactFilters.dateRanges.lastYear',
-    defaultMessage: 'Last year'
-  },
-  daysUpToToday: {
-    id: 'ReactFilters.dateRanges.daysUpToToday',
-    defaultMessage: 'days up to today'
-  },
-  daysStartingToday: {
-    id: 'ReactFilters.dateRanges.daysStartingToday',
-    defaultMessage: 'days starting today'
-  },
-
   today: {
     id: 'ReactFilters.dateRanges.today',
     defaultMessage: 'Today'
@@ -60,6 +35,20 @@ const messages = defineMessages({
   }
 });
 
+function getClosestDayAfter(dayOfWeek, fromDate = new Date()) {
+  const dayOfWeekMap = {
+    Mon: 1,
+    Tue: 2,
+    Wed: 3,
+    Thur: 4,
+    Fri: 5,
+    Sat: 6,
+    Sun: 7
+  };
+  const offsetDays = dayOfWeekMap[dayOfWeek] - getISODay(fromDate);
+  return addDays(fromDate, offsetDays);
+}
+
 const staticRangeHandler = {
   isSelected(range) {
     const definedRange = this.range();
@@ -79,10 +68,10 @@ export function createStaticRanges(ranges) {
 export default function dateRanges(intl) {
   const locale = dateFnsLocales[intl.locale];
 
-  const [startOfWeekend, endOfWeekend] = eachWeekendOfInterval({
-    start: startOfWeek(new Date(), { locale }),
-    end: endOfWeek(new Date(), { locale })
-  });
+  const nextSaturday = getClosestDayAfter('Sat');
+
+  const startOfWeekend = startOfDay(nextSaturday);
+  const endOfWeekend = endOfDay(addDays(nextSaturday, 1));
 
   const defineds = {
     startOfToday: startOfDay(new Date(), { locale }),
