@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import React, {
-  useCallback, useEffect, useMemo, useState
-} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +17,7 @@ import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
 import PulseChart from '../components/PulseChart';
 import determineDefaultRange from '../utils/determineDefaultRange';
-import getLocaleValue from '../utils/getLocaleValue';
-import stateMessages from '../messages/states';
+import useFilters from '../hooks/useFilters';
 
 const messages = defineMessages({
   save: {
@@ -54,70 +51,60 @@ function FiltersPart({ agenda, agendaSchema }) {
   const query = useSelector(state => state.stats.query);
   const latestStats = useLatest(stats);
 
-  const stateOptions = useMemo(
-    () => [
-      {
-        label: intl.formatMessage(stateMessages.refused),
-        value: -1
-      },
-      {
-        label: intl.formatMessage(stateMessages.tocontrol),
-        value: 0
-      },
-      {
-        label: intl.formatMessage(stateMessages.controlled),
-        value: 1
-      },
-      {
-        label: intl.formatMessage(stateMessages.published),
-        value: 2
-      }
-    ],
-    [intl]
-  );
-
   const [initialQuery] = useState(query);
 
-  const filters = useMemo(() => {
-    const basicFilters = [
-      { name: 'timings', type: 'dateRange' },
-      { name: 'createdAt', type: 'dateRange' },
-      { name: 'updatedAt', type: 'dateRange' },
-      { name: 'state', type: 'radio', options: stateOptions }
-    ];
-
-    const additionalFieldFilters = agendaSchema.fields
-      .filter(
-        fieldSchema => fieldSchema.options && fieldSchema.options.length > 0
-      )
-      .map(fieldSchema => ({
-        name: fieldSchema.field,
-        type: fieldSchema.fieldType,
-        label: getLocaleValue(fieldSchema.label, intl.locale),
-        options: fieldSchema.options.map(option => ({
-          ...option,
-          value: option.id
-        }))
+  const filters = useFilters(agendaSchema);
+  const getTotal = useCallback(
+    (filter, option) => {
+      const stat = stats.find(s => _.isMatch(s.aggregation, {
+        type: filter.name,
+        ...filter.aggregation
       }));
 
-    return basicFilters.concat(additionalFieldFilters);
-  }, [agendaSchema.fields, intl.locale, stateOptions]);
+      if (!stat) return null;
+
+      const { data } = stat.state;
+
+      if (!data) return null;
+
+      if (filter.name === 'state') {
+        const stateValue = data.find(v => v.key === option.value);
+
+        return stateValue?.eventCount || 0;
+      }
+
+      const optionValue = data.find(
+        v => v.key === option.value || v.id === option.id
+      );
+
+      if (optionValue) {
+        return optionValue?.eventCount || 0;
+      }
+
+      return 0;
+    },
+    [filters, stats]
+  );
 
   const onFilterChange = useCallback(
-    // TODO should reload aggregations (managed by react-filters in future)
-    async values => dispatch(statsActions.load(agenda, latestStats.current, values)),
+    async values => dispatch(statsActions.load(agenda, latestStats.current, filters, values)),
     [agenda, dispatch, latestStats]
   );
 
   return (
-    <FiltersProvider onSubmit={onFilterChange} initialValues={initialQuery}>
-      <div className="rc-collapse">
+    <FiltersProvider
+      onSubmit={onFilterChange}
+      initialValues={initialQuery}
+      locale={intl.locale}
+    >
+      <div className="oa-collapse">
         <Filters
           filters={filters}
           loading={loading}
           dateRangeComponent={DateRangeFilter}
           checkboxComponent={MultiChoiceFilter}
           radioComponent={MultiChoiceFilter}
+          getTotal={getTotal}
         />
       </div>
     </FiltersProvider>
@@ -154,6 +141,8 @@ function Dashboard({ agenda, agendaSchema }) {
     dispatch
   ]);
 
+  const filters = useFilters(agendaSchema);
+
   // Load timespan & aggregations
   useEffect(() => {
     if (loaded) {
@@ -178,12 +167,8 @@ function Dashboard({ agenda, agendaSchema }) {
       const { first, last } = timespanResult.data.aggregations.timespan;
 
       // Timespan is a `timings` query
-      // TODO update query instead of load directly
-      // TODO mark as readyToLoad
-      // TODO if readyToLoad and not loaded then load
-
       return dispatch(
-        statsActions.load(agenda, configResult.data, {
+        statsActions.load(agenda, configResult.data, filters, {
           timings: determineDefaultRange({ first, last })
         })
       );

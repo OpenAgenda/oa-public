@@ -255,16 +255,35 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export function load(agenda, stats, query) {
+export function load(agenda, stats, filters, query) {
   return ({ getState, dispatch }) => {
     const state = getState();
 
-    const decoratedStats = decorateStats(stats, query);
+    const filterAggregations = filters
+      .filter(
+        filter => filter.type !== 'dateRange'
+          && !stats.find(stat => _.isMatch(stat.aggregation, {
+            type: filter.name,
+            ...filter.aggregation
+          }))
+      )
+      .map(filter => ({
+        id: filter.id,
+        aggregation: {
+          type: filter.name,
+          ...filter.aggregation
+        }
+      }));
+
+    const allStats = stats.concat(filterAggregations);
+
+    const decoratedStats = decorateStats(allStats, query);
+    const aggregations = statsToAggregations(decoratedStats);
 
     const params = {
       oaq: { passed: 1 },
       size: 0,
-      aggregations: statsToAggregations(decoratedStats),
+      aggregations,
       ...query
     };
 
@@ -278,7 +297,6 @@ export function load(agenda, stats, query) {
         return client.get(url, { params });
       },
       stats: decoratedStats,
-      aggregations: decoratedStats,
       query
     });
   };

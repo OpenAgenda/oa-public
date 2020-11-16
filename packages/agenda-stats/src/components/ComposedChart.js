@@ -88,7 +88,7 @@ function ComposedChart({
   } = chartConfig;
 
   const data = useMemo(() => {
-    if (!rawData?.length) {
+    if (!rawData) {
       return [];
     }
 
@@ -234,7 +234,7 @@ function ComposedChart({
         dataColors={dataColors}
       />
     );
-  } else if (stat.state.loaded) {
+  } else if (!stat.state.loaded) {
     child = <ChartLoading />;
   } else {
     child = (
