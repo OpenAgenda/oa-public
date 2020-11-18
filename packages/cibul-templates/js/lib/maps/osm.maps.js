@@ -46,7 +46,13 @@ maps.register( 'osm', (function(){
 
       map.setView(options.center, options.zoom);
 
-      L.tileLayer( tiles, { minZoom: 2, maxZoom: 18, attribution: libOptions.attr }).addTo(map);
+      L.tileLayer( tiles, {
+        minZoom: 2,
+        maxZoom: 18,
+        attribution: libOptions.attr,
+        tileSize: 512,
+        zoomOffset: -1
+      }).addTo(map);
 
       return map;
     },
@@ -56,7 +62,7 @@ maps.register( 'osm', (function(){
       var icon = {};
 
       if (options.icon) {
-        
+
         icon.iconUrl = options.icon;
 
         if (options.anchor) icon.iconAnchor = L.point(options.anchor);
@@ -160,13 +166,13 @@ maps.register( 'osm', (function(){
     fitBounds: function(map, bounds) {
 
       // this only works if map is not in display none
-      
+
       if (!map.getSize().x) return;
 
       map.fitBounds(bounds);
-      
+
     },
-    
+
     getBoundsNorthEast: function(bounds) {
 
       return [bounds.getNorthEast().lat, bounds.getNorthEast().lng];
@@ -198,7 +204,7 @@ maps.register( 'osm', (function(){
     removePopup: function(reference) {
 
       reference.closePopup();
-      
+
     },
 
     getPosition: function(marker) {
@@ -229,5 +235,5 @@ maps.register( 'osm', (function(){
     },
 
   };
-  
+
 })());

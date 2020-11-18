@@ -9,7 +9,7 @@ createReactClass = require( 'create-react-class' ),
 L = require( 'leaflet' ),
 
 defaults = {
-  tiles: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
+  tiles: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   markerIcon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
   pos: [ 40, 0 ],
   iconAnchor: [ 9, 25 ],
@@ -92,7 +92,9 @@ module.exports = createReactClass( {
     }
 
     L.tileLayer( defaults.tiles, {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      tileSize: 512,
+      zoomOffset: -1
     }).addTo( this.map );
 
   },

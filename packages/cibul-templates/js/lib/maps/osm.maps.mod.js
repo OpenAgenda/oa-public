@@ -64,7 +64,13 @@ maps.register('osm', (function(){
 
       }
 
-      L.tileLayer(libOptions.url, { minZoom: 2, maxZoom: 18, attribution: libOptions.attr }).addTo(map);
+      L.tileLayer(libOptions.url, {
+        minZoom: 2,
+        maxZoom: 18,
+        attribution: libOptions.attr,
+        tileSize: 512,
+        zoomOffset: -1
+      }).addTo(map);
 
       return map;
     },
