@@ -9,7 +9,7 @@ createReactClass = require( 'create-react-class' ),
 L = require( 'leaflet' ),
 
 defaults = {
-  tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
+  tiles: '//api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   markerIcon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
   pos: [ 40, 0 ],
   iconAnchor: [ 9, 25 ],

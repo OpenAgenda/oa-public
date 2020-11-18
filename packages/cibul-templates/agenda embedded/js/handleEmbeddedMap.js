@@ -1,5 +1,5 @@
 var handleEmbeddedMap = function(options) {
-  
+
   options = extend({
     mapElem: false,       // map element. required
     searchElem: false,     // location search field element
@@ -8,14 +8,14 @@ var handleEmbeddedMap = function(options) {
     search: false,
     iconRoot: 'images/',
     enabled: false,
-    tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png'
+    tiles: '//api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow'
   }, options);
 
   options.events = extend({
     markerSelect: 'markerselect',                 // triggered when a marker is clicked
     locationSelect: 'locationselect',             // triggered when focus is set on a specific location
     locationSelectCancel: 'locationselectcancel', // triggered when focus on location is removed
-    loadSuccess: 'loadsuccess',                   // triggered from exterior, when new list load is successful 
+    loadSuccess: 'loadsuccess',                   // triggered from exterior, when new list load is successful
     disable: 'disable',                           // triggered to disable the map
     enable: 'enable',                             // triggered to enable the map
     load: 'load',
@@ -58,7 +58,7 @@ var handleEmbeddedMap = function(options) {
       for (var slug in data) {
 
         var location = data[slug];
-       
+
         locations.push({
           id: slug,
           placename: location.placename,

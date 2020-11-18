@@ -9,7 +9,7 @@ mapLib = require( '../../../js/lib/maps/osm.maps.mod' );
 module.exports = function(params) {
 
   params = utils.extend({
-    canvas: false, // required; 
+    canvas: false, // required;
     templates: {
       main: '<div class="js_selection_map selection-map"></div><div class="js_marker_info"></div>',
       info: '<div class="suggestion"><span class="name"><%= name %></span><span class="address"><%= address %></span><span class="js_actions actions"></span></span></div>',
@@ -29,7 +29,7 @@ module.exports = function(params) {
     onSelect: false,
     map: {
       type: 'osm',
-      init: { url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png' },
+      init: { url: '//api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow' },
       coords: [48.447052, 1.486754]
     },
     icon: 'images/markerIcon.png',
@@ -86,11 +86,11 @@ module.exports = function(params) {
 
 
     if (options && options.highlight) {
-      
+
       _displayInfo(options.highlight);
 
       m.setCenter(map, [options.highlight.lat, options.highlight.lng]);
-      
+
     } else {
 
       m.fitBounds(map, bounds);
@@ -122,16 +122,16 @@ module.exports = function(params) {
     while (markers.length) {
 
       var markerToRemove = markers.pop();
-      
+
       markerToRemove = undefined;
-      
+
     }
 
   },
 
   createElem = function() {
 
-    // create map, put it in 
+    // create map, put it in
 
     elem = document.createElement('div');
 
