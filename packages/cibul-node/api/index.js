@@ -23,6 +23,9 @@ module.exports = core => {
   app.services = core.services;
 
   const { upload } = app.services.events;
+  const {
+    verifySuperAdmin
+  } = app.services.users.mw;
 
   log('middleware');
   app.use(logRequests.middleware);
@@ -160,7 +163,7 @@ module.exports = core => {
   ]);
 
   app.post('/v2/agendas/:agendaUid/settings/resync', [
-    mw.verifySuperAdmin,
+    verifySuperAdmin,
     settings.resync
   ]);
 

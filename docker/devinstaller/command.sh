@@ -1,10 +1,8 @@
 #!/bin/bash
-cd /root || exit
-
 php /root/cibul-symfony/scripts/create_yamls.php /root/oa/.env
 php /root/cibulapi-symfony/scripts/create_yamls.php /root/oa/.env
 
-cd oa || exit
+cd /root/oa || exit
 
 # create the certification authority and the self-signed certificates
 ./docker/devinstaller/ssl/create_oa_authority.sh /root/oa/docker/devinstaller/ssl

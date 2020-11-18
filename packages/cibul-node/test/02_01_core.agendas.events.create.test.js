@@ -197,18 +197,18 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       });
 
       it('legacy entries were created for custom fields', async () => {
-        const legacyEvent = await testConfig
+        const legacyEvent = await core.services
           .knex('event')
           .first('*')
           .where('uid', event.uid);
 
-        const reviewArticle = await testConfig
+        const reviewArticle = await core.services
           .knex('review_article')
           .first('id')
           .where('event_id', legacyEvent.id)
           .where('review_id', 218);
 
-        const reviewTagArticles = await testConfig
+        const reviewTagArticles = await core.services
           .knex('review_tag_article')
           .select('*')
           .where('review_article_id', reviewArticle.id);

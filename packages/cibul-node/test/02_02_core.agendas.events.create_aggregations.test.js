@@ -1,7 +1,5 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const axios = require('axios');
 const ih = require('immutability-helper');
@@ -27,7 +25,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
   let core, stopTask;
 
   beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
+    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password', 'host', 'ssl']), {
       multipleStatements: true
     }));
 

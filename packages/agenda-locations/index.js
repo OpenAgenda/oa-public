@@ -36,6 +36,7 @@ module.exports = Object.assign((c = {}) => {
       getAgendaDetailsByUid: async uid => null,
       getEventCounts: async (identifiers, locationUids = []) => [],
       locationsWillMerge: async (mergeIn, mergedLocations) => {},
+      locationWillRemove: async location => {},
       onUpdate: null
     }
   });

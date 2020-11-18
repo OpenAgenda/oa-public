@@ -74,7 +74,9 @@ raw.push(knex('network').insert([{
   id: 1,
   uid: 1234,
   title: 'Un réseau avec un champ admin',
-  form_schema_id: 5
+  form_schema_id: 5,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }]));
 
 raw.push(knex('form_schema').insert([2, 5, 6].map(id => ({

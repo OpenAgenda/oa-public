@@ -68,7 +68,9 @@ raw.push(knex('network').insert([{
   id: 1,
   uid: 1234,
   title: 'Un réseau avec un champ admin',
-  form_schema_id: 5
+  form_schema_id: 5,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }]));
 
 raw.push(knex('form_schema').insert([2, 5, 6].map(id => ({
@@ -112,93 +114,43 @@ raw.push(knex('location').insert([{
   longitude: 2.351739,
   store: JSON.stringify({
     extId: 'fdsqfdsq'
-  })
+  }),
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }]));
 
-raw.push(knex('review_category').insert([{
-  id: 3454,
-  slug: 'animation-loto',
-  category: 'Animation - Loto',
-  review_id: 218
-}, {
-  id: 3455,
-  slug: 'atelier',
-  category: 'Atelier',
-  review_id: 218
-}, {
-  id: 3456,
-  slug: 'ceremonie',
-  category: 'Cérémonie',
-  review_id: 218
-}, {
-  id: 3457,
-  slug: 'cinema-projection',
-  category: 'Cinéma - Projection',
-  review_id: 218
-}]));
+const {
+  review_category,
+  category_set,
+  tag_set
+} = require('./sql/legacy/218.json');
+
+raw.push(knex('review_category').insert(review_category));
 
 raw.push(knex('category_set').insert([{
   id: 218,
-  store: JSON.stringify({
-    categories: [
-      {
-        "id": 3454,
-        "label": "Animation - Loto",
-        "slug": "animation-loto"
-      },
-      {
-        "id": 3455,
-        "label": "Atelier",
-        "slug": "atelier"
-      },
-      {
-        "id": 3456,
-        "label": "Cérémonie",
-        "slug": "ceremonie"
-      },
-      {
-        "id": 3457,
-        "label": "Cinéma - Projection",
-        "slug": "cinema-projection"
-      }
-    ]
-  })
+  store: JSON.stringify(category_set)
 }]));
 
 raw.push(knex('tag_set').insert([{
   id: 218,
-  store: JSON.stringify({
-    groups: [
-      {
-        tags: [
-          {
-            id: 9661,
-            label: "Administration",
-            schemaOptionId: '2.3',
-            slug: "administration"
-          },
-          {
-            id: 9662,
-            label: "Aéronautique",
-            schemaOptionId: '2.4',
-            slug: "aeronautique"
-          }
-        ]
-      }
-    ]
-  })
+  store: JSON.stringify(tag_set),
 }]));
 
 raw.push(knex('review_tag').insert([{
   id: 9661,
   slug: 'administration',
   review_id: 218,
-  tag: 'Administration'
+  tag: 'Administration',
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 9662,
   slug: 'aeronautique',
   review_id: 218,
-  tag: 'Aéronotique'
+  tag: 'Aéronotique',
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }]));
 
 raw.push(knex('event').insert([{
@@ -206,42 +158,42 @@ raw.push(knex('event').insert([{
   uid: 19201989,
   slug: 'un-event',
   owner_id: 50304,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2019-12-14 10:00:00',
+  updated_at: '2019-12-14 10:00:00'
 }, {
   id: 2,
   uid: 19390293,
   slug: 'un-autre-event',
   owner_id: 50304,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2019-12-14 10:00:00',
+  updated_at: '2019-12-14 10:00:00'
 }, {
   id: 3,
   uid: 19390294,
   slug: 'et-un-autre-event',
   owner_id: 50304,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2019-12-14 10:00:00',
+  updated_at: '2019-12-14 10:00:00'
 }]));
 
 raw.push(knex('event_location').insert([{
   id: 1,
   location_id: 1,
   event_id: 1,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 2,
   location_id: 1,
   event_id: 2,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 3,
   location_id: 1,
   event_id: 3,
-  created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }]));
 
 raw.push(knex('occurrence').insert([{
@@ -250,21 +202,27 @@ raw.push(knex('occurrence').insert([{
   event_id: 1,
   date: '2019-05-06',
   time_start: '10:00:00',
-  time_end: '11:00:00'
+  time_end: '11:00:00',
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 2,
   location_id: 1,
   event_id: 2,
   date: '2019-12-18',
   time_start: '10:00:00',
-  time_end: '11:00:00'
+  time_end: '11:00:00',
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 3,
   location_id: 1,
   event_id: 3,
   date: '2019-12-18',
   time_start: '10:00:00',
-  time_end: '11:00:00'
+  time_end: '11:00:00',
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }]));
 
 raw.push(knex('event_2').insert([{
@@ -281,6 +239,8 @@ raw.push(knex('event_2').insert([{
     begin: new Date('2019-05-06T10:00:00'),
     end: new Date('2019-05-06T11:00:00')
   }]),
+  description: JSON.stringify({}),
+  timezone: 'Europe/Paris',
   location_uid: 123,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
@@ -295,6 +255,8 @@ raw.push(knex('event_2').insert([{
   title: JSON.stringify({
     fr: 'Un brouillon'
   }),
+  description: JSON.stringify({}),
+  timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')
 }, {
@@ -310,6 +272,8 @@ raw.push(knex('event_2').insert([{
   title: JSON.stringify({
     fr: 'Un autre événement'
   }),
+  description: JSON.stringify({}),
+  timezone: 'Europe/Paris',
   location_uid: 123,
   agenda_uid: 92983929,
   created_at: new Date('2019-05-06T10:00:00'),
@@ -324,6 +288,8 @@ raw.push(knex('event_2').insert([{
   title: JSON.stringify({
     fr: 'Un autre événement'
   }),
+  description: JSON.stringify({}),
+  timezone: 'Europe/Paris',
   location_uid: 123,
   agenda_uid: 92983929,
   created_at: new Date('2019-05-06T10:00:00'),
@@ -394,28 +360,36 @@ raw.push(knex('custom').insert([{
   identifier: 19390293,
   store: JSON.stringify({
     'organisation-interne': 'Il faut que Thérèse y soit'
-  })
+  }),
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 2,
   form_schema_id: 6,
   identifier: 19390293,
   store: JSON.stringify({
     categories: 1
-  })
+  }),
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 3,
   form_schema_id: 5,
   identifier: 19390294,
   store: JSON.stringify({
     'organisation-interne': 'Il faut que Thérèse y soit'
-  })
+  }),
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 4,
   form_schema_id: 6,
   identifier: 19390294,
   store: JSON.stringify({
     categories: 2
-  })
+  }),
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06'
 }]));
 
 module.exports = raw.join(';\n') + ';';

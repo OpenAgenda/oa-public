@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.DEBUG = '*';
-
 const _ = require( 'lodash' );
 const mysql = require( 'mysql' );
 const should = require( 'should' );

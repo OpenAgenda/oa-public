@@ -61,7 +61,7 @@ raw.push(knex('category_set').insert([{
 
 raw.push(knex('tag_set').insert([{
   id: 218,
-  store: JSON.stringify(tag_set)
+  store: JSON.stringify(tag_set),
 }]));
 
 module.exports = raw.join(';\n') + ';';

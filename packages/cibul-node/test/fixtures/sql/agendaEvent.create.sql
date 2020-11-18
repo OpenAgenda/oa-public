@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `agenda_event` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL auto_increment,
   `agenda_uid` bigint(20) NOT NULL,
   `can_edit` tinyint(1) NOT NULL DEFAULT '0',
   `event_uid` bigint(20) NOT NULL,
@@ -10,5 +10,6 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `legacy_id` varchar(30) DEFAULT NULL,
   `user_uid` bigint(20) DEFAULT NULL,
   `source_agenda_uid` varchar(300),
-  `aggregated` tinyint(1) default 0
+  `aggregated` tinyint(1) default 0,
+  primary key ( id )
 ) ENGINE=InnoDB AUTO_INCREMENT=954070 DEFAULT CHARSET=utf8;

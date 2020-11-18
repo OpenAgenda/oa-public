@@ -25,6 +25,10 @@ module.exports.byAgendaUid = async (
     throw new NotFoundError('location', { identifiers, agendaUid });
   }
 
+  if (service.interfaces.locationWillRemove) {
+    await service.interfaces.locationWillRemove(current);
+  }
+
   return remove(service, current);
 }
 

@@ -58,7 +58,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - esdata1:/usr/share/elasticsearch/data
+      - ${ES1_CONTAINER_DATA_PATH}:/usr/share/elasticsearch/data
 
   php:
     container_name: php
@@ -95,8 +95,8 @@ services:
       - ${MYSQL_SSL_CERT}:/ssl/db-cert.pem
       - ${MYSQL_SSL_KEY}:/ssl/db-key.pem
       - ${REPO_SSL_CLIENT}:/root/.ssh/id_rsa
-      - ${CLIENT_SSL_KEY}:/root/.ssh/client.key
-      - ${CLIENT_SSL_CERT}:/root/.ssh/client.cert
+      - ${CLIENT_SSL_KEY:-/dev/null}:/root/.ssh/client.key
+      - ${CLIENT_SSL_CERT:-/dev/null}:/root/.ssh/client.cert
     links:
       - mysql
       - redis
@@ -139,6 +139,10 @@ services:
       MAILCATCHER_HOST: ${MAILCATCHER_HOST}
       OA_CLIENT_SSL_KEY: /root/.ssh/client.key
       OA_CLIENT_SSL_CERT: /root/.ssh/client.cert
+      OPENCAGE_KEY: ${OPENCAGE_KEY}
+      IFRAMELY_KEY: ${IFRAMELY_KEY}
+      OA_SESSION_KEYS: ${OA_SESSION_KEYS}
+      OA_SESSION_SECRET: ${OA_SESSION_SECRET}
 
   mysql:
     container_name: mysql
@@ -177,7 +181,7 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - esdata3:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
 
@@ -223,9 +227,5 @@ services:
       - es7
 
 volumes:
-  esdata1:
-    driver: local
-  esdata2:
-    driver: local
-  esdata3:
+  esdata:
     driver: local

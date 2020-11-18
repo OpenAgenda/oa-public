@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const async = require('async');
 const mysql = require('mysql');

@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const config = require('../config');
 const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 
@@ -9,9 +8,11 @@ module.exports = {
   track: true,
   queues: {},
   db: {
-    user: 'root',
-    password: 'grut',
-    database: 'oatest'
+    host: process.env.OA_MYSQL_TEST_HOST,
+    user: process.env.OA_MYSQL_TEST_USER,
+    password: process.env.OA_MYSQL_TEST_PASSWORD,
+    database: 'oatest',
+    ssl: true
   },
   redis: {
     host: 'localhost',
@@ -21,25 +22,18 @@ module.exports = {
   tmpFolderPath: '/var/tmp/',
   imageSizeLimits: [2000, 30000000],
   aws: {
-    bucket: 'openagendatest',
-    accessKeyId: config.aws.accessKeyId,
-    secretAccessKey: config.aws.secretAccessKey,
-    defaultImagePath: config.aws.defaultImagePath,
+    bucket: process.env.AWS_TEST_BUCKET,
+    accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+    defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
-  mainChannel: 'maintest',
   getLogConfig,
   logger: {
     debug: {
       prefix: 'oa:',
       enable: false
     }
-  },
-  esLocation: {
-    //log: [  ],
-    index: 'locations',
-    apiVersion: '1.3',
-    timeout: 30000
   },
   opencage: {
     key: process.env.OPENCAGE_KEY

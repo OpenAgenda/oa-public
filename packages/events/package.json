@@ -35,7 +35,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/fixtures": "^2.0.2",
+    "@openagenda/files": "^3.0.0",
     "immutability-helper": "^2.3.0",
     "mocha": "^7.0.1",
     "should": "^13.2.3"
