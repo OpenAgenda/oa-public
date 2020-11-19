@@ -22,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.10.4",
+    "@babel/runtime-corejs3": "^7.12.5",
     "@emotion/core": "^10.0.28",
     "@openagenda/activity-apps": "^1.1.14",
     "@openagenda/members": "^1.15.12",
@@ -47,8 +47,8 @@
     "shallowequal": "^1.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.4",
-    "@babel/core": "^7.10.4",
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@openagenda/babel-preset": "^1.3.8",
     "@openagenda/eslint-config": "^1.2.4",
