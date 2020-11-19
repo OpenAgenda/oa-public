@@ -34,7 +34,7 @@ describe('agenda-locations - functional - remove', function() {
             7196947: 25221
           })[uid]
         }),
-        locationWillRemove: async l => {
+        beforeRemove: async l => {
           passedToInterface = l;
         }
       }

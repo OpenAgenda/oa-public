@@ -19,8 +19,8 @@ async function merge(service, items, data) {
   log('updating merged location');
   const updatedMerged = await update({ service, isPatch: true }, mergeIn.uid, data);
 
-  if (service.interfaces.locationsWillMerge) {
-    await service.interfaces.locationsWillMerge(mergeIn, merged);
+  if (service.interfaces.beforeMerge) {
+    await service.interfaces.beforeMerge(mergeIn, merged);
   }
 
   log('removing other locations');

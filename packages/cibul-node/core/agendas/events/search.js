@@ -30,3 +30,32 @@ module.exports.rebuild = async (core, agendaUid) => {
 
   return core.services.eventSearch.agendas(agenda).rebuild();
 }
+
+module.exports.resyncEvent = async (core, agendaUid, eventUid, options = {}) => {
+  const {
+    throwOnError
+  } = {
+    throwOnError: true,
+    ...options
+  }
+  const eventPayload = await core.agendas(agendaUid).events.get(eventUid, {
+    internal: true,
+    detailed: true,
+    returnPayload: true
+  });
+
+  if (!eventPayload && throwOnError) {
+    throw new NotFoundError('event', eventUid);
+  }
+
+  if (!eventPayload) {
+    return;
+  }
+
+  return core.services.eventSearch.update(eventPayload)
+    .catch(err => {
+      if (throwOnError) {
+        throw err;
+      }
+    });
+}

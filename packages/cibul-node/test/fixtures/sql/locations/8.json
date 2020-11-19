@@ -1,0 +1,21 @@
+{
+  "id": 8,
+  "uid": 76464022,
+  "set_uid": 1,
+  "agenda_id": 219,
+  "slug": "lam_4638649",
+  "placename": "LaM",
+  "address": "1 allée du Musée, Villeneuve d’Ascq",
+  "city": "Villeneuve-d'Ascq",
+  "region": "Hauts-de-France",
+  "postal_code": "59650",
+  "insee": null,
+  "country": "FR",
+  "city_district": "Saint-Sauveur",
+  "latitude": 50.6375976,
+  "longitude": 3.1506684,
+  "updated_at": "2020-11-16T17:36:25.451",
+  "created_at": "2020-11-16T17:36:25.451",
+  "ext_id": null,
+  "store" : "{\"state\":1,\"timezone\":\"Europe/Paris\"}"
+}
