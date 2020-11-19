@@ -12,7 +12,7 @@ defaults = {
   canvas: false,
   country: {code: 'FR', name: 'France'},
   templates: {
-    main: [ 
+    main: [
       '<div class="js_place place form-section"></div>',
       '<div class="separator"></div>'
     ].join( '' ),
@@ -69,7 +69,7 @@ defaults = {
   lang: 'en',
   map: {
     type: 'osm',
-    init: {url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png'},
+    init: {url: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow'},
     coords: [48.447052, 1.486754]
   },
   icon: 'images/markerIcon.png'
@@ -102,14 +102,14 @@ module.exports = function( options ) {
     } else {
 
       _showPlaceSelection();
-      
+
     }
 
   },
 
   _updateInfo = function(locationInfo) {
 
-    if (!infoElem) { 
+    if (!infoElem) {
 
       infoElem = document.createElement('div');
 
@@ -158,7 +158,7 @@ module.exports = function( options ) {
 
     if ( params.onHeightChange ) params.onHeightChange();
 
-    
+
   },
 
   _hideInfo = function() {
@@ -199,7 +199,7 @@ module.exports = function( options ) {
         locations: params.locations,
         labels: params.labels,
         onFetched: function( suggestions ) {
-          
+
           if ( placeSelector ) placeSelector.set( suggestions );
 
         },
@@ -208,7 +208,7 @@ module.exports = function( options ) {
           utils.extend(location, values);
 
           _onChange();
-          
+
         }
       }).create();
 

@@ -27,7 +27,7 @@ var handlePlaceSelection = function(params) {
     },
     map: {
       type: 'osm',
-      init: { url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png' },
+      init: { url: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow' },
       coords: [48.447052, 1.486754]
     },
     icon: 'images/markerIcon.png'
@@ -82,7 +82,7 @@ var handlePlaceSelection = function(params) {
     view = renderView[viewIndex]({
       canvas: el(elem, params.selectors.suggestions),
       onSelect: function(name, item) {
-        
+
         // if name is 'map', view should be changed to map, showing the selected marker
 
         if (name=='map')
@@ -91,7 +91,7 @@ var handlePlaceSelection = function(params) {
           params.onSelect(item);
         else if (name=='defaultselect')
           params.onDefaultSelect(item);
-          
+
       },
       map: params.map,
       icon: params.icon,
@@ -164,7 +164,7 @@ var handlePlaceSelection = function(params) {
     var tabs = els(elem, params.selectors.tabs);
 
     for (var i = tabs.length - 1; i >= 0; i--) {
-      if (i==index) 
+      if (i==index)
         addClass(tabs[i], params.classes.active);
       else
         removeClass(tabs[i], params.classes.active);

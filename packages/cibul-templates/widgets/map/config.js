@@ -11,7 +11,7 @@ module.exports = {
   tilesAttribute: 'data-tiles',
   auto: false, // syncronize selection with map
   popup: false,
-  tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
+  tiles: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   minZoom: 2,
   maxZoom: 16,
   clusterThreshold: 10,

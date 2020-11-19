@@ -9,7 +9,7 @@ params = {
   attributes: {
     coord: 'data-coord'
   },
-  tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
+  tiles: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
   scrollWheelZoom: false
 };
@@ -25,7 +25,7 @@ module.exports = function( options ) {
   maps = mapLib({ url: params.tiles });
 
   maps.createMap( canvas, {
-    center: coords, 
+    center: coords,
     scrollwheel: params.scrollWheelZoom,
     onReady: function( map ) {
 
