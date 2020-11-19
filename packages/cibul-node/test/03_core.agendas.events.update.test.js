@@ -18,7 +18,6 @@ describe('core - functional (server): core.agendas().events.update()', function(
   let core;
 
   beforeAll(() => loadFixtures(testConfig.db, '004.sql'));
-
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {

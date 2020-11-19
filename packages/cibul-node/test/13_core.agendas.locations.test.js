@@ -10,7 +10,7 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/014.sql');
+const loadFixtures = require('./fixtures/load');
 
 const api = require('../api');
 
@@ -22,23 +22,7 @@ const testConfig = require('./testConfig');
 describe('13 - core - functional(server): core.agendas().locations.list', function() {
   let core;
 
-  beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
-      'user',
-      'password',
-      'host',
-      'ssl'
-    ]), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures);
-
-    con.end();
-  });
-
+  beforeAll(() => loadFixtures(testConfig.db, '014.sql'));
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
@@ -403,6 +387,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         const legacyEntry = await core.services.knex('event').first().where('uid', 55268456);
         assert(!legacyEntry);
       });
+    });
+
+    describe('merge', () => {
+
+      beforeAll(done => {
+
+      })
+
     });
 
   });
