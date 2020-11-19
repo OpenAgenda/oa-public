@@ -12,9 +12,9 @@ module.exports = {
       table: 'location',
       ssl: parseInt(process.env.OA_MYSQL_DEV_SSL_VERIFY, 10)
         ? {
-          ca: fs.readFileSync(process.env.OA_MYSQL_SSL_CA),
-          cert: fs.readFileSync(process.env.OA_MYSQL_SSL_CERT),
-          key: fs.readFileSync(process.env.OA_MYSQL_SSL_KEY)
+          ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
+          cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
+          key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY)
         }
         : true
     },

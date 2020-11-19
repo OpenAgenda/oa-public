@@ -37,7 +37,7 @@ async function geocode(interfaces, data) {
 
 module.exports = service => async data => {
   if (!data || data.latitude) {
-    return;
+    return data;
   }
 
   const geocodeResult = await geocode(service.interfaces, data);
