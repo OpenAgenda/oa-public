@@ -80,7 +80,11 @@ function Checkbox({
   input, meta, getTotal, filter, option
 }) {
   const seed = useUIDSeed();
-  const total = getTotal(filter, option);
+  const total = useMemo(() => getTotal && getTotal(filter, option), [
+    filter,
+    getTotal,
+    option,
+  ]);
 
   return (
     <div className={cn('checkbox', { disabled: meta.submitting })}>
@@ -99,7 +103,7 @@ function Checkbox({
 }
 
 function MultiChoiceFilter({
-  name, options, filter, getTotal
+  name, options, label, filter, getTotal
 }) {
   const form = useForm();
   const seed = useUIDSeed();
@@ -114,7 +118,7 @@ function MultiChoiceFilter({
           subscription={subscription}
           component={Title}
           options={options}
-          label={filter.label}
+          label={label}
         />
       )}
     >

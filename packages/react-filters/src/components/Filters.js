@@ -18,8 +18,8 @@ function Filters({
             return (
               <DateRangeComponent
                 key={seed(filter.name)}
-                name={filter.name}
                 filter={filter}
+                {...filter}
                 {...additionnalProps}
               />
             );
@@ -27,9 +27,8 @@ function Filters({
             return (
               <CheckboxComponent
                 key={seed(filter.name)}
-                name={filter.name}
-                options={filter.options}
                 filter={filter}
+                {...filter}
                 {...additionnalProps}
               />
             );
@@ -37,9 +36,8 @@ function Filters({
             return (
               <RadioComponent
                 key={seed(filter.name)}
-                name={filter.name}
-                options={filter.options}
                 filter={filter}
+                {...filter}
                 {...additionnalProps}
               />
             );

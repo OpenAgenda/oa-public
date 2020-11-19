@@ -12,13 +12,13 @@ import DateRangePicker from './DateRangePicker';
 const messages = defineMessages({
   singleDate: {
     id: 'ReactShared.DateRangeFilter.singleDate',
-    defaultMessage: '{date, time, ::yyyyMMdd}'
+    defaultMessage: '{date, time, ::yyyyMMdd}',
   },
   dateRange: {
     id: 'ReactShared.DateRangeFilter.dateRange',
     defaultMessage:
-      'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}'
-  }
+      'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}',
+  },
 });
 
 const subscription = { value: true, submitting: true };
@@ -30,8 +30,8 @@ function formatValue(value) {
       {
         startDate: null,
         endDate: null,
-        key: 'selection'
-      }
+        key: 'selection',
+      },
     ];
   }
 
@@ -39,7 +39,7 @@ function formatValue(value) {
     return value.map(v => ({
       ...v,
       startDate: v.gte,
-      endDate: v.lte
+      endDate: v.lte,
     }));
   }
 
@@ -48,8 +48,8 @@ function formatValue(value) {
       {
         startDate: value.gte,
         endDate: value.lte,
-        key: 'selection'
-      }
+        key: 'selection',
+      },
     ];
   }
 
@@ -66,7 +66,7 @@ function parseValue(value) {
 
   return {
     gte: selection.startDate,
-    lte: selection.endDate ? endOfDay(selection.endDate) : selection.endDate
+    lte: selection.endDate ? endOfDay(selection.endDate) : selection.endDate,
   };
 }
 function ValuePreview({ value, input, meta }) {
@@ -94,9 +94,11 @@ function ValuePreview({ value, input, meta }) {
   );
 }
 
-function Title({ input, meta, staticRanges }) {
+function Title({
+  input, meta, staticRanges, label
+}) {
   const intl = useIntl();
-  const title = useFilterTitle(input.name);
+  const title = useFilterTitle(input.name, { label });
 
   const selectedStaticRange = useMemo(() => {
     const formattedValue = formatValue(input.value)[0];
@@ -123,7 +125,7 @@ function Title({ input, meta, staticRanges }) {
       ? intl.formatMessage(messages.singleDate, { date: input.value.gte })
       : intl.formatMessage(messages.dateRange, {
         startDate: input.value.gte,
-        endDate: input.value.lte
+        endDate: input.value.lte,
       });
   }
 
