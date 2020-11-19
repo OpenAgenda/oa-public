@@ -29,7 +29,9 @@ module.exports = services => async location => {
     try {
       log('deleting event %s', uid);
 
-      await eventSvc.remove({ uid });
+      await eventSvc.remove({ uid }, {
+        transferToLegacy: true
+      });
     } catch(e) {
       offsetErrored++;
       log('error', 'failed to remove event %s with location uid %s', uid, location.uid, e);

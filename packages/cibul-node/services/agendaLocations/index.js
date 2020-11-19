@@ -36,12 +36,12 @@ module.exports.init = async (config, services) => {
     redis: config.redisClient,
     imagePath: config.aws.imageBucketPath,
     interfaces: {
+      beforeMerge: beforeMerge(services),
+      beforeRemove: beforeRemove(services),
+      onUpdate: onUpdate(queue),
       getAgendaDetailsByUid: getAgendaDetailsByUid(config, services),
       getEventCounts: getEventCounts(config, services),
-      locationsWillMerge: beforeMerge(services),
-      locationWillRemove: beforeRemove(services),
       getSetAgendasCount: getSetAgendasCount(services),
-      onUpdate: onUpdate(queue),
       geocode: (address, { countryCode, language }) => geocoder(address, { countryCode, language })
     },
     Files: services.files,
@@ -54,6 +54,7 @@ module.exports.init = async (config, services) => {
       agenda: plugAgendaApp.bind(null, config, services, instance)
     }),
     task: Object.assign(async (options = {}) => {
+      log('task');
       if (options.reset) {
         await queue.clear();
       }
