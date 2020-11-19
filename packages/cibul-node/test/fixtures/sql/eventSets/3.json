@@ -1,0 +1,51 @@
+{
+  "legacyEvent": {
+    "id": 5,
+    "uid": 48564567,
+    "slug": "citoyen-de-ma-ville",
+    "owner_id": 50304,
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
+  },
+  "eventLocation": {
+    "id": 124456,
+    "location_id": 8,
+    "event_id": 5,
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
+  },
+  "occurrences": [{
+    "id": 32,
+    "location_id": 8,
+    "event_id": 5,
+    "date": "2020-03-14",
+    "time_start": "10:00:00",
+    "time_end": "20:00:00",
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
+  }],
+  "event": {
+    "id": 16,
+    "uid": 48564567,
+    "slug": "citoyen-de-ma-ville",
+    "title": "{\"fr\":\"Citoyen de ma ville\"}",
+    "description": "{\"fr\":\"Voilà\"}",
+    "timezone": "Europe/Paris",
+    "owner_uid": 63170203,
+    "creator_uid": 63170203,
+    "agenda_uid": 17026855,
+    "deleted_at": null,
+    "draft": 0,
+    "timings": "[{\"begin\":\"2020-03-14T10:00:00+0200\",\"end\":\"2020-03-14T10:00:00+0200\"}]",
+    "location_uid": 76464022,
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
+  },
+  "agendaEvents": [{
+    "event_uid": 48564567,
+    "agenda_uid": 17026855,
+    "state": 2,
+    "created_at": "2020-03-02T10:00:00.000",
+    "updated_at": "2020-03-02T10:00:00.000"
+  }]
+}

@@ -45,6 +45,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'tracker',
         'accessTokens',
         'files',
         'queues',
@@ -59,8 +60,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         'networks',
         'legacy',
         'users',
-        'keys',
-        'trackers'
+        'keys'
       ]
     });
 
@@ -336,6 +336,55 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       it('response contains the removed location', () => {
         assert.equal(response.data.location.uid, 95455142);
       });
+    });
+
+  });
+
+  describe('sets and interfaces', () => {
+
+    beforeEach(() => {
+      core.services.agendaLocations.task({ reset: true });
+    });
+
+    afterEach(() => {
+      core.services.agendaLocations.task.stop({ reset: true });
+    });
+    
+    it('a location creation on an agenda linked to a location set also links that location to the set', async () => {
+      const created = await core.agendas(55268170).locations.create({
+        name: 'Muséonum',
+        address: '2 rond-point Madame de Mondonville, Toulouse',
+        city: 'Toulouse',
+        countryCode: 'FR',
+        latitude: 43.641532,
+        longitude: 1.450607,
+        phone: '0531229417'
+      });
+
+      assert.equal(created.setUid, 1);
+    });
+
+    it('a location update triggers syncs on all related events and agendas', done => {
+      core.services.tracker.on('eventSearch.update:55268170.55268456', stack => {
+        assert.deepEqual(stack, [
+          'agendaLocations.syncImpactedEventsAndAgendas',
+          'eventSearch.update:17026855.48564567',
+          'eventSearch.update:55268170.55268456'
+        ]);
+        done();
+      });
+
+      core.agendas(55268170).locations.patch(76464022, {
+        name: 'Lille Métropole Musée d\'art moderne'
+      });
+    });
+
+    it('a location deletion triggers the deletion of related events', done => {
+      core.services.tracker.on('events.onRemove.55268456', stack => {
+        done();
+      });
+
+      core.agendas(55268170).locations.remove(76464022);
     });
 
   });

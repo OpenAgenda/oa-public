@@ -10,5 +10,6 @@
   "official": 0,
   "credentials": "{}",
   "form_schema_id": 3,
-  "settings": "{}"
+  "settings": "{}",
+  "location_set_uid": 1
 }

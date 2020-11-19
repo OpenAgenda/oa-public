@@ -104,7 +104,7 @@ describe('10 - core - functional (server): core.users().get()', function() {
   it('new access token is created when previous is outdated', async () => {
     await testConfig.knex('access_token').update({
       created_at: new Date,
-      lifespan: 0
+      lifespan: -1
     }).where('id', 2);
 
     const token = await core.users({

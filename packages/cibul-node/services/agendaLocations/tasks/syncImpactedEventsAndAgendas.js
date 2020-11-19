@@ -2,15 +2,19 @@
 
 const _ = require( 'lodash' );
 
-const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/reindexImpactedEvents' );
+const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/syncImpactedEventsAndAgendas' );
 
 module.exports = async function(services, before, after) {
   const {
+    core,
     elasticsearch: legacyEventSearch,
     legacy,
     events,
-    agendaEvents
+    agendaEvents,
+    tracker
   } = services;
+
+  tracker('agendaLocations.syncImpactedEventsAndAgendas');
 
   const controlData = legacy.controlData;
 
@@ -20,27 +24,42 @@ module.exports = async function(services, before, after) {
 
   const impactedAgendaUids = [];
 
-  // reindex events
-  for ( const uid of uids ) {
+  for (const eventUid of uids) {
+    // reindex impacted events on legacy search
     try {
-      await legacyEventSearch.updateEvent( { uid } );
-    } catch ( e ) {
-      log( 'error', 'could not update event %s index', uid, e );
+      legacyEventSearch && await legacyEventSearch.updateEvent({
+        uid: eventUid
+      });
+    } catch (e) {
+      log('error', 'could not update event %s index', eventUid, e);
     }
+
+    // update search indices
+    const relatedReferences = await agendaEvents.list
+      .byEventUid(eventUid)
+      .then(({ items }) => items);
+
+    for (const ae of relatedReferences) {
+      const { agendaUid } = ae;
+
+      log('resyncing event %s in agenda %s', eventUid, agendaUid);
+      await core.agendas(agendaUid).events.search.resyncEvent(eventUid, {
+        throwOnError: false
+      });
+
+      if (!impactedAgendaUids.includes(agendaUid)) {
+        impactedAgendaUids.push(agendaUid);
+      }
+    };
   }
 
-  // update control data of impacted agendas
-  for ( const uid of uids ) {
-    await agendaEvents.list.byEventUid( uid )
-      .then( ( { items } ) => items
-        .forEach( ( { agendaUid } ) => {
-          impactedAgendaUids.push( agendaUid )
-        } )
-      );
+  // update control data and search indices of impacted agendas
+  for (const agendaUid of impactedAgendaUids) {
+    await controlData.locationSet({
+      agendaUid,
+      location: after
+    });
   }
 
-  for ( const agendaUid of _.uniq( impactedAgendaUids ) ) {
-    await controlData.locationSet( { agendaUid, location: after } );
-  }
-
+  tracker('agendaLocations.syncImpactedEventsAndAgendas.done');
 }

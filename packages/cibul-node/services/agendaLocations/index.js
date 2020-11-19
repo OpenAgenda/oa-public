@@ -53,6 +53,18 @@ module.exports.init = async (config, services) => {
       agendaAdmin: plugAgendaAdminApp.bind(null, config, services, instance),
       agenda: plugAgendaApp.bind(null, config, services, instance)
     }),
-    task: queue.run
-  });
+    task: Object.assign(async (options = {}) => {
+      if (options.reset) {
+        await queue.clear();
+      }
+      queue.run();
+    }, {
+      stop: async (options = {}) => {
+        if (options.reset) {
+          await queue.clear();
+        }
+        return queue.stop();
+      }
+    })
+  })
 }
