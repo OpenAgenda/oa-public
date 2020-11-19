@@ -75,7 +75,7 @@ More details on the options in the [API section](#API).
 const { results, errors } = await mails( {
   template: 'helloWorld',
   to: {
-    address: 'kevin.bertho@gmail.com',
+    address: 'user@example.com',
     data: { username: 'bertho' },
     lang: 'fr'
   }
@@ -206,7 +206,7 @@ const mails = require( '@openagenda/mails' );
 await mails( {
   template: 'helloWorld',
   to: {
-    address: 'kevin.bertho@gmail.com',
+    address: 'user@example.com',
     data: { username: 'bertho' },
     lang: 'fr'
   },
@@ -243,7 +243,7 @@ The main difference is that the email is sent separately to each recipient, one 
 If you want to add specific data to a recipient for the template (for example: its name, age, role, etc.) you must use an object with the data key, the language of the recipient can be in the lang key:
 ```js
 {
-  address: 'kevin.bertho@gmail.com',
+  address: 'user@example.com',
   data: { username: 'bertho' },
   lang: 'fr'
 }
