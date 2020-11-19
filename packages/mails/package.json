@@ -6,6 +6,9 @@
   "bin": {
     "oa-mails-editor": "./bin/editor.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "nodemon server.dev.js -w $MAILS_TEMPLATES_DIR",
     "test": "jest --forceExit --detectOpenHandles",

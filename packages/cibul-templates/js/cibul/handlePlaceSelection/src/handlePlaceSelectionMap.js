@@ -1,7 +1,7 @@
 var handlePlaceSelectionMap = function(params) {
 
   params = extend({
-    canvas: false, // required; 
+    canvas: false, // required;
     templates: {
       main: '<div class="js_selection_map selection-map"></div><div class="js_marker_info"></div>',
       info: '<div class="suggestion"><span class="name"><%= name %></span><span class="address"><%= address %></span><span class="js_actions actions"></span></span></div>',
@@ -21,7 +21,7 @@ var handlePlaceSelectionMap = function(params) {
     onSelect: false,
     map: {
       type: 'osm',
-      init: { url: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png' },
+      init: { url: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow' },
       coords: [48.447052, 1.486754]
     },
     icon: 'images/markerIcon.png',
@@ -78,11 +78,11 @@ var handlePlaceSelectionMap = function(params) {
 
 
     if (options && options.highlight) {
-      
+
       _displayInfo(options.highlight);
 
       mapLib.setCenter(map, [options.highlight.lat, options.highlight.lng]);
-      
+
     } else {
 
       mapLib.fitBounds(map, bounds);
@@ -120,7 +120,7 @@ var handlePlaceSelectionMap = function(params) {
 
   createElem = function() {
 
-    // create map, put it in 
+    // create map, put it in
 
     elem = document.createElement('div');
 
