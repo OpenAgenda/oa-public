@@ -12,6 +12,8 @@
   "AgendaStats.Dashboard.cancel": null,
   "AgendaStats.Dashboard.changeOrder": null,
   "AgendaStats.Dashboard.edit": null,
+  "AgendaStats.Dashboard.lessFilters": null,
+  "AgendaStats.Dashboard.moreFilters": null,
   "AgendaStats.Dashboard.pulseDesc": null,
   "AgendaStats.Dashboard.save": null,
   "AgendaStats.Dashboard.totalEvents": null,
@@ -74,7 +76,6 @@
   "AgendaStats.messages.chartTitles.cities": null,
   "AgendaStats.messages.chartTitles.createdAt": null,
   "AgendaStats.messages.chartTitles.createdAtUpdatedAt": null,
-  "AgendaStats.messages.chartTitles.date": null,
   "AgendaStats.messages.chartTitles.departments": null,
   "AgendaStats.messages.chartTitles.keywords": null,
   "AgendaStats.messages.chartTitles.members": null,
@@ -85,6 +86,10 @@
   "AgendaStats.messages.chartTitles.updatedAt": null,
   "AgendaStats.utils.addRestItem.noValue": null,
   "AgendaStats.utils.addRestItem.others": null,
+  "ReactFilters.messages.states.controlled": null,
+  "ReactFilters.messages.states.published": null,
+  "ReactFilters.messages.states.refused": null,
+  "ReactFilters.messages.states.tocontrol": null,
   "aggregator-sources.RangeTypeModal.cancel": null,
   "aggregator-sources.RangeTypeModal.submit": null
 }

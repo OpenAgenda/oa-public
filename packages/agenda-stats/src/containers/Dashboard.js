@@ -10,7 +10,7 @@ import {
   FiltersProvider,
   Filters,
   DateRangeFilter,
-  MultiChoiceFilter
+  MultiChoiceFilter,
 } from '@openagenda/react-filters';
 import * as statsActions from '../reducers/stats';
 import OrderModal from '../components/OrderModal';
@@ -22,24 +22,32 @@ import useFilters from '../hooks/useFilters';
 const messages = defineMessages({
   save: {
     id: 'AgendaStats.Dashboard.save',
-    defaultMessage: 'Save'
+    defaultMessage: 'Save',
   },
   cancel: {
     id: 'AgendaStats.Dashboard.cancel',
-    defaultMessage: 'Cancel'
+    defaultMessage: 'Cancel',
   },
   edit: {
     id: 'AgendaStats.Dashboard.edit',
-    defaultMessage: 'Edit'
+    defaultMessage: 'Edit',
   },
   changeOrder: {
     id: 'AgendaStats.Dashboard.changeOrder',
-    defaultMessage: 'Change ordrer'
+    defaultMessage: 'Change ordrer',
   },
   pulseDesc: {
     id: 'AgendaStats.Dashboard.pulseDesc',
-    defaultMessage: 'Past year of activity'
-  }
+    defaultMessage: 'Past year of activity',
+  },
+  moreFilters: {
+    id: 'AgendaStats.Dashboard.moreFilters',
+    defaultMessage: 'Display more filters',
+  },
+  lessFilters: {
+    id: 'AgendaStats.Dashboard.lessFilters',
+    defaultMessage: 'Display less filters',
+  },
 });
 
 function FiltersPart({ agenda, agendaSchema }) {
@@ -52,13 +60,15 @@ function FiltersPart({ agenda, agendaSchema }) {
   const latestStats = useLatest(stats);
 
   const [initialQuery] = useState(query);
+  const [moreFilters, setMoreFilters] = useState(false);
 
-  const filters = useFilters(agendaSchema);
+  const standardsFilters = useFilters(agendaSchema, { standards: true });
+  const additionalsFilters = useFilters(agendaSchema, { additionals: true });
   const getTotal = useCallback(
     (filter, option) => {
       const stat = stats.find(s => _.isMatch(s.aggregation, {
         type: filter.name,
-        ...filter.aggregation
+        ...filter.aggregation,
       }));
 
       if (!stat) return null;
@@ -83,13 +93,27 @@ function FiltersPart({ agenda, agendaSchema }) {
 
       return 0;
     },
-    [filters, stats]
+    [stats]
   );
 
   const onFilterChange = useCallback(
-    async values => dispatch(statsActions.load(agenda, latestStats.current, filters, values)),
-    [agenda, dispatch, latestStats]
+    async values => dispatch(
+      statsActions.load(
+        agenda,
+        latestStats.current,
+        [...standardsFilters, ...additionalsFilters],
+        values
+      )
+    ),
+    [agenda, dispatch, latestStats, standardsFilters]
   );
+
+  const toggleMoreFilters = useCallback(
+    () => setMoreFilters(prevState => !prevState),
+    []
+  );
+
+  console.log(additionalsFilters);
 
   return (
     <FiltersProvider
@@ -99,13 +123,36 @@ function FiltersPart({ agenda, agendaSchema }) {
     >
       <div className="oa-collapse">
         <Filters
-          filters={filters}
+          filters={standardsFilters}
           loading={loading}
           dateRangeComponent={DateRangeFilter}
           checkboxComponent={MultiChoiceFilter}
           radioComponent={MultiChoiceFilter}
           getTotal={getTotal}
         />
+        {moreFilters ? (
+          <Filters
+            filters={additionalsFilters}
+            loading={loading}
+            dateRangeComponent={DateRangeFilter}
+            checkboxComponent={MultiChoiceFilter}
+            radioComponent={MultiChoiceFilter}
+            getTotal={getTotal}
+          />
+        ) : null}
+        {additionalsFilters.length ? (
+          <div className="margin-v-xs">
+            <button
+              type="button"
+              className="btn btn-link-inline"
+              onClick={toggleMoreFilters}
+            >
+              {intl.formatMessage(
+                moreFilters ? messages.lessFilters : messages.moreFilters
+              )}
+            </button>
+          </div>
+        ) : null}
       </div>
     </FiltersProvider>
   );
@@ -138,7 +185,7 @@ function Dashboard({ agenda, agendaSchema }) {
   );
   const save = useCallback(() => dispatch(statsActions.save(agenda)), [
     agenda,
-    dispatch
+    dispatch,
   ]);
 
   const filters = useFilters(agendaSchema);
@@ -157,23 +204,23 @@ function Dashboard({ agenda, agendaSchema }) {
     const params = {
       oaq: { passed: 1 },
       size: 0,
-      aggregations: ['timespan']
+      aggregations: ['timespan'],
     };
 
     Promise.all([
       apiClient.get(configUrl),
-      apiClient.get(exportUrl, { params })
+      apiClient.get(exportUrl, { params }),
     ]).then(([configResult, timespanResult]) => {
       const { first, last } = timespanResult.data.aggregations.timespan;
 
       // Timespan is a `timings` query
       return dispatch(
         statsActions.load(agenda, configResult.data, filters, {
-          timings: determineDefaultRange({ first, last })
+          timings: determineDefaultRange({ first, last }),
         })
       );
     });
-  }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
+  }, [agenda, apiClient, dispatch, filters, loaded, res.jsonExport]);
 
   if (!loaded) {
     return (
@@ -213,7 +260,7 @@ function Dashboard({ agenda, agendaSchema }) {
               id="AgendaStats.Dashboard.totalEvents"
               defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
               values={{
-                total: totalEvents
+                total: totalEvents,
               }}
             />
           ) : null}
@@ -230,7 +277,7 @@ function Dashboard({ agenda, agendaSchema }) {
                 width: '155px',
                 display: 'block',
                 marginLeft: 'auto',
-                marginRight: 'auto'
+                marginRight: 'auto',
               }}
             >
               <PulseChart agendaUid={agenda.uid} />

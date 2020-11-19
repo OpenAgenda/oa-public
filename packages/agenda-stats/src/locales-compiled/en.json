@@ -238,6 +238,18 @@
       "value": "Edit the report"
     }
   ],
+  "AgendaStats.Dashboard.lessFilters": [
+    {
+      "type": 0,
+      "value": "Display less filters"
+    }
+  ],
+  "AgendaStats.Dashboard.moreFilters": [
+    {
+      "type": 0,
+      "value": "Display more filters"
+    }
+  ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
@@ -773,12 +785,6 @@
       "value": "Saved events"
     }
   ],
-  "AgendaStats.messages.chartTitles.date": [
-    {
-      "type": 0,
-      "value": "Timings"
-    }
-  ],
   "AgendaStats.messages.chartTitles.departments": [
     {
       "type": 0,
@@ -837,6 +843,30 @@
     {
       "type": 0,
       "value": "Others"
+    }
+  ],
+  "ReactFilters.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Controlled"
+    }
+  ],
+  "ReactFilters.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "ReactFilters.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refused"
+    }
+  ],
+  "ReactFilters.messages.states.tocontrol": [
+    {
+      "type": 0,
+      "value": "To control"
     }
   ],
   "aggregator-sources.RangeTypeModal.cancel": [

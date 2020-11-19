@@ -238,6 +238,18 @@
       "value": "Éditer le rapport"
     }
   ],
+  "AgendaStats.Dashboard.lessFilters": [
+    {
+      "type": 0,
+      "value": "Afficher moins de filtres"
+    }
+  ],
+  "AgendaStats.Dashboard.moreFilters": [
+    {
+      "type": 0,
+      "value": "Afficher plus de filtres"
+    }
+  ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
@@ -775,7 +787,6 @@
       "value": "Événements sauvegardés"
     }
   ],
-  "AgendaStats.messages.chartTitles.date": null,
   "AgendaStats.messages.chartTitles.departments": [
     {
       "type": 0,
@@ -834,6 +845,30 @@
     {
       "type": 0,
       "value": "Autres"
+    }
+  ],
+  "ReactFilters.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Prêt à publier"
+    }
+  ],
+  "ReactFilters.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Publié"
+    }
+  ],
+  "ReactFilters.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refusé"
+    }
+  ],
+  "ReactFilters.messages.states.tocontrol": [
+    {
+      "type": 0,
+      "value": "À contrôler"
     }
   ],
   "aggregator-sources.RangeTypeModal.cancel": [

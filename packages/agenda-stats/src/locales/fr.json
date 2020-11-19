@@ -12,6 +12,8 @@
   "AgendaStats.Dashboard.cancel": "Annuler",
   "AgendaStats.Dashboard.changeOrder": "Modifier l'ordre",
   "AgendaStats.Dashboard.edit": "Éditer le rapport",
+  "AgendaStats.Dashboard.lessFilters": "Afficher moins de filtres",
+  "AgendaStats.Dashboard.moreFilters": "Afficher plus de filtres",
   "AgendaStats.Dashboard.pulseDesc": "Activité de l'année passée",
   "AgendaStats.Dashboard.save": "Sauvegarder",
   "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {événement} one {événement} other {événements}}",
@@ -74,7 +76,6 @@
   "AgendaStats.messages.chartTitles.cities": "Villes",
   "AgendaStats.messages.chartTitles.createdAt": "Événements créés",
   "AgendaStats.messages.chartTitles.createdAtUpdatedAt": "Événements sauvegardés",
-  "AgendaStats.messages.chartTitles.timings": "",
   "AgendaStats.messages.chartTitles.departments": "Départements",
   "AgendaStats.messages.chartTitles.keywords": "Mots clés",
   "AgendaStats.messages.chartTitles.members": "Membres",
@@ -85,6 +86,10 @@
   "AgendaStats.messages.chartTitles.updatedAt": "Événements mis à jour",
   "AgendaStats.utils.addRestItem.noValue": "Aucune valeur",
   "AgendaStats.utils.addRestItem.others": "Autres",
+  "ReactFilters.messages.states.controlled": "Prêt à publier",
+  "ReactFilters.messages.states.published": "Publié",
+  "ReactFilters.messages.states.refused": "Refusé",
+  "ReactFilters.messages.states.tocontrol": "À contrôler",
   "aggregator-sources.RangeTypeModal.cancel": "Annuler",
   "aggregator-sources.RangeTypeModal.submit": "Modifier"
 }
