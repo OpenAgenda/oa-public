@@ -3,10 +3,10 @@ import { Field, useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { OnChange } from 'react-final-form-listeners';
 import { useDebouncedCallback } from 'use-debounce';
-import cn from 'classnames';
-import useFilterTitle from '../hooks/useFilterTitle';
-import getLocaleValue from '../utils/getLocaleValue';
-import Panel from './Panel';
+import useFilterTitle from '../../hooks/useFilterTitle';
+import getLocaleValue from '../../utils/getLocaleValue';
+import Panel from '../Panel';
+import Checkbox from '../fields/Checkbox';
 
 const subscription = { value: true, submitting: true };
 
@@ -77,32 +77,6 @@ function Title({
           />
         ))}
       </div>
-    </div>
-  );
-}
-
-function Checkbox({
-  input, meta, getTotal, filter, option
-}) {
-  const seed = useUIDSeed();
-  const total = useMemo(() => getTotal && getTotal(filter, option), [
-    filter,
-    getTotal,
-    option,
-  ]);
-
-  return (
-    <div className={cn('checkbox', { disabled: meta.submitting })}>
-      <label htmlFor={seed(input.value)}>
-        <input
-          type="checkbox"
-          id={seed(input.value)}
-          disabled={meta.submitting}
-          {...input}
-        />{' '}
-        {getLocaleValue(option.label)}
-        {total ? <span className="oa-filter-total">{total}</span> : null}
-      </label>
     </div>
   );
 }

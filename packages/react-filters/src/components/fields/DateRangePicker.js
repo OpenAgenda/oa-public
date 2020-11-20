@@ -4,7 +4,7 @@ import React, {
   useLayoutEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react';
 import { DateRange, DefinedRange } from 'react-date-range';
 import * as rdrLocales from 'react-date-range/dist/locale';
@@ -16,8 +16,8 @@ const defaultGetInitialValue = () => [
   {
     startDate: null,
     endDate: -1,
-    key: 'selection'
-  }
+    key: 'selection',
+  },
 ];
 
 const rangeColors = ['#41acdd'];
@@ -107,7 +107,7 @@ function DateRangePicker({
     inputRanges,
     focusedRange,
     onRangeFocusChange: setFocusedRange,
-    rangeColors
+    rangeColors,
   };
 
   return (
