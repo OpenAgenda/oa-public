@@ -285,26 +285,26 @@ function Dashboard({ agenda, agendaSchema }) {
       apiClient.get(exportUrl, { params }),
     ]).then(([configResult, timespanResult]) => {
       const { first, last } = timespanResult.data.aggregations.timespan;
+      let initialQuery;
 
       if (history.location.search) {
         const baseQuery = qs.parse(history.location.search, {
           ignoreQueryPrefix: true,
         });
-        const cleanQuery = _.pick(
+
+        initialQuery = _.pick(
           validateQuery(baseQuery, agendaSchema),
           Object.keys(baseQuery)
         );
-
-        return dispatch(
-          statsActions.load(agenda, configResult.data, filters, cleanQuery)
-        );
+      } else {
+        // Timespan is a `timings` query
+        initialQuery = {
+          timings: determineDefaultRange({ first, last }),
+        };
       }
 
-      // Timespan is a `timings` query
       return dispatch(
-        statsActions.load(agenda, configResult.data, filters, {
-          timings: determineDefaultRange({ first, last }),
-        })
+        statsActions.load(agenda, configResult.data, filters, initialQuery)
       );
     });
   }, [
