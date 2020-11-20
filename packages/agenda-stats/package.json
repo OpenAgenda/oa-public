@@ -26,6 +26,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
     "@emotion/core": "^10.0.28",
+    "@openagenda/event-search": "^2.7.4",
     "@openagenda/react-components": "^2.3.9",
     "@openagenda/react-filters": "^1.0.0",
     "@openagenda/react-shared": "^2.0.7",

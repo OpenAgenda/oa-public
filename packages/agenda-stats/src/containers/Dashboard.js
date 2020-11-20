@@ -1,9 +1,13 @@
 import _ from 'lodash';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState
+} from 'react';
 import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLatest } from 'react-use';
+import { useHistory } from 'react-router';
+import { useLatest, useUpdateEffect } from 'react-use';
+import qs from 'qs';
 import { MoreInfo, Spinner } from '@openagenda/react-components';
 import { useApiClient, useModal } from '@openagenda/react-shared';
 import {
@@ -12,6 +16,7 @@ import {
   DateRangeFilter,
   MultiChoiceFilter,
 } from '@openagenda/react-filters';
+import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import * as statsActions from '../reducers/stats';
 import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
@@ -53,17 +58,36 @@ const messages = defineMessages({
 function FiltersPart({ agenda, agendaSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const filtersFormRef = useRef();
 
   const stats = useSelector(state => state.stats.data);
   const loading = useSelector(state => state.stats.loading);
   const query = useSelector(state => state.stats.query);
   const latestStats = useLatest(stats);
+  const latestQuery = useLatest(query);
 
   const [initialQuery] = useState(query);
-  const [moreFilters, setMoreFilters] = useState(false);
 
   const standardsFilters = useFilters(agendaSchema, { standards: true });
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
+
+  const [moreFilters, setMoreFilters] = useState(() => {
+    const names = additionalsFilters.map(v => v.name);
+
+    for (const key in query) {
+      if (
+        Object.prototype.hasOwnProperty.call(query, key)
+        && names.includes(key)
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  });
+
   const getTotal = useCallback(
     (filter, option) => {
       const stat = stats.find(s => _.isMatch(s.aggregation, {
@@ -104,8 +128,20 @@ function FiltersPart({ agenda, agendaSchema }) {
         [...standardsFilters, ...additionalsFilters],
         values
       )
-    ),
-    [agenda, dispatch, latestStats, standardsFilters]
+    ).then(() => {
+      history.push({
+        ...history.location,
+        search: qs.stringify(values, { arrayFormat: 'brackets' }),
+      });
+    }),
+    [
+      additionalsFilters,
+      agenda,
+      dispatch,
+      history,
+      latestStats,
+      standardsFilters,
+    ]
   );
 
   const toggleMoreFilters = useCallback(
@@ -113,13 +149,49 @@ function FiltersPart({ agenda, agendaSchema }) {
     []
   );
 
-  console.log(additionalsFilters);
+  useUpdateEffect(() => {
+    const search = qs.stringify(latestQuery.current, {
+      addQueryPrefix: true,
+      arrayFormat: 'brackets',
+    });
+
+    if (history.location.search !== search) {
+      const baseQuery = qs.parse(history.location.search, {
+        ignoreQueryPrefix: true,
+      });
+      const cleanQuery = _.pick(
+        validateQuery(baseQuery, agendaSchema),
+        Object.keys(baseQuery)
+      );
+
+      filtersFormRef.current.initialize(cleanQuery);
+
+      dispatch(
+        statsActions.load(
+          agenda,
+          latestStats.current,
+          [...standardsFilters, ...additionalsFilters],
+          qs.parse(history.location.search, { ignoreQueryPrefix: true })
+        )
+      );
+    }
+  }, [
+    additionalsFilters,
+    agenda,
+    agendaSchema,
+    dispatch,
+    history.location,
+    latestQuery,
+    latestStats,
+    standardsFilters,
+  ]);
 
   return (
     <FiltersProvider
       onSubmit={onFilterChange}
       initialValues={initialQuery}
       locale={intl.locale}
+      ref={filtersFormRef}
     >
       <div className="oa-collapse">
         <Filters
@@ -162,6 +234,7 @@ function Dashboard({ agenda, agendaSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
+  const history = useHistory();
 
   const res = useSelector(state => state.res);
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
@@ -213,6 +286,20 @@ function Dashboard({ agenda, agendaSchema }) {
     ]).then(([configResult, timespanResult]) => {
       const { first, last } = timespanResult.data.aggregations.timespan;
 
+      if (history.location.search) {
+        const baseQuery = qs.parse(history.location.search, {
+          ignoreQueryPrefix: true,
+        });
+        const cleanQuery = _.pick(
+          validateQuery(baseQuery, agendaSchema),
+          Object.keys(baseQuery)
+        );
+
+        return dispatch(
+          statsActions.load(agenda, configResult.data, filters, cleanQuery)
+        );
+      }
+
       // Timespan is a `timings` query
       return dispatch(
         statsActions.load(agenda, configResult.data, filters, {
@@ -220,7 +307,16 @@ function Dashboard({ agenda, agendaSchema }) {
         })
       );
     });
-  }, [agenda, apiClient, dispatch, filters, loaded, res.jsonExport]);
+  }, [
+    agenda,
+    agendaSchema,
+    apiClient,
+    dispatch,
+    filters,
+    history.location.search,
+    loaded,
+    res.jsonExport,
+  ]);
 
   if (!loaded) {
     return (
