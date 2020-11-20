@@ -15,11 +15,11 @@ describe('Search', function() {
     svc = Service({
       elasticsearch: config.elasticsearch,
       alias: config.alias,
-      listAgendas: listInterface.bind(null, 100, a => {
+      listAgendas: listInterface('test', 100, a => {
         if (a.uid === 3) a.updatedAt = new Date;
         return a;
       }),
-      getAgendaSummary,
+      getAgendaSummary: getAgendaSummary('test'),
       imagePath: config.imagePath,
       defaultImage: config.defaultImage
     });

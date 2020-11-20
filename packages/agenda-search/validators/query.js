@@ -10,7 +10,7 @@ schemas.register({
   date: require('@openagenda/validators/date')
 });
 
-module.exports = schemas({
+const validate = schemas({
   search: {
     type: 'text',
     optional: true,
@@ -57,3 +57,18 @@ module.exports = schemas({
     default: null
   }
 });
+
+module.exports = (values = {}) => {
+  const preClean = {
+    ...values,   
+  };
+
+  if (preClean?.updatedAt?.gte === '') {
+    preClean.updatedAt.gte = null;
+  }
+  if (preClean?.updatedAt?.lte === '') {
+    preClean.updatedAt.lte = null;
+  }
+
+  return validate(preClean);
+}
