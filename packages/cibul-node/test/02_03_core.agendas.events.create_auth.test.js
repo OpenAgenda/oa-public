@@ -40,7 +40,6 @@ describe('02 - core - functional (server): core.agendas().events.create api auth
   };
 
   beforeAll(() => loadFixtures(testConfig.db, '002.sql'));
-
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {

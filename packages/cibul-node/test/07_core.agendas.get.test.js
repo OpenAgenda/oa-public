@@ -9,7 +9,8 @@ const { promisify } = require('util');
 
 const api = require('../api');
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/008.sql');
+const loadFixtures = require('./fixtures/load');
+
 
 const Services = require('../services/init');
 const Core = require('../core');
@@ -19,23 +20,7 @@ const testConfig = require('./testConfig');
 describe('07 - core - functional (server): core.agendas().get', function() {
   let core;
 
-  beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
-      'user', 
-      'password',
-      'ssl',
-      'host'
-    ]), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures);
-
-    con.end();
-  });
-
+  beforeAll(() => loadFixtures(testConfig.db, '008.sql'));
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {

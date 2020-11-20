@@ -35,8 +35,8 @@ module.exports = Object.assign((c = {}) => {
     interfaces: {
       getAgendaDetailsByUid: async uid => null,
       getEventCounts: async (identifiers, locationUids = []) => [],
-      locationsWillMerge: async (mergeIn, mergedLocations) => {},
-      locationWillRemove: async location => {},
+      beforeMerge: async (mergeIn, mergedLocations) => {},
+      beforeRemove: async location => {},
       onUpdate: null
     }
   });

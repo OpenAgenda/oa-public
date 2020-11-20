@@ -8,6 +8,10 @@ const NotFoundError = require('./lib/NotFoundError');
 async function remove(service, current) {
   log('received %j payload', current.uid);
 
+  if (service.interfaces.beforeRemove) {
+    await service.interfaces.beforeRemove(current);
+  }
+
   await service.clients.knex(service.config.schema).where('uid', current.uid).del();
 
   return current;
@@ -23,10 +27,6 @@ module.exports.byAgendaUid = async (
 
   if (!current) {
     throw new NotFoundError('location', { identifiers, agendaUid });
-  }
-
-  if (service.interfaces.locationWillRemove) {
-    await service.interfaces.locationWillRemove(current);
   }
 
   return remove(service, current);

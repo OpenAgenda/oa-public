@@ -7,7 +7,8 @@ const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences')
 
 module.exports = (services, queue, eventSearch) => {
   const {
-    agendaEvents
+    agendaEvents,
+    tracker
   } = services;
 
   queue.register({
@@ -16,7 +17,9 @@ module.exports = (services, queue, eventSearch) => {
   });
 
   return async ({ agenda, member, formSchema, event }) => {
-    log('update');
+    log('update', { agendaUid: agenda.uid, eventUid: event.uid });
+
+    tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
 
     await updateAgendaIndex(eventSearch, {
       agenda,
@@ -41,7 +44,7 @@ module.exports = (services, queue, eventSearch) => {
 
 async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
   const {
-    agendaEvents
+    agendaEvents,
   } = services;
 
   log('loadOtherUpdates');
@@ -90,7 +93,7 @@ async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, even
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
-  log('update current agenda index');
+  log('update current agenda index', agenda.uid);
   await searchIndex.update({
     uid: event.uid
   }, data, { refresh: true, formSchema });

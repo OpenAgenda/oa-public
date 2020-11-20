@@ -7,36 +7,20 @@ const knexLib = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
 
-const fixtures = require('./fixtures/007.sql');
-
 const Services = require('../services/init');
 const Core = require('../core');
 
 const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 const assignClients = require('./utils/assignClients');
+const loadFixtures = require('./fixtures/load');
 
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().settings.get()', function() {
   let core;
 
-  beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
-      'user',
-      'password',
-      'host',
-      'ssl'
-    ]), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-    const result = await query(fixtures);
-
-    con.end();
-  });
-
+  beforeAll(() => loadFixtures(testConfig.db, '007.sql'));
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {

@@ -9,11 +9,11 @@ const { promisify } = require('util');
 const api = require('../api');
 const Core = require('../core');
 const Services = require('../services/init');
+const loadFixtures = require('./fixtures/load');
 
 const assignClients = require('./utils/assignClients');
 
 const fixtures = {
-  sql: require('./fixtures/003.sql'),
   events: require('./fixtures/events')
 };
 
@@ -24,18 +24,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
   let core, stopTask;
 
-  beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password', 'host', 'ssl']), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures.sql);
-
-    con.end();
-  });
-
+  beforeAll(() => loadFixtures(testConfig.db, '003.sql'));
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {

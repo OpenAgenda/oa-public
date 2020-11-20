@@ -9,6 +9,8 @@ const {
 
 const raw = resetAndCreateTables();
 
+const insertEventSet = require('./sql/eventSets');
+
 raw.push(knex('review').insert([{
   id: 218,
   uid: 17026855,
@@ -510,11 +512,6 @@ raw.push(knex('review_tag').insert([{
   updated_at: '2017-10-30 14:21:07'
 }]));
 
-const eventSets = [
-  JSON.parse(fs.readFileSync(__dirname + '/sql/eventSets/1.json')),
-  JSON.parse(fs.readFileSync(__dirname + '/sql/eventSets/2.json'))
-]
-
 raw.push(knex('event').insert([{
   id: 1,
   uid: 19201989,
@@ -530,7 +527,7 @@ raw.push(knex('event').insert([{
   owner_id: 50304,
   created_at: '2019-12-14T10:00:00.000',
   updated_at: '2019-12-14T10:00:00.000'
-}, eventSets[0].legacyEvent, eventSets[1].legacyEvent ]));
+}]));
 
 raw.push(knex('event_location').insert([{
   id: 1,
@@ -544,7 +541,7 @@ raw.push(knex('event_location').insert([{
   event_id: 2,
   created_at: '2019-12-14T10:00:00.000',
   updated_at: '2019-12-14T10:00:00.000'
-}, eventSets[0].eventLocation, eventSets[1].eventLocation]));
+}]));
 
 raw.push(knex('occurrence').insert([{
   id: 1,
@@ -564,7 +561,7 @@ raw.push(knex('occurrence').insert([{
   time_end: '11:00:00',
   created_at: '2017-10-30 14:21:07',
   updated_at: '2017-10-30 14:21:07'
-}].concat(eventSets[0].occurrences).concat(eventSets[1].occurrences)));
+}]));
 
 raw.push(knex('event_2').insert([{
   id: 12,
@@ -609,7 +606,7 @@ raw.push(knex('event_2').insert([{
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
-}, eventSets[0].event, eventSets[1].event]));
+}]));
 
 raw.push(knex('agenda_event').insert([{
   event_uid: 19201989,
@@ -627,7 +624,7 @@ raw.push(knex('agenda_event').insert([{
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
   can_edit: 1
-}].concat(eventSets[0].agendaEvents).concat(eventSets[1].agendaEvents)));
+}]));
 
 raw.push(knex('review_article').insert([{
   id: 123,
@@ -648,6 +645,9 @@ raw.push(knex('review_article').insert([{
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')
 }]));
+
+insertEventSet(knex, raw, 1);
+insertEventSet(knex, raw, 2);
 
 raw.push(knex('custom').insert([{
   id: 9090,

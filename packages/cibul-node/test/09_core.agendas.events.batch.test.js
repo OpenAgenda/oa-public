@@ -7,7 +7,7 @@ const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
 
-const fixtures = require('./fixtures/010.sql');
+const loadFixtures = require('./fixtures/load');
 
 const Services = require('../services/init');
 const Core = require('../core');
@@ -21,23 +21,7 @@ const testConfig = require('./testConfig');
 describe('09 - core - fuctional (server): core.agendas().events.batch()', function() {
   let core;
 
-  beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
-      'user',
-      'password',
-      'host',
-      'ssl'
-    ]), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures);
-
-    con.end();
-  });
-
+  beforeAll(() => loadFixtures(testConfig.db, '010.sql'));
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {

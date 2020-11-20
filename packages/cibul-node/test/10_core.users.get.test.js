@@ -7,7 +7,7 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/011.sql');
+const loadFixtures = require('./fixtures/load');
 
 const Services = require('../services/init');
 const Core = require('../core');
@@ -17,23 +17,7 @@ const testConfig = require('./testConfig');
 describe('10 - core - functional (server): core.users().get()', function() {
   let core;
 
-  beforeAll(async () => {
-    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, [
-      'user',
-      'password',
-      'host',
-      'ssl'
-    ]), {
-      multipleStatements: true
-    }));
-
-    const query = promisify(con.query.bind(con));
-
-    const result = await query(fixtures);
-
-    con.end();
-  });
-
+  beforeAll(() => loadFixtures(testConfig.db, '011.sql'));
   beforeAll(() => assignClients(testConfig));
 
   beforeAll(async () => {
@@ -104,7 +88,7 @@ describe('10 - core - functional (server): core.users().get()', function() {
   it('new access token is created when previous is outdated', async () => {
     await testConfig.knex('access_token').update({
       created_at: new Date,
-      lifespan: 0
+      lifespan: -1
     }).where('id', 2);
 
     const token = await core.users({

@@ -32,7 +32,7 @@ describe('agenda-locations - functional - terms', function() {
             7196947: 25221
           })[uid]
         }),
-        locationsWillMerge: async (mergeIn, merged) => {}
+        beforeMerge: async (mergeIn, merged) => {}
       }
     });
   });
