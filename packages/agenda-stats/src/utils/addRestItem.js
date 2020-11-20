@@ -39,8 +39,5 @@ export default function addRestItem(
   _.set(otherItem, labelKey, message);
   _.set(otherItem, dataKey, diff);
 
-  return [
-    ...data,
-    otherItem
-  ];
+  return [...data, otherItem];
 }

@@ -1,9 +1,9 @@
-import _ from 'lodash';
 import React, { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest } from 'react-use';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Modal } from '@openagenda/react-components';
+import { useSelector } from 'react-redux';
 import useChartTitle from '../hooks/useChartTitle';
 
 const messages = defineMessages({
@@ -59,10 +59,12 @@ function Separator() {
   return <em>{intl.formatMessage(messages.separator)}</em>;
 }
 
-export default function OrderModal({ initialStats, onSubmit, onClose }) {
+export default function OrderModal({ onSubmit, onClose }) {
   const intl = useIntl();
 
-  const [stats, setStats] = useState(() => _.clone(initialStats));
+  const initialStats = useSelector(state => state.stats.data);
+
+  const [stats, setStats] = useState(() => [...initialStats]);
   const latestStats = useLatest(stats);
 
   const onDragEnd = useCallback(

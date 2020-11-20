@@ -60,6 +60,7 @@ export default function RangeModal({ initialValues, onSubmit, onClose }) {
       <DateRangePicker
         onChange={onChange}
         showSelectionPreview
+        showMonthName={false}
         moveRangeOnFirstSelection={false}
         months={1}
         ranges={ranges}

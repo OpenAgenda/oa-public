@@ -1,0 +1,107 @@
+{
+  "ReactFilters.dateRanges.currentMonth": [
+    {
+      "type": 0,
+      "value": "Current month"
+    }
+  ],
+  "ReactFilters.dateRanges.currentWeek": [
+    {
+      "type": 0,
+      "value": "Current week"
+    }
+  ],
+  "ReactFilters.dateRanges.thisWeekend": [
+    {
+      "type": 0,
+      "value": "This week-end"
+    }
+  ],
+  "ReactFilters.dateRanges.today": [
+    {
+      "type": 0,
+      "value": "Today"
+    }
+  ],
+  "ReactFilters.dateRanges.tomorrow": [
+    {
+      "type": 0,
+      "value": "Tomorrow"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.createdAt": [
+    {
+      "type": 0,
+      "value": "Creation date"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.state": [
+    {
+      "type": 0,
+      "value": "State"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.timings": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.updatedAt": [
+    {
+      "type": 0,
+      "value": "Date of update"
+    }
+  ],
+  "ReactShared.DateRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "From "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " to "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "endDate"
+    }
+  ],
+  "ReactShared.DateRangeFilter.singleDate": [
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ]
+}

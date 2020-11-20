@@ -65,7 +65,7 @@ export default function DateTooltipItem({
         {!hideLabel ? (
           <>
             <b>
-              {intl.formatMessage(messages[interval], {
+              {intl.formatMessage(messages[interval || 'day'], {
                 date,
                 weekEnd,
                 weekNumber,

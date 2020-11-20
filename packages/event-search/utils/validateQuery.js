@@ -161,32 +161,45 @@ const validate = schema({
   }
 });
 
-module.exports = (dirty, formSchema) => {
+function cleanAdditionalField(fieldSchema, dirty) {
+  if (['radio', 'checkbox'].includes(fieldSchema.fieldType)) {
+    if (Array.isArray(dirty)) {
+      return dirty.map(v => parseInt(v, 10));
+    } else {
+      return parseInt(dirty, 10);
+    }
+  }
+
+  return dirty;
+}
+
+module.exports = function validateQuery(dirty, formSchema) {
   const preCleaned = preCleanRawQuery(dirty);
 
   const clean = validate(preCleaned);
 
-  const additionalFields = getFormSchemaAdditionalFields(formSchema)
-    .map(f => f.field);
+  const additionalFields = getFormSchemaAdditionalFields(formSchema);
 
-  const c = {
+  return {
     ...clean,
-    ...additionalFields.reduce((additionalValues, field) => {
-      if (dirty[field] !== undefined) {
+    ...additionalFields.reduce((additionalValues, fieldSchema) => {
+      const { field } = fieldSchema;
+      const value = dirty[field] !== undefined
+        ? dirty[field]
+        : dirty.custom && dirty.custom[field] !== undefined
+          ? dirty.custom[field]
+          : undefined;
+
+      if (value !== undefined) {
+        const cleanValue = cleanAdditionalField(fieldSchema, value);
+
         return {
           ...additionalValues,
-          [field]: dirty[field]
+          [field]: cleanValue
         };
       }
-      if (dirty.custom && dirty.custom[field] !== undefined) {
-        return {
-          ...additionalValues,
-          [field]: dirty.custom[field]
-        };
-      }
+
       return additionalValues;
     }, {})
   };
-
-  return c;
 }

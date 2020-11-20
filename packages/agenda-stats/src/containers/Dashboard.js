@@ -1,51 +1,243 @@
 import _ from 'lodash';
-import React, { useCallback, useEffect } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState
+} from 'react';
 import { hot } from 'react-hot-loader/root';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { useLatest, useUpdateEffect } from 'react-use';
+import qs from 'qs';
 import { MoreInfo, Spinner } from '@openagenda/react-components';
 import { useApiClient, useModal } from '@openagenda/react-shared';
+import {
+  FiltersProvider,
+  Filters,
+  DateRangeFilter,
+  MultiChoiceFilter,
+} from '@openagenda/react-filters';
+import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import * as statsActions from '../reducers/stats';
 import OrderModal from '../components/OrderModal';
 import AggregationCharts from '../components/AggregationCharts';
-import determineDefaultRange from '../utils/determineDefaultRange';
 import PulseChart from '../components/PulseChart';
-import RangeFilter from '../components/RangeFilter';
-import RangeTypeFilter from '../components/RangeTypeFilter';
+import determineDefaultRange from '../utils/determineDefaultRange';
+import useFilters from '../hooks/useFilters';
 
 const messages = defineMessages({
   save: {
     id: 'AgendaStats.Dashboard.save',
-    defaultMessage: 'Save'
+    defaultMessage: 'Save',
   },
   cancel: {
     id: 'AgendaStats.Dashboard.cancel',
-    defaultMessage: 'Cancel'
+    defaultMessage: 'Cancel',
   },
   edit: {
     id: 'AgendaStats.Dashboard.edit',
-    defaultMessage: 'Edit'
+    defaultMessage: 'Edit',
   },
   changeOrder: {
     id: 'AgendaStats.Dashboard.changeOrder',
-    defaultMessage: 'Change ordrer'
+    defaultMessage: 'Change ordrer',
   },
   pulseDesc: {
     id: 'AgendaStats.Dashboard.pulseDesc',
-    defaultMessage: 'Past year of activity'
-  }
+    defaultMessage: 'Past year of activity',
+  },
+  moreFilters: {
+    id: 'AgendaStats.Dashboard.moreFilters',
+    defaultMessage: 'Display more filters',
+  },
+  lessFilters: {
+    id: 'AgendaStats.Dashboard.lessFilters',
+    defaultMessage: 'Display less filters',
+  },
 });
+
+function FiltersPart({ agenda, agendaSchema }) {
+  const intl = useIntl();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const filtersFormRef = useRef();
+
+  const stats = useSelector(state => state.stats.data);
+  const loading = useSelector(state => state.stats.loading);
+  const query = useSelector(state => state.stats.query);
+  const latestStats = useLatest(stats);
+  const latestQuery = useLatest(query);
+
+  const [initialQuery] = useState(query);
+
+  const standardsFilters = useFilters(agendaSchema, { standards: true });
+  const additionalsFilters = useFilters(agendaSchema, { additionals: true });
+
+  const [moreFilters, setMoreFilters] = useState(() => {
+    const names = additionalsFilters.map(v => v.name);
+
+    for (const key in query) {
+      if (
+        Object.prototype.hasOwnProperty.call(query, key)
+        && names.includes(key)
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  });
+
+  const getTotal = useCallback(
+    (filter, option) => {
+      const stat = stats.find(s => _.isMatch(s.aggregation, {
+        type: filter.name,
+        ...filter.aggregation,
+      }));
+
+      if (!stat) return null;
+
+      const { data } = stat.state;
+
+      if (!data) return null;
+
+      if (filter.name === 'state') {
+        const stateValue = data.find(v => v.key === option.value);
+
+        return stateValue?.eventCount || 0;
+      }
+
+      const optionValue = data.find(
+        v => v.key === option.value || v.id === option.id
+      );
+
+      if (optionValue) {
+        return optionValue?.eventCount || 0;
+      }
+
+      return 0;
+    },
+    [stats]
+  );
+
+  const onFilterChange = useCallback(
+    async values => dispatch(
+      statsActions.load(
+        agenda,
+        latestStats.current,
+        [...standardsFilters, ...additionalsFilters],
+        values
+      )
+    ).then(() => {
+      history.push({
+        ...history.location,
+        search: qs.stringify(values, { arrayFormat: 'brackets' }),
+      });
+    }),
+    [
+      additionalsFilters,
+      agenda,
+      dispatch,
+      history,
+      latestStats,
+      standardsFilters,
+    ]
+  );
+
+  const toggleMoreFilters = useCallback(
+    () => setMoreFilters(prevState => !prevState),
+    []
+  );
+
+  useUpdateEffect(() => {
+    const search = qs.stringify(latestQuery.current, {
+      addQueryPrefix: true,
+      arrayFormat: 'brackets',
+    });
+
+    if (history.location.search !== search) {
+      const baseQuery = qs.parse(history.location.search, {
+        ignoreQueryPrefix: true,
+      });
+      const cleanQuery = _.pick(
+        validateQuery(baseQuery, agendaSchema),
+        Object.keys(baseQuery)
+      );
+
+      filtersFormRef.current.initialize(cleanQuery);
+
+      dispatch(
+        statsActions.load(
+          agenda,
+          latestStats.current,
+          [...standardsFilters, ...additionalsFilters],
+          qs.parse(history.location.search, { ignoreQueryPrefix: true })
+        )
+      );
+    }
+  }, [
+    additionalsFilters,
+    agenda,
+    agendaSchema,
+    dispatch,
+    history.location,
+    latestQuery,
+    latestStats,
+    standardsFilters,
+  ]);
+
+  return (
+    <FiltersProvider
+      onSubmit={onFilterChange}
+      initialValues={initialQuery}
+      locale={intl.locale}
+      ref={filtersFormRef}
+    >
+      <div className="oa-collapse">
+        <Filters
+          filters={standardsFilters}
+          loading={loading}
+          dateRangeComponent={DateRangeFilter}
+          checkboxComponent={MultiChoiceFilter}
+          radioComponent={MultiChoiceFilter}
+          getTotal={getTotal}
+        />
+        {moreFilters ? (
+          <Filters
+            filters={additionalsFilters}
+            loading={loading}
+            dateRangeComponent={DateRangeFilter}
+            checkboxComponent={MultiChoiceFilter}
+            radioComponent={MultiChoiceFilter}
+            getTotal={getTotal}
+          />
+        ) : null}
+        {additionalsFilters.length ? (
+          <div className="margin-v-xs">
+            <button
+              type="button"
+              className="btn btn-link-inline"
+              onClick={toggleMoreFilters}
+            >
+              {intl.formatMessage(
+                moreFilters ? messages.lessFilters : messages.moreFilters
+              )}
+            </button>
+          </div>
+        ) : null}
+      </div>
+    </FiltersProvider>
+  );
+}
 
 function Dashboard({ agenda, agendaSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
+  const history = useHistory();
 
   const res = useSelector(state => state.res);
-  const loading = useSelector(state => _.get(state, 'stats.loading', true));
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
-  const stats = useSelector(state => state.stats.data);
-  const range = useSelector(state => state.stats.range);
   const totalEvents = useSelector(state => state.stats.totalEvents);
   const editing = useSelector(state => state.stats.editing);
 
@@ -66,8 +258,10 @@ function Dashboard({ agenda, agendaSchema }) {
   );
   const save = useCallback(() => dispatch(statsActions.save(agenda)), [
     agenda,
-    dispatch
+    dispatch,
   ]);
+
+  const filters = useFilters(agendaSchema);
 
   // Load timespan & aggregations
   useEffect(() => {
@@ -83,24 +277,48 @@ function Dashboard({ agenda, agendaSchema }) {
     const params = {
       oaq: { passed: 1 },
       size: 0,
-      aggregations: ['timespan']
+      aggregations: ['timespan'],
     };
 
     Promise.all([
       apiClient.get(configUrl),
-      apiClient.get(exportUrl, { params })
+      apiClient.get(exportUrl, { params }),
     ]).then(([configResult, timespanResult]) => {
       const { first, last } = timespanResult.data.aggregations.timespan;
+      let initialQuery;
+
+      if (history.location.search) {
+        const baseQuery = qs.parse(history.location.search, {
+          ignoreQueryPrefix: true,
+        });
+
+        initialQuery = _.pick(
+          validateQuery(baseQuery, agendaSchema),
+          Object.keys(baseQuery)
+        );
+      } else {
+        // Timespan is a `timings` query
+        initialQuery = {
+          timings: determineDefaultRange({ first, last }),
+        };
+      }
 
       return dispatch(
-        statsActions.load(agenda, configResult.data, {
-          range: determineDefaultRange({ first, last })
-        })
+        statsActions.load(agenda, configResult.data, filters, initialQuery)
       );
     });
-  }, [agenda, apiClient, dispatch, loaded, res.jsonExport]);
+  }, [
+    agenda,
+    agendaSchema,
+    apiClient,
+    dispatch,
+    filters,
+    history.location.search,
+    loaded,
+    res.jsonExport,
+  ]);
 
-  if (!stats?.length && loading) {
+  if (!loaded) {
     return (
       <div className="padding-v-md" css={{ position: 'relative' }}>
         <Spinner />
@@ -128,15 +346,20 @@ function Dashboard({ agenda, agendaSchema }) {
   );
 
   return (
-    <div>
-      <div className="row">
+    <>
+      <FiltersPart agenda={agenda} agendaSchema={agendaSchema} />
+
+      <div className="row margin-top-sm">
         <div className="col-sm-4 margin-top-xs">
-          <div>
-            <RangeTypeFilter agenda={agenda} />
-          </div>
-          <div className="margin-top-xs">
-            <RangeFilter agenda={agenda} />
-          </div>
+          {typeof totalEvents === 'number' ? (
+            <FormattedMessage
+              id="AgendaStats.Dashboard.totalEvents"
+              defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
+              values={{
+                total: totalEvents,
+              }}
+            />
+          ) : null}
         </div>
 
         <div className="col-sm-4">
@@ -150,7 +373,7 @@ function Dashboard({ agenda, agendaSchema }) {
                 width: '155px',
                 display: 'block',
                 marginLeft: 'auto',
-                marginRight: 'auto'
+                marginRight: 'auto',
               }}
             >
               <PulseChart agendaUid={agenda.uid} />
@@ -172,41 +395,16 @@ function Dashboard({ agenda, agendaSchema }) {
         </div>
       </div>
 
-      {typeof totalEvents === 'number' ? (
-        <div className="margin-top-xs">
-          <FormattedMessage
-            id="AgendaStats.Dashboard.totalEvents"
-            defaultMessage="{total, number} {total, plural, =0 {event} one {event} other {events}}"
-            values={{
-              total: totalEvents
-            }}
-          />
-        </div>
-      ) : null}
-
       <div className="clearfix" />
 
-      {stats ? (
-        <AggregationCharts
-          agenda={agenda}
-          stats={stats}
-          totalEvents={totalEvents}
-          range={range}
-          editMode={editing}
-          agendaSchema={agendaSchema}
-        />
-      ) : null}
+      <AggregationCharts agenda={agenda} agendaSchema={agendaSchema} />
 
       <div className="margin-top-md text-right">{editButtons}</div>
 
       {orderModal.isOpen ? (
-        <OrderModal
-          initialStats={stats}
-          onSubmit={onOrderChange}
-          onClose={orderModal.close}
-        />
+        <OrderModal onSubmit={onOrderChange} onClose={orderModal.close} />
       ) : null}
-    </div>
+    </>
   );
 }
 

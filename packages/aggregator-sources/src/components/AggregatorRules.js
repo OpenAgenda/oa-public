@@ -29,7 +29,11 @@ export default function AggregatorRules({ rules, showModal }) {
           count: rules ? rules.length : 0
         })}
       </span>
-      <button type="button" className="btn btn-link" onClick={showModal}>
+      <button
+        type="button"
+        className="btn btn-link-inline margin-h-sm"
+        onClick={showModal}
+      >
         {intl.formatMessage(rules?.length ? messages.edit : messages.add)}
       </button>
       <MoreInfo id="doc-popover" link={externalLinks.helpRules} />

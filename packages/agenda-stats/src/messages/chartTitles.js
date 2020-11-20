@@ -2,47 +2,47 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   regions: {
-    id: 'AgendaStats.titleMessages.regions',
+    id: 'AgendaStats.messages.chartTitles.regions',
     defaultMessage: 'Regions'
   },
   departments: {
-    id: 'AgendaStats.titleMessages.departments',
+    id: 'AgendaStats.messages.chartTitles.departments',
     defaultMessage: 'Departments'
   },
   cities: {
-    id: 'AgendaStats.titleMessages.cities',
+    id: 'AgendaStats.messages.chartTitles.cities',
     defaultMessage: 'Cities'
   },
   timings: {
-    id: 'AgendaStats.titleMessages.timings',
+    id: 'AgendaStats.messages.chartTitles.timings',
     defaultMessage: 'Timings'
   },
   createdAtUpdatedAt: {
-    id: 'AgendaStats.titleMessages.createdAtUpdatedAt',
+    id: 'AgendaStats.messages.chartTitles.createdAtUpdatedAt',
     defaultMessage: 'Saved events'
   },
   createdAt: {
-    id: 'AgendaStats.titleMessages.createdAt',
+    id: 'AgendaStats.messages.chartTitles.createdAt',
     defaultMessage: 'Created events'
   },
   updatedAt: {
-    id: 'AgendaStats.titleMessages.updatedAt',
+    id: 'AgendaStats.messages.chartTitles.updatedAt',
     defaultMessage: 'Updated events'
   },
   members: {
-    id: 'AgendaStats.titleMessages.members',
+    id: 'AgendaStats.messages.chartTitles.members',
     defaultMessage: 'Members'
   },
   originAgendas: {
-    id: 'AgendaStats.titleMessages.originAgendas',
+    id: 'AgendaStats.messages.chartTitles.originAgendas',
     defaultMessage: 'Origin agendas'
   },
   keywords: {
-    id: 'AgendaStats.titleMessages.keywords',
+    id: 'AgendaStats.messages.chartTitles.keywords',
     defaultMessage: 'Keywords'
   },
   states: {
-    id: 'AgendaStats.titleMessages.states',
+    id: 'AgendaStats.messages.chartTitles.states',
     defaultMessage: 'States'
   }
 });

@@ -35,9 +35,7 @@ export default function StateTooltipItem({
       <span>
         {!hideLabel ? (
           <>
-            <b>
-              {intl.formatMessage(messages[label])}
-            </b>
+            <b>{intl.formatMessage(messages[label])}</b>
             <br />
           </>
         ) : null}
