@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 import { Form } from 'react-final-form';
 import { useConstant } from '@openagenda/react-shared';
 import { createForm } from 'final-form';
@@ -11,18 +11,21 @@ function FiltersForm({ children }) {
 
 const defaultSubscription = {};
 
-function FiltersProvider({
-  initialValues,
-  onSubmit,
-  children,
-  staticContext,
-  subscription = defaultSubscription,
-  locale = 'en'
-}) {
+function FiltersProvider(
+  {
+    initialValues,
+    onSubmit,
+    children,
+    staticContext,
+    subscription = defaultSubscription,
+    locale = 'en',
+  },
+  ref
+) {
   const form = useConstant(() => {
     const finalForm = createForm({
       initialValues,
-      onSubmit
+      onSubmit,
     });
 
     if (staticContext) {
@@ -31,6 +34,8 @@ function FiltersProvider({
 
     return finalForm;
   });
+
+  useImperativeHandle(ref, () => form);
 
   return (
     <IntlProvider messages={messages[locale]} locale={locale} key={locale}>
@@ -43,4 +48,4 @@ function FiltersProvider({
   );
 }
 
-export default FiltersProvider;
+export default React.forwardRef(FiltersProvider);
