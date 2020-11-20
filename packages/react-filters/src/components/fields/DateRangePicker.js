@@ -23,7 +23,11 @@ const defaultGetInitialValue = () => [
 const rangeColors = ['#41acdd'];
 
 function DateRangePicker({
-  input, meta, staticRanges = [], inputRanges = []
+  input,
+  meta,
+  staticRanges = [],
+  inputRanges = [],
+  ...otherProps
 }) {
   const intl = useIntl();
 
@@ -108,14 +112,13 @@ function DateRangePicker({
     focusedRange,
     onRangeFocusChange: setFocusedRange,
     rangeColors,
+    ...otherProps,
   };
 
   return (
     <div className={cn('rdrDateRangePickerWrapper', { rdrNoSelection })}>
       <DateRange
         onRangeFocusChange={setFocusedRange}
-        startDatePlaceholder="Early"
-        endDatePlaceholder="Continuous"
         {...dateRangePickerProps}
         onChange={onTemporaryChange}
         ref={dateRangeRef}

@@ -19,6 +19,14 @@ const messages = defineMessages({
     defaultMessage:
       'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}',
   },
+  startDate: {
+    id: 'ReactShared.DateRangeFilter.startDate',
+    defaultMessage: 'Start',
+  },
+  endDate: {
+    id: 'ReactShared.DateRangeFilter.endDate',
+    defaultMessage: 'End',
+  },
 });
 
 const subscription = { value: true, submitting: true };
@@ -166,6 +174,8 @@ function DateRangeFilter({ name }) {
         component={DateRangePicker}
         staticRanges={staticRanges}
         inputRanges={inputRanges}
+        startDatePlaceholder={intl.formatMessage(messages.startDate)}
+        endDatePlaceholder={intl.formatMessage(messages.endDate)}
       />
       <OnChange name={name}>{onChange}</OnChange>
     </Panel>

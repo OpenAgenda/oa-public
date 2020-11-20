@@ -9,5 +9,7 @@
   "ReactFilters.messages.filterTitles.timings": "Horaires",
   "ReactFilters.messages.filterTitles.updatedAt": "Date de mise à jour",
   "ReactShared.DateRangeFilter.dateRange": "Du {startDate, time, ::yyyyMMdd} au {endDate, time, ::yyyyMMdd}",
-  "ReactShared.DateRangeFilter.singleDate": "{date, time, ::yyyyMMdd}"
+  "ReactShared.DateRangeFilter.endDate": "Fin",
+  "ReactShared.DateRangeFilter.singleDate": "{date, time, ::yyyyMMdd}",
+  "ReactShared.DateRangeFilter.startDate": "Début"
 }

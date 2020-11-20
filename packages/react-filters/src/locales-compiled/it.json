@@ -9,5 +9,7 @@
   "ReactFilters.messages.filterTitles.timings": null,
   "ReactFilters.messages.filterTitles.updatedAt": null,
   "ReactShared.DateRangeFilter.dateRange": null,
-  "ReactShared.DateRangeFilter.singleDate": null
+  "ReactShared.DateRangeFilter.endDate": null,
+  "ReactShared.DateRangeFilter.singleDate": null,
+  "ReactShared.DateRangeFilter.startDate": null
 }
