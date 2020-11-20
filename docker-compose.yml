@@ -112,6 +112,9 @@ services:
       TZ: Etc/UTC
       NODE_ENV: ${NODE_ENV}
       DEBUG: ${DEBUG}
+      DEBUG_COLORS: ${DEBUG_COLORS}
+      TERM: ${TERM}
+      COLORTERM: ${COLORTERM}
       OA_PORT: 8901
       OA_API_PORT: 8902
       OA_USE_X_FWD_PROTO: 1
