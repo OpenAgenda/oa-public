@@ -69,7 +69,12 @@ function Title({
       {title}
       <div className="oa-filter-value-preview">
         {valueOptions.map(option => (
-          <ValuePreview option={option} input={input} meta={meta} />
+          <ValuePreview
+            key={option.value}
+            option={option}
+            input={input}
+            meta={meta}
+          />
         ))}
       </div>
     </div>
