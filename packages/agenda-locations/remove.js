@@ -17,6 +17,8 @@ async function remove(service, current) {
   return current;
 }
 
+module.exports = remove;
+
 module.exports.byAgendaUid = async (
   service,
   agendaUid,

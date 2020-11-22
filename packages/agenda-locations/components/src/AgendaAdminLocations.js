@@ -131,7 +131,14 @@ class AgendaAdminLocations extends Component {
         return;
       }
 
-      this.actions.launchMerge(result.items);
+      const items = result.items;
+
+      if (items.length !== this.state.merge.locationUids.length) {
+        log('error', 'not all locations to be merged could be found');
+        return;
+      }
+
+      this.actions.launchMerge(items);
     });
   }
 
