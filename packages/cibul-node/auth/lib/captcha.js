@@ -2,13 +2,18 @@
 
 const _ = require('lodash');
 const axios = require('axios');
-const auth = require('./auth');
+const { render } = require( './utils' );
 const config = require('../../config');
 
-module.exports = {
-  load,
-  socialCheck
-};
+const renderSignup = render('auth/signup', {
+  optionals: {},
+  full_name: '',
+  email: '',
+  password: '',
+  repeat: '',
+  message: '',
+  errors: {}
+});
 
 function load(req, res, next) {
   if (config.reCaptcha.enabled) {
@@ -102,7 +107,7 @@ function socialCheck(service) {
     } catch (err) {
       load(req, res, _.noop);
 
-      return auth.renderSignup(req, res, {
+      return renderSignup(req, res, {
         errors: {
           [`${service}Uid`]: 'captchaTryAgain'
         }
@@ -112,3 +117,8 @@ function socialCheck(service) {
     next();
   }
 }
+
+module.exports = {
+  load,
+  socialCheck
+};
