@@ -21,8 +21,6 @@ class Mails {
     this.render = render.bind(null, this.config);
   }
 
-  static addressParser = addressParser;
-
   static recipientToArray(recipient) {
     return typeof recipient === 'object' && recipient !== null
       ? addressParser(recipient.address).map(v => ({ ...recipient, ...v }))
@@ -170,5 +168,7 @@ class Mails {
     config.queues.sendMails.run();
   }
 }
+
+Mails.addressParser = addressParser;
 
 module.exports = Mails;
