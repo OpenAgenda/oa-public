@@ -23,13 +23,13 @@ yarn add @openagenda/mails
 Before using it you must initialize the service, the configuration needs to know where to find the templates, how to send them, then optionally the default values for each send (for example: *domain*, *lang*) and the translations of your templates.
 
 ```js
-const mails = require( '@openagenda/mails' );
+const Mails = require('@openagenda/mails');
 
 /* Default configuration */
 
 const config = {
   // Templating
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( __dirname, 'templates' ),
+  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(__dirname, 'templates'),
 
   // Mailing
   transport: {
@@ -58,13 +58,11 @@ const config = {
   disableVerify: false
 };
 
-mails.init( config )
-  .then( () =>
-     console.log( 'Service mails initialized' )
-   )
-  .catch( error =>
-    console.log( 'Error on initializing service mails', error )
-  );
+const mails = new Mails(config);
+
+mails.init()
+  .then(() => console.log('Service mails initialized'))
+  .catch(error => console.log('Error on initializing service mails', error));
 ```
 
 More details on the options in the [API section](#API).
@@ -72,14 +70,14 @@ More details on the options in the [API section](#API).
 ### Example
 
 ```js
-const { results, errors } = await mails( {
+const { results, errors } = await mails({
   template: 'helloWorld',
   to: {
     address: 'user@example.com',
     data: { username: 'bertho' },
     lang: 'fr'
   }
-} );
+});
 ```
 
 ### Building templates
@@ -119,19 +117,17 @@ The structure of your templates folder can look like this:
 
 ### Configuration
 
-#### `init( options )`
-
-Returns a Promise.
+#### `constructor(options)`
 
 **Usage**
 ```js
-const mails = require( '@openagenda/mails' );
+const Mails = require('@openagenda/mails');
 
 /* Dafault values */
 
-await mails.init( {
+const mails = new Mails({
   // Templating
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( process.cwd(), 'templates' ),
+  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
 
   // Mailing
   transport: {
@@ -157,7 +153,9 @@ await mails.init( {
     port: 6379
   },
   queueName: 'mails'
-} );
+});
+
+await mails.init();
 ```
 
 **Arguments**
@@ -173,7 +171,7 @@ Value | Required | Description |
 |`templatesDir` | * | The folder path containing your templates.
 |`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
-|`translations` |  | An object containing `labels` and `makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter( labels, defaultLang )` is a function that returns a function that can be called in templates with `__`. <br /><br />By default the `__` signature is `( name, values, lang )` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
+|`translations` |  | An object containing `labels` and `makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter(labels, defaultLang)` is a function that returns a function that can be called in templates with `__`. <br /><br />By default the `__` signature is `(name, values, lang)` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
 |`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/Oagenda/queues))
 |`queueName` | * | A string that is the name of your Redis queue.
 |`disableVerify` |  | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.
@@ -181,9 +179,20 @@ Value | Required | Description |
 
 During initialization a `queue` and a `transporter` are added to the config, you can use them raw from anywhere with a require of `@openagenda/mails/config`.
 
+#### `init()`
+
+Returns a Promise.
+
+**Usage**
+```js
+const mails = new Mails(config);
+
+await mails.init();
+```
+
 ### Mailing
 
-#### `sendMail( options )`
+#### `sendMail(options)`
 
 This is the main method, the one exported by default.
 
@@ -201,9 +210,7 @@ This is a nodemailer `sendMail` overload with some notable differences:
 
 **Usage**
 ```js
-const mails = require( '@openagenda/mails' );
-
-await mails( {
+await mails({
   template: 'helloWorld',
   to: {
     address: 'user@example.com',
@@ -211,7 +218,7 @@ await mails( {
     lang: 'fr'
   },
   queue: false
-} );
+});
 ```
 
 **Arguments**
@@ -282,7 +289,7 @@ Make sure to run the task before sending any email, just after the initializatio
 **Usage**
 
 ```js
-task();
+mails.task();
 ```
 
 > **ProTip**: You can disable the queue for all email sends by setting `{ defaults: { queue: false } }` to initialization.
@@ -296,7 +303,7 @@ You can pass your own translation method or overload the existing one with the d
 
 The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options).
 
-#### `render( templateName [, data = {}, opts = {}] )`
+#### `render(templateName [, data = {}, opts = {}])`
 
 Returns a Promise that resolves an Object containing three strings:
 - `html`
@@ -320,12 +327,12 @@ Name | Type | Description |
 | disableSubject |  | A Boolean, if true then `subject` is not rendered and is equal null. |
 | **...** |  | **All other EJS options are normally handled by EJS, see the other options [here](https://github.com/mde/ejs#options).** |
 
-#### `compile( templateName [, opts = {}] )`
+#### `compile(templateName [, opts = {}])`
 
 Returns a Promise that resolves an Object containing three functions:
-- `html( data )`
-- `text( data )`
-- `subject( data )`.
+- `html(data)`
+- `text(data)`
+- `subject(data)`.
 
 **Arguments**
 
