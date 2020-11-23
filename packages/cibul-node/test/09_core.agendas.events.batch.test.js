@@ -1,7 +1,5 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
@@ -42,8 +40,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
         'networks',
         'legacy',
         'users',
-        'keys',
-        'trackers'
+        'keys'
       ]
     });
 

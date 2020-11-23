@@ -5,26 +5,29 @@ const _ = require('lodash');
 module.exports = (core, agendaOrUid) => {
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
+  const locations = core.services.agendaLocations(agendaUid);
+
   return {
-    create: data => core.services.agendaLocations(agendaUid).create(data, {
+    create: data => locations.create(data, {
       geocodeIfUndefined: true,
       includeImagePath: true
     }),
-    update: (uid, data) => core.services.agendaLocations(agendaUid).update(uid, data, {
+    update: (uid, data) => locations.update(uid, data, {
       geocodeIfUndefined: true,
       includeImagePath: true
     }),
-    patch: (uid, data) => core.services.agendaLocations(agendaUid).patch(uid, data, {
+    patch: (uid, data) => locations.patch(uid, data, {
       geocodeIfUndefined: true,
       includeImagePath: true
     }),
-    remove: uid => core.services.agendaLocations(agendaUid).remove(uid),
-    get: uid => core.services.agendaLocations(agendaUid).get(uid, {
+    remove: uid => locations.remove(uid),
+    get: uid => locations.get(uid, {
       includeImagePath: true
     }),
-    list: (query, nav) => core.services.agendaLocations(agendaUid).list(query, nav, {
+    list: (query, nav) => locations.list(query, nav, {
       total: true,
       includeImagePath: true
-    })
+    }),
+    merge: (mergeIn, query, data) => locations.merge(mergeIn, query, data)
   }
 }

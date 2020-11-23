@@ -48,11 +48,13 @@ raw.push(knex('location').insert([
   require('./sql/locations/5.json'),
   require('./sql/locations/6.json'),
   require('./sql/locations/7.json'),
-  require('./sql/locations/8.json')
+  require('./sql/locations/8.json'),
+  require('./sql/locations/9.json')
 ]));
 
 insertEventSet(knex, raw, 3);
 insertEventSet(knex, raw, 4);
+insertEventSet(knex, raw, 5);
 
 raw.push(knex('form_schema').insert([{
   id: 2,
