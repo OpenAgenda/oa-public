@@ -5912,7 +5912,7 @@ __metadata:
     reselect: ^3.0.1
     rimraf: ^3.0.1
     should: ^13.2.3
-    speakingurl: ^14.0.1
+    slugify: ^1.4.6
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^16.12.0
@@ -37272,6 +37272,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"slugify@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "slugify@npm:1.4.6"
+  checksum: f78c7adceb3c0256edd50b6dc8b9c914c38df54b11f8fdeac431626e39f3ce08b6cb80df229013928fa90258aeef1c0e4650140b29739bef1a92caf45741cb2d
+  languageName: node
+  linkType: hard
+
 "smart-buffer@npm:^1.0.13":
   version: 1.1.15
   resolution: "smart-buffer@npm:1.1.15"
@@ -37677,13 +37684,6 @@ __metadata:
     select-hose: ^2.0.0
     spdy-transport: ^3.0.0
   checksum: 388d39324d706a0a73d1d16fa93397029b3eb47ff2aaa3ad58c3d9c7682ce53eb847795560dc08190b7e3f8404e8bf4814ff3fd74cf0c849796310f1cd8a5f92
-  languageName: node
-  linkType: hard
-
-"speakingurl@npm:^14.0.1":
-  version: 14.0.1
-  resolution: "speakingurl@npm:14.0.1"
-  checksum: c7a2269689f8267c2ed7ad265fc4f85ba064b3c5f6f0c7228a64412006990981cd726b46371fcaa9d32dc89e451857810df1169c390c23d42046954f1c92f453
   languageName: node
   linkType: hard
 

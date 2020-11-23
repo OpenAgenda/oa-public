@@ -45,7 +45,7 @@
     "redux-form": "^8.1.0",
     "regenerator-runtime": "^0.13.5",
     "reselect": "^3.0.1",
-    "speakingurl": "^14.0.1"
+    "slugify": "^1.4.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
