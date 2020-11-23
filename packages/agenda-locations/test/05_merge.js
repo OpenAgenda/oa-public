@@ -45,7 +45,7 @@ describe('agenda-locations - functional - merge', function() {
     });
 
     before(async () => {
-      location = await svc(7196947).merge({ uids: [40305210, 52758960, 95301591] }, { name: 'fusionné'})
+      location = await svc(7196947).merge(95301591, { uids: [40305210, 52758960] }, { name: 'fusionné'})
     });
 
     it('result is merged location', () => {
@@ -65,7 +65,11 @@ describe('agenda-locations - functional - merge', function() {
     });
 
     before(async () => {
-      location = await svc.sets(1903810).locations.merge({ uids: [51665985, 7630649, 60763721] }, { name: 'fusionné'})
+      location = await svc.sets(1903810).locations.merge(51665985, {
+        uids: [7630649, 60763721]
+      }, {
+        name: 'fusionné'
+      });
     });
 
     it('result is merged location', () => {

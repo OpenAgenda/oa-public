@@ -87,7 +87,7 @@ services:
       dockerfile: docker/Dockerfile
     user: ${DOCKER_USER:-}
     working_dir: /root/oa
-    command: yarn start
+    command: yarn ${NODE_YARN_COMMAND:-start}
     restart: always
     volumes:
       - .:/root/oa
@@ -146,6 +146,9 @@ services:
       IFRAMELY_KEY: ${IFRAMELY_KEY}
       OA_SESSION_KEYS: ${OA_SESSION_KEYS}
       OA_SESSION_SECRET: ${OA_SESSION_SECRET}
+      DEBUG_COLORS: ${DEBUG_COLORS}
+      TERM: ${TERM}
+      COLORTERM: ${COLORTERM}
 
   mysql:
     container_name: mysql

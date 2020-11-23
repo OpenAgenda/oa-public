@@ -22,10 +22,10 @@ app.server = server;
   const service = Service({
     alias: testconfig.alias,
     elasticsearch: testconfig.elasticsearch,
-    listAgendas: listInterface.bind(null, 100, a => a),
+    listAgendas: listInterface('story', 100, a => a),
     imagePath: testconfig.imagePath,
     defaultImage: testconfig.defaultImage,
-    getAgendaSummary
+    getAgendaSummary: getAgendaSummary('story')
   });
 
   service.rebuild();

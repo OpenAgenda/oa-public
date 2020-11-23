@@ -179,7 +179,8 @@ module.exports = (config, services, instance, app, base) => {
       .concat(['agendaId', 'uid']);
 
     req.locations.merge(
-      req.query,
+      req.query.mergeIn,
+      { uids: req.query.merged },
       _.omit(req.body || {}, fieldsToOmit)
    ).then(location => res.json({
       location,

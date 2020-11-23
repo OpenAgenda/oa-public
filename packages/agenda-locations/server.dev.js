@@ -169,7 +169,8 @@ const fixtures = require('./test/fixtures');
       .concat(['agendaId', 'uid']);
 
     svc(7196947).merge(
-      req.query,
+      req.query.mergeIn,
+      req.query.merged,
       _.omit(req.data || {}, fieldsToOmit)
    ).then(location => res.json({
       location,

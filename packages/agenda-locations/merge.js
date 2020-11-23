@@ -4,49 +4,53 @@ const log = require('@openagenda/logs')('merge');
 
 const BadRequestError = require('./lib/BadRequestError');
 const list = require('./list');
+const get = require('./get');
 const update = require('./update');
+const remove = require('./remove');
 
-async function merge(service, items, data) {
+async function merge(service, mergeInItem, items, data = {}) {
   log('received %j', items);
 
-  if (items.length < 2) {
+  const toBeMerged = items.filter(i => i.uid !== mergeInItem.uid);
+
+  if (!toBeMerged.length) {
     throw new BadRequestError('Nothing to merge');
   }
 
-  const merged = items.slice(0, -1);
-  const mergeIn = items[items.length -1];
-
-  log('updating merged location');
-  const updatedMerged = await update({ service, isPatch: true }, mergeIn.uid, data);
-
   if (service.interfaces.beforeMerge) {
-    await service.interfaces.beforeMerge(mergeIn, merged);
+    await service.interfaces.beforeMerge(mergeInItem, toBeMerged);
   }
 
-  log('removing other locations');
-  await service.clients.knex(service.config.schema)
-    .whereIn('uid', merged.map(l => l.uid))
-    .del();
+  log('updating merged location');
+  const updatedMerged = await update({ service, isPatch: true }, mergeInItem.uid, data);
+
+  log('removing other locations'); // why not remove with remove fn?
+  for (const location of toBeMerged) {
+    await remove(service, location);
+  }
 
   log('merge complete');
 
   return updatedMerged;
 }
 
-module.exports = async (service, query, data, options) => merge(
+module.exports = async (service, mergeInUid, query, data, options) => merge(
   service,
+  await get(service, mergeInUid),
   await list(service, query, {}, { ...options, total: null, detailed: true }),
   data
 );
 
-module.exports.byAgendaUid = async (service, agendaUid, query, data, options = {}) => merge(
+module.exports.byAgendaUid = async (service, agendaUid, mergeInUid, query, data, options = {}) => merge(
   service,
+  await get.byAgendaUid(service, agendaUid, mergeInUid),
   await list.byAgendaUid(service, agendaUid, query, {}, { ...options, total: null, detailed: true }),
   data
 );
 
-module.exports.bySetUid = async (service, setUid, query, data, options = {}) => merge(
+module.exports.bySetUid = async (service, setUid, mergeInUid, query, data, options = {}) => merge(
   service,
+  await get.bySetUid(service, setUid, mergeInUid),
   await list.bySetUid(service, setUid, query, {}, { ...options, total: null, detailed: true }),
   data
 );

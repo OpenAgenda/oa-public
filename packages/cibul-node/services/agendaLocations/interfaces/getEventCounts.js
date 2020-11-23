@@ -1,13 +1,21 @@
 'use strict';
 
 const _ = require('lodash');
+const log = require('@openagenda/logs')('services/agendaLocations/getEventCounts');
 
 module.exports = ({ knex }) => async (locationUids, { agendaUid }) => {
-  const agendaEventCounts = await knex('event_2 as e')
+  log('getting for %s for agenda %s', locationUids.join(', '), agendaUid);
+  
+  const query = knex('event_2 as e')
     .select(['e.location_uid as locationUid', knex.raw('count(e.id) as eventCount')])
     .leftJoin('agenda_event as ae', 'e.uid', 'ae.event_uid')
-    .whereIn('e.location_uid', locationUids)
-    .andWhere('ae.agenda_uid', agendaUid)
+    .whereIn('e.location_uid', locationUids);
+
+  if (agendaUid) {
+    query.andWhere('ae.agenda_uid', agendaUid);
+  }
+
+  const agendaEventCounts = await query
     .groupBy('e.location_uid')
     .then(rows => rows.map(r => ({
       uid: r.locationUid,

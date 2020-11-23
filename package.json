@@ -10,6 +10,7 @@
   "scripts": {
     "prepack": "lerna link && lerna run --stream prepack",
     "start": "yarn workspace cibul-node start",
+    "watch": "yarn workspace cibul-node watch",
     "dev": "concurrently -n \"node,ria\" \"yarn workspace cibul-node watch\" \"yarn workspace @openagenda/react-integration-app dev\"",
     "mails-editor": "yarn workspace cibul-node mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",

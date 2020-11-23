@@ -20,7 +20,8 @@ module.exports = createReactClass( {
     let formState = this.props.actions.getState().form;
 
     return this.props.res.merge + '?' + qs.stringify( {
-      uids: formState.alternatives.map( s => s.location.uid ).concat( formState.location.uid )
+      mergeIn: formState.location.uid,
+      merged: formState.alternatives.map( s => s.location.uid )
     } );
 
   },

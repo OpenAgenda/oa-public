@@ -121,6 +121,7 @@
     "mysql": "^2.18.1",
     "node-redis-warlock": "^0.2.0",
     "node-sass": "^4.5.3",
+    "nodemon": "^2.0.4",
     "oauth": "^0.9.15",
     "p-throttle": "^3.1.0",
     "passport": "^0.4.0",
