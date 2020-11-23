@@ -1,8 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
 const differenceInMinutes = require('date-fns/differenceInMinutes');
-const config = require('../../config');
 
 async function getRegistrationSlackMessageId(usersSvc, uid) {
   const rawUser = await usersSvc._get(uid, { query: { $select: ['store'] } });
@@ -12,10 +10,10 @@ async function getRegistrationSlackMessageId(usersSvc, uid) {
   return store.registrationSlackMessageId;
 }
 
-async function updateUserRegistrationMessage(slackApp, messageId, agenda) {
+async function updateUserRegistrationMessage(slackApp, config, messageId, agenda) {
   const result = await slackApp.client.conversations.history({
-    token: config.slackApp.token,
-    channel: config.slackApp.channel,
+    token: config.token,
+    channel: config.channel,
     latest: messageId,
     inclusive: true,
     limit: 1
@@ -62,9 +60,9 @@ async function updateUserRegistrationMessage(slackApp, messageId, agenda) {
   });
 }
 
-function makeMessage({ user, agenda }) {
-  const agendaLink = `<${config.root}/admin/agendas?agendaUid=${agenda.uid}|${agenda.title}>`;
-  const userLink = `<${config.root}/admin/users?userUid=${user.uid}|${user.fullName}> (${user.email})`;
+function makeMessage({ root, user, agenda }) {
+  const agendaLink = `<${root}/admin/agendas?agendaUid=${agenda.uid}|${agenda.title}>`;
+  const userLink = `<${root}/admin/users?userUid=${user.uid}|${user.fullName}> (${user.email})`;
 
   return {
     text: `Nouvel agenda: ${agenda.title}`,
@@ -80,15 +78,16 @@ function makeMessage({ user, agenda }) {
   };
 }
 
-function postMessage(slackApp, services) {
+function postMessage(slackApp, services, config) {
   return async ({
     user,
     agenda
   }) => {
     const res = await slackApp.client.chat.postMessage({
-      token: config.slackApp.token,
-      channel: config.slackApp.channel,
+      token: config.token,
+      channel: config.channel,
       ...makeMessage({
+        root: config.root,
         user,
         agenda
       })
@@ -105,7 +104,7 @@ function postMessage(slackApp, services) {
         return;
       }
 
-      await updateUserRegistrationMessage(slackApp, userRegistrationMessageId, agenda);
+      await updateUserRegistrationMessage(slackApp, config, userRegistrationMessageId, agenda);
     }
   };
 }
