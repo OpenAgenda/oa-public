@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.0](https://bitbucket.org/openagenda/oa/branches/compare/cibul-node@0.13.0..cibul-node@0.12.0) (2020-11-23)
+
+
+### Features
+
+* **cibul-node:** slackApp is optional ([5d95b32](https://bitbucket.org/openagenda/oa/commits/5d95b324b6cf15dec0a63fa2a9ccde513d342ef4))
+
+
+### Bug Fixes
+
+* **cibul-node:** circular dependency ([a83b4e4](https://bitbucket.org/openagenda/oa/commits/a83b4e48290988af43a809f50e0a1fe856f96fb1))
+
+
+
 ## [0.12.0](https://bitbucket.org/openagenda/oa/branches/compare/cibul-node@0.12.0..cibul-node@0.11.2) (2020-11-23)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-shared@2.1.1..@openagenda/react-shared@2.1.0) (2020-11-23)
+
+
+### Bug Fixes
+
+* **mails:** disableVerify to false for the dev server ([fed88e4](https://bitbucket.org/openagenda/oa/commits/fed88e4b048665027db7ef99aaacaadd18004cf2))
+
+
+
 ## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-shared@2.1.0..@openagenda/react-shared@2.0.7) (2020-11-23)
 
 

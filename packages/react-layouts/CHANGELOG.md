@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.2.1..@openagenda/react-layouts@2.2.0) (2020-11-23)
+
+**Note:** Version bump only for package @openagenda/react-layouts
+
+
+
+
+
 ## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.2.0..@openagenda/react-layouts@2.1.1) (2020-11-23)
 
 

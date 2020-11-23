@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/home",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Oh la home",
   "main": "dist/app.js",
   "repository": {
@@ -30,7 +30,7 @@
     "@openagenda/labels": "^2.3.0",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.1.0",
+    "@openagenda/react-shared": "^2.1.1",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "lodash": "^4.17.15",

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-filters@1.1.1..@openagenda/react-filters@1.1.0) (2020-11-23)
+
+**Note:** Version bump only for package @openagenda/react-filters
+
+
+
+
+
 ## 1.1.0 (2020-11-23)
 
 

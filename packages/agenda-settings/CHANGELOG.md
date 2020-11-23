@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-settings@1.4.0..@openagenda/agenda-settings@1.3.0) (2020-11-23)
+
+
+### Features
+
+* **agenda-settings:** speakingurl to slugify ([b9b5c9a](https://bitbucket.org/openagenda/oa/commits/b9b5c9a8c8e58ff9fb304f5e86765b1c2dd97913))
+
+
+
 ## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-settings@1.3.0..@openagenda/agenda-settings@1.2.14) (2020-11-23)
 
 

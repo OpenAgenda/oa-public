@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.4.0..@openagenda/agenda-search@1.3.0) (2020-11-23)
+
+
+### Features
+
+* **agenda-search:** more detailed storybook fixtures ([d967192](https://bitbucket.org/openagenda/oa/commits/d96719257a151f5656f49662d2191e4f1f8eaf56))
+
+
+
 ## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.3.0..@openagenda/agenda-search@1.2.5) (2020-11-23)
 
 
