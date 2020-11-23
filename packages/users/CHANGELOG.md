@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.1.0..@openagenda/users@3.0.15) (2020-11-23)
+
+
+### Features
+
+* update files to v3 ([706d94f](https://bitbucket.org/openagenda/oa/commits/706d94fb26d6abef0080b910393257dd8ccae2a8))
+* **users:** add is_blacklisted column ([65bc906](https://bitbucket.org/openagenda/oa/commits/65bc9065f2ff0f733269a9d063fa6cb90db452f3))
+* **users:** resize and crop image ([9e673e0](https://bitbucket.org/openagenda/oa/commits/9e673e01c6f987e1e69424c298f7c218591f8c86))
+* **users:** test isBlacklisted ([705ec85](https://bitbucket.org/openagenda/oa/commits/705ec85719818a018c1a43dce04fb765da939632))
+* **users:** use files instead of image-files ([a37e586](https://bitbucket.org/openagenda/oa/commits/a37e586e6a3b06f9150192c6a1397759c6b028c3))
+
+
+### Bug Fixes
+
+* **users:** isBlacklisted is a boolean ([9513c1d](https://bitbucket.org/openagenda/oa/commits/9513c1d94f9c36a1b11b894fc2de4c39acb52810))
+
+
+
 ### [3.0.15](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/users@3.0.15..@openagenda/users@3.0.14) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/users

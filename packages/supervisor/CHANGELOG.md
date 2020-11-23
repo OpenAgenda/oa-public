@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.3.0..@openagenda/supervisor@1.2.6) (2020-11-23)
+
+
+### Features
+
+* upgrade react-intl ([b80a487](https://bitbucket.org/openagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+* **supervisor:** add Elasticsearch ([ea1d6b3](https://bitbucket.org/openagenda/oa/commits/ea1d6b35222834d3021586c0f6d83e98aa154b13))
+
+
+### Bug Fixes
+
+* **supervisor:** add storybook addons in a second package in order to fix a ugly bug ([ddb290f](https://bitbucket.org/openagenda/oa/commits/ddb290f6e7a9cb58e72d0ace51cfe443f3d63c9d))
+* **supervisor:** remove console.log ([5cb954b](https://bitbucket.org/openagenda/oa/commits/5cb954b8f0106f3d8752c13f916cb3d46ce58304))
+
+
+
 ### [1.2.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/supervisor@1.2.6..@openagenda/supervisor@1.2.5) (2020-07-16)
 
 

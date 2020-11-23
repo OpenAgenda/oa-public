@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.4.0..@openagenda/babel-preset@1.3.8) (2020-11-23)
+
+
+### Features
+
+* **babel-preset:** update babel-plugin-react-intl ([678363c](https://bitbucket.org/openagenda/oa/commits/678363ccb8ee9e513eb5a7d44d55fb2ef3a30bf7))
+
+
+
 ### [1.3.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/babel-preset@1.3.8..@openagenda/babel-preset@1.3.7) (2020-07-16)
 
 

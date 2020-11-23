@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.1.0..@openagenda/sessions@4.0.9) (2020-11-23)
+
+
+### Features
+
+* **sessions:** added isBlacklisted to sessions data ([9737659](https://bitbucket.org/openagenda/oa/commits/97376594c81870e5a7937acb2f37a2a834a0569c))
+* **sessions:** allow session close with sessions.close.byUid ([2a6b8cf](https://bitbucket.org/openagenda/oa/commits/2a6b8cf1f28095ae288308234134580435241008))
+
+
+
 ### [4.0.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/sessions@4.0.9..@openagenda/sessions@4.0.8) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/sessions

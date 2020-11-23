@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.9.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/form-schemas@1.9.0..@openagenda/form-schemas@1.8.5) (2020-11-23)
+
+
+### Features
+
+* **form-schemas:** builder displays warning when required before page reload ([4e10b4c](https://bitbucket.org/openagenda/oa/commits/4e10b4c5d0fb829582d4605bf5d4956f7d7e6c4f))
+* **form-schemas:** conditional field on related field value ([624129c](https://bitbucket.org/openagenda/oa/commits/624129ce49729db0931a3331d21723c746a02e16))
+* **form-schemas:** display specific error for files too large ([0babe04](https://bitbucket.org/openagenda/oa/commits/0babe04016ec6d0ccb4654243bd0d727112266d6))
+* **form-schemas:** upgrade react-dropzone ([7446ad5](https://bitbucket.org/openagenda/oa/commits/7446ad51866a894b8da669ae9b64a9af54ff7360))
+
+
+### Bug Fixes
+
+* **form-schemas:** reorder deps ([31d78a3](https://bitbucket.org/openagenda/oa/commits/31d78a33be9df7067e5913dc778dee1c47cf55dc))
+
+
+
 ### [1.8.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/form-schemas@1.8.5..@openagenda/form-schemas@1.8.4) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/form-schemas

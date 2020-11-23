@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/Oagenda/oa/branches/compare/@openagenda/react-timingspicker@1.2.0..@openagenda/react-timingspicker@1.1.1) (2020-11-23)
+
+
+### Features
+
+* upgrade react-intl ([b80a487](https://github.com/Oagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+* **react-timingspicker:** fix timing formatting ([12ee1fa](https://github.com/Oagenda/oa/commits/12ee1fa26ed032852bdaf8e43efd84b77f75cfd1))
+
+
+### Bug Fixes
+
+* **react-timingspicker:** fix date creation ([e7ba977](https://github.com/Oagenda/oa/commits/e7ba9777d39ef29d2d8d85f7502532fa3bca6425))
+
+
+
 ### [1.1.1](https://github.com/Oagenda/oa/branches/compare/@openagenda/react-timingspicker@1.1.1..@openagenda/react-timingspicker@1.1.0) (2020-07-16)
 
 

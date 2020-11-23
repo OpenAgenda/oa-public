@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/network-apps@1.1.12..@openagenda/network-apps@1.1.11) (2020-11-23)
+
+**Note:** Version bump only for package @openagenda/network-apps
+
+
+
+
+
 ### [1.1.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/network-apps@1.1.11..@openagenda/network-apps@1.1.10) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/network-apps

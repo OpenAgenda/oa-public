@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.11.0..@openagenda/legacy@1.10.7) (2020-11-23)
+
+
+### Features
+
+* **legacy:** do not throw error on control data patch when data is not initialized ([781ee09](https://bitbucket.org/openagenda/oa/commits/781ee097c40dbff81026abd2ad878446e91b8d83))
+* **legacy:** utility to transform event coming from cibulModel for event page display ([2deb4f9](https://bitbucket.org/openagenda/oa/commits/2deb4f9bccd03aa26c24e15355750aa81076d660))
+* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+
+
+### Bug Fixes
+
+* **legacy:** if location desc is saved as array, it is cleaned before indexing ([045ffbb](https://bitbucket.org/openagenda/oa/commits/045ffbb5cf5378352ea4411171e6030a402c7d1b))
+* **legacy:** transform function to convert tagSet data to formSchema format ([d282da9](https://bitbucket.org/openagenda/oa/commits/d282da90306849ea5e86248dc7396412b0b5b9bd))
+
+
+
 ### [1.10.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/legacy@1.10.7..@openagenda/legacy@1.10.6) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/legacy

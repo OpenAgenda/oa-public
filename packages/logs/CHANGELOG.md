@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/logs@1.1.8..@openagenda/logs@1.1.7) (2020-11-23)
+
+
+### Bug Fixes
+
+* **logs:** conserve metadata after setModuleConfig ([394ca6c](https://bitbucket.org/openagenda/oa/commits/394ca6c0e7f0dd9d7f732400c13d74882922c9c3))
+
+
+
 ### [1.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/logs@1.1.7..@openagenda/logs@1.1.6) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/logs

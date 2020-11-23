@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.1.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.14..@openagenda/inboxes@1.1.13) (2020-11-23)
+
+
+### Bug Fixes
+
+* **inboxes:** does not use Promise.map ([4357ac1](https://bitbucket.org/openagenda/oa/commits/4357ac11d51fdc75a9ae97757118fbc3c52d87b1))
+
+
+
 ### [1.1.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/inboxes@1.1.13..@openagenda/inboxes@1.1.12) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/inboxes

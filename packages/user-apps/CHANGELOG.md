@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.2.0..@openagenda/user-apps@1.1.17) (2020-11-23)
+
+
+### Features
+
+* **user-apps:** add image size ([31f34b7](https://bitbucket.org/openagenda/oa/commits/31f34b7817ac4076b7afd3cae8779d08a8f45bb2))
+* replace extensions with mime types ([e768ba8](https://bitbucket.org/openagenda/oa/commits/e768ba8f32baa862ecbf5e3cc88a8f253a546b15))
+* **user-apps:** use files v3 for profile image ([f303c54](https://bitbucket.org/openagenda/oa/commits/f303c544908cc88d7a2e7d1d7d24c73fe2a6327b))
+
+
+
 ### [1.1.17](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/user-apps@1.1.17..@openagenda/user-apps@1.1.16) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/user-apps

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.8.5",
+  "version": "1.9.0",
   "description": "Handle event data structure configuration storage",
   "main": "server/index.js",
   "repository": {
@@ -16,11 +16,11 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
-    "@openagenda/labels": "^2.2.7",
-    "@openagenda/logs": "^1.1.7",
-    "@openagenda/react-components": "^2.3.9",
-    "@openagenda/react-shared": "^2.0.7",
-    "@openagenda/validators": "^2.2.14",
+    "@openagenda/labels": "^2.3.0",
+    "@openagenda/logs": "^1.1.8",
+    "@openagenda/react-components": "^2.3.10",
+    "@openagenda/react-shared": "^2.1.0",
+    "@openagenda/validators": "^2.3.0",
     "aws-sdk": "^2.544.0",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",
@@ -51,8 +51,8 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "@openagenda/babel-preset": "^1.3.8",
-    "@openagenda/bs-templates": "^2.4.6",
+    "@openagenda/babel-preset": "^1.4.0",
+    "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/fixtures": "^2.0.2",
     "babel-loader": "^8.2.1",
     "express": "^4.17.1",

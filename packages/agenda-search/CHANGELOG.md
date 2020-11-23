@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.3.0..@openagenda/agenda-search@1.2.5) (2020-11-23)
+
+
+### Features
+
+* **agenda-search:** add contributionType filter, recentlyContributed sort, add an event link ([cb624f5](https://bitbucket.org/openagenda/oa/commits/cb624f5a189373ea3dbf3991d3a95c462706c3bf))
+* **agenda-search:** added network title to search head ([8dd14e0](https://bitbucket.org/openagenda/oa/commits/8dd14e0a2a699737d510d019c48e38893561ef23))
+* **agenda-search:** boost recent agendas in search results ([2d34e44](https://bitbucket.org/openagenda/oa/commits/2d34e44840380da23389877204e8f38c479ccbd7))
+* **agenda-search:** endpoints for setting and removing agendas ([9018a0b](https://bitbucket.org/openagenda/oa/commits/9018a0b46917995c938fcd77b2dd539318e502d6))
+* **agenda-search:** get agendas by their uids ([168bd66](https://bitbucket.org/openagenda/oa/commits/168bd66014e6432e2e2bee25228b1de7ff307ce8))
+* **agenda-search:** network filter ([54fb15b](https://bitbucket.org/openagenda/oa/commits/54fb15b2aa41a7d88e237fd30b8ae2eb9fd8614a))
+* **agenda-search:** new filter and scoring of recentlyContributed to limit presence of irrelevent agendas in welcome screen ([fa68493](https://bitbucket.org/openagenda/oa/commits/fa68493d1ce538db544733fc268c107d2d8bb802))
+* **agenda-search:** sort by recently active ([5eb4d78](https://bitbucket.org/openagenda/oa/commits/5eb4d7848bc9706f3aa8a1c6289d6f3b9b6798d0))
+
+
+### Bug Fixes
+
+* **agenda-search:** add image path only when required ([8336556](https://bitbucket.org/openagenda/oa/commits/83365560aa9e6f15540bed14710d45241886130b))
+* **agenda-search:** mock app resets index behind agendas alias ([c10614e](https://bitbucket.org/openagenda/oa/commits/c10614e7c39ff4e323eae66b53bbe6b185b1a77f))
+* **cibul-node:** network info must be part of listed agendas ([160136c](https://bitbucket.org/openagenda/oa/commits/160136c921255829324b9b1831230dd458665511))
+* **cibul-node:** tests remove image file, warning regarding React.createFactory removed ([2ed9f23](https://bitbucket.org/openagenda/oa/commits/2ed9f23b609dc60dd7be6329703abf909ab88e65))
+
+
+
 ### [1.2.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-search@1.2.5..@openagenda/agenda-search@1.2.4) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/agenda-search

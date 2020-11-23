@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.5.0..@openagenda/event-form@1.4.10) (2020-11-23)
+
+
+### Features
+
+* **cibul-node:** explicit message for files too large for nginx in event form ([e845a6f](https://bitbucket.org/openagenda/oa/commits/e845a6f2872a5e08ba87f19c8f2b6e493328672f))
+* **cibul-node:** integration of agenda-locations service refactor ([7a48504](https://bitbucket.org/openagenda/oa/commits/7a4850472fa20ef13c51040ee0c383824ecb24d7))
+* **cibul-node:** integration of new agendaLocations list ([7308a2e](https://bitbucket.org/openagenda/oa/commits/7308a2ef7f841e4d164e54db0cf7f4fd5895a769))
+
+
+### Bug Fixes
+
+* **event-form:** credits must not exceed 255 characters ([45b5a07](https://bitbucket.org/openagenda/oa/commits/45b5a071d528e4da265d037856d0e3f9d92cb6ee))
+* **event-form:** draft (optional) mode should validate incomplete location ([1ac3984](https://bitbucket.org/openagenda/oa/commits/1ac3984be535f54a214083dea988ee677b13a006))
+
+
+
 ### [1.4.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-form@1.4.10..@openagenda/event-form@1.4.9) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/event-form

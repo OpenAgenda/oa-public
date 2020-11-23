@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.5.0..@openagenda/agenda-contribute@1.4.5) (2020-11-23)
+
+
+### Features
+
+* **agenda-contribute:** prevent accidental page unload with browser warning ([7e30606](https://bitbucket.org/openagenda/oa/commits/7e30606a5d7ae23b26005fb1b21adc2ae663a15f))
+* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+* **cibul-node:** explicit message for files too large for nginx in event form ([e845a6f](https://bitbucket.org/openagenda/oa/commits/e845a6f2872a5e08ba87f19c8f2b6e493328672f))
+
+
+
 ### [1.4.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-contribute@1.4.5..@openagenda/agenda-contribute@1.4.4) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/agenda-contribute

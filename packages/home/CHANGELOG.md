@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/home@2.2.0..@openagenda/home@2.1.16) (2020-11-23)
+
+
+### Features
+
+* **agenda-search:** new filter and scoring of recentlyContributed to limit presence of irrelevent agendas in welcome screen ([fa68493](https://bitbucket.org/openagenda/oa/commits/fa68493d1ce538db544733fc268c107d2d8bb802))
+* **home:** add suggestions on welcome page ([3d725e5](https://bitbucket.org/openagenda/oa/commits/3d725e527018a3f041e563ff07466ce5badd5759))
+* **home:** tweak Welcome ([70a6513](https://bitbucket.org/openagenda/oa/commits/70a6513275b6257973c8c464e504a1d8ee1df967))
+
+
+### Bug Fixes
+
+* **home:** agenda image is static link ([bdf5ded](https://bitbucket.org/openagenda/oa/commits/bdf5ded45cfb24621b1b2ab9a16c10f57ef939e6))
+* **home:** agendas of contribution type 1 are enough for list ([73c7842](https://bitbucket.org/openagenda/oa/commits/73c7842170c83c41336220d19cfd8a478bb4af73))
+
+
+
 ### [2.1.16](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/home@2.1.16..@openagenda/home@2.1.15) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/home

@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/utils@1.3.0..@openagenda/utils@1.2.9) (2020-11-23)
+
+
+### Features
+
+* **utils:** add toMixedMultipart ([21137e3](https://bitbucket.org/openagenda/oa/commits/21137e338d4d4423371e0378f3ad40a205dfe77f))
+* **utils:** added express util middleware compareModifiedSince ([ada5f0e](https://bitbucket.org/openagenda/oa/commits/ada5f0efb96879c1831a8bcf20723d080f06f961))
+
+
+### Bug Fixes
+
+* **utils:** registration addType does not throw exception when reading null value ([92e003d](https://bitbucket.org/openagenda/oa/commits/92e003db05fced9feb54833498f2dd6925bd6d17))
+
+
+
 ### [1.2.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/utils@1.2.9..@openagenda/utils@1.2.8) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/utils

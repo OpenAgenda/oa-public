@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/date-range",
-  "version": "2.2.12",
+  "version": "2.3.0",
   "description": "summarize a list of timings in a single label",
   "main": "index",
   "keywords": [],
@@ -10,8 +10,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@openagenda/labels": "^2.2.7",
-    "@openagenda/utils": "^1.2.9",
+    "@openagenda/labels": "^2.3.0",
+    "@openagenda/utils": "^1.3.0",
     "moment-timezone": "^0.5.31"
   },
   "devDependencies": {

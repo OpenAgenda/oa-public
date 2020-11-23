@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/custom@1.3.14..@openagenda/custom@1.3.13) (2020-11-23)
+
+
+### Bug Fixes
+
+* **events:** fix tests with mysql 8 ([494e0bd](https://bitbucket.org/openagenda/oa/commits/494e0bd7daa04257ee32e61cc927cf1a510a1e2a))
+
+
+
 ### [1.3.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/custom@1.3.13..@openagenda/custom@1.3.12) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/custom

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.6.0..@openagenda/agendas@1.5.2) (2020-11-23)
+
+
+### Features
+
+* **agendas:** locationSetUid field added ([d7418e0](https://bitbucket.org/openagenda/oa/commits/d7418e0dffcafae1b65cd50270dce7605d581605))
+* **agendas:** remove evaluateIPAddress mw ([1c771e8](https://bitbucket.org/openagenda/oa/commits/1c771e84aeb6589c047b8dee38ae2c64beb2f6e2))
+* add image input on agenda creation ([3ad88cb](https://bitbucket.org/openagenda/oa/commits/3ad88cbace5cdf36fa5f91019e891af877008fb2))
+* update files to v3 ([706d94f](https://bitbucket.org/openagenda/oa/commits/706d94fb26d6abef0080b910393257dd8ccae2a8))
+* **agendas:** upload and remove profile image along with the other fields ([4f48ac7](https://bitbucket.org/openagenda/oa/commits/4f48ac7ead05a5f78c8c87e12f569817a7754e97))
+
+
+### Bug Fixes
+
+* **agendas:** conserve profile image ([b22728a](https://bitbucket.org/openagenda/oa/commits/b22728aeab6e33e321a295f3feba742e41ce7bbf))
+* **agendas:** if image is not specified during update on agenda without image, image remove is attempted anyways ([807dcd0](https://bitbucket.org/openagenda/oa/commits/807dcd0ec76ed1dec2db39656a4f2ad24ed12eab))
+* **agendas:** tests fail when fixtures require a user_id on review_article table ([32df63b](https://bitbucket.org/openagenda/oa/commits/32df63b9ac9ffffb4f57bcb03f42eeeed1df09db))
+
+
+
 ### [1.5.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agendas@1.5.2..@openagenda/agendas@1.5.1) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/agendas

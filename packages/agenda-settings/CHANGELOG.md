@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-settings@1.3.0..@openagenda/agenda-settings@1.2.14) (2020-11-23)
+
+
+### Features
+
+* **agenda-settings:** add a spinner ([9e5b4ab](https://bitbucket.org/openagenda/oa/commits/9e5b4ab32d333c3f2369278dcc210ebbd04403c4))
+* **agenda-settings:** add getting-started ([3889244](https://bitbucket.org/openagenda/oa/commits/38892442e10d5ffc581c6b6b63c8c2c3c9a10fad))
+* add image input on agenda creation ([3ad88cb](https://bitbucket.org/openagenda/oa/commits/3ad88cbace5cdf36fa5f91019e891af877008fb2))
+* replace extensions with mime types ([e768ba8](https://bitbucket.org/openagenda/oa/commits/e768ba8f32baa862ecbf5e3cc88a8f253a546b15))
+* **agenda-settings:** remove image-upload ([ff9ad9e](https://bitbucket.org/openagenda/oa/commits/ff9ad9ec474d37e7712cbaae2ac181c4c050eb74))
+* **agenda-settings:** rounded image ([64997b0](https://bitbucket.org/openagenda/oa/commits/64997b00b7c27d73e5ef871de01cc285f7ddf964))
+* **agenda-settings:** update ImageInput ([b3101f5](https://bitbucket.org/openagenda/oa/commits/b3101f523502d064a0fe4ea1faeb5b2bbee2ccfa))
+* **agenda-settings:** upload and remove profile image along with the other fields ([28f1eb8](https://bitbucket.org/openagenda/oa/commits/28f1eb8353ecf3873c3f557adefd388654e64166))
+* remove agendaAdmin titles ([3f964e7](https://bitbucket.org/openagenda/oa/commits/3f964e72137b378b66e8d104b756522264df61e6))
+
+
+### Bug Fixes
+
+* **agenda-settings:** fix deps ([cc01e26](https://bitbucket.org/openagenda/oa/commits/cc01e2687523baae023eefbc5f6e82dafd7a6769))
+* **agenda-settings:** fix redirection ([aeede3f](https://bitbucket.org/openagenda/oa/commits/aeede3f36d91667b23854c5825459cc436b7e4fe))
+
+
+
 ### [1.2.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-settings@1.2.14..@openagenda/agenda-settings@1.2.13) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/agenda-settings

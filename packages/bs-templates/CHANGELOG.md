@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.5.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/bs-templates@2.5.0..@openagenda/bs-templates@2.4.6) (2020-11-23)
+
+
+### Features
+
+* **agenda-search:** added network title to search head ([8dd14e0](https://bitbucket.org/openagenda/oa/commits/8dd14e0a2a699737d510d019c48e38893561ef23))
+* **agenda-search:** network filter ([54fb15b](https://bitbucket.org/openagenda/oa/commits/54fb15b2aa41a7d88e237fd30b8ae2eb9fd8614a))
+* **bs-templates:** add class flex-auto ([ff82063](https://bitbucket.org/openagenda/oa/commits/ff82063b50e2c309130a437490ff4ed9c4e3b7dd))
+* **bs-templates:** display location set on admin locations page ([45afedf](https://bitbucket.org/openagenda/oa/commits/45afedfd6e7f81224a53c927455721321c3bb896))
+* **bs-templates:** update react-date-range style ([1716da8](https://bitbucket.org/openagenda/oa/commits/1716da8d4898a27c9e2e501e059bf3aa23b98219))
+* **bs-templates:** update style ([26282e9](https://bitbucket.org/openagenda/oa/commits/26282e99e55237b1322c502be294c04ec3b749f1))
+* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+* **cibul-node:** account creation manual check message ([1e8e5f6](https://bitbucket.org/openagenda/oa/commits/1e8e5f631981c8ad2ab49270610225483e85479d))
+* **cibul-node:** integration of agenda-locations service refactor ([7a48504](https://bitbucket.org/openagenda/oa/commits/7a4850472fa20ef13c51040ee0c383824ecb24d7))
+* tweak badges in admin menu ([99fd5c5](https://bitbucket.org/openagenda/oa/commits/99fd5c5e93396832ecbcbe4435220e3f323cffed))
+
+
+### Bug Fixes
+
+* **bs-templates:** no more official logo alone on its line ([f674cae](https://bitbucket.org/openagenda/oa/commits/f674cae1062f6655f63439a9089c69191905900c))
+
+
+
 ### [2.4.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/bs-templates@2.4.6..@openagenda/bs-templates@2.4.5) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/bs-templates
