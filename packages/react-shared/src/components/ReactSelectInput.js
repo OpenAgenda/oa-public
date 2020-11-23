@@ -14,34 +14,34 @@ const defaultStyles = {
         WebkitBoxShadow:
             'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)',
         boxShadow:
-            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)'
+            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)',
       }
       : {}),
 
     '&:hover': {
-      borderColor: isFocused ? '#66afe9' : '#cccccc'
-    }
+      borderColor: isFocused ? '#66afe9' : '#cccccc',
+    },
   }),
   valueContainer: provided => ({
     ...provided,
-    padding: '2px 4px'
+    padding: '2px 4px',
   }),
   dropdownIndicator: provided => ({
     ...provided,
     padding: '5px',
-    cursor: 'pointer'
+    cursor: 'pointer',
   }),
   clearIndicator: provided => ({
     ...provided,
     padding: '5px',
-    cursor: 'pointer'
+    cursor: 'pointer',
   }),
   multiValue: provided => ({
     ...provided,
     margin: '1px',
     padding: '0px',
     borderRadius: '2px',
-    overflow: 'hidden'
+    overflow: 'hidden',
   }),
   multiValueLabel: provided => ({
     ...provided,
@@ -51,7 +51,7 @@ const defaultStyles = {
     paddingRight: '0',
     backgroundColor: '#41acdd',
     color: '#ffffff',
-    borderRadius: '0'
+    borderRadius: '0',
   }),
   multiValueRemove: provided => ({
     ...provided,
@@ -62,19 +62,19 @@ const defaultStyles = {
 
     '&:hover': {
       backgroundColor: '#41acdd',
-      color: '#ffffff'
-    }
+      color: '#ffffff',
+    },
   }),
   menu: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
     ? {
-      display: 'none'
+      display: 'none',
     }
     : base),
   indicatorsContainer: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
     ? {
-      display: 'none'
+      display: 'none',
     }
-    : base)
+    : base),
 };
 
 export default ({
@@ -89,7 +89,7 @@ export default ({
   const styles = useMemo(
     () => ({
       ...defaultStyles,
-      ...stylesProp
+      ...stylesProp,
     }),
     [stylesProp]
   );
@@ -100,6 +100,7 @@ export default ({
         ref={innerRef}
         {...input}
         isCreatable={isCreatable}
+        isClearable={!isCreatable}
         styles={styles}
         {...rest}
       />

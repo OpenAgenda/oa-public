@@ -65,10 +65,10 @@ export default ({
     return Array.isArray(value) ? value.map(getValue) : getValue(value);
   }, []);
   const handleBlur = useCallback(
-    (...args) => {
+    (e, ...args) => {
       if (isCreatable) {
         const {
-          state: { inputValue, value }
+          state: { inputValue, value },
         } = selectRef.current;
 
         const alreadyInValue = inputValue.length && value
@@ -78,13 +78,13 @@ export default ({
         if (!alreadyInValue) {
           selectRef.current.onChange([
             ...value,
-            { label: inputValue, value: inputValue }
+            { label: inputValue, value: inputValue },
           ]);
         }
       }
 
       if (typeof onBlur === 'function') {
-        return onBlur(...args);
+        return onBlur(e, ...args);
       }
     },
     [onBlur, isCreatable]
@@ -96,7 +96,7 @@ export default ({
 
   const initialOption = useMemo(() => initialValue ?? format(initialValue), [
     format,
-    initialValue
+    initialValue,
   ]);
 
   return (

@@ -6083,7 +6083,7 @@ __metadata:
     react-router: ^5.1.2
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
-    react-select: ^3.0.8
+    react-select: ^3.1.1
     react-use: ^13.22.3
     react-waypoint: ^9.0.2
     redial: ^0.5.0
@@ -7018,7 +7018,7 @@ __metadata:
     mjml: ^4.6.2
     morgan: ^1.9.1
     nodemailer: ^6.3.0
-    nodemon: ^2.0.4
+    nodemon: ^2.0.6
     prettier-eslint-cli: ^5.0.0
     redis: ^2.8.0
     reload: ^3.0.4
@@ -34366,6 +34366,25 @@ __metadata:
     react: ^16.8.0
     react-dom: ^16.8.0
   checksum: 95881de591b4b11f434ac0310d9e1f84e0794e6e485d8e131003e298ded230852799962a267e5513b3bdf598e6a9869a38cfcc946bfb5fe649eb5cf41b0c0731
+  languageName: node
+  linkType: hard
+
+"react-select@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "react-select@npm:3.1.1"
+  dependencies:
+    "@babel/runtime": ^7.4.4
+    "@emotion/cache": ^10.0.9
+    "@emotion/core": ^10.0.9
+    "@emotion/css": ^10.0.9
+    memoize-one: ^5.0.0
+    prop-types: ^15.6.0
+    react-input-autosize: ^2.2.2
+    react-transition-group: ^4.3.0
+  peerDependencies:
+    react: ^16.8.0
+    react-dom: ^16.8.0
+  checksum: d3b2d850e6089887a468a0d3285e08f3c1e2bca86421bf0207d0c9526386c9d70a117c0b32ce6a9bf5aea8bc5e9c0eb5c7cc51b9a7081ce996eb9187d6a41694
   languageName: node
   linkType: hard
 
