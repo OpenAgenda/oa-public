@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.10.0..@openagenda/agenda-stats@1.9.1) (2020-11-23)
+
+
+### Features
+
+* **agenda-stats:** 2 columns graphs ([72899f4](https://bitbucket.org/openagenda/oa/commits/72899f4717a81cc51624079c8d02150a3a698652))
+* **agenda-stats:** add filters ([3d90399](https://bitbucket.org/openagenda/oa/commits/3d90399105a5516fba3a85499a400bbf506986d7))
+* **agenda-stats:** add filters to location.query ([8532d25](https://bitbucket.org/openagenda/oa/commits/8532d25518539c41c876454f7d206bbd92dd8aca))
+* **agenda-stats:** add number of week in DateTooltipItem ([6c535fa](https://bitbucket.org/openagenda/oa/commits/6c535faba618bd530e63c8de7a7de6bb49810f20))
+* **agenda-stats:** add PulseChart ([f036eab](https://bitbucket.org/openagenda/oa/commits/f036eabaef77a21e03cbea8b09ff367f5adc9615))
+* **agenda-stats:** add range type filter ([b1e9d0f](https://bitbucket.org/openagenda/oa/commits/b1e9d0f8e04d13906241711d788b7a0f703d0a3f))
+* **agenda-stats:** add state colors ([2fbba01](https://bitbucket.org/openagenda/oa/commits/2fbba0139577a80030de72276e673278bfe1ae63))
+* **agenda-stats:** describe PulseChart with a MoreInfo ([6645ce5](https://bitbucket.org/openagenda/oa/commits/6645ce5bc0b4335946a1d6ce0e2c34d457582189))
+* **agenda-stats:** display width in order modal ([e1c6775](https://bitbucket.org/openagenda/oa/commits/e1c6775aec74f924dbdf6a71c72a5e07a7edfc28))
+* **agenda-stats:** export RangeFilter from Dashboard ([b33df63](https://bitbucket.org/openagenda/oa/commits/b33df63c06455cfa983a96c71fbdd78d70a1a556))
+* **agenda-stats:** one to 1 ([2e25776](https://bitbucket.org/openagenda/oa/commits/2e257765b4840246221895389bae79e42843e657))
+* **agenda-stats:** PulseChart can change size ([cad325f](https://bitbucket.org/openagenda/oa/commits/cad325fd0bbfc5cd53a68693de21f41f16774a09))
+* **agenda-stats:** toggle for more filters ([78ac3e5](https://bitbucket.org/openagenda/oa/commits/78ac3e599dbe81b3976118ff80aaa38206328e59))
+* upgrade react-intl ([b80a487](https://bitbucket.org/openagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+* **agenda-stats:** PulseChart in blue ([0a5827e](https://bitbucket.org/openagenda/oa/commits/0a5827e637e7e6ca7a9e49d1b236c488e8f07259))
+* **agenda-stats:** PulseChart use fixedInterval ([4e44450](https://bitbucket.org/openagenda/oa/commits/4e44450d1fc74f61aa1ae87129d61459161bcf0b))
+* **agenda-stats:** reduce HorizontalBarChart height ([93318e2](https://bitbucket.org/openagenda/oa/commits/93318e299bd64f4ed29ac045fc57dbaec940f001))
+* **agenda-stats,cibul-node:** reduce default stats config ([a659d13](https://bitbucket.org/openagenda/oa/commits/a659d13b6cd8196470cedcd680dd18fb87dee5e3))
+
+
+### Bug Fixes
+
+* **agenda-stats:** add sqrt scale to PulseChart ([52eab92](https://bitbucket.org/openagenda/oa/commits/52eab929ce7e638ba6fbbcc665fb4e1df1c68a33))
+* **agenda-stats:** add total for each filter ([8dc8030](https://bitbucket.org/openagenda/oa/commits/8dc8030a831aa0e0865c4906d659d6a22b146fd1))
+* **agenda-stats:** does not save the default config ([8d505e6](https://bitbucket.org/openagenda/oa/commits/8d505e655d985f3b5f4db3337e829800d47cd3d9))
+* **agenda-stats:** fix default state ([a3cdf66](https://bitbucket.org/openagenda/oa/commits/a3cdf66a00d8d22e0dafe6a9c267299c5d13907b))
+* **agenda-stats:** fix fr translation ([bb575c7](https://bitbucket.org/openagenda/oa/commits/bb575c74f69845da4a276c7f20c0414f9c44af3b))
+* **agenda-stats:** fix interval select when period change ([57d9975](https://bitbucket.org/openagenda/oa/commits/57d9975ced16c1f164875ba932088cc4ea3576a9))
+* **agenda-stats:** fix rangeToCalendarInterval ([76a5a4f](https://bitbucket.org/openagenda/oa/commits/76a5a4fc1cd2126f563a4d50e0efebfa4013e8f9))
+* **agenda-stats:** fix rangeToCalendarInterval ([3d2161c](https://bitbucket.org/openagenda/oa/commits/3d2161c55c579194a4c26087646145d5b2f7251b))
+* **agenda-stats:** fix request for PulseChart ([adb4b9c](https://bitbucket.org/openagenda/oa/commits/adb4b9c023e34bb2b1adf46ad44cc43588b6678c))
+* **agenda-stats:** fix request url in PulseChart ([444b09d](https://bitbucket.org/openagenda/oa/commits/444b09df189028ab5d34f55222fa49e3b7bf4df5))
+* **agenda-stats:** some fixs ([559871d](https://bitbucket.org/openagenda/oa/commits/559871d7630a3f759209499391b13fe8a5732986))
+
+
+
 ### [1.9.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-stats@1.9.1..@openagenda/agenda-stats@1.9.0) (2020-07-16)
 
 

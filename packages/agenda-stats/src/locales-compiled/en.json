@@ -238,6 +238,18 @@
       "value": "Edit the report"
     }
   ],
+  "AgendaStats.Dashboard.lessFilters": [
+    {
+      "type": 0,
+      "value": "Display less filters"
+    }
+  ],
+  "AgendaStats.Dashboard.moreFilters": [
+    {
+      "type": 0,
+      "value": "Display more filters"
+    }
+  ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
@@ -755,67 +767,67 @@
       "value": "Select"
     }
   ],
-  "AgendaStats.titleMessages.cities": [
+  "AgendaStats.messages.chartTitles.cities": [
     {
       "type": 0,
       "value": "Cities"
     }
   ],
-  "AgendaStats.titleMessages.createdAt": [
+  "AgendaStats.messages.chartTitles.createdAt": [
     {
       "type": 0,
       "value": "Created events"
     }
   ],
-  "AgendaStats.titleMessages.createdAtUpdatedAt": [
+  "AgendaStats.messages.chartTitles.createdAtUpdatedAt": [
     {
       "type": 0,
       "value": "Saved events"
     }
   ],
-  "AgendaStats.titleMessages.departments": [
+  "AgendaStats.messages.chartTitles.departments": [
     {
       "type": 0,
       "value": "Departments"
     }
   ],
-  "AgendaStats.titleMessages.keywords": [
+  "AgendaStats.messages.chartTitles.keywords": [
     {
       "type": 0,
       "value": "Keywords"
     }
   ],
-  "AgendaStats.titleMessages.members": [
+  "AgendaStats.messages.chartTitles.members": [
     {
       "type": 0,
       "value": "Members"
     }
   ],
-  "AgendaStats.titleMessages.originAgendas": [
+  "AgendaStats.messages.chartTitles.originAgendas": [
     {
       "type": 0,
       "value": "Origin agendas"
     }
   ],
-  "AgendaStats.titleMessages.regions": [
+  "AgendaStats.messages.chartTitles.regions": [
     {
       "type": 0,
       "value": "Regions"
     }
   ],
-  "AgendaStats.titleMessages.states": [
+  "AgendaStats.messages.chartTitles.states": [
     {
       "type": 0,
       "value": "States"
     }
   ],
-  "AgendaStats.titleMessages.timings": [
+  "AgendaStats.messages.chartTitles.timings": [
     {
       "type": 0,
       "value": "Timings"
     }
   ],
-  "AgendaStats.titleMessages.updatedAt": [
+  "AgendaStats.messages.chartTitles.updatedAt": [
     {
       "type": 0,
       "value": "Updated events"
@@ -831,6 +843,30 @@
     {
       "type": 0,
       "value": "Others"
+    }
+  ],
+  "ReactFilters.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Controlled"
+    }
+  ],
+  "ReactFilters.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "ReactFilters.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refused"
+    }
+  ],
+  "ReactFilters.messages.states.tocontrol": [
+    {
+      "type": 0,
+      "value": "To control"
     }
   ],
   "aggregator-sources.RangeTypeModal.cancel": [

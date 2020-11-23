@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.6.0..@openagenda/react-integration-app@1.5.0) (2020-11-23)
+
+
+### Features
+
+* **react-integration-app:** disable the relou and slow StrictMode ([e46413d](https://bitbucket.org/openagenda/oa/commits/e46413d9209aeb660f94b20d487c7cd02e7f42a8))
+* **react-integration-app:** enable why-did-you-render in dev env ([c0b483c](https://bitbucket.org/openagenda/oa/commits/c0b483ceff0d6b741bd34bebc6facd52d5665e13))
+* upgrade react-intl ([b80a487](https://bitbucket.org/openagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+* **react-integration-app:** remove useless action in the redux middleware ([bcf1e9a](https://bitbucket.org/openagenda/oa/commits/bcf1e9a562953f01a54ef403bf495d4bae350152))
+
+
+### Bug Fixes
+
+* **react-integration-app:** fix apps order ([cd77c7a](https://bitbucket.org/openagenda/oa/commits/cd77c7aa89372fc52ba232f502f4f0dd4fd9b89e))
+* **react-integration-app:** fix messages in ErrorBoundary ([fc18ebe](https://bitbucket.org/openagenda/oa/commits/fc18ebe1819bcf1149fdead1fb19a881bd917596))
+
+
+
 ## [1.5.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-integration-app@1.5.0..@openagenda/react-integration-app@1.4.1) (2020-07-16)
 
 

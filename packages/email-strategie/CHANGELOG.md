@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.1.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/email-strategie@0.1.12..@openagenda/email-strategie@0.1.11) (2020-11-23)
+
+
+### Bug Fixes
+
+* **email-strategie:** allow SSL connection to MySQL ([8ef79ab](https://bitbucket.org/openagenda/oa/commits/8ef79abfaafcf4f7bf7c0d5cb97fee85eeccf176))
+
+
+
 ### [0.1.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/email-strategie@0.1.11..@openagenda/email-strategie@0.1.10) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/email-strategie

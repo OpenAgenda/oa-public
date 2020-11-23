@@ -33,19 +33,19 @@ export default function Root({
   );
 
   return (
-    <React.StrictMode>
-      <HelmetProvider context={helmetContext}>
-        <RootHelmet />
+    // <React.StrictMode>
+    <HelmetProvider context={helmetContext}>
+      <RootHelmet />
 
-        {wrapApp({
-          Content,
-          history,
-          triggerHooks,
-          req,
-          staticContext,
-          extractor
-        })}
-      </HelmetProvider>
-    </React.StrictMode>
+      {wrapApp({
+        Content,
+        history,
+        triggerHooks,
+        req,
+        staticContext,
+        extractor
+      })}
+    </HelmetProvider>
+    // </React.StrictMode>
   );
 }

@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.4.0..@openagenda/cibul-templates@1.3.2) (2020-11-23)
+
+
+### Features
+
+* update mapbox style ([e0f57a4](https://bitbucket.org/openagenda/oa/commits/e0f57a4d200f7ee2e7fc22c192b2daad8446948b))
+* **cibul-node:** account creation manual check message ([1e8e5f6](https://bitbucket.org/openagenda/oa/commits/1e8e5f631981c8ad2ab49270610225483e85479d))
+* **cibul-node:** add reCaptcha for social signup ([e55d925](https://bitbucket.org/openagenda/oa/commits/e55d92503f67866a045ec8fb541f1fb670cf097a))
+* **cibul-node:** add reCaptcha V2 on signup ([4f1dc41](https://bitbucket.org/openagenda/oa/commits/4f1dc41d60c0ff4b3c6a471140eefa3e2a1100c0))
+* **cibul-node:** automatic activation mode can be toggled on /admin/users ([d4ce96c](https://bitbucket.org/openagenda/oa/commits/d4ce96c65715fbb0a8383b2f1a902b421b6c0ef8))
+* **cibul-node:** blacklist switch ([a5eaf8d](https://bitbucket.org/openagenda/oa/commits/a5eaf8dd5d1b2c55a424f1cda7257267db060152))
+* **cibul-node:** integration of location sets ([b633e8a](https://bitbucket.org/openagenda/oa/commits/b633e8a628a43ec4207737e1f1e7f7c1ab3460ae))
+* **cibul-templates:** remove eventForm/FileUpload ([5b5742a](https://bitbucket.org/openagenda/oa/commits/5b5742ab34a8f2ca53a90a8f2d7481dbd481b9f7))
+* **cibul-templates:** remove usage of @openagenda/image-upload ([2c67064](https://bitbucket.org/openagenda/oa/commits/2c6706407440343cb08139a35be936dd54ff8835))
+* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+* **cibul-node:** integration of agenda-locations service refactor ([7a48504](https://bitbucket.org/openagenda/oa/commits/7a4850472fa20ef13c51040ee0c383824ecb24d7))
+* tweak badges in admin menu ([99fd5c5](https://bitbucket.org/openagenda/oa/commits/99fd5c5e93396832ecbcbe4435220e3f323cffed))
+
+
+### Bug Fixes
+
+* missing slashes ([2b9c1cd](https://bitbucket.org/openagenda/oa/commits/2b9c1cd3be8eccba1419ba8968c5a5e1aa31f411))
+* **cibul-node:** removed a bunch of spaces, fixed signup link in signin page ([10265ae](https://bitbucket.org/openagenda/oa/commits/10265aea0dd511e4d1dd6774a31c22408787f825))
+* **cibul-templates:** fix widget map ([741fa69](https://bitbucket.org/openagenda/oa/commits/741fa690e49a3204651793b4ab26c0090122657e))
+* fix mapbox links ([01984da](https://bitbucket.org/openagenda/oa/commits/01984da0c5794d99d0454dc19768603708096645))
+* **cibul-templates:** dialog for transfer of event ownership is not displayed ([0dc6c0d](https://bitbucket.org/openagenda/oa/commits/0dc6c0d8a9b166541c3765e337aa08c0878990ae))
+* **cibul-templates:** fix image helper ([1b6506c](https://bitbucket.org/openagenda/oa/commits/1b6506c2c45757b5c86062a5208ee098a3b48738))
+* **cibul-templates:** missing nodemon dev dependency ([b691f7a](https://bitbucket.org/openagenda/oa/commits/b691f7a1a68c78d3a3c835e07f7b1ed91edea652))
+* **cibul-templates:** removed image upload from getting started of agenda ([d798d9c](https://bitbucket.org/openagenda/oa/commits/d798d9c5103f7480436f7fc3e47c1b97ee22e585))
+* fix signup style and captcha load ([04791ae](https://bitbucket.org/openagenda/oa/commits/04791ae391e4d3102dbed3002a2644b7ed91e9ca))
+
+
+
 ### [1.3.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/cibul-templates@1.3.2..@openagenda/cibul-templates@1.3.1) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/cibul-templates

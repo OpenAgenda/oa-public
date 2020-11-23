@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/polyfills@1.2.3..@openagenda/polyfills@1.2.2) (2020-11-23)
+
+
+### Bug Fixes
+
+* **polyfills:** remove buggy DateTimeFormat polyfill ([70b93a6](https://bitbucket.org/openagenda/oa/commits/70b93a6fe5ce116f2468df56647f4e613cb03c34))
+
+
+
 ### [1.2.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/polyfills@1.2.2..@openagenda/polyfills@1.2.1) (2020-07-16)
 
 

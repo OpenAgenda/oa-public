@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/mails@2.1.0..@openagenda/mails@2.0.10) (2020-11-23)
+
+
+### Features
+
+* **mails:** fix simple emails ([4807b5f](https://bitbucket.org/openagenda/oa/commits/4807b5f30954008ce07b578648d4fb727a0d1723))
+* **mails:** treat html, text and subject with EJS ([11f2d94](https://bitbucket.org/openagenda/oa/commits/11f2d9492970e7e740e2146c0584fb4f9e197b62))
+
+
+
 ### [2.0.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/mails@2.0.10..@openagenda/mails@2.0.9) (2020-07-13)
 
 **Note:** Version bump only for package @openagenda/mails

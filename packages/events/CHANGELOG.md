@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.7.0..@openagenda/events@1.6.9) (2020-11-23)
+
+
+### Features
+
+* **events:** update to files v3 ([7997e73](https://bitbucket.org/openagenda/oa/commits/7997e73879e226a03def0adfb484a848f469b733))
+* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+
+
+### Bug Fixes
+
+* **events:** added Files as dev dependency ([1d96d8f](https://bitbucket.org/openagenda/oa/commits/1d96d8f6ca52509ab587400d302beaf8a952c7ac))
+* **events:** broken test after accessibility evolution (sl removed, ii added) ([13167e7](https://bitbucket.org/openagenda/oa/commits/13167e7645528c3e93b5c7efc2559de769222989))
+* **events:** fix tests with mysql 8 ([494e0bd](https://bitbucket.org/openagenda/oa/commits/494e0bd7daa04257ee32e61cc927cf1a510a1e2a))
+* **events:** reference model has an utf8 charset, links is utf8mb4 ([d4a0ca8](https://bitbucket.org/openagenda/oa/commits/d4a0ca8e29afb99cc6054bc82c1db56f545517ff))
+* **events:** try to fix undefined timings ([958c2c1](https://bitbucket.org/openagenda/oa/commits/958c2c1a1058992f821c0bef11c698759a28a993))
+
+
+
 ### [1.6.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/events@1.6.9..@openagenda/events@1.6.8) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/events

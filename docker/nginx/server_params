@@ -23,6 +23,10 @@ location ~ ^/dist {
   include conf.d/nodejs_params;
 }
 
+location ~ ^/docx {
+  include conf.d/nodejs_params;
+}
+
 location ~ ^/agendas/([0-9]+)/pulse\.svg {
   include conf.d/nodejs_params;
 }

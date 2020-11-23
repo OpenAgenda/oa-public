@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.3.0..@openagenda/aggregator-sources@1.2.11) (2020-11-23)
+
+
+### Features
+
+* upgrade react-intl ([b80a487](https://bitbucket.org/openagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+
+
+### Bug Fixes
+
+* **aggregator-sources:** fix button gap ([d22b845](https://bitbucket.org/openagenda/oa/commits/d22b845e10eccb67f5bddac2e922e83b1c3875b9))
+
+
+
 ### [1.2.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.2.11..@openagenda/aggregator-sources@1.2.10) (2020-07-16)
 
 

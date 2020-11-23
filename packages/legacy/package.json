@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/legacy",
-  "version": "1.10.7",
+  "version": "1.11.0",
   "description": "handle refactored legacy operations",
   "main": "index.js",
   "license": "MIT",
@@ -9,8 +9,8 @@
     "test": "jest --runInBand --testEnvironment=node"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.7",
-    "@openagenda/validators": "^2.2.14",
+    "@openagenda/logs": "^1.1.8",
+    "@openagenda/validators": "^2.3.0",
     "immutability-helper": "^3.0.0",
     "locutus": "^2.0.11",
     "lodash": "^4.17.15",

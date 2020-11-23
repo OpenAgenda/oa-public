@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.14..@openagenda/oembed@2.1.13) (2020-11-23)
+
+
+### Bug Fixes
+
+* **oembed:** escaped links are not processed by injectEmbeds method ([2b72f57](https://bitbucket.org/openagenda/oa/commits/2b72f5744fb22088905c092fa172ef55fbdb9d9d))
+
+
+
 ### [2.1.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.13..@openagenda/oembed@2.1.12) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/oembed

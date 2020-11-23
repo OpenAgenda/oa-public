@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-docx@1.2.0..@openagenda/agenda-docx@1.1.14) (2020-11-23)
+
+
+### Features
+
+* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+
+
+### Bug Fixes
+
+* **agenda-docx:** handicap ii is unknown by format ([ee19018](https://bitbucket.org/openagenda/oa/commits/ee19018d26e7e0bd009ff63a240b93ff6e961769))
+
+
+
 ### [1.1.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-docx@1.1.14..@openagenda/agenda-docx@1.1.13) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/agenda-docx

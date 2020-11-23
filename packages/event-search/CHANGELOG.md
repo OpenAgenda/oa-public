@@ -3,6 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.8.0..@openagenda/event-search@2.7.4) (2020-11-23)
+
+
+### Features
+
+* **event-search:** add fixedInterval option for timestamp aggregation ([2f55dbc](https://bitbucket.org/openagenda/oa/commits/2f55dbce4f66e848061026c1e29d7c297678c742))
+* **event-search:** added additionalFieldMetrics aggregation ([475f340](https://bitbucket.org/openagenda/oa/commits/475f3402e20939836b7e63cc5d6196837675ba05))
+* **event-search:** additional number fieldName should be keyword ([c85a1e1](https://bitbucket.org/openagenda/oa/commits/c85a1e105f8ddd50fb81e22deeaa352d46284aac))
+* **event-search:** aggregation by createdOrUpdatedAt timestamp ([64b5751](https://bitbucket.org/openagenda/oa/commits/64b57519ecf0ced8187c73103aff81267dbeabb7))
+* **event-search:** attempt convert query state to integers when strings are provided ([62259fa](https://bitbucket.org/openagenda/oa/commits/62259fa382223ac9477e21b4bc7205f622289371))
+* **event-search:** ensure events of same agenda are always on the same shard/replicas ([d8fa1e4](https://bitbucket.org/openagenda/oa/commits/d8fa1e4dc034fc28ec20ec4c74f3d0d597381427))
+* **event-search:** fix states order ([989db24](https://bitbucket.org/openagenda/oa/commits/989db24459f1b2ab48e2241e724f1c7823be3b0a))
+* **event-search:** multiple filter selections within same field work as logical or ([224b1e8](https://bitbucket.org/openagenda/oa/commits/224b1e8045fa776ec2b8b027098743f8eee92dd1))
+* **event-search:** search_after added ([f85810f](https://bitbucket.org/openagenda/oa/commits/f85810f2d8802e0b9485f7696bb30ccdad9bdf50))
+* **event-search:** utility to add new fields to main index mapping when they are set in mapping.json ([bb3fad2](https://bitbucket.org/openagenda/oa/commits/bb3fad234468986a6d6c85384e91f53e5eb67e0c))
+* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+
+
+### Bug Fixes
+
+* **event-search:** allow extendedBounds for timestamp aggregations ([fe02493](https://bitbucket.org/openagenda/oa/commits/fe02493a1f1981b42e0021d6cdc95f292114fa49))
+* **event-search:** fix updatedAt filter ([ca842b1](https://bitbucket.org/openagenda/oa/commits/ca842b160dbe52b58c82868fca0ed9db587ba4f4))
+* **event-search:** force timezone to Paris even when is null ([eae1f31](https://bitbucket.org/openagenda/oa/commits/eae1f31796272666185c044b81c7787bee769b76))
+* **event-search:** formatEvent test _search_additional_numbers field key should be fieldName ([a2ddf18](https://bitbucket.org/openagenda/oa/commits/a2ddf18057b8873fc345e6e585c9651465c78830))
+* **event-search:** origin agenda aggregations with titles including ':' chars are broken ([69000b1](https://bitbucket.org/openagenda/oa/commits/69000b1c52bd236bc27b5505b84158707059263e))
+* **event-search:** routing is necessary for remove ([06ff037](https://bitbucket.org/openagenda/oa/commits/06ff037840c2624bd029ffe5d079e693260a8eda))
+* **event-search:** sort test quick fix ([1ed6c96](https://bitbucket.org/openagenda/oa/commits/1ed6c96423585e616ffd7fa342875c70c8c0de30))
+* **event-search:** validateQuery clean additional fields ([dedc410](https://bitbucket.org/openagenda/oa/commits/dedc41024b74b45ebd843abd40584b6bcbb26abe))
+
+
+
 ### [2.7.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/event-search@2.7.4..@openagenda/event-search@2.7.3) (2020-07-16)
 
 

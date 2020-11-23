@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { useIntl } from 'react-intl';
 import { useMemo } from 'react';
 import getLocaleValue from '../utils/getLocaleValue';
-import titleMessages from '../titleMessages';
+import titleMessages from '../messages/chartTitles';
 
 function statToTitleMessageKey(aggregation) {
   let messageKey = '';

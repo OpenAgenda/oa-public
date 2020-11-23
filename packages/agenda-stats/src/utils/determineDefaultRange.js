@@ -20,41 +20,41 @@ export default function determineDefaultRange({ first, last }) {
   if (!first) {
     // Nothing to display
     return {
-      startDate: thisYear.start,
-      endDate: thisYear.end
+      gte: thisYear.start,
+      lte: thisYear.end
     };
   }
 
   if (differenceInCalendarDays(interval.end, interval.start) <= 365) {
     return {
-      startDate: interval.start,
-      endDate: interval.end
+      gte: interval.start,
+      lte: interval.end
     };
   }
 
   if (getOverlappingDaysInIntervals(interval, thisYear)) {
     return {
-      startDate: thisYear.start,
-      endDate: thisYear.end
+      gte: thisYear.start,
+      lte: thisYear.end
     };
   }
 
   if (getOverlappingDaysInIntervals(interval, nextYear)) {
     return {
-      startDate: nextYear.start,
-      endDate: nextYear.end
+      gte: nextYear.start,
+      lte: nextYear.end
     };
   }
 
   if (isAfter(interval.start, now)) {
     return {
-      startDate: startOfYear(interval.start),
-      endDate: endOfYear(interval.start)
+      gte: startOfYear(interval.start),
+      lte: endOfYear(interval.start)
     };
   }
 
   return {
-    startDate: startOfYear(interval.end),
-    endDate: endOfYear(interval.end)
+    gte: startOfYear(interval.end),
+    lte: endOfYear(interval.end)
   };
 }

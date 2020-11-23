@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-shared@2.1.0..@openagenda/react-shared@2.0.7) (2020-11-23)
+
+
+### Features
+
+* **react-shard:** default size of ImageInput is now 100% ([005f6e4](https://bitbucket.org/openagenda/oa/commits/005f6e42928ecc2a47746cd44fc64adcd7a3539b))
+* **react-shared:** add Image and ImageInput ([2a2915f](https://bitbucket.org/openagenda/oa/commits/2a2915f1b0f2cf0ce40a43221d964d59d8883d91))
+* **react-shared:** add props rounded, width and height to ImageInput ([0971866](https://bitbucket.org/openagenda/oa/commits/097186650ba21206091a8f5284cb7002577e8f9a))
+* **react-shared:** errors ans translations for ImageInput ([3951fb8](https://bitbucket.org/openagenda/oa/commits/3951fb86d578045dccfde7b1cc783d84e2c7fce9))
+* **react-shared:** tweak ImageInput ([7d7e087](https://bitbucket.org/openagenda/oa/commits/7d7e087f052f133be1d78da2cc1d5964660da35e))
+* **react-shared:** utility to display unload page warning message ([645fe97](https://bitbucket.org/openagenda/oa/commits/645fe97b53e24785a3cfa57ea394e2ba40fd0565))
+* replace extensions with mime types ([e768ba8](https://bitbucket.org/openagenda/oa/commits/e768ba8f32baa862ecbf5e3cc88a8f253a546b15))
+* **react-shared:** update extract-messages script ([992e368](https://bitbucket.org/openagenda/oa/commits/992e3684459bd78ed61cee69e8521037e74076ee))
+
+
+### Bug Fixes
+
+* **react-shared:** does node ignore lib directory ([b65bd49](https://bitbucket.org/openagenda/oa/commits/b65bd497e3f8dfc60ad8578e294b16e4b5faaccc))
+* **react-shared:** fix the fallback message for empty messages ([ce81dbe](https://bitbucket.org/openagenda/oa/commits/ce81dbe59d44dd267bf0e373e09b91782607cfe5))
+* **react-shared:** ImageInput is no longer flat ([b6e6d22](https://bitbucket.org/openagenda/oa/commits/b6e6d22e3d0f4c57823d31866f67da0bf6d31489))
+
+
+
 ### [2.0.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-shared@2.0.7..@openagenda/react-shared@2.0.6) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/react-shared

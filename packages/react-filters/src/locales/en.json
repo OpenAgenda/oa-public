@@ -1,0 +1,15 @@
+{
+  "ReactFilters.dateRanges.currentMonth": "Current month",
+  "ReactFilters.dateRanges.currentWeek": "Current week",
+  "ReactFilters.dateRanges.thisWeekend": "This week-end",
+  "ReactFilters.dateRanges.today": "Today",
+  "ReactFilters.dateRanges.tomorrow": "Tomorrow",
+  "ReactFilters.messages.filterTitles.createdAt": "Creation date",
+  "ReactFilters.messages.filterTitles.state": "State",
+  "ReactFilters.messages.filterTitles.timings": "Timings",
+  "ReactFilters.messages.filterTitles.updatedAt": "Date of update",
+  "ReactShared.DateRangeFilter.dateRange": "From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}",
+  "ReactShared.DateRangeFilter.endDate": "End",
+  "ReactShared.DateRangeFilter.singleDate": "{date, time, ::yyyyMMdd}",
+  "ReactShared.DateRangeFilter.startDate": "Start"
+}

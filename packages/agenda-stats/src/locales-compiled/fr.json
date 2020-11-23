@@ -238,6 +238,18 @@
       "value": "Éditer le rapport"
     }
   ],
+  "AgendaStats.Dashboard.lessFilters": [
+    {
+      "type": 0,
+      "value": "Afficher moins de filtres"
+    }
+  ],
+  "AgendaStats.Dashboard.moreFilters": [
+    {
+      "type": 0,
+      "value": "Afficher plus de filtres"
+    }
+  ],
   "AgendaStats.Dashboard.pulseDesc": [
     {
       "type": 0,
@@ -757,67 +769,67 @@
       "value": "Séléctionner"
     }
   ],
-  "AgendaStats.titleMessages.cities": [
+  "AgendaStats.messages.chartTitles.cities": [
     {
       "type": 0,
       "value": "Villes"
     }
   ],
-  "AgendaStats.titleMessages.createdAt": [
+  "AgendaStats.messages.chartTitles.createdAt": [
     {
       "type": 0,
       "value": "Événements créés"
     }
   ],
-  "AgendaStats.titleMessages.createdAtUpdatedAt": [
+  "AgendaStats.messages.chartTitles.createdAtUpdatedAt": [
     {
       "type": 0,
       "value": "Événements sauvegardés"
     }
   ],
-  "AgendaStats.titleMessages.departments": [
+  "AgendaStats.messages.chartTitles.departments": [
     {
       "type": 0,
       "value": "Départements"
     }
   ],
-  "AgendaStats.titleMessages.keywords": [
+  "AgendaStats.messages.chartTitles.keywords": [
     {
       "type": 0,
       "value": "Mots clés"
     }
   ],
-  "AgendaStats.titleMessages.members": [
+  "AgendaStats.messages.chartTitles.members": [
     {
       "type": 0,
       "value": "Membres"
     }
   ],
-  "AgendaStats.titleMessages.originAgendas": [
+  "AgendaStats.messages.chartTitles.originAgendas": [
     {
       "type": 0,
       "value": "Agendas d'origine"
     }
   ],
-  "AgendaStats.titleMessages.regions": [
+  "AgendaStats.messages.chartTitles.regions": [
     {
       "type": 0,
       "value": "Régions"
     }
   ],
-  "AgendaStats.titleMessages.states": [
+  "AgendaStats.messages.chartTitles.states": [
     {
       "type": 0,
       "value": "Statuts"
     }
   ],
-  "AgendaStats.titleMessages.timings": [
+  "AgendaStats.messages.chartTitles.timings": [
     {
       "type": 0,
       "value": "Horaires"
     }
   ],
-  "AgendaStats.titleMessages.updatedAt": [
+  "AgendaStats.messages.chartTitles.updatedAt": [
     {
       "type": 0,
       "value": "Événements mis à jour"
@@ -833,6 +845,30 @@
     {
       "type": 0,
       "value": "Autres"
+    }
+  ],
+  "ReactFilters.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Prêt à publier"
+    }
+  ],
+  "ReactFilters.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Publié"
+    }
+  ],
+  "ReactFilters.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refusé"
+    }
+  ],
+  "ReactFilters.messages.states.tocontrol": [
+    {
+      "type": 0,
+      "value": "À contrôler"
     }
   ],
   "aggregator-sources.RangeTypeModal.cancel": [

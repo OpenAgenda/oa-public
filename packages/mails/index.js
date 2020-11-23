@@ -21,6 +21,8 @@ class Mails {
     this.render = render.bind(null, this.config);
   }
 
+  static addressParser = addressParser;
+
   static recipientToArray(recipient) {
     return typeof recipient === 'object' && recipient !== null
       ? addressParser(recipient.address).map(v => ({ ...recipient, ...v }))
@@ -66,8 +68,8 @@ class Mails {
         const error = new VError(
           {
             info: {
-              address: recipient.address
-            }
+              address: recipient.address,
+            },
           },
           'Invalid email address'
         );
@@ -83,8 +85,8 @@ class Mails {
           lang: recipient.lang || defaultLang,
           ...options.data,
           ...recipient.data,
-          ...config.defaults.data
-        }
+          ...config.defaults.data,
+        },
       };
 
       try {
@@ -95,7 +97,7 @@ class Mails {
             if (!allowed) {
               log.info('Sending filtered', {
                 recipient,
-                template: options.template
+                template: options.template,
               });
               continue;
             }
@@ -132,7 +134,7 @@ class Mails {
         const wrappedError = new VError(
           {
             info: params,
-            cause: error
+            cause: error,
           },
           'Error on sending mail'
         );
@@ -143,7 +145,7 @@ class Mails {
 
     return {
       results,
-      errors
+      errors,
     };
   }
 
@@ -155,10 +157,10 @@ class Mails {
     }
 
     config.queues.prepareMails.register({
-      method: runFilterTask.bind(null, this.config)
+      method: runFilterTask.bind(null, this.config),
     });
     config.queues.sendMails.register({
-      method: runSendTask.bind(null, this.config)
+      method: runSendTask.bind(null, this.config),
     });
 
     config.queues.prepareMails.on('error', config.onTaskError);
@@ -168,7 +170,5 @@ class Mails {
     config.queues.sendMails.run();
   }
 }
-
-Mails.addressParser = addressParser;
 
 module.exports = Mails;

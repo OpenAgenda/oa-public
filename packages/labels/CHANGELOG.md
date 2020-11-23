@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.3.0..@openagenda/labels@2.2.7) (2020-11-23)
+
+
+### Features
+
+* **agenda-search:** add contributionType filter, recentlyContributed sort, add an event link ([cb624f5](https://bitbucket.org/openagenda/oa/commits/cb624f5a189373ea3dbf3991d3a95c462706c3bf))
+* **cibul-node:** blacklist multilingual labels ([d9cff04](https://bitbucket.org/openagenda/oa/commits/d9cff0424bbdb982d15c4624840556e073855b80))
+* **cibul-node:** blacklist switch ([a5eaf8d](https://bitbucket.org/openagenda/oa/commits/a5eaf8dd5d1b2c55a424f1cda7257267db060152))
+* **cibul-node:** explicit message for files too large for nginx in event form ([e845a6f](https://bitbucket.org/openagenda/oa/commits/e845a6f2872a5e08ba87f19c8f2b6e493328672f))
+* **cibul-node:** integration of location sets ([b633e8a](https://bitbucket.org/openagenda/oa/commits/b633e8a628a43ec4207737e1f1e7f7c1ab3460ae))
+* **cibul-node:** location csv export with absolute counts and from stream ([2664c13](https://bitbucket.org/openagenda/oa/commits/2664c1364a2920913d07a78a024f26b384efc063))
+* **cibul-node:** multilingual variant for verification screen ([dab32bf](https://bitbucket.org/openagenda/oa/commits/dab32bfc32b0a843c77eb5822e8caab395b9ec8b))
+* **labels:** add forbidden labels ([e973c81](https://bitbucket.org/openagenda/oa/commits/e973c81c25d146cf321a794b080d745a4bbd639e))
+* **labels:** add labels ([914850e](https://bitbucket.org/openagenda/oa/commits/914850efacc628fcacfab126c7d42a4d9c850c4c))
+* **labels:** add labels for activatedAccount mail ([f353ebd](https://bitbucket.org/openagenda/oa/commits/f353ebd737e03e5b8b4a0c4dbf8c2215e9286212))
+* **labels:** add upload related labels ([8bb4932](https://bitbucket.org/openagenda/oa/commits/8bb49322b661876e19bdfae752a808b3f40a4354))
+* **labels:** add welcome messages ([30a9021](https://bitbucket.org/openagenda/oa/commits/30a9021d1a88e3b64837c7638f694643e54c64dc))
+* **labels:** tweak welcome message ([7b19493](https://bitbucket.org/openagenda/oa/commits/7b194937597e603f75de6499d8b86b42f18b349d))
+* add image input on agenda creation ([3ad88cb](https://bitbucket.org/openagenda/oa/commits/3ad88cbace5cdf36fa5f91019e891af877008fb2))
+
+
+
 ### [2.2.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/labels@2.2.7..@openagenda/labels@2.2.6) (2020-07-16)
 
 

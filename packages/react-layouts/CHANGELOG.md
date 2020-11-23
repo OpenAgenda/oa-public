@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.2.0..@openagenda/react-layouts@2.1.1) (2020-11-23)
+
+
+### Features
+
+* **react-layouts:** can display first app only ([2d7e563](https://bitbucket.org/openagenda/oa/commits/2d7e5630884b275ee759bcd1ec415a31d51ba4ac))
+* **react-layouts:** redirect unauthorized users ([d7ad503](https://bitbucket.org/openagenda/oa/commits/d7ad5035c93f9f196446df3a7b771713873a774f))
+* tweak badges in admin menu ([99fd5c5](https://bitbucket.org/openagenda/oa/commits/99fd5c5e93396832ecbcbe4435220e3f323cffed))
+* upgrade react-intl ([b80a487](https://bitbucket.org/openagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+
+
+### Bug Fixes
+
+* **react-layouts:** fix the display of ErrorBoundary ([d3bc2fa](https://bitbucket.org/openagenda/oa/commits/d3bc2fa5c9d4b6d9a656529d66b91c5f27f6c108))
+* **react-layouts:** fix user image ([6aff94d](https://bitbucket.org/openagenda/oa/commits/6aff94df94343ca2127c2bac4637184efa5072e3))
+
+
+
 ### [2.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.1.1..@openagenda/react-layouts@2.1.0) (2020-07-16)
 
 

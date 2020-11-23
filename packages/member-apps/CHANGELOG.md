@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.1.0..@openagenda/member-apps@2.0.13) (2020-11-23)
+
+
+### Features
+
+* remove agendaAdmin titles ([3f964e7](https://bitbucket.org/openagenda/oa/commits/3f964e72137b378b66e8d104b756522264df61e6))
+
+
+
 ### [2.0.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/member-apps@2.0.13..@openagenda/member-apps@2.0.12) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/member-apps

@@ -52,7 +52,9 @@ export default function RangeTypeFilter({ agenda }) {
     <>
       {rangeType ? (
         <>
-          {rangeType === 'date' ? intl.formatMessage(messages.typeDate) : null}
+          {rangeType === 'timings'
+            ? intl.formatMessage(messages.typeDate)
+            : null}
           {rangeType === 'createdAt'
             ? intl.formatMessage(messages.typeCreatedAt)
             : null}

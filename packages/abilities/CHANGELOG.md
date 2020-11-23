@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.3.0..@openagenda/abilities@1.2.1) (2020-11-23)
+
+
+### Features
+
+* upgrade react-intl ([b80a487](https://bitbucket.org/openagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+
+
+### Bug Fixes
+
+* **abilities:** remove @openagenda/image-files dep ([8cfce39](https://bitbucket.org/openagenda/oa/commits/8cfce391f718aa445ae4d8ee10da7ea48888c65d))
+
+
+
 ### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/abilities@1.2.1..@openagenda/abilities@1.2.0) (2020-07-16)
 
 

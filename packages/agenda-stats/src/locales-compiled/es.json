@@ -1,176 +1,95 @@
 {
-  "AgendaStats.ChartAdder.addChart": [
-  ],
-  "AgendaStats.ChartWrapper.remove": [
-  ],
-  "AgendaStats.ChartWrapper.update": [
-  ],
-  "AgendaStats.ChartWrapper.withSelector": [
-  ],
-  "AgendaStats.ComposedChart.noValue": [
-  ],
-  "AgendaStats.ComposedChart.tooltipContentCreatedAt": [
-  ],
-  "AgendaStats.ComposedChart.tooltipContentEvents": [
-  ],
-  "AgendaStats.ComposedChart.tooltipContentTimings": [
-  ],
-  "AgendaStats.ComposedChart.tooltipContentUpdatedAt": [
-  ],
-  "AgendaStats.CustomTooltip.events": [
-  ],
-  "AgendaStats.Dashboard.cancel": [
-  ],
-  "AgendaStats.Dashboard.changeOrder": [
-  ],
-  "AgendaStats.Dashboard.edit": [
-  ],
-  "AgendaStats.Dashboard.pulseDesc": [
-  ],
-  "AgendaStats.Dashboard.save": [
-  ],
-  "AgendaStats.Dashboard.totalEvents": [
-  ],
-  "AgendaStats.DateTooltipItem.tooltipDay": [
-  ],
-  "AgendaStats.DateTooltipItem.tooltipMonth": [
-  ],
-  "AgendaStats.DateTooltipItem.tooltipWeek": [
-  ],
-  "AgendaStats.IntervalSelect.day": [
-  ],
-  "AgendaStats.IntervalSelect.month": [
-  ],
-  "AgendaStats.IntervalSelect.week": [
-  ],
-  "AgendaStats.LoadMore.loadMore": [
-  ],
-  "AgendaStats.LoadMore.nothingMore": [
-  ],
-  "AgendaStats.OrderModal.modalTitle": [
-  ],
-  "AgendaStats.OrderModal.oneColumn": [
-  ],
-  "AgendaStats.OrderModal.oneLine": [
-  ],
-  "AgendaStats.OrderModal.separator": [
-  ],
-  "AgendaStats.OrderModal.submit": [
-  ],
-  "AgendaStats.OrderModal.width": [
-  ],
-  "AgendaStats.RangeFilter.range": [
-  ],
-  "AgendaStats.RangeFilter.sameDayRange": [
-  ],
-  "AgendaStats.RangeFilter.update": [
-  ],
-  "AgendaStats.RangeModal.cancel": [
-  ],
-  "AgendaStats.RangeModal.modalTitle": [
-  ],
-  "AgendaStats.RangeModal.submit": [
-  ],
-  "AgendaStats.RangeTypeFilter.range": [
-  ],
-  "AgendaStats.RangeTypeFilter.sameDayRange": [
-  ],
-  "AgendaStats.RangeTypeFilter.submit": [
-  ],
-  "AgendaStats.RangeTypeFilter.typeCreatedAt": [
-  ],
-  "AgendaStats.RangeTypeFilter.typeDate": [
-  ],
-  "AgendaStats.RangeTypeModal.createdAtDesc": [
-  ],
-  "AgendaStats.RangeTypeModal.dateDesc": [
-  ],
-  "AgendaStats.RangeTypeModal.modalTitle": [
-  ],
-  "AgendaStats.RangeTypeModal.rangeTypeDesc": [
-  ],
-  "AgendaStats.Separator.remove": [
-  ],
-  "AgendaStats.Separator.separator": [
-  ],
-  "AgendaStats.StatEditModal.modalTitle": [
-  ],
-  "AgendaStats.StateTooltipItem.controlled": [
-  ],
-  "AgendaStats.StateTooltipItem.published": [
-  ],
-  "AgendaStats.StateTooltipItem.refused": [
-  ],
-  "AgendaStats.StateTooltipItem.tocontrol": [
-  ],
-  "AgendaStats.dateRanges.currentMonth": [
-  ],
-  "AgendaStats.dateRanges.currentWeek": [
-  ],
-  "AgendaStats.dateRanges.currentYear": [
-  ],
-  "AgendaStats.dateRanges.daysStartingToday": [
-  ],
-  "AgendaStats.dateRanges.daysUpToToday": [
-  ],
-  "AgendaStats.dateRanges.lastMonth": [
-  ],
-  "AgendaStats.dateRanges.lastWeek": [
-  ],
-  "AgendaStats.dateRanges.lastYear": [
-  ],
-  "AgendaStats.form.add": [
-  ],
-  "AgendaStats.form.cancel": [
-  ],
-  "AgendaStats.form.charts": [
-  ],
-  "AgendaStats.form.componentWidth": [
-  ],
-  "AgendaStats.form.oneColumn": [
-  ],
-  "AgendaStats.form.oneLine": [
-  ],
-  "AgendaStats.form.others": [
-  ],
-  "AgendaStats.form.remove": [
-  ],
-  "AgendaStats.form.separator": [
-  ],
-  "AgendaStats.form.typeSelectPlaceholder": [
-  ],
-  "AgendaStats.form.update": [
-  ],
-  "AgendaStats.form.widthSelectPlaceholder": [
-  ],
-  "AgendaStats.titleMessages.cities": [
-  ],
-  "AgendaStats.titleMessages.createdAt": [
-  ],
-  "AgendaStats.titleMessages.createdAtUpdatedAt": [
-  ],
-  "AgendaStats.titleMessages.departments": [
-  ],
-  "AgendaStats.titleMessages.keywords": [
-  ],
-  "AgendaStats.titleMessages.members": [
-  ],
-  "AgendaStats.titleMessages.originAgendas": [
-  ],
-  "AgendaStats.titleMessages.regions": [
-  ],
-  "AgendaStats.titleMessages.states": [
-  ],
-  "AgendaStats.titleMessages.timings": [
-  ],
-  "AgendaStats.titleMessages.updatedAt": [
-  ],
-  "AgendaStats.utils.addRestItem.noValue": [
-  ],
-  "AgendaStats.utils.addRestItem.others": [
-  ],
-  "aggregator-sources.RangeTypeModal.cancel": [
-  ],
-  "aggregator-sources.RangeTypeModal.submit": [
-  ]
+  "AgendaStats.ChartAdder.addChart": null,
+  "AgendaStats.ChartWrapper.remove": null,
+  "AgendaStats.ChartWrapper.update": null,
+  "AgendaStats.ChartWrapper.withSelector": null,
+  "AgendaStats.ComposedChart.noValue": null,
+  "AgendaStats.ComposedChart.tooltipContentCreatedAt": null,
+  "AgendaStats.ComposedChart.tooltipContentEvents": null,
+  "AgendaStats.ComposedChart.tooltipContentTimings": null,
+  "AgendaStats.ComposedChart.tooltipContentUpdatedAt": null,
+  "AgendaStats.CustomTooltip.events": null,
+  "AgendaStats.Dashboard.cancel": null,
+  "AgendaStats.Dashboard.changeOrder": null,
+  "AgendaStats.Dashboard.edit": null,
+  "AgendaStats.Dashboard.lessFilters": null,
+  "AgendaStats.Dashboard.moreFilters": null,
+  "AgendaStats.Dashboard.pulseDesc": null,
+  "AgendaStats.Dashboard.save": null,
+  "AgendaStats.Dashboard.totalEvents": null,
+  "AgendaStats.DateTooltipItem.tooltipDay": null,
+  "AgendaStats.DateTooltipItem.tooltipMonth": null,
+  "AgendaStats.DateTooltipItem.tooltipWeek": null,
+  "AgendaStats.IntervalSelect.day": null,
+  "AgendaStats.IntervalSelect.month": null,
+  "AgendaStats.IntervalSelect.week": null,
+  "AgendaStats.LoadMore.loadMore": null,
+  "AgendaStats.LoadMore.nothingMore": null,
+  "AgendaStats.OrderModal.modalTitle": null,
+  "AgendaStats.OrderModal.oneColumn": null,
+  "AgendaStats.OrderModal.oneLine": null,
+  "AgendaStats.OrderModal.separator": null,
+  "AgendaStats.OrderModal.submit": null,
+  "AgendaStats.OrderModal.width": null,
+  "AgendaStats.RangeFilter.range": null,
+  "AgendaStats.RangeFilter.sameDayRange": null,
+  "AgendaStats.RangeFilter.update": null,
+  "AgendaStats.RangeModal.cancel": null,
+  "AgendaStats.RangeModal.modalTitle": null,
+  "AgendaStats.RangeModal.submit": null,
+  "AgendaStats.RangeTypeFilter.range": null,
+  "AgendaStats.RangeTypeFilter.sameDayRange": null,
+  "AgendaStats.RangeTypeFilter.submit": null,
+  "AgendaStats.RangeTypeFilter.typeCreatedAt": null,
+  "AgendaStats.RangeTypeFilter.typeDate": null,
+  "AgendaStats.RangeTypeModal.createdAtDesc": null,
+  "AgendaStats.RangeTypeModal.dateDesc": null,
+  "AgendaStats.RangeTypeModal.modalTitle": null,
+  "AgendaStats.RangeTypeModal.rangeTypeDesc": null,
+  "AgendaStats.Separator.remove": null,
+  "AgendaStats.Separator.separator": null,
+  "AgendaStats.StatEditModal.modalTitle": null,
+  "AgendaStats.StateTooltipItem.controlled": null,
+  "AgendaStats.StateTooltipItem.published": null,
+  "AgendaStats.StateTooltipItem.refused": null,
+  "AgendaStats.StateTooltipItem.tocontrol": null,
+  "AgendaStats.dateRanges.currentMonth": null,
+  "AgendaStats.dateRanges.currentWeek": null,
+  "AgendaStats.dateRanges.currentYear": null,
+  "AgendaStats.dateRanges.daysStartingToday": null,
+  "AgendaStats.dateRanges.daysUpToToday": null,
+  "AgendaStats.dateRanges.lastMonth": null,
+  "AgendaStats.dateRanges.lastWeek": null,
+  "AgendaStats.dateRanges.lastYear": null,
+  "AgendaStats.form.add": null,
+  "AgendaStats.form.cancel": null,
+  "AgendaStats.form.charts": null,
+  "AgendaStats.form.componentWidth": null,
+  "AgendaStats.form.oneColumn": null,
+  "AgendaStats.form.oneLine": null,
+  "AgendaStats.form.others": null,
+  "AgendaStats.form.remove": null,
+  "AgendaStats.form.separator": null,
+  "AgendaStats.form.typeSelectPlaceholder": null,
+  "AgendaStats.form.update": null,
+  "AgendaStats.form.widthSelectPlaceholder": null,
+  "AgendaStats.messages.chartTitles.cities": null,
+  "AgendaStats.messages.chartTitles.createdAt": null,
+  "AgendaStats.messages.chartTitles.createdAtUpdatedAt": null,
+  "AgendaStats.messages.chartTitles.departments": null,
+  "AgendaStats.messages.chartTitles.keywords": null,
+  "AgendaStats.messages.chartTitles.members": null,
+  "AgendaStats.messages.chartTitles.originAgendas": null,
+  "AgendaStats.messages.chartTitles.regions": null,
+  "AgendaStats.messages.chartTitles.states": null,
+  "AgendaStats.messages.chartTitles.timings": null,
+  "AgendaStats.messages.chartTitles.updatedAt": null,
+  "AgendaStats.utils.addRestItem.noValue": null,
+  "AgendaStats.utils.addRestItem.others": null,
+  "ReactFilters.messages.states.controlled": null,
+  "ReactFilters.messages.states.published": null,
+  "ReactFilters.messages.states.refused": null,
+  "ReactFilters.messages.states.tocontrol": null,
+  "aggregator-sources.RangeTypeModal.cancel": null,
+  "aggregator-sources.RangeTypeModal.submit": null
 }
