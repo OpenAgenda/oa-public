@@ -1,6 +1,7 @@
 const { registerDependencies } = require( 'mjml-validator' );
 const { BodyComponent } = require( 'mjml-core' );
 const marked = require( 'marked' );
+const dedent = require( 'dedent' );
 
 
 registerDependencies( {
@@ -43,7 +44,7 @@ class MjMarkdown extends BodyComponent {
         class: this.getAttribute( 'css-class' ),
         style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
       } )}>
-        ${marked( this.getContent(), { breaks: this.getAttribute( 'breaks' ) } )}
+        ${marked( dedent( this.getContent() ), { breaks: this.getAttribute( 'breaks' ) } )}
       </div>
     `;
   }
