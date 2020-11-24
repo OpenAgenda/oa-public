@@ -90,6 +90,11 @@ describe('agenda-locations - functional - get', function() {
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
     });
 
+    it('get specific fields only', async () => {
+      const location = await svc.get({ uid: 51665985 }, { includeFields: ['name'] });
+      assert.deepEqual(Object.keys(location), ['name']);
+    });
+
     it('location can be fetched by its extId', async () => {
       const location = await svc.get({ extId: 'ard_03' });
     });

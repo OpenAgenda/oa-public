@@ -15,7 +15,8 @@ async function get(service, identifiers, options = {}) {
   const {
     eventCounts: includeEventCounts,
     context,
-    includeImagePath
+    includeImagePath,
+    includeFields
   } = cleanGetOptions(options);
 
   await addGetQuery(service, k, {
@@ -23,9 +24,10 @@ async function get(service, identifiers, options = {}) {
     ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
   });
 
-  addSelect(k, 'public', { first: true });
+  addSelect(k, 'public', { first: true, includeFields });
 
   const location = await k.then(l => l ? fromDbEntryToItem(l, {
+    includeFields,
     imagePath: includeImagePath ? service.config.imagePath : null,
     access: 'public'
   }): null);
