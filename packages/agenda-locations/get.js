@@ -7,6 +7,7 @@ const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
+const NotFoundError = require('./lib/NotFoundError');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 async function get(service, identifiers, options = {}) {
@@ -16,7 +17,8 @@ async function get(service, identifiers, options = {}) {
     eventCounts: includeEventCounts,
     context,
     includeImagePath,
-    includeFields
+    includeFields,
+    throwOnNotFound
   } = cleanGetOptions(options);
 
   await addGetQuery(service, k, {
@@ -33,6 +35,9 @@ async function get(service, identifiers, options = {}) {
   }): null);
 
   if (!location) {
+    if (throwOnNotFound) {
+      throw new NotFoundError('location', identifiers);
+    }
     return null;
   }
 

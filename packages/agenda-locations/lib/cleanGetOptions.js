@@ -26,6 +26,10 @@ module.exports = schema({
     type: 'choice',
     options: fields.map(f => f.field),
   },
+  throwOnNotFound: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     agendaUid: {
       type: 'integer',
