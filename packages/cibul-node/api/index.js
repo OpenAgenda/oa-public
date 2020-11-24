@@ -129,33 +129,74 @@ module.exports = core => {
       }), next)
   ]);
 
-  app.post('/v2/agendas/:agendaUid/locations/:locationUid', [
+  app.param('locationExtId', (req, res, next) => {
+    req.locationIdentifier = {
+      extId: req.params.locationExtId
+    };
+    next();
+  });
+
+  app.param('locationUid', (req, res, next) => {
+    req.locationIdentifier = {
+      uid: req.params.locationUid
+    };
+    next();
+  });
+
+  app.get([
+    '/v2/agendas/:agendaUid/locations/:locationUid',
+    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+  ], [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => req.app.core
       .agendas(req.agenda.uid).locations
-      .update(req.params.locationUid, req.parsedData)
+      .get(req.locationIdentifier, {
+        access: req.access,
+        throwOnNotFound: req.method === 'HEAD',
+        includeFields: req.method === 'HEAD' ? ['uid'] : []
+      })
+      .then(location => req.method === 'HEAD' ? res.send() : res.json({
+        success: true,
+        location
+      }), next)
+  ]);
+
+  app.post([
+    '/v2/agendas/:agendaUid/locations/:locationUid',
+    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+  ], [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).locations
+      .update(req.locationIdentifier, req.parsedData)
       .then(location => res.json({
         success: true,
         location
       }), next)
   ]);
 
-  app.patch('/v2/agendas/:agendaUid/locations/:locationUid', [
+  app.patch([
+    '/v2/agendas/:agendaUid/locations/:locationUid',
+    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+  ], [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => req.app.core
       .agendas(req.agenda.uid).locations
-      .patch(req.params.locationUid, req.parsedData)
+      .patch(req.locationIdentifier, req.parsedData)
       .then(location => res.json({
         success: true,
         location
       }), next)
   ]);
 
-  app.delete('/v2/agendas/:agendaUid/locations/:locationUid', [
+  app.delete([
+    '/v2/agendas/:agendaUid/locations/:locationUid',
+    '/v2/agendas/:agendaUid/locations/ext/:locationExtId'
+  ], [
     mw.member.allow(['administrator', 'moderator']),
     (req, res, next) => req.app.core
       .agendas(req.agenda.uid).locations
-      .remove(req.params.locationUid)
+      .remove(req.locationIdentifier)
       .then(location => res.json({
         success: true,
         location

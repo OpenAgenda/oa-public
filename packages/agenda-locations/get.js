@@ -7,6 +7,7 @@ const addGetQuery = require('./lib/addGetQuery');
 const addSelect = require('./lib/addSelect');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const decorateWithCounts = require('./lib/decorateWithCounts');
+const NotFoundError = require('./lib/NotFoundError');
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');
 
 async function get(service, identifiers, options = {}) {
@@ -15,7 +16,9 @@ async function get(service, identifiers, options = {}) {
   const {
     eventCounts: includeEventCounts,
     context,
-    includeImagePath
+    includeImagePath,
+    includeFields,
+    throwOnNotFound
   } = cleanGetOptions(options);
 
   await addGetQuery(service, k, {
@@ -23,14 +26,18 @@ async function get(service, identifiers, options = {}) {
     ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
   });
 
-  addSelect(k, 'public', { first: true });
+  addSelect(k, 'public', { first: true, includeFields });
 
   const location = await k.then(l => l ? fromDbEntryToItem(l, {
+    includeFields,
     imagePath: includeImagePath ? service.config.imagePath : null,
     access: 'public'
   }): null);
 
   if (!location) {
+    if (throwOnNotFound) {
+      throw new NotFoundError('location', identifiers);
+    }
     return null;
   }
 

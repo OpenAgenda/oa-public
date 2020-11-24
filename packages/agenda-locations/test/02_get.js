@@ -90,6 +90,11 @@ describe('agenda-locations - functional - get', function() {
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
     });
 
+    it('get specific fields only', async () => {
+      const location = await svc.get({ uid: 51665985 }, { includeFields: ['name'] });
+      assert.deepEqual(Object.keys(location), ['name']);
+    });
+
     it('location can be fetched by its extId', async () => {
       const location = await svc.get({ extId: 'ard_03' });
     });
@@ -98,6 +103,16 @@ describe('agenda-locations - functional - get', function() {
       const location = await svc.get('51665985');
 
       assert.equal(location.name, 'Grotte Chauvet 2 - Ardèche');
+    });
+
+    it('if throwOnNotFound option is true, throws NotFoundError when location is not found', async () => {
+      try {
+        await svc.get(67894564878453456, { throwOnNotFound: true });
+      } catch (e) {
+        assert.equal(e.statusCode, 404);
+        return;
+      }
+      throw new Error('should not reach here');
     });
 
     it('if getEventCounts interface is set and eventCount option is true, location includes interface-provided event counts', async () => {

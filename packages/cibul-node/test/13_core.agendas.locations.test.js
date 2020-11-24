@@ -119,7 +119,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     });
   });
 
-
   describe('api', () => {
     let server, accessToken, response;
 
@@ -258,6 +257,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
               department: 'Ardèche',
               postalCode: '07300',
               insee: '07324',
+              extId: 'ard04',
               countryCode: 'FR',
               latitude: 45.068507,
               longitude: 4.830648
@@ -298,6 +298,119 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
       });
     });
 
+    describe('successful patch through extId', () => {
+      let response;
+      beforeAll(async () => {
+        try {
+          response = await axios({
+            method: 'patch',
+            url: 'http://localhost:3000/v2/agendas/17026855/locations/ext/ard04',
+            headers: {
+              'access-token': accessToken,
+              nonce: 1011883,
+              'content-type': 'application/json'
+            },
+            data: {
+              name: 'patché par extId'
+            }
+          });
+        } catch (e) {
+          //console.log(e);
+          //console.log(e.response.data);
+        }
+      });
+
+      it('response code is 200', () => {
+        assert.equal(response.status, 200);
+      });
+
+      it('patched data is in response', () => {
+        assert.equal(response.data.location.name, 'patché par extId');
+      });
+    });
+
+    describe('sucessful get', () => {
+
+      it('location is given using account key', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          headers: {
+            'content-type': 'application/json'
+          }
+        });
+
+        const {
+          location
+        } = response.data;
+
+        assert.equal(location.uid, 95455142);
+      });
+
+      it('location is given using access token', async () => {
+        const response = await axios({
+          method: 'get',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142',
+          headers: {
+            'access-token': accessToken,
+            nonce: 1014563,
+            'content-type': 'application/json'
+          }
+        });
+
+        const {
+          location
+        } = response.data;
+
+        assert.equal(location.uid, 95455142);
+      });
+
+    });
+
+    describe('head', () => {
+
+      it('location is given using account key', async () => {
+        const response = await axios({
+          method: 'head',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          headers: {
+            'content-type': 'application/json'
+          }
+        });
+
+        assert.equal(response.status, 200);
+      });
+
+      it('location is given using access token', async () => {
+        const response = await axios({
+          method: 'head',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations/95455142',
+          headers: {
+            'access-token': accessToken,
+            nonce: 7894548789,
+            'content-type': 'application/json'
+          }
+        });
+
+        assert.equal(response.status, 200);
+      });
+
+      it('no location is found', async () => {
+        const error = await axios({
+          method: 'head',
+          url: 'http://localhost:3000/v2/agendas/17026855/locations/456489786456',
+          headers: {
+            'access-token': accessToken,
+            nonce: 10145789,
+            'content-type': 'application/json'
+          }
+        }).catch(e => e);
+
+        assert.equal(error.response.status, 404);
+      });
+
+    });
+
     describe('successful remove', () => {
       let response;
 
@@ -321,7 +434,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
         assert.equal(response.data.location.uid, 95455142);
       });
     });
-
   });
 
   describe('sets and interfaces', () => {
