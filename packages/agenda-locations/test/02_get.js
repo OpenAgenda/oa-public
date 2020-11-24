@@ -107,7 +107,7 @@ describe('agenda-locations - functional - get', function() {
 
     it('if throwOnNotFound option is true, throws NotFoundError when location is not found', async () => {
       try {
-        await svc.get(67894564878453456, { throwOnNotFound: true })
+        await svc.get(67894564878453456, { throwOnNotFound: true });
       } catch (e) {
         assert.equal(e.statusCode, 404);
         return;
