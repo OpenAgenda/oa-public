@@ -19,7 +19,7 @@ import {
   InboxAgendaAdminLayout,
   MainLayout,
   RequiredSuperAdmin,
-  RequiredUser
+  RequiredUser,
 } from '@openagenda/react-layouts/src/layouts';
 import createHomeApp from '@openagenda/home/src/app';
 import createUserSettingsApp from '@openagenda/user-apps/src/app';
@@ -42,11 +42,11 @@ if (!module.hot) {
 
 RHL.setConfig({ trackTailUpdates: false });
 
-if (process.env.NODE_ENV === 'development') {
-  // eslint-disable-next-line global-require
-  const whyDidYouRender = require('@welldone-software/why-did-you-render');
-  whyDidYouRender(React);
-}
+// if (process.env.NODE_ENV === 'development') {
+//   // eslint-disable-next-line global-require
+//   const whyDidYouRender = require('@welldone-software/why-did-you-render');
+//   whyDidYouRender(React);
+// }
 
 window.IScroll = IScroll;
 
@@ -76,40 +76,40 @@ const apps = [
   [
     'aggregatorSources',
     createAggregatorSourcesApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout]
+    [MainLayout, RequiredUser, AgendaAdminLayout],
   ],
   [
     'agendaAdminInbox',
     createInboxApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout, InboxAgendaAdminLayout]
+    [MainLayout, RequiredUser, AgendaAdminLayout, InboxAgendaAdminLayout],
   ],
   ['members', createMembersApp, [MainLayout, RequiredUser, AgendaAdminLayout]],
   [
     'agendaActivities',
     createAgendaActivitiesApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout]
+    [MainLayout, RequiredUser, AgendaAdminLayout],
   ],
   [
     'agendaStats',
     createAgendaStatsApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout]
+    [MainLayout, RequiredUser, AgendaAdminLayout],
   ],
   [
     'agendaSettingsEdit',
     createAgendaSettingsEditApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout]
+    [MainLayout, RequiredUser, AgendaAdminLayout],
   ],
   // superadmin
   [
     'adminSupport',
     createInboxApp,
-    [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout]
+    [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout],
   ],
   [
     'supervisor',
     createSupervisorApp,
-    [MainLayout, RequiredUser, RequiredSuperAdmin]
-  ]
+    [MainLayout, RequiredUser, RequiredSuperAdmin],
+  ],
 ].reduce(
   (accu, [key, createApp, layout]) => ({
     ...accu,
@@ -117,8 +117,8 @@ const apps = [
       initialState: initialState[key],
       layout,
       history,
-      reduxMiddleware
-    })
+      reduxMiddleware,
+    }),
   }),
   {}
 );
@@ -132,7 +132,7 @@ loadableReady(async () => {
   const triggerHooks = () => Promise.all(
     Object.values(apps).map(app => app.triggerHooks({
       onStart: onLocationChangeStart,
-      onFinish: onLocationChangeFinish
+      onFinish: onLocationChangeFinish,
     }))
   );
 
