@@ -36,6 +36,7 @@ function DateRangePicker({
   const [ranges, setRanges] = useState(
     () => input.value ?? defaultGetInitialValue()
   );
+  const [dragStatus, setDragStatus] = useState(false);
   const [focusedRange, setFocusedRange] = useState([0, 0]);
 
   const latestRanges = useLatest(ranges);
@@ -44,23 +45,37 @@ function DateRangePicker({
 
   const { onChange } = input;
 
-  const onPreviewChange = useCallback(
-    value => dateRangeRef.current.updatePreview(
+  // Update state for re-calculate rdrNoSelection
+  const onSelectPreviewChange = useCallback(value => {
+    const dateRange = dateRangeRef.current;
+
+    setDragStatus(dateRangeRef.current?.calendar.state.drag.status);
+    dateRange.updatePreview(value ? dateRange.calcNewSelection(value) : null);
+  }, []);
+
+  const onDefinedPreviewChange = useCallback(value => {
+    const dateRange = dateRangeRef.current;
+
+    return dateRange.updatePreview(
       value
-        ? dateRangeRef.current.calcNewSelection(
-          value,
-          typeof value === 'string'
-        )
+        ? dateRange.calcNewSelection(value, typeof value === 'string')
         : null
-    ),
-    []
-  );
+    );
+  }, []);
 
   const onTemporaryChange = useCallback(
     item => {
       const value = [item?.selection ? item.selection : item.range1];
 
       setRanges(value);
+
+      if (
+        latestFocusedRange.current[0] === 0
+        && latestFocusedRange.current[1] === 0
+        && value[0].startDate.getTime() !== value[0].endDate.getTime()
+      ) {
+        onChange(value);
+      }
 
       if (
         latestFocusedRange.current[0] === 0
@@ -86,8 +101,10 @@ function DateRangePicker({
 
   const rdrNoSelection = useMemo(() => {
     const range = ranges?.[0];
-    return !range || (range.startDate === null && range.endDate === null);
-  }, [ranges]);
+    const hasRange = range && range.startDate !== null && range.endDate !== null;
+
+    return !hasRange && !dragStatus;
+  }, [ranges, dragStatus]);
 
   // If value change then update internal ranges
   useLayoutEffect(() => {
@@ -118,6 +135,7 @@ function DateRangePicker({
   return (
     <div className={cn('rdrDateRangePickerWrapper', { rdrNoSelection })}>
       <DateRange
+        onPreviewChange={onSelectPreviewChange}
         onRangeFocusChange={setFocusedRange}
         {...dateRangePickerProps}
         onChange={onTemporaryChange}
@@ -126,7 +144,7 @@ function DateRangePicker({
         disabledDay={disabledDay}
       />
       <DefinedRange
-        onPreviewChange={onPreviewChange}
+        onPreviewChange={onDefinedPreviewChange}
         {...dateRangePickerProps}
         range={ranges[focusedRange[0]]}
         onChange={onDefinedRangeChange}
