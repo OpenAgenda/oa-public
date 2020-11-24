@@ -10,10 +10,10 @@ const mailsRoot = path.join(__dirname, '..');
 const serverDevPath = path.join(mailsRoot, 'server.dev.js');
 
 const args = process.argv.splice(2);
-const directoryAsArgument = fs.lstatSync(args[0]).isDirectory();
+const directoryAsArgument = args[0] && fs.lstatSync(args[0]).isDirectory();
 
-const templateDirPath = process.env.MAILS_TEMPLATES_DIR
-  || path.join(process.cwd(), directoryAsArgument ? args[0] : '');
+const templatesDirPath = process.env.MAILS_TEMPLATES_DIR
+  || path.join(process.cwd(), directoryAsArgument ? args[0] : 'templates');
 
 const additionalArgs = args.splice(directoryAsArgument ? 1 : 0);
 
@@ -22,16 +22,16 @@ const nodemonArgs = [
   '-w',
   mailsRoot,
   '-w',
-  templateDirPath,
+  templatesDirPath,
   '-e',
   'js,json,mjml,ejs',
-  ...additionalArgs
+  ...additionalArgs,
 ];
 
 spawn('nodemon', nodemonArgs, {
   stdio: 'inherit',
   env: {
     ...process.env,
-    MAILS_TEMPLATES_DIR: templateDirPath
-  }
+    MAILS_TEMPLATES_DIR: templatesDirPath,
+  },
 });

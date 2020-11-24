@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/mails@2.1.1..@openagenda/mails@2.1.0) (2020-11-23)
+
+
+### Bug Fixes
+
+* **mails:** add missing editor deps ([9962940](https://bitbucket.org/openagenda/oa/commits/996294023cfe1c8da38388da435c170b93b4e16a))
+* **mails:** disableVerify to false for the dev server ([fed88e4](https://bitbucket.org/openagenda/oa/commits/fed88e4b048665027db7ef99aaacaadd18004cf2))
+* **mails:** fix templatesDirPath in editor ([e102c9c](https://bitbucket.org/openagenda/oa/commits/e102c9c9b13af5125cd7448c41bce5eb616a6457))
+
+
+
 ## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/mails@2.1.0..@openagenda/mails@2.0.10) (2020-11-23)
 
 

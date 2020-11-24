@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@2.1.1..@openagenda/agenda-locations@2.1.0) (2020-11-23)
+
+**Note:** Version bump only for package @openagenda/agenda-locations
+
+
+
+
+
 ## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/agenda-locations@2.1.0..@openagenda/agenda-locations@1.8.9) (2020-11-23)
 
 

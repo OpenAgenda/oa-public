@@ -12,7 +12,7 @@ const VError = require('verror');
 const htmlToText = require('html-to-text');
 const Mails = require('.');
 
-const mails = new Mails();
+const mails = new Mails({ disableVerify: true });
 
 mails.init().catch(error => console.log('Initializing error:', error));
 
@@ -22,8 +22,8 @@ function recursiveListPaths(base, type, filters) {
     filters: [
       'node_modules',
       '.git',
-      ...(Array.isArray(filters) ? filters : [filters])
-    ]
+      ...(Array.isArray(filters) ? filters : [filters]),
+    ],
   });
 
   const paths = [];
@@ -52,7 +52,7 @@ function renderLangsList(langs, query) {
         return `<li style="display: inline"><a href="?${searchParams}">${l}</a></li>`;
       })
       .join('&nbsp;&nbsp;'),
-    '</ul>'
+    '</ul>',
   ].join('');
 }
 
@@ -70,7 +70,7 @@ function renderFixturesList(paths, query) {
         )}</a></li>`;
       })
       .join('&nbsp;&nbsp;'),
-    '</ul>'
+    '</ul>',
   ].join('');
 }
 
@@ -85,7 +85,7 @@ const app = express();
 
 app.use(
   morgan('dev', {
-    skip: req => ['/reload/reload.js', '/robots.txt'].includes(req.path)
+    skip: req => ['/reload/reload.js', '/robots.txt'].includes(req.path),
   })
 );
 
@@ -111,7 +111,7 @@ app.get('/', async (req, res, next) => {
         paths.map(p => `<li><a href="${p}.mjml">${p}</a></li>`).join(''),
         '</ul>',
         '</body>',
-        '</html>'
+        '</html>',
       ].join('')
     );
   } catch (err) {
@@ -165,7 +165,7 @@ app.get(/.mjml$/, async (req, res, next) => {
   try {
     ({ html, text, subject } = await mails.render(templateName, data, {
       lang,
-      __
+      __,
     }));
   } catch (error) {
     return next(error);
@@ -219,7 +219,7 @@ app.get(/.mjml$/, async (req, res, next) => {
     ...(fixturesPaths.length
       ? [
         renderFixturesList(fixturesPaths, req.query),
-        '<hr style="max-width: 600px" />'
+        '<hr style="max-width: 600px" />',
       ]
       : []),
     ...(subject !== null
@@ -230,7 +230,7 @@ app.get(/.mjml$/, async (req, res, next) => {
         subject,
         `<p><small>${preview}</small></p>`,
         '</div>',
-        '<hr style="max-width: 600px" />'
+        '<hr style="max-width: 600px" />',
       ]
       : []),
     '<div style="display: flex">',
@@ -250,10 +250,10 @@ app.get(/.mjml$/, async (req, res, next) => {
         `<div style="max-width: 600px; margin: 0 auto;">${_.escape(
           text
         ).replace(/(?:\r\n|\r|\n)/g, '<br>')}</div>`,
-        '</div>'
+        '</div>',
       ]
       : []),
-    '</div></body></html>'
+    '</div></body></html>',
   ].join('');
 
   res.send(withReload(initialHtml));

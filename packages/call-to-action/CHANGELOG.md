@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [2.2.16](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.16..@openagenda/call-to-action@2.2.15) (2020-11-23)
+
+**Note:** Version bump only for package @openagenda/call-to-action
+
+
+
+
+
 ### [2.2.15](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/call-to-action@2.2.15..@openagenda/call-to-action@2.2.14) (2020-11-23)
 
 **Note:** Version bump only for package @openagenda/call-to-action

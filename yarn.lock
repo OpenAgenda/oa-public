@@ -5912,7 +5912,7 @@ __metadata:
     reselect: ^3.0.1
     rimraf: ^3.0.1
     should: ^13.2.3
-    speakingurl: ^14.0.1
+    slugify: ^1.4.6
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^16.12.0
@@ -6083,7 +6083,7 @@ __metadata:
     react-router: ^5.1.2
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
-    react-select: ^3.0.8
+    react-select: ^3.1.1
     react-use: ^13.22.3
     react-waypoint: ^9.0.2
     redial: ^0.5.0
@@ -7018,7 +7018,7 @@ __metadata:
     mjml: ^4.6.2
     morgan: ^1.9.1
     nodemailer: ^6.3.0
-    nodemon: ^2.0.4
+    nodemon: ^2.0.6
     prettier-eslint-cli: ^5.0.0
     redis: ^2.8.0
     reload: ^3.0.4
@@ -34369,6 +34369,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-select@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "react-select@npm:3.1.1"
+  dependencies:
+    "@babel/runtime": ^7.4.4
+    "@emotion/cache": ^10.0.9
+    "@emotion/core": ^10.0.9
+    "@emotion/css": ^10.0.9
+    memoize-one: ^5.0.0
+    prop-types: ^15.6.0
+    react-input-autosize: ^2.2.2
+    react-transition-group: ^4.3.0
+  peerDependencies:
+    react: ^16.8.0
+    react-dom: ^16.8.0
+  checksum: d3b2d850e6089887a468a0d3285e08f3c1e2bca86421bf0207d0c9526386c9d70a117c0b32ce6a9bf5aea8bc5e9c0eb5c7cc51b9a7081ce996eb9187d6a41694
+  languageName: node
+  linkType: hard
+
 "react-side-effect@npm:^1.1.0":
   version: 1.2.0
   resolution: "react-side-effect@npm:1.2.0"
@@ -37272,6 +37291,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"slugify@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "slugify@npm:1.4.6"
+  checksum: f78c7adceb3c0256edd50b6dc8b9c914c38df54b11f8fdeac431626e39f3ce08b6cb80df229013928fa90258aeef1c0e4650140b29739bef1a92caf45741cb2d
+  languageName: node
+  linkType: hard
+
 "smart-buffer@npm:^1.0.13":
   version: 1.1.15
   resolution: "smart-buffer@npm:1.1.15"
@@ -37677,13 +37703,6 @@ __metadata:
     select-hose: ^2.0.0
     spdy-transport: ^3.0.0
   checksum: 388d39324d706a0a73d1d16fa93397029b3eb47ff2aaa3ad58c3d9c7682ce53eb847795560dc08190b7e3f8404e8bf4814ff3fd74cf0c849796310f1cd8a5f92
-  languageName: node
-  linkType: hard
-
-"speakingurl@npm:^14.0.1":
-  version: 14.0.1
-  resolution: "speakingurl@npm:14.0.1"
-  checksum: c7a2269689f8267c2ed7ad265fc4f85ba064b3c5f6f0c7228a64412006990981cd726b46371fcaa9d32dc89e451857810df1169c390c23d42046954f1c92f453
   languageName: node
   linkType: hard
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.2.1..@openagenda/activity-apps@1.2.0) (2020-11-23)
+
+**Note:** Version bump only for package @openagenda/activity-apps
+
+
+
+
+
 ## [1.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/activity-apps@1.2.0..@openagenda/activity-apps@1.1.14) (2020-11-23)
 
 

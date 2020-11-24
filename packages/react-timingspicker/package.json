@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-timingspicker",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
-    "@openagenda/react-shared": "^2.1.0",
+    "@openagenda/react-shared": "^2.1.1",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "date-fns": "^2.1.0",

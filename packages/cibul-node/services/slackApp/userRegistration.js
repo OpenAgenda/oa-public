@@ -1,7 +1,5 @@
 'use strict';
 
-const config = require('../../config');
-
 async function getRecaptchaScore(usersSvc, uid) {
   const rawUser = await usersSvc._get(uid, { query: { $select: ['store'] } });
 
@@ -23,7 +21,7 @@ async function saveSlackMessageId(usersSvc, uid, messageId) {
   );
 }
 
-function makeMessage({ user, reCaptchaScore, automaticActivation }) {
+function makeMessage({ root, user, reCaptchaScore, automaticActivation }) {
   return {
     text: `Nouvel utilisateur: ${user.email} | ${user.fullName}`,
     blocks: [
@@ -48,7 +46,7 @@ function makeMessage({ user, reCaptchaScore, automaticActivation }) {
               emoji: true
             },
             value: 'show',
-            url: `${config.root}/admin/users?userUid=${user.uid}`
+            url: `${root}/admin/users?userUid=${user.uid}`
           }
         ]
           .concat(
@@ -65,7 +63,7 @@ function makeMessage({ user, reCaptchaScore, automaticActivation }) {
                   },
                   value: String(user.uid),
                   style: 'primary'
-                  // "url": `${config.root}/admin/users/activate?uid=${user.uid}`
+                  // "url": `${root}/admin/users/activate?uid=${user.uid}`
                 }
               ]
           )
@@ -80,7 +78,7 @@ function makeMessage({ user, reCaptchaScore, automaticActivation }) {
               },
               value: String(user.uid),
               style: 'danger'
-              // "url": `${config.root}/admin/users/blacklist?uid=${user.uid}`
+              // "url": `${root}/admin/users/blacklist?uid=${user.uid}`
             }
           ])
       }
@@ -88,15 +86,16 @@ function makeMessage({ user, reCaptchaScore, automaticActivation }) {
   };
 }
 
-function postMessage(slackApp, services) {
+function postMessage(slackApp, services, config) {
   return async ({ user, automaticActivation }) => {
     const { users } = services;
     const reCaptchaScore = await getRecaptchaScore(users, user.uid);
 
     const res = await slackApp.client.chat.postMessage({
-      token: config.slackApp.token,
-      channel: config.slackApp.channel,
+      token: config.token,
+      channel: config.channel,
       ...makeMessage({
+        root: config.root,
         user,
         reCaptchaScore,
         automaticActivation
@@ -111,7 +110,7 @@ function postMessage(slackApp, services) {
   };
 }
 
-function registerEvents(slackApp, services) {
+function registerEvents(slackApp, services, config) {
   slackApp.action(
     { type: 'block_actions', action_id: 'activate' },
     async ({ payload, ack, body, respond }) => {

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/call-to-action",
-  "version": "2.2.15",
+  "version": "2.2.16",
   "main": "dist/index.js",
   "scripts": {
     "start": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
@@ -23,7 +23,7 @@
     "@openagenda/logs": "^1.1.8",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.1.0",
+    "@openagenda/react-shared": "^2.1.1",
     "core-js": "^3.6.5",
     "lodash": "^4.17.15",
     "prop-types": "^15.6.0",

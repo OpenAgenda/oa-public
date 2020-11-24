@@ -1,5 +1,5 @@
 import { actionTypes as formActionTypes, SubmissionError } from 'redux-form';
-import slug from 'speakingurl';
+import slugify from 'slugify';
 import toMixedMultipart from '@openagenda/utils/toMixedMultipart';
 
 const LOAD = 'agenda-settings/agenda/LOAD';
@@ -87,7 +87,7 @@ export function formPlugin(state = {}, action) {
         ...state,
         values: {
           ...state.values,
-          slug: slug(action.payload, { lower: true })
+          slug: slugify(action.payload, { lower: true, strict: true })
         }
       };
     default:

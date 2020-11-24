@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.2.1](https://github.com/Oagenda/oa/branches/compare/@openagenda/react-timingspicker@1.2.1..@openagenda/react-timingspicker@1.2.0) (2020-11-23)
+
+**Note:** Version bump only for package @openagenda/react-timingspicker
+
+
+
+
+
 ## [1.2.0](https://github.com/Oagenda/oa/branches/compare/@openagenda/react-timingspicker@1.2.0..@openagenda/react-timingspicker@1.1.1) (2020-11-23)
 
 

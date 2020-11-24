@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-stats",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,8 +28,8 @@
     "@emotion/core": "^10.0.28",
     "@openagenda/event-search": "^2.8.0",
     "@openagenda/react-components": "^2.3.10",
-    "@openagenda/react-filters": "^1.1.0",
-    "@openagenda/react-shared": "^2.1.0",
+    "@openagenda/react-filters": "^1.1.1",
+    "@openagenda/react-shared": "^2.1.1",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "date-fns": "^2.11.1",

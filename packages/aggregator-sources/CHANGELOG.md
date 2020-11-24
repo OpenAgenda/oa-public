@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [1.3.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.3.1..@openagenda/aggregator-sources@1.3.0) (2020-11-23)
+
+
+### Bug Fixes
+
+* **mails:** disableVerify to false for the dev server ([fed88e4](https://bitbucket.org/openagenda/oa/commits/fed88e4b048665027db7ef99aaacaadd18004cf2))
+
+
+
 ## [1.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/aggregator-sources@1.3.0..@openagenda/aggregator-sources@1.2.11) (2020-11-23)
 
 

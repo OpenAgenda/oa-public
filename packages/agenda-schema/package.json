@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-schema",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "server/index",
   "scripts": {
     "prepack": "yarn dist",
@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
-    "@openagenda/call-to-action": "^2.2.15",
-    "@openagenda/form-schemas": "^1.9.0",
+    "@openagenda/call-to-action": "^2.2.16",
+    "@openagenda/form-schemas": "^1.9.1",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.8",
     "body-parser": "^1.18.2",

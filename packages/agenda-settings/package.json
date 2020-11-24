@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-settings",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "",
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "",
@@ -23,12 +23,12 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
     "@openagenda/agendas": "^1.6.0",
-    "@openagenda/call-to-action": "^2.2.15",
+    "@openagenda/call-to-action": "^2.2.16",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.8",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-form-components": "^2.1.14",
-    "@openagenda/react-shared": "^2.1.0",
+    "@openagenda/react-shared": "^2.1.1",
     "@openagenda/utils": "^1.3.0",
     "@openagenda/validators": "^2.3.0",
     "classnames": "^2.2.5",
@@ -45,7 +45,7 @@
     "redux-form": "^8.1.0",
     "regenerator-runtime": "^0.13.5",
     "reselect": "^3.0.1",
-    "speakingurl": "^14.0.1"
+    "slugify": "^1.4.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
