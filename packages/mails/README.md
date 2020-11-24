@@ -111,7 +111,7 @@ The structure of your templates folder can look like this:
     index.mjml
     text.ejs
     subject.ejs
- ``` 
+``` 
 
 ## API
 
