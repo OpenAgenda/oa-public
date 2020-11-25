@@ -19,6 +19,8 @@ class Mails {
     this.config = await createConfig(this._rawConfig);
 
     this.render = render.bind(null, this.config);
+
+    return this;
   }
 
   static recipientToArray(recipient) {
@@ -169,6 +171,13 @@ class Mails {
   }
 }
 
-Mails.addressParser = addressParser;
+module.exports = function createMails(config) {
+  const svc = new Mails(config);
 
-module.exports = Mails;
+  return svc.init();
+};
+
+Object.assign(module.exports, {
+  Mails,
+  addressParser,
+});

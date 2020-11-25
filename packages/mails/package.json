@@ -3,6 +3,10 @@
   "version": "2.2.0",
   "license": "MIT",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenAgenda/oa.git"
+  },
   "bin": {
     "oa-mails-editor": "./bin/editor.js"
   },
@@ -10,7 +14,7 @@
     "access": "public"
   },
   "scripts": {
-    "start": "nodemon server.dev.js -w $MAILS_TEMPLATES_DIR",
+    "start": "nodemon server.dev.js -e js,json,mjml,ejs -w $MAILS_TEMPLATES_DIR",
     "test": "jest --forceExit --detectOpenHandles",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint": "eslint -c .eslintrc '**/*.js'",
@@ -39,9 +43,6 @@
     "morgan": "^1.9.1",
     "prettier-eslint-cli": "^5.0.0",
     "redis": "^2.8.0"
-  },
-  "nodemonConfig": {
-    "ext": "js,json,mjml,ejs"
   },
   "lint-staged": {
     "**/*.js": [

@@ -6,9 +6,7 @@ Build and send responsive e-mails from Node.js.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-This project also allows you to create templates with preview and refresh in real time.
+This project allows you to create templates with preview and refresh in real time.
 
 ### Installing
 
@@ -23,7 +21,7 @@ yarn add @openagenda/mails
 Before using it you must initialize the service, the configuration needs to know where to find the templates, how to send them, then optionally the default values for each send (for example: *domain*, *lang*) and the translations of your templates.
 
 ```js
-const Mails = require('@openagenda/mails');
+const createMails = require('@openagenda/mails');
 
 /* Default configuration */
 
@@ -58,9 +56,7 @@ const config = {
   disableVerify: false
 };
 
-const mails = new Mails(config);
-
-mails.init()
+const mails = await createMails(config)
   .then(() => console.log('Service mails initialized'))
   .catch(error => console.log('Error on initializing service mails', error));
 ```
@@ -70,7 +66,7 @@ More details on the options in the [API section](#API).
 ### Example
 
 ```js
-const { results, errors } = await mails({
+const { results, errors } = await mails.send({
   template: 'helloWorld',
   to: {
     address: 'user@example.com',
@@ -82,11 +78,19 @@ const { results, errors } = await mails({
 
 ### Building templates
 
+#### Installing editor
+
+```bash
+yarn add @openagenda/mails-editor
+
+# or `npm i @openagenda/mails-editor`
+```
+
 #### Launching app
 
-The templates can come from an independent folder by running the `oa-mails-editor` binary, setting the environment variable `MAILS_TEMPLATES_DIR` or setting `templatesDir` at initialization.
+The templates used by `oa-mails-editor` come from a folder defined by the `MAILS_TEMPLATES_DIR` environment variable or with the first argument of the command.
 
-The simpliest method is to run `oa-mails-editor` from the directory of templates and navigate to [http://localhost:3000](http://localhost:3000).  
+The simpliest method is to run `oa-mails-editor` from the root of your project and navigate to [http://localhost:3000](http://localhost:3000).  
 The home page is the list of templates available in the chosen folder (`./templates` by default), once on the template to edit you just have to save your changes to see the changes in your browser.
 
 #### Structure
@@ -117,15 +121,15 @@ The structure of your templates folder can look like this:
 
 ### Configuration
 
-#### `constructor(options)`
+#### `createMails(options)`
 
 **Usage**
 ```js
-const Mails = require('@openagenda/mails');
+const createMails = require('@openagenda/mails');
 
 /* Dafault values */
 
-const mails = new Mails({
+const mails = await createMails({
   // Templating
   templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
 
@@ -154,8 +158,6 @@ const mails = new Mails({
   },
   queueName: 'mails'
 });
-
-await mails.init();
 ```
 
 **Arguments**
@@ -179,24 +181,11 @@ Value | Required | Description |
 
 During initialization a `queue` and a `transporter` are added to the config, you can use them raw from anywhere with a require of `@openagenda/mails/config`.
 
-#### `init()`
-
-Returns a Promise.
-
-**Usage**
-```js
-const mails = new Mails(config);
-
-await mails.init();
-```
-
 ### Mailing
 
-#### `sendMail(options)`
+#### `send(options)`
 
-This is the main method, the one exported by default.
-
-This function returns a Promise with one of these values:
+This is the main method, this function returns a Promise with one of these values:
 
 - an array of Redis IDs if the queue is activated
 - an array of nodemailer `sendMail` results if the queue is disabled
@@ -262,7 +251,7 @@ It's an object that is going to be merged into every message object. This allows
 ***Data order***  
 The data come from several sources, they are `Object.assign`ed in this order:
 
- - `data` from the `sendMail` options
+ - `data` from the `send` options
  - `data` from the current recipient (`recipient.data`)
  - `data` from `defaults.data` lastly for conserve values like *domain*, etc
 
@@ -270,7 +259,7 @@ The data come from several sources, they are `Object.assign`ed in this order:
 As for data, the language can be overloaded in several places, in this order:
 
  - `{ lang }` from `defaults`.
- - `lang` from the `sendMail` options
+ - `lang` from the `send` options
  - `lang` from the current recipient (`recipient.lang`)
 
 The `__` and `lang` values are passed to the template.
