@@ -5,7 +5,7 @@
   "ReactFilters.dateRanges.today": "Aujourd'hui",
   "ReactFilters.dateRanges.tomorrow": "Demain",
   "ReactFilters.messages.filterTitles.createdAt": "Date de création",
-  "ReactFilters.messages.filterTitles.state": "Status",
+  "ReactFilters.messages.filterTitles.state": "Statut",
   "ReactFilters.messages.filterTitles.timings": "Horaires",
   "ReactFilters.messages.filterTitles.updatedAt": "Date de mise à jour",
   "ReactShared.DateRangeFilter.dateRange": "Du {startDate, time, ::yyyyMMdd} au {endDate, time, ::yyyyMMdd}",
