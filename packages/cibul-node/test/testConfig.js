@@ -43,7 +43,8 @@ module.exports = {
     port: process.env.OA_ELASTICSEARCH_134_DEV_PORT,
     ssl: process.env.OA_ELASTICSEARCH_134_DEV_USE_SSL ? {
       key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
-      cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8')
+      cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8'),
+      rejectUnauthorized: !process.env.OA_ELASTICSEARCH_134_DEV_SSL_NO_VERIFY
     } : null
   },
   es75: {
@@ -52,7 +53,8 @@ module.exports = {
     defaultIndex: 'test',
     ssl: process.env.OA_ELASTICSEARCH_750_DEV_USE_SSL ? {
       key: fs.readFileSync(process.env.OA_CLIENT_SSL_KEY, 'utf-8'),
-      cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8')
+      cert: fs.readFileSync(process.env.OA_CLIENT_SSL_CERT, 'utf-8'),
+      rejectUnauthorized: !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY
     } : null
   }
 }

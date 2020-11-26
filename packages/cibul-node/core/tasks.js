@@ -18,5 +18,11 @@ module.exports = services => {
   }, {
     register: fns => queue.register(fns),
     enqueue: (...args) => queue.apply(null, args),
+    stop: async (options = {}) => {
+      if (options.reset) {
+        await queue.clear();
+      }
+      return queue.stop();
+    }
   });
 }
