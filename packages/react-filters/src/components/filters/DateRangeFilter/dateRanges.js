@@ -7,7 +7,7 @@ import {
   startOfDay,
   endOfDay,
   isSameDay,
-  getISODay
+  getISODay,
 } from 'date-fns';
 import * as dateFnsLocales from 'date-fns/locale';
 import { defineMessages } from 'react-intl';
@@ -15,24 +15,24 @@ import { defineMessages } from 'react-intl';
 const messages = defineMessages({
   today: {
     id: 'ReactFilters.dateRanges.today',
-    defaultMessage: 'Today'
+    defaultMessage: 'Today',
   },
   tomorrow: {
     id: 'ReactFilters.dateRanges.tomorrow',
-    defaultMessage: 'Tomorrow'
+    defaultMessage: 'Tomorrow',
   },
   thisWeekend: {
     id: 'ReactFilters.dateRanges.thisWeekend',
-    defaultMessage: 'This week-end'
+    defaultMessage: 'This week-end',
   },
   currentWeek: {
     id: 'ReactFilters.dateRanges.currentWeek',
-    defaultMessage: 'Current week'
+    defaultMessage: 'Current week',
   },
   currentMonth: {
     id: 'ReactFilters.dateRanges.currentMonth',
-    defaultMessage: 'Current month'
-  }
+    defaultMessage: 'Current month',
+  },
 });
 
 function getClosestDayAfter(dayOfWeek, fromDate = new Date()) {
@@ -43,7 +43,7 @@ function getClosestDayAfter(dayOfWeek, fromDate = new Date()) {
     Thur: 4,
     Fri: 5,
     Sat: 6,
-    Sun: 7
+    Sun: 7,
   };
   const offsetDays = dayOfWeekMap[dayOfWeek] - getISODay(fromDate);
   return addDays(fromDate, offsetDays);
@@ -58,7 +58,7 @@ const staticRangeHandler = {
       && isSameDay(range.startDate, definedRange.startDate)
       && isSameDay(range.endDate, definedRange.endDate)
     );
-  }
+  },
 };
 
 export function createStaticRanges(ranges) {
@@ -83,7 +83,7 @@ export default function dateRanges(intl) {
     startOfMonth: startOfMonth(new Date(), { locale }),
     endOfMonth: endOfMonth(new Date(), { locale }),
     startOfWeekend,
-    endOfWeekend
+    endOfWeekend,
   };
 
   return {
@@ -92,38 +92,38 @@ export default function dateRanges(intl) {
         label: intl.formatMessage(messages.today),
         range: () => ({
           startDate: defineds.startOfToday,
-          endDate: defineds.endOfToday
-        })
+          endDate: defineds.endOfToday,
+        }),
       },
       {
         label: intl.formatMessage(messages.tomorrow),
         range: () => ({
           startDate: defineds.startOfTomorrow,
-          endDate: defineds.endOfTomorrow
-        })
+          endDate: defineds.endOfTomorrow,
+        }),
       },
       {
         label: intl.formatMessage(messages.thisWeekend),
         range: () => ({
           startDate: defineds.startOfWeekend,
-          endDate: defineds.endOfWeekend
-        })
+          endDate: defineds.endOfWeekend,
+        }),
       },
       {
         label: intl.formatMessage(messages.currentWeek),
         range: () => ({
           startDate: defineds.startOfWeek,
-          endDate: defineds.endOfWeek
-        })
+          endDate: defineds.endOfWeek,
+        }),
       },
       {
         label: intl.formatMessage(messages.currentMonth),
         range: () => ({
           startDate: defineds.startOfMonth,
-          endDate: defineds.endOfMonth
-        })
-      }
+          endDate: defineds.endOfMonth,
+        }),
+      },
     ]),
-    inputRanges: []
+    inputRanges: [],
   };
 }

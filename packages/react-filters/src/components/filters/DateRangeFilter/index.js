@@ -4,10 +4,10 @@ import { OnChange } from 'react-final-form-listeners';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import { endOfDay, isSameDay } from 'date-fns';
-import useFilterTitle from '../../hooks/useFilterTitle';
-import dateRanges from '../../dateRanges';
-import Panel from '../Panel';
-import DateRangePicker from '../fields/DateRangePicker';
+import useFilterTitle from '../../../hooks/useFilterTitle';
+import Panel from '../../Panel';
+import DateRangePicker from '../../fields/DateRangePicker';
+import dateRanges from './dateRanges';
 
 const messages = defineMessages({
   singleDate: {
