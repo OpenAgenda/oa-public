@@ -28,13 +28,61 @@
 
   }
 
+  .nav {
+    padding-bottom: 20px;
+    ul {
+      display: inline-block;
+      padding: 0 6px;
+      margin-bottom: 0;
+    }
+    li {
+      display: none;
+      &.menu-item {
+        display: inline-block;
+        padding: 0 10px;
+        margin: 0;
+        &.selected {
+          border-left: none;
+          color: $oa-blue;
+        }
+      }
+    }
+    @media (min-width: $screen-md-min) {  
+      ul {
+        display: block;
+        padding: 0;
+      }
+      li {
+        display: block;
+        &.menu-item {
+          display: block;
+          padding: 0 0 0 20px;
+          &.selected {
+            border-left: 4px solid $oa-blue;
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: $screen-md-min) {
+    .filters {
+      background: transparent;
+
+      & > div {
+        background: $oa-white;
+        margin: 10px;
+        padding: 10px 20px;
+      }
+    }
+  }
+
   &.redirect {
 
     .body {
-
       text-align: center;
       padding: 16em 0;
-
     }
 
   }
