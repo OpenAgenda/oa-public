@@ -7000,7 +7000,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails@^2.1.1, @openagenda/mails@workspace:packages/mails":
+"@openagenda/mails-editor@^1.0.0, @openagenda/mails-editor@workspace:packages/mails-editor":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/mails-editor@workspace:packages/mails-editor"
+  dependencies:
+    "@openagenda/eslint-config": ^1.3.0
+    eslint: ^6.8.0
+    express: ^4.17.1
+    html-to-text: ^6.0.0
+    lint-staged: ^10.2.11
+    lodash: ^4.17.20
+    morgan: ^1.10.0
+    nodemon: ^2.0.6
+    prettier-eslint-cli: ^5.0.0
+    reload: ^3.1.1
+    verror: ^1.10.0
+    walk: ^2.3.14
+  peerDependencies:
+    "@openagenda/mails": ^2.2.0
+  bin:
+    oa-mails-editor: ./bin/editor.js
+  languageName: unknown
+  linkType: soft
+
+"@openagenda/mails@^2.2.0, @openagenda/mails@workspace:packages/mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:packages/mails"
   dependencies:
@@ -7009,14 +7032,11 @@ __metadata:
     "@openagenda/queues": ^1.2.6
     ejs: ^2.7.4
     eslint: ^6.8.0
-    express: ^4.17.1
-    html-to-text: ^5.1.1
     isemail: ^3.2.0
     jest: ^26.1.0
     lint-staged: ^10.2.11
     lodash: ^4.17.15
     mjml: ^4.6.2
-    morgan: ^1.9.1
     nodemailer: ^6.3.0
     nodemon: ^2.0.6
     prettier-eslint-cli: ^5.0.0
@@ -7024,8 +7044,6 @@ __metadata:
     reload: ^3.0.4
     verror: ^1.10.0
     walk: ^2.3.14
-  bin:
-    oa-mails-editor: ./bin/editor.js
   languageName: unknown
   linkType: soft
 
@@ -12594,7 +12612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"basic-auth@npm:~2.0.0":
+"basic-auth@npm:~2.0.0, basic-auth@npm:~2.0.1":
   version: 2.0.1
   resolution: "basic-auth@npm:2.0.1"
   dependencies:
@@ -14331,7 +14349,8 @@ __metadata:
     "@openagenda/landing": ^1.3.16
     "@openagenda/legacy": ^1.11.0
     "@openagenda/logs": ^1.1.8
-    "@openagenda/mails": ^2.1.1
+    "@openagenda/mails": ^2.2.0
+    "@openagenda/mails-editor": ^1.0.0
     "@openagenda/member-apps": ^2.1.1
     "@openagenda/members": ^1.15.13
     "@openagenda/network-apps": ^1.1.13
@@ -15042,7 +15061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^6.1.0":
+"commander@npm:^6.1.0, commander@npm:~6.1.0":
   version: 6.1.0
   resolution: "commander@npm:6.1.0"
   checksum: ef1e310c3f430b84f8818ec9c6e5ce1b84909616eb2c1b1a79f646bc25fbca156eccf2ecf19f07e77a08dc519728d53d1300f94f3b2ad93de65add66044dfce6
@@ -21988,17 +22007,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-to-text@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "html-to-text@npm:5.1.1"
+"html-to-text@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "html-to-text@npm:6.0.0"
   dependencies:
+    deepmerge: ^4.2.2
     he: ^1.2.0
-    htmlparser2: ^3.10.1
-    lodash: ^4.17.11
-    minimist: ^1.2.0
+    htmlparser2: ^4.1.0
+    lodash: ^4.17.20
+    minimist: ^1.2.5
   bin:
-    html-to-text: ./bin/cli.js
-  checksum: dd281bdfb16455b62fd1dac2a244fc657232101475e4707abae61377dd346bc22b3a118bc40c29215568f7534df67af5b9f858b51ed8d0a76d61d1f1e5b14d85
+    html-to-text: bin/cli.js
+  checksum: a3356379581a9af4d782fbb267f5ca3dee784b71818509f84003c34ded53488704162693efd3b211fda1349b679bf316f0bd4fe3fb3f01565fe1e8fa23a9c9d0
   languageName: node
   linkType: hard
 
@@ -22035,7 +22055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^3.10.1, htmlparser2@npm:^3.3.0, htmlparser2@npm:^3.9.1, htmlparser2@npm:^3.9.2":
+"htmlparser2@npm:^3.3.0, htmlparser2@npm:^3.9.1, htmlparser2@npm:^3.9.2":
   version: 3.10.1
   resolution: "htmlparser2@npm:3.10.1"
   dependencies:
@@ -28840,6 +28860,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"morgan@npm:^1.10.0":
+  version: 1.10.0
+  resolution: "morgan@npm:1.10.0"
+  dependencies:
+    basic-auth: ~2.0.1
+    debug: 2.6.9
+    depd: ~2.0.0
+    on-finished: ~2.3.0
+    on-headers: ~1.0.2
+  checksum: 64328f82f69a826254a364de5ab2ce992d807149ee8050a7978e0e043e098c247ba55f74f3ad1354f80e744680a0c9ab1ed9a8c2a1d5bb81824cea547d0dc234
+  languageName: node
+  linkType: hard
+
 "morgan@npm:^1.7.0, morgan@npm:^1.9.1":
   version: 1.9.1
   resolution: "morgan@npm:1.9.1"
@@ -35455,6 +35488,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reload@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "reload@npm:3.1.1"
+  dependencies:
+    cli-color: ~2.0.0
+    commander: ~6.1.0
+    finalhandler: ~1.1.1
+    minimist: ~1.2.0
+    open: ^7.0.0
+    serve-static: ~1.14.0
+    supervisor: ~0.12.0
+    url-parse: ~1.4.4
+    ws: ~7.3.0
+  bin:
+    reload: bin/reload
+  checksum: 3401eedb3e3662f38c21c9f3dc5976584860ab667b5d9349b64bf652e9b4b551c66ab9db7ea48353efaa66b5893f81ab379ee9f529f67098e77b7a9d6b47addb
+  languageName: node
+  linkType: hard
+
 "remark-breaks@npm:^1.0.5":
   version: 1.0.5
   resolution: "remark-breaks@npm:1.0.5"
@@ -42014,6 +42066,21 @@ typescript@^4.0:
     utf-8-validate:
       optional: true
   checksum: fe66f98e07cdb832d6161edd147e6bdec13cf7e811cd34b11d85fdc7b7c17eaf9498c1656dc4786c9d2207dc1cd86aef0060706af8c756ef86e9b5e9421ef566
+  languageName: node
+  linkType: hard
+
+"ws@npm:~7.3.0":
+  version: 7.3.1
+  resolution: "ws@npm:7.3.1"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 9302f1f6658c5f3ecd6d35d1c5a38ad708d8e5404cba66ad884ead072ef7a4c948f54d728649a2cb3af1865ca0e15f903e0e2ac9df30c1a0d4dd00d00e6e0d4a
   languageName: node
   linkType: hard
 

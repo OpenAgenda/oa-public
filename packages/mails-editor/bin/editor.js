@@ -7,7 +7,7 @@ const fs = require('fs');
 const { spawn } = require('child_process');
 
 const mailsRoot = path.join(__dirname, '..');
-const serverDevPath = path.join(mailsRoot, 'server.dev.js');
+const serverDevPath = path.join(mailsRoot, 'server.js');
 
 const args = process.argv.splice(2);
 const directoryAsArgument = args[0] && fs.lstatSync(args[0]).isDirectory();

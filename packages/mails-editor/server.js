@@ -10,11 +10,9 @@ const reload = require('reload');
 const walk = require('walk');
 const VError = require('verror');
 const htmlToText = require('html-to-text');
-const Mails = require('.');
+const createMails = require('@openagenda/mails');
 
-const mails = new Mails({ disableVerify: true });
-
-mails.init().catch(error => console.log('Initializing error:', error));
+let mails;
 
 function recursiveListPaths(base, type, filters) {
   const walker = walk.walk(base, {
@@ -272,6 +270,10 @@ app.use((err, req, res, next) => {
   res.status(500).send(withReload(html));
 });
 
-app.listen(3000);
+(async () => {
+  mails = await createMails({ disableVerify: true }).catch(error => console.log('Initializing error:', error));
 
-reload(app);
+  app.listen(3000);
+
+  await reload(app);
+})();

@@ -6,7 +6,7 @@ Build and send responsive e-mails from Node.js.
 
 ## Getting Started
 
-This project allows you to create templates with preview and refresh in real time.
+This project allows you to send mails from templates.
 
 ### Installing
 
@@ -78,20 +78,7 @@ const { results, errors } = await mails.send({
 
 ### Building templates
 
-#### Installing editor
-
-```bash
-yarn add @openagenda/mails-editor
-
-# or `npm i @openagenda/mails-editor`
-```
-
-#### Launching app
-
-The templates used by `oa-mails-editor` come from a folder defined by the `MAILS_TEMPLATES_DIR` environment variable or with the first argument of the command.
-
-The simpliest method is to run `oa-mails-editor` from the root of your project and navigate to [http://localhost:3000](http://localhost:3000).  
-The home page is the list of templates available in the chosen folder (`./templates` by default), once on the template to edit you just have to save your changes to see the changes in your browser.
+See [@openagenda/mails-editor](https://www.npmjs.com/package/@openagenda/mails-editor)
 
 #### Structure
 
