@@ -47,8 +47,9 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
     core = Core(services, testConfig);
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     core.services.knex.destroy();
+    await core.tasks.stop({ reset: true });
     testConfig.redisClient.quit();
   });
 

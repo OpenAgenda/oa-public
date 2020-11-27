@@ -1,6 +1,5 @@
 "use strict";
 
-const tasks = require('./tasks');
 const Agendas = require('./agendas');
 const Networks = require('./networks');
 const Users = require('./users');
