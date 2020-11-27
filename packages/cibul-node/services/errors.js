@@ -2,9 +2,9 @@
 
 const log = require('@openagenda/logs')('uncaught');
 
-process.on('uncaughtException', (err, origin) => handler(origin, err));
+process.on('uncaughtException', err => handler('uncaughtException', err));
 
-process.on('unhandledRejection', (err, origin) => handler(origin, err));
+process.on('unhandledRejection', err => handler('unhandledRejection', err));
 
 module.exports = handler;
 
