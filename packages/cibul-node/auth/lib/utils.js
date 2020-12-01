@@ -4,6 +4,7 @@ const _ = require('lodash');
 const qs = require( 'qs' );
 const cmn = require( '../../lib/commons-app' );
 const config = require( '../../config' );
+const labels = require( '@openagenda/labels/auth/messages' );
 
 function loadOptionals( req ) {
 
