@@ -82,12 +82,14 @@ function Title({
 }
 
 function MultiChoiceFilter({
-  name, options, label, filter, getTotal
+  name, label, filter, getTotal, getOptions
 }) {
   const form = useForm();
   const seed = useUIDSeed();
 
   const { callback: onChange } = useDebouncedCallback(() => form.submit(), 1);
+
+  const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
   return (
     <Panel
