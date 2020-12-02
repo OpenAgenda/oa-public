@@ -1,0 +1,18 @@
+{
+  "name": "@openagenda/queues",
+  "version": "1.2.6",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha --exit"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "redis": "^2.8.0",
+    "verror": "^1.10.0"
+  },
+  "devDependencies": {
+    "mocha": "^7.0.1",
+    "should": "^13.2.3"
+  }
+}
