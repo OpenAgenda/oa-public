@@ -7,11 +7,17 @@
  * Check you have docker v19.03.8 docker-compose v1.25.5 installed
  * Lots of free disk space (20GB+)
 
+## Set up git
+
+```bash
+git config --global submodule.recurse true
+```
+
 ## Get the projects
 
 Git clone the following:
 
- * oa
+ * oa (with `--recurse-submodules` git option)
  * cibul-symfony
  * cibulapi-symfony
 
