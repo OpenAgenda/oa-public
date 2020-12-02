@@ -52,6 +52,30 @@ export default function useFilters(
             type: 'states',
           },
         },
+        {
+          name: 'region',
+          type: 'radio',
+          options: null, // from the aggregation
+          aggregation: {
+            type: 'regions',
+          },
+        },
+        {
+          name: 'department',
+          type: 'radio',
+          options: null, // from the aggregation
+          aggregation: {
+            type: 'departments',
+          },
+        },
+        {
+          name: 'city',
+          type: 'radio',
+          options: null, // from the aggregation
+          aggregation: {
+            type: 'cities',
+          },
+        },
       ]
       : [];
 

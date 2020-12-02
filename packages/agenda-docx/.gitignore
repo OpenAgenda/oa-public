@@ -1,6 +1,0 @@
-.idea
-node_modules
-config.dev.js
-client/dist
-
-.~lock.*#

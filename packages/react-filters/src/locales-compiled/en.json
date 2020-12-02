@@ -29,10 +29,28 @@
       "value": "Tomorrow"
     }
   ],
+  "ReactFilters.messages.filterTitles.city": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
   "ReactFilters.messages.filterTitles.createdAt": [
     {
       "type": 0,
       "value": "Creation date"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.department": [
+    {
+      "type": 0,
+      "value": "Department"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.region": [
+    {
+      "type": 0,
+      "value": "Region"
     }
   ],
   "ReactFilters.messages.filterTitles.state": [

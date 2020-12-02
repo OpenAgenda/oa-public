@@ -8,6 +8,7 @@
   "license": "SEE LICENCE IN LICENSE",
   "private": true,
   "scripts": {
+    "postinstall": "husky install && cd public && git config core.hooksPath ../.husky",
     "prepack": "lerna link && lerna run --stream prepack",
     "start": "yarn workspace cibul-node start",
     "watch": "yarn workspace cibul-node watch",
@@ -17,23 +18,15 @@
     "commit": "git-cz",
     "release": "lerna publish"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run lint-staged --concurrency 1 --stream --since HEAD --exclude-dependents",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "config": {
     "commitizen": {
       "path": "@openagenda/cz-conventional-changelog"
     }
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "public/*"
   ],
-  "installConfig": {
-    "pnp": true
-  },
   "resolutions": {
     "final-form": "4.20.1",
     "react": "16.13.0",
@@ -58,7 +51,7 @@
     "concurrently": "^5.2.0",
     "conventional-changelog-conventionalcommits": "^4.3.0",
     "core-js": "^3.6.5",
-    "husky": "^4.2.1",
+    "husky": "^5.0.4",
     "jest": "^26.1.0",
     "lerna": "^3.22.1",
     "regenerator-runtime": "^0.13.5"

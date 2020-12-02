@@ -1,29 +1,29 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  // regions: {
-  //   id: 'ReactFilters.messages.filterTitles.regions',
-  //   defaultMessage: 'Regions'
-  // },
-  // departments: {
-  //   id: 'ReactFilters.messages.filterTitles.departments',
-  //   defaultMessage: 'Departments'
-  // },
-  // cities: {
-  //   id: 'ReactFilters.messages.filterTitles.cities',
-  //   defaultMessage: 'Cities'
-  // },
+  regions: {
+    id: 'ReactFilters.messages.filterTitles.region',
+    defaultMessage: 'Region',
+  },
+  departments: {
+    id: 'ReactFilters.messages.filterTitles.department',
+    defaultMessage: 'Department',
+  },
+  cities: {
+    id: 'ReactFilters.messages.filterTitles.city',
+    defaultMessage: 'City',
+  },
   timings: {
     id: 'ReactFilters.messages.filterTitles.timings',
-    defaultMessage: 'Timings'
+    defaultMessage: 'Timings',
   },
   createdAt: {
     id: 'ReactFilters.messages.filterTitles.createdAt',
-    defaultMessage: 'Creation date'
+    defaultMessage: 'Creation date',
   },
   updatedAt: {
     id: 'ReactFilters.messages.filterTitles.updatedAt',
-    defaultMessage: 'Date of update'
+    defaultMessage: 'Date of update',
   },
   // members: {
   //   id: 'ReactFilters.messages.filterTitles.members',
@@ -39,6 +39,6 @@ export default defineMessages({
   // },
   state: {
     id: 'ReactFilters.messages.filterTitles.state',
-    defaultMessage: 'State'
-  }
+    defaultMessage: 'State',
+  },
 });

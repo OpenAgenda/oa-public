@@ -29,16 +29,34 @@
       "value": "Demain"
     }
   ],
+  "ReactFilters.messages.filterTitles.city": [
+    {
+      "type": 0,
+      "value": "Ville"
+    }
+  ],
   "ReactFilters.messages.filterTitles.createdAt": [
     {
       "type": 0,
       "value": "Date de création"
     }
   ],
+  "ReactFilters.messages.filterTitles.department": [
+    {
+      "type": 0,
+      "value": "Département"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.region": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ],
   "ReactFilters.messages.filterTitles.state": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "Statut"
     }
   ],
   "ReactFilters.messages.filterTitles.timings": [

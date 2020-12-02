@@ -101,24 +101,40 @@ function FiltersPart({ agenda, agendaSchema }) {
 
       if (!data) return null;
 
-      if (filter.name === 'state') {
-        const stateValue = data.find(v => v.key === option.value);
+      const dataKey = 'id' in option ? 'id' : 'key';
+      const optionKey = 'id' in option ? 'id' : 'value';
 
-        return stateValue?.eventCount || 0;
-      }
-
-      const optionValue = data.find(
-        v => v.key === option.value || v.id === option.id
-      );
+      const optionValue = data.find(v => v[dataKey] === option[optionKey]);
 
       if (optionValue) {
-        return optionValue?.eventCount || 0;
+        return optionValue.eventCount || 0;
       }
 
       return 0;
     },
     [stats]
   );
+
+  const getOptions = useCallback(
+    filter => {
+      if (filter.options) return filter.options;
+
+      const stat = stats.find(s => _.isMatch(s.aggregation, {
+        type: filter.name,
+        ...filter.aggregation,
+      }));
+
+      if (!stat) return [];
+
+      return stat.state.data.map(v => ({
+        label: v.key,
+        value: v.key,
+      }));
+    },
+    [stats]
+  );
+
+  // TODO moreOptions
 
   const onFilterChange = useCallback(
     async values => dispatch(
@@ -201,6 +217,7 @@ function FiltersPart({ agenda, agendaSchema }) {
           checkboxComponent={MultiChoiceFilter}
           radioComponent={MultiChoiceFilter}
           getTotal={getTotal}
+          getOptions={getOptions}
         />
         {moreFilters ? (
           <Filters
@@ -210,6 +227,7 @@ function FiltersPart({ agenda, agendaSchema }) {
             checkboxComponent={MultiChoiceFilter}
             radioComponent={MultiChoiceFilter}
             getTotal={getTotal}
+            getOptions={getOptions}
           />
         ) : null}
         {additionalsFilters.length ? (

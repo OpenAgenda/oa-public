@@ -11,7 +11,7 @@ Sur https://app.jpe.infomaniak.com/
 
 ### Groupe de serveurs MySQL
 
-Lancer la création d'un nouvel environnement avec une base de données MySQL CE 8.x.x. Pas d'équilibrage, pas d'App Serveurs. En sélectionnant l'item MySQL choisi dans la topologie, sa configuration apparaitra dans le menu central.
+Lancer la création d'un nouvel environnement - en passant pas le bouton "nouvel environnement" - avec une base de données MySQL CE 8.x.x. Pas d'équilibrage, pas d'App Serveurs. En sélectionnant l'item MySQL choisi dans la topologie, sa configuration apparaitra dans le menu central.
 
 La capacité en cloudlets doit être suffisante pour votre besoins. Des ajustements seront probablement nécessaires. Dans notre cas, nous choisissons une capacité fixe de 48 cloudlets par serveur, ce qui équivaut à 6G de RAM pour 19Ghz de capacité de calcul.
 
@@ -176,7 +176,7 @@ Il faut commencer par donner les droits root aux instances MySQL en suivant la p
 Il faut ensuite installer `pmm2-client` sur chaque instance MySQL, en SSH:
 
 ```
-sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+sudo yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm -y
 sudo yum install pmm2-client -y
 ```
 
