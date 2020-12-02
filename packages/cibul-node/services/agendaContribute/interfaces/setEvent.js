@@ -33,56 +33,27 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
     });
   }
 
-  const memberRole = await _getMemberRoleSlug(members, agenda, user);
-
-  // define which state the event should take
-
-  if (!isNew && !isDraft && await _shouldBeModerated(memberRole, agenda, user)) {
-    log('event is not new and not a draft and should be moderated on change');
-
-    transforms.state = { $set: 0 };
-  } else if (isNew || isUndrafted) {
-    log('event is new or undrafted; it should take the state requested by the agenda');
-
-    transforms.state = { $set: _.get(agenda, 'settings.contribution.defaultState') };
-  } else {
-
-    log('event is not new or is a draft. State should not be set');
-
-    transforms['$unset'].push('state');
-  }
+  const coreOptions = {
+    draft,
+    formSchemaDataFormat: true,
+    context: {
+      userUid: user.uid
+    },
+    access: await _getMemberRoleSlug(members, agenda, user) || 'public'
+  };
 
   const transformed = ih(data, transforms);
 
   try {
     if (!current) {
       log(draft ? 'creating draft' : 'creating event');
-
-      const event = await core.agendas(agenda.uid).events.create(transformed, {
-        draft,
-        formSchemaDataFormat: true,
-        context: {
-          userUid: user.uid
-        }
-      });
-
       return {
-        event
+        event: await core.agendas(agenda.uid).events.create(transformed, coreOptions)
       };
     } else {
       log(draft ? 'updating draft' : 'updating event');
-
-      const event = await core.agendas(agenda.uid).events.update(current.uid, transformed, {
-        draft,
-        formSchemaDataFormat: true,
-        context: {
-          userUid: user.uid
-        },
-        access: memberRole || 'public'
-      });
-
       return {
-        event,
+        event: await core.agendas(agenda.uid).events.update(current.uid, transformed, coreOptions),
         success: true
       };
     }
@@ -103,27 +74,6 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
       success: false,
       event: null
     }
-  }
-}
-
-async function _shouldBeModerated(memberRole, agenda, user) {
-  try {
-    const shouldBeModeratedIfChangedBy = _.get(
-      agenda,
-      'settings.contribution.moderateOnChangeBy',
-      []
-    );
-
-    if (!shouldBeModeratedIfChangedBy.length) return false;
-
-    if (!memberRole) throw new Error('Member not found');
-
-    return shouldBeModeratedIfChangedBy.includes(memberRole);
-
-  } catch (e) {
-    log('error', 'Could not determine role of user %s in agenda %s', user.uid, agenda.uid, e);
-
-    return true;
   }
 }
 

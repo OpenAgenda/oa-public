@@ -13,8 +13,12 @@ const batchable = ['update', 'remove'];
 module.exports = core => {
   core.tasks.register({
     agendaBatchList: agendaBatchList.bind(null, core),
-    batchedUpdate: batchedUpdate.bind(null, core),
-    batchedRemove: batchedRemove.bind(null, core)
+    batchedUpdate: (agendaUid, eventUid, data, options = {}) => update(
+      core.services, agendaUid, eventUid, data, { ...options, batched: true }
+    ),
+    batchedRemove: (agendaUid, eventUid, options = {}) => remove(
+      core.services, agendaUid, eventUid, { ...options, batched: true }
+    )
   });
 
   return (agendaUid, operation, query, ...args) => {
@@ -47,12 +51,4 @@ async function agendaBatchList(core, agendaUid, operation, query, ...args) {
 
     lastId = events.length ? nextLastId : -1;
   }
-}
-
-function batchedUpdate(core, agendaUid, eventUid, data, options = {}) {
-  return update(core.services, agendaUid, eventUid, data, Object.assign(options, { batched: true }));
-}
-
-function batchedRemove(core, agendaUid, eventUid, options = {}) {
-  return remove(core.services, agendaUid, eventUid, Object.assign(options, { batched: true }));
 }

@@ -11,7 +11,14 @@ const raw = resetAndCreateTables();
 
 raw.push(knex('review').insert([
   require('./sql/agendas/218.json'),
-  require('./sql/agendas/219.json'),
+  { ...require('./sql/agendas/219.json'), 
+    settings: JSON.stringify({
+      contribution: {
+        type: 1,
+        defaultState: 2 
+      }
+    })
+  },
   require('./sql/agendas/220.json')
 ]));
 

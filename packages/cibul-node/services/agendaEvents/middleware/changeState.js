@@ -32,6 +32,7 @@ module.exports = (req, res, next) => {
     state: req.params.state
   }, {
     partial: true,
+    access: req.access,
     context: {
       userUid: req.user.uid
     }
@@ -55,6 +56,7 @@ module.exports.batched = (req, res, next) => {
     state: stateSwitch[1]
   }, {
     partial: true,
+    access: req.access,
     context: {
       userUid: req.user.uid
     }

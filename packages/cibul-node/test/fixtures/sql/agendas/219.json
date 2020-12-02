@@ -9,7 +9,7 @@
   "updated_at": "2016-01-18 16:14:06",
   "official": 0,
   "credentials": "{}",
+  "settings": "{\"contribution\":{\"type\":1,\"defaultState\":0}}",
   "form_schema_id": 3,
-  "settings": "{}",
   "location_set_uid": 1
 }

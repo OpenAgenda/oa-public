@@ -90,7 +90,10 @@ describe('core - functional (server): core.agendas().events add()', function() {
       const {
         total,
         events
-      } = await core.agendas(17026800).events.search({ uid: 19201989 });
+      } = await core.agendas(17026800).events.search({
+        uid: 19201989,
+        state: null
+      });
 
       expect(total).toBe(1);
       expect(events[0].uid).toBe(19201989);
@@ -141,7 +144,8 @@ describe('core - functional (server): core.agendas().events add()', function() {
       }, {
         paths: [[82910283, 17026855]],
         aggregated: true,
-        returnPayload: true
+        returnPayload: true,
+        access: 'contributor'
       });
     });
 
@@ -153,8 +157,8 @@ describe('core - functional (server): core.agendas().events add()', function() {
       expect(result.event.sourcePaths).toEqual([[82910283, 17026855]]);
     });
 
-    it('state taken is state provided', () => {
-      expect(result.event.state).toBe(1);
+    it('state taken is default state', () => {
+      expect(result.event.state).toBe(0);
     });
 
     it('provided value for additional conditional field is maintained', () => {

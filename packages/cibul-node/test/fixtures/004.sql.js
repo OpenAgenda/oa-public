@@ -53,7 +53,11 @@ raw.push(knex('review').insert([{
   credentials: '{}',
   form_schema_id: 6,
   network_uid: 1234,
-  settings: JSON.stringify({})
+  settings: JSON.stringify({
+    contribution: {
+      moderateOnChangeBy: ['contributor']
+    }
+  })
 }]));
 
 raw.push(knex('user').insert([
@@ -266,6 +270,10 @@ raw.push(knex('event_2').insert([{
   image: JSON.stringify({
     filename: 'fdqfsdq.jpg'
   }),
+  timings: JSON.stringify([{
+    begin: new Date('2019-05-06T10:00:00'),
+    end: new Date('2019-05-06T11:00:00')
+  }]),
   draft: 0,
   owner_uid: 63170203,
   creator_uid: 63170203,

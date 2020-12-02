@@ -78,7 +78,7 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
       }).then(e => { event = e; });
     });
 
-    it('event was aggregated', async () => {
+    it('event was aggregated, taking default state', async () => {
       const ref = await core.services.agendaEvents(55268170).get(event.uid);
       expect(ref.state).toBe(2);
     });

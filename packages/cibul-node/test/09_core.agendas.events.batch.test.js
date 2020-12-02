@@ -62,8 +62,9 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
         state: 0
       }, { state: 1 }, {
         partial: true,
-        context: { userUid: 1 }
-      } );
+        context: { userUid: 1 },
+        access: 'administrator'
+      });
 
       core.tasks({
         execute: function(...args) {

@@ -22,13 +22,9 @@ const invalidLocationUidErrorItem = uid => ({
   message: 'provided location uid is invalid',
   origin: uid,
   step: 'validation'
-})
+});
 
-module.exports = async (services, agendaUid, data, options = {}) => {
-  log('received for agenda %s', agendaUid);
-
-  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
-
+async function cleanEvent(services, agenda, data, options = {}) {
   const locationUid =  _.get(data, 'location.uid', _.get(data, 'locationUid'));
   const location = locationUid ? await services.agendaLocations.get({
     uid: locationUid
@@ -40,14 +36,11 @@ module.exports = async (services, agendaUid, data, options = {}) => {
 
   log('fetched agenda and location');
 
-  return {
-    clean: validateEvent(services, {
-      formSchema: agenda.formSchema,
-      networkFormSchema: _.get(agenda, 'network.formSchema'),
-      location
-    }, data, options),
-    agenda
-  }
+  return validateEvent(services, {
+    formSchema: agenda.formSchema,
+    networkFormSchema: _.get(agenda, 'network.formSchema'),
+    location
+  }, data, options);
 }
 
 function validateEvent(services, { formSchema, networkFormSchema, location }, data, options = {}) {
@@ -69,6 +62,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     aggregated,
     member,
     access,
+    state,
     bypassAdditionalFieldValidation
   } = {
     defaultLang: null,
@@ -82,6 +76,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     aggregated: false,
     member: null,
     access: 'public',
+    state: null,
     bypassAdditionalFieldValidation: false,
     ...(typeof options === 'boolean' ? { evaluateEvent: options } : options)
   };
@@ -153,12 +148,13 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   try {
     log('evaluating agenda-event reference data');
 
-    clean.agendaEvent = validateAgendaEvent({
+    clean.agendaEvent = validateAgendaEvent(_.omit({
       ...data,
+      state,
       aggregated,
       sourcePaths: paths || [],
       userUid: member ? member.userUid : (data.userUid || data.ownerUid)
-    }, { optionalSecondaryFields, partial });
+    }, state === undefined ? ['state'] : []), { optionalSecondaryFields, partial });
 
   } catch (agendaEventErrors) {
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
@@ -199,5 +195,20 @@ function _consolidatedValidate(schema, data, { draft }) {
 
 
 function _asArray(obj) {
-  return _.keys(obj).map(k => obj[ k ]).filter(s => !!s)
+  return _.keys(obj).map(k => obj[k]).filter(s => !!s)
 }
+
+module.exports = async (services, agendaUid, data, options = {}) => {
+  log('received for agenda %s', agendaUid);
+
+  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+
+  return {
+    agenda,
+    clean: await cleanEvent(services, agenda, data, options)
+  };
+}
+
+module.exports.cleanEvent = cleanEvent;
+
+module.exports.loadAgenda = getAgendaWithNetworkAndSchemas;

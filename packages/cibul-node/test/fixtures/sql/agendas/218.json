@@ -7,7 +7,7 @@
   "official": 0,
   "owner_id": 50304,
   "private": 0,
-  "settings": "{\"contribution\": {\"type\": 1}}",
+  "settings": "{\"contribution\":{\"type\":1,\"defaultState\":2}}",
   "slug": "la-gargouille",
   "title": "La Gargouille",
   "uid": 17026855,

@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const axios = require('axios');
+const assert = require('assert');
 const FormData = require('form-data');
 const fs = require('fs');
 const ih = require('immutability-helper');
@@ -305,6 +306,82 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     it('agenda is part payload', () => {
       expect(result.agenda.uid).toBe(17026855);
+    });
+
+  });
+
+  describe('states', () => {
+
+    const now = new Date();
+    const inAnHour = new Date();
+    inAnHour.setHours(inAnHour.getHours()+1);
+
+    it('create on agenda with published default state creates published event', async () => {
+      const event = await core.agendas(17026855).events.create({
+        title: {
+          fr: 'Titre'
+        },
+        description: {
+          fr: 'Desc'
+        },
+        timings: [{
+          begin: now,
+          end: inAnHour
+        }],
+        location: {
+          uid: 123
+        },
+        'categories-agenda-metropolitain': 42
+      }, {
+        context: { userUid: 63170200 },
+        access: 'contributor'
+      });
+
+      assert.equal(event.state, 2);
+    });
+
+    it('create on agenda with to moderate default state creates to moderate event', async () => {
+      const event = await core.agendas(55268170).events.create({
+        title: { fr: 'T' },
+        description: { fr: 'D' },
+        timings: [{ begin: now, end: inAnHour }],
+        location: { uid: 123 }
+      }, {
+        context: { userUid: 63170200 },
+        access: 'contributor'
+      });
+
+      assert.equal(event.state, 0);
+    });
+
+    it('create with contributor access can not force state', async () => {
+      const event = await core.agendas(55268170).events.create({
+        title: { fr: 'T' },
+        description: { fr: 'D' },
+        timings: [{ begin: now, end: inAnHour }],
+        location: { uid: 123 },
+        state: 2
+      }, {
+        context: { userUid: 63170200 },
+        access: 'contributor'
+      });
+
+      assert.equal(event.state, 0);
+    });
+
+    it('create with administrator access can force state', async () => {
+      const event = await core.agendas(55268170).events.create({
+        title: { fr: 'T' },
+        description: { fr: 'D' },
+        timings: [{ begin: now, end: inAnHour }],
+        location: { uid: 123 },
+        state: 2
+      }, {
+        context: { userUid: 63170200 },
+        access: 'administrator'
+      });
+
+      assert.equal(event.state, 2);
     });
 
   });

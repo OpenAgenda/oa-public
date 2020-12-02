@@ -10,9 +10,15 @@ const {
 
 const createPayload = require('../utils/createPayload');
 const doAdd = require('../utils/doAdd');
-const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 const processOEmbed = require('../utils/processOEmbed');
 const ValidationError = require('../../utils/ValidationError');
+
+const {
+  loadAgenda,
+  cleanEvent
+} = require('../utils/loadAgendaAndCleanEvent');
+
+const determineEventState = require('../utils/determineEventState');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
   log('info', 'processing', { agendaUid, options });
@@ -49,15 +55,18 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     userUid: contextUserUid
   });
 
-  const {
-    clean,
-    agenda
-  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
+  const agenda = await loadAgenda(services, agendaUid);
+
+  const clean = await cleanEvent(services, agenda, data, {
     draft,
     defaultLang,
     formSchemaDataFormat,
     member,
-    access
+    access,
+    state: determineEventState(data, {
+      access,
+      defaultState: agenda?.settings?.contribution?.defaultState
+    })
   });
 
   const payload = createPayload(services, agenda);

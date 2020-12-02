@@ -395,7 +395,7 @@
     ],
     "origin": "tags",
     "read": null,
-    "write": "contributor"
+    "write": ["contributor", "administrator"]
   }, {
     "field": "bordeaux-metropole",
     "fieldType": "checkbox",

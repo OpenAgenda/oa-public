@@ -18,7 +18,13 @@ const createPayload = require('../utils/createPayload');
 const refreshAgenda = require('../utils/refreshAgenda');
 const setCustom = require('../utils/setCustom');
 const merge = require('../utils/merge');
-const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
+
+const {
+  loadAgenda,
+  cleanEvent
+} = require('../utils/loadAgendaAndCleanEvent');
+
+const determineEventState = require('../utils/determineEventState');
 
 async function update(services, agendaUid, eventUid, data, options = {}) {
   log('processing', { agendaUid, eventUid, options });
@@ -54,15 +60,18 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     ...options
   };
 
-  const {
-    clean,
-    agenda
-  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
+  const agenda = await loadAgenda(services, agendaUid);
+
+  const clean = await cleanEvent(services, agenda, data, {
     draft,
     formSchemaDataFormat,
     optionalSecondaryFields: true,
     partial,
     access,
+    state: determineEventState(data, {
+      access,
+      defaultState: (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(access) ? 0 : undefined
+    }),
     defaultLang
   });
 

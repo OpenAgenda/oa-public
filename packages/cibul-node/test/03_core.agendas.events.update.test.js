@@ -1,8 +1,7 @@
 'use strict';
 
-process.env.NODE_ENV = 'test';
-
 const _ = require('lodash');
+const assert = require('assert');
 const axios = require('axios');
 const mysql = require('mysql');
 const { promisify } = require('util');
@@ -91,7 +90,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
         'categories-agenda-metropolitain': 43,
         'thematiques-bordeaux-metropole' : [3]
       }, {
-        access: 'contributor'
+        access: 'administrator'
       });
     });
 
@@ -248,6 +247,49 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
   });
 
+  describe('state', () => {
+
+    it('contributor does not have access to event state change', async () => {
+      const event = await core.agendas(17026855).events.patch(19201989, {
+        state: 2
+      }, {
+        access: 'contributor',
+      });
+      assert.equal(event.state, 0);
+    });
+
+    it('administrator can change state', async () => {
+      const event = await core.agendas(17026855).events.patch(19201989, {
+        state: 2
+      }, {
+        access: 'administrator',
+      });
+      assert.equal(event.state, 2);
+    });
+
+    it('moderator can change state', async () => {
+      const event = await core.agendas(17026855).events.patch(19201989, {
+        state: 1
+      }, {
+        access: 'moderator',
+      });
+      assert.equal(event.state, 1);
+    });
+    
+    it('when published event is updated by role listed in moderateOnChangeBy, state reverts to 0', async () => {
+      const event = await core.agendas(92983929).events.patch(19390293, {
+        title: {
+          fr: 'Titre modifié'
+        }
+      }, {
+        access: 'contributor'
+      });
+
+      assert.equal(event.state, 0);
+    });
+
+  });
+
   describe('patch with returnPayload: true', () => {
     let result;
 
@@ -255,6 +297,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
       result = await core.agendas(17026855).events.patch(19201989, {
         state: -1
       }, {
+        access: 'moderator',
         returnPayload: true
       });
     });

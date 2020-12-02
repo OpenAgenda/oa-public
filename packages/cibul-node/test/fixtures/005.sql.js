@@ -43,7 +43,7 @@ raw.push(knex('review').insert([{
   form_schema_id: 4,
   settings: JSON.stringify({
     contribution: {
-      defaultState: 1
+      defaultState: 0
     }
   })
 }]));

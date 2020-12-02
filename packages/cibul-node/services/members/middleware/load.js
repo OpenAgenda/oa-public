@@ -73,5 +73,6 @@ async function _load({ agendaUidPath }, req) {
     userUid: req.user.uid
   });
 
-  req.member = member
+  req.access = member && members.utils.getRoleSlug(member.role);
+  req.member = member;
 }

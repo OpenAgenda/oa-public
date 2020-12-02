@@ -7,7 +7,13 @@ const log = require('@openagenda/logs')('core/agendas/events/add');
 
 const doAdd = require('../utils/doAdd');
 const createPayload = require('../utils/createPayload');
-const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
+
+const {
+  loadAgenda,
+  cleanEvent
+} = require('../utils/loadAgendaAndCleanEvent');
+
+const determineEventState = require('../utils/determineEventState');
 
 module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   // when the event is added on aggregation, only additional data is provided
@@ -56,19 +62,20 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     detailed: true
   });
 
-  // if additional data is conditional on main data, it will not be part of clean values
-  // unless main data is also provided
-  const {
-    clean,
-    agenda
-  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
+  const agenda = await loadAgenda(services, agendaUid);
+
+  const clean = await cleanEvent(services, agenda, data, {
     evaluateEvent: false,
     event,
     bypassAdditionalFieldValidation,
     paths,
     aggregated,
     member,
-    access
+    access,
+    state: determineEventState(data, {
+      access,
+      defaultState: agenda?.settings?.contribution?.defaultState
+    })
   });
 
   const payload = createPayload(services, agenda);
