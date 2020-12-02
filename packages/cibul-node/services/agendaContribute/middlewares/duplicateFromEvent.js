@@ -8,25 +8,27 @@ const log = require('@openagenda/logs')('services/agendaContribute/middlewares/d
 
 module.exports = async (req, res, next) => {
   const {
-    core
+    core,
+    members
   } = req.app.services;
 
   const agendaUid = _.get(req, 'query.agendaUid', req.agenda.uid);
 
   if (!req.query.eventUid) {
-
     return next();
-
   }
 
   const mergedSchemaFields = _.get(await core.agendas(agendaUid).settings.get(), 'fields', []);
 
-  const event = await core.agendas(agendaUid).events.get(req.query.eventUid);
+  const event = await core.agendas(agendaUid).events.get(req.query.eventUid, {
+    access: await members.get({
+      agendaUid,
+      userUid: req.user.uid
+    }).then(m => m ? members.utils.getRoleSlug(m.role) : 'public')
+  });
 
   if (!event) {
-
     return next();
-
   }
 
   // some fields are not duplicatable
