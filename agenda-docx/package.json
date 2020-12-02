@@ -1,0 +1,77 @@
+{
+  "name": "@openagenda/agenda-docx",
+  "version": "1.2.0",
+  "main": "server/index.js",
+  "author": "Kaoré <support@openagenda.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "DEBUG=agendaFiles,fetch,generateDocument nodemon server.dev",
+    "dist": "webpack-cli --config webpack.dist.js",
+    "test": "jest --runInBand --forceExit",
+    "cli": "node cli",
+    "prepack": "yarn dist",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.12.5",
+    "@openagenda/logs": "^1.1.8",
+    "angular-expressions": "^0.3.0",
+    "aws-sdk": "^2.544.0",
+    "core-js": "^3.6.5",
+    "date-fns": "^1.29.0",
+    "docxtemplater": "^3.14.2",
+    "express": "^4.17.1",
+    "final-form": "^4.20.1",
+    "immutability-helper": "^3.0.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "pizzip": "^3.0.6",
+    "prompt-input": "^3.0.0",
+    "prop-types": "^15.7.2",
+    "react-datepicker": "^1.6.0",
+    "react-final-form": "^6.4.0",
+    "redis": "^2.8.0",
+    "regenerator-runtime": "^0.13.3",
+    "remove-markdown": "^0.3.0",
+    "superagent": "^3.8.3",
+    "verror": "^1.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@openagenda/babel-preset": "^1.4.0",
+    "@openagenda/eslint-config": "^1.3.0",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.1",
+    "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "jest": "^26.1.0",
+    "lint-staged": "^10.2.11",
+    "lodash-webpack-plugin": "^0.11.5",
+    "nodemon": "^2.0.4",
+    "pnp-webpack-plugin": "^1.6.4",
+    "prettier-eslint-cli": "^5.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rimraf": "^3.0.1",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}

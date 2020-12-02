@@ -1,0 +1,185 @@
+{
+  "uid": 65615282,
+  "slug": "light-painting-autour-des-collections_578",
+  "canonicalUrl": "https://openagenda.com/ndm-2018-nouvelle-aquitaine/events/light-painting-autour-des-collections_578",
+  "title": "Light-painting autour des collections",
+  "description": "Découvrez les travaux réalisés par la classe de 6ème A du Collège J Supervielle de Bressuire.",
+  "longDescription": "Guidés par Stéphane Le Garff (SLG), les élèves ont réalisé une série de photographies mettant en lumière, sous un nouvel éclairage, une sélection de pièces issue des collections du Musée.",
+  "keywords": null,
+  "html": "<p>Guidés par Stéphane Le Garff (SLG), les élèves ont réalisé une série de photographies mettant en lumière, sous un nouvel éclairage, une sélection de pièces issue des collections du Musée.</p>",
+  "image": "https://cibul.s3.amazonaws.com/event_light-painting-autour-des-collections_578_559059.jpg",
+  "thumbnail": "https://cibul.s3.amazonaws.com/evtbevent_light-painting-autour-des-collections_578_559059.jpg",
+  "originalImage": "https://cibul.s3.amazonaws.com/evfevent_light-painting-autour-des-collections_578_559059.jpg",
+  "age": null,
+  "accessibility": [],
+  "updatedAt": "2018-03-29T16:02:53.000Z",
+  "range": "Samedi 19 mai, 15h00",
+  "imageCredits": "SLG",
+  "origin": {
+    "uid": 47800929,
+    "title": "Nuit européenne des musées 2018 : Nouvelle-Aquitaine",
+    "url": "https://nuitdesmusees.culturecommunication.gouv.fr",
+    "slug": "ndm-2018-nouvelle-aquitaine",
+    "oaUrl": "https://openagenda.com/agendas/47800929"
+  },
+  "conditions": null,
+  "registrationUrl": "0549743224, 0643474812, musees@agglo2b.fr",
+  "locationName": "Musée de Bressuire",
+  "locationUid": 23415154,
+  "address": "2 place de l'hôtel de ville, 79300, Bressuire",
+  "postalCode": "79300",
+  "city": "Bressuire",
+  "district": null,
+  "department": "Deux-Sèvres",
+  "region": "Nouvelle-Aquitaine",
+  "latitude": 46.841818,
+  "longitude": -0.493181,
+  "timings": [
+    {
+      "start": "2018-05-19T13:00:00.000Z",
+      "end": "2018-05-19T21:00:00.000Z",
+      "date": "2018/05/19",
+      "day": "19 mai",
+      "weekday": "samedi",
+      "year": "2018",
+      "beginHours": "15",
+      "beginMinutes": "00",
+      "endHours": "23",
+      "endMinutes": "00"
+    }
+  ],
+  "location": {
+    "uid": 23415154,
+    "name": "Musée de Bressuire",
+    "slug": "musee-municipal-de-bressuire_8042_13344",
+    "address": "2 place de l'hôtel de ville, 79300, Bressuire",
+    "image": null,
+    "imageCredits": null,
+    "postalCode": "79300",
+    "city": "Bressuire",
+    "district": null,
+    "department": "Deux-Sèvres",
+    "region": "Nouvelle-Aquitaine",
+    "latitude": 46.841818,
+    "longitude": -0.493181,
+    "description": "Le Musée de Bressuire est installé dans les anciens greniers à grain de la ville. Il évoque l'histoire du territoire bressuirais au travers des découvertes archéologiques qui se sont succédées ces dernières années. D’autres aspects de la vie dans le bocage sont abordés à l’aide d’œuvres d’art majoritairement produites dans le Bressuirais (sculptures, peintures, orfèvrerie…).",
+    "access": null,
+    "countryCode": "fr",
+    "website": "http://www.agglo2b.fr",
+    "links": [],
+    "phone": null,
+    "tags": [
+      {
+        "id": 40,
+        "label": "Musée de France"
+      },
+      {
+        "id": 17,
+        "label": "Beaux-Arts"
+      },
+      {
+        "id": 19,
+        "label": "Arts décoratifs"
+      },
+      {
+        "id": 22,
+        "label": "Société et civilisation"
+      }
+    ],
+    "timezone": null,
+    "updatedAt": "2018-03-29T16:01:28.000Z",
+    "country": "France (Métropole)"
+  },
+  "registration": [
+    {
+      "value": "0549743224",
+      "type": "phone",
+      "prefix": "tel:"
+    },
+    {
+      "value": "0643474812",
+      "type": "phone",
+      "prefix": "tel:"
+    },
+    {
+      "value": "musees@agglo2b.fr",
+      "type": "email",
+      "prefix": "mailto:"
+    }
+  ],
+  "firstDate": "2018-05-19",
+  "firstTimeStart": "15:00",
+  "firstTimeEnd": "23:00",
+  "lastDate": "2018-05-19",
+  "lastTimeStart": "15:00",
+  "lastTimeEnd": "23:00",
+  "featured": 0,
+  "hasPrivateCustomFields": false,
+  "hasAccessibility": false,
+  "custom": {
+    "conditions-de-participation": "Gratuit",
+    "type-devenement": "Exposition"
+  },
+  "contributor": {
+    "organization": "Musées Agglomération du Bocage Bressuirais"
+  },
+  "category": null,
+  "tags": [
+    {
+      "label": "Exposition",
+      "slug": "exposition",
+      "id": 23740
+    },
+    {
+      "label": "Gratuit",
+      "slug": "gratuit",
+      "id": 23746
+    }
+  ],
+  "tagGroups": [
+    {
+      "name": "Type d'événement",
+      "access": "public",
+      "slug": "type-devenement",
+      "tags": [
+        {
+          "label": "Exposition",
+          "slug": "exposition",
+          "id": 23740
+        }
+      ]
+    },
+    {
+      "name": "Conditions de participation",
+      "access": "public",
+      "slug": "conditions-de-participation",
+      "tags": [
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 23746
+        }
+      ]
+    }
+  ],
+  "dates": [
+    {
+      "date": "2018/05/19",
+      "day": "19 mai",
+      "weekday": "samedi",
+      "year": "2018",
+      "timings": [
+        {
+          "start": "2018-05-19T13:00:00.000Z",
+          "end": "2018-05-19T21:00:00.000Z",
+          "beginHours": "15",
+          "beginMinutes": "00",
+          "endHours": "23",
+          "endMinutes": "00"
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "diffWithNow": 9229704094
+}

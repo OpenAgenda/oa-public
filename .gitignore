@@ -1,0 +1,11 @@
+/.idea/
+/.vscode/
+/lerna-debug.log
+node_modules/
+npm-debug.log
+coverage/
+doctor.log
+.env
+sftp-config.*
+docker/devinstaller/ssl/certs
+docker/devinstaller/ssl/domains
