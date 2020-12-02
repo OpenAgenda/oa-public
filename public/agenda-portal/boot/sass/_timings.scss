@@ -1,0 +1,134 @@
+.timings {
+
+  &.detail-item {
+
+    width: 80%;
+    margin-left: 40px;
+
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .month {
+
+    width: 100%;
+    display: none;
+    margin: 10px 10px 30px 0;
+
+    &.displayed {
+      display: inline-block;
+    }
+
+    &-title {
+      border-bottom: 1px solid silver;
+      border-top: 1px solid silver;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      position: relative;
+      text-align: center;
+
+      h4 {
+        font-size: 1em;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      h4, i {
+        display: inline-block;
+      }
+
+      i {
+        color: $oa-black;
+        cursor: pointer;
+        padding: 13px 5px;
+        position: absolute;
+        top: 0;
+
+        &:hover {
+          color: $oa-blue;
+        }
+      }
+
+      .prev {
+        left: 0;
+      }
+
+      .next {
+        right: 0;
+      }
+    }
+
+    &-list {
+      margin-bottom: 10px;
+    }
+
+    &-item {
+
+      padding: 5px;
+      position: relative;
+
+      span {
+        display: inline-block;
+        width: 50%;
+      }
+
+      &.passed {
+        opacity: 0.5;
+      }
+
+    }
+
+    .week-separator {
+
+      margin: 10px 0;
+      border-bottom: 1px solid $oa-gray-light;
+
+    }
+
+    &-current {
+      display: block;
+    }
+  }
+
+  .day {
+    font-weight: 500;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  .hour {
+    color: $oa-gray;
+    font-weight: 300;
+    margin-left: 50%;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  &.detail-item {
+    padding: 0;
+
+    h3 {
+      margin-top: 5px;
+      vertical-align: top;
+    }
+  }
+
+  &.no-js {
+
+    width: 100%;
+    margin-left: 0;
+
+    .prev, .next {
+
+      display: none;
+
+    }
+
+  }
+}

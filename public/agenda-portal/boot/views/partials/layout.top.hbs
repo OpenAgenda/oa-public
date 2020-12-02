@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index, follow">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    {{#each stylesheets}}
+    <link rel="stylesheet" href="{{href}}" />
+    {{/each}}
+    {{#each scripts.top}}
+    <script src="{{src}}"></script>
+    {{/each}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <meta property="og:site_name" content="{{agenda.title}}">
+    {{#if event.title}}
+    <title>{{agenda.title}} - {{event.title}}</title>
+    <meta name="title" content="{{agenda.title}} - {{event.title}}">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{agenda.title}} - {{event.title}}">
+    <meta property="og:url" content="{{event.permalink}}">
+    <meta property="og:image" content="{{event.image}}">
+    {{else}}
+    <title>{{agenda.title}} - {{agenda.description}}</title>
+    <meta name="title" content="{{agenda.title}}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{agenda.title}} - {{agenda.description}}">
+    <meta property="og:url" content="{{root}}">
+    {{#if agenda.image}}
+    <meta property="og:image" content="{{agenda.image}}">
+    {{/if}}
+    {{/if}}
+    {{#if event.description}}
+    <meta name="description" content="{{event.description}}">
+    <meta property="og:description" content="{{event.description}}">
+    {{else}}
+    <meta name="description" content="{{agenda.description}}">
+    <meta property="og:description" content="{{agenda.description}}">
+    {{/if}}
+  </head>
+  <body>

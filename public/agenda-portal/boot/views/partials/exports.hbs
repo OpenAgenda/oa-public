@@ -1,0 +1,28 @@
+<div class="btn-group wbg exports">
+  <!--<a
+    role="button"
+    href="https://openagenda.com/agendas/{{agenda.uid}}/events.csv?{{searchString}}"
+    class="btn btn-outline-primary btn-sm">csv</a>-->
+  <a
+    role="button"
+    href="https://openagenda.com/agendas/{{agenda.uid}}/events.xlsx?{{searchString}}"
+    class="btn btn-outline-primary btn-sm">xls</a>
+  <a
+    role="button"
+    href="https://openagenda.com/agendas/{{agenda.uid}}/events.json?{{searchString}}"
+    class="btn btn-outline-primary btn-sm">json</a>
+  <a
+    role="button"
+    href="https://openagenda.com/agendas/{{agenda.uid}}/events.rss?{{searchString}}"
+    class="btn btn-outline-primary btn-sm">rss</a>
+  <a
+    role="button"
+    href="https://openagenda.com/agendas/{{agenda.uid}}/events.pdf?{{searchString}}"
+    class="btn btn-outline-primary btn-sm">pdf</a>
+  <a
+    role="button"
+    data-toggle="modal"
+    data-target="#share"
+    class="js_share_code btn btn-outline-primary btn-sm">&lt&gt</a>
+</div>
+{{>shareModal}}

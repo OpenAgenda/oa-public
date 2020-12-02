@@ -1,0 +1,87 @@
+[
+  {
+    "key": "2018-10",
+    "current": false,
+    "label": "Octobre 2018",
+    "weeks": [
+      {
+        "week": "2",
+        "label": "2",
+        "current": false,
+        "days": [
+          {
+            "day": "10",
+            "current": false,
+            "passed": true,
+            "timings": [
+              {
+                "start": "2018-10-10T08:00:00.000Z",
+                "end": "2018-10-10T09:00:00.000Z"
+              }
+            ],
+            "label": "Mercredi 10"
+          }
+        ]
+      }
+    ],
+    "hasPrevious": false,
+    "hasNext": true
+  },
+  {
+    "key": "2018-11",
+    "current": false,
+    "label": "Novembre 2018",
+    "weeks": [
+      {
+        "week": "3",
+        "label": "3",
+        "current": false,
+        "days": [
+          {
+            "day": "15",
+            "current": false,
+            "passed": true,
+            "timings": [
+              {
+                "start": "2018-11-15T08:00:00.000Z",
+                "end": "2018-11-15T13:00:00.000Z"
+              }
+            ],
+            "label": "Jeudi 15"
+          }
+        ]
+      }
+    ],
+    "displayed": true,
+    "hasPrevious": true,
+    "hasNext": true
+  },
+  {
+    "key": "2018-12",
+    "current": false,
+    "label": "Décembre 2018",
+    "weeks": [
+      {
+        "week": "1",
+        "label": "1",
+        "current": false,
+        "days": [
+          {
+            "day": "01",
+            "current": false,
+            "passed": true,
+            "timings": [
+              {
+                "start": "2018-11-30T23:00:00.000Z",
+                "end": "2018-12-01T00:00:00.000Z"
+              }
+            ],
+            "label": "Samedi 1"
+          }
+        ]
+      }
+    ],
+    "hasPrevious": true,
+    "hasNext": false
+  }
+]

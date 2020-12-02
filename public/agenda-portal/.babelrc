@@ -1,0 +1,11 @@
+{
+  "presets": [
+    [
+      "@openagenda",
+      {
+        "loose": true
+      }
+    ]
+  ],
+  "sourceType": "unambiguous"
+}

@@ -1,0 +1,36 @@
+.relative-dates {
+
+  ul {
+
+    list-style-type: none;
+    margin: 0 0 0 2px;
+    padding: 0;
+
+    li {
+
+      display: inline-block;
+      background: $oa-white;
+      border-radius: 3px;
+      padding: 2px 8px;
+      text-align: center;
+      margin: 4px 0 0;
+      font-size: 0.8em;
+
+      a {
+        color: $oa-black;
+      }
+
+      &:hover {
+
+        background: $oa-blue;
+
+        a {
+          color: $oa-white;
+        }
+
+      }
+    }
+
+  }
+
+}

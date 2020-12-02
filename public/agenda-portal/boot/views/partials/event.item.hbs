@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-2 text-center">
+    <span class="text-muted">
+      {{#if nextTiming}}
+      {{nextTiming.label}}
+      {{else if lastTiming}}
+      {{lastTiming.label}}
+      {{else}}
+      Aucun horaire n'est disponible
+      {{/if}}
+    </span>
+  </div>
+  <div class="col-md-10">
+    <a href="{{link}}" class="event-item">
+      <div class="wbg px-4 py-3">
+        <h3>{{title}}</h3>
+        <p>{{description}}</p>
+        <span>{{range}}</span>
+      </div>
+      {{#if image}}
+      <div class="text-center">
+        <img class="img-fluid" src="{{image}}" alt="{{description}}" />
+      </div>
+      {{/if}}
+      <script type="application/ld+json">
+      {{{JSONLD}}}
+      </script>
+    </a>
+  </div>
+</div>
