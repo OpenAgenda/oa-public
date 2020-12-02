@@ -1,3 +1,4 @@
 [submodule "public"]
 	path = public
 	url = git@github.com:OpenAgenda/oa-public.git
+	branch = main
