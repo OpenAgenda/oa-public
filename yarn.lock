@@ -7695,9 +7695,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/sdk-js@workspace:packages/sdk-js":
+"@openagenda/sdk-js@workspace:public/sdk-js":
   version: 0.0.0-use.local
-  resolution: "@openagenda/sdk-js@workspace:packages/sdk-js"
+  resolution: "@openagenda/sdk-js@workspace:public/sdk-js"
   dependencies:
     "@babel/cli": ^7.12.1
     "@babel/core": ^7.12.3
