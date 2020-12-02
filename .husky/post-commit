@@ -13,10 +13,11 @@
 
 unset $(env | grep "^GIT_" | sed -n "s/^\(.*\)=.*/\1/p")
 
-COMMIT_MSG="chore: update submodule"
 GIT="git"
 SUPERPROJECT_WORKING_TREE=$(git rev-parse --show-superproject-working-tree)
-SUBMODULE_NAME=$(basename $(git rev-parse --show-toplevel))
+SUBMODULE=$(git rev-parse --show-toplevel)
+SUBMODULE_NAME=$(basename "$SUBMODULE")
+COMMIT_MSG="chore: update submodule $SUBMODULE_NAME"
 
 # It's not a submodule
 [ -z "$SUPERPROJECT_WORKING_TREE" ] && exit 0
@@ -24,4 +25,4 @@ SUBMODULE_NAME=$(basename $(git rev-parse --show-toplevel))
 echo "Committing to $SUPERPROJECT_WORKING_TREE"
 cd "$SUPERPROJECT_WORKING_TREE"
 $GIT add .
-$GIT commit -m "$COMMIT_MSG $SUBMODULE_NAME"
+$GIT commit --no-verify -m "$COMMIT_MSG" -- "$SUBMODULE"
