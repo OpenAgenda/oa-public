@@ -1,0 +1,78 @@
+[
+  {
+    "key": "2018-10",
+    "current": false,
+    "label": "October 2018",
+    "weeks": [
+      {
+        "week": "2",
+        "label": "2",
+        "current": false,
+        "days": [
+          {
+            "day": "10",
+            "current": false,
+            "passed": true,
+            "timings": [
+              {
+                "start": "2018-10-10T08:00:00.000Z",
+                "end": "2018-10-10T09:00:00.000Z"
+              }
+            ],
+            "label": "Wednesday 10"
+          }
+        ]
+      }
+    ],
+    "hasPrevious": false,
+    "hasNext": true
+  },
+  {
+    "key": "2018-11",
+    "current": false,
+    "label": "November 2018",
+    "weeks": [
+      {
+        "week": "3",
+        "label": "3",
+        "current": false,
+        "days": [
+          {
+            "day": "15",
+            "current": false,
+            "passed": true,
+            "timings": [
+              {
+                "start": "2018-11-15T08:00:00.000Z",
+                "end": "2018-11-15T13:00:00.000Z"
+              }
+            ],
+            "label": "Thursday 15"
+          }
+        ]
+      },
+      {
+        "week": "5",
+        "label": "5",
+        "current": false,
+        "days": [
+          {
+            "day": "30",
+            "current": false,
+            "passed": true,
+            "timings": [
+              {
+                "start": "2018-11-30T23:00:00.000Z",
+                "end": "2018-12-01T00:00:00.000Z"
+              }
+            ],
+            "label": "Friday 30"
+          }
+        ]
+      }
+    ],
+    "displayed": true,
+    "hasPrevious": true,
+    "hasNext": false
+  }
+]

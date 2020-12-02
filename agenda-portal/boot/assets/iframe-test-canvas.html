@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <title>Canvas page</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row py-4">
+      <div class="col-md-4">
+        <p>Open this file in your browser once the portal project is running. It will show the portal running with the parent controller associated with the iframe</p>
+        <label>Here below is a preview</label>
+        <iframe
+          data-oa-frame="http://localhost:3000/preview"
+          data-count="3"
+          data-query="oaq[featured]=1"
+          data-target-url="http://dev.local"
+          data-target-iframe
+          allowtransparency="allowtransparency"
+          frameborder="0"></iframe>
+        <script type="text/javascript" src="http://localhost:3000/js/oaPreviewController.js"></script>
+      </div>
+      <div class="col-md-8">
+        <iframe
+          data-oa-portal="http://localhost:3000"
+          data-scroll-offset="20"
+          allowtransparency="allowtransparency"
+          frameborder="0"
+        ></iframe>
+        <script type="text/javascript" src="http://localhost:3000/js/oaPortalController.js"></script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

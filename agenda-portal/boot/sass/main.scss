@@ -1,0 +1,74 @@
+$body-bg: #eee;
+
+$oa-blue: #41acdd;
+$oa-black: #413a42;
+$oa-dark-purple: #413a42;
+$oa-white: #fff;
+$oa-silver: silver;
+$oa-gray: gray;
+$oa-gray-lightish: #bbb;
+$oa-gray-light: #ccc;
+$oa-gray-lighter: #eee;
+$oa-gray-lightest: #fafafa;
+$oa-red: #da4453;
+$oa-green: #5cb85c;
+$oa-yellow: rgba(240, 194, 12, 0.6);
+$oa-orange: #ff813d;
+$oa-warning: #f6bb42;
+$oa-dark: #333;
+
+$theme-colors: (
+  "primary": $oa-blue,
+  "danger": $oa-red,
+);
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  min-height: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a:hover {
+  text-decoration: none;
+  color: $oa-black;
+}
+
+.wbg {
+  background-color: white;
+}
+
+.main-show-sidebar {
+  display: none;
+}
+
+@include media-breakpoint-down(sm) {
+  .main-show-sidebar {
+    display: inline-block;
+  }
+}
+
+@import "./header";
+@import "./sidebar";
+@import "./activeFilters";
+@import "./exports";
+@import "./eventItem";
+@import "./spinner";
+@import "./pagination";
+@import "./timings";
+@import "./maps";
+@import "./event/share";
+
+@import "./widgets/tags";
+@import "./widgets/calendar";
+@import "./widgets/relative";
+@import "./widgets/preview";
+
+header {
+  background-color: $oa-dark-purple;
+  color: white;
+
+  a {
+    color: white;
+  }
+}

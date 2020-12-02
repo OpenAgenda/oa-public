@@ -1,0 +1,18 @@
+<div class="sidebar">
+  <div class="mobile-top-nav text-center" data-sidebar-toggle>
+    <button class="btn btn-link">Retour à la liste</button>
+  </div>
+  <div class="sidebar-wrapper">
+    <div class="my-4">
+      {{>widgets/map}}
+    </div>
+    <div class="my-4">
+      {{>widgets/calendar}}
+      {{>widgets/relative}}
+    </div>
+    <div class="my-4">
+      {{>widgets/tags}}
+    </div>
+    <span class="js_total mobile-bottom-nav" data-sidebar-toggle data-total="{{total}}" data-label-none="Aucun événement ne correspond à cette recherche" data-label-one="1 événement" data-label-plural="%total% événements"></span>
+  </div>
+</div>

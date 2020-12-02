@@ -1,0 +1,48 @@
+<div class="timings js_timings">
+  <ul class="months">
+  {{#each event.months}}
+    <li class="month{{#if current}} current{{/if}}{{#if displayed}} displayed{{/if}} js_month">
+      <div class="month-title">
+        {{#if hasPrevious}}
+        <i class="prev fa fa-chevron-left js_prev"></i>
+        {{/if}}
+        <h4>{{label}}</h4>
+        {{#if hasNext}}
+        <i class="next fa fa-chevron-right js_next"></i>
+        {{/if}}
+      </div>
+      <ul class="month-list">
+        {{#each weeks}}
+        {{#each days}}
+        <li class="month-item{{#if passed}} passed{{/if}}">
+          <span class="day">{{label}}</span>
+          {{#each timings}}
+          <a href="{{link}}">
+            <span class="hour">{{labels.start.time}} - {{labels.end.time}}</span>
+          </a>
+          {{/each}}
+        </li>
+        {{/each}}
+        <li class="week-separator"></li>
+        {{/each}}
+      </ul>
+    </li>
+  {{/each}}
+  </ul>
+  <script type="text/javascript">
+
+    $(function() {
+
+      $( '.js_timings .js_next' ).click( navTimings.bind( null, 'next' ) );
+      $( '.js_timings .js_prev' ).click( navTimings.bind( null, 'prev' ) );
+
+    });
+
+    function navTimings( direction, e ) {
+
+      $( e.target ).closest( '.js_month' ).removeClass( 'displayed' )[ direction ]().addClass( 'displayed' );
+
+    }
+
+  </script>
+</div>
