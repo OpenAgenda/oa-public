@@ -3,11 +3,11 @@
   "version": "1.2.3",
   "description": "Polyfills for web, dom and intl.",
   "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
-  "homepage": "https://github.com/OpenAgenda/oa#readme",
+  "homepage": "https://github.com/OpenAgenda/oa-public",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git"
   },
   "publishConfig": {
     "access": "public"

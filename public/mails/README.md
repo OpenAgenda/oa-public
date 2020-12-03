@@ -161,10 +161,10 @@ Value | Required | Description |
 |`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
 |`translations` |  | An object containing `labels` and `makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter(labels, defaultLang)` is a function that returns a function that can be called in templates with `__`. <br /><br />By default the `__` signature is `(name, values, lang)` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
-|`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/Oagenda/queues))
+|`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/OpenAgenda/oa-public/tree/main/queues))
 |`queueName` | * | A string that is the name of your Redis queue.
 |`disableVerify` |  | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.
-|`logger` |  | An object for the method `setModuleConfig` of [@openagenda/logs](https://github.com/Oagenda/logs)
+|`logger` |  | An object for the method `setModuleConfig` of [@openagenda/logs](https://github.com/OpenAgenda/oa-public/tree/main/logs)
 
 During initialization a `queue` and a `transporter` are added to the config, you can use them raw from anywhere with a require of `@openagenda/mails/config`.
 
