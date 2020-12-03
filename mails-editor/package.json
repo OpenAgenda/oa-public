@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/OpenAgenda/oa.git"
+    "url": "https://github.com/OpenAgenda/oa-public.git"
   },
   "publishConfig": {
     "access": "public"

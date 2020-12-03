@@ -4,7 +4,7 @@
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
-  "homepage": "https://github.com/Oagenda/agenda-portal",
+  "homepage": "https://github.com/OpenAgenda/oa-public",
   "publishConfig": {
     "access": "public"
   },
