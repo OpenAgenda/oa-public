@@ -5,9 +5,9 @@
   "main": "service/index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/agendas",
+  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/agendas",
   "scripts": {
     "test": "mocha --exit"
   },

@@ -2,10 +2,10 @@
   "name": "@openagenda/agenda-settings",
   "version": "1.4.0",
   "description": "",
-  "repository": "https://bitbucket.org/openagenda/oa",
+  "repository": "https://github.com/OpenAgenda/oa",
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/agenda-settings",
+  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/agenda-settings",
   "main": "dist/service.js",
   "directories": {
     "test": "test"

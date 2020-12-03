@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/call-to-action",
+  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/call-to-action",
   "description": "",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",

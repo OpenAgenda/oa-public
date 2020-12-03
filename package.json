@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "OpenAgenda monorepo",
   "main": "index.js",
-  "repository": "https://bitbucket.org/openagenda/oa",
+  "repository": "https://github.com/OpenAgenda/oa",
   "author": "OpenAgenda Dev Team",
   "license": "SEE LICENCE IN LICENSE",
   "private": true,

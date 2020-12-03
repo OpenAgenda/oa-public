@@ -271,10 +271,10 @@ Create a www directory
 
 Clone cibul-node, cibul-symfony and cibul-templates repos
 
-    git clone git@bitbucket.org:openagenda/cibul-symfony.git
-    git clone git@bitbucket.org:openagenda/cibulapi-symfony.git
-    git clone git@bitbucket.org:openagenda/build.git
-    git clone git@bitbucket.org:openagenda/oa.git
+    git clone git@github.com/OpenAgenda/cibul-symfony.git
+    git clone git@github.com/OpenAgenda/cibulapi-symfony.git
+    git clone git@bitbucket.org/openagenda/build.git
+    git clone git@github.com/OpenAgenda/oa.git
 
     mkdir tmp
     mv oa/packages/cibul-node ./

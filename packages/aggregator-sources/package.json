@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "author": "",
   "license": "ISC",

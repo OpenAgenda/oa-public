@@ -7,9 +7,9 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/member-apps",
+  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/member-apps",
   "main": "index.js",
   "scripts": {
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
