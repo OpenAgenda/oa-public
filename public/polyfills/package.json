@@ -3,21 +3,14 @@
   "version": "1.2.3",
   "description": "Polyfills for web, dom and intl.",
   "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
-  "homepage": "https://bitbucket.org/openagenda/oa#readme",
+  "homepage": "https://github.com/OpenAgenda/oa#readme",
   "license": "ISC",
-  "main": "lib/index.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "files": [
-    "lib"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"

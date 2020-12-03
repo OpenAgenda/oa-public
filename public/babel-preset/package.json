@@ -3,6 +3,9 @@
   "version": "1.4.0",
   "main": "index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@babel/helper-plugin-utils": "^7.10.4",
     "@babel/helpers": "^7.12.5",

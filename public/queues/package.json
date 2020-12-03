@@ -3,6 +3,9 @@
   "version": "1.2.6",
   "main": "index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "mocha --exit"
   },
