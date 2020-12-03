@@ -4,6 +4,9 @@
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "start": "DEBUG=agendaFiles,fetch,generateDocument nodemon server.dev",
     "dist": "webpack-cli --config webpack.dist.js",

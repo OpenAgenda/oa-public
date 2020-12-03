@@ -7,11 +7,11 @@
     "type": "git",
     "url": "https://github.com/OpenAgenda/oa.git"
   },
-  "bin": {
-    "oa-mails-editor": "./bin/editor.js"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "bin": {
+    "oa-mails-editor": "./bin/editor.js"
   },
   "scripts": {
     "start": "nodemon server.js -e js,json,mjml,ejs -w ./templates",
