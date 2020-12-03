@@ -16,6 +16,7 @@ const testConfig = require('./testConfig');
 
 describe('13 - core - functional(server): core.agendas().locations.list', function() {
   let core, server;
+  let accessToken;
 
   beforeAll(() => loadFixtures(testConfig.db, '015.sql'));
   beforeAll(() => assignClients(testConfig));
@@ -49,6 +50,21 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     server = api(core).listen(3000, done);
   });
 
+  const axiosJSONPayload = {
+    method: 'post',
+    url: 'http://localhost:3000/v2/requestAccessToken',
+    headers: {
+      'content-type': 'application/json'
+    },
+    data: {
+      code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+    }
+  };
+
+  beforeAll(async () => {
+    accessToken = await axios(axiosJSONPayload).then(r => r.data.access_token);
+  });
+
   afterAll(() => server.close());
 
   afterAll(() => {
@@ -56,18 +72,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     testConfig.redisClient.quit();
   });
 
-  it('access token can be fetched through json post', async () => {
-    const accessToken = await axios({
-      method: 'post',
-      url: 'http://localhost:3000/v2/requestAccessToken',
-      headers: {
-        'content-type': 'application/json'
-      },
-      data: {
-        code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
-      }
-    }).then(r => r.data.access_token);
-
+  it('access token was fetched through json post', () => {
     assert.equal(typeof accessToken, 'string');
     assert.equal(accessToken.length, 32);
   });
@@ -85,6 +90,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
     }).then(r => r.data.access_token);
 
     assert.equal(typeof accessToken, 'string');
+  });
+
+  it('expiry is pushed back when new request is made', async () => {
+    await (new Promise(rs => setTimeout(rs, 1000)));
+
+    const { data } = await axios(axiosJSONPayload);
+
+    assert.equal(data.expires_in, 3600);
   });
 
 });
