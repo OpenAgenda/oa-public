@@ -4,9 +4,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com:Oagenda/oa.git"
+    "url": "git+ssh://git@github.com:OpenAgenda/oa.git"
   },
-  "homepage": "https://github.com/Oagenda/oa/tree/master/packages/react-timingspicker",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/react-timingspicker",
   "main": "dist/index.js",
   "scripts": {
     "start": "start-storybook -p 9001",

@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/activity-apps",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/activity-apps",
   "scripts": {
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",

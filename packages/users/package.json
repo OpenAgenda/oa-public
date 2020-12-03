@@ -6,7 +6,7 @@
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "license": "ISC",
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/users",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/users",
   "main": "service/index.js",
   "scripts": {
     "knex": "babel-node ./node_modules/.bin/knex",

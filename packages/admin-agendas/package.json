@@ -21,7 +21,7 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/admin-agendas",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/admin-agendas",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
     "@openagenda/dom-utils": "^2.2.12",

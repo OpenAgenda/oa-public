@@ -5,7 +5,7 @@
   "repository": "https://github.com/OpenAgenda/oa",
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/agenda-settings",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/agenda-settings",
   "main": "dist/service.js",
   "directories": {
     "test": "test"

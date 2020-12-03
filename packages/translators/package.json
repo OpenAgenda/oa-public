@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/translators",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/translators",
   "directories": {
     "test": "test"
   },

@@ -506,7 +506,7 @@ If mails cannot be sent with smtp, a configuration change can be brought in conf
       }
     }
 
-The mails service provides a detailed documentation to change the configuration: [https://github.com/Oagenda/mails#configuration](https://github.com/Oagenda/mails#configuration)
+The mails service provides a detailed documentation to change the configuration: [https://github.com/OpenAgenda/oa-public/tree/main/mails#configuration](https://github.com/OpenAgenda/oa-public/tree/main/mails#configuration)
 
 
 ## References

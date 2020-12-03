@@ -9,7 +9,7 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/home",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/home",
   "scripts": {
     "start": "NODE_ENV=development start-storybook -p 9001",
     "build": "babel src -d dist -s",

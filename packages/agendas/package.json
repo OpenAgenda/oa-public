@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/agendas",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/agendas",
   "scripts": {
     "test": "mocha --exit"
   },

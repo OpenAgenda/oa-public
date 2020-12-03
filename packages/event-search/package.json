@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://github.com/OpenAgenda/oa/src/master/packages/event-search",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/event-search",
   "scripts": {
     "test": "NODE_ENV=test mocha --exit",
     "sandbox": "node sandbox/run.js"
