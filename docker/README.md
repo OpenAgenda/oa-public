@@ -7,12 +7,6 @@
  * Check you have docker v19.03.8 docker-compose v1.25.5 installed
  * Lots of free disk space (20GB+)
 
-## Set up git
-
-```bash
-git config --global submodule.recurse true
-```
-
 ## Get the projects
 
 Git clone the following:
@@ -27,6 +21,28 @@ Create an empty folder for hosting mysql data. Take note of the path.
 Do the same for elasticsearch 1. Take note of the path.
 
 Put a db dump somewhere. Take a note of the path.
+
+## Set up git
+
+OA contains a git submodule with the public packages.
+The following commands are useful for working with submodules, in OA:
+
+```bash
+# Overload the URL, so as not to put your user/password on each commit:
+git config submodule.public.url git@github.com:OpenAgenda/oa-public.git
+# Add --recurse-submodules option to all supported git calls (except clone):
+git config submodule.recurse true
+# To see submodule changes with a `git status`:
+git config status.submodulesummary 1
+# To see submodule diff with a `git diff`:
+git config diff.submodule log
+# Practical aliases:
+git config alias.sdiff '!'"git diff && git submodule foreach 'git diff'"
+git config alias.spush 'push --recurse-submodules=on-demand'
+git config alias.supdate 'submodule update --remote --merge'
+```
+
+For more details about git submodules see https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 ## Create the .env file
 
