@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
 
     res.json({
       access_token: token.token,
-      expires_in: token.lifespan
+      expires_in: Math.ceil((token.created_at.getTime() - (new Date).getTime())/1000 + token.lifespan)
     });
   } catch (e) {
     res.status(401);

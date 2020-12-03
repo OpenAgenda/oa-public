@@ -42,7 +42,7 @@ module.exports = async (knex, { secretKey }) => {
     return {
       ...token,
       ...update
-    }
+    };
   } else {
     const newToken = {
       api_key_set_id: apiKeySet.id,
