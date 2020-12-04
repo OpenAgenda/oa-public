@@ -1,0 +1,17 @@
+releases:
+  "@openagenda/agenda-docx": patch
+  "@openagenda/agenda-portal": patch
+  "@openagenda/agenda-stats": patch
+  "@openagenda/babel-preset": patch
+  "@openagenda/eslint-config": patch
+  "@openagenda/logs": patch
+  "@openagenda/mails": major
+  "@openagenda/mails-editor": patch
+  "@openagenda/polyfills": patch
+  "@openagenda/queues": patch
+  "@openagenda/react-filters": minor
+  "@openagenda/sdk-js": patch
+  cibul-node: minor
+
+undecided:
+  - oa
