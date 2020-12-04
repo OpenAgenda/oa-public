@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/polyfills",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Polyfills for web, dom and intl.",
   "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
   "homepage": "https://github.com/OpenAgenda/oa-public",
