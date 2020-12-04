@@ -60,7 +60,7 @@ function schema( options ) {
 
   function validate( value ) {
 
-    const flattened = schemaUtils.mapValuesToValidators( params.fields, value );
+    const flattened = schemaUtils.mapValuesToValidators( params.fields, value, defaultValue );
 
     let errors = [], clean = {};
 

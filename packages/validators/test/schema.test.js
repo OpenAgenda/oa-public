@@ -1195,6 +1195,35 @@ describe('schema validator', () => {
         expect(errors.length).toBe(1);
       });
 
+      it('defaults are taken into account with enableWith', () => {
+        try {
+          const validate = schema({
+            eventAttendanceMode: {
+              optional: false,
+              type: "choice",
+              default: 1,
+              unique: true,
+              options: [1, 2, 3]
+            },
+            locationUid: {
+              optional: false,
+              enableWith: {
+                field: 'eventAttendanceMode',
+                value: [1, 3]
+              },
+              type: 'integer',
+              default: null
+            }
+          });
+
+          validate({});
+
+          throw new Error('should not reach here');
+        } catch (e) {
+          expect([].concat(e).pop().code).toEqual('required');
+        }
+      });
+
       it('enableWith fields are filtered out if related field is not specified', () => {
         const validate = schema({
           acheckbox: {

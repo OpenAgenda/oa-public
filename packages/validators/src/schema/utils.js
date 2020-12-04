@@ -14,28 +14,33 @@ module.exports = {
 
 const registeredValidators = {};
 
-function mapValuesToValidators(fields, values) {
+function mapValuesToValidators(fields, values, defaults) {
+  const valuesWithDefaults = {
+    ...(defaults || {}),
+    ...values
+  };
+
   return Object.keys(fields).map(fieldName => ({
     field: fieldName,
     validator: _makeValidator(
       _extractType(_.get(fields, fieldName)),
       fieldName,
       _.get(fields, fieldName), // options
-      values
+      valuesWithDefaults
    ),
-    value: _extractValue(_.get(values, fieldName), values, fields[fieldName])
+    value: _extractValue(_.get(values, fieldName), values, valuesWithDefaults, fields[fieldName])
   }));
 }
 
 
-function _extractValue(value, values, fieldOptions = {}) {
+function _extractValue(value, values, valuesWithDefaults, fieldOptions = {}) {
   const enableWith = _.get(fieldOptions, 'enableWith');
 
   if (!enableWith) {
     return value;
   }
 
-  if (_enableWithFieldValueMatches(enableWith, values)) {
+  if (_enableWithFieldValueMatches(enableWith, valuesWithDefaults)) {
     return value;
   }
 
