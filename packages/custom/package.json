@@ -13,8 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/logs": "^1.1.8",
-    "@openagenda/queues": "^1.2.6",
+    "@openagenda/logs": "^1.1.9",
+    "@openagenda/queues": "^1.2.7",
     "@openagenda/validators": "^2.3.0",
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.15",

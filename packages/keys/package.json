@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/keys",
   "dependencies": {
-    "@openagenda/logs": "^1.1.8",
+    "@openagenda/logs": "^1.1.9",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.3.0",

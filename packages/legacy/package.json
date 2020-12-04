@@ -9,7 +9,7 @@
     "test": "jest --runInBand --testEnvironment=node"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.1.8",
+    "@openagenda/logs": "^1.1.9",
     "@openagenda/validators": "^2.3.0",
     "immutability-helper": "^3.0.0",
     "locutus": "^2.0.11",

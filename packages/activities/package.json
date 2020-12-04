@@ -19,7 +19,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
     "@openagenda/labels": "^2.3.0",
-    "@openagenda/logs": "^1.1.8",
+    "@openagenda/logs": "^1.1.9",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.3.0",
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "@openagenda/babel-preset": "^1.4.0",
+    "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/fixtures": "^2.0.2",
     "knex": "^0.19.5",
     "mocha": "^7.0.1",
