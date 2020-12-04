@@ -38,7 +38,7 @@
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.6",
     "@loadable/babel-plugin": "^5.13.0",
-    "@openagenda/babel-preset": "^1.4.0",
+    "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/fixtures": "^2.0.2",
     "@openagenda/keys": "^2.2.10",

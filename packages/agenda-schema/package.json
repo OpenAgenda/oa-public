@@ -12,7 +12,7 @@
     "@openagenda/call-to-action": "^2.2.16",
     "@openagenda/form-schemas": "^1.9.1",
     "@openagenda/labels": "^2.3.0",
-    "@openagenda/logs": "^1.1.8",
+    "@openagenda/logs": "^1.1.9",
     "body-parser": "^1.18.2",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
@@ -26,7 +26,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "@openagenda/babel-preset": "^1.4.0",
+    "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "babel-loader": "^8.2.1",
     "clean-webpack-plugin": "^3.0.0",

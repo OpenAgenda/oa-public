@@ -30,7 +30,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
-    "@openagenda/babel-preset": "^1.4.0",
+    "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@storybook/addon-actions": "^6.1.0",
     "@storybook/react": "^6.1.0",

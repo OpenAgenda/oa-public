@@ -271,10 +271,10 @@ Create a www directory
 
 Clone cibul-node, cibul-symfony and cibul-templates repos
 
-    git clone git@bitbucket.org:openagenda/cibul-symfony.git
-    git clone git@bitbucket.org:openagenda/cibulapi-symfony.git
-    git clone git@bitbucket.org:openagenda/build.git
-    git clone git@bitbucket.org:openagenda/oa.git
+    git clone git@github.com/OpenAgenda/cibul-symfony.git
+    git clone git@github.com/OpenAgenda/cibulapi-symfony.git
+    git clone git@bitbucket.org/openagenda/build.git
+    git clone git@github.com/OpenAgenda/oa.git
 
     mkdir tmp
     mv oa/packages/cibul-node ./
@@ -506,7 +506,7 @@ If mails cannot be sent with smtp, a configuration change can be brought in conf
       }
     }
 
-The mails service provides a detailed documentation to change the configuration: [https://github.com/Oagenda/mails#configuration](https://github.com/Oagenda/mails#configuration)
+The mails service provides a detailed documentation to change the configuration: [https://github.com/OpenAgenda/oa-public/tree/main/mails#configuration](https://github.com/OpenAgenda/oa-public/tree/main/mails#configuration)
 
 
 ## References

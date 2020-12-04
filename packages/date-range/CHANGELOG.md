@@ -3,24 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [2.3.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.3.0..@openagenda/date-range@2.2.12) (2020-11-23)
+## [2.3.0](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.12...@openagenda/date-range@2.3.0) (2020-11-23)
 
 
 ### Features
 
-* update moment and moment-timezone ([99dc602](https://bitbucket.org/openagenda/oa/commits/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
+* update moment and moment-timezone ([99dc602](https://github.com/OpenAgenda/oa/commit/99dc602a8f374a3a2d40c2c7d47908b602dfd878))
 
 
 
-### [2.2.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.12..@openagenda/date-range@2.2.11) (2020-07-16)
-
-**Note:** Version bump only for package @openagenda/date-range
-
-
-
-
-
-### [2.2.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.11..@openagenda/date-range@2.2.10) (2020-07-13)
+### [2.2.12](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.11...@openagenda/date-range@2.2.12) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/date-range
 
@@ -28,24 +20,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.10..@openagenda/date-range@2.2.9) (2020-07-10)
+### [2.2.11](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.10...@openagenda/date-range@2.2.11) (2020-07-13)
+
+**Note:** Version bump only for package @openagenda/date-range
+
+
+
+
+
+### [2.2.10](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.9...@openagenda/date-range@2.2.10) (2020-07-10)
 
 
 ### Bug Fixes
 
-* fix links in changelogs ([84e2460](https://bitbucket.org/openagenda/oa/commits/84e24609981f4ee3bb9e34ef52109d74abe97a62))
+* fix links in changelogs ([84e2460](https://github.com/OpenAgenda/oa/commit/84e24609981f4ee3bb9e34ef52109d74abe97a62))
 
 
 
-### [2.2.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.9..@openagenda/date-range@2.2.8) (2020-07-08)
-
-**Note:** Version bump only for package @openagenda/date-range
-
-
-
-
-
-### [2.2.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.8..@openagenda/date-range@2.2.7) (2020-07-06)
+### [2.2.9](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.8...@openagenda/date-range@2.2.9) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/date-range
 
@@ -53,7 +45,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.7..@openagenda/date-range@2.2.6) (2020-06-18)
+### [2.2.8](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.7...@openagenda/date-range@2.2.8) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/date-range
 
@@ -61,7 +53,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.6..@openagenda/date-range@2.2.5) (2020-06-09)
+### [2.2.7](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.6...@openagenda/date-range@2.2.7) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/date-range
 
@@ -69,7 +61,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.5..@openagenda/date-range@2.2.4) (2020-05-22)
+### [2.2.6](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.5...@openagenda/date-range@2.2.6) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/date-range
 
@@ -77,7 +69,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.4..@openagenda/date-range@2.2.3) (2020-05-19)
+### [2.2.5](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.4...@openagenda/date-range@2.2.5) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/date-range
 
@@ -85,19 +77,27 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.2.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/date-range@2.2.3..@openagenda/date-range@2.2.2) (2020-05-15)
+### [2.2.4](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.3...@openagenda/date-range@2.2.4) (2020-05-19)
+
+**Note:** Version bump only for package @openagenda/date-range
+
+
+
+
+
+### [2.2.3](https://github.com/OpenAgenda/oa/compare/@openagenda/date-range@2.2.2...@openagenda/date-range@2.2.3) (2020-05-15)
 
 
 ### Bug Fixes
 
-* does not use global moment locale ([95101c3](https://bitbucket.org/openagenda/oa/commits/95101c3bade5aa224003d3ec716571548aeb0d97))
+* does not use global moment locale ([95101c3](https://github.com/OpenAgenda/oa/commit/95101c3bade5aa224003d3ec716571548aeb0d97))
 
 
 
 ## <small>2.2.2 (2020-04-03)</small>
 
-* fix deps ([71703f8](https://bitbucket.org/openagenda/oa/commits/71703f8))
-* Merge branch 'master' of bitbucket.org:openagenda/oa into aggregator-sources ([a89accd](https://bitbucket.org/openagenda/oa/commits/a89accd))
-* upgrade some deps ([33a049a](https://bitbucket.org/openagenda/oa/commits/33a049a))
-* upgrade some deps ([dd48588](https://bitbucket.org/openagenda/oa/commits/dd48588))
-* fix(date-range): timezone offset is not used for pattern recognition ([c961b49](https://bitbucket.org/openagenda/oa/commits/c961b49))
+* fix deps ([71703f8](https://github.com/OpenAgenda/oa/commit/71703f8))
+* Merge branch 'master' of bitbucket.org:openagenda/oa into aggregator-sources ([a89accd](https://github.com/OpenAgenda/oa/commit/a89accd))
+* upgrade some deps ([33a049a](https://github.com/OpenAgenda/oa/commit/33a049a))
+* upgrade some deps ([dd48588](https://github.com/OpenAgenda/oa/commit/dd48588))
+* fix(date-range): timezone offset is not used for pattern recognition ([c961b49](https://github.com/OpenAgenda/oa/commit/c961b49))

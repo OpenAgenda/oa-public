@@ -5,9 +5,9 @@
   "author": "Kaoré",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/events",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/events",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -19,6 +19,7 @@
   "dependencies": {
     "@openagenda/form-schemas": "^1.9.1",
     "@openagenda/logs": "^1.1.8",
+    "@openagenda/logs": "^1.1.9",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",

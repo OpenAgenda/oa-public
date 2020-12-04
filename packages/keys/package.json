@@ -10,11 +10,11 @@
   "author": "",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/keys",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/keys",
   "dependencies": {
-    "@openagenda/logs": "^1.1.8",
+    "@openagenda/logs": "^1.1.9",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.3.0",

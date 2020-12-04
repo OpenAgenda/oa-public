@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.2.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.2.1..@openagenda/react-layouts@2.2.0) (2020-11-23)
+### [2.2.1](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@2.2.0...@openagenda/react-layouts@2.2.1) (2020-11-23)
 
 **Note:** Version bump only for package @openagenda/react-layouts
 
@@ -11,59 +11,59 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [2.2.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.2.0..@openagenda/react-layouts@2.1.1) (2020-11-23)
+## [2.2.0](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@2.1.1...@openagenda/react-layouts@2.2.0) (2020-11-23)
 
 
 ### Features
 
-* **react-layouts:** can display first app only ([2d7e563](https://bitbucket.org/openagenda/oa/commits/2d7e5630884b275ee759bcd1ec415a31d51ba4ac))
-* **react-layouts:** redirect unauthorized users ([d7ad503](https://bitbucket.org/openagenda/oa/commits/d7ad5035c93f9f196446df3a7b771713873a774f))
-* tweak badges in admin menu ([99fd5c5](https://bitbucket.org/openagenda/oa/commits/99fd5c5e93396832ecbcbe4435220e3f323cffed))
-* upgrade react-intl ([b80a487](https://bitbucket.org/openagenda/oa/commits/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
+* **react-layouts:** can display first app only ([2d7e563](https://github.com/OpenAgenda/oa/commit/2d7e5630884b275ee759bcd1ec415a31d51ba4ac))
+* **react-layouts:** redirect unauthorized users ([d7ad503](https://github.com/OpenAgenda/oa/commit/d7ad5035c93f9f196446df3a7b771713873a774f))
+* tweak badges in admin menu ([99fd5c5](https://github.com/OpenAgenda/oa/commit/99fd5c5e93396832ecbcbe4435220e3f323cffed))
+* upgrade react-intl ([b80a487](https://github.com/OpenAgenda/oa/commit/b80a487a7ce70c74f280bfe4e96a455c424d60b3))
 
 
 ### Bug Fixes
 
-* **react-layouts:** fix the display of ErrorBoundary ([d3bc2fa](https://bitbucket.org/openagenda/oa/commits/d3bc2fa5c9d4b6d9a656529d66b91c5f27f6c108))
-* **react-layouts:** fix user image ([6aff94d](https://bitbucket.org/openagenda/oa/commits/6aff94df94343ca2127c2bac4637184efa5072e3))
+* **react-layouts:** fix the display of ErrorBoundary ([d3bc2fa](https://github.com/OpenAgenda/oa/commit/d3bc2fa5c9d4b6d9a656529d66b91c5f27f6c108))
+* **react-layouts:** fix user image ([6aff94d](https://github.com/OpenAgenda/oa/commit/6aff94df94343ca2127c2bac4637184efa5072e3))
 
 
 
-### [2.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.1.1..@openagenda/react-layouts@2.1.0) (2020-07-16)
+### [2.1.1](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@2.1.0...@openagenda/react-layouts@2.1.1) (2020-07-16)
 
 
 ### Bug Fixes
 
-* fix locales ([a591d2e](https://bitbucket.org/openagenda/oa/commits/a591d2efcdd3337c406b4c0f381b1a2d4fdf0b9a))
+* fix locales ([a591d2e](https://github.com/OpenAgenda/oa/commit/a591d2efcdd3337c406b4c0f381b1a2d4fdf0b9a))
 
 
 
-## [2.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.1.0..@openagenda/react-layouts@2.0.3) (2020-07-13)
+## [2.1.0](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@2.0.3...@openagenda/react-layouts@2.1.0) (2020-07-13)
 
 
 ### Features
 
-* **react-layouts:** add new badge with tabs.json ([ac80ef3](https://bitbucket.org/openagenda/oa/commits/ac80ef3d97d6c1f78763c029959389de7ab199e6))
+* **react-layouts:** add new badge with tabs.json ([ac80ef3](https://github.com/OpenAgenda/oa/commit/ac80ef3d97d6c1f78763c029959389de7ab199e6))
 
 
 ### Bug Fixes
 
-* badge instead of label ([7890766](https://bitbucket.org/openagenda/oa/commits/7890766ff9e39ea6523820b55ee920ae3fdd70db))
+* badge instead of label ([7890766](https://github.com/OpenAgenda/oa/commit/7890766ff9e39ea6523820b55ee920ae3fdd70db))
 
 
 
-### [2.0.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.3..@openagenda/react-layouts@2.0.2) (2020-07-10)
+### [2.0.3](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@2.0.2...@openagenda/react-layouts@2.0.3) (2020-07-10)
 
 
 ### Bug Fixes
 
-* fix links in changelogs ([84e2460](https://bitbucket.org/openagenda/oa/commits/84e24609981f4ee3bb9e34ef52109d74abe97a62))
-* **react-layouts:** extract-messages ([90fbca2](https://bitbucket.org/openagenda/oa/commits/90fbca2cc3117d04c11c0c7da436850e55bda0d1))
-* **react-layouts:** load the admin bar in the right language ([83748be](https://bitbucket.org/openagenda/oa/commits/83748be5310a7263c550b636fbc5fb4b4bdca519))
+* fix links in changelogs ([84e2460](https://github.com/OpenAgenda/oa/commit/84e24609981f4ee3bb9e34ef52109d74abe97a62))
+* **react-layouts:** extract-messages ([90fbca2](https://github.com/OpenAgenda/oa/commit/90fbca2cc3117d04c11c0c7da436850e55bda0d1))
+* **react-layouts:** load the admin bar in the right language ([83748be](https://github.com/OpenAgenda/oa/commit/83748be5310a7263c550b636fbc5fb4b4bdca519))
 
 
 
-### [2.0.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.2..@openagenda/react-layouts@2.0.1) (2020-07-08)
+### [2.0.2](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@2.0.1...@openagenda/react-layouts@2.0.2) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/react-layouts
 
@@ -71,16 +71,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.0.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.1..@openagenda/react-layouts@2.0.0) (2020-07-06)
+### [2.0.1](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@2.0.0...@openagenda/react-layouts@2.0.1) (2020-07-06)
 
 
 ### Bug Fixes
 
-* **react-layouts:** fix flash message after redirection ([97a5ee5](https://bitbucket.org/openagenda/oa/commits/97a5ee51b96a8001fbeffa0fdd9eeabb270c332b))
+* **react-layouts:** fix flash message after redirection ([97a5ee5](https://github.com/OpenAgenda/oa/commit/97a5ee51b96a8001fbeffa0fdd9eeabb270c332b))
 
 
 
-## [2.0.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@2.0.0..@openagenda/react-layouts@1.1.3) (2020-06-18)
+## [2.0.0](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@1.1.3...@openagenda/react-layouts@2.0.0) (2020-06-18)
 
 
 ### ⚠ BREAKING CHANGES
@@ -89,24 +89,16 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* **react-layouts:** allow break lines and fix color of close button ([c68523a](https://bitbucket.org/openagenda/oa/commits/c68523aa801af8fb37c586f375412348f790ef42))
+* **react-layouts:** allow break lines and fix color of close button ([c68523a](https://github.com/OpenAgenda/oa/commit/c68523aa801af8fb37c586f375412348f790ef42))
 
 
 ### Code Refactoring
 
-* **react-layouts:** refactor ([97c17b2](https://bitbucket.org/openagenda/oa/commits/97c17b2f6b7449c7f602611b744b86f5e2f1eddc))
+* **react-layouts:** refactor ([97c17b2](https://github.com/OpenAgenda/oa/commit/97c17b2f6b7449c7f602611b744b86f5e2f1eddc))
 
 
 
-### [1.1.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.3..@openagenda/react-layouts@1.1.2) (2020-06-09)
-
-**Note:** Version bump only for package @openagenda/react-layouts
-
-
-
-
-
-### [1.1.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.2..@openagenda/react-layouts@1.1.1) (2020-05-22)
+### [1.1.3](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@1.1.2...@openagenda/react-layouts@1.1.3) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/react-layouts
 
@@ -114,31 +106,39 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [1.1.1](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.1..@openagenda/react-layouts@1.1.0) (2020-05-19)
+### [1.1.2](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@1.1.1...@openagenda/react-layouts@1.1.2) (2020-05-22)
+
+**Note:** Version bump only for package @openagenda/react-layouts
+
+
+
+
+
+### [1.1.1](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@1.1.0...@openagenda/react-layouts@1.1.1) (2020-05-19)
 
 
 ### Bug Fixes
 
-* **react-layouts:** fix kind of button ([2966f84](https://bitbucket.org/openagenda/oa/commits/2966f84c2e0869791606eb7fc84432314bacadb9))
+* **react-layouts:** fix kind of button ([2966f84](https://github.com/OpenAgenda/oa/commit/2966f84c2e0869791606eb7fc84432314bacadb9))
 
 
 
-## [1.1.0](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.1.0..@openagenda/react-layouts@1.0.2) (2020-05-15)
+## [1.1.0](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@1.0.2...@openagenda/react-layouts@1.1.0) (2020-05-15)
 
 
 ### Features
 
-* **react-layouts:** add Announcement to MainLayout ([2f12647](https://bitbucket.org/openagenda/oa/commits/2f12647c521c66daba0e6c1e25b4fd0b7f55bfa2))
+* **react-layouts:** add Announcement to MainLayout ([2f12647](https://github.com/OpenAgenda/oa/commit/2f12647c521c66daba0e6c1e25b4fd0b7f55bfa2))
 
 
 ### Bug Fixes
 
-* does not use babel-plugin-react-intl with webpack ([1d164f8](https://bitbucket.org/openagenda/oa/commits/1d164f89d3f1956c8fb791835c280234056124d7))
-* missing option messagePattern for some extract-messages ([30403ff](https://bitbucket.org/openagenda/oa/commits/30403ff9ab274357122bc51c0539b9e68dc6182d))
+* does not use babel-plugin-react-intl with webpack ([1d164f8](https://github.com/OpenAgenda/oa/commit/1d164f89d3f1956c8fb791835c280234056124d7))
+* missing option messagePattern for some extract-messages ([30403ff](https://github.com/OpenAgenda/oa/commit/30403ff9ab274357122bc51c0539b9e68dc6182d))
 
 
 
-### [1.0.2](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/react-layouts@1.0.2..@openagenda/react-layouts@1.0.1) (2020-04-07)
+### [1.0.2](https://github.com/OpenAgenda/oa/compare/@openagenda/react-layouts@1.0.1...@openagenda/react-layouts@1.0.2) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/react-layouts
 
@@ -148,90 +148,90 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## <small>1.0.1 (2020-04-03)</small>
 
-* add agenda-settings/edit to webapp ([4f13766](https://bitbucket.org/openagenda/oa/commits/4f13766))
-* add hot reload for webapp ([b490cbb](https://bitbucket.org/openagenda/oa/commits/b490cbb))
-* add inboxes to webapp ([a62b9d8](https://bitbucket.org/openagenda/oa/commits/a62b9d8))
-* add member-apps to webapp ([021e9f8](https://bitbucket.org/openagenda/oa/commits/021e9f8))
-* add react-integration-app package ([bab0d17](https://bitbucket.org/openagenda/oa/commits/bab0d17))
-* aggregator-sources: add actions ([ecc4aa5](https://bitbucket.org/openagenda/oa/commits/ecc4aa5))
-* aggregator-sources: display actions in SourcesList ([c725013](https://bitbucket.org/openagenda/oa/commits/c725013))
-* aggregator-sources: refactor ([9a10484](https://bitbucket.org/openagenda/oa/commits/9a10484))
-* bs-templates: fix header style ([a4f18ce](https://bitbucket.org/openagenda/oa/commits/a4f18ce))
-* delegate hasInboxNews to client ([dd4dd95](https://bitbucket.org/openagenda/oa/commits/dd4dd95))
-* fix builds on Yarn 2 ([f4723be](https://bitbucket.org/openagenda/oa/commits/f4723be))
-* fix decorators, eslint and HMR ([3eb9b89](https://bitbucket.org/openagenda/oa/commits/3eb9b89))
-* fix deps ([71703f8](https://bitbucket.org/openagenda/oa/commits/71703f8))
-* fix extract-messages ([72628ef](https://bitbucket.org/openagenda/oa/commits/72628ef))
-* fix linting ([90ad3dc](https://bitbucket.org/openagenda/oa/commits/90ad3dc))
-* fix member invitations ([b966874](https://bitbucket.org/openagenda/oa/commits/b966874))
-* fix react memoization ([47ff80f](https://bitbucket.org/openagenda/oa/commits/47ff80f))
-* fix serialization of initialState ([e529e27](https://bitbucket.org/openagenda/oa/commits/e529e27))
-* fix webpack-dev-server ([d874a0b](https://bitbucket.org/openagenda/oa/commits/d874a0b))
-* functional webapp ([793ca92](https://bitbucket.org/openagenda/oa/commits/793ca92))
-* Html.js edited online with Bitbucket ([16fd0c4](https://bitbucket.org/openagenda/oa/commits/16fd0c4))
-* integrate agenda-stats ([90aa465](https://bitbucket.org/openagenda/oa/commits/90aa465))
-* lang from extraProps ([ebe6213](https://bitbucket.org/openagenda/oa/commits/ebe6213))
-* lint and prettier ([b1dbbc0](https://bitbucket.org/openagenda/oa/commits/b1dbbc0))
-* linting ([8df038c](https://bitbucket.org/openagenda/oa/commits/8df038c))
-* loadable userActivities ([44ee683](https://bitbucket.org/openagenda/oa/commits/44ee683))
-* Merge branch 'master' into webapp ([dc1e964](https://bitbucket.org/openagenda/oa/commits/dc1e964))
-* Merge branch 'master' of bitbucket.org:openagenda/oa ([aae6238](https://bitbucket.org/openagenda/oa/commits/aae6238))
-* Merge branch 'master' of bitbucket.org:openagenda/oa into webapp ([50cfed9](https://bitbucket.org/openagenda/oa/commits/50cfed9))
-* Merge branch 'master' of bitbucket.org:openagenda/oa into yarn-2 ([775a472](https://bitbucket.org/openagenda/oa/commits/775a472))
-* merge resolution ([ac54180](https://bitbucket.org/openagenda/oa/commits/ac54180))
-* move reducers ([79126e2](https://bitbucket.org/openagenda/oa/commits/79126e2))
-* move script extract-messages in react-shared ([ff33b5a](https://bitbucket.org/openagenda/oa/commits/ff33b5a))
-* one router for all react apps ([000dec6](https://bitbucket.org/openagenda/oa/commits/000dec6))
-* prefer userLoaded ([2f8ef79](https://bitbucket.org/openagenda/oa/commits/2f8ef79))
-* react-integration-app: add <head> ([cbe97f3](https://bitbucket.org/openagenda/oa/commits/cbe97f3))
-* react-integration-app: add error component ([61bbf07](https://bitbucket.org/openagenda/oa/commits/61bbf07))
-* react-integration-app: lint ([2442666](https://bitbucket.org/openagenda/oa/commits/2442666))
-* react-layouts: add flash message ([496e7c3](https://bitbucket.org/openagenda/oa/commits/496e7c3))
-* react-layouts: add linter ([c7134fa](https://bitbucket.org/openagenda/oa/commits/c7134fa))
-* react-layouts: add RequiredSuperAdmin ([e3dfe27](https://bitbucket.org/openagenda/oa/commits/e3dfe27))
-* react-layouts: add RequiredUser layout ([48168b0](https://bitbucket.org/openagenda/oa/commits/48168b0))
-* react-layouts: add useChildLayouts hook ([670d4a6](https://bitbucket.org/openagenda/oa/commits/670d4a6))
-* react-layouts: create children at the last moment ([4245e7a](https://bitbucket.org/openagenda/oa/commits/4245e7a))
-* react-layouts: extract messages ([2ea7194](https://bitbucket.org/openagenda/oa/commits/2ea7194))
-* react-layouts: fix clean ([4a06c90](https://bitbucket.org/openagenda/oa/commits/4a06c90))
-* react-layouts: fix header panel links ([2e6a891](https://bitbucket.org/openagenda/oa/commits/2e6a891))
-* react-layouts: fix locales ([b10b44d](https://bitbucket.org/openagenda/oa/commits/b10b44d))
-* react-layouts: fix on server ([76fb8c4](https://bitbucket.org/openagenda/oa/commits/76fb8c4))
-* react-layouts: fix re-render issue ([09fb42c](https://bitbucket.org/openagenda/oa/commits/09fb42c))
-* react-layouts: fix selected tab ([39b3d03](https://bitbucket.org/openagenda/oa/commits/39b3d03))
-* react-layouts: fix selected tab ([001fc7b](https://bitbucket.org/openagenda/oa/commits/001fc7b))
-* react-layouts: fix usage of matchPath ([5594a27](https://bitbucket.org/openagenda/oa/commits/5594a27))
-* react-layouts: fix useMemoOne hook ([bceba39](https://bitbucket.org/openagenda/oa/commits/bceba39))
-* react-layouts: fix user panel ([85a2e45](https://bitbucket.org/openagenda/oa/commits/85a2e45))
-* react-layouts: fix window is not defined ([9b09837](https://bitbucket.org/openagenda/oa/commits/9b09837))
-* react-layouts: linting ([8f70823](https://bitbucket.org/openagenda/oa/commits/8f70823))
-* react-layouts: load user only when not pre-charged ([d4acaa5](https://bitbucket.org/openagenda/oa/commits/d4acaa5))
-* react-layouts: prefer custom useMemoOne ([c2a92ee](https://bitbucket.org/openagenda/oa/commits/c2a92ee))
-* react-layouts: prefer useIsomorphicLayoutEffect ([8ac29ba](https://bitbucket.org/openagenda/oa/commits/8ac29ba))
-* react-layouts: reload page if session disappear ([06cd349](https://bitbucket.org/openagenda/oa/commits/06cd349))
-* react-layouts: remove legacy option from the apiClient ([02fe2da](https://bitbucket.org/openagenda/oa/commits/02fe2da))
-* react-layouts: rename useMemoOne to useMemo and useCallbackOne to useCallback for eslint ([96a32b1](https://bitbucket.org/openagenda/oa/commits/96a32b1))
-* react-layouts: restore files removed by the f*ck*ng prettier ([388d817](https://bitbucket.org/openagenda/oa/commits/388d817))
-* react-layouts: retrieve user with a request ([f63ab19](https://bitbucket.org/openagenda/oa/commits/f63ab19))
-* react-layouts: revert fix selected tab ([b288319](https://bitbucket.org/openagenda/oa/commits/b288319))
-* react-layouts: tweak label "return" ([60eca2d](https://bitbucket.org/openagenda/oa/commits/60eca2d))
-* react-layouts: use serialize-javascript ([7efa5a3](https://bitbucket.org/openagenda/oa/commits/7efa5a3))
-* react-layouts: useMemoOne from react-shared ([44f4f92](https://bitbucket.org/openagenda/oa/commits/44f4f92))
-* react-layouts: wrap react-error-boundary with a retry props ([4aa7523](https://bitbucket.org/openagenda/oa/commits/4aa7523))
-* react-timingspicker: translate ([869d7ce](https://bitbucket.org/openagenda/oa/commits/869d7ce))
-* react-utils: move apiClient interceptors behind an option legacy ([f087ea9](https://bitbucket.org/openagenda/oa/commits/f087ea9))
-* tweaks ([a1b606a](https://bitbucket.org/openagenda/oa/commits/a1b606a))
-* update aggregator-sources ([921868c](https://bitbucket.org/openagenda/oa/commits/921868c))
-* upgrade babel ([444b969](https://bitbucket.org/openagenda/oa/commits/444b969))
-* upgrade deps ([925ed0f](https://bitbucket.org/openagenda/oa/commits/925ed0f))
-* upgrade eslint ([e76d140](https://bitbucket.org/openagenda/oa/commits/e76d140))
-* upgrade jest and core-js ([21c2768](https://bitbucket.org/openagenda/oa/commits/21c2768))
-* upgrade react-router deps ([94402fd](https://bitbucket.org/openagenda/oa/commits/94402fd))
-* upgrade react-select ([e152559](https://bitbucket.org/openagenda/oa/commits/e152559))
-* upgrade some deps ([33a049a](https://bitbucket.org/openagenda/oa/commits/33a049a))
-* upgrade some deps ([dd48588](https://bitbucket.org/openagenda/oa/commits/dd48588))
-* upgrade some deps ([1d10a03](https://bitbucket.org/openagenda/oa/commits/1d10a03))
-* upgrade some deps ([998baed](https://bitbucket.org/openagenda/oa/commits/998baed))
-* upgrade some deps and remove unused deps ([0c212fb](https://bitbucket.org/openagenda/oa/commits/0c212fb))
-* tweaks(labels): german ([503ef7e](https://bitbucket.org/openagenda/oa/commits/503ef7e))
-* webapp: add agendaActivities app ([fff69b7](https://bitbucket.org/openagenda/oa/commits/fff69b7))
+* add agenda-settings/edit to webapp ([4f13766](https://github.com/OpenAgenda/oa/commit/4f13766))
+* add hot reload for webapp ([b490cbb](https://github.com/OpenAgenda/oa/commit/b490cbb))
+* add inboxes to webapp ([a62b9d8](https://github.com/OpenAgenda/oa/commit/a62b9d8))
+* add member-apps to webapp ([021e9f8](https://github.com/OpenAgenda/oa/commit/021e9f8))
+* add react-integration-app package ([bab0d17](https://github.com/OpenAgenda/oa/commit/bab0d17))
+* aggregator-sources: add actions ([ecc4aa5](https://github.com/OpenAgenda/oa/commit/ecc4aa5))
+* aggregator-sources: display actions in SourcesList ([c725013](https://github.com/OpenAgenda/oa/commit/c725013))
+* aggregator-sources: refactor ([9a10484](https://github.com/OpenAgenda/oa/commit/9a10484))
+* bs-templates: fix header style ([a4f18ce](https://github.com/OpenAgenda/oa/commit/a4f18ce))
+* delegate hasInboxNews to client ([dd4dd95](https://github.com/OpenAgenda/oa/commit/dd4dd95))
+* fix builds on Yarn 2 ([f4723be](https://github.com/OpenAgenda/oa/commit/f4723be))
+* fix decorators, eslint and HMR ([3eb9b89](https://github.com/OpenAgenda/oa/commit/3eb9b89))
+* fix deps ([71703f8](https://github.com/OpenAgenda/oa/commit/71703f8))
+* fix extract-messages ([72628ef](https://github.com/OpenAgenda/oa/commit/72628ef))
+* fix linting ([90ad3dc](https://github.com/OpenAgenda/oa/commit/90ad3dc))
+* fix member invitations ([b966874](https://github.com/OpenAgenda/oa/commit/b966874))
+* fix react memoization ([47ff80f](https://github.com/OpenAgenda/oa/commit/47ff80f))
+* fix serialization of initialState ([e529e27](https://github.com/OpenAgenda/oa/commit/e529e27))
+* fix webpack-dev-server ([d874a0b](https://github.com/OpenAgenda/oa/commit/d874a0b))
+* functional webapp ([793ca92](https://github.com/OpenAgenda/oa/commit/793ca92))
+* Html.js edited online with Bitbucket ([16fd0c4](https://github.com/OpenAgenda/oa/commit/16fd0c4))
+* integrate agenda-stats ([90aa465](https://github.com/OpenAgenda/oa/commit/90aa465))
+* lang from extraProps ([ebe6213](https://github.com/OpenAgenda/oa/commit/ebe6213))
+* lint and prettier ([b1dbbc0](https://github.com/OpenAgenda/oa/commit/b1dbbc0))
+* linting ([8df038c](https://github.com/OpenAgenda/oa/commit/8df038c))
+* loadable userActivities ([44ee683](https://github.com/OpenAgenda/oa/commit/44ee683))
+* Merge branch 'master' into webapp ([dc1e964](https://github.com/OpenAgenda/oa/commit/dc1e964))
+* Merge branch 'master' of bitbucket.org:openagenda/oa ([aae6238](https://github.com/OpenAgenda/oa/commit/aae6238))
+* Merge branch 'master' of bitbucket.org:openagenda/oa into webapp ([50cfed9](https://github.com/OpenAgenda/oa/commit/50cfed9))
+* Merge branch 'master' of bitbucket.org:openagenda/oa into yarn-2 ([775a472](https://github.com/OpenAgenda/oa/commit/775a472))
+* merge resolution ([ac54180](https://github.com/OpenAgenda/oa/commit/ac54180))
+* move reducers ([79126e2](https://github.com/OpenAgenda/oa/commit/79126e2))
+* move script extract-messages in react-shared ([ff33b5a](https://github.com/OpenAgenda/oa/commit/ff33b5a))
+* one router for all react apps ([000dec6](https://github.com/OpenAgenda/oa/commit/000dec6))
+* prefer userLoaded ([2f8ef79](https://github.com/OpenAgenda/oa/commit/2f8ef79))
+* react-integration-app: add <head> ([cbe97f3](https://github.com/OpenAgenda/oa/commit/cbe97f3))
+* react-integration-app: add error component ([61bbf07](https://github.com/OpenAgenda/oa/commit/61bbf07))
+* react-integration-app: lint ([2442666](https://github.com/OpenAgenda/oa/commit/2442666))
+* react-layouts: add flash message ([496e7c3](https://github.com/OpenAgenda/oa/commit/496e7c3))
+* react-layouts: add linter ([c7134fa](https://github.com/OpenAgenda/oa/commit/c7134fa))
+* react-layouts: add RequiredSuperAdmin ([e3dfe27](https://github.com/OpenAgenda/oa/commit/e3dfe27))
+* react-layouts: add RequiredUser layout ([48168b0](https://github.com/OpenAgenda/oa/commit/48168b0))
+* react-layouts: add useChildLayouts hook ([670d4a6](https://github.com/OpenAgenda/oa/commit/670d4a6))
+* react-layouts: create children at the last moment ([4245e7a](https://github.com/OpenAgenda/oa/commit/4245e7a))
+* react-layouts: extract messages ([2ea7194](https://github.com/OpenAgenda/oa/commit/2ea7194))
+* react-layouts: fix clean ([4a06c90](https://github.com/OpenAgenda/oa/commit/4a06c90))
+* react-layouts: fix header panel links ([2e6a891](https://github.com/OpenAgenda/oa/commit/2e6a891))
+* react-layouts: fix locales ([b10b44d](https://github.com/OpenAgenda/oa/commit/b10b44d))
+* react-layouts: fix on server ([76fb8c4](https://github.com/OpenAgenda/oa/commit/76fb8c4))
+* react-layouts: fix re-render issue ([09fb42c](https://github.com/OpenAgenda/oa/commit/09fb42c))
+* react-layouts: fix selected tab ([39b3d03](https://github.com/OpenAgenda/oa/commit/39b3d03))
+* react-layouts: fix selected tab ([001fc7b](https://github.com/OpenAgenda/oa/commit/001fc7b))
+* react-layouts: fix usage of matchPath ([5594a27](https://github.com/OpenAgenda/oa/commit/5594a27))
+* react-layouts: fix useMemoOne hook ([bceba39](https://github.com/OpenAgenda/oa/commit/bceba39))
+* react-layouts: fix user panel ([85a2e45](https://github.com/OpenAgenda/oa/commit/85a2e45))
+* react-layouts: fix window is not defined ([9b09837](https://github.com/OpenAgenda/oa/commit/9b09837))
+* react-layouts: linting ([8f70823](https://github.com/OpenAgenda/oa/commit/8f70823))
+* react-layouts: load user only when not pre-charged ([d4acaa5](https://github.com/OpenAgenda/oa/commit/d4acaa5))
+* react-layouts: prefer custom useMemoOne ([c2a92ee](https://github.com/OpenAgenda/oa/commit/c2a92ee))
+* react-layouts: prefer useIsomorphicLayoutEffect ([8ac29ba](https://github.com/OpenAgenda/oa/commit/8ac29ba))
+* react-layouts: reload page if session disappear ([06cd349](https://github.com/OpenAgenda/oa/commit/06cd349))
+* react-layouts: remove legacy option from the apiClient ([02fe2da](https://github.com/OpenAgenda/oa/commit/02fe2da))
+* react-layouts: rename useMemoOne to useMemo and useCallbackOne to useCallback for eslint ([96a32b1](https://github.com/OpenAgenda/oa/commit/96a32b1))
+* react-layouts: restore files removed by the f*ck*ng prettier ([388d817](https://github.com/OpenAgenda/oa/commit/388d817))
+* react-layouts: retrieve user with a request ([f63ab19](https://github.com/OpenAgenda/oa/commit/f63ab19))
+* react-layouts: revert fix selected tab ([b288319](https://github.com/OpenAgenda/oa/commit/b288319))
+* react-layouts: tweak label "return" ([60eca2d](https://github.com/OpenAgenda/oa/commit/60eca2d))
+* react-layouts: use serialize-javascript ([7efa5a3](https://github.com/OpenAgenda/oa/commit/7efa5a3))
+* react-layouts: useMemoOne from react-shared ([44f4f92](https://github.com/OpenAgenda/oa/commit/44f4f92))
+* react-layouts: wrap react-error-boundary with a retry props ([4aa7523](https://github.com/OpenAgenda/oa/commit/4aa7523))
+* react-timingspicker: translate ([869d7ce](https://github.com/OpenAgenda/oa/commit/869d7ce))
+* react-utils: move apiClient interceptors behind an option legacy ([f087ea9](https://github.com/OpenAgenda/oa/commit/f087ea9))
+* tweaks ([a1b606a](https://github.com/OpenAgenda/oa/commit/a1b606a))
+* update aggregator-sources ([921868c](https://github.com/OpenAgenda/oa/commit/921868c))
+* upgrade babel ([444b969](https://github.com/OpenAgenda/oa/commit/444b969))
+* upgrade deps ([925ed0f](https://github.com/OpenAgenda/oa/commit/925ed0f))
+* upgrade eslint ([e76d140](https://github.com/OpenAgenda/oa/commit/e76d140))
+* upgrade jest and core-js ([21c2768](https://github.com/OpenAgenda/oa/commit/21c2768))
+* upgrade react-router deps ([94402fd](https://github.com/OpenAgenda/oa/commit/94402fd))
+* upgrade react-select ([e152559](https://github.com/OpenAgenda/oa/commit/e152559))
+* upgrade some deps ([33a049a](https://github.com/OpenAgenda/oa/commit/33a049a))
+* upgrade some deps ([dd48588](https://github.com/OpenAgenda/oa/commit/dd48588))
+* upgrade some deps ([1d10a03](https://github.com/OpenAgenda/oa/commit/1d10a03))
+* upgrade some deps ([998baed](https://github.com/OpenAgenda/oa/commit/998baed))
+* upgrade some deps and remove unused deps ([0c212fb](https://github.com/OpenAgenda/oa/commit/0c212fb))
+* tweaks(labels): german ([503ef7e](https://github.com/OpenAgenda/oa/commit/503ef7e))
+* webapp: add agendaActivities app ([fff69b7](https://github.com/OpenAgenda/oa/commit/fff69b7))

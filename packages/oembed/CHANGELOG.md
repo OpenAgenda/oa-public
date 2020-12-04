@@ -3,24 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-### [2.1.14](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.14..@openagenda/oembed@2.1.13) (2020-11-23)
+### [2.1.14](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.13...@openagenda/oembed@2.1.14) (2020-11-23)
 
 
 ### Bug Fixes
 
-* **oembed:** escaped links are not processed by injectEmbeds method ([2b72f57](https://bitbucket.org/openagenda/oa/commits/2b72f5744fb22088905c092fa172ef55fbdb9d9d))
+* **oembed:** escaped links are not processed by injectEmbeds method ([2b72f57](https://github.com/OpenAgenda/oa/commit/2b72f5744fb22088905c092fa172ef55fbdb9d9d))
 
 
 
-### [2.1.13](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.13..@openagenda/oembed@2.1.12) (2020-07-16)
-
-**Note:** Version bump only for package @openagenda/oembed
-
-
-
-
-
-### [2.1.12](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.12..@openagenda/oembed@2.1.11) (2020-07-13)
+### [2.1.13](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.12...@openagenda/oembed@2.1.13) (2020-07-16)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -28,24 +20,24 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.11](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.11..@openagenda/oembed@2.1.10) (2020-07-10)
+### [2.1.12](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.11...@openagenda/oembed@2.1.12) (2020-07-13)
+
+**Note:** Version bump only for package @openagenda/oembed
+
+
+
+
+
+### [2.1.11](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.10...@openagenda/oembed@2.1.11) (2020-07-10)
 
 
 ### Bug Fixes
 
-* fix links in changelogs ([84e2460](https://bitbucket.org/openagenda/oa/commits/84e24609981f4ee3bb9e34ef52109d74abe97a62))
+* fix links in changelogs ([84e2460](https://github.com/OpenAgenda/oa/commit/84e24609981f4ee3bb9e34ef52109d74abe97a62))
 
 
 
-### [2.1.10](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.10..@openagenda/oembed@2.1.9) (2020-07-08)
-
-**Note:** Version bump only for package @openagenda/oembed
-
-
-
-
-
-### [2.1.9](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.9..@openagenda/oembed@2.1.8) (2020-07-06)
+### [2.1.10](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.9...@openagenda/oembed@2.1.10) (2020-07-08)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -53,7 +45,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.8](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.8..@openagenda/oembed@2.1.7) (2020-06-18)
+### [2.1.9](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.8...@openagenda/oembed@2.1.9) (2020-07-06)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -61,7 +53,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.7](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.7..@openagenda/oembed@2.1.6) (2020-06-09)
+### [2.1.8](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.7...@openagenda/oembed@2.1.8) (2020-06-18)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -69,7 +61,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.6](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.6..@openagenda/oembed@2.1.5) (2020-05-22)
+### [2.1.7](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.6...@openagenda/oembed@2.1.7) (2020-06-09)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -77,7 +69,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.5](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.5..@openagenda/oembed@2.1.4) (2020-05-19)
+### [2.1.6](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.5...@openagenda/oembed@2.1.6) (2020-05-22)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -85,7 +77,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.4](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.4..@openagenda/oembed@2.1.3) (2020-05-15)
+### [2.1.5](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.4...@openagenda/oembed@2.1.5) (2020-05-19)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -93,7 +85,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-### [2.1.3](https://bitbucket.org/openagenda/oa/branches/compare/@openagenda/oembed@2.1.3..@openagenda/oembed@2.1.2) (2020-04-07)
+### [2.1.4](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.3...@openagenda/oembed@2.1.4) (2020-05-15)
+
+**Note:** Version bump only for package @openagenda/oembed
+
+
+
+
+
+### [2.1.3](https://github.com/OpenAgenda/oa/compare/@openagenda/oembed@2.1.2...@openagenda/oembed@2.1.3) (2020-04-07)
 
 **Note:** Version bump only for package @openagenda/oembed
 
@@ -103,14 +103,14 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## <small>2.1.2 (2020-04-03)</small>
 
-* aggregator-sources: refactor ([9a10484](https://bitbucket.org/openagenda/oa/commits/9a10484))
-* fix builds on Yarn 2 ([f4723be](https://bitbucket.org/openagenda/oa/commits/f4723be))
-* fix decorators, eslint and HMR ([3eb9b89](https://bitbucket.org/openagenda/oa/commits/3eb9b89))
-* fix deps ([71703f8](https://bitbucket.org/openagenda/oa/commits/71703f8))
-* Merge branch 'master' of bitbucket.org:openagenda/oa into aggregator-sources ([35e0edf](https://bitbucket.org/openagenda/oa/commits/35e0edf))
-* upgrade babel ([444b969](https://bitbucket.org/openagenda/oa/commits/444b969))
-* upgrade deps ([925ed0f](https://bitbucket.org/openagenda/oa/commits/925ed0f))
-* upgrade jest and core-js ([21c2768](https://bitbucket.org/openagenda/oa/commits/21c2768))
-* upgrade some deps ([33a049a](https://bitbucket.org/openagenda/oa/commits/33a049a))
-* upgrade some deps and remove unused deps ([0c212fb](https://bitbucket.org/openagenda/oa/commits/0c212fb))
-* use the same lodash ([aeae186](https://bitbucket.org/openagenda/oa/commits/aeae186))
+* aggregator-sources: refactor ([9a10484](https://github.com/OpenAgenda/oa/commit/9a10484))
+* fix builds on Yarn 2 ([f4723be](https://github.com/OpenAgenda/oa/commit/f4723be))
+* fix decorators, eslint and HMR ([3eb9b89](https://github.com/OpenAgenda/oa/commit/3eb9b89))
+* fix deps ([71703f8](https://github.com/OpenAgenda/oa/commit/71703f8))
+* Merge branch 'master' of bitbucket.org:openagenda/oa into aggregator-sources ([35e0edf](https://github.com/OpenAgenda/oa/commit/35e0edf))
+* upgrade babel ([444b969](https://github.com/OpenAgenda/oa/commit/444b969))
+* upgrade deps ([925ed0f](https://github.com/OpenAgenda/oa/commit/925ed0f))
+* upgrade jest and core-js ([21c2768](https://github.com/OpenAgenda/oa/commit/21c2768))
+* upgrade some deps ([33a049a](https://github.com/OpenAgenda/oa/commit/33a049a))
+* upgrade some deps and remove unused deps ([0c212fb](https://github.com/OpenAgenda/oa/commit/0c212fb))
+* use the same lodash ([aeae186](https://github.com/OpenAgenda/oa/commit/aeae186))

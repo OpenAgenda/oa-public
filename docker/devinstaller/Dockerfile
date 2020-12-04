@@ -15,7 +15,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 
 RUN mkdir -p /root/.ssh \
     && touch /root/.ssh/known_hosts \
-    && ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
+    && ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 ENV NPM_TOKEN=""
 

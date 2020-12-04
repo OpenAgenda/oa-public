@@ -4,9 +4,9 @@
   "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/flat-exports",
+  "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/flat-exports",
   "main": "index.js",
   "scripts": {
     "test": "jest"
