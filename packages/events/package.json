@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@openagenda/form-schemas": "^1.9.1",
-    "@openagenda/logs": "^1.1.8",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/queue": "^1.0.1",
@@ -32,8 +31,8 @@
     "marked": "^0.7.0",
     "moment-timezone": "^0.5.31",
     "mysql": "^2.11.1",
-    "uuid": "^3.4.0",
     "slugify": "^1.4.5",
+    "uuid": "^3.4.0",
     "verror": "^1.10.0",
     "when": "^3.7.8"
   },
