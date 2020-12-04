@@ -10,7 +10,7 @@
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
     "@openagenda/queue": "^1.0.1",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "immutability-helper": "^2.2.2",
     "knex": "^0.20.13",
     "lodash": "^4.17.15",

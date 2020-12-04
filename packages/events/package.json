@@ -17,12 +17,13 @@
     "build-fields": "node tasks/makeValidatorFields.js"
   },
   "dependencies": {
+    "@openagenda/form-schemas": "^1.9.1",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/slugs": "^1.1.0",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "async": "^2.1.2",
     "axios": "^0.19.0",
     "knex": "^0.19.5",
@@ -30,6 +31,7 @@
     "marked": "^0.7.0",
     "moment-timezone": "^0.5.31",
     "mysql": "^2.11.1",
+    "slugify": "^1.4.5",
     "uuid": "^3.4.0",
     "verror": "^1.10.0",
     "when": "^3.7.8"

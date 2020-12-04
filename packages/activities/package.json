@@ -22,7 +22,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "async": "^2.3.0",
     "caporal": "^0.4.1",
     "core-js": "^3.6.5",

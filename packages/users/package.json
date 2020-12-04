@@ -25,7 +25,7 @@
     "@feathersjs/errors": "^4.5.1",
     "@feathersjs/hooks": "^0.4.0-alpha.0",
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "debug": "^4.1.1",
     "feathers-hooks-common": "^5.0.2",
     "feathers-knex": "^7.1.0",
