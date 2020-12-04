@@ -4,7 +4,7 @@ OA contains a git submodule with the public packages.
 The following commands are useful for working with submodules, in OA:
 
 ```bash
-# Overload the URL, so as not to put your user/password on each commit:
+# Override the URL, so as not to put your user/password on each commit:
 git config submodule.public.url git@github.com:OpenAgenda/oa-public.git
 # Add --recurse-submodules option to all supported git calls (except clone):
 git config submodule.recurse true
