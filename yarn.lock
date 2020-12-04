@@ -3,7 +3,7 @@
 
 __metadata:
   version: 4
-  cacheKey: 6
+  cacheKey: 7
 
 "@ant-design/css-animation@npm:^1.7.2":
   version: 1.7.3
@@ -2661,7 +2661,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.0.0-beta.49, @babel/types@npm:^7.10.4, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.0, @babel/types@npm:^7.4.4, @babel/types@npm:^7.7.0, @babel/types@npm:^7.9.0":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.0.0-beta.49, @babel/types@npm:^7.10.4, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.0, @babel/types@npm:^7.4.4, @babel/types@npm:^7.7.0":
   version: 7.10.4
   resolution: "@babel/types@npm:7.10.4"
   dependencies:
@@ -2691,6 +2691,17 @@ __metadata:
     lodash: ^4.17.19
     to-fast-properties: ^2.0.0
   checksum: e8d02f859c16c8ae941a1eb84954189eacdd9488c8f9ad54c29dedf2bf8456f45c7fe401c54ea2c4d45d890d865aaac0283a78b62a87f796e92078eac49aa040
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.8.3":
+  version: 7.12.7
+  resolution: "@babel/types@npm:7.12.7"
+  dependencies:
+    "@babel/helper-validator-identifier": ^7.10.4
+    lodash: ^4.17.19
+    to-fast-properties: ^2.0.0
+  checksum: 153635079722927a7ac35ae6c10d091e9f86fcf8411c56a2bff17befc20f53b3c1883f67f33b59d8896d65f4aed7e9aa535d24262838d0a8250f2e2ef0d9327f
   languageName: node
   linkType: hard
 
@@ -20541,22 +20552,22 @@ __metadata:
 
 "fsevents@patch:fsevents@^1.0.0#builtin<compat/fsevents>, fsevents@patch:fsevents@^1.2.7#builtin<compat/fsevents>":
   version: 1.2.11
-  resolution: "fsevents@patch:fsevents@npm%3A1.2.11#builtin<compat/fsevents>::version=1.2.11&hash=87eb42"
+  resolution: "fsevents@patch:fsevents@npm%3A1.2.11#builtin<compat/fsevents>::version=1.2.11&hash=11e9ea"
   dependencies:
     bindings: ^1.5.0
     nan: ^2.12.1
     node-gyp: latest
     node-pre-gyp: "*"
-  checksum: 9cc9568c88c0a898c2c92234f3a573caadfca348881f89879b707e7552e7e0ef65f29cd1d01d1cbbf5c00b07636779804a22773c18f3357e9cad37724d57abdc
+  checksum: 1f931b0da1d8120668a9c9479f59a5098b814509280c7a35aa8b4a1777bf46f758aa7f9217bfe0392a0a4d389cea32bad2c17e52f27e0ee5dbe7bb714f4fe2dc
   languageName: node
   linkType: hard
 
 "fsevents@patch:fsevents@^2.1.2#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.1#builtin<compat/fsevents>, fsevents@patch:fsevents@~2.1.2#builtin<compat/fsevents>":
   version: 2.1.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.1.2#builtin<compat/fsevents>::version=2.1.2&hash=87eb42"
+  resolution: "fsevents@patch:fsevents@npm%3A2.1.2#builtin<compat/fsevents>::version=2.1.2&hash=11e9ea"
   dependencies:
     node-gyp: latest
-  checksum: 28fbb58d43f2949e9f7097b460bf594efc6cba5b4d4326158de82a116b01a1c059efee445b1c60b85acba408087e22d1e23a0595358d5d538ceb6a35bf5ae16a
+  checksum: f4e06c69cb1f888dcefd81822f7789fadb2885efd0f5967cb1ec499d5bdd086fa6b7ab5d76ad2160bed8e68daf81fa96be8b8bf61957d7a531b4c12dbeab3a6a
   languageName: node
   linkType: hard
 
@@ -39863,7 +39874,7 @@ typescript@^4.0:
 
 "typescript@patch:typescript@^3.2.1#builtin<compat/typescript>":
   version: 3.8.3
-  resolution: "typescript@patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=5b02a2"
+  resolution: "typescript@patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=cc6730"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -39873,11 +39884,11 @@ typescript@^4.0:
 
 "typescript@patch:typescript@^4.0#builtin<compat/typescript>":
   version: 4.0.3
-  resolution: "typescript@patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5b02a2"
+  resolution: "typescript@patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=cc6730"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 72db87d09f728c83062d64b5e12ed52effb6278963b6bc5c006219b22c104e02b8ce80164261de554923d3c47d894a1ca937ed542328caccb83ebaedeae98a69
+  checksum: c92843a6af50170f49158b6eb5726b80c5c22074a337d066eee278a7d08d1109667e435e96207ab1314f63f4629555e89c26645ef55b937ea6baf80d190768f6
   languageName: node
   linkType: hard
 
