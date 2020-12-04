@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "immutability-helper": "^3.0.0",
     "locutus": "^2.0.11",
     "lodash": "^4.17.15",

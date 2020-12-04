@@ -23,7 +23,7 @@
     "@openagenda/queue": "^1.0.1",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/slugs": "^1.1.0",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "async": "^2.1.2",
     "axios": "^0.19.0",
     "knex": "^0.19.5",

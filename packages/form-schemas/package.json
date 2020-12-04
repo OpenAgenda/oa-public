@@ -20,7 +20,7 @@
     "@openagenda/logs": "^1.1.9",
     "@openagenda/react-components": "^2.3.10",
     "@openagenda/react-shared": "^2.1.1",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "aws-sdk": "^2.544.0",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.6",

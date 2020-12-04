@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/validators": "^2.3.0",
+    "@openagenda/validators": "^2.4.0",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "mysql": "^2.13.0",
