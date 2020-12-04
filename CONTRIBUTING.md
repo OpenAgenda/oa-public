@@ -13,8 +13,8 @@ git config status.submodulesummary 1
 # To see submodule diff with a `git diff`:
 git config diff.submodule log
 # Practical aliases:
-git config alias.sdiff '!'"git diff && git submodule foreach 'git diff'"
 git config alias.sstatus '!'"git status -sb && git submodule foreach 'git status -sb'"
+git config alias.sdiff '!'"git diff && git submodule foreach 'git diff'"
 git config alias.spush 'push --recurse-submodules=on-demand'
 git config alias.supdate 'submodule update --remote --merge'
 ```
