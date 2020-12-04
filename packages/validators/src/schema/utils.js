@@ -61,7 +61,7 @@ function _enableWithFieldValueMatches(enableWith, values) {
     return value.includes(enableWith.value);
   }
 
-  return value === enableWith.value;
+  return [].concat(value).filter(v => [].concat(enableWith.value).includes(v)).length;
 }
 
 function _makeValidator(type, field, options, values) {

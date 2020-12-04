@@ -1073,6 +1073,48 @@ describe('schema validator', () => {
         expect(errors[0].code).toEqual('required');
       });
 
+      it('enableWith can target multiple values of reference field', () => {
+
+        const validate = schema({
+          eventAttendanceMode: {
+            field: 'eventAttendanceMode',
+            optional: false,
+            type: 'choice',
+            default: 1,
+            unique: true,
+            options: [1, 2, 3]
+          },
+          locationUid: {
+            field: 'locationUid',
+            optional: false,
+            enableWith: {
+              field: 'eventAttendanceMode',
+              value: [1, 3]
+            },
+            type: 'integer'
+          }
+        });
+
+        try {
+          validate({
+            eventAttendanceMode: 1,
+          });
+
+          throw new Error('Should not reach here');
+        } catch (e) {
+          expect([].concat(e).pop().code).toBe('required');
+        }
+
+        expect(validate({
+          eventAttendanceMode: 1,
+          locationUid: 1
+        })).toEqual({
+          eventAttendanceMode: 1,
+          locationUid: 1
+        });
+
+      });
+
       it('when enableWith with value is different, field is not evaluated', () => {
         const validate = schema({
           selection: {
