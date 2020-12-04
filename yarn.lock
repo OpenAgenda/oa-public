@@ -6600,6 +6600,7 @@ __metadata:
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
     "@openagenda/files": ^3.1.0
+    "@openagenda/form-schemas": ^1.9.1
     "@openagenda/logs": ^1.1.8
     "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/queue": ^1.0.1
