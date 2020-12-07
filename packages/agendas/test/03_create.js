@@ -69,6 +69,16 @@ describe( 'agendas - functional (server): set (create)', function() {
 
   } );
 
+  it( 'create works through a promise', async () => {
+    const { agenda } = await svc.set( {
+      ownerId: 12,
+      title: 'Hello World',
+      description: 'This is necessary'
+    } );
+
+    agenda.title.should.equal('Hello World');
+  });
+
 
   it( 'title and description are mandatory', done => {
 

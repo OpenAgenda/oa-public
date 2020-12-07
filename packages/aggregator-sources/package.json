@@ -61,7 +61,7 @@
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@loadable/babel-plugin": "^5.13.0",
     "@loadable/component": "^5.13.1",
-    "@openagenda/agendas": "^1.6.0",
+    "@openagenda/agendas": "^1.7.0",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@openagenda/eslint-config": "^1.3.1",

@@ -44,6 +44,22 @@ describe( 'agendas - functional (server): set (update)', function() {
     Files: Files(dConfig.files)
   } ) );
 
+  it('set returns a promise', async () => {
+    const { agenda } = await svc.set(4875, {
+      title: 'La promesse'
+    });
+
+    agenda.title.should.equal('La promesse');
+  });
+
+  it('set in promise mode can take options', async () => {
+    const { agenda } = await svc.set(4875, {
+      title: 'La 2ème promesse'
+    }, { protected: false });
+
+    agenda.title.should.equal('La 2ème promesse');
+  });
+
   it( 'set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
 
     svc.set( 4875, {

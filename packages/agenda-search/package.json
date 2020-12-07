@@ -44,7 +44,7 @@
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.6",
-    "@openagenda/agendas": "^1.6.0",
+    "@openagenda/agendas": "^1.7.0",
     "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/bs-templates": "^2.5.0",
     "@storybook/react": "^6.1.0",
