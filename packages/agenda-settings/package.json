@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.5",
-    "@openagenda/agendas": "^1.6.0",
+    "@openagenda/agendas": "^1.7.0",
     "@openagenda/call-to-action": "^2.2.16",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.9",
