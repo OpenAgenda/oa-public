@@ -13,6 +13,7 @@ git config status.submodulesummary 1
 # To see submodule diff with a `git diff`:
 git config diff.submodule log
 # Practical aliases:
+git config alias.sstatus '!'"git status -sb && git submodule foreach 'git status -sb'"
 git config alias.sdiff '!'"git diff && git submodule foreach 'git diff'"
 git config alias.spush 'push --recurse-submodules=on-demand'
 git config alias.supdate 'submodule update --remote --merge'
@@ -113,3 +114,73 @@ A detailed explanation can be found in this [document](https://docs.google.com/d
 ## commitlint
 
 [commitlint](http://marionebl.github.io/commitlint/) helps your team adhering to a commit convention. By supporting npm-installed configurations it makes sharing of commit conventions easy.
+
+## Release workflow
+
+There are two possibilities, when it comes to a feature or a small fix it is possible to bump a version immediately.
+
+For larger jobs it is better to defer the version bump and apply them all at the same time.
+
+In both cases the release must be done from a clean and up to date git branch.
+
+### Deferred versioning
+
+This is the default strategy in this project.
+
+For the example we modified mails, which is used by cibul-node and mails-editor as a peerDep.
+Once you've made your commits and you're on a clean branch you will want to create the necessary versions.
+
+```bash
+cd public/mails
+yarn version minor
+```
+
+Will not cause the `package.json` file to change! Instead, Yarn will create (or reuse, if you're inside a branch) a file within the `.yarn/versions` directory. This file will record the requested upgrade:
+
+```yaml
+releases:
+  @openagenda/mails@3.0.0: minor
+```
+
+The `.yarn/versions` directory must not contain more than one file, if this is the case you must manually merge the contents of the files.
+
+Yarn will then locate all the upgrade records it previously saved, and apply them all at once (including by taking care of upgrading inter-dependencies as we saw), for that just run:
+
+```bash
+yarn version apply --all
+```
+
+Every other workspace that depend on the first one through a basic semver ranges (`^x.y.z`, `~x.y.z`, ...) will get auto-updated to reference the new version. For example, let's say we have the following workspaces:
+
+```
+/public/mails (3.0.0)
+/packages/cibul-node (depends on common@^3.0.0)
+/packages/cibul-node (depends on common@^3.0.0)
+```
+
+After `yarn version apply` the following changes will be applied:
+
+```
+/public/mails (3.1.0)
+/packages/cibul-node (depends on common@^3.1.0)
+```
+
+To ensure that versions are changed in all modified workspaces, all relevant dependent workspaces, run:
+
+```bash
+yarn version check -i
+```
+
+Yarn will print you checkboxes for each entry allowing you to pick the release strategies you want to set for each workspace. Version checking should be done right after an apply, otherwise yarn is not able to detect updated packages.
+
+More details on [Yarn doc (Release Workflow)](https://yarnpkg.com/features/release-workflow).
+
+### Immediate versioning
+
+The immediate versioning just calls `yarn version apply` for you. To bump a version immediately you can add the `-i` option:
+
+```bash
+yarn version minor -i
+```
+
+If this involves updating dependent workspaces you can run `yarn version check -i`.
