@@ -28,11 +28,11 @@ function set(identifiers, data, options, cb) {
 
   if (_areIdentifiers(identifiers)) {
 
-    _update(identifiers, data, options, cb);
+    return _update(identifiers, data, options, cb);
 
   } else {
 
-    _create(identifiers, data, options);
+    return _create(identifiers, data, options);
 
   }
 
@@ -41,7 +41,7 @@ function set(identifiers, data, options, cb) {
 
 function _update(identifiers, data, options, cb) {
 
-  if (cb === undefined) {
+  if (options instanceof Function) {
 
     cb = options;
     options = {};
@@ -57,7 +57,8 @@ function _update(identifiers, data, options, cb) {
     context: null
   }, options);
 
-  w(_.extend({}, params, {
+
+  return new Promise(rs => rs(_.extend({}, params, {
     // unoptionables
     identifiers,
     id: false,
@@ -68,7 +69,7 @@ function _update(identifiers, data, options, cb) {
     clean: null, // after validation
     updated: null,
     errors: [] // validation errors
-  }))
+  })))
 
     .then(_get({ target: 'current', internal: true, private: params.private }))
 
@@ -100,7 +101,7 @@ function _update(identifiers, data, options, cb) {
       private: params.private
     }))
 
-    .done(v => {
+    .then(v => {
 
       if (v.success && interfaces) {
 
@@ -108,25 +109,33 @@ function _update(identifiers, data, options, cb) {
 
       }
 
-      cb(null, {
+      const result = {
         agenda: params.internal ? v.updated : dbParse.exclude(v.updated, 'internal'),
         valid: !v.errors.length,
         success: v.success,
         errors: v.errors
-      });
+      };
 
-    }, cb);
+      if (cb) {
+        cb(null, result);
+      } else {
+        return result;
+      }
+    }, error => {
+      if (cb) {
+        return cb(error)
+      }
+      throw error;
+    });
 
 }
 
 
 function _create(data, options, cb) {
 
-  if (cb === undefined) {
-
+  if (options instanceof Function) {
     cb = options;
     options = {};
-
   }
 
   let params = _.extend({
@@ -134,7 +143,7 @@ function _create(data, options, cb) {
     includeImagePath: false
   }, options);
 
-  w(_.extend({}, params, {
+  return new Promise(rs => rs(_.extend({}, params, {
     id: false,
     data: Object.assign({}, data),
     clean: null,
@@ -142,7 +151,7 @@ function _create(data, options, cb) {
     errors: [],
     identifiers: null,
     success: false
-  }))
+  })))
 
     .then(_createUid)
 
@@ -169,7 +178,7 @@ function _create(data, options, cb) {
       includeImagePath: params.includeImagePath
     }))
 
-    .done(async v => {
+    .then(async v => {
 
       const response = {
         agenda: params.internal ? v.created : dbParse.exclude(v.created, 'internal'),
@@ -186,9 +195,19 @@ function _create(data, options, cb) {
         }
       }
 
-      cb(null, response);
+      if (cb) {
+        cb(null, response);
+      } else {
+        return response;
+      };
 
-    }, cb);
+    }, error => {
+      if (cb) {
+        return cb(error);
+      } else {
+        throw error;
+      }
+    });
 
 }
 
