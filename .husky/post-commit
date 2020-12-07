@@ -3,7 +3,7 @@
 
 set -e
 
-[ -n "$DIBALE_AUTO_COMMIT" ] && exit 0
+[ -n "$DISABLE_AUTO_COMMIT" ] && exit 0
 
 #
 # Update a superproject when a commit is made to a submodule.

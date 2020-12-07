@@ -75,7 +75,7 @@ if [[ -n $(git -C "$PUBLIC_DIR" status --porcelain) ]]; then
     PUBLIC_COMMIT_MESSAGE="chore: publish $PUBLIC_RELEASE_SIZE new packages$NL$NL$PUBLIC_COMMIT_MESSAGE"
   fi
 
-  DIBALE_AUTO_COMMIT=1 git -C "$PUBLIC_DIR" commit -m "$PUBLIC_COMMIT_MESSAGE" --no-verify
+  DISABLE_AUTO_COMMIT=1 git -C "$PUBLIC_DIR" commit -m "$PUBLIC_COMMIT_MESSAGE" --no-verify
 fi
 
 # Commit private repo
