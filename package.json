@@ -16,7 +16,7 @@
     "mails-editor": "yarn workspace cibul-node mails-editor",
     "test": "yarn workspaces foreach -tv run test --colors",
     "commit": "git-cz",
-    "release": "lerna publish"
+    "release": "./scripts/release/00-release.sh"
   },
   "config": {
     "commitizen": {
