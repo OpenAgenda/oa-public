@@ -9,7 +9,7 @@ THIS_DIR=$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 RELEASE_ARGUMENTS=()
 
 maybe_release_package() {
-  if git describe --match "$1/*" HEAD >&/dev/null; then
+  if git describe --match "$1@*" HEAD >&/dev/null; then
     RELEASE_ARGUMENTS+=(--include "$1")
   fi
 }
