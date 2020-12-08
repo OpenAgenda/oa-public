@@ -1,12 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 . "$(dirname $0)/_/husky.sh"
 
 set -e
 
-REPO_DIR=$(git rev-parse --show-toplevel)
-
 WORKSPACES=$(yarn workspaces list --json)
-MODIFIED_FILES=$(git diff --cached --name-only --diff-filter=ACMR -z | xargs -0)
 MODIFIED_PACKAGES=""
 
 maybe_modified_package() {
