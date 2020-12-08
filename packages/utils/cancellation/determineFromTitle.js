@@ -1,6 +1,6 @@
 'use strict';
 
-const slug = require('slug');
+const slug = require('slugify');
 
 const cancelled = [
   /^annule/g,
@@ -14,8 +14,11 @@ module.exports = title => {
   }
 
   for (const titleStr of Object.values(title)) {
+    const matches = cancelled.filter(rgx => !!slug(titleStr, {
+      lower: true,
+      strict: true
+    }).match(rgx));
 
-    const matches = cancelled.filter(rgx => !!slug(titleStr, { lower: true }).match(rgx));
     if (matches.length) {
       return true;
     }

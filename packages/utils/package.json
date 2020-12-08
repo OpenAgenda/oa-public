@@ -9,7 +9,7 @@
     "@openagenda/labels": "^2.3.0",
     "hsts": "^2.1.0",
     "qs": "^6.9.1",
-    "slug": "0.9.1",
+    "slugify": "^1.4.5",
     "validator": "^12.2.0",
     "when": "^3.7.8",
     "xhr": "^2.2.2"
