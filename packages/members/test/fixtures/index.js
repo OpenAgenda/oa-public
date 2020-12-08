@@ -16,7 +16,7 @@ function _sql() {
     fs
       .readFileSync(`${__dirname}/../../model.sql`, 'utf-8')
       // eslint-disable-next-line no-template-curly-in-string
-      .replace('${schema}', 'member')
+      .replace('${schema}', 'member'),
   ];
 
   raw.push(k('member').insert(members));
@@ -26,8 +26,8 @@ function _sql() {
 
 async function _load(dbConfig) {
   const con = mysql.createConnection({
-    ..._.pick(dbConfig, ['user', 'password']),
-    multipleStatements: true
+    ..._.pick(dbConfig, ['user', 'password', 'ssl']),
+    multipleStatements: true,
   });
 
   const query = promisify(con.query.bind(con));
@@ -42,13 +42,13 @@ module.exports = dbConfig => {
     client: 'mysql',
     connection: {
       ...dbConfig,
-      database: 'memberstest'
-    }
+      database: 'memberstest',
+    },
   });
 
   return {
     destroyClient: () => client.destroy(),
     client,
-    load: () => _load(dbConfig)
+    load: () => _load(dbConfig),
   };
 };
