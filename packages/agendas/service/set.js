@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const w = require('when');
-const slug = require('slug');
+const slug = require('slugify');
 
 const MODES = {
   CREATE: 'create',
@@ -438,7 +438,7 @@ function _createSlugIfNotSet(v) {
     mysql: mysqlConfig
   }, previousSlug => {
 
-    return slug(v.data.title || '', { lower: true }) + (previousSlug ? Math.ceil(Math.random() * 1000) : '');
+    return slug(v.data.title || '', { lower: true, strict: true }) + (previousSlug ? Math.ceil(Math.random() * 1000) : '');
 
   }, (err, slug) => {
 
