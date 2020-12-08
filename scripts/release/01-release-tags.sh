@@ -10,12 +10,14 @@ NL=$'\n'
 "$THIS_DIR"/clean-repo.sh
 
 # Bump the packages, and store which ones have been bumped (and thus need to be re-released)
+echo 'Apply versions...'
 RELEASE_DETAILS=$(yarn version apply --all --json)
 
 # Ask for dependency bumps
 yarn version check -i
 
 # Re-run apply and concat results
+echo "Apply versions... (second pass)"
 RELEASE_DETAILS_SECOND_PASS=$(yarn version apply --all --json)
 
 if [[ -n "$RELEASE_DETAILS" && -n "$RELEASE_DETAILS_SECOND_PASS" ]]; then
@@ -126,5 +128,5 @@ if [[ $PUBLIC_RELEASE_SIZE -ne 0 ]]; then
   git -C "$PUBLIC_DIR" tag -a "$TAG" -m "$TAG"
 fi
 
-printf "Public commit: %s" "$PUBLIC_COMMIT_MESSAGE"
-printf "Private commit: %s" "$COMMIT_MESSAGE"
+cat <<<"$(printf "Public commit: %s" "$PUBLIC_COMMIT_MESSAGE")"
+cat <<<"$(printf "Private commit: %s" "$COMMIT_MESSAGE")"
