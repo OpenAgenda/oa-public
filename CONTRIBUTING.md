@@ -34,8 +34,6 @@ we use the git commit messages to **generate the change log**.
 
 ### Commit Message Format
 
-> For use the changelog generator, you need to publish with the command `yarn release` or `yarn lerna publish`
-
 Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
 format that includes a **type**, a **scope** and a **subject**:
 
@@ -117,17 +115,13 @@ A detailed explanation can be found in this [document](https://docs.google.com/d
 
 ## Release workflow
 
-There are two possibilities, when it comes to a feature or a small fix it is possible to bump a version immediately.
+The publication can be summarized in three steps:
+- we mark the versions to create during the next release (`yarn version <strategy>`)
+- `yarn release` to prepare and publish everything
+- `git push && git push --tags`
 
-For larger jobs it is better to defer the version bump and apply them all at the same time.
 
-In both cases the release must be done from a clean and up to date git branch.
-
-### Deferred versioning
-
-This is the default strategy in this project.
-
-For the example we modified mails, which is used by cibul-node and mails-editor as a peerDep.
+For the example we modified mails, which is used by cibul-node.
 Once you've made your commits and you're on a clean branch you will want to create the necessary versions.
 
 ```bash
@@ -147,40 +141,31 @@ The `.yarn/versions` directory must not contain more than one file, if this is t
 Yarn will then locate all the upgrade records it previously saved, and apply them all at once (including by taking care of upgrading inter-dependencies as we saw), for that just run:
 
 ```bash
-yarn version apply --all
+yarn release
 ```
 
 Every other workspace that depend on the first one through a basic semver ranges (`^x.y.z`, `~x.y.z`, ...) will get auto-updated to reference the new version. For example, let's say we have the following workspaces:
 
 ```
 /public/mails (3.0.0)
-/packages/cibul-node (depends on common@^3.0.0)
-/packages/cibul-node (depends on common@^3.0.0)
+/packages/cibul-node (depends on mails@^3.0.0)
 ```
 
-After `yarn version apply` the following changes will be applied:
+After `yarn release` the following changes will be applied:
 
 ```
 /public/mails (3.1.0)
-/packages/cibul-node (depends on common@^3.1.0)
+/packages/cibul-node (depends on mails@^3.1.0)
 ```
 
-To ensure that versions are changed in all modified workspaces, all relevant dependent workspaces, run:
+`yarn release` will print you checkboxes for each entry allowing you to pick the release strategies you want to set for each dependent workspace.
+
+After that the release script will create a commit in `oa` (and a second commit in `public` if needed), a Git tag for each new version, a release tag including the date and finally it will push the new versions to NPM.
+
+The script doesn't push the changes to Git for you, if all goes well you just have to do:
 
 ```bash
-yarn version check -i
+git push && git push --tags
 ```
-
-Yarn will print you checkboxes for each entry allowing you to pick the release strategies you want to set for each workspace. Version checking should be done right after an apply, otherwise yarn is not able to detect updated packages.
 
 More details on [Yarn doc (Release Workflow)](https://yarnpkg.com/features/release-workflow).
-
-### Immediate versioning
-
-The immediate versioning just calls `yarn version apply` for you. To bump a version immediately you can add the `-i` option:
-
-```bash
-yarn version minor -i
-```
-
-If this involves updating dependent workspaces you can run `yarn version check -i`.
