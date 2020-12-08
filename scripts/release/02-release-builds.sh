@@ -9,14 +9,17 @@ THIS_DIR=$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 RELEASE_ARGUMENTS=()
 
 maybe_release_package() {
-  if git describe --match "$1@*" HEAD >&/dev/null; then
-    RELEASE_ARGUMENTS+=(--include "$1")
+  IDENT=$(jq -r .Ident <<<"$1")
+  PACKAGE_CWD=$(jq -r .Cwd <<<"$1")
+
+  if [[ -n $(git -C "$PACKAGE_CWD" --no-pager tag --list "$IDENT@*" --contains HEAD) ]]; then
+    RELEASE_ARGUMENTS+=(--include "$IDENT")
   fi
 }
 
-while read -r ident; do
-  maybe_release_package "$ident"
-done < <(yarn constraints query --json "workspace_ident(Cwd, Ident), \+ workspace_field(Cwd, 'private', 'true')" | jq -r .Ident)
+while read -r package; do
+  maybe_release_package "$package"
+done <<<$(yarn constraints query --json "workspace_ident(Cwd, Ident), \+ workspace_field(Cwd, 'private', 'true')")
 
 if [[ ${#RELEASE_ARGUMENTS[@]} -eq 0 ]]; then
   exit 0
