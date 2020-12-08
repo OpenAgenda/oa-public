@@ -43,7 +43,7 @@
     "slate": "^0.34.7",
     "slate-html-serializer": "^0.6.13",
     "slate-react": "^0.13.4",
-    "slug": "^0.9.1",
+    "slugify": "^1.4.5",
     "superagent": "^3.8.3",
     "turndown": "^5.0.3",
     "verror": "^1.10.0"

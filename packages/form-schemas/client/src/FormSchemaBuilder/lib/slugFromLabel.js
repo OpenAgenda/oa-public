@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import slug from 'slug';
+import slug from 'slugify';
 
 export default ( label, preferredLang ) => {
 
   const str = _.isString( label ) ? label : _.get( label, preferredLang, _.get( label, _.first( _.keys( label ) ) ) )
 
-  return slug( str, { lower: true } );
+  return slug( str, { lower: true, strict: true } );
 
 }
