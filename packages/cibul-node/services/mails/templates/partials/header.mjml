@@ -7,7 +7,7 @@
       src="<%= logo.src %>"
       href="<%= link %>"
       padding="0"
-      alt="logo"
+      alt=""
     />
     <% } else { %>
     <mj-image
@@ -16,7 +16,7 @@
       src="https://openagenda.com/images/openagenda.png"
       href="<%= root %>"
       padding="0"
-      alt="logo"
+      alt=""
     />
     <% } %>
   </mj-column>
