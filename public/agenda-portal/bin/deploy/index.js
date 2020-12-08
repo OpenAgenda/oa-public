@@ -65,6 +65,6 @@ module.exports = async (preloaded = {}) => {
   editServerFile(cwd);
 
   if (env.IFRAMABLE !== '1') {
-    fs.unlinkSync(`${cwd}/iframe-canvas.html`);
+    fs.unlinkSync(`${cwd}/assets/iframe-test-canvas.html`);
   }
 };
