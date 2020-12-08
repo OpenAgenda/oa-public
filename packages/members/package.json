@@ -24,7 +24,7 @@
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "regenerator-runtime": "^0.13.5",
-    "slug": "0.9.1"
+    "slugify": "^1.4.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

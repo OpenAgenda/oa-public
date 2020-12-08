@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const slug = require('slug');
+const slug = require('slugify');
 
 const map = {
   id: 'id',
@@ -13,13 +13,13 @@ const map = {
   deleted_user: 'deletedUser',
   slug: 'slug',
   actions_counter: 'actionsCounter',
-  store: 'store'
+  store: 'store',
 };
 
 const legacyFieldsMap = {
   review_id: 'agendaId',
   user_id: 'userId',
-  credential: 'credential'
+  credential: 'credential',
 };
 
 const dbFields = Object.keys(map);
@@ -28,8 +28,8 @@ const legacyDbFields = Object.keys(legacyFieldsMap);
 function _legacyCustomToDB(custom) {
   const organization = custom.organization
     ? {
-      slug: slug(custom.organization, { lower: true }),
-      label: custom.organization
+      slug: slug(custom.organization, { lower: true, strict: true }),
+      label: custom.organization,
     }
     : null;
 
@@ -40,10 +40,10 @@ function _legacyCustomToDB(custom) {
         contact_name: custom.contactName || null,
         contact_number: custom.contactNumber || null,
         contact_position: custom.contactPosition || null,
-        email: custom.email || null
-      }
+        email: custom.email || null,
+      },
     }),
-    organization: organization ? organization.slug : null
+    organization: organization ? organization.slug : null,
   };
 }
 
@@ -83,7 +83,7 @@ module.exports.fromDB = ({ includeLegacyFields, orderField }, entry) => {
 
       return Object.assign(mapped, {
         deletedUser: !!mapped.deletedUser,
-        invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid
+        invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid,
       });
     }, {});
 };
