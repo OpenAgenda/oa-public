@@ -115,9 +115,10 @@ A detailed explanation can be found in this [document](https://docs.google.com/d
 
 ## Release workflow
 
-The publication can be summarized in two steps:
+The publication can be summarized in three steps:
 - we mark the versions to create during the next release (`yarn version <strategy>`)
 - `yarn release` to prepare and publish everything
+- `git push && git push --tags`
 
 
 For the example we modified mails, which is used by cibul-node.
@@ -159,6 +160,12 @@ After `yarn release` the following changes will be applied:
 
 `yarn release` will print you checkboxes for each entry allowing you to pick the release strategies you want to set for each dependent workspace.
 
-After that the release script will create a commit in `oa` (and a second commit in `public` if needed), a git tag for each new version, a release tag including the date and finally it will push everything to git then npm.
+After that the release script will create a commit in `oa` (and a second commit in `public` if needed), a Git tag for each new version, a release tag including the date and finally it will push the new versions to NPM.
+
+The script doesn't push the changes to Git for you, if all goes well you just have to do:
+
+```bash
+git push && git push --tags
+```
 
 More details on [Yarn doc (Release Workflow)](https://yarnpkg.com/features/release-workflow).

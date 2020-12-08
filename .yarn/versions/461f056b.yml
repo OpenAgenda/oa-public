@@ -1,0 +1,5 @@
+releases:
+  "@openagenda/agenda-portal": patch
+
+undecided:
+  - oa
