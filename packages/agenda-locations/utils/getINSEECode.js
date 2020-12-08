@@ -7,8 +7,8 @@ const sa = require('superagent');
 const { promisify } = require('util');
 
 const getKey = ({ city, department }) => [
-  slug(department, { lower: true }),
-  slug(city, { lower: true })
+  slug(department, { lower: true, strict: true }),
+  slug(city, { lower: true, strict: true })
 ].join('|');
 
 const res = ({

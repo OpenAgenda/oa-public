@@ -22,7 +22,7 @@ async function create(service, data, options = {}) {
   const clean = {
     ...validate(geocodeIfUndefined ? await service.decorateWithGeocodeData(data) : data),
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
-    slug: await defineUnique(service, 'slug', () => slug(data.name, { lower: true }) + '_' + Math.ceil(Math.random() * 9999999)),
+    slug: await defineUnique(service, 'slug', () => slug(data.name, { lower: true, strict: true }) + '_' + Math.ceil(Math.random() * 9999999)),
     createdAt: new Date,
     updatedAt: new Date
   };
@@ -47,7 +47,7 @@ async function create(service, data, options = {}) {
 
   const entry = fromItemToDbEntry(clean);
 
-  const [ insertedID ] = await service.clients
+  const [insertedID] = await service.clients
     .knex(service.config.schema)
     .insert(entry);
 
