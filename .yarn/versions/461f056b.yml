@@ -1,5 +1,8 @@
 releases:
   "@openagenda/agenda-portal": patch
+  "@openagenda/form-schemas": patch
 
 undecided:
   - oa
+  - "@openagenda/agenda-locations"
+  - "@openagenda/events"
