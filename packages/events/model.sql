@@ -4,6 +4,8 @@ CREATE TABLE `${schema}` (
   owner_uid bigint(20),
   creator_uid bigint(20),
   agenda_uid bigint(20),
+  event_attendance_mode TINYINT(1) DEFAULT 1,
+  online_access_link VARCHAR(255),
   location_uid bigint(20),
   slug VARCHAR(255) NOT NULL UNIQUE,
   title VARCHAR(2000) NOT NULL,
