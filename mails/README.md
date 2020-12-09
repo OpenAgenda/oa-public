@@ -58,8 +58,12 @@ const config = {
 };
 
 const mails = await createMails(config)
-  .then(() => console.log('Service mails initialized'))
-  .catch(error => console.log('Error on initializing service mails', error));
+  .catch(error => {
+    console.log('Error on initializing service mails', error);
+    throw error;
+  });
+
+console.log('Service mails initialized');
 ```
 
 More details on the options in the [API section](#API).
