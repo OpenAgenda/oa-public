@@ -27,7 +27,8 @@ const createMails = require('@openagenda/mails');
 
 const config = {
   // Templating
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(__dirname, 'templates'),
+  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
+  mjmlConfigPath: process.cwd(),
 
   // Mailing
   transport: {
@@ -119,6 +120,7 @@ const createMails = require('@openagenda/mails');
 const mails = await createMails({
   // Templating
   templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
+  mjmlConfigPath: process.cwd(),
 
   // Mailing
   transport: {
@@ -158,6 +160,7 @@ const mails = await createMails({
 Value | Required | Description |
 |---|:---:|---|
 |`templatesDir` | * | The folder path containing your templates.
+|`mjmlConfigPath` |  | Uses the .mjmlconfig file in the specified path or directory to include custom components.
 |`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
 |`translations` |  | An object containing `labels` and `makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter(labels, defaultLang)` is a function that returns a function that can be called in templates with `__`. <br /><br />By default the `__` signature is `(name, values, lang)` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
