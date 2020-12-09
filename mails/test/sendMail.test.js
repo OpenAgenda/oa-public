@@ -3,7 +3,7 @@
 const path = require('path');
 const _ = require('lodash');
 const nodemailer = require('nodemailer');
-const Mails = require('../index');
+const createMails = require('../index');
 const makeLabelGetter = require('../utils/makeLabelGetter');
 
 const templatesDir = path.join(__dirname, '..', 'templates');
@@ -30,7 +30,7 @@ describe('sendMail', () => {
 
   describe('JSON transport', () => {
     beforeAll(async () => {
-      mails = new Mails({
+      mails = await createMails({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -41,8 +41,6 @@ describe('sendMail', () => {
           }
         }
       });
-
-      await mails.init();
     });
 
     it('send email - helloWorld template', async () => {
@@ -151,7 +149,7 @@ describe('sendMail', () => {
 
   describe('Euthreal transport', () => {
     beforeAll(async () => {
-      mails = new Mails({
+      mails = await createMails({
         templatesDir,
         transport: getEtherealTransport(),
         defaults: {
@@ -223,7 +221,7 @@ describe('sendMail', () => {
 
   describe('translations', () => {
     it('take a default lang', async () => {
-      mails = new Mails({
+      mails = await createMails({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -250,8 +248,6 @@ describe('sendMail', () => {
           makeLabelGetter
         }
       });
-
-      await mails.init();
 
       const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
@@ -274,7 +270,7 @@ describe('sendMail', () => {
     });
 
     it('choose a lang per recipient', async () => {
-      mails = new Mails({
+      mails = await createMails({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -301,8 +297,6 @@ describe('sendMail', () => {
           makeLabelGetter
         }
       });
-
-      await mails.init();
 
       const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',

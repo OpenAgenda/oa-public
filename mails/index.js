@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const addressParser = require('nodemailer/lib/addressparser');
+const { handleMjmlConfig, registerComponent } = require('mjml-core');
 const isEmail = require('isemail');
 const VError = require('verror');
 const log = require('@openagenda/logs')('mails/index');
@@ -17,6 +18,12 @@ class Mails {
 
   async init() {
     this.config = await createConfig(this._rawConfig);
+
+    const { mjmlConfigPath } = this.config;
+
+    if (mjmlConfigPath) {
+      handleMjmlConfig(mjmlConfigPath, registerComponent);
+    }
 
     this.render = render.bind(null, this.config);
 

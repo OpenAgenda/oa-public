@@ -12,6 +12,7 @@ const logTransporter = logs('mails/transporter');
 const defaultConfig = {
   templatesDir:
     process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
+  mjmlConfigPath: process.cwd(),
   transport: {
     pool: true,
     host: '127.0.0.1',
