@@ -5,7 +5,7 @@ const _ = require('lodash');
 const nodemailer = require('nodemailer');
 const redis = require('redis');
 const Queues = require('@openagenda/queues');
-const Mails = require('../index');
+const createMails = require('../index');
 
 const templatesDir = path.join(__dirname, '..', 'templates');
 
@@ -21,7 +21,7 @@ describe('task', () => {
   beforeAll(async () => {
     const account = await nodemailer.createTestAccount();
 
-    mails = new Mails({
+    mails = await createMails({
       templatesDir,
       transport: {
         pool: true,
@@ -52,8 +52,6 @@ describe('task', () => {
       }),
       queueName: 'mailsTest-task'
     });
-
-    await mails.init();
 
     await mails.config.queues.prepareMails.clear();
     await mails.config.queues.sendMails.clear();
