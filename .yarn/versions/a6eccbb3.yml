@@ -1,6 +1,0 @@
-releases:
-  "@openagenda/mails": patch
-
-undecided:
-  - oa
-  - cibul-node
