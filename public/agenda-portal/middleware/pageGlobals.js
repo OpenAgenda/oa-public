@@ -3,8 +3,12 @@
 const _ = require('lodash');
 
 function middleware(options, req, res, next) {
-  const { mainScript } = {
+  const {
+    mainScript,
+    iframable
+  } = {
     mainScript: 'main.js',
+    iframable: req.app.locals.iframable,
     ...(options || {})
   };
 
@@ -23,7 +27,7 @@ function middleware(options, req, res, next) {
     `${req.app.locals.assetsRoot}/jquery.spin.js`
   ];
 
-  if (req.app.locals.iframable) {
+  if (iframable) {
     bottomScripts.push(
       `${req.app.locals.assetsRoot}/js/iframeResizeContent.js`
     );
