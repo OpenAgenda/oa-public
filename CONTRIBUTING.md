@@ -166,6 +166,8 @@ The script doesn't push the changes to Git for you, if all goes well you just ha
 
 ```bash
 git push && git push --tags
+# git push does not push tags recursively, so:
+cd public && git push --tags
 ```
 
 More details on [Yarn doc (Release Workflow)](https://yarnpkg.com/features/release-workflow).
