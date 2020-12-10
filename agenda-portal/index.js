@@ -139,13 +139,13 @@ module.exports = async options => {
   app.get('/p/:page', mw.pageGlobals, mw.list, mw.index);
   app.get(
     '/preview',
-    mw.pageGlobals.withOptions({ mainScript: 'preview.js' }),
+    mw.pageGlobals.withOptions({ mainScript: 'preview.js', iframable: true }),
     mw.list,
     mw.preview
   );
   app.get(
     '/share',
-    mw.pageGlobals.withOptions({ mainScript: 'share.js' }),
+    mw.pageGlobals.withOptions({ mainScript: 'share.js', iframable: true }),
     mw.list,
     mw.share
   );

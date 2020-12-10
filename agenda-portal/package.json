@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "jest",
-    "start": "PORTAL_IFRAMABLE=1 browser-refresh dev",
+    "start": "browser-refresh dev",
     "build": "webpack-cli --config bin/webpack.build.js",
     "install": "yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
