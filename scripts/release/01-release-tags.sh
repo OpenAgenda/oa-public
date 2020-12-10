@@ -16,6 +16,8 @@ RELEASE_DETAILS=$(yarn version apply --all --json)
 # Ask for dependency bumps
 yarn version check -i
 
+echo
+
 # Re-run apply and concat results
 echo "Apply versions... (second pass)"
 RELEASE_DETAILS_SECOND_PASS=$(yarn version apply --all --json)
@@ -128,5 +130,5 @@ if [[ $PUBLIC_RELEASE_SIZE -ne 0 ]]; then
   git -C "$PUBLIC_DIR" tag -a "$TAG" -m "$TAG"
 fi
 
-cat <<<"$(printf "Public commit: %s" "$PUBLIC_COMMIT_MESSAGE")"
-cat <<<"$(printf "Private commit: %s" "$COMMIT_MESSAGE")"
+cat <<<"$(printf "\nPublic commit: %s" "$PUBLIC_COMMIT_MESSAGE")"
+cat <<<"$(printf "\nPrivate commit: %s" "$COMMIT_MESSAGE")"
