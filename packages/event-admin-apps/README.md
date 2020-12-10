@@ -1,0 +1,1 @@
+# @openagenda/event-admin-apps
