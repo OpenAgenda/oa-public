@@ -49,7 +49,7 @@ function asyncLoad({ store: { getState, dispatch }, history, conversationId, age
     conversation: state.conversation.data,
     messages: state.conversation.messages,
     loading: state.conversation.loading,
-    loaded: state.conversation.loaded,
+    loaded: state.conversation.loaded && state.conversation.author,
     nextLoading: state.conversation.nextLoading,
     lastPage: state.conversation.lastPage,
     res: state.res
