@@ -43,7 +43,7 @@ module.exports = options => {
           req,
           context
         },
-        postTransform(transformed, res, res)
+        postTransform(transformed, req, res)
       );
     },
     show: (event, req, res) => {
@@ -64,7 +64,7 @@ module.exports = options => {
         );
       }
 
-      return postTransform(transformed, res, res);
+      return postTransform(transformed, req, res);
     }
   };
 };
