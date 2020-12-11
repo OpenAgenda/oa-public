@@ -9,24 +9,20 @@ NL=$'\n'
 
 "$THIS_DIR"/clean-repo.sh
 
+MAIN_BRANCH=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+# Ask for dependency bumps
+if [[ $(git rev-parse --abbrev-ref HEAD) == "$MAIN_BRANCH" ]]; then
+  YARN_CHANGESET_BASE_REFS=$(git --no-pager log -1 --format="%H" --tags --abbrev=0) yarn version check -i
+else
+  yarn version check -i
+fi
+
 # Bump the packages, and store which ones have been bumped (and thus need to be re-released)
 echo 'Apply versions...'
 RELEASE_DETAILS=$(yarn version apply --all --json)
 
-# Ask for dependency bumps
-yarn version check -i
-
 echo
-
-# Re-run apply and concat results
-echo "Apply versions... (second pass)"
-RELEASE_DETAILS_SECOND_PASS=$(yarn version apply --all --json)
-
-if [[ -n "$RELEASE_DETAILS" && -n "$RELEASE_DETAILS_SECOND_PASS" ]]; then
-  RELEASE_DETAILS=$RELEASE_DETAILS$NL$RELEASE_DETAILS_SECOND_PASS
-elif [[ -n "$RELEASE_DETAILS_SECOND_PASS" ]]; then
-  RELEASE_DETAILS=$RELEASE_DETAILS_SECOND_PASS
-fi
 
 RELEASE_SIZE=$(wc -l <<<"$RELEASE_DETAILS")
 PUBLIC_RELEASE_SIZE=0
@@ -50,7 +46,7 @@ while read -r line; do
   MODULE_WORKTREE=$(git -C "$PACKAGE_CWD" rev-parse --show-toplevel)
 
   # Is a public package
-  if [[ "$MODULE_WORKTREE" = "$PUBLIC_DIR" ]]; then
+  if [[ "$MODULE_WORKTREE" == "$PUBLIC_DIR" ]]; then
     RELEASE_SIZE=$((RELEASE_SIZE - 1))
     PUBLIC_RELEASE_SIZE=$((PUBLIC_RELEASE_SIZE + 1))
 
