@@ -16,7 +16,7 @@ const EventTransforms = require('./lib/events/Transforms');
 
 const index = require('./middleware/renderIndex');
 const error = require('./middleware/error');
-const get = require('./middleware/getEvent');
+const eventMiddlewares = require('./middleware/event');
 const { redirectToNeighbor } = require('./middleware/eventNavigation');
 const list = require('./middleware/listEvents');
 const pageGlobals = require('./middleware/pageGlobals');
@@ -31,7 +31,7 @@ const { navigationLinks } = require('./middleware/eventNavigation');
 const mw = {
   index,
   error,
-  get,
+  event: eventMiddlewares,
   redirectToNeighbor,
   list,
   preview: renderSelection('preview'),
@@ -77,7 +77,8 @@ module.exports = async options => {
     // cache,
     proxy,
     jsonExportVersion,
-    assetsRoot
+    assetsRoot,
+    middlewareHooks
   } = config;
 
   app.set('view engine', 'hbs');
@@ -159,7 +160,9 @@ module.exports = async options => {
     ['/events/:slug', '/events/:slug/t/:timing'],
     mw.pageGlobals,
     mw.navigationLinks,
-    mw.get
+    mw.event.get,
+    _.get(middlewareHooks, 'show.preRender', (req, res, next) => { next(); }),
+    mw.event.render
   );
 
   app.get('/permalinks/events/:uid', mw.redirect);
