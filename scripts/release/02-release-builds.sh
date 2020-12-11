@@ -12,7 +12,7 @@ maybe_release_package() {
   IDENT=$(jq -r .Ident <<<"$1")
   PACKAGE_CWD=$(jq -r .Cwd <<<"$1")
 
-  if [[ -n $(git -C "$PACKAGE_CWD" --no-pager tag --list "$IDENT@*" --contains HEAD) ]]; then
+  if [[ -n $(git -C "$PACKAGE_CWD" --no-pager tag --list "$IDENT@*" --points-at HEAD) ]]; then
     RELEASE_ARGUMENTS+=(--include "$IDENT")
   fi
 }
