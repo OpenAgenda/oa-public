@@ -652,7 +652,7 @@ class LocationForm extends Component {
           <LanguageBar
             languages={this.getLanguages()}
             getLabel={this.getLabel.bind(this)}
-            onChange={this.onLanguagesChange} />
+            onChange={this.onLanguagesChange.bind(this)} />
 
           : null}
 
