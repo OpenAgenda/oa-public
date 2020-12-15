@@ -32,6 +32,7 @@ import createAgendaStatsApp from '@openagenda/agenda-stats/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import createMembersApp from '@openagenda/member-apps/src/app';
 import createSupervisorApp from '@openagenda/supervisor/src/app';
+import createEventAdminApp from '@openagenda/event-admin-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import Root from './Root';
 
@@ -97,6 +98,11 @@ const apps = [
   [
     'agendaSettingsEdit',
     createAgendaSettingsEditApp,
+    [MainLayout, RequiredUser, AgendaAdminLayout],
+  ],
+  [
+    'eventAdmin',
+    createEventAdminApp,
     [MainLayout, RequiredUser, AgendaAdminLayout],
   ],
   // superadmin

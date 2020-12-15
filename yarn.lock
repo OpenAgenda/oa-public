@@ -6534,7 +6534,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-admin-apps@workspace:packages/event-admin-apps":
+"@openagenda/event-admin-apps@^0.0.0, @openagenda/event-admin-apps@workspace:packages/event-admin-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-admin-apps@workspace:packages/event-admin-apps"
   dependencies:
@@ -7581,6 +7581,7 @@ __metadata:
     "@openagenda/aggregator-sources": ^1.3.1
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
+    "@openagenda/event-admin-apps": ^0.0.0
     "@openagenda/home": ^2.2.1
     "@openagenda/inbox-apps": ^1.2.1
     "@openagenda/member-apps": ^2.1.1

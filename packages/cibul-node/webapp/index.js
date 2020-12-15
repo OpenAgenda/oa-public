@@ -301,6 +301,15 @@ const initialState = async req => {
         statsConfig: '/:slug/admin/statistics/config'
       }
     },
+    eventAdmin: {
+      settings: {
+        prefix: '/:slug/admin/events',
+        lang: req.lang,
+        apiRoot: `http://localhost:${config.port}`,
+        perPageLimit: 20
+      },
+      res: {}
+    },
     // Admin
     adminSupport: {
       settings: {
@@ -363,6 +372,7 @@ module.exports = app => {
       '/new',
       '/home/inbox(/*?)?',
       '/support(/*?)?',
+      '/:slug/admin/events(/*?)?',
       '/:slug/admin/inbox(/*?)?',
       '/:slug/admin/sources(/*?)?',
       '/:slug/admin/members(/*?)?',
