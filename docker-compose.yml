@@ -146,9 +146,6 @@ services:
       IFRAMELY_KEY: ${IFRAMELY_KEY}
       OA_SESSION_KEYS: ${OA_SESSION_KEYS}
       OA_SESSION_SECRET: ${OA_SESSION_SECRET}
-      DEBUG_COLORS: ${DEBUG_COLORS}
-      TERM: ${TERM}
-      COLORTERM: ${COLORTERM}
 
   mysql:
     container_name: mysql
