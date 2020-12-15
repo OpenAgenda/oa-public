@@ -14,7 +14,7 @@ const { wrapApp } = require('@openagenda/react-shared');
 const {
   Html,
   LayoutManager,
-  createLayoutStore
+  createLayoutStore,
 } = require('@openagenda/react-layouts');
 const {
   AgendaAdminLayout,
@@ -22,7 +22,7 @@ const {
   InboxAgendaAdminLayout,
   MainLayout,
   RequiredSuperAdmin,
-  RequiredUser
+  RequiredUser,
 } = require('@openagenda/react-layouts/dist/layouts');
 const createHomeApp = require('@openagenda/home/dist/app');
 const createUserSettingsApp = require('@openagenda/user-apps/dist/app');
@@ -34,6 +34,7 @@ const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/
 const createAgendaStatsApp = require('@openagenda/agenda-stats/dist/app');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const createMembersApp = require('@openagenda/member-apps/dist/app');
+const createEventAdminApp = require('@openagenda/event-admin-apps/dist/app');
 const createSupervisorApp = require('@openagenda/supervisor/lib/app');
 const RootHelmet = require('./RootHelmet');
 const createReduxMiddleware = require('./reduxMiddleware');
@@ -56,11 +57,11 @@ module.exports = function match({ initialState, lang, publicPath }) {
       const extractor = new ChunkExtractor({
         statsFile: path.join(__dirname, '/dist/loadable-stats.json'),
         entrypoints: ['webapp'],
-        publicPath
+        publicPath,
       });
 
       const history = createMemoryHistory({
-        initialEntries: [req.originalUrl]
+        initialEntries: [req.originalUrl],
       });
       const state = typeof initialState === 'function'
         ? await initialState(req)
@@ -77,61 +78,66 @@ module.exports = function match({ initialState, lang, publicPath }) {
         [
           'agendaSettingsNew',
           createAgendaSettingsNewApp,
-          [MainLayout, RequiredUser]
+          [MainLayout, RequiredUser],
         ],
         ['userActivities', createUserActivitiesApp, [MainLayout, RequiredUser]],
         [
           'inboxUser',
           createInboxApp,
-          [MainLayout, RequiredUser, InboxUserLayout]
+          [MainLayout, RequiredUser, InboxUserLayout],
         ],
         [
           'support',
           createInboxApp,
-          [MainLayout, RequiredUser, InboxUserLayout]
+          [MainLayout, RequiredUser, InboxUserLayout],
         ],
         // agenda admin
         [
           'aggregatorSources',
           createAggregatorSourcesApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
+          [MainLayout, RequiredUser, AgendaAdminLayout],
         ],
         [
           'agendaAdminInbox',
           createInboxApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout, InboxAgendaAdminLayout]
+          [MainLayout, RequiredUser, AgendaAdminLayout, InboxAgendaAdminLayout],
         ],
         [
           'members',
           createMembersApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
+          [MainLayout, RequiredUser, AgendaAdminLayout],
         ],
         [
           'agendaActivities',
           createAgendaActivitiesApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
+          [MainLayout, RequiredUser, AgendaAdminLayout],
         ],
         [
           'agendaStats',
           createAgendaStatsApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
+          [MainLayout, RequiredUser, AgendaAdminLayout],
         ],
         [
           'agendaSettingsEdit',
           createAgendaSettingsEditApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout]
+          [MainLayout, RequiredUser, AgendaAdminLayout],
+        ],
+        [
+          'eventAdmin',
+          createEventAdminApp,
+          [MainLayout, RequiredUser, AgendaAdminLayout],
         ],
         // superadmin
         [
           'adminSupport',
           createInboxApp,
-          [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout]
+          [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout],
         ],
         [
           'supervisor',
           createSupervisorApp,
-          [MainLayout, RequiredUser, RequiredSuperAdmin]
-        ]
+          [MainLayout, RequiredUser, RequiredSuperAdmin],
+        ],
       ].reduce(
         (accu, [key, createApp, layout]) => ({
           ...accu,
@@ -140,8 +146,8 @@ module.exports = function match({ initialState, lang, publicPath }) {
             history,
             initialState: state[key],
             layout,
-            reduxMiddleware
-          })
+            reduxMiddleware,
+          }),
         }),
         {}
       );
@@ -185,10 +191,10 @@ module.exports = function match({ initialState, lang, publicPath }) {
               Content: () => React.createElement(LayoutManager, {
                 store: layoutStore,
                 history,
-                apps
+                apps,
               }),
               history,
-              triggerHooks
+              triggerHooks,
             },
             { req, staticContext, extractor }
           )
@@ -230,7 +236,7 @@ module.exports = function match({ initialState, lang, publicPath }) {
         content,
         initialState: serializedInitialState,
         lang,
-        extractor
+        extractor,
       });
       res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
     } catch (e) {
