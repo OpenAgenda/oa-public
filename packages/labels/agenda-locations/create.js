@@ -9,7 +9,7 @@ module.exports = {
     "it": "Creazione di un luogo"
   },
   "info": {
-    "fr": "Définissez précisemment le nom, l'adresse et la localisation du lieu",
+    "fr": "Définissez précisément le nom, l'adresse et la localisation du lieu",
     "en": "Define the name, address and exact location of the place",
     "de": "Definiere den Namen, die Adresse und dem genauen Standort des Ortes",
     "es": "Definir con precisión el nombre, dirección y ubicación del lugar",

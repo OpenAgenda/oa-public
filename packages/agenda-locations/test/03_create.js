@@ -173,4 +173,25 @@ describe('agenda-locations - functional - create', function() {
     });
   });
 
+  describe('fixes', async () => {
+
+    it('long name does not trigger an exception due to slug overflow', async () => {
+
+      const l = await svc(7196947).create({
+        "name": "Voie gallo-romaine dite voie de Jules César ou chemin de Chartres (également sur communes de Séme...",
+        "address": "41160 Membrolles",
+        "latitude": "47.996436",
+        "longitude": "1.48131",
+        "city": "Membrolles",
+        "department": "Loir-et-Cher",
+        "region": "Centre-Val de Loire",
+        "postalCode": "41160",
+        "insee": "41173",
+        "countryCode": "FR"
+      });
+
+    });
+
+  })
+
 });
