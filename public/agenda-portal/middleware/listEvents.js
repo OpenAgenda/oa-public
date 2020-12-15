@@ -19,12 +19,22 @@ module.exports = (req, res, next) => {
     .then(({
       total, offset, limit, events
     }) => {
+      const pages = paginate({
+        offset,
+        limit,
+        total
+      });
+
       req.data = _.assign(req.data || {}, {
         query: req.query,
         searchString: qs.stringify(req.query),
         total,
-        events: events.map((e, index) => transform(e, req, res, { total, index: offset + index })),
-        pages: paginate({ offset, limit, total })
+        events: events.map((e, index) => transform(e, req, res, {
+          total,
+          index: offset + index
+        })),
+        pages,
+        hasPages: pages.length > 1
       });
 
       next();
