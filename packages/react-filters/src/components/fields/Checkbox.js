@@ -23,7 +23,9 @@ export default function Checkbox({
           {...input}
         />{' '}
         {getLocaleValue(option.label)}
-        {total ? <span className="oa-filter-total">{total}</span> : null}
+        {Number.isInteger(total) ? (
+          <span className="oa-filter-total">{total}</span>
+        ) : null}
       </label>
     </div>
   );
