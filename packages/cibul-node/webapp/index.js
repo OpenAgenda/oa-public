@@ -308,7 +308,9 @@ const initialState = async req => {
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20
       },
-      res: {}
+      res: {
+        jsonExport: '/agendas/:uid/admin/events.v2.json'
+      }
     },
     // Admin
     adminSupport: {
