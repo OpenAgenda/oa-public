@@ -302,6 +302,20 @@ raw.push(knex('event_2').insert([{
   agenda_uid: 92983929,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 16,
+  uid: 83902932,
+  draft: 1,
+  slug: 'un-autre-evenement-brouillon',
+  owner_uid: 63170203,
+  creator_uid: 63170203,
+  title: JSON.stringify({
+    fr: 'Un autre brouillon'
+  }),
+  description: JSON.stringify({}),
+  timezone: 'Europe/Paris',
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
 }]));
 
 raw.push(knex('agenda_event').insert([{

@@ -245,17 +245,51 @@ describe('core - functional (server): core.agendas().events.update()', function(
       expect(data['thematiques-bordeaux-metropole']).toEqual([4]);
     });
 
+    it('an undrafted event takes the state required by agenda settings', async () => {
+      try {
+        const event = await core.agendas(17026855).events.update(83902932, {
+          title: {
+            fr: 'Un brouillon plus brouillon'
+          },
+          description: {
+            fr: 'Une desc courte'
+          },
+          locationUid: 123,
+          timings: [{
+            begin: new Date('2019-12-18T14:30:00'),
+            end: new Date('2019-12-18T15:30:00')
+          }]
+        }, {
+          draft: false
+        });
+
+        //console.log(event);
+      } catch (e) {
+        //console.log(e);
+      }
+    });
+
   });
 
   describe('state', () => {
 
     it('contributor does not have access to event state change', async () => {
+      const {
+        state: stateBefore
+      } = await core.services.agendaEvents(17026855).get(19201989);
+
       const event = await core.agendas(17026855).events.patch(19201989, {
-        state: 2
+        state: 1
       }, {
         access: 'contributor',
       });
-      assert.equal(event.state, 0);
+
+      const {
+        state: stateAfter
+      } = await core.services.agendaEvents(17026855).get(19201989);
+
+      assert.equal(stateBefore, stateAfter);
+      assert(stateAfter !== 1);
     });
 
     it('administrator can change state', async () => {
@@ -275,7 +309,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
       });
       assert.equal(event.state, 1);
     });
-    
+
     it('when published event is updated by role listed in moderateOnChangeBy, state reverts to 0', async () => {
       const event = await core.agendas(92983929).events.patch(19390293, {
         title: {
