@@ -1,7 +1,7 @@
 {
-  "react-layouts.AgendaAdminLayout.administration": null,
-  "react-layouts.AgendaAdminLayout.newTab": "Nuovo!",
-  "react-layouts.AgendaAdminLayout.return": null,
+  "react-layouts.AdminHeader.administration": null,
+  "react-layouts.AdminSections.newTab": "Nuovo!",
+  "react-layouts.AdminHeader.return": null,
   "react-layouts.MainLayout.createAgenda": null,
   "react-layouts.MainLayout.general": null,
   "react-layouts.MainLayout.help": null,

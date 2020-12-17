@@ -24,36 +24,36 @@ const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
 const messages = defineMessages({
   general: {
     id: 'react-layouts.MainLayout.general',
-    defaultMessage: 'General'
+    defaultMessage: 'General',
   },
   myEvents: {
     id: 'react-layouts.MainLayout.myEvents',
-    defaultMessage: 'My events'
+    defaultMessage: 'My events',
   },
   settings: {
     id: 'react-layouts.MainLayout.settings',
-    defaultMessage: 'Settings'
+    defaultMessage: 'Settings',
   },
   signout: {
     id: 'react-layouts.MainLayout.signout',
-    defaultMessage: 'Signout'
+    defaultMessage: 'Signout',
   },
   myAgendas: {
     id: 'react-layouts.MainLayout.myAgendas',
-    defaultMessage: 'My agendas'
+    defaultMessage: 'My agendas',
   },
   searchAgenda: {
     id: 'react-layouts.MainLayout.searchAgenda',
-    defaultMessage: 'Search an agenda'
+    defaultMessage: 'Search an agenda',
   },
   createAgenda: {
     id: 'react-layouts.MainLayout.createAgenda',
-    defaultMessage: 'Create an agenda'
+    defaultMessage: 'Create an agenda',
   },
   signin: {
     id: 'react-layouts.MainLayout.signin',
-    defaultMessage: 'Signin'
-  }
+    defaultMessage: 'Signin',
+  },
 });
 
 const getDefaultSessionUser = () => session.getUser();
@@ -64,7 +64,7 @@ function MainLayout({
   extraProps,
   onError,
   FallbackComponent,
-  history
+  history,
 }) {
   const intl = useIntl();
 
@@ -171,9 +171,9 @@ function MainLayout({
         remove: `${apiRoot}/notifications/remove/:notifId`,
         markRead: `${apiRoot}/notifications/mark-read/:notifId`,
         markAllRead: `${apiRoot}/notifications/mark-all-read`,
-        seeActivities: `${apiRoot}/home/activities`
+        seeActivities: `${apiRoot}/home/activities`,
       },
-      onSeeActivitiesClick
+      onSeeActivitiesClick,
     });
   }, [apiRoot, onSeeActivitiesClick]);
 
@@ -261,7 +261,7 @@ function MainLayout({
                           'dropdown-menu js_dropdown_menu',
                           {
                             'collapse in': userPanelOpened,
-                            collapsed: !userPanelOpened
+                            collapsed: !userPanelOpened,
                           }
                         )}
                         role="menu"
@@ -360,6 +360,7 @@ function MainLayout({
             extraProps={extraProps}
             onError={onError}
             FallbackComponent={ErrorComponent}
+            // additional extraProps
             user={user}
             lang={intl.locale}
           >

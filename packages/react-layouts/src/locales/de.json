@@ -1,7 +1,7 @@
 {
-  "react-layouts.AgendaAdminLayout.administration": "Verwaltung",
-  "react-layouts.AgendaAdminLayout.newTab": "Neu !",
-  "react-layouts.AgendaAdminLayout.return": "Kalender Startseite",
+  "react-layouts.AdminHeader.administration": "Verwaltung",
+  "react-layouts.AdminSections.newTab": "Neu !",
+  "react-layouts.AdminHeader.return": "Kalender Startseite",
   "react-layouts.MainLayout.createAgenda": "Agenda Anlegen",
   "react-layouts.MainLayout.general": "Allgemein",
   "react-layouts.MainLayout.help": "Hilfe",

@@ -1,3 +1,5 @@
+export { default as AgendaAdminDataLayout } from './AgendaAdminDataLayout';
+export { default as AgendaAdminEventLayout } from './AgendaAdminEventLayout';
 export { default as AgendaAdminLayout } from './AgendaAdminLayout';
 export { default as InboxUserLayout } from './InboxUserLayout';
 export { default as InboxAgendaAdminLayout } from './InboxAgendaAdminLayout';

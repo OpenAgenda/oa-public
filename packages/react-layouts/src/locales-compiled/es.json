@@ -1,13 +1,13 @@
 {
-  "react-layouts.AgendaAdminLayout.administration": [
+  "react-layouts.AdminHeader.administration": [
   ],
-  "react-layouts.AgendaAdminLayout.newTab": [
+  "react-layouts.AdminSections.newTab": [
     {
       "type": 0,
       "value": "Nuevo!"
     }
   ],
-  "react-layouts.AgendaAdminLayout.return": [
+  "react-layouts.AdminHeader.return": [
   ],
   "react-layouts.MainLayout.createAgenda": [
   ],
