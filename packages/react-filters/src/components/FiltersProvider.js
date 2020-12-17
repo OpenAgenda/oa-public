@@ -13,19 +13,32 @@ const defaultSubscription = {};
 
 function FiltersProvider(
   {
-    initialValues,
-    onSubmit,
     children,
     staticContext,
     subscription = defaultSubscription,
     locale = 'en',
+    // form config
+    debug,
+    destroyOnUnregister,
+    initialValues,
+    keepDirtyOnReinitialize,
+    mutators,
+    onSubmit,
+    validate,
+    validateOnBlur,
   },
   ref
 ) {
   const form = useConstant(() => {
     const finalForm = createForm({
+      debug,
+      destroyOnUnregister,
       initialValues,
+      keepDirtyOnReinitialize,
+      mutators,
       onSubmit,
+      validate,
+      validateOnBlur,
     });
 
     if (staticContext) {
