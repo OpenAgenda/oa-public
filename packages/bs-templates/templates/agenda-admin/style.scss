@@ -1,5 +1,6 @@
 @import '../layout/base';
 @import '../components/nav';
+@import '../components/react-date-range';
 @import '../form-components/image-upload';
 @import '../form-components/input-with-icon';
 
@@ -47,7 +48,7 @@
         }
       }
     }
-    @media (min-width: $screen-md-min) {  
+    @media (min-width: $screen-md-min) {
       ul {
         display: block;
         padding: 0;
@@ -87,4 +88,45 @@
 
   }
 
+}
+
+.agenda-admin-event-layout {
+  .oa-filter-total {
+    font-weight: bold;
+    margin-left: 5px;
+  }
+
+  .oa-filter-value-preview {
+    margin-left: 8px;
+    display: inline-block;
+
+    .badge + .badge {
+      margin-left: 4px;
+    }
+  }
+
+  .rdrDateRangePickerWrapper {
+    flex-direction: column;
+
+    .rdrDefinedRangesWrapper {
+      border: none;
+
+      .rdrStaticRanges {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .rdrStaticRange {
+          border: none;
+
+          .rdrStaticRangeLabel {
+            padding: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .oa-collapse-item {
+    border-bottom: 1px solid $oa-gray-lightish;
+  }
 }
