@@ -17,6 +17,8 @@ const {
   createLayoutStore,
 } = require('@openagenda/react-layouts');
 const {
+  AgendaAdminDataLayout,
+  AgendaAdminEventLayout,
   AgendaAdminLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
@@ -95,37 +97,48 @@ module.exports = function match({ initialState, lang, publicPath }) {
         [
           'aggregatorSources',
           createAggregatorSourcesApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout],
+          [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
         ],
         [
           'agendaAdminInbox',
           createInboxApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout, InboxAgendaAdminLayout],
+          [
+            MainLayout,
+            RequiredUser,
+            AgendaAdminDataLayout,
+            AgendaAdminLayout,
+            InboxAgendaAdminLayout,
+          ],
         ],
         [
           'members',
           createMembersApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout],
+          [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
         ],
         [
           'agendaActivities',
           createAgendaActivitiesApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout],
+          [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
         ],
         [
           'agendaStats',
           createAgendaStatsApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout],
-        ],
-        [
-          'agendaSettingsEdit',
-          createAgendaSettingsEditApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout],
+          [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
         ],
         [
           'eventAdmin',
           createEventAdminApp,
-          [MainLayout, RequiredUser, AgendaAdminLayout],
+          [
+            MainLayout,
+            RequiredUser,
+            AgendaAdminDataLayout,
+            AgendaAdminEventLayout,
+          ],
+        ],
+        [
+          'agendaSettingsEdit',
+          createAgendaSettingsEditApp,
+          [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
         ],
         // superadmin
         [

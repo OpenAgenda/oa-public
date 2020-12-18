@@ -14,6 +14,8 @@ import he from 'he';
 import { loadableReady } from '@loadable/component';
 import { createLayoutStore } from '@openagenda/react-layouts/src';
 import {
+  AgendaAdminDataLayout,
+  AgendaAdminEventLayout,
   AgendaAdminLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
@@ -77,33 +79,43 @@ const apps = [
   [
     'aggregatorSources',
     createAggregatorSourcesApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout],
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
   ],
   [
     'agendaAdminInbox',
     createInboxApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout, InboxAgendaAdminLayout],
+    [
+      MainLayout,
+      RequiredUser,
+      AgendaAdminDataLayout,
+      AgendaAdminLayout,
+      InboxAgendaAdminLayout,
+    ],
   ],
-  ['members', createMembersApp, [MainLayout, RequiredUser, AgendaAdminLayout]],
+  [
+    'members',
+    createMembersApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
+  ],
   [
     'agendaActivities',
     createAgendaActivitiesApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout],
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
   ],
   [
     'agendaStats',
     createAgendaStatsApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout],
-  ],
-  [
-    'agendaSettingsEdit',
-    createAgendaSettingsEditApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout],
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
   ],
   [
     'eventAdmin',
     createEventAdminApp,
-    [MainLayout, RequiredUser, AgendaAdminLayout],
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminEventLayout],
+  ],
+  [
+    'agendaSettingsEdit',
+    createAgendaSettingsEditApp,
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminLayout],
   ],
   // superadmin
   [
