@@ -18,7 +18,7 @@ const {
   cleanEvent
 } = require('../utils/loadAgendaAndCleanEvent');
 
-const determineEventState = require('../utils/determineEventState');
+const assignState = require('../utils/assignState');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
   log('info', 'processing', { agendaUid, options });
@@ -62,11 +62,12 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     defaultLang,
     formSchemaDataFormat,
     member,
+    access
+  });
+
+  assignState(agenda, null, clean, data, {
     access,
-    state: determineEventState(data, {
-      access,
-      defaultState: agenda?.settings?.contribution?.defaultState
-    })
+    draft
   });
 
   const payload = createPayload(services, agenda);

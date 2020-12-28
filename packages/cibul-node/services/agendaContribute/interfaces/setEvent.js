@@ -16,9 +16,8 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
 
   const isNew = !current;
   const isDraft = _.get(current, 'draft', false);
-  const isUndrafted = isDraft && !draft;
 
-  log(isNew ? 'this is a create' : 'this is an update.');
+  log(isNew ? 'this is a create' : 'this is an update');
 
   const transforms = { '$unset': [] };
 

@@ -62,7 +62,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     aggregated,
     member,
     access,
-    state,
     bypassAdditionalFieldValidation
   } = {
     defaultLang: null,
@@ -76,7 +75,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     aggregated: false,
     member: null,
     access: 'public',
-    state: null,
     bypassAdditionalFieldValidation: false,
     ...(typeof options === 'boolean' ? { evaluateEvent: options } : options)
   };
@@ -148,13 +146,12 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
   try {
     log('evaluating agenda-event reference data');
 
-    clean.agendaEvent = validateAgendaEvent(_.omit({
+    clean.agendaEvent = validateAgendaEvent({
       ...data,
-      state,
       aggregated,
       sourcePaths: paths || [],
       userUid: member ? member.userUid : (data.userUid || data.ownerUid)
-    }, state === undefined ? ['state'] : []), { optionalSecondaryFields, partial });
+    }, { optionalSecondaryFields, partial });
 
   } catch (agendaEventErrors) {
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));

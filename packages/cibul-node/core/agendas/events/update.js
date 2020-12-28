@@ -24,7 +24,7 @@ const {
   cleanEvent
 } = require('../utils/loadAgendaAndCleanEvent');
 
-const determineEventState = require('../utils/determineEventState');
+const assignState = require('../utils/assignState');
 
 async function update(services, agendaUid, eventUid, data, options = {}) {
   log('processing', { agendaUid, eventUid, options });
@@ -62,17 +62,25 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   const agenda = await loadAgenda(services, agendaUid);
 
+  const event = await events.get({
+    uid: eventUid
+  }, {
+    internal: true,
+    detailed: true
+  });
+
   const clean = await cleanEvent(services, agenda, data, {
     draft,
     formSchemaDataFormat,
     optionalSecondaryFields: true,
     partial,
     access,
-    state: determineEventState(data, {
-      access,
-      defaultState: (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(access) ? 0 : undefined
-    }),
     defaultLang
+  });
+
+  assignState(agenda, event, clean, data, {
+    access,
+    draft
   });
 
   const payload = createPayload(services, agenda);

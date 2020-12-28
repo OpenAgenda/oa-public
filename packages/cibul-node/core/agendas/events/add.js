@@ -13,7 +13,7 @@ const {
   cleanEvent
 } = require('../utils/loadAgendaAndCleanEvent');
 
-const determineEventState = require('../utils/determineEventState');
+const assignState = require('../utils/assignState');
 
 module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   // when the event is added on aggregation, only additional data is provided
@@ -71,12 +71,10 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     paths,
     aggregated,
     member,
-    access,
-    state: determineEventState(data, {
-      access,
-      defaultState: agenda?.settings?.contribution?.defaultState
-    })
+    access
   });
+
+  assignState(agenda, event, clean, data, { access });
 
   const payload = createPayload(services, agenda);
 
