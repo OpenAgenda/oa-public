@@ -511,7 +511,7 @@ describe( 'events -03- functional (server): create', function() {
 
       result.valid.should.equal( false );
 
-      _.get( result, 'errors.0.message' ).should.equal( 'Request failed with status code 403' );
+      _.get( result, 'errors.0.message' ).should.equal( 'Unable to process image' );
 
     } );
 

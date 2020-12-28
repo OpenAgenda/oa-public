@@ -3,6 +3,7 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
+const VError = require( 'verror' );
 
 const slugs = require( '@openagenda/slugs' );
 
@@ -201,9 +202,13 @@ async function createPromise( data, options ) {
       } );
 
     } catch ( e ) {
+      log.error(new VError({
+        message: 'Unable to process image',
+        cause: e,
+        info: {}
+      }));
 
-      errors.push( { step: 'image', code: 'invalid.image', message: _.get( e, 'message' ), caught: e } );
-
+      errors.push( { step: 'image', code: 'invalid.image', message: 'Unable to process image' } );
     }
 
   }
@@ -219,13 +224,19 @@ async function createPromise( data, options ) {
 
       log( 'error', 'db insert error found for event %j', _.pick( cleanEvent, [ 'slug', 'uid' ] ), e );
 
-      errors.push( { step: 'db', caught: e } );
+      errors.push( { step: 'db', message: 'insert error' } );
 
     }
 
     if ( !createdId ) {
 
-      errors.push( { step: 'db', message: 'Id of created event was not retrieved' } );
+      log.error(new VError({
+        message: 'createId error',
+        cause: e,
+        info: {}
+      }));
+
+      errors.push( { step: 'db', message: 'createId error' } );
 
     }
 
