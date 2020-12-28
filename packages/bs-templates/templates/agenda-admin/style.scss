@@ -24,8 +24,9 @@
 
   .body {
 
-    padding: 0 30px 2em;
-
+    @media (min-width: $screen-md-min) {
+      display: flex;
+    }
   }
 
   .nav {
@@ -47,7 +48,7 @@
         }
       }
     }
-    @media (min-width: $screen-md-min) {  
+    @media (min-width: $screen-md-min) {
       ul {
         display: block;
         padding: 0;
