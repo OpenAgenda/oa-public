@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const assert = require('assert');
 const axios = require('axios');
 const fs = require('fs');
@@ -58,6 +59,31 @@ describe('events - functional - update', function() {
         .then(r => r.title);
 
       assert.equal(title, '{"fr":"Spectacle de contes sur le thème de l\'Afrique"}');
+    });
+  });
+
+  describe('simple patch', () => {
+    let event;
+    let patched;
+
+    before(async () => {
+      event = await svc.get({ slug: 'exposition-legypte-ancienne' });
+      patched = await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
+        title: {
+          fr: 'Expo Egypte ancienne'
+        }
+      });
+    });
+
+    it('result shows patched event', () => {
+      assert.equal(patched.title.fr, 'Expo Egypte ancienne');
+    });
+
+    it('fields other than updated remain unchanged', () => {
+      assert.deepEqual(
+        _.omit(patched, ['updatedAt', 'title']),
+        _.omit(event, ['updatedAt', 'title']),
+      );
     });
   });
 
