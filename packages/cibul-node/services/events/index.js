@@ -1,11 +1,13 @@
 'use strict';
 
 const events = require('@openagenda/events');
+const eventsV2 = require('@openagenda/events/2.0.0');
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const beforeRemove = require('./beforeRemove');
 const onRemove = require('./onRemove');
 const getOriginAgendas = require('./getOriginAgendas');
+const getLocations = require('./getLocations');
 
 module.exports = {
   init
@@ -39,30 +41,28 @@ function init(config, services) {
       beforeRemove: beforeRemove.bind(null, services),
       onRemove: onRemove.bind(null, services),
       getOriginAgendas,
-      getLocations: (uids, options, cb) => services.agendaLocations
-        .list({ uids }, { limit: uids.length }, {
-          detailed: true,
-          includeFields: [
-            'uid',
-            'slug',
-            'name',
-            'address',
-            'city',
-            'region',
-            'department',
-            'postalCode',
-            'insee',
-            'countryCode',
-            'district',
-            'latitude',
-            'longitude',
-            'updatedAt'
-          ]
-        }).then(cb.bind(null, null), cb)
+      getLocations: getLocations.callback.bind(null, services)
     }
   });
 
-  const service = Object.assign(events, { upload: events.getConfig().upload });
+  const service = Object.assign(events, {
+    upload: events.getConfig().upload
+  });
+
+  service.v2 = eventsV2({
+    knex,
+    imagePath: config.aws.imageBucketPath,
+    Files: services.files,
+    logger: config.getLogConfig('svc', 'events.v2'),
+    interfaces: {
+      onCreate: onCreate.bind(null, services),
+      onUpdate: onUpdate.bind(null, services),
+      beforeRemove: beforeRemove.bind(null, services),
+      onRemove: onRemove.bind(null, services),
+      getOriginAgendas,
+      getLocations: getLocations.promise.bind(null, services)
+    }
+  });
 
   Object.assign(
     module.exports,

@@ -4,7 +4,7 @@ const log = require( '@openagenda/logs' )( 'events/interfaces/beforeRemove' );
 
 const legacyEventSearch = require( '../elasticsearch' );
 
-module.exports = async (services, event, context, cb) => {
+module.exports = Object.assign(async (services, event, context, cb) => {
   const {
     agendaEvents: agendaEventsSvc
   } = services;
@@ -41,4 +41,4 @@ module.exports = async (services, event, context, cb) => {
 
   cb();
 
-}
+}, { callback: true });
