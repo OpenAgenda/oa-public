@@ -108,6 +108,10 @@ describe('events - functional - create', function() {
       throw new Error('Should have failed.');
     });
 
+  });
+
+  describe('other', () => {
+
     it('using datehourminutes format', async () => {
       const event = await svc.create({
         title: 'Event with datehourminutes timing',
@@ -130,9 +134,18 @@ describe('events - functional - create', function() {
 
       assert.equal(event.timings[0].begin, '2020-10-21T20:10:00.000+02:00');
     });
-  });
 
-  describe('other', () => {
+    it('draft create does not require all fields to be specified', async () => {
+      try {
+        const event = await svc.create({
+          title: 'Un titre'
+        }, { draft: true });
+  
+        assert.equal(typeof event.uid, 'number');
+      } catch (e) {
+        console.log(e);
+      }
+    });
 
     it('provided context is passed to interface call', done => {
       const onCreate = (createdEvent, context) => {

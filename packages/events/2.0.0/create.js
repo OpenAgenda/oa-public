@@ -15,12 +15,14 @@ const handleInterface = require('./lib/handleInterface');
 const convertDateMinuteHourTimings = require('./lib/convertDateMinuteHourTimings');
 
 module.exports = async (service, data, options = {}) => {
-  const clean = validate(data);
-
   const {
     userUid,
     agendaUid
   } = cleanSetOptions(options);
+
+  const clean = validate(data, {
+    isDraft: options.draft 
+  });
 
   Object.assign(clean, {
     slug: await generateSlug(service, clean),
@@ -28,7 +30,8 @@ module.exports = async (service, data, options = {}) => {
     agendaUid,
     updatedAt: new Date(),
     createdAt: new Date(),
-    fileKey: generateFileKey()
+    fileKey: generateFileKey(),
+    draft: options.draft
   });
 
   convertDateMinuteHourTimings(clean.timings, clean.timezone);

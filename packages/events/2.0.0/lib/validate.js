@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const schema = require('@openagenda/validators/schema');
 
 const ValidationError = require('./ValidationError');
@@ -24,16 +25,16 @@ const validate = new FormSchema({
 module.exports = (data, options = {}) => {
   const {
     isPatch,
+    isDraft,
     convertDateMinuteHourTimings
   } = {
     isPatch: false,
+    isDraft: false,
     convertDateMinuteHourTimings: false,
     ...options
   };
 
-
-
-  const fn = isPatch ? validate.part.bind(null, Object.keys(data)) : validate;
+  const fn = isPatch || isDraft ? validate.part.bind(null, Object.keys(_.omit(data, ['draft']))) : validate;
 
   let clean;
 

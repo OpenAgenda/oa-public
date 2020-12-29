@@ -34,6 +34,14 @@ describe('validate', () => {
     }
   });
 
+  it('draft event does not need to be complete to be valid', () => {
+    const clean = validate({
+      eventAttendanceMode: 1,
+    }, { isDraft: 1 });
+
+    assert.equal(clean.eventAttendanceMode, 1);
+  });
+
   it('location needs to be specified if eventAttendanceMode is mixed', () => {
     try {
       validate({
