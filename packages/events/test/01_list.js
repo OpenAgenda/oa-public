@@ -252,7 +252,7 @@ describe('events - functional (server): list', function() {
     svc.list({ uid: 3681352 }, 0, 100, { detailed: true, html: true }, (err, events ) => {
 
       events[0].html.should.eql({
-        fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
+        fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
       });
 
       done();

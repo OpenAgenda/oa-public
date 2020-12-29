@@ -172,7 +172,7 @@ describe('events - functional (server): get', function () {
     svc.get({ uid: 3681352 }, { html: true }, (err, event) => {
 
       event.html.should.eql({
-        fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
+        fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
       });
 
       done();
