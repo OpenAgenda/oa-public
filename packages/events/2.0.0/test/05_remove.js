@@ -56,9 +56,14 @@ describe('events - functional - remove', function () {
       svc = Service({
         knex: f.client,
         interfaces: {
-          beforeRemove: async (removed, context) => {
-            calls.push(['beforeRemove', removed, context]);
-          },
+          beforeRemove: Object.assign(function(removed, context, cb) {
+            setTimeout(() => {
+              calls.push(['beforeRemove', removed, context]);
+              cb();
+            }, 100);
+          }, {
+            callback: true
+          }),
           onRemove: async (removed, context) => {
             calls.push(['onRemove', removed, context]);
           }
@@ -68,7 +73,7 @@ describe('events - functional - remove', function () {
       await svc.remove(93469090, { context: 'Remove context'});
     });
 
-    it('beforeRemove was called', () => {
+    it('beforeRemove was called, when cb is provided in interface function it is called', () => {
       assert.equal(calls[0][0], 'beforeRemove');
     });
 
