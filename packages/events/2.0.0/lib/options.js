@@ -14,10 +14,6 @@ schema.register({
 const fields = require('./fields');
 
 const base = {
-  includeImagePath: {
-    type: 'boolean',
-    default: false
-  },
   includeFields: {
     type: 'choice',
     options: fields.map(f => f.field),

@@ -17,7 +17,6 @@ module.exports = async (service, identifiers, o = {}) => {
 
   const {
     throwOnNotFound,
-    includeImagePath,
     private: privateOption,
     deleted,
     detailed,
@@ -49,11 +48,7 @@ module.exports = async (service, identifiers, o = {}) => {
     return null;
   }
 
-  const item = fromDbEntryToItem(entry, options);
-
-  if (item?.image?.filename) {
-    item.image = (includeImagePath ? service.config.imagePath : '') + item.image.filename;
-  }
+  const item = fromDbEntryToItem(service, entry, options);
 
   if (detailed) {
     item.originAgenda = [].concat(

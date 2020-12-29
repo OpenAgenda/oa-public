@@ -40,7 +40,7 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
 
   result.rows = await k;
 
-  result.items = result.rows.map(item => fromDbEntryToItem(item, options));
+  result.items = result.rows.map(item => fromDbEntryToItem(service, item, options));
 
   if (total !== null) {
     result.total = total;

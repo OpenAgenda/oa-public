@@ -7,7 +7,7 @@ const {
   getPath: getDatabaseFieldPath
 } = require('./databaseField');
 
-module.exports = (entry = {}, options = {}) => {
+module.exports = (service, entry = {}, options = {}) => {
   const {
     access,
     includeFields
@@ -17,7 +17,7 @@ module.exports = (entry = {}, options = {}) => {
     ...options
   };
 
-  return getFieldsByAccess('read', access)
+  const item = getFieldsByAccess('read', access)
     .filter(f => includeFields.length ? includeFields.includes(f.field) : true)
     .reduce((item, field) => {
       const dbFieldName = getDatabaseFieldName(field);
@@ -30,4 +30,10 @@ module.exports = (entry = {}, options = {}) => {
         [field.field]: dbPath.length ? _.get(value, dbPath) : value
       }
     }, {});
+
+  if (item.image) {
+    item.image.base = service?.config?.imagePath;
+  }
+
+  return item;
 }

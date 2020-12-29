@@ -41,8 +41,8 @@ describe('events - functional - get', function() {
       assert.equal(event.imageCredits, 'MEL');
     });
 
-    it('image filename is placed in the image field', () => {
-      assert.equal(event.image, '950de3a396df447dbb66364d036e0067.base.image.jpg');
+    it('image filename is placed in the image field under the key "filename"', () => {
+      assert.equal(event.image.filename, '950de3a396df447dbb66364d036e0067.base.image.jpg');
     });
 
     it('get by slug', async () => {
@@ -100,11 +100,10 @@ describe('events - functional - get', function() {
       throw new Error('should not reach here');
     });
 
-    it('includeImagePath option adds path to image', async () => {
-      assert.equal(
-        await svc.get(80107389, { includeImagePath: true }).then(e => e.image),
-        config.imagePath + '950de3a396df447dbb66364d036e0067.base.image.jpg'
-      );
+    it('image path is placed in base key of image field', async () => {
+      const event = await svc.get(80107389, { limit: 1 });
+
+      assert.equal(typeof event.image.base, 'string');
     });
 
     it('detailed uses interfaces to fetch objects linked to event', async () => {

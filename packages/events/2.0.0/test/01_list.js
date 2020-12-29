@@ -66,6 +66,12 @@ describe('events - functional - list', function() {
       );
     });
 
+    it('image path is placed in base key of image field', async () => {
+      const events = await svc.list({}, { limit: 1 });
+
+      assert.equal(typeof events[0].image.base, 'string');
+    });
+
     it('total true returns total in result, events in items key', async () => {
       const {
         items,

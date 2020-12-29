@@ -21,7 +21,7 @@ describe('fromItemToDbEntry', () => {
   let item;
 
   before(() => {
-    item = fromDbEntryToItem(entry);
+    item = fromDbEntryToItem({}, entry);
   });
 
   it('title is multilingual value', () => {
