@@ -1,23 +1,26 @@
-"use strict";
+'use strict';
 
-const events = require( '@openagenda/events' );
-const onCreate = require( './onCreate' );
-const onUpdate = require( './onUpdate' );
-const beforeRemove = require( './beforeRemove' );
-const onRemove = require( './onRemove' );
-const getOriginAgendas = require( './getOriginAgendas' );
+const events = require('@openagenda/events');
+const onCreate = require('./onCreate');
+const onUpdate = require('./onUpdate');
+const beforeRemove = require('./beforeRemove');
+const onRemove = require('./onRemove');
+const getOriginAgendas = require('./getOriginAgendas');
 
 module.exports = {
   init
 }
 
-
 function init(config, services) {
-  events.init( {
-    knex: config.knex,
+  const {
+    knex
+  } = services;
+
+  events.init({
+    knex,
     mysql: config.db,
     redis: config.redis,
-    logger: config.getLogConfig( 'svc', 'events' ),
+    logger: config.getLogConfig('svc', 'events'),
     schemas: {
       event: config.schemas.eventService
     },
@@ -57,14 +60,14 @@ function init(config, services) {
           ]
         }).then(cb.bind(null, null), cb)
     }
-  } );
+  });
 
   const service = Object.assign(events, { upload: events.getConfig().upload });
 
   Object.assign(
     module.exports,
     service
-  );
+ );
 
   return service;
 }
