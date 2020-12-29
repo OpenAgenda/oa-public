@@ -6657,7 +6657,7 @@ __metadata:
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
     "@openagenda/files": ^3.1.0
-    "@openagenda/form-schemas": ^1.9.2
+    "@openagenda/form-schemas": ^1.9.1
     "@openagenda/logs": ^1.1.9
     "@openagenda/mysql-utils": ^2.0.4
     "@openagenda/queue": ^1.0.1
@@ -6665,13 +6665,12 @@ __metadata:
     "@openagenda/slugs": ^1.1.0
     "@openagenda/validators": ^2.4.0
     async: ^2.1.2
-    axios: ^0.19.0
-    immutability-helper: ^2.3.0
+    axios: ^0.19.2
     knex: ^0.19.5
     lodash: ^4.17.15
-    marked: ^0.7.0
+    marked: ^1.1.0
     mocha: ^7.0.1
-    moment-timezone: ^0.5.31
+    moment-timezone: 0.5.31
     mysql: ^2.11.1
     should: ^13.2.3
     slugify: ^1.4.5
@@ -6760,7 +6759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/form-schemas@^1.9.2, @openagenda/form-schemas@workspace:packages/form-schemas":
+"@openagenda/form-schemas@^1.9.1, @openagenda/form-schemas@^1.9.2, @openagenda/form-schemas@workspace:packages/form-schemas":
   version: 0.0.0-use.local
   resolution: "@openagenda/form-schemas@workspace:packages/form-schemas"
   dependencies:
@@ -28772,7 +28771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.23, moment-timezone@npm:^0.5.25, moment-timezone@npm:^0.5.31":
+"moment-timezone@npm:0.5.31, moment-timezone@npm:^0.5.23, moment-timezone@npm:^0.5.25, moment-timezone@npm:^0.5.31":
   version: 0.5.31
   resolution: "moment-timezone@npm:0.5.31"
   dependencies:
