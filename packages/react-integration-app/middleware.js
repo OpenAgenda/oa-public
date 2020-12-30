@@ -18,7 +18,7 @@ const {
 } = require('@openagenda/react-layouts');
 const {
   AgendaAdminDataLayout,
-  AgendaAdminEventLayout,
+  AgendaAdminEventsLayout,
   AgendaAdminLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
@@ -132,7 +132,7 @@ module.exports = function match({ initialState, lang, publicPath }) {
             MainLayout,
             RequiredUser,
             AgendaAdminDataLayout,
-            AgendaAdminEventLayout,
+            AgendaAdminEventsLayout,
           ],
         ],
         [

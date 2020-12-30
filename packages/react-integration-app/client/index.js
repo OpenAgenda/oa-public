@@ -15,7 +15,7 @@ import { loadableReady } from '@loadable/component';
 import { createLayoutStore } from '@openagenda/react-layouts/src';
 import {
   AgendaAdminDataLayout,
-  AgendaAdminEventLayout,
+  AgendaAdminEventsLayout,
   AgendaAdminLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
@@ -110,7 +110,7 @@ const apps = [
   [
     'eventAdmin',
     createEventAdminApp,
-    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminEventLayout],
+    [MainLayout, RequiredUser, AgendaAdminDataLayout, AgendaAdminEventsLayout],
   ],
   [
     'agendaSettingsEdit',

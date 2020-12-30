@@ -7,7 +7,7 @@ import Loading from '../components/Loading';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
 
-function AgendaAdminEventLayout({
+function AgendaAdminEventsLayout({
   childLayouts,
   children,
   extraProps,
@@ -34,13 +34,13 @@ function AgendaAdminEventLayout({
   return isLoading ? (
     <Loading />
   ) : (
-    <div className="container-fluid agenda-admin agenda-admin-event-layout">
+    <div className="container-fluid agenda-admin agenda-admin-events-layout">
       <div className="row">
         <div className="col-md-offset-2 col-md-7 wsq">
           <AdminHeader agenda={agenda} />
         </div>
       </div>
-      <div className="row">
+      <div className="row body">
         <div className="col-md-offset-2 col-md-2 col-sm-12 nav wsq">
           <AdminSections agenda={agenda} role={role} />
         </div>
@@ -70,6 +70,6 @@ function AgendaAdminEventLayout({
   );
 }
 
-AgendaAdminEventLayout.layoutName = 'AgendaAdminEventLayout';
+AgendaAdminEventsLayout.layoutName = 'AgendaAdminEventsLayout';
 
-export default AgendaAdminEventLayout;
+export default AgendaAdminEventsLayout;
