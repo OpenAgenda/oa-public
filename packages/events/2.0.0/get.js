@@ -16,6 +16,7 @@ module.exports = async (service, identifiers, o = {}) => {
   const options = cleanGetOptions(o);
 
   const {
+    access,
     throwOnNotFound,
     private: privateOption,
     deleted,
@@ -25,7 +26,7 @@ module.exports = async (service, identifiers, o = {}) => {
   } = options;
 
   const query = k.first(
-    getFieldsByAccess('read', 'public')
+    getFieldsByAccess('read', access)
       .filter(f => includeFields.length ? includeFields.includes(f.field) : true)
       .map(getDatabaseFieldName)
   ).where(cleanGetIdentifiers(identifiers));

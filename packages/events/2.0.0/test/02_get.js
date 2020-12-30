@@ -9,6 +9,7 @@ const {
 
 const fixtures = require('./fixtures');
 const Service = require('../');
+const fields = require('../lib/fields');
 
 describe('events - functional - get', function() {
   this.timeout(10000);
@@ -136,6 +137,30 @@ describe('events - functional - get', function() {
         fr: '<p>Et que dire des petits cochons, des loups voraces, du petit Poucet et des ogres de nos forêts séculaires ? Face aux nouveaux enjeux du XXIe\n' +
           'siècle, tout est à réinventer… Ludiques, parfois décalés et conçus sur\n' +
           'la volonté de sensibiliser le public au réchauffement climatique, des contes et histoires traditionnels ont été revisités par Armel Richard dans un climat à +20°C. À partir de 6 ans.</p>\n'
+      });
+    });
+
+    it('default access value is public', async () => {
+      const publicFieldNames = fields.filter(f => f.read.includes('public')).map(f => f.field);
+
+      const event = await svc.get({ slug: 'les-contes-de-lhyper-climat' });
+
+      publicFieldNames.forEach(field => {
+        assert(Object.keys(event).includes(field));
+      });
+    });
+
+    it('if access is internal, internal fields are returned', async () => {
+      const internalFieldNames = fields.filter(f => f.read.includes('internal')).map(f => f.field);
+
+      const event = await svc.get({
+        slug: 'les-contes-de-lhyper-climat'
+      }, {
+        access: 'internal'
+      });
+
+      internalFieldNames.forEach(field => {
+        assert(Object.keys(event).includes(field));
       });
     });
 

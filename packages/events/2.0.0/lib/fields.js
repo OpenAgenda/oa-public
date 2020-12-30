@@ -10,7 +10,7 @@ module.exports = [{
   field: 'uid',
   fieldType: 'integer',
   optional: false,
-  read: ['internal', 'public', "list"],
+  read: ['internal', 'public'],
   write: ['internal']
 },  {
   field: 'slug',
@@ -28,13 +28,13 @@ module.exports = [{
   field: 'timezone',
   fieldType: 'text',
   default: 'Europe/Paris',
-  read: ['public'],
+  read: ['internal', 'public'],
   write: ['internal', 'public']
 }, {
   field: 'draft',
   fieldType: 'boolean',
   default: false,
-  read: ['public'],
+  read: ['internal', 'public'],
   write: ['internal']
 }, {
   field: 'updatedAt',
@@ -51,16 +51,18 @@ module.exports = [{
 }, {
   field: 'creatorUid',
   fieldType: 'integer',
+  read: ['internal'],
   write: ['internal']
 }, {
   field: 'ownerUid',
   fieldType: 'integer',
+  read: ['internal'],
   write: ['internal']
 }, {
   field: 'agendaUid',
   fieldType: 'integer',
   optional: false,
-  read: ['public'],
+  read: ['internal', 'public'],
   write: ['internal']
 }, {
   field: 'fileKey',
@@ -83,7 +85,7 @@ module.exports = [{
     id: 3,
     value: 'mixed'
   }],
-  read: ['public'],
+  read: ['internal', 'public'],
   write: ['internal', 'public']
 }, {
   field: 'onlineAccessLink',
@@ -93,7 +95,7 @@ module.exports = [{
     field: 'eventAttendanceMode',
     value: [2, 3]
   },
-  read: ['public'],
+  read: ['internal', 'public'],
   write: ['internal', 'public']
 }, {
   field: 'locationUid',
@@ -132,7 +134,7 @@ module.exports = [{
   optional: false,
   "max" : 140,
   write: ['internal', 'public'],
-  read: ['public'],
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }
@@ -164,6 +166,7 @@ module.exports = [{
   optional: true,
   "max": 255,
   write: ['internal', 'public'],
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }
@@ -172,6 +175,7 @@ module.exports = [{
   "languages": [],
   optional: true,
   write: ['internal', 'public'],
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }
@@ -179,6 +183,7 @@ module.exports = [{
   field: 'age',
   fieldType: 'age',
   write: ['internal', 'public'],
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }
@@ -186,6 +191,7 @@ module.exports = [{
   field: 'registration',
   fieldType: 'registration',
   write: ['internal', 'public'],
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }
@@ -193,6 +199,7 @@ module.exports = [{
   field: 'accessibility',
   fieldType: 'accessibility',
   write: ['internal', 'public'],
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }
@@ -210,12 +217,14 @@ module.exports = [{
   fieldType: 'integer',
   list: true,
   write: ['internal', 'public'],
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }
 }, {
   field: 'links',
   fieldType: 'enrichedLinks',
+  read: ['internal', 'public'],
   db: {
     type: 'json'
   }

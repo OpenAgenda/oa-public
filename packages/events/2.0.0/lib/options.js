@@ -4,11 +4,13 @@ const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
 const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
+const text = require('@openagenda/validators/text');
 
 schema.register({
   boolean,
   integer,
-  choice
+  choice,
+  text
 });
 
 const fields = require('./fields');
@@ -22,6 +24,10 @@ const base = {
     type: 'boolean',
     default: false,
     allowNull: true
+  },
+  access: {
+    type: 'text',
+    default: 'public'
   },
   draft: {
     type: 'boolean',

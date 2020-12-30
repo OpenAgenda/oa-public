@@ -26,7 +26,7 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
     .then(r => r[0].total) : null;
 
   k.select(
-    getFieldsByAccess('read', 'public')
+    getFieldsByAccess('read', options.access)
       .filter(f => options.includeFields.length ? options.includeFields.includes(f.field) : true)
       .map(getDatabaseFieldName)
       .concat(nav.useAfter ? ['id'] : [])

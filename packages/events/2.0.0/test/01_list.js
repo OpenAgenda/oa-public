@@ -9,6 +9,7 @@ const {
 
 const fixtures = require('./fixtures');
 const Service = require('../');
+const fields = require('../lib/fields');
 
 describe('events - functional - list', function() {
   this.timeout(10000);
@@ -126,6 +127,20 @@ describe('events - functional - list', function() {
             '<a href="http://www.ar2l-hdf.fr/le-livre-express-regional-se-reinvente-en-conference-en-ligne-actualite-931.html?fbclid=IwAR2jmorw3pUajIY1uJYzBQU_3CfURi8j5Of77d9dHNyEoM-p1wR6OVsHqRo">Découvrez le programme</a></p>\n'
         }
       );
+    });
+
+    it('if access is internal, internal fields are returned', async () => {
+      const internalFieldNames = fields.filter(f => f.read.includes('internal')).map(f => f.field);
+
+      const event = await svc.list({}, {
+        limit: 1
+      }, {
+        access: 'internal'
+      }).then(r => r[0]);
+
+      internalFieldNames.forEach(field => {
+        assert(Object.keys(event).includes(field));
+      });
     });
 
   });
