@@ -153,6 +153,7 @@ export default class EventForm extends Component {
     } = this.state;
 
     return <FormSchemaComponent
+      unloadWarning={true}
       role={role}
       stateless={true}
       maxFileSize={maxFileSize}
