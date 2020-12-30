@@ -12,7 +12,7 @@ module.exports = [{
   optional: false,
   read: ['internal', 'public'],
   write: ['internal']
-},  {
+}, {
   field: 'slug',
   fieldType: 'text',
   optional: false,
@@ -129,7 +129,7 @@ module.exports = [{
   }
 }, {
   field: 'title',
-  "languages": [],
+  languages: [],
   fieldType: 'text',
   optional: false,
   "max" : 140,
@@ -151,7 +151,7 @@ module.exports = [{
   }
 }, {
   field: 'longDescription',
-  "languages": [],
+  languages: [],
   fieldType: 'text',
   optional: true,
   "max": 10000,
@@ -164,7 +164,10 @@ module.exports = [{
   field: 'keywords',
   fieldType: 'keywords',
   optional: true,
-  "max": 255,
+  list: true,
+  default: [],
+  languages: [],
+  max: 255,
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
@@ -172,7 +175,7 @@ module.exports = [{
   }
 }, {
   field: 'conditions',
-  "languages": [],
+  languages: [],
   optional: true,
   write: ['internal', 'public'],
   read: ['internal', 'public'],
@@ -225,6 +228,7 @@ module.exports = [{
   field: 'links',
   fieldType: 'enrichedLinks',
   read: ['internal', 'public'],
+  default: [],
   db: {
     type: 'json'
   }

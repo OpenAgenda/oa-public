@@ -9,6 +9,7 @@ const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const NotFoundError = require('./lib/NotFoundError');
 const handleInterface = require('./lib/handleInterface');
 const toHTML = require('./lib/toHTML');
+const flatten = require('./lib/flatten');
 
 module.exports = async (service, identifiers, o = {}) => {
   const k = service.clients.knex(service.config.schema);
@@ -16,6 +17,8 @@ module.exports = async (service, identifiers, o = {}) => {
   const options = cleanGetOptions(o);
 
   const {
+    lang,
+    useFallbackLang,
     access,
     throwOnNotFound,
     private: privateOption,
@@ -64,5 +67,5 @@ module.exports = async (service, identifiers, o = {}) => {
     item.html = toHTML(item.longDescription);
   }
 
-  return item;
+  return lang ? flatten(item, lang, { html, useFallbackLang }) : item;
 }

@@ -92,6 +92,17 @@ describe('events - functional - list', function() {
       assert.equal(total, 4);
     });
 
+    it('lang option flatten multilingual fields', async () => {
+      const event = await svc.list({ uid: 80378817 }, {}, {
+        lang: 'fr',
+        html: true
+      }).then(r => r.pop());
+
+      ['title', 'description', 'longDescription', 'html'].forEach(f => {
+        assert.equal(typeof event[f], 'string');
+      });
+    });
+
     it('if interfaces are set and detailed is true, events are decorated with location and origin agenda details', async () => {
       const location = {
         uid: 17687999,

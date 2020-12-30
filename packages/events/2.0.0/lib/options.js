@@ -46,6 +46,16 @@ const base = {
   html: {
     type: 'boolean',
     default: false
+  },
+  lang: {
+    type: 'text',
+    optional: true,
+    max: 2,
+    min: 2
+  },
+  useFallbackLang: {
+    type: 'boolean',
+    default: false
   }
 }
 

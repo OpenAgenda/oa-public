@@ -12,6 +12,7 @@ const addPagination = require('./lib/pagination');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const handleInterface = require('./lib/handleInterface');
 const toHTML = require('./lib/toHTML');
+const flatten = require('./lib/flatten');
 
 module.exports = async (service, query = {}, n = {}, o = {}) => {
   const k = service.clients.knex(service.config.schema);
@@ -69,6 +70,10 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
     result.items.forEach(event => {
       event.html = toHTML(event.longDescription);
     });
+  }
+
+  if (options.lang) {
+    result.items = result.items.map(item => flatten(item, options.lang, options));
   }
 
   if (total === null && !nav.useAfter) {

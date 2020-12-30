@@ -10,7 +10,8 @@ const eventCustomValidators = {
   registration: require('./validators/registration'),
   accessibility: require('./validators/accessibility'),
   age: require('./validators/age'),
-  stream: require('@openagenda/validators/stream')
+  stream: require('@openagenda/validators/stream'),
+  keywords: require('./validators/keywords')
 };
 
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');

@@ -166,4 +166,41 @@ describe('events - functional - get', function() {
 
   });
 
+  describe('lang option', () => {
+    let event;
+
+    before(async () => {
+      event = await svc.get({ slug: 'festival-du-cinema-europeen' }, { lang: 'en', html: true });
+    });
+
+    it('main text fields are flattened', () => {
+      ['title', 'description', 'longDescription', 'html'].forEach(f => {
+        assert.equal(typeof event[f], 'string');
+      });
+    });
+
+    it('flattened keywords default is empty array', () => {
+      assert.deepEqual(event.keywords, []);
+    });
+
+    it('by default, no fallback language is offered', async () => {
+      const event = await svc.get({
+        slug: 'les-contes-de-lhyper-climat'
+      }, { lang: 'en' });
+
+      assert.equal(event.title, undefined);
+    });
+
+    it('if useFallbackLang option is true, first available language is used', async () => {
+      const event = await svc.get({
+        slug: 'les-contes-de-lhyper-climat'
+      }, {
+        lang: 'en',
+        useFallbackLang: true
+      });
+
+      assert.equal(event.title, '« Les contes de l’hyper climat »');
+    });
+  });
+
 });
