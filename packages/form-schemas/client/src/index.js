@@ -7,6 +7,9 @@ import formSchemaLabels from '@openagenda/labels/form-schemas';
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
 import { Spinner } from '@openagenda/react-components';
+import {
+  unloadWarning
+} from '@openagenda/react-shared';
 
 import FormSchema from './iso/FormSchema';
 import getErrorLabel from './iso/getErrorLabel';
@@ -94,13 +97,24 @@ export default class FormSchemaComponent extends Component {
     }
 
     if (this.props.onSubmit) {
-      return this.props.onSubmit({
+      const p = this.props.onSubmit({
         values,
         files: this.get('files')
       });
+
+      if ((p instanceof Promise) && (this.props.unloadWarning)) {
+        p.then(() => {
+          unloadWarning.unset();
+        });
+      } else if (this.props.unloadWarning) {
+        unloadWarning.unset();
+      }
+      return;
     }
 
-    this.set({ loading: true });
+    this.set({
+      loading: true
+    });
 
     submit({
       res: _.get(this.props.res, 'post', ''),
@@ -109,17 +123,24 @@ export default class FormSchemaComponent extends Component {
       files: this.get('files'),
       query
     }).then(res => {
-      if (res.statusCode === 200 && this.props.onSubmitSuccess) {
+      if (res.statusCode !== 200) {
+        this.onServerError(res);
+        return;
+      }
+      
+      if (this.props.unloadWarning) {
+        unloadWarning.unset();
+      }
+
+      if (this.props.onSubmitSuccess) {
         this.props.onSubmitSuccess(this.get('values'), res);
-      } else if (res.statusCode === 200) {
+      } else {
         this.set({
           submitted: true,
           globalError: null,
           errors: [],
           loading: false
         });
-      } else {
-        this.onServerError(res);
       }
 
     }).catch(err => {
@@ -132,7 +153,7 @@ export default class FormSchemaComponent extends Component {
 
     const errors = _.get(res, 'body.errors');
 
-    if (_.isArray(errors) && errors.length) {
+    if (Array.isArray(errors) && errors.length) {
       this.set({
         globalError: null,
         errors,
@@ -268,6 +289,10 @@ export default class FormSchemaComponent extends Component {
       filesUpdate[field] = { $set: files };
     } else if (isFileField) {
       filesUpdate['$unset'] = [field];
+    }
+
+    if (this.props.unloadWarning) {
+      unloadWarning.set();
     }
 
     this.set({
