@@ -1,1 +1,68 @@
-{}
+{
+  "EventAdminApp.Dashboard.aggregatedFrom": [
+    {
+      "type": 0,
+      "value": "Aggregated from "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
+  "EventAdminApp.Dashboard.createdBy": [
+    {
+      "type": 0,
+      "value": "Created by "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalEvents": [
+    {
+      "type": 0,
+      "value": "Total events: "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
+  "EventAdminApp.FiltersPart.lessFilters": [
+    {
+      "type": 0,
+      "value": "Display less filters"
+    }
+  ],
+  "EventAdminApp.FiltersPart.moreFilters": [
+    {
+      "type": 0,
+      "value": "Display more filters"
+    }
+  ],
+  "EventAdminApp.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Controlled"
+    }
+  ],
+  "EventAdminApp.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Published"
+    }
+  ],
+  "EventAdminApp.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refused"
+    }
+  ],
+  "EventAdminApp.messages.states.tocontrol": [
+    {
+      "type": 0,
+      "value": "To control"
+    }
+  ]
+}
