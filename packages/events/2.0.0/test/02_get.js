@@ -203,4 +203,28 @@ describe('events - functional - get', function() {
     });
   });
 
+  describe('defaults', () => {
+
+    it('links', async () => {
+      const event = await svc.get({
+        slug: 'les-contes-de-lhyper-climat'
+      });
+
+      assert.deepEqual(event.links, []);
+    });
+
+    it('accessibility', async () => {
+      const event = await svc.get({ slug: 'lectures-dafriques' });
+
+      assert.deepEqual(event.accessibility, {
+        mi: false,
+        hi: false,
+        pi: false,
+        vi: false,
+        ii: false
+      });
+    });
+
+  });
+
 });

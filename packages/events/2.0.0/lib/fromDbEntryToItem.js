@@ -27,7 +27,7 @@ module.exports = (service, entry = {}, options = {}) => {
 
       return {
         ...item,
-        [field.field]: dbPath.length ? _.get(value, dbPath) : value
+        [field.field]: dbPath.length ? _.get(value, dbPath) : (value === null && field.default ? field.default : value)
       }
     }, {});
 

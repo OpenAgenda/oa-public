@@ -205,6 +205,13 @@ module.exports = [{
   read: ['internal', 'public'],
   db: {
     type: 'json'
+  },
+  default: {
+    mi: false,
+    hi: false,
+    pi: false,
+    vi: false,
+    ii: false
   }
 }, {
   field: 'timings',
