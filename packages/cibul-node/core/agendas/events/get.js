@@ -50,17 +50,11 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   }));
 
   if (load.event) {
-    const event = await events.get({
-      uid: eventUid
-    }, {
-      internal: internal || access === 'internal',
-      detailed
-    });
-
-    payload.setItem(
-      'event',
-      lang ? _flatten(event) : event
-    );
+    payload.setItem('event', await events.v2.get(eventUid, {
+      access,
+      detailed,
+      lang
+    }));
   }
 
   if (
