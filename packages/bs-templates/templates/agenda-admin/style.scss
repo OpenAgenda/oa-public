@@ -24,10 +24,7 @@
   }
 
   .body {
-
-    @media (min-width: $screen-md-min) {
-      display: flex;
-    }
+    padding: 0 30px 2em;
   }
 
   .nav {
@@ -91,7 +88,14 @@
 
 }
 
-.agenda-admin-event-layout {
+.agenda-admin-events-layout {
+  .body {
+    @media (min-width: $screen-md-min) {
+      padding: 0;
+      display: flex;
+    }
+  }
+
   .oa-filter-total {
     font-weight: bold;
     margin-left: 5px;
