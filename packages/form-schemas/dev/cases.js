@@ -45,6 +45,11 @@ module.exports = {
     link: '/access',
     group: 'getting-started'
   }, {
+    name: 'Display warning on page leave',
+    description: 'When form was edited, confirmation popup appears if an attempt to leave is made',
+    link: '/warning',
+    group: 'getting-started'
+  }, {
     name: 'A form',
     description: 'This is the dev app before it was split. It shows a form with mixed fields',
     link: '/form',

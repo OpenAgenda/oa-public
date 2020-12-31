@@ -136,7 +136,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
   });
 
   describe('list with access option', () => {
-    it('if null is set on access, all extended fields are provided', async () => {
+    it('if null is set on access, all additional fields are provided', async () => {
       const events = await core.agendas(2).events.list({}, { limit: 1 }, { access: null });
 
       expect(events[0].thematique).toBe(2);

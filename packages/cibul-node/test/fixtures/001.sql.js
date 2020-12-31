@@ -20,7 +20,6 @@ raw.push(knex('user').insert([
   require('./sql/users/01.json')
 ]));
 
-
 raw.push(knex('reviewer').insert([
   require('./sql/members/01.json')
 ]));

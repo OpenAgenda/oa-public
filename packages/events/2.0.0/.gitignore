@@ -1,0 +1,11 @@
+.idea/
+.vscode/
+node_modules/
+npm-debug.log
+yarn-error.log
+testconfig.js
+coverage/
+.cache/
+
+test/files/tmp.jpg
+*.code-workspace

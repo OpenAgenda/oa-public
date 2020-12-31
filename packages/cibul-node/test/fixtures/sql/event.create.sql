@@ -5,6 +5,8 @@ CREATE TABLE `event_2` (
   creator_uid bigint(20),
   agenda_uid bigint(20),
   location_uid bigint(20),
+  event_attendance_mode tinyint(1) default 1,
+  online_access_link varchar(255),
   slug VARCHAR(255) NOT NULL UNIQUE,
   title VARCHAR(2000) NOT NULL,
   description VARCHAR(2000) NOT NULL,

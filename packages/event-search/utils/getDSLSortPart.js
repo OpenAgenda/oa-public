@@ -16,10 +16,12 @@ module.exports = (s = []) => {
       'timings.end' : {
         mode: 'min',
         order: 'asc',
-        nested_path: 'timings',
-        nested_filter: {
-          range: {
-            'timings.end' : { 'gte': 'now' }
+        nested: {
+          path: 'timings',
+          filter: {
+            range: {
+              'timings.end' : { 'gte': 'now' }
+            }
           }
         }
       }
