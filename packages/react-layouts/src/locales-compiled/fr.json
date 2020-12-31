@@ -1,17 +1,17 @@
 {
-  "react-layouts.AgendaAdminLayout.administration": [
+  "react-layouts.AdminHeader.administration": [
     {
       "type": 0,
       "value": "Administration"
     }
   ],
-  "react-layouts.AgendaAdminLayout.newTab": [
+  "react-layouts.AdminSections.newTab": [
     {
       "type": 0,
       "value": "Nouveau !"
     }
   ],
-  "react-layouts.AgendaAdminLayout.return": [
+  "react-layouts.AdminHeader.return": [
     {
       "type": 0,
       "value": "Aller à l'accueil de l'agenda"

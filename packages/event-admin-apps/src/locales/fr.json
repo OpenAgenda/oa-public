@@ -1,1 +1,11 @@
-{}
+{
+  "EventAdminApp.Dashboard.aggregatedFrom": "",
+  "EventAdminApp.Dashboard.createdBy": "",
+  "EventAdminApp.Dashboard.totalEvents": "Total des événements: {value}",
+  "EventAdminApp.FiltersPart.lessFilters": "Afficher moins de filtres",
+  "EventAdminApp.FiltersPart.moreFilters": "Afficher plus de filtres",
+  "EventAdminApp.messages.states.controlled": "prêt à publier",
+  "EventAdminApp.messages.states.published": "publié",
+  "EventAdminApp.messages.states.refused": "refusé",
+  "EventAdminApp.messages.states.tocontrol": "à contrôler"
+}

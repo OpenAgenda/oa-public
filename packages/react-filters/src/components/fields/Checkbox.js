@@ -4,7 +4,11 @@ import cn from 'classnames';
 import getLocaleValue from '../../utils/getLocaleValue';
 
 export default function Checkbox({
-  input, meta, getTotal, filter, option
+  input,
+  getTotal,
+  filter,
+  option,
+  disabled,
 }) {
   const seed = useUIDSeed();
   const total = useMemo(() => getTotal && getTotal(filter, option), [
@@ -14,16 +18,18 @@ export default function Checkbox({
   ]);
 
   return (
-    <div className={cn('checkbox', { disabled: meta.submitting })}>
+    <div className={cn('checkbox', { disabled })}>
       <label htmlFor={seed(input.value)}>
         <input
           type="checkbox"
           id={seed(input.value)}
-          disabled={meta.submitting}
+          disabled={disabled}
           {...input}
         />{' '}
         {getLocaleValue(option.label)}
-        {total ? <span className="oa-filter-total">{total}</span> : null}
+        {Number.isInteger(total) ? (
+          <span className="oa-filter-total">{total}</span>
+        ) : null}
       </label>
     </div>
   );

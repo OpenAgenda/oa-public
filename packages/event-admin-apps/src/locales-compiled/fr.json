@@ -1,1 +1,50 @@
-{}
+{
+  "EventAdminApp.Dashboard.aggregatedFrom": null,
+  "EventAdminApp.Dashboard.createdBy": null,
+  "EventAdminApp.Dashboard.totalEvents": [
+    {
+      "type": 0,
+      "value": "Total des événements: "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
+  "EventAdminApp.FiltersPart.lessFilters": [
+    {
+      "type": 0,
+      "value": "Afficher moins de filtres"
+    }
+  ],
+  "EventAdminApp.FiltersPart.moreFilters": [
+    {
+      "type": 0,
+      "value": "Afficher plus de filtres"
+    }
+  ],
+  "EventAdminApp.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "prêt à publier"
+    }
+  ],
+  "EventAdminApp.messages.states.published": [
+    {
+      "type": 0,
+      "value": "publié"
+    }
+  ],
+  "EventAdminApp.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "refusé"
+    }
+  ],
+  "EventAdminApp.messages.states.tocontrol": [
+    {
+      "type": 0,
+      "value": "à contrôler"
+    }
+  ]
+}

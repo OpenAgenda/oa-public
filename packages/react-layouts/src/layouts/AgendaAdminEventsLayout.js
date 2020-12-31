@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React from 'react';
+import React, { useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -7,13 +7,14 @@ import Loading from '../components/Loading';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
 
-function AgendaAdminLayout({
+function AgendaAdminEventsLayout({
   childLayouts,
   children,
   extraProps,
   onError,
   FallbackComponent,
 }) {
+  const filtersContainerRef = useRef();
   const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
   const loadError = useSelector(state => _.get(state, 'agendaAdmin.error', null));
   const agenda = useSelector(
@@ -33,15 +34,21 @@ function AgendaAdminLayout({
   return isLoading ? (
     <Loading />
   ) : (
-    <div className="container agenda-admin">
-      <AdminHeader agenda={agenda} />
-
-      <div className="row wsq">
-        <div className="col col-sm-3 nav">
+    <div className="container-fluid agenda-admin agenda-admin-events-layout">
+      <div className="row">
+        <div className="col-md-offset-2 col-md-7 wsq">
+          <AdminHeader agenda={agenda} />
+        </div>
+      </div>
+      <div className="row body">
+        <div className="col-md-offset-2 col-md-2 col-sm-12 nav wsq">
           <AdminSections agenda={agenda} role={role} />
         </div>
-
-        <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
+        <div
+          className="col-md-3 col-md-push-5 col-sm-12 wsq filters"
+          ref={filtersContainerRef}
+        />
+        <div className="col-md-5 col-md-pull-3 col-sm-12 wsq">
           <ErrorBoundary
             onError={onError}
             FallbackComponent={FallbackComponent}
@@ -51,6 +58,8 @@ function AgendaAdminLayout({
               extraProps={extraProps}
               onError={onError}
               FallbackComponent={FallbackComponent}
+              // additional extraProps
+              filtersContainerRef={filtersContainerRef}
             >
               {children}
             </ChildLayouts>
@@ -61,6 +70,6 @@ function AgendaAdminLayout({
   );
 }
 
-AgendaAdminLayout.layoutName = 'AgendaAdminLayout';
+AgendaAdminEventsLayout.layoutName = 'AgendaAdminEventsLayout';
 
-export default AgendaAdminLayout;
+export default AgendaAdminEventsLayout;

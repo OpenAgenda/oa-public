@@ -95,11 +95,11 @@ function FiltersPart({ agenda, agendaSchema }) {
         ...filter.aggregation,
       }));
 
-      if (!stat) return null;
+      if (!stat) return 0;
 
       const { data } = stat.state;
 
-      if (!data) return null;
+      if (!data) return 0;
 
       const dataKey = 'id' in option ? 'id' : 'key';
       const optionKey = 'id' in option ? 'id' : 'value';
@@ -181,15 +181,6 @@ function FiltersPart({ agenda, agendaSchema }) {
       );
 
       filtersFormRef.current.initialize(cleanQuery);
-
-      dispatch(
-        statsActions.load(
-          agenda,
-          latestStats.current,
-          [...standardsFilters, ...additionalsFilters],
-          qs.parse(history.location.search, { ignoreQueryPrefix: true })
-        )
-      );
     }
   }, [
     additionalsFilters,

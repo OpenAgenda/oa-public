@@ -1,15 +1,15 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  regions: {
+  region: {
     id: 'ReactFilters.messages.filterTitles.region',
     defaultMessage: 'Region',
   },
-  departments: {
+  department: {
     id: 'ReactFilters.messages.filterTitles.department',
     defaultMessage: 'Department',
   },
-  cities: {
+  city: {
     id: 'ReactFilters.messages.filterTitles.city',
     defaultMessage: 'City',
   },

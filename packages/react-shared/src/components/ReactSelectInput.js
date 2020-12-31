@@ -77,14 +77,14 @@ const defaultStyles = {
     : base),
 };
 
-export default ({
+function ReactSelectField({
   innerRef,
   isCreatable,
   input,
   meta,
   styles: stylesProp,
   ...rest
-}) => {
+}) {
   const SelectComponent = isCreatable ? CreatableSelect : ReactSelect;
   const styles = useMemo(
     () => ({
@@ -112,4 +112,8 @@ export default ({
       ) : null}
     </>
   );
-};
+}
+
+ReactSelectField.defaultStyles = defaultStyles;
+
+export default ReactSelectField;

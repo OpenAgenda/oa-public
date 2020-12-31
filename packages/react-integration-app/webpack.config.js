@@ -22,6 +22,7 @@ const modulesToInclude = [
   '@openagenda/agenda-settings',
   '@openagenda/agenda-stats',
   '@openagenda/aggregator-sources',
+  '@openagenda/event-admin-apps',
   '@openagenda/home',
   '@openagenda/inbox-apps',
   '@openagenda/member-apps',
@@ -34,7 +35,7 @@ const modulesToInclude = [
   'intl-messageformat-parser',
   'lru-cache',
   'react-intl',
-  'yallist'
+  'yallist',
 ];
 const BABEL_EXCLUDE_REGEX = new RegExp(
   `node_modules/(?!(${modulesToInclude.join('|')}))`
@@ -42,9 +43,7 @@ const BABEL_EXCLUDE_REGEX = new RegExp(
 
 const region = 'eu-west-1';
 const bucket = 'oasvc';
-const serviceName = require('./package.json')
-  .name.split('/')
-  .pop();
+const serviceName = require('./package.json').name.split('/').pop();
 
 const CLOUDFRONT_DISTRIBUTION_ID = 'E3NUCLR660OPQ4';
 const devServerHost = process.env.DEV_SERVER_HOST || 'localhost';
@@ -73,14 +72,14 @@ module.exports = (env = {}, argv = {}) => {
   return {
     mode: envName === 'production' ? 'production' : 'development',
     entry: {
-      webapp: path.join(__dirname, 'client/index.js')
+      webapp: path.join(__dirname, 'client/index.js'),
     },
     output: {
       path: path.join(__dirname, 'dist'),
       publicPath: pushToCDN
         ? '//d1771xfuxsyp4n.cloudfront.net/' // `https://s3.${region}.amazonaws.com/${bucket}/${serviceName}/`
         : `/dist/${serviceName}/`,
-      filename: envName === 'production' ? '[id].[chunkhash].js' : '[name].js'
+      filename: envName === 'production' ? '[id].[chunkhash].js' : '[name].js',
     },
     devtool:
       envName === 'production' ? 'source-map' : 'cheap-module-source-map',
@@ -104,7 +103,7 @@ module.exports = (env = {}, argv = {}) => {
       compress: true,
       hot: true,
       inline: true,
-      lazy: false
+      lazy: false,
     },
     stats: 'minimal',
     module: {
@@ -112,7 +111,7 @@ module.exports = (env = {}, argv = {}) => {
         {
           test: /\.jsx?$/,
           enforce: 'pre',
-          loader: require.resolve('source-map-loader')
+          loader: require.resolve('source-map-loader'),
         },
         {
           test: /\.jsx?$/,
@@ -123,8 +122,8 @@ module.exports = (env = {}, argv = {}) => {
               ? false
               : getCacheDir('babel-loader-dev'),
             envName: babelEnvName,
-            rootMode: 'upward'
-          }
+            rootMode: 'upward',
+          },
         },
         {
           test: /\.s[ac]ss$/i,
@@ -135,16 +134,16 @@ module.exports = (env = {}, argv = {}) => {
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true
-              }
+                sourceMap: true,
+              },
             },
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true
-              }
-            }
-          ]
+                sourceMap: true,
+              },
+            },
+          ],
         },
         {
           test: /\.css$/,
@@ -153,20 +152,20 @@ module.exports = (env = {}, argv = {}) => {
               loader: MiniCssExtractPlugin.loader,
               options: {
                 // only enable hot in development
-                hmr: envName === 'development'
+                hmr: envName === 'development',
                 // if hmr does not work, this is a forceful method.
                 // reloadAll: true,
-              }
+              },
             },
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true
-              }
-            }
-          ]
-        }
-      ]
+                sourceMap: true,
+              },
+            },
+          ],
+        },
+      ],
     },
     resolve: {
       // symlinks: false,
@@ -174,23 +173,23 @@ module.exports = (env = {}, argv = {}) => {
       alias: {
         react: require.resolve('react'),
         'react-dom/server': require.resolve('@hot-loader/react-dom/server'),
-        'react-dom': require.resolve('@hot-loader/react-dom')
+        'react-dom': require.resolve('@hot-loader/react-dom'),
       },
-      plugins: [PnpWebpackPlugin]
+      plugins: [PnpWebpackPlugin],
     },
     resolveLoader: {
-      plugins: [PnpWebpackPlugin.moduleLoader(module)]
+      plugins: [PnpWebpackPlugin.moduleLoader(module)],
     },
     performance: {
       hints: false,
-      maxAssetSize: envName === 'production' ? 2000000 : Infinity
+      maxAssetSize: envName === 'production' ? 2000000 : Infinity,
     },
     optimization: {
       nodeEnv: envName,
       runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
-        maxAsyncRequests: 20
+        maxAsyncRequests: 20,
         // minSize: 0,
         // cacheGroups: {
         //   locale: {
@@ -215,10 +214,10 @@ module.exports = (env = {}, argv = {}) => {
             ? false
             : getCacheDir('terser-webpack-plugin'),
           // parallel: true
-          sourceMap: true
+          sourceMap: true,
         }),
-        new OptimizeCSSAssetsPlugin()
-      ]
+        new OptimizeCSSAssetsPlugin(),
+      ],
     },
     plugins: [
       // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
@@ -230,7 +229,7 @@ module.exports = (env = {}, argv = {}) => {
         __CLIENT__: true,
         __SERVER__: false,
         __DEVELOPMENT__: envName === 'development',
-        __DEVTOOLS__: envName === 'development'
+        __DEVTOOLS__: envName === 'development',
       }),
       new LoadablePlugin({ writeToDisk: true }),
       envName === 'production'
@@ -238,8 +237,8 @@ module.exports = (env = {}, argv = {}) => {
         : new webpack.NamedModulesPlugin(),
       new MiniCssExtractPlugin({
         filename:
-          envName === 'production' ? '[id].[contenthash].css' : '[name].css'
-      })
+          envName === 'production' ? '[id].[contenthash].css' : '[name].css',
+      }),
     ].concat(
       pushToCDN
         ? [
@@ -251,7 +250,7 @@ module.exports = (env = {}, argv = {}) => {
             s3Options: {
               accessKeyId: process.env.AWS_ACCESS_KEY_ID,
               secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-              region
+              region,
             },
             s3UploadOptions: {
               Bucket: bucket,
@@ -267,21 +266,21 @@ module.exports = (env = {}, argv = {}) => {
                 if (/\.js$/.test(fileName)) {
                   return 'text/javascript';
                 }
-              }
+              },
             },
             cloudfrontInvalidateOptions: {
               DistributionId: CLOUDFRONT_DISTRIBUTION_ID,
-              Items: ['/*']
+              Items: ['/*'],
             },
             progress: false,
-            basePath: serviceName
+            basePath: serviceName,
             // directory: 'dist/gz'
-          })
+          }),
         ]
         : []
     ),
     node: {
-      fs: 'empty'
-    }
+      fs: 'empty',
+    },
   };
 };

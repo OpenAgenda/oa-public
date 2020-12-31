@@ -1,1 +1,11 @@
-{}
+{
+  "EventAdminApp.Dashboard.aggregatedFrom": null,
+  "EventAdminApp.Dashboard.createdBy": null,
+  "EventAdminApp.Dashboard.totalEvents": null,
+  "EventAdminApp.FiltersPart.lessFilters": null,
+  "EventAdminApp.FiltersPart.moreFilters": null,
+  "EventAdminApp.messages.states.controlled": null,
+  "EventAdminApp.messages.states.published": null,
+  "EventAdminApp.messages.states.refused": null,
+  "EventAdminApp.messages.states.tocontrol": null
+}
