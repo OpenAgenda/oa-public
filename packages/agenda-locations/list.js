@@ -107,5 +107,5 @@ module.exports.bySetUid = async (
   return list(service, query, nav, {
     ...options,
     context: { setUid }
-  })
+  });
 };
