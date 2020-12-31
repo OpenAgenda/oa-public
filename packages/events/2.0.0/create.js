@@ -16,9 +16,13 @@ const convertDateMinuteHourTimings = require('./lib/convertDateMinuteHourTimings
 
 module.exports = async (service, data, options = {}) => {
   const {
-    userUid,
-    agendaUid
+    context
   } = cleanSetOptions(options);
+
+  const {
+    agendaUid,
+    userUid
+  } = context;
 
   const clean = validate(data, {
     isDraft: options.draft 
