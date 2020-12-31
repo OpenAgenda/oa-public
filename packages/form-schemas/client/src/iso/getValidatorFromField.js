@@ -72,7 +72,7 @@ module.exports = (field, options = {}) => {
 
   const type = _.get(matchingMapItem, 'type', field.fieldType);
 
-  const validatorOptions = _.assign(_.pick(field, ['field', 'optional', 'enableWith']), draft ? { optional: true , type } : { type });
+  const validatorOptions = _.assign(_.pick(field, ['field', 'optional', 'enableWith', 'allowNull']), draft ? { optional: true , type } : { type });
 
   validatorOptions.default = _.get(field, 'default', null);
 
