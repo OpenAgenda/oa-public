@@ -62,7 +62,7 @@ module.exports = async (service, data, options = {}) => {
   log('created with id %s and uid %s', insertedID, entry.uid);
 
   try {
-    await setLegacy(service, clean);
+    await setLegacy(service.clients.knex, clean);
   } catch (e) {
     log('warn', 'failed to create legacy', e);
   }
