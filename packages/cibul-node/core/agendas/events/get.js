@@ -53,7 +53,8 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     payload.setItem('event', await events.v2.get(eventUid, {
       access,
       detailed,
-      lang
+      lang,
+      useFallbackLang: true
     }));
   }
 

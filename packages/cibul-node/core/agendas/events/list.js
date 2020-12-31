@@ -67,43 +67,14 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   const eventUids = agendaEvents.map(ae => ae.eventUid);
 
   if (load.event) {
-    log('loading events');
-    fetched.events = (await eventsSvc.list({
+    log('loading %s events', eventUids.length);
+
+    fetched.events = await eventsSvc.v2.list({
       uid: eventUids
-    }, {
-      fetched: [
-        'uid',
-        'slug',
-        'agendaUid',
-        'title',
-        'description',
-        'keywords',
-        'conditions',
-        'timings',
-        'image',
-        'draft',
-        'private',
-        'locationUid'
-      ].concat(
-        detailed ? [
-          'ownerUid',
-          'creatorUid',
-          'longDescription',
-          'updatedAt',
-          'createdAt',
-          'deletedAt',
-          'accessibility',
-          'age',
-          'registration',
-          'references',
-          'links',
-          'fileKey',
-          'timezone'
-        ] : []
-      ).concat(
-        access === 'internal' ? ['id'] : []
-      )
-    })).events;
+    }, { limit: eventUids.length }, {
+      detailed,
+      access: access === 'internal' ? 'internal' : 'public'
+    });
   }
 
   if (load.custom && agenda.formSchemaId) {
