@@ -54,4 +54,12 @@ describe('stream validator', () => {
     assert.equal(validate(), null);
   });
 
+  it('allowNull', () => {
+    const validate = validators.stream({
+      allowNull: true
+    });
+
+    assert.equal(validate(null), null);
+  });
+
 });

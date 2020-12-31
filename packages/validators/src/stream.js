@@ -23,6 +23,10 @@ export default config => {
       return params.default;
     }
 
+    if (params.allowNull && value === null) {
+      return null;
+    }
+
     if (isFile(value)) {
       return value;
     }
