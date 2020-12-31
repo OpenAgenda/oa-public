@@ -23,10 +23,6 @@ const validate = schema({
   limit: {
     type: 'integer',
     default: 20
-  },
-  useAfter: {
-    type: 'boolean',
-    default: false
   }
 });
 

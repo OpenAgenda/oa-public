@@ -52,6 +52,25 @@ describe('events - functional - list', function() {
     });
   });
 
+  describe('navigation', () => {
+
+    it('with after and limit', async () => {
+      const events = await svc.list({}, { limit: 10 });
+
+      const {
+        items: batch1,
+        after: afterBatch1
+      } = await svc.list({}, { after: 0, limit: 5 });
+
+      const {
+        items: batch2,
+      } = await svc.list({}, { after: afterBatch1, limit: 5 });
+
+      assert.equal(batch2[0].uid, events[5].uid);
+    });
+
+  });
+
   describe('options', () => {
 
     it('includeFields', async () => {
@@ -105,7 +124,7 @@ describe('events - functional - list', function() {
 
     it('if interfaces are set and detailed is true, events are decorated with location and origin agenda details', async () => {
       const location = {
-        uid: 17687999,
+        uid: 51971567,
         name: 'Associated location'
       };
       
@@ -134,8 +153,7 @@ describe('events - functional - list', function() {
       assert.deepEqual(
         events[0].html,
         {
-          fr: '<p>La seconde édition du Livre Express régional se réinvente et se présente cette année sous la forme de quatre conférences en ligne, quatre arrêts sur quatre jours différents qui permettront à tous de découvrir le programme. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdV6ulNE3Kbx1YAPPyCXx2ykYtHVZiqDluLv0FgAalj92HrPQ/viewform">Inscrivez-vous dès maintenant !</a>\n' +
-            '<a href="http://www.ar2l-hdf.fr/le-livre-express-regional-se-reinvente-en-conference-en-ligne-actualite-931.html?fbclid=IwAR2jmorw3pUajIY1uJYzBQU_3CfURi8j5Of77d9dHNyEoM-p1wR6OVsHqRo">Découvrez le programme</a></p>\n'
+          fr: '<p>Swift, Jonathan de son prénom. Ce nom vous dit quelque chose ? Bingo ! C’est bien l’auteur du livre Les voyages de Gulliver, écrit au début du XVIIIe siècle.L’histoire d’un marin échouant sur l’île de Lilliput. Par la magie d’un colossal changement d’échelle, il se transforme subitement en géant, capturé par des êtres pas plus hauts que 6 pouces. Transposées dans le monde actuel, les images de ce théâtre d’ombres et d’objets se combinent à la vidéo, pour une expédition merveilleuse où l’immense rejoint le minuscule.</p>\n<p><em>Atelier enfants-adultes &quot;Mon ombre est un autre&quot; :15 h, sur réservation Goûter et surprise : 16 h, 8 €</em></p>\n'
         }
       );
     });

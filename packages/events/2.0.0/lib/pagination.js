@@ -2,11 +2,11 @@
 
 module.exports = (k, nav) => {
   const {
-    after, offset, limit
+    after, offset, limit, useAfter
   } = nav;
 
-  if (after) {
-    k.where('id', '<', after)
+  if (useAfter) {
+    k.where('id', '>', after)
   }
 
   if (offset) {

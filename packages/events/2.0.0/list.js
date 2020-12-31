@@ -35,14 +35,14 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
 
   addPagination(k, nav);
 
-  k.orderBy('id', 'desc');
+  k.orderBy('id', 'asc');
 
   const result = {};
 
   result.rows = await k;
-
+  
   result.items = result.rows.map(item => fromDbEntryToItem(service, item, options));
-
+  
   if (total !== null) {
     result.total = total;
   }
@@ -78,6 +78,10 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
 
   if (total === null && !nav.useAfter) {
     return result.items;
+  }
+
+  if (nav.useAfter) {
+    result.after = result.rows.length ? _.last(result.rows).id : null;
   }
 
   return _.omit(result, ['rows']);
