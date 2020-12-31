@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
 import { useHistory } from 'react-router';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import qs from 'qs';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import {
@@ -42,6 +42,21 @@ function FiltersPart({
 
   const filtersFormRef = useRef();
 
+  const filtersQuery = useQuery(
+    'filters-base',
+    () => getEvents(
+      apiClient,
+      res.jsonExport,
+      agenda,
+      [...standardsFilters, ...additionalsFilters],
+      { size: 0 }
+    ),
+    {
+      staleTime: 1000,
+      notifyOnChangeProps: ['data', 'isFetching'],
+    }
+  );
+
   const { data, isFetching } = useInfiniteQuery(
     ['events', query],
     ({ pageParam }) => getEvents(
@@ -59,6 +74,7 @@ function FiltersPart({
     }
   );
 
+  const { aggregations: filterAggs } = filtersQuery.data;
   const { aggregations } = data.pages[0];
 
   const [initialQuery] = useState(query);
@@ -101,12 +117,11 @@ function FiltersPart({
     [aggregations]
   );
 
-  // TODO options from react-query
   const getOptions = useCallback(
     filter => {
       if (filter.options) return filter.options;
 
-      const aggregation = aggregations[`${filter.name}-${filter.id}`];
+      const aggregation = filterAggs[`${filter.name}-${filter.id}`];
 
       if (!aggregation) return [];
 
@@ -115,7 +130,7 @@ function FiltersPart({
         value: v.key,
       }));
     },
-    [aggregations]
+    [filterAggs]
   );
 
   // TODO moreOptions
@@ -173,7 +188,7 @@ function FiltersPart({
       <div className="oa-collapse">
         <Filters
           filters={standardsFilters}
-          loading={isFetching}
+          disabled={isFetching || filtersQuery.isFetching}
           dateRangeComponent={DateRangeFilter}
           checkboxComponent={MultiChoiceFilter}
           radioComponent={MultiChoiceFilter}
@@ -183,7 +198,7 @@ function FiltersPart({
         {moreFilters ? (
           <Filters
             filters={additionalsFilters}
-            loading={isFetching}
+            disabled={isFetching || filtersQuery.isFetching}
             dateRangeComponent={DateRangeFilter}
             checkboxComponent={MultiChoiceFilter}
             radioComponent={MultiChoiceFilter}

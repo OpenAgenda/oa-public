@@ -4,6 +4,8 @@ import { useUIDSeed } from 'react-uid';
 import stateMessages from '../messages/states';
 import getLocaleValue from '../utils/getLocaleValue';
 
+const AGGREGATION_SIZE = 20000;
+
 const defaultOptions = {
   standards: true,
   additionals: true,
@@ -58,6 +60,7 @@ export default function useFilters(
           options: null, // from the aggregation
           aggregation: {
             type: 'regions',
+            size: AGGREGATION_SIZE,
           },
         },
         {
@@ -66,6 +69,7 @@ export default function useFilters(
           options: null, // from the aggregation
           aggregation: {
             type: 'departments',
+            size: AGGREGATION_SIZE,
           },
         },
         {
@@ -74,6 +78,7 @@ export default function useFilters(
           options: null, // from the aggregation
           aggregation: {
             type: 'cities',
+            size: AGGREGATION_SIZE,
           },
         },
       ]
@@ -95,6 +100,7 @@ export default function useFilters(
           aggregation: {
             type: 'additionalFields',
             field: fieldSchema.field,
+            size: AGGREGATION_SIZE,
           },
         }))
       : [];

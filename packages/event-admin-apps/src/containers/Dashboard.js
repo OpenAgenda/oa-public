@@ -4,7 +4,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import { useHistory } from 'react-router';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import { useSelector } from 'react-redux';
@@ -189,6 +189,21 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const standardsFilters = useFilters(agendaSchema, { standards: true });
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
 
+  const filtersQuery = useQuery(
+    'filters-base',
+    () => getEvents(
+      apiClient,
+      res.jsonExport,
+      agenda,
+      [...standardsFilters, ...additionalsFilters],
+      { size: 0 }
+    ),
+    {
+      staleTime: 1000,
+      notifyOnChangeProps: ['data', 'isLoading', 'error'],
+    }
+  );
+
   const {
     data,
     isLoading,
@@ -202,18 +217,35 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       res.jsonExport,
       agenda,
       [...standardsFilters, ...additionalsFilters],
-      query,
+      {
+        ...query,
+        sort: 'updatedAt.desc',
+        detailed: true,
+      },
       pageParam
     ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error', 'isFetchingNextPage'],
       keepPreviousData: true, // because query change,
-      onSuccess: () => history.push({
-        ...history.location,
-        search: qs.stringify(query, { arrayFormat: 'brackets' }),
-      }),
-      getNextPageParam: lastPage => lastPage.sort,
+      onSuccess: () => {
+        const search = qs.stringify(query, {
+          addQueryPrefix: true,
+          arrayFormat: 'brackets',
+        });
+
+        if (history.location.search !== search) {
+          history.push({
+            ...history.location,
+            search,
+          });
+        }
+      },
+      getNextPageParam: lastPage => {
+        if (lastPage.sort) {
+          return lastPage.sort;
+        }
+      },
     }
   );
 
@@ -221,12 +253,16 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const seed = useUIDSeed();
 
-  if (isLoading) {
+  if (isLoading || filtersQuery.isLoading) {
     return (
       <div className="padding-v-md" style={{ position: 'relative' }}>
         <Spinner />
       </div>
     );
+  }
+
+  if (filtersQuery.error) {
+    throw filtersQuery.error;
   }
 
   if (error) {
