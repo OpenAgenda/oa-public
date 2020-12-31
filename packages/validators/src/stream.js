@@ -1,4 +1,5 @@
 import isStream from 'is-stream';
+import errors from './lib/errors';
 
 function isFile(value) {
   return isStream(value) || (value && value.path);
@@ -14,20 +15,19 @@ export default config => {
   };
 
   return Object.assign(value => {
-    if (value === undefined || value === null && params.optional) {
-      return value;
+    if (value === undefined && !params.optional) {
+      throw errors(params, value, 'required', 'a stream is required');
+    }
+
+    if (value === undefined) {
+      return params.default;
     }
 
     if (isFile(value)) {
       return value;
     }
 
-    throw [{
-      origin: value,
-      field: params.field,
-      code: 'stream.invalid',
-      message: 'value is not a stream'
-    }];
+    throw errors(params, value, 'invalid', 'value is not a stream');
   }, {
     type: 'stream',
     field: params.field

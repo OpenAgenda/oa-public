@@ -27,8 +27,7 @@ describe('stream validator', () => {
     } catch (errors) {
       assert.deepEqual(errors, [{
         origin: 'Ceci est un stream',
-        field: undefined,
-        code: 'stream.invalid',
+        code: 'invalid',
         message: 'value is not a stream'
       }]);
       return;
@@ -44,6 +43,15 @@ describe('stream validator', () => {
 
     assert.equal(validate.field, 'image');
     assert.equal(validate.type, 'stream');
+  });
+
+  it('default', () => {
+    const validate = validators.stream({
+      field: 'image',
+      default: null
+    });
+
+    assert.equal(validate(), null);
   });
 
 });
