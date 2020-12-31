@@ -29,7 +29,7 @@ const messages = defineMessages({
   },
 });
 
-const subscription = { value: true, submitting: true };
+const subscription = { value: true };
 
 // For display (store -> form)
 function formatValue(value) {
@@ -77,7 +77,7 @@ function parseValue(value) {
     lte: selection.endDate ? endOfDay(selection.endDate) : selection.endDate,
   };
 }
-function ValuePreview({ value, input, meta }) {
+function ValuePreview({ value, input, disabled }) {
   const removeValue = useCallback(
     e => {
       e.stopPropagation();
@@ -93,7 +93,7 @@ function ValuePreview({ value, input, meta }) {
       <button
         type="button"
         className="btn btn-link btn-link-inline margin-left-xs"
-        disabled={meta.submitting}
+        disabled={disabled}
         onClick={removeValue}
       >
         <i className="fa fa-times" aria-hidden="true" />
@@ -103,7 +103,7 @@ function ValuePreview({ value, input, meta }) {
 }
 
 function Title({
-  input, meta, staticRanges, label
+  input, staticRanges, label, disabled
 }) {
   const intl = useIntl();
   const title = useFilterTitle(input.name, { label });
@@ -141,13 +141,13 @@ function Title({
     <div className="flex-auto">
       {title}
       <div className="oa-filter-value-preview">
-        <ValuePreview value={value} input={input} meta={meta} />
+        <ValuePreview value={value} input={input} disabled={disabled} />
       </div>
     </div>
   );
 }
 
-function DateRangeFilter({ name }) {
+function DateRangeFilter({ name, disabled }) {
   const intl = useIntl();
   const form = useForm();
 
@@ -163,6 +163,7 @@ function DateRangeFilter({ name }) {
           subscription={subscription}
           component={Title}
           staticRanges={staticRanges}
+          disabled={disabled}
         />
       )}
     >

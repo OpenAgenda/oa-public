@@ -27,6 +27,7 @@ function DateRangePicker({
   meta,
   staticRanges = [],
   inputRanges = [],
+  disabled,
   ...otherProps
 }) {
   const intl = useIntl();
@@ -97,7 +98,7 @@ function DateRangePicker({
     [onChange]
   );
 
-  const disabledDay = useCallback(() => meta.submitting, [meta.submitting]);
+  const disabledDay = useCallback(() => disabled, [disabled]);
 
   const rdrNoSelection = useMemo(() => {
     const range = ranges?.[0];

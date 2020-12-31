@@ -8,7 +8,7 @@ import getLocaleValue from '../../utils/getLocaleValue';
 import Panel from '../Panel';
 import Checkbox from '../fields/Checkbox';
 
-const subscription = { value: true, submitting: true };
+const subscription = { value: true };
 
 function parseValue(value) {
   if (Array.isArray(value) && !value.length) {
@@ -22,7 +22,7 @@ function formatValue(value) {
   return value;
 }
 
-function ValuePreview({ option, input, meta }) {
+function ValuePreview({ option, input, disabled }) {
   const label = useMemo(() => getLocaleValue(option.label), [option.label]);
 
   const removeValue = useCallback(
@@ -40,7 +40,7 @@ function ValuePreview({ option, input, meta }) {
       <button
         type="button"
         className="btn btn-link btn-link-inline margin-left-xs"
-        disabled={meta.submitting}
+        disabled={disabled}
         onClick={removeValue}
       >
         <i className="fa fa-times" aria-hidden="true" />
@@ -50,7 +50,7 @@ function ValuePreview({ option, input, meta }) {
 }
 
 function Title({
-  input, meta, options, label
+  input, options, label, disabled
 }) {
   const title = useFilterTitle(input.name, { label });
 
@@ -73,7 +73,7 @@ function Title({
             key={option.value}
             option={option}
             input={input}
-            meta={meta}
+            disabled={disabled}
           />
         ))}
       </div>
@@ -82,7 +82,12 @@ function Title({
 }
 
 function MultiChoiceFilter({
-  name, label, filter, getTotal, getOptions
+  name,
+  label,
+  filter,
+  getTotal,
+  getOptions,
+  disabled,
 }) {
   const form = useForm();
   const seed = useUIDSeed();
@@ -100,6 +105,7 @@ function MultiChoiceFilter({
           component={Title}
           options={options}
           label={label}
+          disabled={disabled}
         />
       )}
     >
@@ -116,6 +122,7 @@ function MultiChoiceFilter({
           option={option}
           filter={filter}
           getTotal={getTotal}
+          disabled={disabled}
         />
       ))}
       <OnChange name={name}>{onChange}</OnChange>

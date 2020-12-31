@@ -21,10 +21,8 @@ export default async function getEvents(
     oaq: { passed: 1 },
     // size: 0,
     aggregations,
-    ...query,
-    sort: 'updatedAt.desc',
-    detailed: true,
     searchAfter: pageParam,
+    ...query,
   };
 
   const url = jsonExportRes
