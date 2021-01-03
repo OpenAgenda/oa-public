@@ -12,7 +12,10 @@ async function remove(service, current) {
     await service.interfaces.beforeRemove(current);
   }
 
-  await service.clients.knex(service.config.schema).where('uid', current.uid).del();
+  await service.clients
+    .knex(service.config.schema)
+    .where('uid', current.uid)
+    .del();
 
   return current;
 }
@@ -25,14 +28,19 @@ module.exports.byAgendaUid = async (
   identifiers,
   options = {}
 ) => {
-  const current = await get.byAgendaUid(service, agendaUid, identifiers, options);
+  const current = await get.byAgendaUid(
+    service,
+    agendaUid,
+    identifiers,
+    options
+  );
 
   if (!current) {
     throw new NotFoundError('location', { identifiers, agendaUid });
   }
 
   return remove(service, current);
-}
+};
 
 module.exports.bySetUid = async (
   service,
@@ -47,4 +55,4 @@ module.exports.bySetUid = async (
   }
 
   return remove(service, current);
-}
+};

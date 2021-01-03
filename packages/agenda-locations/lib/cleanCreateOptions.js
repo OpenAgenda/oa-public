@@ -4,14 +4,14 @@ const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
 
 schema.register({
-  integer
+  integer,
 });
 
 module.exports = schema({
   context: {
     agendaUid: {
       type: 'integer',
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });

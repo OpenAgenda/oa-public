@@ -1,18 +1,19 @@
 {
-  "globals": {},
-  "env": {
-    "node": true
-  },
+  "extends": "@openagenda",
+
   "parserOptions": {
-    "ecmaVersion": 8,
-    "sourceType": "module"
+    "sourceType": "script"
   },
+
   "rules": {
-    "no-var" : [ "error" ],
-    "prefer-const" : [ "error", {
-      "destructuring": "any",
-      "ignoreReadBeforeAssign": false
-    } ],
-    "object-shorthand" : [ "error" ]
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "test/**/*.js",
+          "testconfig.sample.js"
+        ]
+      }
+    ]
   }
 }

@@ -1,19 +1,19 @@
 'use strict';
 
-const _ = require('lodash');
 const assert = require('assert');
+const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
+const Service = require('..');
 
-describe('agenda-locations - functional - get', function() {
+describe('agenda-locations - functional - get', function () {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -28,24 +28,30 @@ describe('agenda-locations - functional - get', function() {
       Files: Files(dConfig.files),
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
-        getAgendaDetailsByUid: async (uid, fields = []) => _.pick({
-          id: ({
-            7196947: 25221
-          })[uid],
-          locationSetUid: ({
-            7196947: 1903810
-          })[uid]
-        }, fields),
-        getEventCounts: async (locationUids, { agendaUid }) => [{
-          uid: 60763721,
-          eventCount: 12,
-          agendaEventCount: 8
-        }, {
-          uid: 51665985,
-          eventCount: 9,
-          agendaEventCount: 2
-        }]
-      }
+        getAgendaDetailsByUid: async (uid, fields = []) => _.pick(
+          {
+            id: {
+              7196947: 25221,
+            }[uid],
+            locationSetUid: {
+              7196947: 1903810,
+            }[uid],
+          },
+          fields
+        ),
+        getEventCounts: async (locationUids, { agendaUid }) => [
+          {
+            uid: 60763721,
+            eventCount: 12,
+            agendaEventCount: 8,
+          },
+          {
+            uid: 51665985,
+            eventCount: 9,
+            agendaEventCount: 2,
+          },
+        ],
+      },
     });
   });
 
@@ -83,7 +89,6 @@ describe('agenda-locations - functional - get', function() {
   });
 
   describe('other', () => {
-
     it('uid can be provided within object', async () => {
       const location = await svc.get({ uid: 51665985 });
 
@@ -91,7 +96,10 @@ describe('agenda-locations - functional - get', function() {
     });
 
     it('get specific fields only', async () => {
-      const location = await svc.get({ uid: 51665985 }, { includeFields: ['name'] });
+      const location = await svc.get(
+        { uid: 51665985 },
+        { includeFields: ['name'] }
+      );
       assert.deepEqual(Object.keys(location), ['name']);
     });
 
@@ -123,20 +131,15 @@ describe('agenda-locations - functional - get', function() {
     });
 
     it('when includeImagePath is provided, image path is in image value', async () => {
-      const {
-        image
-      } = await svc.get(51665985, { includeImagePath: true });
+      const { image } = await svc.get(51665985, { includeImagePath: true });
 
       assert.ok(image.split('/').length > 1);
     });
 
     it('if extId is stored in store, it is loaded', async () => {
-      const {
-        extId
-      } = await svc.get(87202261);
+      const { extId } = await svc.get(87202261);
 
       assert.equal(extId, 'ard_leg_01');
     });
-
   });
 });

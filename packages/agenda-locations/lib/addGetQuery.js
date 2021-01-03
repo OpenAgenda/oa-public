@@ -1,25 +1,25 @@
 'use strict';
 
-const BadRequestError = require('./BadRequestError');
 const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
 
-schema.register({
-  integer: require('@openagenda/validators/integer')
-});
+schema.register({ integer });
+
+const BadRequestError = require('./BadRequestError');
 
 const validate = schema({
   agendaUid: {
-    type: 'integer'
+    type: 'integer',
   },
   setUid: {
-    type: 'integer'
+    type: 'integer',
   },
   extId: {
-    type: 'text'
+    type: 'text',
   },
   uid: {
-    type: 'integer'
-  }
+    type: 'integer',
+  },
 });
 
 module.exports = async (service, k, query) => {
@@ -35,15 +35,14 @@ module.exports = async (service, k, query) => {
   }
 
   const {
-    setUid,
-    agendaUid,
-    uid,
-    extId
+    setUid, agendaUid, uid, extId
   } = cleanQuery;
 
-  const agendaId = agendaUid ? await service.interfaces
-    .getAgendaDetailsByUid(agendaUid, ['id'])
-    .then(r => r ? r.id : null) : null;
+  const agendaId = agendaUid
+    ? await service.interfaces
+      .getAgendaDetailsByUid(agendaUid, ['id'])
+      .then(r => (r ? r.id : null))
+    : null;
 
   if (agendaId) {
     k.where('agenda_id', agendaId);
@@ -58,4 +57,4 @@ module.exports = async (service, k, query) => {
   } else {
     k.where('uid', uid);
   }
-}
+};

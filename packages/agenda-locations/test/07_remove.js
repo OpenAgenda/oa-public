@@ -1,19 +1,19 @@
 'use strict';
 
-const _ = require('lodash');
 const assert = require('assert');
+const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
+const Service = require('..');
 
-describe('agenda-locations - functional - remove', function() {
+describe('agenda-locations - functional - remove', function () {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -30,14 +30,14 @@ describe('agenda-locations - functional - remove', function() {
       Files: Files(dConfig.files),
       interfaces: {
         getAgendaDetailsByUid: async uid => ({
-          id: ({
-            7196947: 25221
-          })[uid]
+          id: {
+            7196947: 25221,
+          }[uid],
         }),
         beforeRemove: async l => {
           passedToInterface = l;
-        }
-      }
+        },
+      },
     });
   });
 
@@ -53,7 +53,10 @@ describe('agenda-locations - functional - remove', function() {
     });
 
     it('removed location is no longer present in db', async () => {
-      const entry = await f.client('location').first().where('uid', removed.uid);
+      const entry = await f
+        .client('location')
+        .first()
+        .where('uid', removed.uid);
 
       assert.ok(entry === undefined);
     });
@@ -75,10 +78,12 @@ describe('agenda-locations - functional - remove', function() {
     });
 
     it('removed location is no longer present in db', async () => {
-      const entry = await f.client('location').first().where('uid', removed.uid);
+      const entry = await f
+        .client('location')
+        .first()
+        .where('uid', removed.uid);
 
       assert.ok(entry === undefined);
     });
   });
-
 });

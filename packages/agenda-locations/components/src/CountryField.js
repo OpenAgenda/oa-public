@@ -4,49 +4,45 @@ import Select from 'react-select';
 
 import countries from '@openagenda/countries/labels.js';
 
-module.exports = createReactClass( {
-
+module.exports = createReactClass({
   getDefaultProps() {
-
     return {
-      enabled: true
-    }
-
+      enabled: true,
+    };
   },
 
   extractCountryNames() {
-
-    return countries.map( c => {
-
+    return countries.map(c => {
       return {
         value: c.code,
-        label: c[ this.props.lang ]
-      }
-
-    } );
-
+        label: c[this.props.lang],
+      };
+    });
   },
 
-  onChange( code ) {
-
-    this.props.onChange( 'countryCode', code );
-
+  onChange(code) {
+    this.props.onChange('countryCode', code);
   },
 
-  render() {
-
+  render() {
     const options = this.extractCountryNames();
     const value = options.find(option => option.value === this.props.value);
 
     const selectStyles = {
       menu: provided => ({
         ...provided,
-        zIndex: 1042
-      })
+        zIndex: 1042,
+      }),
     };
 
     return (
-      <div className={this.props.enabled ? 'form-group country' : 'form-group country disabled'}>
+      <div
+        className={
+          this.props.enabled
+            ? 'form-group country'
+            : 'form-group country disabled'
+        }
+      >
         <label>{this.props.getLabel('country')}</label>
         <Select
           styles={selectStyles}
@@ -58,7 +54,5 @@ module.exports = createReactClass( {
         />
       </div>
     );
-
-  }
-
-} );
+  },
+});

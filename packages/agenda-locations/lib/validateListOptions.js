@@ -1,72 +1,74 @@
 'use strict';
 
-const fields = require('./fields.json');
-
 const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
 const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
 const pass = require('@openagenda/validators/pass');
 
+const fields = require('./fields.json');
+
 schema.register({
   boolean,
   integer,
   choice,
-  pass
+  pass,
 });
 
 const validate = schema({
   total: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   eventCounts: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   detailed: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeFields: {
     type: 'choice',
-    options: fields.map(f => f.field)
+    options: fields.map(f => f.field),
   },
   includeImagePath: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   context: {
     agendaUid: {
       type: 'integer',
-      default: null
+      default: null,
     },
     setUid: {
       type: 'integer',
-      default: null
-    }
+      default: null,
+    },
   },
   stream: {
     default: false,
-    type: 'pass'
-  }
+    type: 'pass',
+  },
 });
 
 const validateStreamOptions = schema({
   highWaterMark: {
     type: 'integer',
-    default: 20
-  }
+    default: 20,
+  },
 });
 
 module.exports = values => {
   const clean = validate(values);
 
   if (clean.stream) {
-    clean.stream = validateStreamOptions(typeof clean.stream === 'boolean' ? {} : clean.stream)
+    clean.stream = validateStreamOptions(
+      typeof clean.stream === 'boolean' ? {} : clean.stream
+    );
   } else {
     clean.stream = false;
   }
 
   return clean;
-}
+};

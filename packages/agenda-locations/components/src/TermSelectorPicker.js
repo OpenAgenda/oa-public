@@ -5,10 +5,8 @@ import createReactClass from 'create-react-class';
 import TermSelector from './TermSelector';
 import Select from 'react-select';
 
-module.exports = createReactClass( {
-
+module.exports = createReactClass({
   propTypes: {
-
     value: PropTypes.object,
 
     lang: PropTypes.string,
@@ -23,8 +21,7 @@ module.exports = createReactClass( {
     // labels for the field listed
     labels: PropTypes.object,
 
-    onChange: PropTypes.func
-
+    onChange: PropTypes.func,
   },
 
   /**
@@ -32,101 +29,81 @@ module.exports = createReactClass( {
    * should be the last ( smallest ) of possibles
    * that has a value set
    */
-  getField: function() {
-
-    var possibles = Object.keys( this.props.fields );
+  getField: function () {
+    var possibles = Object.keys(this.props.fields);
 
     for (var i = possibles.length - 1; i >= 0; i--) {
-
-      if ( this.props.value[ possibles[i] ] !== undefined ) {
-
-        return possibles[ i ];
-
+      if (this.props.value[possibles[i]] !== undefined) {
+        return possibles[i];
       }
-
     }
 
-    return this.props.defaultField || possibles[ possibles.length -1 ];
-
+    return this.props.defaultField || possibles[possibles.length - 1];
   },
 
-  getFieldValue: function() {
-
-    return this.props.fields[ this.getField() ];
-
+  getFieldValue: function () {
+    return this.props.fields[this.getField()];
   },
 
-  getDefaultProps: function() {
-
+  getDefaultProps: function () {
     return {
-      lang: 'en'
-    }
-
+      lang: 'en',
+    };
   },
 
-  getFieldOptions: function() {
-
+  getFieldOptions: function () {
     var self = this;
 
-    return Object.keys( this.props.fields )
-
-    .map( function( f ) {
-
-      let label = self.props.labels[ f ];
+    return Object.keys(this.props.fields)
+    .map(function (f) {
+      let label = self.props.labels[f];
 
       return {
         value: f,
-        label: _.get( label, self.props.lang, label[ _.first( _.keys( label ) ) ] )
-      }
-
-    } )
-
+        label: _.get(label, self.props.lang, label[_.first(_.keys(label))]),
+      };
+    });
   },
 
-  onChangeField: function( field ) {
-
+  onChangeField: function (field) {
     var value = {};
 
-    value[ field ] = null;
+    value[field] = null;
 
-    this.props.onChange( value );
-
+    this.props.onChange(value);
   },
 
-  onChange: function( value ) {
-
+  onChange: function (value) {
     var clean = {};
 
-    this.getFieldValue().split( ',' ).forEach( function( f ) {
+    this.getFieldValue()
+      .split(',')
+      .forEach(function (f) {
+        clean[f] = (value || {})[f] || '';
+      });
 
-      clean[ f ] = ( value || {} )[ f ] || '';
-
-    } );
-
-    this.props.onChange( clean );
-
+    this.props.onChange(clean);
   },
 
-  render: function() {
-
+  render: function () {
     const selectStyles = {
       container: provided => ({
         ...provided,
         display: 'inline-block',
-        width: '100px'
+        width: '100px',
       }),
       control: provided => ({
         ...provided,
         borderRadius: '4px 0 0 4px',
         borderRight: 'none',
-        background: '#eee'
+        background: '#eee',
       }),
       indicatorsContainer: () => ({
-        display: 'none'
-      })
+        display: 'none',
+      }),
     };
     const options = this.getFieldOptions();
-    const value = options.find(option => option.value === this.getField())
+    const value = options.find(option => option.value === this.getField());
 
     return (
       <div className="picked-terms-selector">
@@ -148,7 +125,5 @@ module.exports = createReactClass( {
         />
       </div>
     );
-
-  }
-
-} );
+  },
+});

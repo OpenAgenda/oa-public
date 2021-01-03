@@ -1,46 +1,55 @@
 'use strict';
 
 const _ = require('lodash');
+
 const schema = require('@openagenda/validators/schema');
-const streamValidator = require('@openagenda/validators/stream');
-const validateStream = streamValidator({ optional: false });
+const stream = require('@openagenda/validators/stream');
+const email = require('@openagenda/validators/email');
+const integer = require('@openagenda/validators/integer');
+const link = require('@openagenda/validators/link');
+const longitude = require('@openagenda/validators/longitude');
+const latitude = require('@openagenda/validators/latitude');
+const pass = require('@openagenda/validators/pass');
+const phone = require('@openagenda/validators/phone');
+const text = require('@openagenda/validators/text');
+const multilingual = require('@openagenda/validators/multilingual');
+
 schema.register({
-  email: require('@openagenda/validators/email'),
-  integer: require('@openagenda/validators/integer'),
-  link: require('@openagenda/validators/link'),
-  longitude: require('@openagenda/validators/longitude'),
-  latitude: require('@openagenda/validators/latitude'),
-  pass: require('@openagenda/validators/pass'),
-  phone: require('@openagenda/validators/phone'),
-  text: require('@openagenda/validators/text'),
-  stream: streamValidator,
-  multilingual: require('@openagenda/validators/multilingual')
+  email,
+  integer,
+  link,
+  longitude,
+  latitude,
+  pass,
+  phone,
+  text,
+  stream,
+  multilingual,
 });
+
+const validateStream = stream({ optional: false });
 
 const ValidationError = require('./ValidationError');
 
 const fields = require('./fields.json');
 
-const omitStringImage = v => typeof v.image === 'string' ? _.omit(v, ['image']) : v;
-
-const validate = schema(fields
-  .filter(field => {
-    // keep this basic for now.
-    return field.write.includes('contributor')
-  })
-  .reduce((schema, field) => ({
-    ...schema,
-    [field.field]: _.omit(field, ['field', 'db', 'read'])
-  }), {}));
+const validate = schema(
+  fields
+    .filter(field => field.write.includes('contributor'))
+    .reduce(
+      (sch, field) => ({
+        ...sch,
+        [field.field]: _.omit(field, ['field', 'db', 'read']),
+      }),
+      {}
+    )
+);
 
 module.exports = (values, options = {}) => {
-  const {
-    isPatch,
-    ignoreImage
-  } = {
+  const { isPatch, ignoreImage } = {
     isPatch: false,
     ignoreImage: false,
-    ...options
+    ...options,
   };
 
   const fn = isPatch ? validate.part.bind(null, Object.keys(values)) : validate;
@@ -59,4 +68,4 @@ module.exports.isStream = v => {
     return false;
   }
   return true;
-}
+};

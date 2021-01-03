@@ -125,7 +125,8 @@
   "db": "store",
   "read": ["internal", "public"],
   "write": ["internal", "administrator", "moderator", "contributor"],
-  "type": "stream"
+  "type": "stream",
+  "allowNull": true
 }, {
   "field": "description",
   "optional": true,

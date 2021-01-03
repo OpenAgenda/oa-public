@@ -1,8 +1,10 @@
 'use strict';
 
 const flatLabel = (label, preferredLang) => {
-  return typeof label === 'string' ? label : (label[preferredLang] || label[Object.keys(label)]);
-}
+  return typeof label === 'string'
+    ? label
+    : label[preferredLang] || label[Object.keys(label)];
+};
 
 export default (tagSet, lang) => {
   return {
@@ -12,8 +14,8 @@ export default (tagSet, lang) => {
       name: flatLabel(g.name, lang),
       tags: g.tags.map(t => ({
         ...t,
-        label: flatLabel(t.label, lang)
-      }))
-    }))
-  }
-}
+        label: flatLabel(t.label, lang),
+      })),
+    })),
+  };
+};

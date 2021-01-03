@@ -7,4 +7,4 @@ module.exports = class BadRequest extends Error {
     this.statusCode = 400;
     this.detail = detail;
   }
-}
+};

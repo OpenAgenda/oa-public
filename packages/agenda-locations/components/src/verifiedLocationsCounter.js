@@ -6,96 +6,78 @@
  * element
  */
 
-"use strict";
+'use strict';
 
 const _ = {
-  extend: require( 'lodash/extend' )
+  extend: require('lodash/extend'),
 };
-const createReactClass = require( 'create-react-class' );
-const React = require( 'react' );
-const ReactDom = require( 'react-dom' );
+const createReactClass = require('create-react-class');
+const React = require('react');
+const ReactDom = require('react-dom');
 
-const get = require( '@openagenda/utils/get' );
+const get = require('@openagenda/utils/get');
 
 const anchor = 'js_locations_counter';
 
-if ( !window.oa ) window.oa = {};
+if (!window.oa) window.oa = {};
 
-let anchorElem,
+let anchorElem;
+const defaults = {
+  res: '#restocounterresource',
+};
+let Counter;
 
-  defaults = {
-    res: '#restocounterresource'
-  },
+window.addEventListener('load', () => {
+  anchorElem = document.getElementsByClassName(anchor)[0];
 
-  Counter;
-
-window.addEventListener( 'load', () => {
-
-  anchorElem = document.getElementsByClassName( anchor )[ 0 ];
-
-  if ( !_checkReqs() ) return;
+  if (!_checkReqs()) return;
 
   const params = {
-    res: anchorElem.getAttribute( 'data-res' )
+    res: anchorElem.getAttribute('data-res'),
   };
 
-  ReactDom.render( <Counter res={params.res} />, anchorElem );
+  ReactDom.render(<Counter res={params.res} />, anchorElem);
+});
 
-} );
-
-Counter = createReactClass( {
-
+Counter = createReactClass({
   getInitialState() {
-
     window.oa.verifiedLocationsCounter = this.sync;
 
     return {
-      count: null
-    }
-
+      count: null,
+    };
   },
 
   componentWillMount() {
-
     this.sync();
-
   },
 
   sync() {
+    get(this.props.res, (err, result) => {
+      if (err) return console.log('error', err);
 
-    get( this.props.res, ( err, result ) => {
-
-      if ( err ) return console.log( 'error', err );
-
-      this.setState( {
-        count: result.count || null
-      } );
-
-    } );
-
+      this.setState({
+        count: result.count || null,
+      });
+    });
   },
 
   render() {
+    if (!this.state.count) return <span />;
 
-    if ( !this.state.count ) return <span></span>;
-
-    return <span className="badge badge-warning">{ this.state.count }</span>
-
-  }
-
-} );
-
+    return <span className="badge badge-warning">{this.state.count}</span>;
+  },
+});
 
 function _checkReqs() {
-
-  if ( !anchorElem ) {
-
-    console.log( 'error', 'no anchor element was found for verified location counter' );
+  if (!anchorElem) {
+    console.log(
+      'error',
+      'no anchor element was found for verified location counter'
+    );
 
     return false;
-
   }
 
   return true;
-
 }
