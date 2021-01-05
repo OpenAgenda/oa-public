@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import stateMessages from '../messages/states';
 import getLocaleValue from '../utils/getLocaleValue';
+import { dateRanges } from '@openagenda/react-filters';
 
 const defaultOptions = {
   standards: true,
@@ -39,11 +40,28 @@ export default function useFilters(
   );
 
   return useMemo(() => {
+    const { staticRanges, inputRanges } = dateRanges(intl);
+
     const standardFilters = standards
       ? [
-        { name: 'timings', type: 'dateRange' },
-        { name: 'createdAt', type: 'dateRange' },
-        { name: 'updatedAt', type: 'dateRange' },
+        {
+          name: 'timings',
+          type: 'dateRange',
+          staticRanges,
+          inputRanges
+        },
+        {
+          name: 'createdAt',
+          type: 'dateRange',
+          staticRanges,
+          inputRanges
+        },
+        {
+          name: 'updatedAt',
+          type: 'dateRange',
+          staticRanges,
+          inputRanges
+        },
         {
           name: 'state',
           type: 'radio',
