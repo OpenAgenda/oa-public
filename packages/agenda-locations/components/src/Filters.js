@@ -9,6 +9,7 @@ class Filters extends Component {
     query: PropTypes.object.isRequired,
   };
 
+class Filters extends Component {
   getFilterList() {
     const {
       query
