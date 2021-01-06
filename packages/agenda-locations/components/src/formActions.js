@@ -15,72 +15,6 @@ const alternativeFields = [
   'countryCode',
 ];
 
-module.exports = actions;
-
-module.exports.tests = {
-  initialize,
-  loadAlternative,
-  loadTagAlternative,
-  checkLanguage,
-  startPageSpin,
-  stopPageSpin,
-  showExtId,
-};
-
-function actions(options) {
-  let { getState, setState } = utils.extend(
-    {
-      setState: function () {}, // state setter
-      getState: function () {},
-    },
-    options
-  );
-
-  return {
-    // not actually an action
-    getState,
-
-    initialize,
-
-    loadAlternative: assign(loadAlternative),
-
-    loadTagAlternative: assign(loadTagAlternative),
-
-    checkLanguage: assign(checkLanguage),
-
-    sourceLanguageChange: assign(sourceLanguageChange),
-
-    startPageSpin: assign(startPageSpin),
-
-    stopPageSpin: assign(stopPageSpin),
-
-    setError: assign(setError),
-
-    setStart: assign(setStart),
-
-    setErrorResponse: assign(setErrorResponse),
-
-    setSuccess: assign(setSuccess),
-
-    showExtId: assign(showExtId),
-  };
-
-  /**
-   * simplifies stateless testing. calls
-   * input function by prepending current state
-   * and applies value as new state
-   */
-
-  function assign(fn) {
-    return function (...args) {
-      let state = getState(),
-        newState = fn(...[state].concat(args));
-
-      setState(newState);
-    };
-  }
-}
-
 function initialize(props) {
   const state = {
     location: {},
@@ -155,8 +89,8 @@ function initialize(props) {
  */
 
 function loadTagAlternative(state, tag, check) {
-  let changes = {},
-    isChecked = state.location.tags.filter(t => t.id === tag.id).length;
+  const changes = {};
+  const isChecked = state.location.tags.filter(t => t.id === tag.id).length;
 
   if (check && !isChecked) {
     changes.location = {
@@ -201,7 +135,7 @@ function setErrorResponse(state, message) {
 }
 
 function setSuccess(state, location) {
-  let change = {
+  const change = {
     loadingError: false,
     pageSpin: false,
   };
@@ -265,7 +199,7 @@ function loadAlternative(
     lang = false;
   }
 
-  let updated = {
+  const updated = {
     location: {},
     activeAlternatives: {},
   };
@@ -298,3 +232,69 @@ function loadAlternative(
 
   return update(state, updated);
 }
+
+function actions(options) {
+  const { getState, setState } = utils.extend(
+    {
+      setState() {}, // state setter
+      getState() {},
+    },
+    options
+  );
+
+  /**
+   * simplifies stateless testing. calls
+   * input function by prepending current state
+   * and applies value as new state
+   */
+
+  function assign(fn) {
+    return (...args) => {
+      const state = getState();
+      const newState = fn(...[state].concat(args));
+
+      setState(newState);
+    };
+  }
+
+  return {
+    // not actually an action
+    getState,
+
+    initialize,
+
+    loadAlternative: assign(loadAlternative),
+
+    loadTagAlternative: assign(loadTagAlternative),
+
+    checkLanguage: assign(checkLanguage),
+
+    sourceLanguageChange: assign(sourceLanguageChange),
+
+    startPageSpin: assign(startPageSpin),
+
+    stopPageSpin: assign(stopPageSpin),
+
+    setError: assign(setError),
+
+    setStart: assign(setStart),
+
+    setErrorResponse: assign(setErrorResponse),
+
+    setSuccess: assign(setSuccess),
+
+    showExtId: assign(showExtId),
+  };
+}
+
+module.exports = actions;
+
+module.exports.tests = {
+  initialize,
+  loadAlternative,
+  loadTagAlternative,
+  checkLanguage,
+  startPageSpin,
+  stopPageSpin,
+  showExtId,
+};

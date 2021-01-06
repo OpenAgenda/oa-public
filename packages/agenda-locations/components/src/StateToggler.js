@@ -26,6 +26,6 @@ module.exports = createReactClass({
           )}
         </span>
       </div>
-    );
+    );n 
   },
 });
