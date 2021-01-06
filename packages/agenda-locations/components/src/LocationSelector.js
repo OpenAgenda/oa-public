@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import labels from '@openagenda/labels/agenda-locations/selector';
 import createLabels from '@openagenda/labels/agenda-locations/create';
 import LocationForm from './LocationForm';
@@ -32,6 +31,18 @@ class LocationSelector extends Component {
     };
   }
 
+  onSelect(confirmRequired, location) {
+    this.props.onChange(confirmRequired ? 'confirm' : 'show', location);
+  }
+
+  onConfirm() {
+    this.props.onChange('show', this.props.location);
+  }
+
+  onCreateRequest(value) {
+    this.props.onChange('create', { name: value });
+  }
+
   getLabel(name, values) {
     const label = labels[name];
 
@@ -45,18 +56,6 @@ class LocationSelector extends Component {
     }
 
     return str;
-  }
-
-  onSelect(confirmRequired, location) {
-    this.props.onChange(confirmRequired ? 'confirm' : 'show', location);
-  }
-
-  onConfirm() {
-    this.props.onChange('show', this.props.location);
-  }
-
-  onCreateRequest(value) {
-    this.props.onChange('create', { name: value });
   }
 
   switchToSearch() {
@@ -153,9 +152,9 @@ class LocationSelector extends Component {
     const renderComponent = () => {
       if (mode === 'search') {
         return this.renderSearch();
-      } else if (mode === 'create') {
+      } if (mode === 'create') {
         return this.renderCreateForm();
-      } else if (mode === 'confirm') {
+      } if (mode === 'confirm') {
         return this.renderConfirmation();
       }
       return this.renderSelected();

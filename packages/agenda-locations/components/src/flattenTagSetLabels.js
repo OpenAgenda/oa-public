@@ -1,13 +1,13 @@
 'use strict';
 
-const flatLabel = (label, preferredLang) => {
-  return typeof label === 'string'
+const flatLabel = (label, preferredLang) => (
+  typeof label === 'string'
     ? label
-    : label[preferredLang] || label[Object.keys(label)];
-};
+    : label[preferredLang] || label[Object.keys(label)]
+);
 
-export default (tagSet, lang) => {
-  return {
+export default (tagSet, lang) => (
+  {
     ...tagSet,
     groups: tagSet.groups.map(g => ({
       ...g,
@@ -17,5 +17,5 @@ export default (tagSet, lang) => {
         label: flatLabel(t.label, lang),
       })),
     })),
-  };
-};
+  }
+);

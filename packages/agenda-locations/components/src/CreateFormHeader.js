@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import utils from '@openagenda/utils';
 import createLabels from '@openagenda/labels/agenda-locations/create';
 import formLabels from '@openagenda/labels/agenda-locations/form';
@@ -8,12 +7,11 @@ import makeLabelGetter from '@openagenda/labels';
 
 var getLabel = makeLabelGetter(utils.extend({}, formLabels, createLabels));
 
-module.exports = createReactClass({
-  propTypes: {
-    lang: PropTypes.string,
-    actions: PropTypes.object,
-    settings: PropTypes.object,
-  },
+
+class CreateFormHeader extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   getLabel(name) {
     let str;
@@ -30,7 +28,7 @@ module.exports = createReactClass({
     }
 
     return str;
-  },
+  }
 
   render() {
     return (
@@ -45,5 +43,13 @@ module.exports = createReactClass({
         <span className="info">{this.getLabel('info', this.props.lang)}</span>
       </div>
     );
-  },
-});
+  }
+}
+
+CreateFormHeader.propTypes = {
+    lang: PropTypes.string,
+    actions: PropTypes.object,
+    settings: PropTypes.object,
+}
+
+export default CreateFormHeader;
