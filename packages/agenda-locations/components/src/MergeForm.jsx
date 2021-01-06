@@ -77,7 +77,5 @@ module.exports = createReactClass( {
 } );
 
 function log() {
-
   console.log.apply( console, arguments );
-
 }

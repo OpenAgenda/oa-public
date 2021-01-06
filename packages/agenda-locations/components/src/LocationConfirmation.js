@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
-import extraGeoFields from './extraGeoFields';
-
 import makeLabelGetter from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-locations/form';
 import confirmationLabels from '@openagenda/labels/agenda-locations/confirmation';
+
+import extraGeoFields from './extraGeoFields';
+import flattenTagSetLabels from './flattenTagSetLabels';
 
 const SIZE = {
   W: 500,
@@ -14,25 +15,23 @@ const SIZE = {
 const getFormLabel = makeLabelGetter(labels);
 const getLabel = makeLabelGetter(confirmationLabels);
 
-import flattenTagSetLabels from './flattenTagSetLabels';
+const getPreferredLang = (obj, lang) => (
+  (Object.keys(obj || {}).includes(lang)
+    ? lang
+    : Object.keys(obj || {}).pop()) || lang
+);
 
-const getPreferredLang = (obj, lang) => {
-  return (
-    (Object.keys(obj || {}).includes(lang)
-      ? lang
-      : Object.keys(obj || {}).pop()) || lang
-  );
-};
-const getExistingLangs = location => {
-  return ['description', 'access'].reduce((langs, field) => {
+const getExistingLangs = location => (
+  ['description', 'access'].reduce((langs, field) => {
     for (const fieldLang of Object.keys(location[field] || {})) {
       if (!langs.includes(fieldLang)) {
         langs.push(fieldLang);
       }
     }
     return langs;
-  }, []);
-};
+  }, [])
+);
+
 
 const staticLink = (location, mapboxKey) =>
   `https://api.tiles.mapbox.com/v4/foursquare.meku766r/pin-m-circle+41acdd(${location.longitude},${location.latitude})/${location.longitude},${location.latitude},14/${SIZE.W}x${SIZE.H}.png?access_token=${mapboxKey}`;
@@ -72,6 +71,7 @@ class LocationConfirmation extends Component {
 
     return (
       <div>
+        <h1>THIS</h1>
         <div className="margin-top-md">
           <label>{getLabel('guide', lang)}</label>
           <p>{getLabel('guideDetail', lang)}</p>

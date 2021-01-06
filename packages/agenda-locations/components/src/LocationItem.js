@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class LocationItem extends Component {
-  isInMergeSelection() {
-    return (
-      this.props.merge.locationUids.indexOf(this.props.location.uid) !== -1
-    );
-  }
-
   onRemove(e) {
     e.stopPropagation();
     this.props.onRemove();
+  }
+
+  isInMergeSelection() {
+    const { merge, location } = this.props;
+    return (
+      merge.locationUids.indexOf(location.uid) !== -1
+    );
+  }
+
+  seeEvents(e) {
+    e.stopPropagation();
+    window.location.href = this.props.seeEventsRes.replace(
+      ':locationUid',
+      this.props.location.uid
+    );
   }
 
   renderMergeCheckbox() {
@@ -24,14 +33,6 @@ class LocationItem extends Component {
           />
         </label>
       </div>
-    );
-  }
-
-  seeEvents(e) {
-    e.stopPropagation();
-    window.location.href = this.props.seeEventsRes.replace(
-      ':locationUid',
-      this.props.location.uid
     );
   }
 

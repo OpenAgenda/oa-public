@@ -1,76 +1,83 @@
-'use strict';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-const React = require('react');
-const PropTypes = require('prop-types');
-const createReactClass = require('create-react-class');
-
-module.exports = createReactClass({
-  props: {
-    query: PropTypes.object,
-    onQueryChange: PropTypes.func,
-    getLabel: PropTypes.func,
-    locations: PropTypes.array,
-  },
-
+class Filters extends Component {
   getFilterList() {
-    const arrayQuery = [];
+    const {
+      query
+    } = this.props;
 
-    for (const i in this.props.query) {
-      arrayQuery.push({ key: i, value: this.props.query[i] });
-    }
+    if (!query) return [];
 
-    return arrayQuery;
-  },
-
-  removeItem(f) {
-    const query = {};
-
-    for (const i in this.props.query) {
-      if (f !== i) {
-        query[i] = this.props.query[i];
-      }
-    }
-
-    this.props.onQueryChange(query);
-  },
+    return Object.keys(query).reduce((carry, key) => carry.concat({
+      key,
+      value: query[key]
+    }), []);
+  }
 
   getLabel(field, value) {
-    if (field == 'state') {
-      return this.props.getLabel('verify');
-    } if (field == 'uids') {
-      const selected = this.props.locations
+    const {
+      locations,
+      getLabel
+    } = this.props;
+
+    if (field === 'state') {
+      return getLabel('verify');
+    } if (field === 'uids') {
+      const selected = locations
 
         .filter(l => value.indexOf(l.uid) !== -1)
 
         .map(l => l.name);
 
       if (selected.length > 4 || !selected.length) {
-        return this.props.getLabel('locationselection');
+        return getLabel('locationselection');
       }
       return selected.join(', ');
     }
 
     return value;
-  },
+  }
+
+  removeItem(f) {
+    const { query, onQueryChange } = this.props;
+    const rQuery = {};
+
+    for (const i in query) {
+      if (f !== i) {
+        rQuery[i] = query[i];
+      }
+    }
+    onQueryChange(rQuery);
+  }
 
   renderItem(f) {
     return (
       <li
         key={f.key}
         className="btn btn-default filter-item"
-        onClick={this.removeItem.bind(null, f.key)}
+        onClick={this.removeItem.bind(this, f.key)}
       >
         <span>{this.getLabel(f.key, f.value)}</span>
         <a>&#10005;</a>
       </li>
     );
-  },
+  }
 
   render() {
     return (
       <ul className="list-unstyled">
-        {this.getFilterList().map(this.renderItem)}
+        {this.getFilterList().map(this.renderItem.bind(this))}
       </ul>
     );
-  },
-});
+  }
+}
+
+Filters.propTypes = {
+  query: PropTypes.object,
+  onQueryChange: PropTypes.func,
+  getLabel: PropTypes.func,
+  locations: PropTypes.array
+};
+
+export default Filters;

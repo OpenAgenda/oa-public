@@ -13,82 +13,6 @@ function _syncCounter() {
   }, 1000);
 }
 
-module.exports = actions;
-
-module.exports.updateSearchQuery = updateSearchQuery;
-
-module.exports.tests = {
-  updateEditedLocation,
-  addLocation,
-  newLocation,
-  closeForm,
-  closeMerge,
-  toggleMerge,
-  toggleMergeItem,
-  launchMerge,
-  updateLocationList,
-  editLocation,
-  removedLocation,
-  getQuery,
-  queryChange,
-  displayRemoveConfirmModal,
-  closeModal,
-};
-
-function actions(options) {
-  let { getState, setState } = utils.extend(
-    {
-      setState: function () {}, // state setter
-      getState: function () {},
-    },
-    options
-  );
-
-  return {
-    // not actually an action
-    getState,
-
-    editLocation: assign(editLocation),
-
-    updateEditedLocation: assign(updateEditedLocation),
-    newLocation: assign(newLocation),
-    addLocation: assign(addLocation),
-    removedLocation: assign(removedLocation),
-    closeForm: assign(closeForm),
-
-    closeMerge: assign(closeMerge),
-    toggleMerge: assign(toggleMerge),
-    launchMerge: assign(launchMerge),
-
-    updateLocationList: assign(updateLocationList),
-    toggleMergeItem: assign(toggleMergeItem),
-
-    queryChange: assign(queryChange),
-
-    getQuery,
-
-    displayRemoveConfirmModal: assign(displayRemoveConfirmModal),
-    closeModal: assign(closeModal),
-  };
-
-  /**
-   * simplifies stateless testing. calls
-   * input function by prepending current state
-   * and applies value as new state
-   */
-
-  function assign(fn) {
-    return function (...args) {
-      let state = getState(),
-        newState = fn(...[state].concat(args));
-
-      setState(newState);
-
-      return newState;
-    };
-  }
-}
-
 function removedLocation(state, index) {
   _syncCounter();
 
@@ -106,8 +30,8 @@ function editLocation(state, location, locationIndex) {
   return update(state, {
     form: {
       $set: {
-        location: location,
-        locationIndex: locationIndex,
+        location,
+        locationIndex,
       },
     },
   });
@@ -124,7 +48,7 @@ function updateLocationList(state, locations, total, page) {
 }
 
 function closeForm(state, location) {
-  let updatedState = {
+  const updatedState = {
     locations: {},
   };
 
@@ -162,10 +86,10 @@ function addLocation(state, location) {
  */
 
 function toggleMergeItem(state, location) {
-  let locationUids = state.merge.locationUids.concat(),
-    index = locationUids.indexOf(location.uid);
+  const locationUids = state.merge.locationUids.concat();
+  const index = locationUids.indexOf(location.uid);
 
-  if (index == -1) {
+  if (index === -1) {
     locationUids.push(location.uid);
   } else {
     locationUids.splice(index, 1);
@@ -173,7 +97,7 @@ function toggleMergeItem(state, location) {
 
   return {
     merge: {
-      locationUids: locationUids,
+      locationUids,
     },
   };
 }
@@ -183,7 +107,7 @@ function toggleMergeItem(state, location) {
  * Optionnally, close the form
  */
 function updateEditedLocation(state, location, closeForm) {
-  let updatedState = {
+  const updatedState = {
     locations: {},
   };
 
@@ -234,17 +158,16 @@ function toggleMerge(state, on) {
         locationUids: [],
       },
     };
-  } else {
-    return {
-      merge: false,
-    };
   }
+  return {
+    merge: false,
+  };
 }
 
 function updateSearchQuery(current, field, newSearchValue) {
-  var query = JSON.parse(JSON.stringify(current || {}));
+  const query = JSON.parse(JSON.stringify(current || {}));
 
-  if (typeof newSearchValue == 'string' && !newSearchValue.length) {
+  if (typeof newSearchValue === 'string' && !newSearchValue.length) {
     newSearchValue = undefined;
   }
 
@@ -261,7 +184,7 @@ function queryChange(state, query) {
   dl.setQueryPart(query);
 
   return {
-    query: query,
+    query,
   };
 }
 
@@ -275,8 +198,8 @@ function displayRemoveConfirmModal(state, location, index) {
     modal: {
       type: 'removeLocation',
       data: {
-        location: location,
-        index: index,
+        location,
+        index,
       },
     },
   };
@@ -287,3 +210,79 @@ function closeModal(state) {
     modal: false,
   };
 }
+
+function actions(options) {
+  const { getState, setState } = utils.extend(
+    {
+      setState() {}, // state setter
+      getState() {},
+    },
+    options
+  );
+
+  /**
+   * simplifies stateless testing. calls
+   * input function by prepending current state
+   * and applies value as new state
+   */
+
+  function assign(fn) {
+    return (...args) => {
+      const state = getState();
+      const newState = fn(...[state].concat(args));
+
+      setState(newState);
+
+      return newState;
+    };
+  }
+
+  return {
+    // not actually an action
+    getState,
+
+    editLocation: assign(editLocation),
+
+    updateEditedLocation: assign(updateEditedLocation),
+    newLocation: assign(newLocation),
+    addLocation: assign(addLocation),
+    removedLocation: assign(removedLocation),
+    closeForm: assign(closeForm),
+
+    closeMerge: assign(closeMerge),
+    toggleMerge: assign(toggleMerge),
+    launchMerge: assign(launchMerge),
+
+    updateLocationList: assign(updateLocationList),
+    toggleMergeItem: assign(toggleMergeItem),
+
+    queryChange: assign(queryChange),
+
+    getQuery,
+
+    displayRemoveConfirmModal: assign(displayRemoveConfirmModal),
+    closeModal: assign(closeModal),
+  };
+}
+
+export default actions;
+
+module.exports.updateSearchQuery = updateSearchQuery;
+
+module.exports.tests = {
+  updateEditedLocation,
+  addLocation,
+  newLocation,
+  closeForm,
+  closeMerge,
+  toggleMerge,
+  toggleMergeItem,
+  launchMerge,
+  updateLocationList,
+  editLocation,
+  removedLocation,
+  getQuery,
+  queryChange,
+  displayRemoveConfirmModal,
+  closeModal,
+};

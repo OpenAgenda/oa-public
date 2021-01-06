@@ -8,7 +8,6 @@ import get from '@openagenda/utils/get';
 import labels from '@openagenda/labels/agenda-locations/list';
 import { Modal, MoreInfo } from '@openagenda/react-components';
 import SearchField from '@openagenda/react-form-components/build/SearchField';
-import utils from '@openagenda/utils';
 
 import actions from './actions';
 import CreateForm from './CreateForm';
@@ -45,9 +44,8 @@ class AgendaAdminLocations extends Component {
   }
 
   onSearchChange(field, newSearchValue) {
-    if (arguments.length == 1) {
-      newSearchValue = field;
-      field = 'search';
+    if (arguments.length === 1) {
+      this.onSearchChange('search', field);
     }
 
     this.actions.queryChange(
@@ -55,18 +53,32 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  getCountryLabel(code) {
-    if (loaded[code] === undefined) {
-      loaded[code] = countries.getLabel(code);
-    }
-
-    return loaded[code] !== null ? loaded[code][this.props.lang] : null;
+  onRemoveLocation(location, index) {
+    const { res } = this.props;
+    xhr(
+      {
+        uri: res.remove.replace(':locationUid', location.uid),
+        method: 'delete',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Content-Type': 'application/json',
+        },
+      },
+      (err, result) => {
+        if (err || result.statusCode !== 200) {
+          log('error', err || result.statusCode);
+        } else if (JSON.parse(result.body).location) {
+          this.actions.removedLocation(index);
+        }
+      }
+    );
   }
 
   getLabel(name, values) {
     const label = labels[name];
+    const { lang } = this.props;
 
-    let str = _.get(label, this.props.lang, label[_.first(_.keys(label))]);
+    let str = _.get(label, lang, label[_.first(_.keys(label))]);
 
     if (values) {
       let k;
@@ -78,15 +90,83 @@ class AgendaAdminLocations extends Component {
     return str;
   }
 
+  getCountryLabel(code) {
+    const { lang } = this.props;
+    if (loaded[code] === undefined) {
+      loaded[code] = countries.getLabel(code);
+    }
+
+    return loaded[code] !== null ? loaded[code][lang] : null;
+  }
+
+  getMode() {
+    const { form, merge } = this.state;
+    if (!form) {
+      return 'list';
+    }
+
+    if (form.alternatives && merge) {
+      return 'merge';
+    }
+
+    if (form.location) {
+      return 'update';
+    }
+
+    return 'create';
+  }
+
+  launchMerge() {
+    const { res } = this.props;
+    const { merge } = this.state;
+    if (!merge || !merge.locationUids.length) return;
+
+    get(
+      res.index,
+      {
+        uids: merge.locationUids,
+      },
+      (err, result) => {
+        if (err) {
+          log('error', err);
+          return;
+        }
+
+        const { items } = result;
+
+        if (items.length !== merge.locationUids.length) {
+          log('error', 'not all locations to be merged could be found');
+          return;
+        }
+
+        this.actions.launchMerge(items);
+      }
+    );
+  }
+
+  confirmRemove(location, index) {
+    const { res } = this.props;
+    get(
+      res.get.replace(':locationUid', location.uid),
+      { detailed: 1 },
+      (err, location) => {
+        if (err) return console.error(err);
+        this.actions.displayRemoveConfirmModal(location);
+      }
+    );
+  }
+
   renderItem(item, itemActions, itemIndex) {
+    const { res, agenda } = this.props;
+    const { merge } = this.state;
     return (
       <LocationItem
-        merge={this.state.merge}
+        merge={merge}
         key={item.uid}
         location={item}
-        seeEventsRes={this.props.res.seeEvents.replace(
+        seeEventsRes={res.seeEvents.replace(
           ':agendaSlug',
-          this.props.agenda.slug
+          agenda.slug
         )}
         onSelect={
           this.state.merge
@@ -101,92 +181,36 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  confirmRemove(location, index) {
-    get(
-      this.props.res.get.replace(':locationUid', location.uid),
-      { detailed: 1 },
-      (err, location) => {
-        if (err) return console.error(err);
-        this.actions.displayRemoveConfirmModal(location);
-      }
-    );
-  }
-
-  onRemoveLocation(location, index) {
-    xhr(
-      {
-        uri: this.props.res.remove.replace(':locationUid', location.uid),
-        method: 'delete',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Content-Type': 'application/json',
-        },
-      },
-      (err, result) => {
-        if (err || result.statusCode !== 200) {
-          log('error', err || result.statusCode);
-        } else {
-          if (JSON.parse(result.body).location) {
-            this.actions.removedLocation(index);
-          }
-        }
-      }
-    );
-  }
-
-  launchMerge() {
-    if (!this.state.merge || !this.state.merge.locationUids.length) return;
-
-    get(
-      this.props.res.index,
-      {
-        uids: this.state.merge.locationUids,
-      },
-      (err, result) => {
-        if (err) {
-          log('error', err);
-          return;
-        }
-
-        const items = result.items;
-
-        if (items.length !== this.state.merge.locationUids.length) {
-          log('error', 'not all locations to be merged could be found');
-          return;
-        }
-
-        this.actions.launchMerge(items);
-      }
-    );
-  }
-
   renderHead() {
+    const { locations, total } = this.state;
     return (
       <div className="head">
         {Object.keys(this.actions.getQuery()).length ? (
           <Filters
-            locations={this.state.locations}
+            locations={locations}
             query={this.actions.getQuery()}
             getLabel={this.getLabel.bind(this)}
             onQueryChange={this.actions.queryChange}
           />
         ) : null}
-        {this.state.total ? (
-          <p>{this.getLabel('total', { count: this.state.total })}</p>
+        {total ? (
+          <p>{this.getLabel('total', { count: total })}</p>
         ) : null}
-        {this.state.total === 0 ? <p>{this.getLabel('totalzero')}</p> : null}
+        {total === 0 ? <p>{this.getLabel('totalzero')}</p> : null}
       </div>
     );
   }
 
   renderRemoveLocationModal() {
-    const eventCount = this.state.modal.data.location.eventCount;
+    const { modal } = this.state;
+    const { agenda, res } = this.props;
+    const { eventCount } = modal.data.location;
 
-    const seeEventsLink = this.props.res.seeEvents
-      .replace(':agendaSlug', this.props.agenda.slug)
-      .replace(':locationUid', this.state.modal.data.location.uid);
+    const seeEventsLink = res.seeEvents
+      .replace(':agendaSlug', agenda.slug)
+      .replace(':locationUid', modal.data.location.uid);
 
-    const isRemoved = this.state.modal.data.isRemoved;
+    const { isRemoved } = modal.data;
 
     const modalStates = isRemoved
       ? 'removed'
@@ -252,6 +276,7 @@ class AgendaAdminLocations extends Component {
                   </div>
                 </div>
               );
+            default:
           }
         })()}
       </Modal>
@@ -294,7 +319,8 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeAction() {
-    if (this.state.merge) {
+    const { merge } = this.state;
+    if (merge) {
       return (
         <button
           className="btn btn-danger"
@@ -303,32 +329,15 @@ class AgendaAdminLocations extends Component {
           {this.getLabel('cancelmerge')}
         </button>
       );
-    } else {
-      return (
-        <button
-          className="btn btn-default"
-          onClick={this.actions.toggleMerge.bind(null, true)}
-        >
-          {this.getLabel('merge')}
-        </button>
-      );
     }
-  }
-
-  getMode() {
-    if (!this.state.form) {
-      return 'list';
-    }
-
-    if (this.state.form.alternatives && this.state.merge) {
-      return 'merge';
-    }
-
-    if (this.state.form.location) {
-      return 'update';
-    }
-
-    return 'create';
+    return (
+      <button
+        className="btn btn-default"
+        onClick={this.actions.toggleMerge.bind(null, true)}
+      >
+        {this.getLabel('merge')}
+      </button>
+    );
   }
 
   render() {
@@ -351,6 +360,7 @@ class AgendaAdminLocations extends Component {
             <UpdateForm {...this.props} actions={this.actions} />
           </div>
         );
+      default:
     }
 
     return (
@@ -437,11 +447,12 @@ class AgendaAdminLocations extends Component {
           </div>
           {this.state.modal
             ? (() => {
-                switch (this.state.modal.type) {
-                  case 'removeLocation':
-                    return this.renderRemoveLocationModal();
-                }
-              })()
+              switch (this.state.modal.type) {
+                case 'removeLocation':
+                  return this.renderRemoveLocationModal();
+                default:
+              }
+            })()
             : null}
         </div>
       </div>

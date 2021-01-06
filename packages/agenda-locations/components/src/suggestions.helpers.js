@@ -23,14 +23,6 @@ const suggestables = [
   'timezone',
 ];
 
-module.exports = {
-  prepareAlternatives,
-  suggestedTagsDiffer,
-  getSameAsSuggestedTagIds,
-  fieldHasAlternative,
-  getLangAlternatives,
-};
-
 function getLangAlternatives(fieldName, alternatives) {
   return alternatives.reduce((langs, alternative) => {
     if (
@@ -174,3 +166,11 @@ function prepareAlternatives(location, props, labels, suggestionIndex) {
     alternatives: [alternative],
   };
 }
+
+module.exports = {
+  prepareAlternatives,
+  suggestedTagsDiffer,
+  getSameAsSuggestedTagIds,
+  fieldHasAlternative,
+  getLangAlternatives,
+};
