@@ -6,7 +6,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import useFilterTitle from '../../hooks/useFilterTitle';
 import Checkbox from '../fields/Checkbox';
 import Panel from '../Panel';
-import ValuePreview from '../ValuePreview';
+import ValueBadge from '../ValueBadge';
 
 const OPTIONS_PAGE_SIZE = 10;
 
@@ -24,12 +24,32 @@ function formatValue(value) {
   return value;
 }
 
+function DefaultPreviewRenderer({
+  valueOptions,
+  onRemove,
+  disabled,
+  className
+}) {
+  return (
+    <span className={className}>
+      {valueOptions.map(option => (
+        <ValueBadge
+          key={option.value}
+          label={option.label}
+          onRemove={onRemove(option)}
+          disabled={disabled}
+        />
+      ))}
+    </span>
+  );
+}
+
 function Preview({
   name,
   filter,
   getOptions,
-  disabled,
-  className
+  component = DefaultPreviewRenderer,
+  ...rest
 }) {
   const { input } = useField(name, { subscription });
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
@@ -49,17 +69,13 @@ function Preview({
     return null;
   }
 
-  return (
-    <span className={className}>
-      {valueOptions.map(option => (
-        <ValuePreview
-          key={option.value}
-          label={option.label}
-          onRemove={onRemove(option)}
-          disabled={disabled}
-        />
-      ))}
-    </span>
+  return React.createElement(
+    component,
+    {
+      valueOptions,
+      onRemove,
+      ...rest
+    }
   );
 }
 

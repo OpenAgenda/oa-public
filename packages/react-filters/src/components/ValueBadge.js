@@ -1,7 +1,7 @@
 import React from 'react';
 import getLocaleValue from '../utils/getLocaleValue';
 
-export default function ValuePreview({ label, onRemove, disabled }) {
+export default function ValueBadge({ label, onRemove, disabled }) {
   return (
     <div className="badge badge-info">
       {getLocaleValue(label)}

@@ -3,4 +3,4 @@ export { default as MultiChoiceFilter } from './filters/MultiChoiceFilter';
 export { default as Filters } from './Filters';
 export { default as FiltersProvider } from './FiltersProvider';
 export { default as Panel } from './Panel';
-export { default as ValuePreview } from './ValuePreview';
+export { default as ValuePreview } from './ValueBadge';

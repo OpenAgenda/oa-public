@@ -6,7 +6,7 @@ import { useDebouncedCallback } from 'use-debounce';
 import { endOfDay, isSameDay } from 'date-fns';
 import useFilterTitle from '../../hooks/useFilterTitle';
 import Panel from '../Panel';
-import ValuePreview from '../ValuePreview';
+import ValueBadge from '../ValueBadge';
 import DateRangePicker from '../fields/DateRangePicker';
 
 const messages = defineMessages({
@@ -78,8 +78,28 @@ function parseValue(value) {
   };
 }
 
+function DefaultPreviewRenderer({
+  label,
+  onRemove,
+  disabled,
+  className
+}) {
+  return (
+    <span className={className}>
+      <ValueBadge
+        label={label}
+        onRemove={onRemove}
+        disabled={disabled}
+      />
+    </span>
+  );
+}
+
 function Preview({
-  name, staticRanges, disabled, className
+  name,
+  staticRanges,
+  component = DefaultPreviewRenderer,
+  ...rest
 }) {
   const intl = useIntl();
   const { input } = useField(name, { subscription });
@@ -122,14 +142,13 @@ function Preview({
       });
   }
 
-  return (
-    <span className={className}>
-      <ValuePreview
-        label={label}
-        onRemove={onRemove}
-        disabled={disabled}
-      />
-    </span>
+  return React.createElement(
+    component,
+    {
+      label,
+      onRemove,
+      ...rest
+    }
   );
 }
 
