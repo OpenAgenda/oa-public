@@ -18,21 +18,23 @@ async function get(service, identifiers, options = {}) {
     context,
     includeImagePath,
     includeFields,
-    throwOnNotFound
+    throwOnNotFound,
   } = cleanGetOptions(options);
 
   await addGetQuery(service, k, {
     ...cleanGetIdentifiers(identifiers),
-    ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
+    ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
   });
 
   addSelect(k, 'public', { first: true, includeFields });
 
-  const location = await k.then(l => l ? fromDbEntryToItem(l, {
-    includeFields,
-    imagePath: includeImagePath ? service.config.imagePath : null,
-    access: 'public'
-  }): null);
+  const location = await k.then(l => (l
+    ? fromDbEntryToItem(l, {
+      includeFields,
+      imagePath: includeImagePath ? service.config.imagePath : null,
+      access: 'public',
+    })
+    : null));
 
   if (!location) {
     if (throwOnNotFound) {
@@ -60,9 +62,4 @@ module.exports.byAgendaUid = async (
   options = {}
 ) => get(service, identifiers, { ...options, context: { agendaUid } });
 
-module.exports.bySetUid = async (
-  service,
-  setUid,
-  identifiers,
-  options = {}
-) => get(service, identifiers, { ...options, context: { setUid } });
+module.exports.bySetUid = async (service, setUid, identifiers, options = {}) => get(service, identifiers, { ...options, context: { setUid } });

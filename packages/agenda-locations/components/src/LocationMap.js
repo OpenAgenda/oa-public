@@ -1,179 +1,145 @@
-"use strict";
+'use strict';
 
-var React = require( 'react' ),
+var React = require('react');
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
+var L = require('leaflet');
 
-PropTypes = require( 'prop-types' ),
-
-createReactClass = require( 'create-react-class' ),
-
-L = require( 'leaflet' ),
-
-defaults = {
-  tiles: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
+var defaults = {
+  tiles:
+      '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   markerIcon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
-  pos: [ 40, 0 ],
-  iconAnchor: [ 9, 25 ],
+  pos: [40, 0],
+  iconAnchor: [9, 25],
   zoom: 2,
-  focusedZoom: 13
+  focusedZoom: 13,
 };
 
-module.exports = createReactClass( {
-
+module.exports = createReactClass({
   propTypes: {
     enabled: PropTypes.bool,
     resetZoom: PropTypes.bool,
     location: PropTypes.object.isRequired,
     draggableMarker: PropTypes.bool,
     scrollable: PropTypes.bool,
-    onMarkerDragged: PropTypes.func
+    onMarkerDragged: PropTypes.func,
   },
 
-  getDefaultProps: function() {
-
+  getDefaultProps() {
     return {
       enabled: true,
       draggableMarker: false,
       scrollable: true,
-      resetZoom: true
-    }
-
+      resetZoom: true,
+    };
   },
 
-  getInitialState: function() {
-
-    return {}
-
+  getInitialState() {
+    return {};
   },
 
-  isGeolocated: function() {
-
+  isGeolocated() {
     return this.props.location.latitude !== undefined;
-
   },
 
-  componentDidMount: function() {
-
+  componentDidMount() {
     this.initMap();
 
-    if ( this.isGeolocated() ) {
-
+    if (this.isGeolocated()) {
       this.updateMarker();
-
     }
-
   },
 
-  componentDidUpdate: function() {
-
+  componentDidUpdate() {
     this.updateMarker();
-
   },
 
-  initMap: function() {
-
-    var pos = this.getPos(),
-
-    mapOptions = {
+  initMap() {
+    const pos = this.getPos();
+    const mapOptions = {
       scrollWheelZoom: this.props.scrollable && this.props.enabled,
       dragging: this.props.enabled,
       zoomControl: this.props.enabled,
       tap: this.props.enabled,
-      touchZoom: this.props.enabled
+      touchZoom: this.props.enabled,
     };
 
-    if ( this.isGeolocated() ) {
-
-      this.map = L.map( this.mapRef, mapOptions ).setView( pos, this.props.defaultZoom || defaults.focusedZoom );
-
+    if (this.isGeolocated()) {
+      this.map = L.map(this.mapRef, mapOptions).setView(
+        pos,
+        this.props.defaultZoom || defaults.focusedZoom
+      );
     } else {
-
-      this.map = L.map( this.mapRef, mapOptions ).setView( defaults.pos, this.props.defaultZoom || defaults.zoom );
-
+      this.map = L.map(this.mapRef, mapOptions).setView(
+        defaults.pos,
+        this.props.defaultZoom || defaults.zoom
+      );
     }
 
-    L.tileLayer( defaults.tiles, {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    L.tileLayer(defaults.tiles, {
+      attribution:
+        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       tileSize: 512,
-      zoomOffset: -1
-    }).addTo( this.map );
-
+      zoomOffset: -1,
+    }).addTo(this.map);
   },
 
-  updateMarker: function() {
+  updateMarker() {
+    log('updateMarker');
 
-    log( 'updateMarker' );
+    if (!this.isGeolocated()) return;
 
-    if ( !this.isGeolocated() ) return;
+    const pos = this.getPos();
 
-    var pos = this.getPos();
-
-    if ( !this.marker ) {
-
+    if (!this.marker) {
       this.initMarker();
-
     }
 
-    this.marker.setLatLng( pos );
+    this.marker.setLatLng(pos);
 
     const defaultZoom = this.props.defaultZoom || defaults.focusedZoom;
 
-    this.map.setZoom( this.props.resetZoom ? defaultZoom : this.map.getZoom() );
+    this.map.setZoom(this.props.resetZoom ? defaultZoom : this.map.getZoom());
 
-    this.map.setView( pos );
-
+    this.map.setView(pos);
   },
 
-  initMarker: function() {
-
-    var self = this,
-
-    pos = this.getPos(),
-
-    icon = L.icon( {
+  initMarker() {
+    const self = this;
+    const pos = this.getPos();
+    const icon = L.icon({
       iconAnchor: defaults.iconAnchor,
-      iconUrl: defaults.markerIcon
-    } );
+      iconUrl: defaults.markerIcon,
+    });
 
-    this.marker = L.marker( pos, {
-      icon: icon,
-      draggable: this.props.enabled
-    } ).addTo( this.map );
+    this.marker = L.marker(pos, {
+      icon,
+      draggable: this.props.enabled,
+    }).addTo(this.map);
 
-    if ( !this.props.draggableMarker || !this.props.enabled ) return;
+    if (!this.props.draggableMarker || !this.props.enabled) return;
 
-    this.marker.on( 'dragend', function( e ) {
+    this.marker.on('dragend', e => {
+      self.map.panTo(self.marker.getLatLng());
 
-      self.map.panTo( self.marker.getLatLng() );
-
-      setTimeout( function() {
-
-        self.props.onMarkerDragged( {
+      setTimeout(() => {
+        self.props.onMarkerDragged({
           latitude: e.target._latlng.lat,
-          longitude: e.target._latlng.lng
+          longitude: e.target._latlng.lng,
         });
-
-      }, 100 );
-
-    } );
-
+      }, 100);
+    });
   },
 
-  getPos: function() {
-
-    return [ this.props.location.latitude, this.props.location.longitude ];
-
+  getPos() {
+    return [this.props.location.latitude, this.props.location.longitude];
   },
 
-  render: function() {
-
-    return <div className="map" ref={r => this.mapRef = r}></div>
-
-  }
-
-} );
+  render() {
+    return <div className="map" ref={r => (this.mapRef = r)} />;
+  },
+});
 
 function log() {
-
-  //console.log.apply( console, arguments );
-
+  // console.log.apply( console, arguments );
 }

@@ -82,6 +82,21 @@ describe('validate', () => {
     });
   });
 
+  it('legacy: if image is provided as an object that includes null filename, it is considered as null image', () => {
+    const clean = validate({
+      image: {
+        extension: null,
+        originalName: null,
+        filename: null,
+        credits: null,
+        variants: undefined,
+        size: undefined
+      }
+    }, { isPatch: true });
+
+    assert.equal(clean.image, null);
+  });
+
   it('complete online event needs at least a title, description, eventAttendanceMode, timings and a onlineAccessLink', () => {
     validate({
       title: 'Un événement',

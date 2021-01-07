@@ -110,6 +110,7 @@ module.exports = [{
 }, {
   field: 'image',
   fieldType: 'stream',
+  allowNull: true,
   read: ['internal', 'public'],
   write: ['internal', 'public'],
   db: {
@@ -119,7 +120,7 @@ module.exports = [{
 }, {
   field: 'imageCredits',
   fieldType: 'text',
-  "max": 255,
+  max: 255,
   enableWith: 'image',
   write: ['internal', 'public'],
   read: ['internal', 'public'],
@@ -215,7 +216,7 @@ module.exports = [{
   }
 }, {
   field: 'timings',
-  fieldType: 'timings',
+  fieldType: 'timings2',
   optional: false,
   read: ['internal', 'public'],
   write: ['internal', 'public'],

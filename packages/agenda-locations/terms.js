@@ -13,20 +13,17 @@ const { getMatchingDatabaseField } = require('./lib/addSelect');
 async function terms(service, requestedTerms, query = {}, options = {}) {
   log('received %j %j', requestedTerms, query);
 
-  const {
-    context,
-    filterNulls
-  } = {
+  const { context, filterNulls } = {
     filterNulls: false,
     context: {},
-    ...options
+    ...options,
   };
 
   const k = service.clients.knex(service.config.schema);
 
   const requestedTermFields = termFields
     .filter(f => requestedTerms.indexOf(f.field) !== -1)
-    .sort((a, b) => requestedTerms.indexOf(a.field) > requestedTerms.indexOf(b.field) ? 1 : -1);
+    .sort((a, b) => (requestedTerms.indexOf(a.field) > requestedTerms.indexOf(b.field) ? 1 : -1));
 
   const requestedTermFieldNames = termFields.map(f => f.field);
 
@@ -36,7 +33,7 @@ async function terms(service, requestedTerms, query = {}, options = {}) {
 
   await addListQuery(service, k, {
     ...query,
-    ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
+    ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
   });
 
   const dbFields = requestedTermFields.map(getMatchingDatabaseField);
@@ -47,12 +44,13 @@ async function terms(service, requestedTerms, query = {}, options = {}) {
     }
   }
 
-  return k.select(dbFields)
+  return k
+    .select(dbFields)
     .groupBy(dbFields)
-    .orderBy(dbFields[dbFields.length -1], 'asc')
+    .orderBy(dbFields[dbFields.length - 1], 'asc')
     .then(rows => rows.map(r => fromDbEntryToItem(r, {
       includeFields: requestedTermFieldNames,
-      omitUndefinedFields: true
+      omitUndefinedFields: true,
     })));
 }
 
@@ -64,7 +62,7 @@ module.exports.byAgendaUid = async (
   options = {}
 ) => terms(service, requestedTerms, query, {
   ...options,
-  context: { agendaUid }
+  context: { agendaUid },
 });
 
 module.exports.bySetUid = async (
@@ -75,5 +73,5 @@ module.exports.bySetUid = async (
   options = {}
 ) => terms(service, requestedTerms, query, {
   ...options,
-  context: { setUid }
+  context: { setUid },
 });

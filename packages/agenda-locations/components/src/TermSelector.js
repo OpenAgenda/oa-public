@@ -5,10 +5,8 @@ import createReactClass from 'create-react-class';
 import xhr from 'xhr';
 import Select from 'react-select';
 
-export default createReactClass( {
-
+export default createReactClass({
   propTypes: {
-
     // interface language
     lang: PropTypes.string,
 
@@ -24,165 +22,142 @@ export default createReactClass( {
 
     // callback to go to when change is made
     onChange: PropTypes.func,
-
   },
 
   getDefaultProps() {
-
     return {
-      lang: 'en'
-    }
-
+      lang: 'en',
+    };
   },
 
   getInitialState() {
-
     return {
-      terms: []
-    }
-
+      terms: [],
+    };
   },
 
-  componentWillReceiveProps({field}) {
+  componentWillReceiveProps({ field }) {
+    if (this.props.field == field) return;
 
-    if ( this.props.field == field ) return;
-
-    this.setState( { terms: [] } );
-
+    this.setState({ terms: [] });
   },
 
-  componentDidUpdate({field}, prevState) {
-
-    if ( this.props.field == field ) return;
+  componentDidUpdate({ field }, prevState) {
+    if (this.props.field == field) return;
 
     this.fetchTerms();
-
   },
 
   componentDidMount() {
-
     this.fetchTerms();
-
   },
 
   fetchTerms() {
-
     const self = this;
 
-    xhr( {
-      json: true,
-      uri: `${this.props.res}?field=${this.props.field}`,
-    }, (err, {body}) => {
-      if ( err ) return;
+    xhr(
+      {
+        json: true,
+        uri: `${this.props.res}?field=${this.props.field}`,
+      },
+      (err, { body }) => {
+        if (err) return;
 
-      const firstTerm = self.props.field.split( ',' )[ 0 ];
+        const firstTerm = self.props.field.split(',')[0];
 
-      const sortedTerms = body.terms.sort( (a, b) => {
+        const sortedTerms = body.terms.sort((a, b) => {
+          if (a[firstTerm] > b[firstTerm]) {
+            return 1;
+          }
 
-        if ( a[ firstTerm ] > b[ firstTerm ] ) {
+          if (a[firstTerm] < b[firstTerm]) {
+            return -1;
+          }
 
-          return 1;
+          // a must be equal to b
+          return 0;
+        });
 
-        }
-
-        if ( a[ firstTerm ] < b[ firstTerm ] ) {
-
-          return -1;
-
-        }
-
-        // a must be equal to b
-        return 0;
-
-      } );
-
-      self.setState( {
-        terms: sortedTerms
-      } );
-    } );
-
+        self.setState({
+          terms: sortedTerms,
+        });
+      }
+    );
   },
 
   onChange(index) {
-
-    this.props.onChange( this.state.terms[ index ] );
-
+    this.props.onChange(this.state.terms[index]);
   },
 
   getTermIndex(value) {
+    if (!value) return null;
 
-    if ( !value ) return null;
-
-    return this.state.terms.findIndex( t => {
-
+    return this.state.terms.findIndex(t => {
       let found = false;
 
-      for ( const k in t ) {
-
+      for (const k in t) {
         if (
-          ![ 'country', 'countryCode' ].includes( k )
-          && (typeof value === 'string' ? value : value[ k ]) === t[ k ]
+          !['country', 'countryCode'].includes(k) &&
+          (typeof value === 'string' ? value : value[k]) === t[k]
         ) {
-
           found = true;
-
         }
-
       }
 
       return found;
-
-    } );
-
+    });
   },
 
   termOption(term, index) {
     const option = {
       value: index,
-      label: ''
+      label: '',
     };
 
     const labelParts = [];
     const self = this;
 
-    this.props.field.split( ',' ).forEach( field => {
-
+    this.props.field.split(',').forEach(field => {
       // country is specific as it is multilingual
-      if ( field == 'country' ) {
-
-        labelParts.push( _.get( term.country, self.props.lang, term.country[ _.first( _.keys( term.country ) ) ] ) );
-
+      if (field == 'country') {
+        labelParts.push(
+          _.get(
+            term.country,
+            self.props.lang,
+            term.country[_.first(_.keys(term.country))]
+          )
+        );
       } else {
-
-        labelParts.push( term[ field ] );
-
+        labelParts.push(term[field]);
       }
+    });
 
-    } );
-
-    option.label = labelParts.join( ', ' );
+    option.label = labelParts.join(', ');
 
     return option;
   },
 
   render() {
-
     const self = this;
 
     const selectStyles = {
       container: provided => ({
         ...provided,
         display: 'inline-block',
-        width: '180px'
+        width: '180px',
       }),
       control: provided => ({
         ...provided,
         borderRadius: '0 4px 4px 0',
-        borderLeft: 'none'
-      })
+        borderLeft: 'none',
+      }),
     };
-    const options = this.state.terms.map( (t, i) => self.termOption( t, i ) );
-    const value = options.find(option => option.value === (this.getTermIndex( this.props.value ) || this.props.value))
+    const options = this.state.terms.map((t, i) => self.termOption(t, i));
+    const value = options.find(
+      option =>
+        option.value ===
+        (this.getTermIndex(this.props.value) || this.props.value)
+    );
 
     return (
       <div className="terms-selector">
@@ -191,12 +166,10 @@ export default createReactClass( {
           placeholder={this.props.placeholder || null}
           value={value}
           options={options}
-          onChange={value => this.onChange( value ? value.value : value )}
+          onChange={value => this.onChange(value ? value.value : value)}
           clearable={true}
         />
       </div>
     );
-
-  }
-
-} );
+  },
+});

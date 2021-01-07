@@ -2,7 +2,11 @@
 
 const _ = require('lodash');
 
-module.exports = (locations, countsByUid, keys = ['eventCount', 'agendaEventCount']) => {
+module.exports = (
+  locations,
+  countsByUid,
+  keys = ['eventCount', 'agendaEventCount']
+) => {
   (locations instanceof Array ? locations : [locations]).forEach(location => {
     const index = _.findIndex(countsByUid, { uid: location.uid });
 
@@ -14,4 +18,4 @@ module.exports = (locations, countsByUid, keys = ['eventCount', 'agendaEventCoun
       countsByUid.splice(index, 1);
     }
   });
-}
+};

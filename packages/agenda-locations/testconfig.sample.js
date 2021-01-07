@@ -14,42 +14,40 @@ module.exports = {
         ? {
           ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
           cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
-          key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY)
+          key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY),
         }
-        : true
+        : true,
     },
     schemas: {
       location: 'location',
-      agendaSettings: 'location_agenda_settings'
+      agendaSettings: 'location_agenda_settings',
     },
     redis: {
       host: 'localhost',
-      port: 6379
+      port: 6379,
     },
     interfaces: {
-      getEventCount: ( l, cb ) => {
-
-        cb( null, 0, 0 );
-
+      getEventCount: (l, cb) => {
+        cb(null, 0, 0);
       },
-      getAgendaSettings: ( agendaId, cb ) => {
-
-        cb( null, {
+      getAgendaSettings: (agendaId, cb) => {
+        cb(null, {
           translation: {
             enabled: true,
             options: 'eyJ1c2VyIjoiQ1VMVFVSRSIsInBhcAAAAAAAAAAAAlU3elQ3cWhhIAA=',
             service: 'reverso',
-            sets: [ {
-              source: "fr",
-              checked: [ "it", "es", "de", "en" ],
-              target: [ "it", "es", "de", "en" ]
-            } ],
-            "source": "fr"
-          }
-        } );
-
-      }
-    }
+            sets: [
+              {
+                source: 'fr',
+                checked: ['it', 'es', 'de', 'en'],
+                target: ['it', 'es', 'de', 'en'],
+              },
+            ],
+            source: 'fr',
+          },
+        });
+      },
+    },
   },
   dependencies: {
     files: {
@@ -57,9 +55,9 @@ module.exports = {
         accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
         region: process.env.AWS_DEV_REGION,
-        defaultBucket: process.env.AWS_DEV_BUCKET
+        defaultBucket: process.env.AWS_DEV_BUCKET,
       },
-      defaultProvider: 's3'
-    }
-  }
-}
+      defaultProvider: 's3',
+    },
+  },
+};

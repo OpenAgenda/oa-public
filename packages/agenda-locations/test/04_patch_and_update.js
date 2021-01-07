@@ -1,22 +1,22 @@
 'use strict';
 
-const _ = require('lodash');
 const assert = require('assert');
 const fs = require('fs');
+const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
 
 const payload = require('./fixtures/updateData.json');
+const Service = require('..');
 
-describe('agenda-locations - functional - patch & update', function() {
+describe('agenda-locations - functional - patch & update', function () {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -30,13 +30,13 @@ describe('agenda-locations - functional - patch & update', function() {
       knex: f.client,
       interfaces: {
         getAgendaDetailsByUid: async uid => ({
-          id: ({
-            7196947: 25221
-          })[uid]
+          id: {
+            7196947: 25221,
+          }[uid],
         }),
-        geocode: async address => [{ latitude: 10, longitude: 11 }]
+        geocode: async address => [{ latitude: 10, longitude: 11 }],
       },
-      Files: Files(dConfig.files)
+      Files: Files(dConfig.files),
     });
   });
 
@@ -60,7 +60,7 @@ describe('agenda-locations - functional - patch & update', function() {
       entry.before = await f.client('location').first().where('uid', 89634707);
 
       patched = await svc(7196947).patch(89634707, {
-        name: 'Patched name'
+        name: 'Patched name',
       });
       entry.after = await f.client('location').first().where('uid', 89634707);
     });
@@ -71,42 +71,59 @@ describe('agenda-locations - functional - patch & update', function() {
     });
 
     it('updatedAt is updated', async () => {
-      assert.notEqual(JSON.stringify(entry.before.updated_at), JSON.stringify(entry.after.updated_at));
+      assert.notEqual(
+        JSON.stringify(entry.before.updated_at),
+        JSON.stringify(entry.after.updated_at)
+      );
     });
   });
 
-  describe('patching image', function () {
+  describe('patching image', () => {
     let entry;
 
     before(async () => {
       await svc().patch(94482437, {
-        image: fs.createReadStream(__dirname + '/fixtures/images/vieilles_pierres.jpg')
+        image: fs.createReadStream(
+          `${__dirname}/fixtures/images/vieilles_pierres.jpg`
+        ),
       });
 
       entry = await f.client('location').first().where('uid', 94482437);
     });
 
     it('saves uploaded image name in db', () => {
-      assert.equal(JSON.parse(entry.store).image.split('?').shift(), `location94482437.jpg`);
+      assert.equal(
+        JSON.parse(entry.store).image.split('?').shift(),
+        'location94482437.jpg'
+      );
     });
   });
 
   describe('set', () => {
-
     it('updates', async () => {
-      const result = await svc.sets(1903810).locations.update(30433085, payload);
+      const result = await svc
+        .sets(1903810)
+        .locations.update(30433085, payload);
       assert.equal(
-        await f.client('location').first().where('uid', 30433085).then(r => r.placename),
+        await f
+          .client('location')
+          .first()
+          .where('uid', 30433085)
+          .then(r => r.placename),
         payload.name
       );
     });
 
     it('patches', async () => {
       await svc.sets(1903810).locations.patch(30433085, {
-        name: 'Patched'
+        name: 'Patched',
       });
       assert.equal(
-        await f.client('location').first().where('uid', 30433085).then(r => r.placename),
+        await f
+          .client('location')
+          .first()
+          .where('uid', 30433085)
+          .then(r => r.placename),
         'Patched'
       );
     });
@@ -114,19 +131,21 @@ describe('agenda-locations - functional - patch & update', function() {
     it('update through agendas endpoint does not clear set uid of location', async () => {
       const result = await svc(7196947).update(30433085, payload);
       assert.equal(
-        await f.client('location').first().where('uid', 30433085).then(r => r.set_uid),
+        await f
+          .client('location')
+          .first()
+          .where('uid', 30433085)
+          .then(r => r.set_uid),
         1903810
       );
-    })
-
+    });
   });
 
   describe('other', () => {
-
     it('uid cannot be modified through update', async () => {
       const updated = await svc(7196947).update(95301591, {
         ...payload,
-        uid: 1
+        uid: 1,
       });
 
       assert.equal(updated.uid, 95301591);
@@ -135,7 +154,7 @@ describe('agenda-locations - functional - patch & update', function() {
     it('uid cannot be modified through patch', async () => {
       const updated = await svc(7196947).update(95301591, {
         ...payload,
-        uid: 1
+        uid: 1,
       });
 
       assert.equal(updated.uid, 95301591);
@@ -144,7 +163,8 @@ describe('agenda-locations - functional - patch & update', function() {
     it('if extId is not part of patch, it is synced from legacy', async () => {
       await svc.sets(1903810).locations.patch(7630649, {});
 
-      const entry = await f.client('location')
+      const entry = await f
+        .client('location')
         .first('ext_id')
         .where('uid', 7630649);
 
@@ -153,32 +173,36 @@ describe('agenda-locations - functional - patch & update', function() {
 
     it('if extId is part of patch, it is synced to legacy and set in dedicated field', async () => {
       await svc.sets(1903810).locations.patch(60763721, {
-        extId: 'ard_leg_1200'
+        extId: 'ard_leg_1200',
       });
 
-      const { store, extId } = await f.client('location')
+      const { store, extId } = await f
+        .client('location')
         .first(['store', 'ext_id'])
         .where('uid', 60763721)
         .then(r => ({
           store: JSON.parse(r.store),
-          extId: r.ext_id
+          extId: r.ext_id,
         }));
 
       await svc.sets(1903810).locations.patch(60763721, {
-        extId: 'ard_leg_1200'
+        extId: 'ard_leg_1200',
       });
 
       assert.equal(store.extId, 'ard_leg_1200');
     });
 
     it('if latitude is not provided at update and geocodeIfUndefined option is set, a geocoding is made to derive them from address', async () => {
-      const updated = await svc(7196947).update(95301591, _.omit(payload, ['latitude', 'longitude']), {
-        geocodeIfUndefined: true
-      });
+      const updated = await svc(7196947).update(
+        95301591,
+        _.omit(payload, ['latitude', 'longitude']),
+        {
+          geocodeIfUndefined: true,
+        }
+      );
 
       assert.equal(updated.latitude, 10);
       assert.equal(updated.longitude, 11);
     });
-
   });
 });

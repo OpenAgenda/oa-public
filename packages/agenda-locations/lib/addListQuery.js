@@ -1,47 +1,44 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
+const text = require('@openagenda/validators/text');
 
-schema.register({
-  integer: require('@openagenda/validators/integer'),
-  text: require('@openagenda/validators/text')
-});
+schema.register({ integer, text });
 
 const validate = schema({
   agendaUid: {
-    type: 'integer'
+    type: 'integer',
   },
   setUid: {
-    type: 'integer'
+    type: 'integer',
   },
   search: {
     type: 'text',
-    max: 255
+    max: 255,
   },
   state: {
     type: 'integer',
-    default: null
+    default: null,
   },
   uids: {
     type: 'integer',
     list: {
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });
 
 module.exports = async (service, k, query) => {
   const {
-    agendaUid,
-    setUid,
-    search,
-    state,
-    uids
+    agendaUid, setUid, search, state, uids
   } = validate(query);
 
-  const agendaId = agendaUid ? await service.interfaces
-    .getAgendaDetailsByUid(agendaUid, ['id'])
-    .then(r => r ? r.id : null) : null;
+  const agendaId = agendaUid
+    ? await service.interfaces
+      .getAgendaDetailsByUid(agendaUid, ['id'])
+      .then(r => (r ? r.id : null))
+    : null;
 
   if (agendaId) {
     k.where('agenda_id', agendaId);
@@ -52,12 +49,12 @@ module.exports = async (service, k, query) => {
   }
 
   if (search) {
-    k.where(function() {
-      this.where('placename', 'like', '%' + search + '%')
-        .orWhere('address', 'like', '%' + search + '%')
-        .orWhere('region', 'like', '%' + search + '%')
-        .orWhere('department', 'like', '%' + search + '%')
-        .orWhere('city', 'like', '%' + search + '%');
+    k.where(function or() {
+      this.where('placename', 'like', `%${search}%`)
+        .orWhere('address', 'like', `%${search}%`)
+        .orWhere('region', 'like', `%${search}%`)
+        .orWhere('department', 'like', `%${search}%`)
+        .orWhere('city', 'like', `%${search}%`);
     });
   }
 
@@ -68,4 +65,4 @@ module.exports = async (service, k, query) => {
   if (state !== null) {
     k.where('store', 'like', `%"state":${state}%`);
   }
-}
+};

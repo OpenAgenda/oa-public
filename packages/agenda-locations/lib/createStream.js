@@ -3,9 +3,22 @@
 const { Transform } = require('stream');
 const transformAndDecorateItems = require('./transformAndDecorateItems');
 
+const processBufferedItems = (stream, service, buffer, options, cb) => {
+  transformAndDecorateItems(
+    service,
+    buffer.splice(0, buffer.length),
+    options
+  ).then(transformed => {
+    while (transformed.length) {
+      stream.push(transformed.shift());
+    }
+    cb();
+  }, cb);
+};
+
 module.exports = (service, knexQuery, options = {}) => {
   const knexStream = knexQuery.stream({
-    highWaterMark: options.stream.highWaterMark
+    highWaterMark: options.stream.highWaterMark,
   });
 
   const stream = new Transform({ objectMode: true });
@@ -22,26 +35,11 @@ module.exports = (service, knexQuery, options = {}) => {
     }
 
     processBufferedItems(stream, service, buffer, options, cb);
-  }
+  };
 
   knexStream.on('error', e => stream.emit('error', e));
 
   stream.on('end', () => knexStream.destroy());
 
   return knexStream.pipe(stream);
-}
-
-
-function processBufferedItems(stream, service, buffer, options, cb) {
-  transformAndDecorateItems(service, buffer.splice(0, buffer.length), options)
-    .then(
-      transformed => {
-        while(transformed.length) {
-          stream.push(transformed.shift());
-        }
-
-        cb();
-      },
-      cb
-    );
-}
+};

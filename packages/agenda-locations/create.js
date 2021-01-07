@@ -13,34 +13,45 @@ const validate = require('./lib/validate');
 async function create(service, data, options = {}) {
   log('received %j payload', data.name);
 
-  const {
-    context,
-    includeImagePath,
-    geocodeIfUndefined
-  } = cleanOptions(options);
+  const { context, includeImagePath, geocodeIfUndefined } = cleanOptions(
+    options
+  );
 
   const clean = {
-    ...validate(geocodeIfUndefined ? await service.decorateWithGeocodeData(data) : data),
+    ...validate(
+      geocodeIfUndefined ? await service.decorateWithGeocodeData(data) : data
+    ),
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
-    slug: await defineUnique(service, 'slug', () => slug(data.name.substr(0, 90), { lower: true, strict: true }) + '_' + Math.ceil(Math.random() * 9999999)),
-    createdAt: new Date,
-    updatedAt: new Date
+    slug: await defineUnique(
+      service,
+      'slug',
+      () => `${slug(data.name.substr(0, 90), {
+        lower: true,
+        strict: true,
+      })}_${Math.ceil(Math.random() * 9999999)}`
+    ),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   if (context.agendaUid) {
-    Object.assign(clean, await service.interfaces
-      .getAgendaDetailsByUid(context.agendaUid, ['id', 'locationSetUid'])
-      .then(a => ({
-        agendaId: a.id,
-        setUid: a.locationSetUid
-      }))
+    Object.assign(
+      clean,
+      await service.interfaces
+        .getAgendaDetailsByUid(context.agendaUid, ['id', 'locationSetUid'])
+        .then(a => ({
+          agendaId: a.id,
+          setUid: a.locationSetUid,
+        }))
     );
   } else if (context.setUid) {
     clean.setUid = context.setUid;
   }
 
   if (clean.image) {
-    const result = await service.imageTransformAndUpload(clean.image, { uid: clean.uid });
+    const result = await service.imageTransformAndUpload(clean.image, {
+      uid: clean.uid,
+    });
 
     clean.image = result[0].filename;
   }
@@ -60,27 +71,17 @@ async function create(service, data, options = {}) {
   return filterFieldsByAccess(clean);
 }
 
-module.exports.byAgendaUid = async (
-  service,
-  agendaUid,
-  data,
-  options = {}
-) => create(service, data, {
+module.exports.byAgendaUid = async (service, agendaUid, data, options = {}) => create(service, data, {
   ...options,
-  context: { agendaUid }
+  context: { agendaUid },
 });
 
-module.exports.bySetUid = async (
-  service,
-  setUid,
-  data,
-  options = {}
-) => {
-  if (!await service.sets.get(setUid)) {
+module.exports.bySetUid = async (service, setUid, data, options = {}) => {
+  if (!(await service.sets.get(setUid))) {
     throw new NotFoundError('location set', { setUid });
   }
   return create(service, data, {
     ...options,
-    context: { setUid }
+    context: { setUid },
   });
-}
+};

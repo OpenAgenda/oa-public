@@ -21,7 +21,7 @@ async function geocode(interfaces, data) {
 
     const results = await interfaces.geocode(data.address, {
       language: deduceLanguageFromCountry(data.countryCode),
-      countryCode: data.countryCode
+      countryCode: data.countryCode,
     });
 
     if (!results.length) {
@@ -41,13 +41,15 @@ module.exports = service => async data => {
   }
 
   const geocodeResult = await geocode(service.interfaces, data);
-  const inseeResult = service.getINSEECode && hasCityAndDept(geocodeResult) ? {
-    insee: await service.getINSEECode(geocodeResult)
-  } : {};
+  const inseeResult = service.getINSEECode && hasCityAndDept(geocodeResult)
+    ? {
+      insee: await service.getINSEECode(geocodeResult),
+    }
+    : {};
 
   return {
     ...geocodeResult,
     ...inseeResult,
-    ...data
-  }
-}
+    ...data,
+  };
+};

@@ -22,7 +22,11 @@ async function merge(service, mergeInItem, items, data = {}) {
   }
 
   log('updating merged location');
-  const updatedMerged = await update({ service, isPatch: true }, mergeInItem.uid, data);
+  const updatedMerged = await update(
+    { service, isPatch: true },
+    mergeInItem.uid,
+    data
+  );
 
   log('removing other locations'); // why not remove with remove fn?
   for (const location of toBeMerged) {
@@ -41,16 +45,42 @@ module.exports = async (service, mergeInUid, query, data, options) => merge(
   data
 );
 
-module.exports.byAgendaUid = async (service, agendaUid, mergeInUid, query, data, options = {}) => merge(
+module.exports.byAgendaUid = async (
+  service,
+  agendaUid,
+  mergeInUid,
+  query,
+  data,
+  options = {}
+) => merge(
   service,
   await get.byAgendaUid(service, agendaUid, mergeInUid),
-  await list.byAgendaUid(service, agendaUid, query, {}, { ...options, total: null, detailed: true }),
+  await list.byAgendaUid(
+    service,
+    agendaUid,
+    query,
+    {},
+    { ...options, total: null, detailed: true }
+  ),
   data
 );
 
-module.exports.bySetUid = async (service, setUid, mergeInUid, query, data, options = {}) => merge(
+module.exports.bySetUid = async (
+  service,
+  setUid,
+  mergeInUid,
+  query,
+  data,
+  options = {}
+) => merge(
   service,
   await get.bySetUid(service, setUid, mergeInUid),
-  await list.bySetUid(service, setUid, query, {}, { ...options, total: null, detailed: true }),
+  await list.bySetUid(
+    service,
+    setUid,
+    query,
+    {},
+    { ...options, total: null, detailed: true }
+  ),
   data
 );

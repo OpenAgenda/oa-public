@@ -4,17 +4,13 @@ import dl from '@openagenda/dom-utils/documentLocation';
 
 // little counter
 function _syncCounter() {
+  if (typeof window === 'undefined') return;
 
-  if ( typeof window === 'undefined' ) return;
+  if (!window.oa || !window.oa.verifiedLocationsCounter) return;
 
-  if ( !window.oa || !window.oa.verifiedLocationsCounter ) return;
-
-  setTimeout( () => {
-
+  setTimeout(() => {
     window.oa.verifiedLocationsCounter();
-
-  }, 1000 );
-
+  }, 1000);
 }
 
 module.exports = actions;
@@ -36,46 +32,44 @@ module.exports.tests = {
   getQuery,
   queryChange,
   displayRemoveConfirmModal,
-  closeModal
-}
+  closeModal,
+};
 
-
-function actions( options ) {
-
-  let {getState, setState} = utils.extend( {
-    setState: function() {}, // state setter
-    getState: function() {}
-  }, options );
+function actions(options) {
+  let { getState, setState } = utils.extend(
+    {
+      setState: function () {}, // state setter
+      getState: function () {},
+    },
+    options
+  );
 
   return {
-
     // not actually an action
     getState,
 
-    editLocation: assign( editLocation ),
+    editLocation: assign(editLocation),
 
-    updateEditedLocation: assign( updateEditedLocation ),
-    newLocation: assign( newLocation ),
-    addLocation: assign( addLocation ),
-    removedLocation: assign( removedLocation ),
-    closeForm: assign( closeForm ),
+    updateEditedLocation: assign(updateEditedLocation),
+    newLocation: assign(newLocation),
+    addLocation: assign(addLocation),
+    removedLocation: assign(removedLocation),
+    closeForm: assign(closeForm),
 
-    closeMerge: assign( closeMerge ),
-    toggleMerge: assign( toggleMerge ),
-    launchMerge: assign( launchMerge ),
+    closeMerge: assign(closeMerge),
+    toggleMerge: assign(toggleMerge),
+    launchMerge: assign(launchMerge),
 
-    updateLocationList: assign( updateLocationList ),
-    toggleMergeItem: assign( toggleMergeItem ),
+    updateLocationList: assign(updateLocationList),
+    toggleMergeItem: assign(toggleMergeItem),
 
-    queryChange: assign( queryChange ),
+    queryChange: assign(queryChange),
 
     getQuery,
 
-    displayRemoveConfirmModal: assign( displayRemoveConfirmModal ),
-    closeModal: assign( closeModal )
-
-  }
-
+    displayRemoveConfirmModal: assign(displayRemoveConfirmModal),
+    closeModal: assign(closeModal),
+  };
 
   /**
    * simplifies stateless testing. calls
@@ -83,109 +77,83 @@ function actions( options ) {
    * and applies value as new state
    */
 
-  function assign( fn ) {
-
-    return function( ...args ) {
-
+  function assign(fn) {
+    return function (...args) {
       let state = getState(),
+        newState = fn(...[state].concat(args));
 
-      newState = fn( ...[ state ].concat( args ) );
-
-      setState( newState );
+      setState(newState);
 
       return newState;
-
-    }
-
+    };
   }
-
 }
 
-
-function removedLocation( state, index ) {
-
+function removedLocation(state, index) {
   _syncCounter();
 
-  return update( state, {
-    locations: { $splice: [[ index, 1 ]] },
+  return update(state, {
+    locations: { $splice: [[index, 1]] },
     modal: {
       data: {
-        isRemoved: { $set: true }
-      }
-    }
-  } );
-
+        isRemoved: { $set: true },
+      },
+    },
+  });
 }
 
-
-function editLocation( state, location, locationIndex ) {
-
-  return update( state, {
+function editLocation(state, location, locationIndex) {
+  return update(state, {
     form: {
       $set: {
         location: location,
-        locationIndex: locationIndex
-      }
-    }
-  } );
-
+        locationIndex: locationIndex,
+      },
+    },
+  });
 }
 
-
-function updateLocationList( state, locations, total, page ) {
-
+function updateLocationList(state, locations, total, page) {
   _syncCounter();
 
   return {
     locations,
     total,
-    page
-  }
-
+    page,
+  };
 }
 
-
-function closeForm( state, location ) {
-
+function closeForm(state, location) {
   let updatedState = {
-    locations: {}
-  }
+    locations: {},
+  };
 
   updatedState.form = { $set: false };
 
   // if an image was uploaded before form was closed,
   // image must be updated
-  if ( state.form && state.form.locationIndex ) {
-
-    updatedState.locations[ state.form.locationIndex ] = {
-      image: { $set: location.image }
-    }
-
+  if (state.form && state.form.locationIndex) {
+    updatedState.locations[state.form.locationIndex] = {
+      image: { $set: location.image },
+    };
   }
 
-  return update( state, updatedState );
-
+  return update(state, updatedState);
 }
 
-
-function newLocation( state ) {
-
-  return update( state, {
-    form: { $set: {} }
-  } );
-
+function newLocation(state) {
+  return update(state, {
+    form: { $set: {} },
+  });
 }
 
-
-function addLocation( state, location ) {
-
+function addLocation(state, location) {
   _syncCounter();
 
-  return update( state, {
-    locations: { $splice: [ [ 0, 0, location ] ] },
-    form: { $set: false }
-  } );
-
+  return update(state, {
+    locations: { $splice: [[0, 0, location]] },
+    form: { $set: false },
+  });
 }
 
 /**
@@ -193,175 +161,129 @@ function addLocation( state, location ) {
  * merge list
  */
 
-function toggleMergeItem( state, location ) {
-
+function toggleMergeItem(state, location) {
   let locationUids = state.merge.locationUids.concat(),
+    index = locationUids.indexOf(location.uid);
 
-  index = locationUids.indexOf( location.uid );
-
-  if ( index == -1 ) {
-
-    locationUids.push( location.uid );
-
+  if (index == -1) {
+    locationUids.push(location.uid);
   } else {
-
-    locationUids.splice( index, 1 );
-
+    locationUids.splice(index, 1);
   }
 
   return {
     merge: {
-      locationUids: locationUids
-    }
-  }
-
+      locationUids: locationUids,
+    },
+  };
 }
-
 
 /**
  * update a location in general location list.
  * Optionnally, close the form
  */
-function updateEditedLocation( state, location, closeForm ) {
-
+function updateEditedLocation(state, location, closeForm) {
   let updatedState = {
-    locations: {}
+    locations: {},
   };
 
-  if ( closeForm ) {
-
+  if (closeForm) {
     updatedState.form = { $set: false };
-
   }
 
-  updatedState.locations[ state.form.locationIndex ] = { $set: location };
+  updatedState.locations[state.form.locationIndex] = { $set: location };
 
   _syncCounter();
 
-  return update( state, updatedState );
-
+  return update(state, updatedState);
 }
 
-
-function launchMerge( state, mergedLocations ) {
-
-  return update( state, {
+function launchMerge(state, mergedLocations) {
+  return update(state, {
     merge: {
-      $set: state.merge || true
+      $set: state.merge || true,
     },
     form: {
       $set: {
-        location: mergedLocations[ 0 ],
-        alternatives: mergedLocations.map( ( l, i ) => ( {
-          location: l
-        } ) )
-      }
-    }
-  } );
-
+        location: mergedLocations[0],
+        alternatives: mergedLocations.map((l, i) => ({
+          location: l,
+        })),
+      },
+    },
+  });
 }
 
-
-function closeMerge( state ) {
-
-  return update( state, {
-    merge: { $set: false },
+function closeMerge(state) {
+  return update(state, {
+    merge: { $set: false },
     form: { $set: false },
     query: { $set: {} },
-    locations: { $set: [] }
-  } );
-
+    locations: { $set: [] },
+  });
 }
-
 
 /**
  * toggle merge mode on or off
  * used in AgendaAdminLocations
  */
-function toggleMerge( state, on ) {
-
-  if ( on ) {
-
+function toggleMerge(state, on) {
+  if (on) {
     return {
       merge: {
-        locationUids: []
-      }
-    }
-
+        locationUids: [],
+      },
+    };
   } else {
-
     return {
-      merge: false
-    }
-
+      merge: false,
+    };
   }
-
 }
 
+function updateSearchQuery(current, field, newSearchValue) {
+  var query = JSON.parse(JSON.stringify(current || {}));
 
-function updateSearchQuery( current, field, newSearchValue ) {
-
-  var query = JSON.parse( JSON.stringify( current || {} ) );
-
-  if ( typeof newSearchValue == 'string' && !newSearchValue.length ) {
-
+  if (typeof newSearchValue == 'string' && !newSearchValue.length) {
     newSearchValue = undefined;
-
   }
 
-  if ( newSearchValue === undefined ) {
-
-    if ( query[ field ] !== undefined ) delete query[ field ];
-
+  if (newSearchValue === undefined) {
+    if (query[field] !== undefined) delete query[field];
   } else {
-
-    query[ field ] = newSearchValue;
-
+    query[field] = newSearchValue;
   }
 
   return query;
-
 }
 
-
-function queryChange( state, query ) {
-
-  dl.setQueryPart( query );
+function queryChange(state, query) {
+  dl.setQueryPart(query);
 
   return {
-    query: query
-  }
-
+    query: query,
+  };
 }
-
 
 function getQuery() {
-
   // query reference is in url now.
   return dl.getQuery() || {};
-
 }
 
-
-
-function displayRemoveConfirmModal( state, location, index ) {
-
+function displayRemoveConfirmModal(state, location, index) {
   return {
     modal: {
       type: 'removeLocation',
       data: {
         location: location,
-        index: index
-      }
-    }
-  }
-
+        index: index,
+      },
+    },
+  };
 }
 
-function closeModal( state ) {
-
+function closeModal(state) {
   return {
-    modal: false
-  }
-
+    modal: false,
+  };
 }
