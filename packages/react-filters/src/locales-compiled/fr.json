@@ -1,4 +1,67 @@
 {
+  "ReactFilters.DateRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "Du "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " au "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "endDate"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.endDate": [
+    {
+      "type": 0,
+      "value": "Fin"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.singleDate": [
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.startDate": [
+    {
+      "type": 0,
+      "value": "Début"
+    }
+  ],
   "ReactFilters.dateRanges.currentMonth": [
     {
       "type": 0,
@@ -69,69 +132,6 @@
     {
       "type": 0,
       "value": "Date de mise à jour"
-    }
-  ],
-  "ReactShared.DateRangeFilter.dateRange": [
-    {
-      "type": 0,
-      "value": "Du "
-    },
-    {
-      "style": {
-        "parsedOptions": {
-          "day": "2-digit",
-          "month": "2-digit",
-          "year": "numeric"
-        },
-        "pattern": "yyyyMMdd",
-        "type": 1
-      },
-      "type": 4,
-      "value": "startDate"
-    },
-    {
-      "type": 0,
-      "value": " au "
-    },
-    {
-      "style": {
-        "parsedOptions": {
-          "day": "2-digit",
-          "month": "2-digit",
-          "year": "numeric"
-        },
-        "pattern": "yyyyMMdd",
-        "type": 1
-      },
-      "type": 4,
-      "value": "endDate"
-    }
-  ],
-  "ReactShared.DateRangeFilter.endDate": [
-    {
-      "type": 0,
-      "value": "Fin"
-    }
-  ],
-  "ReactShared.DateRangeFilter.singleDate": [
-    {
-      "style": {
-        "parsedOptions": {
-          "day": "2-digit",
-          "month": "2-digit",
-          "year": "numeric"
-        },
-        "pattern": "yyyyMMdd",
-        "type": 1
-      },
-      "type": 4,
-      "value": "date"
-    }
-  ],
-  "ReactShared.DateRangeFilter.startDate": [
-    {
-      "type": 0,
-      "value": "Début"
     }
   ]
 }

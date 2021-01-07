@@ -11,20 +11,20 @@ import DateRangePicker from '../fields/DateRangePicker';
 
 const messages = defineMessages({
   singleDate: {
-    id: 'ReactShared.DateRangeFilter.singleDate',
+    id: 'ReactFilters.DateRangeFilter.singleDate',
     defaultMessage: '{date, time, ::yyyyMMdd}',
   },
   dateRange: {
-    id: 'ReactShared.DateRangeFilter.dateRange',
+    id: 'ReactFilters.DateRangeFilter.dateRange',
     defaultMessage:
       'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}',
   },
   startDate: {
-    id: 'ReactShared.DateRangeFilter.startDate',
+    id: 'ReactFilters.DateRangeFilter.startDate',
     defaultMessage: 'Start',
   },
   endDate: {
-    id: 'ReactShared.DateRangeFilter.endDate',
+    id: 'ReactFilters.DateRangeFilter.endDate',
     defaultMessage: 'End',
   },
 });
@@ -145,6 +145,8 @@ function Preview({
   return React.createElement(
     component,
     {
+      name,
+      staticRanges,
       label,
       onRemove,
       ...rest
@@ -154,11 +156,11 @@ function Preview({
 
 function Title({
   name,
+  filter,
   staticRanges,
-  label,
   disabled
 }) {
-  const title = useFilterTitle(name, { label });
+  const title = useFilterTitle(name, filter.fieldSchema);
   const { input } = useField(name, { subscription });
 
   if (!input.value || input.value === '') {
@@ -170,6 +172,8 @@ function Title({
       {title}
       <Preview
         name={name}
+        filter={filter}
+        title={title}
         staticRanges={staticRanges}
         disabled={disabled}
         className="oa-filter-value-preview"
@@ -180,6 +184,7 @@ function Title({
 
 function DateRangeFilter({
   name,
+  filter,
   disabled,
   staticRanges,
   inputRanges
@@ -194,6 +199,7 @@ function DateRangeFilter({
       header={(
         <Title
           name={name}
+          filter={filter}
           staticRanges={staticRanges}
           disabled={disabled}
         />

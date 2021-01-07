@@ -1,26 +1,13 @@
-import { useIntl } from 'react-intl';
 import { useMemo } from 'react';
-import getLocaleValue from '../utils/getLocaleValue';
-import titleMessages from '../messages/filterTitles';
+import { useIntl } from 'react-intl';
+import getFilterTitle from '../utils/getFilterTitle';
+import defaultTitleMessages from '../messages/filterTitles';
 
-export function getFilterTitle(messageKey, fieldSchema, intl) {
-  if (fieldSchema?.label) {
-    return getLocaleValue(fieldSchema.label, intl.locale);
-  }
-
-  if (titleMessages[messageKey]) {
-    return intl.formatMessage(titleMessages[messageKey]);
-  }
-
-  return messageKey;
-}
-
-export default function useFilterTitle(messageKey, fieldSchema) {
+export default function useFilterTitle(messageKey, fieldSchema, messages = defaultTitleMessages) {
   const intl = useIntl();
 
-  return useMemo(() => getFilterTitle(messageKey, fieldSchema, intl), [
-    intl,
-    messageKey,
-    fieldSchema
-  ]);
+  return useMemo(
+    () => getFilterTitle(intl, messages, messageKey, fieldSchema),
+    [intl, messages, messageKey, fieldSchema]
+  );
 }

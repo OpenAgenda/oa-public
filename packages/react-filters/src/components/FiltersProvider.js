@@ -2,7 +2,7 @@ import React, { useImperativeHandle } from 'react';
 import { Form } from 'react-final-form';
 import { useConstant } from '@openagenda/react-shared';
 import { createForm } from 'final-form';
-import { IntlProvider } from 'react-intl';
+import { IntlProvider, RawIntlProvider } from 'react-intl';
 import messages from '../locales-compiled';
 
 function FiltersForm({ children }) {
@@ -16,6 +16,7 @@ function FiltersProvider(
     children,
     staticContext,
     subscription = defaultSubscription,
+    intl,
     locale = 'en',
     // form config
     debug,
@@ -50,13 +51,25 @@ function FiltersProvider(
 
   useImperativeHandle(ref, () => form);
 
+  const child = (
+    <Form form={form} component={FiltersForm} subscription={subscription}>
+      {children}
+
+      {/* TODO portals from outside, add <Filter /> with classNames for each */}
+    </Form>
+  );
+
+  if (intl) {
+    return (
+      <RawIntlProvider value={intl}>
+        {child}
+      </RawIntlProvider>
+    );
+  }
+
   return (
     <IntlProvider messages={messages[locale]} locale={locale} key={locale}>
-      <Form form={form} component={FiltersForm} subscription={subscription}>
-        {children}
-
-        {/* TODO portals from outside, add <Filter /> with classNames for each */}
-      </Form>
+      {child}
     </IntlProvider>
   );
 }

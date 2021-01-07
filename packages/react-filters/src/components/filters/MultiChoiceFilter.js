@@ -72,6 +72,9 @@ function Preview({
   return React.createElement(
     component,
     {
+      name,
+      filter,
+      getOptions,
       valueOptions,
       onRemove,
       ...rest
@@ -83,10 +86,9 @@ function Title({
   name,
   filter,
   getOptions,
-  label,
   disabled
 }) {
-  const title = useFilterTitle(name, { label });
+  const title = useFilterTitle(name, filter.fieldSchema);
   const field = useField(name, { subscription });
 
   const { input } = field;
@@ -101,6 +103,7 @@ function Title({
       <Preview
         name={name}
         filter={filter}
+        title={title}
         getOptions={getOptions}
         disabled={disabled}
         className="oa-filter-value-preview"
@@ -111,7 +114,6 @@ function Title({
 
 function MultiChoiceFilter({
   name,
-  label,
   filter,
   getTotal,
   getOptions,
@@ -146,7 +148,6 @@ function MultiChoiceFilter({
           name={name}
           filter={filter}
           getOptions={getOptions}
-          label={label}
           disabled={disabled}
         />
       )}
