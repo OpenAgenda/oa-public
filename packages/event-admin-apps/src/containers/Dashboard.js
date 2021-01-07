@@ -1,19 +1,27 @@
 import _ from 'lodash';
 import qs from 'qs';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+  useRef
+} from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import { useHistory } from 'react-router';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
+import { useLatest, useUpdateEffect } from 'react-use';
 import { useUIDSeed } from 'react-uid';
 import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
 import { useApiClient, ReactSelectInput } from '@openagenda/react-shared';
+import { FiltersProvider } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPart from '../components/FiltersPart';
+import FiltersPreview from '../components/FiltersPreview';
 import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
 import getLocaleValue from '../utils/getLocaleValue';
@@ -24,7 +32,11 @@ const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 const messages = defineMessages({
   totalEvents: {
     id: 'EventAdminApp.Dashboard.totalEvents',
-    defaultMessage: 'Total events: {value}',
+    defaultMessage: '{total} events',
+  },
+  totalWithFilters: {
+    id: 'EventAdminApp.Dashboard.totalWithFilters',
+    defaultMessage: '{selection} / {total} events{filters}',
   },
   createdBy: {
     id: 'EventAdminApp.Dashboard.createdBy',
@@ -186,6 +198,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     );
   });
 
+  const hasQuery = useMemo(() => !!Object.keys(query).length, [query]);
+
   const standardsFilters = useFilters(agendaSchema, { standards: true });
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
 
@@ -251,6 +265,47 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const onFilterChange = useCallback(values => setQuery(values), []);
 
+  // for FiltersProvider
+  const filtersFormRef = useRef();
+  const [initialQuery] = useState(query);
+  const validate = useCallback(
+    values => {
+      try {
+        validateQuery(values, agendaSchema);
+      } catch (e) {
+        console.log('Filters validation error:', e);
+      }
+    },
+    [agendaSchema]
+  );
+  const latestQuery = useLatest(query);
+
+  useUpdateEffect(() => {
+    const search = qs.stringify(latestQuery.current, {
+      addQueryPrefix: true,
+      arrayFormat: 'brackets',
+    });
+
+    if (history.location.search !== search) {
+      const baseQuery = qs.parse(history.location.search, {
+        ignoreQueryPrefix: true,
+      });
+      const cleanQuery = _.pick(
+        validateQuery(baseQuery, agendaSchema),
+        Object.keys(baseQuery)
+      );
+
+      filtersFormRef.current.initialize(cleanQuery);
+    }
+  }, [
+    additionalsFilters,
+    agenda,
+    agendaSchema,
+    history.location,
+    latestQuery,
+    standardsFilters,
+  ]);
+
   const seed = useUIDSeed();
 
   if (isLoading || filtersQuery.isLoading) {
@@ -270,13 +325,35 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }
 
   return (
-    <>
+    <FiltersProvider
+      onSubmit={onFilterChange}
+      initialValues={initialQuery}
+      validate={validate}
+      intl={intl}
+      ref={filtersFormRef}
+    >
       <header>
-        <span>
-          {intl.formatMessage(messages.totalEvents, {
-            value: <strong>{intl.formatNumber(data.pages[0].total)}</strong>,
+        {hasQuery
+          ? intl.formatMessage(
+            messages.totalWithFilters,
+            {
+              selection: <strong>{intl.formatNumber(data.pages[0].total)}</strong>,
+              total: <strong>{intl.formatNumber(filtersQuery.data.total)}</strong>,
+              filters: (
+                <span className="oa-filter-value-preview" css={css`line-height: 26px;`}>
+                  <FiltersPreview
+                    query={query}
+                    agenda={agenda}
+                    standardsFilters={standardsFilters}
+                    additionalsFilters={additionalsFilters}
+                  />
+                </span>
+              )
+            }
+          )
+          : intl.formatMessage(messages.totalEvents, {
+            total: <strong>{intl.formatNumber(filtersQuery.data.total)}</strong>,
           })}
-        </span>
       </header>
 
       <ul className="list-unstyled">
@@ -363,7 +440,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         </div>,
         filtersContainerRef.current
       )}
-    </>
+    </FiltersProvider>
   );
 }
 

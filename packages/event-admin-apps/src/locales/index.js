@@ -17,5 +17,5 @@ module.exports = {
   en,
   es,
   fr,
-  it,
+  it
 };

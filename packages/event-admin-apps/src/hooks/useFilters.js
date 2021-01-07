@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
+import { dateRanges } from '@openagenda/react-filters';
 import stateMessages from '../messages/states';
-import getLocaleValue from '../utils/getLocaleValue';
 
 const AGGREGATION_SIZE = 20000;
 
@@ -41,11 +41,28 @@ export default function useFilters(
   );
 
   return useMemo(() => {
+    const { staticRanges, inputRanges } = dateRanges(intl);
+
     const standardFilters = standards
       ? [
-        { name: 'timings', type: 'dateRange' },
-        { name: 'createdAt', type: 'dateRange' },
-        { name: 'updatedAt', type: 'dateRange' },
+        {
+          name: 'timings',
+          type: 'dateRange',
+          staticRanges,
+          inputRanges
+        },
+        {
+          name: 'createdAt',
+          type: 'dateRange',
+          staticRanges,
+          inputRanges
+        },
+        {
+          name: 'updatedAt',
+          type: 'dateRange',
+          staticRanges,
+          inputRanges
+        },
         {
           name: 'state',
           type: 'radio',
@@ -92,7 +109,7 @@ export default function useFilters(
         .map(fieldSchema => ({
           name: fieldSchema.field,
           type: fieldSchema.fieldType,
-          label: getLocaleValue(fieldSchema.label, intl.locale),
+          fieldSchema,
           options: fieldSchema.options.map(option => ({
             ...option,
             value: option.id,
@@ -109,5 +126,5 @@ export default function useFilters(
       ...v,
       id: seed(v),
     }));
-  }, [agendaSchema.fields, intl.locale, stateOptions]);
+  }, [additionals, agendaSchema.fields, intl, seed, standards, stateOptions]);
 }

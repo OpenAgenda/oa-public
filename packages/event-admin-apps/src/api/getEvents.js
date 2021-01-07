@@ -6,8 +6,6 @@ export default async function getEvents(
   query,
   pageParam
 ) {
-  console.log('getEvents', pageParam);
-
   const aggregations = filters
     .map(filter => ({
       key: `${filter.name}-${filter.id}`,

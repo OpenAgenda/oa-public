@@ -1,6 +1,30 @@
 {
-  "EventAdminApp.Dashboard.aggregatedFrom": null,
-  "EventAdminApp.Dashboard.createdBy": null,
+  "EventAdminApp.Dashboard.aggregatedFrom": [
+    {
+      "type": 0,
+      "value": "Aggrégé depuis "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
+  "EventAdminApp.Dashboard.createdBy": [
+    {
+      "type": 0,
+      "value": "Créé par "
+    },
+    {
+      "type": 1,
+      "value": "value"
+    }
+  ],
+  "EventAdminApp.Dashboard.filters": [
+    {
+      "type": 0,
+      "value": "Filtres"
+    }
+  ],
   "EventAdminApp.Dashboard.totalEvents": [
     {
       "type": 0,
@@ -8,7 +32,29 @@
     },
     {
       "type": 1,
-      "value": "value"
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalWithFilters": [
+    {
+      "type": 1,
+      "value": "selection"
+    },
+    {
+      "type": 0,
+      "value": " / "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": " événements "
+    },
+    {
+      "type": 1,
+      "value": "filters"
     }
   ],
   "EventAdminApp.FiltersPart.lessFilters": [
