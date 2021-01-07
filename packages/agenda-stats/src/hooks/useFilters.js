@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
-import stateMessages from '../messages/states';
-import getLocaleValue from '../utils/getLocaleValue';
 import { dateRanges } from '@openagenda/react-filters';
+import stateMessages from '../messages/states';
 
 const defaultOptions = {
   standards: true,
@@ -105,7 +104,7 @@ export default function useFilters(
         .map(fieldSchema => ({
           name: fieldSchema.field,
           type: fieldSchema.fieldType,
-          label: getLocaleValue(fieldSchema.label, intl.locale),
+          fieldSchema,
           options: fieldSchema.options.map(option => ({
             ...option,
             value: option.id,

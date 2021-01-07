@@ -4,8 +4,12 @@ import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
+import { mergeLocales } from '@openagenda/react-shared';
+import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import statsReducer from '../reducers/stats';
-import locales from '../locales-compiled';
+import appLocales from '../locales-compiled';
+
+const locales = mergeLocales(appLocales, reactFiltersLocales);
 
 function App({
   route, user, agenda, agendaSchema, role

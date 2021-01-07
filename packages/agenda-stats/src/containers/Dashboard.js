@@ -197,7 +197,7 @@ function FiltersPart({ agenda, agendaSchema }) {
     <FiltersProvider
       onSubmit={onFilterChange}
       initialValues={initialQuery}
-      locale={intl.locale}
+      intl={intl}
       ref={filtersFormRef}
     >
       <div className="oa-collapse">
