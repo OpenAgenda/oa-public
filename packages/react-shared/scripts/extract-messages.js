@@ -62,7 +62,7 @@ async function compileLang(lang) {
     compiledLocales = JSON.parse(
       await compile([localesPath], {
         ast: true,
-        format: FORMAT
+        format: FORMAT,
       })
     );
 
@@ -111,7 +111,7 @@ function createIndex(dir) {
     await extract(globSync(FILES), {
       idInterpolationPattern: ID_INTERPOLATION_PATTERN,
       extractFromFormatMessageCall: true,
-      format: FORMAT
+      format: FORMAT,
     })
   );
 
