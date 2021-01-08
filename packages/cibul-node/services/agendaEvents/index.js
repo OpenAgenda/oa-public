@@ -69,6 +69,7 @@ function plugApp(parentApp) {
 
   parentApp.all([
     '/:agendaSlug/events/:eventSlug/state/:state',
+    '/:agendaSlug/events/:eventSlug/state',
     '/:agendaSlug/events/:eventSlug/remove',
     '/:agendaSlug/events/:eventSlug/add'
   ], [
@@ -79,6 +80,7 @@ function plugApp(parentApp) {
 
   parentApp.all([
     '/:agendaSlug/events/:eventSlug/state/:state',
+    '/:agendaSlug/events/:eventSlug/state',
     '/:agendaSlug/events/:eventSlug/remove',
     '/:agendaSlug/events/:eventSlug/toggle-cancelled'
   ], [
@@ -88,6 +90,11 @@ function plugApp(parentApp) {
   ]);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state',
+    members.mw.loadAndAuthorize('moderator'),
+    mw.changeState
+  );
+
+  parentApp.post('/:agendaSlug/events/:eventSlug/state',
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState
   );
