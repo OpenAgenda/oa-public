@@ -5,8 +5,14 @@
       "value": "Aggrégé depuis "
     },
     {
-      "type": 1,
-      "value": "value"
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "link"
     }
   ],
   "EventAdminApp.Dashboard.createdBy": [
@@ -15,8 +21,14 @@
       "value": "Créé par "
     },
     {
-      "type": 1,
-      "value": "value"
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
     }
   ],
   "EventAdminApp.Dashboard.filters": [
@@ -27,30 +39,115 @@
   ],
   "EventAdminApp.Dashboard.totalEvents": [
     {
-      "type": 0,
-      "value": "Total des événements: "
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
     },
     {
-      "type": 1,
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
       "value": "total"
     }
   ],
   "EventAdminApp.Dashboard.totalWithFilters": [
     {
-      "type": 1,
-      "value": "selection"
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "selection"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
     },
     {
       "type": 0,
       "value": " / "
     },
     {
-      "type": 1,
-      "value": "total"
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
     },
     {
       "type": 0,
-      "value": " événements "
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
     },
     {
       "type": 1,

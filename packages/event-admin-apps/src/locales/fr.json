@@ -1,9 +1,9 @@
 {
-  "EventAdminApp.Dashboard.aggregatedFrom": "Aggrégé depuis {value}",
-  "EventAdminApp.Dashboard.createdBy": "Créé par {value}",
+  "EventAdminApp.Dashboard.aggregatedFrom": "Aggrégé depuis <link>{title}</link>",
+  "EventAdminApp.Dashboard.createdBy": "Créé par <link>{name}</link>",
   "EventAdminApp.Dashboard.filters": "Filtres",
-  "EventAdminApp.Dashboard.totalEvents": "Total des événements: {total}",
-  "EventAdminApp.Dashboard.totalWithFilters": "{selection} / {total} événements {filters}",
+  "EventAdminApp.Dashboard.totalEvents": "<strong>{total, number}</strong> {total, plural, =0 {événement} one {événements} other {événements}}",
+  "EventAdminApp.Dashboard.totalWithFilters": "<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {événement} one {événements} other {événements}}{filters}",
   "EventAdminApp.FiltersPart.lessFilters": "Afficher moins de filtres",
   "EventAdminApp.FiltersPart.moreFilters": "Afficher plus de filtres",
   "EventAdminApp.messages.states.controlled": "prêt à publier",

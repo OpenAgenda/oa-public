@@ -1,10 +1,7 @@
 import _ from 'lodash';
 import qs from 'qs';
 import React, {
-  useCallback,
-  useMemo,
-  useState,
-  useRef
+  useCallback, useMemo, useState, useRef
 } from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
@@ -32,19 +29,21 @@ const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 const messages = defineMessages({
   totalEvents: {
     id: 'EventAdminApp.Dashboard.totalEvents',
-    defaultMessage: '{total} events',
+    defaultMessage:
+      '<strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}',
   },
   totalWithFilters: {
     id: 'EventAdminApp.Dashboard.totalWithFilters',
-    defaultMessage: '{selection} / {total} events{filters}',
+    defaultMessage:
+      '<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}{filters}',
   },
   createdBy: {
     id: 'EventAdminApp.Dashboard.createdBy',
-    defaultMessage: 'Created by {value}',
+    defaultMessage: 'Created by <link>{name}</link>',
   },
   aggregatedFrom: {
     id: 'EventAdminApp.Dashboard.aggregatedFrom',
-    defaultMessage: 'Aggregated from {value}',
+    defaultMessage: 'Aggregated from <link>{title}</link>',
   },
   filters: {
     id: 'EventAdminApp.Dashboard.filters',
@@ -332,27 +331,30 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       intl={intl}
       ref={filtersFormRef}
     >
-      <header>
+      <header
+        css={css`
+          line-height: 26px;
+        `}
+      >
         {hasQuery
-          ? intl.formatMessage(
-            messages.totalWithFilters,
-            {
-              selection: <strong>{intl.formatNumber(data.pages[0].total)}</strong>,
-              total: <strong>{intl.formatNumber(filtersQuery.data.total)}</strong>,
-              filters: (
-                <span className="oa-filter-value-preview" css={css`line-height: 26px;`}>
-                  <FiltersPreview
-                    query={query}
-                    agenda={agenda}
-                    standardsFilters={standardsFilters}
-                    additionalsFilters={additionalsFilters}
-                  />
-                </span>
-              )
-            }
-          )
+          ? intl.formatMessage(messages.totalWithFilters, {
+            selection: data.pages[0].total,
+            total: filtersQuery.data.total,
+            strong: chunks => <strong>{chunks}</strong>,
+            filters: (
+              <span className="oa-filter-value-preview">
+                <FiltersPreview
+                  query={query}
+                  agenda={agenda}
+                  standardsFilters={standardsFilters}
+                  additionalsFilters={additionalsFilters}
+                />
+              </span>
+            ),
+          })
           : intl.formatMessage(messages.totalEvents, {
-            total: <strong>{intl.formatNumber(filtersQuery.data.total)}</strong>,
+            total: filtersQuery.data.total,
+            strong: chunks => <strong>{chunks}</strong>,
           })}
       </header>
 
@@ -373,7 +375,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 {event.member ? (
                   <div className="margin-top-xs">
                     {intl.formatMessage(messages.createdBy, {
-                      value: <a href="#_">{event.member.name}</a>,
+                      name: event.member.name,
+                      link: chunks => <a href="#_">{chunks}</a>,
                     })}
                   </div>
                 ) : null}
@@ -381,7 +384,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 {event.sourceAgendas?.length ? (
                   <div className="margin-top-xs">
                     {intl.formatMessage(messages.aggregatedFrom, {
-                      value: <a href="#_">{event.sourceAgendas[0].title}</a>,
+                      title: event.sourceAgendas[0].title,
+                      link: chunks => <a href="#_">{chunks}</a>,
                     })}
                   </div>
                 ) : null}
