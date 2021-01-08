@@ -14,17 +14,15 @@ import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
-import { useApiClient, ReactSelectInput } from '@openagenda/react-shared';
+import { useApiClient } from '@openagenda/react-shared';
 import { FiltersProvider } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPart from '../components/FiltersPart';
 import FiltersPreview from '../components/FiltersPreview';
+import StateSelector from '../components/StateSelector';
 import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
 import getLocaleValue from '../utils/getLocaleValue';
-import stateMessages from '../messages/states';
-
-const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 
 const messages = defineMessages({
   totalEvents: {
@@ -50,134 +48,6 @@ const messages = defineMessages({
     defaultMessage: 'Filters',
   },
 });
-
-const stateBadgeCss = css`
-  height: 19px;
-  width: 19px;
-`;
-
-const stateSelectStyles = {
-  ...defaultReactSelectStyles,
-  container: provided => ({
-    ...provided,
-    display: 'inline-block',
-  }),
-  control: (provided, state) => ({
-    ...defaultReactSelectStyles.control(provided, state),
-    transition: 'none',
-    border: 'none',
-    boxShadow: 'none',
-    cursor: 'pointer',
-    minWidth: 0,
-    minHeight: 0,
-  }),
-  valueContainer: (provided, state) => ({
-    ...defaultReactSelectStyles.valueContainer(provided, state),
-    padding: 0,
-  }),
-  singleValue: provided => ({
-    ...provided,
-    top: 0,
-    transform: 'none',
-    position: 'relative',
-    overflow: 'visible',
-    marginRight: 0,
-  }),
-  option: provided => ({
-    ...provided,
-    display: 'flex',
-  }),
-  dropdownIndicator: provided => ({
-    ...provided,
-    padding: 0,
-    verticalAlign: 'middle',
-  }),
-  indicatorSeparator: () => ({
-    display: 'none',
-  }),
-  menu: (provided, state) => ({
-    ...defaultReactSelectStyles.menu(provided, state),
-    minWidth: '150px',
-  }),
-};
-
-function StateSelector({ event }) {
-  const intl = useIntl();
-
-  const stateOptions = useMemo(
-    () => [
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-danger margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.refused)}
-          </>
-        ),
-        value: -1,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-warning margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.tocontrol)}
-          </>
-        ),
-        value: 0,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-default margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.controlled)}
-          </>
-        ),
-        value: 1,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-success margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.published)}
-          </>
-        ),
-        value: 2,
-      },
-    ],
-    [intl]
-  );
-  const [value, setValue] = useState(() => stateOptions.find(o => o.value === event.state));
-
-  return (
-    <ReactSelectInput
-      options={stateOptions}
-      value={value}
-      onChange={setValue}
-      styles={stateSelectStyles}
-      isSearchable={false}
-      isClearable={false}
-    />
-  );
-}
 
 function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const intl = useIntl();
@@ -359,7 +229,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       </header>
 
       <ul className="list-unstyled">
-        {data.pages.map(page => (
+        {data.pages.map((page, pageIndex) => (
           <React.Fragment key={seed(page)}>
             {page.events.map(event => (
               <li key={event.uid} className="margin-top-md">
@@ -393,7 +263,11 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 <div className="margin-top-xs">
                   <ul className="list-inline">
                     <li>
-                      <StateSelector event={event} />
+                      <StateSelector
+                        agenda={agenda}
+                        event={event}
+                        pageIndex={pageIndex}
+                      />
                     </li>
                     <li>
                       <a className="btn btn-link btn-link-inline" href="#_">
