@@ -3,6 +3,7 @@
   "ReactFilters.DateRangeFilter.endDate": "Fin",
   "ReactFilters.DateRangeFilter.singleDate": "{date, time, ::yyyyMMdd}",
   "ReactFilters.DateRangeFilter.startDate": "Début",
+  "ReactFilters.ValueBadge.removeFilter": "Supprimer le filtre",
   "ReactFilters.dateRanges.currentMonth": "Ce mois-ci",
   "ReactFilters.dateRanges.currentWeek": "Cette semaine",
   "ReactFilters.dateRanges.thisWeekend": "Ce week-end",

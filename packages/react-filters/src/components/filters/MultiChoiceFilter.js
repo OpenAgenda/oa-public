@@ -28,7 +28,7 @@ function DefaultPreviewRenderer({
   valueOptions,
   onRemove,
   disabled,
-  className
+  className,
 }) {
   return (
     <span className={className}>
@@ -49,44 +49,50 @@ function Preview({
   filter,
   getOptions,
   component = DefaultPreviewRenderer,
+  disabled,
   ...rest
 }) {
   const { input } = useField(name, { subscription });
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
   const valueOptions = useMemo(
-    () => input.value && input.value.map(v => options.find(option => option.value === v)),
+    () => input.value
+      && input.value.map(v => options.find(option => option.value === v)),
     [input.value, options]
   );
 
-  const onRemove = useCallback(option => e => {
-    e.stopPropagation();
+  const onRemove = useCallback(
+    option => e => {
+      e.stopPropagation();
 
-    input.onChange(input.value.filter(v => v !== option.value));
-  }, [input]);
+      if (disabled) {
+        return;
+      }
+
+      const newValue = input.value.filter(v => v !== option.value);
+
+      input.onChange(newValue.length ? newValue : undefined);
+    },
+    [input, disabled]
+  );
 
   if (!valueOptions || valueOptions === '') {
     return null;
   }
 
-  return React.createElement(
-    component,
-    {
-      name,
-      filter,
-      getOptions,
-      valueOptions,
-      onRemove,
-      ...rest
-    }
-  );
+  return React.createElement(component, {
+    name,
+    filter,
+    getOptions,
+    valueOptions,
+    onRemove,
+    disabled,
+    ...rest,
+  });
 }
 
 function Title({
-  name,
-  filter,
-  getOptions,
-  disabled
+  name, filter, getOptions, disabled
 }) {
   const title = useFilterTitle(name, filter.fieldSchema);
   const field = useField(name, { subscription });
@@ -113,11 +119,7 @@ function Title({
 }
 
 function MultiChoiceFilter({
-  name,
-  filter,
-  getTotal,
-  getOptions,
-  disabled,
+  name, filter, getTotal, getOptions, disabled
 }) {
   const form = useForm();
   const seed = useUIDSeed();
@@ -128,16 +130,22 @@ function MultiChoiceFilter({
 
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
-  const moreOptions = useCallback(() => setMaxOptions(v => v + OPTIONS_PAGE_SIZE), []);
+  const moreOptions = useCallback(
+    () => setMaxOptions(v => v + OPTIONS_PAGE_SIZE),
+    []
+  );
   const lessOptions = useCallback(() => setMaxOptions(OPTIONS_PAGE_SIZE), []);
 
-  const onCollapsedChange = useCallback(value => {
-    setCollapsed(value);
+  const onCollapsedChange = useCallback(
+    value => {
+      setCollapsed(value);
 
-    if (value) {
-      lessOptions();
-    }
-  }, [lessOptions]);
+      if (value) {
+        lessOptions();
+      }
+    },
+    [lessOptions]
+  );
 
   const hasMoreOptions = maxOptions < options.length;
 
@@ -172,11 +180,23 @@ function MultiChoiceFilter({
       ) : null))}
 
       {hasMoreOptions ? (
-        <button type="button" className="btn btn-link btn-link-inline" onClick={moreOptions}>Plus d&apos;options</button>
+        <button
+          type="button"
+          className="btn btn-link btn-link-inline"
+          onClick={moreOptions}
+        >
+          Plus d&apos;options
+        </button>
       ) : null}
 
       {!hasMoreOptions && maxOptions > OPTIONS_PAGE_SIZE ? (
-        <button type="button" className="btn btn-link btn-link-inline" onClick={lessOptions}>Moins d&apos;options</button>
+        <button
+          type="button"
+          className="btn btn-link btn-link-inline"
+          onClick={lessOptions}
+        >
+          Moins d&apos;options
+        </button>
       ) : null}
 
       <OnChange name={name}>{onChange}</OnChange>

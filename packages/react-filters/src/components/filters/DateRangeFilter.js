@@ -79,18 +79,11 @@ function parseValue(value) {
 }
 
 function DefaultPreviewRenderer({
-  label,
-  onRemove,
-  disabled,
-  className
+  label, onRemove, disabled, className
 }) {
   return (
     <span className={className}>
-      <ValueBadge
-        label={label}
-        onRemove={onRemove}
-        disabled={disabled}
-      />
+      <ValueBadge label={label} onRemove={onRemove} disabled={disabled} />
     </span>
   );
 }
@@ -99,6 +92,7 @@ function Preview({
   name,
   staticRanges,
   component = DefaultPreviewRenderer,
+  disabled,
   ...rest
 }) {
   const intl = useIntl();
@@ -120,9 +114,13 @@ function Preview({
     e => {
       e.stopPropagation();
 
+      if (disabled) {
+        return;
+      }
+
       input.onChange(undefined);
     },
-    [input]
+    [input, disabled]
   );
 
   let label;
@@ -142,23 +140,18 @@ function Preview({
       });
   }
 
-  return React.createElement(
-    component,
-    {
-      name,
-      staticRanges,
-      label,
-      onRemove,
-      ...rest
-    }
-  );
+  return React.createElement(component, {
+    name,
+    staticRanges,
+    label,
+    onRemove,
+    disabled,
+    ...rest,
+  });
 }
 
 function Title({
-  name,
-  filter,
-  staticRanges,
-  disabled
+  name, filter, staticRanges, disabled
 }) {
   const title = useFilterTitle(name, filter.fieldSchema);
   const { input } = useField(name, { subscription });
@@ -187,7 +180,7 @@ function DateRangeFilter({
   filter,
   disabled,
   staticRanges,
-  inputRanges
+  inputRanges,
 }) {
   const intl = useIntl();
   const form = useForm();
