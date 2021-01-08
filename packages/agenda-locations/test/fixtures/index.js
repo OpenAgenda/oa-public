@@ -1,8 +1,8 @@
 'use strict';
 
-const _ = require('lodash');
 const fs = require('fs');
 const { promisify } = require('util');
+const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 
@@ -10,7 +10,7 @@ function _sql(SQLDataRelativePath) {
   const raw = [
     fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
     fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8'),
-    fs.readFileSync(`${__dirname}/${SQLDataRelativePath}`, 'utf-8')
+    fs.readFileSync(`${__dirname}/${SQLDataRelativePath}`, 'utf-8'),
   ];
 
   return raw.join('\n');
@@ -32,12 +32,12 @@ async function _load(dbConfig, SQLDataRelativePath) {
 module.exports = (dbConfig, SQLDataRelativePath = 'ardeche/rows.sql') => {
   const client = knex({
     client: 'mysql',
-    connection: dbConfig
+    connection: dbConfig,
   });
 
   return {
     destroyClient: () => client.destroy(),
     client,
-    load: () => _load(dbConfig, SQLDataRelativePath)
+    load: () => _load(dbConfig, SQLDataRelativePath),
   };
 };

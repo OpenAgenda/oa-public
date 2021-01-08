@@ -12,12 +12,11 @@ const NotFoundError = require('./lib/NotFoundError');
 async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
 
-  const {
-    includeImagePath,
-    geocodeIfUndefined
-  } = cleanOptions(options);
+  const { includeImagePath, geocodeIfUndefined } = cleanOptions(options);
 
-  const geocodeResult = geocodeIfUndefined ? await service.decorateWithGeocodeData(data): null;
+  const geocodeResult = geocodeIfUndefined
+    ? await service.decorateWithGeocodeData(data)
+    : null;
 
   const ignoreImage = current.image && !validate.isStream(data.image);
 
@@ -25,23 +24,29 @@ async function update({ service, isPatch }, current, data, options = {}) {
     log('image is not stream, will be ignored');
   }
 
-  const dataToValidate = geocodeResult ? {
-    ...(isPatch ? _.pick(geocodeResult, ['latitude', 'longitude']) : geocodeResult),
-    ...data
-  } : data;
+  const dataToValidate = geocodeResult
+    ? {
+      ...(isPatch
+        ? _.pick(geocodeResult, ['latitude', 'longitude'])
+        : geocodeResult),
+      ...data,
+    }
+    : data;
 
   const clean = {
     ...validate(dataToValidate, { isPatch, ignoreImage }),
-    updatedAt: new Date
+    updatedAt: new Date(),
   };
 
-  if (current.image && (data.image === null)) {
+  if (current.image && data.image === null) {
     clean.image = null;
   } else if (clean.image && !ignoreImage) {
     log('uploading image');
-    const result = await service.imageTransformAndUpload(clean.image, { uid: current.uid });
+    const result = await service.imageTransformAndUpload(clean.image, {
+      uid: current.uid,
+    });
 
-    clean.image = result[0].filename + '?__ts=' + (new Date).getTime();
+    clean.image = `${result[0].filename}?_ts=${new Date().getTime()}`;
   } else if (ignoreImage && current.image) {
     clean.image = current.image.split('/').pop();
   }
@@ -50,7 +55,8 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   const entry = fromItemToDbEntry(clean, current);
 
-  const result = await service.clients.knex(service.config.schema)
+  await service.clients
+    .knex(service.config.schema)
     .update(entry)
     .where('uid', current.uid);
 
@@ -62,7 +68,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   const updated = {
     ...current,
-    ...clean
+    ...clean,
   };
 
   if (service.interfaces.onUpdate) {
@@ -72,13 +78,18 @@ async function update({ service, isPatch }, current, data, options = {}) {
   return updated;
 }
 
-module.exports = async ({ service, isPatch }, identifiers, data, options = {}) => {
+module.exports = async (
+  { service, isPatch },
+  identifiers,
+  data,
+  options = {}
+) => {
   const current = await get(service, identifiers, options);
   if (!current) {
     throw NotFoundError('location', identifiers);
   }
   return update({ service, isPatch }, current, data, options);
-}
+};
 
 module.exports.byAgendaUid = async (
   { service, isPatch },
@@ -87,14 +98,19 @@ module.exports.byAgendaUid = async (
   data,
   options = {}
 ) => {
-  const current = await get.byAgendaUid(service, agendaUid, identifiers, options);
+  const current = await get.byAgendaUid(
+    service,
+    agendaUid,
+    identifiers,
+    options
+  );
 
   if (!current) {
     throw new NotFoundError('location', { identifiers, agendaUid });
   }
 
   return update({ service, isPatch }, current, data, options);
-}
+};
 
 module.exports.bySetUid = async (
   { service, isPatch },
@@ -110,4 +126,4 @@ module.exports.bySetUid = async (
   }
 
   return update({ service, isPatch }, current, data, options);
-}
+};

@@ -1,12 +1,10 @@
 'use strict';
 
 module.exports = (k, nav) => {
-  const {
-    after, offset, limit
-  } = nav;
+  const { after, offset, limit } = nav;
 
   if (after) {
-    k.where('id', '<', after)
+    k.where('id', '<', after);
   }
 
   if (offset) {

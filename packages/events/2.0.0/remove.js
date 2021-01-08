@@ -16,7 +16,7 @@ async function remove(service, current, options = {}) {
     }).where('uid', current.uid);
 
   try {
-    await removeLegacy(service, current);
+    await removeLegacy(service.clients.knex, current);
   } catch (e) {
     log('warn', 'failed to remove legacy', e);
   }

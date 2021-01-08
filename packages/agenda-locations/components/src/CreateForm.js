@@ -10,35 +10,39 @@ import CreateFormHeader from './CreateFormHeader';
 
 const getLabel = makeLabelGetter({ ...formLabels, ...createLabels });
 
-module.exports = createReactClass( {
+module.exports = createReactClass({
   propTypes: {
     lang: PropTypes.string,
     actions: PropTypes.object,
     res: PropTypes.object,
-    settings: PropTypes.object
+    settings: PropTypes.object,
   },
   renderHeader() {
-    return <CreateFormHeader
-      settings={ this.props.settings }
-      actions={ this.props.actions }
-      lang={ this.props.lang }
-    />
+    return (
+      <CreateFormHeader
+        settings={this.props.settings}
+        actions={this.props.actions}
+        lang={this.props.lang}
+      />
+    );
   },
 
   render() {
-    return <LocationForm
-      postRes={this.props.res.create}
-      Header={ this.renderHeader() }
-      location={ null }
-      enableGeocode={this.props.enableGeocode}
-      labels={ createLabels }
-      showToggler={ false }
-      res={ this.props.res }
-      lang={ this.props.lang }
-      onCancel={ this.props.actions.closeForm }
-      onSuccess={ this.props.actions.addLocation }
-      detailedInfo={ this.props.detailedInfo }
-      settings={ this.props.settings }
-    />
-  }
+    return (
+      <LocationForm
+        postRes={this.props.res.create}
+        Header={this.renderHeader()}
+        location={null}
+        enableGeocode={this.props.enableGeocode}
+        labels={createLabels}
+        showToggler={false}
+        res={this.props.res}
+        lang={this.props.lang}
+        onCancel={this.props.actions.closeForm}
+        onSuccess={this.props.actions.addLocation}
+        detailedInfo={this.props.detailedInfo}
+        settings={this.props.settings}
+      />
+    );
+  },
 });

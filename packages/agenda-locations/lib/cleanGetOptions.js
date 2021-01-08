@@ -1,26 +1,26 @@
 'use strict';
 
-const fields = require('./fields.json');
-
 const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
 const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
 
+const fields = require('./fields.json');
+
 schema.register({
   boolean,
   integer,
-  choice
+  choice,
 });
 
 module.exports = schema({
   eventCounts: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeImagePath: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   includeFields: {
     type: 'choice',
@@ -28,16 +28,16 @@ module.exports = schema({
   },
   throwOnNotFound: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   context: {
     agendaUid: {
       type: 'integer',
-      default: null
+      default: null,
     },
     setUid: {
       type: 'integer',
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });

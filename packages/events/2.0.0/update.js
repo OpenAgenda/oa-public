@@ -37,7 +37,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
   await handleInterface(service, 'onUpdate', current, clean, options.context);
 
   try {
-    await setLegacy(service, { ...current, ...clean });
+    await setLegacy(service.clients.knex, { ...current, ...clean });
   } catch (e) {
     log('warn', 'failed to update legacy', e);
   }

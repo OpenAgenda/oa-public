@@ -11,15 +11,15 @@ module.exports = async (service, data = {}) => {
   const entry = {
     uid: await defineUnique(service, 'uid', () => Math.ceil(Math.random() * 99999999)),
     title: clean.title,
-    created_at: new Date,
-    updated_at: new Date
-  }
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
 
-  const [ insertedID ] = await service.clients
+  const [insertedID] = await service.clients
     .knex(service.config.setSchema)
     .insert(entry);
 
   log('created with id %s and uid %s', insertedID, entry.uid);
 
   return _.mapKeys(entry, (v, key) => _.camelCase(key));
-}
+};

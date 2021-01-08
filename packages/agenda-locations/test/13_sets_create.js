@@ -2,16 +2,16 @@
 
 const assert = require('assert');
 
+const Files = require('@openagenda/files');
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
-const Files = require('@openagenda/files');
+const Service = require('..');
 
-describe('agenda-locations - functional - sets create', function() {
+describe('agenda-locations - functional - sets create', function () {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -25,18 +25,23 @@ describe('agenda-locations - functional - sets create', function() {
     svc = Service({
       knex: f.client,
       interfaces: {},
-      Files: Files(dConfig.files)
+      Files: Files(dConfig.files),
     });
   });
 
   before(async () => {
     created = await svc.sets.create({
-      title: 'Un jeu de lieux'
+      title: 'Un jeu de lieux',
     });
   });
 
   it('created set is given as the response', () => {
-    assert.deepEqual(Object.keys(created), ['uid', 'title', 'createdAt', 'updatedAt']);
+    assert.deepEqual(Object.keys(created), [
+      'uid',
+      'title',
+      'createdAt',
+      'updatedAt',
+    ]);
   });
 
   it('entry is added', async () => {
@@ -45,7 +50,11 @@ describe('agenda-locations - functional - sets create', function() {
 
   it('title is in entry', async () => {
     assert.equal(
-      await f.client('location_set').first().where('uid', created.uid).then(r => r.title),
+      await f
+        .client('location_set')
+        .first()
+        .where('uid', created.uid)
+        .then(r => r.title),
       'Un jeu de lieux'
     );
   });

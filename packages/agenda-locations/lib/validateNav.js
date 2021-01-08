@@ -8,26 +8,26 @@ const boolean = require('@openagenda/validators/boolean');
 schema.register({
   integer,
   text,
-  boolean
+  boolean,
 });
 
 const validate = schema({
   after: {
     type: 'integer',
-    default: null
+    default: null,
   },
   offset: {
     type: 'integer',
-    default: null
+    default: null,
   },
   limit: {
     type: 'integer',
-    default: 20
+    default: 20,
   },
   useAfter: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });
 
 module.exports = nav => {
@@ -38,4 +38,4 @@ module.exports = nav => {
   }
 
   return clean;
-}
+};

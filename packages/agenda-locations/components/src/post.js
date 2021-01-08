@@ -2,13 +2,14 @@ import _ from 'lodash';
 import sa from 'superagent';
 
 export default (res, values, cb) => {
-  const {
-    fileless,
-    files
-  } = Object.keys(values).reduce(({ fileless, files }, fieldName) => {
-    (_areFiles(values[fieldName]) ? files : fileless)[fieldName] = values[fieldName];
-    return { fileless, files };
-  }, { fileless: {}, files: {} });
+  const { fileless, files } = Object.keys(values).reduce(
+    ({ fileless, files }, fieldName) => {
+      (_areFiles(values[fieldName]) ? files : fileless)[fieldName] =
+        values[fieldName];
+      return { fileless, files };
+    },
+    { fileless: {}, files: {} }
+  );
 
   // IE11 does not like empty strings;
   const req = sa.post(res || window?.location?.href);
@@ -30,10 +31,10 @@ export default (res, values, cb) => {
   }
 
   req.end((err, res) => cb(err, res?.body));
-}
+};
 
 function _areFiles(value) {
   const values = value ? [].concat(value) : [];
   if (!values.length) return false;
-  return values[0] instanceof File
+  return values[0] instanceof File;
 }

@@ -108,6 +108,20 @@ describe('events - functional - create', function() {
       throw new Error('Should have failed.');
     });
 
+    it('image at null is no image at all', async () => {
+      await svc.create({
+        title: 'Event create given a text stream instead of image',
+        description: 'Nope',
+        image: null,
+        eventAttendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timings: [{
+          begin: '2020-12-22T11:35:00.000+0200',
+          end: '2020-12-22T13:30:00.000+0200'
+        }]
+      });
+    });
+
   });
 
   describe('other', () => {
@@ -164,6 +178,16 @@ describe('events - functional - create', function() {
         context: 'Create context'
       });
     });
+
+    it('agendaUid is associated to created event when passed in context', async () => {
+      const event = await svc.create(data, {
+        context: {
+          agendaUid: 123
+        }
+      });
+
+      assert.equal(event.agendaUid, 123);
+    })
 
     it('if an interface returns a promise, it will be waited upon', async () => {
       let calledOnCreate = false;

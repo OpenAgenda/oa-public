@@ -1,1 +1,8 @@
-export default ['district', 'city', 'region', 'department', 'postalCode', 'insee'];
+export default [
+  'district',
+  'city',
+  'region',
+  'department',
+  'postalCode',
+  'insee',
+];

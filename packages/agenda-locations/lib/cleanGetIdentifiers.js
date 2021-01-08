@@ -1,36 +1,39 @@
 'use strict';
 
-const BadRequestError = require('./BadRequestError');
-
 const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
+const text = require('@openagenda/validators/text');
 
-schema.register({
-  integer: require('@openagenda/validators/integer'),
-  text: require('@openagenda/validators/text')
-});
+schema.register({ integer, text });
+
+const BadRequestError = require('./BadRequestError');
 
 const validate = schema({
   uid: {
-    type: 'integer'
+    type: 'integer',
   },
   extId: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 });
 
 module.exports = identifiers => {
   try {
     const clean = validate(
-      ['number', 'string'].includes(typeof identifiers) ? {
-        uid: identifiers
-      } : identifiers
+      ['number', 'string'].includes(typeof identifiers)
+        ? {
+          uid: identifiers,
+        }
+        : identifiers
     );
-    const getFieldName = Object.keys(clean).filter(f => !!clean[f]).pop();
+    const getFieldName = Object.keys(clean)
+      .filter(f => !!clean[f])
+      .pop();
 
     return {
-      [getFieldName]: clean[getFieldName]
+      [getFieldName]: clean[getFieldName],
     };
   } catch (e) {
     throw new BadRequestError('Invalid identifiers');
   }
-}
+};

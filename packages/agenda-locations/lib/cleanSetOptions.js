@@ -6,26 +6,26 @@ const boolean = require('@openagenda/validators/boolean');
 
 schema.register({
   integer,
-  boolean
+  boolean,
 });
 
 module.exports = schema({
   context: {
     agendaUid: {
       type: 'integer',
-      default: null
+      default: null,
     },
     setUid: {
       type: 'integer',
-      default: null
-    }
+      default: null,
+    },
   },
   includeImagePath: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   geocodeIfUndefined: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });

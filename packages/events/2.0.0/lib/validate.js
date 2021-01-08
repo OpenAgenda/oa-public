@@ -4,9 +4,10 @@ const _ = require('lodash');
 const schema = require('@openagenda/validators/schema');
 
 const ValidationError = require('./ValidationError');
+const preClean = require('./preValidateClean');
 
 const eventCustomValidators = {
-  timings: require('./validators/timings'),
+  timings2: require('./validators/timings'),
   registration: require('./validators/registration'),
   accessibility: require('./validators/accessibility'),
   age: require('./validators/age'),
@@ -26,12 +27,10 @@ const validate = new FormSchema({
 module.exports = (data, options = {}) => {
   const {
     isPatch,
-    isDraft,
-    convertDateMinuteHourTimings
+    isDraft
   } = {
     isPatch: false,
     isDraft: false,
-    convertDateMinuteHourTimings: false,
     ...options
   };
 
@@ -40,10 +39,11 @@ module.exports = (data, options = {}) => {
   let clean;
 
   try {
-    clean = fn(data);
+    clean = fn(preClean(data));
   } catch (errors) {
     throw new ValidationError(errors);
   }
 
   return clean;
 }
+

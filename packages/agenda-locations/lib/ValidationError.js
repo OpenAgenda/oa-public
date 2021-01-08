@@ -7,4 +7,4 @@ module.exports = class ValidationError extends Error {
     this.detail = errors;
     this.statusCode = 400;
   }
-}
+};

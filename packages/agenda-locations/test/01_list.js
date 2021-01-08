@@ -1,24 +1,27 @@
 'use strict';
 
-const _ = require('lodash');
 const assert = require('assert');
+const _ = require('lodash');
 
 const Files = require('@openagenda/files');
 
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
 
-const fixtures = require('./fixtures');
-const Service = require('../');
 const fields = require('../lib/fields.json');
+const fixtures = require('./fixtures');
+const Service = require('..');
 
 async function getAgendaDetailsByUid(uid, fields = []) {
-  return _.pick({
-    id: ({ 7196947: 25221 })[uid],
-    locationSetUid: ({ 7196947: 1903810 })[uid]
-  }, fields);
+  return _.pick(
+    {
+      id: { 7196947: 25221 }[uid],
+      locationSetUid: { 7196947: 1903810 }[uid],
+    },
+    fields
+  );
 }
 
 async function getEventCounts(locationUids, { agendaUid }) {
@@ -26,16 +29,17 @@ async function getEventCounts(locationUids, { agendaUid }) {
     {
       uid: 60763721,
       eventCount: 12,
-      agendaEventCount: 8
-    }, {
+      agendaEventCount: 8,
+    },
+    {
       uid: 51665985,
       eventCount: 9,
-      agendaEventCount: 2
-    }
+      agendaEventCount: 2,
+    },
   ];
 }
 
-describe('agenda-locations - functional - list', function() {
+describe('agenda-locations - functional - list', function () {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -53,10 +57,10 @@ describe('agenda-locations - functional - list', function() {
       imagePath: '//cibuldev.s3.amazonaws.com/',
       interfaces: {
         getAgendaDetailsByUid,
-        getEventCounts
-      }
+        getEventCounts,
+      },
     });
-  })
+  });
 
   describe('defaults', () => {
     let items;
@@ -74,34 +78,43 @@ describe('agenda-locations - functional - list', function() {
     });
 
     it('order is by descending id', async () => {
-      assert.deepEqual(items.map(i => i.uid), [
-        60763721,
-        7630649,
-        51665985,
-        30433085,
-        87316763,
-        32049550,
-        41253007,
-        27638359,
-        91723136,
-        79091381,
-        56366303,
-        94482437,
-        80369196,
-        60725900,
-        7749634,
-        24334735,
-        54251470,
-        12084144,
-        56924239,
-        56511938
-      ]);
+      assert.deepEqual(
+        items.map(i => i.uid),
+        [
+          60763721,
+          7630649,
+          51665985,
+          30433085,
+          87316763,
+          32049550,
+          41253007,
+          27638359,
+          91723136,
+          79091381,
+          56366303,
+          94482437,
+          80369196,
+          60725900,
+          7749634,
+          24334735,
+          54251470,
+          12084144,
+          56924239,
+          56511938,
+        ]
+      );
     });
 
     it('provided fields by default are name, address, latitude and longitude', () => {
-      assert.deepEqual(Object.keys(items[0]), ['uid', 'name', 'address', 'latitude', 'longitude', 'state']);
+      assert.deepEqual(Object.keys(items[0]), [
+        'uid',
+        'name',
+        'address',
+        'latitude',
+        'longitude',
+        'state',
+      ]);
     });
-
   });
 
   describe('nav', () => {
@@ -113,21 +126,21 @@ describe('agenda-locations - functional - list', function() {
     });
 
     it('nav with after means that response includes an after key', async () => {
-      const {
-        after
-      } = await svc(7196947).list({}, { limit: 2, useAfter: true });
+      const { after } = await svc(7196947).list(
+        {},
+        { limit: 2, useAfter: true }
+      );
 
       assert.equal(after, 973787);
     });
 
     it('after in previous call can be used to fetch next round of results', async () => {
-      const {
-        after
-      } = await svc(7196947).list({}, { limit: 3, useAfter: true });
+      const { after } = await svc(7196947).list(
+        {},
+        { limit: 3, useAfter: true }
+      );
 
-      const {
-        items
-      } = await svc(7196947).list({}, { limit: 1, after });
+      const { items } = await svc(7196947).list({}, { limit: 1, after });
 
       assert.equal(items[0].uid, 30433085);
     });
@@ -149,49 +162,62 @@ describe('agenda-locations - functional - list', function() {
     });
 
     it('"state" filters verified or unverified locations', async () => {
-      const verified = await svc(7196947).list({ state: 1 }, {}, { detailed: true });
-      const unverified = await svc(7196947).list({ state: 0 }, {}, { detailed: true });
+      const verified = await svc(7196947).list(
+        { state: 1 },
+        {},
+        { detailed: true }
+      );
+      const unverified = await svc(7196947).list(
+        { state: 0 },
+        {},
+        { detailed: true }
+      );
 
       assert.equal(verified.length, verified.filter(l => l.state === 1).length);
-      assert.equal(unverified.length, unverified.filter(l => l.state === 0).length);
+      assert.equal(
+        unverified.length,
+        unverified.filter(l => l.state === 0).length
+      );
     });
 
     it('"uids" filters by provided location uid list', async () => {
-      const uids = [
-        76248298,
-        10175539,
-        75940684
-      ];
+      const uids = [76248298, 10175539, 75940684];
 
       const selection = await svc(7196947).list({ uids });
 
       assert.equal(selection.length, 3);
-      assert.deepEqual(selection.map(l => l.uid), uids);
+      assert.deepEqual(
+        selection.map(l => l.uid),
+        uids
+      );
     });
-
   });
 
   describe('stream', function () {
     this.timeout(10000);
 
-    it('stream streams', done => {
-      svc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
-        svc(7196947).list({}, {}, { stream: true }).then(stream => {
-          let count = 0;
+    it('stream streams', () => new Promise(done => {
+      svc(7196947)
+        .list({}, { limit: 0 }, { total: true })
+        .then(({ total }) => {
+          svc(7196947)
+            .list({}, {}, { stream: true })
+            .then(stream => {
+              let count = 0;
 
-          stream.on('data', location => {
-            count++;
-          });
+              stream.on('data', location => {
+                count++;
+              });
 
-          stream.on('end', () => {
-            assert.equal(count, total);
-            done();
-          });
+              stream.on('end', () => {
+                assert.equal(count, total);
+                done();
+              });
+            });
         });
-      });
-    });
+    }));
 
-    it('emit an error', done => {
+    it('emit an error', () => new Promise(done => {
       const throwingErrorSvc = Service({
         knex: f.client,
         Files: Files(dConfig.files),
@@ -200,41 +226,51 @@ describe('agenda-locations - functional - list', function() {
           getAgendaDetailsByUid,
           getEventCounts: () => {
             throw new Error('getEventCounts');
-          }
-        }
+          },
+        },
       });
 
-      throwingErrorSvc(7196947).list({}, { limit: 0 }, { total: true }).then(({ total }) => {
-        throwingErrorSvc(7196947).list({}, {}, { stream: true, eventCounts: true }).then(stream => {
-          let count = 0;
+      throwingErrorSvc(7196947)
+        .list({}, { limit: 0 }, { total: true })
+        .then(({ total }) => {
+          throwingErrorSvc(7196947)
+            .list({}, {}, { stream: true, eventCounts: true })
+            .then(stream => {
+              let count = 0;
+              stream.on('data', location => {
+                count++;
+              });
+
+              stream.on('error', err => {
+                assert.equal(err.message, 'getEventCounts');
+                done();
+              });
+            });
+        });
+    }));
+
+    it('detailed option and includeTotal streams with totals and detailed fields', () => new Promise(done => {
+      svc(7196947)
+        .list(
+          {},
+          {},
+          {
+            stream: true,
+            eventCounts: true,
+            detailed: true,
+          }
+        )
+        .then(stream => {
           stream.on('data', location => {
-            count++;
+            assert.notStrictEqual(location.department, undefined);
+            assert.notStrictEqual(location.eventCount, undefined);
           });
 
-          stream.on('error', err => {
-            assert.equal(err.message, 'getEventCounts');
+          stream.on('end', () => {
             done();
           });
         });
-      });
-    });
-
-    it('detailed option and includeTotal streams with totals and detailed fields', done => {
-      svc(7196947).list({}, {}, {
-        stream: true,
-        eventCounts: true,
-        detailed: true
-      }).then(stream => {
-        stream.on('data', location => {
-          assert.notStrictEqual(location.department, undefined);
-          assert.notStrictEqual(location.eventCount, undefined);
-        });
-
-        stream.on('end', () => {
-          done();
-        });
-      });
-    });
+    }));
   });
 
   describe('detailed', () => {
@@ -256,14 +292,17 @@ describe('agenda-locations - functional - list', function() {
     });
 
     it('images include path is includeImagePath option is true', async () => {
-      const items = await svc(7196947).list({}, {}, {
-        includeImagePath: true,
-        detailed: true
-      });
+      const items = await svc(7196947).list(
+        {},
+        {},
+        {
+          includeImagePath: true,
+          detailed: true,
+        }
+      );
 
       assert.ok(items[0].image.split('/').length > 1);
     });
-
   });
 
   describe('set', () => {
@@ -279,45 +318,51 @@ describe('agenda-locations - functional - list', function() {
   });
 
   describe('other', () => {
-
     it('if fields option is specified, result data only includes fields provided', async () => {
-      const items = await svc(7196947).list({}, { limit: 1 }, {
-        includeFields: ['uid', 'name']
-      });
+      const items = await svc(7196947).list(
+        {},
+        { limit: 1 },
+        {
+          includeFields: ['uid', 'name'],
+        }
+      );
 
       assert.deepEqual(Object.keys(items[0]), ['uid', 'name']);
     });
 
     it('if getEventCounts interface is set and eventCount option is true, result includes interface-provided counts', async () => {
-      const items = await svc(7196947).list({}, { limit: 3 }, { eventCounts: true });
+      const items = await svc(7196947).list(
+        {},
+        { limit: 3 },
+        { eventCounts: true }
+      );
 
       assert.deepEqual(
         items.map(i => _.pick(i, ['uid', 'eventCount', 'agendaEventCount'])),
-        [{
-          uid: 60763721,
-          eventCount: 12,
-          agendaEventCount: 8
-        }, {
-          uid: 7630649,
-          eventCount: 0,
-          agendaEventCount: 0
-        }, {
-          uid: 51665985,
-          eventCount: 9,
-          agendaEventCount: 2
-        }]
+        [
+          {
+            uid: 60763721,
+            eventCount: 12,
+            agendaEventCount: 8,
+          },
+          {
+            uid: 7630649,
+            eventCount: 0,
+            agendaEventCount: 0,
+          },
+          {
+            uid: 51665985,
+            eventCount: 9,
+            agendaEventCount: 2,
+          },
+        ]
       );
     });
 
     it('if total option is provided, list returns an { items, total } object', async () => {
-      const {
-        items,
-        total
-      } = await svc(7196947).list({}, {}, { total: true });
+      const { items, total } = await svc(7196947).list({}, {}, { total: true });
 
       assert.equal(total, 364);
     });
-
   });
-
 });

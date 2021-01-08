@@ -2,7 +2,18 @@ import utils from '@openagenda/utils';
 import update from 'immutability-helper';
 import onTranslationCheck from '@openagenda/react-form-components/lib/onTranslationCheck';
 
-const alternativeFields = [ 'name', 'address', 'description', 'access', 'phone', 'website', 'email', 'latitude', 'longitude', 'countryCode' ];
+const alternativeFields = [
+  'name',
+  'address',
+  'description',
+  'access',
+  'phone',
+  'website',
+  'email',
+  'latitude',
+  'longitude',
+  'countryCode',
+];
 
 module.exports = actions;
 
@@ -13,48 +24,46 @@ module.exports.tests = {
   checkLanguage,
   startPageSpin,
   stopPageSpin,
-  showExtId
-}
+  showExtId,
+};
 
-
-function actions( options ) {
-
-  let {getState, setState} = utils.extend( {
-    setState: function() {}, // state setter
-    getState: function() {}
-  }, options );
+function actions(options) {
+  let { getState, setState } = utils.extend(
+    {
+      setState: function () {}, // state setter
+      getState: function () {},
+    },
+    options
+  );
 
   return {
-
     // not actually an action
     getState,
 
     initialize,
 
-    loadAlternative: assign( loadAlternative ),
+    loadAlternative: assign(loadAlternative),
 
-    loadTagAlternative: assign( loadTagAlternative ),
+    loadTagAlternative: assign(loadTagAlternative),
 
-    checkLanguage: assign( checkLanguage ),
+    checkLanguage: assign(checkLanguage),
 
-    sourceLanguageChange: assign( sourceLanguageChange ),
+    sourceLanguageChange: assign(sourceLanguageChange),
 
-    startPageSpin: assign( startPageSpin ),
+    startPageSpin: assign(startPageSpin),
 
-    stopPageSpin: assign( stopPageSpin ),
+    stopPageSpin: assign(stopPageSpin),
 
-    setError: assign( setError ),
+    setError: assign(setError),
 
-    setStart: assign( setStart ),
+    setStart: assign(setStart),
 
-    setErrorResponse: assign( setErrorResponse ),
+    setErrorResponse: assign(setErrorResponse),
 
-    setSuccess: assign( setSuccess ),
+    setSuccess: assign(setSuccess),
 
-    showExtId: assign( showExtId )
-
-  }
-
+    showExtId: assign(showExtId),
+  };
 
   /**
    * simplifies stateless testing. calls
@@ -62,25 +71,17 @@ function actions( options ) {
    * and applies value as new state
    */
 
-  function assign( fn ) {
-
-    return function( ...args ) {
-
+  function assign(fn) {
+    return function (...args) {
       let state = getState(),
+        newState = fn(...[state].concat(args));
 
-      newState = fn( ...[ state ].concat( args ) );
-
-      setState( newState );
-
-    }
-
+      setState(newState);
+    };
   }
-
 }
 
-
-function initialize( props ) {
-
+function initialize(props) {
   const state = {
     location: {},
     autoGeocode: true,
@@ -94,205 +95,152 @@ function initialize( props ) {
     activeAlternatives: {},
     translation: {},
     pageSpin: null,
-    showExtIdInput: false
-  }
-
+    showExtIdInput: false,
+  };
 
   state.location = {};
 
-  for( const f in props.location ) {
-
-    state.location[ f ] = props.location[ f ];
-
+  for (const f in props.location) {
+    state.location[f] = props.location[f];
   }
 
-  if ( !state.location.countryCode ) {
-
-    state.location.countryCode = props.settings && props.settings.defaultCountryCode ? props.settings.defaultCountryCode : 'FR';
-
+  if (!state.location.countryCode) {
+    state.location.countryCode =
+      props.settings && props.settings.defaultCountryCode
+        ? props.settings.defaultCountryCode
+        : 'FR';
   }
 
-  if ( !state.enableGeocode && !state.location.latitude) {
-
+  if (!state.enableGeocode && !state.location.latitude) {
     state.location.latitude = 40.844954;
     state.location.longitude = 4.289467;
-
   }
 
-  if ( props.settings && props.settings.translation ) {
-
+  if (props.settings && props.settings.translation) {
     state.translation = props.settings.translation;
-
   }
 
-  if ( props.alternatives ) {
-
+  if (props.alternatives) {
     let loadIndex = -1;
 
-    props.alternatives.forEach( ( s, i ) => {
-
+    props.alternatives.forEach((s, i) => {
       // if alternative has same uid as loaded, is considered to
       // be loaded
-      if ( s.location.uid === props.location.uid ) {
-
+      if (s.location.uid === props.location.uid) {
         loadIndex = i;
-
       }
 
       // if alternative is preset to be loaded, it is loaded.
-      if ( s.preload ) {
-
+      if (s.preload) {
         loadIndex = i;
-
       }
+    });
 
-    } );
+    if (loadIndex !== -1) {
+      alternativeFields.forEach(f => {
+        if (props.alternatives[loadIndex][f] !== 'undefined') {
+          state.activeAlternatives[f] = loadIndex;
 
-    if ( loadIndex !== -1 ) {
-
-      alternativeFields.forEach( f => {
-
-        if ( props.alternatives[ loadIndex ][ f ] !== 'undefined' ) {
-
-          state.activeAlternatives[ f ] = loadIndex;
-
-          state.location[ f ] = props.alternatives[ loadIndex ].location[ f ];
-
+          state.location[f] = props.alternatives[loadIndex].location[f];
         }
-
-      } );
-
+      });
     }
-
   }
 
   return state;
-
 }
-
 
 /**
  * load tag suggestion
  */
 
-function loadTagAlternative( state, tag, check ) {
-
+function loadTagAlternative(state, tag, check) {
   let changes = {},
+    isChecked = state.location.tags.filter(t => t.id === tag.id).length;
 
-  isChecked = state.location.tags.filter( t => t.id === tag.id ).length;
-
-  if ( check && !isChecked ) {
-
+  if (check && !isChecked) {
     changes.location = {
       tags: {
-        $push: [ tag ]
-      }
-    }
-
-  } else if ( !check && isChecked ) {
-
+        $push: [tag],
+      },
+    };
+  } else if (!check && isChecked) {
     changes.location = {
       tags: {
-        $set: state.location.tags.filter( t => t.id !== tag.id )
-      }
-    }
-
+        $set: state.location.tags.filter(t => t.id !== tag.id),
+      },
+    };
   }
 
-  return update( state, changes );
-
+  return update(state, changes);
 }
 
-
-function setError( state, errors ) {
-
+function setError(state, errors) {
   return {
     errors,
     pageSpin: null,
-    loadingError: false
-  }
-
+    loadingError: false,
+  };
 }
 
-function setStart( state, message ) {
-
+function setStart(state, message) {
   return {
     errors: false,
     loadingError: false,
     pageSpin: {
-      message
-    }
-  }
-
+      message,
+    },
+  };
 }
 
-function setErrorResponse( state, message ) {
-
+function setErrorResponse(state, message) {
   return {
     loadingError: message,
-    pageSpin: false
-  }
-
+    pageSpin: false,
+  };
 }
 
-function setSuccess( state, location ) {
-
+function setSuccess(state, location) {
   let change = {
     loadingError: false,
     pageSpin: false,
-  }
+  };
 
-  if ( location ) {
-
+  if (location) {
     change.location = location;
-
   }
 
   return change;
-
 }
-
-
 
 /**
  * start page spin
  */
-function startPageSpin( state, message = null ) {
-
+function startPageSpin(state, message = null) {
   return { pageSpin: { message } };
-
 }
 
-function stopPageSpin( state ) {
-
+function stopPageSpin(state) {
   return { pageSpin: false };
-
 }
 
 function showExtId() {
-
   return { showExtIdInput: true };
 }
-
 
 /**
  * check or uncheck language in translation list
  */
-function checkLanguage( state, check, source, language ) {
-
+function checkLanguage(state, check, source, language) {
   return {
-    translation: onTranslationCheck( state.translation, check, language )
-  }
-
+    translation: onTranslationCheck(state.translation, check, language),
+  };
 }
 
-function sourceLanguageChange( state ) {
-
-  console.log( arguments[ 1 ] );
-  console.log( arguments[ 2 ] );
-
+function sourceLanguageChange(state) {
+  console.log(arguments[1]);
+  console.log(arguments[2]);
 }
-
 
 /**
  * load suggestion in current location value
@@ -304,55 +252,49 @@ function sourceLanguageChange( state ) {
  * @param array pasteNames          if fields to swap are different from fieldName field
  */
 
-function loadAlternative( state, alternatives, fieldName, alternativeIndex, lang, pasteNames ) {
-
-  if ( arguments.length === 5 ) {
-
+function loadAlternative(
+  state,
+  alternatives,
+  fieldName,
+  alternativeIndex,
+  lang,
+  pasteNames
+) {
+  if (arguments.length === 5) {
     pasteNames = lang;
     lang = false;
-
   }
 
   let updated = {
     location: {},
-    activeAlternatives: {}
+    activeAlternatives: {},
   };
 
   // update active suggestion index
 
-  updated.activeAlternatives[ fieldName ] = {
-    $set: alternativeIndex
-  }
-
+  updated.activeAlternatives[fieldName] = {
+    $set: alternativeIndex,
+  };
 
   // update loaded values
 
-  if ( !pasteNames ) {
-
-    pasteNames = [ fieldName ];
-
+  if (!pasteNames) {
+    pasteNames = [fieldName];
   }
 
-  pasteNames.forEach( name => {
+  pasteNames.forEach(name => {
+    if (lang) {
+      updated.location[name] = {};
 
-    if ( lang ) {
-
-      updated.location[ name ] = {};
-
-      updated.location[ name ][ lang ] = {
-        $set: alternatives[ alternativeIndex ].location[ name ][ lang ]
+      updated.location[name][lang] = {
+        $set: alternatives[alternativeIndex].location[name][lang],
       };
-
     } else {
-
-      updated.location[ name ] = {
-        $set: alternatives[ alternativeIndex ].location[ name ]
+      updated.location[name] = {
+        $set: alternatives[alternativeIndex].location[name],
       };
-
     }
+  });
 
-  } );
-
-  return update( state, updated );
-
+  return update(state, updated);
 }

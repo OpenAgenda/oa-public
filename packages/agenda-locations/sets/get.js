@@ -5,9 +5,7 @@ const _ = require('lodash');
 const cleanGetOptions = require('./lib/cleanGetOptions');
 
 module.exports = async (service, uid, options = {}) => {
-  const {
-    detailed
-  } = cleanGetOptions(options);
+  const { detailed } = cleanGetOptions(options);
 
   const entry = await service.clients.knex
     .first(['uid', 'title'])
@@ -18,7 +16,7 @@ module.exports = async (service, uid, options = {}) => {
 
   const set = {
     uid: entry.uid,
-    title: entry.title
+    title: entry.title,
   };
 
   if (detailed) {
@@ -32,4 +30,4 @@ module.exports = async (service, uid, options = {}) => {
   }
 
   return set;
-}
+};

@@ -2,19 +2,19 @@
 
 const assert = require('assert');
 
+const Files = require('@openagenda/files');
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
 
 const fixtures = require('./fixtures');
-const Service = require('../');
-const Files = require('@openagenda/files');
+const Service = require('..');
 
-describe('agenda-locations - functional - sets get', function() {
+describe('agenda-locations - functional - sets get', function () {
   this.timeout(10000);
 
-  const f  = fixtures(config.mysql);
+  const f = fixtures(config.mysql);
 
   let svc;
 
@@ -24,9 +24,9 @@ describe('agenda-locations - functional - sets get', function() {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getSetAgendasCount: async setUid => 14
+        getSetAgendasCount: async setUid => 14,
       },
-      Files: Files(dConfig.files)
+      Files: Files(dConfig.files),
     });
   });
 
@@ -35,7 +35,7 @@ describe('agenda-locations - functional - sets get', function() {
 
     assert.deepEqual(set, {
       uid: 1903810,
-      title: 'Les lieux du département Ardèchois'
+      title: 'Les lieux du département Ardèchois',
     });
   });
 
@@ -46,7 +46,7 @@ describe('agenda-locations - functional - sets get', function() {
       uid: 1903810,
       title: 'Les lieux du département Ardèchois',
       agendasCount: 14,
-      locationsCount: 4
+      locationsCount: 4,
     });
   });
 });

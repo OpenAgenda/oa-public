@@ -8,6 +8,6 @@ schema.register({ boolean });
 module.exports = schema({
   detailed: {
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 });

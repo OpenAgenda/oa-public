@@ -22,25 +22,28 @@ async function list(service, query = {}, nav = {}, options = {}) {
     context,
     detailed,
     includeFields,
-    stream: streamOptions
+    stream: streamOptions,
   } = cleanListOptions;
 
   const cleanNav = validateNav(nav);
 
   await addListQuery(service, k, {
     ...query,
-    ...pickContextIdentifiers(context, ['agendaUid', 'setUid'])
+    ...pickContextIdentifiers(context, ['agendaUid', 'setUid']),
   });
 
-  const total = includeTotal ? await k.clone()
-    .count('id as total')
-    .then(r => r[0].total) : null;
+  const total = includeTotal
+    ? await k
+      .clone()
+      .count('id as total')
+      .then(r => r[0].total)
+    : null;
 
   log('total: %s', total);
 
   addSelect(k, detailed ? 'public' : 'list', {
     include: cleanNav.useAfter ? ['id'] : [],
-    includeFields
+    includeFields,
   });
 
   if (!streamOptions) {
@@ -55,7 +58,11 @@ async function list(service, query = {}, nav = {}, options = {}) {
     result.stream = createStream(service, k, cleanListOptions);
   } else {
     result.rows = await k;
-    result.items = await transformAndDecorateItems(service, result.rows, cleanListOptions);
+    result.items = await transformAndDecorateItems(
+      service,
+      result.rows,
+      cleanListOptions
+    );
     log('fetched %s items', result.rows.length);
   }
 
@@ -89,8 +96,8 @@ module.exports.byAgendaUid = async (
 
   return list(service, query, nav, {
     ...options,
-    context: { agendaUid }
-  })
+    context: { agendaUid },
+  });
 };
 
 module.exports.bySetUid = async (
@@ -106,6 +113,6 @@ module.exports.bySetUid = async (
 
   return list(service, query, nav, {
     ...options,
-    context: { setUid }
+    context: { setUid },
   });
 };

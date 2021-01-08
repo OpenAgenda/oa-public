@@ -1,19 +1,19 @@
 'use strict';
 
 const assert = require('assert');
-const fixtures = require('./fixtures');
-const Service = require('../');
-
 const Files = require('@openagenda/files');
+
 
 const {
   service: config,
-  dependencies: dConfig
+  dependencies: dConfig,
 } = require('../testconfig.sample');
+const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/mergeData.json');
+const Service = require('..');
 
-describe('agenda-locations - functional - merge', function() {
+describe('agenda-locations - functional - merge', function () {
   this.timeout(10000);
 
   const f = fixtures(config.mysql);
@@ -30,22 +30,29 @@ describe('agenda-locations - functional - merge', function() {
       Files: Files(dConfig.files),
       interfaces: {
         getAgendaDetailsByUid: async uid => ({
-          id: ({
-            7196947: 25221
-          })[uid]
+          id: {
+            7196947: 25221,
+          }[uid],
         }),
-        beforeMerge: async (mergeIn, merged) => {}
-      }
+        beforeMerge: async (mergeIn, merged) => {},
+      },
     });
   });
 
   describe('basic', () => {
     before(async () => {
-      beforeCount = await f.client('location').count().then(r => r[0]['count(*)']);
+      beforeCount = await f
+        .client('location')
+        .count()
+        .then(r => r[0]['count(*)']);
     });
 
     before(async () => {
-      location = await svc(7196947).merge(95301591, { uids: [40305210, 52758960] }, { name: 'fusionné'})
+      location = await svc(7196947).merge(
+        95301591,
+        { uids: [40305210, 52758960] },
+        { name: 'fusionné' }
+      );
     });
 
     it('result is merged location', () => {
@@ -53,7 +60,10 @@ describe('agenda-locations - functional - merge', function() {
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
-      const afterCount = await f.client('location').count().then(r => r[0]['count(*)']);
+      const afterCount = await f
+        .client('location')
+        .count()
+        .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
     });
@@ -61,15 +71,22 @@ describe('agenda-locations - functional - merge', function() {
 
   describe('set', () => {
     before(async () => {
-      beforeCount = await f.client('location').count().then(r => r[0]['count(*)']);
+      beforeCount = await f
+        .client('location')
+        .count()
+        .then(r => r[0]['count(*)']);
     });
 
     before(async () => {
-      location = await svc.sets(1903810).locations.merge(51665985, {
-        uids: [7630649, 60763721]
-      }, {
-        name: 'fusionné'
-      });
+      location = await svc.sets(1903810).locations.merge(
+        51665985,
+        {
+          uids: [7630649, 60763721],
+        },
+        {
+          name: 'fusionné',
+        }
+      );
     });
 
     it('result is merged location', () => {
@@ -77,11 +94,12 @@ describe('agenda-locations - functional - merge', function() {
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
-      const afterCount = await f.client('location').count().then(r => r[0]['count(*)']);
+      const afterCount = await f
+        .client('location')
+        .count()
+        .then(r => r[0]['count(*)']);
 
       assert.equal(afterCount, beforeCount - 2);
     });
   });
 });
-
-

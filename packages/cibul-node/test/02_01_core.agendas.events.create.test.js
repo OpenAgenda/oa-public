@@ -26,12 +26,12 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     description: {
       fr: 'Un tout petit événement'
     },
-    timings: [ {
+    timings: [{
       begin: new Date( '2019-05-06T10:00:00' ),
       end: new Date( '2019-05-06T11:00:00' )
-    } ],
+    }],
     keywords: {
-      fr: [ 'un', 'deux', 'trois' ]
+      fr: ['un', 'deux', 'trois']
     },
     location: {
       uid: 123
@@ -216,7 +216,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         expect(reviewTagArticles.map(rta => rta.review_tag_id)).toEqual([
           9661, // Administration (2.3)
           9662  // Aéronautique (2.4)
-        ]);
+       ]);
       });
 
     });
@@ -548,10 +548,10 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       description: {
         fr: 'Un tout petit événement'
       },
-      timings: [ {
+      timings: [{
         begin: new Date( '2019-05-06T10:00:00' ),
         end: new Date( '2019-05-06T11:00:00' )
-      } ],
+      }],
       location: {
         uid: 123
       },
@@ -620,30 +620,30 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     it('create with locationUid specified as null string', async () => {
       try {
         await core.agendas(17026855).events.create({
-          "title": "Reconnexion à Chêne-Bourg",
-          "description": "Reconnexion à Chêne-Bourg",
-          "keywords": "",
-          "longDescription": "La BioSphère s'implante à Chêne-Bourg\n\nPorté par une vision artistique et sensorielle, un dôme géodésique inédit (BioSphère) ouvre notre horizon.\nUne installation proposée par le Muséum et le Canton de Genève, en partenariat avec la Maison du Salève, ProNatura Genève, SIG et la commune de Chêne-Bourg.\n\nProgramme détaillé: www.reconnexions-mhng.ch\n\nAvec notamment les soirées culturelles\nInfos pratiques:\n19h - 22h30\nEsplanade de la Gare Léman Express\nTout public\nGratuit, inscriptions OBLIGATOIRES sur le site: www.reconnexions-mhng.ch\n\nDates des soirées culturelles:\n- Vendredi 2 octobre\n- Jeudi 8 octobre\n- Jeudi 15 octobre\n- Jeudi 22 octobre\n- Mercredi 28 octobre\n- Jeudi 29 octobre\n- Jeudi 5 novembre\n- Jeudi 12 novembre\n[Plus d'information sur le site de l'organisateur](http://institutions.ville-geneve.ch/index.php?id=9515)",
-          "locationUid": "null",
+          title: 'Reconnexion à Chêne-Bourg',
+          description: 'Reconnexion à Chêne-Bourg',
+          keywords: '',
+          longDescription: 'La BioSphère s\'implante à Chêne-Bourg\n\nPorté par une vision artistique et sensorielle, un dôme géodésique inédit (BioSphère) ouvre notre horizon.\nUne installation proposée par le Muséum et le Canton de Genève, en partenariat avec la Maison du Salève, ProNatura Genève, SIG et la commune de Chêne-Bourg.\n\nProgramme détaillé: www.reconnexions-mhng.ch\n\nAvec notamment les soirées culturelles\nInfos pratiques:\n19h - 22h30\nEsplanade de la Gare Léman Express\nTout public\nGratuit, inscriptions OBLIGATOIRES sur le site: www.reconnexions-mhng.ch\n\nDates des soirées culturelles:\n- Vendredi 2 octobre\n- Jeudi 8 octobre\n- Jeudi 15 octobre\n- Jeudi 22 octobre\n- Mercredi 28 octobre\n- Jeudi 29 octobre\n- Jeudi 5 novembre\n- Jeudi 12 novembre\n[Plus d\'information sur le site de l\'organisateur](http://institutions.ville-geneve.ch/index.php?id=9515)',
+          locationUid: 'null',
           'categories-agenda-metropolitain': 42,
           'thematiques-bordeaux-metropole' : [3, 4],
-          "timings": [
+          timings: [
             {
-              "begin": "2020-10-02T00:00:00+0200",
-              "end": "2020-11-19T00:00:00+0100"
+              begin: '2020-10-02T00:00:00+0200',
+              end: '2020-11-19T00:00:00+0100'
             },
             {
-              "begin": "2020-10-03T00:00:00+0200",
-              "end": "2020-11-20T00:00:00+0100"
+              begin: '2020-10-03T00:00:00+0200',
+              end: '2020-11-20T00:00:00+0100'
             }
           ],
-          "image": {
-            "url": "http://institutions.ville-geneve.ch/uploads/media/Reconnexion980.jpg"
+          image: {
+            url: 'http://institutions.ville-geneve.ch/uploads/media/Reconnexion980.jpg'
           },
-          "imageCredits": "DR",
-          "image_alt_text": "Textealternatif",
-          "conditions": "",
-          "accessibility": {}
+          imageCredits: 'DR',
+          image_alt_text: 'Textealternatif',
+          conditions: '',
+          accessibility: {}
         }, options);
       } catch (e) {
         expect(e.name).toEqual('ValidationError');
@@ -696,12 +696,12 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
               image: {
                 url: 'https://cibul.s3.amazonaws.com/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg'
               },
-              timings: [ {
+              timings: [{
                 begin: new Date( '2019-05-06T10:00:00' ),
                 end: new Date( '2019-05-06T11:00:00' )
-              } ],
+              }],
               keywords: {
-                fr: [ 'un', 'deux', 'trois' ]
+                fr: ['un', 'deux', 'trois']
               },
               location: {
                 uid: 123
