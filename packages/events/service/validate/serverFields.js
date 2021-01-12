@@ -1,3 +1,0 @@
-"use strict";// script-generated file. See src/fields.json
-
-module.exports = {"id":{"type":"integer","server":true},"uid":{"type":"integer","optional":false,"server":true},"ownerUid":{"type":"integer","server":true},"creatorUid":{"type":"integer","server":true},"agendaUid":{"type":"integer","server":true},"private":{"type":"boolean","default":false,"server":true},"updatedAt":{"type":"date","optional":false,"server":true},"createdAt":{"type":"date","optional":false,"server":true},"deletedAt":{"type":"date","server":true}};

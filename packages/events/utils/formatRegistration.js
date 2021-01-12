@@ -1,9 +1,49 @@
 'use strict';
 
+const linkValidator = require('@openagenda/validators/link');
+const phoneValidator = require('@openagenda/validators/phone');
+const emailValidator = require('@openagenda/validators/email');
+
 const validators = {
-  link: require( '@openagenda/validators/link' )(),
-  phone: require( '@openagenda/validators/phone' )(),
-  email: require( '@openagenda/validators/email' )()
+  link: linkValidator(),
+  phone: phoneValidator(),
+  email: emailValidator()
+};
+
+const getType = value => {
+  for (const rType of Object.keys(validators)) {
+    try {
+      validators[rType](value);
+      return rType;
+    } catch (e) {};
+  }
+};
+
+const getOrder = (registrationWithType = [], o = ['link', 'email', 'phone']) => registrationWithType.sort((r1, r2) => (o.indexOf(r1.type) > o.indexOf(r2.type) ? 1 : -1));
+
+const appendPrefix = ({ value, type }) => {
+  if (type === 'email') {
+    return {
+      type,
+      value: `mailto:${value}`
+    };
+  }
+  if (type === 'phone') {
+    return {
+      type,
+      value: `tel:${value}`
+    };
+  }
+  if (type === 'link' && !value.match(/^((http(|s)\:)|)\/\//)) {
+    return {
+      type,
+      value: `https://${value}`
+    };
+  }
+  return {
+    type,
+    value
+  };
 };
 
 module.exports = (registration = [], options = {}) => {
@@ -11,22 +51,23 @@ module.exports = (registration = [], options = {}) => {
     includeLinkPrefix,
     order,
     useTypeKeys
-  } = Object.assign({
+  } = {
     includeLinkPrefix: false,
     order: null,
-    useTypeKeys: false
-  }, options);
+    useTypeKeys: false,
+    ...options
+  };
 
   let formatted = (registration || [])
     .map(value => ({
-      type: _getType(value),
+      type: getType(value),
       value
     }))
     .filter(v => !!v.type)
-    .map(v => includeLinkPrefix ? _appendPrefix(v) : v);
+    .map(v => (includeLinkPrefix ? appendPrefix(v) : v));
 
   if (order) {
-    formatted = _order(formatted, order);
+    formatted = getOrder(formatted, order);
   }
 
   return useTypeKeys ? formatted.reduce((byKeys, {type, value}) => ({
@@ -36,50 +77,4 @@ module.exports = (registration = [], options = {}) => {
     ...init,
     [key]: []
   }), {})) : formatted.map(f => f.value);
-}
-
-function _appendPrefix({ value, type }) {
-  let prefix = '';
-  if (type === 'email') {
-    prefix = 'mailto:';
-  } else if (type === 'phone') {
-    prefix = 'tel:';
-  } else if (type === 'link' && !value.match(/^((http(|s)\:)|)\/\//)) {
-    prefix = 'https://';
-  }
-  return {
-    type,
-    value: prefix + value
-  };
-}
-
-function _order(registrationWithType = [], order = ['link', 'email', 'phone']) {
-  return registrationWithType.sort((r1, r2) => order.indexOf(r1.type) > order.indexOf(r2.type) ? 1 : -1);
-}
-
-function _getType(value) {
-  for (const rType of Object.keys(validators)) {
-    try {
-      validators[rType](value);
-      return rType;
-    } catch (e) {}
-  }
-  return;
-}
-
-
-/*function distributePerType(registration = []) => Object.keys(validators)
-  .reduce((byType, type) => ({
-    ...byType,
-    [type]: (registration || []).filter(_is.bind(null, type))
-  }), {});
-
-
-function _is(type, value) {
-  try {
-    validators[type](value);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}*/
+};

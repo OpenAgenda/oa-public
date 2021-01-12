@@ -1,168 +1,84 @@
-"use strict";
+'use strict';
 
-//process.env.DEBUG = '*';
+const assert = require('assert');
 
-const svc = require( './service' ),
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
 
-  config = require( '../testconfig' ),
+const fixtures = require('./fixtures');
+const Service = require('../');
 
-  should = require( 'should' ),
+describe('events - functional - remove', function () {
+  this.timeout(10000);
 
-  mysql = require( 'mysql' ),
+  const f = fixtures(config.mysql, config.schema);
 
-  ih = require( 'immutability-helper' )
+  let svc;
 
-describe( 'events - functional (server): remove', function() {
+  before(async () => {
+    await f.load();
 
-  this.timeout( 30000 );
+    svc = Service({
+      knex: f.client
+    });
+  });
 
-  beforeEach( done => {
+  describe('simple remove', () => {
+    let removed;
 
-    svc.initAndLoad( config, done );
+    before(async () => {
+      removed = await svc.remove(16687899);
+    });
 
-  } );
+    it('response is removed event', () => {
+      assert.equal(removed.uid, 16687899);
+    });
 
-  afterEach( svc.shutdown );
+    it('remove is a soft delete', async () => {
+      const deletedAt = await f.client('event_2')
+        .first(['deleted_at'])
+        .where('uid', removed.uid)
+        .then(r => r.deleted_at);
 
-  it( 'simple remove makes event innaccessible through get', done => {
+      assert(deletedAt instanceof Date);
+    });
 
-    let identifier = { uid: 3564473 };
+  });
 
-    svc.get( identifier, ( err, event ) => {
+  describe('interfaces', () => {
+    const calls = [];
 
-      event.uid.should.equal( identifier.uid );
+    before(async () => {
+      await f.load();
 
-      svc.remove( identifier, ( err, result ) => {
-
-        should( err ).equal( null );
-
-        result.success.should.equal( true );
-
-        svc.get( identifier, ( err, event ) => {
-
-          should( event ).equal( null );
-
-          done();
-
-        } );
-
-      } );
-
-    } );
-
-  } );
-
-
-  it( 'remove makes event uid appear on deleted list', done => {
-
-    svc.remove( 145599, ( err, event ) => {
-
-      svc.deleted( 0, 1, ( err, deleted ) => {
-
-        deleted[ 0 ].uid.should.equal( 16319926 );
-
-        done();
-
-      } );
-
-    } );
-
-  } );
-
-  it( 'remove works as a promise', async () => {
-
-    let result = await svc.remove( 145599 );
-
-    result.success.should.equal( true );
-
-  } );
-
-  describe( 'interfaces', () => {
-
-    beforeEach( done => {
-
-      svc.initAndLoad( config, done );
-
-    } );
-
-    afterEach( svc.shutdown );
-
-    it( 'if userUid is specified in options, it is given back in beforeRemove interface', done => {
-
-      svc.init( ih( config, {
+      svc = Service({
+        knex: f.client,
         interfaces: {
-          beforeRemove: {
-            $set: ( event, context, cb ) => {
-
-              context.should.eql( {
-                userUid: 12345678,
-                agendaUid: null,
-                tranferToLegacy: false
-              } );
-
+          beforeRemove: Object.assign(function(removed, context, cb) {
+            setTimeout(() => {
+              calls.push(['beforeRemove', removed, context]);
               cb();
-
-            }
+            }, 100);
+          }, {
+            callback: true
+          }),
+          onRemove: async (removed, context) => {
+            calls.push(['onRemove', removed, context]);
           }
         }
-      } ) );
+      });
 
-      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {
+      await svc.remove(93469090, { context: 'Remove context'});
+    });
 
-        done();
+    it('beforeRemove was called, when cb is provided in interface function it is called', () => {
+      assert.equal(calls[0][0], 'beforeRemove');
+    });
 
-      } );
-
-    } );
-
-    it( 'if userUid is specified in options, it is given back in onRemove interface', done => {
-
-      svc.init( ih( config, {
-        interfaces: {
-          onRemove: {
-            $set: ( event, context ) => {
-
-              context.should.eql( {
-                userUid: 12345678,
-                agendaUid: null,
-                transferToLegacy: false,
-                deletion: null // ?
-              } );
-
-              done();
-
-            }
-          }
-        }
-      } ) );
-
-      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {} );
-
-    } );
-
-    it( 'if nothing is specified in context, userUid is null', done => {
-
-      svc.init( ih( config, {
-        interfaces: {
-          onRemove: {
-            $set: ( event, context ) => {
-
-              should( context.userUid ).equal( null );
-
-              done();
-
-            }
-          }
-        }
-      } ) );
-
-      svc.remove( 145599, () => {} );      
-
-    } );
-
-
-  } );
-
-
-
-} );
+    it('onRemove was called', () => {
+      assert.equal(calls[1][0], 'onRemove');
+    });
+  });
+})

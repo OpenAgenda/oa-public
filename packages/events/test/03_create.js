@@ -1,576 +1,267 @@
-"use strict";
+'use strict';
 
-process.env.NODE_ENV = 'test';
+const axios = require('axios');
+const fs = require('fs');
+const assert = require('assert');
+const Files = require('@openagenda/files');
+const ValidationError = require('../lib/ValidationError');
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const ih = require( 'immutability-helper' );
-const mysql = require( 'mysql' );
-const should = require( 'should' );
+const TMP_IMG_PATH = '/tmp/eventTestImage.png';
 
-const svc = require( './service' );
-const config = require( '../testconfig' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
 
-describe( 'events -03- functional (server): create', function() {
+const fixtures = require('./fixtures');
+const Service = require('../');
 
-  this.timeout( 30000 );
+const data = {
+  title: 'An event',
+  description: 'A description',
+  eventAttendanceMode: 2,
+  onlineAccessLink: 'https://openagenda.com',
+  timings: [{
+    begin: '2020-11-30T08:00:00.000Z',
+    end: '2020-11-30T10:00:00.000Z'
+  }]
+};
 
-  beforeEach( done => {
+describe('events - functional - create', function() {
+  this.timeout(10000);
 
-    fs.createReadStream( __dirname + '/service/night_king.png' )
+  const f = fixtures(config.mysql, config.schema);
 
-      .pipe( fs.createWriteStream( __dirname + '/service/tmp.png' ) )
+  let svc;
 
-      .on( 'close', () => done() );
+  before(async () => {
+    await f.load();
 
-  } );
+    svc = Service({
+      knex: f.client,
+      imagePath: config.imagePath
+    });
+  });
 
-  before( done => {
+  describe('simple create', () => {
+    let created;
 
-    svc.initAndLoad( config, [
-      config.schemas.event + '_empty',
-      config.legacy.schemas.event
-    ], { reset: true }, done );
-
-  } );
-
-  after( svc.shutdown );
-
-  describe( 'draft', () => {
-
-    it( 'create empty draft', async () => {
-
-      const { success } = await svc.create( {}, { draft: true } );
-
-      success.should.equal( true );
-
-    } );
-
-    it( 'create the simplest draft event', done => {
-
-      svc.create( {}, { draft: true }, ( err, result ) => {
-
-        should( err ).equal( null );
-
-        result.should.eql( {
-          event: {
-            slug: result.event.slug,
-            uid: result.event.uid,
-            title: {},
-            description: {},
-            longDescription: {},
-            conditions: {},
-            keywords: {},
-            image: {
-              filename: null,
-              credits: null,
-              base: '//openagendatst.s3.amazonaws.com/',
-              size: {
-                width: null,
-                height: null
-              }, variants: [],
-            },
-            draft: 1,
-            private: 0,
-            timezone: 'Europe/Paris',
-            timings: [],
-            updatedAt: result.event.updatedAt,
-            createdAt: result.event.createdAt,
-            locationUid: null,
-            agendaUid: null,
-            accessibility: {
-              mi: false,
-              hi: false,
-              pi: false,
-              vi: false,
-              ii: false
-            },
-            age: {
-              min: null,
-              max: null
-            },
-            registration: [],
-            links: [],
-            references: [],
-            fileKey: null
-          },
-          valid: true,
-          success: true,
-          errors: [] ,
-          transferedToLegacy: false
-        } );
-
-        done();
-
-      } );
-
-    } );
-
-    it( 'create the simplest draft event with image provided as url', async () => {
-
-      const { event } = await svc.create( {
-        image: {
-          url: 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-        }
-      }, { draft: true } );
-
-      event.image.size.should.eql( { width: 700, height: 700 } );
-
-      /* {
-        filename: '636eaeeeb44243e4a76a3c12b8928045.base.image.jpg',
-        size: { width: 600, height: 600 },
-        variants:
-         [ { filename: '636eaeeeb44243e4a76a3c12b8928045.full.image.jpg',
-             type: 'full',
-             size: [Object] },
-           { filename: '636eaeeeb44243e4a76a3c12b8928045.thumb.image.jpg',
-             type: 'thumbnail',
-             size: [Object] } ],
-        credits: null,
-        base: '//openagendatst.s3.amazonaws.com/'
-      } */
-
-    } );
-
-    it( 'create the simplest draft event with image as local path', async () => {
-
-      const { event } = await svc.create( {
-        image: {
-          path: __dirname + '/service/tmp.png',
-          credits: 'Cé moi kai pri la foto'
-        }
-      }, { draft: true } );
-
-      event.image.size.should.eql( { width: 700, height: 1065 } );
-
-      event.image.variants.map( v => v.type ).should.eql( [ 'full', 'thumbnail' ] );
-
-      /*{
-        "filename": "c3adffbad2d848d3b747ba7878d9f160.base.image.jpg",
-        "size": {
-          "width": 600,
-          "height": 913
-        },
-        "variants": [
-          {
-            "filename": "c3adffbad2d848d3b747ba7878d9f160.full.image.jpg",
-            "type": "full",
-            "size": {
-              "width": 449,
-              "height": 683
-            }
-          },
-          {
-            "filename": "c3adffbad2d848d3b747ba7878d9f160.thumb.image.jpg",
-            "type": "thumbnail",
-            "size": {
-              "width": 200,
-              "height": 200
-            }
-          }
-        ],
-        "credits": "Cé moi kai pri la foto"
-      }*/
-
-    } );
-
-
-    it( 'when create is not protected, updatedAt and createdAt timestamps can be explicited', async () => {
-
-      const createdAt = new Date( '1981-02-28T03:00:00.000Z' );
-
-      const updatedAt = new Date( '2017-07-02T13:29:00.000Z' );
-
-      let result = await svc.create( {
-        createdAt,
-        updatedAt
-      }, { draft: true, protected: false } );
-
-      result.event.createdAt.getTime().should.equal( createdAt.getTime() );
-
-      result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
-
-    } );
-
-  } );
-
-  describe( 'simple event', () => {
-
-    const times = {
-      monday: new Date( '2017-07-03T11:00' ),
-      tuesday: new Date( '2017-07-04T12:00' ),
-      wednesday: new Date( '2017-07-05T12:00' )
-    };
-
-    const eventData = {
-      title: {
-        fr: 'Un événement'
-      },
-      timings: [ {
-        begin: times.wednesday,
-        end: times.wednesday
-      }, {
-        begin: times.monday,
-        end: times.monday
-      }, {
-        begin: times.tuesday,
-        end: times.tuesday
-      } ]
-    };
-
-    let result;
-
-    before( async () => {
-
-      result = await svc.create( eventData );
-
-    } );
-
-
-    it( 'timings are stored in chronological order', () => {
-
+    before(async () => {
       try {
+        created = await svc.create(data);
 
-        ( new Date( result.event.timings[ 0 ].begin ) ).getTime()
+      } catch (e) {
+        console.log(e);
+      }
+    });
 
-          .should.equal( times.monday.getTime() );
+    it('result is created event', () => {
+      assert.equal(created.title.en, 'An event');
+    });
 
-        ( new Date( result.event.timings[ 2 ].begin ) ).getTime()
+    it('entry is added in table', async () => {
+      const title = await f.client('event_2')
+        .first(['title'])
+        .where('uid', created.uid)
+        .then(r => r.title)
 
-          .should.equal( times.wednesday.getTime() );
+      assert.equal(title, '{"en":"An event"}');
+    });
+  });
 
-      } catch ( e ) {
+  describe('create with image', () => {
+    let svc;
+    
+    before(() => {
+      svc = Service({
+        knex: f.client,
+        Files: Files(dConfig.files),
+        imagePath: config.imagePath
+      });
+    });
 
-        console.log( e );
+    it('image is uploaded', async () => {
+      const created = await svc.create({
+        title: 'An online event with an image',
+        description: 'Joyful dog',
+        eventAttendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timings: [{
+          begin: '2020-12-22T11:35:00.000+0200',
+          end: '2020-12-22T13:30:00.000+0200'
+        }],
+        image: fs.createReadStream(__dirname + '/fixtures/images/dog.png')
+      });
 
-        should().ok();
+      await axios.head('https:' + config.imagePath + created.image.filename);
+    });
 
+    it('validation error is thrown when unknown image format is provided', async () => {
+      try {
+        await svc.create({
+          title: 'Event create given a text stream instead of image',
+          description: 'Nope',
+          eventAttendanceMode: 2,
+          onlineAccessLink: 'https://openagenda.com',
+          timings: [{
+            begin: '2020-12-22T11:35:00.000+0200',
+            end: '2020-12-22T13:30:00.000+0200'
+          }],
+          image: fs.createReadStream(__dirname + '/fixtures/images/notanimage.txt')
+        });
+      } catch (e) {
+        assert(e instanceof ValidationError);
+        return;
       }
 
-    } );
+      throw new Error('Should have failed.');
+    });
 
-    it( 'result contains valid, success, errors, transferedToLegacy and event keys', () => {
+    it('image at null is no image at all', async () => {
+      await svc.create({
+        title: 'Event create given a text stream instead of image',
+        description: 'Nope',
+        image: null,
+        eventAttendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timings: [{
+          begin: '2020-12-22T11:35:00.000+0200',
+          end: '2020-12-22T13:30:00.000+0200'
+        }]
+      });
+    });
 
-      _.keys( result ).should.eql( [ 'event', 'valid', 'success', 'errors', 'transferedToLegacy' ] );
+    it('image can be passed as a url', async () => {
+      const event = await svc.create({
+        ...data,
+        image: {
+          url: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png'
+        }
+      });
 
-    } );
+      const response = await axios.head(`https:${config.imagePath}${event.image.filename}`);
+      assert.equal(response.status, 200);
+    });
 
-    it( 'an entry is added to db', done => {
+    it('image can be passed through a local file path, deleted after upload', done => {
 
-      const con = mysql.createConnection( config.mysql );
+      fs.copyFile(`${__dirname}/fixtures/images/dog.png`, TMP_IMG_PATH, async err => {
+        const event = await svc.create({
+          ...data,
+          image: {
+            path: TMP_IMG_PATH
+          }
+        });
 
-      con.query( `select * from ${config.schemas.event} where uid=${result.event.uid}`, ( err, rows ) => {
+        assert.equal(typeof event.image.filename, 'string');
 
-        rows.length.should.equal( 1 );
-
-        new Date( rows[ 0 ].updated_at ).toString().should.equal( result.event.updatedAt.toString() );
-        new Date( rows[ 0 ].created_at ).toString().should.equal( result.event.createdAt.toString() );
-
-        con.end();
+        assert.equal(fs.existsSync(TMP_IMG_PATH), false);
 
         done();
+      });
 
-      } );
+    });
 
-    } );
+  });
 
-    it( 'create can be done with callback response', done => {
+  describe('other', () => {
 
-      svc.create( eventData, ( err, result ) => {
+    it('using datehourminutes format', async () => {
+      const event = await svc.create({
+        title: 'Event with datehourminutes timing',
+        description: 'Nope',
+        eventAttendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timings: [{
+          begin: {
+            date: '2020-10-21',
+            hours: 20,
+            minutes: 10
+          },
+          end: {
+            date: '2020-10-21',
+            hours: 21,
+            minutes: 5
+          }
+        }]
+      });
 
-        result.success.should.equal( true );
+      assert.equal(event.timings[0].begin, '2020-10-21T20:10:00.000+02:00');
+    });
 
+    it('draft create does not require all fields to be specified', async () => {
+      try {
+        const event = await svc.create({
+          title: 'Un titre'
+        }, { draft: true });
+  
+        assert.equal(typeof event.uid, 'number');
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    it('provided context is passed to interface call', done => {
+      const onCreate = (createdEvent, context) => {
+        assert.equal(context.agendaUid, 123);
         done();
+      };
 
-      } );
-
-    } );
-
-    it( 'if not provided links is an empty array', () => {
-
-      result.event.links.should.eql( [] );
-
-    } );
-
-  } );
-
-  describe( 'fully defined event', () => {
-
-    const eventData = {
-      title: {
-        fr : 'Un titre'
-      },
-      ownerUid: 123,
-      creatorUid: 456,
-      locationUid: 789,
-      draft: false,
-      description: {
-        fr: 'Une description'
-      },
-      longDescription: {
-        fr: 'Une description longue'
-      },
-      keywords: {
-        fr: [ 'Des', 'mots', 'clés' ]
-      },
-      conditions: {
-        fr: 'Etre vivant'
-      },
-      registration: [
-        '018436269',
-        'email@site.com',
-        'https://website.com'
-      ],
-      references: [ 1, 2, 3 ],
-      image: {
-        filename: 'image.jpg',
-        credits: 'Cé moi kai pri la foto',
-        base: '//openagendatst.s3.amazonaws.com/',
-        size: {
-          height: null,
-          width: null
-        },
-        variants: []
-      },
-      accessibility: {
-        mi: true,
-        hi: true
-      },
-      fileKey: null,
-      timezone: 'Europe/Paris',
-      timings: [ {
-        begin: new Date(),
-        end: new Date()
-      } ],
-      age: {
-        min: 2,
-        max:76
-      },
-      links: [ {
-        type: 'oembed',
-        link: 'https://someoembeddablelink.com',
-        data: {
-          description: "« CEINTURE NOIRE » 🥋\nNouvel Album maintenant disponible :\nhttps://maitregims.lnk.to/CeintureNoire\n\nEn tournée dans toute la France et au Stade de France le 28/09/2019\nBilletterie sur www.FuegoTour.com\n--\nFacebook : https://www.facebook.com/maitregimsoff\nInstagram : https://instagram.com/maitregims\nTwitter : https://twitter.com/maitregims\nSnapchat : Warano75\n--\nAbonne-toi à la chaîne : http://bit.ly/2q6P6Ni"
-        }
-      } ]
-    };
-
-    let result;
-
-    before( async () => {
-
-      result = await svc.create( eventData );
-
-    } );
-
-    it( 'slug is derived from title', () => {
-
-      result.event.slug.should.equal( 'un-titre' );
-
-    } );
-
-    it( 'title, description, longDescription, conditions, keywords of event are given in response', () => {
-
-      _.pick( result.event, [ 'title', 'description', 'longDescription', 'conditions', 'keywords' ] ).should.eql( {
-        title: {
-          fr: 'Un titre'
-        },
-        description: {
-          fr: 'Une description'
-        },
-        longDescription: {
-          fr: 'Une description longue'
-        },
-        conditions: {
-          fr: 'Etre vivant'
-        },
-        keywords: {
-          fr: [ 'Des', 'mots', 'clés' ]
-        }
-      } );
-
-    } );
-
-
-    it( 'accessibility is a set of booleans', () => {
-
-      result.event.accessibility.should.eql( {
-        mi: true,
-        hi: true,
-        pi: false,
-        vi: false,
-        ii: false
-      } );
-
-    } );
-
-    it( 'by default, event is public', () => {
-
-      result.event.private.should.equal( 0 );
-
-    } );
-
-    it( 'by default, event is non-draft', () => {
-
-      result.event.draft.should.equal( 0 );
-
-    } );
-
-    it( 'if specified in options, internal event data is provided in response', async () => {
-
-      const nonInternalFields = _.keys( result.event );
-
-      const resultWithInternal = await svc.create( eventData, { internal: true } );
-
-      const withInternal = _.keys( resultWithInternal.event );
-
-      _.difference( withInternal, nonInternalFields ).should.eql( [
-        'id', 'ownerUid', 'creatorUid', 'deletedAt'
-      ] );
-
-    } );
-
-
-    it( 'links is returned in response as a list of objects', () => {
-
-      result.event.links.should.eql( [ {
-        link: 'https://someoembeddablelink.com',
-        data: {
-          description: "« CEINTURE NOIRE » 🥋\nNouvel Album maintenant disponible :\nhttps://maitregims.lnk.to/CeintureNoire\n\nEn tournée dans toute la France et au Stade de France le 28/09/2019\nBilletterie sur www.FuegoTour.com\n--\nFacebook : https://www.facebook.com/maitregimsoff\nInstagram : https://instagram.com/maitregims\nTwitter : https://twitter.com/maitregims\nSnapchat : Warano75\n--\nAbonne-toi à la chaîne : http://bit.ly/2q6P6Ni"
-        },
-        type: 'oembed'
-      } ] );
-
-    } );
-
-  } );
-
-  describe( 'invalid creates', () => {
-
-    it( 'invalid image returns unsuccessful result with error code and step', async () => {
-
-      const result = await svc.create( {
-        title: {
-          fr: 'Un événement'
-        },
-        timings: [ {
-          begin: new Date(),
-          end: new Date()
-        } ],
-        image: {
-          url: 'https://some.rand.om/invalid.imagepath.jpg'
-        }
-      } );
-
-      result.valid.should.equal( false );
-
-      _.get( result, 'errors.0.code' ).should.equal( 'invalid.image' );
-
-      _.get( result, 'errors.0.step' ).should.equal( 'image' );
-
-    } );
-
-
-    it( 'invalid, returns unsuccessful result with error code and step', async () => {
-
-      const result = await svc.create( {
-        title: {
-          fr: 'Un événement'
-        },
-        timings: [ {
-          begin: new Date(),
-          end: new Date()
-        } ],
-        image: {
-          url: 'https://some.rand.om/invalid.imagepath.jpg'
-        }
-      } );
-
-      result.valid.should.equal( false );
-
-      _.get( result, 'errors.0.code' ).should.equal( 'invalid.image' );
-
-      _.get( result, 'errors.0.step' ).should.equal( 'image' );
-
-    } );
-
-    it( '403 image', async () => {
-
-      const result = await svc.create( {
-        title: {
-          fr: 'Un événement'
-        },
-        timings: [ {
-          begin: new Date(),
-          end: new Date()
-        } ],
-        image: {
-          url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/myevents.jpg'
-        }
-      } );
-
-      result.valid.should.equal( false );
-
-      _.get( result, 'errors.0.message' ).should.equal( 'Unable to process image' );
-
-    } );
-
-
-    it( 'not an image', async () => {
-
-      const result = await svc.create( {
-        title: {
-          fr: 'Un événement'
-        },
-        timings: [ {
-          begin: new Date(),
-          end: new Date()
-        } ],
-        image: {
-          url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/notanimage.txt'
-        }
-      } );
-
-      should(result.valid).equal( false );
-
-      should(_.get( result, 'errors.0.step' )).equal( 'image' );
-
-    } );
-
-  } );
-
-  describe( 'interfaces', () => {
-
-    afterEach( svc.shutdown );
-
-    it( 'if a userUid is specified in context, it is given in interfaces', done => {
-
-      svc.init( ih( config, {
+      const svc = Service({
+        knex: f.client,
         interfaces: {
-          onCreate: {
-            $set: ( event, context ) => {
+          onCreate
+        }
+      });
 
-              context.userUid.should.equal( 12 );
+      svc.create(data, {
+        context: {
+          agendaUid: 123
+        }
+      });
+    });
 
-              done();
+    it('agendaUid is associated to created event when passed in context', async () => {
+      const event = await svc.create(data, {
+        context: {
+          agendaUid: 123
+        }
+      });
 
-            }
+      assert.equal(event.agendaUid, 123);
+    });
+
+    it('if userUid is provided in context, it is added as creatorUid and ownerUid of event', async () => {
+      const event = await svc.create(data, {
+        context: {
+          userUid: 123
+        },
+        access: 'internal'
+      });
+
+      assert.equal(event.creatorUid, 123);
+      assert.equal(event.ownerUid, 123);
+    });
+
+    it('if an interface returns a promise, it will be waited upon', async () => {
+      let calledOnCreate = false;
+
+      const svc = Service({
+        knex: f.client,
+        interfaces: {
+          onCreate: async (createdEvent, context) => {
+            await new Promise(rs => setTimeout(rs, 10));
+            calledOnCreate = true;
           }
         }
-      } ) );
+      });
 
-      svc.create( {
-        title: {
-          fr: 'My first event'
-        },
-        timings: [ {
-          begin: new Date(),
-          end: new Date()
-        } ]
-      }, { context: { userUid: 12 } } );
+      await svc.create(data);
 
-    } );
+      assert(calledOnCreate);
 
-  } );
+    });
 
-} );
+  });
+
+})

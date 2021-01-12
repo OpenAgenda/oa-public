@@ -13,33 +13,26 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit",
-    "build-fields": "node tasks/makeValidatorFields.js"
+    "test": "mocha --exit"
   },
   "dependencies": {
     "@openagenda/form-schemas": "^1.9.1",
     "@openagenda/logs": "^1.1.9",
-    "@openagenda/mysql-utils": "^2.0.4",
-    "@openagenda/queue": "^1.0.1",
-    "@openagenda/service-utils": "^2.0.0",
-    "@openagenda/slugs": "^1.1.0",
     "@openagenda/validators": "^2.4.0",
-    "async": "^2.1.2",
     "axios": "^0.19.0",
+    "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
     "lodash": "^4.17.15",
     "marked": "^1.1.0",
     "moment-timezone": "0.5.31",
     "mysql": "^2.11.1",
     "slugify": "^1.4.5",
-    "uuid": "^3.4.0",
-    "verror": "^1.10.0",
-    "when": "^3.7.8"
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
+    "@openagenda/eslint-config": "workspace:public/eslint-config",
     "@openagenda/files": "^3.1.0",
     "axios": "^0.19.2",
-    "mocha": "^7.0.1",
-    "should": "^13.2.3"
+    "mocha": "^7.0.1"
   }
 }

@@ -1,9 +1,7 @@
-"use strict";
+'use strict';
 
-/**
- * isomorphic pure event functions
- */
+const formatRegistration = require('./formatRegistration');
 
 module.exports = {
-  isComplete: require( './isComplete' )
-}
+  formatRegistration
+};

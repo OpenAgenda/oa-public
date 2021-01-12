@@ -1,0 +1,81 @@
+'use strict';
+
+const _ = require('lodash');
+
+const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess');
+const toHTML = require('./toHTML');
+const flatten = require('./flatten');
+const clean = require('@openagenda/validators/schema/clean');
+
+const getPathAndFilename = file => {
+  if (!file) {
+    return { filename: null, path: null };
+  }
+  const parts = file.split('/');
+  const filename = parts.pop();
+  return {
+    filename,
+    path: `${parts.join('/')}/`
+  };
+};
+
+module.exports = (event, options = {}) => {
+  const {
+    locations,
+    agendas,
+    imagePath,
+    access,
+    html,
+    lang,
+    includeFields,
+    defaultImage,
+    useDefaultImage,
+    imageAsLink
+  } = options;
+
+  const additionalFields = [];
+
+  if (html) {
+    event.html = toHTML(event.longDescription);
+    additionalFields.push('html');
+  }
+
+  if (locations) {
+    event.location = [].concat(locations).filter(l => l.uid === event.locationUid).pop();
+    additionalFields.push('location');
+  }
+
+  if (agendas) {
+    event.agenda = [].concat(agendas).filter(a => a.uid === event.agendaUid).pop();
+    additionalFields.push('agenda');
+  }
+
+  const {
+    path: defaultImagePath,
+    filename: defaultImageFilename
+  } = getPathAndFilename(defaultImage);
+
+  if (event.image) {
+    event.image.base = imagePath;
+  }
+
+  if (useDefaultImage && !event?.image?.filename) {
+    event.image = {
+      filename: defaultImageFilename,
+      base: defaultImagePath
+    };
+  }
+
+  if (imageAsLink && event.image) {
+    event.image = `${event.image.base}${event.image.filename}`;
+  }
+
+  return filterItemValuesByFieldAccess(
+    lang ? flatten(event, lang, options) : event,
+    {
+      access,
+      includeFields,
+      additionalFields
+    }
+  );
+};

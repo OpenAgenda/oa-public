@@ -1,352 +1,242 @@
-"use strict";
+'use strict';
 
-const _ = require('lodash');
-const async = require('async');
-const mysql = require('mysql');
-const should = require('should');
+const assert = require('assert');
 
-const config = require('../testconfig');
-const svc = require('./service');
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
 
-describe('events - functional (server): list', function() {
+const fixtures = require('./fixtures');
+const Service = require('../');
+const fields = require('../lib/fields');
 
-  this.timeout(50000);
+describe('events - functional - list', function() {
+  this.timeout(10000);
 
-  before(done => {
+  const f = fixtures(config.mysql, config.schema);
 
-    svc.initAndLoad(config, done);
+  let svc;
 
+  before(async () => {
+    await f.load();
+
+    svc = Service({
+      knex: f.client,
+      imagePath: config.imagePath,
+      defaultImage: '//default/image/path.png'
+    });
   });
 
-  after(svc.shutdown);
+  describe('simple list', () => {
+    let events;
 
-  it('simple list', done => {
+    before(async () => {
+      events = await svc.list();
+    });
 
-    svc.list(0, 5, (err, events ) => {
-
-      should(err).equal(null);
-
-      events.length.should.equal(5);
-
-      done();
-
+    it('lists 20 items by default', () => {
+      assert.equal(events.length, 20);
     });
 
   });
 
+  describe('filters', () => {
+    it('by locationUid', async () => {
+      const {
+        items: events,
+        total
+       } = await svc.list({ locationUid: 46457931 }, {}, { total: true });
 
-  it('base list does not include draft or private events', done => {
-
-    svc.list(0, 20, (err, events ) => {
-
-      events.filter(e => e.private).length.should.equal(0);
-
-      events.filter(e => e.draft).length.should.equal(0);
-
-      done();
-
+       assert.equal(total, 6);
     });
 
-  });
+    it('by ownerUid', async () => {
+      const {
+        total
+      } = await svc.list({ ownerUid: 96815475 }, {}, { total: true });
 
-
-  it('search searches', done => {
-
-    svc.list({ search: 'Pierre' }, 0, 10, (err, events ) => {
-
-      events.length.should.not.equal(0);
-
-      events.map(e => JSON.stringify(e.title).toLowerCase() )
-        .filter(t => t.includes('pierre' ) )
-        .length
-        .should.equal(events.length);
-
-      done();
-
+      assert.equal(total, 250);
     });
 
-  });
+    it('by search', async () => {
+      const {
+        total
+      } = await svc.list({ search: 'Salon' }, {}, { total: true });
 
-
-  it('gives a promise if no callback is defined', async () => {
-
-    const result = await svc.list({ search: 'Pierre' }, 0, 2);
-
-    result.events.length.should.equal(2);
-
-  });
-
-
-  it('search by uids', async () => {
-
-    const result = await svc.list({ uid: [68645096, 74935370, 18957259] }, 0, 20);
-
-    result.events.map(e => e.uid).should.eql([18957259, 68645096, 74935370]);
-
-  });
-
-  it('search by location uid', async () => {
-
-    const { total } = await svc.list({ locationUid: 27085826 }, 0, 20, { total: true });
-
-    total.should.equal(9);
-
-  });
-
-
-  it('retrieve events created after a given date', async () => {
-
-    const result = await svc.list({
-      createdAt: new Date('2017-01-01' ),
-      uid: [68645096, 74935370, 18957259]
-    }, 0, 20);
-
-    result.events.length.should.equal(1);
-
-    result.events[0].uid.should.equal(18957259);
-
-  });
-
-  it('offsetAsLastId option uses offset param as lastId', async () => {
-    const { events } = await svc.list({}, 145553, 1, { offsetAsLastId: true, internal: true });
-
-    events[0].id.should.greaterThan(145553);
-  });
-
-  it('when offsetAsLastId is set, lastId is provided in response', async () => {
-    const { lastId } = await svc.list({}, 145553, 1, { offsetAsLastId: true });
-
-    lastId.should.greaterThan(145553);
-  });
-
-
-  it('list with private to true gets private events only', done => {
-
-    svc.list(0, 20, { private: true }, (err, events ) => {
-
-      events.filter(e => e.private).length.should.equal(events.length);
-
-      done();
-
+      assert.equal(total, 11);
     });
 
-  });
+    it('by createdAt', async () => {
+      const {
+        total
+      } = await svc.list({ createdAt: { gte: '2020-09-10' } }, {}, { total: true });
 
-  it('list with private to null gets both private and non private events', done => {
-
-    svc.list({ uid: [3564473, 64549836, 48641508] }, 0, 20, { private: null }, (err, events ) => {
-
-      events.filter(e => !e.private).length.should.not.equal(0);
-
-      events.filter(e => e.private).length.should.not.equal(0);
-
-      done();
-
+      assert.equal(total, 19);
     });
-
   });
 
+  describe('navigation', () => {
 
-  it('list with private in query to true gets private events only', done => {
+    it('with after and limit', async () => {
+      const events = await svc.list({}, { limit: 10 });
 
-    svc.list({ private: true }, 0, 20, (err, events ) => {
-
-      events.filter(e => e.private).length.should.equal(events.length);
-
-      done();
-
-    });
-
-  });
-
-  it('list with private in query to null gets both private and non private events', done => {
-
-    svc.list({ private: null, uid: [3564473, 64549836, 48641508] }, 0, 20, (err, events ) => {
-
-      events.filter(e => !e.private).length.should.not.equal(0);
-
-      events.filter(e => e.private).length.should.not.equal(0);
-
-      done();
-
-    });
-
-  });
-
-  it('only list fields are given', done => {
-
-    svc.list(0, 1, (err, events ) => {
-
-      Object.keys(events[0]).should.eql([
-        'slug',
-        'uid',
-        'title',
-        'description',
-        'keywords',
-        'image',
-        'timezone',
-        'updatedAt',
-        'createdAt',
-        'locationUid',
-        'accessibility',
-        'age',
-        'registration'
-     ]);
-
-      done();
-
-    });
-
-  });
-
-  it('keywords appear as lists', done => {
-
-    svc.list({ uid: 48641508 }, 0, 1, (err, events ) => {
-
-      events[0].keywords.should.eql({
-        fr: ['famille', 'animation', 'enfant', 'monument']
+      const {
+        items: batch1,
+        after: afterBatch1
+      } = await svc.list({}, { after: 0, limit: 5 }, {
+        useAfter: true
       });
 
-      done();
-
-    });
-
-  } )
-
-  it('if detailed option is set, non-list fields are also given', done => {
-
-    svc.list(0, 1, { detailed: true }, (err, events ) => {
-
-      Object.keys(events[0]).should.eql([
-        'slug',
-        'uid',
-        'title',
-        'description',
-        'longDescription',
-        'keywords',
-        'image',
-        'draft',
-        'private',
-        'timezone',
-        'timings',
-        'updatedAt',
-        'createdAt',
-        'agendaUid',
-        'locationUid',
-        'accessibility',
-        'age',
-        'registration',
-        'fileKey',
-        'agenda',
-        'location'
-     ]);
-
-      done();
-
-    });
-
-  });
-
-  it('if detailed and html options are set, longDescription is parsed into html and set in html field', done => {
-
-    svc.list({ uid: 3681352 }, 0, 100, { detailed: true, html: true }, (err, events ) => {
-
-      events[0].html.should.eql({
-        fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
+      const {
+        items: batch2,
+      } = await svc.list({}, { after: afterBatch1, limit: 5 }, {
+        useAfter: true
       });
 
-      done();
+      assert.equal(batch2[0].uid, events[5].uid);
+    });
 
+    it('order by updatedAt.desc', async () => {
+      const events = await svc.list({}, { limit: 10, order: 'updatedAt.desc' });
+
+      assert(events.reduce(({ ok, previous }, event) => {
+        if (!ok || !previous) {
+          return {
+            ok,
+            previous: event
+          };
+        }
+        return {
+          ok: previous.updatedAt > event.updatedAt,
+          previous: event
+        };
+      }, { ok: true }).ok);
     });
 
   });
 
-  it('if detailed option is set, additional information is fetched for location and origin agenda', done => {
+  describe('options', () => {
 
-    svc.list({ uid: [1517683] }, 0, 1, { detailed: true }, (err, events ) => {
+    it('includeFields', async () => {
+      const events = await svc.list({}, {
+        limit: 1
+      }, {
+        includeFields: ['uid', 'title']
+      });
 
-      _.pick(events[0], ['location', 'agenda']).should.eql({
-        location: {
-          name: 'La case de Janine',
-          uid: 25756772,
-          latitude: 48.8674277,
-          longitude: 2.350881,
-          address: '1 passage du ponceau, Paris'
-        },
-        agenda: {
-          uid: 27545135,
-          title: 'La Gargouille',
-          image: null,
-          offical: true
+      assert.deepEqual(
+        Object.keys(events[0]),
+        ['uid', 'title']
+      );
+    });
+
+    it('useDefaultImage', async () => {
+      const events = await svc.list({ uid: 15822724 }, { limit: 1 }, {
+        useDefaultImage: true,
+        includeFields: ['slug', 'image']
+      });
+
+      assert.deepEqual(events[0].image, {
+        filename: 'path.png',
+        base: '//default/image/'
+      });
+    });
+
+    it('imageAsLink', async () => {
+      const events = await svc.list({ uid: 15822724 }, { limit: 1 }, {
+        useDefaultImage: true,
+        imageAsLink: true,
+        includeFields: ['slug', 'image']
+      });
+
+      assert.equal(events[0].image, '//default/image/path.png');
+    });
+
+    it('image path is placed in base key of image field', async () => {
+      const events = await svc.list({}, { limit: 1 });
+
+      assert.equal(typeof events[0].image.base, 'string');
+    });
+
+    it('total true returns total in result, events in items key', async () => {
+      const {
+        items,
+        total
+      } = await svc.list({}, {}, { total: true, draft: null });
+
+      assert.equal(total, 673);
+      assert.equal(items.length, 20);
+    });
+
+    it('draft true returns draft events only', async () => {
+      const {
+        items,
+        total
+      } = await svc.list({}, {}, { total: true, draft: true });
+
+      assert.equal(total, 4);
+    });
+
+    it('lang option flatten multilingual fields', async () => {
+      const event = await svc.list({ uid: 80378817 }, {}, {
+        lang: 'fr',
+        html: true
+      }).then(r => r.pop());
+
+      ['title', 'description', 'longDescription', 'html'].forEach(f => {
+        assert.equal(typeof event[f], 'string');
+      });
+    });
+
+    it('if interfaces are set and detailed is true, events are decorated with location and origin agenda details', async () => {
+      const location = {
+        uid: 51971567,
+        name: 'Associated location'
+      };
+      
+      const agenda = {
+        uid: 89904399,
+        title: 'Origin agenda'
+      };
+
+      const svc = Service({
+        knex: f.client,
+        interfaces: {
+          getOriginAgendas: async (identifiers, options) => [agenda],
+          getLocations: async identifiers => [location]
         }
       });
 
-      done();
+      const events = await svc.list({}, { limit: 1 }, { detailed: true });
 
+      assert.equal(events[0].location.uid, location.uid);
+      assert.equal(events[0].agenda.uid, agenda.uid);
     });
 
-  });
+    it('if html option is used, html variant of longDescription is placed in html field', async () => {
+      const events = await svc.list({}, { limit: 1 }, { html: true });
 
-  it('only specified fields can be fetched', async () => {
-
-    const { events } = await svc.list({ uid: 48641508 }, 0, 1, { fetched: ['uid'] });
-
-    events.should.eql([{
-      uid: 48641508
-    }]);
-
-  });
-
-
-  it('if image is provided, image path is placed in base key', done => {
-
-    svc.list({ uid: 48641508 }, 0, 1, (err, events ) => {
-
-      events[0].image.base.should.equal(config.image.base);
-
-      done();
-
+      assert.deepEqual(
+        events[0].html,
+        {
+          fr: '<p>Swift, Jonathan de son prénom. Ce nom vous dit quelque chose ? Bingo ! C’est bien l’auteur du livre Les voyages de Gulliver, écrit au début du XVIIIe siècle.L’histoire d’un marin échouant sur l’île de Lilliput. Par la magie d’un colossal changement d’échelle, il se transforme subitement en géant, capturé par des êtres pas plus hauts que 6 pouces. Transposées dans le monde actuel, les images de ce théâtre d’ombres et d’objets se combinent à la vidéo, pour une expédition merveilleuse où l’immense rejoint le minuscule.</p>\n<p><em>Atelier enfants-adultes &quot;Mon ombre est un autre&quot; :15 h, sur réservation Goûter et surprise : 16 h, 8 €</em></p>\n'
+        }
+      );
     });
 
-  });
+    it('if access is internal, internal fields are returned', async () => {
+      const internalFieldNames = fields.filter(f => f.read.includes('internal')).map(f => f.field);
 
+      const event = await svc.list({}, {
+        limit: 1
+      }, {
+        access: 'internal'
+      }).then(r => r[0]);
 
-  it('if draft is specified in query, it is added to fields', done => {
-
-    svc.list({ draft: null }, 0, 1, (err, events ) => {
-
-      Object.keys(events[0]).indexOf('draft').should.not.equal(-1);
-
-      done();
-
-    });
-
-  });
-
-
-  it('if private is specified in query, it is added to fields', done => {
-
-    svc.list({ private: null }, 0, 1, (err, events ) => {
-
-      Object.keys(events[0]).indexOf('private').should.not.equal(-1);
-
-      done();
-
-    });
-
-  });
-
-
-  it('list does not give deleted events', done => {
-
-    svc.list({ uid: [31638453, 1517683, 68645096] }, 0, 20, (err, events ) => {
-
-      events.filter(e => e.uid === 31638453).length.should.equal(0);
-
-      events.filter(e => [1517683, 68645096].indexOf(e.uid ) !== -1).length.should.equal(2);
-
-      done();
-
+      internalFieldNames.forEach(field => {
+        assert(Object.keys(event).includes(field));
+      });
     });
 
   });
