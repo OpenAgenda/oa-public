@@ -5,51 +5,49 @@ import createLabels from '@openagenda/labels/agenda-locations/create';
 import formLabels from '@openagenda/labels/agenda-locations/form';
 import makeLabelGetter from '@openagenda/labels';
 
-var getLabel = makeLabelGetter(utils.extend({}, formLabels, createLabels));
+const getLabel = makeLabelGetter(utils.extend({}, formLabels, createLabels));
 
 
 class CreateFormHeader extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    lang: PropTypes.string.isRequired,
+    actions: PropTypes.object,
+    settings: PropTypes.object,
   }
 
   getLabel(name) {
     let str;
+    const { settings, lang } = this.props;
 
     if (
-      this.props.settings &&
-      this.props.settings.labels &&
-      this.props.settings.labels.create &&
-      this.props.settings.labels.create[name]
+      settings
+      && settings.labels
+      && settings.labels.create
+      && settings.labels.create[name]
     ) {
-      str = this.props.settings.labels.create[name][this.props.lang];
+      str = settings.labels.create[name][lang];
     } else {
-      str = getLabel(name, this.props.lang);
+      str = getLabel(name, lang);
     }
 
     return str;
   }
 
   render() {
+    const { actions, lang } = this.props;
     return (
       <div className="head">
-        {this.props.actions && this.props.actions.closeForm ? (
-          <a className="btn btn-default" onClick={this.props.actions.closeForm}>
-            <i className="fa fa-angle-left margin-right-sm"></i>
+        {actions && actions.closeForm ? (
+          <a className="btn btn-default" onClick={actions.closeForm}>
+            <i className="fa fa-angle-left margin-right-sm" />
             <span>{this.getLabel('back')}</span>
           </a>
         ) : null}
-        <h2>{this.getLabel('title', this.props.lang)}</h2>
-        <span className="info">{this.getLabel('info', this.props.lang)}</span>
+        <h2>{this.getLabel('title', lang)}</h2>
+        <span className="info">{this.getLabel('info', lang)}</span>
       </div>
     );
   }
-}
-
-CreateFormHeader.propTypes = {
-    lang: PropTypes.string,
-    actions: PropTypes.object,
-    settings: PropTypes.object,
 }
 
 export default CreateFormHeader;

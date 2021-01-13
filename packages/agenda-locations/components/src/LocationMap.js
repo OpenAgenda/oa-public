@@ -1,11 +1,9 @@
-'use strict';
+import React, { Component } from 'react';
+import debug from 'debug';
+import PropTypes from 'prop-types';
+import L from 'leaflet';
 
-var React = require('react');
-var PropTypes = require('prop-types');
-var createReactClass = require('create-react-class');
-var L = require('leaflet');
-
-var defaults = {
+const defaults = {
   tiles:
       '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   markerIcon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
@@ -15,32 +13,23 @@ var defaults = {
   focusedZoom: 13,
 };
 
-module.exports = createReactClass({
-  propTypes: {
+class LocationMap extends Component {
+  static propTypes = {
     enabled: PropTypes.bool,
     resetZoom: PropTypes.bool,
+    defaultZoom: PropTypes.number,
     location: PropTypes.object.isRequired,
     draggableMarker: PropTypes.bool,
     scrollable: PropTypes.bool,
     onMarkerDragged: PropTypes.func,
-  },
+  };
 
-  getDefaultProps() {
-    return {
-      enabled: true,
-      draggableMarker: false,
-      scrollable: true,
-      resetZoom: true,
-    };
-  },
-
-  getInitialState() {
-    return {};
-  },
-
-  isGeolocated() {
-    return this.props.location.latitude !== undefined;
-  },
+  static defaultProps = {
+    enabled: true,
+    draggableMarker: false,
+    scrollable: true,
+    resetZoom: true,
+  };
 
   componentDidMount() {
     this.initMap();
@@ -48,31 +37,43 @@ module.exports = createReactClass({
     if (this.isGeolocated()) {
       this.updateMarker();
     }
-  },
+  }
 
   componentDidUpdate() {
     this.updateMarker();
-  },
+  }
+
+  getPos() {
+    const { location } = this.props;
+    return [location.latitude, location.longitude];
+  }
+
+
+  isGeolocated() {
+    const { location } = this.props;
+    return location.latitude !== undefined;
+  }
 
   initMap() {
+    const { scrollable, enabled, defaultZoom} = this.props;
     const pos = this.getPos();
     const mapOptions = {
-      scrollWheelZoom: this.props.scrollable && this.props.enabled,
-      dragging: this.props.enabled,
-      zoomControl: this.props.enabled,
-      tap: this.props.enabled,
-      touchZoom: this.props.enabled,
+      scrollWheelZoom: scrollable && enabled,
+      dragging: enabled,
+      zoomControl: enabled,
+      tap: enabled,
+      touchZoom: enabled,
     };
 
     if (this.isGeolocated()) {
       this.map = L.map(this.mapRef, mapOptions).setView(
         pos,
-        this.props.defaultZoom || defaults.focusedZoom
+        defaultZoom || defaults.focusedZoom
       );
     } else {
       this.map = L.map(this.mapRef, mapOptions).setView(
         defaults.pos,
-        this.props.defaultZoom || defaults.zoom
+        defaultZoom || defaults.zoom
       );
     }
 
@@ -82,13 +83,14 @@ module.exports = createReactClass({
       tileSize: 512,
       zoomOffset: -1,
     }).addTo(this.map);
-  },
+  }
 
   updateMarker() {
-    log('updateMarker');
+    debug('updateMarker');
 
     if (!this.isGeolocated()) return;
 
+    const { defaultZoom, resetZoom } = this.props;
     const pos = this.getPos();
 
     if (!this.marker) {
@@ -97,14 +99,15 @@ module.exports = createReactClass({
 
     this.marker.setLatLng(pos);
 
-    const defaultZoom = this.props.defaultZoom || defaults.focusedZoom;
+    const newDefaultZoom = defaultZoom || defaults.focusedZoom;
 
-    this.map.setZoom(this.props.resetZoom ? defaultZoom : this.map.getZoom());
+    this.map.setZoom(resetZoom ? newDefaultZoom : this.map.getZoom());
 
     this.map.setView(pos);
-  },
+  }
 
   initMarker() {
+    const { enabled, draggableMarker } = this.props;
     const self = this;
     const pos = this.getPos();
     const icon = L.icon({
@@ -114,10 +117,10 @@ module.exports = createReactClass({
 
     this.marker = L.marker(pos, {
       icon,
-      draggable: this.props.enabled,
+      draggable: enabled,
     }).addTo(this.map);
 
-    if (!this.props.draggableMarker || !this.props.enabled) return;
+    if (!draggableMarker || !enabled) return;
 
     this.marker.on('dragend', e => {
       self.map.panTo(self.marker.getLatLng());
@@ -129,17 +132,11 @@ module.exports = createReactClass({
         });
       }, 100);
     });
-  },
-
-  getPos() {
-    return [this.props.location.latitude, this.props.location.longitude];
-  },
+  }
 
   render() {
     return <div className="map" ref={r => (this.mapRef = r)} />;
-  },
-});
-
-function log() {
-  // console.log.apply( console, arguments );
+  }
 }
+
+export default LocationMap;

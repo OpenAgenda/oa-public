@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Filters extends Component {
+  static propTypes = {
+    locations: PropTypes.array.isRequired,
+    getLabel: PropTypes.func.isRequired,
+    onQueryChange: PropTypes.func.isRequired,
+    query: PropTypes.object.isRequired,
+  };
+
   getFilterList() {
     const {
       query
@@ -72,12 +79,5 @@ class Filters extends Component {
     );
   }
 }
-
-Filters.propTypes = {
-  query: PropTypes.object,
-  onQueryChange: PropTypes.func,
-  getLabel: PropTypes.func,
-  locations: PropTypes.array
-};
 
 export default Filters;

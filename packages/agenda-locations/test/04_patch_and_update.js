@@ -78,8 +78,9 @@ describe('agenda-locations - functional - patch & update', function () {
     });
   });
 
-  describe('patching image', () => {
+  describe('patching image', function(){
     let entry;
+    this.timeout(20000);
 
     before(async () => {
       await svc().patch(94482437, {

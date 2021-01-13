@@ -1,55 +1,71 @@
+import debug from 'debug';
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import utils from '@openagenda/utils';
-import formLabels from '@openagenda/labels/agenda-locations/form';
-import updateLabels from '@openagenda/labels/agenda-locations/update';
+import labels from '@openagenda/labels/agenda-locations/update';
 import makeLabelGetter from '@openagenda/labels';
+
 import LocationForm from './LocationForm';
 
-var getLabel = makeLabelGetter(utils.extend({}, formLabels, updateLabels));
+const log = debug('UpdateForm');
 
-module.exports = createReactClass({
-  propTypes: {
+const getLabel = makeLabelGetter(labels);
+
+class UpdateForm extends React.Component {
+  static propTypes = {
+    lang: PropTypes.string.isRequired,
+    enableGeocode: PropTypes.bool.isRequired,
     actions: PropTypes.object,
     res: PropTypes.object,
     settings: PropTypes.object,
-  },
+  };
 
-  renderHeader(location) {
+  renderHeader() {
+    const { actions, lang } = this.props;
     return (
       <div className="form-head">
-        <a className="btn btn-default" onClick={this.props.actions.closeForm}>
-          <i className="fa fa-angle-left margin-right-sm"></i>
-          <span>{getLabel('back', this.props.lang)}</span>
-        </a>
-        <h2>{getLabel('title', this.props.lang)}</h2>
-        <span className="info">{getLabel('info', this.props.lang)}</span>
+        <button type="button" className="btn btn-default" onClick={actions.closeForm}>
+          <i className="fa fa-angle-left margin-right-sm" />
+          <span>{getLabel('back', lang)}</span>
+        </button>
+        <h2>{getLabel('title', lang)}</h2>
+        <span className="info">{getLabel('info', lang)}</span>
       </div>
     );
-  },
+  }
 
   render() {
-    let formState = this.props.actions.getState().form;
+    const {
+      res,
+      actions,
+      enableGeocode,
+      lang,
+      detailedInfo,
+      settings
+    } = this.props;
+    const formState = actions.getState().form;
+
+    log('rendering form for location of uid %s', formState?.location?.uid);
 
     return (
       <LocationForm
-        postRes={this.props.res.update.replace(
+        postRes={res.update.replace(
           ':locationUid',
           formState.location.uid
         )}
-        Header={this.renderHeader(formState.location)}
+        Header={this.renderHeader()}
+        labels={labels}
+        showToggler
+        res={res}
+        lang={lang}
         location={formState.location}
-        enableGeocode={this.props.enableGeocode}
-        labels={updateLabels}
-        showToggler={true}
-        res={this.props.res}
-        lang={this.props.lang}
-        onCancel={this.props.actions.closeForm}
-        onSuccess={this.props.actions.updateEditedLocation}
-        detailedInfo={this.props.detailedInfo}
-        settings={this.props.settings}
+        detailedInfo={detailedInfo}
+        settings={settings}
+        onCancel={actions.closeForm}
+        onSuccess={actions.updateEditedLocation}
+        enableGeocode={enableGeocode}
       />
     );
-  },
-});
+  }
+}
+
+export default UpdateForm;

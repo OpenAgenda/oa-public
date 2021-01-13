@@ -1,5 +1,3 @@
-'use strict';
-
 const flatLabel = (label, preferredLang) => (
   typeof label === 'string'
     ? label

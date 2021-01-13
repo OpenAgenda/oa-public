@@ -265,24 +265,23 @@ function actions(options) {
   };
 }
 
-export default actions;
-
-module.exports.updateSearchQuery = updateSearchQuery;
-
-module.exports.tests = {
-  updateEditedLocation,
-  addLocation,
-  newLocation,
-  closeForm,
-  closeMerge,
-  toggleMerge,
-  toggleMergeItem,
-  launchMerge,
-  updateLocationList,
-  editLocation,
-  removedLocation,
-  getQuery,
-  queryChange,
-  displayRemoveConfirmModal,
-  closeModal,
-};
+export default Object.assign(actions, {
+  updateSearchQuery,
+  tests: {
+    updateEditedLocation,
+    addLocation,
+    newLocation,
+    closeForm,
+    closeMerge,
+    toggleMerge,
+    toggleMergeItem,
+    launchMerge,
+    updateLocationList,
+    editLocation,
+    removedLocation,
+    getQuery,
+    queryChange,
+    displayRemoveConfirmModal,
+    closeModal,
+  }
+});

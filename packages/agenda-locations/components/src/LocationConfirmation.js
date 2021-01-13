@@ -33,8 +33,7 @@ const getExistingLangs = location => (
 );
 
 
-const staticLink = (location, mapboxKey) =>
-  `https://api.tiles.mapbox.com/v4/foursquare.meku766r/pin-m-circle+41acdd(${location.longitude},${location.latitude})/${location.longitude},${location.latitude},14/${SIZE.W}x${SIZE.H}.png?access_token=${mapboxKey}`;
+const staticLink = (location, mapboxKey) => `https://api.tiles.mapbox.com/v4/foursquare.meku766r/pin-m-circle+41acdd(${location.longitude},${location.latitude})/${location.longitude},${location.latitude},14/${SIZE.W}x${SIZE.H}.png?access_token=${mapboxKey}`;
 
 class LocationConfirmation extends Component {
   constructor(props) {
@@ -67,11 +66,10 @@ class LocationConfirmation extends Component {
 
     const existingLangs = getExistingLangs(location);
 
-    const { contentLang } = this.state;
+    const { contentLang, suggestChangeMessage } = this.state;
 
     return (
       <div>
-        <h1>THIS</h1>
         <div className="margin-top-md">
           <label>{getLabel('guide', lang)}</label>
           <p>{getLabel('guideDetail', lang)}</p>
@@ -87,19 +85,20 @@ class LocationConfirmation extends Component {
               {getLabel('suggest', lang)}
             </a>
             <button
+              type="button"
               onClick={onCancel}
               className="btn btn-default margin-bottom-sm"
             >
               {getLabel('cancel', lang)}
             </button>
-            {this.state.suggestChangeMessage ? (
+            {suggestChangeMessage ? (
               <div className="margin-bottom-sm">
                 {getLabel('suggestChangeMessage', lang)}
               </div>
             ) : null}
           </div>
           <div>
-            <button onClick={onConfirm} className="btn btn-primary margin-h-sm">
+            <button type="button" onClick={onConfirm} className="btn btn-primary margin-h-sm">
               {getLabel('confirm', lang)}
             </button>
           </div>
@@ -115,6 +114,7 @@ class LocationConfirmation extends Component {
             <img
               className="img-responsive"
               src={staticLink(location, mapboxKey)}
+              alt=""
             />
           </a>
         </div>
@@ -131,7 +131,7 @@ class LocationConfirmation extends Component {
                   }
                 >
                   <span>
-                    {getFormLabel(f, lang)}: 
+                    {getFormLabel(f, lang)}:
                     {location[f] || getLabel('emptyGeo', lang)}
                   </span>
                 </div>
@@ -141,31 +141,31 @@ class LocationConfirmation extends Component {
         </div>
         {settings.tagSet
           ? flattenTagSetLabels(settings.tagSet, lang).groups.map(
-              (group, i) => (
-                <div key={'tag-group-' + i} className="margin-top-sm">
-                  <label>{group.name}</label>
-                  <ul
-                    className="list-unstyled"
-                    title={getLabel('hoverInfo', lang)}
-                  >
-                    {group.tags.map(tag => (
-                      <li key={'tag-' + tag.id}>
-                        <div
-                          className={
-                            (location.tags || []).filter(t => t.id === tag.id)
-                              .length
-                              ? 'badge badge-default badge-outline-primary margin-bottom-xs'
-                              : 'badge badge-muted margin-bottom-xs'
-                          }
-                        >
-                          <span>{tag.label}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )
+            (group, i) => (
+              <div key={'tag-group-' + i} className="margin-top-sm">
+                <label>{group.name}</label>
+                <ul
+                  className="list-unstyled"
+                  title={getLabel('hoverInfo', lang)}
+                >
+                  {group.tags.map(tag => (
+                    <li key={'tag-' + tag.id}>
+                      <div
+                        className={
+                          (location.tags || []).filter(t => t.id === tag.id)
+                            .length
+                            ? 'badge badge-default badge-outline-primary margin-bottom-xs'
+                            : 'badge badge-muted margin-bottom-xs'
+                        }
+                      >
+                        <span>{tag.label}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )
+          )
           : null}
         <ul className="list-unstyled" title={getLabel('hoverInfo', lang)}>
           <li>
@@ -201,7 +201,7 @@ class LocationConfirmation extends Component {
         <div className="padding-v-sm" title={getLabel('hoverInfo', lang)}>
           <label>{getLabel('image', lang)}</label>
           {location.image ? (
-            <img className="img-responsive" src={location.image} />
+            <img className="img-responsive" src={location.image} alt="" />
           ) : (
             <p>
               <i>{getLabel('noImage', lang)}</i>
