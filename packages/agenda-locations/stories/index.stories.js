@@ -7,6 +7,8 @@ import locationSet from './fixtures/locationSet.json';
 
 import debug from 'debug';
 
+import debug from 'debug';
+
 import adminStory from './admin.story';
 import selectorStory from './selector.story';
 import termStore from './term.story';
@@ -20,6 +22,8 @@ import '../components/src/verifiedLocationsCounter';
 import '@openagenda/bs-templates/compiled/main.css';
 
 import location from './fixtures/location.json';
+
+debug.enable('*');
 
 debug.enable('*');
 

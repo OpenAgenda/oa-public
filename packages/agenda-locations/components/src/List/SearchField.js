@@ -14,8 +14,12 @@ class SearchField extends React.Component {
     value: PropTypes.string,
     name: PropTypes.string,
     loading: PropTypes.bool,
+<<<<<<< HEAD
     onChange: PropTypes.func.isRequired,
     onFocus: PropTypes.func,
+=======
+    onChange: PropTypes.func.isRequired
+>>>>>>> refactor(agenda-locations): component creation method update2
   };
 
   constructor(props) {
@@ -23,7 +27,10 @@ class SearchField extends React.Component {
     // Binding
     this.onChange = this.onChange.bind(this);
     this.onFocus = this.onFocus.bind(this);
+<<<<<<< HEAD
     this.onCommit = this.onCommit.bind(this);
+=======
+>>>>>>> refactor(agenda-locations): component creation method update2
   }
 
   onChange(e) {
@@ -59,7 +66,11 @@ class SearchField extends React.Component {
       dynamic, name, label, placeholder, value, loading
     } = this.props;
     return (
+<<<<<<< HEAD
       <div className={dynamic ? 'search-field' : 'search-field input-group'}>
+=======
+      <div className={dynamic ? 'search-field' : 'search-field input-group' }>
+>>>>>>> refactor(agenda-locations): component creation method update2
         <label className="sr-only" htmlFor={name}>{label}</label>
         <input
           placeholder={placeholder}

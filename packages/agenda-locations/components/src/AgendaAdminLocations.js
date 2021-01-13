@@ -204,7 +204,7 @@ class AgendaAdminLocations extends Component {
         const { items } = result;
 
         if (items.length !== merge.locationUids.length) {
-          log('error', 'not all locations to be merged could be found');
+          debug('error', 'not all locations to be merged could be found');
           return;
         }
 

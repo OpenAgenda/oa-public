@@ -25,6 +25,7 @@ class LocationItem extends Component {
   }
 
   onRemove(e) {
+    const { onRemove } = this.props;
     e.stopPropagation();
     const { onRemove } = this.props;
     onRemove();

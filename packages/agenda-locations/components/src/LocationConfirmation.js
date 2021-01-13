@@ -70,7 +70,6 @@ class LocationConfirmation extends Component {
 
     return (
       <div>
-        <h1>THIS</h1>
         <div className="margin-top-md">
           <label htmlFor="guide">{getLabel('guide', lang)}</label>
           <p>{getLabel('guideDetail', lang)}</p>

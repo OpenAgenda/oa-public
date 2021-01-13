@@ -53,15 +53,18 @@ class LocationSelector extends Component {
   }
 
   onSelect(confirmRequired, location) {
-    this.props.onChange(confirmRequired ? 'confirm' : 'show', location);
+    const { onChange } = this.props;
+    onChange(confirmRequired ? 'confirm' : 'show', location);
   }
 
   onConfirm() {
-    this.props.onChange('show', this.props.location);
+    const { onChange, location } = this.props;
+    onChange('show', location);
   }
 
   onCreateRequest(value) {
-    this.props.onChange('create', { name: value });
+    const { onChange } = this.props;
+    onChange('create', { name: value });
   }
 
   getLabel(name, values) {
