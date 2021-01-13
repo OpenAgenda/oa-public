@@ -6,5 +6,5 @@ yarn-error.log
 testconfig.js
 coverage/
 .cache/
-
+.eslintignore
 components/build/

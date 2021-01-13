@@ -1,6 +1,4 @@
-'use strict';
-
-const utils = require('@openagenda/utils');
+import utils from '@openagenda/utils';
 
 const suggestables = [
   'name',
@@ -152,9 +150,10 @@ function prepareAlternatives(location, props, labels, suggestionIndex) {
       baseLocation[f] = utils.extend({}, location[f]);
 
       for (const l in userSuggestion.location[f]) {
-        alternative.location[f][l] = location[f] ? location[f][l] : undefined;
-
-        baseLocation[f][l] = userSuggestion.location[f][l];
+        if (Object.prototype.hasOwnProperty.call(userSuggestion.location[f], l)) {
+          alternative.location[f][l] = location[f] ? location[f][l] : undefined;
+          baseLocation[f][l] = userSuggestion.location[f][l];
+        }
       }
     } else {
       baseLocation[f] = location[f];

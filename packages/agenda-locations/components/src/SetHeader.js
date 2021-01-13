@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { MoreInfo } from '@openagenda/react-components';
 
@@ -33,8 +33,8 @@ const SetHeader = ({ set, lang }) => (
 );
 
 SetHeader.propTypes = {
-  lang: PropTypes.text,
-  set: PropTypes.object,
+  lang: PropTypes.string.isRequired,
+  set: PropTypes.object.isRequired,
 };
 
 export default SetHeader;
