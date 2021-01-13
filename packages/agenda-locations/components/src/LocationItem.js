@@ -2,9 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class LocationItem extends Component {
+  static propTypes = {
+    merge: PropTypes.bool.isRequired,
+    location: PropTypes.object.isRequired,
+    getLabel: PropTypes.func,
+    getCountryLabel: PropTypes.func,
+    onSelect: PropTypes.func,
+    onEdit: PropTypes.func,
+    onRemove: PropTypes.func,
+  };
+
+  constructor(props) {
+    super(props);
+    // Binding
+    this.onRemove = this.onRemove.bind(this);
+    this.seeEvents = this.seeEvents.bind(this);
+  }
+
   onRemove(e) {
+    const { onRemove } = this.props;
     e.stopPropagation();
-    this.props.onRemove();
+    onRemove();
   }
 
   isInMergeSelection() {
@@ -15,10 +33,11 @@ class LocationItem extends Component {
   }
 
   seeEvents(e) {
+    const { location, seeEventsRes } = this.props;
     e.stopPropagation();
-    window.location.href = this.props.seeEventsRes.replace(
+    window.location.href = seeEventsRes.replace(
       ':locationUid',
-      this.props.location.uid
+      location.uid
     );
   }
 
@@ -37,75 +56,79 @@ class LocationItem extends Component {
   }
 
   render() {
-    const l = this.props.location;
+    const {
+      location, merge, getCountryLabel, getLabel, onSelect, onEdit
+    } = this.props;
     const className = ['item'];
-    const country = this.props.getCountryLabel(l.countryCode);
+    const country = getCountryLabel(location.countryCode);
 
-    if (this.props.merge) {
+    if (merge) {
       className.push('merge');
     }
 
     return (
       <div
         className={className.join(' ')}
-        key={l.uid}
-        onClick={this.props.onSelect.bind(this)}
+        key={location.uid}
+        onClick={onSelect.bind(this)}
       >
-        {this.props.merge ? this.renderMergeCheckbox() : null}
-        {!this.props.merge ? (
+        {merge ? this.renderMergeCheckbox() : null}
+        {!merge ? (
           <div className="actions btn-group">
             <button
+              type="button"
               className="btn btn-default"
-              aria-label={this.props.getLabel('remove')}
-              onClick={this.onRemove.bind(this)}
+              aria-label={getLabel('remove')}
+              onClick={this.onRemove}
             >
-              <i className="fa fa-trash"></i>
+              <i className="fa fa-trash" />
             </button>
             <button
+              type="button"
               className="btn btn-default"
-              aria-label={this.props.getLabel('edit')}
-              onClick={this.props.onEdit.bind(this)}
+              aria-label={getLabel('edit')}
+              onClick={onEdit.bind(this)}
             >
-              <i className="fa fa-edit"></i>
+              <i className="fa fa-edit" />
             </button>
           </div>
         ) : null}
         <div className="item-body">
-          <div className="title">{l.name}</div>
-          <div>{l.address}</div>
+          <div className="title">{location.name}</div>
+          <div>{location.address}</div>
           <div className="text-muted">
-            {l.department ? l.department : null}
-            {l.region ? (l.department ? ', ' : '') + l.region : null}
-            {country ? (l.department || l.region ? ', ' : '') + country : null}
+            {location.department ? location.department : null}
+            {location.region ? (location.department ? ', ' : '') + location.region : null}
+            {country ? (location.department || location.region ? ', ' : '') + country : null}
           </div>
           <div className="indicators">
             <i
               className={
-                l.image ? 'fa fa-picture-o' : 'fa fa-picture-o disabled'
+                location.image ? 'fa fa-picture-o' : 'fa fa-picture-o disabled'
               }
-            ></i>
+            />
             <i
               className={
-                l.description
+                location.description
                   ? 'fa fa-file-text-o '
                   : 'fa fa-file-text-o disabled'
               }
-            ></i>
-            {l.state === 0 ? (
+            />
+            {location.state === 0 ? (
               <span className="badge badge-warning">
-                {this.props.getLabel('verify')}
+                {getLabel('verify')}
               </span>
             ) : null}
-            {l.agendaEventCount ? (
-              <a onClick={this.seeEvents.bind(this)}>
-                {this.props.getLabel(
-                  l.agendaEventCount === 1 ? 'seeEvent' : 'seeEvents',
-                  { count: l.agendaEventCount }
+            {location.agendaEventCount ? (
+              <a onClick={this.seeEvents}>
+                {getLabel(
+                  location.agendaEventCount === 1 ? 'seeEvent' : 'seeEvents',
+                  { count: location.agendaEventCount }
                 )}
               </a>
             ) : (
               <span className="text-muted">
-                {this.props.getLabel('noEvent')}
+                {getLabel('noEvent')}
               </span>
             )}
           </div>
@@ -114,10 +137,5 @@ class LocationItem extends Component {
     );
   }
 }
-
-LocationItem.propTypes = {
-  getLabel: PropTypes.func,
-  getCountryLabel: PropTypes.func,
-};
 
 export default LocationItem;

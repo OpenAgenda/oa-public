@@ -36,6 +36,7 @@
     "async": "^1.5.0",
     "core-js": "^3.6.5",
     "create-react-class": "^15.5.2",
+    "debug": "4.1.0",
     "geolib": "^2.0.24",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",

@@ -8,6 +8,7 @@ import get from '@openagenda/utils/get';
 import labels from '@openagenda/labels/agenda-locations/list';
 import { Modal, MoreInfo } from '@openagenda/react-components';
 import SearchField from '@openagenda/react-form-components/build/SearchField';
+import debug from 'debug';
 
 import actions from './actions';
 import CreateForm from './CreateForm';
@@ -21,6 +22,27 @@ import UpdateForm from './UpdateForm';
 const loaded = {};
 
 class AgendaAdminLocations extends Component {
+  static defaultProps = {
+    lang: 'fr',
+    enableGeocode: true,
+    set: null,
+    settings: {},
+  };
+
+  static propTypes = {
+    lang: PropTypes.string,
+    enableGeocode: PropTypes.bool,
+    // set details
+    set: PropTypes.object,
+    // optional settings of agenda (such as tags requirements)
+    settings: PropTypes.object,
+    // server endpoints
+    res: PropTypes.object,
+    // general agenda info (title, slug,)
+    agenda: PropTypes.object,
+
+  };
+
   constructor(props) {
     super(props);
 
@@ -41,6 +63,12 @@ class AgendaAdminLocations extends Component {
     });
 
     this.state = state;
+    // Binding
+    this.getLabel = this.getLabel.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+    this.renderHead = this.renderHead.bind(this);
+    this.getCountryLabel = this.getCountryLabel.bind(this);
   }
 
   onSearchChange(field, newSearchValue) {
@@ -66,7 +94,7 @@ class AgendaAdminLocations extends Component {
       },
       (err, result) => {
         if (err || result.statusCode !== 200) {
-          log('error', err || result.statusCode);
+          debug('error', err || result.statusCode);
         } else if (JSON.parse(result.body).location) {
           this.actions.removedLocation(index);
         }
@@ -83,7 +111,9 @@ class AgendaAdminLocations extends Component {
     if (values) {
       let k;
       for (k in values) {
-        str = str.replace('%' + k + '%', values[k]);
+        if (Object.prototype.hasOwnProperty.call(values, k)) {
+          str = str.replace('%' + k + '%', values[k]);
+        }
       }
     }
 
@@ -128,14 +158,14 @@ class AgendaAdminLocations extends Component {
       },
       (err, result) => {
         if (err) {
-          log('error', err);
+          debug('error', err);
           return;
         }
 
         const { items } = result;
 
         if (items.length !== merge.locationUids.length) {
-          log('error', 'not all locations to be merged could be found');
+          debug('error', 'not all locations to be merged could be found');
           return;
         }
 
@@ -150,7 +180,7 @@ class AgendaAdminLocations extends Component {
       res.get.replace(':locationUid', location.uid),
       { detailed: 1 },
       (err, location) => {
-        if (err) return console.error(err);
+        if (err) return debug(err);
         this.actions.displayRemoveConfirmModal(location);
       }
     );
@@ -169,14 +199,14 @@ class AgendaAdminLocations extends Component {
           agenda.slug
         )}
         onSelect={
-          this.state.merge
+            merge
             ? this.actions.toggleMergeItem.bind(null, item)
             : this.actions.editLocation.bind(null, item, itemIndex)
         }
         onEdit={this.actions.editLocation.bind(null, item, itemIndex)}
         onRemove={this.confirmRemove.bind(this, item, itemIndex)}
-        getLabel={this.getLabel.bind(this)}
-        getCountryLabel={this.getCountryLabel.bind(this)}
+        getLabel={this.getLabel}
+        getCountryLabel={this.getCountryLabel}
       />
     );
   }
@@ -188,9 +218,9 @@ class AgendaAdminLocations extends Component {
         {Object.keys(this.actions.getQuery()).length ? (
           <Filters
             locations={locations}
-            query={this.actions.getQuery()}
-            getLabel={this.getLabel.bind(this)}
+            getLabel={this.getLabel}
             onQueryChange={this.actions.queryChange}
+            query={this.actions.getQuery()}
           />
         ) : null}
         {total ? (
@@ -284,11 +314,13 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeMenu() {
+    const { merge } = this.state;
     return (
       <div className="merge-menu">
         <p>
           {this.getLabel('mergedescription')}
           <button
+            type="button"
             onClick={this.launchMerge.bind(this)}
             className="btn btn-primary margin-left-sm"
           >
@@ -296,16 +328,16 @@ class AgendaAdminLocations extends Component {
           </button>
         </p>
 
-        {this.state.merge.locationUids.length ? (
+        {merge.locationUids.length ? (
           <span className="info">
             {this.getLabel('mergeselection', {
-              count: this.state.merge.locationUids.length,
+              count: merge.locationUids.length,
             })}
             <a
               onClick={this.onSearchChange.bind(
                 this,
                 'uids',
-                this.state.merge.locationUids
+                merge.locationUids
               )}
             >
               {this.getLabel('seemergelist')}
@@ -323,6 +355,7 @@ class AgendaAdminLocations extends Component {
     if (merge) {
       return (
         <button
+          type="button"
           className="btn btn-danger"
           onClick={this.actions.toggleMerge.bind(null, false)}
         >
@@ -332,6 +365,7 @@ class AgendaAdminLocations extends Component {
     }
     return (
       <button
+        type="button"
         className="btn btn-default"
         onClick={this.actions.toggleMerge.bind(null, true)}
       >
@@ -341,6 +375,10 @@ class AgendaAdminLocations extends Component {
   }
 
   render() {
+    const { set, lang, res } = this.props;
+    const {
+      merge, locations, page, total, modal
+    } = this.state;
     switch (this.getMode()) {
       case 'merge':
         return (
@@ -366,14 +404,15 @@ class AgendaAdminLocations extends Component {
     return (
       <div className="agenda-admin-locations">
         <div>
-          {this.props.set ? (
-            <SetHeader set={this.props.set} lang={this.props.lang} />
+          {set ? (
+            <SetHeader set={set} lang={lang} />
           ) : null}
           <div className="row list-actions">
             <div className="col col-sm-12">
               <div className="form-inline">
                 <div className="form-group">
                   <button
+                    type="button"
                     className="btn btn-primary"
                     onClick={this.actions.newLocation.bind(null)}
                   >
@@ -383,10 +422,10 @@ class AgendaAdminLocations extends Component {
                 <div className="form-group">
                   {this.renderMergeAction()}
                   <div className="btn-group margin-left-sm">
-                    <a href={this.props.res.csv} className="btn btn-default">
+                    <a href={res.csv} className="btn btn-default">
                       <span>csv</span>
                     </a>
-                    <a href={this.props.res.xlsx} className="btn btn-default">
+                    <a href={res.xlsx} className="btn btn-default">
                       <span>xlsx</span>
                     </a>
                   </div>
@@ -402,21 +441,21 @@ class AgendaAdminLocations extends Component {
                     value={this.actions.getQuery().search}
                     label={this.getLabel('search')}
                     placeholder={this.getLabel('search')}
-                    onChange={this.onSearchChange.bind(this)}
+                    onChange={this.onSearchChange}
                   />
                 </div>
                 <div className="checkbox">
-                  <label>
+                  <label htmlFor="checkbox">
                     <input
                       type="checkbox"
                       onChange={this.onSearchChange.bind(
                         this,
                         'state',
-                        parseInt(this.actions.getQuery().state) === 0
+                        parseInt(this.actions.getQuery().state, 10) === 0
                           ? undefined
                           : 0
                       )}
-                      checked={parseInt(this.actions.getQuery().state) === 0}
+                      checked={parseInt(this.actions.getQuery().state, 10) === 0}
                     />{' '}
                     {this.getLabel('toverify')}
                   </label>
@@ -432,22 +471,22 @@ class AgendaAdminLocations extends Component {
           </div>
           <div className="row list">
             <div className="col col-sm-12">
-              {this.state.merge ? this.renderMergeMenu() : null}
+              {merge ? this.renderMergeMenu() : null}
               <List
-                res={this.props.res.index}
+                res={res.index}
                 query={this.actions.getQuery()}
-                renderItem={this.renderItem.bind(this)}
-                renderHead={this.renderHead.bind(this)}
-                items={this.state.locations}
-                page={this.state.page}
-                total={this.state.total}
+                renderItem={this.renderItem}
+                renderHead={this.renderHead}
+                items={locations}
+                page={page}
+                total={total}
                 onItemsUpdate={this.actions.updateLocationList}
               />
             </div>
           </div>
-          {this.state.modal
+          {modal
             ? (() => {
-              switch (this.state.modal.type) {
+              switch (modal.type) {
                 case 'removeLocation':
                   return this.renderRemoveLocationModal();
                 default:
@@ -460,27 +499,4 @@ class AgendaAdminLocations extends Component {
   }
 }
 
-AgendaAdminLocations.propTypes = {
-  lang: PropTypes.string,
-  // general agenda info (title, slug,)
-  agenda: PropTypes.object,
-  // optional settings of agenda (such as tags requirements)
-  settings: PropTypes.object,
-  // server endpoints
-  res: PropTypes.object,
-  // set details
-  set: PropTypes.object,
-};
-
-AgendaAdminLocations.defaultProps = {
-  lang: 'fr',
-  set: null,
-  enableGeocode: true,
-  settings: {},
-};
-
 export default AgendaAdminLocations;
-
-function log() {
-  console.log.apply(console, arguments);
-}

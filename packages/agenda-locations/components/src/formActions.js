@@ -1,6 +1,7 @@
 import utils from '@openagenda/utils';
 import update from 'immutability-helper';
 import onTranslationCheck from '@openagenda/react-form-components/lib/onTranslationCheck';
+import debug from 'debug';
 
 const alternativeFields = [
   'name',
@@ -32,17 +33,15 @@ function initialize(props) {
     showExtIdInput: false,
   };
 
-  state.location = {};
-
-  for (const f in props.location) {
-    state.location[f] = props.location[f];
-  }
+  state.location = Object.keys(props.location || {}).reduce((carried, field) => ({
+    ...carried,
+    [field]: props.location[field]
+  }), {});
 
   if (!state.location.countryCode) {
-    state.location.countryCode =
-      props.settings && props.settings.defaultCountryCode
-        ? props.settings.defaultCountryCode
-        : 'FR';
+    state.location.countryCode = props.settings && props.settings.defaultCountryCode
+      ? props.settings.defaultCountryCode
+      : 'FR';
   }
 
   if (!state.enableGeocode && !state.location.latitude) {
@@ -171,9 +170,9 @@ function checkLanguage(state, check, source, language) {
   };
 }
 
-function sourceLanguageChange(state) {
-  console.log(arguments[1]);
-  console.log(arguments[2]);
+function sourceLanguageChange(...args) {
+  debug(args[1]);
+  debug(args[2]);
 }
 
 /**
@@ -287,14 +286,14 @@ function actions(options) {
   };
 }
 
-module.exports = actions;
-
-module.exports.tests = {
-  initialize,
-  loadAlternative,
-  loadTagAlternative,
-  checkLanguage,
-  startPageSpin,
-  stopPageSpin,
-  showExtId,
-};
+export default Object.assign(actions, {
+  tests: {
+    initialize,
+    loadAlternative,
+    loadTagAlternative,
+    checkLanguage,
+    startPageSpin,
+    stopPageSpin,
+    showExtId,
+  }
+});
