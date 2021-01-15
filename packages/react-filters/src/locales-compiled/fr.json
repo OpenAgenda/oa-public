@@ -62,6 +62,12 @@
       "value": "Début"
     }
   ],
+  "ReactFilters.ValueBadge.removeFilter": [
+    {
+      "type": 0,
+      "value": "Supprimer le filtre"
+    }
+  ],
   "ReactFilters.dateRanges.currentMonth": [
     {
       "type": 0,

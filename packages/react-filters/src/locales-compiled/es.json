@@ -3,6 +3,7 @@
   "ReactFilters.DateRangeFilter.endDate": null,
   "ReactFilters.DateRangeFilter.singleDate": null,
   "ReactFilters.DateRangeFilter.startDate": null,
+  "ReactFilters.ValueBadge.removeFilter": null,
   "ReactFilters.dateRanges.currentMonth": null,
   "ReactFilters.dateRanges.currentWeek": null,
   "ReactFilters.dateRanges.thisWeekend": null,
