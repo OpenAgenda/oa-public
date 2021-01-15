@@ -7,7 +7,7 @@ import Loading from '../components/Loading';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
 
-function AgendaAdminEventsLayout({
+function AgendaAdminFiltersLayout({
   childLayouts,
   children,
   extraProps,
@@ -34,7 +34,7 @@ function AgendaAdminEventsLayout({
   return isLoading ? (
     <Loading />
   ) : (
-    <div className="container-fluid agenda-admin agenda-admin-events-layout">
+    <div className="container-fluid agenda-admin agenda-admin-filters-layout">
       <div className="row">
         <div className="col-md-offset-2 col-md-7 wsq">
           <AdminHeader agenda={agenda} />
@@ -48,7 +48,7 @@ function AgendaAdminEventsLayout({
           className="col-md-3 col-md-push-5 col-sm-12 wsq filters"
           ref={filtersContainerRef}
         />
-        <div className="col-md-5 col-md-pull-3 col-sm-12 wsq">
+        <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">
           <ErrorBoundary
             onError={onError}
             FallbackComponent={FallbackComponent}
@@ -70,6 +70,6 @@ function AgendaAdminEventsLayout({
   );
 }
 
-AgendaAdminEventsLayout.layoutName = 'AgendaAdminEventsLayout';
+AgendaAdminFiltersLayout.layoutName = 'AgendaAdminFiltersLayout';
 
-export default AgendaAdminEventsLayout;
+export default AgendaAdminFiltersLayout;
