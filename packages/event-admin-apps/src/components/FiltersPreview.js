@@ -7,7 +7,7 @@ import {
   DateRangeFilter,
   MultiChoiceFilter,
   ValueBadge,
-  useFilterTitle
+  useFilterTitle,
 } from '@openagenda/react-filters';
 import getEvents from '../api/getEvents';
 
@@ -17,17 +17,13 @@ function DateRangePreview({
   label,
   onRemove,
   disabled,
-  className
+  className,
 }) {
   const title = useFilterTitle(name, filter.fieldSchema);
 
   return (
     <span className={className} title={title}>
-      <ValueBadge
-        label={label}
-        onRemove={onRemove}
-        disabled={disabled}
-      />
+      <ValueBadge label={label} onRemove={onRemove} disabled={disabled} />
     </span>
   );
 }
@@ -38,7 +34,7 @@ function MultiChoicePreview({
   valueOptions,
   onRemove,
   disabled,
-  className
+  className,
 }) {
   const title = useFilterTitle(name, filter.fieldSchema);
 
@@ -60,7 +56,7 @@ export default function FilterPreview({
   agenda,
   query,
   standardsFilters,
-  additionalsFilters
+  additionalsFilters,
 }) {
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
@@ -71,12 +67,15 @@ export default function FilterPreview({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters],
+      [...standardsFilters, ...additionalsFilters].filter(
+        filter => filter.type !== 'dateRange'
+      ),
       { size: 0 }
     ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
+      enabled: false,
     }
   );
 
@@ -86,7 +85,9 @@ export default function FilterPreview({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters],
+      [...standardsFilters, ...additionalsFilters].filter(
+        filter => filter.type !== 'dateRange'
+      ),
       {
         ...query,
         sort: 'updatedAt.desc',
@@ -101,10 +102,10 @@ export default function FilterPreview({
     }
   );
 
-  const filters = useMemo(
-    () => [...standardsFilters, ...additionalsFilters],
-    [additionalsFilters, standardsFilters]
-  );
+  const filters = useMemo(() => [...standardsFilters, ...additionalsFilters], [
+    additionalsFilters,
+    standardsFilters,
+  ]);
 
   const { aggregations: filterAggs } = filtersQuery.data;
 

@@ -22,10 +22,7 @@ const messages = defineMessages({
 });
 
 function FiltersPart({
-  agenda,
-  standardsFilters,
-  additionalsFilters,
-  query,
+  agenda, standardsFilters, additionalsFilters, query
 }) {
   const intl = useIntl();
   const apiClient = useApiClient();
@@ -37,7 +34,9 @@ function FiltersPart({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters],
+      [...standardsFilters, ...additionalsFilters].filter(
+        filter => filter.type !== 'dateRange'
+      ),
       { size: 0 }
     ),
     {
@@ -52,7 +51,9 @@ function FiltersPart({
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters],
+      [...standardsFilters, ...additionalsFilters].filter(
+        filter => filter.type !== 'dateRange'
+      ),
       {
         ...query,
         sort: 'updatedAt.desc',

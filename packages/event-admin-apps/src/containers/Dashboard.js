@@ -12,6 +12,9 @@ import { useLatest, useUpdateEffect } from 'react-use';
 import { useUIDSeed } from 'react-uid';
 import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
+import { Field, useForm } from 'react-final-form';
+import { OnChange } from 'react-final-form-listeners';
+import { useDebouncedCallback } from 'use-debounce';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
 import { useApiClient } from '@openagenda/react-shared';
@@ -49,6 +52,44 @@ const messages = defineMessages({
   },
 });
 
+function SearchField({
+  input,
+  // meta
+}) {
+  return (
+    <div
+      className="form-group"
+      css={css`
+        width: 50%;
+      `}
+    >
+      <div className="input-icon-right">
+        <input
+          placeholder="Rechercher un événement"
+          className="form-control"
+          {...input}
+        />
+        <button type="submit" className="btn">
+          <i className="fa fa-search" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SearchFilter() {
+  const form = useForm();
+  const { callback: onChange } = useDebouncedCallback(() => form.submit(), 400);
+
+  return (
+    <>
+      <Field component={SearchField} name="search" type="text" />
+
+      <OnChange name="search">{onChange}</OnChange>
+    </>
+  );
+}
+
 function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const intl = useIntl();
   const apiClient = useApiClient();
@@ -78,7 +119,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters],
+      [...standardsFilters, ...additionalsFilters].filter(
+        filter => filter.type !== 'dateRange'
+      ),
       { size: 0 }
     ),
     {
@@ -99,7 +142,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       apiClient,
       res.jsonExport,
       agenda,
-      [...standardsFilters, ...additionalsFilters],
+      [...standardsFilters, ...additionalsFilters].filter(
+        filter => filter.type !== 'dateRange'
+      ),
       {
         ...query,
         sort: 'updatedAt.desc',
@@ -206,6 +251,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           line-height: 26px;
         `}
       >
+        <SearchFilter />
+
         {hasQuery
           ? intl.formatMessage(messages.totalWithFilters, {
             selection: data.pages[0].total,
@@ -307,12 +354,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           </div>
 
           <FiltersPart
-            containerRef={filtersContainerRef}
             agenda={agenda}
-            agendaSchema={agendaSchema}
             standardsFilters={standardsFilters}
             additionalsFilters={additionalsFilters}
-            onFilterChange={onFilterChange}
             query={query}
           />
         </div>,
