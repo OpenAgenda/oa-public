@@ -20,7 +20,8 @@ async function update({ service, isPatch }, current, data, o = {}) {
     ...(await validate(data, {
       isPatch,
       isDraft: options.draft,
-      maxImageSize: service.config.maxImageSize
+      maxImageSize: service.config.maxImageSize,
+      current
     })),
     updatedAt: new Date()
   };

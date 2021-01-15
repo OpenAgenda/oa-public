@@ -5,6 +5,7 @@ const assert = require('assert');
 const dateHourMinutesTiming = require('../lib/validators/dateHourMinutesTiming');
 const validateTiming = require('../lib/validators/timing');
 const validateTimings = require('../lib/validators/timings');
+const convertDateMinuteHourTimings = require('../lib/convertDateHourMinutesTimings');
 
 describe('timings', () => {
 
@@ -212,6 +213,80 @@ describe('timings', () => {
       }]);
     });
 
+    it('timings are sorted', () => {
+      const timings = validateTimings()([{
+        begin: '2020-11-27T10:00:00+0200',
+        end: '2020-11-27T20:00:00+0200'
+      }, {
+        begin: '2020-11-27T09:00:00+0200',
+        end: '2020-11-27T20:00:00+0200'
+      }]);
+
+      assert.equal(timings[0].begin.toISOString(), '2020-11-27T07:00:00.000Z');
+    });
+
+    it('dhm timings are sorted', () => {
+      const timings = validateTimings()([{
+        begin: {
+          date: '2020-11-27',
+          hours: 20,
+          minutes: 5
+        },
+        end: {
+          date: '2020-11-27',
+          hours: 20,
+          minutes: 35
+        }
+      }, {
+        begin: {
+          date: '2020-11-27',
+          hours: 20,
+          minutes: 2
+        },
+        end: {
+          date: '2020-11-27',
+          hours: 20,
+          minutes: 40
+        }
+      }]);
+
+      assert.equal(timings[0].begin.minutes, 2);
+    });
+
   });
+
+  describe('convertDateHoursMinutes', () => {
+
+    it('convers from', () => {
+      const timings = [{
+        begin: { date: '2021-01-13', hours: '10', minutes: '24' },
+        end: { date: '2021-01-13', hours: '11', minutes: '00' }
+      }];
+
+      convertDateMinuteHourTimings(timings, 'Europe/Paris');
+
+      assert.deepEqual(timings, [
+        {
+          begin: '2021-01-13T10:24:00.000+01:00',
+          end: '2021-01-13T11:00:00.000+01:00'
+        }
+      ]);
+    })
+
+    it('converts to', () => {
+      const timings = [{
+        begin: new Date('2021-01-13T09:24:00.000Z'),
+        end: new Date('2021-01-13T10:00:00.000Z')
+      }];
+
+      convertDateMinuteHourTimings.to(timings, 'Europe/Paris');
+
+      assert.deepEqual(timings, [{
+        begin: { date: '2021-01-13', hours: '10', minutes: '24' },
+        end: { date: '2021-01-13', hours: '11', minutes: '00' }
+      }]);
+    });
+
+  })
 
 });

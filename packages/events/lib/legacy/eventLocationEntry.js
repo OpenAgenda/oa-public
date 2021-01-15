@@ -23,7 +23,8 @@ module.exports = async (client, eventId, data) => {
     q.update(data.event_location).where('id', id);
   }
 
-  const eventLocationId = await q.then(result => [].concat(result).pop());
+  const result = await q;
+  const eventLocationId = id || result.pop();
   
   await setTranslationEntries(client, 'event_location_translation', eventLocationId, data);
 

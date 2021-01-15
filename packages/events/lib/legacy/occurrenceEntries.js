@@ -36,6 +36,6 @@ module.exports = async (client, eventId, data) => {
   ).map(o => o.id);
 
   if (toDeleteIds.length) {
-    await client('occurrence').delete().whereIn(toDeleteIds);
+    await client('occurrence').delete().whereIn('id', toDeleteIds);
   }
 }

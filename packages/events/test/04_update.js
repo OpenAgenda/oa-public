@@ -43,9 +43,13 @@ describe('events - functional - update', function() {
 
   describe('simple update', () => {
     let updated;
+    let entry;
 
     before(async () => {
       updated = await svc.update(41414062, data);
+      entry = await f.client('event_2')
+        .first()
+        .where('uid', updated.uid);
     });
 
     it('result is updated event', () => {
@@ -53,12 +57,7 @@ describe('events - functional - update', function() {
     });
 
     it('entry is updated in table', async () => {
-      const title = await f.client('event_2')
-        .first(['title'])
-        .where('uid', updated.uid)
-        .then(r => r.title);
-
-      assert.equal(title, '{"fr":"Spectacle de contes sur le thème de l\'Afrique"}');
+      assert.equal(entry.title, '{"fr":"Spectacle de contes sur le thème de l\'Afrique"}');
     });
   });
 
@@ -89,7 +88,13 @@ describe('events - functional - update', function() {
 
   describe('update with image', () => {
     let svc;
-    
+
+    before(done => {
+      fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
+        .pipe(fs.createWriteStream('/tmp/dog.png'))
+        .on('close', done)
+    });
+
     before(() => {
       svc = Service({
         knex: f.client,
@@ -100,11 +105,18 @@ describe('events - functional - update', function() {
     it('image is uploaded', async () => {
       const updated = await svc.update(93469090, {
         ...data,
-        image: fs.createReadStream(__dirname + '/fixtures/images/dog.png')
+        image: fs.createReadStream('/tmp/dog.png')
       });
 
       await axios.head('https:' + config.imagePath + updated.image.filename);
-    });    
+    });
+
+    it('image credits are updated', async () => {
+      const event = await svc.create(fixtures.creditsEventCreate);
+      const updated = await svc.update(event.uid, fixtures.creditsEventUpdate);
+
+      assert.equal(updated.imageCredits, 'Crédits à jour');
+    });
   });
 
   describe('interfaces', () => {
@@ -147,6 +159,29 @@ describe('events - functional - update', function() {
       }, { draft: true });
 
       assert.equal(updatedDraftEvent.title.en, 'Un titre modifié');
+    });
+
+    it('fix: patch from DHM format', async () => {
+      await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
+        timings: [
+          {
+            begin: {
+              date: '2020-11-22',
+              hours: 13,
+              minutes: 0
+            },
+            end: {
+              date: '2020-11-22',
+              hours: 13,
+              minutes: 30
+            }
+          }
+        ]
+      });
+
+      const entry = await f.client('event_2').first('timings').where('slug', 'exposition-legypte-ancienne');
+
+      assert.equal(entry.timings, '[{"begin":"2020-11-22T13:00:00.000+01:00","end":"2020-11-22T13:30:00.000+01:00"}]');
     });
 
   });

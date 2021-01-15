@@ -11,7 +11,7 @@ const handleInterface = require('./lib/handleInterface');
 const lastClean = require('./lib/lastEventClean');
 
 module.exports = async (service, identifiers, o = {}) => {
-  log('called', identifiers);
+  log('called %s with options %j', identifiers, o);
   const k = service.clients.knex(service.config.schema);
 
   const options = cleanGetOptions(o);

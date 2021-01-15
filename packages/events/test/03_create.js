@@ -71,7 +71,15 @@ describe('events - functional - create', function() {
 
   describe('create with image', () => {
     let svc;
+
+    before(done => fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
+      .pipe(fs.createWriteStream('/tmp/dog.png'))
+      .on('close', done));
     
+    before(done => fs.createReadStream(`${__dirname}/fixtures/images/notanimage.txt`)
+      .pipe(fs.createWriteStream('/tmp/notanimage.txt'))
+      .on('close', done));
+
     before(() => {
       svc = Service({
         knex: f.client,
@@ -90,7 +98,7 @@ describe('events - functional - create', function() {
           begin: '2020-12-22T11:35:00.000+0200',
           end: '2020-12-22T13:30:00.000+0200'
         }],
-        image: fs.createReadStream(__dirname + '/fixtures/images/dog.png')
+        image: fs.createReadStream('/tmp/dog.png')
       });
 
       await axios.head('https:' + config.imagePath + created.image.filename);
@@ -107,7 +115,7 @@ describe('events - functional - create', function() {
             begin: '2020-12-22T11:35:00.000+0200',
             end: '2020-12-22T13:30:00.000+0200'
           }],
-          image: fs.createReadStream(__dirname + '/fixtures/images/notanimage.txt')
+          image: fs.createReadStream('/tmp/notanimage.txt')
         });
       } catch (e) {
         assert(e instanceof ValidationError);
@@ -144,7 +152,6 @@ describe('events - functional - create', function() {
     });
 
     it('image can be passed through a local file path, deleted after upload', done => {
-
       fs.copyFile(`${__dirname}/fixtures/images/dog.png`, TMP_IMG_PATH, async err => {
         const event = await svc.create({
           ...data,
@@ -159,7 +166,6 @@ describe('events - functional - create', function() {
 
         done();
       });
-
     });
 
   });
@@ -229,6 +235,18 @@ describe('events - functional - create', function() {
       });
 
       assert.equal(event.agendaUid, 123);
+    });
+
+    it('location can be provided as object', async () => {
+      const event = await svc.create({
+        ...data,
+        eventAttendanceMode: 1,
+        location: {
+          uid: 123
+        }
+      });
+
+      assert.equal(event.locationUid, 123);
     });
 
     it('if userUid is provided in context, it is added as creatorUid and ownerUid of event', async () => {

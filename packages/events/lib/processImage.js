@@ -6,6 +6,10 @@ const ValidationError = require('./ValidationError');
 const isUnknownFormatException = error => (error?.jse_info?.uploadReason?.message || '').indexOf('no decode delegate for this image format') !== -1;
 
 module.exports = async (service, { image, fileKey }) => {
+  if (image?.filename && !('transformAndUpload' in image)) {
+    return image;
+  }
+
   if (!service.imageTransformAndUpload) {
     return null;
   }

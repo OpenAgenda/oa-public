@@ -1,6 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
+
+const log = require('@openagenda/logs')('fromDBEntryToItem');
+
 const getFieldsByAccess = require('./getFieldsByAccess');
 const {
   getName: getDatabaseFieldName,
@@ -8,6 +11,8 @@ const {
 } = require('./databaseField');
 
 module.exports = (service, entry = {}, options = {}) => {
+  log('entry %j', entry);
+
   const {
     access,
     includeFields
@@ -17,7 +22,7 @@ module.exports = (service, entry = {}, options = {}) => {
     ...options
   };
 
-  return getFieldsByAccess('read', access)
+  const compiledItem = getFieldsByAccess('read', access)
     .filter(f => (includeFields.length ? includeFields.includes(f.field) : true))
     .reduce((item, field) => {
       const dbFieldName = getDatabaseFieldName(field);
@@ -33,4 +38,8 @@ module.exports = (service, entry = {}, options = {}) => {
 
       return item;
     }, {});
+
+  log('item %j', compiledItem);
+
+  return compiledItem;
 };

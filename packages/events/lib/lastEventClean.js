@@ -6,6 +6,7 @@ const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess')
 const toHTML = require('./toHTML');
 const flatten = require('./flatten');
 const clean = require('@openagenda/validators/schema/clean');
+const convertDateHourMinutesTimings = require('./convertDateHourMinutesTimings');
 
 const getPathAndFilename = file => {
   if (!file) {
@@ -30,10 +31,13 @@ module.exports = (event, options = {}) => {
     includeFields,
     defaultImage,
     useDefaultImage,
-    imageAsLink
+    imageAsLink,
+    useDateHoursMinutesFormat,
+    useLocationObjectFormat
   } = options;
 
   const additionalFields = [];
+  const excludeFields = [];
 
   if (html) {
     event.html = toHTML(event.longDescription);
@@ -56,7 +60,13 @@ module.exports = (event, options = {}) => {
   } = getPathAndFilename(defaultImage);
 
   if (event.image) {
+    delete event.image.credits;
+  }
+
+  if (event.image && Object.keys(event.image).length) {
     event.image.base = imagePath;
+  } else if (event.image) {
+    delete event.image;
   }
 
   if (useDefaultImage && !event?.image?.filename) {
@@ -70,12 +80,23 @@ module.exports = (event, options = {}) => {
     event.image = `${event.image.base}${event.image.filename}`;
   }
 
+  if (useDateHoursMinutesFormat && event.timings) {
+    convertDateHourMinutesTimings.to(event.timings, event.timezone);
+  }
+
+  if (useLocationObjectFormat && event.locationUid && !event.location) {
+    event.location = { uid: event.locationUid };
+    excludeFields.push('locationUid');
+    additionalFields.push('location');
+  }
+
   return filterItemValuesByFieldAccess(
     lang ? flatten(event, lang, options) : event,
     {
       access,
       includeFields,
-      additionalFields
+      additionalFields,
+      excludeFields
     }
   );
 };

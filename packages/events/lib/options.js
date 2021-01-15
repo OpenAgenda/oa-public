@@ -64,6 +64,14 @@ const base = {
   imageAsLink: {
     type: 'boolean',
     default: false
+  },
+  useDateHoursMinutesFormat: {
+    type: 'boolean',
+    default: false
+  },
+  useLocationObjectFormat: {
+    type: 'boolean',
+    default: false
   }
 };
 

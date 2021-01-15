@@ -29,7 +29,7 @@ module.exports = (event, options = {}) => {
     event: {
       uid: event.uid,
       slug: event.slug,
-      image: event.image?.filename,
+      image: event.image?.filename || null,
       image_credits: event.imageCredits,
       origin_uid: event.agendaUid,
       age_min: event.age?.min || null,

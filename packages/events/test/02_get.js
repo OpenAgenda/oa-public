@@ -153,6 +153,10 @@ describe('events - functional - get', function() {
       });
     });
 
+    it('null credit and null image appear as null in events', async () => {
+      assert.equal(await svc.get(66724283).then(e => e.image), undefined);
+    });
+
     it('if access is internal, internal fields are returned', async () => {
       const internalFieldNames = fields.filter(f => f.read.includes('internal')).map(f => f.field);
 
@@ -174,6 +178,32 @@ describe('events - functional - get', function() {
 
       assert.deepEqual(event.image, { filename: 'path.png', base: '//default/image/' });
     });
+
+    it('useDateHoursMinutesFormat', async () => {
+      const event = await svc.get(9107612, {
+        useDateHoursMinutesFormat: true
+      });
+
+      assert.deepEqual(event.timings, [
+        {
+          begin: { date: '2019-09-14', hours: '10', minutes: '30' },
+          end: { date: '2019-09-14', hours: '11', minutes: '30' }
+        },
+        {
+          begin: { date: '2019-09-14', hours: '14', minutes: '30' },
+          end: { date: '2019-09-14', hours: '15', minutes: '30' }
+        }
+      ]);
+    });
+
+    it('useLocationObjectFormat', async () => {
+      const event = await svc.get(9107612, {
+        useLocationObjectFormat: true
+      });
+
+      assert.equal('locationUid' in event, false);
+      assert.deepEqual(event.location, { uid: 63552532 });
+    })
 
   });
 

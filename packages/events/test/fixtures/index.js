@@ -6,6 +6,9 @@ const { promisify } = require('util');
 const knex = require('knex');
 const mysql = require('mysql');
 
+const creditsEventCreate = require('./creditsEventCreate.json');
+const creditsEventUpdate = require('./creditsEventUpdate.json');
+
 function _sql(schema, SQLDataRelativePath) {
   const raw = [
     fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
@@ -45,3 +48,6 @@ module.exports = (dbConfig, SQLDataRelativePath) => {
     load: () => _load(dbConfig, SQLDataRelativePath)
   };
 };
+
+module.exports.creditsEventCreate = creditsEventCreate;
+module.exports.creditsEventUpdate = creditsEventUpdate;

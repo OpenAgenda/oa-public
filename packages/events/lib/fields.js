@@ -111,6 +111,7 @@ module.exports = [{
   field: 'image',
   fieldType: 'stream',
   allowNull: true,
+  allowObject: true,
   read: ['internal', 'public'],
   write: ['internal', 'public'],
   db: {

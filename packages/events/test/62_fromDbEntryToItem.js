@@ -17,7 +17,7 @@ const entry = {
   title: '{"fr":"ANNULÉ : Spectacle « Les ombres racontent : Kirikou et autres histoires »"}'
 };
 
-describe('fromItemToDbEntry', () => {
+describe('fromDbEntryToItem', () => {
   let item;
 
   before(() => {

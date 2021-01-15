@@ -12,43 +12,56 @@ const accessibility = require('./validators/accessibility');
 const age = require('./validators/age');
 const keywords = require('./validators/keywords');
 const preClean = require('./preValidateClean');
+const compileForValidation = require('./compileForValidation');
 
 const ValidationError = require('./ValidationError');
+const date = require('@openagenda/validators/date');
 
 const eventCustomValidators = {
   timings2, registration, accessibility, age, stream, keywords
 };
 
 const publicFields = fields.filter(f => (f.write || []).includes('public'));
-const fieldNames = publicFields.map(f => f.field);
 
 const validate = new FormSchema({
   fields: publicFields,
   custom: eventCustomValidators
 }).getValidate();
 
-const fieldsToPatch = data => Object.keys(_.omit(data, ['draft'])).filter(f => fieldNames.includes(f));
+const draftValidate = new FormSchema({
+  fields: publicFields.map(f => ({ ...f, optional: true })),
+  custom: eventCustomValidators
+}).getValidate();
 
 module.exports = async (data, options = {}) => {
   const {
     isPatch,
     isDraft,
-    maxImageSize
+    maxImageSize,
+    current
   } = {
     isPatch: false,
     isDraft: false,
+    current: null,
     maxImageSize: 20971520, // 20MB
     ...options
   };
 
+  const {
+    editedFields,
+    compiled
+   } = await compileForValidation(current, data, { maxImageSize });
+
   log('validating %s for %s', isDraft ? 'draft' : 'non-draft', isPatch ? 'patch' : 'create/update');
 
-  const fn = isPatch || isDraft ? validate.part.bind(null, fieldsToPatch(data)) : validate;
-
-  let clean;
-
   try {
-    clean = fn(await preClean(data, { maxImageSize }));
+    // draft event does not require anything.
+    const clean = (isDraft ? draftValidate : validate)(compiled);
+    
+    return isDraft || isPatch ? editedFields.reduce((patch, field) => ({
+        ...patch,
+        [field]: clean[field]
+      }), {}) : clean;
   } catch (errors) {
     throw new ValidationError(errors);
   }

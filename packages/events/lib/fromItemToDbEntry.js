@@ -1,6 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
+
+const log = require('@openagenda/logs')('fromItemToDbEntry');
+
 const fields = require('./fields');
 const {
   getName: getDatabaseFieldName,
@@ -35,7 +38,17 @@ const loadJSONValue = (JSONValue, path, value) => {
   }
 
   if (!JSONValue) {
+    return value !== null ? JSON.stringify(value) : null;
+  }
+
+  const parsedJSONValue = JSON.parse(JSONValue);
+
+  if (Array.isArray(parsedJSONValue)) {
     return JSON.stringify(value);
+  }
+
+  if (value === null) {
+    return null;
   }
 
   return JSON.stringify({
@@ -45,11 +58,12 @@ const loadJSONValue = (JSONValue, path, value) => {
 };
 
 function fromItemToDbEntry(data, current) {
+  log('item', { data, current });
   const currentEntry = current && fromItemToDbEntry(current);
 
   const intermediate = preFormat(data);
 
-  return fields.reduce((entry, field) => {
+  const dbEntry = fields.reduce((entry, field) => {
     if (intermediate[field.field] === undefined) {
       return entry;
     }
@@ -62,11 +76,10 @@ function fromItemToDbEntry(data, current) {
 
     if (entryType === 'json') {
       const value = loadJSONValue(
-        entry[entryField] || currentEntry?.[entryField],
+        entry[entryField] !== undefined ? entry[entryField]: currentEntry?.[entryField],
         entryPath,
         intermediate[field.field]
       );
-
       return {
         ...entry,
         [entryField]: value
@@ -81,6 +94,10 @@ function fromItemToDbEntry(data, current) {
     };
 
   }, {});
+
+  log('entry', dbEntry);
+
+  return dbEntry;
 }
 
 module.exports = fromItemToDbEntry;

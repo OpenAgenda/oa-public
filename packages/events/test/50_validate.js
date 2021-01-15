@@ -74,7 +74,7 @@ describe('validate', () => {
   it('age should be an object with min and max values', async () => {
     const clean = await validate({
       age: { min: 12, max: 100 }
-    }, { isPatch: true });
+    }, { isDraft: true });
 
     assert.deepEqual(clean.age, {
       min: 12,
@@ -92,7 +92,7 @@ describe('validate', () => {
         variants: undefined,
         size: undefined
       }
-    }, { isPatch: true });
+    }, { isDraft: true });
 
     assert.equal(clean.image, null);
   });

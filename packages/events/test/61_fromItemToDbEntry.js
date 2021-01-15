@@ -45,4 +45,55 @@ describe('fromItemToDbEntry', () => {
     assert.equal(entry.image, '{"filename":"image.maj.jpg","credits":"Gaetan Latouche 2020"}');
   });
 
+  it('if image is null it should be null in entry', () => {
+    const entry = fromItemToDbEntry({
+      image: null
+    }, {
+      image: {
+        filename: 'image.png'
+      }
+    });
+
+    assert.equal(entry.image, null);
+  });
+
+  it('new timings replace previous timings', () => {
+    const entry = fromItemToDbEntry({
+      timings: [{
+        begin:'2020-10-10T08:00:00.000Z',
+        end:'2020-10-10T20:00:00.000Z'
+      }]
+    }, {
+      timings: [{
+        begin: '2020-11-22T13:00:00.000+01:00',
+        end: '2020-11-22T13:30:00.000+01:00'
+      }]
+    });
+
+    assert.equal(entry.timings, '[{"begin":"2020-10-10T08:00:00.000Z","end":"2020-10-10T20:00:00.000Z"}]');
+  });
+
+  it('null is given as null in entry', () => {
+    const entry = fromItemToDbEntry({
+      registration: null,
+    });
+  });
+
+
+  it('null is set on json field with subfield', () => {
+    const entry = fromItemToDbEntry({
+      image: null,
+      imageCredits: null
+    }, {
+      image: {
+        filename: '5f9bbe1df90a43a8a059a56ad6e26c2a.base.image.jpg',
+        base: 'https://cibuldev.s3.amazonaws.com/'
+      },
+      imageCredits: null
+    });
+    
+    assert.deepEqual(entry.image, '{"credits":null}');
+
+  });
+
 });
