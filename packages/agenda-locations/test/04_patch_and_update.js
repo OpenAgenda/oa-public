@@ -151,6 +151,25 @@ describe('agenda-locations - functional - patch & update', function () {
       assert.equal(updated.uid, 95301591);
     });
 
+    it('imageCredits can be patched on location with image', async () => {
+      const updated = await svc(7196947).update(60763721, {
+        region: 'Auvergne-Rhône-Alpes',
+        department: 'Ardèche',
+        city: 'Saint-Paul-le-Jeune',
+        timezone: 'Europe/Paris',
+        postalCode: '07460',
+        name: 'Saint-Paul-le-Jeune',
+        countryCode: 'FR',
+        image: '//cibuldev.s3.amazonaws.com/location60763721.jpg',
+        address: '07460 Saint-Paul-le-Jeune',
+        imageCredits: 'New credits',
+        longitude: 4.153617,
+        latitude: 44.339599
+      });
+
+      assert.equal(updated.imageCredits, 'New credits');
+    });
+
     it('uid cannot be modified through patch', async () => {
       const updated = await svc(7196947).update(95301591, {
         ...payload,

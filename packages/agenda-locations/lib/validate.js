@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const ih = require('immutability-helper');
 
 const schema = require('@openagenda/validators/schema');
 const stream = require('@openagenda/validators/stream');
@@ -31,19 +32,21 @@ const validateStream = stream({ optional: false });
 
 const ValidationError = require('./ValidationError');
 
-const fields = require('./fields.json');
+const fields = require('./fields.json').filter(field => field.write.includes('contributor'))
+  .reduce(
+    (sch, field) => ({
+      ...sch,
+      [field.field]: _.omit(field, ['field', 'db', 'read']),
+    }),
+    {}
+  );
 
-const validate = schema(
-  fields
-    .filter(field => field.write.includes('contributor'))
-    .reduce(
-      (sch, field) => ({
-        ...sch,
-        [field.field]: _.omit(field, ['field', 'db', 'read']),
-      }),
-      {}
-    )
-);
+const validate = schema(fields);
+validate.withoutImageCreditsDep = schema(ih(fields, {
+  imageCredits: {
+    $unset: ['enableWith']
+  }
+}));
 
 module.exports = (values, options = {}) => {
   const { isPatch, ignoreImage } = {
@@ -52,10 +55,10 @@ module.exports = (values, options = {}) => {
     ...options,
   };
 
-  const fn = isPatch ? validate.part.bind(null, Object.keys(values)) : validate;
+  const fn = ignoreImage && values.image ? validate.withoutImageCreditsDep : validate;
 
   try {
-    return fn(ignoreImage ? _.omit(values, ['image']) : values);
+    return (isPatch ? fn.part.bind(null, Object.keys(values)) : fn)(ignoreImage ? _.omit(values, ['image']) : values);
   } catch (errors) {
     throw new ValidationError(errors);
   }
