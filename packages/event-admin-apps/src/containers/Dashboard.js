@@ -50,12 +50,18 @@ const messages = defineMessages({
     id: 'EventAdminApp.Dashboard.filters',
     defaultMessage: 'Filters',
   },
+  searchPlaceholder: {
+    id: 'EventAdminApp.Dashboard.searchPlaceholders',
+    defaultMessage: 'Search',
+  },
 });
 
 function SearchField({
   input,
   // meta
 }) {
+  const intl = useIntl();
+
   return (
     <div
       className="form-group"
@@ -65,7 +71,7 @@ function SearchField({
     >
       <div className="input-icon-right">
         <input
-          placeholder="Rechercher un événement"
+          placeholder={intl.formatMessage(messages.searchPlaceholder)}
           className="form-control"
           {...input}
         />

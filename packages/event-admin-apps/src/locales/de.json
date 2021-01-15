@@ -2,6 +2,7 @@
   "EventAdminApp.Dashboard.aggregatedFrom": "",
   "EventAdminApp.Dashboard.createdBy": "",
   "EventAdminApp.Dashboard.filters": "",
+  "EventAdminApp.Dashboard.searchPlaceholders": "",
   "EventAdminApp.Dashboard.totalEvents": "",
   "EventAdminApp.Dashboard.totalWithFilters": "",
   "EventAdminApp.FiltersPart.lessFilters": "",

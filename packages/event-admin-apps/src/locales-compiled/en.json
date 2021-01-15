@@ -37,6 +37,12 @@
       "value": "Filters"
     }
   ],
+  "EventAdminApp.Dashboard.searchPlaceholders": [
+    {
+      "type": 0,
+      "value": "Search an event"
+    }
+  ],
   "EventAdminApp.Dashboard.totalEvents": [
     {
       "children": [

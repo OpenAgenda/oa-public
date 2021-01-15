@@ -37,6 +37,7 @@
       "value": "Filtres"
     }
   ],
+  "EventAdminApp.Dashboard.searchPlaceholders": null,
   "EventAdminApp.Dashboard.totalEvents": [
     {
       "children": [
