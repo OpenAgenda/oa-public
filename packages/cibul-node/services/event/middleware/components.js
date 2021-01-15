@@ -12,7 +12,7 @@ const References = require( '@openagenda/agenda-event-references/react/build/Sho
 const Registration = require( '@openagenda/registration/lib/Display' );
 
 const config = require( '../../../config' );
-const eventSvc = require( '../../event' );
+const legacyEventSvc = require( '../../event' );
 const log = require( '@openagenda/logs' )( 'services/event/middleware/components' );
 const members = require('../../members');
 const pickEventImage = require( '../lib/pickImage' );
@@ -104,7 +104,7 @@ function _references( v ) {
 
       async.eachSeries( events, ( event, ecb ) => {
 
-        const e = eventSvc.instanciate( event );
+        const e = legacyEventSvc.instanciate( event );
 
         e.getState( ( err, state ) => {
 

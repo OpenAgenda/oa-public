@@ -10,7 +10,7 @@ var model = require( '../../model' ),
 
   activitiesSvc = require( '../../activities' ),
 
-  eventSvc = require( '../../event' ),
+  legacyEventSvc = require( '../../event' ),
 
   search = require( './search' ),
 
@@ -167,7 +167,7 @@ function instanciate( data ) {
 
   function newEvent( cb ) {
 
-    var newEventInst = eventSvc.instanciate( instance.events.new() );
+    var newEventInst = legacyEventSvc.instanciate( instance.events.new() );
 
     if ( cb ) cb( null, newEventInst );
 

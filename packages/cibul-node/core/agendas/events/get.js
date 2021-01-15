@@ -25,7 +25,9 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     load,
     access,
     returnPayload,
-    detailed
+    detailed,
+    useDateHoursMinutesFormat,
+    useLocationObjectFormat
   } = {
     internal: false, // deprecated, use "access":"internal" - load internal use fields ( id )
     lang: null,
@@ -38,6 +40,8 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     access: 'public',
     returnPayload: false,
     detailed: false,
+    useDateHoursMinutesFormat: false,
+    useLocationObjectFormat: false,
     ...options
   };
 
@@ -50,11 +54,13 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   }));
 
   if (load.event) {
-    payload.setItem('event', await events.v2.get(eventUid, {
+    payload.setItem('event', await events.get(eventUid, {
       access,
       detailed,
       lang,
-      useFallbackLang: true
+      useFallbackLang: true,
+      useDateHoursMinutesFormat,
+      useLocationObjectFormat
     }));
   }
 

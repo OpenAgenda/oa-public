@@ -12,7 +12,7 @@ function defineState(agenda, current, clean, data, { access, draft }) {
   log('agenda default state set at %s, access to change state is %s for %s event',
     agendaDefault,
     canChangeState ? 'given' : 'not given',
-    isUndrafted ? 'undrafted' : (current ? 'existing' : 'new')
+    isUndrafted ? 'undrafted' : (current ? 'existing' : 'new or added')
   );
 
   if (draft) {
@@ -29,7 +29,8 @@ function defineState(agenda, current, clean, data, { access, draft }) {
   if (current && explicitStateRequested && canChangeState) {
     return data.state;
   }
-
+  // event exists, is added to agenda. It is a new addition. It should
+  // be moderated.
   if (current && !canChangeState) {
     const shouldBeModerated = (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(access);
     log('event %s to be moderated', shouldBeModerated ? 'needs' : 'does not need');

@@ -1,0 +1,84 @@
+{
+    "image": {
+      "extension": null,
+      "originalName": null,
+      "filename": "f877251bde3e4647b3f538892b910bf9.base.image.jpg"
+    },
+    "imageCredits": "Crédits à jour",
+    "languages": [
+      "fr"
+    ],
+    "title": {
+      "fr": "Evénement 23"
+    },
+    "description": {
+      "fr": "fsdqfsdq"
+    },
+    "keywords": {},
+    "longDescription": {
+      "fr": null
+    },
+    "conditions": {
+      "fr": null
+    },
+    "age": {
+      "min": null,
+      "max": null
+    },
+    "registration": [],
+    "accessibility": {
+      "hi": false,
+      "ii": false,
+      "vi": false,
+      "mi": false,
+      "pi": false
+    },
+    "location": {
+      "uid": 71589223,
+      "name": "Paris 3",
+      "address": "Paris",
+      "latitude": 48.856697,
+      "longitude": 2.351462,
+      "timezone": "Europe/Paris"
+    },
+    "timings": [
+      {
+        "begin": {
+          "date": "2020-11-22",
+          "hours": 10,
+          "minutes": 30
+        },
+        "end": {
+          "date": "2020-11-22",
+          "hours": 13,
+          "minutes": 0
+        }
+      },
+      {
+        "begin": {
+          "date": "2020-11-20",
+          "hours": 12,
+          "minutes": 30
+        },
+        "end": {
+          "date": "2020-11-20",
+          "hours": 17,
+          "minutes": 0
+        }
+      },
+      {
+        "begin": {
+          "date": "2020-11-19",
+          "hours": 12,
+          "minutes": 30
+        },
+        "end": {
+          "date": "2020-11-19",
+          "hours": 17,
+          "minutes": 0
+        }
+      }
+    ],
+    "links": []
+  }
+  

@@ -1,0 +1,88 @@
+{
+    "id": 884832,
+    "uid": 48792125,
+    "slug": "evenement-23",
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "draft": 0,
+    "updatedAt": "2021-01-13T17:54:09.000Z",
+    "createdAt": "2020-11-20T15:37:56.000Z",
+    "creatorUid": 75052324,
+    "ownerUid": 75052324,
+    "agendaUid": 95171901,
+    "fileKey": "f877251bde3e4647b3f538892b910bf9",
+    "eventAttendanceMode": 1,
+    "onlineAccessLink": null,
+    "locationUid": 71589223,
+    "image": {
+      "url" : "https://cibuldev.s3.amazonaws.com/f877251bde3e4647b3f538892b910bf9.full.image.jpg"
+    },
+    "imageCredits": "C'est libre",
+    "title": {
+      "fr": "Evénement 23"
+    },
+    "description": {
+      "fr": "fsdqfsdq"
+    },
+    "longDescription": {},
+    "keywords": {},
+    "conditions": {},
+    "age": {
+      "min": null,
+      "max": null
+    },
+    "registration": [],
+    "accessibility": {
+      "mi": false,
+      "hi": false,
+      "pi": false,
+      "vi": false,
+      "ii": false
+    },
+    "timings": [
+      {
+        "begin": "2020-11-19T12:30:00.000+01:00",
+        "end": "2020-11-19T17:00:00.000+01:00"
+      },
+      {
+        "begin": "2020-11-20T12:30:00.000+01:00",
+        "end": "2020-11-20T17:00:00.000+01:00"
+      },
+      {
+        "begin": "2020-11-22T10:30:00.000+01:00",
+        "end": "2020-11-22T13:00:00.000+01:00"
+      }
+    ],
+    "references": {},
+    "links": [],
+    "location": {
+      "uid": 71589223,
+      "slug": "paris-3_6747108",
+      "name": "Paris 3",
+      "address": "Paris",
+      "city": "Paris",
+      "region": "Île-de-France",
+      "department": null,
+      "postalCode": "75004",
+      "insee": "75056",
+      "countryCode": "FR",
+      "district": null,
+      "latitude": 48.856697,
+      "longitude": 2.351462,
+      "updatedAt": "2020-11-21T16:54:51.000Z"
+    },
+    "agenda": {
+      "slug": "agenda-2222",
+      "uid": 95171901,
+      "official": 0,
+      "title": "Agenda 2",
+      "description": "fdsqfsdqfdsq",
+      "url": null,
+      "image": null,
+      "updatedAt": "2021-01-13T17:54:09.000Z",
+      "createdAt": "2020-11-19T10:25:32.000Z",
+      "officializedAt": null,
+      "private": 0,
+      "indexed": 1
+    }
+  }

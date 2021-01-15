@@ -26,20 +26,22 @@ module.exports = {
   cleanFileValues
 }
 
-function putInTemporary(ns, req, res, next) {
-  const namespaces = _.assign({
+function putInTemporary(o, req, res, next) {
+  const options = {
     fileKey: 'fileKey',
     schema: 'schema',
-    fileFieldValues: 'fileFieldValues'
-  }, ns);
-
+    fileFieldValues: 'fileFieldValues',
+    ignore: [],
+    ...o
+  };
+  
   const temporaryFolder = tmpFolder || process.env.TMP_FOLDER;
 
   if (!temporaryFolder) return next(new Error('form-schemas middleware are not initialized'));
 
-  const fileFields = (new FormSchema(req[namespaces.schema])).getFileFields();
+  const fileFields = (new FormSchema(req[options.schema])).getFileFields();
 
-  req[namespaces.fileFieldValues] = {};
+  req[options.fileFieldValues] = {};
 
   if (!fileFields.length) {
     log('putInTemporary: there are no file fields in schema');
@@ -59,7 +61,7 @@ function putInTemporary(ns, req, res, next) {
         if (!field) return cb(null, 'latest_discarded_upload');
 
         const filename = [
-          req[namespaces.fileKey],
+          req[options.fileKey],
           file.fieldname,
           file.originalname.split('.').pop()
         ].join('.');
@@ -69,11 +71,11 @@ function putInTemporary(ns, req, res, next) {
           extension: file.originalname.split('.').pop(),
           filename,
           path: [temporaryFolder, filename].join('/')
-        }
+        };
 
         log('stored field file in temporary folder',  field.field, fieldValue);
 
-        req[namespaces.fileFieldValues][field.field] = fieldValue;
+        req[options.fileFieldValues][field.field] = fieldValue;
 
         cb(null, filename);
 
@@ -83,20 +85,24 @@ function putInTemporary(ns, req, res, next) {
 
 }
 
-function cleanFileValues(ns, req, res, next) {
-  const namespaces = _.assign({
+function cleanFileValues(o, req, res, next) {
+  const options = {
     fileKey: 'fileKey',
     schema: 'schema',
-    fileFieldValues: 'fileFieldValues'
-  }, ns);
+    fileFieldValues: 'fileFieldValues',
+    ignore: [],
+    ...o
+  };
 
-  const fileFieldValues = req[namespaces.fileFieldValues];
+  const fileFieldValues = req[options.fileFieldValues];
+
+  console.log(fileFieldValues);
 
   if (!_.keys(fileFieldValues).length) {
     return next();
   }
 
-  _.keys(fileFieldValues).forEach(fieldName => {
+  _.keys(fileFieldValues).filter(field => !options.ignore.includes(field)).forEach(fieldName => {
     req.body[fieldName] = fileFieldValues[fieldName];
   });
 

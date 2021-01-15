@@ -31,7 +31,10 @@ module.exports = core => {
   app.use(logRequests.middleware);
 
   const postMw = [
-    upload.middleware([{ name: 'image', unique: true }]),
+    app.services.events.middleware.imageTransformAndUpload([{
+      name: 'image',
+      unique: true
+    }]),
     mw.parseBodyData
   ];
 
@@ -72,11 +75,7 @@ module.exports = core => {
 
   app.post('/v2/agendas/:agendaUid/events', (req, res, next) => req.app.core
     .agendas(req.agenda.uid).events
-    .create(ih(req.parsedData, {
-      ownerUid: { $set: req.user.uid },
-      creatorUid: { $set: req.user.uid },
-      agendaUid: { $set: req.agenda.uid }
-    }), {
+    .create(req.parsedData, {
       context: {
         userUid: req.member.userUid
       },

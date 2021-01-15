@@ -49,33 +49,44 @@ async function agendasList(req, res, next) {
 }
 
 function eventsList(req, res, next) {
+  const {
+    events: eventsSvc
+  } = req.app.services;
+
   const offset = ((req.query.page || 1) - 1) * LIST_LIMIT;
 
   req.log('fetching events owned by user %s', req.user.uid);
 
-  eventsSvc.list(
-    { draft: null, ownerUid: req.user.uid, order: 'updatedAt.desc', search: req.query.search },
+  eventsSvc.list({ 
+    ownerUid: req.user.uid,
+    search: req.query.search
+  }, {
     offset,
-    LIST_LIMIT,
-    { private: null, total: true, detailed: true, useDefaultImage: true },
-    (err, events, total) => {
-      if (err) {
-        return next(err);
-      }
+    limit: LIST_LIMIT,
+    order: 'updatedAt.desc'
+  }, {
+    total: true,
+    detailed: true,
+    useDefaultImage: true,
+    draft: null
+  }).then(({ total, items }) => {
+    req.log('fetched %s of %s events owned by user %s', items.length, total, req.user.uid);
 
-      req.log('fetched %s of %s events owned by user %s', events.length, total, req.user.uid);
-
-      res.send({
-        total,
-        events: events.map(event => {
-          const timings = (event.timings || []).map(t => ({ start: new Date(t.begin), end: new Date(t.end) }));
-          const timerange = range(timings, req.lang || 'fr', event.timezone || 'Europe/Paris');
-
-          return Object.assign({}, event, { timerange });
-        })
-      });
-    }
-  );
+    res.send({
+      total,
+      events: items.map(event => {
+        const timings = (event.timings || []).map(t => ({
+          start: new Date(t.begin),
+          end: new Date(t.end)
+        }));
+        return {
+          ...event,
+          timings,
+          timerange: range(timings, req.lang || 'fr', event.timezone || 'Europe/Paris')
+        }
+      })
+    });
+  }, next);
 }
 
 module.exports = app => {

@@ -60,11 +60,7 @@ function FiltersProvider(
   );
 
   if (intl) {
-    return (
-      <RawIntlProvider value={intl}>
-        {child}
-      </RawIntlProvider>
-    );
+    return <RawIntlProvider value={intl}>{child}</RawIntlProvider>;
   }
 
   return (

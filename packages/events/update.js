@@ -1,0 +1,77 @@
+'use strict';
+
+const log = require('@openagenda/logs')('update');
+
+const get = require('./get');
+const cleanSetOptions = require('./lib/cleanSetOptions');
+const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
+const generateFileKey = require('./lib/generateFileKey');
+const validate = require('./lib/validate');
+const setLegacy = require('./lib/legacy/set');
+const processImage = require('./lib/processImage');
+const handleInterface = require('./lib/handleInterface');
+const convertDateHourMinutesTimings = require('./lib/convertDateHourMinutesTimings');
+const lastClean = require('./lib/lastEventClean');
+
+async function update({ service, isPatch }, current, data, o = {}) {
+  const options = cleanSetOptions(o);
+
+  const clean = {
+    ...(await validate(data, {
+      isPatch,
+      isDraft: options.draft,
+      maxImageSize: service.config.maxImageSize,
+      current
+    })),
+    updatedAt: new Date()
+  };
+
+  if (clean.image) {
+    clean.fileKey = generateFileKey();
+    clean.image = await processImage(service, clean);
+  }
+
+  if (options.useProvidedIdentifiers) {
+    Object.assign(clean, {
+      uid: data.uid,
+      slug: data.slug
+    });
+  }
+
+  convertDateHourMinutesTimings(clean.timings, clean.timezone || current.timezone);
+
+  const updated = {
+    ...current,
+    ...clean
+  };
+
+  await handleInterface(service, 'beforeUpdate', current, updated, options.context);
+
+  await service.clients.knex(service.config.schema)
+    .update(fromItemToDbEntry(clean, current))
+    .where('uid', current.uid);
+
+  log('updated event with uid %s', current.uid);
+
+  await handleInterface(service, 'onUpdate', current, updated, options.context);
+
+  if (!updated.draft && options.transferToLegacy) {
+    try {
+      await setLegacy(service.clients.knex, updated);
+    } catch (e) {
+      log('warn', 'failed to update legacy', e);
+    }
+  }
+
+  return lastClean(updated, {
+    ...options,
+    locations: options.detailed ? await handleInterface(service, 'getLocations', updated.locationUid) : null,
+    agendas: options.detailed ? await handleInterface(service, 'getOriginAgendas', updated.agendaUid, { private: options.private }) : null,
+    imagePath: service.config.imagePath
+  });
+}
+
+module.exports = async ({ service, isPatch }, identifier, data, options = {}) => update({
+  service,
+  isPatch
+}, await get(service, identifier, { ...options, throwOnError: true }), data, options);

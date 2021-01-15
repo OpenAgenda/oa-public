@@ -49,19 +49,19 @@ export default function useFilters(
           name: 'timings',
           type: 'dateRange',
           staticRanges,
-          inputRanges
+          inputRanges,
         },
         {
           name: 'createdAt',
           type: 'dateRange',
           staticRanges,
-          inputRanges
+          inputRanges,
         },
         {
           name: 'updatedAt',
           type: 'dateRange',
           staticRanges,
-          inputRanges
+          inputRanges,
         },
         {
           name: 'state',

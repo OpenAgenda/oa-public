@@ -1,15 +1,14 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-
-const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/syncImpactedEventsAndAgendas' );
+const _ = require('lodash');
+const log = require('@openagenda/logs')('services/agendaLocations/tasks/syncImpactedEventsAndAgendas');
 
 module.exports = async function(services, before, after) {
   const {
     core,
     elasticsearch: legacyEventSearch,
     legacy,
-    events,
+    events: eventsSvc,
     agendaEvents,
     tracker
   } = services;
@@ -18,9 +17,14 @@ module.exports = async function(services, before, after) {
 
   const controlData = legacy.controlData;
 
-  const uids = await events
-    .list( { locationUid: before.uid }, 0, 1000, { fetched: [ 'uid' ] } )
-    .then( ( { events } ) => events.map( e => e.uid ) );
+  const uids = await eventsSvc
+    .list({ locationUid: before.uid }, { limit: 1000 }, {
+      includeFields: ['uid'],
+      access: 'internal',
+      private: null,
+      draft: null
+    })
+    .then(events => events.map(e => e.uid));
 
   const impactedAgendaUids = [];
 

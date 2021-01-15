@@ -74,7 +74,11 @@ module.exports = async (service, agendaUid, eventUid, data, options = {}) => {
   }
 
   if (success && params.transferToLegacy) {
-    await toLegacy(updated);
+    try {
+      await toLegacy(updated);
+    } catch (e) {
+      log('error', 'failed this', e);
+    }
   }
 
   if (success && config.interfaces.onUpdate) {

@@ -23,8 +23,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     members
   } = services;
 
-  log('adding event %s to agenda %s', eventUid, agendaUid);
-
+  log('adding event %s to agenda %s%s', eventUid, agendaUid, options.aggregated ? ' through aggregation' : '');
   const {
     aggregated,
     paths,
@@ -34,7 +33,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     access,
     returnPayload,
     bypassAdditionalFieldValidation
-  } = Object.assign({
+  } = {
     aggregated: false,
     paths: null,
     sourceAgenda: null,
@@ -42,13 +41,15 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     context: {},
     access: 'public',
     returnPayload: false,
-    bypassAdditionalFieldValidation: false
-  }, options || {});
+    bypassAdditionalFieldValidation: false,
+    ...options
+  };
 
   const member = context.userUid ? await members.get({
     agendaUid,
     userUid: context.userUid
   }) : null;
+  log(member ? '  loaded member %s' : '  member is unspecified', member?.id);
 
   // if event is already referenced on agenda, this fails
   if (await agendaEvents(agendaUid).get(eventUid)) {
@@ -58,11 +59,14 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   const event = await events.get({
     uid: eventUid
   }, {
-    internal: true,
-    detailed: true
+    access: 'internal',
+    detailed: true,
+    throwOnNotFound: true
   });
+  log('  loaded event to be added');
 
   const agenda = await loadAgenda(services, agendaUid);
+  log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
     evaluateEvent: false,
@@ -73,8 +77,9 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     member,
     access
   });
+  log('  cleaned associated data');
 
-  assignState(agenda, event, clean, data, { access });
+  assignState(agenda, null, clean, data, { access });
 
   const payload = createPayload(services, agenda);
 

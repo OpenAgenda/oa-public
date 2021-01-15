@@ -1,305 +1,189 @@
-"use strict";
+'use strict';
 
-process.env.NODE_ENV = 'test';
+const _ = require('lodash');
+const assert = require('assert');
+const axios = require('axios');
+const fs = require('fs');
+const Files = require('@openagenda/files');
 
-const _ = require( 'lodash' );
+const {
+  service: config,
+  dependencies: dConfig
+} = require('../testconfig.sample');
 
-const ih = require( 'immutability-helper' );
-const should = require( 'should' );
+const fixtures = require('./fixtures');
+const Service = require('../');
 
-const config = require( '../testconfig' );
-const svc = require( './service' );
+const data = {
+  title: { fr: 'Spectacle de contes sur le thème de l\'Afrique' },
+  description: { fr: 'Une description courte' },
+  timezone: 'Europe/Paris',
+  eventAttendanceMode: 1,
+  locationUid: 47715652,
+  timings: [{
+    begin: '2020-12-09T10:00:00.000Z',
+    end: '2020-12-09T12:00:00.000Z',
+  }]
+};
 
-const externalServices = require( './service/externalServices' );
+describe('events - functional - update', function() {
+  this.timeout(10000);
 
-const testService = {
-  init: cb => {
-    svc.initAndLoad(ih( config, {
-      interfaces: {
-        getLocations: {
-          $set: externalServices.getLocations
+  const f = fixtures(config.mysql, config.schema);
+
+  let svc;
+
+  before(async () => {
+    await f.load();
+
+    svc = Service({
+      knex: f.client
+    });
+  });
+
+  describe('simple update', () => {
+    let updated;
+    let entry;
+
+    before(async () => {
+      updated = await svc.update(41414062, data);
+      entry = await f.client('event_2')
+        .first()
+        .where('uid', updated.uid);
+    });
+
+    it('result is updated event', () => {
+      assert.equal(updated.title.fr, 'Spectacle de contes sur le thème de l\'Afrique');
+    });
+
+    it('entry is updated in table', async () => {
+      assert.equal(entry.title, '{"fr":"Spectacle de contes sur le thème de l\'Afrique"}');
+    });
+  });
+
+  describe('simple patch', () => {
+    let event;
+    let patched;
+
+    before(async () => {
+      event = await svc.get({ slug: 'exposition-legypte-ancienne' });
+      patched = await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
+        title: {
+          fr: 'Expo Egypte ancienne'
         }
-      }
-    } ), cb);
-  },
-  shutdown: svc.shutdown
-}
-
-describe( 'events -04- functional (server): update', function() {
-
-  this.timeout( 30000 );
-
-  let id = 146173;
-
-  describe('a basic update', () => {
-    let result;
-
-    before(testService.init);
-    after(testService.shutdown);
-
-    before(async () => {
-      result = await svc.update(id, {
-        title: { fr: 'Titre toujours à jour' }
-      } );
+      });
     });
 
-    it('the title is updated', () => {
-      result.event.title.should.eql( {
-        fr: 'Titre toujours à jour'
-      } );
+    it('result shows patched event', () => {
+      assert.equal(patched.title.fr, 'Expo Egypte ancienne');
     });
 
-    it('a before key is provided in result with event as was prior update', () => {
-      result.before.id.should.equal(id);
-    });
-
-    it('before key event has title value as it was before update', () => {
-      result.before.title.fr.should.not.equal(result.event.title.fr);
+    it('fields other than updated remain unchanged', () => {
+      assert.deepEqual(
+        _.omit(patched, ['updatedAt', 'title']),
+        _.omit(event, ['updatedAt', 'title']),
+      );
     });
   });
 
-  describe('an update with the detailed option set to true', () => {
+  describe('update with image', () => {
+    let svc;
 
-    let result;
-
-    before(testService.init);
-    after(testService.shutdown);
-
-    before(async () => {
-      result = await svc.update(id, {
-        title: { fr: 'Titre encore plus à jour' }
-      }, { detailed: true });
+    before(done => {
+      fs.createReadStream(`${__dirname}/fixtures/images/dog.png`)
+        .pipe(fs.createWriteStream('/tmp/dog.png'))
+        .on('close', done)
     });
 
-    it('result provides detailed event with location', () => {
-      result.event.location.name.should.equal('Alice');
+    before(() => {
+      svc = Service({
+        knex: f.client,
+        Files: Files(dConfig.files)
+      });
     });
 
-    it('result provides before value with location', () => {
-      result.before.location.name.should.equal('Alice');
+    it('image is uploaded', async () => {
+      const updated = await svc.update(93469090, {
+        ...data,
+        image: fs.createReadStream('/tmp/dog.png')
+      });
+
+      await axios.head('https:' + config.imagePath + updated.image.filename);
+    });
+
+    it('image credits are updated', async () => {
+      const event = await svc.create(fixtures.creditsEventCreate);
+      const updated = await svc.update(event.uid, fixtures.creditsEventUpdate);
+
+      assert.equal(updated.imageCredits, 'Crédits à jour');
     });
   });
 
-  beforeEach(testService.init);
-
-  afterEach(testService.shutdown);
-
-  it( 'update the event title', done => {
-
-    svc.update( id, {
-      title: {
-        fr: 'Titre à jour'
-      }
-    }, ( err, result ) => {
-
-      should( err ).equal( null );
-
-      result.success.should.equal( true );
-
-      result.event.title.should.eql( {
-        fr: 'Titre à jour'
-      } );
-
-      done();
-
-    } );
-
-  } );
-
-
-  it( 'update the image given a url', async () => {
-
-    const { event } = await svc.update( id, {
-      image: {
-        url: 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    } );
-
-    event.image.size.should.eql( { width: 700, height: 700 } );
-
-  } );
-
-  it( 'absent title is considered invalid for non draft event', done => {
-
-    svc.update( id, { title: {} }, { draft: false }, ( err, result ) => {
-
-      result.success.should.equal( false );
-
-      result.errors.should.eql( [ {
-        field: 'title',
-        code: 'required',
-        message: 'at least one language entry is required',
-        origin: {}
-      } ] );
-
-      done();
-
-    } );
-
-  } );
-
-
-  it( 'absent title is considered valid for draft event', done => {
-
-    svc.update( id, { title: {} }, { draft: true }, ( err, result ) => {
-
-      result.success.should.equal( true );
-
-      done();
-
-    } );
-
-  } );
-
-  describe( 'timings', () => {
-
-    it( 'new timings replace previous timings set', async () => {
-
-      const event = await svc.get( id );
-
-      // there were 2 timings
-      event.timings.length.should.equal( 2 );
-
-      // they were different from the intended change
-      for ( const t of event.timings ) {
-
-        JSON.stringify( t ).should.not.equal( '"2017-10-24T20:00:00.000Z"' );
-
-      }
-
-      const result = await svc.update( id, {
-        timings: [ {
-          begin: new Date( '2017-10-24T20:00:00Z' ),
-          end: new Date( '2017-10-24T22:00:00Z' )
-        } ]
-      } );
-
-      result.success.should.equal( true );
-
-      result.event.timings.length.should.equal( 1 );
-
-      JSON.stringify( result.event.timings[ 0 ].begin )
-        .should.equal( '"2017-10-24T20:00:00.000Z"' );
-
-    } );
-
-    it( 'if an empty timing list is specified, for update a validation error should be given', async () => {
-
-      const { errors } = await svc.update( id, {
-        timings: []
-      } );
-
-      errors.length.should.equal( 1 );
-
-      errors[ 0 ].field.should.equal( 'timings' );
-
-      errors[ 0 ].code.should.equal( 'list.required' );
-
-    } );
-
-  } );
-
-
-  it( 'an updated with internal boolean to true gives back "internal" fields', done => {
-
-    svc.update( id, {
-      "conditions" : "Its free!"
-    }, { internal: true }, ( err, result ) => {
-
-      result.success.should.equal( true );
-
-      result.event.id.should.equal( id );
-
-      done();
-
-    } );
-
-  } );
-
-
-  it( 'a default update gives back event data excluding "internal" fields', done => {
-
-    svc.update( id, {
-      "accessibility" : {
-        "hi" : true
-      }
-    }, ( err, result ) => {
-
-      result.success.should.equal( true );
-
-      should( result.id ).equal( undefined );
-
-      done();
-
-    } );
-
-  } );
-
-
-  it( 'unprotected update with updatedAt value updates updatedAt value', async () => {
-
-    const updatedAt = new Date( '1979-07-08' );
-
-    const result = await svc.update( id, {
-      updatedAt
-    }, { protected: false } );
-
-    result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
-
-  } );
-
-
-  describe( 'interfaces', () => {
-
-    afterEach( svc.shutdown );
-
-    it( 'if a userUid is specified in context, it is given in interfaces', done => {
-
-      svc.init( ih( config, {
+  describe('interfaces', () => {
+    const calls = [];
+
+    before(async () => {
+      svc = Service({
+        knex: f.client,
         interfaces: {
-          onUpdate: {
-            $set: ( before, after, context ) => {
-
-              context.should.eql( {
-                userUid: 12,
-                agendaUid: null,
-                transferToLegacy: false,
-                updateSearchIndex: true
-              } );
-
-              done();
-
-            }
+          beforeUpdate: async (before, after, context) => {
+            calls.push(['beforeUpdate', before, after, context]);
+          },
+          onUpdate: async (before, after, context) => {
+            calls.push(['onUpdate', before, after, context]);
           }
         }
-      } ) );
+      });
 
-      svc.update( id, {
-        conditions : 'Its free!'
-      }, { context: { userUid: 12 } }, ( err, result ) => {} );
+      await svc.update(93469090, data, { context: 'Update context'});
+    });
 
-    } );
+    it('beforeUpdate was called', () => {
+      assert.equal(calls[0][0], 'beforeUpdate');
+    });
 
-  } );
+    it('onUpdate was called', () => {
+      assert.equal(calls[1][0], 'onUpdate');
+    });
+  });
 
-  describe( 'invalid updates', () => {
+  describe('other', () => {
 
-    it( 'invalid image return unsuccessful result with error code and step', async () => {
+    it('update of draft event', async () => {
+      const draftEvent = await svc.create({
+        title: 'Un titre'
+      }, { draft: true });
 
-      const result = await svc.update( id, {
-        image: {
-          url: 'https://some.rand.om/invalid.imagepath.jpg'
-        }
-      } );
+      const updatedDraftEvent = await svc.update(draftEvent.uid, {
+        title: 'Un titre modifié'
+      }, { draft: true });
 
-      result.valid.should.equal( false );
+      assert.equal(updatedDraftEvent.title.en, 'Un titre modifié');
+    });
 
-      _.get( result, 'errors.0.code' ).should.equal( 'invalid.image' );
+    it('fix: patch from DHM format', async () => {
+      await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
+        timings: [
+          {
+            begin: {
+              date: '2020-11-22',
+              hours: 13,
+              minutes: 0
+            },
+            end: {
+              date: '2020-11-22',
+              hours: 13,
+              minutes: 30
+            }
+          }
+        ]
+      });
 
-      _.get( result, 'errors.0.step' ).should.equal( 'image' );
+      const entry = await f.client('event_2').first('timings').where('slug', 'exposition-legypte-ancienne');
 
-    } );
+      assert.equal(entry.timings, '[{"begin":"2020-11-22T13:00:00.000+01:00","end":"2020-11-22T13:30:00.000+01:00"}]');
+    });
 
-  } );
+  });
 
-} );
+});

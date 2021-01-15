@@ -17,7 +17,7 @@ const cacheMw = require( '../lib/cache.mw' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const embedSvc = require( '../services/embed' );
-const eventSvc = require( '../services/event' );
+const legacyEventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const redirectMiddelware = require( './redirect.middleware' )( config );
 
@@ -25,14 +25,14 @@ const log = require( '@openagenda/logs' )( 'event/front' );
 
 const middlewares = {
   agendaEventShow: [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.components,
+    legacyEventSvc.mw.load( 'eventSlug', 'slug' ),
+    legacyEventSvc.mw.format,
+    legacyEventSvc.mw.components,
     _loadAgendaCoreSettings,
     _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
     legacyAgendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+    cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oasfmain.css' ),
     _appendEventTransferCredential,
     _appendSettings,
     _decorateLocation,
@@ -46,7 +46,7 @@ const middlewares = {
     _formatEmbedHeadLinks,
     cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+    cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oae.css' ),
     embedSvc.mw.loadCustomLayoutData,
     _appendSettings,
     renderAgendaEmbedEvent
@@ -137,7 +137,7 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid',
     preMw,
     legacyAgendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
     redirect
   );
 
@@ -145,17 +145,17 @@ module.exports = app => {
     '/agendas/:uid/embed/events/:eventUid',
     preMw,
     legacyAgendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
     _switchEmbedLang,
-    eventSvc.mw.format,
-    eventSvc.mw.components,
+    legacyEventSvc.mw.format,
+    legacyEventSvc.mw.components,
     _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
     legacyAgendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
     _formatEmbedHeadLinks,
     cmn.useEmbedGoogleAnalytics,
     embedSvc.mw.renderEvent,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+    cmn.loadBaseData( legacyEventSvc.mw.layoutData, 'oae.css' ),
     _appendFacebookParams,
     renderAgendaEmbedEvent,
     ( req, res ) => res.send( req.render )
@@ -167,10 +167,10 @@ module.exports = app => {
       preMw,
       legacyAgendaSvc.mw.load( 'uid' ),
       embedSvc.mw.load( 'embedUid', 'uid' ),
-      eventSvc.mw.load( 'eventUid', 'uid' ),
+      legacyEventSvc.mw.load( 'eventUid', 'uid' ),
       _switchEmbedLang,
-      eventSvc.mw.format,
-      eventSvc.mw.components,
+      legacyEventSvc.mw.format,
+      legacyEventSvc.mw.components,
       _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
       middlewares.customEmbedEventShow
     ] ),
@@ -182,10 +182,10 @@ module.exports = app => {
     legacyAgendaSvc.mw.load( 'uid' ),
     members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
     _switchEmbedLang,
-    eventSvc.mw.format,
-    eventSvc.mw.components,
+    legacyEventSvc.mw.format,
+    legacyEventSvc.mw.components,
     _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] ),
     middlewares.customEmbedEventShow,
     ( req, res ) => res.send( req.render )
@@ -207,7 +207,7 @@ module.exports = app => {
 
       next();
     },
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    legacyEventSvc.mw.load( 'eventSlug', 'slug' ),
     ( req, res, next ) => {
 
       if ( req.event.origin ) {
@@ -226,7 +226,7 @@ module.exports = app => {
     '/events/:eventUid',
     preMw,
     cmn.https,
-    eventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
     ( req, res, next ) => {
       req.agenda = req.event.origin;
       next();
@@ -653,7 +653,7 @@ function _formatSocialLinks( req, res, next ) {
 
   }
 
-  _.merge( req.formatted, eventSvc.getSocialLinks( req.event, eventUrl, siteUrl ) );
+  _.merge( req.formatted, legacyEventSvc.getSocialLinks( req.event, eventUrl, siteUrl ) );
 
   if ( req.embed ) {
 

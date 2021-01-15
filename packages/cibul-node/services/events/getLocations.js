@@ -17,11 +17,15 @@ const includeFields = [
   'updatedAt'
 ];
 
-const getLocations = (services, uids, options) => services.agendaLocations
-  .list({ uids }, { limit: uids.length }, {
-    detailed: true,
-    includeFields
-  });
+const getLocations = (services, uids, options) => {
+  if (!uids) return [];
+  
+  return services.agendaLocations
+    .list({ uids }, { limit: uids.length }, {
+      detailed: true,
+      includeFields
+    });
+}
 
 module.exports = {
   promise: getLocations,

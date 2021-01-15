@@ -27,8 +27,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       fr: 'Un tout petit événement'
     },
     timings: [{
-      begin: new Date( '2019-05-06T10:00:00' ),
-      end: new Date( '2019-05-06T11:00:00' )
+      begin: new Date('2019-05-06T10:00:00'),
+      end: new Date('2019-05-06T11:00:00')
     }],
     keywords: {
       fr: ['un', 'deux', 'trois']
@@ -145,10 +145,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       });
 
       it('event owner is contributing member', async () => {
-        const eventSvcEvent = await core.services.events.get({
-          uid: event.uid
-        }, {
-          internal: true
+        const eventSvcEvent = await core.services.events.get(event.uid, {
+          access: 'internal'
         });
 
         expect(eventSvcEvent.ownerUid).toBe(63170200);
@@ -167,33 +165,27 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         expect(data.custom_description).toBeUndefined();
       });
 
-      it('event is created on legacy event data structure', done => {
-        core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
-          expect(legacyEvent.uid).toBe(event.uid);
-          done();
-        });
+      it('event is created on legacy event data structure', async () => {
+        const entry = await core.services.knex('event')
+          .first(['uid'])
+          .where('uid', event.uid);
+
+        assert.equal(entry.uid, event.uid);
       });
 
-      it('accessibility is saved in event and legacy event', done => {
-        core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
-          expect(legacyEvent.accessibility).toEqual({
-            mi: false,
-            hi: false,
-            pi: false,
-            vi: false,
-            ii: true
-          });
+      it('accessibility is saved in event and legacy event', async () => {
+        const entry = await core.services.knex('event').first().where('uid', event.uid);
+        const legacyAccessibility = entry.accessibility;
 
-          expect(event.accessibility).toEqual({
-            mi: false,
-            hi: false,
-            pi: false,
-            vi: false,
-            ii: true
-          });
-
-          done();
+        expect(event.accessibility).toEqual({
+          mi: false,
+          hi: false,
+          pi: false,
+          vi: false,
+          ii: true
         });
+
+        assert.equal(legacyAccessibility, '["ii"]');
       });
 
       it('legacy entries were created for custom fields', async () => {
@@ -439,13 +431,13 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         context: {
           userUid: memberUserUid
         },
-        draft: true,
-        access: 'contributor'
+        access: 'moderator',
+        draft: true
       });
     });
 
     it('incomplete event can be saved', () => {
-      expect(event.draft).toBe(1);
+      expect(event.draft).toBe(true);
     });
 
     it('draft event is not referenced in agenda', async () => {
@@ -466,29 +458,22 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         context: {
           userUid: memberUserUid
         },
-        draft: true,
-        access: 'contributor'
+        draft: true
       });
 
       expect(event.title.fr).toEqual('Un autre événement brouillon');
     });
 
-    it('no legacy event is created for draft', done => {
-      core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
-        expect(legacyEvent).toBeNull();
-        done();
-      });
+    it('no legacy event is created for draft', async () => {
+      const legacyEvent = await core.services.knex('event').first().where('uid', event.uid);
+      assert.equal(legacyEvent, null);
     });
 
     it('custom data is stored even if incomplete', async () => {
       const data = await core.services.custom(2).get(event.uid);
 
       expect(data).toEqual({
-        intermunicipal_interest: [],
-        recurring: [],
-        'thematiques-bordeaux-metropole': [],
-        'bordeaux-metropole': [],
-        'categories-agenda-metropolitain': null
+        custom_description: ":')"
       });
     });
 
@@ -535,7 +520,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     });
 
     it('timings is saved in Date format', () => {
-      expect(event.timings[0].begin).toBe('2019-12-06T10:23:00.000Z');
+      expect(event.timings[0].begin).toBe('2019-12-06T11:23:00.000+01:00');
     });
 
   });
@@ -549,8 +534,8 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         fr: 'Un tout petit événement'
       },
       timings: [{
-        begin: new Date( '2019-05-06T10:00:00' ),
-        end: new Date( '2019-05-06T11:00:00' )
+        begin: new Date('2019-05-06T10:00:00'),
+        end: new Date('2019-05-06T11:00:00')
       }],
       location: {
         uid: 123
@@ -749,8 +734,9 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     describe('create with one language in input and with a file attached', () => {
       let response;
 
-      fs.createReadStream(`${__dirname}/fixtures/pirates.jpg`)
-        .pipe(fs.createWriteStream('/tmp/pirates.jpg'));
+      beforeAll(done => fs.createReadStream(`${__dirname}/fixtures/pirates.jpg`)
+        .pipe(fs.createWriteStream('/tmp/pirates.jpg'))
+        .on('close', done));
 
       const data = {
         title: 'Un autre événement créé par API',
@@ -785,7 +771,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           }).then(r => r.data);
 
         } catch (e) {
-          console.log(e);
+          console.log(JSON.stringify(e.response.data, null, 2));
         }
       });
 
@@ -862,9 +848,10 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           origin: '',
           step: 'validation'
         }, {
-          code: 'timings.empty',
-          message: 'At least one timing is required',
+          code: 'timings.min.1',
+          message: 'at least one timing is required',
           field: 'timings',
+          origin: [],
           step: 'validation'
         }]);
       });

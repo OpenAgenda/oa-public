@@ -11,7 +11,7 @@ const utils = require( '@openagenda/utils' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const dispatcher = require( './dispatcher' );
-const eventSvc = require( '../event' );
+const legacyEventSvc = require( '../event' );
 const svc = require( './' );
 
 
@@ -79,7 +79,7 @@ function _onEventActivity( action ) {
 
   log( 'info', action.values.agendaId ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.agendaId );
 
-  eventSvc.get( { id: action.values.id }, ( err, event ) => {
+  legacyEventSvc.get( { id: action.values.id }, ( err, event ) => {
 
     let count = 0;
 

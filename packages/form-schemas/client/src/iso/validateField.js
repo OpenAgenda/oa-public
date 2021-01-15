@@ -287,6 +287,16 @@ function buildFieldSchema(type, options = {}) {
       store: { // store variables depend on type (s3 needs a region and a bucket)
         type: 'pass',
         optional: true
+      },
+      allowURL: {
+        type: 'boolean',
+        optional: true,
+        default: false
+      },
+      allowPath: {
+        type: 'boolean',
+        optional: true,
+        default: false
       }
     });
 

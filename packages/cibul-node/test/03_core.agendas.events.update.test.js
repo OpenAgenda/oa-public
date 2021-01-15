@@ -65,33 +65,38 @@ describe('core - functional (server): core.agendas().events.update()', function(
     let event;
 
     beforeAll(async () => {
-      event = await core.agendas(17026855).events.update(19201989, {
-        state: 0,
-        featured: true,
-        title: {
-          fr: 'Un événement mis à jour',
-          en: 'An updated event'
-        },
-        description: {
-          fr: 'Une description',
-          en: 'A desc'
-        },
-        location: {
-          uid: 123
-        },
-        timings: [{
-          begin: new Date('2019-05-06T10:00:00'),
-          end: new Date('2019-05-06T11:00:00')
+      try {
+        event = await core.agendas(17026855).events.update(19201989, {
+          state: 0,
+          featured: true,
+          title: {
+            fr: 'Un événement mis à jour',
+            en: 'An updated event'
+          },
+          description: {
+            fr: 'Une description',
+            en: 'A desc'
+          },
+          location: {
+            uid: 123
+          },
+          timings: [{
+            begin: new Date('2019-05-06T10:00:00'),
+            end: new Date('2019-05-06T11:00:00')
+          }, {
+            begin: new Date('2019-05-06T12:00:00'),
+            end: new Date('2019-05-06T13:00:00')
+          }],
+          'custom_description' : 'Meh',
+          'categories-agenda-metropolitain': 43,
+          'thematiques-bordeaux-metropole' : [3]
         }, {
-          begin: new Date('2019-05-06T12:00:00'),
-          end: new Date('2019-05-06T13:00:00')
-        }],
-        'custom_description' : 'Meh',
-        'categories-agenda-metropolitain': 43,
-        'thematiques-bordeaux-metropole' : [3]
-      }, {
-        access: 'administrator'
-      });
+          access: 'administrator',
+          detailed: true
+        });
+      } catch (e) {
+        console.log(e);
+      }
     });
 
     describe('response', () => {
@@ -246,27 +251,23 @@ describe('core - functional (server): core.agendas().events.update()', function(
     });
 
     it('an undrafted event takes the state required by agenda settings', async () => {
-      try {
-        const event = await core.agendas(17026855).events.update(83902932, {
-          title: {
-            fr: 'Un brouillon plus brouillon'
-          },
-          description: {
-            fr: 'Une desc courte'
-          },
-          locationUid: 123,
-          timings: [{
-            begin: new Date('2019-12-18T14:30:00'),
-            end: new Date('2019-12-18T15:30:00')
-          }]
-        }, {
-          draft: false
-        });
+      const event = await core.agendas(17026855).events.update(83902932, {
+        title: {
+          fr: 'Un brouillon plus brouillon'
+        },
+        description: {
+          fr: 'Une desc courte'
+        },
+        locationUid: 123,
+        timings: [{
+          begin: new Date('2019-12-18T14:30:00'),
+          end: new Date('2019-12-18T15:30:00')
+        }]
+      }, {
+        draft: false
+      });
 
-        //console.log(event);
-      } catch (e) {
-        //console.log(e);
-      }
+      assert.equal(event.state, 1);
     });
 
   });
@@ -419,7 +420,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
             minutes: 40
           }
         }]
-      }, { formSchemaDataFormat: true });
+      });
 
       expect((new Date(event.timings[0].begin)).getUTCHours()).toBe(17);
       expect((new Date(event.timings[0].begin)).getMinutes()).toBe(28);
@@ -453,40 +454,44 @@ describe('core - functional (server): core.agendas().events.update()', function(
     describe('successful update', () => {
 
       beforeAll(async () => {
-        response = await axios({
-          method: 'post',
-          url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
-          headers: {
-            'access-token': accessToken,
-            nonce: 123,
-            'content-type': 'application/json'
-          },
-          data: {
-            state: 0,
-            featured: true,
-            title: {
-              fr: 'Un événement mis à jour via l\'api',
-              en: 'An updated event through the api'
+        try {
+          response = await axios({
+            method: 'post',
+            url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+            headers: {
+              'access-token': accessToken,
+              nonce: 123,
+              'content-type': 'application/json'
             },
-            description: {
-              fr: 'Une description',
-              en: 'A desc'
-            },
-            location: {
-              uid: 123
-            },
-            timings: [{
-              begin: new Date('2019-05-06T10:00:00'),
-              end: new Date('2019-05-06T11:00:00')
-            }, {
-              begin: new Date('2019-05-06T12:00:00'),
-              end: new Date('2019-05-06T13:00:00')
-            }],
-            'custom_description' : 'Meh',
-            'categories-agenda-metropolitain': 43,
-            'thematiques-bordeaux-metropole' : [3]
-          }
-        }).then(r => r.data);
+            data: {
+              state: 0,
+              featured: true,
+              title: {
+                fr: 'Un événement mis à jour via l\'api',
+                en: 'An updated event through the api'
+              },
+              description: {
+                fr: 'Une description',
+                en: 'A desc'
+              },
+              location: {
+                uid: 123
+              },
+              timings: [{
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00')
+              }, {
+                begin: new Date('2019-05-06T12:00:00'),
+                end: new Date('2019-05-06T13:00:00')
+              }],
+              'custom_description' : 'Meh',
+              'categories-agenda-metropolitain': 43,
+              'thematiques-bordeaux-metropole' : [3]
+            }
+          }).then(r => r.data);
+        } catch (e) {
+          console.log(e);
+        }
       });
 
       it('response gives success key if update was a success', () => {
@@ -539,8 +544,8 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
       it('response body provides validation errors', () => {
         expect(response.data.errors).toEqual([{
-          code: 'timings.empty',
-          message: 'At least one timing is required',
+          code: 'timings.invalid',
+          message: 'Invalid timings',
           field: 'timings',
           step: 'validation'
         }]);
@@ -551,21 +556,26 @@ describe('core - functional (server): core.agendas().events.update()', function(
     describe('successful patch', () => {
 
       beforeAll(async () => {
-        response = await axios({
-          method: 'patch',
-          url: 'http://localhost:3000/v2/agendas/17026855/events/19390293',
-          headers: {
-            'access-token': accessToken,
-            nonce: 12345,
-            'content-type': 'application/json'
-          },
-          data: {
-            title: {
-              fr: 'Un événement mis à jour via l\'api',
-              en: 'An updated event through the api'
+        try {
+          response = await axios({
+            method: 'patch',
+            url: 'http://localhost:3000/v2/agendas/17026855/events/19390293',
+            headers: {
+              'access-token': accessToken,
+              nonce: 12345,
+              'content-type': 'application/json'
+            },
+            data: {
+              title: {
+                fr: 'Un événement mis à jour via l\'api',
+                en: 'An updated event through the api'
+              }
             }
-          }
-        });
+          });
+
+        } catch (e) {
+          console.log(e.response.data);
+        }
       });
 
       it('status is 200', () => {

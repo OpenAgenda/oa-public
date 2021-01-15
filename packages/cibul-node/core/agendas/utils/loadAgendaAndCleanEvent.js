@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const VError = require('verror');
@@ -7,12 +7,9 @@ const { promisify } = require('util');
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
 const log = require('@openagenda/logs')('core/agendas/utils/loadAgendaAndCleanEvent');
-const validate = require('@openagenda/events/service/validate');
 
 const eventSchema = require('@openagenda/event-form/build/schema');
 const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
-const { fromEventServiceFormat } = require('@openagenda/agenda-contribute/server/parse');
-
 const getAgendaWithNetworkAndSchemas = require('./getAgendaWithNetworkAndSchemas');
 const ValidationError = require('../../utils/ValidationError');
 
@@ -36,11 +33,17 @@ async function cleanEvent(services, agenda, data, options = {}) {
 
   log('fetched agenda and location');
 
+  const pre = locationUid ? { ...data, locationUid } : data;
+
+  if (location) {
+    pre.location = location;
+  }
+
   return validateEvent(services, {
     formSchema: agenda.formSchema,
     networkFormSchema: _.get(agenda, 'network.formSchema'),
     location
-  }, data, options);
+  }, pre, options);
 }
 
 function validateEvent(services, { formSchema, networkFormSchema, location }, data, options = {}) {
@@ -55,7 +58,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     partial,
     evaluateEvent,
     event,
-    formSchemaDataFormat,
     defaultLang,
     optionalSecondaryFields,
     paths,
@@ -69,7 +71,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     event: null,
     draft: false,
     partial: false,
-    formSchemaDataFormat: false,
     optionalSecondaryFields: false,
     paths: null,
     aggregated: false,
@@ -78,17 +79,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     bypassAdditionalFieldValidation: false,
     ...(typeof options === 'boolean' ? { evaluateEvent: options } : options)
   };
-
-  // api provides event data in event service format (deep image object that includes credits and variants)
-  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat(event ? {
-    ...event, // if additionnal fields are related to event data, event data must be present
-    ...data
-  } : data, {
-    location,
-    partial: true,
-    unsetImage: !evaluateEvent && !_.get(event, 'image.filename')
-  });
-
+  
   const schemaExtensions = {
     network: networkFormSchema,
     agenda: formSchema
@@ -128,7 +119,14 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
       draft
     });
 
-    const consolidatedClean = (partial ? validate.part : validate)(formSchemaData);
+    const consolidatedClean = (partial || draft ? validate.part : validate)(event ? {
+      ...event,
+      ...data
+    } : data);
+
+    if (data?.image?.transformAndUpload) {
+      consolidatedClean.image = data.image;
+    }
 
     Object.assign(
       clean,
@@ -157,7 +155,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
-  if (!draft && clean.event && clean.event.location && !location) {
+  if (!draft && clean.event && (clean.event.location || clean.event.locationUid) && !location) {
     errors.push(invalidLocationUidErrorItem(clean.locationUid));
   }
 

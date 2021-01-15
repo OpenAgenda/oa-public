@@ -6,7 +6,7 @@ const qs = require( 'qs' );
 
 const rss = require( 'rss' ),
 
-  eventSvc = require( '../event' ),
+  legacyEventSvc = require( '../event' ),
 
   async = require( 'async' ),
 
@@ -38,7 +38,7 @@ module.exports = function( req, res ) {
     }
   } );
 
-  async.eachSeries( req.events.map( eventSvc.instanciate ), ( eInst, ecb ) => {
+  async.eachSeries( req.events.map( legacyEventSvc.instanciate ), ( eInst, ecb ) => {
 
     eInst.exportable({ services: req.app.services }, ( err, exp ) => {
 

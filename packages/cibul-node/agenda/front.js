@@ -26,7 +26,7 @@ const embedSvc = require( '../services/embed' );
 const members = require( '../services/members' );
 const eventFormat = require( '../services/event/middleware/format' );
 const pickEventImage = require( '../services/event/lib/pickImage' );
-const eventSvc = require( '../services/event' );
+const legacyEventSvc = require( '../services/event' );
 const getLongDescriptionHTML = require('../services/event/lib/getLongDescriptionHTML');
 const lib = require( '../lib/lib' );
 
@@ -508,7 +508,7 @@ function _loadAgendaByAgendaId( req, res, next ) {
 
 function _formatEventItem( event, req, cb ) {
 
-  const inst = eventSvc.instanciate( event ),
+  const inst = legacyEventSvc.instanciate( event ),
 
   img = inst.getImage( true ),
 

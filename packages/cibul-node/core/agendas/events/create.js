@@ -4,9 +4,6 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 
 const log = require('@openagenda/logs')('core/agendas/events/create');
-const {
-  toEventServiceFormat
-} = require('@openagenda/agenda-contribute/server/parse');
 
 const createPayload = require('../utils/createPayload');
 const doAdd = require('../utils/doAdd');
@@ -21,7 +18,7 @@ const {
 const assignState = require('../utils/assignState');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
-  log('info', 'processing', { agendaUid, options });
+  log('info', 'creating event on agenda %s', agendaUid);
 
   const {
     members,
@@ -56,6 +53,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   });
 
   const agenda = await loadAgenda(services, agendaUid);
+  log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
     draft,
@@ -64,54 +62,51 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     member,
     access
   });
+  log('  cleaned data');
 
   assignState(agenda, null, clean, data, {
     access,
     draft
   });
+  log('  associated state');
 
   const payload = createPayload(services, agenda);
 
   try {
     clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, clean.event.links);
-    log('retrieved %s links', clean.event.links.length);
+    log('  retrieved %s links', clean.event.links.length);
   } catch (e) {
-    log('error', 'could not retrieve oembeds', e);
+    log('error', '  could not retrieve oembeds', e);
   }
 
-  log('pre-validation done', { agendaUid });
+  log('  pre-validation done', { agendaUid });
 
   let result;
 
-  const eventServiceDataFormat = {
-    ...toEventServiceFormat(clean.event, { raw: data }),
-    ..._extractOwnerAndCreator(data, contextUserUid),
-    agendaUid // at create, current agenda is origin agenda
-  };
-
   try {
-    // create the event
-    result = await events.create(eventServiceDataFormat, {
+    const event = await events.create(clean.event, {
       context: {
-        userUid: contextUserUid
+        userUid: contextUserUid,
+        agendaUid
       },
       detailed: true,
-      internal: true,
-      transferToLegacy: !draft,
+      access: 'internal',
       draft
     });
+
+    payload.setItem('event', event);
+
+    log('created event', event.uid);
   } catch (e) {
+    if (e.toString() === 'ValidationError: Invalid data') {
+      log('info', 'invalid data', e);
+      throw new ValidationError(e.detail);
+    }
     log('error', 'failed to create event', {
       agendaUid: agenda.uid,
-      eventServiceDataFormat
+      event: clean.event
     });
     throw e;
-  }
-
-  if (!result.valid) {
-    throw new ValidationError(result.errors);
-  } else {;
-    payload.setItem('event', result.event);
   }
 
   const response = await doAdd(services, payload, ih(clean, {

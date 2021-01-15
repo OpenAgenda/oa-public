@@ -6,11 +6,12 @@ const _ = {
 
 const schema = require( '@openagenda/validators/schema' );
 
-schema.register( {
-  text: require( '@openagenda/validators/text' )
-} );
+schema.register({
+  text: require('@openagenda/validators/text'),
+  link: require('@openagenda/validators/link')
+});
 
-const validate = schema( {
+const fields = {
   extension: {
     type: 'text'
   },
@@ -20,22 +21,37 @@ const validate = schema( {
   filename: {
     type: 'text'
   }
-} );
+};
+
+const validate = schema(fields);
+const validateWithURL = schema({
+  ...fields,
+  url: {
+    type: 'link'
+  }
+});
+const validateWithPath = schema({
+  ...fields,
+  path: {
+    type: 'text'
+  }
+});
 
 module.exports = validatorOptions => v => {
-
   const optional = _.get( validatorOptions, 'optional', true );
 
-  if ( !optional && !v ) {
-
+  if (!optional && !v) {
     throw [ {
       code: 'required',
       message: 'A value is required',
       field: _.get( validatorOptions, 'field', null )
-    } ];
-
+    }];
   }
 
-  return validate( v );
-
+  if (validatorOptions?.allowPath && v?.path) {
+    return validateWithPath(v);
+  } else if (validatorOptions?.allowURL && v?.url) {
+    return validateWithURL(v);
+  }
+  return validate(v);
 }

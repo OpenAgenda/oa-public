@@ -9,7 +9,7 @@ const eventReferences = require( '@openagenda/agenda-event-references' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 
 const cmn = require( '../lib/commons-app' );
-const eventSvc = require( '../services/event' );
+const legacyEventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const activitiesSvc = require( '../services/activities' );
 
@@ -27,7 +27,7 @@ module.exports = app => {
     '/:slug/events/:eventSlug/featured/:type',
     sessions.mw.loadOrRedirect(),
     cmn.loadAgenda,
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    legacyEventSvc.mw.load( 'eventSlug', 'slug' ),
     members.mw.loadAndAuthorize('moderator'),
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
     _changeFeatured
@@ -55,7 +55,7 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/private',
     legacyAgendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
     sessions.mw.loadOrRedirect(),
     members.mw.load,
     ( req, res, next ) => {
@@ -64,7 +64,7 @@ module.exports = app => {
       }
       next();
     },
-    eventSvc.mw.format,
+    legacyEventSvc.mw.format,
     legacyAgendaSvc.mw.decorateEvent( true ),
     getPrivateEventData
   );
@@ -76,8 +76,8 @@ module.exports = app => {
     members.mw.loadOr((req, res) => {
       res.json({ references: null });
     }),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
-    eventSvc.mw.components.getReferences,
+    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.components.getReferences,
     ( req, res, next ) => {
       res.json( {
         references: req.referencesRender,
@@ -155,7 +155,7 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
     legacyAgendaSvc.mw.load( 'uid' ),
-    eventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
     members.mw.loadAndAuthorize('moderator', {
       or: (req, res) => res.json({ count: 0})
     }),

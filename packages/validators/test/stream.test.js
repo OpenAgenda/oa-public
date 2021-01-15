@@ -62,4 +62,12 @@ describe('stream validator', () => {
     assert.equal(validate(null), null);
   });
 
+  it('allowObject', () => {
+    const validate = validators.stream({
+      allowObject: true
+    });
+
+    assert.deepEqual(validate({}), {});
+  })
+
 });

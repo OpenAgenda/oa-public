@@ -1,21 +1,67 @@
-"use strict";
+'use strict';
 
-const init = require('./service/init');
+const knex = require('knex');
+const logger = require('@openagenda/logs');
 
-module.exports = init({
-  list: require('./service/list'),
-  get: require('./service/get'),
-  set: require('./service/set'),
-  validate: require('./service/validate'),
-  create: require('./service/create'),
-  update: require('./service/update'),
-  remove: require('./service/remove'),
-  deleted: require('./service/deleted'),
-  legacy: require('./service/legacy'),
-  stats: require('./service/stats'),
-  getConfig: require('./service/getConfig'),
-  tasks: require('./tasks'),
-  utils: {
-    formatRegistration: require('./utils/formatRegistration')
+const create = require('./create');
+const get = require('./get');
+const list = require('./list');
+const remove = require('./remove');
+const update = require('./update');
+const setFromLegacy = require('./lib/legacy/from');
+const imageVariants = require('./lib/imageVariants');
+
+const utils = require('./utils');
+
+module.exports = c => {
+  const config = Object.keys(c).reduce((carriedConfig, key) => (
+    carriedConfig[key] !== undefined && c[key] !== undefined ? {
+      ...carriedConfig,
+      [key]: c[key]
+    } : carriedConfig), {
+    imagePath: '',
+    defaultImage: null,
+    Files: null,
+    schema: 'event_2',
+    maxImageSize: 20971520, // 20MB
+    interfaces: null
+  });
+
+  if (c.logger) {
+    logger.setModuleConfig(c.logger);
   }
-});
+
+  const service = {
+    config,
+    clients: {
+      knex: c.knex || knex({
+        client: 'mysql',
+        connection: config.mysql
+      })
+    },
+    imageTransformAndUpload: config.Files && config.Files({
+      key: 'image',
+      variants: imageVariants(config.Files)
+    }),
+    interfaces: config.interfaces
+  };
+
+  const endpoints = {
+    create: create.bind(null, service),
+    get: get.bind(null, service),
+    list: list.bind(null, service),
+    patch: update.bind(null, { service, isPatch: true }),
+    remove: remove.bind(null, service),
+    update: update.bind(null, { service }),
+    middleware: {
+      imageTransformAndUpload: service.imageTransformAndUpload?.middleware
+    },
+    utils
+  };
+
+  endpoints.setFromLegacy = setFromLegacy.bind(null, { service, endpoints });
+
+  return endpoints;
+};
+
+module.exports.utils = utils;

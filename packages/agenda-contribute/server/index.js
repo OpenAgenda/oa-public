@@ -17,8 +17,6 @@ const defaultMemberSchema = require('./defaultMemberSchema');
 
 const serviceName = require( '../package.json' ).name.split( '/' ).pop();
 
-const parse = require( './parse' );
-
 module.exports = {
   app,
   init,
@@ -60,7 +58,7 @@ function init( c ) {
       },
       state: {
         member: req.member,
-        event: parse.fromEventServiceFormat( req.event )
+        event: req.event
       }
     };
 
@@ -112,36 +110,35 @@ function init( c ) {
     _defineEventFileKey,
     _loadEventSchema,
     _readRequestedDraftState,
-    formSchemaMw.files.putInTemporary.bind( null, {} ),
-    formSchemaMw.files.cleanFileValues.bind( null, {} ),
+    formSchemaMw.files.cleanFileValues.bind(null, {}),
+    formSchemaMw.files.putInTemporary.bind(null, {}),
     // image is processed by event service, other files need to be put to s3
-    formSchemaMw.files.uploadFilesToS3.bind( null, { ignore: [ 'image' ] } ),
-  ( req, res ) => {
+    formSchemaMw.files.uploadFilesToS3.bind(null, { ignore: ['image']}),
+  (req, res) => {
 
     // this does not transform other fields than file fields
-    const postedWithFiles = _.assign( JSON.parse( req.body.data ), req.fileFieldValues || {} );
+    const postedWithFiles = {
+      ...JSON.parse(req.body.data),
+      ...(req.fileFieldValues || {})
+    };
 
-    log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
+    log('info', 'setting event on agenda %s', _.get(req, 'agenda.slug'));
 
-    config.interfaces.setEvent( req.agenda, req.user, req.event, postedWithFiles, {
+    config.interfaces.setEvent(req.agenda, req.user, req.event, postedWithFiles, {
       draft: req.draft
-    } ).then( result => {
-
-      res.json( _.pick( result, [
+    }).then(result => {
+      res.json(_.pick( result, [
         'event',
         'success',
         'errors'
-      ] ) );
-
+      ]));
     }, error => {
-
-      log( 'error', 'could not set event for agenda %s', _.get( req, 'agenda.slug' ), error );
+      log('error', 'could not set event for agenda %s', _.get( req, 'agenda.slug' ), error);
 
       res.status( 400 );
+    });
 
-    } );
-
-  } );
+  });
 
 }
 

@@ -1,100 +1,37 @@
-"use strict";
+'use strict';
+
+const fs = require('fs');
 
 module.exports = {
-
-  mysql : {
-    host : '127.0.0.1',
-    database : 'oatest_event',
-    password : 'grut',
-    timezone: 'utc',
-    user : 'root',
-    charset: 'utf8mb4'
-  },
-
-  schemas: {
-    event: 'event'
-  },
-
-  image: {
-    base: '//openagendatst.s3.amazonaws.com/',
-    default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-  },
-
-  redis: {
-    host: 'localhost',
-    port: 6379
-  },
-
-  legacy: {
-    mysql : {
-      host : '127.0.0.1',
-      database : 'oatest_event',
-      password : 'grut',
-      user : 'root',
-      charset: 'utf8mb4'
+  service: {
+    mysql: {
+      timeout: 120000,
+      host: process.env.OA_MYSQL_DEV_HOST,
+      user: process.env.OA_MYSQL_DEV_USER,
+      password: process.env.OA_MYSQL_DEV_PASSWORD,
+      database: 'event_test',
+      ssl: parseInt(process.env.OA_MYSQL_DEV_SSL_VERIFY, 10)
+        ? {
+          ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
+          cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
+          key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY)
+        }
+        : true
     },
-    schemas: {
-      event: 'legacy_event',
-      occurrence: 'legacy_occurrence',
-      eventTranslation: 'legacy_event_translation',
-      location: 'legacy_location',
-      eventLocation: 'legacy_event_location',
-      eventLocationTranslation: 'legacy_event_location_translation',
-      agendaEvent: 'legacy_agenda_event',
-      eventReferences: 'legacy_agenda_event_references',
-      user: 'legacy_user',
-      agenda: 'legacy_agenda',
-      deleted: 'legacy_deleted'
+    schema: 'event_2',
+    imagePath: '//oadev.s3.eu-west-1.amazonaws.com/',
+    interfaces: {
     }
   },
-
-  tests: {
-
+  dependencies: {
     files: {
-      tmpPath: '/var/tmp/',
-      bucket: 'openagendatst',
-      accessKeyId: '',
-      secretAccessKey: ''
-    },
-
-    images: {
-      tmpPath: '/var/tmp/'
+      s3: {
+        accessKeyId: process.env.AWS_DEV_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_DEV_SECRET_ACCESS_KEY,
+        region: process.env.AWS_DEV_REGION,
+        defaultBucket: process.env.AWS_DEV_BUCKET
+      },
+      defaultProvider: 's3'
     }
-  },
-
-  interfaces: {
-
-    onCreate: event => {},
-
-    onUpdate: ( before, after ) => {},
-
-    beforeRemove: ( event, context, cb ) => { cb() },
-
-    onRemove: event => {},
-
-    getOriginAgendas: ( uids, options, cb ) => {
-
-      cb( null, uids.map( uid => ( {
-        uid,
-        title: 'La Gargouille',
-        image: null,
-        offical: true
-      } ) ) );
-
-    },
-
-    getLocations: ( uids, options, cb ) => {
-
-      cb( null, uids.map( uid => ( {
-        name: 'La case de Janine',
-        uid,
-        latitude: 48.8674277,
-        longitude: 2.350881,
-        address: '1 passage du ponceau, Paris'
-      } ) ) );
-
-    }
-
   }
-
-}
+};

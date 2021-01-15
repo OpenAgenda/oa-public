@@ -10,7 +10,7 @@ const keysSvc = require( '@openagenda/keys' );
 const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
-const eventSvc = require( '../services/event' );
+const legacyEventSvc = require( '../services/event' );
 const members = require( '../services/members' );
 const activitiesSvc = require( '../services/activities' );
 const sessions = require( '../services/sessions' );
@@ -37,7 +37,7 @@ module.exports = app => {
       agendaSvc.mw.load( 'uid' ),
       cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
       agendaSvc.mw.search( perPage ),
-      eventSvc.mw.cleanEvents,
+      legacyEventSvc.mw.cleanEvents,
       agendaSvc.mw.decorateEvents(),
       agendaSvc.mw.cleanJson,
       _cacheContent,

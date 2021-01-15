@@ -4,7 +4,7 @@ const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const log = require('@openagenda/logs')('services/agendaEventReferences');
 const agendaEventReferences = require( '@openagenda/agenda-event-references' );
-const internalEventSvc = require( './event' );
+const legacyEventSvc = require( './event' );
 const internalAgendaSvc = require( './agenda' );
 
 module.exports.init = async (config, services) => {
@@ -65,8 +65,8 @@ function events( agendaId, refQuery, options, cb ) {
           address: e.locations[ 0 ].address
         },
         dateRange: {
-          fr: internalEventSvc.instanciate( e ).getRange( 'fr' ),
-          en: internalEventSvc.instanciate( e ).getRange( 'en' )
+          fr: legacyEventSvc.instanciate( e ).getRange( 'fr' ),
+          en: legacyEventSvc.instanciate( e ).getRange( 'en' )
         }
       } ) ) );
 
