@@ -27,6 +27,10 @@ export default config => {
       return null;
     }
 
+    if (params.allowObject && value instanceof Object) {
+      return value;
+    }
+
     if (isFile(value)) {
       return value;
     }
