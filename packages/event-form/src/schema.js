@@ -7,7 +7,7 @@ const eventValidators = {
   age: require( './validators/age' ),
   accessibility: require( './validators/accessibility' ),
   keywords: require( './validators/keywords' ),
-  timings: require( './validators/timings' ),
+  timings: require('@openagenda/events/lib/validators/timings'),
   location: require( './validators/location' ),
   languages: require( './validators/languages' ),
   references: require( './validators/references' )
@@ -101,20 +101,22 @@ module.exports = (options = {}) => {
       optional: false,
       write: ['internal']
     }, {
-      "field" : "image",
-      "fieldType" : "image",
-      "optional" : true,
-      label : labels.image,
-      info : labels.imageInfo,
-      "extensions" : [ "jpg", "bmp", "png", "jpeg" ],
-      "store" : fileStore
+      field: 'image',
+      fieldType: 'image',
+      optional: true,
+      label: labels.image,
+      info: labels.imageInfo,
+      allowURL: true,
+      allowPath: true,
+      extensions: ['jpg', 'bmp', 'png', 'jpeg'],
+      store: fileStore
     }, {
-      "field" : "imageCredits",
-      "fieldType" : "text",
-      "optional" : true,
-      "label" : labels.imageCredits,
-      "enableWith" : "image",
-      "max": 255
+      field : 'imageCredits',
+      fieldType : 'text',
+      optional : true,
+      label : labels.imageCredits,
+      enableWith : 'image',
+      max: 255
     }, {
       field : 'languages',
       fieldType : 'languages',
