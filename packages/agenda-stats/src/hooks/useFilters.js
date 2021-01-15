@@ -4,6 +4,8 @@ import { useUIDSeed } from 'react-uid';
 import { dateRanges } from '@openagenda/react-filters';
 import stateMessages from '../messages/states';
 
+const AGGREGATION_SIZE = 20000;
+
 const defaultOptions = {
   standards: true,
   additionals: true,
@@ -47,19 +49,19 @@ export default function useFilters(
           name: 'timings',
           type: 'dateRange',
           staticRanges,
-          inputRanges
+          inputRanges,
         },
         {
           name: 'createdAt',
           type: 'dateRange',
           staticRanges,
-          inputRanges
+          inputRanges,
         },
         {
           name: 'updatedAt',
           type: 'dateRange',
           staticRanges,
-          inputRanges
+          inputRanges,
         },
         {
           name: 'state',
@@ -67,6 +69,7 @@ export default function useFilters(
           options: stateOptions,
           aggregation: {
             type: 'states',
+            size: AGGREGATION_SIZE,
           },
         },
         {
@@ -75,6 +78,7 @@ export default function useFilters(
           options: null, // from the aggregation
           aggregation: {
             type: 'regions',
+            size: AGGREGATION_SIZE,
           },
         },
         {
@@ -83,6 +87,7 @@ export default function useFilters(
           options: null, // from the aggregation
           aggregation: {
             type: 'departments',
+            size: AGGREGATION_SIZE,
           },
         },
         {
@@ -91,6 +96,7 @@ export default function useFilters(
           options: null, // from the aggregation
           aggregation: {
             type: 'cities',
+            size: AGGREGATION_SIZE,
           },
         },
       ]
@@ -112,6 +118,7 @@ export default function useFilters(
           aggregation: {
             type: 'additionalFields',
             field: fieldSchema.field,
+            size: AGGREGATION_SIZE,
           },
         }))
       : [];
@@ -120,5 +127,5 @@ export default function useFilters(
       ...v,
       id: seed(v),
     }));
-  }, [agendaSchema.fields, intl.locale, stateOptions]);
+  }, [additionals, agendaSchema.fields, intl, seed, standards, stateOptions]);
 }
