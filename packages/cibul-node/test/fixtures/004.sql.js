@@ -24,7 +24,8 @@ raw.push(knex('review').insert([{
   form_schema_id: 2,
   settings: JSON.stringify({
     contribution: {
-      type: 1
+      type: 1,
+      defaultState: 1
     }
   })
 }, {
@@ -243,7 +244,7 @@ raw.push(knex('event_2').insert([{
     begin: new Date('2019-05-06T10:00:00'),
     end: new Date('2019-05-06T11:00:00')
   }]),
-  description: JSON.stringify({}),
+  description: JSON.stringify({ fr: 'Une desc.'}),
   timezone: 'Europe/Paris',
   location_uid: 123,
   created_at: new Date('2019-05-06T10:00:00'),
@@ -280,7 +281,7 @@ raw.push(knex('event_2').insert([{
   title: JSON.stringify({
     fr: 'Un autre événement'
   }),
-  description: JSON.stringify({}),
+  description: JSON.stringify({ fr: 'Une description' }),
   timezone: 'Europe/Paris',
   location_uid: 123,
   agenda_uid: 92983929,
@@ -296,7 +297,7 @@ raw.push(knex('event_2').insert([{
   title: JSON.stringify({
     fr: 'Un autre événement'
   }),
-  description: JSON.stringify({}),
+  description: JSON.stringify({ fr: 'Une desc.'}),
   timezone: 'Europe/Paris',
   location_uid: 123,
   agenda_uid: 92983929,
@@ -312,7 +313,7 @@ raw.push(knex('event_2').insert([{
   title: JSON.stringify({
     fr: 'Un autre brouillon'
   }),
-  description: JSON.stringify({}),
+  description: JSON.stringify({ fr: 'Une desc.'}),
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')

@@ -51,8 +51,8 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
   createdAt.setDate(createdAt.getDate() - createdSince);
 
   const initialLastId = await eventsSvc
-    .list({ createdAt }, 0, 1, { internal: true })
-    .then(({ events }) => events[0].id);
+    .list({ createdAt: { gte: createdAt } }, { limit: 1 }, { access: 'internal' })
+    .then(events => events[0].id);
 
   log('info', `starting from event of id ${initialLastId}`, { createdSince, stopAtCount });
   let stop = false;
@@ -67,18 +67,21 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
       }
 
       const {
-        events,
-        lastId: newLastId
-      } = await eventsSvc.list({}, lastId === 0 ? initialLastId : lastId, limit, {
-        offsetAsLastId: true,
+        items: events,
+        after: newLastId
+      } = await eventsSvc.list({}, {
+        after: lastId === 0 ? initialLastId : lastId,
+        limit
+      }, {
+        useAfter: true,
         detailed: true,
-        internal: true
+        access: 'internal'
       });
 
       log('listed %s events for reindexing in transverse index (%s)', events.length, lastId);
 
       return {
-        lastId: newLastId,
+        lastId: newLastId === null ? -1 : newLastId,
         events
       }
     },

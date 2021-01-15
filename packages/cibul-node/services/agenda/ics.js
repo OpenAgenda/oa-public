@@ -1,6 +1,6 @@
 "use strict";
 
-const eventSvc = require( '../event' );
+const legacyEventSvc = require( '../event' );
 
 const limit = 600000;
 
@@ -24,7 +24,7 @@ function streamIcsEvents( req, res, next ) {
 
     if ( !renderedHeader )  {
 
-      chunk += eventSvc.getIcsHead( req.agenda, req.lang );
+      chunk += legacyEventSvc.getIcsHead( req.agenda, req.lang );
 
       renderedHeader = true;
 
@@ -66,6 +66,6 @@ function _end( stream, res ) {
 
 function _renderEvent( agenda, eData, lang, query ) {
 
-  return eventSvc.instanciate( eData ).getIcs( agenda, lang );
+  return legacyEventSvc.instanciate( eData ).getIcs( agenda, lang );
 
 }

@@ -15,25 +15,23 @@ module.exports = services => async (mergeInLocation, locations) => {
     let offsetErrored = 0;
 
     do {
-      const { events } = await eventSvc.list({
+      const event = await eventSvc.list({
         locationUid
-      }, offsetErrored, 1, { private: null });
-
-      if (!events.length) {
+      }, { offset: offsetErrored, limit: 1 }, { private: null, draft: null }).then(events => events.pop());
+  
+      if (!event) {
         hasMore = false;
         continue;
       }
-
-      const uid = events[0].uid;
-
+      
       try {
-        log('setting location %s on event %s', mergeInLocation.uid, uid);
-        await eventSvc.update({ uid }, {
+        log('setting location %s on event %s', mergeInLocation.uid, event.uid);
+        await eventSvc.patch(event.uid, {
           locationUid: mergeInLocation.uid
-        }, { transferToLegacy: true } );
+        });
       } catch(e) {
         offsetErrored++;
-        log('error', 'failed to update event %s with location uid %s', uid, locationUid, e);
+        log('error', 'failed to update event %s with location uid %s', event.uid, locationUid, e);
       }
 
     } while (hasMore);

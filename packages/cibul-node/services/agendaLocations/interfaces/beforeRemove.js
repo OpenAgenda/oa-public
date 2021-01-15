@@ -2,11 +2,12 @@
 
 const _ = require('lodash');
 
-const log = require('@openagenda/logs')('services/agendaLocations/locationWillRemove');
+const log = require('@openagenda/logs')('services/agendaLocations/beforeRemove');
 
 module.exports = services => async location => {
   const {
-    events: eventSvc
+    events: eventSvc,
+    core
   } = services;
 
   log('info', 'deleting events associated with location of uid %s', location.uid);
@@ -15,26 +16,22 @@ module.exports = services => async location => {
   let offsetErrored = 0;
 
   do {
-    const { events } = await eventSvc.list({
+    const event = await eventSvc.list({
       locationUid: location.uid
-    }, offsetErrored, 1, { private: null });
+    }, { offset: offsetErrored, limit: 1 }, { private: null, draft: null }).then(events => events.pop());
 
-    if (!events.length) {
+    if (!event) {
       hasMore = false;
       continue;
     }
 
-    const uid = events[0].uid;
-
     try {
-      log('deleting event %s', uid);
+      log('deleting event %s', event.uid);
 
-      await eventSvc.remove({ uid }, {
-        transferToLegacy: true
-      });
+      await core.agendas(event.agendaUid).events.remove(event.uid);
     } catch(e) {
       offsetErrored++;
-      log('error', 'failed to remove event %s with location uid %s', uid, location.uid, e);
+      log('error', 'failed to remove event %s with location uid %s', event.uid, location.uid, e);
     }
 
   } while (hasMore);

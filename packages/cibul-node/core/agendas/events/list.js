@@ -69,7 +69,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   if (load.event) {
     log('loading %s events', eventUids.length);
 
-    fetched.events = await eventsSvc.v2.list({
+    fetched.events = await eventsSvc.list({
       uid: eventUids
     }, { limit: eventUids.length }, {
       detailed,

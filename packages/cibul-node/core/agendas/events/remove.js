@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
@@ -12,7 +12,7 @@ const refreshAgenda = require('../utils/refreshAgenda');
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 
 module.exports = async (services, agendaUid, eventUid, options) => {
-  log('removing event %s from agenda %s', eventUid, agendaUid, options);
+  log('removing event %s from agenda %s', eventUid, agendaUid);
 
   const {
     agendas,
@@ -25,6 +25,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
   } = services;
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+  log('  loaded agenda %s', agenda.slug);
 
   const contextUserUid = _.get(options, 'context.userUid');
 
@@ -51,14 +52,17 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     custom: false
   };
 
-  const event = await events.get({ uid: eventUid }, {
+  const event = await events.get(eventUid, {
     private: null,
-    internal: true
+    access: 'internal'
   });
 
   if (!event) {
+    log('error', '  event not found');
     throw new VError('event of uid %s not found', eventUid);
   }
+
+  log('  loaded event to remove');
 
   payload.setItem('event', event);
 
@@ -68,6 +72,8 @@ module.exports = async (services, agendaUid, eventUid, options) => {
     const result = await agendaEvents(agendaUid).remove(eventUid, {
       transferToLegacy: true,
       context: {
+        event,
+        agenda,
         agendaUid,
         userUid: contextUserUid,
         legacy: false,
@@ -98,25 +104,31 @@ module.exports = async (services, agendaUid, eventUid, options) => {
 
   const remaining = await agendaEvents.list.byEventUid(eventUid);
 
-  log('there are %s remaining agenda references', remaining.total);
-  log('agenda %s event origin agenda', event.agendaUid === parseInt(agendaUid) ? 'is' : 'is not');
+  log('  there are %s remaining agenda references', remaining.total);
+  log('  agenda %s event origin agenda', event.agendaUid === parseInt(agendaUid) ? 'is' : 'is not');
 
   if (!remaining.total || deletion) {
-    const result = await events.remove({
-      uid: eventUid
-    }, {
-      agendaUid,
-      userUid: contextUserUid,
-      transferToLegacy: !event.draft
+    await events.remove(eventUid, {
+      context: {
+        agendaUid,
+        userUid: contextUserUid
+      }
     });
+    log('  removed from event service');
   }
 
-  if (!event.draft) {
-    await aggregators.notify('removeEvent', {
-      event: merge.event(event, removed.agendaEvent, removed.custom),
-      agenda,
-      batched
-    });
+  if (!event.draft && aggregators) {
+    try {
+      log('  notifying aggregators of removal');
+      await aggregators.notify('removeEvent', {
+        event: merge.event(event, removed.agendaEvent, removed.custom),
+        agenda,
+        batched
+      });
+      log('  aggregators notified of removal');
+    } catch (e) {
+      log('error', 'failed to notify aggregators', e);
+    }
   }
 
   try {
@@ -126,6 +138,7 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       deletion,
       otherAgendaReferences: remaining.items
     });
+    log('  removed from search');
   } catch (e) {
     log('error', 'could not remove event %s.%s from search indices', event.uid, e);
   }

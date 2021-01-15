@@ -134,13 +134,13 @@ function eventLoader(events) {
     events.get({
       slug: req.params.eventSlug
     }, {
-      internal: true,
+      access: 'internal',
       includeImagePath: true,
       private: null
-    }, (err, event) => {
+    }).then(event => {
       req.event = event;
-      next(err);
-    });
+      next();
+    }, next);
   }
 }
 

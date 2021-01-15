@@ -1,79 +1,61 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const log = require('@openagenda/logs')('agendaEvents/fallbackContextGet');
 
-const agendasSvc = require( '@openagenda/agendas' );
-const eventsSvc = require( '@openagenda/events' );
+module.exports = async ({ services }, interfaceName, ref, context) => {
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/fallbackContextGet' );
+  const {
+    users,
+    events: eventsSvc,
+    agendas: agendasSvc
+  } = services;
 
-module.exports = async ( { services }, interfaceName, ref, context ) => {
+  let event = _.get(context, 'event');
+  let agenda = _.get(context, 'agenda');
+  let user = _.get(context, 'user');
 
-  const { users } = services;
+  if (!event) {
+    log('warn', 'event is missing in context', ref);
 
-  let event = _.get( context, 'event' );
-
-  let agenda = _.get( context, 'agenda' );
-
-  let user = _.get( context, 'user' );
-
-  if ( !event ) {
-
-    log( 'warn', 'event is missing in context', ref );
-
-    event = await eventsSvc.get( { uid: ref.eventUid }, {
+    event = await eventsSvc.get({ uid: ref.eventUid }, {
       private: null,
       deleted: null,
       internal: true,
       detailed: true
-    } );
+    });
 
-    if ( !event ) log( 'error', 'event of uid %s could not be retrieved', _.get( ref, 'uid' ), ref );
-
+    if (!event) log('error', 'event of uid %s could not be retrieved', _.get(ref, 'uid'), ref);
   } else {
-
-    log( 'event %s, %s is in context', event.uid, event.slug );
-
+    log('event %s, %s is in context', event.uid, event.slug);
   }
 
-  if ( !agenda ) {
+  if (!agenda) {
+    log('warn', 'agenda is missing in context', ref);
 
-    log( 'warn', 'agenda is missing in context', ref );
-
-    agenda = await agendasSvc.get( { uid: ref.agendaUid }, {
+    agenda = await agendasSvc.get({ uid: ref.agendaUid }, {
       internal: true,
       private: null,
       includeImagePath: true
-    } );
-
+    });
   } else {
-
-    log( 'agenda %s, %s is in context', agenda.uid, agenda.slug );
-
+    log('agenda %s, %s is in context', agenda.uid, agenda.slug);
   }
 
-  if ( !user ) {
-
+  if (!user) {
     try {
+      log('warn', 'user is missing in context', ref);
 
-      log( 'warn', 'user is missing in context', ref );
-
-      user = await users.findOne( { query: { uid: context.userUid } } );
-
-    } catch ( e ) {
-
-      log( 'error', 'could not load user' );
-
+      user = await users.findOne({ query: { uid: context.userUid } });
+    } catch (e) {
+      log('error', 'could not load user');
     }
 
   } else {
-
-    log( 'user is in context' );
-
+    log('user is in context');
   }
 
   return { agenda, event, user };
-
 }
 
 

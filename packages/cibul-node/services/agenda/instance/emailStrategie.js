@@ -4,7 +4,7 @@ var log = require( '@openagenda/logs' )( 'EmailStrategie' ),
 
 emailStrat = require( '@openagenda/email-strategie' ),
 
-eventSvc = require( '../../event' ),
+legacyEventSvc = require( '../../event' ),
 
 w = require( 'when' ),
 
@@ -442,12 +442,12 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         stream.on( 'data', function( eventItem ) {
 
-          var eInst = eventSvc.instanciate( eventItem );
+          var eInst = legacyEventSvc.instanciate( eventItem );
 
           stream.pause();
 
           // here params should be used to modify ( 'clean' ) event link
-          eventSvc.exports.clean( eInst, function( err, clean ) {
+          legacyEventSvc.exports.clean( eInst, function( err, clean ) {
 
             log( 'debug', 'sync request - %s - queueing event %s for list %s', loaded.uid, eventItem.uid, list.id );
 

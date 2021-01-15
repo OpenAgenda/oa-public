@@ -6,10 +6,6 @@ const ValidationError = require('../../utils/ValidationError');
 
 const log = require('@openagenda/logs')('core/agendas/events/update');
 
-const {
-  toEventServiceFormat
-} = require('@openagenda/agenda-contribute/server/parse');
-
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require('../utils/processOEmbed');
@@ -27,7 +23,7 @@ const {
 const assignState = require('../utils/assignState');
 
 async function update(services, agendaUid, eventUid, data, options = {}) {
-  log('processing', { agendaUid, eventUid, options });
+  log('info', 'updating event %s on agenda %s', eventUid, agendaUid);
 
   const {
     events,
@@ -44,7 +40,6 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
   const {
     draft,
     partial,
-    formSchemaDataFormat,
     defaultLang,
     batched,
     access,
@@ -52,7 +47,6 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
   } = {
     draft: false,
     partial: false,
-    formSchemaDataFormat: false,
     defaultLang: 'en',
     batched: false,
     access: 'public',
@@ -61,17 +55,17 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
   };
 
   const agenda = await loadAgenda(services, agendaUid);
+  log('  loaded agenda %s', agenda?.slug);
 
-  const event = await events.get({
-    uid: eventUid
-  }, {
-    internal: true,
-    detailed: true
+  const event = await events.get(eventUid, {
+    access: 'internal',
+    detailed: true,
+    throwOnNotFound: true
   });
+  log('  loaded event %s', event.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
     draft,
-    formSchemaDataFormat,
     optionalSecondaryFields: true,
     partial,
     access,
@@ -96,39 +90,30 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   let result;
 
-  const eventServiceDataFormat = toEventServiceFormat(clean.event, {
-    raw: data,
-    partial
-  });
-
   try {
-    result = await events.update({ uid: eventUid }, eventServiceDataFormat, {
+    payload.setItem('event', await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
       context: {
         agendaUid,
         userUid: contextUserUid,
         updateSearchIndex: false
       },
       detailed: true,
-      internal: true,
-      transferToLegacy: !draft,
+      access: 'internal',
       draft
-    });
-    log('updated event %s', eventUid);
+    }));
+
+    log('updated event %s', event.uid);
   } catch (e) {
+    if (e.toString() === 'ValidationError: Invalid data') {
+      log('info', 'invalid data', e);
+      throw new ValidationError(e.detail);
+    }
     log('error', 'failed to update event', {
       agendaUid: agenda.uid,
       eventUid,
-      eventServiceDataFormat,
       error: e
     });
     throw e;
-  }
-
-  if (!result.valid) {
-    log('error', 'update was not successful', result);
-    throw new ValidationError(result.errors);
-  } else {
-    payload.setItem('event', result.before, result.event);
   }
 
   if (agenda.formSchemaId && clean.custom) {

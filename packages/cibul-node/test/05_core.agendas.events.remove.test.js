@@ -43,7 +43,8 @@ describe('core - functional (server): core agendas() events.remove()', function(
         'legacy',
         'users',
         'keys',
-        'accessTokens'
+        'accessTokens',
+        'tracker'
       ]
     });
 

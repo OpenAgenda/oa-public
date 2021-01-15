@@ -11,7 +11,7 @@ const log = require( '@openagenda/logs' )( 'services/legacyAgenda/middleware' );
 const tabLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-admin/tabs' ) );
 
 const svcConfig = require( './config' );
-const eventSvc = require( '../event' );
+const legacyEventSvc = require( '../event' );
 const config = require( '../../config' );
 
 const mwh = require( '../lib/middlewareHelpers' );
@@ -360,7 +360,7 @@ function decorateEvents( includePrivateData ) {
 
   return function( req, res, next ) {
 
-    const instanciated = req.events.map( eventSvc.instanciate );
+    const instanciated = req.events.map( legacyEventSvc.instanciate );
 
     svc.exports.decorateEvents( req.agenda, instanciated, req.formatted, {
       includePrivateData: !!includePrivateData,
@@ -449,7 +449,7 @@ function buildPdf( req, res, next ) {
 
     req.log( 'streaming event %s for pdf export', eventData.id );
 
-    const eInst = eventSvc.instanciate( eventData );
+    const eInst = legacyEventSvc.instanciate( eventData );
 
     stream.pause();
 
@@ -533,7 +533,7 @@ function buildXlsx( includePrivateData ) {
         processing++;
 
         // instanciate
-        const eInst = eventSvc.instanciate( eventData );
+        const eInst = legacyEventSvc.instanciate( eventData );
 
         // clean event
         eInst.exportable({ services: req.app.services }, ( err, clean ) => {
@@ -646,7 +646,7 @@ function buildCsv( includePrivateData ) {
         processing++;
 
         // instanciate
-        const eInst = eventSvc.instanciate( eventData );
+        const eInst = legacyEventSvc.instanciate( eventData );
 
         eInst.exportable( { protocol: 'https:', services: req.app.services }, ( err, clean ) => {
 

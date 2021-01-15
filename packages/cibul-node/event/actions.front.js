@@ -32,8 +32,9 @@ module.exports = app => {
     cmn.https,
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => {
+    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
+      .then(event => {
+        const uid = event?.uid;
         if (!uid) {
           return next({ code: 404 });
         }
@@ -52,10 +53,10 @@ module.exports = app => {
     '/:slug/events/:eventSlug/action/dates',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => req.app.services.core.agendas(req.agenda.uid)
+    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
+      .then(event => req.app.services.core.agendas(req.agenda.uid)
         .events
-        .get(uid, { detailed: true })
+        .get(event?.uid, { detailed: true })
         .then(result => {
           if (!result) {
             return next({ code: 404 });
@@ -74,10 +75,10 @@ module.exports = app => {
     '/:slug/events/:eventSlug/email',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => req.app.services.core.agendas(req.agenda.uid)
+    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
+      .then(event => req.app.services.core.agendas(req.agenda.uid)
         .events
-        .get(uid, { detailed: true })
+        .get(event?.uid, { detailed: true })
         .then(result => {
           if (!result) {
             return next({ code: 404 });
@@ -95,10 +96,10 @@ module.exports = app => {
     '/:slug/events/:eventSlug/ics',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => req.app.services.core.agendas(req.agenda.uid)
+    (req, res, next) => eventsSvc.get({ slug: req.params.eventSlug }, { includeFields: ['uid'] })
+      .then(event => req.app.services.core.agendas(req.agenda.uid)
         .events
-        .get(uid, { detailed: true }))
+        .get(event?.uid, { detailed: true }))
         .then(result => {
           if (!result) {
             return next({ code: 404 });

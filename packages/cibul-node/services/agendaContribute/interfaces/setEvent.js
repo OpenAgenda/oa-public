@@ -10,49 +10,32 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
     members
   } = services;
 
-  const { draft } = Object.assign({
-    draft: false
-  }, options);
+  const { draft } = {
+    draft: false,
+    ...options
+  };
 
-  const isNew = !current;
-  const isDraft = _.get(current, 'draft', false);
 
-  log(isNew ? 'this is a create' : 'this is an update');
-
-  const transforms = { '$unset': [] };
-
-  // for a new event, the owner and origin agenda must be specified
-
-  if (isNew || isDraft) {
-    Object.assign(transforms, {
-      ownerUid: { $set: user.uid },
-      creatorUid: { $set: user.uid },
-      agendaUid: { $set: agenda.uid },
-      canEdit: { $set: true }
-    });
-  }
+  log(!current ? 'this is a create' : 'this is an update');
 
   const coreOptions = {
     draft,
-    formSchemaDataFormat: true,
     context: {
       userUid: user.uid
     },
     access: await _getMemberRoleSlug(members, agenda, user) || 'public'
   };
 
-  const transformed = ih(data, transforms);
-
   try {
     if (!current) {
       log(draft ? 'creating draft' : 'creating event');
       return {
-        event: await core.agendas(agenda.uid).events.create(transformed, coreOptions)
+        event: await core.agendas(agenda.uid).events.create(data, coreOptions)
       };
     } else {
       log(draft ? 'updating draft' : 'updating event');
       return {
-        event: await core.agendas(agenda.uid).events.update(current.uid, transformed, coreOptions),
+        event: await core.agendas(agenda.uid).events.update(current.uid, data, coreOptions),
         success: true
       };
     }

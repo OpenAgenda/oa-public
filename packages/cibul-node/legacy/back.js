@@ -19,19 +19,14 @@ const formOrderMw = require( './formOrder.mw.js' );
 const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 
 const eventsSvc = require('../services/events');
-const customSvc = require( '@openagenda/custom' );
+const customSvc = require('@openagenda/custom');
 
-const logger = require( '@openagenda/logs' );
+const logger = require('@openagenda/logs');
 
 const apiLog = logger( 'legacyApi' );
 const log = logger( 'legacy' );
 
 const adminLayout = require( '../services/lib/layouts' ).agendaAdmin;
-
-const { promisify } = require('util');
-
-const eventLegacyTransfer = promisify(eventsSvc.legacy.transfer);
-
 
 module.exports = app => {
 
@@ -566,19 +561,13 @@ async function eventCreate(req, res, next) {
 
 async function _transferFromLegacy(services, { legacyEvent, agenda, userUid }) {
   const {
-    transferred,
-    errors,
-    event
-  } = await eventLegacyTransfer(legacyEvent, {
-    context: {
-      userUid: userUid || null,
-      agendaUid: agenda.uid || null,
-      agenda
-    }
-  });
+    events
+  } = services;
 
-  if (!transferred) {
-    log('error', errors);
+  try  {
+    await events.setFromLegacy({ uid: legacyEvent.uid });
+  } catch (e) {
+    log('error', e);
     throw new Error('could not transfer legacy event');
   }
 
@@ -607,7 +596,6 @@ async function _transferFromLegacy(services, { legacyEvent, agenda, userUid }) {
   } catch ( e ) {
     log('error', 'could not update legacy search for event %s', event.slug );
   }
-
 }
 
 

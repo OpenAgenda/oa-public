@@ -6,7 +6,7 @@ const agendaTags = require('@openagenda/agenda-tags');
 const agendaCategories = require('@openagenda/agenda-categories');
 const cmn = require('../lib/commons-app');
 
-const eventSvc = require('../services/event');
+const legacyEventSvc = require('../services/event');
 const agendaSvc = require('../services/agenda')
 
 module.exports = app => {
@@ -20,7 +20,7 @@ module.exports = app => {
   } = app.services;
 
   const preMw = [
-    eventSvc.mw.load('eventSlug', 'slug'),
+    legacyEventSvc.mw.load('eventSlug', 'slug'),
     sessions.mw.loadOrRedirect(),
     members.mw.loadAndAuthorize('moderator')
   ];
@@ -36,8 +36,8 @@ module.exports = app => {
     _loadCustomSet,
     _loadCustom,
     xhrGet,
-    eventSvc.mw.format,
-    cmn.loadBaseData(eventSvc.mw.layoutData, 'oasfmain.css'),
+    legacyEventSvc.mw.format,
+    cmn.loadBaseData(legacyEventSvc.mw.layoutData, 'oasfmain.css'),
     page
  );
 
