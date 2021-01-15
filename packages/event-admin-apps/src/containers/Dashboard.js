@@ -1,172 +1,53 @@
 import _ from 'lodash';
 import qs from 'qs';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback, useMemo, useState, useRef
+} from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import { useHistory } from 'react-router';
 import { useInfiniteQuery, useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
+import { useLatest, useUpdateEffect } from 'react-use';
 import { useUIDSeed } from 'react-uid';
 import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
-import { useApiClient, ReactSelectInput } from '@openagenda/react-shared';
+import { useApiClient } from '@openagenda/react-shared';
+import { FiltersProvider } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPart from '../components/FiltersPart';
+import FiltersPreview from '../components/FiltersPreview';
+import StateSelector from '../components/StateSelector';
 import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
 import getLocaleValue from '../utils/getLocaleValue';
-import stateMessages from '../messages/states';
-
-const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 
 const messages = defineMessages({
   totalEvents: {
     id: 'EventAdminApp.Dashboard.totalEvents',
-    defaultMessage: 'Total events: {value}',
+    defaultMessage:
+      '<strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}',
+  },
+  totalWithFilters: {
+    id: 'EventAdminApp.Dashboard.totalWithFilters',
+    defaultMessage:
+      '<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}{filters}',
   },
   createdBy: {
     id: 'EventAdminApp.Dashboard.createdBy',
-    defaultMessage: 'Created by {value}',
+    defaultMessage: 'Created by <link>{name}</link>',
   },
   aggregatedFrom: {
     id: 'EventAdminApp.Dashboard.aggregatedFrom',
-    defaultMessage: 'Aggregated from {value}',
+    defaultMessage: 'Aggregated from <link>{title}</link>',
   },
   filters: {
     id: 'EventAdminApp.Dashboard.filters',
     defaultMessage: 'Filters',
   },
 });
-
-const stateBadgeCss = css`
-  height: 19px;
-  width: 19px;
-`;
-
-const stateSelectStyles = {
-  ...defaultReactSelectStyles,
-  container: provided => ({
-    ...provided,
-    display: 'inline-block',
-  }),
-  control: (provided, state) => ({
-    ...defaultReactSelectStyles.control(provided, state),
-    transition: 'none',
-    border: 'none',
-    boxShadow: 'none',
-    cursor: 'pointer',
-    minWidth: 0,
-    minHeight: 0,
-  }),
-  valueContainer: (provided, state) => ({
-    ...defaultReactSelectStyles.valueContainer(provided, state),
-    padding: 0,
-  }),
-  singleValue: provided => ({
-    ...provided,
-    top: 0,
-    transform: 'none',
-    position: 'relative',
-    overflow: 'visible',
-    marginRight: 0,
-  }),
-  option: provided => ({
-    ...provided,
-    display: 'flex',
-  }),
-  dropdownIndicator: provided => ({
-    ...provided,
-    padding: 0,
-    verticalAlign: 'middle',
-  }),
-  indicatorSeparator: () => ({
-    display: 'none',
-  }),
-  menu: (provided, state) => ({
-    ...defaultReactSelectStyles.menu(provided, state),
-    minWidth: '150px',
-  }),
-};
-
-function StateSelector({ event }) {
-  const intl = useIntl();
-
-  const stateOptions = useMemo(
-    () => [
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-danger margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.refused)}
-          </>
-        ),
-        value: -1,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-warning margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.tocontrol)}
-          </>
-        ),
-        value: 0,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-default margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.controlled)}
-          </>
-        ),
-        value: 1,
-      },
-      {
-        label: (
-          <>
-            <span
-              className="badge badge-success margin-right-xs"
-              css={stateBadgeCss}
-            >
-              &nbsp;
-            </span>
-            {intl.formatMessage(stateMessages.published)}
-          </>
-        ),
-        value: 2,
-      },
-    ],
-    [intl]
-  );
-  const [value, setValue] = useState(() => stateOptions.find(o => o.value === event.state));
-
-  return (
-    <ReactSelectInput
-      options={stateOptions}
-      value={value}
-      onChange={setValue}
-      styles={stateSelectStyles}
-      isSearchable={false}
-      isClearable={false}
-    />
-  );
-}
 
 function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const intl = useIntl();
@@ -185,6 +66,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       Object.keys(baseQuery)
     );
   });
+
+  const hasQuery = useMemo(() => !!Object.keys(query).length, [query]);
 
   const standardsFilters = useFilters(agendaSchema, { standards: true });
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
@@ -251,6 +134,47 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const onFilterChange = useCallback(values => setQuery(values), []);
 
+  // for FiltersProvider
+  const filtersFormRef = useRef();
+  const [initialQuery] = useState(query);
+  const validate = useCallback(
+    values => {
+      try {
+        validateQuery(values, agendaSchema);
+      } catch (e) {
+        console.log('Filters validation error:', e);
+      }
+    },
+    [agendaSchema]
+  );
+  const latestQuery = useLatest(query);
+
+  useUpdateEffect(() => {
+    const search = qs.stringify(latestQuery.current, {
+      addQueryPrefix: true,
+      arrayFormat: 'brackets',
+    });
+
+    if (history.location.search !== search) {
+      const baseQuery = qs.parse(history.location.search, {
+        ignoreQueryPrefix: true,
+      });
+      const cleanQuery = _.pick(
+        validateQuery(baseQuery, agendaSchema),
+        Object.keys(baseQuery)
+      );
+
+      filtersFormRef.current.initialize(cleanQuery);
+    }
+  }, [
+    additionalsFilters,
+    agenda,
+    agendaSchema,
+    history.location,
+    latestQuery,
+    standardsFilters,
+  ]);
+
   const seed = useUIDSeed();
 
   if (isLoading || filtersQuery.isLoading) {
@@ -270,17 +194,42 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }
 
   return (
-    <>
-      <header>
-        <span>
-          {intl.formatMessage(messages.totalEvents, {
-            value: <strong>{intl.formatNumber(data.pages[0].total)}</strong>,
+    <FiltersProvider
+      onSubmit={onFilterChange}
+      initialValues={initialQuery}
+      validate={validate}
+      intl={intl}
+      ref={filtersFormRef}
+    >
+      <header
+        css={css`
+          line-height: 26px;
+        `}
+      >
+        {hasQuery
+          ? intl.formatMessage(messages.totalWithFilters, {
+            selection: data.pages[0].total,
+            total: filtersQuery.data.total,
+            strong: chunks => <strong>{chunks}</strong>,
+            filters: (
+              <span className="oa-filter-value-preview">
+                <FiltersPreview
+                  query={query}
+                  agenda={agenda}
+                  standardsFilters={standardsFilters}
+                  additionalsFilters={additionalsFilters}
+                />
+              </span>
+            ),
+          })
+          : intl.formatMessage(messages.totalEvents, {
+            total: filtersQuery.data.total,
+            strong: chunks => <strong>{chunks}</strong>,
           })}
-        </span>
       </header>
 
       <ul className="list-unstyled">
-        {data.pages.map(page => (
+        {data.pages.map((page, pageIndex) => (
           <React.Fragment key={seed(page)}>
             {page.events.map(event => (
               <li key={event.uid} className="margin-top-md">
@@ -296,7 +245,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 {event.member ? (
                   <div className="margin-top-xs">
                     {intl.formatMessage(messages.createdBy, {
-                      value: <a href="#_">{event.member.name}</a>,
+                      name: event.member.name,
+                      link: chunks => <a href="#_">{chunks}</a>,
                     })}
                   </div>
                 ) : null}
@@ -304,7 +254,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 {event.sourceAgendas?.length ? (
                   <div className="margin-top-xs">
                     {intl.formatMessage(messages.aggregatedFrom, {
-                      value: <a href="#_">{event.sourceAgendas[0].title}</a>,
+                      title: event.sourceAgendas[0].title,
+                      link: chunks => <a href="#_">{chunks}</a>,
                     })}
                   </div>
                 ) : null}
@@ -312,7 +263,11 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 <div className="margin-top-xs">
                   <ul className="list-inline">
                     <li>
-                      <StateSelector event={event} />
+                      <StateSelector
+                        agenda={agenda}
+                        event={event}
+                        pageIndex={pageIndex}
+                      />
                     </li>
                     <li>
                       <a className="btn btn-link btn-link-inline" href="#_">
@@ -363,7 +318,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         </div>,
         filtersContainerRef.current
       )}
-    </>
+    </FiltersProvider>
   );
 }
 

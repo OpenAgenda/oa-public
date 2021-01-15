@@ -1,4 +1,8 @@
 {
+  "ReactFilters.DateRangeFilter.dateRange": null,
+  "ReactFilters.DateRangeFilter.endDate": null,
+  "ReactFilters.DateRangeFilter.singleDate": null,
+  "ReactFilters.DateRangeFilter.startDate": null,
   "ReactFilters.dateRanges.currentMonth": null,
   "ReactFilters.dateRanges.currentWeek": null,
   "ReactFilters.dateRanges.thisWeekend": null,
@@ -10,9 +14,5 @@
   "ReactFilters.messages.filterTitles.region": null,
   "ReactFilters.messages.filterTitles.state": null,
   "ReactFilters.messages.filterTitles.timings": null,
-  "ReactFilters.messages.filterTitles.updatedAt": null,
-  "ReactShared.DateRangeFilter.dateRange": null,
-  "ReactShared.DateRangeFilter.endDate": null,
-  "ReactShared.DateRangeFilter.singleDate": null,
-  "ReactShared.DateRangeFilter.startDate": null
+  "ReactFilters.messages.filterTitles.updatedAt": null
 }

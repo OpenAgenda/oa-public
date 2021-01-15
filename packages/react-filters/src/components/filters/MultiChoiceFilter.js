@@ -1,12 +1,14 @@
-import React, { useCallback, useMemo } from 'react';
-import { Field, useForm } from 'react-final-form';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Field, useForm, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { OnChange } from 'react-final-form-listeners';
 import { useDebouncedCallback } from 'use-debounce';
 import useFilterTitle from '../../hooks/useFilterTitle';
-import getLocaleValue from '../../utils/getLocaleValue';
-import Panel from '../Panel';
 import Checkbox from '../fields/Checkbox';
+import Panel from '../Panel';
+import ValueBadge from '../ValueBadge';
+
+const OPTIONS_PAGE_SIZE = 10;
 
 const subscription = { value: true };
 
@@ -22,37 +24,36 @@ function formatValue(value) {
   return value;
 }
 
-function ValuePreview({ option, input, disabled }) {
-  const label = useMemo(() => getLocaleValue(option.label), [option.label]);
-
-  const removeValue = useCallback(
-    e => {
-      e.stopPropagation();
-
-      input.onChange(input.value.filter(v => v !== option.value));
-    },
-    [input, option.value]
-  );
-
+function DefaultPreviewRenderer({
+  valueOptions,
+  onRemove,
+  disabled,
+  className,
+}) {
   return (
-    <div className="badge badge-info">
-      {label}
-      <button
-        type="button"
-        className="btn btn-link btn-link-inline margin-left-xs"
-        disabled={disabled}
-        onClick={removeValue}
-      >
-        <i className="fa fa-times" aria-hidden="true" />
-      </button>
-    </div>
+    <span className={className}>
+      {valueOptions.map(option => (
+        <ValueBadge
+          key={option.value}
+          label={option.label}
+          onRemove={onRemove(option)}
+          disabled={disabled}
+        />
+      ))}
+    </span>
   );
 }
 
-function Title({
-  input, options, label, disabled
+function Preview({
+  name,
+  filter,
+  getOptions,
+  component = DefaultPreviewRenderer,
+  disabled,
+  ...rest
 }) {
-  const title = useFilterTitle(input.name, { label });
+  const { input } = useField(name, { subscription });
+  const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
   const valueOptions = useMemo(
     () => input.value
@@ -60,56 +61,108 @@ function Title({
     [input.value, options]
   );
 
-  if (!valueOptions) {
+  const onRemove = useCallback(
+    option => e => {
+      e.stopPropagation();
+
+      if (disabled) {
+        return;
+      }
+
+      const newValue = input.value.filter(v => v !== option.value);
+
+      input.onChange(newValue.length ? newValue : undefined);
+    },
+    [input, disabled]
+  );
+
+  if (!valueOptions || valueOptions === '') {
+    return null;
+  }
+
+  return React.createElement(component, {
+    name,
+    filter,
+    getOptions,
+    valueOptions,
+    onRemove,
+    disabled,
+    ...rest,
+  });
+}
+
+function Title({
+  name, filter, getOptions, disabled
+}) {
+  const title = useFilterTitle(name, filter.fieldSchema);
+  const field = useField(name, { subscription });
+
+  const { input } = field;
+
+  if (!input.value?.length) {
     return <div>{title}</div>;
   }
 
   return (
     <div className="flex-auto">
       {title}
-      <div className="oa-filter-value-preview">
-        {valueOptions.map(option => (
-          <ValuePreview
-            key={option.value}
-            option={option}
-            input={input}
-            disabled={disabled}
-          />
-        ))}
-      </div>
+      <Preview
+        name={name}
+        filter={filter}
+        title={title}
+        getOptions={getOptions}
+        disabled={disabled}
+        className="oa-filter-value-preview"
+      />
     </div>
   );
 }
 
 function MultiChoiceFilter({
-  name,
-  label,
-  filter,
-  getTotal,
-  getOptions,
-  disabled,
+  name, filter, getTotal, getOptions, disabled
 }) {
   const form = useForm();
   const seed = useUIDSeed();
+  const [maxOptions, setMaxOptions] = useState(OPTIONS_PAGE_SIZE);
+  const [collapsed, setCollapsed] = useState(true);
 
   const { callback: onChange } = useDebouncedCallback(() => form.submit(), 1);
 
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
 
+  const moreOptions = useCallback(
+    () => setMaxOptions(v => v + OPTIONS_PAGE_SIZE),
+    []
+  );
+  const lessOptions = useCallback(() => setMaxOptions(OPTIONS_PAGE_SIZE), []);
+
+  const onCollapsedChange = useCallback(
+    value => {
+      setCollapsed(value);
+
+      if (value) {
+        lessOptions();
+      }
+    },
+    [lessOptions]
+  );
+
+  const hasMoreOptions = maxOptions < options.length;
+
   return (
     <Panel
       header={(
-        <Field
+        <Title
           name={name}
-          subscription={subscription}
-          component={Title}
-          options={options}
-          label={label}
+          filter={filter}
+          getOptions={getOptions}
           disabled={disabled}
         />
       )}
+      collapsed={collapsed}
+      setCollapsed={onCollapsedChange}
     >
-      {options.map(option => (
+      {options.map((option, index) => (index < maxOptions ? (
         <Field
           key={seed(option)}
           name={name}
@@ -124,10 +177,36 @@ function MultiChoiceFilter({
           getTotal={getTotal}
           disabled={disabled}
         />
-      ))}
+      ) : null))}
+
+      {hasMoreOptions ? (
+        <button
+          type="button"
+          className="btn btn-link btn-link-inline"
+          onClick={moreOptions}
+        >
+          Plus d&apos;options
+        </button>
+      ) : null}
+
+      {!hasMoreOptions && maxOptions > OPTIONS_PAGE_SIZE ? (
+        <button
+          type="button"
+          className="btn btn-link btn-link-inline"
+          onClick={lessOptions}
+        >
+          Moins d&apos;options
+        </button>
+      ) : null}
+
       <OnChange name={name}>{onChange}</OnChange>
     </Panel>
   );
 }
 
-export default React.memo(MultiChoiceFilter);
+const exported = React.memo(MultiChoiceFilter);
+
+// React.memo lose statics
+exported.Preview = Preview;
+
+export default exported;

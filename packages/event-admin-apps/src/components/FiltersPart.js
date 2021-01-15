@@ -1,16 +1,10 @@
-import _ from 'lodash';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
-import { useLatest, useUpdateEffect } from 'react-use';
-import { useHistory } from 'react-router';
 import { useInfiniteQuery, useQuery } from 'react-query';
-import qs from 'qs';
-import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import {
   DateRangeFilter,
   Filters,
-  FiltersProvider,
   MultiChoiceFilter,
 } from '@openagenda/react-filters';
 import { useApiClient } from '@openagenda/react-shared';
@@ -28,19 +22,11 @@ const messages = defineMessages({
 });
 
 function FiltersPart({
-  agenda,
-  agendaSchema,
-  standardsFilters,
-  additionalsFilters,
-  onFilterChange,
-  query,
+  agenda, standardsFilters, additionalsFilters, query
 }) {
   const intl = useIntl();
-  const history = useHistory();
   const apiClient = useApiClient();
   const res = useSelector(state => state.res);
-
-  const filtersFormRef = useRef();
 
   const filtersQuery = useQuery(
     'filters-base',
@@ -64,7 +50,11 @@ function FiltersPart({
       res.jsonExport,
       agenda,
       [...standardsFilters, ...additionalsFilters],
-      query,
+      {
+        ...query,
+        sort: 'updatedAt.desc',
+        detailed: true,
+      },
       pageParam
     ),
     {
@@ -76,9 +66,6 @@ function FiltersPart({
 
   const { aggregations: filterAggs } = filtersQuery.data;
   const { aggregations } = data.pages[0];
-
-  const [initialQuery] = useState(query);
-  const latestQuery = useLatest(query);
 
   const [moreFilters, setMoreFilters] = useState(() => {
     const names = additionalsFilters.map(v => v.name);
@@ -133,58 +120,13 @@ function FiltersPart({
     [filterAggs]
   );
 
-  // TODO moreOptions
-
   const toggleMoreFilters = useCallback(
     () => setMoreFilters(prevState => !prevState),
     []
   );
 
-  const validate = useCallback(
-    values => {
-      try {
-        validateQuery(values, agendaSchema);
-      } catch (e) {
-        console.log('Filters validation error:', e);
-      }
-    },
-    [agendaSchema]
-  );
-
-  useUpdateEffect(() => {
-    const search = qs.stringify(latestQuery.current, {
-      addQueryPrefix: true,
-      arrayFormat: 'brackets',
-    });
-
-    if (history.location.search !== search) {
-      const baseQuery = qs.parse(history.location.search, {
-        ignoreQueryPrefix: true,
-      });
-      const cleanQuery = _.pick(
-        validateQuery(baseQuery, agendaSchema),
-        Object.keys(baseQuery)
-      );
-
-      filtersFormRef.current.initialize(cleanQuery);
-    }
-  }, [
-    additionalsFilters,
-    agenda,
-    agendaSchema,
-    history.location,
-    latestQuery,
-    standardsFilters,
-  ]);
-
   return (
-    <FiltersProvider
-      onSubmit={onFilterChange}
-      initialValues={initialQuery}
-      validate={validate}
-      locale={intl.locale}
-      ref={filtersFormRef}
-    >
+    <>
       <div className="oa-collapse">
         <Filters
           filters={standardsFilters}
@@ -220,7 +162,7 @@ function FiltersPart({
           </div>
         ) : null}
       </div>
-    </FiltersProvider>
+    </>
   );
 }
 

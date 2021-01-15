@@ -1,14 +1,157 @@
 {
-  "EventAdminApp.Dashboard.aggregatedFrom": null,
-  "EventAdminApp.Dashboard.createdBy": null,
-  "EventAdminApp.Dashboard.totalEvents": [
+  "EventAdminApp.Dashboard.aggregatedFrom": [
     {
       "type": 0,
-      "value": "Total des événements: "
+      "value": "Aggrégé depuis "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.Dashboard.createdBy": [
+    {
+      "type": 0,
+      "value": "Créé par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.Dashboard.filters": [
+    {
+      "type": 0,
+      "value": "Filtres"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalEvents": [
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalWithFilters": [
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "selection"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " / "
+    },
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
     },
     {
       "type": 1,
-      "value": "value"
+      "value": "filters"
     }
   ],
   "EventAdminApp.FiltersPart.lessFilters": [

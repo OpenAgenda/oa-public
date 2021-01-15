@@ -1,7 +1,9 @@
 {
   "EventAdminApp.Dashboard.aggregatedFrom": "",
   "EventAdminApp.Dashboard.createdBy": "",
+  "EventAdminApp.Dashboard.filters": "",
   "EventAdminApp.Dashboard.totalEvents": "",
+  "EventAdminApp.Dashboard.totalWithFilters": "",
   "EventAdminApp.FiltersPart.lessFilters": "",
   "EventAdminApp.FiltersPart.moreFilters": "",
   "EventAdminApp.messages.states.controlled": "",

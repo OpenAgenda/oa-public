@@ -1,4 +1,9 @@
 {
+  "ReactFilters.DateRangeFilter.dateRange": "Du {startDate, time, ::yyyyMMdd} au {endDate, time, ::yyyyMMdd}",
+  "ReactFilters.DateRangeFilter.endDate": "Fin",
+  "ReactFilters.DateRangeFilter.singleDate": "{date, time, ::yyyyMMdd}",
+  "ReactFilters.DateRangeFilter.startDate": "Début",
+  "ReactFilters.ValueBadge.removeFilter": "Supprimer le filtre",
   "ReactFilters.dateRanges.currentMonth": "Ce mois-ci",
   "ReactFilters.dateRanges.currentWeek": "Cette semaine",
   "ReactFilters.dateRanges.thisWeekend": "Ce week-end",
@@ -10,9 +15,5 @@
   "ReactFilters.messages.filterTitles.region": "Région",
   "ReactFilters.messages.filterTitles.state": "Statut",
   "ReactFilters.messages.filterTitles.timings": "Horaires",
-  "ReactFilters.messages.filterTitles.updatedAt": "Date de mise à jour",
-  "ReactShared.DateRangeFilter.dateRange": "Du {startDate, time, ::yyyyMMdd} au {endDate, time, ::yyyyMMdd}",
-  "ReactShared.DateRangeFilter.endDate": "Fin",
-  "ReactShared.DateRangeFilter.singleDate": "{date, time, ::yyyyMMdd}",
-  "ReactShared.DateRangeFilter.startDate": "Début"
+  "ReactFilters.messages.filterTitles.updatedAt": "Date de mise à jour"
 }

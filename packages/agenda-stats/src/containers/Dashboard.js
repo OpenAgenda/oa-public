@@ -197,13 +197,13 @@ function FiltersPart({ agenda, agendaSchema }) {
     <FiltersProvider
       onSubmit={onFilterChange}
       initialValues={initialQuery}
-      locale={intl.locale}
+      intl={intl}
       ref={filtersFormRef}
     >
       <div className="oa-collapse">
         <Filters
           filters={standardsFilters}
-          loading={loading}
+          disabled={loading}
           dateRangeComponent={DateRangeFilter}
           checkboxComponent={MultiChoiceFilter}
           radioComponent={MultiChoiceFilter}
@@ -213,7 +213,7 @@ function FiltersPart({ agenda, agendaSchema }) {
         {moreFilters ? (
           <Filters
             filters={additionalsFilters}
-            loading={loading}
+            disabled={loading}
             dateRangeComponent={DateRangeFilter}
             checkboxComponent={MultiChoiceFilter}
             radioComponent={MultiChoiceFilter}

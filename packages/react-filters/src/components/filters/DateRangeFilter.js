@@ -1,30 +1,30 @@
 import React, { useCallback, useMemo } from 'react';
-import { Field, useForm } from 'react-final-form';
+import { Field, useForm, useField } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 import { endOfDay, isSameDay } from 'date-fns';
-import useFilterTitle from '../../../hooks/useFilterTitle';
-import Panel from '../../Panel';
-import DateRangePicker from '../../fields/DateRangePicker';
-import dateRanges from './dateRanges';
+import useFilterTitle from '../../hooks/useFilterTitle';
+import Panel from '../Panel';
+import ValueBadge from '../ValueBadge';
+import DateRangePicker from '../fields/DateRangePicker';
 
 const messages = defineMessages({
   singleDate: {
-    id: 'ReactShared.DateRangeFilter.singleDate',
+    id: 'ReactFilters.DateRangeFilter.singleDate',
     defaultMessage: '{date, time, ::yyyyMMdd}',
   },
   dateRange: {
-    id: 'ReactShared.DateRangeFilter.dateRange',
+    id: 'ReactFilters.DateRangeFilter.dateRange',
     defaultMessage:
       'From {startDate, time, ::yyyyMMdd} to {endDate, time, ::yyyyMMdd}',
   },
   startDate: {
-    id: 'ReactShared.DateRangeFilter.startDate',
+    id: 'ReactFilters.DateRangeFilter.startDate',
     defaultMessage: 'Start',
   },
   endDate: {
-    id: 'ReactShared.DateRangeFilter.endDate',
+    id: 'ReactFilters.DateRangeFilter.endDate',
     defaultMessage: 'End',
   },
 });
@@ -77,36 +77,26 @@ function parseValue(value) {
     lte: selection.endDate ? endOfDay(selection.endDate) : selection.endDate,
   };
 }
-function ValuePreview({ value, input, disabled }) {
-  const removeValue = useCallback(
-    e => {
-      e.stopPropagation();
 
-      input.onChange(undefined);
-    },
-    [input]
-  );
-
+function DefaultPreviewRenderer({
+  label, onRemove, disabled, className
+}) {
   return (
-    <div className="badge badge-info">
-      {value}
-      <button
-        type="button"
-        className="btn btn-link btn-link-inline margin-left-xs"
-        disabled={disabled}
-        onClick={removeValue}
-      >
-        <i className="fa fa-times" aria-hidden="true" />
-      </button>
-    </div>
+    <span className={className}>
+      <ValueBadge label={label} onRemove={onRemove} disabled={disabled} />
+    </span>
   );
 }
 
-function Title({
-  input, staticRanges, label, disabled
+function Preview({
+  name,
+  staticRanges,
+  component = DefaultPreviewRenderer,
+  disabled,
+  ...rest
 }) {
   const intl = useIntl();
-  const title = useFilterTitle(input.name, { label });
+  const { input } = useField(name, { subscription });
 
   const selectedStaticRange = useMemo(() => {
     const formattedValue = formatValue(input.value)[0];
@@ -120,16 +110,29 @@ function Title({
     [input.value]
   );
 
-  if (!input?.value) {
-    return <div>{title}</div>;
+  const onRemove = useCallback(
+    e => {
+      e.stopPropagation();
+
+      if (disabled) {
+        return;
+      }
+
+      input.onChange(undefined);
+    },
+    [input, disabled]
+  );
+
+  let label;
+
+  if (!input.value || input.value === '') {
+    return null;
   }
 
-  let value;
-
   if (selectedStaticRange) {
-    value = selectedStaticRange.label;
+    label = selectedStaticRange.label;
   } else {
-    value = singleDay
+    label = singleDay
       ? intl.formatMessage(messages.singleDate, { date: input.value.gte })
       : intl.formatMessage(messages.dateRange, {
         startDate: input.value.gte,
@@ -137,31 +140,59 @@ function Title({
       });
   }
 
+  return React.createElement(component, {
+    name,
+    staticRanges,
+    label,
+    onRemove,
+    disabled,
+    ...rest,
+  });
+}
+
+function Title({
+  name, filter, staticRanges, disabled
+}) {
+  const title = useFilterTitle(name, filter.fieldSchema);
+  const { input } = useField(name, { subscription });
+
+  if (!input.value || input.value === '') {
+    return <div>{title}</div>;
+  }
+
   return (
     <div className="flex-auto">
       {title}
-      <div className="oa-filter-value-preview">
-        <ValuePreview value={value} input={input} disabled={disabled} />
-      </div>
+      <Preview
+        name={name}
+        filter={filter}
+        title={title}
+        staticRanges={staticRanges}
+        disabled={disabled}
+        className="oa-filter-value-preview"
+      />
     </div>
   );
 }
 
-function DateRangeFilter({ name, disabled }) {
+function DateRangeFilter({
+  name,
+  filter,
+  disabled,
+  staticRanges,
+  inputRanges,
+}) {
   const intl = useIntl();
   const form = useForm();
-
-  const { staticRanges, inputRanges } = useMemo(() => dateRanges(intl), [intl]);
 
   const { callback: onChange } = useDebouncedCallback(() => form.submit(), 1);
 
   return (
     <Panel
       header={(
-        <Field
+        <Title
           name={name}
-          subscription={subscription}
-          component={Title}
+          filter={filter}
           staticRanges={staticRanges}
           disabled={disabled}
         />
@@ -183,4 +214,9 @@ function DateRangeFilter({ name, disabled }) {
   );
 }
 
-export default React.memo(DateRangeFilter);
+const exported = React.memo(DateRangeFilter);
+
+// React.memo lose statics
+exported.Preview = Preview;
+
+export default exported;

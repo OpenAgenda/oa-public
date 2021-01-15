@@ -5,9 +5,12 @@ import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { useConstant } from '@openagenda/react-shared';
+import { useConstant, mergeLocales } from '@openagenda/react-shared';
+import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import eventsReducer from '../reducers/events';
-import locales from '../locales-compiled';
+import appLocales from '../locales-compiled';
+
+const locales = mergeLocales(appLocales, reactFiltersLocales);
 
 function App({
   route, agenda, agendaSchema, role, lang, filtersContainerRef
