@@ -13,6 +13,7 @@ module.exports.to = async (service, ae) => {
   const { client } = service;
 
   const legacyState = toLegacyState(ae.state);
+  log('legacy state %s', legacyState);
 
   const data = {
     state: legacyState.state,
@@ -22,6 +23,7 @@ module.exports.to = async (service, ae) => {
   }
 
   if (ae.userUid) {
+    log('adding reference to user uid %s', ae.userUid);
     data.user_id = _.get(await client('user')
       .first('id')
       .where('uid', ae.userUid),
@@ -214,13 +216,15 @@ async function _getLegacyId(client, ae) {
     .first('id')
     .where('uid', ae.agendaUid),
     'id'
- );
+  );
+  log('agenda id %s', agendaId);
 
   const eventId = _.get(await client('event')
     .first('id')
     .where('uid', ae.eventUid),
     'id'
- );
+  );
+  log('legacy event id %s', eventId);
 
   return _.get(await client('review_article')
     .first('id')
