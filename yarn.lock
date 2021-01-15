@@ -6166,7 +6166,7 @@ __metadata:
     react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-intl: ^5.8.2
-    react-query: ^2.5.8
+    react-query: ^3.5.12
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
@@ -6182,6 +6182,7 @@ __metadata:
     "@loadable/component": ^5.12.0
     final-form: ^4.18.5
     react: ^16.12.0
+    react-dom: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -6701,6 +6702,8 @@ __metadata:
     qs: ^6.9.4
     react: ^16.13.1
     react-dom: ^16.13.1
+    react-final-form: ^6.4.0
+    react-final-form-listeners: ^1.0.2
     react-hot-loader: ^4.12.20
     react-intl: ^5.8.2
     react-query: ^3.5.6
@@ -6715,6 +6718,7 @@ __metadata:
     redux: ^4.0.5
     regenerator-runtime: ^0.13.5
     rimraf: ^3.0.1
+    use-debounce: ^5.0.3
     webpack: ^4.43.0
   peerDependencies:
     "@loadable/component": ^5.12.0
@@ -14690,6 +14694,7 @@ __metadata:
     source-map-support: ^0.5.19
     superagent: ^3.8.2
     turndown: ^5.0.3
+    type-is: ^1.6.18
     uuid: ^3.4.0
     validator: ^7.0.0
     verror: ^1.10.0
@@ -34690,6 +34695,23 @@ __metadata:
   peerDependencies:
     react: ^16.8.0
   checksum: 903ac54016f13f8712a1de83ceb20c3d8ccb094fd1defa940b01001500a4875d1098b1c5e82227f2256cfbf85278f904c6672f621a5d42ead98dfeae1e930ae1
+  languageName: node
+  linkType: hard
+
+"react-query@npm:^3.5.12":
+  version: 3.5.12
+  resolution: "react-query@npm:3.5.12"
+  dependencies:
+    "@babel/runtime": ^7.5.5
+    match-sorter: ^6.0.2
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: dd17432824325b4e04876f1d08fb94f7e455964bac871f2b0be5f9eee8b3a1f37c2f5b60560ba43cd9e9e54a753c3a3e6347ea46a9ad653be1159f895f421d73
   languageName: node
   linkType: hard
 
