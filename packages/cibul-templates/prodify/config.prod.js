@@ -55,6 +55,7 @@ module.exports = ( { entry, output } ) => ({
     maxAssetSize: 2000000
   },
   optimization: {
+    // minimize: false,
     minimizer: [
       new TerserPlugin( {
         cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
