@@ -19,14 +19,17 @@ const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
 const addCalendarLinks = require('../services/events/lib/addCalendarLinks');
-const eventsSvc = require('../services/events');
-const membersSvc = require('../services/members');
-const sessions = require('../services/sessions');
 const gaTrack = require('../lib/gaTrack.mw');
 const ics = require('../services/events/lib/ics');
 const getLocaleValue = require('../services/events/lib/getLocaleValue');
 
 module.exports = app => {
+  const {
+    events: eventsSvc,
+    members: membersSvc,
+    sessions
+  } = app.services;
+
   app.get(
     '/:slug/events/:eventSlug/action',
     cmn.https,
@@ -141,6 +144,10 @@ module.exports = app => {
 
 
 function actionShow(req, res, next) {
+  const {
+    sessions
+  } = req.app.services;
+  
   const loaders = {
     calendars: _calendarAction,
     agendas: _agendasAction,
