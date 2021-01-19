@@ -159,6 +159,12 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       expect(event.thematique).toBe(2);
       expect(event.note).toBe('Une note interne pour les administrateurs');
     });
+
+    it('administrator access includes event public fields in response', async () => {
+      const event = await core.agendas(2).events.get(1, { access: 'administrator' });
+
+      expect(event.locationUid).toBe(1);
+    });
   });
 
   describe('get with option returnPayload: true', () => {
