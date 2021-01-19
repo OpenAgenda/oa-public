@@ -40,7 +40,7 @@
   "EventAdminApp.Dashboard.searchPlaceholders": [
     {
       "type": 0,
-      "value": "Search an event"
+      "value": "Search"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
