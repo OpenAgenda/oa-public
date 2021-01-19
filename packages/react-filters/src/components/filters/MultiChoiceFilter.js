@@ -23,6 +23,18 @@ const messages = defineMessages({
     id: 'ReactFilters.MultiChoiceFilter.noResult',
     defaultMessage: 'No result',
   },
+  searchPlaceholder: {
+    id: 'ReactFilters.MultiChoiceFilter.searchPlaceholder',
+    defaultMessage: 'Search',
+  },
+  moreOptions: {
+    id: 'ReactFilters.MultiChoiceFilter.moreOptions',
+    defaultMessage: 'More options',
+  },
+  lessOptions: {
+    id: 'ReactFilters.MultiChoiceFilter.lessOptions',
+    defaultMessage: 'Less options',
+  },
 });
 
 const subscription = { value: true };
@@ -225,7 +237,7 @@ function MultiChoiceFilter({
           className="form-control input-sm margin-top-xs"
           value={optionSearch}
           onChange={onSearchChange}
-          placeholder="Rechercher"
+          placeholder={intl.formatMessage(messages.searchPlaceholder)}
           css={css`
             width: 50%;
           `}
@@ -261,7 +273,7 @@ function MultiChoiceFilter({
           className="btn btn-link btn-link-inline"
           onClick={moreOptions}
         >
-          Plus d&apos;options
+          {intl.formatMessage(messages.moreOptions)}
         </button>
       ) : null}
 
@@ -271,7 +283,7 @@ function MultiChoiceFilter({
           className="btn btn-link btn-link-inline"
           onClick={lessOptions}
         >
-          Moins d&apos;options
+          {intl.formatMessage(messages.lessOptions)}
         </button>
       ) : null}
 

@@ -62,6 +62,30 @@
       "value": "Début"
     }
   ],
+  "ReactFilters.MultiChoiceFilter.lessOptions": [
+    {
+      "type": 0,
+      "value": "Moins d'options"
+    }
+  ],
+  "ReactFilters.MultiChoiceFilter.moreOptions": [
+    {
+      "type": 0,
+      "value": "Plus d'options"
+    }
+  ],
+  "ReactFilters.MultiChoiceFilter.noResult": [
+    {
+      "type": 0,
+      "value": "Aucun résultat"
+    }
+  ],
+  "ReactFilters.MultiChoiceFilter.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "Rechercher"
+    }
+  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
