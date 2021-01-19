@@ -27,6 +27,12 @@ import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
 import getLocaleValue from '../utils/getLocaleValue';
 
+const searchSpinner = {
+  width: 1,
+  length: 3,
+  radius: 4,
+};
+
 const messages = defineMessages({
   totalEvents: {
     id: 'EventAdminApp.Dashboard.totalEvents',
@@ -51,15 +57,12 @@ const messages = defineMessages({
     defaultMessage: 'Filters',
   },
   searchPlaceholder: {
-    id: 'EventAdminApp.Dashboard.searchPlaceholders',
+    id: 'EventAdminApp.Dashboard.searchPlaceholder',
     defaultMessage: 'Search',
   },
 });
 
-function SearchField({
-  input,
-  // meta
-}) {
+function SearchField({ input, disabled, isLoading }) {
   const intl = useIntl();
 
   return (
@@ -73,23 +76,35 @@ function SearchField({
         <input
           placeholder={intl.formatMessage(messages.searchPlaceholder)}
           className="form-control"
+          // disabled={disabled}
           {...input}
         />
-        <button type="submit" className="btn">
-          <i className="fa fa-search" aria-hidden="true" />
+        <button type="submit" className="btn" disabled={disabled}>
+          {isLoading ? (
+            <Spinner options={searchSpinner} />
+          ) : (
+            <i className="fa fa-search" aria-hidden="true" />
+          )}
         </button>
       </div>
     </div>
   );
 }
 
-function SearchFilter() {
+function SearchFilter({ disabled, isLoading }) {
   const form = useForm();
+
   const { callback: onChange } = useDebouncedCallback(() => form.submit(), 400);
 
   return (
     <>
-      <Field component={SearchField} name="search" type="text" />
+      <Field
+        component={SearchField}
+        name="search"
+        type="text"
+        isLoading={isLoading}
+        disabled={disabled}
+      />
 
       <OnChange name="search">{onChange}</OnChange>
     </>
@@ -139,6 +154,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const {
     data,
     isLoading,
+    isFetching,
     error,
     isFetchingNextPage,
     fetchNextPage,
@@ -160,7 +176,13 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     ),
     {
       staleTime: 1000,
-      notifyOnChangeProps: ['data', 'isLoading', 'error', 'isFetchingNextPage'],
+      notifyOnChangeProps: [
+        'data',
+        'isLoading',
+        'isFetching',
+        'error',
+        'isFetchingNextPage',
+      ],
       keepPreviousData: true, // because query change,
       onSuccess: () => {
         const search = qs.stringify(query, {
@@ -257,7 +279,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           line-height: 26px;
         `}
       >
-        <SearchFilter />
+        <SearchFilter disabled={isFetching} isLoading={isFetching} />
 
         {hasQuery
           ? intl.formatMessage(messages.totalWithFilters, {

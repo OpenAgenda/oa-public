@@ -2,7 +2,7 @@
   "EventAdminApp.Dashboard.aggregatedFrom": "Aggrégé depuis <link>{title}</link>",
   "EventAdminApp.Dashboard.createdBy": "Créé par <link>{name}</link>",
   "EventAdminApp.Dashboard.filters": "Filtres",
-  "EventAdminApp.Dashboard.searchPlaceholders": "Rechercher",
+  "EventAdminApp.Dashboard.searchPlaceholder": "Rechercher",
   "EventAdminApp.Dashboard.totalEvents": "<strong>{total, number}</strong> {total, plural, =0 {événement} one {événements} other {événements}}",
   "EventAdminApp.Dashboard.totalWithFilters": "<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {événement} one {événements} other {événements}}{filters}",
   "EventAdminApp.FiltersPart.lessFilters": "Afficher moins de filtres",
