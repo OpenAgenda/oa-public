@@ -291,6 +291,26 @@ describe('events - functional - create', function() {
 
     });
 
+    it('fix: DHM timing with hours value at 0 is valid', async () => {
+      await svc.create({
+        title: 'Event with datehourminutes timing',
+        description: 'Nope',
+        eventAttendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timings: [{
+          begin: {
+            date: '2020-10-21',
+            hours: 0,
+            minutes: 0
+          },
+          end: {
+            date: '2020-10-21',
+            hours: 23,
+            minutes: 59
+          }
+        }]
+      });
+    });
   });
 
 })
