@@ -15,6 +15,7 @@ const {
 
 const fixtures = require('./fixtures');
 const Service = require('../');
+const create = require('../create');
 
 const data = {
   title: 'An event',
@@ -24,7 +25,9 @@ const data = {
   timings: [{
     begin: '2020-11-30T08:00:00.000Z',
     end: '2020-11-30T10:00:00.000Z'
-  }]
+  }],
+  conditions: 'Free',
+  keywords: ['One', 'Two', 'Three']
 };
 
 describe('events - functional - create', function() {
@@ -66,6 +69,14 @@ describe('events - functional - create', function() {
         .then(r => r.title)
 
       assert.equal(title, '{"en":"An event"}');
+    });
+
+    it('conditions and keywords are set', () => {
+      assert.equal(created.conditions.en, 'Free');
+
+      assert.deepEqual(created.keywords, {
+        en: ['One', 'Two', 'Three']
+      });
     });
   });
 

@@ -183,7 +183,8 @@ module.exports = [{
   read: ['internal', 'public'],
   db: {
     type: 'json'
-  }
+  },
+  fieldType: 'text'
 }, {
   field: 'age',
   fieldType: 'age',
