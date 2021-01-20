@@ -48,10 +48,6 @@ class UpdateForm extends React.Component {
 
     return (
       <LocationForm
-        postRes={res.update.replace(
-          ':locationUid',
-          formState.location.uid
-        )}
         Header={this.renderHeader()}
         labels={labels}
         showToggler
@@ -63,6 +59,10 @@ class UpdateForm extends React.Component {
         onCancel={actions.closeForm}
         onSuccess={actions.updateEditedLocation}
         enableGeocode={enableGeocode}
+        postRes={res.update.replace(
+          ':locationUid',
+          formState.location.uid
+        )}
       />
     );
   }

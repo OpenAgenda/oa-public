@@ -71,13 +71,14 @@ class LocationConfirmation extends Component {
     return (
       <div>
         <div className="margin-top-md">
-          <label>{getLabel('guide', lang)}</label>
+          <label htmlFor="guide">{getLabel('guide', lang)}</label>
           <p>{getLabel('guideDetail', lang)}</p>
         </div>
         <div className="info-block margin-bottom-md text-center">
           <div>
             <a
               target="_blank"
+              rel="noopener noreferrer"
               href={res.suggestChange.replace(':locationUid', location.uid)}
               onClick={() => this.setState({ suggestChangeMessage: true })}
               className="btn btn-default margin-h-sm margin-bottom-sm"
@@ -104,11 +105,12 @@ class LocationConfirmation extends Component {
           </div>
         </div>
         <div className="margin-bottom-md">
-          <label>{location.name}</label>
+          <label htmlFor="location-name">{location.name}</label>
           <p title={getLabel('hoverInfo', lang)}>{location.address}</p>
           <a
             title={getLabel('hoverInfo', lang)}
             target="_blank"
+            rel="noopener noreferrer"
             href={`https://www.openstreetmap.org/?mlat=${location.latitude}&mlon=${location.longitude}#map=17/${location.latitude}/${location.longitude}`}
           >
             <img
@@ -121,13 +123,13 @@ class LocationConfirmation extends Component {
         <div className="margin-top-sm" title={getLabel('hoverInfo', lang)}>
           <ul className="list-inline">
             {extraGeoFields.map(f => (
-              <li key={'geo-' + f}>
+              <li key={`geo-${f}`}>
                 <div
                   className={
-                    'badge badge-default margin-bottom-xs ' +
-                    (location[f]
+                    `badge badge-default margin-bottom-xs
+                    ${(location[f]
                       ? 'badge-outline-primary'
-                      : 'badge-outline-default')
+                      : 'badge-outline-default')}`
                   }
                 >
                   <span>
@@ -142,14 +144,14 @@ class LocationConfirmation extends Component {
         {settings.tagSet
           ? flattenTagSetLabels(settings.tagSet, lang).groups.map(
             (group, i) => (
-              <div key={'tag-group-' + i} className="margin-top-sm">
-                <label>{group.name}</label>
+              <div key={`tag-group-${i}`} className="margin-top-sm">
+                <label htmlFor="group-name">{group.name}</label>
                 <ul
                   className="list-unstyled"
                   title={getLabel('hoverInfo', lang)}
                 >
                   {group.tags.map(tag => (
-                    <li key={'tag-' + tag.id}>
+                    <li key={`tag-${tag.id}`}>
                       <div
                         className={
                           (location.tags || []).filter(t => t.id === tag.id)
@@ -169,25 +171,25 @@ class LocationConfirmation extends Component {
           : null}
         <ul className="list-unstyled" title={getLabel('hoverInfo', lang)}>
           <li>
-            <label>{getFormLabel('phone', lang)} </label>:{' '}
+            <label htmlFor="phone">{getFormLabel('phone', lang)} </label>:{' '}
             <span>{location.phone || <i>{getLabel('noValue', lang)}</i>}</span>
           </li>
           <li>
-            <label>{getFormLabel('email', lang)} </label>:{' '}
+            <label htmlFor="email">{getFormLabel('email', lang)} </label>:{' '}
             <span>{location.email || <i>{getLabel('noValue', lang)}</i>}</span>
           </li>
           <li>
-            <label>{getFormLabel('website', lang)} </label>:{' '}
+            <label htmlFor="website">{getFormLabel('website', lang)} </label>:{' '}
             <span>
               {location.website || <i>{getLabel('noValue', lang)}</i>}
             </span>
           </li>
           <li>
-            <label>{getFormLabel('links', lang)} </label>:
+            <label htmlFor="links">{getFormLabel('links', lang)} </label>:
             {(location.links || []).length ? (
               location.links.map((l, i) => (
-                <div className="margin-bottom-xs" key={'l-link-' + i}>
-                  <a target="_blank" href={l}>
+                <div className="margin-bottom-xs" key={`l-link-${i}`}>
+                  <a target="_blank" rel="noopener noreferrer" href={l}>
                     {l}
                   </a>
                 </div>
@@ -199,7 +201,7 @@ class LocationConfirmation extends Component {
         </ul>
 
         <div className="padding-v-sm" title={getLabel('hoverInfo', lang)}>
-          <label>{getLabel('image', lang)}</label>
+          <label htmlFor="image">{getLabel('image', lang)}</label>
           {location.image ? (
             <img className="img-responsive" src={location.image} alt="" />
           ) : (
@@ -223,8 +225,8 @@ class LocationConfirmation extends Component {
           </ul>
           <div className="padding-top-md" title={getLabel('hoverInfo', lang)}>
             {['description', 'access'].map(mlField => (
-              <div key={'field-' + mlField}>
-                <label>{getLabel(mlField, lang)}</label>
+              <div key={`field-${mlField}`}>
+                <label htmlFor="mlField">{getLabel(mlField, lang)}</label>
                 <p>
                   {location[mlField] && location[mlField][contentLang] ? (
                     location[mlField][contentLang]

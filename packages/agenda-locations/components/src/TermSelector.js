@@ -7,20 +7,22 @@ import Select from 'react-select';
 class TermSelector extends React.Component {
   static defaultProps = {
     lang: 'en',
+    placeholder: null
   };
 
   static propTypes = {
+    placeholder: PropTypes.string,
     // interface language
     lang: PropTypes.string,
     // currently selected term
-    // value: PropTypes.obj,
+    value: PropTypes.string.isRequired,
     // field from which to extract terms
     // for more than one field, comma-separate.
     field: PropTypes.string.isRequired,
     // ressource to fetch terms
-    res: PropTypes.string,
+    res: PropTypes.string.isRequired,
     // callback to go to when change is made
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -35,13 +37,15 @@ class TermSelector extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps({ field }) {
-    if (this.props.field === field) return;
+    const { field: pField } = this.props;
+    if (pField === field) return;
 
     this.setState({ terms: [] });
   }
 
-  componentDidUpdate({ field }, prevState) {
-    if (this.props.field === field) return;
+  componentDidUpdate({ field }) {
+    const { field: pField } = this.props;
+    if (pField === field) return;
 
     this.fetchTerms();
   }
@@ -73,17 +77,16 @@ class TermSelector extends React.Component {
   }
 
   fetchTerms() {
-    const self = this;
-
+    const { res, field } = this.props;
     xhr(
       {
         json: true,
-        uri: `${this.props.res}?field=${this.props.field}`,
+        uri: `${res}?field=${field}`,
       },
       (err, { body }) => {
         if (err) return;
 
-        const firstTerm = self.props.field.split(',')[0];
+        const firstTerm = field.split(',')[0];
 
         const sortedTerms = body.terms.sort((a, b) => {
           if (a[firstTerm] > b[firstTerm]) {
@@ -98,7 +101,7 @@ class TermSelector extends React.Component {
           return 0;
         });
 
-        self.setState({
+        this.setState({
           terms: sortedTerms,
         });
       }
@@ -110,17 +113,16 @@ class TermSelector extends React.Component {
       value: index,
       label: '',
     };
-
+    const { field: pField, lang } = this.props;
     const labelParts = [];
-    const self = this;
 
-    this.props.field.split(',').forEach(field => {
+    pField.split(',').forEach(field => {
       // country is specific as it is multilingual
       if (field === 'country') {
         labelParts.push(
           _.get(
             term.country,
-            self.props.lang,
+            lang,
             term.country[_.first(_.keys(term.country))]
           )
         );
@@ -135,8 +137,8 @@ class TermSelector extends React.Component {
   }
 
   render() {
-    const self = this;
-
+    const { value: pValue, placeholder } = this.props;
+    const { terms } = this.state;
     const selectStyles = {
       container: provided => ({
         ...provided,
@@ -149,21 +151,21 @@ class TermSelector extends React.Component {
         borderLeft: 'none',
       }),
     };
-    const options = this.state.terms.map((t, i) => self.termOption(t, i));
+    const options = terms.map((t, i) => this.termOption(t, i));
     const value = options.find(
       option => option.value
-        === (this.getTermIndex(this.props.value) || this.props.value)
+        === (this.getTermIndex(pValue) || pValue)
     );
 
     return (
       <div className="terms-selector">
         <Select
           styles={selectStyles}
-          placeholder={this.props.placeholder || null}
+          placeholder={placeholder || null}
           value={value}
           options={options}
           onChange={value => this.onChange(value ? value.value : value)}
-          clearable={true}
+          clearable
         />
       </div>
     );

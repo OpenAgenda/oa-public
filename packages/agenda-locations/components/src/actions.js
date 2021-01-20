@@ -205,7 +205,7 @@ function displayRemoveConfirmModal(state, location, index) {
   };
 }
 
-function closeModal(state) {
+function closeModal() {
   return {
     modal: false,
   };

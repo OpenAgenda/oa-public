@@ -77,7 +77,7 @@ class LocationSearch extends React.Component {
     });
   }
 
-  onListLoaded(total) {
+  onListLoaded() {
     this.setState({
       loading: false,
       showDropdown: true,

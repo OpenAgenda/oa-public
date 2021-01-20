@@ -22,9 +22,9 @@ class CountryField extends Component {
   }
 
   render() {
-    const { enabled, getLabel } = this.props;
+    const { enabled, getLabel, value: pValue } = this.props;
     const options = this.extractCountryNames();
-    const value = options.find(option => option.value === this.props.value);
+    const value = options.find(option => option.value === pValue);
 
     const selectStyles = {
       menu: provided => ({

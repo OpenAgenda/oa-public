@@ -38,10 +38,10 @@ class CreateFormHeader extends Component {
     return (
       <div className="head">
         {actions && actions.closeForm ? (
-          <a className="btn btn-default" onClick={actions.closeForm}>
+          <button type="button" className="btn btn-default" onClick={actions.closeForm}>
             <i className="fa fa-angle-left margin-right-sm" />
             <span>{this.getLabel('back')}</span>
-          </a>
+          </button>
         ) : null}
         <h2>{this.getLabel('title', lang)}</h2>
         <span className="info">{this.getLabel('info', lang)}</span>

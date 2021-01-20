@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import labels from '@openagenda/labels/agenda-locations/selector';
 import createLabels from '@openagenda/labels/agenda-locations/create';
 import LocationForm from './LocationForm';
@@ -95,12 +94,13 @@ class LocationSelector extends Component {
       <div className="selected-location">
         {!disableChange ? (
           <div className="actions">
-            <a
+            <button
+              type="button"
               onClick={this.switchToSearch}
               className="btn btn-default"
             >
               {this.getLabel(location ? 'change' : 'find')}
-            </a>
+            </button>
           </div>
         ) : null}
         {location ? (
@@ -122,6 +122,7 @@ class LocationSelector extends Component {
       location, res, lang, allowCreate
     } = this.props;
     const confirmRequired = !!_.get(this.props, 'confirmRequired');
+    const onSelect = this.onSelect.bind(this, confirmRequired);
     return (
       <LocationSearch
         init={location ? location.name : ''}
@@ -130,7 +131,7 @@ class LocationSelector extends Component {
         allowCreate={allowCreate}
         getLabel={this.getLabel}
         onCreateRequest={this.onCreateRequest}
-        onSelect={this.onSelect.bind(this, confirmRequired)}
+        onSelect={onSelect}
       />
     );
   }
@@ -148,21 +149,21 @@ class LocationSelector extends Component {
     } = this.props;
     return (
       <LocationForm
-        postRes={res.create}
         Header={this.renderHeader()}
-        settings={settings}
+        labels={createLabels}
+        res={res}
+        lang={lang}
+        location={location}
         detailedInfo={
           (settings.eventForm
             && settings.eventForm.detailed)
             || detailedInfo
         }
-        res={res}
-        enableGeocode={enableGeocode}
-        lang={lang}
+        settings={settings}
         onCancel={this.switchToSearch}
         onSuccess={this.onSelect}
-        labels={createLabels}
-        location={location}
+        enableGeocode={enableGeocode}
+        postRes={res.create}
       />
     );
   }

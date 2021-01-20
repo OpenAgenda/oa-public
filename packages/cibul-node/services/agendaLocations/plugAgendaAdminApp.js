@@ -133,7 +133,8 @@ module.exports = (config, services, instance, app, base) => {
     expressUtils.https,
     (req, res, next) => {
       instance.get(req.params.locationUid, {
-        includeImagePath: true
+        includeImagePath: true,
+        eventCounts: true,
       }).then(location => res.json(location), next);
     }
  );
