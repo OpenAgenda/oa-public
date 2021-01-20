@@ -31,6 +31,10 @@ async function update({ service, isPatch }, current, data, o = {}) {
     clean.image = await processImage(service, clean);
   }
 
+  if (!options.draft && current.draft) {
+    clean.draft = false;
+  }
+
   if (options.useProvidedIdentifiers) {
     Object.assign(clean, {
       uid: data.uid,

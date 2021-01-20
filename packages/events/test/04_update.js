@@ -161,6 +161,20 @@ describe('events - functional - update', function() {
       assert.equal(updatedDraftEvent.title.en, 'Un titre modifié');
     });
 
+    it('undrafting', async () => {
+      const draftEvent = await svc.create({
+        title: 'Un autre titre'
+      }, { draft: true });
+
+      assert.equal(draftEvent.draft, true);
+
+      const undraftedEvent = await svc.patch(draftEvent.uid, data, {
+        draft: false
+      });
+
+      assert.equal(undraftedEvent.draft, false);
+    });
+
     it('fix: patch from DHM format', async () => {
       await svc.patch({ slug: 'exposition-legypte-ancienne' }, {
         timings: [
