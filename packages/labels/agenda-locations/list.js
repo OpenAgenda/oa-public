@@ -186,6 +186,7 @@ module.exports = {
     "it": "%count% eventi associati"
   },
   "seeEvent": {
+    "fr": "Voir les événements",
     "fr": "1 événement associé",
     "en": "1 associated event",
     "de": "1 zugeordneten Veranstaltung",

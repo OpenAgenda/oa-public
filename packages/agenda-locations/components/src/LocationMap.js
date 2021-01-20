@@ -88,7 +88,7 @@ class LocationMap extends Component {
   }
 
   updateMarker() {
-    debug('updateMarker');
+    log('updateMarker');
 
     if (!this.isGeolocated()) return;
 

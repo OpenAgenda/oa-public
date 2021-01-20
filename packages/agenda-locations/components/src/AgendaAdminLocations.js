@@ -22,6 +22,8 @@ import AdminActionModal from './AdminActionModal';
 
 const log = debug('AgendaAdminLocations');
 
+const log = debug('AgendaAdminLocations');
+
 const loaded = {};
 
 class AgendaAdminLocations extends Component {
