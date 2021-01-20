@@ -50,6 +50,7 @@ class LocationForm extends Component {
     onSuccess: PropTypes.func, // takes location and update mode (true if is)
     onCancel: PropTypes.func,
     alternatives: PropTypes.array, // alternative to loaded location values
+    Header: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -93,6 +94,7 @@ class LocationForm extends Component {
   }
 
   UNSAFE_componentWillMount() {
+    log('UNSAFE_componentWillMount');
     this.setState({
       originScrollPosition:
         (window.pageYOffset || document.documentElement.scrollTop)
@@ -101,6 +103,7 @@ class LocationForm extends Component {
   }
 
   componentDidMount() {
+    log('componentDidMount');
     this.setState(
       {
         originScrollPosition:
@@ -125,8 +128,9 @@ class LocationForm extends Component {
     const updated = { location: {} };
 
     updated.location[name] = { $set: value };
+    const newState = update(this.state, updated);
 
-    this.setState(update(this.state, updated));
+    this.setState(newState);
   }
 
   onLanguagesChange(newLanguages) {
@@ -163,15 +167,14 @@ class LocationForm extends Component {
 
   onMarkerDragged(pos) {
     const { enableGeocode } = this.state;
-    this.setState(
-      update(this.state, {
-        autoGeocode: { $set: false },
-        location: {
-          latitude: { $set: pos.latitude },
-          longitude: { $set: pos.longitude },
-        },
-      })
-    );
+    const updated = update(this.state, {
+      autoGeocode: { $set: false },
+      location: {
+        latitude: { $set: pos.latitude },
+        longitude: { $set: pos.longitude },
+      },
+    });
+    this.setState(updated);
 
     if (!enableGeocode) return;
 
@@ -181,16 +184,15 @@ class LocationForm extends Component {
   onAddressChange(name, value) {
     const { autoGeocode, enableGeocode } = this.state;
     if (!autoGeocode || !enableGeocode) {
-      return this.setState(
-        update(this.state, {
-          showGeocodeLink: { $set: true },
-          location: {
-            address: {
-              $set: value,
-            },
+      const updated = update(this.state, {
+        showGeocodeLink: { $set: true },
+        location: {
+          address: {
+            $set: value,
           },
-        })
-      );
+        },
+      });
+      return this.setState(updated);
     }
     // auto-geocode is on; we wait for the user to stop typing away
     // for a short while and we launch the request only if something has been typed.
@@ -236,8 +238,9 @@ class LocationForm extends Component {
     updated.location[field] = { $set: value };
 
     updated.geocodeEdit = { $set: null };
+    const newState = update(this.state, updated);
 
-    this.setState(update(this.state, updated));
+    this.setState(newState);
   }
 
   getLabel(name, values) {
@@ -311,13 +314,15 @@ class LocationForm extends Component {
     };
   }
 
-  set(field, value, ...args) {
+  set(field, value) { //, ...args
+    log('set');
     let clean;
     const { settings } = this.props;
     const { location } = this.state;
 
     // if stuff is given in args, we need to do a partial update only
-    const { data, partial } = this.getSetType([field, value].concat(args));
+    // const { data, partial } = this.getSetType([field, value].concat(args));
+    const { data, partial } = this.getSetType(arguments);
 
     try {
       clean = validate(data, settings, partial);
@@ -337,7 +342,7 @@ class LocationForm extends Component {
 
   post(partial, clean) {
     const { getSetRes, postRes, onSuccess } = this.props;
-    log('post', clean);
+    log('post clean', clean);
     post(
       getSetRes ? getSetRes() : postRes,
       clean,
@@ -352,7 +357,6 @@ class LocationForm extends Component {
         }
 
         this.actions.setSuccess(result.location);
-
         if (result.success) {
           onSuccess(result.location, !partial);
         }
@@ -438,7 +442,8 @@ class LocationForm extends Component {
     );
   }
 
-  updateLocationGeocode(value, setLoading) {
+  updateLocationGeocode(paramValue, setLoading) {
+    let value = paramValue;
     const { res } = this.props;
     const { location: stateLocation } = this.state;
     if (setLoading) {
@@ -498,10 +503,13 @@ class LocationForm extends Component {
           updated.autoGeocode = { $set: true };
           updated.showGeocodeLink = { $set: false };
         } else {
+          log('noresult');
           updated.geocodeNoResults = { $set: true };
         }
-
-        this.setState(update(this.state, updated));
+        log('updated', updated);
+        const newState = update(this.state, updated);
+        this.setState(newState);
+        log('state after geoUpdate', this.state);
       }
     );
   }
@@ -520,12 +528,12 @@ class LocationForm extends Component {
         }
 
         log('retrieved insee: %j', result);
-
-        this.setState({
-          location: _.assign(stateLocation, {
-            insee: _.get(result, 'code'),
-          }),
-        });
+        this.setState(prevState => ({
+          location: {
+            ...prevState.location,
+            insee: _.get(result, 'code')
+          }
+        }));
       }
     );
   }
@@ -686,7 +694,7 @@ class LocationForm extends Component {
       <div className="alternatives checkbox-alternatives">
         <ul>
           <li>
-            {alternative.label ? <label>{alternative.label} </label> : null}
+            {alternative.label ? <label htmlFor="alter-tag">{alternative.label} </label> : null}
             <a
               onClick={e => this.actions.loadTagAlternative(tag, !isInLocation)}
             >
@@ -712,7 +720,7 @@ class LocationForm extends Component {
         }
         return (
           <li
-            key={'image' + i}
+            key={`image${i}`}
             onClick={e =>
               this.actions.loadAlternative(alternatives, 'image', i)
             }
@@ -737,27 +745,28 @@ class LocationForm extends Component {
 
     return (
       <div className="errors">
-        <label>{this.getLabel('submitError')}:</label>
+        <label htmlFor="err-submit">{this.getLabel('submitError')}:</label>
         {errors.map((err, i) => {
           const values = {};
 
           for (const k in err.values) {
             if (Object.prototype.hasOwnProperty.call(err.values, k)) {
-              values[`%${k}%`] = err.values[k];
+              values[`${k}`] = err.values[k];
             }
           }
 
           if (err.group) {
             return (
               <div key={`err${err.id}`}>
-                <label>{err.group[lang]}</label>:{' '}
+                <label htmlFor="required">{err.group[lang]}</label>:{' '}
                 <span>{this.getLabel('required')}</span>
               </div>
             );
           }
+          log(values);
           return (
-            <div key={`err${i}`}>
-              <label>{this.getLabel(err.field) || err.field}</label>:
+            <div key={`err${err.id}`}>
+              <label htmlFor="err-field">{this.getLabel(err.field) || err.field}</label>:
               <span>{this.getLabel(err.code, values)}</span>
             </div>
           );
@@ -774,7 +783,7 @@ class LocationForm extends Component {
           className="btn btn-default"
           type="button"
           onClick={this.updateLocationGeocode.bind(
-            null,
+            this, // null
             location.address,
             true
           )}
@@ -803,7 +812,7 @@ class LocationForm extends Component {
     const {
       lang, displayLanguageTabs, disableNoAlternatives, alternatives, settings, location: propsLocation
     } = this.props;
-    const { location } = this.sate;
+    const { location } = this.state;
     return (
       <div className="form-group">
         <div
@@ -823,7 +832,7 @@ class LocationForm extends Component {
         <InputField
           name="imageCredits"
           enabled={this.isFieldEnabled('imageCredits')}
-          value={location.imageCredits}
+          value={location.imageCredits ? location.imageCredits : undefined}
           getLabel={this.getLabel}
           lang={lang}
           info="imageCreditsInfo"
@@ -968,6 +977,7 @@ class LocationForm extends Component {
     } = this.state;
 
     const geo = {}; // _.pick(this.state.location, );
+    log('RenderGeoDada enableGeocode:', enableGeocode);
 
     ['region', 'department', 'city', 'postalCode', 'insee'].forEach(field => {
       if (enableGeocode && !_.get(this.state, ['location', field])) {
@@ -1030,12 +1040,14 @@ class LocationForm extends Component {
         <ul className="list-inline">
           {_.keys(geo).map(field => (
             <li key={`geo-${field}`}>
-              <a
+              <button
+                type="button"
                 className={
-                  'badge badge-default margin-bottom-xs ' +
-                  (geo[field] && geo[field].length
-                    ? 'badge-outline-primary'
-                    : 'badge-outline-warn')
+                  `badge badge-default margin-bottom-xs ${
+                    (geo[field] && geo[field].length
+                      ? 'badge-outline-primary'
+                      : 'badge-outline-warn')
+                  }`
                 }
                 onClick={() => this.editGeocode(
                   field,
@@ -1046,7 +1058,7 @@ class LocationForm extends Component {
                   {this.getLabel(field)}: {geo[field]}&nbsp;
                 </span>
                 <i className="fa fa-pencil" />
-              </a>
+              </button>
             </li>
           ))}
         </ul>
@@ -1064,7 +1076,7 @@ class LocationForm extends Component {
     log('rendering form with data %j', location);
     return (
       <div ref={r => (this['location-form'] = r)} className="location-form">
-        {Header ? Header : null}
+        {Header}
 
         {showToggler ? (
           <StateToggler
@@ -1174,16 +1186,16 @@ class LocationForm extends Component {
           />
         ) : (
           <div className="form-group">
-            <a
-              className="muted"
-              href="#"
+            <button
+              type="button"
+              className="btn btn-link"
               onClick={e => {
                 e.preventDefault();
                 this.actions.showExtId();
               }}
             >
               {this.getLabel('extIdLink')}
-            </a>
+            </button>
           </div>
         ))}
         {loadingError ? (

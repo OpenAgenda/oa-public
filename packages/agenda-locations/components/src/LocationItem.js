@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 class LocationItem extends Component {
   static propTypes = {
-    merge: PropTypes.bool.isRequired,
+    merge: PropTypes.object,
     location: PropTypes.object.isRequired,
     getLabel: PropTypes.func,
     getCountryLabel: PropTypes.func,
     onSelect: PropTypes.func,
-    onEdit: PropTypes.func,
-    onRemove: PropTypes.func,
+    onEdit: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    seeEventsRes: PropTypes.string
   };
 
   constructor(props) {
@@ -44,7 +45,7 @@ class LocationItem extends Component {
   renderMergeCheckbox() {
     return (
       <div className="checkbox">
-        <label>
+        <label htmlFor="merge-checkbox">
           <input
             ref={r => (this.checkbox = r)}
             type="checkbox"
@@ -120,12 +121,16 @@ class LocationItem extends Component {
               </span>
             ) : null}
             {location.agendaEventCount ? (
-              <a onClick={this.seeEvents}>
+              <button
+                type="button"
+                className="btn btn-link"
+                onClick={this.seeEvents}
+              >
                 {getLabel(
                   location.agendaEventCount === 1 ? 'seeEvent' : 'seeEvents',
                   { count: location.agendaEventCount }
                 )}
-              </a>
+              </button>
             ) : (
               <span className="text-muted">
                 {getLabel('noEvent')}

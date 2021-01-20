@@ -15,6 +15,7 @@ const Files = require('@openagenda/files');
 const multer = require('multer');
 
 const fixtures = require('./test/fixtures');
+const Service = require('.');
 
 (async () => {
   const f = fixtures({
@@ -31,7 +32,7 @@ const fixtures = require('./test/fixtures');
 
   const server = http.createServer(app);
 
-  const svc = require('.')({
+  const svc = Service({
     knex: f.client,
     redis: redis.createClient(),
     Files: Files({
@@ -155,9 +156,11 @@ const fixtures = require('./test/fixtures');
   });
 
   app.get('/:locationUid', (req, res, next) => {
+    log('get for %s detailed %s', req.params.locationUid, req.query.detailed);
     svc(7196947)
       .get(req.params.locationUid, {
         includeImagePath: true,
+        eventCounts: req.query.detailed === '1'
       })
       .then(location => res.json(location), next);
   });

@@ -10,7 +10,7 @@ class TermSelectorPicker extends React.Component {
   };
 
   static propTypes = {
-    value: PropTypes.object,
+    value: PropTypes.object.isRequired,
     lang: PropTypes.string,
     fields: PropTypes.object,
 
@@ -20,8 +20,13 @@ class TermSelectorPicker extends React.Component {
 
     // labels for the field listed
     labels: PropTypes.object,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
   };
+
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
 
   onChange(value) {
     const { onChange } = this.props;
@@ -63,21 +68,20 @@ class TermSelectorPicker extends React.Component {
   }
 
   getFieldOptions() {
-    const self = this;
+    const { fields, labels, lang } = this.props;
 
-    return Object.keys(this.props.fields)
-    .map(function (f) {
-      let label = self.props.labels[f];
-
-      return {
-        value: f,
-        label: _.get(label, self.props.lang, label[_.first(_.keys(label))]),
-      };
-    });
+    return Object.keys(fields)
+      .map(f => {
+        const label = labels[f];
+        return {
+          value: f,
+          label: _.get(label, lang, label[_.first(_.keys(label))]),
+        };
+      });
   }
 
   render() {
-    const { lang, res } = this.props;
+    const { lang, res, value: pValue } = this.props;
     const selectStyles = {
       container: provided => ({
         ...provided,
@@ -104,7 +108,7 @@ class TermSelectorPicker extends React.Component {
           value={value}
           options={options}
           onChange={value => this.onChangeField(value ? value.value : value)}
-          autoBlur={true}
+          autoBlur
           clearable={false}
           searchable={false}
         />
@@ -112,7 +116,7 @@ class TermSelectorPicker extends React.Component {
           res={res}
           lang={lang}
           field={this.getFieldValue()}
-          value={this.props.value[this.getField()]}
+          value={pValue[this.getField()]}
           onChange={this.onChange}
         />
       </div>

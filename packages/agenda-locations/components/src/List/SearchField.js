@@ -14,7 +14,8 @@ class SearchField extends React.Component {
     value: PropTypes.string,
     name: PropTypes.string,
     loading: PropTypes.bool,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    onFocus: PropTypes.func,
   };
 
   constructor(props) {
@@ -22,6 +23,7 @@ class SearchField extends React.Component {
     // Binding
     this.onChange = this.onChange.bind(this);
     this.onFocus = this.onFocus.bind(this);
+    this.onCommit = this.onCommit.bind(this);
   }
 
   onChange(e) {
@@ -57,7 +59,7 @@ class SearchField extends React.Component {
       dynamic, name, label, placeholder, value, loading
     } = this.props;
     return (
-      <div className={dynamic ? 'search-field' : 'search-field input-group' }>
+      <div className={dynamic ? 'search-field' : 'search-field input-group'}>
         <label className="sr-only" htmlFor={name}>{label}</label>
         <input
           placeholder={placeholder}
