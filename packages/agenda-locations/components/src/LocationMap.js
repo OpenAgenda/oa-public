@@ -3,6 +3,8 @@ import debug from 'debug';
 import PropTypes from 'prop-types';
 import L from 'leaflet';
 
+const log = debug('LocationMap');
+
 const defaults = {
   tiles:
       '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
@@ -55,7 +57,7 @@ class LocationMap extends Component {
   }
 
   initMap() {
-    const { scrollable, enabled, defaultZoom} = this.props;
+    const { scrollable, enabled, defaultZoom } = this.props;
     const pos = this.getPos();
     const mapOptions = {
       scrollWheelZoom: scrollable && enabled,
@@ -86,7 +88,7 @@ class LocationMap extends Component {
   }
 
   updateMarker() {
-    debug('updateMarker');
+    log('updateMarker');
 
     if (!this.isGeolocated()) return;
 
@@ -107,8 +109,7 @@ class LocationMap extends Component {
   }
 
   initMarker() {
-    const { enabled, draggableMarker } = this.props;
-    const self = this;
+    const { enabled, draggableMarker, onMarkerDragged } = this.props;
     const pos = this.getPos();
     const icon = L.icon({
       iconAnchor: defaults.iconAnchor,
@@ -123,10 +124,10 @@ class LocationMap extends Component {
     if (!draggableMarker || !enabled) return;
 
     this.marker.on('dragend', e => {
-      self.map.panTo(self.marker.getLatLng());
+      this.map.panTo(this.marker.getLatLng());
 
       setTimeout(() => {
-        self.props.onMarkerDragged({
+        onMarkerDragged({
           latitude: e.target._latlng.lat,
           longitude: e.target._latlng.lng,
         });

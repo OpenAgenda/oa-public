@@ -20,7 +20,7 @@ const StateToggler = ({ locationState, getLabel, onChange }) => (
 
 StateToggler.propTypes = {
   // current location state
-  locationState: PropTypes.number,
+  locationState: PropTypes.number.isRequired,
   // label getter
   getLabel: PropTypes.func.isRequired,
   onChange: PropTypes.func,

@@ -86,7 +86,7 @@ class List extends React.Component {
 
   getPage(page, replace, cb) {
     const {
-      query, onLoading, res, limit, items, onItemsUpdate, onLoaded
+      query, onLoading, res, limit, items, onItemsUpdate, onLoaded, page: propPage
     } = this.props;
     log('getting page %s with query %s', page, JSON.stringify(query));
     this.setState({
@@ -98,12 +98,12 @@ class List extends React.Component {
     }
     get(res, _.merge({
       offset: (page - 1) * limit,
-      limit: limit
+      limit
     }, query), (err, result) => {
       const newState = {
         loading: false,
         loadingNext: false,
-        page: err ? this.props.page : page,
+        page: err ? propPage : page,
         loadError: !!err,
       };
       log('received page %s', page);

@@ -7,6 +7,8 @@ import formLabels from '@openagenda/labels/agenda-locations/form';
 import makeLabelGetter from '@openagenda/labels';
 import LocationForm from './LocationForm';
 
+const log = debug('MergeForm');
+
 const getLabel = makeLabelGetter({
   ...formLabels,
   ...mergeLabels
@@ -15,12 +17,12 @@ const getLabel = makeLabelGetter({
 class MergeForm extends React.Component {
   static propTypes = {
     lang: PropTypes.string.isRequired,
-    actions: PropTypes.object,
-    res: PropTypes.object
+    actions: PropTypes.object.isRequired,
+    res: PropTypes.object.isRequired,
+    settings: PropTypes.object.isRequired,
   }
 
   constructor(props) {
-    console.log(JSON.stringify(props, null, 2));
     super(props);
     // Binding
     this.onSuccess = this.onSuccess.bind(this);
@@ -40,20 +42,22 @@ class MergeForm extends React.Component {
     const { actions, res } = this.props;
     const formState = actions.getState().form;
 
-    return res.merge + '?' + qs.stringify( {
-      mergeIn: formState.location.uid,
-      merged: formState.alternatives.map( s => s.location.uid )
-    } );
+    return `${res.merge}?${
+      qs.stringify({
+        mergeIn: formState.location.uid,
+        merged: formState.alternatives.map(s => s.location.uid)
+      })
+    }`;
   }
 
   renderHeader() {
     const { actions, lang } = this.props;
     return (
       <div className="form-head">
-        <a className="btn btn-default" onClick={actions.closeForm}>
+        <button type="button" className="btn btn-default" onClick={actions.closeForm}>
           <i className="fa fa-angle-left margin-right-sm" />
           <span>{getLabel('back', lang)}</span>
-        </a>
+        </button>
         <h2>{ getLabel('title') }</h2>
         <span className="info">{ getLabel('info') }</span>
       </div>
@@ -65,16 +69,14 @@ class MergeForm extends React.Component {
       actions, res, lang, detailedInfo, settings
     } = this.props;
     const formState = actions.getState().form;
-    console.log('!!!!!');
-    console.log(JSON.stringify(formState, null, 2));
 
-    debug('displaying merge form for %s locations', formState.alternatives.length);
+    log('displaying merge form for %s locations', formState.alternatives.length);
 
     return (
       <LocationForm
         Header={this.renderHeader()}
         labels={mergeLabels}
-        showToggler={true}
+        showToggler
         res={res}
         lang={lang}
         location={formState.location}
@@ -83,7 +85,7 @@ class MergeForm extends React.Component {
         onCancel={actions.closeForm}
         onSuccess={this.onSuccess}
         getSetRes={this.getSetRes}
-        hideCurrentAlternative={true}
+        hideCurrentAlternative
         alternatives={formState.alternatives}
       />
     );

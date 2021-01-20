@@ -19,6 +19,8 @@ import SetHeader from './SetHeader';
 import MergeForm from './MergeForm';
 import UpdateForm from './UpdateForm';
 
+const log = debug('AgendaAdminLocations');
+
 const loaded = {};
 
 class AgendaAdminLocations extends Component {
@@ -37,9 +39,9 @@ class AgendaAdminLocations extends Component {
     // optional settings of agenda (such as tags requirements)
     settings: PropTypes.object,
     // server endpoints
-    res: PropTypes.object,
+    res: PropTypes.object.isRequired,
     // general agenda info (title, slug,)
-    agenda: PropTypes.object,
+    agenda: PropTypes.object.isRequired,
 
   };
 
@@ -112,7 +114,7 @@ class AgendaAdminLocations extends Component {
       let k;
       for (k in values) {
         if (Object.prototype.hasOwnProperty.call(values, k)) {
-          str = str.replace('%' + k + '%', values[k]);
+          str = str.replace(`%${k}%`, values[k]);
         }
       }
     }
@@ -174,14 +176,18 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  confirmRemove(location, index) {
+  confirmRemove(location) {
     const { res } = this.props;
+    log('confirm remove param location: %j', location);
     get(
       res.get.replace(':locationUid', location.uid),
       { detailed: 1 },
-      (err, location) => {
-        if (err) return debug(err);
-        this.actions.displayRemoveConfirmModal(location);
+      (err, freshLocation) => {
+        log('confirm remove for %j', freshLocation);
+        if (err) {
+          return log(err);
+        }
+        this.actions.displayRemoveConfirmModal(freshLocation);
       }
     );
   }
@@ -189,22 +195,21 @@ class AgendaAdminLocations extends Component {
   renderItem(item, itemActions, itemIndex) {
     const { res, agenda } = this.props;
     const { merge } = this.state;
+    const toggleMergeItem = this.actions.toggleMergeItem.bind(null, item);
+    const editLocation = this.actions.editLocation.bind(null, item, itemIndex);
+    const confirmRemove = this.confirmRemove.bind(this, item, itemIndex);
     return (
       <LocationItem
-        merge={merge}
+        merge={merge ? merge : undefined}
         key={item.uid}
         location={item}
         seeEventsRes={res.seeEvents.replace(
           ':agendaSlug',
           agenda.slug
         )}
-        onSelect={
-            merge
-            ? this.actions.toggleMergeItem.bind(null, item)
-            : this.actions.editLocation.bind(null, item, itemIndex)
-        }
-        onEdit={this.actions.editLocation.bind(null, item, itemIndex)}
-        onRemove={this.confirmRemove.bind(this, item, itemIndex)}
+        onSelect={merge ? toggleMergeItem : editLocation}
+        onEdit={editLocation}
+        onRemove={confirmRemove}
         getLabel={this.getLabel}
         getCountryLabel={this.getCountryLabel}
       />
@@ -233,8 +238,9 @@ class AgendaAdminLocations extends Component {
 
   renderRemoveLocationModal() {
     const { modal } = this.state;
+    log(modal.data.location);
     const { agenda, res } = this.props;
-    const { eventCount } = modal.data.location;
+    const { eventCount, agendaEventCount } = modal.data.location;
 
     const seeEventsLink = res.seeEvents
       .replace(':agendaSlug', agenda.slug)
@@ -242,11 +248,10 @@ class AgendaAdminLocations extends Component {
 
     const { isRemoved } = modal.data;
 
-    const modalStates = isRemoved
-      ? 'removed'
-      : eventCount
-      ? 'withEvents'
-      : 'noEvents';
+    let modalStates = isRemoved ? 'removed' : null;
+    if (!modalStates) {
+      modalStates = eventCount ? 'withEvents' : 'noEvents';
+    }
 
     return (
       <Modal
@@ -262,12 +267,13 @@ class AgendaAdminLocations extends Component {
                     {this.getLabel('removeComplete')}
                   </p>
                   <div className="text-center">
-                    <a
+                    <button
+                      type="button"
                       className="btn btn-primary"
                       onClick={this.actions.closeModal}
                     >
                       {this.getLabel('closeModal')}
-                    </a>
+                    </button>
                   </div>
                 </div>
               );
@@ -278,31 +284,50 @@ class AgendaAdminLocations extends Component {
                     {this.getLabel('confirmRemoveMessage')}
                   </p>
                   <div className="text-center">
-                    <a
+                    <button
+                      type="button"
+                      className="btn btn-danger"
                       onClick={this.onRemoveLocation.bind(
                         this,
-                        this.state.modal.data.location,
-                        this.state.modal.data.index
+                        modal.data.location,
+                        modal.data.index
                       )}
-                      className="btn btn-danger"
-                    >
-                      {this.getLabel('confirmRemove')}
-                    </a>
+                    >{this.getLabel('confirmRemove')}
+                    </button>
                   </div>
                 </div>
               );
             case 'withEvents':
               return (
                 <div>
-                  <p className="text-center">
-                    {this.getLabel('cannotRemove', { eventCount })}
-                  </p>
+                  <span>
+                    <p className="text-center">
+                      {this.getLabel('cannotRemove', { eventCount })}
+                      <a href={seeEventsLink}>
+                        {this.getLabel('cannotRemove2', { agendaEventCount })}
+                      </a>
+                      {this.getLabel('cannotRemove3')}
+                    </p>
+                  </span>
                   <div className="text-center">
-                    <a className="btn btn-primary" href={seeEventsLink}>
-                      {this.getLabel('seeEvents', {
-                        count: l.agendaEventCount,
-                      })}
-                    </a>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={this.actions.closeModal}
+                    >
+                      {this.getLabel('cancel')}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary margin-h-sm"
+                      onClick={this.onRemoveLocation.bind(
+                        this,
+                        modal.data.location,
+                        modal.data.index
+                      )}
+                    >
+                      {this.getLabel('confirm')}
+                    </button>
                   </div>
                 </div>
               );
@@ -333,7 +358,9 @@ class AgendaAdminLocations extends Component {
             {this.getLabel('mergeselection', {
               count: merge.locationUids.length,
             })}
-            <a
+            <button
+              type="button"
+              className="btn btn-link"
               onClick={this.onSearchChange.bind(
                 this,
                 'uids',
@@ -341,7 +368,7 @@ class AgendaAdminLocations extends Component {
               )}
             >
               {this.getLabel('seemergelist')}
-            </a>
+            </button>
           </span>
         ) : (
           <span className="info">{this.getLabel('mergenoselection')}</span>

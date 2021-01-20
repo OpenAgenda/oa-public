@@ -3,6 +3,8 @@ import update from 'immutability-helper';
 import onTranslationCheck from '@openagenda/react-form-components/lib/onTranslationCheck';
 import debug from 'debug';
 
+const log = debug('formActions');
+
 const alternativeFields = [
   'name',
   'address',
@@ -153,7 +155,7 @@ function startPageSpin(state, message = null) {
   return { pageSpin: { message } };
 }
 
-function stopPageSpin(state) {
+function stopPageSpin() {
   return { pageSpin: false };
 }
 
@@ -171,8 +173,8 @@ function checkLanguage(state, check, source, language) {
 }
 
 function sourceLanguageChange(...args) {
-  debug(args[1]);
-  debug(args[2]);
+  log(args[1]);
+  log(args[2]);
 }
 
 /**
@@ -190,9 +192,11 @@ function loadAlternative(
   alternatives,
   fieldName,
   alternativeIndex,
-  lang,
-  pasteNames
+  paramLang,
+  paramPasteNames
 ) {
+  let pasteNames = paramPasteNames;
+  let lang = paramLang;
   if (arguments.length === 5) {
     pasteNames = lang;
     lang = false;

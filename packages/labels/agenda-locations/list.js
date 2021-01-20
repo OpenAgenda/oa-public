@@ -1,6 +1,22 @@
 "use strict";
 
 module.exports = {
+  "cancel": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "de": "Abbrechen",
+    "es": "Anular",
+    "br": "Nullañ",
+    "it": "Annullare"
+  },
+  "confirm": {
+    "fr": "Confirmer",
+    "en": "Confirm",
+    "de": "Löschung",
+    "es": "confirmar",
+    "br": "Kadarnaat",
+    "it": "Confermare"
+  },
   "edit": {
     "fr": "Modifier",
     "en": "Edit",
@@ -137,6 +153,9 @@ module.exports = {
     "br": "Diuzañ lec'hioù",
     "it": "Selezione delle località"
   },
+  "events":{
+    "fr": "%count% événements"
+  },
   "seeEvents": {
     "fr": "%count% événements associés",
     "en": "%count% associated events",
@@ -146,6 +165,7 @@ module.exports = {
     "it": "%count% eventi associati"
   },
   "seeEvent": {
+    "fr": "Voir les événements",
     "fr": "1 événement associé",
     "en": "1 associated event",
     "de": "1 zugeordneten Veranstaltung",
@@ -202,12 +222,29 @@ module.exports = {
     "it": "Confermare la cancellazione"
   },
   "cannotRemove": {
-    "fr": "Le lieu est associé à %eventCount% événements. Dissociez les événements avant de finaliser la suppression",
-    "en": "The location is associated to %eventCount% events. You need to dissociate these events before you can proceed with the deletion",
-    "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden. du musst diese Veranstaltungen trennen, bevor Sie mit dem Löschen fortfahren",
-    "es": "El lugar se asocia con eventos %eventCount%. Desagrupar los eventos antes de finalizar la eliminación",
+    "fr": "Ce lieu est associé à %eventCount% événements,",
+    //"fr": "Le lieu est associé à %eventCount% événements. Dissociez les événements avant de finaliser la suppression",
+    "en": "The location is associated to %eventCount% events,",
+    "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden,",
+    "es": "El lugar se asocia con eventos %eventCount%,",
     "br": "Kevelet eo al lec'h gant %eventCount% a zarvoudoù. Ret eo digevelañ an darvoudoù evit an dilamadenn.",
-    "it": "Il luogo è associato a eventi %eventCount% eventi. Dissociare gli eventi prima di finalizzare la cancellazione."
+    "it": "Il luogo è associato a eventi %eventCount% eventi,"
+  },
+  "cannotRemove2": {
+    "fr": " dont %agendaEventCount%",
+    "en": " %agendaEventCount% of which",
+    "de": " von denen %agendaEventCount%",
+    "es": " %agendaEventCount% de los cuales",
+    "br": " a denn %agendaEventCount%",
+    "it": " %agendaEventCount% dei quali",
+  },
+  "cannotRemove3": {
+    "fr": " ont été contribués sur l'agenda. En supprimant le lieu, les événements associés seront également supprimés.",
+    "en": " have been added to the agenda. By deleting the location, the associated events will also be deleted.",
+    "de": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
+    "es": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
+    "br": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
+    "it": " sono stati aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
   },
   "confirmRemoveMessage": {
     "fr": "Le lieu sera supprimé de la base",

@@ -45,19 +45,6 @@ function fieldHasAlternative(fieldName, alternatives) {
 }
 
 /**
- * return ids of tags that have the same value ( checked or unchecked )
- * in location and alternatives
- */
-function getSameAsSuggestedTagIds(tagSet, location, alternatives) {
-  const tags = tagSet.groups.reduce((tags, group) => tags.concat(group.tags), []);
-
-  return tags
-    .filter(t => !suggestedTagsDiffer(t, location, alternatives).length)
-
-    .map(t => t.id);
-}
-
-/**
  * tell wether tag differs in at least one alternative
  */
 function suggestedTagsDiffer(tag, location, alternatives) {
@@ -75,9 +62,23 @@ function suggestedTagsDiffer(tag, location, alternatives) {
 }
 
 /**
+ * return ids of tags that have the same value ( checked or unchecked )
+ * in location and alternatives
+ */
+function getSameAsSuggestedTagIds(tagSet, location, alternatives) {
+  const tags = tagSet.groups.reduce((tags, group) => tags.concat(group.tags), []);
+
+  return tags
+    .filter(t => !suggestedTagsDiffer(t, location, alternatives).length)
+
+    .map(t => t.id);
+}
+
+/**
  * prepare alternatives for display in location form
  */
-function prepareAlternatives(location, props, labels, suggestionIndex) {
+function prepareAlternatives(location, props, labels, paramSuggestionIndex) {
+  let suggestionIndex = paramSuggestionIndex;
   if (typeof suggestionIndex === 'undefined') {
     suggestionIndex = 0;
   }

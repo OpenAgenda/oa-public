@@ -7,11 +7,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDom from 'react-dom';
 import debug from 'debug';
 import get from '@openagenda/utils/get';
 
 const anchor = 'js_locations_counter';
+const log = debug('verifiedLocationCounter');
 
 if (!window.oa) window.oa = {};
 
@@ -19,7 +21,7 @@ let anchorElem;
 
 function _checkReqs() {
   if (!anchorElem) {
-    debug(
+    log(
       'error',
       'no anchor element was found for verified location counter'
     );
@@ -29,6 +31,7 @@ function _checkReqs() {
 }
 
 window.addEventListener('load', () => {
+  log('addEventListener');
   anchorElem = document.getElementsByClassName(anchor)[0];
 
   if (!_checkReqs()) return;
@@ -41,22 +44,24 @@ window.addEventListener('load', () => {
 });
 
 class Counter extends React.Component {
-  getInitialState() {
-    window.oa.verifiedLocationsCounter = this.sync;
+  static propTypes= {
+    res: PropTypes.string.isRequired,
+  };
 
-    return {
+  constructor(props) {
+    super(props);
+    window.oa.verifiedLocationsCounter = this.sync(props);
+    this.state = {
       count: null,
     };
-  }
-
-  UNSAFE_componentWillMount() {
-    this.sync();
+    log('construc ', props);
   }
 
   sync() {
     const { res } = this.props;
+    log('sinc', this.props);
     get(res, (err, result) => {
-      if (err) return debug('error', err);
+      if (err) return log('error', err);
 
       this.setState({
         count: result.count || null,
