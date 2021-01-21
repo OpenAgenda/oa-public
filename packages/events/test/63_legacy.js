@@ -152,6 +152,14 @@ describe('legacy', () => {
         assert.equal(entries.length, 1);
         assert.equal(entries[0].pricing_info, 'Pas cher');
       });
+
+      it('long description was emptied', async() => {
+        const entries = await f.client.select()
+          .from('event_translation')
+          .where('id', 1);
+
+        assert.equal(entries[0].free_text, '');
+      })
     });
   
     describe('baseTransform', () => {

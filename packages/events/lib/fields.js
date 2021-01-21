@@ -116,7 +116,8 @@ module.exports = [{
   write: ['internal', 'public'],
   db: {
     type: 'json',
-    field: 'image'
+    field: 'image',
+    assign: true
   }
 }, {
   field: 'imageCredits',
@@ -127,7 +128,8 @@ module.exports = [{
   read: ['internal', 'public'],
   db: {
     type: 'json',
-    field: 'image.credits'
+    field: 'image.credits',
+    assign: true
   }
 }, {
   field: 'title',

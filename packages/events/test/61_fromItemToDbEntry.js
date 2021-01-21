@@ -93,7 +93,16 @@ describe('fromItemToDbEntry', () => {
     });
     
     assert.deepEqual(entry.image, '{"credits":null}');
+  });
 
+  it('JSON object key can be emptied', () => {
+    const entry = fromItemToDbEntry({
+      longDescription: {},
+    }, {
+      longDescription: { fr: 'gfdsgfdsgfdsgfds\nfdqsfdsq\nfqds' }
+    });
+
+    assert.equal(entry.long_description, '{}');
   });
 
 });

@@ -53,7 +53,7 @@ module.exports = (event, options = {}) => {
       lang,
       title: event.title?.[lang] || '',
       description: event.description?.[lang] || '',
-      free_text: event.longDescription?.[lang],
+      free_text: event.longDescription?.[lang] || '',
       tags: (event.keywords?.[lang] || []).join(', ')
     })),
     event_location: {
