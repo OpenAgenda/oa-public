@@ -3,18 +3,18 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   refused: {
     id: 'ReactFilters.messages.states.refused',
-    defaultMessage: 'Refused'
+    defaultMessage: 'Refused',
   },
-  tocontrol: {
-    id: 'ReactFilters.messages.states.tocontrol',
-    defaultMessage: 'To control'
+  toModerate: {
+    id: 'ReactFilters.messages.states.toModerate',
+    defaultMessage: 'To moderate',
   },
   controlled: {
     id: 'ReactFilters.messages.states.controlled',
-    defaultMessage: 'Controlled'
+    defaultMessage: 'Controlled',
   },
   published: {
     id: 'ReactFilters.messages.states.published',
-    defaultMessage: 'Published'
-  }
+    defaultMessage: 'Published',
+  },
 });

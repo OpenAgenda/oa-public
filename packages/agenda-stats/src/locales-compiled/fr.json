@@ -238,6 +238,12 @@
       "value": "Éditer le rapport"
     }
   ],
+  "AgendaStats.Dashboard.filters": [
+    {
+      "type": 0,
+      "value": "Filtres"
+    }
+  ],
   "AgendaStats.Dashboard.lessFilters": [
     {
       "type": 0,
@@ -643,7 +649,7 @@
       "value": "Refusé"
     }
   ],
-  "AgendaStats.StateTooltipItem.tocontrol": [
+  "AgendaStats.StateTooltipItem.toModerate": [
     {
       "type": 0,
       "value": "À modérer"
@@ -865,10 +871,10 @@
       "value": "Refusé"
     }
   ],
-  "ReactFilters.messages.states.tocontrol": [
+  "ReactFilters.messages.states.toModerate": [
     {
       "type": 0,
-      "value": "À contrôler"
+      "value": "À modérer"
     }
   ],
   "aggregator-sources.RangeTypeModal.cancel": [
