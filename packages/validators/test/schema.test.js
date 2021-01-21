@@ -3,6 +3,7 @@
 const utils = require('@openagenda/utils');
 
 const validators = require('../src');
+const { default: errors } = require('../src/lib/errors');
 
 const schema = require('../src/schema');
 
@@ -1245,7 +1246,44 @@ describe('schema validator', () => {
 
     });
 
+    describe('optionalWith', () => {
 
+      const validate = schema({
+        eventAttendanceMode: {
+          optional: false,
+          type: 'choice',
+          default: 1,
+          unique: true,
+          options: [1, 2, 3]
+        },
+        locationUid: {
+          optionalWith: {
+            field: 'eventAttendanceMode',
+            value: 2
+          },
+          type: 'integer'
+        }
+      });
+
+      it('optionalWith makes field optional if ref value matches', () => {
+        validate({
+          eventAttendanceMode: 2
+        });
+      });
+
+      it('optionalWith keeps field required if ref value does not match', () => {
+        try {
+          validate({
+            eventAttendanceMode: 1,
+          });
+        } catch (errors) {
+          expect(errors[0].code).toBe('required');
+          return;
+        }
+        throw new Error('Should not reach here');
+      });
+
+    })
 
 
     it('if object is specified in schema and submitted value is not an object', () => {
