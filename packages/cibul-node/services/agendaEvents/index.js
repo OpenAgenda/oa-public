@@ -1,5 +1,6 @@
 'use strict';
 
+const express = require('express');
 const AgendaEvents = require('@openagenda/agenda-events');
 const eventStates = require('@openagenda/agendas/service/validate/eventStates');
 
@@ -59,7 +60,6 @@ module.exports = Object.assign(plugApp, {
 });
 
 
-
 function plugApp(parentApp) {
   const {
     sessions,
@@ -67,50 +67,55 @@ function plugApp(parentApp) {
     agendas
   } = parentApp.services;
 
-  parentApp.all([
-    '/:agendaSlug/events/:eventSlug/state/:state',
-    '/:agendaSlug/events/:eventSlug/state',
-    '/:agendaSlug/events/:eventSlug/remove',
-    '/:agendaSlug/events/:eventSlug/add'
-  ], [
-    sessions.mw.ifUnlogged((req, res, next) => next({
-      code: 403, error: 'requiredLogged', message: 'You need to be logged'
-    }))
-  ]);
+  const requireLoggedMw = sessions.mw.ifUnlogged((req, res, next) => next({
+    code: 403, error: 'requiredLogged', message: 'You need to be logged'
+  }));
 
-  parentApp.all([
-    '/:agendaSlug/events/:eventSlug/state/:state',
-    '/:agendaSlug/events/:eventSlug/state',
-    '/:agendaSlug/events/:eventSlug/remove',
-    '/:agendaSlug/events/:eventSlug/toggle-cancelled'
-  ], [
-    mw.loadAgenda,
-    mw.loadEvent,
-    mw.load
-  ]);
+  const loadMw = express.Router({ mergeParams: true })
+    .use(
+      mw.loadAgenda,
+      mw.loadEvent,
+      mw.load
+    );
 
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state',
+    requireLoggedMw,
+    loadMw,
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState
   );
 
   parentApp.post('/:agendaSlug/events/:eventSlug/state',
+    requireLoggedMw,
+    loadMw,
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState
   );
 
   parentApp.get('/:agendaSlug/events/:eventSlug/toggle-cancelled',
+    requireLoggedMw,
+    loadMw,
     members.mw.load,
     members.mw.authorizeAdminModOrEventOwner,
     mw.toggleCancelled
   );
 
+  parentApp.delete('/:agendaSlug/events/:eventSlug',
+    requireLoggedMw,
+    loadMw,
+    members.mw.load,
+    mw.remove
+  );
+
   parentApp.get('/:agendaSlug/events/:eventSlug/remove',
+    requireLoggedMw,
+    loadMw,
     members.mw.load,
     mw.remove
   );
 
   parentApp.get('/:agendaSlug/events/:eventSlug/add/to/:targetAgendaSlug',
+    requireLoggedMw,
     agendas.mw.loadBy({ path: 'params.targetAgendaSlug', field: 'slug', target: 'agenda' }),
     agendas.mw.loadBy({ path: 'params.agendaSlug', field: 'slug', target: 'currentAgenda' }),
     members.mw.loadAndAuthorize('contributor'),
