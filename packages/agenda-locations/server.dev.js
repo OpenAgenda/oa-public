@@ -100,7 +100,11 @@ const fixtures = require('./test/fixtures');
       ...result,
     })));
 
-  // app.get('/toverify', mw.getUnverifiedCount);
+  app.get('/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
+    ({ total }) => res.json({ count: total }),
+    next
+  ));
+
   app.get('/geocode', (req, res, next) => res.json({
     results: [
       {
