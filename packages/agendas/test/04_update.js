@@ -77,6 +77,9 @@ describe( 'agendas - functional (server): set (update)', function() {
         url: 'http://www.salon-fromage.com/',
         networkUid: null,
         settings: {
+          lab: {
+            eventAdmin: false
+          },
           inbox: {
             mailto: {
               enabled: false,
@@ -276,6 +279,9 @@ describe( 'agendas - functional (server): set (update)', function() {
           url: '',
           image: null,
           settings: {
+            lab: {
+              eventAdmin: false
+            },
             inbox: {
               mailto: {
                 enabled: false,
