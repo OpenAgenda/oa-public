@@ -55,7 +55,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
 
   if (load.event) {
     payload.setItem('event', await events.get(eventUid, {
-      access,
+      access: access === 'internal' ? 'internal' : 'public',
       detailed,
       lang,
       useFallbackLang: true,

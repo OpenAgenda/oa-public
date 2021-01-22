@@ -9,7 +9,7 @@ const validate = multilingual({
 });
 
 module.exports = options => value => {
-  const clean = validate(value);
+  const clean = validate(Array.isArray(value) ? value.join(',') : value);
 
   const splitCommas = {};
 

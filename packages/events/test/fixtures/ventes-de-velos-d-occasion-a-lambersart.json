@@ -19,6 +19,7 @@
     "description": {
         "fr": "Ventes de vélos d'occasion au Colysée de Lambersart"
     },
+    "longDescription": {},
     "timings": [
         {
             "begin": "2018-06-02T08:00:00.000Z",

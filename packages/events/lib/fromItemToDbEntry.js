@@ -28,7 +28,7 @@ const extractDbRules = field => {
   };
 };
 
-const loadJSONValue = (JSONValue, path, value) => {
+const loadJSONValue = (JSONValue, path, value, assign = false) => {
   if (path.length) {
     return JSON.stringify(_.set(
       JSON.parse(JSONValue || '{}'),
@@ -43,7 +43,7 @@ const loadJSONValue = (JSONValue, path, value) => {
 
   const parsedJSONValue = JSON.parse(JSONValue);
 
-  if (Array.isArray(parsedJSONValue)) {
+  if (Array.isArray(parsedJSONValue) || !assign) {
     return JSON.stringify(value);
   }
 
@@ -71,14 +71,16 @@ function fromItemToDbEntry(data, current) {
     const {
       field: entryField,
       type: entryType,
-      path: entryPath
+      path: entryPath,
+      assign: entryAssign
     } = extractDbRules(field);
 
     if (entryType === 'json') {
       const value = loadJSONValue(
         entry[entryField] !== undefined ? entry[entryField]: currentEntry?.[entryField],
         entryPath,
-        intermediate[field.field]
+        intermediate[field.field],
+        entryAssign
       );
       return {
         ...entry,

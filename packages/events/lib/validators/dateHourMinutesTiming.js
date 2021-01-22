@@ -86,4 +86,4 @@ module.exports = v => {
   return clean;
 };
 
-module.exports.is = t => t && t.begin && t.begin.hours;
+module.exports.is = t => t && t.begin && (typeof t.begin.hours !== 'undefined');

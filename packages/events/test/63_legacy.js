@@ -152,9 +152,32 @@ describe('legacy', () => {
         assert.equal(entries.length, 1);
         assert.equal(entries[0].pricing_info, 'Pas cher');
       });
+
+      it('long description was emptied', async() => {
+        const entries = await f.client.select()
+          .from('event_translation')
+          .where('id', 1);
+
+        assert.equal(entries[0].free_text, '');
+      })
     });
   
     describe('baseTransform', () => {
+      const imageData = {
+        filename: 'db7ab4eeac3249a5a57b5d315d608217.base.image.jpg',
+        size: { width: 700, height: 565 },
+        variants: [
+          {
+            filename: 'db7ab4eeac3249a5a57b5d315d608217.full.image.jpg',
+            type: 'full'
+          },
+          {
+            filename: 'db7ab4eeac3249a5a57b5d315d608217.thumb.image.jpg',
+            type: 'thumbnail'
+          }
+        ]
+      };
+
       it('title is placed in event_translation entry, one entry per language', () => {
         const et = baseTransform({
           title: {
@@ -187,24 +210,19 @@ describe('legacy', () => {
   
       it('image filename is placed in image column', () => {
         const entry = baseTransform({
-          image: {
-            filename: 'db7ab4eeac3249a5a57b5d315d608217.base.image.jpg',
-            size: { width: 700, height: 565 },
-            variants: [
-              {
-                filename: 'db7ab4eeac3249a5a57b5d315d608217.full.image.jpg',
-                type: 'full'
-              },
-              {
-                filename: 'db7ab4eeac3249a5a57b5d315d608217.thumb.image.jpg',
-                type: 'thumbnail'
-              }
-            ]
-          }
+          image: imageData
         }).event;
   
         assert.equal(entry.image, 'db7ab4eeac3249a5a57b5d315d608217.base.image.jpg');
       });
+
+      it('remaining image paths is placed in store', () => {
+        const entry = baseTransform({
+          image: imageData
+        }).event;
+
+        assert.equal(entry.store, '{"images":{"filename":"db7ab4eeac3249a5a57b5d315d608217.base.image.jpg","size":{"width":700,"height":565},"variants":[{"filename":"db7ab4eeac3249a5a57b5d315d608217.full.image.jpg","type":"full"},{"filename":"db7ab4eeac3249a5a57b5d315d608217.thumb.image.jpg","type":"thumbnail"}]},"links":[]}');
+      })
     
       it('image credits is placed in event entry', () => {
         const entry = baseTransform({

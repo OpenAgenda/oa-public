@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const { promisify } = require('util');
 
 const log = require('@openagenda/logs')('services/agendaContribute/middlewares/duplicateFromEvent');
 
@@ -39,28 +38,18 @@ module.exports = async (req, res, next) => {
         .map(f => f.field)
     );
 
-  if (!await _maintainLocationReference(req.app.services, req.agenda, agendaUid, event)) {
+  const location = await core.agendas(req.agenda.uid).locations.get(event.locationUid, { includeFields: ['uid']});
+
+  if (!location) {
     unduplicatableFields.push('locationUid');
+  } else {
+    event.location = location;
   }
+
+  log('removing %j from duplicate edition', unduplicatableFields);
 
   // location cannot be used as is.
   req.event = ih(event, { $unset: unduplicatableFields });
 
   next();
-}
-
-async function _maintainLocationReference(services, agenda, sourceAgendaUid, event) {
-  const {
-    agendaLocations
-  } = services;
-
-  const location = await agendaLocations.get({ uid: event.locationUid });
-
-  if (!location) return false;
-
-  if (agenda.uid === location.agendaUid) return true;
-
-  if (sourceAgendaUid ===agenda.uid) return true;
-
-  return false;
 }

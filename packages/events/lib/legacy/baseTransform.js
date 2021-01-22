@@ -40,13 +40,20 @@ module.exports = (event, options = {}) => {
       is_published: true,
       is_new: false,
       updated_at: new Date(),
-      owner_id: userId
+      owner_id: userId,
+      store: JSON.stringify({
+        images: event.image,
+        links: (event.links || []).map(({ link, data }) => ({
+          link,
+          code: data?.html
+        }))
+      })
     },
     event_translation: languages.map(lang => ({
       lang,
       title: event.title?.[lang] || '',
       description: event.description?.[lang] || '',
-      free_text: event.longDescription?.[lang],
+      free_text: event.longDescription?.[lang] || '',
       tags: (event.keywords?.[lang] || []).join(', ')
     })),
     event_location: {
