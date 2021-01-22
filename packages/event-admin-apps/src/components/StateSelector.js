@@ -83,12 +83,12 @@ export default function StateSelector({ agenda, event, pageIndex }) {
         label: (
           <>
             <span
-              className="badge badge-warning margin-right-xs"
+              className="badge badge-default margin-right-xs"
               css={stateBadgeCss}
             >
               &nbsp;
             </span>
-            {intl.formatMessage(stateMessages.tocontrol)}
+            {intl.formatMessage(stateMessages.toModerate)}
           </>
         ),
         value: 0,
@@ -97,7 +97,7 @@ export default function StateSelector({ agenda, event, pageIndex }) {
         label: (
           <>
             <span
-              className="badge badge-default margin-right-xs"
+              className="badge badge-warning margin-right-xs"
               css={stateBadgeCss}
             >
               &nbsp;

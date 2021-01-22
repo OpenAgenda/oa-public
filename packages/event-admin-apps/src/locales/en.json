@@ -1,14 +1,25 @@
 {
+  "EventAdminApp.Dashboard.addedBy": "Added by <link>{name}</link> from <agendaLink>{agenda}</agendaLink>",
   "EventAdminApp.Dashboard.aggregatedFrom": "Aggregated from <link>{title}</link>",
+  "EventAdminApp.Dashboard.contact": "Contact",
   "EventAdminApp.Dashboard.createdBy": "Created by <link>{name}</link>",
+  "EventAdminApp.Dashboard.delete": "Delete",
+  "EventAdminApp.Dashboard.edit": "Edit",
   "EventAdminApp.Dashboard.filters": "Filters",
-  "EventAdminApp.Dashboard.searchPlaceholders": "Search",
+  "EventAdminApp.Dashboard.remove": "Remove from agenda",
+  "EventAdminApp.Dashboard.searchPlaceholder": "Search",
+  "EventAdminApp.Dashboard.showLocation": "Show location",
   "EventAdminApp.Dashboard.totalEvents": "<strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}",
   "EventAdminApp.Dashboard.totalWithFilters": "<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}{filters}",
   "EventAdminApp.FiltersPart.lessFilters": "Display less filters",
   "EventAdminApp.FiltersPart.moreFilters": "Display more filters",
+  "EventAdminApp.RemoveModal.confirm": "Confirm",
+  "EventAdminApp.RemoveModal.deleteDesc": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
+  "EventAdminApp.RemoveModal.deleteEvent": "Delete an event",
+  "EventAdminApp.RemoveModal.removeDesc": "Are you sure you want to do this? If you remove the event from this agenda, it will no longer be listed in the exports and will be removed from any agenda aggregating your events",
+  "EventAdminApp.RemoveModal.removeEvent": "Remove an event",
   "EventAdminApp.messages.states.controlled": "Controlled",
   "EventAdminApp.messages.states.published": "Published",
   "EventAdminApp.messages.states.refused": "Refused",
-  "EventAdminApp.messages.states.tocontrol": "To control"
+  "EventAdminApp.messages.states.toModerate": "To moderate"
 }

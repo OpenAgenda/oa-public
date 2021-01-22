@@ -1,4 +1,34 @@
 {
+  "EventAdminApp.Dashboard.addedBy": [
+    {
+      "type": 0,
+      "value": "Added by "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " from "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agenda"
+        }
+      ],
+      "type": 8,
+      "value": "agendaLink"
+    }
+  ],
   "EventAdminApp.Dashboard.aggregatedFrom": [
     {
       "type": 0,
@@ -13,6 +43,12 @@
       ],
       "type": 8,
       "value": "link"
+    }
+  ],
+  "EventAdminApp.Dashboard.contact": [
+    {
+      "type": 0,
+      "value": "Contact"
     }
   ],
   "EventAdminApp.Dashboard.createdBy": [
@@ -31,16 +67,40 @@
       "value": "link"
     }
   ],
+  "EventAdminApp.Dashboard.delete": [
+    {
+      "type": 0,
+      "value": "Delete"
+    }
+  ],
+  "EventAdminApp.Dashboard.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
   "EventAdminApp.Dashboard.filters": [
     {
       "type": 0,
       "value": "Filters"
     }
   ],
-  "EventAdminApp.Dashboard.searchPlaceholders": [
+  "EventAdminApp.Dashboard.remove": [
+    {
+      "type": 0,
+      "value": "Remove from agenda"
+    }
+  ],
+  "EventAdminApp.Dashboard.searchPlaceholder": [
     {
       "type": 0,
       "value": "Search"
+    }
+  ],
+  "EventAdminApp.Dashboard.showLocation": [
+    {
+      "type": 0,
+      "value": "Show location"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
@@ -172,6 +232,36 @@
       "value": "Display more filters"
     }
   ],
+  "EventAdminApp.RemoveModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteDesc": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda."
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteEvent": [
+    {
+      "type": 0,
+      "value": "Delete an event"
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeDesc": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to do this? If you remove the event from this agenda, it will no longer be listed in the exports and will be removed from any agenda aggregating your events"
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeEvent": [
+    {
+      "type": 0,
+      "value": "Remove an event"
+    }
+  ],
   "EventAdminApp.messages.states.controlled": [
     {
       "type": 0,
@@ -190,10 +280,10 @@
       "value": "Refused"
     }
   ],
-  "EventAdminApp.messages.states.tocontrol": [
+  "EventAdminApp.messages.states.toModerate": [
     {
       "type": 0,
-      "value": "To control"
+      "value": "To moderate"
     }
   ]
 }

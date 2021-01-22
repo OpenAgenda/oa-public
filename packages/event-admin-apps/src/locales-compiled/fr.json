@@ -1,4 +1,20 @@
 {
+  "EventAdminApp.Dashboard.addedBy": [
+    {
+      "type": 0,
+      "value": "Ajouté par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
   "EventAdminApp.Dashboard.aggregatedFrom": [
     {
       "type": 0,
@@ -13,6 +29,12 @@
       ],
       "type": 8,
       "value": "link"
+    }
+  ],
+  "EventAdminApp.Dashboard.contact": [
+    {
+      "type": 0,
+      "value": "Contacter"
     }
   ],
   "EventAdminApp.Dashboard.createdBy": [
@@ -31,16 +53,40 @@
       "value": "link"
     }
   ],
+  "EventAdminApp.Dashboard.delete": [
+    {
+      "type": 0,
+      "value": "Supprimer"
+    }
+  ],
+  "EventAdminApp.Dashboard.edit": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
   "EventAdminApp.Dashboard.filters": [
     {
       "type": 0,
       "value": "Filtres"
     }
   ],
-  "EventAdminApp.Dashboard.searchPlaceholders": [
+  "EventAdminApp.Dashboard.remove": [
+    {
+      "type": 0,
+      "value": "Retirer de l'agenda"
+    }
+  ],
+  "EventAdminApp.Dashboard.searchPlaceholder": [
     {
       "type": 0,
       "value": "Rechercher"
+    }
+  ],
+  "EventAdminApp.Dashboard.showLocation": [
+    {
+      "type": 0,
+      "value": "Voir le lieu"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
@@ -172,28 +218,58 @@
       "value": "Afficher plus de filtres"
     }
   ],
+  "EventAdminApp.RemoveModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirmer"
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteDesc": [
+    {
+      "type": 0,
+      "value": "Etes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda."
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteEvent": [
+    {
+      "type": 0,
+      "value": "Supprimer l'événement"
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeDesc": [
+    {
+      "type": 0,
+      "value": "Etes-vous sûr de vouloir retirer l'événement? Si oui, il sera également retiré des exports de l'agenda ainsi que des agendas agrégateurs connectés à vos contenus."
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeEvent": [
+    {
+      "type": 0,
+      "value": "Retirer l'événement"
+    }
+  ],
   "EventAdminApp.messages.states.controlled": [
     {
       "type": 0,
-      "value": "prêt à publier"
+      "value": "Prêt à publier"
     }
   ],
   "EventAdminApp.messages.states.published": [
     {
       "type": 0,
-      "value": "publié"
+      "value": "Publié"
     }
   ],
   "EventAdminApp.messages.states.refused": [
     {
       "type": 0,
-      "value": "refusé"
+      "value": "Refusé"
     }
   ],
-  "EventAdminApp.messages.states.tocontrol": [
+  "EventAdminApp.messages.states.toModerate": [
     {
       "type": 0,
-      "value": "à contrôler"
+      "value": "À modérer"
     }
   ]
 }
