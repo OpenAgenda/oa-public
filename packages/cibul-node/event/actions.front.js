@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const async = require('async');
 const _ = require('lodash');
@@ -254,6 +254,11 @@ function actionDatesShow(req, res, next) {
 
 async function eventMailSend(req, res, next) {
   log('eventMailSend');
+
+  const {
+    events: eventsSvc,
+    sessions
+  } = req.app.services;
 
   let customData = null;
 

@@ -2,10 +2,10 @@
 
 const assert = require('assert');
 
-const dateHourMinutesTiming = require('../lib/validators/dateHourMinutesTiming');
+const dateHoursMinutesTiming = require('../lib/validators/dateHoursMinutesTiming');
 const validateTiming = require('../lib/validators/timing');
 const validateTimings = require('../lib/validators/timings');
-const convertDateMinuteHourTimings = require('../lib/convertDateHourMinutesTimings');
+const convertDateMinuteHourTimings = require('../lib/convertDateHoursMinutesTimings');
 
 describe('timings', () => {
 
@@ -23,10 +23,10 @@ describe('timings', () => {
     });
   });
 
-  describe('dateHourMinutesTiming', () => {
+  describe('dateHoursMinutesTiming', () => {
 
-    it('validates a well formatted dateHourMinutes timing', () => {
-      const clean = dateHourMinutesTiming({
+    it('validates a well formatted dateHoursMinutes timing', () => {
+      const clean = dateHoursMinutesTiming({
         begin: {
           date: '2020-10-21',
           hours: 20,
@@ -55,7 +55,7 @@ describe('timings', () => {
 
     it('throws error on wrong hour', () => {
       try {
-        dateHourMinutesTiming({
+        dateHoursMinutesTiming({
           begin: {
             date: '2020-10-10',
             hours: 44,
@@ -82,7 +82,7 @@ describe('timings', () => {
 
     it('throws error on wrong date', () => {
       try {
-        dateHourMinutesTiming({
+        dateHoursMinutesTiming({
           begin: {
             date: '2020-10-33',
             hours: 20,
@@ -108,7 +108,7 @@ describe('timings', () => {
 
     it('throws error if begin is after end', () => {
       try {
-        dateHourMinutesTiming({
+        dateHoursMinutesTiming({
           begin: {
             date: '2020-10-21',
             hours: 20,
@@ -144,7 +144,7 @@ describe('timings', () => {
 
     it('throws error if end is more than 24 hours after begin', () => {
       try {
-        dateHourMinutesTiming({
+        dateHoursMinutesTiming({
           begin: {
             date: '2020-10-21',
             hours: 20,
@@ -178,6 +178,27 @@ describe('timings', () => {
       throw new Error('Should have thrown error');
     });
 
+    it('fix: timezone must be accounted for to avoid offset between begin and end on DST days', () => {
+      let error;
+      try {
+        dateHoursMinutesTiming({
+          begin: {
+            date: '2021-03-28',
+            hours: '00',
+            minutes: '00'
+          },
+          end: {
+            date: '2021-03-29',
+            hours: '00',
+            minutes: '59'
+          },
+          timezone: 'GMT'
+        });
+      } catch (e) {
+        error = e.pop();
+      }
+      assert.deepEqual(error.code, 'diffExceeded');
+    });
   });
 
   describe('timings', () => {

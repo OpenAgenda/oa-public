@@ -1,7 +1,7 @@
 'use strict';
 
-const validateDateHourMinutesTiming = require('./dateHourMinutesTiming');
-const { is: isDateHourMinutesTiming } = validateDateHourMinutesTiming;
+const validateDateHoursMinutesTiming = require('./dateHoursMinutesTiming');
+const { is: isDateHoursMinutesTiming } = validateDateHoursMinutesTiming;
 const validateTiming = require('./timing');
 
 const fZ = n => (`${n}`.length === 1 ? '0' : '') + n;
@@ -34,8 +34,8 @@ module.exports = (options = {}) => timings => {
     }];
   }
 
-  const isDHM = isDateHourMinutesTiming(timings[0]);
-  const validateSingle = isDHM ? validateDateHourMinutesTiming : validateTiming;
+  const isDHM = isDateHoursMinutesTiming(timings[0]);
+  const validateSingle = isDHM ? validateDateHoursMinutesTiming : validateTiming;
   const cleanTimings = [];
 
   timings.forEach((timing, index) => {

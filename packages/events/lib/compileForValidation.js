@@ -11,6 +11,8 @@ const log = require('@openagenda/logs')('compileForValidation');
 const fields = require('./fields');
 const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
 
+const isDHM = require('./validators/dateHoursMinutesTiming').is;
+
 module.exports = async (current, data, options = {}) => {
   const {
     maxImageSize
@@ -54,6 +56,14 @@ module.exports = async (current, data, options = {}) => {
     compiled.image = null;
   } else if (typeof data?.image?.filename === 'string' && !('transformAndUpload' in image)) {
     compiled.image = current?.image;
+  }
+
+  // edge case: if DHM timings are being validated, their timezone must be
+  // known for correctly evaluating time between beginning and end on DST days
+  if ((compiled?.timings || []).length && isDHM(compiled.timings[0])) {
+    compiled.timings.forEach(t => {
+      t.timezone = compiled.timezone;
+    });
   }
 
   if (typeof data?.location === 'object' && !data?.locationUid) {

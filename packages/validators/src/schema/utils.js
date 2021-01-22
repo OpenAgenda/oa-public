@@ -34,13 +34,11 @@ function mapValuesToValidators(fields, values, defaults) {
 
 
 function _extractValue(value, values, valuesWithDefaults, fieldOptions = {}) {
-  const enableWith = _.get(fieldOptions, 'enableWith');
-
-  if (!enableWith) {
+  if (!_.get(fieldOptions, 'enableWith')) {
     return value;
   }
 
-  if (_enableWithFieldValueMatches(enableWith, valuesWithDefaults)) {
+  if (_withFieldValueMatches(fieldOptions, 'enableWith', valuesWithDefaults)) {
     return value;
   }
 
@@ -48,11 +46,13 @@ function _extractValue(value, values, valuesWithDefaults, fieldOptions = {}) {
 }
 
 
-function _enableWithFieldValueMatches(enableWith, values) {
-  const enableWithField = typeof enableWith === 'string' ? enableWith : enableWith.field;
-  const value = values === undefined ? undefined : values[enableWithField];
+function _withFieldValueMatches(fieldOptions, withKey, values) {
+  const withParams = _.get(fieldOptions, withKey);
 
-  const evaluateRefFieldAsTruthy = typeof enableWith === 'string';
+  const withField = typeof withParams === 'string' ? withParams : withParams.field;
+  const value = values === undefined ? undefined : values[withField];
+
+  const evaluateRefFieldAsTruthy = typeof withParams === 'string';
 
   if (evaluateRefFieldAsTruthy && (value instanceof Array) && !value.length) {
     return false;
@@ -63,10 +63,10 @@ function _enableWithFieldValueMatches(enableWith, values) {
   }
 
   if (value instanceof Array) {
-    return value.includes(enableWith.value);
+    return value.includes(withParams.value);
   }
 
-  return [].concat(value).filter(v => [].concat(enableWith.value).includes(v)).length;
+  return [].concat(value).filter(v => [].concat(withParams.value).includes(v)).length;
 }
 
 function _makeValidator(type, field, options, values) {
@@ -78,8 +78,22 @@ function _makeValidator(type, field, options, values) {
   if (type === 'list') {
     validatorOptions.validators = registeredValidators;
   }
+  
+  if (
+    validatorOptions.enableWith && 
+    !_withFieldValueMatches(validatorOptions, 'enableWith', values)
+  ) {
+    validatorOptions.optional = true;
+  }
 
-  if (validatorOptions.enableWith && !_enableWithFieldValueMatches(validatorOptions.enableWith, values)) {
+  if (validatorOptions.optionalWith && validatorOptions.optional === false) {
+    validatorOptions.optional = false;
+  } else if (
+    validatorOptions.optionalWith && 
+    !_withFieldValueMatches(validatorOptions, 'optionalWith', values)
+  ) {
+    validatorOptions.optional = false;
+  } else if (validatorOptions.optionalWith) {
     validatorOptions.optional = true;
   }
 

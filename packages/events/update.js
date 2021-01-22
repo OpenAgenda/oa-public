@@ -10,7 +10,7 @@ const validate = require('./lib/validate');
 const setLegacy = require('./lib/legacy/set');
 const processImage = require('./lib/processImage');
 const handleInterface = require('./lib/handleInterface');
-const convertDateHourMinutesTimings = require('./lib/convertDateHourMinutesTimings');
+const convertDateHoursMinutesTimings = require('./lib/convertDateHoursMinutesTimings');
 const lastClean = require('./lib/lastEventClean');
 
 async function update({ service, isPatch }, current, data, o = {}) {
@@ -42,7 +42,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
     });
   }
 
-  convertDateHourMinutesTimings(clean.timings, clean.timezone || current.timezone);
+  convertDateHoursMinutesTimings(clean.timings, clean.timezone || current.timezone);
 
   const updated = {
     ...current,
