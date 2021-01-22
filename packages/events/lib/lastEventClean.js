@@ -6,7 +6,7 @@ const filterItemValuesByFieldAccess = require('./filterItemValuesByFieldAccess')
 const toHTML = require('./toHTML');
 const flatten = require('./flatten');
 const clean = require('@openagenda/validators/schema/clean');
-const convertDateHourMinutesTimings = require('./convertDateHourMinutesTimings');
+const convertDateHoursMinutesTimings = require('./convertDateHoursMinutesTimings');
 
 const getPathAndFilename = file => {
   if (!file) {
@@ -81,7 +81,7 @@ module.exports = (event, options = {}) => {
   }
 
   if (useDateHoursMinutesFormat && event.timings) {
-    convertDateHourMinutesTimings.to(event.timings, event.timezone);
+    convertDateHoursMinutesTimings.to(event.timings, event.timezone);
   }
 
   if (useLocationObjectFormat && event.locationUid && !event.location) {

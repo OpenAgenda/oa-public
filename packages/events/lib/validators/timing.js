@@ -2,7 +2,7 @@
 
 const schema = require('@openagenda/validators/schema');
 
-const compareBeginAndEnd = require('./compareBeginAndEnd');
+const compareBeginAndEnd = require('../compareBeginAndEnd');
 
 schema.register({
   date: require('@openagenda/validators/date')

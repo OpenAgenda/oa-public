@@ -8,8 +8,12 @@ schema.register({
   integer: require('@openagenda/validators/integer')
 });
 
-const compareBeginAndEnd = require('./compareBeginAndEnd');
+const compareBeginAndEnd = require('../compareBeginAndEnd');
+const {
+  from: convertFromDateHoursMinutesTiming
+ } = require('../convertDateHoursMinutesTiming');
 const fZ = n => (n < 10 ? '0' : '') + n;
+
 
 const validate = schema({
   begin: {
@@ -55,12 +59,12 @@ const validate = schema({
 module.exports = v => {
   const clean = validate(v);
 
-  const begin = new Date(clean.begin.date + 'T' + fZ(clean.begin.hours) + ':' + fZ(clean.begin.minutes));
-  const end = new Date(clean.end.date + 'T' + fZ(clean.end.hours) + ':' + fZ(clean.end.minutes));
-
   const errors = [];
 
-  if (begin.toString() === 'Invalid Date') {
+  const begin = convertFromDateHoursMinutesTiming(clean.begin, v.timezone);
+  const end = convertFromDateHoursMinutesTiming(clean.end, v.timezone);
+
+  if (begin === null) {
     errors.push({
       code: 'date.invalid',
       message: 'Invalid Date',
@@ -68,7 +72,7 @@ module.exports = v => {
       field: 'begin.date'
     });
   }
-  if (end.toString() === 'Invalid Date') {
+  if (end === null) {
     errors.push({
       code: 'date.invalid',
       message: 'Invalid Date',
