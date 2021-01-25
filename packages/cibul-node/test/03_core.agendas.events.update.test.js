@@ -212,6 +212,20 @@ describe('core - functional (server): core.agendas().events.update()', function(
       });
     });
 
+    it('a moderator cannot publish if role is not in agenda canPublish list', async () => {
+      let error;
+      try {
+        await core.agendas(37026800).events.patch(88888888, {
+          state: 2
+        }, {
+          access: 'moderator'
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.message).toBe('moderator is not authorized to publish events');
+    });
+
   });
 
   describe('agenda access on event', () => {

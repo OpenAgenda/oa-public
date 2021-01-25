@@ -223,6 +223,14 @@ module.exports = core => {
       });
     }
 
+    if ([
+      'UnauthorizedError'
+    ].includes(err.name)) {
+      return res.status(err.statusCode).json({
+        message: err.message
+      });
+    }
+
     handleError(new VError({
       cause: err,
       info: {
