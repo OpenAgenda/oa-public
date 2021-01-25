@@ -74,7 +74,6 @@ module.exports = entries => {
   if (entries.event.image) {
     event.image = {
       filename: entries.event.image,
-      credits: entries.event?.['image_credits'] || '',
       variants: [{
         type: 'full',
         filename: `evf${entries.event.image}`
@@ -83,6 +82,7 @@ module.exports = entries => {
         filename: `evtb${entries.event.image}`
       }]
     };
+    event.imageCredits = entries.event?.['image_credits'] || '';
   }
 
   [

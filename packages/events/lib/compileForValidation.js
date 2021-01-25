@@ -55,7 +55,7 @@ module.exports = async (current, data, options = {}) => {
     log('image is unset through filename value %s', image?.filename);
     compiled.image = null;
   } else if (typeof data?.image?.filename === 'string' && !('transformAndUpload' in image)) {
-    compiled.image = current?.image;
+    compiled.image = current?.image || data?.image;
   }
 
   // edge case: if DHM timings are being validated, their timezone must be
