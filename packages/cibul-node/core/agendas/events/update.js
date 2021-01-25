@@ -20,6 +20,8 @@ const {
   cleanEvent
 } = require('../utils/loadAgendaAndCleanEvent');
 
+const verifyAgendaEventAuthorization = require('../utils/verifyAgendaEventAuthorization');
+
 const assignState = require('../utils/assignState');
 
 async function update(services, agendaUid, eventUid, data, options = {}) {
@@ -57,12 +59,17 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
   const agenda = await loadAgenda(services, agendaUid);
   log('  loaded agenda %s', agenda?.slug);
 
+  
   const event = await events.get(eventUid, {
     access: 'internal',
     detailed: true,
     throwOnNotFound: true
   });
   log('  loaded event %s', event.slug);
+
+  if (!event.draft) {
+    await verifyAgendaEventAuthorization(services, agendaUid, eventUid);
+  }
 
   const clean = await cleanEvent(services, agenda, data, {
     draft,

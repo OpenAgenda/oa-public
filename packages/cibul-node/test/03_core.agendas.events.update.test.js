@@ -214,7 +214,37 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
   });
 
-  describe('draft update', function() {
+  describe('agenda access on event', () => {
+
+    it('an agenda with ref can_edit at 0 cannot patch event', async () => {
+      try {
+        await core.agendas(92983929).events.patch(99999999, {
+          description: {
+            fr: 'Une desc patchée'
+          }
+        }, {
+          access: 'moderator'
+        });
+      } catch (e) {
+        expect(e.message).toBe('Unauthorized');
+      }
+    });
+
+    it('an agenda wih ref can_edit at 1 can patch event', async () => {
+      const updated = await core.agendas(17026855).events.patch(99999999, {
+        title: {
+          fr: 'Un titre patché'
+        }
+      }, {
+        access: 'moderator'
+      });
+
+      expect(updated.title.fr).toBe('Un titre patché');
+    });
+
+  });
+
+  describe('draft update', () => {
     let event;
 
     beforeAll(async () => {

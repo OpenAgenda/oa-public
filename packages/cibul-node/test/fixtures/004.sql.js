@@ -317,6 +317,25 @@ raw.push(knex('event_2').insert([{
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 17,
+  uid: 99999999,
+  draft: 0,
+  slug: 'un-evenement-can-cannot-edit',
+  owner_uid: 63170203,
+  creator_uid: 63170203,
+  title: JSON.stringify({
+    fr: 'Un autre événement'
+  }),
+  timings: JSON.stringify([{
+    begin: new Date('2019-05-06T10:00:00'),
+    end: new Date('2019-05-06T11:00:00')
+  }]),
+  location_uid: 123,
+  description: JSON.stringify({ fr: 'Une desc.'}),
+  timezone: 'Europe/Paris',
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
 }]));
 
 raw.push(knex('agenda_event').insert([{
@@ -341,6 +360,33 @@ raw.push(knex('agenda_event').insert([{
   id: 3,
   event_uid: 19390294,
   agenda_uid: 92983929,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00'),
+  can_edit: 1
+}, {
+  id: 4,
+  event_uid: 99999999,
+  agenda_uid: 17026855,
+  can_edit: 1,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 5,
+  event_uid: 99999999,
+  agenda_uid: 92983929,
+  can_edit: 0,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 6,
+  event_uid: 19390293,
+  agenda_uid: 17026855,
   user_uid: 63170203,
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
