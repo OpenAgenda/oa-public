@@ -124,6 +124,11 @@ const Service = require('.');
     ],
   }));
 
+  app.get('/unverified', (req, res, next) => svc(7196947).list({ state: 0 }, { limit: 0 }, { total: true }).then(
+    ({ total }) => res.json({ count: total }),
+    next
+  ));
+
   app.get('/insee', (req, res, next) => svc.utils
     .getINSEECode(
       _.pick(req.query, ['city', 'department', 'latitude', 'longitude'])
