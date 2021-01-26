@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { useIntl, defineMessages } from 'react-intl';
-import { shallowEqual, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import compareRoles from '@openagenda/members/build/compareRoles';
 
 const TABS_IN_APP = [
@@ -23,14 +23,10 @@ const messages = defineMessages({
   },
 });
 
-export default function AdminSections({ agenda, role }) {
+export default function AdminSections({ sections, agenda, role }) {
   const location = useLocation();
   const intl = useIntl();
 
-  const sections = useSelector(
-    state => _.get(state, 'agendaAdmin.sections', null),
-    shallowEqual
-  );
   const locationCount = useSelector(state => _.get(state, 'agendaAdmin.locationCount', null));
 
   if (!sections) {

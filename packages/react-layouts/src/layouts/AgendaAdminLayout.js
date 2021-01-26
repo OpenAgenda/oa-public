@@ -1,9 +1,6 @@
-import _ from 'lodash';
 import React from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
-import Loading from '../components/Loading';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
 
@@ -14,31 +11,15 @@ function AgendaAdminLayout({
   onError,
   FallbackComponent,
 }) {
-  const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
-  const loadError = useSelector(state => _.get(state, 'agendaAdmin.error', null));
-  const agenda = useSelector(
-    state => _.get(state, 'agendaAdmin.agenda', null),
-    shallowEqual
-  );
-  const role = useSelector(
-    state => _.get(state, 'agendaAdmin.role', null),
-    shallowEqual
-  );
+  const { agenda, role, sections } = extraProps;
 
-  if (loadError) {
-    // Display Loading waiting redirection
-    return <Loading />;
-  }
-
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <div className="container agenda-admin">
       <AdminHeader agenda={agenda} />
 
       <div className="row wsq">
         <div className="col col-sm-3 nav">
-          <AdminSections agenda={agenda} role={role} />
+          <AdminSections sections={sections} agenda={agenda} role={role} />
         </div>
 
         <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>

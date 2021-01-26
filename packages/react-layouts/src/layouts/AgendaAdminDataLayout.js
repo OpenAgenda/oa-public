@@ -1,11 +1,12 @@
-import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { useIsomorphicLayoutEffect } from 'react-use';
 import { useIntl } from 'react-intl';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useApiClient } from '@openagenda/react-shared';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import ChildLayouts from '../components/ChildLayouts';
+import Loading from '../components/Loading';
 
 function AgendaAdminDataLayout({
   childLayouts,
@@ -16,46 +17,31 @@ function AgendaAdminDataLayout({
 }) {
   const intl = useIntl();
   const history = useHistory();
+  const apiClient = useApiClient();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const { params } = useMemo(() => matchPath(location.pathname, '/:slug'), [
     location.pathname,
   ]);
 
-  const dispatch = useDispatch();
-  const loadLayoutData = useCallback(
-    () => dispatch(agendaAdminActions.load(params.slug, intl.locale)),
-    [dispatch, params.slug, intl.locale]
+  const { data, isLoading, error } = useQuery(
+    ['agendaAdmin-layout', { slug: params.slug }],
+    async () => (
+      await apiClient.get(`/${params.slug}/admin/layout`, {
+        params: {
+          lang: intl.locale,
+        },
+      })
+    ).data,
+    {
+      notifyOnChangeProps: ['data', 'isLoading', 'error'],
+    }
   );
 
-  useEffect(() => {
-    loadLayoutData();
-  }, [loadLayoutData]);
+  const { user } = extraProps;
 
-  const user = useSelector(state => _.get(state, 'main.user', null));
-  const loadError = useSelector(state => _.get(state, 'agendaAdmin.error', null));
-  const agenda = useSelector(
-    state => _.get(state, 'agendaAdmin.agenda', null),
-    shallowEqual
-  );
-  const agendaSchema = useSelector(
-    state => _.get(state, 'agendaAdmin.agendaSchema', null),
-    shallowEqual
-  );
-  const member = useSelector(
-    state => _.get(state, 'agendaAdmin.member', null),
-    shallowEqual
-  );
-  const role = useSelector(
-    state => _.get(state, 'agendaAdmin.role', null),
-    shallowEqual
-  );
-  const sections = useSelector(
-    state => _.get(state, 'agendaAdmin.sections', null),
-    shallowEqual
-  );
-
-  const agendaUid = agenda?.uid;
+  const agendaUid = data?.agenda?.uid;
 
   const verifyLocationCount = useCallback(() => {
     if (!agendaUid) return;
@@ -66,17 +52,33 @@ function AgendaAdminDataLayout({
     verifyLocationCount();
   }, [verifyLocationCount]);
 
-  useIsomorphicLayoutEffect(() => {
-    if (loadError) {
-      if (loadError?.response?.status === 403) {
-        window.location.href = `/${params.slug}/unauthorized`;
-      } else if (user) {
-        history.replace('/home');
-      } else {
-        window.location.href = '/';
-      }
+  // useIsomorphicLayoutEffect(() => {
+  //   if (loadError) {
+  //     if (loadError?.response?.status === 403) {
+  //       window.location.href = `/${params.slug}/unauthorized`;
+  //     } else if (user) {
+  //       history.replace('/home');
+  //     } else {
+  //       window.location.href = '/';
+  //     }
+  //   }
+  // }, [history, loadError, params.slug, user]);
+
+  if (error) {
+    if (error?.response?.status === 403) {
+      window.location.href = `/${params.slug}/unauthorized`;
+    } else if (user) {
+      history.replace('/home');
+    } else {
+      window.location.href = '/';
     }
-  }, [history, loadError, params.slug, user]);
+
+    return <Loading />;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <ChildLayouts
@@ -85,11 +87,11 @@ function AgendaAdminDataLayout({
       onError={onError}
       FallbackComponent={FallbackComponent}
       // additional extraProps
-      agenda={agenda}
-      agendaSchema={agendaSchema}
-      role={role}
-      sections={sections}
-      member={member}
+      agenda={data.agenda}
+      agendaSchema={data.schema}
+      role={data.role}
+      sections={data.sections}
+      member={data.member}
     >
       {children}
     </ChildLayouts>

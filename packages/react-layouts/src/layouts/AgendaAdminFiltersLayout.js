@@ -1,9 +1,6 @@
-import _ from 'lodash';
 import React, { useRef } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
-import Loading from '../components/Loading';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
 
@@ -15,25 +12,10 @@ function AgendaAdminFiltersLayout({
   FallbackComponent,
 }) {
   const filtersContainerRef = useRef();
-  const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
-  const loadError = useSelector(state => _.get(state, 'agendaAdmin.error', null));
-  const agenda = useSelector(
-    state => _.get(state, 'agendaAdmin.agenda', null),
-    shallowEqual
-  );
-  const role = useSelector(
-    state => _.get(state, 'agendaAdmin.role', null),
-    shallowEqual
-  );
 
-  if (loadError) {
-    // Display Loading waiting redirection
-    return <Loading />;
-  }
+  const { agenda, role, sections } = extraProps;
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <div className="container-fluid agenda-admin agenda-admin-filters-layout">
       <div className="row">
         <div className="col-md-offset-2 col-md-7 wsq">
@@ -42,7 +24,7 @@ function AgendaAdminFiltersLayout({
       </div>
       <div className="row body">
         <div className="col-md-offset-2 col-md-2 col-sm-12 nav wsq">
-          <AdminSections agenda={agenda} role={role} />
+          <AdminSections sections={sections} agenda={agenda} role={role} />
         </div>
         <div
           className="col-md-3 col-md-push-5 col-sm-12 wsq filters"

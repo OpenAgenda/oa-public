@@ -6093,6 +6093,7 @@ __metadata:
     cors: ^2.8.5
     errorhandler: ^1.5.0
     express: ^4.17.1
+    final-form: ^4.20.1
     history: ^4.10.1
     immutability-helper: ^3.0.0
     knex: ^0.19.5
@@ -6105,6 +6106,7 @@ __metadata:
     react: ^16.13.1
     react-copy-to-clipboard: ^5.0.2
     react-dom: ^16.13.1
+    react-final-form: ^6.4.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -6119,6 +6121,7 @@ __metadata:
     slugify: ^1.4.6
   peerDependencies:
     "@loadable/component": ^5.12.0
+    final-form: ^4.18.5
     react: ^16.12.0
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
@@ -6166,7 +6169,7 @@ __metadata:
     react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
     react-intl: ^5.8.2
-    react-query: ^3.5.12
+    react-query: ^3.6.0
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
@@ -6706,7 +6709,7 @@ __metadata:
     react-final-form-listeners: ^1.0.2
     react-hot-loader: ^4.12.20
     react-intl: ^5.8.2
-    react-query: ^3.5.6
+    react-query: ^3.6.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -7807,6 +7810,7 @@ __metadata:
     react-is: ^16.13.1
     react-markdown: ^4.3.1
     react-outside-click-handler: ^1.3.0
+    react-query: ^3.6.0
     react-redux: ^7.1.3
     react-router-config: ^5.1.1
     react-use: ^13.22.3
@@ -7834,6 +7838,7 @@ __metadata:
     "@loadable/component": ^5.12.0
     "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": ^1.3.1
+    axios: ^0.21.1
     babel-jest: ^26.6.3
     bytes: ^3.1.0
     core-js: ^3.6.5
@@ -12076,6 +12081,15 @@ __metadata:
   dependencies:
     follow-redirects: ^1.10.0
   checksum: 6cf2e963176a0d18fc457d7cb71cb6cf552193619b161fc61070d9a4db3a26a87ecfe760ba36e7af174c05a6a9898dc52cfeb5c0e62e19fddd9788739553ad73
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.21.1":
+  version: 0.21.1
+  resolution: "axios@npm:0.21.1"
+  dependencies:
+    follow-redirects: ^1.10.0
+  checksum: 864fb7b5d077d236737f10adca53bf451a93f35a15271f56fba8da07265a02d26b7d881b935a6697dc6adb0549ea3e56d2eecb403edaa3bb78f6479901c10f69
   languageName: node
   linkType: hard
 
@@ -34700,9 +34714,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:^3.5.12":
-  version: 3.5.12
-  resolution: "react-query@npm:3.5.12"
+"react-query@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "react-query@npm:3.6.0"
   dependencies:
     "@babel/runtime": ^7.5.5
     match-sorter: ^6.0.2
@@ -34713,24 +34727,7 @@ __metadata:
       optional: true
     react-native:
       optional: true
-  checksum: dd17432824325b4e04876f1d08fb94f7e455964bac871f2b0be5f9eee8b3a1f37c2f5b60560ba43cd9e9e54a753c3a3e6347ea46a9ad653be1159f895f421d73
-  languageName: node
-  linkType: hard
-
-"react-query@npm:^3.5.6":
-  version: 3.5.6
-  resolution: "react-query@npm:3.5.6"
-  dependencies:
-    "@babel/runtime": ^7.5.5
-    match-sorter: ^6.0.2
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0
-  peerDependenciesMeta:
-    react-dom:
-      optional: true
-    react-native:
-      optional: true
-  checksum: 8d07c21113bbe7e90275d2fd29eea22da1e66c6cf29bdd159cf53b92fad5eed39bf92b72f6be2b98b0a160b9bea001b92ae970f1c2b02aa78a3f088fab248bb9
+  checksum: 5506160682e280edec473379184b85c5f5146422c4c22a8c886c03cd066dbd2cfe11733391fe16b32d3a98d95dfe3d645bd5364c9f3af6d23a781b13255132aa
   languageName: node
   linkType: hard
 
