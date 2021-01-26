@@ -3,6 +3,7 @@
 const knex = require('knex');
 const logger = require('@openagenda/logs');
 
+
 const create = require('./create');
 const get = require('./get');
 const list = require('./list');

@@ -2,6 +2,12 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('core/utils/assignState');
+const UnauthorizedError = require('../../utils/UnauthorizedError');
+
+const canPublish = (agenda, access) => (
+  agenda?.settings?.contribution?.canPublish
+  || ['administrators', 'moderators']
+).map(v => v.replace(/s$/, '')).includes(access);
 
 function defineState(agenda, current, clean, data, { access, draft }) {
   const isUndrafted = current?.draft && !draft;
@@ -24,6 +30,14 @@ function defineState(agenda, current, clean, data, { access, draft }) {
     return agendaDefault;
   } else if (isUndrafted) {
     return canChangeState ? data.state : agendaDefault;
+  }
+
+  if (
+    explicitStateRequested
+    && (data.state === 2)
+    && !canPublish(agenda, access)
+  ) {
+    throw new UnauthorizedError('agenda', agenda.uid, `${access} is not authorized to publish events`);
   }
 
   if (current && explicitStateRequested && canChangeState) {

@@ -12,8 +12,7 @@ export default (config = {}) => {
   };
 
   return Object.assign(value => {
-    let clean = ([]
-      .concat(value))
+    let clean = ([].concat(value))
       .map(v => (v instanceof Object) ? v[params.key] : v)
       .filter(v => params.options.indexOf(v) !== -1);
 
@@ -26,6 +25,10 @@ export default (config = {}) => {
         code: 'choice.required',
         message: 'a (known) value must be chosen'
       })];
+    }
+
+    if (params.unique && params.optional && value === null) {
+      return null;
     }
 
     if (params.unique) {

@@ -59,6 +59,22 @@ raw.push(knex('review').insert([{
       moderateOnChangeBy: ['contributor']
     }
   })
+}, {
+  id: 221,
+  uid: 37026800,
+  title: 'Un agenda qui ne laisse pas les modérateurs publier',
+  slug: 'no-mod-publish',
+  description: 'Une petite description',
+  owner_id: 50304,
+  created_at: '2016-01-11 13:07:08',
+  updated_at: '2016-01-18 16:14:06',
+  official: 0,
+  credentials: '{}',
+  settings: JSON.stringify({
+    contribution: {
+      canPublish: ['administrators']
+    }
+  })
 }]));
 
 raw.push(knex('user').insert([
@@ -317,6 +333,44 @@ raw.push(knex('event_2').insert([{
   timezone: 'Europe/Paris',
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 17,
+  uid: 99999999,
+  draft: 0,
+  slug: 'un-evenement-can-cannot-edit',
+  owner_uid: 63170203,
+  creator_uid: 63170203,
+  title: JSON.stringify({
+    fr: 'Un autre événement'
+  }),
+  timings: JSON.stringify([{
+    begin: new Date('2019-05-06T10:00:00'),
+    end: new Date('2019-05-06T11:00:00')
+  }]),
+  location_uid: 123,
+  description: JSON.stringify({ fr: 'Une desc.'}),
+  timezone: 'Europe/Paris',
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 18,
+  uid: 88888888,
+  draft:  0,
+  slug: 'un-evenement-sur-un-agenda-qui-ne-laisse-pas-mod-publish',
+  owner_uid: 63170203,
+  creator_uid: 63170203,
+  title: JSON.stringify({
+    fr: 'Encore un autre événement'
+  }),
+  timings: JSON.stringify([{
+    begin: new Date('2019-05-06T10:00:00'),
+    end: new Date('2019-05-06T11:00:00')
+  }]),
+  location_uid: 123,
+  description: JSON.stringify({ fr: 'Une desc.'}),
+  timezone: 'Europe/Paris',
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
 }]));
 
 raw.push(knex('agenda_event').insert([{
@@ -346,6 +400,42 @@ raw.push(knex('agenda_event').insert([{
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
   can_edit: 1
+}, {
+  id: 4,
+  event_uid: 99999999,
+  agenda_uid: 17026855,
+  can_edit: 1,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 5,
+  event_uid: 99999999,
+  agenda_uid: 92983929,
+  can_edit: 0,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 6,
+  event_uid: 19390293,
+  agenda_uid: 17026855,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00'),
+  can_edit: 1
+}, {
+  id: 7,
+  event_uid: 88888888,
+  agenda_uid: 37026800,
+  can_edit: 1,
+  user_uid: 63170203,
+  state: 1,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
 }]));
 
 raw.push(knex('review_article').insert([{

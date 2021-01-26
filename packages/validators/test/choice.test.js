@@ -94,7 +94,6 @@ describe('choice validator', () => {
     });
 
     it('default unique output is null by default', () => {
-
       let clean;
 
       const validate = validators.choice({
@@ -127,8 +126,7 @@ describe('choice validator', () => {
   });
 
   describe('fielded', () => {
-
-    let validate = validators.choice({
+    const validate = validators.choice({
       options: [2, 4, 12, 13],
       field: 'etpaf',
       optional: false
@@ -138,9 +136,7 @@ describe('choice validator', () => {
       let errors = [];
 
       try {
-
         validate();
-
       } catch(e) { errors = e };
 
       expect(errors[0].field).toBe('etpaf');
@@ -158,9 +154,7 @@ describe('choice validator', () => {
       let errors = [];
 
       try {
-
         validate(2);
-
       } catch(e) { errors = e; }
 
       expect(errors).toEqual([{
@@ -186,6 +180,18 @@ describe('choice validator', () => {
       }]);
     });
 
+    it('null given to optional choice returns null', () => {
+      const validate = validators.choice({
+        unique: true,
+        optional: true,
+        options: [2, 3],
+        default: 2
+      });
+
+      const clean = validate(null);
+
+      expect(clean).toBeNull();
+    });
   });
 
 });

@@ -102,6 +102,7 @@ raw.push(knex('agenda_event').insert([{
   agenda_uid: 1,
   event_uid: 1,
   state: 2,
+  can_edit: 1,
   created_at: new Date(),
   updated_at: new Date()
 }, {
@@ -110,6 +111,7 @@ raw.push(knex('agenda_event').insert([{
   agenda_uid: 1,
   event_uid: 2,
   state: 0,
+  can_edit: 1,
   created_at: new Date(),
   updated_at: new Date()
 }]));

@@ -11,9 +11,7 @@ const registration = require('./validators/registration');
 const accessibility = require('./validators/accessibility');
 const age = require('./validators/age');
 const keywords = require('./validators/keywords');
-const preClean = require('./preValidateClean');
 const compileForValidation = require('./compileForValidation');
-
 const ValidationError = require('./ValidationError');
 const date = require('@openagenda/validators/date');
 

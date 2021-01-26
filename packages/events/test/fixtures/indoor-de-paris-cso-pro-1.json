@@ -54,8 +54,8 @@
     }
   ],
   "image": {
+    "base": "//oadev.s3.eu-west-1.amazonaws.com/",
     "filename": "event_indoor-de-paris-cso-pro-1_563851.jpg",
-    "credits": "@gaetan 2017",
     "variants": [
       {
         "type": "full",
@@ -67,6 +67,7 @@
       }
     ]
   },
+  "imageCredits": "@gaetan 2017",
   "uid": 27434489,
   "slug": "indoor-de-paris-cso-pro-1",
   "fileKey": "reai4iufo57yuqo3fdy6qqoi5fy3iqo",

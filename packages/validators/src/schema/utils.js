@@ -86,14 +86,18 @@ function _makeValidator(type, field, options, values) {
     validatorOptions.optional = true;
   }
 
-  if (validatorOptions.optionalWith && validatorOptions.optional === false) {
-    validatorOptions.optional = false;
-  } else if (
+  const optionalIsUndefined = typeof validatorOptions.optional !== 'boolean';
+
+  if (
+    optionalIsUndefined &&
     validatorOptions.optionalWith && 
     !_withFieldValueMatches(validatorOptions, 'optionalWith', values)
   ) {
     validatorOptions.optional = false;
-  } else if (validatorOptions.optionalWith) {
+  } else if (
+    optionalIsUndefined &&
+    validatorOptions.optionalWith
+  ) {
     validatorOptions.optional = true;
   }
 

@@ -1283,7 +1283,31 @@ describe('schema validator', () => {
         throw new Error('Should not reach here');
       });
 
-    })
+      it('optionalWith is overridden if optional is explicited', () => {
+        const validate = schema({
+          eventAttendanceMode: {
+            optional: false,
+            type: 'choice',
+            default: 1,
+            unique: true,
+            options: [1, 2, 3]
+          },
+          locationUid: {
+            optional: true,
+            optionalWith: {
+              field: 'eventAttendanceMode',
+              value: 1
+            },
+            type: 'integer'
+          }
+        });
+
+        validate({
+          eventAttendanceMode: 2
+        });
+      });
+
+    });
 
 
     it('if object is specified in schema and submitted value is not an object', () => {

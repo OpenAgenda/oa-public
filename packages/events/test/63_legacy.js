@@ -37,7 +37,8 @@ describe('legacy', () => {
       await f.load();
 
       svc = Service({
-        knex: f.client
+        knex: f.client,
+        imagePath: config.imagePath
       });
     });
 

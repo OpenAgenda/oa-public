@@ -347,18 +347,23 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
     });
 
     it('create with contributor access can not force state', async () => {
-      const event = await core.agendas(55268170).events.create({
-        title: { fr: 'T' },
-        description: { fr: 'D' },
-        timings: [{ begin: now, end: inAnHour }],
-        location: { uid: 123 },
-        state: 2
-      }, {
-        context: { userUid: 63170200 },
-        access: 'contributor'
-      });
+      let error;
+      try {
+        const event = await core.agendas(55268170).events.create({
+          title: { fr: 'T' },
+          description: { fr: 'D' },
+          timings: [{ begin: now, end: inAnHour }],
+          location: { uid: 123 },
+          state: 2
+        }, {
+          context: { userUid: 63170200 },
+          access: 'contributor'
+        });
+      } catch (e) {
+        error = e;  
+      }
 
-      assert.equal(event.state, 0);
+      expect(error.message).toBe('contributor is not authorized to publish events');
     });
 
     it('create with administrator access can force state', async () => {
@@ -723,11 +728,31 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           .set('access-token', accessToken)
           .set('nonce', _.random(Math.pow(10, 6)))
           .field({
-            data: JSON.stringify(eventsFixtures[3])
+            data: JSON.stringify(_.omit(eventsFixtures[3], ['state']))
           });
 
         expect(response.body.success).toBe(true);
       });
+
+      it('contributor may not set state through api', async () => {
+        let error;
+        try {
+          await request.post('http://localhost:3000/v2/agendas/17026855/events')
+            .type('form')
+            .accept('json')
+            .query({ key: null })
+            .set('access-token', accessToken)
+            .set('nonce', _.random(Math.pow(10, 6)))
+            .field({
+              data: JSON.stringify(eventsFixtures[3])
+            });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error.response.statusCode).toBe(401);
+        expect(error.response.body.message).toBe('contributor is not authorized to publish events');
+      })
 
     });
 
