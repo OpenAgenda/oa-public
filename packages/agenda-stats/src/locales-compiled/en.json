@@ -238,6 +238,12 @@
       "value": "Edit the report"
     }
   ],
+  "AgendaStats.Dashboard.filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
   "AgendaStats.Dashboard.lessFilters": [
     {
       "type": 0,
@@ -641,7 +647,7 @@
       "value": "Refused"
     }
   ],
-  "AgendaStats.StateTooltipItem.tocontrol": [
+  "AgendaStats.StateTooltipItem.toModerate": [
     {
       "type": 0,
       "value": "To control"
@@ -863,7 +869,7 @@
       "value": "Refused"
     }
   ],
-  "ReactFilters.messages.states.tocontrol": [
+  "ReactFilters.messages.states.toModerate": [
     {
       "type": 0,
       "value": "To control"

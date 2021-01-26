@@ -15,7 +15,7 @@ set -e
 # Clean the Git environment before crossing repository boundaries.
 # From https://stackoverflow.com/questions/36196548/cannot-trigger-post-commit-git-hook-on-git-submodule
 
-unset $(env | grep "^GIT_" | sed -n "s/^\(.*\)=.*/\1/p")
+unset $(env | grep "^GIT_" | cut -d '=' -f 1)
 
 SUPERPROJECT_WORKING_TREE=$(git rev-parse --show-superproject-working-tree)
 

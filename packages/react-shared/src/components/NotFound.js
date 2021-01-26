@@ -7,8 +7,8 @@ const NotFound = ({ staticContext, route, location }) => {
     ...locationState,
     notFound: {
       ...locationState.notFound,
-      [route.notFoundKey]: true
-    }
+      [route.notFoundKey]: true,
+    },
   };
 
   if (staticContext) {
@@ -18,7 +18,10 @@ const NotFound = ({ staticContext, route, location }) => {
   return <Redirect to={{ state: newLocationState }} />;
 };
 
-NotFound.Capture = withRouter(({ children, location, notFoundKey }) => (location && location.state && location.state.notFound && location.state.notFound[notFoundKey]
+NotFound.Capture = withRouter(({ children, location, notFoundKey }) => (location
+  && location.state
+  && location.state.notFound
+  && location.state.notFound[notFoundKey]
   ? null
   : children));
 

@@ -637,5 +637,17 @@ module.exports = {
     "de": "Folge den Besucherandrang auf den öffentlichen Seiten deinerVerwaltungskalender auf openagenda.com",
     "es": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com",
     "it": "Segui il flusso di visitatori sulle pagine pubbliche del tuo agenda su openagenda.com"
+  },
+  "lab": {
+    "fr": "Lab",
+    "en": "Lab",
+  },
+  "labTabDescription": {
+    "fr": "Utilisez les fonctionnalités disponibles en version bêta",
+    "en": "Use the features available in beta version",
+  },
+  "eventAdminDesc": {
+    "fr": "Utiliser la nouvelle interface d'administration des événements",
+    "en": "Use the new event administration interface"
   }
 }

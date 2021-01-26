@@ -5,27 +5,27 @@ import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 const messages = defineMessages({
   '-1': {
     id: 'AgendaStats.StateTooltipItem.refused',
-    defaultMessage: 'Refused'
+    defaultMessage: 'Refused',
   },
   0: {
-    id: 'AgendaStats.StateTooltipItem.tocontrol',
-    defaultMessage: 'To control'
+    id: 'AgendaStats.StateTooltipItem.toModerate',
+    defaultMessage: 'To control',
   },
   1: {
     id: 'AgendaStats.StateTooltipItem.controlled',
-    defaultMessage: 'Controlled'
+    defaultMessage: 'Controlled',
   },
   2: {
     id: 'AgendaStats.StateTooltipItem.published',
-    defaultMessage: 'Published'
-  }
+    defaultMessage: 'Published',
+  },
 });
 
 export default function StateTooltipItem({
   message,
   entry,
   dataKey,
-  hideLabel
+  hideLabel,
 }) {
   const intl = useIntl();
   const label = getValueByDataKey(entry.payload, dataKey);
@@ -41,7 +41,7 @@ export default function StateTooltipItem({
         ) : null}
         {intl.formatMessage(message, {
           value: entry.value,
-          dataKey: entry.dataKey
+          dataKey: entry.dataKey,
         })}
       </span>
     </li>

@@ -2,7 +2,7 @@ import { useReducer, useCallback, useMemo } from 'react';
 
 const initialState = {
   isOpen: false,
-  data: {}
+  data: {},
 };
 
 function modalReducer(state, action) {
@@ -10,17 +10,17 @@ function modalReducer(state, action) {
     case 'open':
       return {
         isOpen: true,
-        data: action.data
+        data: action.data,
       };
     case 'close':
       return {
         isOpen: false,
-        data: state.data
+        data: state.data,
       };
     case 'update':
       return {
         isOpen: state.isOpen,
-        data: action.data
+        data: action.data,
       };
     default:
       return state;
@@ -34,7 +34,7 @@ export default function useModal() {
     data => {
       dispatch({
         type: 'open',
-        data
+        data,
       });
     },
     [dispatch]
@@ -44,7 +44,7 @@ export default function useModal() {
     data => {
       dispatch({
         type: 'update',
-        data
+        data,
       });
     },
     [dispatch]
@@ -60,7 +60,7 @@ export default function useModal() {
       data: state.data,
       open,
       update,
-      close
+      close,
     }),
     [state.isOpen, state.data, open, update, close]
   );

@@ -23,6 +23,10 @@ module.exports = [
       }, next);
   },
   (req, res, next) => {
+    if (req.xhr) {
+      return res.sendStatus(200);
+    }
+
     const redirect = req.query.redirect ? base64.decode(req.query.redirect) : null;
 
     req.app.services.sessions.setFlash(req, res, getLabel(req.result.deletion ? 'eventDeleted' : 'eventRemoved', req.lang));

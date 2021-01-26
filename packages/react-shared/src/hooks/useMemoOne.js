@@ -5,7 +5,7 @@ function useMemoOne(getResult, inputs, equalityFn = shallowEqual) {
   // using useState to generate initial value as it is lazy
   const initial = useState(() => ({
     inputs,
-    result: getResult()
+    result: getResult(),
   }))[0];
 
   const committed = useRef(initial);
@@ -20,7 +20,7 @@ function useMemoOne(getResult, inputs, equalityFn = shallowEqual) {
     ? committed.current
     : {
       inputs,
-      result: getResult()
+      result: getResult(),
     };
 
   // commit the cache

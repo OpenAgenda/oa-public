@@ -1,6 +1,6 @@
 import { applyMiddleware, compose } from 'redux';
 import createReduxStore from '@openagenda/react-shared/lib/utils/lib/createStore';
-import apiClient from '@openagenda/react-shared/lib/utils/lib/apiClient';
+import apiClient from '@openagenda/react-shared/lib/utils/apiClient';
 import clientMiddleware from '@openagenda/react-shared/lib/utils/lib/clientMiddleware';
 import mainReducer from './reducers/main';
 import agendaAdminReducer from './reducers/agendaAdmin';
@@ -16,7 +16,7 @@ export default function createLayoutStore(initialState, history) {
     asyncReducers => ({
       main: mainReducer,
       agendaAdmin: agendaAdminReducer,
-      ...asyncReducers
+      ...asyncReducers,
     }),
     initialState,
     compose(
@@ -31,7 +31,7 @@ export default function createLayoutStore(initialState, history) {
     client,
     store,
     history,
-    location: history.location
+    location: history.location,
   });
 
   return store;

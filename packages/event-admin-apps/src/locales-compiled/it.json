@@ -1,14 +1,25 @@
 {
+  "EventAdminApp.Dashboard.addedBy": null,
   "EventAdminApp.Dashboard.aggregatedFrom": null,
+  "EventAdminApp.Dashboard.contact": null,
   "EventAdminApp.Dashboard.createdBy": null,
+  "EventAdminApp.Dashboard.delete": null,
+  "EventAdminApp.Dashboard.edit": null,
   "EventAdminApp.Dashboard.filters": null,
-  "EventAdminApp.Dashboard.searchPlaceholders": null,
+  "EventAdminApp.Dashboard.remove": null,
+  "EventAdminApp.Dashboard.searchPlaceholder": null,
+  "EventAdminApp.Dashboard.showLocation": null,
   "EventAdminApp.Dashboard.totalEvents": null,
   "EventAdminApp.Dashboard.totalWithFilters": null,
   "EventAdminApp.FiltersPart.lessFilters": null,
   "EventAdminApp.FiltersPart.moreFilters": null,
+  "EventAdminApp.RemoveModal.confirm": null,
+  "EventAdminApp.RemoveModal.deleteDesc": null,
+  "EventAdminApp.RemoveModal.deleteEvent": null,
+  "EventAdminApp.RemoveModal.removeDesc": null,
+  "EventAdminApp.RemoveModal.removeEvent": null,
   "EventAdminApp.messages.states.controlled": null,
   "EventAdminApp.messages.states.published": null,
   "EventAdminApp.messages.states.refused": null,
-  "EventAdminApp.messages.states.tocontrol": null
+  "EventAdminApp.messages.states.toModerate": null
 }

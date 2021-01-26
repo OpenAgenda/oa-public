@@ -65,11 +65,21 @@ function AgendaItem({ agenda, res, getLabel }) {
             </a>
           )}
           {[2, 3].includes(agenda.member.role) && (
-            <a href={res.agendas.moderate.replace(':slug', agenda.slug)}>
-              {agenda.member.role === 2
-                ? getLabel('manage')
-                : getLabel('moderate')}
-            </a>
+            <>
+              {agenda.settings.lab?.eventAdmin ? (
+                <Link to={`/${agenda.slug}/admin/events`}>
+                  {agenda.member.role === 2
+                    ? getLabel('manage')
+                    : getLabel('moderate')}
+                </Link>
+              ) : (
+                <a href={res.agendas.moderate.replace(':slug', agenda.slug)}>
+                  {agenda.member.role === 2
+                    ? getLabel('manage')
+                    : getLabel('moderate')}
+                </a>
+              )}
+            </>
           )}
           {[1, 2, 3].includes(agenda.member.role) && (
             <a
@@ -116,7 +126,7 @@ function Agendas({ user }) {
     () => ({
       searchValue: query.search || '',
       firstLoading: true,
-      listLoading: true
+      listLoading: true,
     }),
     [query.search]
   );
@@ -127,8 +137,8 @@ function Agendas({ user }) {
         ...history.location,
         search: qs.stringify({
           ...query,
-          search: value !== '' ? value : undefined
-        })
+          search: value !== '' ? value : undefined,
+        }),
       });
     },
     [history, query]
@@ -139,7 +149,7 @@ function Agendas({ user }) {
       placeholder: getLabel('searchAgenda'),
       classNameGroup: 'form-group search',
       className: 'form-control',
-      autoComplete: 'off'
+      autoComplete: 'off',
     }),
     [getLabel]
   );

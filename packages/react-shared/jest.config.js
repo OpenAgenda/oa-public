@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  setupFilesAfterEnv: ['<rootDir>/test/setup.js']
+  setupFilesAfterEnv: ['<rootDir>/test/setup.js'],
 };

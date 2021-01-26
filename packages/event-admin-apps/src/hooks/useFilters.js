@@ -25,7 +25,7 @@ export default function useFilters(
         value: -1,
       },
       {
-        label: intl.formatMessage(stateMessages.tocontrol),
+        label: intl.formatMessage(stateMessages.toModerate),
         value: 0,
       },
       {

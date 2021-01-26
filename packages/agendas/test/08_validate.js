@@ -41,6 +41,9 @@ describe( 'agendas - unit (server): validate', () => {
         networkUid: null,
         locationSetUid: null,
         settings: {
+          lab: {
+            eventAdmin: false
+          },
           inbox: {
             mailto: {
               enabled: false,
@@ -186,6 +189,9 @@ describe( 'agendas - unit (server): validate', () => {
         networkUid: null,
         locationSetUid: null,
         settings: {
+          lab: {
+            eventAdmin: false
+          },
           tracking: {
             googleAnalytics: null
           },

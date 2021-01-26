@@ -121,6 +121,16 @@ module.exports = [{
       max: 255
     }]
   }, {
+    field: 'lab',
+    type: 'schema',
+    read: ['administrator', 'internal', 'legacy', 'legacyPublic'],
+    write: ['administrator', 'internal'],
+    fields: [{
+      field: 'eventAdmin',
+      type: 'boolean',
+      default: false
+    }]
+  }, {
     field: 'inbox',
     type: 'schema',
     read: ['administrator', 'internal', 'legacy', 'legacyPublic'],

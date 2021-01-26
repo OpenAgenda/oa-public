@@ -12,6 +12,7 @@
   "AgendaStats.Dashboard.cancel": "Cancel",
   "AgendaStats.Dashboard.changeOrder": "Change ordrer",
   "AgendaStats.Dashboard.edit": "Edit the report",
+  "AgendaStats.Dashboard.filters": "Filters",
   "AgendaStats.Dashboard.lessFilters": "Display less filters",
   "AgendaStats.Dashboard.moreFilters": "Display more filters",
   "AgendaStats.Dashboard.pulseDesc": "Activity of the past year",
@@ -52,7 +53,7 @@
   "AgendaStats.StateTooltipItem.controlled": "Controlled",
   "AgendaStats.StateTooltipItem.published": "Published",
   "AgendaStats.StateTooltipItem.refused": "Refused",
-  "AgendaStats.StateTooltipItem.tocontrol": "To control",
+  "AgendaStats.StateTooltipItem.toModerate": "To control",
   "AgendaStats.dateRanges.currentMonth": "Current month",
   "AgendaStats.dateRanges.currentWeek": "Current week",
   "AgendaStats.dateRanges.currentYear": "Current year",
@@ -89,7 +90,7 @@
   "ReactFilters.messages.states.controlled": "Controlled",
   "ReactFilters.messages.states.published": "Published",
   "ReactFilters.messages.states.refused": "Refused",
-  "ReactFilters.messages.states.tocontrol": "To control",
+  "ReactFilters.messages.states.toModerate": "To control",
   "aggregator-sources.RangeTypeModal.cancel": "Cancel",
   "aggregator-sources.RangeTypeModal.submit": "Submit"
 }

@@ -5,9 +5,9 @@ export default defineMessages({
     id: 'EventAdminApp.messages.states.refused',
     defaultMessage: 'Refused',
   },
-  tocontrol: {
-    id: 'EventAdminApp.messages.states.tocontrol',
-    defaultMessage: 'To control',
+  toModerate: {
+    id: 'EventAdminApp.messages.states.toModerate',
+    defaultMessage: 'To moderate',
   },
   controlled: {
     id: 'EventAdminApp.messages.states.controlled',

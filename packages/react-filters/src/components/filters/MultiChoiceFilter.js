@@ -1,14 +1,41 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback, useLayoutEffect, useMemo, useState
+} from 'react';
 import { Field, useForm, useField } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { OnChange } from 'react-final-form-listeners';
 import { useDebouncedCallback } from 'use-debounce';
+import Fuse from 'fuse.js';
+import { usePrevious } from 'react-use';
+import { defineMessages, useIntl } from 'react-intl';
+import { css } from '@emotion/core';
+import { useConstant } from '@openagenda/react-shared';
 import useFilterTitle from '../../hooks/useFilterTitle';
 import Checkbox from '../fields/Checkbox';
 import Panel from '../Panel';
 import ValueBadge from '../ValueBadge';
 
 const OPTIONS_PAGE_SIZE = 10;
+const SEARCH_MIN_SIZE = 2 * OPTIONS_PAGE_SIZE;
+
+const messages = defineMessages({
+  noResult: {
+    id: 'ReactFilters.MultiChoiceFilter.noResult',
+    defaultMessage: 'No result',
+  },
+  searchPlaceholder: {
+    id: 'ReactFilters.MultiChoiceFilter.searchPlaceholder',
+    defaultMessage: 'Search',
+  },
+  moreOptions: {
+    id: 'ReactFilters.MultiChoiceFilter.moreOptions',
+    defaultMessage: 'More options',
+  },
+  lessOptions: {
+    id: 'ReactFilters.MultiChoiceFilter.lessOptions',
+    defaultMessage: 'Less options',
+  },
+});
 
 const subscription = { value: true };
 
@@ -121,6 +148,7 @@ function Title({
 function MultiChoiceFilter({
   name, filter, getTotal, getOptions, disabled
 }) {
+  const intl = useIntl();
   const form = useForm();
   const seed = useUIDSeed();
   const [maxOptions, setMaxOptions] = useState(OPTIONS_PAGE_SIZE);
@@ -129,6 +157,10 @@ function MultiChoiceFilter({
   const { callback: onChange } = useDebouncedCallback(() => form.submit(), 1);
 
   const options = useMemo(() => getOptions(filter), [filter, getOptions]);
+
+  const [optionSearch, setOptionSearch] = useState('');
+  const previousOptionSearch = usePrevious(optionSearch);
+  const [foundOptions, setFoundOptions] = useState(options);
 
   const moreOptions = useCallback(
     () => setMaxOptions(v => v + OPTIONS_PAGE_SIZE),
@@ -147,7 +179,45 @@ function MultiChoiceFilter({
     [lessOptions]
   );
 
-  const hasMoreOptions = maxOptions < options.length;
+  const hasMoreOptions = maxOptions < foundOptions.length;
+
+  const onSearchChange = useCallback(e => setOptionSearch(e.target.value), []);
+
+  const fuse = useConstant(
+    () => new Fuse(options, {
+      shouldSort: true,
+      threshold: 0.3,
+      location: 0,
+      distance: 100,
+      minMatchCharLength: 1,
+      keys: ['value'],
+    })
+  );
+
+  // Update fuse docs if options change
+  useLayoutEffect(() => {
+    if (options !== fuse._docs) {
+      fuse.setCollection(options);
+    }
+  }, [fuse, options]);
+
+  // Update search results if search change
+  useLayoutEffect(() => {
+    if (
+      previousOptionSearch !== undefined
+      && optionSearch !== previousOptionSearch
+    ) {
+      const newOptions = optionSearch === ''
+        ? options
+        : fuse.search(optionSearch).map(v => v.item);
+
+      // if (newOptions.length <= OPTIONS_PAGE_SIZE || optionSearch === '') {
+      //   lessOptions();
+      // }
+
+      setFoundOptions(newOptions);
+    }
+  }, [fuse, optionSearch, options, previousOptionSearch]);
 
   return (
     <Panel
@@ -162,7 +232,25 @@ function MultiChoiceFilter({
       collapsed={collapsed}
       setCollapsed={onCollapsedChange}
     >
-      {options.map((option, index) => (index < maxOptions ? (
+      {options.length > SEARCH_MIN_SIZE ? (
+        <input
+          className="form-control input-sm margin-top-xs"
+          value={optionSearch}
+          onChange={onSearchChange}
+          placeholder={intl.formatMessage(messages.searchPlaceholder)}
+          css={css`
+            width: 50%;
+          `}
+        />
+      ) : null}
+
+      {foundOptions.length === 0 ? (
+        <div className="text-muted margin-v-xs">
+          {intl.formatMessage(messages.noResult)}
+        </div>
+      ) : null}
+
+      {foundOptions.map((option, index) => (index < maxOptions ? (
         <Field
           key={seed(option)}
           name={name}
@@ -185,7 +273,7 @@ function MultiChoiceFilter({
           className="btn btn-link btn-link-inline"
           onClick={moreOptions}
         >
-          Plus d&apos;options
+          {intl.formatMessage(messages.moreOptions)}
         </button>
       ) : null}
 
@@ -195,7 +283,7 @@ function MultiChoiceFilter({
           className="btn btn-link btn-link-inline"
           onClick={lessOptions}
         >
-          Moins d&apos;options
+          {intl.formatMessage(messages.lessOptions)}
         </button>
       ) : null}
 

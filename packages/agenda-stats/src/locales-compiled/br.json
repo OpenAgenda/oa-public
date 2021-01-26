@@ -12,6 +12,7 @@
   "AgendaStats.Dashboard.cancel": null,
   "AgendaStats.Dashboard.changeOrder": null,
   "AgendaStats.Dashboard.edit": null,
+  "AgendaStats.Dashboard.filters": null,
   "AgendaStats.Dashboard.lessFilters": null,
   "AgendaStats.Dashboard.moreFilters": null,
   "AgendaStats.Dashboard.pulseDesc": null,
@@ -52,7 +53,7 @@
   "AgendaStats.StateTooltipItem.controlled": null,
   "AgendaStats.StateTooltipItem.published": null,
   "AgendaStats.StateTooltipItem.refused": null,
-  "AgendaStats.StateTooltipItem.tocontrol": null,
+  "AgendaStats.StateTooltipItem.toModerate": null,
   "AgendaStats.dateRanges.currentMonth": null,
   "AgendaStats.dateRanges.currentWeek": null,
   "AgendaStats.dateRanges.currentYear": null,
@@ -89,7 +90,7 @@
   "ReactFilters.messages.states.controlled": null,
   "ReactFilters.messages.states.published": null,
   "ReactFilters.messages.states.refused": null,
-  "ReactFilters.messages.states.tocontrol": null,
+  "ReactFilters.messages.states.toModerate": null,
   "aggregator-sources.RangeTypeModal.cancel": null,
   "aggregator-sources.RangeTypeModal.submit": null
 }

@@ -4,7 +4,7 @@ import { applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { ApiClientContext } from '../contexts';
-import apiClient from './lib/apiClient';
+import apiClient from './apiClient';
 import createStore from './lib/createStore';
 import clientMiddleware from './lib/clientMiddleware';
 import makeTriggerHooks from './lib/makeTriggerHooks';
@@ -26,7 +26,7 @@ export default function createApp(options) {
     getReducers,
     getRoutes,
     legacyApiClient,
-    reduxMiddleware = []
+    reduxMiddleware = [],
   } = options;
 
   const client = apiClient(apiRoot, req, { legacy: legacyApiClient });
@@ -39,12 +39,16 @@ export default function createApp(options) {
       applyMiddleware(
         clientMiddleware(helpers),
         // ... other middlewares ... (like redux-logger)
-        ...(Array.isArray(reduxMiddleware) ? reduxMiddleware : [reduxMiddleware])
+        ...(Array.isArray(reduxMiddleware)
+          ? reduxMiddleware
+          : [reduxMiddleware])
       ),
       typeof window !== 'undefined'
-      && process.env.NODE_ENV === 'development'
-      && window.__REDUX_DEVTOOLS_EXTENSION__
-        ? window.__REDUX_DEVTOOLS_EXTENSION__({ name: name ? `${name} — ${document.title}` : document.title })
+        && process.env.NODE_ENV === 'development'
+        && window.__REDUX_DEVTOOLS_EXTENSION__
+        ? window.__REDUX_DEVTOOLS_EXTENSION__({
+          name: name ? `${name} — ${document.title}` : document.title,
+        })
         : v => v
     )
   );
@@ -55,14 +59,14 @@ export default function createApp(options) {
     client,
     store,
     history,
-    location: history.location
+    location: history.location,
   });
 
   const triggerHooks = makeTriggerHooks({
     routes,
     history,
     helpers,
-    req
+    req,
   });
 
   const Content = React.memo(({ extraProps, switchProps }) => (
@@ -80,6 +84,6 @@ export default function createApp(options) {
     history,
     routes,
     triggerHooks,
-    layout
+    layout,
   };
 }

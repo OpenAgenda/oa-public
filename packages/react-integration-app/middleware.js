@@ -174,7 +174,9 @@ module.exports = function match({ initialState, lang, publicPath }) {
       const notFound = Object.values(apps).every(
         app => !(
           app.routes
-            && matchRoutes(app.routes, history.location.pathname).length
+            && matchRoutes(app.routes, history.location.pathname).some(
+              v => v.route.component && !v.route.routes
+            )
         )
       );
 

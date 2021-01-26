@@ -12,14 +12,14 @@ describe('ReactSelectField', () => {
         options: [
           {
             label: 'Horaires',
-            value: 'timings'
+            value: 'timings',
           },
           {
             label: 'Mots-clés',
-            value: 'keywords'
-          }
-        ]
-      }
+            value: 'keywords',
+          },
+        ],
+      },
     ];
     const option = options[0].options[1];
 
