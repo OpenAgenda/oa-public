@@ -1,4 +1,5 @@
 export { default as a11yButtonActionHandler } from './a11yButtonActionHandler';
+export { default as apiClient } from './apiClient';
 export { default as createApp } from './createApp';
 export { default as loadable } from './loadable';
 export { default as mergeLocales } from './mergeLocales';

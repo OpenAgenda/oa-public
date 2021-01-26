@@ -4,7 +4,8 @@ import { withRouter, Route } from 'react-router-dom';
 @withRouter
 class RouterTrigger extends Component {
   static defaultProps = {
-    trigger: () => {}
+    trigger: () => {
+    }
   };
 
   state = {
@@ -13,7 +14,7 @@ class RouterTrigger extends Component {
     previousLocation: null
   };
 
-  static getDerivedStateFromProps( props, state ) {
+  static getDerivedStateFromProps(props, state) {
     const { location } = state;
 
     const {
@@ -22,7 +23,7 @@ class RouterTrigger extends Component {
 
     const navigated = !location || pathname !== location.pathname;
 
-    if ( navigated ) {
+    if (navigated) {
       return {
         needTrigger: true,
         location: props.location,
@@ -43,17 +44,17 @@ class RouterTrigger extends Component {
     this.mounted = false;
   }
 
-  componentDidUpdate( prevProps, prevState ) {
+  componentDidUpdate(prevProps, prevState) {
     this.trigger();
   }
 
-  shouldComponentUpdate( nextProps, nextState ) {
+  shouldComponentUpdate(nextProps, nextState) {
     return nextState.previousLocation !== this.state.previousLocation;
   }
 
-  safeSetState( nextState, callback ) {
-    if ( this.mounted ) {
-      this.setState( nextState, callback )
+  safeSetState(nextState, callback) {
+    if (this.mounted) {
+      this.setState(nextState, callback)
     }
   }
 
@@ -61,15 +62,15 @@ class RouterTrigger extends Component {
     const { trigger, location } = this.props;
     const { needTrigger } = this.state;
 
-    if ( needTrigger ) {
-      this.safeSetState( { needTrigger: false }, () => {
-        trigger( location.pathname )
-          .catch( err => console.log( 'Failure in RouterTrigger:', err ) )
-          .then( () => {
+    if (needTrigger) {
+      this.safeSetState({ needTrigger: false }, () => {
+        trigger({ pathname: location.pathname })
+          .catch(err => console.log('Failure in RouterTrigger:', err))
+          .then(() => {
             // clear previousLocation so the next screen renders
-            this.safeSetState( { previousLocation: null } );
-          } );
-      } );
+            this.safeSetState({ previousLocation: null });
+          });
+      });
     }
   }
 

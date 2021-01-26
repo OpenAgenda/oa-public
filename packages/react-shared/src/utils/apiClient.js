@@ -8,9 +8,9 @@ export default function apiClient(baseURL, req, { legacy } = {}) {
   const instance = axios.create({
     baseURL,
     headers: {
-      'X-Requested-With': 'XMLHttpRequest'
+      'X-Requested-With': 'XMLHttpRequest',
     },
-    paramsSerializer: qs.stringify
+    paramsSerializer: qs.stringify,
   });
 
   instance.setJwtToken = newToken => {
@@ -40,7 +40,9 @@ export default function apiClient(baseURL, req, { legacy } = {}) {
   if (legacy) {
     instance.interceptors.response.use(
       response => response.data,
-      error => Promise.reject(error.response && error.response.data ? error.response.data : error)
+      error => Promise.reject(
+        error.response && error.response.data ? error.response.data : error
+      )
     );
   }
 
