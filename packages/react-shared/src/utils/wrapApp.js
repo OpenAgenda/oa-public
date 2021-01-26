@@ -7,17 +7,13 @@ import ScrollToTop from './lib/ScrollToTop';
 const { Context: LoadableContext } = LoadableSecret;
 
 export default function wrapApp(app, options = {}) {
-  const {
-    Content,
-    history,
-    triggerHooks
-  } = app;
+  const { Content, history, triggerHooks } = app;
   const {
     req,
     staticContext,
     extractor,
     extraProps,
-    disableScrollToTop
+    disableScrollToTop,
   } = options;
 
   let baseElement = (
@@ -27,11 +23,7 @@ export default function wrapApp(app, options = {}) {
   );
 
   if (!disableScrollToTop) {
-    baseElement = (
-      <ScrollToTop>
-        {baseElement}
-      </ScrollToTop>
-    );
+    baseElement = <ScrollToTop>{baseElement}</ScrollToTop>;
   }
 
   const element = req ? (

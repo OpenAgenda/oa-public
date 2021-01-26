@@ -21,10 +21,10 @@ function FileError({
   const notSupported = intl.formatMessage(
     {
       id: 'ReactShared.ImageInput.notSupported',
-      defaultMessage: 'File {fileName} is not supported'
+      defaultMessage: 'File {fileName} is not supported',
     },
     {
-      fileName: file.name
+      fileName: file.name,
     }
   );
 
@@ -37,12 +37,12 @@ function FileError({
         {
           id: 'ReactShared.ImageInput.fileTooLarge',
           defaultMessage:
-            'File {fileName} is {fileSize}, the upper limit for file size is {maxSize}'
+            'File {fileName} is {fileSize}, the upper limit for file size is {maxSize}',
         },
         {
           fileName: file.name,
           fileSize: bytes(file.size),
-          maxSize: bytes(maxSize)
+          maxSize: bytes(maxSize),
         }
       );
       break;
@@ -51,19 +51,19 @@ function FileError({
         {
           id: 'ReactShared.ImageInput.fileTooSmall',
           defaultMessage:
-            'File {fileName} is {fileSize}, the lower limit for file size is {minSize}'
+            'File {fileName} is {fileSize}, the lower limit for file size is {minSize}',
         },
         {
           fileName: file.name,
           fileSize: bytes(file.size),
-          minSize: bytes(minSize)
+          minSize: bytes(minSize),
         }
       );
       break;
     case TOO_MANY_FILES:
       errorLabel = intl.formatMessage({
         id: 'ReactShared.ImageInput.tooManyFiles',
-        defaultMessage: 'Too many files, only accepts a single file'
+        defaultMessage: 'Too many files, only accepts a single file',
       });
       break;
     default:
@@ -81,7 +81,7 @@ function ImageInput({
   minSize,
   width = '100%',
   height = '100%',
-  rounded
+  rounded,
 }) {
   const intl = useIntl();
   const [rejections, setRejections] = useState(null);
@@ -94,7 +94,7 @@ function ImageInput({
         const file = acceptedFiles[0];
 
         Object.assign(file, {
-          preview: URL.createObjectURL(file)
+          preview: URL.createObjectURL(file),
         });
 
         input.onChange(file);
@@ -112,7 +112,7 @@ function ImageInput({
     multiple: false,
     accept,
     maxSize,
-    minSize
+    minSize,
   });
 
   const { value } = input;
@@ -131,11 +131,13 @@ function ImageInput({
         <div
           css={css`
             text-align: center;
-            ${preview ? `
+            ${preview
+            ? `
               height: auto;
               position: relative;
               min-height: 140px;
-            ` : ''}
+            `
+            : ''}
 
             &:hover {
               background: rgba(255, 255, 255, 0.1);
@@ -193,11 +195,11 @@ function ImageInput({
                   type="button"
                   className="btn btn-primary"
                   css={css`
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  transform: translate(-50%, -50%);
-                `}
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                  `}
                 >
                   <FormattedMessage
                     id="ReactShared.ImageInput.upload"
@@ -215,7 +217,7 @@ function ImageInput({
               position: absolute;
               top: 5px;
               right: 5px;
-          `}
+            `}
           >
             <button
               type="button"
@@ -223,7 +225,7 @@ function ImageInput({
               className="btn btn-default margin-all-xs"
               title={intl.formatMessage({
                 id: 'ReactShared.ImageInput.update',
-                defaultMessage: 'Update the image'
+                defaultMessage: 'Update the image',
               })}
             >
               <i className="fa fa-upload" />
@@ -236,7 +238,7 @@ function ImageInput({
               className="btn btn-danger margin-all-xs"
               title={intl.formatMessage({
                 id: 'ReactShared.ImageInput.remove',
-                defaultMessage: 'Remove'
+                defaultMessage: 'Remove',
               })}
             >
               <i className="fa fa-trash" />
@@ -280,7 +282,7 @@ export default function IntlImageInput({
   const messages = useMemo(
     () => ({
       ...locales[locale],
-      ...(_messages && _messages[locale])
+      ...(_messages && _messages[locale]),
     }),
     [_messages, locale]
   );

@@ -13,7 +13,9 @@ export default function withContext(Context, propName) {
       </Context.Consumer>
     );
 
-    WrappedComponent.displayName = `withContext-${propName}(${getDisplayName(Component)})`;
+    WrappedComponent.displayName = `withContext-${propName}(${getDisplayName(
+      Component
+    )})`;
 
     return hoistNonReactStatics(WrappedComponent, Component);
   };

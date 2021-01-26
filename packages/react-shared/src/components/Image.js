@@ -11,13 +11,13 @@ class Image extends PureComponent {
     src: PropTypes.string.isRequired,
     fallbackSrc: PropTypes.string,
     alt: PropTypes.string,
-    onError: PropTypes.func
+    onError: PropTypes.func,
   };
 
   static defaultProps = {
     fallbackSrc: null,
     alt: '',
-    onError: () => {}
+    onError: () => {},
   };
 
   static getDerivedStateFromProps({ src }, state) {
@@ -25,7 +25,7 @@ class Image extends PureComponent {
     if (src !== state.origSrc) {
       return {
         origSrc: src,
-        currentSrc: src
+        currentSrc: src,
       };
     }
 
@@ -37,7 +37,7 @@ class Image extends PureComponent {
 
     this.state = {
       origSrc: props.src,
-      currentSrc: props.src
+      currentSrc: props.src,
     };
   }
 
@@ -79,10 +79,7 @@ class Image extends PureComponent {
 
   render() {
     const {
-      alt,
-      onError,
-      fallbackSrc,
-      ...propsToPass
+      alt, onError, fallbackSrc, ...propsToPass
     } = this.props;
     const { currentSrc } = this.state;
 

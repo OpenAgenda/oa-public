@@ -6,7 +6,7 @@ export default (fn, options) => {
 
   Component.load = (fn.requireAsync || fn).bind(fn);
 
-  Component.isReady = fn.isReady ? fn.isReady.bind(fn) : (() => false);
+  Component.isReady = fn.isReady ? fn.isReady.bind(fn) : () => false;
 
   return Component;
 };
