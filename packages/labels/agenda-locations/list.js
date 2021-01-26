@@ -170,7 +170,6 @@ module.exports = {
     "it": "%count% eventi associati"
   },
   "seeEvent": {
-    "fr": "Voir les événements",
     "fr": "1 événement associé",
     "en": "1 associated event",
     "de": "1 zugeordneten Veranstaltung",
@@ -228,7 +227,6 @@ module.exports = {
   },
   "cannotRemove": {
     "fr": "Ce lieu est associé à %eventCount% événements,",
-    //"fr": "Le lieu est associé à %eventCount% événements. Dissociez les événements avant de finaliser la suppression",
     "en": "The location is associated to %eventCount% events,",
     "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden,",
     "es": "El lugar se asocia con eventos %eventCount%,",
