@@ -154,7 +154,12 @@ module.exports = {
     "it": "Selezione delle località"
   },
   "events":{
-    "fr": "%count% événements"
+    "fr": "%count% événements",
+    "en": "%count% events",
+    "de": "%count% Veranstaltungen",
+    "es": "%count% eventos",
+    "br": "%count% a zarvoudoù",
+    "it": "%count% eventi"
   },
   "seeEvents": {
     "fr": "%count% événements associés",
