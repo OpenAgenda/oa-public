@@ -5,7 +5,7 @@ import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Router, StaticRouter } from 'react-router-dom';
-import apiClient from '@openagenda/react-shared/lib/utils/lib/apiClient';
+import apiClient from '@openagenda/react-shared/lib/utils/apiClient';
 import createStore from '@openagenda/react-shared/lib/utils/lib/createStore';
 import clientMiddleware from '@openagenda/react-shared/lib/utils/lib/clientMiddleware';
 import makeTriggerHooks from '@openagenda/react-shared/lib/utils/lib/makeTriggerHooks';
