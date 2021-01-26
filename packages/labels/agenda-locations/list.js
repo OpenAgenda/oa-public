@@ -227,7 +227,7 @@ module.exports = {
     "en": "The location is associated to %eventCount% events,",
     "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden,",
     "es": "El lugar se asocia con eventos %eventCount%,",
-    "br": "Kevelet eo al lec'h gant %eventCount% a zarvoudoù. Ret eo digevelañ an darvoudoù evit an dilamadenn.",
+    "br": "Kevelet eo al lec'h gant %eventCount% a zarvoudoù,",
     "it": "Il luogo è associato a eventi %eventCount% eventi,"
   },
   "cannotRemove2": {
