@@ -2,7 +2,7 @@
 
 module.exports = {
   "cantDo": {
-    "fr": "Vous n'avez pas les droits pour:",
+    "fr": "Vous ne possedez pas les droits pour:",
     "en": "You do not have the rights for:",
     "de": "Sie haben nicht die Rechte dazu:",
     "es": "No tiene los derechos para:",
@@ -241,46 +241,6 @@ module.exports = {
     "br": "Kadarnaat an dilamadenn",
     "it": "Confermare la cancellazione"
   },
-  "cannotRemove": {
-    "fr": "Ce lieu est associé à %eventCount% événements,",
-    "en": "The location is associated to %eventCount% events,",
-    "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden,",
-    "es": "El lugar se asocia con eventos %eventCount%,",
-    "br": "Kevelet eo al lec'h gant %eventCount% a zarvoudoù,",
-    "it": "Il luogo è associato a eventi %eventCount% eventi,"
-  },
-  "cannotRemove2": {
-    "fr": " dont %agendaEventCount%",
-    "en": " %agendaEventCount% of which",
-    "de": " von denen %agendaEventCount%",
-    "es": " %agendaEventCount% de los cuales",
-    "br": " a denn %agendaEventCount%",
-    "it": " %agendaEventCount% dei quali",
-  },
-  "cannotRemove3": {
-    "fr": " ont été contribués sur l'agenda. En supprimant le lieu, les événements associés seront également supprimés.",
-    "en": " have been added to the agenda. By deleting the location, the associated events will also be deleted.",
-    "de": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
-    "es": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
-    "br": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
-    "it": " sono stati aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
-  },
-  "confirmRemoveMessage": {
-    "fr": "Le lieu sera supprimé de la base",
-    "en": "The location will be removed from the database",
-    "de": "Der Standort wird aus der Datenbank entfernt werden",
-    "es": "El lugar será eliminado de la base",
-    "br": "Lamet e vo al lec'h eus an diaz roadennoù",
-    "it": "Il posto sarà rimosso dal database"
-  },
-  "cancelRemove": {
-    "fr": "Annuler",
-    "en": "Cancel",
-    "de": "Stornieren",
-    "es": "anular",
-    "br": "Nullañ",
-    "it": "Annulla"
-  },
   "removeComplete": {
     "fr": "Le lieu a été supprimé",
     "en": "The location was removed",
@@ -296,5 +256,101 @@ module.exports = {
     "es": "cerca",
     "br": "Serriñ",
     "it": "Chiudere"
+  },
+  "cancelRemove": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "de": "Stornieren",
+    "es": "anular",
+    "br": "Nullañ",
+    "it": "Annulla"
+  },
+  "confirmRemoveMessage": {
+    "fr": "Le lieu sera supprimé de la base",
+    "en": "The location will be removed from the database",
+    "de": "Der Standort wird aus der Datenbank entfernt werden",
+    "es": "El lugar será eliminado de la base",
+    "br": "Lamet e vo al lec'h eus an diaz roadennoù",
+    "it": "Il posto sarà rimosso dal database"
+  },
+  "cannotRemove=": {
+    "fr": "Ce lieu est associé à ",
+    "en": "The location is associated to ",
+    "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden,",
+    "es": "El lugar se asocia con eventos %eventCount%,",
+    "br": "Kevelet eo al lec'h gant %eventCount% a zarvoudoù,",
+    "it": "Il luogo è associato a eventi %eventCount% eventi,"
+  },
+  "cannotRemove2=unique": {
+    "fr": "%eventCount% événement.",
+    "en": " %eventCount% event.",
+    "de": " ",
+    "es": " ",
+    "br": " ",
+    "it": " ",
+  },
+  "cannotRemove2=": {
+    "fr": "%eventCount% événements.",
+    "en": " %eventCount% events.",
+    "de": " ",
+    "es": " ",
+    "br": " ",
+    "it": " ",
+  },
+  "cannotRemove3=unique": {
+    "fr": " En supprimant le lieu, l'événement associé sera également supprimé.",
+    "en": " By deleting the location, the associated event will also be deleted.",
+    "de": " ??Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
+    "es": " Al eliminar la ubicación, también se eliminarán el evento asociado.",
+    "br": " ??Dilemel al lec'h ,dilemel darvoud.",
+    "it": " ??Eliminando la posizione verranno eliminati anche gli eventi associati.",
+  },
+  "cannotRemove3=": {
+    "fr": " En supprimant le lieu, les événements associés seront également supprimés.",
+    "en": " By deleting the location, the associated events will also be deleted.",
+    "de": " Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
+    "es": " Al eliminar la ubicación, también se eliminarán los eventos asociados.",
+    "br": " Dilemel al lec'h ,dilemel darvoud.",
+    "it": " Eliminando la posizione verranno eliminati anche gli eventi associati.",
+  },
+  "cannotRemove": {
+    "fr": "Ce lieu est associé à %eventCount% événements,",
+    "en": "The location is associated to %eventCount% events,",
+    "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden,",
+    "es": "El lugar se asocia con eventos %eventCount%,",
+    "br": "Kevelet eo al lec'h gant %eventCount% a zarvoudoù,",
+    "it": "Il luogo è associato a eventi %eventCount% eventi,"
+  },
+  "cannotRemove2unique": {
+    "fr": " dont un",
+    "en": " one of which",
+    "de": " von denen ein",
+    "es": " un de los cuales",
+    "br": " a denn unan",
+    "it": " un dei quali",
+  },
+  "cannotRemove2": {
+    "fr": " dont %agendaEventCount%",
+    "en": " %agendaEventCount% of which",
+    "de": " von denen %agendaEventCount%",
+    "es": " %agendaEventCount% de los cuales",
+    "br": " a denn %agendaEventCount%",
+    "it": " %agendaEventCount% dei quali",
+  },
+  "cannotRemove3unique": {
+    "fr": " a été contribué sur l'agenda. En supprimant le lieu, les événements associés seront également supprimés.",
+    "en": " has been contributed on the agenda. By deleting the location, the associated events will also be deleted.",
+    "de": " ??im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
+    "es": " ??se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
+    "br": " ??war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
+    "it": " ??sono stati aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
+  },
+  "cannotRemove3": {
+    "fr": " ont été contribués sur l'agenda. En supprimant le lieu, les événements associés seront également supprimés.",
+    "en": " have been contributed on the agenda. By deleting the location, the associated events will also be deleted.",
+    "de": " im Kalender. Durch Löschen des Standorts werden auch die zugehörigen Ereignisse gelöscht.",
+    "es": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
+    "br": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
+    "it": " sono stati aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
   }
 }
