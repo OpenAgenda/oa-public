@@ -7,8 +7,6 @@ import locationSet from './fixtures/locationSet.json';
 
 import debug from 'debug';
 
-import debug from 'debug';
-
 import adminStory from './admin.story';
 import selectorStory from './selector.story';
 import termStore from './term.story';
@@ -22,8 +20,6 @@ import '../components/src/verifiedLocationsCounter';
 import '@openagenda/bs-templates/compiled/main.css';
 
 import location from './fixtures/location.json';
-
-debug.enable('*');
 
 debug.enable('*');
 
@@ -126,6 +122,44 @@ storiesOf('Access', module)
         update : {authorized: true, external: true, link: 'https://cartes.culture.gouv.fr/lieux/{extId}?jwtToken=token', serviceLabel: 'CultureChezNous' },
         merge: {...defaultAccess, authorized: false},
         delete: {...defaultAccess, authorized: false}
+      }},
+      set: locationSet,
+    })
+  );
+
+storiesOf('Acces', module)
+  .add('All access', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: true,
+        update: true,
+        merge: true,
+        delete: true
+      }},
+      set: locationSet,
+    })
+  )
+  .add('No Access', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: false,
+        update: false,
+        merge: false,
+        delete: false
+      }},
+      set: locationSet,
+    })
+  )
+  .add('Update Only', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: false,
+        update: true,
+        merge: false,
+        delete: false
       }},
       set: locationSet,
     })

@@ -271,6 +271,7 @@ class AgendaAdminLocations extends Component {
         onRemove={confirmRemove}
         getLabel={this.getLabel}
         getCountryLabel={this.getCountryLabel}
+        displayCantDoModal={this.displayCantDoModal}
       />
     );
   }
@@ -292,6 +293,31 @@ class AgendaAdminLocations extends Component {
         ) : null}
         {total === 0 ? <p>{this.getLabel('totalzero')}</p> : null}
       </div>
+    );
+  }
+
+  renderCantDoModal() {
+    const { modal } = this.state;
+    return (
+      <Modal
+        title={this.getLabel('info')}
+        onClose={this.actions.closeModal}
+      >
+        <div>
+          <p className="text-center">
+            {`${this.getLabel('cantDo')} ${this.getLabel('create')}`}
+          </p>
+          <div className="text-center">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.actions.closeModal}
+            >
+              {this.getLabel('closeModal')}
+            </button>
+          </div>
+        </div>
+      </Modal>
     );
   }
 
@@ -464,6 +490,16 @@ class AgendaAdminLocations extends Component {
           onClick={this.actions.toggleMerge.bind(null, false)}
         >
           {this.getLabel('cancelmerge')}
+        </button>
+      );
+    } if (!settings.access.merge) {
+      return (
+        <button
+          type="button"
+          className="btn btn-default disabled"
+          onClick={() => this.displayCantDoModal('merge')}
+        >
+          {this.getLabel('merge')}
         </button>
       );
     }
