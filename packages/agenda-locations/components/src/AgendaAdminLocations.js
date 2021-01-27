@@ -305,7 +305,7 @@ class AgendaAdminLocations extends Component {
       >
         <div>
           <p className="text-center">
-            {`${this.getLabel('cantDo')} ${this.getLabel('create')}`}
+            {`${this.getLabel('cantDo')} ${this.getLabel(modal.data.info)}`}
           </p>
           <div className="text-center">
             <button
