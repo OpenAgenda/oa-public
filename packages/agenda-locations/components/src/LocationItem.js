@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { templateSettings } from 'lodash';
 
 class LocationItem extends Component {
   static propTypes = {
@@ -61,7 +60,7 @@ class LocationItem extends Component {
 
   render() {
     const {
-      location, merge, getCountryLabel, getLabel, onSelect, onEdit, settings
+      location, merge, getCountryLabel, getLabel, onSelect, onEdit, settings, displayCantDoModal
     } = this.props;
     const className = ['item'];
     const country = getCountryLabel(location.countryCode);
@@ -70,7 +69,7 @@ class LocationItem extends Component {
         type="button"
         className="btn btn-default disabled"
         aria-label={getLabel('edit')}
-        onClick={() => this.props.displayCantDoModal('update')}
+        onClick={() => displayCantDoModal('edit')}
       >
         <i className="fa fa-edit" />
       </button>
@@ -80,7 +79,7 @@ class LocationItem extends Component {
         type="button"
         className="btn btn-default disabled"
         aria-label={getLabel('remove')}
-        onClick={() => this.props.displayCantDoModal('delete')}
+        onClick={() => displayCantDoModal('remove')}
       >
         <i className="fa fa-trash" />
       </button>

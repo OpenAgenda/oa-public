@@ -279,7 +279,7 @@ class AgendaAdminLocations extends Component {
       >
         <div>
           <p className="text-center">
-            {`${this.getLabel('cantDo')} ${this.getLabel('create')}`}
+            {`${this.getLabel('cantDo')} ${this.getLabel(modal.data.info)}`}
           </p>
           <div className="text-center">
             <button
@@ -306,6 +306,18 @@ class AgendaAdminLocations extends Component {
       .replace(':locationUid', modal.data.location.uid);
 
     const { isRemoved } = modal.data;
+
+    let withEventsText = (
+      <span>
+        <p className="text-center">
+          {this.getLabel('cannotRemove', { eventCount })}
+          <a href={seeEventsLink}>
+            {this.getLabel(agendaEventCount === 1 ? 'cannotRemove2unique' : 'cannotRemove2', { agendaEventCount })}
+          </a>
+          {this.getLabel(agendaEventCount === 1 ? 'cannotRemove3unique' : 'cannotRemove3')}
+        </p>
+      </span>
+    );
 
     let modalStates = isRemoved ? 'removed' : null;
     if (!modalStates) {
@@ -357,17 +369,22 @@ class AgendaAdminLocations extends Component {
                 </div>
               );
             case 'withEvents':
-              return (
-                <div>
+              if (eventCount === agendaEventCount) {
+                withEventsText = (
                   <span>
                     <p className="text-center">
-                      {this.getLabel('cannotRemove', { eventCount })}
+                      {this.getLabel('cannotRemove=')}
                       <a href={seeEventsLink}>
-                        {this.getLabel('cannotRemove2', { agendaEventCount })}
+                        {this.getLabel(eventCount === 1 ? 'cannotRemove2=unique' : 'cannotRemove2=', { eventCount })}
                       </a>
-                      {this.getLabel('cannotRemove3')}
+                      {this.getLabel(eventCount === 1 ? 'cannotRemove3=unique' : 'cannotRemove3=')}
                     </p>
                   </span>
+                );
+              }
+              return (
+                <div>
+                  {withEventsText}
                   <div className="text-center">
                     <button
                       type="button"
