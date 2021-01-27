@@ -1,12 +1,18 @@
 import debug from 'debug';
 import React from 'react';
 import PropTypes from 'prop-types';
-import labels from '@openagenda/labels/agenda-locations/update';
+import formLabels from '@openagenda/labels/agenda-locations/form';
+import updateLabels from '@openagenda/labels/agenda-locations/update';
 import makeLabelGetter from '@openagenda/labels';
 
 import LocationForm from './LocationForm';
 
 const log = debug('UpdateForm');
+
+const labels = {
+  ...formLabels,
+  ...updateLabels
+};
 
 const getLabel = makeLabelGetter(labels);
 
