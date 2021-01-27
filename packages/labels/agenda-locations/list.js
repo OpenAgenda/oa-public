@@ -1,6 +1,22 @@
 "use strict";
 
 module.exports = {
+  "cantDo": {
+    "fr": "Vous n'avez pas les droits pour:",
+    "en": "You do not have the rights for:",
+    "de": "Sie haben nicht die Rechte dazu:",
+    "es": "No tiene los derechos para:",
+    "br": "",
+    "it": "Non disponi dei diritti di:"
+  },
+  "info": {
+    "fr": "Information",
+    "en": "Information",
+    "de": "Information",
+    "es": "Información",
+    "br": "Kelaouadur",
+    "it": "Informazione"
+  },
   "cancel": {
     "fr": "Annuler",
     "en": "Cancel",

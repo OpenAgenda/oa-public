@@ -2,8 +2,8 @@ import ih from 'immutability-helper';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import createReactClass from 'create-react-class';
-import agendaTestSettings from './agendaTestSettings.json';
-import locationSet from './locationSet.json';
+import agendaTestSettings from './fixtures/agendaTestSettings.json';
+import locationSet from './fixtures/locationSet.json';
 
 import debug from 'debug';
 
@@ -19,7 +19,7 @@ import '../components/src/verifiedLocationsCounter';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-import location from './location.json';
+import location from './fixtures/location.json';
 
 debug.enable('*');
 
@@ -54,6 +54,44 @@ storiesOf('Administration app', module)
     adminStory({
       res,
       settings: agendaTestSettings,
+      set: locationSet,
+    })
+  );
+
+storiesOf('Acces', module)
+  .add('All access', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: true,
+        update: true,
+        merge: true,
+        delete: true
+      }},
+      set: locationSet,
+    })
+  )
+  .add('No Access', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: false,
+        update: false,
+        merge: false,
+        delete: false
+      }},
+      set: locationSet,
+    })
+  )
+  .add('Update Only', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: false,
+        update: true,
+        merge: false,
+        delete: false
+      }},
       set: locationSet,
     })
   );

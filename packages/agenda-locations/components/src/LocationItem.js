@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { templateSettings } from 'lodash';
 
 class LocationItem extends Component {
   static propTypes = {
     merge: PropTypes.object,
     location: PropTypes.object.isRequired,
-    getLabel: PropTypes.func,
+    settings: PropTypes.object.isRequired,
+    getLabel: PropTypes.func.isRequired,
     getCountryLabel: PropTypes.func,
     onSelect: PropTypes.func,
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
-    seeEventsRes: PropTypes.string
+    seeEventsRes: PropTypes.string,
+    displayCantDoModal: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -58,13 +61,57 @@ class LocationItem extends Component {
 
   render() {
     const {
-      location, merge, getCountryLabel, getLabel, onSelect, onEdit
+      location, merge, getCountryLabel, getLabel, onSelect, onEdit, settings
     } = this.props;
     const className = ['item'];
     const country = getCountryLabel(location.countryCode);
+    let editButton = (
+      <button
+        type="button"
+        className="btn btn-default disabled"
+        aria-label={getLabel('edit')}
+        onClick={() => this.props.displayCantDoModal('update')}
+      >
+        <i className="fa fa-edit" />
+      </button>
+    );
+    let removeButton = (
+      <button
+        type="button"
+        className="btn btn-default disabled"
+        aria-label={getLabel('remove')}
+        onClick={() => this.props.displayCantDoModal('delete')}
+      >
+        <i className="fa fa-trash" />
+      </button>
+    );
 
     if (merge) {
       className.push('merge');
+    }
+    if (settings.access.update) {
+      editButton = (
+        <button
+          type="button"
+          className="btn btn-default"
+          aria-label={getLabel('edit')}
+          onClick={onEdit.bind(this)}
+        >
+          <i className="fa fa-edit" />
+        </button>
+      );
+    }
+    if (settings.access.delete) {
+      removeButton = (
+        <button
+          type="button"
+          className="btn btn-default"
+          aria-label={getLabel('remove')}
+          onClick={this.onRemove}
+        >
+          <i className="fa fa-trash" />
+        </button>
+      );
     }
 
     return (
@@ -76,22 +123,8 @@ class LocationItem extends Component {
         {merge ? this.renderMergeCheckbox() : null}
         {!merge ? (
           <div className="actions btn-group">
-            <button
-              type="button"
-              className="btn btn-default"
-              aria-label={getLabel('remove')}
-              onClick={this.onRemove}
-            >
-              <i className="fa fa-trash" />
-            </button>
-            <button
-              type="button"
-              className="btn btn-default"
-              aria-label={getLabel('edit')}
-              onClick={onEdit.bind(this)}
-            >
-              <i className="fa fa-edit" />
-            </button>
+            {removeButton}
+            {editButton}
           </div>
         ) : null}
         <div className="item-body">
