@@ -310,11 +310,11 @@ class AgendaAdminLocations extends Component {
     let withEventsText = (
       <span>
         <p className="text-center">
-          {this.getLabel('cannotRemove', { eventCount })}
+          {this.getLabel('cannotRemoveStart', { eventCount })}
           <a href={seeEventsLink}>
-            {this.getLabel(agendaEventCount === 1 ? 'cannotRemove2unique' : 'cannotRemove2', { agendaEventCount })}
+            {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveLinkUnique' : 'cannotRemoveLink', { agendaEventCount })}
           </a>
-          {this.getLabel(agendaEventCount === 1 ? 'cannotRemove3unique' : 'cannotRemove3')}
+          {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveEndUnique' : 'cannotRemoveEnd')}
         </p>
       </span>
     );
@@ -373,11 +373,11 @@ class AgendaAdminLocations extends Component {
                 withEventsText = (
                   <span>
                     <p className="text-center">
-                      {this.getLabel('cannotRemove=')}
+                      {this.getLabel('cannotRemoveStart=')}
                       <a href={seeEventsLink}>
-                        {this.getLabel(eventCount === 1 ? 'cannotRemove2=unique' : 'cannotRemove2=', { eventCount })}
+                        {this.getLabel(eventCount === 1 ? 'cannotRemoveLinkUnique=' : 'cannotRemoveLink=', { eventCount })}
                       </a>
-                      {this.getLabel(eventCount === 1 ? 'cannotRemove3=unique' : 'cannotRemove3=')}
+                      {this.getLabel(eventCount === 1 ? 'cannotRemoveEndUnique=' : 'cannotRemoveEnd=')}
                     </p>
                   </span>
                 );
