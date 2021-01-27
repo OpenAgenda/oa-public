@@ -256,6 +256,16 @@ describe('core - functional (server): core.agendas().events.update()', function(
       expect(updated.title.fr).toBe('Un titre patché');
     });
 
+    it('if agenda does not have edit access and patch excludes event-specific data, patch can occur', async () => {
+      const patched = await core.agendas(92983929).events.patch(99999999, {
+        state: 2
+      }, {
+        access: 'moderator'
+      });
+
+      expect(patched.state).toBe(2);
+    });
+
   });
 
   describe('draft update', () => {

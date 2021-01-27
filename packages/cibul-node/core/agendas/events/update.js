@@ -66,11 +66,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     throwOnNotFound: true
   });
   log('  loaded event %s', event.slug);
-
-  if (!event.draft) {
-    await verifyAgendaEventAuthorization(services, agendaUid, eventUid);
-  }
-
+  
   const clean = await cleanEvent(services, agenda, data, {
     draft,
     optionalSecondaryFields: true,
@@ -78,6 +74,10 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     access,
     defaultLang
   });
+  
+  if (!event.draft) {
+    await verifyAgendaEventAuthorization(services, agendaUid, eventUid, clean);
+  }
 
   assignState(agenda, event, clean, data, {
     access,
