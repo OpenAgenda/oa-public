@@ -22,6 +22,13 @@ class LocationItem extends Component {
     // Binding
     this.onRemove = this.onRemove.bind(this);
     this.seeEvents = this.seeEvents.bind(this);
+    this.displayCantRemoveModal = this.displayCantRemoveModal.bind(this);
+  }
+
+  displayCantRemoveModal(e) {
+    const { displayCantDoModal } = this.props;
+    e.stopPropagation();
+    displayCantDoModal('remove');
   }
 
   onRemove(e) {
