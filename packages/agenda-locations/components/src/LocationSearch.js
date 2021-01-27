@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import debug from 'debug';
 import { Spinner } from '@openagenda/react-components';
 import SearchField from './List/SearchField';
 import List from './List/List';
+
+const log = debug('LocationSearch');
 
 class LocationSearch extends React.Component {
   static propTypes = {

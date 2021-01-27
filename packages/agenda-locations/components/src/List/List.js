@@ -143,8 +143,8 @@ class List extends React.Component {
   }
 
   renderItem(item, i) {
-    const { renderItem } = this.props;
-    return renderItem(item, {
+    const { renderItem: propsRenderItem } = this.props;
+    return propsRenderItem(item, {
       remove: this.removeItem.bind(null, i)
     }, i);
   }
