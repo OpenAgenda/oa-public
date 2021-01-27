@@ -7,6 +7,8 @@ const getLongDescriptionHTML = require('./lib/getLongDescriptionHTML');
 
 const linkValidator = require('@openagenda/validators/link')();
 
+const toUTC = str => (new Date(str)).toJSON();
+
 const _ = require( 'lodash' ),
 
   async = require( 'async' ),
@@ -184,14 +186,18 @@ function cleanEvent(services, eInst, options, cb ) {
         end: new Date( timings[ timings.length - 1 ].end )
       };
 
-      _.extend( c, {
+      _.extend(c, {
+        timings: timings.map(t => ({
+          start: toUTC(t.start),
+          end: toUTC(t.end)
+        })),
         firstDate: _stringifyDate( tFirst.start ),
         firstTimeStart: moment.tz( tFirst.start, timezone ).format( 'HH:mm' ),
         firstTimeEnd: moment.tz( tFirst.end, timezone ).format( 'HH:mm' ),
         lastDate: _stringifyDate( tLast.start ),
         lastTimeStart: moment.tz( tLast.start, timezone ).format( 'HH:mm' ),
         lastTimeEnd: moment.tz( tLast.end, timezone ).format( 'HH:mm' )
-      } );
+      });
 
     }
 
