@@ -26,7 +26,7 @@ function AgendaAdminDataLayout({
   ]);
 
   const { data, isLoading, error } = useQuery(
-    ['agendaAdmin-layout', { slug: params.slug }],
+    ['react-layouts', 'agendaAdminData', { slug: params.slug }],
     async () => (
       await apiClient.get(`/${params.slug}/admin/layout`, {
         params: {
