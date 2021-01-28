@@ -103,7 +103,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['agenda-stats', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,

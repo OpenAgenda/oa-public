@@ -11,12 +11,12 @@ export default function PulseChart({
   agendaUid,
   className,
   height = 30,
-  width = 155
+  width = 155,
 }) {
   const apiClient = useApiClient();
 
   const { data } = useQuery(
-    ['AgendaStats.PulseChart', agendaUid],
+    ['agenda-stats', 'pulseChart', agendaUid],
     async () => {
       const now = new Date();
       const startOfPastYear = subDays(now, 364);
@@ -25,7 +25,7 @@ export default function PulseChart({
         await apiClient.get(`/agendas/${agendaUid}/admin/events.v2.json`, {
           params: {
             oaq: {
-              passed: 1
+              passed: 1,
             },
             size: 0,
             aggregations: [
@@ -35,20 +35,20 @@ export default function PulseChart({
                 fixedInterval: '7d',
                 extendedBounds: {
                   min: startOfPastYear,
-                  max: now
-                }
-              }
+                  max: now,
+                },
+              },
             ],
             updatedAt: {
               gte: startOfPastYear,
-              lte: now
-            }
-          }
+              lte: now,
+            },
+          },
         })
       ).data?.aggregations?.pulse;
     },
     {
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
     }
   );
 
