@@ -8,7 +8,7 @@ describe('boolean validator', () => {
     expect(validators.boolean()(true)).toBe(true);
   });
 
-  it('returns null if nothing is given on an optional validator', () => {
+  it('returns nothing if nothing is given on an optional validator', () => {
     const optionalValidate = validators.boolean({
       optional: true
     });
@@ -38,7 +38,7 @@ describe('boolean validator', () => {
       optional: false
     });
 
-    const errors = [];
+    let errors = [];
 
     try {
       validate();
@@ -47,7 +47,7 @@ describe('boolean validator', () => {
     }
 
     expect(errors.length).toBe(1);
-    expect(errors[ 0 ].code).toBe('required');
+    expect(errors[0].code).toBe('required');
   });
 
 
@@ -102,5 +102,5 @@ describe('boolean validator', () => {
 
     expect(validate(null)).toBeNull();
   });
-  
+
 });
