@@ -7762,6 +7762,7 @@ __metadata:
     react-helmet-async: ^1.0.3
     react-hot-loader: ^4.12.20
     react-intl: ^5.8.2
+    react-query: ^3.6.0
     react-router: ^5.1.2
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
