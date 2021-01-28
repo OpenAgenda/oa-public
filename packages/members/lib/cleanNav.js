@@ -8,26 +8,26 @@ const choice = require('@openagenda/validators/choice');
 schema.register({
   choice,
   integer,
-  text
+  text,
 });
 
-module.exports = schema({
+const validate = schema({
   after: {
     type: 'text',
     list: true,
-    default: null
+    default: null,
   },
   offset: {
     type: 'integer',
-    default: null
+    default: null,
   },
   limit: {
     type: 'integer',
-    default: 20
+    default: 20,
   },
   page: {
     type: 'integer',
-    default: null
+    default: null,
   },
   order: {
     type: 'choice',
@@ -41,7 +41,17 @@ module.exports = schema({
       'slug.asc',
       'slug.desc',
       'actionsCounter.asc',
-      'actionsCounter.desc'
-    ]
-  }
+      'actionsCounter.desc',
+    ],
+  },
 });
+
+module.exports = nav => {
+  const clean = validate(nav);
+
+  if (clean.order === null) {
+    clean.order = 'id.asc';
+  }
+
+  return clean;
+};

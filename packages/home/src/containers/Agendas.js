@@ -66,7 +66,7 @@ function AgendaItem({ agenda, res, getLabel }) {
           )}
           {[2, 3].includes(agenda.member.role) && (
             <>
-              {agenda.settings.lab?.eventAdmin ? (
+              {agenda?.settings?.lab?.eventAdmin ? (
                 <Link to={`/${agenda.slug}/admin/events`}>
                   {agenda.member.role === 2
                     ? getLabel('manage')

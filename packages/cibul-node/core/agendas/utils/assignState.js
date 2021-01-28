@@ -27,14 +27,16 @@ function defineState(agenda, current, clean, data, { access, draft }) {
   }
 
   if (isUndrafted && !explicitStateRequested) {
+    log('no explicit state requested');
     return agendaDefault;
   } else if (isUndrafted) {
+    log('event is undrafted');
     return canChangeState ? data.state : agendaDefault;
   }
 
   if (
     explicitStateRequested
-    && (data.state === 2)
+    && (parseInt(data.state) === 2)
     && !canPublish(agenda, access)
   ) {
     throw new UnauthorizedError('agenda', agenda.uid, `${access} is not authorized to publish events`);
