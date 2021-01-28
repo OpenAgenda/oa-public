@@ -166,7 +166,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     const { event } = removeModal.data;
 
     apiClient.delete(`/${agenda.slug}/events/${event.slug}`).then(
-      () => queryClient.refetchQueries('events').catch(() => null),
+      () => queryClient
+        .refetchQueries(['event-admin-apps', 'events'])
+        .catch(() => null),
       e => console.log('ERROR', e)
     );
 
@@ -174,7 +176,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }, [agenda.slug, apiClient, queryClient, removeModal]);
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['event-admin-apps', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -198,7 +200,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     isFetchingNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
-    ['events', query],
+    ['event-admin-apps', 'events', query],
     ({ pageParam }) => getEvents(
       apiClient,
       res.jsonExport,

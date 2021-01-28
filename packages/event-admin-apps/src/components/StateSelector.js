@@ -136,7 +136,9 @@ export default function StateSelector({ agenda, event, pageIndex }) {
     }),
     {
       onSuccess: (result, value) => {
-        const query = queryClient.getQueryCache().find(['events']);
+        const query = queryClient
+          .getQueryCache()
+          .find(['event-admin-apps', 'events']);
 
         const queryData = query.state.data;
         const pageData = queryData.pages[pageIndex];
