@@ -34,7 +34,8 @@ const fields = {
     optional: false
   },
   userUid: {
-    type: 'integer'
+    type: 'integer',
+    default: null
   },
   aggregated: {
     type: 'boolean',
