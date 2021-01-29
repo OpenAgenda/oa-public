@@ -22,6 +22,12 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( 'optional by default', () => {
+    const validate = validators.integer();
+
+    expect(validate()).toBeUndefined();
+  });
+
   it( 'cleans an integer that was given as text', () => {
 
     validators.integer()( '2' ).should.equal( 2 );

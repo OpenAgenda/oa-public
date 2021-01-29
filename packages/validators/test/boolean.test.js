@@ -13,7 +13,7 @@ describe('boolean validator', () => {
       optional: true
     });
 
-    expect(optionalValidate()).toBeNull();
+    expect(optionalValidate()).toBeUndefined();
   });
 
   it('returns default value if default value is given', () => {
@@ -26,7 +26,7 @@ describe('boolean validator', () => {
   });
 
   it('puts a default value if nothing is specified', () => {
-    const validate = validators.number({
+    const validate = validators.boolean({
       default: true
     });
 

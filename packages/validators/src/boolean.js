@@ -20,12 +20,12 @@ export default (config = {}) => {
       }];
     }
 
-    if (isUndefined && hasDefault && params.default !== null) {
-      return !!params.default;
+    if (isUndefined && hasDefault) {
+      return params.default !== null ? !!params.default : null;
     }
 
     if (isUndefined) {
-      return null;
+      return;
     }
 
     if (value === null && (params.default === null || params.allowNull)) {

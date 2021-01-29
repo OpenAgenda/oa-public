@@ -24,7 +24,7 @@ export default config => {
 
   function validate( value ) {
 
-    let clean = null, errors = [];
+    let clean = undefined, errors = [];
 
     try {
 
@@ -49,9 +49,9 @@ export default config => {
 
     }
 
-    if ( clean === null ) {
+    if ([undefined, null].includes(clean)) {
 
-      return null;
+      return clean;
 
     }
 

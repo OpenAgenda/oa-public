@@ -52,7 +52,7 @@ module.exports = config => {
 
     } else if ( clean === undefined && params.optional ) {
 
-      return null;
+      return;
 
     }
 

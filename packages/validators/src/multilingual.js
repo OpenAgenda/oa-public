@@ -13,15 +13,16 @@ const _ = {
 };
 
 const text = require( './text' );
+const cleanParams = require('./lib/params');
 
 module.exports = ( config = {} )=> {
 
-  const params = _.assign( {
+  const params = cleanParams('multilingual', config, {
     field: false,
-    optional: true,
     defaultLanguage: null,
-    languages: [] // if array is set, languages are required
-  }, config || {} );
+    languages: []
+  });
+
 
   return _.assign( validate, {
     type: 'multilingual',
@@ -29,7 +30,6 @@ module.exports = ( config = {} )=> {
   } );
 
   function validate( origin ) {
-
 
     const clean = {}, tmp = {};
 

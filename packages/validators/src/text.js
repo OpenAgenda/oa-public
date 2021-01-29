@@ -1,9 +1,8 @@
-import extend from 'lodash/extend';
 import listify from './listify';
-
+import cleanParams from './lib/params';
 export default config => {
 
-  const params = extend( {
+  const params = cleanParams('text', config, {
     field: false, // required
     min: 0,
     max: 1000000,
@@ -12,9 +11,9 @@ export default config => {
     default: null,
     list: false,
     strict: false
-  }, config || {} ),
+  }, config || {}),
 
-  validator = extend( validate, {
+  validator = Object.assign( validate, {
     type: 'text',
     field: params.field
   } );
