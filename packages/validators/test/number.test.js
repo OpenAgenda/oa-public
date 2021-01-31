@@ -4,6 +4,16 @@ const validators = require('../src');
 
 describe('number validator', () => {
 
+  it('is optional by default', () => {
+    const validate = validators.number();
+    const validateWithExplicitOptional = validators.number({
+      optional: undefined
+    });
+
+    validate();
+    validateWithExplicitOptional();
+  });
+
   it('returns undefined if nothing is given on an optional validator', () => {
     const optionalValidate = validators.number({
       optional: true
