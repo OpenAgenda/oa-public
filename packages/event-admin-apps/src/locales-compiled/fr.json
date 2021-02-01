@@ -1,92 +1,14 @@
 {
-  "EventAdminApp.Dashboard.addedBy": [
-    {
-      "type": 0,
-      "value": "Ajouté par "
-    },
-    {
-      "children": [
-        {
-          "type": 1,
-          "value": "name"
-        }
-      ],
-      "type": 8,
-      "value": "link"
-    }
-  ],
-  "EventAdminApp.Dashboard.aggregatedFrom": [
-    {
-      "type": 0,
-      "value": "Aggrégé depuis "
-    },
-    {
-      "children": [
-        {
-          "type": 1,
-          "value": "title"
-        }
-      ],
-      "type": 8,
-      "value": "link"
-    }
-  ],
-  "EventAdminApp.Dashboard.contact": [
-    {
-      "type": 0,
-      "value": "Contacter"
-    }
-  ],
-  "EventAdminApp.Dashboard.createdBy": [
-    {
-      "type": 0,
-      "value": "Créé par "
-    },
-    {
-      "children": [
-        {
-          "type": 1,
-          "value": "name"
-        }
-      ],
-      "type": 8,
-      "value": "link"
-    }
-  ],
-  "EventAdminApp.Dashboard.delete": [
-    {
-      "type": 0,
-      "value": "Supprimer"
-    }
-  ],
-  "EventAdminApp.Dashboard.edit": [
-    {
-      "type": 0,
-      "value": "Modifier"
-    }
-  ],
   "EventAdminApp.Dashboard.filters": [
     {
       "type": 0,
       "value": "Filtres"
     }
   ],
-  "EventAdminApp.Dashboard.remove": [
-    {
-      "type": 0,
-      "value": "Retirer de l'agenda"
-    }
-  ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
     {
       "type": 0,
       "value": "Rechercher"
-    }
-  ],
-  "EventAdminApp.Dashboard.showLocation": [
-    {
-      "type": 0,
-      "value": "Voir le lieu"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
@@ -204,6 +126,90 @@
     {
       "type": 1,
       "value": "filters"
+    }
+  ],
+  "EventAdminApp.EventItem.addedBy": [
+    {
+      "type": 0,
+      "value": "Ajouté par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.aggregatedFrom": [
+    {
+      "type": 0,
+      "value": "Aggrégé depuis "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.contact": [
+    {
+      "type": 0,
+      "value": "Contacter"
+    }
+  ],
+  "EventAdminApp.EventItem.createdBy": [
+    {
+      "type": 0,
+      "value": "Créé par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.delete": [
+    {
+      "type": 0,
+      "value": "Supprimer"
+    }
+  ],
+  "EventAdminApp.EventItem.edit": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "EventAdminApp.EventItem.passed": [
+    {
+      "type": 0,
+      "value": "Passé"
+    }
+  ],
+  "EventAdminApp.EventItem.remove": [
+    {
+      "type": 0,
+      "value": "Retirer de l'agenda"
+    }
+  ],
+  "EventAdminApp.EventItem.showLocation": [
+    {
+      "type": 0,
+      "value": "Voir le lieu"
     }
   ],
   "EventAdminApp.FiltersPart.lessFilters": [
