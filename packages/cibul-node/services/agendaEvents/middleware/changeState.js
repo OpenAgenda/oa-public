@@ -86,6 +86,5 @@ module.exports.batched = (req, res, next) => {
 }
 
 function _redirect(req, res) {
-  const prefix = process.env.NODE_ENV !== 'production' ? '/frontend_dev.php/' : '/';
-  res.redirect(302, `${prefix}${req.agenda.slug}/admin`);
+  res.redirect(302, `${req.agenda.slug}/admin/events`);
 }
