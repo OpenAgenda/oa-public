@@ -58,7 +58,7 @@ export default function AdminSections({ sections, agenda, role }) {
 
             if (!authorizedTab) {
               if (selected) {
-                window.location.href = `/${agenda.slug}/admin`;
+                window.location.href = `/${agenda.slug}/admin/events`;
               }
 
               return null;

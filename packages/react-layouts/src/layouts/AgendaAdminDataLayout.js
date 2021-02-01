@@ -80,6 +80,16 @@ function AgendaAdminDataLayout({
     return <Loading />;
   }
 
+  if (
+    matchPath(location.pathname, { path: '/:slug/admin/events' })
+    && !data.agenda?.settings?.lab?.eventAdmin
+  ) {
+    const phpPrefix = process.env.NODE_ENV === 'development' ? 'frontend_dev.php' : '';
+    window.location.href = `/${phpPrefix}/${data.agenda.slug}/admin`;
+
+    return <Loading />;
+  }
+
   return (
     <ChildLayouts
       layouts={childLayouts}
