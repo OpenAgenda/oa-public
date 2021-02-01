@@ -180,18 +180,16 @@ loadableReady(async () => {
 
   const render = (forceRender = false) => {
     const element = (
-      <>
-        <QueryClientProvider client={queryClient}>
-          <Root
-            apps={apps}
-            layoutStore={layoutStore}
-            history={history}
-            triggerHooks={triggerHooks}
-          />
+      <QueryClientProvider client={queryClient}>
+        <Root
+          apps={apps}
+          layoutStore={layoutStore}
+          history={history}
+          triggerHooks={triggerHooks}
+        />
 
-          {/* <QueryWatch /> */}
-        </QueryClientProvider>
-      </>
+        {/* <QueryWatch /> */}
+      </QueryClientProvider>
     );
     const canvas = document.querySelector('#root');
 
