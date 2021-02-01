@@ -12,12 +12,15 @@ import '@openagenda/bs-templates/compiled/main.css';
 const mock = new MockAdapter(axios);
 
 const mockApi = ({ isNew } = {}) => {
-  mock.onGet('/agendas.json').reply(200, isNew
-    ? {
-      total: 0,
-      agendas: []
-    }
-    : agendasJson);
+  mock.onGet('/agendas.json').reply(
+    200,
+    isNew
+      ? {
+        total: 0,
+        agendas: [],
+      }
+      : agendasJson
+  );
   mock.onGet('/events.json').reply(200, eventsJson);
 };
 
@@ -28,7 +31,7 @@ const getDefaultState = ({ apiRoot } = {}) => ({
     apiRoot,
     prefix: '',
     perPageLimit: 20,
-    displayLegacyMessageTab: false
+    displayLegacyMessageTab: false,
   },
   res: {
     agendas: {
@@ -38,23 +41,21 @@ const getDefaultState = ({ apiRoot } = {}) => ({
       show: '/:slug',
       showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
-      moderate: '/:slug/admin'
     },
     events: {
       list: '/events.json',
       show: '/:slug/events/:eventSlug',
       edit: '/:slug/events/:eventSlug/edit',
       showPrivate: '/:slug/events/:eventSlug.prv',
-      showWithoutAgenda: '/events/:eventSlug'
+      showWithoutAgenda: '/events/:eventSlug',
     },
     messages: '/home/messages',
     notifs: '/home/notifications',
-    moderate: '/:slug/admin',
-    search: '/agendas'
+    search: '/agendas',
   },
   menu: {
-    tab: 'agendas'
-  }
+    tab: 'agendas',
+  },
 });
 
 storiesOf('App', module)
@@ -65,18 +66,18 @@ storiesOf('App', module)
       createApp({
         history: createMemoryHistory(),
         initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
-        })
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+        }),
       }),
       {
         extraProps: {
           user: {
             id: 2,
             uid: 99999999,
-            isNew: true
+            isNew: true,
           },
-          lang: 'fr'
-        }
+          lang: 'fr',
+        },
       }
     );
   })
@@ -87,18 +88,18 @@ storiesOf('App', module)
       createApp({
         history: createMemoryHistory(),
         initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
-        })
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+        }),
       }),
       {
         extraProps: {
           user: {
             id: 2,
             uid: 99999999,
-            isNew: false
+            isNew: false,
           },
-          lang: 'fr'
-        }
+          lang: 'fr',
+        },
       }
     );
   })
@@ -109,18 +110,18 @@ storiesOf('App', module)
       createApp({
         history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
         initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
-        })
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+        }),
       }),
       {
         extraProps: {
           user: {
             id: 2,
             uid: 99999999,
-            isNew: false
+            isNew: false,
           },
-          lang: 'fr'
-        }
+          lang: 'fr',
+        },
       }
     );
   });

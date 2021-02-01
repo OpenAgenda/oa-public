@@ -6,7 +6,7 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '',
-      apiRoot: 'http://localhost:3000'
+      apiRoot: 'http://localhost:3000',
     },
     res: {
       list: '/agendas',
@@ -14,15 +14,14 @@ const defaults = {
       events: '/home/events',
       messages: '/home/messages',
       notifs: '/home/notifications',
-      moderate: '/:slug/admin',
       show: '/:slug',
       showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
-      search: '/agendas'
+      search: '/agendas',
     },
     menu: {},
-    agendas: {}
-  }
+    agendas: {},
+  },
 };
 
 export default function (options) {
@@ -36,7 +35,7 @@ export default function (options) {
     apiRoot,
     prefix,
     getRoutes: () => getRoutes(prefix, rootPrefix),
-    legacyApiClient: true
+    legacyApiClient: true,
   });
 
   const result = getApp();
