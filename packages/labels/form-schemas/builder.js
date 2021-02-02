@@ -188,7 +188,7 @@ module.exports = {
     "it": "Campo di testo"
   },
   "textareaFieldType": {
-    "fr": "Texte (Paragraphe)",
+    "fr": "Champ texte multilignes (Paragraphe)",
     "en": "Textarea",
     "es": "Texto (Párrafo)",
     "it": "Testo (Paragrafo)"
@@ -199,11 +199,29 @@ module.exports = {
     "es": "Texto enriquecido",
     "it": "Testo arricchito"
   },
+  "markdownFieldTypeInfo": {
+    "fr": "Champ texte enrichi (markdown)",
+    "en": "Enriched text field (markdown)"
+  },
   "integerFieldType": {
     "fr": "Nombre entier",
     "en": "Integer number",
     "es": "Nombre completo",
     "it": "Numero intero"
+  },
+  "emailFieldType": {
+    "fr": "Email",
+    "en": "Email",
+    "de": "Email",
+    "es": "Email",
+    "it": "Email"
+  },
+  "linkFieldType": {
+    "fr": "Hyperlien",
+    "en": "Hyperlink",
+    "de": "Hyperlink",
+    "it": "Hyperlink",
+    "es": "Enlace"
   },
   "textMultilingualFieldType": {
     "fr": "Text multilingue",
@@ -212,10 +230,22 @@ module.exports = {
     "it": "Testo multilingue"
   },
   "checkboxFieldType": {
-    "fr": "Selection à choix multiples",
-    "en": "Multiple choice selection",
+    "fr": "Cases à cocher multiples",
+    "en": "Multiple checkbox selection",
     "es": "Selección múltiple elección",
     "it": "Selezione a scelta multipla"
+  },
+  "checkboxFieldTypeInfo": {
+    "fr": "Séries de cases à cocher permettant la sélection de valeurs multiples",
+    "en": "A series of checkboxes allowing for the selection of multiple values"
+  },
+  "multiselectFieldType": {
+    "fr": "Menu déroulant à sélection multiple",
+    "en": "Multiple choice dropdown select"
+  },
+  "multiselectFieldTypeInfo": {
+    "fr": "Champ de saisie avec menu déroulant et auto-completion permettant la sélection de valeurs multiples",
+    "en": "Input field with dropdown and autocomplete allowing the selection of multiple values from a list"
   },
   "radioFieldType": {
     "fr": "Sélection à choix unique",
@@ -223,11 +253,27 @@ module.exports = {
     "es": "Selección de una sola elección",
     "it": "Selezione a scelta singola"
   },
+  "radioFieldTypeInfo": {
+    "fr": "Liste de cases à cocher ne permettant la sélection que d'une unique valeur",
+    "en": "List of choices allowing the selection of a unique value"
+  },
+  "selectFieldType": {
+    "fr": "Menu déroulant à sélection unique",
+    "en": "Single selection dropdown select"
+  },
+  "selectFieldTypeInfo": {
+    "fr": "Champ de saisie avec menu déroulant et auto-completion permettant la sélection d'une valeur parmi une liste",
+    "en": "Input field with dropdown and autocomplete allowing the selection of single value from a list"
+  },
   "booleanFieldType": {
     "fr": "Case à cocher unique",
     "en": "Single checkbox",
     "es": "Unica checkbox",
     "it": "Casella di controllo singola"
+  },
+  "booleanFieldTypeInfo": {
+    "fr": "Adapté aux choix de type oui/non",
+    "en": "Yes/no choice"
   },
   "imageFieldType": {
     "fr": "Image",

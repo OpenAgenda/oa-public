@@ -9,6 +9,53 @@ module.exports = {
     "es": "descripciones",
     "br": "Maeziennoù deskrivañ"
   },
+  "attendanceMode": {
+    "fr": "Mode de participation",
+    "en": "Attendance mode",
+    "it": "Modalità di partecipazione",
+    "es": "Modo de asistencia",
+    "de": "Anwesenheitsmodus"
+  },
+  "offlineAttendanceMode": {
+    "fr": "Sur place",
+    "en": "Offline",
+    "it": "Disconnesso",
+    "es": "Desconnectad",
+    "de": "Offline"
+  },
+  "offlineAttendanceModeInfo": {
+    "fr": "La participation à cet événement n'est possible qu'à un lieu physique",
+    "en": "Attendance to this event is only possible at a physical location"
+  },
+  "onlineAttendanceMode": {
+    "fr": "En ligne",
+    "en": "Online",
+    "it": "In linea",
+    "es": "En linea",
+    "de": "Online"
+  },
+  "onlineAttendanceModeInfo": {
+    "fr": "La participation à cet événement n'est possible que sur internet",
+    "en": "Attendance to this event is only possible online"
+  },
+  "mixedAttendanceMode": {
+    "fr": "Mixte",
+    "en": "Mixed",
+    "it": "Misto",
+    "es": "Mezclado",
+    "de": "Gemischt"
+  },
+  "mixedAttendanceModeInfo": {
+    "fr": "La participation à cet événement peut se faire à un lieu physique et en ligne",
+    "en": "Attendance to this event is both possible at a physical location an online"
+  },
+  "onlineAccessLink": {
+    "fr": "Lien d'accès",
+    "en": "Access link",
+    "de": "Zugangslink",
+    "es": "Enlace de acceso",
+    "it": "Collegamento di accesso"
+  },
   "location": {
     "fr": "Lieu",
     "en": "Location",
