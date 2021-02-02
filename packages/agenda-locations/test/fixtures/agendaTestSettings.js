@@ -224,11 +224,11 @@ module.exports = {
           },
           {
             id: 21,
-            label: 'Insolites',
+            label: { fr: 'Insolites', en: 'Unusual' },
           },
           {
             id: 22,
-            label: 'Société et civilisation',
+            label: { fr: 'Société et civilisation', en: 'Society and civilization' },
           },
           {
             id: 23,

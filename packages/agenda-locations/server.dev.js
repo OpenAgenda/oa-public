@@ -55,12 +55,12 @@ const Service = require('.');
         {
           uid: 60763721,
           eventCount: 12,
-          agendaEventCount: 8,
+          agendaEventCount: 1,
         },
         {
           uid: 51665985,
-          eventCount: 9,
-          agendaEventCount: 2,
+          eventCount: 1,
+          agendaEventCount: 1,
         },
       ],
     },

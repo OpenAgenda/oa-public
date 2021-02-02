@@ -75,7 +75,7 @@ describe('agenda-locations - functional - get', function () {
     });
   });
 
-  describe('set', () => {
+  describe('set', () =>  {
     it('location in set is the result', async () => {
       const location = await svc.sets(1903810).locations.get(7630649);
 
@@ -121,10 +121,12 @@ describe('agenda-locations - functional - get', function () {
         return;
       }
       throw new Error('should not reach here');
-    });
+    }); 
 
     it('if getEventCounts interface is set and eventCount option is true, location includes interface-provided event counts', async () => {
-      const location = await svc(7196947).get(60763721, { eventCounts: true });
+      const location = await svc(7196947).get(60763721, {
+        eventCounts: true
+      });
 
       assert.equal(location.eventCount, 12);
       assert.equal(location.agendaEventCount, 8);
