@@ -113,13 +113,3 @@ describe('agenda-locations - functional - settings get', function() {
     })
   });
 })
-
-    // ça
-    // settings = await svc(5).settings.get();
-    // c'est pareil que ça:
-    // settings = await svc.agendas(agendaUID).settings.get();
-
-    // ça doit aller chercher les settings via l'interface.
-
-    // Après, on va inclure les settings définits dans un jeu de lieux.
-    // settings = await svc.set(1).settings.get();

@@ -12,7 +12,6 @@ async function get(service, { setUid, agendaUid }, options = {}) {
 
   const agendaSettings = agendaUid ? await service.interfaces.getAgendaLocationSettings(agendaUid) : null;
 
-  //console.log(agendaSettings.tagSet.groups.find(e => e.name === 'Types de lieu').tags.filter(e => e.id === 21 || e.id === 22));
   if (lang && agendaSettings?.tagSet) {
     agendaSettings.tagSet = flattenLocationTagSet(agendaSettings.tagSet, lang);
   }
