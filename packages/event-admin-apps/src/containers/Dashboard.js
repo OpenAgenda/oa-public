@@ -196,6 +196,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         const search = qs.stringify(query, {
           addQueryPrefix: true,
           arrayFormat: 'brackets',
+          skipNulls: true,
         });
 
         if (history.location.search !== search) {
@@ -234,6 +235,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     const search = qs.stringify(latestQuery.current, {
       addQueryPrefix: true,
       arrayFormat: 'brackets',
+      skipNulls: true,
     });
 
     if (history.location.search !== search) {
