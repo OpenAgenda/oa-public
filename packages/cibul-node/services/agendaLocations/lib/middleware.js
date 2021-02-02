@@ -2,8 +2,6 @@
 
 const _ = require('lodash');
 
-const flattenLocationTagSet = require('@openagenda/event-form/build/utils/flattenLocationTagSet');
-
 module.exports.getLocationSet = service => (req, res, next) => {
   req.locationSet = null;
   if (!req.agenda || !req.agenda.locationSetUid) {
@@ -28,29 +26,3 @@ module.exports.loadLocation = service => (req, res, next) => {
   }, next);
 }
 
-module.exports.getLocationSettings = async (req, res, next) => {
-  const {
-    core,
-  } = req.app.services;
-
-  const schema = await core.agendas(req.agenda.uid).settings.get();
-
-  if (!schema || !_.isArray(schema.fields)) {
-    return next();
-  }
-
-  const locationField = _.first(schema.fields.filter(f => f.field === 'location'));
-  const legacy = _.get(locationField, 'legacy', null);
-
-  if (!legacy) {
-    return next();
-  }
-
-  if (legacy.tagSet) {
-    legacy.tagSet = flattenLocationTagSet(legacy.tagSet, req.lang);
-  }
-
-  req.locationLegacySettings = legacy;
-
-  next();
-}
