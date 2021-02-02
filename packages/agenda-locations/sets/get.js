@@ -1,7 +1,5 @@
 'use strict';
 
-const _ = require('lodash');
-
 const cleanGetOptions = require('./lib/cleanGetOptions');
 
 module.exports = async (service, uid, options = {}) => {

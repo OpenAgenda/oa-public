@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import debug from 'debug';
 
 import SelectorApp from '../components/src/LocationSelector';
+
+const log = debug('selectorStory');
 
 class BaseSelectorStory extends Component {
   constructor(props) {
@@ -26,8 +29,8 @@ class BaseSelectorStory extends Component {
           res={this.props.res}
           enableGeocode={this.props.enableGeocode}
           onChange={(mode, location) => {
-            console.log('onChange', mode);
-            console.log(location);
+            log('onChange', mode);
+            log('location:', location);
             this.setState({ location, mode });
           }}
           disableChange={false}
