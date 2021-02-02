@@ -19,9 +19,15 @@ const imageVariants = require('./lib/imageVariants');
 const getSet = require('./sets/get');
 const createSet = require('./sets/create');
 
+const getSettings = require('./settings/get');
+
 const sets = {
   get: getSet,
   create: createSet,
+};
+
+const settings = {
+  get: getSettings,
 };
 
 module.exports = Object.assign(
@@ -44,6 +50,7 @@ module.exports = Object.assign(
           getEventCounts: async () => [], // takes identifiers, locationUids
           beforeMerge: async () => {}, // takes mergeIn, mergedLocations
           beforeRemove: async () => {}, // takes location
+          getAgendaLocationSettings: async () => {},
           onUpdate: null,
         },
       }
@@ -101,6 +108,9 @@ module.exports = Object.assign(
             setUid
           ),
         },
+        settings: {
+          get: settings.get.bySetUid.bind(null, service, setUid),
+        },
       }),
       service.sets
     );
@@ -122,6 +132,9 @@ module.exports = Object.assign(
       terms: terms.byAgendaUid.bind(null, service, agendaUid),
       merge: merge.byAgendaUid.bind(null, service, agendaUid),
       get: get.byAgendaUid.bind(null, service, agendaUid),
+      settings: {
+        get: settings.get.byAgendaUid.bind(null, service, agendaUid),
+      },
     });
 
     return Object.assign(agendaEndpoints, {
