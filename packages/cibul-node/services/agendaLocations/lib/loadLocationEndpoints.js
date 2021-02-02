@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = service => (req, res, next) => {
-  if (req.agenda.locationSetUid) {
-    req.locations = service.sets(req.agenda.locationSetUid).locations;
-  } else {
-    req.locations = service(req.agenda.uid);
-  }
-  next();
+  const endpoints = req.agenda.locationSetUid ? service.sets(req.agenda.locationSetUid) : service(req.agenda.uid);
+  endpoints.settings.get({ lang: req.lang }).then(settings => {
+    req.settings = settings;
+    req.locations = req.agenda.locationSetUid ? endpoints.locations : endpoints;
+    next();
+  });
 }
