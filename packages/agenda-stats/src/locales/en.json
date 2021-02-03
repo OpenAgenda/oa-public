@@ -41,7 +41,7 @@
   "AgendaStats.RangeTypeFilter.range": "From {startDate, date} to {endDate, date}",
   "AgendaStats.RangeTypeFilter.sameDayRange": "The {startDate, date}",
   "AgendaStats.RangeTypeFilter.submit": "Update",
-  "AgendaStats.RangeTypeFilter.typeCreatedAt": "By création",
+  "AgendaStats.RangeTypeFilter.typeCreatedAt": "By creation",
   "AgendaStats.RangeTypeFilter.typeDate": "By timing",
   "AgendaStats.RangeTypeModal.createdAtDesc": "the creation date of the events",
   "AgendaStats.RangeTypeModal.dateDesc": "the event timings",
