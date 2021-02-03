@@ -25,7 +25,7 @@ function evaluate(step, requested = false) {
       edit
     } = state.config;
 
-    const draftEvent = _.get(state, 'event.draft', false);
+    const draftEvent = state?.event?.draft || false;
     const eventEdition = edit && !draftEvent;
 
     if (eventEdition && step === 'edit') {
@@ -39,7 +39,7 @@ function evaluate(step, requested = false) {
 
     const requestedRoute = base + '/' + step + (step === 'event' && draftEvent ? `/${_.get(state, 'event.uid')}/draft` : '');
 
-    const authorizedRoutes = [ base + '/member' ];
+    const authorizedRoutes = [base + '/member'];
 
     if (!memberConfig.dataIsRequired || isMemberValid(memberConfig.schema, state.member) || _.get(state, 'member.role') === 'administrator') {
       authorizedRoutes.push(base + (
