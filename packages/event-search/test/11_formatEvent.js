@@ -128,11 +128,11 @@ describe('11 - event-search - unit: formatEvent', function() {
 
   it('dateRange is multilingual', () => {
     formatted.dateRange.should.eql({
-      fr: '18 et 19 janvier',
-      ar: '١٨ و ١٩ يناير ',
-      en: '18 and 19 January',
-      de: '18 und 19 Januar',
-      es: '18 and 19 January'
+      fr: '18 et 19 janvier 2020',
+      ar: '١٨ و ١٩ يناير ٢٠٢٠ ',
+      en: '18 and 19 January 2020',
+      de: '18 und 19 Januar 2020',
+      es: '18 and 19 January 2020'
     });
   });
 
