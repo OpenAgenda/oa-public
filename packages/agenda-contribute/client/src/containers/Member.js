@@ -23,7 +23,7 @@ export default connect(
 )( ( { config, member, event, onSuccess, onDidMount, onSelectStep, steps } ) => <Canvas {...config} steps={steps} onDidMount={onDidMount} onSelectStep={onSelectStep} event={event}>
   <div className=" padding-top-sm">
     <div className="wsq padding-all-md">
-      <h3>{labels.title[ config.lang ]}</h3>
+      <h3>{labels.title[config.lang]}</h3>
       <div className="margin-top-lg">
         <label>{labels.subtitle[ config.lang ]}</label>
         <p>{labels.description[ config.lang ]}</p>

@@ -17,7 +17,8 @@ const validators = {
   date: require('@openagenda/validators/date'),
   multilingual: require('@openagenda/validators/multilingual'),
   integer: require('@openagenda/validators/integer'),
-  choice: require('@openagenda/validators/choice')
+  choice: require('@openagenda/validators/choice'),
+  phone: require('@openagenda/validators/phone')
 }
 
 const map = [{

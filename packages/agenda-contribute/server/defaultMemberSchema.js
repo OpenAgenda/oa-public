@@ -3,7 +3,7 @@
 const labels = require('@openagenda/labels/agenda-contribute/member');
 
 module.exports = {
-  fields: [ {
+  fields: [{
     field: 'organization',
     label: labels.organisation,
     fieldType: 'text',
@@ -29,5 +29,5 @@ module.exports = {
     label: labels.email,
     fieldType: 'email',
     optional: false
-  } ]
+  }]
 }

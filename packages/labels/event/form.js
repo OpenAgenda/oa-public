@@ -14,47 +14,40 @@ module.exports = {
     "en": "Attendance mode",
     "it": "Modalità di partecipazione",
     "es": "Modo de asistencia",
-    "de": "Anwesenheitsmodus"
+    "de": "Anwesenheitsmodus",
+    "br": "Doare perzhiañ"
   },
   "offlineAttendanceMode": {
     "fr": "Sur place",
     "en": "Offline",
     "it": "Disconnesso",
     "es": "Desconnectad",
-    "de": "Offline"
-  },
-  "offlineAttendanceModeInfo": {
-    "fr": "La participation à cet événement n'est possible qu'à un lieu physique",
-    "en": "Attendance to this event is only possible at a physical location"
+    "de": "Offline",
+    "br": "War al lec’h"
   },
   "onlineAttendanceMode": {
     "fr": "En ligne",
     "en": "Online",
     "it": "In linea",
     "es": "En linea",
-    "de": "Online"
-  },
-  "onlineAttendanceModeInfo": {
-    "fr": "La participation à cet événement n'est possible que sur internet",
-    "en": "Attendance to this event is only possible online"
+    "de": "Online",
+    "br": "Enlinenn"
   },
   "mixedAttendanceMode": {
     "fr": "Mixte",
     "en": "Mixed",
     "it": "Misto",
     "es": "Mezclado",
-    "de": "Gemischt"
-  },
-  "mixedAttendanceModeInfo": {
-    "fr": "La participation à cet événement peut se faire à un lieu physique et en ligne",
-    "en": "Attendance to this event is both possible at a physical location an online"
+    "de": "Gemischt",
+    "br": "Kemmesk"
   },
   "onlineAccessLink": {
     "fr": "Lien d'accès",
     "en": "Access link",
     "de": "Zugangslink",
     "es": "Enlace de acceso",
-    "it": "Collegamento di accesso"
+    "it": "Collegamento di accesso",
+    "br": "Liamm moned"
   },
   "location": {
     "fr": "Lieu",
@@ -108,14 +101,13 @@ module.exports = {
     "fr": "Titre de l'événement",
     "en": "Title of the event",
     "es": "Nombre del evento",
-    "it": ""
+    "br": "Titl an darvoud"
   },
   "titleSub": {
     "fr": "",
     "en": "",
-    "it": "",
-    "de": "#VALUE!",
-
+    "de": "",
+    "br": ""
   },
   "titlePlaceholder": {
     "fr": "Le titre de votre événement",
@@ -137,7 +129,7 @@ module.exports = {
     "fr": "Description pour les affichages réduits ou liste",
     "en": "Description for short or list displays",
     "es": "Descripción de las pequeñas pantallas o lista",
-    "it": ""
+    "br": "Deskrivadur evit an diskweloù berr pe listenn"
   },
   "descriptionPlaceholder": {
     "fr": "Une courte description de votre événement",
@@ -150,9 +142,8 @@ module.exports = {
   "descriptionSub": {
     "fr": "",
     "en": "",
-    "it": "",
-    "de": "#VALUE!",
-
+    "de": "",
+    "br": ""
   },
   "image": {
     "fr": "Image de l'événement",
@@ -197,8 +188,8 @@ module.exports = {
   "longDescriptionSub": {
     "fr": "",
     "en": "",
-    "it": "",
-    "de": ""
+    "de": "",
+    "br": ""
   },
   "keywords": {
     "fr": "Mots clés",
@@ -243,8 +234,8 @@ module.exports = {
   "conditionsSub": {
     "fr": "",
     "en": "",
-    "it": "",
-    "de": ""
+    "de": "",
+    "br": ""
   },
   "registration": {
     "fr": "Outils d'inscription",

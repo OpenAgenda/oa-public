@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
+const qs = require('qs');
 
 const agendas = require('@openagenda/agendas');
 const contribute = require('@openagenda/agenda-contribute');
@@ -131,7 +132,6 @@ module.exports = Object.assign((parentApp, path = '') => {
   parentApp.use('/:agendaSlug/contribute', contribute.app);
 
   loadLegacyRoutes(parentApp);
-
 }, {
   init
 });
@@ -157,5 +157,17 @@ function init(config, services) {
 
 
 function _redirectToSignup(req, res) {
-  res.redirect(302, `/${req.agenda.slug}/signup?redirect=${base64.encode(req.originalUrl)}${req.lang !== 'fr' ? '&lang=' + req.lang : ''}`)
+  const query = {
+    redirect: base64.encode(req.originalUrl)
+  };
+
+  if (req.lang !== 'fr') {
+    query.lang = req.lang;
+  }
+
+  if (req.query.defaults) {
+    query.defaults = req.query.defaults;
+  }
+
+  res.redirect(302, `/${req.agenda.slug}/signup?${qs.stringify(query)}`);
 }

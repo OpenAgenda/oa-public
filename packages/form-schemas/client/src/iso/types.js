@@ -8,6 +8,7 @@ module.exports = {
   integer: 'integer',
   link: 'link',
   email: 'email',
+  phone: 'phone',
   number: 'number',
   text: 'text',
   textarea: 'text',
