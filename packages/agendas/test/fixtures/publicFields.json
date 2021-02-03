@@ -26,11 +26,13 @@
   },
   "networkUid": {
     "type": "integer",
-    "optional": true
+    "optional": true,
+    "default": null
   },
   "locationSetUid": {
     "type": "integer",
-    "optional": true
+    "optional": true,
+    "default": null
   },
   "settings": {
     "fields": {
