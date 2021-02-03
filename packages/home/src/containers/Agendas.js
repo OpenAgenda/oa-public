@@ -12,6 +12,8 @@ import { setTab } from '../reducers/menu';
 import Welcome from '../components/Welcome';
 import AgendasSearch from '../components/AgendasSearch';
 
+const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
+
 function AgendaItem({ agenda, res, getLabel }) {
   return (
     <div className="agenda-item media" key={agenda.uid}>
@@ -73,7 +75,7 @@ function AgendaItem({ agenda, res, getLabel }) {
                     : getLabel('moderate')}
                 </Link>
               ) : (
-                <a href={`/${agenda.slug}/admin/events`}>
+                <a href={`${phpPrefix}${agenda.slug}/admin`}>
                   {agenda.member.role === 2
                     ? getLabel('manage')
                     : getLabel('moderate')}
