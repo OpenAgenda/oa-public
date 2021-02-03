@@ -56,7 +56,7 @@ module.exports = [{
     slug: 'member-data-is-required',
     uid: 1235,
     id: 2
- },
+  },
   config: Object.assign({}, defaultConfig, {
     base: '/member-data-is-required/contribute',
     member: {
@@ -306,4 +306,19 @@ module.exports = [{
      }
    }]
  })
+}, {
+  link: '/with-defaults/contribute?default=fdqfdsqfdsq',
+  agenda: {
+    title: 'An agenda requiring event member data, defaults passed in query',
+    description: 'Default values are passed in query',
+    slug: 'with-defaults',
+    uid: 12325,
+    id: 292839
+ },
+  config: Object.assign({}, defaultConfig, {
+    base: '/with-defaults/contribute',
+    member: {
+      dataIsRequired: true
+    }
+  })
 }];
