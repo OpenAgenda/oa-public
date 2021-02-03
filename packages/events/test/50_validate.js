@@ -18,10 +18,10 @@ describe('validate', () => {
     }
   });
 
-  it('location needs to be specified if eventAttendanceMode is offline', async () => {
+  it('location needs to be specified if attendanceMode is offline', async () => {
     try {
       await validate({
-        eventAttendanceMode: 1
+        attendanceMode: 1
       });
       
       throw new Error('should not reach here');
@@ -34,18 +34,34 @@ describe('validate', () => {
     }
   });
 
-  it('draft event does not need to be complete to be valid', async () => {
-    const clean = await validate({
-      eventAttendanceMode: 1,
-    }, { isDraft: 1 });
+  it('onlineAccessLink is removed from clean values when attendanceMode is offline', async () => {
+    const event = await validate({
+      attendanceMode: 1,
+      locationUid: 1,
+      title: 'Un titre',
+      description: 'Une description',
+      timings: [{
+        begin: '2021-01-28T16:00:00.000Z',
+        end: '2021-01-28T20:00:00.000Z'
+      }],
+      onlineAccessLink: 'https://removed.link.fr'
+    });
 
-    assert.equal(clean.eventAttendanceMode, 1);
+    assert.equal(event.onlineAccessLink, null);
   });
 
-  it('location needs to be specified if eventAttendanceMode is mixed', async () => {
+  it('draft event does not need to be complete to be valid', async () => {
+    const clean = await validate({
+      attendanceMode: 1,
+    }, { isDraft: 1 });
+
+    assert.equal(clean.attendanceMode, 1);
+  });
+
+  it('location needs to be specified if attendanceMode is mixed', async () => {
     try {
       await validate({
-        eventAttendanceMode: 3
+        attendanceMode: 3
       });
 
       throw new Error('should not reach here');
@@ -57,10 +73,10 @@ describe('validate', () => {
     }
   });
 
-  it('location does not need to be specified iff eventAttendanceMode is online', async () => {
+  it('location does not need to be specified iff attendanceMode is online', async () => {
     try  {
       await validate({
-        eventAttendanceMode: 2
+        attendanceMode: 2
       });
       throw new Error('should not reach here');
     } catch (error) {
@@ -97,11 +113,11 @@ describe('validate', () => {
     assert.equal(clean.image, null);
   });
 
-  it('complete online event needs at least a title, description, eventAttendanceMode, timings and a onlineAccessLink', async () => {
+  it('complete online event needs at least a title, description, attendanceMode, timings and a onlineAccessLink', async () => {
     await validate({
       title: 'Un événement',
       description: 'Une description',
-      eventAttendanceMode: 2,
+      attendanceMode: 2,
       onlineAccessLink: 'https://wheretheeventtakesplace.com',
       timings: [{
         begin: '2020-11-30T08:00:00.000Z',
@@ -114,7 +130,7 @@ describe('validate', () => {
     const clean = await validate({
       title: 'Un événement',
       description: 'Une description',
-      eventAttendanceMode: 2,
+      attendanceMode: 2,
       onlineAccessLink: 'https://wheretheeventtakesplace.com',
       timings: [{
         begin: '2020-11-30T08:00:00.000Z',
@@ -133,7 +149,7 @@ describe('validate', () => {
       await validate({
         title: 'Un événement',
         description: 'Une description',
-        eventAttendanceMode: 3,
+        attendanceMode: 3,
         timings: [{
           begin: '2020-11-30T08:00:00.000Z',
           end: '2020-11-30T10:00:00.000Z'

@@ -27,6 +27,10 @@
           "mapTo": "uid"
         },
         {
+          "name" : "Slug",
+          "mapTo": "slug"
+        },
+        {
           "name": "ImageUrl",
           "mapTo": "image"
         },

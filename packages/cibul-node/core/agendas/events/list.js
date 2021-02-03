@@ -47,6 +47,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   const fetched = {};
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+
   const formSchema = merge.schemasWithEvent(
     agenda.network ? agenda.network.formSchema : null,
     agenda.formSchema,
@@ -68,7 +69,6 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
 
   if (load.event) {
     log('loading %s events', eventUids.length);
-
     fetched.events = await eventsSvc.list({
       uid: eventUids
     }, { limit: eventUids.length }, {
@@ -106,7 +106,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   if (detailed && load.member) {
     fetched.members = await members.list({
       agendaUid: agenda.uid,
-      userUid: agendaEvents.map(ae => ae.userUid)
+      userUid: agendaEvents.map(ae => ae.userUid).filter(userUid => !!userUid)
     }, { limit }).then(m => m.map(m => _.pick(m, ['role', 'userUid', 'custom'])));
   }
 

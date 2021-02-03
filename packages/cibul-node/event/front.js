@@ -23,9 +23,39 @@ const redirectMiddelware = require( './redirect.middleware' )( config );
 
 const log = require( '@openagenda/logs' )( 'event/front' );
 
+function loadMissing(req, res, next) {
+  if (!req.event) {
+    return next();
+  }
+  if (!req.event?.locations?.length) {
+    return next();
+  }
+  if (req.event.locations[0].uid) {
+    return next();
+  }
+
+  req.app.services
+    .knex('event_2')
+    .first('timings')
+    .where('uid', req.event.uid)
+    .then(record => {
+      if (!record) {
+        return next();
+      }
+
+      req.event.timings = JSON.parse(record.timings).map(t => ({
+        start: t.begin,
+        end: t.end
+      }));
+
+      next();
+    }, next);
+}
+
 const middlewares = {
   agendaEventShow: [
     legacyEventSvc.mw.load( 'eventSlug', 'slug' ),
+    loadMissing,
     legacyEventSvc.mw.format,
     legacyEventSvc.mw.components,
     _loadAgendaCoreSettings,

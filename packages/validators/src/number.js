@@ -1,99 +1,62 @@
-"use strict";
+'use strict';
 
-const _ = {
-  extend: require( 'lodash/extend' )
-}
+import errors from './lib/errors';
+import cleanParams from './lib/params';
 
-/*
-integer: require( 'react-form-components/validators/integer' )
-state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
-*/
+export default config => {
+  const params = cleanParams('link', config, {
+    min: null,
+    max: null,
+  });
 
-module.exports = config => {
-
-  const params = _.extend( {
-    field: false, // required
-    min: null, // minus infinity if defined
-    max: null, // infinity and beyond?
-    default: undefined, // if set, no input cleans to this
-    optional: true
-  }, config || {} );
-
-  return _.extend( validate, {
-    type: 'number',
-    field: params.field
-  } );
-
-  function validate( value ) {
-
+  return Object.assign(value => {
     let clean;
 
-    if ( typeof value == 'string' && value.length ) {
-
-      clean = parseFloat( value, 10 );
-
-    } else if ( typeof value === 'number' ) {
-
+    if (typeof value == 'string' && value.length) {
+      clean = parseFloat(value, 10);
+    } else if (typeof value === 'number') {
       clean = value;
-
     }
 
-    if ( clean === undefined && !params.optional && [ undefined, null ].includes( params.default ) ) {
-
-      throw [ _.extend( {
-        code: 'required',
-        message: 'a number is required',
-        origin: value
-      }, params.field ? { field: params.field } : {} ) ];
-
-    } else if ( clean === undefined && ( params.default !== undefined ) ) {
-
+    if (clean === undefined && !params.optional &&[undefined, null ].includes(params.default)) {
+      throw errors(params, value, 'required', 'a number is required');
+    } else if (clean === undefined && (params.default !== undefined)) {
       return params.default;
-
-    } else if ( clean === undefined && params.optional ) {
-
-      return null;
-
+    } else if (clean === undefined && params.optional) {
+      return;
     }
 
-    if ( isNaN( clean ) ) {
-
-      throw [ _.extend( {
-        code: 'number.invalid',
-        message: 'not a number',
-        origin: value
-      }, params.field ? { field: params.field } : {} ) ];
-
+    if (isNaN(clean)) {
+      throw errors(params, value, 'number.invalid', 'not a number');
     }
 
-    if ( params.min !== null && clean < params.min ) {
-
-      throw [ _.extend( {
+    if (params.min !== null && clean < params.min) {
+      throw [{
         code: 'number.toosmall',
         message: 'the number is too small',
         values: {
           min: params.min
         },
-        origin: value
-      }, params.field ? { field: params.field } : {} ) ];
-
+        origin: value,
+        ...(params.field ? { field: params.field } : {})
+      }];
     }
 
-    if ( params.max !== null && clean > params.max ) {
-
-      throw [ _.extend( {
+    if (params.max !== null && clean > params.max) {
+      throw [{
         code: 'number.toobig',
         message: 'the number is too big',
         values: {
           max: params.max
         },
-        origin: value
-      }, params.field ? { field: params.field } : {} ) ];
-
+        origin: value,
+        ...(params.field ? { field: params.field } : {})
+      }];
     }
 
     return clean;
-
-  }
-
+  }, {
+    type: 'number',
+    field: params.field
+  });
 }

@@ -4,7 +4,7 @@ import EventEdit from './containers/EventEdit';
 import Landing from './containers/Landing';
 import Member from './containers/Member';
 
-export default function ( prefix = '' ) {
+export default function (prefix = '') {
   return [
     { path: `${prefix}`, exact: true, component: Landing },
     { path: `${prefix}/member`, component: Member },

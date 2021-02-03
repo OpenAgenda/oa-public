@@ -17,7 +17,8 @@
   },
   "formSchemaId": {
     "type": "integer",
-    "optional": true
+    "optional": true,
+    "default": null
   },
   "officializedAt": {
     "type": "date",

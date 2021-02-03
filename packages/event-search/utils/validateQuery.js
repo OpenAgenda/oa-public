@@ -156,8 +156,7 @@ const validate = schema({
       'score'
     ],
     optional: true,
-    unique: false,
-    default: null
+    unique: false
   }
 });
 

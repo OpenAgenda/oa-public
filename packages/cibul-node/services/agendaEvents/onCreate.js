@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const VError = require('verror');
@@ -94,14 +94,12 @@ module.exports = async ({ config, services }, ae, context) => {
    * control data is used for displaying widget data
    */
 
-  if ( ae.state === 2 ) {
-
+  if (ae.state === 2) {
     try {
-      await controlDataSvc.set( ae, event );
-    } catch ( e ) {
-      log( 'error', 'control data set failed', e );
+      await controlDataSvc.set(ae, event);
+    } catch (e) {
+      log('error', 'control data set failed', e);
     }
-
   }
 
   if (!activitiesSvc) {

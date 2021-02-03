@@ -23,6 +23,19 @@ describe('schema validator', () => {
 
     });
 
+    it('optional declared as undefined', () => {
+      const validate = schema({
+        alinkfield: {
+          enableWith: null,
+          optional: undefined,
+          optionalWith: null,
+          type: 'link'
+        }
+      });
+      
+      expect(validate({})).toEqual({});
+    });
+
     it('validates an object with a basic schema', () => {
       const validate = schema({
         title: {
@@ -1241,7 +1254,7 @@ describe('schema validator', () => {
           someNumber: 'twelve'
         });
 
-        expect(clean.someNumber).toBe(null);
+        expect(clean.someNumber).toBe(undefined);
       });
 
     });
@@ -1461,6 +1474,27 @@ describe('schema validator', () => {
       }
 
       expect(errors[0].field).toBe('description');
+    });
+
+    it('fix: optional multilingual field does not throw error when given nothing', () => {
+      schema.register({
+        multilingual: validators.multilingual
+      });
+
+      const validate = schema({
+        conditions: {
+          field: 'conditions',
+          optional: undefined,
+          optionalWith: null,
+          enableWith: null,
+          type: 'multilingual',
+          default: null,
+          languages: [],
+          max: 255
+        }
+      });
+
+      validate({});
     });
 
   });

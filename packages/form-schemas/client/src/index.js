@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import debug from 'debug';
 import ih from 'immutability-helper';
 import React, { Component } from 'react';
 
@@ -13,13 +14,14 @@ import {
 
 import FormSchema from './iso/FormSchema';
 import getErrorLabel from './iso/getErrorLabel';
-import getEnableWithFieldName from './iso/getEnableWithFieldName';
+import getWithFieldName from './iso/getWithFieldName';
 
 import flatten from './lib/flatten';
 import submit from './lib/submit';
 import getRelatedFieldValues from './lib/getRelatedFieldValues';
 import isFieldDisplayed from './lib/isFieldDisplayed';
 
+const log = debug('FormSchemaComponent');
 const Field = require('./Components/Field');
 
 export default class FormSchemaComponent extends Component {
@@ -33,6 +35,8 @@ export default class FormSchemaComponent extends Component {
       withErrors,
       labels
     } = props;
+
+    log('values at init: %j', values);
 
     const init = {
       labels: {
@@ -53,10 +57,13 @@ export default class FormSchemaComponent extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onSubmitConfirm = this.onSubmitConfirm.bind(this);
 
+    const sanitized = this.sanitize(values);
+
+    // display of errors at load
     const {
       errors,
       files
-    } = withErrors ? this.sanitize(values) : { errors: [] };
+    } = withErrors ? sanitized : { errors: [] };
 
     if (errors && !this.props.stateless) {
       this.state.errors = errors;
@@ -70,6 +77,7 @@ export default class FormSchemaComponent extends Component {
   }
 
   set(update) {
+    log('update', update);
     if (!this.props.stateless) {
       this.setState(update);
     }
@@ -99,6 +107,7 @@ export default class FormSchemaComponent extends Component {
     if (this.props.onSubmit) {
       const p = this.props.onSubmit({
         values,
+        clean,
         files: this.get('files')
       });
 
@@ -177,31 +186,36 @@ export default class FormSchemaComponent extends Component {
     });
   }
 
-  _getFieldObject(name) {
-    return _.first(this._getFormSchema().getFields().filter(f => f.field === name))
-  }
-
   getCurrentValues() {
     return this.get('values', {}) || {};
   }
 
-  getFieldErrors(field, value, impactedFields = []) {
-    const fieldObject = this._getFieldObject(field);
-
+  /**
+   * onChange focuses on current field. Should impacted fields be considered too?
+   * if so, values of impacted fields should also be given to function
+   * 
+   */
+  getFieldErrors(field, value, relatedFields = [], currentValues = {}) {
     const values = {};
 
-    values[field] = value;
+    values[field.field] = value;
 
-    if (fieldObject.enableWith) {
-      const enableWithFieldName = getEnableWithFieldName(fieldObject.enableWith);
-      values[enableWithFieldName] = this.getCurrentValues()[enableWithFieldName];
-    }
+    relatedFields.forEach(relatedField => {
+      values[relatedField.field] = currentValues[relatedField.field];
+    });
 
-    const { clean, errors } = this.sanitize(values);
+    const {
+      clean,
+      errors
+    } = this.sanitize(values);
 
-    const keepFields = impactedFields.concat(field);
+    const keepFields = relatedFields.map(f => f.field).concat(field.field);
 
-    return errors.filter(e => keepFields.includes(e.field));
+    const fieldErrors = (errors || []).filter(e => keepFields.includes(e.field));
+
+    log('getFieldErrors', { field, value, fieldErrors });
+
+    return fieldErrors;
   }
 
   _getFormSchema() {
@@ -227,10 +241,10 @@ export default class FormSchemaComponent extends Component {
   }
 
   sanitize(values, options) {
+    const formSchema = this._getFormSchema();
     try {
       // options may contain draft bool at true.
-      const validate = this._getFormSchema().getValidate(options);
-
+      const validate = formSchema.getValidate(options);
       const clean = validate(values);
 
       return { clean, errors: [] };
@@ -241,7 +255,7 @@ export default class FormSchemaComponent extends Component {
       return {
         clean: null,
         errors: errors.map(e => {
-          const field = this._getFieldObject(e.field);
+          const field = formSchema.getField(e.field);
           if (!field) {
             throw new Error('did not find field matching validation error', e);
           }
@@ -265,30 +279,37 @@ export default class FormSchemaComponent extends Component {
     window.location.href = this.props.res.redirect;
   }
 
-  onChange(field, value, files) {
+  onChange(fieldName, value, files) {
+    log('onChange', fieldName, value, files);
+
+    const formSchema = this._getFormSchema();
+    const field = formSchema.getField(fieldName);
+    const currentValues = this.getCurrentValues();
+
     const updateValues = {};
 
-    updateValues[field] = { $set: value };
+    updateValues[fieldName] = { $set: value };
 
-    const impactedFields = this._getFormSchema()
-      .getFields()
-      .filter(f => getEnableWithFieldName(f.enableWith) === field)
-      .map(f => f.field);
+    const relatedFields = formSchema
+      .getRelatedFields(field);
+    const relatedFieldNames = relatedFields.map(f => f.field);
 
     const updatedErrors = this.get('errors', [])
-      .filter(e => !impactedFields.concat(field).includes(e.field)) // keep other errors
-      .concat(this.getFieldErrors(field, value, impactedFields))
+      .filter(e => !relatedFieldNames.concat(fieldName).includes(e.field)) // keep other errors
+      .concat(this.getFieldErrors(field, value, relatedFields, currentValues));
 
-    const isFileField = this._getFormSchema().getFileFields().map(f => f.field).includes(field);
+    log('onChange updating errors', updatedErrors);
+
+    const isFileField = formSchema.getFileFields().map(f => f.field).includes(fieldName);
 
     const currentFiles = this.get('files', {});
 
     const filesUpdate = {};
 
     if (isFileField && value) {
-      filesUpdate[field] = { $set: files };
+      filesUpdate[fieldName] = { $set: files };
     } else if (isFileField) {
-      filesUpdate['$unset'] = [field];
+      filesUpdate['$unset'] = [fieldName];
     }
 
     if (this.props.unloadWarning) {
@@ -297,7 +318,7 @@ export default class FormSchemaComponent extends Component {
 
     this.set({
       files: ih(currentFiles, filesUpdate),
-      values: ih(this.getCurrentValues(), updateValues),
+      values: ih(currentValues, updateValues),
       errors: updatedErrors
     });
   }
@@ -309,6 +330,13 @@ export default class FormSchemaComponent extends Component {
 
     const values = this.get('values');
     const loading = this.get('loading');
+    const errors = this.get('errors', []);
+
+    log('rendering', { values, errors });
+
+    const { clean: cleanValues } = this.sanitize(values, {
+      draft: true
+    });
 
     if (submitted) {
       return <div className="text-center">
@@ -335,8 +363,8 @@ export default class FormSchemaComponent extends Component {
             key={'field' + i}
             field={f}
             value={_.get(values, f.field, null)}
-            relatedValues={getRelatedFieldValues(f, values)}
-            error={ _.get(_.first(_.filter(this.get('errors', []), e => e.field === f.field)), 'label')}
+            relatedValues={getRelatedFieldValues(f, cleanValues === null ? values : cleanValues)}
+            error={errors.filter(e => e.field === f.field).shift()?.label}
             onChange={this.onChange.bind(this, f.field)}
           />
 

@@ -26,7 +26,9 @@ module.exports = async ( { prefix, knex, redis, index, loadedCtlData }, agendaEv
 
   ctlData.ev[ eventIndex ] = parsed.event;
 
-  parsed.location = setLocationReference( ctlData, data.location );
+  if (data.location) {
+    parsed.location = setLocationReference( ctlData, data.location );
+  }
 
   updateLastOccurrence( ctlData, data.timings );
 

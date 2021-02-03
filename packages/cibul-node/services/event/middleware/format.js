@@ -6,6 +6,7 @@ const qs = require( 'qs' );
 const du = require( '@openagenda/dom-utils' );
 const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
+const getTimings = require('../lib/getTimings');
 
 const {
   renderHTMLFromMarkdown
@@ -235,8 +236,7 @@ function _timings( v ) {
   const _t = timeHelper( { lang: v.req.lang } );
 
   const now = new Date();
-
-  const timings = v.req.event.getTimings();
+  const timings = getTimings(v.req.event);
 
   v.formatted.timings = timings.map( t => {
 

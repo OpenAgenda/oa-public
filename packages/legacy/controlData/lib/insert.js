@@ -21,7 +21,9 @@ module.exports = async ( { prefix, knex, redis, loadedCtlData, skipSave }, agend
 
   ctlData.ev.push( parsed.event );
 
-  parsed.location = setLocationReference( ctlData, data.location );
+  if (data.location) {
+    parsed.location = setLocationReference(ctlData, data.location);
+  }
 
   updateLastOccurrence( ctlData, data.timings );
 

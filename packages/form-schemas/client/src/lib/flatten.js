@@ -1,50 +1,39 @@
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
 
-module.exports = ( field, lang ) => {
-
-  if ( !field ) return null;
-
-  const update = {};
-
-  [ 'label', 'info', 'placeholder', 'sub', 'help' ].forEach( f => {
-
-    if ( !field[ f ] ) return;
-
-    if ( _.isString( field[ f ] ) ) return field[ f ];
-
-    update[ f ] = {
-      $set: _.get(
-        field[ f ],
-        lang,
-        field[ f ][ _.first( _.keys( field[ f ] ) ) ]
-      )
+const defineFlatteningUpdate = (obj, lang) => [
+  'label', 
+  'info', 
+  'placeholder',
+  'sub',
+  'help'
+].reduce((update, f) => {
+    if (!obj[f] || typeof obj[f] === 'string') {
+      return update;
+    }
+    return {
+      ...update,
+      [f]: {
+        $set: _.get(
+          obj[f],
+          lang,
+          obj[f][Object.keys(obj[f]).shift()]
+        )
+      }
     };
+  }, {});
 
-  } );
+module.exports = (field, lang) => {
+  if (!field) return null;
 
-  if ( field.options ) {
+  const update = defineFlatteningUpdate(field, lang);
 
-    const optionsUpdate = field.options.reduce( ( optionsUpdate, o, i ) => {
-
-      if ( _.isString( o.label ) ) return optionsUpdate;
-
-      return _.set( optionsUpdate, i, {
-        label: {
-          $set: _.get(
-            o.label,
-            lang,
-            _.get( o.label, _.first( _.keys( o.label ) ) )
-          )
-        }
-      } );
-
-    }, {} );
-
-    if ( _.keys( optionsUpdate ).length ) update.options = optionsUpdate;
-
+  if (field.options) {
+    update.options = field.options.reduce((optionsUpdate, o, i) => ({
+      ...optionsUpdate,
+      [i]: defineFlatteningUpdate(o, lang)
+    }), {});
   }
 
-  return ih( field, update );
-
+  return ih(field, update);
 }

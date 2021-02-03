@@ -3,21 +3,17 @@ import isURL from 'validator/lib/isURL';
 import listify from './listify';
 import rgx from './regex';
 import emailValidator from './email';
+import cleanParams from './lib/params';
 
 const validateEmail = emailValidator();
 
 export default config => {
-  const params = {
-    field: undefined,
+  const params = cleanParams('link', config, {
     error: {
       code: 'link.invalid',
       message: 'value is not a link'
-    },
-    list: false,
-    type: 'link',
-    optional: true,
-    ...(config || {})
-  };
+    }
+  });
 
   const shouldntMatch = [
     /\s/,

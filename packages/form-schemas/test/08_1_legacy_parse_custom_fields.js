@@ -6,6 +6,11 @@ const should = require('should');
 
 const parseCustomFields = require('../server/legacy/parseCustomFields');
 
+const fx = {
+  number: require('./parse/number.schema'),
+  select: require('./parse/select.schema')
+};
+
 describe('form-schemas -08- unit (server): legacy custom fields', function() {
   it('text custom field to schema', () => {
     parseCustomFields( { fields: [] }, _get('text.custom') )
@@ -14,7 +19,7 @@ describe('form-schemas -08- unit (server): legacy custom fields', function() {
 
   it('number custom field to schema', () => {
     parseCustomFields( { fields: [] }, _get('number.custom') )
-      .should.eql( _get('number.schema') );
+      .should.eql(fx.number);
   });
 
   it('integer custom field to schema', () => {
@@ -34,7 +39,7 @@ describe('form-schemas -08- unit (server): legacy custom fields', function() {
 
   it('select custom field to schema', () => {
     parseCustomFields({ fields: [] }, _get('select.custom'))
-      .should.eql(_get('select.schema'));
+      .should.eql(fx.select);
   });
 });
 

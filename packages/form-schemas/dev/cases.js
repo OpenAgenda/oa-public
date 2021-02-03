@@ -100,9 +100,24 @@ module.exports = {
     link: '/number',
     group: 'types'
   }, {
+    name: 'A link field',
+    description: 'A field for typing a link/url',
+    link: '/link',
+    group: 'types'
+  }, {
+    name: 'An email field',
+    description: 'A field for typing an email',
+    link: '/email',
+    group: 'types'
+  }, {
     name: 'A radio field',
     description: 'A set of single choice options',
     link: '/radio',
+    group: 'types'
+  }, {
+    name: 'A select field',
+    description: 'A set of single choice options in a select',
+    link: '/select',
     group: 'types'
   }, {
     name: 'Checkboxes',
@@ -166,6 +181,10 @@ module.exports = {
     name: 'requiredconditional',
     description: 'A required field is only required if it is enabled',
     link: '/requiredconditional'
+  }, {
+    name: 'dependents',
+    description: 'optionalWith and enableWith',
+    link: '/withs'
   }, {
     name: 'hidden',
     description: 'if "display" setting of field is specified as falsy, the field is not displayed',

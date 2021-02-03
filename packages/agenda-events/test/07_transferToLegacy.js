@@ -180,7 +180,7 @@ describe('agenda-events - 07 - transferLegacyData - transfer to legacy', functio
         review_id: 4608
       });
 
-      _.omit(after, []).should.eql({
+      _.omit(after, ['created_at', 'updated_at']).should.eql({
         type: 1,
         event_id: 190093,
         review_id: 4608

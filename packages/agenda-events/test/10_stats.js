@@ -25,9 +25,7 @@ describe('agendaEvents - functional (server): stats', function() {
     const counts = await svc(62792452).stats.countByUserUid();
 
     counts.should.eql([{
-      count: 2282, userUid: null
-    }, {
-      count: 1, userUid: 1
+      count: 2283, userUid: null
     }, {
       count: 2, userUid: 123
     }, {

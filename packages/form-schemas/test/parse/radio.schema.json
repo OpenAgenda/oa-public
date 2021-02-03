@@ -17,12 +17,14 @@
       "write": null,
       "read": null,
       "optional": false,
+      "optionalWith": null,
       "display" : true,
       "options": [
         {
           "id": 1,
           "value": "club",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Clubs"
           }
@@ -31,6 +33,7 @@
           "id": 2,
           "value": "comite",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Comités"
           }
@@ -39,6 +42,7 @@
           "id": 3,
           "value": "ligue",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Ligues"
           }
@@ -47,6 +51,7 @@
           "id": 4,
           "value": "clubcomite",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Clubs / Comités"
           }
@@ -55,6 +60,7 @@
           "id": 5,
           "value": "clubligue",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Clubs / Ligues"
           }
@@ -63,6 +69,7 @@
           "id": 6,
           "value": "comiteligue",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Comités / Ligues"
           }
@@ -71,6 +78,7 @@
           "id": 7,
           "value": "unss",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Fédérations scolaires et universitaires : UNSS"
           }
@@ -79,6 +87,7 @@
           "id": 8,
           "value": "usep",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Fédérations scolaires et universitaires : USEP"
           }
@@ -87,6 +96,7 @@
           "id": 9,
           "value": "edunat",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Fédérations scolaires et universitaires : éducation nationale"
           }
@@ -95,6 +105,7 @@
           "id": 10,
           "value": "ugsel",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Fédérations scolaires et universitaires : UGSEL"
           }
@@ -103,6 +114,7 @@
           "id": 11,
           "value": "ffsu",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Fédérations scolaires et universitaires : FFSU"
           }
@@ -111,6 +123,7 @@
           "id": 12,
           "value": "AutreAssociationSportive",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Autre association sportive"
           }
@@ -119,6 +132,7 @@
           "id": 13,
           "value": "AssoEtudiante",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Association étudiante"
           }
@@ -127,6 +141,7 @@
           "id": 14,
           "value": "Ecole",
           "display": true,
+          "info": null,
           "label": {
             "fr": "École"
           }
@@ -135,6 +150,7 @@
           "id": 15,
           "value": "Collectivite",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Collectivité"
           }
@@ -143,6 +159,7 @@
           "id": 16,
           "value": "AssoCulturelle",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Association culturelle"
           }
@@ -151,6 +168,7 @@
           "id": 17,
           "value": "BarRestoBoite",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Bar-restaurant-boîte de nuit"
           }
@@ -159,6 +177,7 @@
           "id": 18,
           "value": "Entreprises",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Entreprises"
           }
@@ -167,6 +186,7 @@
           "id": 19,
           "value": "Autre",
           "display": true,
+          "info": null,
           "label": {
             "fr": "Autre"
           }
@@ -176,7 +196,10 @@
       "origin" : "custom",
       "enableWith" : null,
       "default" : null,
-      "related" : []
+      "related" : {
+        "optional": [],
+        "enable": []
+      }
     }
   ]
 }

@@ -4,12 +4,22 @@ const validators = require('../src');
 
 describe('number validator', () => {
 
-  it('returns null if nothing is given on an optional validator', () => {
+  it('is optional by default', () => {
+    const validate = validators.number();
+    const validateWithExplicitOptional = validators.number({
+      optional: undefined
+    });
+
+    validate();
+    validateWithExplicitOptional();
+  });
+
+  it('returns undefined if nothing is given on an optional validator', () => {
     const optionalValidate = validators.number({
       optional: true
     });
 
-    expect(optionalValidate()).toBeNull();
+    expect(optionalValidate()).toBeUndefined();
   });
 
   it('puts a default value if and empty string is specified', () => {

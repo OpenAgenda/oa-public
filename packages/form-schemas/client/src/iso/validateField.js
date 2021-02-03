@@ -1,5 +1,6 @@
 "use strict";
 
+const debug = require('debug');
 const _ = require('lodash/core');
 
 const choice = require('@openagenda/validators/choice');
@@ -7,10 +8,9 @@ const schema = require('@openagenda/validators/schema');
 
 const types = Object.keys(require('./types'));
 const areFieldLabelsMultilingual = require('./areFieldLabelsMultilingual');
-const getEnableWithFieldName = require('./getEnableWithFieldName');
+const getWithFieldName = require('./getWithFieldName');
 
 _.extend(_, {
-  assign: require('lodash/assign'),
   includes: require('lodash/includes'),
   get: require('lodash/get'),
   set: require('lodash/set'),
@@ -22,6 +22,7 @@ schema.register({
   text: require('@openagenda/validators/text'),
   boolean: require('@openagenda/validators/boolean'),
   link: require('@openagenda/validators/link'),
+  email: require('@openagenda/validators/email'),
   number: require('@openagenda/validators/number'),
   date: require('@openagenda/validators/date'),
   multilingual: require('@openagenda/validators/multilingual'),
@@ -29,7 +30,9 @@ schema.register({
   choice
 });
 
-const optionedTypes = ['radio', 'checkbox', 'select', 'abstract'];
+const log = debug('validateField');
+
+const optionedTypes = ['radio', 'checkbox', 'select', 'abstract', 'multiselect'];
 
 const minMaxedTypes = ['custom', 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual', 'html', 'slate', 'abstract'];
 
@@ -47,7 +50,7 @@ module.exports = validate;
 function validateType(value, custom = {}) {
   const dirtyType = _.get(value, 'fieldType', 'abstract');
 
-  if (custom && _.keys(custom).includes(dirtyType)) {
+  if (custom && Object.keys(custom).includes(dirtyType)) {
     return dirtyType;
   }
 
@@ -69,7 +72,7 @@ function validate(value, options = {}) {
 
   const type = validateType(value, custom);
 
-  const isCustomField = _.keys(custom).includes(type);
+  const isCustomField = Object.keys(custom || {}).includes(type);
   const isAbstract = type === 'abstract';
 
   let errors = [];
@@ -86,15 +89,22 @@ function validate(value, options = {}) {
   // enableWith tells validator it is active if field specified has a value.
   // if set, the field must be part of related fields
   if (clean.enableWith) {
-    const enableWithFieldName = getEnableWithFieldName(clean.enableWith);
-    if (!_.get(clean, 'related', []).includes(enableWithFieldName)) {
-      clean.related = _.get(clean, 'related', []).concat(enableWithFieldName);
+    const fieldName = getWithFieldName(clean.enableWith);
+    if (!_.get(clean, 'related.enable', []).includes(fieldName)) {
+      clean.related.enable = _.get(clean, 'related.enable', []).concat(fieldName);
+    }
+  }
+
+  if (clean.optionalWith) {
+    const fieldName = getWithFieldName(clean.optionalWith);
+    if (!_.get(clean, 'related.optional', []).includes(fieldName)) {
+      clean.related.optional = _.get(clean, 'related.optional', []).concat(fieldName);
     }
   }
 
   // if is custom or abstract field, do not filter out remaining values
   if (isCustomField || isAbstract) {
-    _.keys(value).forEach(key => clean[key] = value[key]);
+    Object.keys(value || {}).forEach(key => clean[key] = value[key]);
   }
 
   // validate any optioned type
@@ -143,7 +153,7 @@ function buildFieldSchema(type, options = {}) {
     defaultLabelLanguage,
     isMultilingual,
     requireLabels
-  } = _.assign({
+  } = Object.assign({
     defaultLabelLanguage: null,
     isMultilingual: true,
     requireLabels: true
@@ -230,8 +240,7 @@ function buildFieldSchema(type, options = {}) {
     },
 
     optional: {
-      type: 'boolean',
-      default: true
+      type: 'boolean'
     },
 
     display: {
@@ -253,32 +262,43 @@ function buildFieldSchema(type, options = {}) {
       default: null
     },
 
+    optionalWith: {
+      type: 'pass',
+      default: null
+    },
+
     related: {
-      type: 'text',
-      default: [],
-      list: true
+      enable: {
+        type: 'text',
+        default: [],
+        list: true
+      },
+      optional: {
+        type: 'text',
+        default: [],
+        list: true
+      }
     }
 
   };
 
   if (minMaxedTypes.includes(type)) {
-
-    _.assign(structure, {
+    Object.assign(structure, {
       min: {
         type: 'integer',
-        optional: true
+        optional: true,
+        default: null
       },
       max: {
         type: 'integer',
-        optional: true
+        optional: true,
+        default: null
       }
     });
-
   }
 
   if (['image', 'file'].includes(type)) {
-
-    _.assign(structure, {
+    Object.assign(structure, {
       extensions: {
         type: 'text',
         optional: true,
@@ -299,12 +319,10 @@ function buildFieldSchema(type, options = {}) {
         default: false
       }
     });
-
   }
 
   if (optionedTypes.includes(type)) {
-
-    _.assign(structure, {
+    Object.assign(structure, {
       options: {
         list: {
           min: 1
@@ -322,6 +340,12 @@ function buildFieldSchema(type, options = {}) {
             optional: false,
             defaultLanguage: defaultLabelLanguage
           },
+          info: {
+            type: 'multilingual',
+            optional: true,
+            default: null,
+            defaultLanguage: defaultLabelLanguage
+          },
           display: {
             type: 'boolean',
             default: true
@@ -329,17 +353,15 @@ function buildFieldSchema(type, options = {}) {
         }
       }
     });
-
   }
 
   return structure;
-
 }
 
 
 function _stripUndefinedSchemaFields(fieldSchema, value) {
 
-  return _.keys(fieldSchema).reduce(
+  return Object.keys(fieldSchema).reduce(
     (stripped, key) => value[key] !== undefined
       ? _.set(stripped, key, fieldSchema[key])
       : stripped,

@@ -25,6 +25,24 @@ describe('choice validator', () => {
       expect(validate.type).toBe('choice');
     });
 
+    it('required with default given empty array throws error', () => {
+      let errors;
+
+      const validate = validators.choice({
+        options: [2, 4, 14],
+        default: [2],
+        optional: false
+      });
+
+      try {
+        validate([]);
+      } catch(e) {
+        errors = e;
+      }
+
+      expect(errors[0].code).toBe('choice.required');
+    });
+
   });
 
   describe('still pretty basic usage', () => {
@@ -71,9 +89,7 @@ describe('choice validator', () => {
         default: [2]
       });
 
-      try {
-        clean = validate();
-      } catch(e) {}
+      clean = validate();
 
       expect(clean).toEqual([2]);
     });
@@ -93,7 +109,7 @@ describe('choice validator', () => {
       expect(clean).toBe(2);
     });
 
-    it('default unique output is null by default', () => {
+    it('default unique output is undefined by default', () => {
       let clean;
 
       const validate = validators.choice({
@@ -105,7 +121,7 @@ describe('choice validator', () => {
         clean = validate();
       } catch(e) {}
 
-      expect(clean).toBeNull();
+      expect(clean).toBeUndefined();
     });
 
     it('default unique output can be specified', () => {
@@ -180,12 +196,24 @@ describe('choice validator', () => {
       }]);
     });
 
+    it('if provided default is non array and choice is non unique, returned default is array', () => {
+      const validate = validators.choice({
+        options: [1, 2, 3],
+        default: 2
+      });
+
+      const clean = validate();
+
+      expect(clean).toEqual([2]);
+    });
+
     it('null given to optional choice returns null', () => {
       const validate = validators.choice({
         unique: true,
         optional: true,
         options: [2, 3],
-        default: 2
+        default: 2,
+        allowNull: true
       });
 
       const clean = validate(null);

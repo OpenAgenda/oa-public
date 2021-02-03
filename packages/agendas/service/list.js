@@ -118,7 +118,7 @@ function _search(k, query, options) {
     k.whereIn('id', query.id || query.ids);
   }
   if (query.uid) {
-    k.whereIn('uid', query.uid);
+    k.whereIn('uid', query.uid.filter(uid => !!uid));
   }
   if (query.networkUid) {
     k.where('network_uid', query.networkUid);

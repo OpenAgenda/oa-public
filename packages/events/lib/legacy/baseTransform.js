@@ -42,6 +42,8 @@ module.exports = (event, options = {}) => {
       updated_at: new Date(),
       owner_id: userId,
       store: JSON.stringify({
+        attendanceMode: event.attendanceMode,
+        onlineAccessLink: event.onlineAccessLink,
         images: event.image,
         links: (event.links || []).map(({ link, data }) => ({
           link,

@@ -35,6 +35,9 @@ const schemas = fieldType => {
     case 'text':
     case 'textarea':
     case 'markdown':
+    case 'link':
+    case 'boolean':
+    case 'email':
     case 'integer':
       return fieldSchemaTypes.textLike;
     case 'radio':

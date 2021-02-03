@@ -7,9 +7,9 @@ const schema = require( '@openagenda/validators/schema' );
 schema.register( { boolean } );
 
 module.exports = () => schema( {
-  hi: { type: 'boolean', defaultValue: false },
-  ii: { type: 'boolean', defaultValue: false },
-  vi: { type: 'boolean', defaultValue: false },
-  mi: { type: 'boolean', defaultValue: false },
-  pi: { type: 'boolean', defaultValue: false }
+  hi: { type: 'boolean', default: false },
+  ii: { type: 'boolean', default: false },
+  vi: { type: 'boolean', default: false },
+  mi: { type: 'boolean', default: false },
+  pi: { type: 'boolean', default: false }
 } );

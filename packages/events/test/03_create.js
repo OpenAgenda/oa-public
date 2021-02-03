@@ -20,7 +20,7 @@ const create = require('../create');
 const data = {
   title: 'An event',
   description: 'A description',
-  eventAttendanceMode: 2,
+  attendanceMode: 2,
   onlineAccessLink: 'https://openagenda.com',
   timings: [{
     begin: '2020-11-30T08:00:00.000Z',
@@ -103,7 +103,7 @@ describe('events - functional - create', function() {
       const created = await svc.create({
         title: 'An online event with an image',
         description: 'Joyful dog',
-        eventAttendanceMode: 2,
+        attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timings: [{
           begin: '2020-12-22T11:35:00.000+0200',
@@ -120,7 +120,7 @@ describe('events - functional - create', function() {
         await svc.create({
           title: 'Event create given a text stream instead of image',
           description: 'Nope',
-          eventAttendanceMode: 2,
+          attendanceMode: 2,
           onlineAccessLink: 'https://openagenda.com',
           timings: [{
             begin: '2020-12-22T11:35:00.000+0200',
@@ -141,7 +141,7 @@ describe('events - functional - create', function() {
         title: 'Event create given a text stream instead of image',
         description: 'Nope',
         image: null,
-        eventAttendanceMode: 2,
+        attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timings: [{
           begin: '2020-12-22T11:35:00.000+0200',
@@ -187,7 +187,7 @@ describe('events - functional - create', function() {
       const event = await svc.create({
         title: 'Event with datehourminutes timing',
         description: 'Nope',
-        eventAttendanceMode: 2,
+        attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timings: [{
           begin: {
@@ -251,7 +251,7 @@ describe('events - functional - create', function() {
     it('location can be provided as object', async () => {
       const event = await svc.create({
         ...data,
-        eventAttendanceMode: 1,
+        attendanceMode: 1,
         location: {
           uid: 123
         }
@@ -295,7 +295,7 @@ describe('events - functional - create', function() {
       await svc.create({
         title: 'Event with datehourminutes timing',
         description: 'Nope',
-        eventAttendanceMode: 2,
+        attendanceMode: 2,
         onlineAccessLink: 'https://openagenda.com',
         timings: [{
           begin: {

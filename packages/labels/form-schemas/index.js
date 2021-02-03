@@ -35,5 +35,13 @@ module.exports = {
     "de": "Keine Wahl",
     "es": "otra opción",
     "it": "Nessuna scelta"
+  },
+  "noOption": {
+    "fr": "Pas de correspondance",
+    "en": "No match"
+  },
+  "selectPlaceholder": {
+    "fr": "Sélectionner...",
+    "en": "Select..."
   }
 }

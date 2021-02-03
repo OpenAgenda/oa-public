@@ -1,137 +1,87 @@
-"use strict";
+'use strict';
 
 const DEFAULT_LANGUAGE = 'en';
 
-const _ = {
-  assign: require( 'lodash/assign' ),
-  get: require( 'lodash/get' ),
-  set: require( 'lodash/set' ),
-  keys: require( 'lodash/keys' ),
-  isArray: require( 'lodash/isArray' ),
-  isString: require( 'lodash/isString' ),
-  omit: require( 'lodash/omit' )
-};
+const text = require('./text');
+const cleanParams = require('./lib/params');
 
-const text = require( './text' );
-
-module.exports = ( config = {} )=> {
-
-  const params = _.assign( {
+module.exports = (config = {})=> {
+  const params = cleanParams('multilingual', config, {
     field: false,
-    optional: true,
     defaultLanguage: null,
-    languages: [] // if array is set, languages are required
-  }, config || {} );
+    languages: []
+  });
 
-  return _.assign( validate, {
-    type: 'multilingual',
-    field: params.field
-  } );
-
-  function validate( origin ) {
-
-
-    const clean = {}, tmp = {};
-
-    let errors = [];
-
+  return Object.assign(origin => {
+    const clean = {};
+    const errors = [];
     const value = {};
 
     // if is provided with string, validator distributes value
     // to all languages
-    if ( _.isString( origin ) && params.languages.length ) {
-
-      _.assign( value, params.languages.reduce( ( c, l ) => {
-
-        c[ l ] = origin;
-
-        return c;
-
-      }, {} ) );
-
-    } else if ( _.isString( origin ) ) {
-
-      const obj = {};
-
-      obj[ params.defaultLanguage || DEFAULT_LANGUAGE ] = origin;
-
-      _.assign( value, obj );
-
+    if ((typeof origin === 'string') && params.languages.length) {
+      Object.assign(value, params.languages.reduce((c, l) => ({
+        ...c,
+        [l]: origin
+      }), {}));
+    } else if (typeof origin === 'string') {
+      Object.assign(value, {
+        [params.defaultLanguage || DEFAULT_LANGUAGE]: origin
+      });
     } else {
-
-      _.assign( value, origin || {} );
-
+      Object.assign(value, origin || {});
     }
 
     // if languages have been pre-specified, they should be
     // part of validation and sanitizing
-    if ( _.isArray( params.languages ) ) {
-
-      params.languages.forEach( l => {
-
-        value[ l ] = _.get( value, l, '' );
-
-      } );
-
+    if (Array.isArray(params.languages)) {
+      params.languages.forEach(l => {
+        value[l] = value[l] === undefined ? '' : value[l];
+      });
     }
 
-    if ( !params.optional && !_.keys( value ).length ) {
-
-      throw [ {
+    if (!params.optional && !Object.keys(value).length) {
+      throw [{
         field: params.field,
         code: 'required',
         message: 'at least one language entry is required',
         origin
-      } ]
-
+      }]
     }
 
-    if ( !_.keys( value ).length && typeof params.default !== 'undefined' ) {
-
+    if (!Object.keys(value).length && (params.default !== undefined)) {
       return params.default;
-
     }
 
-    _.keys( value ).forEach( l => {
-
-      let langValue = value[ l ];
-
-      if ( params.optional && ( langValue === undefined || langValue === null ) ) {
-
+    Object.keys(value).forEach(l => {
+      const langValue = value[l];
+      if (params.optional && (langValue === undefined || langValue === null)) {
         return;
-
       }
 
       try {
+        const defaultValue = typeof params.default === 'string' ? params.default : (params?.default || {})[l];
 
-        const defaultValue = _.isString( _.get( params, 'default' ) )
-          ? _.get( params, 'default' )
-          : _.get( params, [ 'default', l ] );
+        const validateText = text({
+          ...params,
+          default: defaultValue || null
+        });
 
-        const validateText = text( _.set(
-          _.omit( params, [ 'default' ] ),
-          'default',
-          defaultValue || null
-        ) );
-
-        clean[ l ] = validateText( langValue );
-
-      } catch( lErrors ) {
-
-        errors = errors.concat( lErrors.map( e => _.assign( { lang: l }, e ) ) );
-
+        clean[l] = validateText(langValue);
+      } catch(lErrors) {
+        lErrors.forEach(e => {
+          errors.push(({ ...e, lang: l}));
+        });
       }
+    });
 
-    } );
-
-    if ( errors.length ) {
-
+    if (errors.length) {
       throw errors;
-
     }
 
     return clean;
-
-  }
-
+  }, {
+    type: 'multilingual',
+    field: params.field
+  });
 }

@@ -24,9 +24,10 @@ describe('form-schemas -06- validateField', () => {
         label: { fr: 'Un champ texte' },
         info: null,
         placeholder: null,
+        optional: undefined,
+        optionalWith: null,
         read: null,
         write: null,
-        optional: true,
         display: true,
         min: null,
         max: null,
@@ -37,7 +38,10 @@ describe('form-schemas -06- validateField', () => {
         fieldType: 'text',
         origin: null,
         enableWith : null,
-        related: [],
+        related: {
+          enable: [],
+          optional: []
+        },
         default: undefined
       });
     });
@@ -69,7 +73,8 @@ describe('form-schemas -06- validateField', () => {
         helpContent: null,
         write: null,
         read: null,
-        optional: true,
+        optional: undefined,
+        optionalWith: null,
         display: true,
         origin: null,
         languages: [ 'fr', 'en', 'it' ],
@@ -77,7 +82,10 @@ describe('form-schemas -06- validateField', () => {
         max: null,
         fieldType: 'text' ,
         enableWith : null,
-        related: [],
+        related: {
+          enable: [],
+          optional: []
+        },
         default: undefined
       });
     });
@@ -87,13 +95,13 @@ describe('form-schemas -06- validateField', () => {
         field: 'anoptionlist',
         fieldType: 'radio',
         label: { fr: 'Choix multiples' },
-        options: [ {
+        options: [{
           value: 1,
           label: { fr: 'Un' }
         }, {
           value: 2,
           label: { fr: 'Deux' }
-        } ],
+        }],
         origin: null
       }).should.eql({
         field: 'anoptionlist',
@@ -106,16 +114,20 @@ describe('form-schemas -06- validateField', () => {
         helpContent: null,
         read: null,
         write: null,
-        optional: true,
+        optional: undefined,
+        optionalWith: null,
         display: true,
         options: [
-          { id: null, value: '1', label: { fr: 'Un' }, display: true },
-          { id: null, value: '2', label: { fr: 'Deux' }, display: true }
+          { id: undefined, value: '1', label: { fr: 'Un' }, display: true, info: null },
+          { id: undefined, value: '2', label: { fr: 'Deux' }, display: true, info: null }
         ],
         fieldType: 'radio',
         origin: null,
         enableWith : null,
-        related: [],
+        related: {
+          enable: [],
+          optional: []
+        },
         default: undefined
       });
     });
@@ -139,12 +151,14 @@ describe('form-schemas -06- validateField', () => {
           id: 1,
           value: '1',
           label: { en: 'Un' },
-          display: true
+          display: true,
+          info: null
         }, {
           id: 2,
           value: '2',
           label: { en: 'Deux' },
-          display: true
+          display: true,
+          info: null
         } ]);
     });
 
@@ -169,14 +183,18 @@ describe('form-schemas -06- validateField', () => {
         helpContent: null,
         read: null,
         write: null,
-        optional: true,
+        optional: undefined,
+        optionalWith: null,
         display: true,
         min: 3,
         max: 10,
         fieldType: 'textarea',
         origin: null,
         enableWith : null,
-        related: [],
+        related: {
+          enable: [],
+          optional: []
+        },
         default: undefined
       });
     });
@@ -204,14 +222,18 @@ describe('form-schemas -06- validateField', () => {
         helpContent: null,
         write: null,
         read: null,
-        optional: true,
+        optional: undefined,
+        optionalWith: null,
         display: true,
         origin: null,
         fieldType: 'someCustomType',
         min: null,
         max: null,
         enableWith : null,
-        related: [],
+        related: {
+          enable: [],
+          optional: []
+        },
         default: undefined
       });
     });
@@ -246,7 +268,7 @@ describe('form-schemas -06- validateField', () => {
         fieldType: 'text',
         label: 'A label',
         enableWith: 'anotherfield'
-      }).related, ['anotherfield']);
+      }).related, { enable: ['anotherfield'], optional: [] });
     });
 
     it('enableWith can be an object', () => {

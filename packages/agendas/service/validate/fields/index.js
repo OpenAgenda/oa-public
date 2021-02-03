@@ -51,12 +51,14 @@ module.exports = [{
   field: 'networkUid',
   type: 'integer',
   optional: true,
+  default: null,
   read: ['internal', 'public', 'legacy', 'legacyPublic'],
   write: ['internal']
 }, {
   field: 'locationSetUid',
   type: 'integer',
   optional: true,
+  default: null,
   read: ['internal', 'public', 'legacy', 'legacyPublic'],
   write: ['internal']
 }, {
@@ -81,6 +83,7 @@ module.exports = [{
   field: 'formSchemaId',
   type: 'integer',
   optional: true,
+  default: null,
   read: ['internal', 'legacy', 'legacyPrivate'],
   write: ['internal']
 }, {

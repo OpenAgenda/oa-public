@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -20,10 +18,8 @@ import scrollToTopMiddleware from './lib/scrollToTopMiddleware';
 const init = JSON.parse(document.getElementById('init').innerHTML);
 
 const loggerMiddleware = createLogger();
-
-const initState = _.get(init, 'state');
-
-const config = _.get(init, 'config');
+const initState = init?.state;
+const config = init?.config;
 
 const history = createBrowserHistory();
 

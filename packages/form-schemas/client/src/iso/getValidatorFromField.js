@@ -12,6 +12,7 @@ const validators = {
   text: require('@openagenda/validators/text'),
   boolean: require('@openagenda/validators/boolean'),
   link: require('@openagenda/validators/link'),
+  email: require('@openagenda/validators/email'),
   number: require('@openagenda/validators/number'),
   date: require('@openagenda/validators/date'),
   multilingual: require('@openagenda/validators/multilingual'),
@@ -36,7 +37,7 @@ const map = [{
   field: 'boolean',
   type: 'boolean'
 }, {
-  field: 'checkbox',
+  field: ['checkbox', 'multiselect'],
   parser: convertToChoice.bind(null, { unique: false }),
   type: 'choice'
 }, {
@@ -72,9 +73,17 @@ module.exports = (field, options = {}) => {
 
   const type = _.get(matchingMapItem, 'type', field.fieldType);
 
-  const validatorOptions = _.assign(_.pick(field, ['field', 'optional', 'enableWith', 'allowNull', 'allowURL', 'allowPath', 'allowObject']), draft ? { optional: true , type } : { type });
-
-  validatorOptions.default = _.get(field, 'default', null);
+  const validatorOptions = _.assign(_.pick(field, [
+    'field', 
+    'optional',
+    'optionalWith',
+    'enableWith',
+    'allowNull',
+    'allowURL',
+    'allowPath',
+    'allowObject',
+    'default'
+  ]), draft ? { optional: true , type } : { type });
 
   if (!matchingMapItem) {
     if (!_.get(customValidators, field.fieldType) && !validators[field.fieldType]) throw new Error(`Unknown field type ${field.fieldType} for field ${field.field}`);

@@ -18,7 +18,7 @@ const data = {
   title: { fr: 'Spectacle de contes sur le thème de l\'Afrique' },
   description: { fr: 'Une description courte' },
   timezone: 'Europe/Paris',
-  eventAttendanceMode: 1,
+  attendanceMode: 1,
   locationUid: 47715652,
   timings: [{
     begin: '2020-12-09T10:00:00.000Z',

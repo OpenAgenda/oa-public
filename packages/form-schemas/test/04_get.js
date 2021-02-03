@@ -9,7 +9,7 @@ const config = require('../testconfig');
 const fx = {
   schemas: {
     integer: require('./parse/integer.schema.json'),
-    number: require('./parse/number.schema.json')
+    number: require('./parse/number.schema')
   }
 };
 

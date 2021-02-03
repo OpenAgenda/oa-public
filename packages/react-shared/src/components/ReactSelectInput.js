@@ -2,11 +2,22 @@ import React, { useMemo } from 'react';
 import CreatableSelect from 'react-select/creatable';
 import ReactSelect from 'react-select';
 
+const BLUE = '#41acdd';
+const WHITE = '#fff';
+const GRAY = '#ccc';
+const LIGHTGRAY = '#f8f8f8';
+const BLACK = '#333';
+
 const defaultStyles = {
+  clearIndicator: provided => ({
+    ...provided,
+    padding: '5px',
+    cursor: 'pointer',
+  }),
   control: (provided, { isFocused }) => ({
     ...provided,
     minHeight: '35px',
-    borderColor: '#cccccc',
+    borderColor: GRAY,
     ...(isFocused
       ? {
         borderColor: '#66afe9',
@@ -19,23 +30,24 @@ const defaultStyles = {
       : {}),
 
     '&:hover': {
-      borderColor: isFocused ? '#66afe9' : '#cccccc',
+      borderColor: isFocused ? '#66afe9' : GRAY,
     },
-  }),
-  valueContainer: provided => ({
-    ...provided,
-    padding: '2px 4px',
   }),
   dropdownIndicator: provided => ({
     ...provided,
     padding: '5px',
     cursor: 'pointer',
   }),
-  clearIndicator: provided => ({
-    ...provided,
-    padding: '5px',
-    cursor: 'pointer',
-  }),
+  indicatorsContainer: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
+    ? {
+      display: 'none',
+    }
+    : base),
+  menu: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
+    ? {
+      display: 'none',
+    }
+    : base),
   multiValue: provided => ({
     ...provided,
     margin: '1px',
@@ -49,32 +61,38 @@ const defaultStyles = {
     padding: '3px',
     paddingLeft: '5px',
     paddingRight: '0',
-    backgroundColor: '#41acdd',
-    color: '#ffffff',
+    backgroundColor: BLUE,
+    color: WHITE,
     borderRadius: '0',
   }),
   multiValueRemove: provided => ({
     ...provided,
     cursor: 'pointer',
-    backgroundColor: '#41acdd',
-    color: '#ffffff',
+    backgroundColor: BLUE,
+    color: WHITE,
     borderRadius: '0',
-
     '&:hover': {
-      backgroundColor: '#41acdd',
-      color: '#ffffff',
+      backgroundColor: BLUE,
+      color: WHITE,
     },
   }),
-  menu: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
-    ? {
-      display: 'none',
+  option: (provided, state) => {
+    let backgroundColor = WHITE;
+    if (state.isSelected) {
+      backgroundColor = BLUE;
+    } else if (state.isFocused) {
+      backgroundColor = LIGHTGRAY;
     }
-    : base),
-  indicatorsContainer: (base, state) => (state.selectProps.isCreatable && !state.selectProps.options?.length
-    ? {
-      display: 'none',
-    }
-    : base),
+    return {
+      ...provided,
+      color: state.isSelected ? WHITE : BLACK,
+      backgroundColor,
+    };
+  },
+  valueContainer: provided => ({
+    ...provided,
+    padding: '2px 4px',
+  }),
 };
 
 function ReactSelectField({

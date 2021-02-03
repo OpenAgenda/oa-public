@@ -1,17 +1,19 @@
-"use strict";
+'use strict';
+
+const debug = require('debug');
 
 const getValidatorFromField = require( './getValidatorFromField' );
 
 const schema = require( '@openagenda/validators/schema' );
 
 const _ = {
-  isObject: require( 'lodash/isObject' ),
   keyBy: require( 'lodash/keyBy' ),
-  assign: require( 'lodash/assign' ),
   omit: require( 'lodash/omit' ),
   set: require( 'lodash/set' ),
   get: require( 'lodash/get' )
-}
+};
+
+const log = debug('getSchema');
 
 schema.register( {
   text: require( '@openagenda/validators/text' ),
@@ -28,13 +30,18 @@ schema.register( {
 
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {
 
-  const params = _.assign( {
+  const params = {
     includeUnspecified: true,
     custom: {},
-    draft: false
-  }, options );
+    draft: false,
+    ...options
+  };
 
-  if ( _.isObject( params.custom ) ) schema.register( params.custom );
+  log('options', options);
+
+  if (params.custom instanceof Object) {
+    schema.register( params.custom );
+  }
 
   accessLevel = accessLevel === null ? [] : [].concat( accessLevel );
 
@@ -59,5 +66,4 @@ module.exports = ( fields, accessType = null, accessLevel = null, options = {} )
   } ).reduce( ( schemaConfiguration, f ) => _.set( schemaConfiguration, f.field, f ), {} );
 
   return schema( schemaConfiguration );
-
 }
