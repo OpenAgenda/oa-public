@@ -45,6 +45,11 @@ module.exports = {
     link: '/access',
     group: 'getting-started'
   }, {
+    name: 'A member form',
+    description: 'To troubleshoot a member form use case',
+    link: '/member',
+    group: 'getting-started'
+  }, {
     name: 'Display warning on page leave',
     description: 'When form was edited, confirmation popup appears if an attempt to leave is made',
     link: '/warning',

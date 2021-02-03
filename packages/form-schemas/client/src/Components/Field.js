@@ -21,6 +21,7 @@ const FieldComponents = {
   textarea: require('./TextField'),
   link: require('./TextField'),
   email: require('./TextField'),
+  phone: require('./TextField'),
   html: require('./HTMLField'),
   markdown: require('./MarkdownField'),
   slate: require('./SlateField'),

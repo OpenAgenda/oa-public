@@ -23,6 +23,7 @@ schema.register({
   boolean: require('@openagenda/validators/boolean'),
   link: require('@openagenda/validators/link'),
   email: require('@openagenda/validators/email'),
+  phone: require('@openagenda/validators/phone'),
   number: require('@openagenda/validators/number'),
   date: require('@openagenda/validators/date'),
   multilingual: require('@openagenda/validators/multilingual'),

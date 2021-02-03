@@ -264,7 +264,6 @@ function validate(data, options = {}) {
           message: `Validation of field ${f.field} failed: ${e.message}`
         }
       }
-      console.log(e);
 
       errors = errors.concat(e);
     }
