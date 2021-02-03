@@ -5,6 +5,7 @@ module.exports = (type, values = {}, defaults = {}) => {
     type,
     list: false,
     field: undefined,
+    allowNull: false,
     optional: true,
     ...defaults,
     ...values
