@@ -70,7 +70,7 @@ module.exports = [{
   read: ['internal'],
   write: ['internal']
 }, {
-  field: 'eventAttendanceMode',
+  field: 'attendanceMode',
   fieldType: 'radio',
   optional: false,
   unique: true,
@@ -92,7 +92,7 @@ module.exports = [{
   fieldType: 'link',
   optional: false,
   enableWith: {
-    field: 'eventAttendanceMode',
+    field: 'attendanceMode',
     value: [2, 3]
   },
   read: ['internal', 'public'],
@@ -100,11 +100,10 @@ module.exports = [{
 }, {
   field: 'locationUid',
   fieldType: 'integer',
-  enableWith: {
-    field: 'eventAttendanceMode',
-    value: [1, 3]
+  optionalWith: {
+    field: 'attendanceMode',
+    value: 2
   },
-  optional: false,
   read: ['internal', 'public'],
   write: ['internal', 'public']
 }, {
@@ -112,6 +111,7 @@ module.exports = [{
   fieldType: 'stream',
   allowNull: true,
   allowObject: true,
+  optional: true,
   read: ['internal', 'public'],
   write: ['internal', 'public'],
   db: {
@@ -124,6 +124,7 @@ module.exports = [{
   fieldType: 'text',
   max: 255,
   enableWith: 'image',
+  optional: true,
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
@@ -231,6 +232,7 @@ module.exports = [{
   field: 'references',
   fieldType: 'integer',
   list: true,
+  optional: true,
   write: ['internal', 'public'],
   read: ['internal', 'public'],
   db: {
@@ -239,6 +241,7 @@ module.exports = [{
 }, {
   field: 'links',
   fieldType: 'enrichedLinks',
+  optional: true,
   write: ['internal'],
   read: ['internal', 'public'],
   default: [],

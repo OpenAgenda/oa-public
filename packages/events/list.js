@@ -40,11 +40,11 @@ module.exports = async (service, query = {}, n = {}, o = {}) => {
   const orderField = addPaginationAndOrder(k, nav, options);
 
   const result = {};
-
+  
   result.rows = await k;
 
   result.items = result.rows.map(item => fromDbEntryToItem(service, item, options));
-
+  
   if (total !== null) {
     result.total = total;
   }

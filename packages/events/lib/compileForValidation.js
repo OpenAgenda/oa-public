@@ -66,7 +66,7 @@ module.exports = async (current, data, options = {}) => {
     });
   }
 
-  if (typeof data?.location === 'object' && !data?.locationUid) {
+  if (data?.location instanceof Object && !data?.locationUid) {
     compiled.locationUid = data.location.uid;
     editedFields.push('locationUid');
   }

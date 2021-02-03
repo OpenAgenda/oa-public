@@ -20,7 +20,8 @@ const { createECDH } = require('crypto');
 const events = {
   'petites-boites-a-musique': require('./fixtures/petites-boites-a-musique.json'),
   'ventes-de-velos-d-occasion-a-lambersart': require('./fixtures/ventes-de-velos-d-occasion-a-lambersart.json'),
-  'indoor-de-paris-cso-pro-1': require('./fixtures/indoor-de-paris-cso-pro-1.json')
+  'indoor-de-paris-cso-pro-1': require('./fixtures/indoor-de-paris-cso-pro-1.json'),
+  'en-ligne': require('./fixtures/en-ligne.json')
 };
 
 const f = fixtures(config.mysql, config.schema);
@@ -293,6 +294,18 @@ describe('legacy', () => {
             pricing_info: 'Free'
           }]
         );
+      });
+
+      it('attendanceMode and onlineAccessLink are placed in event store', () => {
+        const entry = baseTransform(events['en-ligne']);
+
+        assert.equal(entry.event.store, '{"attendanceMode":2,"onlineAccessLink":"https://online.access.link.com","links":[]}');
+      });
+
+      it('event_location location_id ref is null for strictly online event', () => {
+        const entry = baseTransform(events['en-ligne']);
+
+        assert.equal(entry.event_location.location_id, null);
       });
     });
   

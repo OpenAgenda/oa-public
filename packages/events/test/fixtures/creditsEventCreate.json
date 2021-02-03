@@ -11,7 +11,7 @@
     "ownerUid": 75052324,
     "agendaUid": 95171901,
     "fileKey": "f877251bde3e4647b3f538892b910bf9",
-    "eventAttendanceMode": 1,
+    "attendanceMode": 1,
     "onlineAccessLink": null,
     "locationUid": 71589223,
     "image": {
