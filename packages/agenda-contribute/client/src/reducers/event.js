@@ -17,8 +17,6 @@ module.exports = Object.assign(reducer, {
 function reducer(state = {}, action = {}) {
   switch (action.type) {
     case actionTypes.CREATE:
-      return action.event;
-
     case actionTypes.UPDATE:
       return action.event;
   }

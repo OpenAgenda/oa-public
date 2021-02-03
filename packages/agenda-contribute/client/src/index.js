@@ -14,6 +14,7 @@ if (module.hot) module.hot.accept();
 import getRoutes from './getRoutes';
 import reducers from './reducers';
 import scrollToTopMiddleware from './lib/scrollToTopMiddleware';
+import URLDefaults from './lib/URLDefaults';
 
 const init = JSON.parse(document.getElementById('init').innerHTML);
 
@@ -21,11 +22,14 @@ const loggerMiddleware = createLogger();
 const initState = init?.state;
 const config = init?.config;
 
+const defaults = URLDefaults.get();
+
 const history = createBrowserHistory();
 
 const store = createStore(combineReducers({
   ...reducers,
   config: () => config,
+  defaults: () => defaults,
 }), initState, applyMiddleware(
   thunkMiddleware.withExtraArgument(history),
   loggerMiddleware,
