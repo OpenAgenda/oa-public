@@ -27,6 +27,14 @@ const messages = defineMessages({
     id: 'ReactFilters.DateRangeFilter.endDate',
     defaultMessage: 'End',
   },
+  until: {
+    id: 'ReactFilters.DateRangeFilter.until',
+    defaultMessage: 'Until {date, time, ::yyyyMMdd}',
+  },
+  from: {
+    id: 'ReactFilters.DateRangeFilter.from',
+    defaultMessage: 'From {date, time, ::yyyyMMdd}',
+  },
 });
 
 const subscription = { value: true };
@@ -131,6 +139,10 @@ function Preview({
 
   if (selectedStaticRange) {
     label = selectedStaticRange.label;
+  } else if (input.value.gte === null) {
+    label = intl.formatMessage(messages.until, { date: input.value.lte });
+  } else if (input.value.lte === null) {
+    label = intl.formatMessage(messages.from, { date: input.value.gte });
   } else {
     label = singleDay
       ? intl.formatMessage(messages.singleDate, { date: input.value.gte })

@@ -13,6 +13,14 @@ import * as dateFnsLocales from 'date-fns/locale';
 import { defineMessages } from 'react-intl';
 
 const messages = defineMessages({
+  past: {
+    id: 'ReactFilters.dateRanges.past',
+    defaultMessage: 'Past',
+  },
+  upcoming: {
+    id: 'ReactFilters.dateRanges.upcoming',
+    defaultMessage: 'Upcoming',
+  },
   today: {
     id: 'ReactFilters.dateRanges.today',
     defaultMessage: 'Today',
@@ -55,8 +63,10 @@ const staticRangeHandler = {
 
     return (
       range
-      && isSameDay(range.startDate, definedRange.startDate)
-      && isSameDay(range.endDate, definedRange.endDate)
+      && (isSameDay(range.startDate, definedRange.startDate)
+        || range.startDate === definedRange.startDate)
+      && (isSameDay(range.endDate, definedRange.endDate)
+        || range.endDate === definedRange.endDate)
     );
   },
 };
@@ -72,22 +82,37 @@ export default function dateRanges(intl) {
 
   const startOfWeekend = startOfDay(nextSaturday);
   const endOfWeekend = endOfDay(addDays(nextSaturday, 1));
+  const now = new Date();
 
   const defineds = {
-    startOfToday: startOfDay(new Date(), { locale }),
-    endOfToday: endOfDay(new Date(), { locale }),
-    startOfTomorrow: startOfDay(addDays(new Date(), 1), { locale }),
-    endOfTomorrow: endOfDay(addDays(new Date(), 1), { locale }),
-    startOfWeek: startOfWeek(new Date(), { locale }),
-    endOfWeek: endOfWeek(new Date(), { locale }),
-    startOfMonth: startOfMonth(new Date(), { locale }),
-    endOfMonth: endOfMonth(new Date(), { locale }),
+    startOfToday: startOfDay(now, { locale }),
+    endOfToday: endOfDay(now, { locale }),
+    startOfTomorrow: startOfDay(addDays(now, 1), { locale }),
+    endOfTomorrow: endOfDay(addDays(now, 1), { locale }),
+    startOfWeek: startOfWeek(now, { locale }),
+    endOfWeek: endOfWeek(now, { locale }),
+    startOfMonth: startOfMonth(now, { locale }),
+    endOfMonth: endOfMonth(now, { locale }),
     startOfWeekend,
     endOfWeekend,
   };
 
   return {
     staticRanges: createStaticRanges([
+      {
+        label: intl.formatMessage(messages.past),
+        range: () => ({
+          startDate: null,
+          endDate: now,
+        }),
+      },
+      {
+        label: intl.formatMessage(messages.upcoming),
+        range: () => ({
+          startDate: now,
+          endDate: null,
+        }),
+      },
       {
         label: intl.formatMessage(messages.today),
         range: () => ({
