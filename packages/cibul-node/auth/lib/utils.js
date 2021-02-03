@@ -1,43 +1,33 @@
 'use strict';
 
 const _ = require('lodash');
-const qs = require( 'qs' );
-const cmn = require( '../../lib/commons-app' );
-const config = require( '../../config' );
-const labels = require( '@openagenda/labels/auth/messages' );
+const qs = require('qs');
+const cmn = require('../../lib/commons-app');
+const config = require('../../config');
+const labels = require('@openagenda/labels/auth/messages');
 
-function loadOptionals( req ) {
+function loadOptionals(req) {
 
   const optionals = {};
 
-  if ( req.query.iToken ) {
-
+  if (req.query.iToken) {
     optionals.iToken = req.query.iToken;
-
   }
 
-  if ( req.query.invitation ) {
-
+  if (req.query.invitation) {
     optionals.invitation = req.query.invitation;
-
   }
 
-  if ( req.query.redirect ) {
-
+  if (req.query.redirect) {
     optionals.redirect = req.query.redirect;
-
   }
 
-  if ( req.query.agenda ) {
-
+  if (req.query.agenda) {
     optionals.agenda = req.query.agenda;
-
   }
 
-  if ( req.query.lang ) {
-
+  if (req.query.lang) {
     optionals.lang = req.query.lang;
-
   }
 
   return optionals;
