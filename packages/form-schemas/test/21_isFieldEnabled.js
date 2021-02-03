@@ -38,4 +38,22 @@ describe('isFieldEnabled', () => {
 
     assert.equal(enabled, false);
   });
+
+  it('enableWith with multiple values works as logical OR', () => {
+    const enabled = isFieldEnabled({
+      "field": "textfield",
+      "enableWith": {
+          "field": "radios",
+          "value": [1, 3]
+      },
+      "related": ["radios"],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    }, {
+      "radios": 1
+    }, false);
+
+    assert.equal(enabled, true);
+  })
 });

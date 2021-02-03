@@ -20,24 +20,46 @@ const fieldTypeChoices = [ {
 }, {
   id: 5,
   value: 'markdown',
-  label: labels.markdownFieldType
+  label: labels.markdownFieldType,
+  info: labels.markdownFieldTypeInfo
 }, {
   id: 6,
   value: 'integer',
   label: labels.integerFieldType
 }, {
+  id: 10,
+  value: 'link',
+  label: labels.linkFieldType
+}, {
+  id: 9,
+  value: 'email',
+  label: labels.emailFieldType
+}, {
   id: 7,
   value: 'boolean',
-  label: labels.booleanFieldType
-}, {
-  id: 2,
-  value: 'radio',
-  label: labels.radioFieldType
+  label: labels.booleanFieldType,
+  info: labels.booleanFieldTypeInfo
 }, {
   id: 3,
   value: 'checkbox',
-  label: labels.checkboxFieldType
-} ];
+  label: labels.checkboxFieldType,
+  info: labels.checkboxFieldTypeInfo
+}, {
+  id: 12,
+  value: 'multiselect',
+  label: labels.multiselectFieldType,
+  info: labels.multiselectFieldTypeInfo
+}, {
+  id: 2,
+  value: 'radio',
+  label: labels.radioFieldType,
+  info: labels.radioFieldTypeInfo
+}, {
+  id: 11,
+  value: 'select',
+  label: labels.selectFieldType,
+  info: labels.selectFieldTypeInfo
+}];
 
 export default class ChooseFieldType extends Component {
 

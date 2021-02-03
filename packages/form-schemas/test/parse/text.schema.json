@@ -15,6 +15,7 @@
     "helpLink": null,
     "helpContent": null,
     "optional": false,
+    "optionalWith": null,
     "display": true,
     "fieldType": "text",
     "min": 3,
@@ -24,6 +25,6 @@
     "origin" : "custom",
     "enableWith" : null,
     "default" : null,
-    "related" : []
+    "related" : { "enable": [], "optional": [] }
   } ]
 }

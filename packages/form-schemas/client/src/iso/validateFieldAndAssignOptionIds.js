@@ -1,6 +1,8 @@
-"use strict";
+'use strict';
 
+const debug = require('debug');
 const validateField = require('./validateField');
+
 
 const {
   extractNextOptionId,
@@ -8,6 +10,8 @@ const {
   fieldAssignOptionIds,
   fieldHasSuperiorOptions
 } = require( './fieldOptions' );
+
+const log = debug('validateFieldAndAssignOptionIds');
 
 module.exports = ( dirtyField, { custom, defaultLabelLanguage, nextOptionId, requireLabels } ) => {
 

@@ -7,6 +7,8 @@ import { cases, groups } from '../cases';
 
 if ( module.hot ) module.hot.accept();
 
+window.DEBUG='*';
+
 class Main extends Component {
 
   render() {

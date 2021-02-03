@@ -5,7 +5,7 @@ import ih from 'immutability-helper';
 
 import FormSchemaComponent from '../../client/src/index';
 
-if ( module.hot ) module.hot.accept();
+if (module.hot) module.hot.accept();
 
 class Main extends Component {
 
@@ -18,13 +18,13 @@ class Main extends Component {
       },
       lang: 'fr',
       schema: {
-        fields: [ {
+        fields: [{
           field: 'aradiofield',
           fieldType: 'radio',
           label: 'Make a choice',
           optional: false,
           default: 2,
-          options: [ {
+          options: [{
             id: 1,
             value: 'option-one',
             label: 'Option one'
@@ -41,8 +41,28 @@ class Main extends Component {
             value: 'option-four',
             label: 'Option Four',
             display: false
-          } ]
-        } ]
+          }]
+        }, {
+          field: 'anoptionalreadiofieldwithinfo',
+          fieldType: 'radio',
+          label: 'Make an informed choice, or not',
+          options: [{
+            id: 5,
+            value: 'elephant',
+            label: 'Elephant',
+            info: 'Big and gray, not very hairy.'
+          }, {
+            id: 6,
+            value: 'spider',
+            label: 'Spider',
+            info: 'Never small enough, with 8 feet and 8 eyes'
+          }, {
+            id: 7,
+            value: 'fork',
+            label: 'Fork',
+            info: { en: 'Why is this even here?', fr: 'Pourquoi?' }
+          }]
+        }]
       }
     }
 
@@ -51,23 +71,10 @@ class Main extends Component {
         <p>A single required choice field</p>
         <FormSchemaComponent { ...props } />
       </div>
-      <div className="row margin-v-md margin-h-sm">
-        <p>A single optional choice field</p>
-        <FormSchemaComponent { ...ih( props, {
-          schema: {
-            fields: {
-              0: {
-                field: { $set: 'anoptionalradiofield' },
-                optional: { $set: true }
-              }
-            }
-          }
-        } ) } />
-      </div>
     </div>
 
   }
 
 }
 
-render( <Main />, document.getElementById( 'app' ) );
+render(<Main />, document.getElementById('app'));

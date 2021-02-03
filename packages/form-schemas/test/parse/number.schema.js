@@ -1,10 +1,13 @@
-{
+'use strict';
+
+module.exports = {
   "nextOptionId": 1,
   "custom" : null,
   "defaultLabelLanguage": null,
-  "fields": [ {
+  "fields": [{
     "field": "pi",
     "optional": true,
+    "optionalWith": null,
     "display" : true,
     "fieldType": "number",
     "read": [
@@ -27,7 +30,7 @@
     "helpContent": null,
     "origin" : "custom",
     "enableWith" : null,
-    "related" : [],
+    "related" : { "enable" : [], "optional": [] },
     "default" : null
-  } ]
+  }]
 }

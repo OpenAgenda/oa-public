@@ -1,6 +1,5 @@
 {
   "field": "pi",
   "type": "number",
-  "default" : null,
   "optional": true
 }

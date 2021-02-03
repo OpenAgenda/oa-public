@@ -1,4 +1,6 @@
-{
+'use strict';
+  
+module.exports = {
   "nextOptionId": 5,
   "custom" : null,
   "defaultLabelLanguage": null,
@@ -17,6 +19,7 @@
     "write": null,
     "read": [ "contributor", "moderator", "administrator" ],
     "optional": true,
+    "optionalWith": null,
     "display" : true,
     "origin": "custom",
     "options": [
@@ -27,6 +30,7 @@
           "fr": "1 - Rosny",
           "en": "1 - Rosny"
         },
+        "info": null,
         "display": true
       },
       {
@@ -36,6 +40,7 @@
           "fr": "2 - Flicourt",
           "en": "2 - Flicourt"
         },
+        "info": null,
         "display": true
       },
       {
@@ -45,6 +50,7 @@
           "fr": "3 - Moisson",
           "en": "3 - Moisson"
         },
+        "info": null,
         "display": true
       },
       {
@@ -54,12 +60,16 @@
           "fr": "4 - Roche-Guyon",
           "en": "4 - Roche-Guyon"
         },
+        "info": null,
         "display": true
       }
     ],
     "fieldType": "radio",
     "enableWith" : null,
-    "related" : [],
+    "related" : {
+      "enable": [],
+      "optional": []
+    },
     "default" : null
   } ]
 }

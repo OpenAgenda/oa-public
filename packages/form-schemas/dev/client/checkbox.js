@@ -6,24 +6,22 @@ import FormSchemaComponent from '../../client/src/index';
 
 if ( module.hot ) module.hot.accept();
 
+import alertOnSubmit from './alertOnSubmit';
 class Main extends Component {
 
   render() {
 
     const props = {
-      res: {
-        post: '',
-        redirect: '/'
-      },
+      onSubmit: alertOnSubmit,
       lang: 'fr',
       schema: {
         fields: [ {
-          field: 'aradiofield',
+          field: 'acheckboxfield',
           fieldType: 'checkbox',
-          label: 'Make a choice',
+          label: 'Make a choice with default',
           optional: false,
-          default: [ 2, 3 ],
-          options: [ {
+          default: [2, 3],
+          options: [{
             id: 1,
             value: 'option-one',
             label: 'Option one'
@@ -41,7 +39,17 @@ class Main extends Component {
             label: 'Option four',
             display: false
           }]
-        } ]
+        }, {
+          field: 'arequiredcheckboxfieldwithoutdefaults',
+          fieldType: 'checkbox',
+          label: 'Make a choice without default',
+          optional: false,
+          options: [{
+            id: 5,
+            value: 'option-five',
+            label: 'Option Five'
+          }]
+        }]
       }
     }
 

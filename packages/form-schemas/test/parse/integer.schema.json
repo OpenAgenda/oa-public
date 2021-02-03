@@ -26,7 +26,11 @@
     "sub" : null,
     "origin" : "custom",
     "enableWith" : null,
-    "related" : [],
+    "optionalWith": null,
+    "related" : {
+      "enable": [],
+      "optional": []
+    },
     "default" : null
   } ]
 }

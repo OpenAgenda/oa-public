@@ -76,6 +76,7 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
           write: null,
           read: null,
           optional: false,
+          optionalWith: null,
           display: true,
           min: null,
           max: null,
@@ -85,7 +86,8 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             label: {
               fr: 'Niveau scolaire: Ecole'
             },
-            "display": true
+            info: null,
+            display: true
           },
           {
             id: 2,
@@ -93,7 +95,8 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             label: {
               fr: 'Niveau scolaire: Collège'
             },
-            "display": true
+            info: null,
+            display: true
           },
           {
             "id": 3,
@@ -101,7 +104,8 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             "label": {
               "fr": "Niveau scolaire: Lycée"
             },
-            "display": true
+            info: null,
+            display: true
           },
           {
             "id": 4,
@@ -109,13 +113,14 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             "label": {
               "fr": "Niveau scolaire: Autre"
             },
-            "display": true
+            info: null,
+            display: true
           } ],
           fieldType: "checkbox",
           "placeholder" : null,
           "origin" : "tags",
           enableWith : null,
-          related: [],
+          related: { enable: [], optional: [] },
           default: null
         },
         {
@@ -132,6 +137,7 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
           write: null,
           read: null,
           "optional": true,
+          optionalWith: null,
           display: true,
           "options": [ {
             "id": 5,
@@ -139,26 +145,29 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             "label": {
               "fr": "Style musical : A cappella"
             },
-            "display": true
+            info: null,
+            display: true
           }, {
             "id": 6,
             "value": "afrique",
             "label": {
               "fr": "Style musical : Afrique"
             },
-            "display": true
+            info: null,
+            display: true
           }, {
             "id": 7,
             "value": "baroque",
             "label": {
               "fr": "Style musical : Baroque"
             },
-            "display": true
+            info: null,
+            display: true
           } ],
           "fieldType": "radio",
           "origin" : "tags",
           enableWith : null,
-          related: [],
+          related: { enable: [], optional: [] },
           default: null
         }
       ],
@@ -205,6 +214,7 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
         "write": null,
         "read": null,
         "optional": false,
+        optionalWith: null,
         display: true,
         "options": [
           {
@@ -213,7 +223,8 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             "label": {
               "fr": "Atelier"
             },
-            "display": true
+            info: null,
+            display: true
           },
           {
             "id": 2,
@@ -221,7 +232,8 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             "label": {
               "fr": "Exposition"
             },
-            "display": true
+            info: null,
+            display: true
           },
           {
             "id": 3,
@@ -229,7 +241,8 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
             "label": {
               "fr": "Jeu"
             },
-            "display": true
+            info: null,
+            display: true
           }
         ],
         "fieldType": "radio",
@@ -240,7 +253,7 @@ describe('form-schemas -09- unit (server): legacy tag sets', function() {
         helpContent: null,
         enableWith : null,
         default: null,
-        related: []
+        related: { enable: [], optional: [] }
       } ]
     } );
 

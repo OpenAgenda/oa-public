@@ -4,6 +4,5 @@
   "optional": false,
   "languages" : [ "fr", "en" ],
   "max": 50,
-  "min": 3,
-  "default": null
+  "min": 3
 }

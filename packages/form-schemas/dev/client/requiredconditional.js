@@ -15,7 +15,7 @@ class Main extends Component {
       lang: 'fr',
       withErrors: true,
       schema: {
-        fields : [{
+        fields : [/*{
           field : "anything",
           fieldType : "text",
           label : 'A word'
@@ -25,40 +25,54 @@ class Main extends Component {
           optional: false,
           label: 'This is only enabled if first field is typed',
           enableWith: 'anything'
-        }, {
-          field: 'checkboxes',
-          fieldType: 'checkbox',
-          label: 'Some checkboxes',
+        }, */{
+          field: 'radios',
+          fieldType: 'radio',
+          label: 'Radio',
+          default: 1,
           options: [{
             id: 1,
-            label: 'Check this',
-            value: 'check-this'
+            label: 'Betelgeuse',
+            value: 'betelgeuse'
           }, {
             id: 2,
-            label: 'Or that',
-            value: 'or-that'
+            label: 'Chausson',
+            value: 'chausson'
+          }, {
+            id: 3,
+            label: 'Hydroxychloroquine',
+            value: 'hydroxychloroquine'
           }]
-        }, {
+        },/* {
           field: 'moreconditioned',
           fieldType: 'text',
           optional: false,
-          label: 'This is only enabled if previous checkbox is checked',
-          enableWith: 'checkboxes'
+          label: 'This is only enabled if previous radio has a value',
+          enableWith: 'radios'
         }, {
           field: 'numberfield',
           fieldType: 'number',
           optional: false,
-          label: 'This should be a number when enabled',
-          enableWith: 'checkboxes'
+          label: 'This number field only enabled if previous radio has a value',
+          enableWith: 'radios'
         }, {
           field: 'textfield',
           fieldType: 'text',
           optional: false,
           label: 'Write in that',
-          info: 'Activated if "Or that" value is checked',
+          info: 'Activated if Betelgeuse or Hydroxychloroquine',
           enableWith: {
-            field: 'checkboxes',
-            value: 2
+            field: 'radios',
+            value: [1, 3]
+          }
+        },*/ {
+          field: 'thisorthat',
+          fieldType: 'text',
+          label: 'This or that',
+          info: 'Optional only if Chausson or Hydroxychloroquine',
+          optionalWith: {
+            field: 'radios',
+            value: [2, 3]
           }
         }]
       }

@@ -420,7 +420,6 @@ describe('form-schemas -05- FormSchema', () => {
 
   });
 
-
   describe('deriving validator', () => {
 
     const fs = new FormSchema({
@@ -454,9 +453,9 @@ describe('form-schemas -05- FormSchema', () => {
 
     it('.getValidate() returns the validator defined by the FormSchema fields', () => {
       validate.default.should.eql({
-        atextfield: null,
-        anotherfield: null,
-        andanotherfield: null
+        atextfield: undefined,
+        anotherfield: undefined,
+        andanotherfield: undefined
       });
     });
 
@@ -465,8 +464,8 @@ describe('form-schemas -05- FormSchema', () => {
       validate({
         andanotherfield: 1
       }).should.eql({
-        atextfield: null,
-        anotherfield: null,
+        atextfield: undefined,
+        anotherfield: undefined,
         andanotherfield: 1
       });
     });
@@ -485,19 +484,20 @@ describe('form-schemas -05- FormSchema', () => {
     });
 
     it('.getValidate with draft option validates fields independently of their optional state', () => {
-      const draftValidate = fs.getValidate({ draft: true });
+      const draftValidate = fs.getValidate({
+        draft: true
+      });
 
-      try {
-        const clean = draftValidate();
+      const clean = draftValidate();
 
-        clean.should.eql({ atextfield: null, anotherfield: null, andanotherfield: null });
-      } catch (e) {
-        // should never reach here
-        should().ok();
-      }
+      clean.should.eql({
+        atextfield: undefined,
+        anotherfield: undefined,
+        andanotherfield: undefined
+      });
+      
     });
   });
-
 
   describe('extending FormSchema with custom types', () => {
     const fs = new FormSchema({
@@ -545,6 +545,7 @@ describe('form-schemas -05- FormSchema', () => {
         acustomfield: 'Wigglypoof'
       });
     });
+
   });
 
 });
