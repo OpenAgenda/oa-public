@@ -20,6 +20,8 @@ onRefresh, // used for testing
 
 range = require( '@openagenda/date-range' );
 
+const getTimings = require('../lib/getTimings');
+
 module.exports = instanciate;
 
 module.exports.test = {
@@ -108,7 +110,7 @@ function instanciate( data ) {
 
     let timezone = instance.getLocationDetails().timezone,
 
-    timings = instance.getTimings();
+    timings = getTimings(instance);
 
     if ( filter && ( filter.from || filter.to ) ) {
 

@@ -5,7 +5,6 @@ const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const beforeRemove = require('./beforeRemove');
 const onRemove = require('./onRemove');
-const getOriginAgendas = require('./getOriginAgendas');
 const getLocations = require('./getLocations');
 
 module.exports.init = (config, services) => Service({
@@ -19,7 +18,9 @@ module.exports.init = (config, services) => Service({
     onUpdate: onUpdate.bind(null, services),
     beforeRemove: beforeRemove.bind(null, services),
     onRemove: onRemove.bind(null, services),
-    getOriginAgendas,
+    getOriginAgendas: (uids, options) => services.agendas.list({
+      uid: uids
+    }, options).then(({ agendas }) => agendas),
     getLocations: getLocations.promise.bind(null, services)
   }
 });

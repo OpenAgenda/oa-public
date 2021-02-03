@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 
-
 const getAgenda = require('../utils/getAgenda');
 const getNetwork = require('../utils/getNetwork');
 const merge = require('../utils/merge');
