@@ -37,7 +37,7 @@ module.exports = [
     }
 
     if (req.isAdminMod) {
-      return res.redirect(302, _appendPHPDefPrefix(`${req.agenda.slug}/admin`));
+      return res.redirect(302, `${req.agenda.slug}/admin/events`);
     }
 
     res.redirect(302, `/${req.agenda.slug}`);

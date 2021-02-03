@@ -6,6 +6,7 @@ import '@openagenda/polyfills/intl-locales';
 import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
@@ -52,6 +53,20 @@ RHL.setConfig({ trackTailUpdates: false });
 // }
 
 window.IScroll = IScroll;
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+window.ReactQueryClientContext = React.createContext(queryClient);
+
+// queryClient.getQueryCache().subscribe(query => {
+//   console.log('Query:', query);
+// });
 
 const history = createBrowserHistory();
 
@@ -141,6 +156,15 @@ const apps = [
   {}
 );
 
+// function QueryWatch() {
+//   const client = useQueryClient();
+//   const queryCache = client.getQueryCache();
+//
+//   // TODO if agenda modified THEN refetch layout data
+//
+//   return null;
+// }
+
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
@@ -156,12 +180,16 @@ loadableReady(async () => {
 
   const render = (forceRender = false) => {
     const element = (
-      <Root
-        apps={apps}
-        layoutStore={layoutStore}
-        history={history}
-        triggerHooks={triggerHooks}
-      />
+      <QueryClientProvider client={queryClient}>
+        <Root
+          apps={apps}
+          layoutStore={layoutStore}
+          history={history}
+          triggerHooks={triggerHooks}
+        />
+
+        {/* <QueryWatch /> */}
+      </QueryClientProvider>
     );
     const canvas = document.querySelector('#root');
 

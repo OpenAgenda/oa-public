@@ -62,6 +62,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'stats.loading'));
   const loaded = useSelector(state => _.get(state, 'stats.loaded'));
+  const error = useSelector(state => _.get(state, 'stats.error'));
   const totalEvents = useSelector(state => state.stats.totalEvents);
   const editing = useSelector(state => state.stats.editing);
   const stats = useSelector(state => state.stats.data);
@@ -103,7 +104,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['agenda-stats', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -152,7 +153,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   // Load timespan & aggregations
   useEffect(() => {
-    if (loading || loaded) {
+    if (loading || loaded || error) {
       return;
     }
 
@@ -210,6 +211,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     history.location.search,
     initialQuery,
     loaded,
+    error,
     loading,
     res.jsonExport,
   ]);

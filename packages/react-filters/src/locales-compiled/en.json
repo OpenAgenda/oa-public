@@ -41,6 +41,25 @@
       "value": "End"
     }
   ],
+  "ReactFilters.DateRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "From "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
   "ReactFilters.DateRangeFilter.singleDate": [
     {
       "style": {
@@ -60,6 +79,25 @@
     {
       "type": 0,
       "value": "Start"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "Until "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
     }
   ],
   "ReactFilters.MultiChoiceFilter.lessOptions": [
@@ -104,6 +142,12 @@
       "value": "Current week"
     }
   ],
+  "ReactFilters.dateRanges.past": [
+    {
+      "type": 0,
+      "value": "Past"
+    }
+  ],
   "ReactFilters.dateRanges.thisWeekend": [
     {
       "type": 0,
@@ -120,6 +164,12 @@
     {
       "type": 0,
       "value": "Tomorrow"
+    }
+  ],
+  "ReactFilters.dateRanges.upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
     }
   ],
   "ReactFilters.messages.filterTitles.city": [

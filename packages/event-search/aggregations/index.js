@@ -42,13 +42,21 @@ module.exports = {
 
     return [].concat(requested)
       .map(extractKeyAndType)
-      .reduce((aggregationDSL, { key, type, requested }) => ({
-        ...aggregationDSL,
-        [key]: aggregationTypes[type].formatDSL(
-          query,
-          getOptions(requested, options)
-        )
-      }), {})
+      .reduce((aggregationDSL, { key, type, requested }) => {
+        const formatDSL = aggregationTypes[type] && aggregationTypes[type].formatDSL;
+
+        if (typeof formatDSL !== 'function') {
+          throw new BadRequest('Invalid requested aggregations', [{ message: `Unkown aggregation type: ${type}` }]);
+        }
+
+        return {
+          ...aggregationDSL,
+          [key]: formatDSL(
+            query,
+            getOptions(requested, options)
+          )
+        };
+      }, {});
   },
   formatResult: (requested, query, result, options = {}) => requested
     .map(extractKeyAndType)

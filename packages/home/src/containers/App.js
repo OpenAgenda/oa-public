@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { useIsomorphicLayoutEffect } from 'react-use';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
+import { useConstant } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/home';
 import I18nContext from '../contexts/I18nContext';
 import MenuItem from '../components/MenuItem';
@@ -16,6 +18,16 @@ import eventsReducer from '../reducers/events';
 import modalsReducer from '../reducers/modals';
 
 function App({ route, user, lang }) {
+  const queryClient = useConstant(
+    () => new QueryClient({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+        },
+      },
+    })
+  );
+
   const prefix = useSelector(state => state.settings.prefix);
   const tab = useSelector(state => state.menu.tab);
   const total = useSelector(
@@ -30,7 +42,7 @@ function App({ route, user, lang }) {
   const i18nContextValue = useMemo(
     () => ({
       lang,
-      getLabel
+      getLabel,
     }),
     [lang, getLabel]
   );
@@ -50,41 +62,46 @@ function App({ route, user, lang }) {
   }
 
   return (
-    <I18nContext.Provider value={i18nContextValue}>
-      {user.isNew && !total ? (
-        <div className="container top-margined home">
-          <div className="col-sm-8 col-sm-offset-2">
-            <div className="row wsq">
-              <div className="content">
-                {renderRoutes(route.routes, { user, lang })}
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div
-          className={classNames('container top-margined home', {
-            [`home-${tab}`]: tab
-          })}
-        >
-          <div className="row">
+    <QueryClientProvider client={queryClient}>
+      <I18nContext.Provider value={i18nContextValue}>
+        {user.isNew && !total ? (
+          <div className="container top-margined home">
             <div className="col-sm-8 col-sm-offset-2">
-              <ul className="home-nav list-inline">
-                <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
-                  {getLabel('myAgendas')}
-                </MenuItem>
-                <MenuItem linkTo={`${prefix}/events`} active={tab === 'events'}>
-                  {getLabel('myEvents')}
-                </MenuItem>
-              </ul>
-              <div className="wsq">
-                {renderRoutes(route.routes, { user, lang })}
+              <div className="row wsq">
+                <div className="content">
+                  {renderRoutes(route.routes, { user, lang })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </I18nContext.Provider>
+        ) : (
+          <div
+            className={classNames('container top-margined home', {
+              [`home-${tab}`]: tab,
+            })}
+          >
+            <div className="row">
+              <div className="col-sm-8 col-sm-offset-2">
+                <ul className="home-nav list-inline">
+                  <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
+                    {getLabel('myAgendas')}
+                  </MenuItem>
+                  <MenuItem
+                    linkTo={`${prefix}/events`}
+                    active={tab === 'events'}
+                  >
+                    {getLabel('myEvents')}
+                  </MenuItem>
+                </ul>
+                <div className="wsq">
+                  {renderRoutes(route.routes, { user, lang })}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </I18nContext.Provider>
+    </QueryClientProvider>
   );
 }
 
@@ -94,7 +111,7 @@ export default hot(
       menu: menuReducer,
       events: eventsReducer,
       agendas: agendasReducer,
-      modals: modalsReducer
-    })
+      modals: modalsReducer,
+    }),
   })(App)
 );

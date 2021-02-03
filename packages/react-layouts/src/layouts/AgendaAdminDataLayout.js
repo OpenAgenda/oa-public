@@ -26,7 +26,7 @@ function AgendaAdminDataLayout({
   ]);
 
   const { data, isLoading, error } = useQuery(
-    ['agendaAdmin-layout', { slug: params.slug }],
+    ['react-layouts', 'agendaAdminData', { slug: params.slug }],
     async () => (
       await apiClient.get(`/${params.slug}/admin/layout`, {
         params: {
@@ -77,6 +77,16 @@ function AgendaAdminDataLayout({
   }
 
   if (isLoading) {
+    return <Loading />;
+  }
+
+  if (
+    matchPath(location.pathname, { path: '/:slug/admin/events' })
+    && !data.agenda?.settings?.lab?.eventAdmin
+  ) {
+    const phpPrefix = process.env.NODE_ENV === 'development' ? 'frontend_dev.php' : '';
+    window.location.href = `/${phpPrefix}/${data.agenda.slug}/admin`;
+
     return <Loading />;
   }
 

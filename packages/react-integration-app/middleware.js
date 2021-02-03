@@ -1,9 +1,11 @@
 'use strict';
 
 const path = require('path');
+
 const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom/server');
+const { QueryClient, QueryClientProvider } = require('react-query');
 const { HelmetProvider } = require('react-helmet-async');
 const { matchRoutes } = require('react-router-config');
 const { createMemoryHistory } = require('history');
@@ -201,6 +203,14 @@ module.exports = function match({ initialState, lang, publicPath }) {
       const staticContext = {};
       const helmetContext = {};
 
+      const queryClient = new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      });
+
       const content = ReactDOM.renderToString(
         React.createElement(
           HelmetProvider,
@@ -208,11 +218,15 @@ module.exports = function match({ initialState, lang, publicPath }) {
           React.createElement(RootHelmet),
           wrapApp(
             {
-              Content: () => React.createElement(LayoutManager, {
-                store: layoutStore,
-                history,
-                apps,
-              }),
+              Content: () => React.createElement(
+                QueryClientProvider,
+                { client: queryClient },
+                React.createElement(LayoutManager, {
+                  store: layoutStore,
+                  history,
+                  apps,
+                })
+              ),
               history,
               triggerHooks,
             },

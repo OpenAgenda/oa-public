@@ -3,7 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { renderRoutes } from 'react-router-config';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider, useQueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { useConstant, mergeLocales } from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
@@ -15,14 +15,16 @@ const locales = mergeLocales(appLocales, reactFiltersLocales);
 function App({
   route, agenda, agendaSchema, role, lang, filtersContainerRef
 }) {
+  const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
+    () => parentQueryClient
+      || new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
         },
-      },
-    })
+      })
   );
 
   return (

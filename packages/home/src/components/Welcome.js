@@ -17,7 +17,7 @@ function AgendaItem({ agenda }) {
             className="media-object ill avatar"
             style={{
               width: '50px',
-              height: '50px'
+              height: '50px',
             }}
             alt={agenda.title}
           />
@@ -58,8 +58,9 @@ export default function Welcome() {
 
   const apiClient = useApiClient();
 
-  const oneWeekAgo = new Date();
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 14);
+  const twoWeekAgo = new Date();
+
+  twoWeekAgo.setDate(twoWeekAgo.getDate() - 14);
 
   const agendasQuery = useQuery('welcome-agendas', () => apiClient.get('/agendas.json', {
     params: {
@@ -68,9 +69,9 @@ export default function Welcome() {
       official: 1,
       limit: 5,
       updatedAt: {
-        gte: oneWeekAgo
-      }
-    }
+        gte: twoWeekAgo,
+      },
+    },
   }));
 
   return (
@@ -116,13 +117,15 @@ export default function Welcome() {
 
             {agendasQuery.data?.agendas
               ? agendasQuery.data.agendas.map(agenda => (
-                <AgendaItem agenda={agenda} />
+                <AgendaItem key={agenda.uid} agenda={agenda} />
               ))
               : null}
 
             <div className="margin-top-sm">
               <a
-                href={`/agendas?sort=recentlyContributed.desc&official=1&contributionType=1&updatedAt.gte=${oneWeekAgo.toISOString()}`}
+                href={`/agendas?sort=recentlyContributed.desc&official=1&contributionType=1&updatedAt.gte=${
+                  twoWeekAgo.toISOString().split('T')[0]
+                }`}
               >
                 {getLabel('seeMore')}
               </a>

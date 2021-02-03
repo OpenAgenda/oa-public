@@ -29,7 +29,7 @@ function FiltersPart({
   const res = useSelector(state => state.res);
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['event-admin-apps', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -46,7 +46,7 @@ function FiltersPart({
   );
 
   const { data, isFetching } = useInfiniteQuery(
-    ['events', query],
+    ['event-admin-apps', 'events', query],
     ({ pageParam }) => getEvents(
       apiClient,
       res.jsonExport,

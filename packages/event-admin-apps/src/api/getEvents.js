@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 export default async function getEvents(
   apiClient,
   jsonExportRes,
@@ -27,5 +29,10 @@ export default async function getEvents(
     .replace(':slug', agenda.slug)
     .replace(':uid', agenda.uid);
 
-  return (await apiClient.get(url, { params })).data;
+  const request = apiClient.get(url, {
+    params,
+    paramsSerializer: p => qs.stringify(p, { skipNulls: true }),
+  });
+
+  return (await request).data;
 }

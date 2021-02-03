@@ -62,7 +62,7 @@ export default function FilterPreview({
   const res = useSelector(state => state.res);
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['agenda-stats', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,

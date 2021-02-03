@@ -73,7 +73,7 @@ function AgendaItem({ agenda, res, getLabel }) {
                     : getLabel('moderate')}
                 </Link>
               ) : (
-                <a href={res.agendas.moderate.replace(':slug', agenda.slug)}>
+                <a href={`/${agenda.slug}/admin/events`}>
                   {agenda.member.role === 2
                     ? getLabel('manage')
                     : getLabel('moderate')}

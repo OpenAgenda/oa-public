@@ -76,7 +76,6 @@ const initialState = async req => {
           show: '/:slug',
           showPrivate: '/:slug.prv',
           addEvent: '/:slug/contribute',
-          moderate: `${phpPrefix}/:slug/admin`,
           contact: '/:slug/contact'
         },
         events: {

@@ -1,7 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { QueryClientProvider, QueryClient } from 'react-query';
-import { useConstant, ApiClientContext, apiClient } from '@openagenda/react-shared';
+import { QueryClientProvider, QueryClient, useQueryClient } from 'react-query';
+import {
+  useConstant,
+  ApiClientContext,
+  apiClient,
+} from '@openagenda/react-shared';
 
 import Layout from './Layout';
 
@@ -10,14 +14,16 @@ export default function LayoutManager({
 }) {
   const client = useConstant(() => apiClient('', null));
 
+  const parentQueryClient = useQueryClient();
   const queryClient = useConstant(
-    () => new QueryClient({
-      defaultOptions: {
-        queries: {
-          refetchOnWindowFocus: false,
+    () => parentQueryClient
+      || new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
         },
-      },
-    })
+      })
   );
 
   return (

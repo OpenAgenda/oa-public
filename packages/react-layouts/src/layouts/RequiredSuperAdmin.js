@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { useIsomorphicLayoutEffect } from 'react-use';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import ChildLayouts from '../components/ChildLayouts';
 import Loading from '../components/Loading';
@@ -9,22 +8,13 @@ function RequiredSuperAdmin({
   children,
   extraProps,
   onError,
-  FallbackComponent
+  FallbackComponent,
 }) {
   const history = useHistory();
 
-  const shouldRedirect = useMemo(
-    () => ![75052324, 99999999, 31046551].includes(extraProps.user?.uid),
-    [extraProps.user]
-  );
+  if (![75052324, 99999999, 31046551].includes(extraProps.user?.uid)) {
+    history.replace('/home');
 
-  useIsomorphicLayoutEffect(() => {
-    if (![75052324, 99999999, 31046551].includes(extraProps.user?.uid)) {
-      history.replace('/home');
-    }
-  }, [shouldRedirect, history, extraProps.user]);
-
-  if (shouldRedirect) {
     return <Loading />;
   }
 

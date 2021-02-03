@@ -62,7 +62,7 @@ export default function FilterPreview({
   const res = useSelector(state => state.res);
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['event-admin-apps', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -80,7 +80,7 @@ export default function FilterPreview({
   );
 
   const { isFetching } = useInfiniteQuery(
-    ['events', query],
+    ['event-admin-apps', 'events', query],
     ({ pageParam }) => getEvents(
       apiClient,
       res.jsonExport,

@@ -72,7 +72,7 @@ function _send(config, { invitation, member, agenda, message, lang }) {
     link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}`
   } else if (isMember) {
     if (role === 'administrator' || role === 'moderator') {
-      link = `${config.root}/agendas/${agenda.uid}/admin`;
+      link = `${config.root}/agendas/${agenda.uid}/admin/events`;
     } else if (role === 'contributor') {
       link = `${config.root}/agendas/${agenda.uid}/contribute`;
     }

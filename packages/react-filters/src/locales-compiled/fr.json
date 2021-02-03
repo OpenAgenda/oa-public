@@ -41,6 +41,7 @@
       "value": "Fin"
     }
   ],
+  "ReactFilters.DateRangeFilter.from": null,
   "ReactFilters.DateRangeFilter.singleDate": [
     {
       "style": {
@@ -62,6 +63,7 @@
       "value": "Début"
     }
   ],
+  "ReactFilters.DateRangeFilter.until": null,
   "ReactFilters.MultiChoiceFilter.lessOptions": [
     {
       "type": 0,
@@ -104,6 +106,12 @@
       "value": "Cette semaine"
     }
   ],
+  "ReactFilters.dateRanges.past": [
+    {
+      "type": 0,
+      "value": "Passé"
+    }
+  ],
   "ReactFilters.dateRanges.thisWeekend": [
     {
       "type": 0,
@@ -120,6 +128,12 @@
     {
       "type": 0,
       "value": "Demain"
+    }
+  ],
+  "ReactFilters.dateRanges.upcoming": [
+    {
+      "type": 0,
+      "value": "À venir"
     }
   ],
   "ReactFilters.messages.filterTitles.city": [

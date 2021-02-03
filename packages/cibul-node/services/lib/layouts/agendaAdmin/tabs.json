@@ -1,9 +1,7 @@
 [
   {
     "name": "events",
-    "section": "manage",
-    "php": true,
-    "route": ""
+    "section": "manage"
   },
   {
     "name": "members",
@@ -28,7 +26,6 @@
   {
     "name": "statistics",
     "section": "manage",
-    "credential": "graphs",
     "newFeature": true
   },
   {

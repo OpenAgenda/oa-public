@@ -5,62 +5,81 @@ import { useSelector } from 'react-redux';
 import {
   Switch, Route, Link, useRouteMatch
 } from 'react-router-dom';
-import { loadable } from '@openagenda/react-shared';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { loadable, useConstant } from '@openagenda/react-shared';
 import locales from '../locales-compiled';
 
-const AnnouncementManager = loadable(() => import(
-  /* webpackChunkName: "supervisor-AnnouncementManager" */
-  './AnnouncementManager'
-));
+const AnnouncementManager = loadable(
+  () => import(
+    /* webpackChunkName: "supervisor-AnnouncementManager" */
+    './AnnouncementManager'
+  ),
+  { ssr: false }
+);
 
-const Elasticsearch = loadable(() => import(
-  /* webpackChunkName: "supervisor-Elasticsearch" */
-  './Elasticsearch'
-));
+const Elasticsearch = loadable(
+  () => import(
+    /* webpackChunkName: "supervisor-Elasticsearch" */
+    './Elasticsearch'
+  ),
+  { ssr: false }
+);
 
 function App({ user }) {
+  const queryClient = useConstant(
+    () => new QueryClient({
+      defaultOptions: {
+        queries: {
+          refetchOnWindowFocus: false,
+        },
+      },
+    })
+  );
+
   const { path, url } = useRouteMatch();
   const lang = useSelector(state => state.settings.lang);
 
   const normalizedPath = url.endsWith('/') ? url.slice(0, -1) : url;
 
   return (
-    <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
-      <div className="supervisor">
-        <Switch>
-          <Route exact path={path}>
-            <div className="container">
-              <div className="row">
-                <h2>
-                  Bienvenue chez les <b>super</b>admins !
-                </h2>
+    <QueryClientProvider client={queryClient}>
+      <IntlProvider messages={locales[lang]} locale={lang} key={lang}>
+        <div className="supervisor">
+          <Switch>
+            <Route exact path={path}>
+              <div className="container">
+                <div className="row">
+                  <h2>
+                    Bienvenue chez les <b>super</b>admins !
+                  </h2>
 
-                <ul>
-                  <li>
-                    <Link to={`${normalizedPath}/announcement`}>
-                      Gérer les annonces OA
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={`${normalizedPath}/elasticsearch`}>
-                      Elasticsearch
-                    </Link>
-                  </li>
-                </ul>
+                  <ul>
+                    <li>
+                      <Link to={`${normalizedPath}/announcement`}>
+                        Gérer les annonces OA
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`${normalizedPath}/elasticsearch`}>
+                        Elasticsearch
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </Route>
+            </Route>
 
-          <Route path={`${normalizedPath}/announcement`}>
-            <AnnouncementManager user={user} />
-          </Route>
+            <Route path={`${normalizedPath}/announcement`}>
+              <AnnouncementManager user={user} />
+            </Route>
 
-          <Route path={`${normalizedPath}/elasticsearch`}>
-            <Elasticsearch user={user} />
-          </Route>
-        </Switch>
-      </div>
-    </IntlProvider>
+            <Route path={`${normalizedPath}/elasticsearch`}>
+              <Elasticsearch user={user} />
+            </Route>
+          </Switch>
+        </div>
+      </IntlProvider>
+    </QueryClientProvider>
   );
 }
 

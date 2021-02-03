@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { useQuery, useMutation, queryCache } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useIntl } from 'react-intl';
 import { css } from '@emotion/core';
 import { useApiClient } from '@openagenda/react-shared';
@@ -8,11 +8,12 @@ import Loading from '../components/Loading';
 
 export default function Elasticsearch() {
   const apiClient = useApiClient();
+  const queryClient = useQueryClient();
   const intl = useIntl();
 
   const [replicas, setReplicas] = useState('');
   const { isLoading, error, data } = useQuery(
-    'esCluster',
+    ['supervisor', 'esCluster'],
     async () => (await apiClient('/supervisor/elasticsearch/cluster')).data,
     {
       refetchInterval: 1000,
@@ -21,47 +22,54 @@ export default function Elasticsearch() {
           // first load
           setReplicas(data2.replicas);
         }
-      }
+      },
     }
   );
 
-  const [mutateReplicas, mutationStatus] = useMutation(
+  const replicasMutation = useMutation(
     value => apiClient.post('/supervisor/elasticsearch/cluster/replicas', {
-      value: parseInt(value, 10)
+      value: parseInt(value, 10),
     }),
     {
       // Optimistically update the cache value on mutate, but store
       // the old value and return it so that it's accessible in case of
       // an error
       onMutate: value => {
-        queryCache.cancelQueries('esCluster');
+        queryClient
+          .cancelQueries(['supervisor', 'esCluster'])
+          .catch(() => null);
 
-        const previousValue = queryCache.getQueryData('esCluster');
+        const previousValue = queryClient.getQueryData([
+          'supervisor',
+          'esCluster',
+        ]);
 
-        queryCache.setQueryData('esCluster', old => ({
+        queryClient.setQueryData(['supervisor', 'esCluster'], old => ({
           ...old,
-          replicas: value
+          replicas: value,
         }));
 
         return previousValue;
       },
       // On failure, roll back to the previous value
       onError: (err, variables, previousValue) => {
-        queryCache.setQueryData('esCluster', previousValue);
+        queryClient.setQueryData(['supervisor', 'esCluster'], previousValue);
       },
       // After success or failure, refetch the todos query
       onSettled: () => {
-        queryCache.invalidateQueries('esCluster');
-      }
+        queryClient
+          .invalidateQueries(['supervisor', 'esCluster'])
+          .catch(() => null);
+      },
     }
   );
 
   const onReplicasSubmit = useCallback(
     event => {
       event.preventDefault();
-      mutateReplicas(replicas);
+      replicasMutation.mutate(replicas);
     },
-    [mutateReplicas, replicas]
+    [replicasMutation, replicas]
   );
 
   const onReplicasChange = useCallback(event => {
@@ -69,7 +77,10 @@ export default function Elasticsearch() {
   }, []);
 
   // Remove queries on unmout for reload on remount
-  useEffect(() => () => queryCache.removeQueries('esCluster'), []);
+  useEffect(
+    () => () => queryClient.removeQueries(['supervisor', 'esCluster']),
+    [queryClient]
+  );
 
   if (isLoading) {
     return (
@@ -137,14 +148,14 @@ export default function Elasticsearch() {
       <div>
         CPU utilisé:{' '}
         {intl.formatNumber(data.stats.usedCPUPercent / 100, {
-          style: 'percent'
+          style: 'percent',
         })}
       </div>
 
       <div>
         Mémoire utilisée:{' '}
         {intl.formatNumber(data.stats.usedMemoryPercent / 100, {
-          style: 'percent'
+          style: 'percent',
         })}
       </div>
 
@@ -176,9 +187,9 @@ export default function Elasticsearch() {
         <button type="submit" className="btn btn-primary btn-bordered">
           Valider
         </button>
-        {mutationStatus.error ? (
+        {replicasMutation.error ? (
           <span className="margin-left-md text-danger">
-            {mutationStatus.error?.message || mutationStatus.error}
+            {replicasMutation.error?.message || replicasMutation.error}
           </span>
         ) : null}
       </form>

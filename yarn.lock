@@ -7010,7 +7010,7 @@ __metadata:
     react-dom: ^16.13.1
     react-final-form: ^6.4.0
     react-hot-loader: ^4.12.20
-    react-query: ^2.5.8
+    react-query: ^3.6.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -7762,6 +7762,7 @@ __metadata:
     react-helmet-async: ^1.0.3
     react-hot-loader: ^4.12.20
     react-intl: ^5.8.2
+    react-query: ^3.6.0
     react-router: ^5.1.2
     react-router-config: ^5.1.1
     react-router-dom: ^5.1.2
@@ -8110,7 +8111,7 @@ __metadata:
     react-intl: ^5.8.2
     react-is: ^16.13.1
     react-markdown: ^4.3.1
-    react-query: ^2.5.5
+    react-query: ^3.6.0
     react-redux: ^7.1.3
     react-router: ^5.1.2
     react-router-config: ^5.1.1
@@ -34703,17 +34704,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-query@npm:^2.5.5, react-query@npm:^2.5.8":
-  version: 2.5.8
-  resolution: "react-query@npm:2.5.8"
-  dependencies:
-    ts-toolbelt: ^6.9.4
-  peerDependencies:
-    react: ^16.8.0
-  checksum: 903ac54016f13f8712a1de83ceb20c3d8ccb094fd1defa940b01001500a4875d1098b1c5e82227f2256cfbf85278f904c6672f621a5d42ead98dfeae1e930ae1
-  languageName: node
-  linkType: hard
-
 "react-query@npm:^3.6.0":
   version: 3.6.0
   resolution: "react-query@npm:3.6.0"
@@ -40150,13 +40140,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 0c1ab7d1b85820a4ad12d25f18e6e9b68e57095412cb436266e8d0c58508892d871cd6d39512701e1117b0ad6354f0596d7f9ef9a0e630538ef3c7ff1970e0ef
-  languageName: node
-  linkType: hard
-
-"ts-toolbelt@npm:^6.9.4":
-  version: 6.13.21
-  resolution: "ts-toolbelt@npm:6.13.21"
-  checksum: 36fd9970bb7fb2b513823497c7a4da648a337d59b889484e4f423ec0188064f1bd2bbaa7af42abbc595c59b38efa27e8a41239346d529fb68a6ab3e0b729d11e
   languageName: node
   linkType: hard
 

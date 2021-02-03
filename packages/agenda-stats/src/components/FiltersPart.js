@@ -47,7 +47,7 @@ export default function FiltersPart({
   const latestQuery = useLatest(query);
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['agenda-stats', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,

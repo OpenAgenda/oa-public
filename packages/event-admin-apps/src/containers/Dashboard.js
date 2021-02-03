@@ -22,11 +22,10 @@ import { FiltersProvider } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPart from '../components/FiltersPart';
 import FiltersPreview from '../components/FiltersPreview';
-import StateSelector from '../components/StateSelector';
 import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
-import getLocaleValue from '../utils/getLocaleValue';
 import RemoveModal from '../components/RemoveModal';
+import EventItem from '../components/EventItem';
 
 const searchSpinner = {
   width: 1,
@@ -45,18 +44,6 @@ const messages = defineMessages({
     defaultMessage:
       '<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}{filters}',
   },
-  createdBy: {
-    id: 'EventAdminApp.Dashboard.createdBy',
-    defaultMessage: 'Created by <link>{name}</link>',
-  },
-  addedBy: {
-    id: 'EventAdminApp.Dashboard.addedBy',
-    defaultMessage: 'Added by <link>{name}</link>',
-  },
-  aggregatedFrom: {
-    id: 'EventAdminApp.Dashboard.aggregatedFrom',
-    defaultMessage: 'Aggregated from <link>{title}</link>',
-  },
   filters: {
     id: 'EventAdminApp.Dashboard.filters',
     defaultMessage: 'Filters',
@@ -64,26 +51,6 @@ const messages = defineMessages({
   searchPlaceholder: {
     id: 'EventAdminApp.Dashboard.searchPlaceholder',
     defaultMessage: 'Search',
-  },
-  edit: {
-    id: 'EventAdminApp.Dashboard.edit',
-    defaultMessage: 'Edit',
-  },
-  contact: {
-    id: 'EventAdminApp.Dashboard.contact',
-    defaultMessage: 'Contact',
-  },
-  showLocation: {
-    id: 'EventAdminApp.Dashboard.showLocation',
-    defaultMessage: 'Show location',
-  },
-  delete: {
-    id: 'EventAdminApp.Dashboard.delete',
-    defaultMessage: 'Delete',
-  },
-  remove: {
-    id: 'EventAdminApp.Dashboard.remove',
-    defaultMessage: 'Remove from agenda',
   },
 });
 
@@ -166,7 +133,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     const { event } = removeModal.data;
 
     apiClient.delete(`/${agenda.slug}/events/${event.slug}`).then(
-      () => queryClient.refetchQueries('events').catch(() => null),
+      () => queryClient
+        .refetchQueries(['event-admin-apps', 'events'])
+        .catch(() => null),
       e => console.log('ERROR', e)
     );
 
@@ -174,7 +143,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }, [agenda.slug, apiClient, queryClient, removeModal]);
 
   const filtersQuery = useQuery(
-    'filters-base',
+    ['event-admin-apps', 'filtersBase'],
     () => getEvents(
       apiClient,
       res.jsonExport,
@@ -198,7 +167,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     isFetchingNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
-    ['events', query],
+    ['event-admin-apps', 'events', query],
     ({ pageParam }) => getEvents(
       apiClient,
       res.jsonExport,
@@ -227,6 +196,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         const search = qs.stringify(query, {
           addQueryPrefix: true,
           arrayFormat: 'brackets',
+          skipNulls: true,
         });
 
         if (history.location.search !== search) {
@@ -265,6 +235,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     const search = qs.stringify(latestQuery.current, {
       addQueryPrefix: true,
       arrayFormat: 'brackets',
+      skipNulls: true,
     });
 
     if (history.location.search !== search) {
@@ -346,119 +317,13 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         {data.pages.map((page, pageIndex) => (
           <React.Fragment key={seed(page)}>
             {page.events.map(event => (
-              <li key={event.uid} className="margin-top-md">
-                <div>
-                  <a
-                    href={`/${agenda.slug}/events/${event.slug}`}
-                    css={css`
-                      color: inherit;
-                    `}
-                  >
-                    <b>{getLocaleValue(event.title, intl.locale)}</b>
-                  </a>
-                </div>
-
-                <div className="margin-top-xs">
-                  {event.location.name},{' '}
-                  {getLocaleValue(event.dateRange, intl.locale)}
-                </div>
-
-                {event.member?.name ? (
-                  <>
-                    {event.originAgenda ? (
-                      <div className="margin-top-xs">
-                        {intl.formatMessage(messages.addedBy, {
-                          name: event.member.name,
-                          link: chunks => <i>{chunks}</i>,
-                        })}
-                      </div>
-                    ) : (
-                      <div className="margin-top-xs">
-                        {intl.formatMessage(messages.createdBy, {
-                          name: event.member.name,
-                          link: chunks => <i>{chunks}</i>,
-                        })}
-                      </div>
-                    )}
-                  </>
-                ) : null}
-
-                {event.sourceAgendas?.length ? (
-                  <div className="margin-top-xs">
-                    {intl.formatMessage(messages.aggregatedFrom, {
-                      title: event.sourceAgendas[0].title,
-                      link: chunks => (
-                        <a href={`/${event.sourceAgendas[0].slug}`}>{chunks}</a>
-                      ),
-                    })}
-                  </div>
-                ) : null}
-
-                <div className="margin-top-xs">
-                  <ul className="list-inline">
-                    <li>
-                      <StateSelector
-                        agenda={agenda}
-                        event={event}
-                        pageIndex={pageIndex}
-                      />
-                    </li>
-
-                    {event.member && event.originAgenda?.uid === agenda.uid ? (
-                      <li>
-                        <a
-                          className="btn btn-link btn-link-inline"
-                          href={`/${agenda.slug}/events/${event.slug}/edit`}
-                        >
-                          {intl.formatMessage(messages.edit)}
-                        </a>
-                      </li>
-                    ) : null}
-
-                    <li>
-                      <a
-                        className="btn btn-link btn-link-inline"
-                        href={`/${agenda.slug}/events/${event.slug}/contact`}
-                      >
-                        {intl.formatMessage(messages.contact)}
-                      </a>
-                    </li>
-
-                    {event.member && event.originAgenda?.uid === agenda.uid ? (
-                      <li>
-                        <a
-                          className="btn btn-link btn-link-inline"
-                          href={`/${agenda.slug}/admin/locations?uids[]=${event.location.uid}`}
-                        >
-                          {intl.formatMessage(messages.showLocation)}
-                        </a>
-                      </li>
-                    ) : null}
-
-                    {event.member && event.originAgenda?.uid === agenda.uid ? (
-                      <li>
-                        <button
-                          type="button"
-                          className="btn btn-link btn-link-inline text-danger"
-                          onClick={() => removeModal.open({ event })}
-                        >
-                          {intl.formatMessage(messages.delete)}
-                        </button>
-                      </li>
-                    ) : (
-                      <li>
-                        <button
-                          type="button"
-                          className="btn btn-link btn-link-inline text-danger"
-                          onClick={() => removeModal.open({ event })}
-                        >
-                          {intl.formatMessage(messages.remove)}
-                        </button>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              </li>
+              <EventItem
+                key={event.uid}
+                agenda={agenda}
+                event={event}
+                pageIndex={pageIndex}
+                openRemoveModal={() => removeModal.open({ event })}
+              />
             ))}
 
             {removeModal.isOpen ? (
