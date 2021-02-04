@@ -84,12 +84,12 @@ export default class FieldForm extends Component {
 
     }
 
-    if ( !values || _.get( this, 'state.errors', [] ).length ) return;
+    if (!values || (this.state?.errors || []).length) return;
 
-    this.props.onSubmit( _.assign( restrictLabelLanguages( values, labelLanguages ), {
+    this.props.onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
       fieldType,
-      field: _.get( field, 'field', slugFromLabel( values.label, lang ) )
-    } ) );
+      field: field?.field || slugFromLabel(values.label, lang)
+    }));
 
   }
 

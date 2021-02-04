@@ -73,11 +73,13 @@ function minMax( { min, max } ) {
 function optional() {
 
   return {
-    fields: [ {
+    fields: [{
       field: 'optional',
       fieldType: 'boolean',
+      optional: true,
+      default: true,
       label: l.fieldFormOptional
-    } ]
+    }]
   }
 
 }
