@@ -50,6 +50,15 @@ module.exports = (event, formSchema = null) => {
         '_search_begin_from_midnight': _secondsMidnightDiff(t.begin, timezone)
       }))
     };
+    transform['_search_timings'] = {
+      $set: event.timings.map(t => ({
+        accessible_until: t.begin
+      })).concat({
+        // this bit is important for search_after.
+        // End of times need to be a manageable date
+        accessible_until: '3000-01-01T01:00:00.000Z'
+      })
+    };
   }
 
   if (event.title) {

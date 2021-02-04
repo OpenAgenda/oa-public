@@ -135,6 +135,14 @@
   "_search_languages": {
     "type": "keyword"
   },
+  "_search_timings": {
+    "type": "nested",
+    "properties": {
+      "accessible_until": {
+        "type": "date"
+      }
+    }
+  },
   "_search_last_timing": {
     "type": "date"
   },
