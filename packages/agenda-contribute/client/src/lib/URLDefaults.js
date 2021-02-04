@@ -1,8 +1,14 @@
 import _ from 'lodash';
+import debug from 'debug';
 import qs from 'qs';
 
+const log = debug('URLDefaults');
+
 const eventWithDefaults = (event, defaults) => {
-  if (!defaults?.event) return event;
+  log('eventWithDefaults', event, defaults);
+  if (!defaults?.event) {
+    return event;
+  }
 
   return {
     ...defaults.event,
