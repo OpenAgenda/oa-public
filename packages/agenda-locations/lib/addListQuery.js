@@ -59,7 +59,7 @@ module.exports = async (service, k, query) => {
   }
 
   if (uids) {
-    k.whereIn('uid', uids);
+    k.whereIn('uid', uids.filter(uid => !!uid));
   }
 
   if (state !== null) {
