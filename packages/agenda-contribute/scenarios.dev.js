@@ -323,7 +323,7 @@ module.exports = [{
     slug: 'with-defaults',
     uid: 12325,
     id: 292839
- },
+  },
   config: Object.assign({}, defaultConfig, {
     base: '/with-defaults/contribute',
     member: {
