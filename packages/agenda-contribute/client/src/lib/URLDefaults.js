@@ -20,7 +20,7 @@ const get = () => {
   const parts = (window?.location?.href || '').split('?');
 
   if (parts.length < 2) {
-    return;
+    return {};
   }
 
   parts.shift();

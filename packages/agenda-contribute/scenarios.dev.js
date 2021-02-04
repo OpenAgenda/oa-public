@@ -309,7 +309,14 @@ module.exports = [{
    }]
  })
 }, {
-  link: `/with-defaults/contribute?${qs.stringify({ defaults: { event: { keywords: { fr: ['un', 'deux', 'trois'] } } } })}`,
+  link: `/with-defaults/contribute?${qs.stringify({
+    defaults: {
+      event: {
+        title: { fr: 'Un titre passé par l\'URL' },
+        keywords: { fr: ['un', 'deux', 'trois'] }
+      }
+    }
+  })}`,
   agenda: {
     title: 'An agenda requiring event member data, defaults passed in query',
     description: 'Default values are passed in query',
