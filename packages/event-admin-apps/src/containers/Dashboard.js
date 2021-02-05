@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import qs from 'qs';
 import React, {
-  useCallback, useMemo, useState, useRef
+  useCallback,
+  useMemo,
+  useState,
+  useRef,
+  useLayoutEffect,
 } from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
@@ -17,7 +21,7 @@ import { OnChange } from 'react-final-form-listeners';
 import { useDebouncedCallback } from 'use-debounce';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
-import { useApiClient, useModal } from '@openagenda/react-shared';
+import { useApiClient, useConstant, useModal } from '@openagenda/react-shared';
 import { FiltersProvider } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPart from '../components/FiltersPart';
@@ -100,6 +104,40 @@ function SearchFilter({ disabled, isLoading }) {
 
       <OnChange name="search">{onChange}</OnChange>
     </>
+  );
+}
+
+function FiltersPortal({
+  filtersContainerRef,
+  agenda,
+  standardsFilters,
+  additionalsFilters,
+  query,
+}) {
+  const intl = useIntl();
+
+  const filtersContainer = useConstant(() => document.createElement('div'));
+
+  useLayoutEffect(() => {
+    filtersContainerRef.current.appendChild(filtersContainer);
+
+    return () => filtersContainerRef.current.removeChild(filtersContainer);
+  }, [filtersContainer, filtersContainerRef]);
+
+  return ReactDOM.createPortal(
+    <div>
+      <div className="margin-bottom-xs">
+        <b>{intl.formatMessage(messages.filters)}</b>
+      </div>
+
+      <FiltersPart
+        agenda={agenda}
+        standardsFilters={standardsFilters}
+        additionalsFilters={additionalsFilters}
+        query={query}
+      />
+    </div>,
+    filtersContainer
   );
 }
 
@@ -346,21 +384,13 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         </div>
       ) : null}
 
-      {ReactDOM.createPortal(
-        <div>
-          <div className="margin-bottom-xs">
-            <b>{intl.formatMessage(messages.filters)}</b>
-          </div>
-
-          <FiltersPart
-            agenda={agenda}
-            standardsFilters={standardsFilters}
-            additionalsFilters={additionalsFilters}
-            query={query}
-          />
-        </div>,
-        filtersContainerRef.current
-      )}
+      <FiltersPortal
+        filtersContainerRef={filtersContainerRef}
+        agenda={agenda}
+        standardsFilters={standardsFilters}
+        additionalsFilters={additionalsFilters}
+        query={query}
+      />
     </FiltersProvider>
   );
 }
