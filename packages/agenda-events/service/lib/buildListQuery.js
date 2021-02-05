@@ -24,6 +24,7 @@ module.exports = (service, query, nav, options = {}) => {
     'agenda_uid',
     'event_uid',
     'user_uid',
+    'can_edit',
     'state',
     'featured',
     'legacy_id'
@@ -80,6 +81,10 @@ function addWheres(k, query) {
 
   if (![null, undefined].includes(query.aggregated)) {
     k.andWhere('aggregated', 1);
+  }
+
+  if (query.canEdit !== undefined) {
+    k.andWhere('can_edit', query.canEdit);    
   }
 }
 

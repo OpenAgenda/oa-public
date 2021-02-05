@@ -27,6 +27,10 @@ const validate = schema({
     type: 'boolean',
     optional: true,
     default: null
+  },
+  canEdit: {
+    type: 'boolean',
+    optional: true
   }
 });
 

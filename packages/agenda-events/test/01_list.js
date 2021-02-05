@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const assert = require('assert');
 const should = require('should');
 
 const Service = require('../');
@@ -11,6 +12,7 @@ const fixtures = require('./fixtures');
 
 const membersFixtures = require('./fixtures/members.json');
 const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
+
 
 describe('agendaEvents - 01 - functional (server): list', function() {
   let svc;
@@ -114,6 +116,24 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     });
 
     result.items.length.should.equal(2);
+  });
+
+  it('filter on canEdit', async () => {
+    const canEditItems = await svc(62792452).list({
+      canEdit: true
+    }, 0, 1).then(r => r.items);
+
+    const cannotEditItems = await svc(62792452).list({
+      canEdit: false
+    }, 0, 1).then(r => r.items);
+
+    const eitherItems = await svc(62792452).list({
+      eventUid: [canEditItems[0].eventUid, cannotEditItems[0].eventUid]
+    }).then(r => r.items);
+
+    assert.equal(canEditItems[0].canEdit, true);
+    assert.equal(cannotEditItems[0].canEdit, false);
+    assert.equal(eitherItems.length, 2);
   });
 
   it('listByLastId for faster list', async () => {
