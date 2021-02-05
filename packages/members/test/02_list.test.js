@@ -21,8 +21,8 @@ describe('members - functional - list', () => {
       interfaces: {
         getUsersByUid,
         getAgendasByUid,
-        getEventCountByUserUid
-      }
+        getEventCountByUserUid,
+      },
     });
   });
 
@@ -54,9 +54,9 @@ describe('members - functional - list', () => {
           contactName: 'Janine Ponceau',
           contactNumber: '0130872171',
           contactPosition: 'Responsable de la diffusion artistique',
-          email: 'janine@ponceau.fr'
+          email: 'janine@ponceau.fr',
         },
-        deletedUser: false
+        deletedUser: false,
       });
     });
 
@@ -67,15 +67,30 @@ describe('members - functional - list', () => {
     test('get member references for multiple userUids', async () => {
       const otherMembers = await svc.list({
         agendaUid: 1,
-        userUid: [1, 2, 22]
+        userUid: [1, 2, 22],
       });
       expect(otherMembers.map(m => m.id)).toEqual([1, 2, 4]);
+    });
+
+    test('get member references for multiple agendaUids', async () => {
+      const membersOfAgendas = await svc.list({
+        agendaUid: [1, 2],
+      });
+
+      const agendaUids = membersOfAgendas.reduce(
+        (carried, member) => (carried.includes(member.agendaUid)
+          ? carried
+          : carried.concat(member.agendaUid)),
+        []
+      );
+
+      expect(agendaUids).toEqual([1, 2]);
     });
 
     test('throw error when agenda does not exist', async () => {
       const otherMembers = await svc.list({
         agendaUid: 42,
-        userUid: [1, 2, 22]
+        userUid: [1, 2, 22],
       });
 
       expect(otherMembers).toHaveLength(0);
@@ -110,7 +125,7 @@ describe('members - functional - list', () => {
           { agendaUid: 1 },
           {
             order: 'slug.desc',
-            limit: 1
+            limit: 1,
           }
         )
       );
@@ -123,7 +138,7 @@ describe('members - functional - list', () => {
           {
             order: 'slug.desc',
             limit: 1,
-            after: ['jean-claude', 2]
+            after: ['jean-claude', 2],
           }
         )
       );
@@ -145,13 +160,13 @@ describe('members - functional - list', () => {
           'agendaId',
           'credential',
           'userId',
-          'actionsCounter'
+          'actionsCounter',
         ])
       ).toEqual({
         agendaId: 923,
         userId: 81289,
         credential: 2,
-        actionsCounter: 12
+        actionsCounter: 12,
       });
     });
 
@@ -164,7 +179,7 @@ describe('members - functional - list', () => {
     test('if query includes "credentials" value, it is interpreted as a "role" filter', async () => {
       const members = await svc.list({
         agendaUid: 1,
-        credentials: 'administrator'
+        credentials: 'administrator',
       });
 
       expect(members[0].id).toBe(1);
@@ -182,7 +197,7 @@ describe('members - functional - list', () => {
       const members = await svc.list(
         { agendaUid: 1 },
         {
-          order: 'id.desc'
+          order: 'id.desc',
         }
       );
 
@@ -193,7 +208,7 @@ describe('members - functional - list', () => {
       const members = await svc.list(
         { agendaUid: 1 },
         {
-          order: 'slug.asc'
+          order: 'slug.asc',
         }
       );
 
@@ -201,7 +216,7 @@ describe('members - functional - list', () => {
         null,
         'albertine',
         'janine',
-        'jean-claude'
+        'jean-claude',
       ]);
     });
 
@@ -209,7 +224,7 @@ describe('members - functional - list', () => {
       const members = await svc.list(
         { agendaUid: 1 },
         {
-          order: 'slug.desc'
+          order: 'slug.desc',
         }
       );
 
@@ -217,7 +232,7 @@ describe('members - functional - list', () => {
         'jean-claude',
         'janine',
         'albertine',
-        null
+        null,
       ]);
     });
 
@@ -225,7 +240,7 @@ describe('members - functional - list', () => {
       const { stakeholders } = await svc.list(
         { agendaUid: 1 },
         {
-          order: 'actionsCounter.desc'
+          order: 'actionsCounter.desc',
         },
         { legacy: true }
       );
@@ -241,7 +256,7 @@ describe('members - functional - list', () => {
             {
               limit: 2,
               order: 'actionsCounter.desc',
-              after: [5, 2]
+              after: [5, 2],
             }
           )
         )[0].id
@@ -256,7 +271,7 @@ describe('members - functional - list', () => {
         { agendaUid: 1 },
         { limit: 2, order: 'actionsCounter.asc' },
         {
-          transform: m => m.id
+          transform: m => m.id,
         }
       );
 
@@ -293,7 +308,7 @@ describe('members - functional - list', () => {
       expect(members[0].user).toEqual({
         id: 10293,
         uid: 1,
-        fullName: 'Janine Ponceau'
+        fullName: 'Janine Ponceau',
       });
     });
 
@@ -301,14 +316,14 @@ describe('members - functional - list', () => {
       expect(members[0].agenda).toEqual({
         id: 10932,
         uid: 1,
-        title: 'Les JEP'
+        title: 'Les JEP',
       });
     });
 
     test('when total and detailed are true, counts for each role are provided', async () => {
       const otherMembers = await svc.list(
         {
-          agendaUid: 1
+          agendaUid: 1,
         },
         { limit: 1 },
         { total: true, detailed: true }
@@ -318,7 +333,7 @@ describe('members - functional - list', () => {
 
       expect(otherMembers.totalPerRole).toEqual({
         contributor: 3,
-        administrator: 1
+        administrator: 1,
       });
     });
   });
@@ -335,7 +350,7 @@ describe('members - functional - list', () => {
       const members = await svc.list(
         {
           agendaUid: 1,
-          withActions: false
+          withActions: false,
         },
         { limit: 1 }
       );
@@ -347,7 +362,7 @@ describe('members - functional - list', () => {
       const members = await svc.list(
         {
           agendaUid: 1,
-          withActions: true
+          withActions: true,
         },
         { limit: 1 }
       );
@@ -389,7 +404,7 @@ describe('members - functional - list', () => {
     test('when deletedUser is true, only members marked as associated with deleted user are in results', async () => {
       const members = await svc.list({
         agendaUid: 1,
-        deletedUser: true
+        deletedUser: true,
       });
 
       expect(members).toHaveLength(1);
@@ -408,7 +423,7 @@ describe('members - functional - list', () => {
         { limit: 0 },
         {
           total: true,
-          detailed: true
+          detailed: true,
         }
       );
 

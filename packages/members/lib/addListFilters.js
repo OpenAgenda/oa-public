@@ -12,37 +12,40 @@ schema.register({
   integer,
   choice,
   text,
-  boolean
+  boolean,
 });
 
 const validate = schema({
   id: {
     type: 'integer',
     list: {
-      default: null
-    }
+      default: null,
+    },
   },
   agendaUid: {
-    type: 'integer'
+    type: 'integer',
+    list: {
+      default: null,
+    },
   },
   userUid: {
     type: 'integer',
     list: {
-      default: null
-    }
+      default: null,
+    },
   },
   withUser: {
     type: 'boolean',
-    default: null
+    default: null,
   },
   deletedUser: {
     type: 'boolean',
     default: false,
-    allowNull: true
+    allowNull: true,
   },
   withActions: {
     type: 'boolean',
-    default: null
+    default: null,
   },
   role: {
     type: 'choice',
@@ -54,13 +57,13 @@ const validate = schema({
       roles.ADMINISTRATOR,
       roles.MODERATOR,
       roles.CONTRIBUTOR,
-      roles.READER
-    ]
+      roles.READER,
+    ],
   },
   search: {
     type: 'text',
-    max: 255
-  }
+    max: 255,
+  },
 });
 
 function _extractLegacyParts(query) {
@@ -84,7 +87,7 @@ module.exports = (k, query) => {
     search,
     withUser,
     deletedUser,
-    withActions
+    withActions,
   } = validate(
     Object.keys(legacyParts).length ? { ...query, ...legacyParts } : query
   );
@@ -93,8 +96,10 @@ module.exports = (k, query) => {
     throw new Error('neither agendaUid or userUid are specified');
   }
 
-  if (agendaUid) {
+  if (agendaUid && agendaUid.length === 1) {
     k.where('agenda_uid', agendaUid);
+  } else if (agendaUid) {
+    k.whereIn('agenda_uid', agendaUid);
   }
 
   if (id) {
