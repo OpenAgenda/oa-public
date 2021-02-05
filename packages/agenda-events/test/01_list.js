@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const assert = require('assert');
-const should = require('should');
 
 const Service = require('../');
 const config = require('../testconfig');
@@ -12,6 +11,7 @@ const fixtures = require('./fixtures');
 
 const membersFixtures = require('./fixtures/members.json');
 const sourceAgendasFixtures = require('./fixtures/sourceAgendas.json');
+const { equal } = require('assert');
 
 
 describe('agendaEvents - 01 - functional (server): list', function() {
@@ -43,7 +43,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   it('simple list', async () => {
     const result = await svc(62792452).list(100, 10);
 
-    Object.keys(result).should.eql(['items', 'total']);
+    assert.deepEqual(Object.keys(result), ['items', 'total']);
   });
 
   it('list with member decorate provides members for each returned item', async () => {
@@ -51,13 +51,16 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       items
     } = await svc(62792452).list(100, 10, { decorate: ['member'] });
 
-    items.filter(i => i.member).length.should.equal(4);
+    assert.equal(items.filter(i => i.member).length, 4);
 
-    items.filter(i => i.member)[0].member.should.eql({
-      agendaUid: 62792452,
-      userUid: 123,
-      role: 2
-    });
+    assert.deepEqual(
+      items.filter(i => i.member)[0].member,
+      {
+        agendaUid: 62792452,
+        userUid: 123,
+        role: 2
+      }
+    );
   });
 
   it('list with sourceAgendas decorate provides source agendas for each returned item', async () => {
@@ -65,12 +68,12 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       items
     } = await svc(62792452).list(100, 10, { decorate: ['sourceAgendas'] });
 
-    items[0].sourceAgendas.should.eql([
+    assert.deepEqual(items[0].sourceAgendas, [
       { uid: 7878876, title: 'Papadapap' },
       { uid: 789679, title: 'Castoche' }
     ]);
 
-    items[7].sourceAgendas.should.eql([{
+    assert.deepEqual(items[7].sourceAgendas, [{
       uid: 5675765,
       title: 'Dièse'
     }]);
@@ -81,13 +84,13 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       state: states.PUBLISHED
     }, 0, 10);
 
-    result.total.should.equal(2);
+    assert.equal(result.total, 2);
   });
 
   it('query can be omitted', async () => {
     const result = await svc(62792452).list(0, 10);
 
-    result.items.length.should.equal(10);
+    assert.equal(result.items.length, 10);
   });
 
   it('list filtered by state using string in query', async () => {
@@ -95,19 +98,19 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       state: 'published'
     }, 0, 10);
 
-    result.total.should.equal(2);
+    assert.equal(result.total, 2);
   });
 
   it('list filtered by aggregated boolean', async () => {
     const result = await svc(62792452).list({ aggregated: true }, 0, 0);
 
-    result.total.should.equal(1);
+    assert.equal(result.total, 1);
   });
 
   it('total gives an integer equal to the total number of items', async () => {
     const result = await svc(62792452).list(100, 10);
 
-    result.total.should.equal(2288);
+    assert.equal(result.total, 2288);
   });
 
   it('list for several event uids', async () => {
@@ -115,7 +118,7 @@ describe('agendaEvents - 01 - functional (server): list', function() {
       eventUid: [54434612, 28028226]
     });
 
-    result.items.length.should.equal(2);
+    assert.equal(result.items.length, 2);
   });
 
   it('filter on canEdit', async () => {
@@ -145,40 +148,42 @@ describe('agendaEvents - 01 - functional (server): list', function() {
 
     const next = await svc(62792452).listByLastId(lastId, 10);
 
-    lastId.should.equal(437234);
-
-    next.lastId.should.equal(437415);
+    assert.equal(lastId, 437234);
+    assert.equal(next.lastId, 437415);
   });
 
   it('list by event uid', async () => {
     const { items } = await svc.list.byEventUid(54434612, 0, 20);
 
-    items.length.should.equal(1);
+    assert.equal(items.length, 1);
   });
 
   it('list by event uid and filtering out agenda uid from results', async () => {
     const { items } = await svc.list.byEventUid(54434612, { excludeAgendaUid: 62792452 }, 0, 1);
 
-    items.length.should.equal(0);
+    assert.equal(items.length ,0);
   });
 
   it('an item contains agenda & event references, state, featured bool and custom data', async () => {
 
     const result = await svc(62792452).list(0, 1);
 
-    Object.keys(result.items[0]).should.eql([
-      'eventUid',
-      'agendaUid',
-      'userUid',
-      'aggregated',
-      'sourcePaths',
-      'featured',
-      'canEdit',
-      'state',
-      'legacyId',
-      'createdAt',
-      'updatedAt'
-    ]);
+    assert.deepEqual(
+      Object.keys(result.items[0]),
+      [
+        'eventUid',
+        'agendaUid',
+        'userUid',
+        'aggregated',
+        'sourcePaths',
+        'featured',
+        'canEdit',
+        'state',
+        'legacyId',
+        'createdAt',
+        'updatedAt'
+      ]
+    );
 
   });
 
