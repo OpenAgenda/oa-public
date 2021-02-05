@@ -204,14 +204,14 @@ describe('event-search - unit: utils', function() {
     it('default is sort by timings future asc, passed desc', () => {
       assert.deepEqual(
         getDSLSortPart(), [{
-          'timings.end': {
+          '_search_timings.accessible_until': {
             mode: 'min',
             order: 'asc',
             nested: {
-              path: 'timings',
+              path: '_search_timings',
               filter: {
                 range: {
-                  'timings.end': {
+                  '_search_timings.accessible_until': {
                     gte: 'now'
                   }
                 }

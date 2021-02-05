@@ -1,5 +1,7 @@
 'use strict';
 
+const qs = require('qs');
+
 const defaultConfig = {
   base: null, // required. base route for app.
   lang: 'fr',
@@ -307,14 +309,21 @@ module.exports = [{
    }]
  })
 }, {
-  link: '/with-defaults/contribute?default=fdqfdsqfdsq',
+  link: `/with-defaults/contribute?${qs.stringify({
+    defaults: {
+      event: {
+        title: { fr: 'Un titre passé par l\'URL' },
+        keywords: { fr: ['un', 'deux', 'trois'] }
+      }
+    }
+  })}`,
   agenda: {
     title: 'An agenda requiring event member data, defaults passed in query',
     description: 'Default values are passed in query',
     slug: 'with-defaults',
     uid: 12325,
     id: 292839
- },
+  },
   config: Object.assign({}, defaultConfig, {
     base: '/with-defaults/contribute',
     member: {

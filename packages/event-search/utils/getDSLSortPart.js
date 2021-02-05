@@ -13,14 +13,14 @@ module.exports = (s = []) => {
 
   if (sorts[0].split('.')[0] === 'timings') {
     return [{
-      'timings.end' : {
+      '_search_timings.accessible_until' : {
         mode: 'min',
         order: 'asc',
         nested: {
-          path: 'timings',
+          path: '_search_timings',
           filter: {
             range: {
-              'timings.end' : { 'gte': 'now' }
+              '_search_timings.accessible_until' : { 'gte': 'now' }
             }
           }
         }

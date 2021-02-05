@@ -12,21 +12,32 @@ import ButtonSpinner from '../components/ButtonSpinner';
 import reducers from '../reducers';
 
 import deduceSteps from '../lib/deduceSteps';
+import { eventWithDefaults } from '../lib/URLDefaults';
 
 export default connect(
-  state => deduceSteps( 'event', state ),
-  dispatch => ( {
-    onCreateSuccess: ( values, response ) => dispatch( reducers.event.created( values, response ) ),
-    onDidMount: () => dispatch( reducers.landing.evaluate( 'event' ) ),
-    onSelectStep: step => dispatch( reducers.landing.evaluate( step, true ) ),
-    onDraftDelete: () => dispatch( reducers.event.deleteDraft() )
-  } )
-)( ( { config, event, onCreateSuccess, onDidMount, onDraftDelete, onSelectStep, steps, member } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
+  state => deduceSteps('event', state),
+  dispatch => ({
+    onCreateSuccess: (values, response) => dispatch(reducers.event.created(values, response)),
+    onDidMount: () => dispatch(reducers.landing.evaluate('event')),
+    onSelectStep: step => dispatch(reducers.landing.evaluate(step, true)),
+    onDraftDelete: () => dispatch(reducers.event.deleteDraft())
+  })
+)(({
+  config,
+  event,
+  defaults,
+  onCreateSuccess,
+  onDidMount,
+  onDraftDelete,
+  onSelectStep,
+  steps,
+  member
+}) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
 
-  <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
+  <Instructions message={_.get(config, 'event.message')} className="margin-bottom-lg" />
 
   <EventForm
-    role={_.get( member, 'role' )}
+    role={_.get(member, 'role')}
     withErrors={false}
     maxFileSize={config.maxFileSize}
     schemaExtensions={config.schemaExtensions}
@@ -36,7 +47,7 @@ export default connect(
     suggestionsRes={config.suggestionsRes}
     mapboxKey={config.mapboxKey}
     lang={config.lang}
-    values={event}
+    values={eventWithDefaults(event, defaults)}
     onSubmitSuccess={onCreateSuccess}
     classNames={{
       fieldsCanvas: 'padding-all-md wsq padding-bottom-sm',
@@ -44,13 +55,13 @@ export default connect(
     }}
     actionComponents={[ {
       position: 'bottom',
-      Component: ( { onSubmit, loading } ) => <div className="wsq padding-all-md">
-        { _.get( event, 'draft' ) ? <button disabled={loading} onClick={ e => onDraftDelete() } className="btn btn-danger btn-block margin-bottom-md">{labels.deleteDraft[ config.lang ]}</button> : null }
-        <button disabled={loading} onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels[ _.get( event, 'draft' ) ? 'updateDraft' : 'draft' ][ config.lang ]}</button>
+      Component: ({ onSubmit, loading }) => <div className="wsq padding-all-md">
+        { _.get(event, 'draft') ? <button disabled={loading} onClick={ e => onDraftDelete() } className="btn btn-danger btn-block margin-bottom-md">{labels.deleteDraft[ config.lang ]}</button> : null }
+        <button disabled={loading} onClick={ e => onSubmit(e, { draft: true })} className="btn btn-default btn-block margin-bottom-md">{labels[ _.get(event, 'draft') ? 'updateDraft' : 'draft' ][ config.lang ]}</button>
         <button disabled={loading} onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
         { loading && <ButtonSpinner /> }
       </div>
     } ]}
   />
 
-</Canvas> );
+</Canvas>);

@@ -191,6 +191,10 @@ describe('agenda-locations - functional - list', function () {
         uids
       );
     });
+
+    it('fix: undefined uids are filtered out from query', async () => {
+      await svc(7196947).list({ uids: [10175539, undefined] });
+    });
   });
 
   describe('stream', function () {

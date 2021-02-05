@@ -20,6 +20,7 @@
     "body-parser": "^1.18.2",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
+    "debug": "^4.1.1",
     "express": "^4.17.1",
     "history": "^4.10.1",
     "immutability-helper": "^3.0.1",
@@ -37,7 +38,8 @@
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.3",
     "serialize-javascript": "^2.1.0",
-    "superagent": "^3.8.3"
+    "superagent": "^3.8.3",
+    "qs": "^6.9.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

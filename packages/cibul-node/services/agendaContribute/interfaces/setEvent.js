@@ -15,6 +15,7 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
     ...options
   };
 
+  const strippedOfState = _.omit(data, ['state']);
 
   log(!current ? 'this is a create' : 'this is an update');
 
@@ -30,12 +31,12 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
     if (!current) {
       log(draft ? 'creating draft' : 'creating event');
       return {
-        event: await core.agendas(agenda.uid).events.create(data, coreOptions)
+        event: await core.agendas(agenda.uid).events.create(strippedOfState, coreOptions)
       };
     } else {
       log(draft ? 'updating draft' : 'updating event');
       return {
-        event: await core.agendas(agenda.uid).events.update(current.uid, data, coreOptions),
+        event: await core.agendas(agenda.uid).events.update(current.uid, strippedOfState, coreOptions),
         success: true
       };
     }

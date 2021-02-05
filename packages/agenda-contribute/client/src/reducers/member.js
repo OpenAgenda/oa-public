@@ -1,27 +1,20 @@
-import _ from 'lodash';
-
 const actionTypes = {
   UPDATE: 'agenda-contribute/member/UPDATE'
 };
 
-module.exports = _.extend( reducer, {
+module.exports = Object.assign(reducer, {
   updated,
   actionTypes
-} );
+});
 
 
-function reducer( state = {}, action = {} ) {
-
-  switch ( action.type ) {
-
+function reducer(state = {}, action = {}) {
+  switch (action.type) {
     case actionTypes.UPDATE:
-
       return action.member;
-
   }
 
   return state;
-
 }
 
 
@@ -29,18 +22,12 @@ function reducer( state = {}, action = {} ) {
  * member data update was confirmed by server
  */
 
-function updated( member ) {
-
-  return ( dispatch, getState, history ) => {
-
+function updated(member) {
+  return (dispatch, getState, history) => {
     const state = getState();
-
     const { base } = state.config;
 
-    dispatch( { type: actionTypes.UPDATE, member } );
-
-    return history.push( base + '/event' );
-
+    dispatch({ type: actionTypes.UPDATE, member });
+    return history.push(base + '/event');
   }
-
 }

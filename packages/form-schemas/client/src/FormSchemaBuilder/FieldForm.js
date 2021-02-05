@@ -11,27 +11,27 @@ import optionsValidator from './lib/optionsValidator';
 
 import FormSchemaComponent from '../';
 
-const fieldOrder = order => ( { fields: order.map( f => ( { field: f, fieldType: 'abstract' } ) ) } );
+const fieldOrder = order => ({ fields: order.map(f => ({ field: f, fieldType: 'abstract' })) });
 
 const fieldSchemaTypes = {
-  labels: ( { labelLanguages } ) => fg.labels( { labelLanguages } ),
-  textLike: ( { labelLanguages } ) => merge(
-    fg.labels( { labelLanguages } ),
-    fg.minMax( { min: 0, max: 255 } ),
+  labels: ({ labelLanguages }) => fg.labels({ labelLanguages }),
+  textLike: ({ labelLanguages }) => merge(
+    fg.labels({ labelLanguages }),
+    fg.minMax({ min: 0, max: 255 }),
     fg.optional(),
-    fieldOrder( [ 'label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub' ] )
-  ),
-  radioLike: ( { labelLanguages } ) => merge(
-    fg.labels( { labelLanguages } ),
+    fieldOrder(['label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub'])
+ ),
+  radioLike: ({ labelLanguages }) => merge(
+    fg.labels({ labelLanguages }),
     fg.optional(),
-    fg.options( { labelLanguages } ),
-    fieldOrder( [ 'label', 'optional', 'options', 'placeholder', 'sub' ] )
-  )
+    fg.options({ labelLanguages }),
+    fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub'])
+ )
 };
 
 const schemas = fieldType => {
 
-  switch ( fieldType ) {
+  switch (fieldType) {
     case 'text':
     case 'textarea':
     case 'markdown':
@@ -51,45 +51,45 @@ const schemas = fieldType => {
 
 export default class FieldForm extends Component {
 
-  constructor( props ) {
+  constructor(props) {
 
-    super( props );
+    super(props);
 
     const { labelLanguages, field, lang } = props;
 
     this.state = {
-      values: labelLanguages.length ? unflattenLabels( field, labelLanguages ) : flattenLabels( field, lang ),
+      values: labelLanguages.length ? unflattenLabels(field, labelLanguages) : flattenLabels(field, lang),
       errors: []
     }
 
   }
 
-  onChange( { values, errors } ) {
+  onChange({ values, errors }) {
 
-    this.setState( { errors, values } );
+    this.setState({ errors, values });
 
   }
 
-  onSubmit( sanitize ) {
+  onSubmit(sanitize) {
 
     const { lang, field, fieldType, labelLanguages } = this.props;
 
     const { values } = this.state;
 
-    const { errors } = sanitize( values );
+    const { errors } = sanitize(values);
 
-    if ( errors.length ) {
+    if (errors.length) {
 
-      return this.setState( { errors } );
+      return this.setState({ errors });
 
     }
 
-    if ( !values || _.get( this, 'state.errors', [] ).length ) return;
+    if (!values || (this.state?.errors || []).length) return;
 
-    this.props.onSubmit( _.assign( restrictLabelLanguages( values, labelLanguages ), {
+    this.props.onSubmit(Object.assign(restrictLabelLanguages(values, labelLanguages), {
       fieldType,
-      field: _.get( field, 'field', slugFromLabel( values.label, lang ) )
-    } ) );
+      field: field?.field || slugFromLabel(values.label, lang)
+    }));
 
   }
 
@@ -102,7 +102,7 @@ export default class FieldForm extends Component {
       actionComponent
     } = this.props;
 
-    const schema = schemas( fieldType )( { labelLanguages } );
+    const schema = schemas(fieldType)({ labelLanguages });
 
     schema.custom = {
       options: optionsValidator
@@ -116,15 +116,15 @@ export default class FieldForm extends Component {
         components={{
           options: Options
         }}
-        onChange={this.onChange.bind( this )}
+        onChange={this.onChange.bind(this)}
         lang={lang}
         schema={schema}
-        actionComponents={[ {
+        actionComponents={[{
           position: 'bottom',
-          Component: ( { sanitize } ) => actionComponent( {
-            onSubmit: this.onSubmit.bind( this, sanitize )
-          } )
-        } ]}
+          Component: ({ sanitize }) => actionComponent({
+            onSubmit: this.onSubmit.bind(this, sanitize)
+          })
+        }]}
       />
     </div>
 
