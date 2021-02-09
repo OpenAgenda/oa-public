@@ -5,7 +5,6 @@ const AgendaEvents = require('@openagenda/agenda-events');
 const eventStates = require('@openagenda/agendas/service/validate/eventStates');
 
 const beforeRemove = require('./beforeRemove');
-const getMembers = require('./getMembers');
 const onCreate = require('./onCreate');
 const onUpdate = require('./onUpdate');
 const onRemove = require('./onRemove');
@@ -47,7 +46,10 @@ module.exports = Object.assign(plugApp, {
       onUpdate: onUpdate.bind(null, { config, services }),
       onRemove: onRemove.bind(null, { services }),
       beforeRemove: beforeRemove.bind(null, { services }),
-      getMembers,
+      getMembers: (aes = []) => services.members.list({
+        agendaUid: aes?.[0]?.agendaUid,
+        userUid: aes.map(ae => ae.userUid).filter(userUid => !!userUid)
+      }),
       getSourceAgendas: uids => services.agendas
         .list({ uid: uids })
         .then(({ agendas }) => agendas)
