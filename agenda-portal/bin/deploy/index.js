@@ -35,9 +35,9 @@ module.exports = async (preloaded = {}) => {
     || (await term('which port do you wish to use for development?', {
       default: 3000
     }));
-  env.IFRAMABLE = preloaded.IFRAMABLE;
-  if (env.IFRAMABLE === undefined) {
-    env.IFRAMABLE = (await confirm(
+  env.PORTAL_IFRAMABLE = preloaded.PORTAL_IFRAMABLE;
+  if (env.PORTAL_IFRAMABLE === undefined) {
+    env.PORTAL_IFRAMABLE = (await confirm(
       'Is the portal going to run inside an iframe?',
       { default: false }
     ))
