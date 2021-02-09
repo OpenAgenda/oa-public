@@ -274,6 +274,40 @@ describe('timings', () => {
       assert.equal(timings[0].begin.minutes, 2);
     });
 
+    it('fix: dhm timings sort', () => {
+
+      const timings = validateTimings()([
+        {
+          "begin": {
+            "date": "2021-04-30",
+            "hours": "10",
+            "minutes": "00"
+          },
+          "end": {
+            "date": "2021-04-30",
+            "hours": "12",
+            "minutes": "00"
+          }
+        },
+        {
+          "begin": {
+            "date": "2021-05-03",
+            "hours": "10",
+            "minutes": "00"
+          },
+          "end": {
+            "date": "2021-05-03",
+            "hours": "12",
+            "minutes": "00"
+          }
+        }
+      ]);
+
+      assert.equal(timings[1].begin.date, '2021-05-03');
+      
+    });
+
+
   });
 
   describe('convertDateHoursMinutes', () => {

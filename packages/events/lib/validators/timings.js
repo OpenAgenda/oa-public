@@ -51,7 +51,7 @@ module.exports = (options = {}) => timings => {
   }
   
   if (isDHM) {
-    return cleanTimings.sort((t1, t2) => DHMToString(t1) < DHMToString(t2) ? 1 : -1);
+    return cleanTimings.sort((t1, t2) => DHMToString(t1.begin) < DHMToString(t2.begin) ? -1 : 1);
   }
 
   return cleanTimings.sort((t1, t2) => t1.begin < t2.begin ? -1 : 1);
