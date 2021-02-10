@@ -53,15 +53,13 @@ module.exports = async options => {
 
   const app = devApp || express();
 
-  const config = _.assign(
-    {
-      eventsPerPage: 20,
-      assetsRoot: null,
-      jsonExportVersion: 1,
-      defaultTimezone: 'Europe/Paris'
-    },
-    options
-  );
+  const config = {
+    eventsPerPage: 20,
+    assetsRoot: null,
+    jsonExportVersion: 1,
+    defaultTimezone: 'Europe/Paris',
+    ...options
+  };
 
   const {
     // eventHook,
@@ -75,7 +73,7 @@ module.exports = async options => {
     eventsPerPage, // optional number of events to load per page
     defaultFilter, // optional: filter that applies when no other filter is set
     // cache,
-    proxy,
+    proxy: injectedProxy,
     jsonExportVersion,
     assetsRoot,
     middlewareHooks
@@ -86,19 +84,17 @@ module.exports = async options => {
   app.engine('hbs', hbs.__express);
   hbs.registerPartials(`${views}/partials`);
 
-  _.assign(app.locals, config);
+  Object.assign(app.locals, config);
 
-  app.set(
-    'proxy',
-    proxy
-      || Proxy({
-        jsonExportVersion,
-        key,
-        defaultLimit: eventsPerPage,
-        defaultFilter,
-        defaultTimezone
-      })
-  );
+  const proxy = injectedProxy || Proxy({
+    jsonExportVersion,
+    key,
+    defaultLimit: eventsPerPage,
+    defaultFilter,
+    defaultTimezone
+  });
+
+  app.set('proxy', proxy);
 
   app.set('transforms', {
     event: _.pick(EventTransforms(app.locals), ['listItem', 'show'])
