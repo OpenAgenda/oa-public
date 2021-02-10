@@ -7,12 +7,15 @@ const ih = require('immutability-helper');
 const agendaParser = require('../agenda').parser;
 const getRoleSlug = require('@openagenda/members').utils.getRoleSlug;
 
+const makeLabelGetter = require('@openagenda/labels');
 const flattenLabels = require('@openagenda/labels/flatten');
 
 const tabReference = require('./tabs.json');
 
 const headerLabels = require('@openagenda/labels/agenda-admin/header');
 const tabLabels = require('@openagenda/labels/agenda-admin/tabs');
+const getHeaderLabels = makeLabelGetter(headerLabels);
+const getTabLabels = makeLabelGetter(tabLabels);
 
 module.exports = {
   parent: 'main',
@@ -29,11 +32,11 @@ function parser(data) {
     .map(tab => _formatTab({ agenda, tab, lang, selectedTab }));
 
   const adminData = ih(agendaParser(data), {
-    adminLabels: { $set: flattenLabels(headerLabels, data.lang) },
-    tabLabels: { $set: flattenLabels(tabLabels, data.lang) },
+    adminLabels: { $set: flattenLabels(headerLabels, data.lang, 'en') },
+    tabLabels: { $set: flattenLabels(tabLabels, data.lang, 'en') },
     sections: {
       $set: ['manage', 'export', 'settings'].map(s => ({
-        label: headerLabels[s][lang],
+        label: getHeaderLabels(s, lang),
         tabs: tabs.filter(t => t.section === s)
       }))
     }
@@ -63,7 +66,7 @@ function _formatTab({ agenda, tab, lang, selectedTab }) {
 
   return ih(tab, {
     label: {
-      $set: tabLabels[tab.name][lang]
+      $set: getTabLabels(tab.name, lang)
     },
     link: {
       $set: `${_phpLinkPrefix(tab)}/${agenda.slug}/admin${tab.route !== undefined ? tab.route : '/' + tab.name}`
