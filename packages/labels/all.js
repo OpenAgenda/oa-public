@@ -38,7 +38,7 @@ function getLabelsDirectories() {
   for ( let file of files ) {
     let stats = fs.statSync( path.join( __dirname, file ) );
 
-    if ( stats.isDirectory() && !~[ 'node_modules', '.git', '.idea', 'test', 'lib' ].indexOf( file ) ) {
+    if ( stats.isDirectory() && !~[ 'node_modules', '.git', '.idea', '.crowdin', 'test', 'lib' ].indexOf( file ) ) {
       results = results.concat( walkSync( file ) );
     }
   }
