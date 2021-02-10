@@ -145,8 +145,7 @@
           ]
         },
         "undefined": {
-          "value": [
-          ]
+          "value": []
         }
       },
       "type": 5,
@@ -343,8 +342,7 @@
       "value": "Rechercher un agenda source"
     }
   ],
-  "aggregator-sources.Dashboard.sourceAgendas": [
-  ],
+  "aggregator-sources.Dashboard.sourceAgendas": null,
   "aggregator-sources.Dashboard.sourcesExplanation": [
     {
       "type": 0,
@@ -549,8 +547,7 @@
     {
       "options": {
         "other": {
-          "value": [
-          ]
+          "value": []
         },
         "true": {
           "value": [
@@ -579,8 +576,7 @@
     {
       "options": {
         "other": {
-          "value": [
-          ]
+          "value": []
         },
         "true": {
           "value": [

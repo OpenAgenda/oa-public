@@ -1,7 +1,7 @@
 {
   "react-layouts.AdminHeader.administration": "Administration",
-  "react-layouts.AdminSections.newTab": "Nouveau !",
   "react-layouts.AdminHeader.return": "Aller à l'accueil de l'agenda",
+  "react-layouts.AdminSections.newTab": "Nouveau !",
   "react-layouts.MainLayout.createAgenda": "Créer un agenda",
   "react-layouts.MainLayout.general": "Général",
   "react-layouts.MainLayout.help": "Aide",

@@ -1,18 +1,10 @@
 {
-  "ReactShared.ImageInput.acceptedFiles": [
-  ],
-  "ReactShared.ImageInput.fileTooLarge": [
-  ],
-  "ReactShared.ImageInput.fileTooSmall": [
-  ],
-  "ReactShared.ImageInput.notSupported": [
-  ],
-  "ReactShared.ImageInput.remove": [
-  ],
-  "ReactShared.ImageInput.tooManyFiles": [
-  ],
-  "ReactShared.ImageInput.update": [
-  ],
-  "ReactShared.ImageInput.upload": [
-  ]
+  "ReactShared.ImageInput.acceptedFiles": null,
+  "ReactShared.ImageInput.fileTooLarge": null,
+  "ReactShared.ImageInput.fileTooSmall": null,
+  "ReactShared.ImageInput.notSupported": null,
+  "ReactShared.ImageInput.remove": null,
+  "ReactShared.ImageInput.tooManyFiles": null,
+  "ReactShared.ImageInput.update": null,
+  "ReactShared.ImageInput.upload": null
 }

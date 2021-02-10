@@ -1,122 +1,62 @@
 {
-  "rtp.defineTiming": [
-  ],
-  "rtp.definedTimings": [
-  ],
-  "rtp.definedTimingsInRange": [
-  ],
-  "rtp.editForm.adjust": [
-  ],
-  "rtp.editForm.endNotAfterBegin": [
-  ],
-  "rtp.editForm.endTime": [
-  ],
-  "rtp.editForm.invalidTime": [
-  ],
-  "rtp.editForm.openRecurrencerModal": [
-  ],
-  "rtp.editForm.startTime": [
-  ],
-  "rtp.editForm.title": [
-  ],
-  "rtp.multiRecurrencerForm.after": [
-  ],
-  "rtp.multiRecurrencerForm.confirmation": [
-  ],
-  "rtp.multiRecurrencerForm.countTooSmall": [
-  ],
-  "rtp.multiRecurrencerForm.day": [
-  ],
-  "rtp.multiRecurrencerForm.endBeforeStart": [
-  ],
-  "rtp.multiRecurrencerForm.ends": [
-  ],
-  "rtp.multiRecurrencerForm.everyMonthByDate": [
-  ],
-  "rtp.multiRecurrencerForm.everyMonthByWeekday": [
-  ],
-  "rtp.multiRecurrencerForm.forceSubmit": [
-  ],
-  "rtp.multiRecurrencerForm.intervalTooSmall": [
-  ],
-  "rtp.multiRecurrencerForm.invalidDate": [
-  ],
-  "rtp.multiRecurrencerForm.invalidFrequence": [
-  ],
-  "rtp.multiRecurrencerForm.invalidMonthlyIntervalType": [
-  ],
-  "rtp.multiRecurrencerForm.month": [
-  ],
-  "rtp.multiRecurrencerForm.monthlyCount": [
-  ],
-  "rtp.multiRecurrencerForm.occurrences": [
-  ],
-  "rtp.multiRecurrencerForm.repeatEvery": [
-  ],
-  "rtp.multiRecurrencerForm.repeatThe": [
-  ],
-  "rtp.multiRecurrencerForm.someDisabledValues": [
-  ],
-  "rtp.multiRecurrencerForm.submit": [
-  ],
-  "rtp.multiRecurrencerForm.the": [
-  ],
-  "rtp.multiRecurrencerForm.title": [
-  ],
-  "rtp.multiRecurrencerForm.week": [
-  ],
-  "rtp.multiRecurrencerForm.weeklyCount": [
-  ],
-  "rtp.recurrencerForm.after": [
-  ],
-  "rtp.recurrencerForm.confirmation": [
-  ],
-  "rtp.recurrencerForm.countTooSmall": [
-  ],
-  "rtp.recurrencerForm.dailyCount": [
-  ],
-  "rtp.recurrencerForm.day": [
-  ],
-  "rtp.recurrencerForm.endBeforeStart": [
-  ],
-  "rtp.recurrencerForm.ends": [
-  ],
-  "rtp.recurrencerForm.everyMonthByDate": [
-  ],
-  "rtp.recurrencerForm.everyMonthByWeekday": [
-  ],
-  "rtp.recurrencerForm.forceSubmit": [
-  ],
-  "rtp.recurrencerForm.intervalTooSmall": [
-  ],
-  "rtp.recurrencerForm.invalidDate": [
-  ],
-  "rtp.recurrencerForm.invalidFrequence": [
-  ],
-  "rtp.recurrencerForm.invalidMonthlyIntervalType": [
-  ],
-  "rtp.recurrencerForm.month": [
-  ],
-  "rtp.recurrencerForm.monthlyCount": [
-  ],
-  "rtp.recurrencerForm.repeatEvery": [
-  ],
-  "rtp.recurrencerForm.repeatThe": [
-  ],
-  "rtp.recurrencerForm.someDisabledValues": [
-  ],
-  "rtp.recurrencerForm.submit": [
-  ],
-  "rtp.recurrencerForm.the": [
-  ],
-  "rtp.recurrencerForm.title": [
-  ],
-  "rtp.recurrencerForm.week": [
-  ],
-  "rtp.recurrencerForm.weeklyCount": [
-  ],
-  "rtp.reset": [
-  ],
-  "rtp.scheduler.openMultiRecurrencerModal": [
-  ]
+  "rtp.defineTiming": null,
+  "rtp.definedTimings": null,
+  "rtp.definedTimingsInRange": null,
+  "rtp.editForm.adjust": null,
+  "rtp.editForm.endNotAfterBegin": null,
+  "rtp.editForm.endTime": null,
+  "rtp.editForm.invalidTime": null,
+  "rtp.editForm.openRecurrencerModal": null,
+  "rtp.editForm.startTime": null,
+  "rtp.editForm.title": null,
+  "rtp.multiRecurrencerForm.after": null,
+  "rtp.multiRecurrencerForm.confirmation": null,
+  "rtp.multiRecurrencerForm.countTooSmall": null,
+  "rtp.multiRecurrencerForm.day": null,
+  "rtp.multiRecurrencerForm.endBeforeStart": null,
+  "rtp.multiRecurrencerForm.ends": null,
+  "rtp.multiRecurrencerForm.everyMonthByDate": null,
+  "rtp.multiRecurrencerForm.everyMonthByWeekday": null,
+  "rtp.multiRecurrencerForm.forceSubmit": null,
+  "rtp.multiRecurrencerForm.intervalTooSmall": null,
+  "rtp.multiRecurrencerForm.invalidDate": null,
+  "rtp.multiRecurrencerForm.invalidFrequence": null,
+  "rtp.multiRecurrencerForm.invalidMonthlyIntervalType": null,
+  "rtp.multiRecurrencerForm.month": null,
+  "rtp.multiRecurrencerForm.monthlyCount": null,
+  "rtp.multiRecurrencerForm.occurrences": null,
+  "rtp.multiRecurrencerForm.repeatEvery": null,
+  "rtp.multiRecurrencerForm.repeatThe": null,
+  "rtp.multiRecurrencerForm.someDisabledValues": null,
+  "rtp.multiRecurrencerForm.submit": null,
+  "rtp.multiRecurrencerForm.the": null,
+  "rtp.multiRecurrencerForm.title": null,
+  "rtp.multiRecurrencerForm.week": null,
+  "rtp.multiRecurrencerForm.weeklyCount": null,
+  "rtp.recurrencerForm.after": null,
+  "rtp.recurrencerForm.confirmation": null,
+  "rtp.recurrencerForm.countTooSmall": null,
+  "rtp.recurrencerForm.dailyCount": null,
+  "rtp.recurrencerForm.day": null,
+  "rtp.recurrencerForm.endBeforeStart": null,
+  "rtp.recurrencerForm.ends": null,
+  "rtp.recurrencerForm.everyMonthByDate": null,
+  "rtp.recurrencerForm.everyMonthByWeekday": null,
+  "rtp.recurrencerForm.forceSubmit": null,
+  "rtp.recurrencerForm.intervalTooSmall": null,
+  "rtp.recurrencerForm.invalidDate": null,
+  "rtp.recurrencerForm.invalidFrequence": null,
+  "rtp.recurrencerForm.invalidMonthlyIntervalType": null,
+  "rtp.recurrencerForm.month": null,
+  "rtp.recurrencerForm.monthlyCount": null,
+  "rtp.recurrencerForm.repeatEvery": null,
+  "rtp.recurrencerForm.repeatThe": null,
+  "rtp.recurrencerForm.someDisabledValues": null,
+  "rtp.recurrencerForm.submit": null,
+  "rtp.recurrencerForm.the": null,
+  "rtp.recurrencerForm.title": null,
+  "rtp.recurrencerForm.week": null,
+  "rtp.recurrencerForm.weeklyCount": null,
+  "rtp.reset": null,
+  "rtp.scheduler.openMultiRecurrencerModal": null
 }

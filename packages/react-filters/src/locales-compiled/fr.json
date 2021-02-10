@@ -41,7 +41,25 @@
       "value": "Fin"
     }
   ],
-  "ReactFilters.DateRangeFilter.from": null,
+  "ReactFilters.DateRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "À partir du "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
   "ReactFilters.DateRangeFilter.singleDate": [
     {
       "style": {
@@ -63,7 +81,25 @@
       "value": "Début"
     }
   ],
-  "ReactFilters.DateRangeFilter.until": null,
+  "ReactFilters.DateRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "Jusqu'au "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
   "ReactFilters.MultiChoiceFilter.lessOptions": [
     {
       "type": 0,
