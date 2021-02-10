@@ -27,6 +27,7 @@
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.31",
     "prop-types": "^15.6.0",
+    "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^3.4.1",
@@ -38,8 +39,7 @@
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.3",
     "serialize-javascript": "^2.1.0",
-    "superagent": "^3.8.3",
-    "qs": "^6.9.4"
+    "superagent": "^3.8.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
