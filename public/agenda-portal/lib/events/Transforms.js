@@ -35,16 +35,10 @@ module.exports = options => {
   const postTransform = _postEventTransform.bind(null, options);
 
   return {
-    listItem: (event, req, res, context) => {
+    listItem: (event, req, res, listContext) => {
       const transformed = preTransform(event, req, res);
 
-      return applyContextLink(
-        {
-          req,
-          context
-        },
-        postTransform(transformed, req, res)
-      );
+      return applyContextLink(req, res, listContext, postTransform(transformed, req, res));
     },
     show: (event, req, res) => {
       const transformed = preTransform(event, req, res);

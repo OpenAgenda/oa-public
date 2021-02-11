@@ -2,9 +2,9 @@
 <ul class="nav justify-content-between">
   <li class="nav-item">
     {{#if navigation.previous}}
-    <a class="nav-link" href="{{navigation.previous}}">Précédent</a>
+    <a class="nav-link" href="{{navigation.previous}}">{{i18n 'previous'}}</a>
     {{else}}
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Précédent</a>
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{i18n 'previous'}}</a>
     {{/if}}
   </li>
   <li class="nav-item">
@@ -12,9 +12,9 @@
   </li>
   <li class="nav-item">
     {{#if navigation.next}}
-    <a class="nav-link" href="{{navigation.next}}">Suivant</a>
+    <a class="nav-link" href="{{navigation.next}}">{{i18n 'next'}}</a>
     {{else}}
-    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Suivant</a>
+    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{i18n 'next'}}</a>
     {{/if}}
   </li>
 </ul>

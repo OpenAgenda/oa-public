@@ -46,6 +46,10 @@ const mw = {
 
 const baseAssetsPath = `${__dirname}/assets`;
 
+const {
+  I18N
+} = utils;
+
 let devApp = null; // used for @openagenda/agenda-portal dev only
 
 module.exports = async options => {
@@ -68,6 +72,7 @@ module.exports = async options => {
     key, // public key of OA account
     views, // path to views folder
     assets, // optional path to assets folder
+    i18n, // optional path to multilingual labels folder
     // sass, // optional path to sass file
     defaultTimezone, // optional: used for converting oaq date filter (YYYY-MM-DD) to v2 format (timezoned)
     eventsPerPage, // optional number of events to load per page
@@ -79,12 +84,18 @@ module.exports = async options => {
     middlewareHooks
   } = config;
 
+  Object.assign(app.locals, config);
+
   app.set('view engine', 'hbs');
   app.set('views', views);
   app.engine('hbs', hbs.__express);
   hbs.registerPartials(`${views}/partials`);
 
-  Object.assign(app.locals, config);
+  app.locals.defaultLang = config.lang || 'en';
+
+  if (i18n) {
+    hbs.registerHelper('i18n', I18N(i18n).handlebarsHelper);
+  }
 
   const proxy = injectedProxy || Proxy({
     jsonExportVersion,

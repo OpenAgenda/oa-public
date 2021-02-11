@@ -47,7 +47,7 @@ module.exports = async (preloaded = {}) => {
 
   env.PORTAL_ROOT = preloaded.PORTAL_ROOT || `http://localhost:${env.PORTAL_PORT}`;
 
-  if (env.IFRAMABLE === '1') {
+  if (env.PORTAL_IFRAMABLE === '1') {
     env.PORTAL_IFRAME_PARENT_URL = preloaded.PORTAL_IFRAME_PARENT_URL || 'http://dev.local';
   }
 
