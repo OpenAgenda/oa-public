@@ -42,6 +42,7 @@
     "css-loader": "^3.4.2",
     "debug": "^3.2.6",
     "express": "^4.17.1",
+    "@formatjs/intl": "^1.6.7",
     "hbs": "^4.1.0",
     "iframe-resizer": "^4.2.10",
     "immutability-helper": "^3.0.0",

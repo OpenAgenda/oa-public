@@ -1,6 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
+const ih = require('immutability-helper');
+const qs = require('qs');
 const navigation = require('../lib/eventNavigation');
 
 /**
@@ -21,7 +23,9 @@ function redirectToNeighbor(req, res, next) {
     return next();
   }
 
-  const { search, index } = navigation.parseContext(req.query.nc);
+  const context = navigation.parseContext(req.query.nc)
+
+  const { search, index, lang } = context;
 
   const newIndex = index + (direction === 'next' ? 1 : -1);
 
@@ -38,17 +42,26 @@ function redirectToNeighbor(req, res, next) {
       1
     )
     .then(({ total, events }) => {
-      const updatedContext = navigation.stringifyContext({
-        total,
-        search,
-        index: newIndex
-      });
+      const update = {
+        total: { $set: total },
+        index: { $set: newIndex }
+      };
+
+      const updatedContext = navigation.stringifyContext(ih(context, update));
+
+      const queryPart = {
+        nc: updatedContext
+      };
+
+      if (lang) {
+        queryPart.lang = lang;
+      }
 
       res.redirect(
         302,
         `${req.app.locals.root}/events/${
           _.first(events).slug
-        }?nc=${updatedContext}`
+        }?${qs.stringify(queryPart)}`
       );
     }, next);
 }
@@ -58,7 +71,7 @@ function redirectToNeighbor(req, res, next) {
  */
 
 function navigationLinks(req, res, next) {
-  _.assign(req.data, {
+  Object.assign(req.data, {
     navigation: navigation(req.app.locals, req.query.nc)
   });
 

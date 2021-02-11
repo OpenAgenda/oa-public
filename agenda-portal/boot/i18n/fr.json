@@ -1,0 +1,10 @@
+{
+  "filters": "Filtres",
+  "noSearchResult": "Aucun événement ne correspond à cette recherche",
+  "oneEvent": "1 événement",
+  "multipleEvents": "%total% événements",
+  "searchInAgenda": "Rechercher dans cet agenda",
+  "previous": "Précédent",
+  "next": "Suivant",
+  "contribute": "Proposer un événement"
+}

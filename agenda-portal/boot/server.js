@@ -20,8 +20,12 @@ Portal({
   key: process.env.PORTAL_KEY,
   // views folder
   views: `${__dirname}/views`,
+  // sass folder
   sass: `${__dirname}/sass/main.scss`,
+  // assets folder
   assets: `${__dirname}/assets`,
+  // multilingual labels folder
+  i18n: `${__dirname}/i18n`,
   // number of events to be loaded in an event index page
   eventsPerPage: 20,
   // filter that applies when no other filter is specified
@@ -30,7 +34,7 @@ Portal({
   },
   // true if portal is to be displayed within iframe
   iframable: process.env.PORTAL_IFRAMABLE,
-  iframeParent: process.env.PORTAL_IFRAME_PARENT,
+  iframeParent: process.env.PORTAL_IFRAME_PARENT_URL,
   cache: {
     // interval at which cache is refreshed ( in milliseconds )
     refreshInterval: 60 * 60 * 1000
@@ -43,10 +47,10 @@ Portal({
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     },
     auto: true,
-    /*center: {
+    /* center: {
       latitude: 43.597198,
       longitude: 1.441136
-    },*/
+    }, */
     zoom: 20
   },
   eventHook

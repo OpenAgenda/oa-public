@@ -8,6 +8,10 @@ const updateRelativePath = (state, relative) => {
   window.location.hash = relative;
 };
 
+const appendAttributeValueToQuery = (iframe, current, key, attrKey) => {
+  return `${current + (current.indexOf('?') === -1 ? '?' : '&')}${key}=${iframe.getAttribute(attrKey)}`;
+};
+
 function onMessage(state, { message }) {
   if (message.code === 'ready' && !state.iFrameReady) {
     state.iFrameReady = true;
@@ -90,10 +94,12 @@ module.exports = (iframe, options = {}) => {
   // This iframe parent should track base and
 
   if (iframe.getAttribute('data-count')) {
-    relative = `${relative
-      + (relative.indexOf('?') === -1 ? '?' : '&')}limit=${iframe.getAttribute(
-      'data-count'
-    )}`;
+    relative = appendAttributeValueToQuery(iframe, relative, 'limit', 'data-count');
+  }
+
+  if (iframe.getAttribute('data-lang')) {
+    log('adding %s lang to relative path', iframe.getAttribute('data-lang'));
+    relative = appendAttributeValueToQuery(iframe, relative, 'lang', 'data-lang');
   }
 
   const state = {
