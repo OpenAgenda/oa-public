@@ -16,7 +16,7 @@
             data-total="{{total}}" 
             data-label-none="{{i18n 'noSearchResult'}}" 
             data-label-one="{{i18n 'oneEvent'}}" 
-            data-label-plural="{{i18n 'multipleEvents'}}">
+            data-label-plural="{{i18n 'multipleEvents'}}">{{i18n 'eventsTotal' total=total}}
           </span>
           {{>activeFilters}}
           <button class="main-show-sidebar float-right btn btn-outline-primary btn-sm wbg" data-sidebar-toggle>

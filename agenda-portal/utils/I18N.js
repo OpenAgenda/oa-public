@@ -33,9 +33,9 @@ const createIntlByLocale = path => {
     }), {});
 };
 
-const handlebarsHelper = (intlByLocale, code, options = {}) => (intlByLocale[
-  options?.data?.root?.lang] || intlByLocale[Object.keys(intlByLocale).shift()
-])(code);
+const handlebarsHelper = (intlByLocale, code, { hash: values, data }) => (
+  intlByLocale[data.root.lang] || intlByLocale[Object.keys(intlByLocale).shift()]
+)(code, values);
 
 module.exports = path => {
   const intlByLocale = createIntlByLocale(path);

@@ -6,5 +6,6 @@
   "searchInAgenda": "Rechercher dans cet agenda",
   "previous": "Précédent",
   "next": "Suivant",
-  "contribute": "Proposer un événement"
+  "contribute": "Proposer un événement",
+  "eventsTotal": "{total} {total, plural, =0 {événement} one {événements} other {événements}}"
 }
