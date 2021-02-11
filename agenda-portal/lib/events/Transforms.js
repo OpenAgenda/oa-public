@@ -15,7 +15,7 @@ function _preEventTransform(options, event, req, res) {
   return [
     flatten.bind(
       null,
-      ['range', 'title', 'description', 'html'],
+      ['range', 'title', 'description', 'html', 'conditions'],
       res.locals.lang
     ),
     _.partialRight(relativeTimings, { lang: res.locals.lang }),
