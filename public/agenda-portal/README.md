@@ -20,6 +20,7 @@ Table of contents:
  * [Templates and styling](#templates-and-styling)
    * [Available data](#available-data)
    * [Customizing data](#customizing-data)
+   * [I18n](#i18n)
  * [IFrames](#iframes)
  * [Preview](#preview)
  * [Miscellaneous](#miscellaneous)
@@ -103,6 +104,8 @@ These define general portal settings. Default options set in your `server.js` fi
 
 ## Templates and styling
 
+Templates are written in handlebars. See [official documentation](https://handlebarsjs.com/guide) for synthax details. 
+
 When working on your portal, you should only really need to edit files that are either:
 
  * In your sass folder for styling
@@ -114,6 +117,22 @@ When working on your portal, you should only really need to edit files that are 
 For index and event pages. If you want insight on the data your are handling, add `?data` to your URL. The call will load a json view of the data as given to the template.
 
 Use JSON viewer plugin such as [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)
+
+### I18n
+
+A helper is provided to handle multilingual labels. These are defined in a folder with one json file per locale: `{localeName}.json`. A sample is provided in the default project after a deploy. Each label in the json is associated with a code that can be referred to in the templates using the `i18n` helper:
+
+    {{i18n 'codeOfTheLabel'}}
+
+Values can be passed to the helper:
+
+```
+  <span>{{i18n 'eventsTotal' total=total}}</span>
+```
+
+Labels set in the json locale files must follow the [ICU Message syntax](https://unicode-org.github.io/icu/userguide/format_parse/messages/)
+
+By default, the folder containing multilingual label files is called `i18`.
 
 ### Customizing data
 
