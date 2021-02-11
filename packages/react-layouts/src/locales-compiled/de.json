@@ -5,16 +5,16 @@
       "value": "Verwaltung"
     }
   ],
-  "react-layouts.AdminSections.newTab": [
-    {
-      "type": 0,
-      "value": "Neu !"
-    }
-  ],
   "react-layouts.AdminHeader.return": [
     {
       "type": 0,
       "value": "Kalender Startseite"
+    }
+  ],
+  "react-layouts.AdminSections.newTab": [
+    {
+      "type": 0,
+      "value": "Neu !"
     }
   ],
   "react-layouts.MainLayout.createAgenda": [

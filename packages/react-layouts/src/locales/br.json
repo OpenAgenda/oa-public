@@ -1,15 +1,15 @@
 {
-  "react-layouts.AdminHeader.administration": null,
-  "react-layouts.AdminSections.newTab": null,
-  "react-layouts.AdminHeader.return": null,
-  "react-layouts.MainLayout.createAgenda": null,
-  "react-layouts.MainLayout.general": null,
-  "react-layouts.MainLayout.help": null,
-  "react-layouts.MainLayout.myAgendas": null,
-  "react-layouts.MainLayout.myEvents": null,
-  "react-layouts.MainLayout.searchAgenda": null,
-  "react-layouts.MainLayout.settings": null,
-  "react-layouts.MainLayout.signin": null,
-  "react-layouts.MainLayout.signout": null,
-  "react-layouts.components.Search.search": null
+  "react-layouts.AdminHeader.administration": "",
+  "react-layouts.AdminHeader.return": "",
+  "react-layouts.AdminSections.newTab": "",
+  "react-layouts.MainLayout.createAgenda": "",
+  "react-layouts.MainLayout.general": "",
+  "react-layouts.MainLayout.help": "",
+  "react-layouts.MainLayout.myAgendas": "",
+  "react-layouts.MainLayout.myEvents": "",
+  "react-layouts.MainLayout.searchAgenda": "",
+  "react-layouts.MainLayout.settings": "",
+  "react-layouts.MainLayout.signin": "",
+  "react-layouts.MainLayout.signout": "",
+  "react-layouts.components.Search.search": ""
 }

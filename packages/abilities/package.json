@@ -41,7 +41,7 @@
     "prop-types": "^15.6.2",
     "rc-collapse": "^2.1.0",
     "react-final-form": "^4.1.0",
-    "react-intl": "^5.8.2",
+    "react-intl": "^5.12.2",
     "recompose": "^0.30.0",
     "regenerator-runtime": "^0.13.5"
   },

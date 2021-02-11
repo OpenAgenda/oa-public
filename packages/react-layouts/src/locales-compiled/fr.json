@@ -5,16 +5,16 @@
       "value": "Administration"
     }
   ],
-  "react-layouts.AdminSections.newTab": [
-    {
-      "type": 0,
-      "value": "Nouveau !"
-    }
-  ],
   "react-layouts.AdminHeader.return": [
     {
       "type": 0,
       "value": "Aller à l'accueil de l'agenda"
+    }
+  ],
+  "react-layouts.AdminSections.newTab": [
+    {
+      "type": 0,
+      "value": "Nouveau !"
     }
   ],
   "react-layouts.MainLayout.createAgenda": [

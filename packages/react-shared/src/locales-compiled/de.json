@@ -5,20 +5,16 @@
       "value": "akzeptiert Dateien"
     }
   ],
-  "ReactShared.ImageInput.fileTooLarge": [
-  ],
-  "ReactShared.ImageInput.fileTooSmall": [
-  ],
-  "ReactShared.ImageInput.notSupported": [
-  ],
+  "ReactShared.ImageInput.fileTooLarge": null,
+  "ReactShared.ImageInput.fileTooSmall": null,
+  "ReactShared.ImageInput.notSupported": null,
   "ReactShared.ImageInput.remove": [
     {
       "type": 0,
       "value": "Löschen"
     }
   ],
-  "ReactShared.ImageInput.tooManyFiles": [
-  ],
+  "ReactShared.ImageInput.tooManyFiles": null,
   "ReactShared.ImageInput.update": [
     {
       "type": 0,

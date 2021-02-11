@@ -546,13 +546,13 @@
   "AgendaStats.RangeTypeFilter.typeCreatedAt": [
     {
       "type": 0,
-      "value": "Par création"
+      "value": "By creation"
     }
   ],
   "AgendaStats.RangeTypeFilter.typeDate": [
     {
       "type": 0,
-      "value": "Par horaire"
+      "value": "By timing"
     }
   ],
   "AgendaStats.RangeTypeModal.createdAtDesc": [
