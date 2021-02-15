@@ -9,14 +9,31 @@ module.exports = async (core, agendaUid, query, nav, options = {}) => {
     private: null
   });
 
-  if (!agenda) {;
+  if (!agenda) {
     throw new NotFoundError('agenda', agendaUid);
   }
 
-  return core.services.eventSearch.agendas(agenda).search(query, nav, {
-    ...options,
-    formSchema: agenda.schema
-  });
+  const {
+    returnAgenda = false,
+    stream = false,
+    ...searchOptions
+  } = options;
+
+  const search = core.services.eventSearch.agendas(agenda).search;
+
+  const result = stream
+    ? search.stream(query, {
+      ...searchOptions,
+      formSchema: agenda.schema
+    })
+    : await search(query, nav, {
+      ...searchOptions,
+      formSchema: agenda.schema
+    });
+
+  return returnAgenda
+    ? { agenda, result }
+    : result;
 }
 
 module.exports.rebuild = async (core, agendaUid) => {
