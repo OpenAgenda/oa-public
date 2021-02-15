@@ -59,7 +59,7 @@ module.exports.init = async (config, services) => {
     add: add(services, queue, eventSearch),
     rebuild: rebuild.bind(null, services, eventSearch, rebuildQueue),
     agendas: agenda => ({
-      search: agendaIndexSearch.bind(null, eventSearch, agenda),
+      search: agendaIndexSearch(eventSearch, agenda),
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda)
     }),
     transverse: {
