@@ -18,6 +18,7 @@ import LocationItem from './LocationItem';
 import SetHeader from './SetHeader';
 import MergeForm from './MergeForm';
 import UpdateForm from './UpdateForm';
+import AdminActionModal from './AdminActionModal';
 
 const log = debug('AgendaAdminLocations');
 
@@ -78,7 +79,7 @@ class AgendaAdminLocations extends Component {
     this.renderItem = this.renderItem.bind(this);
     this.renderHead = this.renderHead.bind(this);
     this.getCountryLabel = this.getCountryLabel.bind(this);
-    this.displayCantDoModal = this.displayCantDoModal.bind(this);
+    this.displayActionModal = this.displayActionModal.bind(this);
 
     if (!props.settings.access) {
       props.settings.access = {
@@ -88,6 +89,7 @@ class AgendaAdminLocations extends Component {
         delete: true
       };
     }
+    log(props.settings);
   }
 
   onSearchChange(field, newSearchValue) {
@@ -121,6 +123,28 @@ class AgendaAdminLocations extends Component {
     );
   }
 
+  onLocationEdit(location, locationIndex) {
+    const { settings } = this.props;
+
+    log('onEdit', location);
+    if (settings.access.update.authorized && !settings.access.update.external) {
+      this.actions.editLocation(location, locationIndex);
+    } else {
+      this.displayActionModal('edit', location);
+    }
+  }
+
+  onLocationSelect(location, locationIndex) {
+    const { merge } = this.state;
+
+    log('onSelect', location);
+    if (merge) {
+      this.actions.toggleMergeItem(location);
+    } else {
+      this.onLocationEdit(location, locationIndex);
+    }
+  }
+
   getLabel(name, values) {
     const label = labels[name];
     const { lang } = this.props;
@@ -135,7 +159,6 @@ class AgendaAdminLocations extends Component {
         }
       }
     }
-
     return str;
   }
 
@@ -153,15 +176,12 @@ class AgendaAdminLocations extends Component {
     if (!form) {
       return 'list';
     }
-
     if (form.alternatives && merge) {
       return 'merge';
     }
-
     if (form.location) {
       return 'update';
     }
-
     return 'create';
   }
 
@@ -193,43 +213,47 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  displayCantDoModal(info) {
-    log('displayCantDoModal', info);
-    const { location } = this.state;
+  displayActionModal(accessType, location) {
+    log('displayActionModal', accessType);
     this.setState({
       modal: {
-        type: 'cantDo',
+        type: 'actions',
         data: {
-          location,
-          info
+          accessType,
+          location
         },
       }
     });
   }
 
   confirmRemove(location) {
-    const { res } = this.props;
+    const { res, settings } = this.props;
     log('confirm remove param location: %j', location);
-
-    get(
-      res.get.replace(':locationUid', location.uid),
-      { detailed: 1 },
-      (err, freshLocation) => {
-        log('confirm remove for %j', freshLocation);
-        if (err) {
-          return log(err);
+    if (settings.access.delete.authorized && !settings.access.delete.external) {
+      get(
+        res.get.replace(':locationUid', location.uid),
+        { detailed: 1 },
+        (err, freshLocation) => {
+          log('confirm remove for %j', freshLocation);
+          if (err) {
+            return log(err);
+          }
+          this.actions.displayRemoveConfirmModal(freshLocation);
         }
-        this.actions.displayRemoveConfirmModal(freshLocation);
-      }
-    );
+      );
+    } else {
+      this.displayActionModal('remove', location);
+    }
   }
 
   renderItem(item, itemActions, itemIndex) {
     const { res, agenda, settings } = this.props;
     const { merge } = this.state;
-    const toggleMergeItem = this.actions.toggleMergeItem.bind(null, item);
-    const editLocation = settings.access.update ? this.actions.editLocation.bind(null, item, itemIndex) : () => null;
-    const confirmRemove = settings.access.delete ? this.confirmRemove.bind(this, item, itemIndex) : () => null;
+
+    const editLocation = this.onLocationEdit.bind(this, item, itemIndex);
+    const confirmRemove = this.confirmRemove.bind(this, item, itemIndex);
+    const onSelect = this.onLocationSelect.bind(this, item, itemIndex);
+
     return (
       <LocationItem
         merge={merge ? merge : undefined}
@@ -240,12 +264,11 @@ class AgendaAdminLocations extends Component {
           ':agendaSlug',
           agenda.slug
         )}
-        onSelect={merge ? toggleMergeItem : editLocation}
+        onSelect={onSelect}
         onEdit={editLocation}
         onRemove={confirmRemove}
         getLabel={this.getLabel}
         getCountryLabel={this.getCountryLabel}
-        displayCantDoModal={this.displayCantDoModal}
       />
     );
   }
@@ -267,31 +290,6 @@ class AgendaAdminLocations extends Component {
         ) : null}
         {total === 0 ? <p>{this.getLabel('totalzero')}</p> : null}
       </div>
-    );
-  }
-
-  renderCantDoModal() {
-    const { modal } = this.state;
-    return (
-      <Modal
-        title={this.getLabel('info')}
-        onClose={this.actions.closeModal}
-      >
-        <div>
-          <p className="text-center">
-            {`${this.getLabel('cantDo')} ${this.getLabel(modal.data.info)}`}
-          </p>
-          <div className="text-center">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.actions.closeModal}
-            >
-              {this.getLabel('closeModal')}
-            </button>
-          </div>
-        </div>
-      </Modal>
     );
   }
 
@@ -466,22 +464,18 @@ class AgendaAdminLocations extends Component {
           {this.getLabel('cancelmerge')}
         </button>
       );
-    } if (!settings.access.merge) {
-      return (
-        <button
-          type="button"
-          className="btn btn-default disabled"
-          onClick={() => this.displayCantDoModal('merge')}
-        >
-          {this.getLabel('merge')}
-        </button>
-      );
     }
     return (
       <button
         type="button"
-        className="btn btn-default"
-        onClick={this.actions.toggleMerge.bind(null, true)}
+        className={settings.access.merge.authorized ? 'btn btn-default' : 'btn btn-default disabled'}
+        onClick={() => {
+          if (!settings.access.merge.authorized || settings.access.merge.external) {
+            this.displayActionModal('merge');
+          } else {
+            this.actions.toggleMerge.bind(null, true)();
+          }
+        }}
       >
         {this.getLabel('merge')}
       </button>
@@ -496,27 +490,6 @@ class AgendaAdminLocations extends Component {
       merge, locations, page, total, modal
     } = this.state;
 
-    let createLocationButton = (
-      <button
-        type="button"
-        className="btn btn-primary disabled"
-        onClick={() => this.displayCantDoModal('create')}
-      >
-        {this.getLabel('create')}
-      </button>
-    );
-
-    if (settings.access.create) {
-      createLocationButton = (
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={this.actions.newLocation.bind(null)}
-        >
-          {this.getLabel('create')}
-        </button>
-      );
-    }
     switch (this.getMode()) {
       case 'merge':
         return (
@@ -549,7 +522,19 @@ class AgendaAdminLocations extends Component {
             <div className="col col-sm-12">
               <div className="form-inline">
                 <div className="form-group">
-                  {createLocationButton}
+                  <button
+                    type="button"
+                    className={settings.access.create.authorized ? 'btn btn-primary' : 'btn btn-primary disabled'}
+                    onClick={() => {
+                      if (!settings.access.create.authorized || settings.access.create.external) {
+                        this.displayActionModal('create');
+                      } else {
+                        this.actions.newLocation.bind(null)();
+                      }
+                    }}
+                  >
+                    {this.getLabel('create')}
+                  </button>
                 </div>
                 <div className="form-group">
                   {this.renderMergeAction()}
@@ -621,8 +606,15 @@ class AgendaAdminLocations extends Component {
               switch (modal.type) {
                 case 'removeLocation':
                   return this.renderRemoveLocationModal();
-                case 'cantDo':
-                  return this.renderCantDoModal();
+                case 'actions':
+                  return (
+                    <AdminActionModal
+                      data={modal.data}
+                      settings={settings}
+                      close={this.actions.closeModal}
+                      getLabel={this.getLabel}
+                    />
+                  );
                 default:
               }
             })()

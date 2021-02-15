@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import debug from 'debug';
+
+const log = debug('LocationItem');
 
 class LocationItem extends Component {
   static propTypes = {
@@ -12,7 +15,6 @@ class LocationItem extends Component {
     onEdit: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     seeEventsRes: PropTypes.string,
-    displayCantDoModal: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -20,19 +22,18 @@ class LocationItem extends Component {
     // Binding
     this.onRemove = this.onRemove.bind(this);
     this.seeEvents = this.seeEvents.bind(this);
-    this.displayCantRemoveModal = this.displayCantRemoveModal.bind(this);
-  }
-
-  displayCantRemoveModal(e) {
-    const { displayCantDoModal } = this.props;
-    e.stopPropagation();
-    displayCantDoModal('remove');
   }
 
   onRemove(e) {
-    const { onRemove } = this.props;
     e.stopPropagation();
+    const { onRemove } = this.props;
     onRemove();
+  }
+
+  onEdit(e) {
+    e.stopPropagation();
+    const { onEdit } = this.props;
+    onEdit();
   }
 
   isInMergeSelection() {
@@ -67,26 +68,26 @@ class LocationItem extends Component {
 
   render() {
     const {
-      location, merge, getCountryLabel, getLabel, onSelect, onEdit, settings, displayCantDoModal
+      location, merge, getCountryLabel, getLabel, onSelect, settings
     } = this.props;
     const className = ['item'];
     const country = getCountryLabel(location.countryCode);
-    let editButton = (
+    const editButton = (
       <button
         type="button"
-        className="btn btn-default disabled"
+        className={!settings.access.update.authorized ? 'btn btn-default disabled' : 'btn btn-default'}
         aria-label={getLabel('edit')}
-        onClick={() => displayCantDoModal('edit')}
+        onClick={this.onEdit.bind(this)}
       >
         <i className="fa fa-edit" />
       </button>
     );
-    let removeButton = (
+    const removeButton = (
       <button
         type="button"
-        className="btn btn-default disabled"
+        className={!settings.access.delete.authorized ? 'btn btn-default disabled' : 'btn btn-default'}
         aria-label={getLabel('remove')}
-        onClick={this.displayCantRemoveModal}
+        onClick={this.onRemove}
       >
         <i className="fa fa-trash" />
       </button>
@@ -94,30 +95,6 @@ class LocationItem extends Component {
 
     if (merge) {
       className.push('merge');
-    }
-    if (settings.access.update) {
-      editButton = (
-        <button
-          type="button"
-          className="btn btn-default"
-          aria-label={getLabel('edit')}
-          onClick={onEdit.bind(this)}
-        >
-          <i className="fa fa-edit" />
-        </button>
-      );
-    }
-    if (settings.access.delete) {
-      removeButton = (
-        <button
-          type="button"
-          className="btn btn-default"
-          aria-label={getLabel('remove')}
-          onClick={this.onRemove}
-        >
-          <i className="fa fa-trash" />
-        </button>
-      );
     }
 
     return (

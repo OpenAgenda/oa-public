@@ -352,5 +352,17 @@ module.exports = {
     "es": " se han agregado a la agenda. Al eliminar la ubicación, también se eliminarán los eventos asociados.",
     "br": " war al deiziataer. Dilemel al lec'h ,dilemel darvoud.",
     "it": " sono stati aggiunti all'agenda. Eliminando la posizione verranno eliminati anche gli eventi associati.",
+  },
+  "doOn": {
+    "fr": "Cette action est à efféctuer sur le site de",
+    "en": "This action is to be carried out on the website of"
+  },
+  "newtab": {
+    "fr": "Un nouvel onglet va s'ouvrir dans un instant.",
+    "en": "A new tab will open in an instant."
+  },
+  "goTo": {
+    "fr": "Aller sur",
+    "go": "Go to"
   }
 }
