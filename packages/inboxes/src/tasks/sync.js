@@ -22,7 +22,7 @@ export async function syncUser(svc, user, stats) {
   // create inbox
   const inboxIdentifiers = { type: 'user', identifier: user.uid };
   const inbox = await new svc.Inbox(inboxIdentifiers).get({
-    createOnNull: false
+    createOnNull: false,
   });
 
   if (!inbox.data) {
@@ -56,7 +56,7 @@ export async function syncAgenda(svc, agenda, stats) {
   // create inbox
   const inboxIdentifiers = { type: 'agenda', identifier: agenda.uid };
   const inbox = await new svc.Inbox(inboxIdentifiers).get({
-    createOnNull: false
+    createOnNull: false,
   });
 
   if (!inbox.data) {
@@ -75,7 +75,7 @@ export async function syncAgenda(svc, agenda, stats) {
     {
       agendaUid: agenda.uid,
       // credentials: [ 'administrator', 'moderator' ],
-      deletedUser: false
+      deletedUser: false,
     },
     { offset: pos, limit }
     // { detailed: true }
@@ -96,12 +96,12 @@ export async function syncAgenda(svc, agenda, stats) {
     (result = await usersSvc.find({
       query: {
         uid: {
-          $in: userUids
+          $in: userUids,
         },
         $skip: pos,
-        $limit: limit
+        $limit: limit,
       },
-      removed: null
+      removed: null,
     }))
   ) {
     if (!result.length) break;
@@ -218,7 +218,7 @@ export default async function syncTask(svc) {
     agendaInboxesCreated: 0,
     inboxUsersAdded: 0,
     inboxUsersUpdated: 0,
-    inboxUsersRemoved: 0
+    inboxUsersRemoved: 0,
   };
 
   if (!(await q.len())) {
@@ -236,7 +236,7 @@ export default async function syncTask(svc) {
   while ((data = await q.pop())) {
     try {
       log('Process job n°%d/%d', i + 1, total);
-      await processJob(svc.config, data, stats);
+      await processJob(svc, data, stats);
     } catch (e) {
       log(
         'error',
