@@ -242,7 +242,7 @@ module.exports = [{
   field: 'links',
   fieldType: 'enrichedLinks',
   optional: true,
-  write: ['internal'],
+  write: ['internal', 'public'],
   read: ['internal', 'public'],
   default: [],
   db: {
