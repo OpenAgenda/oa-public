@@ -1,54 +1,42 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const rss = require( '@openagenda/flat-exports/rss' );
-const config = require( '../../config' );
+const _ = require('lodash');
+const rss = require('@openagenda/flat-exports/rss');
+const config = require('../../config');
 
-module.exports = ( app, route ) => {
+module.exports = () => async (req, res, next) => {
+  try {
+    const query = _.extend({
+      sort: 'updatedAt.desc',
+      embed_url: null
+    }, req.query);
+    const { services } = req.app;
 
-  app.get( route, async ( req, res, next ) => {
+    const { events } = await services.eventSearch.agendas(req.agenda.uid)
+      .search(req.query, req.query, { detailed: true });
 
-    let feed;
+    const rssOptions = {
+      title: req.agenda.title,
+      description: req.agenda.description,
+      feedURL: config.root + req.originalUrl,
+      siteURL: config.root,
+      imageURL: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null,
+      language: req.lang,
+      pubDate: req.agenda.updatedAt
+    };
 
-    try {
-
-      const query = _.extend( {
-        sort: 'updatedAt.desc',
-        embed_url: null
-      }, req.query );
-
-      const { events, total } = await app.services.eventSearch.agendas( req.params.agendaUid ).search( req.query, req.query, { detailed: true } );
-
-      const rssOptions = {
-        title: req.agenda.title,
-        description: req.agenda.description,
-        feedURL: config.root + req.originalUrl,
-        siteURL: config.root,
-        imageURL: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null,
-        language: req.lang,
-        pubDate: req.agenda.updatedAt
-      };
-
-      if ( query.embed_url ) {
-
-        rssOptions.genUrl = e => query.embed_url + '?oaq[uid]=' + e.uid;
-
-      }
-
-      feed = rss( rssOptions );
-
-      events.forEach( e => feed.addEvent( e ) );
-
-    } catch ( err ) {
-
-      return next( err );
-
+    if (query.embed_url) {
+      rssOptions.genUrl = e => query.embed_url + '?oaq[uid]=' + e.uid;
     }
 
-    res.set( 'Content-Type', 'application/rss+xml' );
+    const feed = rss(rssOptions);
 
-    res.send( feed.xml() );
+    events.forEach(e => feed.addEvent(e));
 
-  } );
+    res.set('Content-Type', 'application/rss+xml');
 
+    res.send(feed.xml());
+  } catch (err) {
+    return next(err);
+  }
 }

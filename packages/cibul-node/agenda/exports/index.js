@@ -18,7 +18,7 @@ module.exports = app => {
   );
 
 
-  rss( app, '/agendas/:agendaUid/events.v2.rss' );
+  app.get('/agendas/:agendaUid/events.v2.rss', rss());
 
 
   app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx|ics|txt|md)', async ( req, res, next ) => {
