@@ -5,8 +5,8 @@ module.exports = app => {
   require('./services/mails').plugApp(app);
   require('./services/slackApp').plugApp(app);
   app.use('/events/search', app.services.eventSearch.apps.events());
-  app.use('/agendas/:agendaUid/events.v2:format', app.services.eventSearch.apps.agendas.public());
-  app.use('/agendas/:agendaUid/admin/events.v2:format', app.services.eventSearch.apps.agendas.restricted());
+  app.use('/agendas/:agendaUid/events.v2.:format', app.services.eventSearch.apps.agendas.public());
+  app.use('/agendas/:agendaUid/admin/events.v2.:format', app.services.eventSearch.apps.agendas.restricted());
   app.services.agendaLocations.apps(app, '/locations');
   app.services.agendaLocations.apps.agenda(app, '/agendas/:agendaUid/locations');
   app.services.agendaLocations.apps.agendaAdmin(app, '/:agendaSlug/admin/locations');
