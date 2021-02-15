@@ -1,4 +1,15 @@
-export default function getLocaleValue(labels, lang, defaultLang) {
+const DEFAULT_LANG = 'en';
+
+const FALLBACK_MAP = {
+  br: 'fr',
+};
+
+export default function getLocaleValue(
+  labels,
+  lang,
+  defaultLang = DEFAULT_LANG,
+  fallbackMap = FALLBACK_MAP
+) {
   if (!labels || typeof labels !== 'object') {
     return labels;
   }
@@ -7,6 +18,10 @@ export default function getLocaleValue(labels, lang, defaultLang) {
 
   if (keys.find(v => v === lang)) {
     return labels[lang];
+  }
+
+  if (lang in fallbackMap) {
+    return getLocaleValue(labels, fallbackMap[lang], defaultLang, fallbackMap);
   }
 
   if (defaultLang && keys.find(v => v === defaultLang)) {
