@@ -30,6 +30,8 @@ import getEvents from '../api/getEvents';
 import useFilters from '../hooks/useFilters';
 import RemoveModal from '../components/RemoveModal';
 import EventItem from '../components/EventItem';
+import SortSelector from '../components/SortSelector';
+import Actions from '../components/Actions';
 
 const searchSpinner = {
   width: 1,
@@ -56,18 +58,17 @@ const messages = defineMessages({
     id: 'EventAdminApp.Dashboard.searchPlaceholder',
     defaultMessage: 'Search',
   },
+  sortedBy: {
+    id: 'EventAdminApp.Dashboard.sortedBy',
+    defaultMessage: 'Sorted by:',
+  },
 });
 
 function SearchField({ input, disabled, isLoading }) {
   const intl = useIntl();
 
   return (
-    <div
-      className="form-group"
-      css={css`
-        width: 50%;
-      `}
-    >
+    <div className="form-group">
       <div className="input-icon-right">
         <input
           placeholder={intl.formatMessage(messages.searchPlaceholder)}
@@ -215,7 +216,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       ),
       {
         ...query,
-        sort: 'updatedAt.desc',
+        // sort: 'updatedAt.desc',
         detailed: true,
       },
       pageParam
@@ -327,7 +328,24 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           line-height: 26px;
         `}
       >
-        <SearchFilter disabled={isFetching} isLoading={isFetching} />
+        <Actions agenda={agenda} query={query} />
+
+        <div className="clearfix">
+          <div
+            className="pull-left"
+            css={css`
+              width: 50%;
+            `}
+          >
+            <SearchFilter disabled={isFetching} isLoading={isFetching} />
+          </div>
+
+          <div className="pull-right">
+            {intl.formatMessage(messages.sortedBy)}
+            &nbsp;
+            <SortSelector onFilterChange={onFilterChange} query={query} />
+          </div>
+        </div>
 
         {hasQuery
           ? intl.formatMessage(messages.totalWithFilters, {

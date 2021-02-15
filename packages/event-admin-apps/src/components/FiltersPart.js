@@ -56,7 +56,7 @@ function FiltersPart({
       ),
       {
         ...query,
-        sort: 'updatedAt.desc',
+        // sort: 'updatedAt.desc',
         detailed: true,
       },
       pageParam

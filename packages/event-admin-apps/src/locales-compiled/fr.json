@@ -1,4 +1,59 @@
 {
+  "EventAdminApp.Actions.export": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "EventAdminApp.Actions.exportDesc": null,
+  "EventAdminApp.Actions.toCSV": [
+    {
+      "type": 0,
+      "value": "en .csv"
+    }
+  ],
+  "EventAdminApp.Actions.toDOCX": [
+    {
+      "type": 0,
+      "value": "en .docx"
+    }
+  ],
+  "EventAdminApp.Actions.toICS": [
+    {
+      "type": 0,
+      "value": "en .ics"
+    }
+  ],
+  "EventAdminApp.Actions.toJSON": [
+    {
+      "type": 0,
+      "value": "en .json"
+    }
+  ],
+  "EventAdminApp.Actions.toMD": [
+    {
+      "type": 0,
+      "value": "en .md"
+    }
+  ],
+  "EventAdminApp.Actions.toRSS": [
+    {
+      "type": 0,
+      "value": "en .rss"
+    }
+  ],
+  "EventAdminApp.Actions.toTXT": [
+    {
+      "type": 0,
+      "value": "en .txt"
+    }
+  ],
+  "EventAdminApp.Actions.toXLSX": [
+    {
+      "type": 0,
+      "value": "en .xlsx"
+    }
+  ],
   "EventAdminApp.Dashboard.filters": [
     {
       "type": 0,
@@ -9,6 +64,12 @@
     {
       "type": 0,
       "value": "Rechercher"
+    }
+  ],
+  "EventAdminApp.Dashboard.sortedBy": [
+    {
+      "type": 0,
+      "value": "Trié par:"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
@@ -252,6 +313,18 @@
     {
       "type": 0,
       "value": "Retirer l'événement"
+    }
+  ],
+  "EventAdminApp.SortSelector.chronological": [
+    {
+      "type": 0,
+      "value": "Ordre chronologique"
+    }
+  ],
+  "EventAdminApp.SortSelector.recentlyUpdated": [
+    {
+      "type": 0,
+      "value": "Date de mise à jour"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

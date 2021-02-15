@@ -18,7 +18,7 @@ export default async function getEvents(
     .flat();
 
   const params = {
-    oaq: { passed: 1 },
+    // oaq: { passed: 1 },
     // size: 0,
     aggregations,
     searchAfter: pageParam,

@@ -90,7 +90,7 @@ export default function FilterPreview({
       ),
       {
         ...query,
-        sort: 'updatedAt.desc',
+        // sort: 'updatedAt.desc',
         detailed: true,
       },
       pageParam
