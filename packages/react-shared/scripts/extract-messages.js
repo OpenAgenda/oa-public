@@ -18,7 +18,7 @@ const ID_INTERPOLATION_PATTERN = argv.idInterpolationPattern || '[sha512:content
 const FORMAT = 'simple';
 
 const DEFAULT_LANG = argv.defaultLang || 'en';
-let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br'];
+let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'io'];
 
 if (Array.isArray(argv.langs)) {
   LANGS = argv.langs;
