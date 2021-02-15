@@ -127,15 +127,16 @@ storiesOf('Access', module)
     })
   );
 
-storiesOf('Acces', module)
+storiesOf('Access', module)
+
   .add('All access', () =>
     adminStory({
       res,
       settings: {...agendaTestSettings, access: {
-        create: true,
-        update: true,
-        merge: true,
-        delete: true
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
       }},
       set: locationSet,
     })
@@ -144,10 +145,10 @@ storiesOf('Acces', module)
     adminStory({
       res,
       settings: {...agendaTestSettings, access: {
-        create: false,
-        update: false,
-        merge: false,
-        delete: false
+        create: {...defaultAccess, authorized: false},
+        update: {...defaultAccess, authorized: false},
+        merge: {...defaultAccess, authorized: false},
+        delete: {...defaultAccess, authorized: false}
       }},
       set: locationSet,
     })
@@ -156,10 +157,22 @@ storiesOf('Acces', module)
     adminStory({
       res,
       settings: {...agendaTestSettings, access: {
-        create: false,
-        update: true,
-        merge: false,
-        delete: false
+        create: {...defaultAccess, authorized: false},
+        update: defaultAccess,
+        merge: {...defaultAccess, authorized: false},
+        delete: {...defaultAccess, authorized: false}
+      }},
+      set: locationSet,
+    })
+  )
+  .add('Update Link, CCN', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update : {authorized: true, external: true, link: 'https://cartes.culture.gouv.fr/lieux/{extId}?jwtToken=token', serviceLabel: 'CultureChezNous' },
+        merge: {...defaultAccess, authorized: false},
+        delete: {...defaultAccess, authorized: false}
       }},
       set: locationSet,
     })

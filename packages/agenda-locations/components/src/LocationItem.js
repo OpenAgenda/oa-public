@@ -22,17 +22,9 @@ class LocationItem extends Component {
     // Binding
     this.onRemove = this.onRemove.bind(this);
     this.seeEvents = this.seeEvents.bind(this);
-    this.displayCantRemoveModal = this.displayCantRemoveModal.bind(this);
-  }
-
-  displayCantRemoveModal(e) {
-    const { displayCantDoModal } = this.props;
-    e.stopPropagation();
-    displayCantDoModal('remove');
   }
 
   onRemove(e) {
-    const { onRemove } = this.props;
     e.stopPropagation();
     const { onRemove } = this.props;
     onRemove();
@@ -103,30 +95,6 @@ class LocationItem extends Component {
 
     if (merge) {
       className.push('merge');
-    }
-    if (settings.access.update) {
-      editButton = (
-        <button
-          type="button"
-          className="btn btn-default"
-          aria-label={getLabel('edit')}
-          onClick={onEdit.bind(this)}
-        >
-          <i className="fa fa-edit" />
-        </button>
-      );
-    }
-    if (settings.access.delete) {
-      removeButton = (
-        <button
-          type="button"
-          className="btn btn-default"
-          aria-label={getLabel('remove')}
-          onClick={this.onRemove}
-        >
-          <i className="fa fa-trash" />
-        </button>
-      );
     }
 
     return (
