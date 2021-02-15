@@ -10,6 +10,7 @@ const aggregationTypes = {
   eventsByDateRanges: require('./eventsByDateRanges'),
   departments: geo('department'),
   keywords: require('./keywords'),
+  languages: require('./languages'),
   members: require('./members'),
   timespan: require('./timespan'),
   originAgendas: require('./originAgendas'),
