@@ -46,7 +46,7 @@ module.exports = Object.assign(
         schema: 'location',
         setSchema: 'location_set',
         interfaces: {
-          getAgendaDetailsByUid: async () => null, // takes uid
+          getAgendaDetailsByUid: async () => null, // takes uid, returns an obj with a locationSetUid key
           getEventCounts: async () => [], // takes identifiers, locationUids
           beforeMerge: async () => {}, // takes mergeIn, mergedLocations
           beforeRemove: async () => {}, // takes location
