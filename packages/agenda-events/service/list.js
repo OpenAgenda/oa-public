@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 
 const VError = require('verror');
+const log = require('@openagenda/logs')('list');
 
 const validate = require('../iso/validate');
 
@@ -87,8 +88,12 @@ module.exports.byEventUid = async (service, eventUid, ...args) => {
 
   const offset = args.length === 2 ? args[0] : args[1];
   const limit = args.length === 2 ? args[1] : (args[2] || 20);
-  const query = args.length === 3 ? { ...args[0], eventUid } : { eventUid };
-
+  
+  const query = { eventUid };
+  if (args.length === 3 || args.length === 1) {
+    Object.assign(query, args[0]);
+  }
+  
   return {
     items: (await buildListQuery(service, query, { offset, limit })).map(validate),
     total: await _total(client, query)

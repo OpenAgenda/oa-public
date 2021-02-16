@@ -5,6 +5,8 @@ const _ = require('lodash');
 const utils = require('./lib/utils');
 const validate = require('../iso/validate');
 const validateOptions = require('./lib/validateOptions');
+const { errorFromList } = require('verror');
+const NotFoundError = require('./lib/NotFoundError')
 
 module.exports = async (service, agendaUid, eventUid, options = {}) => {
   const {
@@ -20,7 +22,8 @@ module.exports = async (service, agendaUid, eventUid, options = {}) => {
   }
 
   const {
-    decorate
+    decorate,
+    throwOnNotFound
   } = validateOptions(options);
 
   const ae = await _get(client, {
@@ -28,8 +31,10 @@ module.exports = async (service, agendaUid, eventUid, options = {}) => {
     'event_uid': eventUid
   });
 
-  if (!ae) {
+  if (!ae && !throwOnNotFound) {
     return null;
+  } else if (!ae) {
+    throw new NotFoundError(agendaUid, eventUid);
   }
 
   if (decorate.includes('member') && config.interfaces.getMembers) {
