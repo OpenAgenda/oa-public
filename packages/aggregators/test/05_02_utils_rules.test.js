@@ -12,7 +12,7 @@ const fixtures = {
   eventBeforeChange: require('./fixtures/eventBeforeChange'),
   eventNowChange: require('./fixtures/eventNowChange'),
   simpleSourceSchema: require('./fixtures/simpleSourceSchema.json'),
-  simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json')
+  simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json'),
 };
 /* esint-enable */
 
@@ -26,15 +26,15 @@ describe('05_02 - utils - rules', () => {
   describe('basic usage', () => {
     test('a ruleset that matches a given value returns the data to be associated to the event when added to an aggregator', () => {
       const input = {
-        thematiques: 1
+        thematiques: 1,
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: [1]
-          }
-        }
+            thematiques: [1],
+          },
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
@@ -44,16 +44,16 @@ describe('05_02 - utils - rules', () => {
 
     test('a ruleset that does not match a given value return null', () => {
       const input = {
-        thematiques: 12
+        thematiques: 12,
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: [1]
+            thematiques: [1],
           },
-          required: true
-        }
+          required: true,
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
@@ -63,21 +63,21 @@ describe('05_02 - utils - rules', () => {
 
     test('if provided schemas share the same fields, the values are maintained in response', () => {
       const input = {
-        thematiques: 1
+        thematiques: 1,
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: [1]
-          }
-        }
+            thematiques: [1],
+          },
+        },
       ];
 
       const field = {
         field: 'thematiques',
         fieldType: 'checkbox',
-        schemaId: 1000
+        schemaId: 1000,
       };
 
       const sourceSchema = { fields: [field] };
@@ -86,22 +86,22 @@ describe('05_02 - utils - rules', () => {
       const result = rules(ruleset, sourceSchema, aggregatorSchema, input);
 
       expect(result).toEqual({
-        thematiques: 1
+        thematiques: 1,
       });
     });
 
     test('a non-required rule is not required for a result to be provided', () => {
       const input = {
-        thematiques: 12
+        thematiques: 12,
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: [1]
+            thematiques: [1],
           },
-          required: false
-        }
+          required: false,
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
@@ -111,30 +111,30 @@ describe('05_02 - utils - rules', () => {
 
     test('a matching rule with actions applies actions to provided values to generate result', () => {
       const input = {
-        thematiques: 12
+        thematiques: 12,
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: [12]
+            thematiques: [12],
           },
           actions: [
             {
-              categories: 3
+              categories: 3,
             },
             {
-              state: 2
-            }
-          ]
-        }
+              state: 2,
+            },
+          ],
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
 
       expect(result).toEqual({
         categories: 3,
-        state: 2
+        state: 2,
       });
     });
 
@@ -143,15 +143,15 @@ describe('05_02 - utils - rules', () => {
         {
           actions: [
             {
-              state: 1
+              state: 1,
             },
             {
               state: {
-                $set: 2
-              }
-            }
-          ]
-        }
+                $set: 2,
+              },
+            },
+          ],
+        },
       ];
 
       const result = rules(ruleset, null, null, {});
@@ -161,37 +161,37 @@ describe('05_02 - utils - rules', () => {
 
     test('only matching rules apply their actions to the result', () => {
       const input = {
-        thematiques: 12
+        thematiques: 12,
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: [12]
+            thematiques: [12],
           },
           actions: [
             {
-              categories: 3
-            }
-          ]
+              categories: 3,
+            },
+          ],
         },
         {
           query: {
-            thematiques: [13]
+            thematiques: [13],
           },
           actions: [
             {
-              categories: 2
-            }
+              categories: 2,
+            },
           ],
-          required: false
-        }
+          required: false,
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
 
       expect(result).toEqual({
-        categories: 3
+        categories: 3,
       });
     });
   });
@@ -199,15 +199,15 @@ describe('05_02 - utils - rules', () => {
   describe('query', () => {
     test('a query matches if at least one of the defined values of the query is in the provided values', () => {
       const input = {
-        thematiques: [12, 19, 20]
+        thematiques: [12, 19, 20],
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: [20, 23, 30]
-          }
-        }
+            thematiques: [20, 23, 30],
+          },
+        },
       ];
 
       expect(rules(ruleset, null, null, input)).toEqual({});
@@ -215,15 +215,15 @@ describe('05_02 - utils - rules', () => {
 
     test('a query is required by default', () => {
       const input = {
-        thematiques: 1
+        thematiques: 1,
       };
 
       const ruleset = [
         {
           query: {
-            thematiques: 2
-          }
-        }
+            thematiques: 2,
+          },
+        },
       ];
 
       expect(rules(ruleset, null, null, input)).toBeNull();
@@ -233,7 +233,7 @@ describe('05_02 - utils - rules', () => {
   describe('actions', () => {
     test('an action overwrites pre-existing values when they are already set', () => {
       const input = {
-        thematiques: 12
+        thematiques: 12,
       };
 
       const ruleset = [
@@ -241,38 +241,38 @@ describe('05_02 - utils - rules', () => {
           actions: [
             {
               field: 'thematiques',
-              values: 13
-            }
-          ]
-        }
+              values: 13,
+            },
+          ],
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
 
       expect(result).toEqual({
-        thematiques: 13
+        thematiques: 13,
       });
     });
 
     test('same as previous, with legacy action structure (overwrite preexisting)', () => {
       const input = {
-        thematiques: 12
+        thematiques: 12,
       };
 
       const ruleset = [
         {
           actions: [
             {
-              thematiques: 13
-            }
-          ]
-        }
+              thematiques: 13,
+            },
+          ],
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
 
       expect(result).toEqual({
-        thematiques: 13
+        thematiques: 13,
       });
     });
 
@@ -283,19 +283,19 @@ describe('05_02 - utils - rules', () => {
         {
           actions: [
             {
-              thematiques: 12
+              thematiques: 12,
             },
             {
-              thematiques: 13
-            }
-          ]
-        }
+              thematiques: 13,
+            },
+          ],
+        },
       ];
 
       const result = rules(ruleset, null, null, input);
 
       expect(result).toEqual({
-        thematiques: [12, 13]
+        thematiques: [12, 13],
       });
     });
 
@@ -307,23 +307,23 @@ describe('05_02 - utils - rules', () => {
               actions: [
                 {
                   thematiques: {
-                    $set: 12
-                  }
+                    $set: 12,
+                  },
                 },
                 {
                   thematiques: {
-                    $push: [13, 14]
-                  }
-                }
-              ]
-            }
+                    $push: [13, 14],
+                  },
+                },
+              ],
+            },
           ],
           null,
           null,
           {}
         )
       ).toEqual({
-        thematiques: [12, 13, 14]
+        thematiques: [12, 13, 14],
       });
     });
 
@@ -335,25 +335,25 @@ describe('05_02 - utils - rules', () => {
               actions: [
                 {
                   thematiques: {
-                    $push: 12
-                  }
+                    $push: 12,
+                  },
                 },
                 {
                   thematiques: {
-                    $set: [13, 14]
-                  }
-                }
-              ]
-            }
+                    $set: [13, 14],
+                  },
+                },
+              ],
+            },
           ],
           null,
           null,
           {
-            thematiques: 11
+            thematiques: 11,
           }
         )
       ).toEqual({
-        thematiques: [13, 14]
+        thematiques: [13, 14],
       });
     });
 
@@ -365,25 +365,25 @@ describe('05_02 - utils - rules', () => {
               actions: [
                 {
                   thematiques: {
-                    $push: 12
-                  }
+                    $push: 12,
+                  },
                 },
                 {
                   thematiques: {
-                    $push: [13, 14]
-                  }
-                }
-              ]
-            }
+                    $push: [13, 14],
+                  },
+                },
+              ],
+            },
           ],
           null,
           null,
           {
-            thematiques: 11
+            thematiques: 11,
           }
         )
       ).toEqual({
-        thematiques: [12, 13, 14]
+        thematiques: [12, 13, 14],
       });
     });
 
@@ -394,28 +394,28 @@ describe('05_02 - utils - rules', () => {
             {
               transform: {
                 thematiques: {
-                  $set: 12
-                }
-              }
+                  $set: 12,
+                },
+              },
             },
             {
               actions: [
                 {
                   thematiques: {
-                    $push: [13, 14]
-                  }
-                }
-              ]
-            }
+                    $push: [13, 14],
+                  },
+                },
+              ],
+            },
           ],
           null,
           null,
           {
-            thematiques: 11
+            thematiques: 11,
           }
         )
       ).toEqual({
-        thematiques: [12, 13, 14]
+        thematiques: [12, 13, 14],
       });
     });
   });
@@ -428,22 +428,22 @@ describe('05_02 - utils - rules', () => {
             actions: [
               {
                 field: 'category',
-                automatic: true
-              }
-            ]
-          }
+                automatic: true,
+              },
+            ],
+          },
         ],
         fixtures.simpleSourceSchema,
         fixtures.simpleAggregatorSchema,
         {
           title: 'Mon event',
           category: 12,
-          type: 1
+          type: 1,
         }
       );
 
       expect(result).toEqual({
-        category: [22]
+        category: [22],
       });
     });
 
@@ -454,21 +454,21 @@ describe('05_02 - utils - rules', () => {
             actions: [
               {
                 field: 'category',
-                automatic: true
-              }
-            ]
-          }
+                automatic: true,
+              },
+            ],
+          },
         ],
         fixtures.simpleSourceSchema,
         fixtures.simpleAggregatorSchema,
         {
           title: 'Mon event',
-          type: 3 // this option in agg has a label which matches one in some other field in source
+          type: 3, // this option in agg has a label which matches one in some other field in source
         }
       );
 
       expect(result).toEqual({
-        category: [39]
+        category: [39],
       });
     });
   });
@@ -483,30 +483,30 @@ describe('05_02 - utils - rules', () => {
             {
               id: 1,
               label: {
-                fr: 'Tag1'
-              }
+                fr: 'Tag1',
+              },
             },
             {
               id: 2,
               label: {
-                fr: 'Tag2'
-              }
+                fr: 'Tag2',
+              },
             },
             {
               id: 3,
               label: {
-                fr: 'Tag3'
-              }
+                fr: 'Tag3',
+              },
             },
             {
               id: 4,
               label: {
-                fr: 'Tag4'
-              }
-            }
-          ]
-        }
-      ]
+                fr: 'Tag4',
+              },
+            },
+          ],
+        },
+      ],
     };
 
     const aggregatorAgendaSchema = {
@@ -517,15 +517,15 @@ describe('05_02 - utils - rules', () => {
           options: [
             {
               id: 1,
-              label: 'Type1'
+              label: 'Type1',
             },
             {
               id: 21,
-              label: 'Type21'
-            }
-          ]
-        }
-      ]
+              label: 'Type21',
+            },
+          ],
+        },
+      ],
     };
 
     describe('without actions', () => {
@@ -534,9 +534,9 @@ describe('05_02 - utils - rules', () => {
         [
           {
             query: {
-              tags: ['Tag1']
-            }
-          }
+              tags: ['Tag1'],
+            },
+          },
         ],
         sourceAgendaSchema,
         null
@@ -546,7 +546,7 @@ describe('05_02 - utils - rules', () => {
         expect(
           evaluate({
             title: 'A thing',
-            tags: [1, 2]
+            tags: [1, 2],
           })
         ).toEqual({});
       });
@@ -555,7 +555,7 @@ describe('05_02 - utils - rules', () => {
         expect(
           evaluate({
             title: 'A thing',
-            tags: [3]
+            tags: [3],
           })
         ).toBe(null);
       });
@@ -565,15 +565,15 @@ describe('05_02 - utils - rules', () => {
           rules(
             {
               query: {
-                tags: ['Tag1']
+                tags: ['Tag1'],
               },
-              required: false
+              required: false,
             },
             sourceAgendaSchema,
             null,
             {
               title: 'Another thing',
-              tags: [3]
+              tags: [3],
             }
           )
         ).toEqual({});
@@ -585,12 +585,12 @@ describe('05_02 - utils - rules', () => {
         null,
         {
           query: {
-            tags: ['Tag1']
+            tags: ['Tag1'],
           },
           transform: {
-            type: { $set: [1] }
+            type: { $set: [1] },
           },
-          required: false
+          required: false,
         },
         sourceAgendaSchema,
         aggregatorAgendaSchema
@@ -600,7 +600,7 @@ describe('05_02 - utils - rules', () => {
         expect(
           evaluate({
             title: 'Line 77',
-            tags: [2]
+            tags: [2],
           })
         ).toEqual({});
       });
@@ -609,10 +609,10 @@ describe('05_02 - utils - rules', () => {
         expect(
           evaluate({
             title: 'Transformed line 77',
-            tags: [1, 33]
+            tags: [1, 33],
           })
         ).toEqual({
-          type: [1]
+          type: [1],
         });
       });
 
@@ -622,37 +622,37 @@ describe('05_02 - utils - rules', () => {
             [
               {
                 transform: {
-                  type: { $set: [] }
-                }
+                  type: { $set: [] },
+                },
               },
               {
                 query: {
-                  tags: ['Tag2']
+                  tags: ['Tag2'],
                 },
                 transform: {
-                  type: { $push: [1] }
+                  type: { $push: [1] },
                 },
-                required: false
+                required: false,
               },
               {
                 query: {
-                  tags: ['Tag3']
+                  tags: ['Tag3'],
                 },
                 transform: {
-                  type: { $push: [21] }
+                  type: { $push: [21] },
                 },
-                required: false
-              }
+                required: false,
+              },
             ],
             sourceAgendaSchema,
             aggregatorAgendaSchema,
             {
               title: 'Evénement de la ville de Lille',
-              tags: [2, 3]
+              tags: [2, 3],
             }
           )
         ).toEqual({
-          type: [1, 21]
+          type: [1, 21],
         });
       });
     });
@@ -666,10 +666,10 @@ describe('05_02 - utils - rules', () => {
           query: {
             location: {
               region: 'Ile-de-France',
-              city: 'Courbevoie'
-            }
-          }
-        }
+              city: 'Courbevoie',
+            },
+          },
+        },
       ],
       null,
       null
@@ -681,8 +681,8 @@ describe('05_02 - utils - rules', () => {
           location: {
             name: 'La boutique',
             city: 'Paris',
-            region: 'Ile-de-France'
-          }
+            region: 'Ile-de-France',
+          },
         })
       ).toBeNull();
     });
@@ -693,8 +693,8 @@ describe('05_02 - utils - rules', () => {
           location: {
             name: 'Chez oim',
             region: 'Ile-de-France',
-            city: 'Courbevoie'
-          }
+            city: 'Courbevoie',
+          },
         })
       ).toEqual({});
     });
@@ -707,21 +707,21 @@ describe('05_02 - utils - rules', () => {
               query: {
                 location: [
                   {
-                    city: 'Bordeaux'
+                    city: 'Bordeaux',
                   },
                   {
-                    city: 'Toulouse'
-                  }
-                ]
-              }
-            }
+                    city: 'Toulouse',
+                  },
+                ],
+              },
+            },
           ],
           null,
           null,
           {
             location: {
-              city: 'Toulouse'
-            }
+              city: 'Toulouse',
+            },
           }
         )
       ).toEqual({});
@@ -734,17 +734,17 @@ describe('05_02 - utils - rules', () => {
             {
               query: {
                 location: {
-                  city: ['Bordeaux', 'Toulouse']
-                }
-              }
-            }
+                  city: ['Bordeaux', 'Toulouse'],
+                },
+              },
+            },
           ],
           null,
           null,
           {
             location: {
-              city: 'Toulouse'
-            }
+              city: 'Toulouse',
+            },
           }
         )
       ).toEqual({});
@@ -758,14 +758,14 @@ describe('05_02 - utils - rules', () => {
           [
             {
               query: {
-                intercommunal_interest: true
-              }
-            }
+                intercommunal_interest: true,
+              },
+            },
           ],
           null,
           null,
           {
-            intercommunal_interest: true
+            intercommunal_interest: true,
           }
         )
       ).toEqual({});
@@ -777,14 +777,155 @@ describe('05_02 - utils - rules', () => {
           [
             {
               query: {
-                intercommunal_interest: true
-              }
-            }
+                intercommunal_interest: true,
+              },
+            },
           ],
           null,
           null,
           {
-            intercommunal_interest: false
+            intercommunal_interest: false,
+          }
+        )
+      ).toBeNull();
+    });
+  });
+  describe('text filter', () => {
+    test('simple string', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  organisateur: '92ORG',
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            organisateur: '92ORG',
+          }
+        )
+      ).toEqual({});
+    });
+    test('simple string no match', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  organisateur: '92ORG',
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            orga: '92ORG',
+            organisateur: '92RG92',
+          }
+        )
+      ).toBeNull();
+    });
+    test('array string', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  organisateur: '92ORG',
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            organisateur: ['92ORG920', '10'], // ['92ORG920'] <- ça plutot
+          }
+        )
+      ).toEqual({});
+    });
+    test('multilang string', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  organisateur: '92ORG',
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            organisateur: { fr: '92ORG_2020', en: '2020-921ORG' },
+          }
+        )
+      ).toEqual({});
+    });
+    test('multilang array string', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                text: {
+                  organisateur: '92ORG',
+                },
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            organisateur: { fr: ['92ORG_2020'], en: ['2020-921ORG', '10'] },
+          }
+        )
+      ).toEqual({});
+    });
+  });
+  describe('attendanceMode', () => {
+    test('attendanceMode match', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                attendanceMode: [1, 3],
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            attendanceMode: 3,
+          }
+        )
+      ).toEqual({});
+    });
+    test('attendanceMode no match', () => {
+      expect(
+        rules(
+          [
+            {
+              query: {
+                attendanceMode: [1, 3],
+              },
+            },
+          ],
+          null,
+          null,
+          {
+            attendanceMode: 2,
           }
         )
       ).toBeNull();
