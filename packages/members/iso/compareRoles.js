@@ -1,31 +1,42 @@
 'use strict';
 
-const toRoleCode = require('./toRoleCode');
 const getRoleSlug = require('./getRoleSlug');
 
 const roleWeights = {
-  ADMINISTRATOR: 100,
-  MODERATOR: 50,
-  CONTRIBUTOR: 10,
-  READER: 1,
-  NOROLE: 0
+  administrator: 100,
+  moderator: 50,
+  contributor: 10,
+  reader: 1,
+  norole: 0,
 };
 
-function _getRoleSlug(role) {
-  if ([null, undefined].includes(role)) {
-    return 'NOROLE';
-  }
-
-  return getRoleSlug(toRoleCode(role)).toUpperCase();
-}
-
 function isEqualTo(role, compareWithRole) {
-  return _getRoleSlug(role) === _getRoleSlug(compareWithRole);
+  return (
+    getRoleSlug(role, {
+      default: 'norole',
+      throwIfUnknown: false,
+    })
+    === getRoleSlug(compareWithRole, {
+      default: 'norole',
+      throwIfUnknown: false,
+    })
+  );
 }
 
 function isSuperiorTo(role, compareWithRole) {
   return (
-    roleWeights[_getRoleSlug(role)] > roleWeights[_getRoleSlug(compareWithRole)]
+    roleWeights[
+      getRoleSlug(role, {
+        default: 'norole',
+        throwIfUnknown: false,
+      })
+    ]
+    > roleWeights[
+      getRoleSlug(compareWithRole, {
+        default: 'norole',
+        throwIfUnknown: false,
+      })
+    ]
   );
 }
 
@@ -37,7 +48,18 @@ function isSuperiorToOrEqual(role, compareWithRole) {
 
 function isLessThan(role, compareWithRole) {
   return (
-    roleWeights[_getRoleSlug(role)] < roleWeights[_getRoleSlug(compareWithRole)]
+    roleWeights[
+      getRoleSlug(role, {
+        default: 'norole',
+        throwIfUnknown: false,
+      })
+    ]
+    < roleWeights[
+      getRoleSlug(compareWithRole, {
+        default: 'norole',
+        throwIfUnknown: false,
+      })
+    ]
   );
 }
 
@@ -45,5 +67,5 @@ module.exports = {
   isSuperiorTo,
   isSuperiorToOrEqual,
   isEqualTo,
-  isLessThan
+  isLessThan,
 };

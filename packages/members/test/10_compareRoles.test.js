@@ -4,7 +4,7 @@ const {
   isSuperiorTo,
   isSuperiorToOrEqual,
   isEqualTo,
-  isLessThan
+  isLessThan,
 } = require('..').utils.compareRoles;
 
 describe('members - utils - compareRoles', () => {
@@ -53,16 +53,9 @@ describe('members - utils - compareRoles', () => {
       expect(isSuperiorTo('administrator', 'reader')).toBe(true);
     });
 
-    test('Unknown error is thrown if given string is unknown', () => {
-      let error;
-
-      try {
-        isSuperiorTo('ADMINISTRATOR', 'CLOWN');
-      } catch (e) {
-        error = e;
-      }
-
-      expect(error.message).toBe('Unknown role');
+    test('unknown role is considered lesser than everything', () => {
+      expect(isSuperiorTo('ADMINISTRATOR', 'CLOWN')).toBe(true);
+      expect(isSuperiorTo('CLOWN', 'ADMINISTRATOR')).toBe(false);
     });
   });
 
