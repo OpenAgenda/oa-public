@@ -2,6 +2,7 @@
 
 const evaluateLocation = require('./location');
 const evaluateLabels = require('./labels');
+const evaluateText = require('./text');
 
 module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   if (!data) {
@@ -23,10 +24,12 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
     return required ? false : null;
   }
 
+  if (rule.query.text && !evaluateText(rule.query.text, data)) {
+    return required ? false : null;
+  }
   const otherRuleFields = Object.keys(rule.query).filter(
-    f => !['location', 'tags'].includes(f)
+    f => !['location', 'tags', 'text'].includes(f)
   );
-
   for (const ruleField of otherRuleFields) {
     const values = [].concat(data[ruleField]) || [];
     const query = [].concat(rule.query[ruleField]);
@@ -35,6 +38,5 @@ module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
       return required ? false : null;
     }
   }
-
   return rule.actions;
 };
