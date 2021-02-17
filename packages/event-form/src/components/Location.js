@@ -32,13 +32,10 @@ const getResObject = res => ({
 
 class LocationComponent extends Component {
 
-  constructor( props ) {
+  constructor(props) {
+    super(props);
 
-    super( props );
-
-    let location = null;
-
-    const locationUid = _.get( props, 'value.uid' ) || _.get( props, 'field.default.uid' );
+    const locationUid = _.get(props, 'value.uid') || _.get(props, 'field.default.uid');
 
     const res = getResObject(props.field.res);
 
@@ -47,62 +44,47 @@ class LocationComponent extends Component {
         mode: 'search',
         res
       }
-
-      return;
+    } else {
+      this.state = {
+        initing: true,
+        res
+      }
+      this.loadLocation(locationUid);
     }
-
-    this.state = {
-      initing: true,
-      res
-    }
-
-    this.loadLocation( locationUid );
-
   }
 
-  loadLocation( locationUid ) {
-
+  loadLocation(locationUid) {
     sa.get(this.state.res.get.replace(':uid', locationUid)).then(res => {
-
-      this.setState( {
+      this.setState({
         initing: false,
         mode: res.body ? 'show' : 'search'
-      } );
+      });
 
-      this.props.onChange( res.body );
-
+      this.props.onChange(res.body);
     }, err => {
+      console.log('could not load %s', locationUid);
+      console.log(err);
 
-      console.log( 'could not load %s', locationUid );
-      console.log( err );
-
-      this.setState( {
+      this.setState({
         initing: false,
         mode: 'search'
-      } );
-
-    } );
-
+      });
+    });
   }
 
   getSettings() {
-
     const settings = _.get(this.props, 'field.legacy', {});
 
-    if ( settings.tagSet ) {
-
-      return ih( settings, {
-        tagSet: { $set: flattenLocationTagSet( settings.tagSet, this.props.lang ) }
-      } );
-
+    if (settings.tagSet) {
+      return ih(settings, {
+        tagSet: { $set: flattenLocationTagSet(settings.tagSet, this.props.lang) }
+      });
     }
 
     return settings;
-
   }
 
   onChange(mode, location) {
-    console.log(mode, location);
     this.setState({ mode });
 
     if (location !== undefined) {
@@ -111,7 +93,6 @@ class LocationComponent extends Component {
   }
 
   renderSelector() {
-
     const {
       lang,
       value
@@ -136,32 +117,27 @@ class LocationComponent extends Component {
       classNames={{
         input: ''
       }}
-      location={_.assign( {}, defaultValue || {}, value )}
+      location={_.assign({}, defaultValue || {}, value)}
       lang={lang}
       settings={this.getSettings()}
       res={this.state.res}
       onChange={this.onChange.bind(this)}
     />
-
   }
 
   render() {
-
     const spinnerCanvasStyle = {
       height: 37,
       position: 'relative'
     };
 
-    if ( this.state.initing ) {
-
+    if (this.state.initing) {
       return <div className="margin-v-sm text-center" style={spinnerCanvasStyle}>
         <Spinner mode="inline"/>
       </div>
-
     }
 
     if (['create', 'confirm'].includes(this.state.mode)) {
-
       return <div>
         <div className="text-center" style={spinnerCanvasStyle} >
           <Spinner mode="inline"/>
@@ -172,15 +148,12 @@ class LocationComponent extends Component {
           {this.renderSelector()}
         </Modal>
       </div>
-
     }
 
     return <div className={this.state.mode === 'show' ? 'padding-v-sm padding-h-xs' : ''}>
       {this.renderSelector()}
     </div>
-
   }
-
 }
 
 
@@ -197,6 +170,5 @@ LocationComponent.defaultProps = {
   legacy: {},
   field: null
 };
-
 
 module.exports = LocationComponent;
