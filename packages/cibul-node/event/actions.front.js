@@ -14,6 +14,7 @@ const getActionLabel = require('@openagenda/labels')(
 );
 const log = require('@openagenda/logs')('event/actions');
 
+const { getLocaleValue } = require('@openagenda/react-shared');
 const mails = require('../services/mails');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
@@ -21,7 +22,6 @@ const config = require('../config');
 const addCalendarLinks = require('../services/events/lib/addCalendarLinks');
 const gaTrack = require('../lib/gaTrack.mw');
 const ics = require('../services/events/lib/ics');
-const getLocaleValue = require('../services/events/lib/getLocaleValue');
 
 module.exports = app => {
   const {
@@ -147,7 +147,7 @@ function actionShow(req, res, next) {
   const {
     sessions
   } = req.app.services;
-  
+
   const loaders = {
     calendars: _calendarAction,
     agendas: _agendasAction,

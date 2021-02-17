@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { css } from '@emotion/react';
-import getLocaleValue from '../utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/react-shared';
 import StateSelector from './StateSelector';
 
 const messages = defineMessages({

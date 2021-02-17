@@ -1,8 +1,7 @@
 import { useIntl } from 'react-intl';
 import React, { useMemo } from 'react';
 import { css } from '@emotion/core';
-import { ReactSelectField } from '@openagenda/react-shared';
-import getLocaleValue from '../utils/getLocaleValue';
+import { ReactSelectField, getLocaleValue } from '@openagenda/react-shared';
 import titleMessages from '../messages/chartTitles';
 import form from './messages/form';
 
@@ -11,7 +10,7 @@ export default function AddChartForm({
   onCancel,
   agendaSchema,
   stats,
-  values
+  values,
 }) {
   const intl = useIntl();
 
@@ -29,8 +28,8 @@ export default function AddChartForm({
           value: {
             additionalField: true,
             fieldSchema,
-            isCheckbox
-          }
+            isCheckbox,
+          },
         };
       });
 
@@ -40,38 +39,38 @@ export default function AddChartForm({
         options: [
           {
             label: intl.formatMessage(titleMessages.regions),
-            value: 'regions'
+            value: 'regions',
           },
           {
             label: intl.formatMessage(titleMessages.departments),
-            value: 'departments'
+            value: 'departments',
           },
           { label: intl.formatMessage(titleMessages.cities), value: 'cities' },
           {
             label: intl.formatMessage(titleMessages.timings),
-            value: 'timings'
+            value: 'timings',
           },
           {
             label: intl.formatMessage(titleMessages.createdAt),
-            value: 'createdAt'
+            value: 'createdAt',
           },
           {
             label: intl.formatMessage(titleMessages.updatedAt),
-            value: 'updatedAt'
+            value: 'updatedAt',
           },
           {
             label: intl.formatMessage(titleMessages.members),
-            value: 'members'
+            value: 'members',
           },
           {
             label: intl.formatMessage(titleMessages.originAgendas),
-            value: 'originAgendas'
+            value: 'originAgendas',
           },
           {
             label: intl.formatMessage(titleMessages.keywords),
-            value: 'keywords'
+            value: 'keywords',
           },
-          { label: intl.formatMessage(titleMessages.states), value: 'states' }
+          { label: intl.formatMessage(titleMessages.states), value: 'states' },
         ]
           .concat(additionalFieldOpts)
           .filter(
@@ -89,14 +88,14 @@ export default function AddChartForm({
 
               return stat.aggregation.type === v.value;
             })
-          )
+          ),
       },
       {
         label: intl.formatMessage(form.others),
         options: [
-          { label: intl.formatMessage(form.separator), value: 'separator' }
-        ]
-      }
+          { label: intl.formatMessage(form.separator), value: 'separator' },
+        ],
+      },
     ];
   }, [agendaSchema.fields, intl, stats]);
 
@@ -104,12 +103,12 @@ export default function AddChartForm({
     () => [
       {
         label: intl.formatMessage(form.oneColumn),
-        value: 1
+        value: 1,
       },
       {
         label: intl.formatMessage(form.oneLine),
-        value: 2
-      }
+        value: 2,
+      },
     ],
     [intl]
   );
