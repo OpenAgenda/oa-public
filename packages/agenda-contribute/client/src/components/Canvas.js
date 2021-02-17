@@ -1,49 +1,44 @@
 import _ from 'lodash';
-
 import React, { Component } from 'react';
-
 import labels from '@openagenda/labels/agenda-contribute/event';
-
 import Stepper from './Stepper';
-
 export default class Canvas extends Component {
 
   componentDidMount() {
-
-    if ( this.props.onDidMount ) {
-
-      this.props.onDidMount( _.first( this.props.steps.filter( s => s.active ) ) );
-
+    if (this.props.onDidMount) {
+      this.props.onDidMount(_.first(this.props.steps.filter(s => s.active)));
     }
-
   }
 
   renderTitle() {
-
     const { event, lang, title } = this.props;
 
-    if ( title ) return title;
+    if (title) return title;
 
-    const draft = _.get( event, 'draft', false );
+    const draft = event?.draft === undefined ? false : event.draft;
 
-    if ( !draft ) return labels.addEvent[ lang ];
+    if (!draft) {
+      return labels.addEvent[lang];
+    }
 
-    const titleLanguages = _.keys( event.title );
+    const titleLanguages = Object.keys(event.title || {});
 
-    const eventLanguage = titleLanguages.includes( lang ) ? lang : _.first( titleLanguages );
+    const eventLanguage = titleLanguages.includes(lang) ? lang : titleLanguages.shift();
 
     const titleParts = [];
 
-    if ( event.draft ) titleParts.push( labels.editDraftTitle[ lang ] );
+    if (event.draft) {
+      titleParts.push(labels.editDraftTitle[lang]);
+    }
 
-    if ( eventLanguage ) titleParts.push( _.get( event, [ 'title', eventLanguage ] ) );
+    if (eventLanguage) {
+      titleParts.push(_.get(event, ['title', eventLanguage]));
+    }
 
-    return titleParts.join( ': ' )
-
+    return titleParts.join(': ');
   }
 
   render() {
-
     const { lang, children, steps, onSelectStep } = this.props;
 
     return <div className="container">
@@ -59,7 +54,6 @@ export default class Canvas extends Component {
         </div>
       </div>
     </div>
-
   }
 
 }
