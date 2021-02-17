@@ -9,9 +9,9 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.locationFilter',
     defaultMessage: 'Location filter'
   },
-  extendedFilter: {
-    id: 'aggregator-sources.RuleForm.extendedFilter',
-    defaultMessage: 'Additionnal field filter'
+  choiceFilter: {
+    id: 'aggregator-sources.RuleForm.choiceFilter',
+    defaultMessage: 'Choice field filter'
   },
   tagFilter: {
     id: 'aggregator-sources.RuleForm.tagFilter',
@@ -83,8 +83,8 @@ export default defineMessages({
     defaultMessage:
       'Apply the rule to events corresponding to one or more cities, departments or regions.'
   },
-  helpFilterExtended: {
-    id: 'aggregator-sources.RuleForm.helpFilterExtended',
+  helpFilterChoice: {
+    id: 'aggregator-sources.RuleForm.helpFilterChoice',
     defaultMessage:
       'Apply the rule to events corresponding to one or more values coming from additional fields of the source.'
   },

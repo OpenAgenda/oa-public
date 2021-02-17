@@ -9,7 +9,7 @@ function getFilterType(rule) {
 
   const key = Object.keys(rule.query)[0];
 
-  return ['location', 'tags'].includes(key) ? key : 'extended';
+  return ['location', 'tags'].includes(key) ? key : 'choice';
 }
 
 function getFilterLocationType(rule) {
@@ -20,7 +20,7 @@ function getFilterField(rule) {
   return Object.keys(rule.query)[0];
 }
 
-const additionalFilter = ({
+const choiceFilter = ({
   intl, rule, sourceAgendaSchema, sourceAgenda
 }) => {
   const filterFieldName = getFilterField(rule);
@@ -31,12 +31,9 @@ const additionalFilter = ({
       .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
       .map(o => getMultiLanguageLabel(o.label))
       .join(', '),
-    detail: intl.formatMessage(
-      messages.sourceAgendaAdditionalFieldValueDetail,
-      {
-        agendaTitle: sourceAgenda.title
-      }
-    )
+    detail: intl.formatMessage(messages.sourceAgendaChoiceFieldValueDetail, {
+      agendaTitle: sourceAgenda.title
+    })
   };
 };
 
@@ -72,7 +69,7 @@ export default ({
     case 'tags':
       return tagsFilter({ intl, rule, sourceAgenda });
     default:
-      return additionalFilter({
+      return choiceFilter({
         intl,
         rule,
         sourceAgendaSchema,
