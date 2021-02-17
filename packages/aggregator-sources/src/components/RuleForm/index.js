@@ -22,7 +22,8 @@ export default function RuleForm({
   disabledChoice,
   isAggregator,
   aggregatorAgendaSchema,
-  sourceSchema
+  sourceSchema,
+  displayTagFilter
 }) {
   const intl = useIntl();
   const formState = useFormState();
@@ -112,19 +113,21 @@ export default function RuleForm({
             </div>
           ) : null}
 
-          <Field
-            component={Radio}
-            name="type"
-            type="radio"
-            label={intl.formatMessage(messages.tagFilter)}
-            value="tags"
-            classNameGroup="radio"
-            helpBlock={(
-              <div className="radio-sub-block text-muted">
-                {intl.formatMessage(messages.helpFilterTag)}
-              </div>
-            )}
-          />
+          {displayTagFilter ? (
+            <Field
+              component={Radio}
+              name="type"
+              type="radio"
+              label={intl.formatMessage(messages.tagFilter)}
+              value="tags"
+              classNameGroup="radio"
+              helpBlock={(
+                <div className="radio-sub-block text-muted">
+                  {intl.formatMessage(messages.helpFilterTag)}
+                </div>
+              )}
+            />
+          ) : null}
 
           {values.type === 'tags' ? (
             <div className="radio-sub-block">
