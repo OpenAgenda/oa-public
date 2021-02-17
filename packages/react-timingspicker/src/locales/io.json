@@ -41,7 +41,7 @@
   "rtp.recurrencerForm.endBeforeStart": "crwdns1006:0crwdne1006:0",
   "rtp.recurrencerForm.ends": "crwdns1008:0crwdne1008:0",
   "rtp.recurrencerForm.everyMonthByDate": "crwdns1010:0dayNumber={dayNumber}crwdne1010:0",
-  "rtp.recurrencerForm.everyMonthByWeekday": "crwdns1012:0weekNumber={weekNumber}crwdnd1012:0{weekday}crwdne1012:0",
+  "rtp.recurrencerForm.everyMonthByWeekday": "crwdns1012:0weekNumber={weekNumber}crwdnd1012:0weekday={weekday}crwdne1012:0",
   "rtp.recurrencerForm.forceSubmit": "crwdns1014:0crwdne1014:0",
   "rtp.recurrencerForm.intervalTooSmall": "crwdns1016:0crwdne1016:0",
   "rtp.recurrencerForm.invalidDate": "crwdns1018:0crwdne1018:0",
