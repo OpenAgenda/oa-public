@@ -8,10 +8,10 @@ export default function AddRuleSubmitButton({ handleSubmit, onCancel }) {
   const intl = useIntl();
   const { values } = useFormState();
 
-  const hasExtendedValues = Array.isArray(values.extendedValues)
-    ? values.extendedValues.length
-    : !['', null, undefined].includes(values.extendedValues);
-  const hasFilter = values.tagValues?.length || values.locationValues || hasExtendedValues;
+  const hasChoiceValues = Array.isArray(values.choiceValues)
+    ? values.choiceValues.length
+    : !['', null, undefined].includes(values.choiceValues);
+  const hasFilter = values.tagValues?.length || values.locationValues || hasChoiceValues;
   const disabled = !hasFilter
     && !(
       values.withActions

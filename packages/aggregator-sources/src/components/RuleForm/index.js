@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import messages from './messages';
 
 import ActionsFormPart from './ActionsFormPart';
-import AdditionalFieldFormPart from './AdditionalFieldFormPart';
+import ChoiceFieldFormPart from './ChoiceFieldFormPart';
 import LocationFormPart from './LocationFormPart';
 import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
@@ -19,7 +19,7 @@ export default function RuleForm({
   onCancel,
   values,
   options,
-  disabledExtended,
+  disabledChoice,
   isAggregator,
   aggregatorAgendaSchema,
   sourceSchema
@@ -88,23 +88,23 @@ export default function RuleForm({
               component={Radio}
               name="type"
               type="radio"
-              label={intl.formatMessage(messages.extendedFilter)}
-              value="extended"
+              label={intl.formatMessage(messages.choiceFilter)}
+              value="choice"
               classNameGroup={classNames('radio', {
-                disabled: disabledExtended
+                disabled: disabledChoice
               })}
-              disabled={disabledExtended}
+              disabled={disabledChoice}
               helpBlock={(
                 <div className="radio-sub-block text-muted">
-                  {intl.formatMessage(messages.helpFilterExtended)}
+                  {intl.formatMessage(messages.helpFilterChoice)}
                 </div>
               )}
             />
           ) : null}
 
-          {values.type === 'extended' ? (
+          {values.type === 'choice' ? (
             <div className="radio-sub-block">
-              <AdditionalFieldFormPart
+              <ChoiceFieldFormPart
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
               />

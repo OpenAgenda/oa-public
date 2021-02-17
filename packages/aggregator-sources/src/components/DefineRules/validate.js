@@ -17,8 +17,8 @@ export default function validate(
     errors.subdivision = intl.formatMessage(messages.requiredSubdivision);
   }
 
-  if (values.type === 'extended' && !values.extendedValues) {
-    errors.extendedValues = intl.formatMessage(messages.requiredValues);
+  if (values.type === 'choice' && !values.choiceValues) {
+    errors.choiceValues = intl.formatMessage(messages.requiredValues);
   }
 
   if (values.type === 'location' && !values.locationValues) {

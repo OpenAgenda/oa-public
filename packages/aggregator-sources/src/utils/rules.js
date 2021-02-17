@@ -110,13 +110,13 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 
   const [key] = Object.keys(query);
 
-  // Extended
+  // Choice filter
   if (key) {
     return Object.assign(result, {
       withFilter: true,
-      type: 'extended',
+      type: 'choice',
       field: key,
-      extendedValues: query[key]
+      choiceValues: query[key]
     });
   }
 
@@ -192,10 +192,10 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
         required,
         actions
       };
-    case 'extended': {
+    case 'choice': {
       return {
         query: {
-          [values.field]: values.extendedValues
+          [values.field]: values.choiceValues
         },
         required,
         actions
