@@ -186,6 +186,20 @@ export default function DefineRules({
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema);
   }, [state.rules, state.modeOptions.id, aggregatorAgendaSchema]);
 
+  const displayTagFilter = useMemo(() => {
+    if (state.mode !== 'update') {
+      return false;
+    }
+    const ruleToUpdate = state.rules.find(
+      rule => rule.id === state.modeOptions.id
+    );
+    console.log(
+      'HERE ',
+      ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type
+    );
+    return ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type === 'tags';
+  }, [state.mode, state.modeOptions.id]);
+
   if (state.mode === 'list') {
     return (
       <List
@@ -250,6 +264,7 @@ export default function DefineRules({
           }}
           onCancel={setModeList}
           component={RuleForm}
+          displayTagFilter={displayTagFilter}
           initialValues={initialValues}
           SubmitButton={UpdateRuleSubmitButton}
           disabledExtended={!sourceSchema?.fields?.length}
