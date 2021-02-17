@@ -9,7 +9,7 @@ import LocationSelector from '@openagenda/agenda-locations/components/build/Loca
 
 import flattenLocationTagSet from '../utils/flattenLocationTagSet';
 
-const getRes = (res, key, suffix) => {
+const getResItem = (res, key, suffix) => {
   if (typeof res === 'string') {
     return res + suffix;
   } else if (res[key]) {
@@ -18,6 +18,17 @@ const getRes = (res, key, suffix) => {
     return res.default + suffix
   };
 }
+
+const getResObject = res => ({
+  index: getResItem(res, 'index', ''),
+  get: getResItem(res, 'get', ''),
+  geocode: getResItem(res, 'geocode', '/geocode'),
+  reverseGeocode: getResItem(res, 'reverse', '/geocode/reverse'),
+  insee: getResItem(res, 'insee', `/insee`),
+  create: getResItem(res, 'create', ``),
+  remove: getResItem(res, 'remove', '/remove'),
+  suggestChange: getResItem(res, 'suggestChange', `/:locationUid/suggest-change/conversation/create`)
+})
 
 class LocationComponent extends Component {
 
@@ -29,18 +40,20 @@ class LocationComponent extends Component {
 
     const locationUid = _.get( props, 'value.uid' ) || _.get( props, 'field.default.uid' );
 
-    if ( !locationUid ) {
+    const res = getResObject(props.field.res);
 
+    if (!locationUid) {
       this.state = {
-        mode: 'search'
+        mode: 'search',
+        res
       }
 
       return;
-
     }
 
     this.state = {
-      initing: true
+      initing: true,
+      res
     }
 
     this.loadLocation( locationUid );
@@ -49,7 +62,7 @@ class LocationComponent extends Component {
 
   loadLocation( locationUid ) {
 
-    sa.get(this.props.field.res.get.replace(':uid', locationUid)).then(res => {
+    sa.get(this.state.res.get.replace(':uid', locationUid)).then(res => {
 
       this.setState( {
         initing: false,
@@ -70,23 +83,6 @@ class LocationComponent extends Component {
 
     } );
 
-  }
-
-  detailedRes() {
-    const { res } = this.props.field;
-
-    const detailed = {
-      index: getRes(res, 'index', ''),
-      get: getRes(res, 'get', ''),
-      geocode: getRes(res, 'geocode', '/geocode'),
-      reverseGeocode: getRes(res, 'reverse', '/geocode/reverse'),
-      insee: getRes(res, 'insee', `/insee`),
-      create: getRes(res, 'create', ``),
-      remove: getRes(res, 'remove', '/remove'),
-      suggestChange: getRes(res, 'suggestChange', `/:locationUid/suggest-change/conversation/create`)
-    }
-
-    return detailed;
   }
 
   getSettings() {
@@ -143,7 +139,7 @@ class LocationComponent extends Component {
       location={_.assign( {}, defaultValue || {}, value )}
       lang={lang}
       settings={this.getSettings()}
-      res={this.detailedRes()}
+      res={this.state.res}
       onChange={this.onChange.bind(this)}
     />
 
