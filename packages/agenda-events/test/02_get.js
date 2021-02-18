@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const should = require('should');
+const assert = require('assert');
 
 const Service = require('../');
 const config = require('../testconfig');
@@ -127,6 +128,25 @@ describe('agendaEvents - 02 - functional (server): get', function() {
       state: config.eventStates.VALIDATED,
       legacyId: '42.24'
     });
+  });
+
+  it('get returns null if no match is found', async () => {
+    assert.equal(
+      await svc(62792452).get(60059377),
+      null
+    );
+  });
+
+  it('get throws not found error if option is set', async () => {
+    let error;
+    try {
+      await svc(62792452).get(60059377, {
+        throwOnNotFound: true
+      });
+    } catch (e) {
+      error = e;
+    }
+    assert.equal(error.name, 'NotFoundError');
   });
 
 } );

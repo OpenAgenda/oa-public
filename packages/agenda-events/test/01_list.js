@@ -66,7 +66,9 @@ describe('agendaEvents - 01 - functional (server): list', function() {
   it('list with sourceAgendas decorate provides source agendas for each returned item', async () => {
     const {
       items
-    } = await svc(62792452).list(100, 10, { decorate: ['sourceAgendas'] });
+    } = await svc(62792452).list(100, 10, {
+      decorate: ['sourceAgendas']
+    });
 
     assert.deepEqual(items[0].sourceAgendas, [
       { uid: 7878876, title: 'Papadapap' },
@@ -162,6 +164,11 @@ describe('agendaEvents - 01 - functional (server): list', function() {
     const { items } = await svc.list.byEventUid(54434612, { excludeAgendaUid: 62792452 }, 0, 1);
 
     assert.equal(items.length ,0);
+  });
+
+  it('list by event uid and filtering by canEdit', async () => {
+    const { items } = await svc.list.byEventUid(54434612, { canEdit: true });
+    assert.equal(items.length, 0);
   });
 
   it('an item contains agenda & event references, state, featured bool and custom data', async () => {

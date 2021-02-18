@@ -307,6 +307,19 @@ describe('timings', () => {
       
     });
 
+    it('if default is provided, default is used if no value is given', () => {
+      const defaultValue = [{
+        begin: { date: '2019-10-12', hours: 10, minutes: 11 },
+        end: { date: '2019-10-12', hours: 12, minutes: 20 }
+      }];
+  
+      const validate = validateTimings({
+        default: defaultValue
+      });
+
+      assert.deepEqual(validate(), defaultValue);
+    });
+
 
   });
 

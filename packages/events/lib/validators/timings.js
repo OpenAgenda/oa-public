@@ -7,12 +7,14 @@ const validateTiming = require('./timing');
 const fZ = n => (`${n}`.length === 1 ? '0' : '') + n;
 const DHMToString = t => `${t.date}T${fZ(t.hours)}:${fZ(t.minutes)}`;
 
-module.exports = (options = {}) => timings => {
+module.exports = (options = {}) => dirty => {
   const errors = [];
   const baseError = {
-    origin: timings,
+    origin: dirty,
     field: 'timings'
   };
+
+  const timings = options.default && dirty === undefined ? options.default : dirty;
 
   if (options.optional && !timings) {
     return timings;

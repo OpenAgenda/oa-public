@@ -33,6 +33,10 @@ const base = {
     type: 'choice',
     options: ['member', 'sourceAgendas']
   },
+  throwOnNotFound: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     optional: true,
     default: null,
