@@ -64,6 +64,32 @@ const messages = defineMessages({
   },
 });
 
+function addQueryPrefix(query, prefix = 'q.') {
+  const result = {};
+
+  for (const key in query) {
+    if (Object.prototype.hasOwnProperty.call(query, key)) {
+      result[`${prefix}${key}`] = query[key];
+    }
+  }
+
+  return result;
+}
+
+function removeQueryPrefix(query, prefix = 'q.') {
+  const result = {};
+
+  for (const key in query) {
+    if (Object.prototype.hasOwnProperty.call(query, key)) {
+      if (key.startsWith(prefix)) {
+        result[key.slice(prefix.length)] = query[key];
+      }
+    }
+  }
+
+  return result;
+}
+
 function SearchField({ input, disabled, isLoading }) {
   const intl = useIntl();
 
@@ -151,9 +177,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const res = useSelector(state => state.res);
 
   const [query, setQuery] = useState(() => {
-    const baseQuery = qs.parse(history.location.search, {
+    const parsedSearch = qs.parse(history.location.search, {
       ignoreQueryPrefix: true,
     });
+    const baseQuery = removeQueryPrefix(parsedSearch);
 
     return _.pick(
       validateQuery(baseQuery, agendaSchema),
@@ -232,13 +259,21 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       ],
       keepPreviousData: true, // because query change,
       onSuccess: () => {
-        const search = qs.stringify(query, {
-          addQueryPrefix: true,
-          arrayFormat: 'brackets',
-          skipNulls: true,
+        const parsedSearch = qs.parse(history.location.search, {
+          ignoreQueryPrefix: true,
         });
+        const baseQuery = removeQueryPrefix(parsedSearch);
 
-        if (history.location.search !== search) {
+        if (!_.isEqual(query, baseQuery)) {
+          const search = qs.stringify(
+            { ...parsedSearch, ...addQueryPrefix(query) },
+            {
+              addQueryPrefix: true,
+              arrayFormat: 'brackets',
+              skipNulls: true,
+            }
+          );
+
           history.push({
             ...history.location,
             search,
@@ -271,16 +306,12 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const latestQuery = useLatest(query);
 
   useUpdateEffect(() => {
-    const search = qs.stringify(latestQuery.current, {
-      addQueryPrefix: true,
-      arrayFormat: 'brackets',
-      skipNulls: true,
+    const parsedSearch = qs.parse(history.location.search, {
+      ignoreQueryPrefix: true,
     });
+    const baseQuery = removeQueryPrefix(parsedSearch);
 
-    if (history.location.search !== search) {
-      const baseQuery = qs.parse(history.location.search, {
-        ignoreQueryPrefix: true,
-      });
+    if (!_.isEqual(baseQuery, latestQuery.current)) {
       const cleanQuery = _.pick(
         validateQuery(baseQuery, agendaSchema),
         Object.keys(baseQuery)
