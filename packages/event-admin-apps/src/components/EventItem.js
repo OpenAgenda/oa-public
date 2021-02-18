@@ -43,8 +43,6 @@ const messages = defineMessages({
   },
 });
 
-// TODO defined "Passed" badge
-
 export default function EventItem({
   agenda,
   event,
