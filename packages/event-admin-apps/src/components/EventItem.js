@@ -127,16 +127,14 @@ export default function EventItem({
             />
           </li>
 
-          {event.member && event.originAgenda?.uid === agenda.uid ? (
-            <li>
-              <a
-                className="btn btn-link btn-link-inline"
-                href={`/${agenda.slug}/events/${event.slug}/edit`}
-              >
-                {intl.formatMessage(messages.edit)}
-              </a>
-            </li>
-          ) : null}
+          <li>
+            <a
+              className="btn btn-link btn-link-inline"
+              href={`/${agenda.slug}/contribute/event/${event.uid}`}
+            >
+              {intl.formatMessage(messages.edit)}
+            </a>
+          </li>
 
           <li>
             <a
