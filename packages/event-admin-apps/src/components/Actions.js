@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import qs from 'qs';
+import { a11yButtonActionHandler } from '@openagenda/react-shared';
+import DocxExportModal from '@openagenda/agenda-docx/client/build/ExportModal';
 
 const messages = defineMessages({
   export: {
@@ -56,12 +58,18 @@ function DownloadLink({ children, ...props }) {
 
 export default function Actions({ agenda, query }) {
   const intl = useIntl();
-  // const [displayExports, setDisplayExports] = useState(false);
-  //
-  // const toggleExports = useCallback(
-  //   () => setDisplayExports(previous => !previous),
-  //   []
-  // );
+  const [displayDocxModal, setDisplayDocxModal] = useState(false);
+
+  const toggleDocxModal = useMemo(
+    () => a11yButtonActionHandler(e => {
+      if (e) {
+        e.preventDefault();
+      }
+
+      setDisplayDocxModal(previous => !previous);
+    }),
+    []
+  );
 
   const queryString = qs.stringify(query, {
     addQueryPrefix: true,
@@ -133,11 +141,16 @@ export default function Actions({ agenda, query }) {
               {intl.formatMessage(messages.toRSS)}
             </DownloadLink>
           </li>
-          {/* <li> */}
-          {/*   <DownloadLink href={`/agendas/${agenda.uid}/admin/events.v2.docx${queryString}`}> */}
-          {/*     {intl.formatMessage(messages.toDOCX)} */}
-          {/*   </DownloadLink> */}
-          {/* </li> */}
+          <li>
+            <a
+              href="#docx"
+              role="button"
+              onClick={toggleDocxModal}
+              onKeyPress={toggleDocxModal}
+            >
+              {intl.formatMessage(messages.toDOCX)}
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -150,6 +163,15 @@ export default function Actions({ agenda, query }) {
       {/*     {intl.formatMessage(messages.exportDesc, { total })} */}
       {/*   </div> */}
       {/* ) : null} */}
+
+      {displayDocxModal ? (
+        <DocxExportModal
+          onClose={toggleDocxModal}
+          locale={intl.locale}
+          agendaUid={agenda.uid}
+          res="/docx"
+        />
+      ) : null}
     </div>
   );
 }
