@@ -9,10 +9,11 @@
   },
   "scripts": {
     "start": "DEBUG=agendaFiles,fetch,generateDocument nodemon server.dev",
+    "build": "babel client/src -d client/build -s",
     "dist": "webpack-cli --config webpack.dist.js",
     "test": "jest --runInBand --forceExit",
     "cli": "node cli",
-    "prepack": "yarn dist",
+    "prepack": "yarn build && yarn dist",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
