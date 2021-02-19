@@ -7,15 +7,19 @@ const log = require('@openagenda/logs')('core/agendas/events/add');
 
 const doAdd = require('../utils/doAdd');
 const createPayload = require('../utils/createPayload');
+const loadAuthorizations = require('../../utils/authorizations');
 
-const {
-  loadAgenda,
-  cleanEvent
-} = require('../utils/loadAgendaAndCleanEvent');
+const cleanEvent = require('../utils/cleanEvent');
+
+const getAgenda = require('../utils/getAgenda');
 
 const assignState = require('../utils/assignState');
 
-module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
+module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
+  const {
+    services
+  } = core;
+
   // when the event is added on aggregation, only additional data is provided
   const {
     agendaEvents,
@@ -65,7 +69,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   });
   log('  loaded event to be added');
 
-  const agenda = await loadAgenda(services, agendaUid);
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+
   log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
@@ -79,13 +84,20 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   });
   log('  cleaned associated data');
 
-  assignState(agenda, null, clean, data, { access });
+  const authorizations = await loadAuthorizations(core, 'add', {
+    agenda,
+    event,
+    member,
+    access
+  });
+
+  assignState(agenda, null, clean, data, { authorizations });
 
   const payload = createPayload(services, agenda);
 
   payload.setItem('event', null, event);
 
-  const response = await doAdd(services, payload, clean, {
+  const response = await doAdd(core, payload, clean, {
     batched,
     aggregated,
     sourceAgenda,

@@ -13,6 +13,10 @@ module.exports = {
     "en": "You do not have edit rights to this event",
     "it": "Non avete accesso all'edizione di questo evento"
   },
+  "noAccessToCreate": {
+    "fr": "Vous n'avez pas accès à la création d'événements sur cet agenda",
+    "en": "You do not have the right to create this event"
+  },
   "noAccessToDraft": {
     "fr": "Vous n'avez pas accès à l'édition de ce brouillon",
     "en": "You do not have edit rights to this draft",

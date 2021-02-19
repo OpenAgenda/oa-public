@@ -47,6 +47,7 @@ function init(c) {
 
     const frontAppInit = {
       config: {
+        authorizations: null,
         ...req.config,
         mapboxKey: config.mapboxKey,
         maxFileSize: config.maxFileSize,
@@ -100,7 +101,7 @@ function init(c) {
     formSchemaMw.files.putInTemporary.bind(null, {}),
     // image is processed by event service, other files need to be put to s3
     formSchemaMw.files.uploadFilesToS3.bind(null, { ignore: ['image']}),
-  (req, res) => {
+  (req, res) => {;
     // this does not transform other fields than file fields
     const postedWithFiles = {
       ...JSON.parse(req.body.data),

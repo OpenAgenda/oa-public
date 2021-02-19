@@ -8,7 +8,7 @@ const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
 const log = require('@openagenda/logs')('core/agendas/utils/loadAgendaAndCleanEvent');
 
-const eventSchema = require('@openagenda/event-form/build/schema');
+const eventSchema = require('@openagenda/event-form/src/schema');
 const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
 const getAgendaWithNetworkAndSchemas = require('./getAgendaWithNetworkAndSchemas');
 const ValidationError = require('../../utils/ValidationError');
@@ -193,17 +193,4 @@ function _asArray(obj) {
   return _.keys(obj).map(k => obj[k]).filter(s => !!s)
 }
 
-module.exports = async (services, agendaUid, data, options = {}) => {
-  log('received for agenda %s', agendaUid);
-
-  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
-
-  return {
-    agenda,
-    clean: await cleanEvent(services, agenda, data, options)
-  };
-}
-
-module.exports.cleanEvent = cleanEvent;
-
-module.exports.loadAgenda = getAgendaWithNetworkAndSchemas;
+module.exports = cleanEvent;

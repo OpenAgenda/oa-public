@@ -4,20 +4,19 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 const VError = require('verror');
 
-const addContributor = require('./addContributor');
-const {
-  agendaIsOpen,
-  userIsNotMember
-} = addContributor;
 const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
 const merge = require('./merge');
 
 const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 
-module.exports = async (services, payload, clean, options = {}) => {
+module.exports = async (core, payload, clean, options = {}) => {
   const agenda = payload.getAgenda();
   const event = payload.getEvent();
+
+  const {
+    services
+  } = core;
 
   const {
     aggregators,
@@ -120,9 +119,9 @@ module.exports = async (services, payload, clean, options = {}) => {
     log('error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, event.uid, e);
   }
 
-  if (userUid && agendaIsOpen(agenda) && await userIsNotMember(agenda, userUid)) {
+  if (userUid && await core.agendas(agenda).settings.isOpen() && !await core.agendas(agenda).members.is(userUid)) {
     log('user %s is not a member on open contribution agenda that does not require member info.', userUid);
-    await addContributor(services, agenda, userUid);
+    await core.agendas(agenda).members.create(userUid, 'contributor', { useAccountEmail: true });
   }
 
   try {

@@ -37,10 +37,12 @@ export default connect(
   <Instructions message={_.get(config, 'event.message')} className="margin-bottom-lg" />
 
   <EventForm
+    mode="create"
     role={_.get(member, 'role')}
     withErrors={false}
     maxFileSize={config.maxFileSize}
     schemaExtensions={config.schemaExtensions}
+    authorizations={config.authorizations}
     fileStore={config.fileStore}
     locationRes={config.locationRes}
     referencesRes={config.referencesRes}

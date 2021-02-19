@@ -86,11 +86,11 @@ module.exports = Object.assign((parentApp, path = '') => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], (req, res, next) => {
-
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
-      edit: _.get(req, 'event.uid') && !_.get(req, 'event.draft'),
+      edit: req.params.eventUid && !req.event?.draft,
+      authorizations: req.authorizations,
       locationRes: {
         get: `/locations/:uid.json`,
         index: `/agendas/${req.agenda.uid}/locations.json?sample=1`,
@@ -98,7 +98,7 @@ module.exports = Object.assign((parentApp, path = '') => {
         geocode: `/locations/geocode`,
         reverse: `/locations/geocode/reverse`,
         insee: `/locations/insee`,
-        default: `/agendas/${req.agenda.uid}/locations`
+        default: `/agendas/${req.agenda.uid}/locations`,
       },
       referencesRes: `/agendas/${req.agenda.uid}/events`,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
@@ -126,7 +126,6 @@ module.exports = Object.assign((parentApp, path = '') => {
     }
 
     next();
-
   });
 
   parentApp.use('/:agendaSlug/contribute', contribute.app);

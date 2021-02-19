@@ -15,13 +15,11 @@ module.exports = async (services, agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
 
   const {
-    agendas,
     agendaEvents,
     aggregators,
     custom,
     events,
-    eventSearch,
-    formSchemas
+    eventSearch
   } = services;
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);

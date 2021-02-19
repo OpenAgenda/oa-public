@@ -17,6 +17,7 @@ const mw = {
   add: require('./middleware/add'),
   requireCanEdit: require('./middleware/requireCanEdit'),
   changeState: require('./middleware/changeState'),
+  changeFeatured: require('./middleware/changeFeatured'),
   toggleCancelled: require('./middleware/toggleCancelled')
 }
 
@@ -114,6 +115,13 @@ function plugApp(parentApp) {
     loadMw,
     members.mw.load,
     mw.remove
+  );
+
+  parentApp.get('/:agendaSlug/events/:eventSlug/featured/:type',
+    requireLoggedMw,
+    loadMw,
+    members.mw.loadAndAuthorize('moderator'),
+    mw.changeFeatured
   );
 
   parentApp.get('/:agendaSlug/events/:eventSlug/add/to/:targetAgendaSlug',

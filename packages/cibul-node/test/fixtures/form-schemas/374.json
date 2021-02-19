@@ -1,0 +1,302 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 139,
+  "fields": [
+    {
+      "field": "categorie-annexes",
+      "label": {
+        "fr": "Catégorie annexes"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 15,
+          "value": "jeune-public",
+          "label": {
+            "fr": "Jeune Public"
+          },
+          "display": true
+        },
+        {
+          "id": 16,
+          "value": "cyclisme",
+          "label": {
+            "fr": "Cyclisme"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "tags-du-site-internet",
+      "label": {
+        "fr": "Tags du site internet"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 19,
+          "value": "offre-du-mois",
+          "label": {
+            "fr": "Offre du Mois"
+          },
+          "display": true
+        },
+        {
+          "id": 138,
+          "value": "visites-a-croix",
+          "label": {
+            "fr": "Visites à Croix"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "categories-metropolitaines",
+      "label": {
+        "fr": "Catégories Métropolitaines"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 101,
+          "value": "atelier",
+          "label": {
+            "fr": "Atelier"
+          },
+          "display": true
+        },
+        {
+          "id": 102,
+          "value": "braderie-brocante",
+          "label": {
+            "fr": "Braderie - Brocante"
+          },
+          "display": true
+        },
+        {
+          "id": 104,
+          "value": "cinema",
+          "label": {
+            "fr": "Cinéma"
+          },
+          "display": true
+        },
+        {
+          "id": 105,
+          "value": "conference-rencontre",
+          "label": {
+            "fr": "Conférence - Rencontre"
+          },
+          "display": true
+        },
+        {
+          "id": 107,
+          "value": "danse",
+          "label": {
+            "fr": "Danse"
+          },
+          "display": true
+        },
+        {
+          "id": 110,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition"
+          },
+          "display": true
+        },
+        {
+          "id": 111,
+          "value": "fete-festival",
+          "label": {
+            "fr": "Fête - Festival"
+          },
+          "display": true
+        },
+        {
+          "id": 113,
+          "value": "lecture",
+          "label": {
+            "fr": "Lecture"
+          },
+          "display": true
+        },
+        {
+          "id": 114,
+          "value": "mode",
+          "label": {
+            "fr": "Mode"
+          },
+          "display": true
+        },
+        {
+          "id": 115,
+          "value": "musique",
+          "label": {
+            "fr": "Musique"
+          },
+          "display": true
+        },
+        {
+          "id": 118,
+          "value": "spectacle",
+          "label": {
+            "fr": "Spectacle"
+          },
+          "display": true
+        },
+        {
+          "id": 119,
+          "value": "sport",
+          "label": {
+            "fr": "Sport"
+          },
+          "display": true
+        },
+        {
+          "id": 120,
+          "value": "theatre",
+          "label": {
+            "fr": "Théâtre"
+          },
+          "display": true
+        },
+        {
+          "id": 121,
+          "value": "visite-balade",
+          "label": {
+            "fr": "Visite - Balade"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "languages",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "age",
+      "display": false,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "display": false,
+      "fieldType": "abstract"
+    },
+    {
+      "field": "location",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract",
+      "component": "@openagenda/react-timingspicker"
+    },
+    {
+      "field": "schedule_description",
+      "label": {
+        "fr": "Description horaires"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 255,
+      "fieldType": "text"
+    }
+  ]
+}

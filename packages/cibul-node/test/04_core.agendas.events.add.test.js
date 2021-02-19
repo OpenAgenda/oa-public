@@ -40,6 +40,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
         'legacy',
         'users',
         'keys',
+        'accessTokens',
         'tracker'
       ]
     });

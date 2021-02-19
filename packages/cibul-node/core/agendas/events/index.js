@@ -13,11 +13,11 @@ const validate = require('./validate');
 module.exports = (core, agendaUid) => ({
   get: get.bind(null, core.services, agendaUid),
   list: list.bind(null, core.services, agendaUid),
-  create: create.bind(null, core.services, agendaUid),
-  add: add.bind(null, core.services, agendaUid),
+  create: create.bind(null, core, agendaUid),
+  add: add.bind(null, core, agendaUid),
   remove: remove.bind(null, core.services, agendaUid),
-  update: update.bind(null, core.services, agendaUid),
-  patch: update.patch.bind(null, core.services, agendaUid),
+  update: update.bind(null, core, agendaUid),
+  patch: update.patch.bind(null, core, agendaUid),
   validate: validate.bind(null, core.services, agendaUid),
   batch: batch(core).bind(null, agendaUid),
   search: Object.assign(search.bind(null, core, agendaUid), {

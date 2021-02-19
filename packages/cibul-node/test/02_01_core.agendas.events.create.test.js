@@ -339,14 +339,14 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         timings: [{ begin: now, end: inAnHour }],
         location: { uid: 123 }
       }, {
-        context: { userUid: 63170200 },
+        //context: { userUid: 63170200 },
         access: 'contributor'
       });
 
       assert.equal(event.state, 0);
     });
 
-    it('create with contributor access can not force state', async () => {
+    it('create with "contributor" access can not force state', async () => {
       let error;
       try {
         const event = await core.agendas(55268170).events.create({
@@ -356,17 +356,17 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           location: { uid: 123 },
           state: 2
         }, {
-          context: { userUid: 63170200 },
+          //context: { userUid: 63170200 },
           access: 'contributor'
         });
       } catch (e) {
         error = e;  
       }
 
-      expect(error.message).toBe('contributor is not authorized to publish events');
+      expect(error.message).toBe('not authorized to publish events');
     });
 
-    it('create with administrator access can force state', async () => {
+    it('create with "administrator" access can explicit state', async () => {
       const event = await core.agendas(55268170).events.create({
         title: { fr: 'T' },
         description: { fr: 'D' },
@@ -374,7 +374,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         location: { uid: 123 },
         state: 2
       }, {
-        context: { userUid: 63170200 },
+        //context: { userUid: 63170200 },
         access: 'administrator'
       });
 
@@ -751,7 +751,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         }
 
         expect(error.response.statusCode).toBe(401);
-        expect(error.response.body.message).toBe('contributor is not authorized to publish events');
+        expect(error.response.body.message).toBe('not authorized to publish events');
       })
 
     });

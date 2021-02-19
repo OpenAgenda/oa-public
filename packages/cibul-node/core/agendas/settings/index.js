@@ -12,6 +12,7 @@ const resyncInbox = require('./resyncInbox');
 const updateSchemaFields = require('./updateSchemaFields');
 const createFormSchemaFromLegacy = require('./createFormSchemaFromLegacy');
 const pushDataToFormSchema = require('./pushDataToFormSchema');
+const contributionTypes = require('./contributionTypes');
 
 module.exports = core => {
   const {
@@ -33,12 +34,16 @@ module.exports = core => {
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
     createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
-    pushDataToFormSchema: agendaUid => pushDataToFormSchema(services, agendaUid)
+    pushDataToFormSchema: agendaUid =>
+     pushDataToFormSchema(services, agendaUid)
   }
 
   tasks.register(resyncFn);
 
   return agendaUid => ({
+    isOpen: contributionTypes.isOpen.bind(null, services, agendaUid),
+    isClosed: contributionTypes.isClosed.bind(null, services, agendaUid),
+    isMembersOnly: contributionTypes.isMembersOnly.bind(null, services, agendaUid),
     get: getMergedSchema.bind(null, services, agendaUid), // deprecate
     schema: {
       get: getSchema.bind(null, services, agendaUid),

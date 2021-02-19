@@ -6,8 +6,7 @@ const log = require('@openagenda/logs')('services/agendaContribute/interfaces/se
 
 module.exports = async (services, agenda, user, current, data, options = {}) => {
   const {
-    core,
-    members
+    core
   } = services;
 
   const { draft } = {
@@ -15,28 +14,26 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
     ...options
   };
 
-  const strippedOfState = _.omit(data, ['state']);
-
   log(!current ? 'this is a create' : 'this is an update');
-
-  const coreOptions = {
-    draft,
-    context: {
-      userUid: user.uid
-    },
-    access: await _getMemberRoleSlug(members, agenda, user) || 'public'
-  };
 
   try {
     if (!current) {
       log(draft ? 'creating draft' : 'creating event');
       return {
-        event: await core.agendas(agenda.uid).events.create(strippedOfState, coreOptions)
+        event: await core.agendas(agenda.uid).events.create(data, {
+          draft,
+          userUid: user.uid,
+          filterUnauthorizedData: true
+        })
       };
     } else {
-      log(draft ? 'updating draft' : 'updating event');
+      log(draft ? 'updating draft %s' : 'updating event %s', current.uid);
       return {
-        event: await core.agendas(agenda.uid).events.update(current.uid, strippedOfState, coreOptions),
+        event: await core.agendas(agenda.uid).events.patch(current.uid, data, {
+          draft,
+          userUid: user.uid,
+          filterUnauthorizedData: true
+        }),
         success: true
       };
     }
@@ -58,13 +55,4 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
       event: null
     }
   }
-}
-
-async function _getMemberRoleSlug(members, agenda, user) {
-  const member = await members.get({
-    agendaUid: agenda.uid,
-    userUid: user.uid
-  });
-
-  return member ? members.utils.getRoleSlug(member.role) : null;
 }

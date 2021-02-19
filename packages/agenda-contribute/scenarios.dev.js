@@ -16,6 +16,12 @@ const defaultConfig = {
     duplicateEvent: '/?redirect.duplicateEvent?eventUid=:eventUid',
     draft: '/?redirect.draft'
  },
+ authorizations: {
+  canEditEvent: true,
+  canCreateEvent: true,
+  canPublish: false,
+  canChangeState: false
+ },
   member: {
     dataIsRequired: true,
     schema: null
@@ -177,7 +183,7 @@ module.exports = [{
       fr: 'Une petite description',
       en: 'A wee description'
    },
-    location: { uid: 50148047}
+    location: { uid: 93105902 }
  }
 }, {
   link: '/edit-a-draft-event/contribute/event/902/draft',
@@ -251,17 +257,36 @@ module.exports = [{
  },
   member: aValidMember
 }, {
-  link: '/an-event-form-with-custom-fields/contribute/event',
+  link: '/an-event-form-with-additional-fields/contribute/event',
   agenda: {
-    title: 'A contribute app with custom fields',
+    title: 'A contribute app with additional fields',
     description: 'From the agenda and from a network of agendas',
-    slug: 'an-event-form-with-custom-fields',
+    slug: 'an-event-form-with-additional-fields',
     uid: 193820139,
     id: 202021
  },
-  config: Object.assign({}, defaultConfig, {
-    base: '/an-event-form-with-custom-fields/contribute'
- }),
+  config: { ...defaultConfig,
+    edit: true,
+    base: '/an-event-form-with-additional-fields/contribute'
+ },
+  member: aValidMember,
+  schemaExtensions: simpleSchemaExtensions
+}, {
+  link: '/an-event-form-with-additional-fields-cannot-edit-event/contribute/event',
+  agenda: {
+    title: 'A contribute app with additional fields without authorization to edit event',
+    description: 'From the agenda and from a network of agendas',
+    slug: 'an-event-form-with-additional-fields-cannot-edit-event',
+    uid: 193820139,
+    id: 202021
+ },
+ config: { ...defaultConfig,
+    edit: true,
+    base: '/an-event-form-with-additional-fields-cannot-edit-event/contribute',
+    authorizations: {
+      canEditEvent: false
+    }
+ },
   member: aValidMember,
   schemaExtensions: simpleSchemaExtensions
 }, {

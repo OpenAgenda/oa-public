@@ -116,6 +116,8 @@ export default class EventForm extends Component {
 
     return {
       schema: eventSchema({
+        mode: p.mode,
+        authorizations: p.authorizations,
         interfaceLanguage: p.lang,
         suggestionsRes: p.suggestionsRes,
         referencesRes: p.referencesRes,

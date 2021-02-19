@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS `reviewer` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20),
   `user_uid` bigint(20) DEFAULT NULL,
-  `review_id` bigint(20) NOT NULL,
+  `review_id` bigint(20),
   `agenda_uid` bigint(20) NOT NULL,
   `credential` bigint(20) NOT NULL,
   `created_at` datetime NOT NULL,

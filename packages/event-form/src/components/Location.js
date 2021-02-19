@@ -21,7 +21,7 @@ const getResItem = (res, key, suffix) => {
 
 const getResObject = res => ({
   index: getResItem(res, 'index', ''),
-  get: getResItem(res, 'get', ''),
+  get: getResItem(res, 'get', '/:uid'),
   geocode: getResItem(res, 'geocode', '/geocode'),
   reverseGeocode: getResItem(res, 'reverse', '/geocode/reverse'),
   insee: getResItem(res, 'insee', `/insee`),

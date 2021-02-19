@@ -14,7 +14,7 @@ module.exports = core => {
   core.tasks.register({
     agendaBatchList: agendaBatchList.bind(null, core),
     batchedUpdate: (agendaUid, eventUid, data, options = {}) => update(
-      core.services, agendaUid, eventUid, data, { ...options, batched: true }
+      core, agendaUid, eventUid, data, { ...options, batched: true }
     ),
     batchedRemove: (agendaUid, eventUid, options = {}) => remove(
       core.services, agendaUid, eventUid, { ...options, batched: true }

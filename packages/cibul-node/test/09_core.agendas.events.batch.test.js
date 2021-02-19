@@ -26,6 +26,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
     const services = await Services(testConfig, {
       enabled: [
         'knex',
+        'accessTokens',
         'queues',
         'files',
         'events',
@@ -71,8 +72,8 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
           //console.log('execute', args);
         },
         error: function(...args) {
-          console.log('error', JSON.stringify(args));
-          done(new Error('error'));
+          //console.log('error', JSON.stringify(args));
+          done(args);
         },
         success: function(...args) {
           if(args[0] === 'batchedUpdate') return done();
