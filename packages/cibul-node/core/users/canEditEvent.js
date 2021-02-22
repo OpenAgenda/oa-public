@@ -57,7 +57,7 @@ module.exports = async (core, userIdentifier, eventObj) => {
   } = await loadEvent(core, eventObj);
 
   if (isDraft && user.uid === ownerUid) {
-    log('user %s is owner of event %s, can edit', user.uid, event.uid);
+    log('user %s is owner of event %s, can edit', user.uid, eventUid);
     return true;
   }
 
