@@ -1,15 +1,11 @@
-import _ from 'lodash';
+import debug from 'debug';
 import isMemberValid from '../lib/isMemberValid';
 
-module.exports = Object.assign(reducer, {
+const log = debug('landing');
+
+module.exports = Object.assign((state = {}, action = {}) => state, {
   evaluate
 });
-
-
-function reducer(state = {}, action = {}) {
-  return state;
-}
-
 
 /**
  * define which screen should be shown
@@ -22,32 +18,40 @@ function evaluate(step, requested = false) {
     const {
       base,
       member: memberConfig,
-      edit
+      mode
     } = state.config;
 
     const draftEvent = state?.event?.draft || false;
-    const eventEdition = edit && !draftEvent;
 
-    if (eventEdition && step === 'edit') {
-      // we are in the right place
-      return;
-    } else if (eventEdition) {
-      return history.replace(base + '/event/' + state.event.uid);
+    log('evaluating mode %s on step %s', mode, step);
+
+    if (['edit', 'add'].includes(mode)) {
+      if (mode === step) {
+        log('landing in %s step', step);
+        return;
+      }
+      const historyUpdate = mode === 'edit'
+        ? `${base}/event/${state.event.uid}`
+        : `${base}/event/${state.event.uid}/from/${state.config.fromAgenda.uid}`;
+
+      log('updating history to %s', historyUpdate);
+      
+      return history.replace(historyUpdate);
     }
 
     // we are handling a new or a draft event
 
-    const requestedRoute = base + '/' + step + (step === 'event' && draftEvent ? `/${_.get(state, 'event.uid')}/draft` : '');
+    const requestedRoute = base + '/' + step + (step === 'event' && draftEvent ? `/${state?.event?.uid}/draft` : '');
 
     const authorizedRoutes = [base + '/member'];
 
-    if (!memberConfig.dataIsRequired || isMemberValid(memberConfig.schema, state.member) || _.get(state, 'member.role') === 'administrator') {
+    if (!memberConfig.dataIsRequired || isMemberValid(memberConfig.schema, state.member) || state?.member?.role === 'administrator') {
       authorizedRoutes.push(base + (
-        draftEvent ? `/event/${_.get(state, 'event.uid')}/draft` : '/event'
+        draftEvent ? `/event/${state?.event?.uid}/draft` : '/event'
      ));
     }
 
-    if (_.get(state, 'event.uid') && !draftEvent) {
+    if (state?.event?.uid && !draftEvent) {
       authorizedRoutes.push(base + '/confirmation');
     }
 

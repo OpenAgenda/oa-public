@@ -1,59 +1,66 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+
 import labels from '@openagenda/labels/agenda-contribute/event';
-import Stepper from './Stepper';
+import makeLabelGetter from '@openagenda/labels';
+
+const getLabel = makeLabelGetter(labels);
+
+const renderTitle = (event, lang) => {
+  const titleLanguages = Object.keys(event.title || {});
+
+  const eventLanguage = titleLanguages.includes(lang) ? lang : titleLanguages.shift();
+
+  const title = [];
+
+  if (event.draft) {
+    title.push(labels.editDraftTitle[lang]);
+  }
+
+  if (eventLanguage) {
+    title.push(event.title[eventLanguage]);
+  }
+
+  return title.join(': ');
+}
+
 export default class Canvas extends Component {
-
   componentDidMount() {
-    if (this.props.onDidMount) {
-      this.props.onDidMount(_.first(this.props.steps.filter(s => s.active)));
-    }
+    this.props.onDidMount(this.props.mode);
   }
-
-  renderTitle() {
-    const { event, lang, title } = this.props;
-
-    if (title) return title;
-
-    const draft = event?.draft === undefined ? false : event.draft;
-
-    if (!draft) {
-      return labels.addEvent[lang];
-    }
-
-    const titleLanguages = Object.keys(event.title || {});
-
-    const eventLanguage = titleLanguages.includes(lang) ? lang : titleLanguages.shift();
-
-    const titleParts = [];
-
-    if (event.draft) {
-      titleParts.push(labels.editDraftTitle[lang]);
-    }
-
-    if (eventLanguage) {
-      titleParts.push(_.get(event, ['title', eventLanguage]));
-    }
-
-    return titleParts.join(': ');
-  }
-
-  render() {
-    const { lang, children, steps, onSelectStep } = this.props;
-
-    return <div className="container">
-      <div className="row">
-        <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
-          <div className="text-center padding-top-lg">
-            <h2 className="margin-top-md">{this.renderTitle()}</h2>
-            <div className="padding-h-md stepper-gray-background padding-v-md">
-              <Stepper steps={steps} lang={lang} onSelectStep={onSelectStep} />
-            </div>
-          </div>
-          {children}
-        </div>
+  renderAddHeader() {
+    const { event, lang, fromAgenda, agenda } = this.props;
+    return <div className="margin-v-lg">
+      <h3 class="margin-bottom-md">{getLabel('shareEvent', lang)}</h3>
+      <div className="margin-v-md">
+        <p>{getLabel('takeEvent', lang)} <strong>{renderTitle(event, lang)}</strong></p>
+        <p>{getLabel('fromAgenda', lang)} <a target="_blank" href={`/agendas/${fromAgenda.uid}`}><span>{fromAgenda.title}</span></a></p>
+        <p>{getLabel('toAgenda', lang)} <a target="_blank" href={`/agendas/${agenda.uid}`}><span>{agenda.title}</span></a></p>
       </div>
     </div>
   }
-
+  renderEditHeader() {
+    const { event, lang } = this.props;
+    return <div className="margin-v-lg">
+      <h3>{renderTitle(event, lang)}</h3>
+    </div>
+  }
+  render() {
+    const {
+      mode,
+      children
+    } = this.props;
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
+            <div className="text-center">
+              {mode === 'add' ? this.renderAddHeader() : this.renderEditHeader()}
+              {children}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }

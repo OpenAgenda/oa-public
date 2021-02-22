@@ -1,18 +1,17 @@
-import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 
 import EventForm from '@openagenda/event-form/build';
-import { Spinner } from '@openagenda/react-components';
 import labels from '@openagenda/labels/agenda-contribute/event';
 
-import Canvas from '../components/Canvas';
+import CanvasWithStepper from '../components/CanvasWithStepper';
 import Instructions from '../components/Instructions';
 import ButtonSpinner from '../components/ButtonSpinner';
 import reducers from '../reducers';
 
 import deduceSteps from '../lib/deduceSteps';
 import { eventWithDefaults } from '../lib/URLDefaults';
+import eventFormProps from '../lib/eventFormProps';
 
 export default connect(
   state => deduceSteps('event', state),
@@ -32,38 +31,41 @@ export default connect(
   onSelectStep,
   steps,
   member
-}) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
-
-  <Instructions message={_.get(config, 'event.message')} className="margin-bottom-lg" />
-
+}) => <CanvasWithStepper
+  {...config} 
+  onDidMount={onDidMount} 
+  onSelectStep={onSelectStep} 
+  steps={steps} 
+  event={event}>
+  <Instructions
+    message={config?.event?.message}
+    className="margin-bottom-lg"
+  />
   <EventForm
-    mode="create"
-    role={_.get(member, 'role')}
-    withErrors={false}
-    maxFileSize={config.maxFileSize}
-    schemaExtensions={config.schemaExtensions}
-    authorizations={config.authorizations}
-    fileStore={config.fileStore}
-    locationRes={config.locationRes}
-    referencesRes={config.referencesRes}
-    suggestionsRes={config.suggestionsRes}
-    mapboxKey={config.mapboxKey}
-    lang={config.lang}
+    {...eventFormProps({ member, config })}
+    includeEventFields
     values={eventWithDefaults(event, defaults)}
     onSubmitSuccess={onCreateSuccess}
-    classNames={{
-      fieldsCanvas: 'padding-all-md wsq padding-bottom-sm',
-      bottomErrorsCanvas: 'error-summary padding-all-md',
-    }}
-    actionComponents={[ {
+    actionComponents={[{
       position: 'bottom',
       Component: ({ onSubmit, loading }) => <div className="wsq padding-all-md">
-        { _.get(event, 'draft') ? <button disabled={loading} onClick={ e => onDraftDelete() } className="btn btn-danger btn-block margin-bottom-md">{labels.deleteDraft[ config.lang ]}</button> : null }
-        <button disabled={loading} onClick={ e => onSubmit(e, { draft: true })} className="btn btn-default btn-block margin-bottom-md">{labels[ _.get(event, 'draft') ? 'updateDraft' : 'draft' ][ config.lang ]}</button>
-        <button disabled={loading} onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
-        { loading && <ButtonSpinner /> }
+        {event?.draft && <button 
+          className="btn btn-danger btn-block margin-bottom-md"
+          disabled={loading} 
+          onClick={e => onDraftDelete()} 
+        >{labels.deleteDraft[config.lang]}</button>}
+        <button
+          className="btn btn-default btn-block margin-bottom-md"
+          disabled={loading}
+          onClick={e => onSubmit(e, { draft: true })}
+        >{labels[event?.draft ? 'updateDraft' : 'draft'][config.lang]}</button>
+        <button
+          className="btn btn-primary btn-block"
+          disabled={loading}
+          onClick={onSubmit}
+        >{labels.create[config.lang]}</button>
+        {loading && <ButtonSpinner />}
       </div>
-    } ]}
+    }]}
   />
-
-</Canvas>);
+</CanvasWithStepper>);

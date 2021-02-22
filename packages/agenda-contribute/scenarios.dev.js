@@ -7,6 +7,7 @@ const defaultConfig = {
   lang: 'fr',
   locationRes: '/locations',
   referencesRes: '/refs',
+  mode: 'create',
   redirects: {
     updated: '/?redirect.updated=:eventUid',
     seeEvent: '/?redirect.eventCreated=:eventUid',
@@ -15,22 +16,22 @@ const defaultConfig = {
     contactAdministrators: '/?redirect.contactAdministrators',
     duplicateEvent: '/?redirect.duplicateEvent?eventUid=:eventUid',
     draft: '/?redirect.draft'
- },
- authorizations: {
-  canEditEvent: true,
-  canCreateEvent: true,
-  canPublish: false,
-  canChangeState: false
- },
+  },
+  authorizations: {
+    canEditEvent: true,
+    canCreateEvent: true,
+    canPublish: false,
+    canChangeState: false
+  },
   member: {
     dataIsRequired: true,
     schema: null
- },
+  },
   fileStore: {
     type: 's3',
     bucket: 'oadev'
- }
-}
+  }
+};
 
 const anExistingEvent = require('./dev/fixtures/event.json');
 const aValidMember = require('./dev/fixtures/member.json');
@@ -167,7 +168,7 @@ module.exports = [{
  },
   config: Object.assign({}, defaultConfig, {
     base: '/edit-an-event/contribute',
-    edit: true,
+    mode: 'edit',
     event: {
       message: '*Instructions appear in edition too*'
    }
@@ -266,7 +267,7 @@ module.exports = [{
     id: 202021
  },
   config: { ...defaultConfig,
-    edit: true,
+    mode: 'edit',
     base: '/an-event-form-with-additional-fields/contribute'
  },
   member: aValidMember,
@@ -281,7 +282,7 @@ module.exports = [{
     id: 202021
  },
  config: { ...defaultConfig,
-    edit: true,
+    mode: 'edit',
     base: '/an-event-form-with-additional-fields-cannot-edit-event/contribute',
     authorizations: {
       canEditEvent: false
@@ -300,11 +301,11 @@ module.exports = [{
  },
   config: Object.assign({}, defaultConfig, {
     base: '/slow-network-and-error/contribute',
-    edit: true,
+    mode: 'edit',
     event: {
       message: '*Instructions appear in edition too*'
-   }
- }),
+    }
+  }),
   event: anExistingEvent,
   delay: 3000,
   globalError: true
@@ -319,7 +320,7 @@ module.exports = [{
  },
   config: Object.assign({}, defaultConfig, {
     base: '/an-event-with-embed-codes/contribute',
-    edit: true,
+    mode: 'edit',
     event: {
       message: '*Instructions appear in edition too*'
    }
@@ -349,10 +350,33 @@ module.exports = [{
     uid: 12325,
     id: 292839
   },
-  config: Object.assign({}, defaultConfig, {
+  config: {
+    ...defaultConfig,
     base: '/with-defaults/contribute',
     member: {
       dataIsRequired: true
     }
-  })
+  }
+}, {
+  link: `/an-event-to-add/contribute/event/123/from/456`,
+  agenda: {
+    title: 'Adding an event',
+    description: 'An event that is added from one agenda to another',
+    slug: 'an-event-to-add',
+    uid: 89898989,
+    id: 77373
+  },
+  config: {
+    ...defaultConfig,
+    base: '/an-event-to-add/contribute',
+    mode: 'add',
+    event: {
+      message: '*Instructions appear in share too*'
+    },
+    fromAgenda: {
+      title: 'Métropole Européenne de Lille',
+      uid: 90190212
+    }
+  },
+  event: anExistingEvent
 }];

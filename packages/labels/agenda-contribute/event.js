@@ -88,5 +88,25 @@ module.exports = {
     "de": "Entwurf",
     "br": "Brouilhed",
     "es": "Borrador"
+  },
+  "shareEvent": {
+    "fr": "Partager un événement",
+    "en": "Share an event"
+  },
+  "takeEvent": {
+    "fr": "Reprendre",
+    "en": "Take"
+  },
+  "fromAgenda": {
+    "fr": "de l'agenda",
+    "en": "from the agenda"
+  },
+  "toAgenda": {
+    "fr": "sur l'agenda",
+    "en": "to the agenda"
+  },
+  "confirmAdd": {
+    "fr": "Confirmation",
+    "en": "Confirm"
   }
 }

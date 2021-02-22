@@ -20,6 +20,12 @@ const base64 = require('@openagenda/utils/base64');
 
 let bucket;
 
+const agendaNotFound = ns => (req, res, next) => req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 })
+const setInReq = obj => (req, res, next) => {
+  Object.assign(req, obj);
+  next();
+};
+
 module.exports = Object.assign((parentApp, path = '') => {
   const {
     agendas,
@@ -36,10 +42,11 @@ module.exports = Object.assign((parentApp, path = '') => {
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], [
     agendas.mw.load,
-    (req, res, next) => _.get(req, 'agenda') ? next() : cmn.errorResponse(req, res, { code: 404 }),
+    agendaNotFound('agenda'),
     agendas.mw.authorizeByIPAddress(),
     (req, res, next) => {
       if (!req.agenda.credentials.useContributeApp) {
@@ -49,9 +56,19 @@ module.exports = Object.assign((parentApp, path = '') => {
     }
   ]);
 
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    agendas.mw.loadBy({
+      path: 'params.fromAgendaUid',
+      target: 'fromAgenda'
+    }),
+    agendaNotFound('fromAgenda')
+  );
+
   parentApp.all([
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], middlewares.event);
 
   parentApp.all([
@@ -73,8 +90,22 @@ module.exports = Object.assign((parentApp, path = '') => {
 
   parentApp.get([
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], middlewares.verifyMemberAuthorization.edit);
+
+  parentApp.all([
+    '/:agendaSlug/contribute/event',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
+  ], setInReq({ mode: 'create' }));
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid',
+    setInReq({ mode: 'edit' })
+  );
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    setInReq({ mode: 'add' })
+  );
 
   parentApp.get('/:agendaSlug/contribute/event/:eventUid',
     middlewares.defineUpdateRedirect
@@ -89,7 +120,7 @@ module.exports = Object.assign((parentApp, path = '') => {
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
-      edit: req.params.eventUid && !req.event?.draft,
+      mode: req.mode,
       authorizations: req.authorizations,
       locationRes: {
         get: `/locations/:uid.json`,

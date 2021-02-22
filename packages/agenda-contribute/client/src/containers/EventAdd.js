@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import EventForm from '@openagenda/event-form/build';
 
 import labels from '@openagenda/labels/agenda-contribute/event';
+import makeLabelGetter from '@openagenda/labels';
 
 import Instructions from '../components/Instructions';
 import ButtonSpinner from '../components/ButtonSpinner';
@@ -13,11 +14,13 @@ import reducers from '../reducers';
 
 import eventFormProps from '../lib/eventFormProps';
 
+const getLabel = makeLabelGetter(labels);
+
 export default connect(
   state => state,
   dispatch => ({
     onUpdateSuccess: (values, response) => dispatch(reducers.event.updated(values, response)),
-    onDidMount: () => dispatch(reducers.landing.evaluate('edit'))
+    onDidMount: () => dispatch(reducers.landing.evaluate('add'))
   })
 )(({
   config,
@@ -26,13 +29,14 @@ export default connect(
   onDidMount,
   member
 }) => <Canvas
-  mode="edit" 
+  mode="add" 
   onDidMount={onDidMount} 
   lang={config.lang}
   event={event}
+  fromAgenda={config.fromAgenda}
+  agenda={config.agenda}
 >
   <Instructions
-    className="margin-bottom-lg"
     message={config?.event?.message}
   />
   <div className="wsq">
@@ -50,7 +54,7 @@ export default connect(
             className="btn btn-primary btn-block"
             disabled={loading}
             onClick={onSubmit}
-          >{labels.update[config.lang]}</button>
+          >{getLabel('confirmAdd', config.lang)}</button>
           {loading && <ButtonSpinner />}
         </div>
       }]}
