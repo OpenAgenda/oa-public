@@ -25,7 +25,7 @@ function evaluate(step, requested = false) {
 
     log('evaluating mode %s on step %s', mode, step);
 
-    if (['edit', 'add'].includes(mode)) {
+    if (['edit', 'add'].includes(mode) && !draftEvent) {
       if (mode === step) {
         log('landing in %s step', step);
         return;
