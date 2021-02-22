@@ -8,9 +8,7 @@ export default class DevEventForm extends Component {
 
     return <EventForm
       mode="edit"
-      authorizations={{
-        canEditEvent: true
-      }}
+      includeEventFields
       role="administrator"
       devOnChange={this.props.devOnChange}
       schemaExtensions={this.props.schemaExtensions}
