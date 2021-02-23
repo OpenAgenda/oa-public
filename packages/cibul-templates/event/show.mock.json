@@ -10,6 +10,11 @@
     "uid": 48959239,
     "slug": "chez-nous",
     "url": "http://cheznous.coop",
+    "redirect": "#redirect",
+    "removeRedirect": "#removeRedirect",
+    "oaRoot": "http://localhost:3000",
+    "isCancelled": false,
+    "isOriginAgenda": true,
     "event": {
       "uri" : "#",
       "importUri": "/event/action.part",

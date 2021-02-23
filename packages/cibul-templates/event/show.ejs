@@ -58,61 +58,62 @@
       </section>
 
       <aside class="col-sm-4 col-aside sidebar">
-
-        <div class="meta-container">
-          <p>
-            <a rel="nofollow" class="btn btn-success event-action js_import_action" href="<%= event.importUri %>">
-              <i class="fa fa-plus-circle"></i><%= __( 'addToAgenda' ) %>
+        <section class="detail-item">
+          <h3><i class="fa fa-share-alt"></i></h3>
+          <div class="detail-item-content">
+            <a rel="nofollow" class="btn btn-primary event-action" href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=agendas' %>">
+              <img alt="logo" src="//oastatic.s3.eu-central-1.amazonaws.com/whitelogo22.png">
+              <%= __('shareOnOA') %>
             </a>
-          </p>
-          <% if ( !private && ( event.currentState === 'published' ) ) { %>
-          <p class="share">
-            <%= __('share') %>&nbsp;:
-            <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
-            <a href="<%= event.twitterShare %>" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
-            <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
-            <a href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=email' %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
-          </p>
-          <% } %>
-<% if ( !event.isUpcoming ) { %>
-          <p>
-            <span class="event-action disabled">
-              <i class="fa fa-history"></i> <%= __('pastEvent') %>
-            </span>
-          </p>
+          </div>
+        </section>
+
+<% if (!private && ( event.currentState === 'published' ) ) { %>
+        <section class="detail-item share margin-bottom-md margin-top-xs">
+          <%= __('otherShares') %>&nbsp;:
+          <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
+          <a href="<%= event.twitterShare %>" target="_blank" class="tw" rel="nofollow"><i class="fa fa-twitter"></i></a>
+          <a href="<%= event.linkedInShare %>" target="_blank" class="li" rel="nofollow"><i class="fa fa-linkedin"></i></a>
+          <a href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=email' %>" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
+          <a href="<%= event.importUri %>"><%= __('allShares') %></a>
+        </section>
 <% } %>
-        </div>
+<% if ( !event.isUpcoming ) { %>
+        <section class="detail-item disabled margin-v-md">
+          <i class="fa fa-history"></i> <%= __('pastEvent') %>
+        </section>
+<% } %>
 <% if ( event.pricingInfo || event.registrationComponent ) { %>
-        <section class="detail-item conditions">
+        <section class="detail-item conditions margin-v-md">
           <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
             <% if ( event.pricingInfo ) { %>
               <div class="detail-item-content">
                 <p><%= event.pricingInfo %></p>
               </div>
             <% } %>
+            <% if ( event.registrationComponent ) { %>
+                    <%- event.registrationComponent %>
+            <% } %>
         </section>
-<% } %>
-<% if ( event.registrationComponent ) { %>
-          <%- event.registrationComponent %>
 <% } %>
         <section class="detail-item">
           <h3><i class="fa fa-clock-o"></i></h3>
           <p class="detail-item-content"><%= event.dateRange %></p>
-          <div class="display-none js_hours timings">
-            <ul class="months"></ul>
-          </div>
+        </section>
+        <section class="detail-item display-none js_hours timings margin-bottom-md">
+          <ul class="months"></ul>
         </section>
 
 <% if ( event.accessibility && event.accessibility.length ) { %>
 <% event.accessibility.forEach( function( i ) { %>
-        <section class="detail-item">
+        <section class="detail-item margin-v-sm">
           <h3><i class="acc <%= i %>"></i></h3>
           <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
         </section>
 <% }) %>
 <% } %>
 <% if ( event.age ) { %>
-        <section class="detail-item">
+        <section class="detail-item margin-v-md">
           <h3><i class="fa fa-child"></i></h3>
 <% if ( !event.age.max ) { %>
           <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
@@ -122,7 +123,7 @@
         </section>
 <% } %>
 
-        <section class="detail-item location-side">
+        <section class="detail-item location-side margin-v-md">
           <h3><i class="fa fa-map-marker"></i></h3>
           <div class="detail-item-content">
             <p>

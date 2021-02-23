@@ -12,8 +12,29 @@
 </div>
 <% } /* end of calendar shares */ %>
 
+<% if ( ( actions.indexOf( 'email' ) !== -1 ) && ( !agenda || !agenda.private ) ) { %>
+
+  <p class="legend"><%= __( 'Send to email addresses' ) %></p>
+  
+  <form method="post" action="<%= mailSendUri %>">
+    <div class="form-group">
+      <textarea
+        name="mailsend"
+        class="form-control"
+        rows="3"
+      ></textarea>
+      <label for="mailsend"><%= __( 'Type in the emails you want to send the event to' )  %></label>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary"><%= __( 'Send' ) %></button>
+    </div>
+  </form>
+  
+  <% } %>
+  
+
 <% if ( ( actions.indexOf( 'agendas' ) !== -1 ) && ( !agenda || !agenda.private ) ) { /* OA agenda shares are displayed */ %>
-<p class="legend"><%= __('Import in OpenAgenda') %></p>
+<p class="legend"><%= __('Share on OpenAgenda') %></p>
 <% if ( logged ) { %>
 
 <% if ( agendas.length ) { /* OA agenda shares are displayed */ %>
@@ -23,7 +44,7 @@
   <% if (a.sharing) { %>
     <a class="btn btn-default checked uncheckable" href="<%= `/${a.slug}/events/${event.slug}/remove?redirect=${a.redirect}` %>"><%= a.title %></a>
   <% } else { %>
-    <a class="btn btn-default" href="<%= `/${agenda.slug}/events/${event.slug}/add/to/${a.slug}?redirect=${a.redirect}` %>"><%= a.title %></a>
+    <a class="btn btn-default" href="<%= `/${a.slug}/contribute/event/${event.uid}/from/${agenda.uid}?redirect=${a.redirect}` %>"><%= a.title %></a>
   <% } %>
 <% }); %>
 
@@ -41,31 +62,10 @@
 <% } else { %>
 
   <div class="prompt text-center">
-    <p><%= __( 'You need to sign in to your account to add this event to your agendas' ) %></p>
+    <p><%= __( 'You need to sign in to your account to add this event to your OpenAgendas' ) %></p>
     <a class="btn btn-primary" href="/signin?redirect=<%= redirect %>"><%= __( 'Sign In' ) %></a>
   </div>
 
 <% } %>
 
 <% } /* End of OA agenda shares are displayed */ %>
-
-<% if ( ( actions.indexOf( 'email' ) !== -1 ) && ( !agenda || !agenda.private ) ) { %>
-
-<p class="legend"><%= __( 'Send to email addresses' ) %></p>
-
-<form method="post" action="<%= mailSendUri %>">
-  <div class="form-group">
-    <textarea
-      name="mailsend"
-      class="form-control"
-      rows="3"
-    ></textarea>
-    <label for="mailsend"><%= __( 'Type in the emails you want to send the event to' )  %></label>
-  </div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary"><%= __( 'Send' ) %></button>
-  </div>
-
-</form>
-
-<% } %>

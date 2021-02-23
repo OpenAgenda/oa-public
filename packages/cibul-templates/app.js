@@ -32,7 +32,7 @@ var http = require( 'http' ),
 
   debug = require( 'debug' ),
 
-  map = JSON.parse( fs.readFileSync( __dirname + '/map.json', 'utf-8' ) );
+  map = require('./map');
 
 debug.enable( 'httpServer' );
 
