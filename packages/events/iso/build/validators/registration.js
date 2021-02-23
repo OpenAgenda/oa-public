@@ -1,6 +1,6 @@
 'use strict';
 
-require("core-js/modules/es.string.link");
+require("core-js/modules/es.string.link.js");
 
 var validators = {
   list: require('@openagenda/validators/list'),

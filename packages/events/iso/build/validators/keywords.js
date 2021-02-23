@@ -1,24 +1,24 @@
 'use strict';
 
-require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.string.split");
-
-var _trimInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/trim");
-
-var _mapInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/map");
-
-var _concatInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/concat");
-
-var _reduceInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/reduce");
-
-var _Object$keys = require("@babel/runtime-corejs3/core-js/object/keys");
+var _Array$isArray = require("@babel/runtime-corejs3/core-js/array/is-array");
 
 var _forEachInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/for-each");
 
-var _Array$isArray = require("@babel/runtime-corejs3/core-js/array/is-array");
+var _Object$keys = require("@babel/runtime-corejs3/core-js/object/keys");
+
+var _reduceInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/reduce");
+
+var _concatInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/concat");
+
+var _mapInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/map");
+
+var _trimInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/trim");
+
+require("core-js/modules/es.array.join.js");
+
+require("core-js/modules/es.string.split.js");
+
+require("core-js/modules/es.regexp.exec.js");
 
 var multilingual = require('@openagenda/validators/multilingual');
 
