@@ -16,16 +16,16 @@ describe('utils - rules', () => {
             {
               field: 'categories-metropolitaines',
               values: [28],
-              automatic: false
+              automatic: false,
             },
             {
               field: 'state',
               values: {
-                $set: 0
+                $set: 0,
               },
-              automatic: false
-            }
-          ]
+              automatic: false,
+            },
+          ],
         },
         aggregatorAgendaSchema
       );
@@ -39,10 +39,10 @@ describe('utils - rules', () => {
             id: '1',
             field: 'categories-metropolitaines',
             values: [28],
-            set: false
+            set: false,
           },
-          { id: '2', field: 'state', values: 0 }
-        ]
+          { id: '2', field: 'state', values: 0 },
+        ],
       });
     });
 
@@ -55,9 +55,9 @@ describe('utils - rules', () => {
             {
               field: 'categories-metropolitaines',
               values: { $set: [28] },
-              automatic: false
-            }
-          ]
+              automatic: false,
+            },
+          ],
         },
         aggregatorAgendaSchema
       );
@@ -70,29 +70,53 @@ describe('utils - rules', () => {
         {
           query: {
             location: {
-              department: ['Loiret']
-            }
+              department: ['Loiret'],
+            },
           },
           actions: [
             {
               field: 'categorie-principale',
               values: [93],
-              automatic: false
+              automatic: false,
             },
             {
               field: 'state',
               values: {
-                $set: 2
+                $set: 2,
               },
-              automatic: false
-            }
+              automatic: false,
+            },
           ],
-          required: true
+          required: true,
         },
         aggAgendaSchema2
       );
 
       expect(values.withActions).toBe(true);
+    });
+
+    it('with text query', () => {
+      const values = ruleToValues(
+        {
+          query: {
+            text: {
+              organisateur: '92ORG',
+            },
+          },
+          actions: [],
+          required: true,
+        },
+        aggAgendaSchema2
+      );
+      expect(values).toEqual({
+        withFilter: true,
+        withActions: false,
+        required: true,
+        actions: [],
+        type: 'text',
+        textField: 'organisateur',
+        textValue: '92ORG',
+      });
     });
   });
 
@@ -105,8 +129,8 @@ describe('utils - rules', () => {
           required: false,
           actions: [
             { id: '1', field: 'categories-metropolitaines', values: [28] },
-            { id: '2', field: 'state', values: 0 }
-          ]
+            { id: '2', field: 'state', values: 0 },
+          ],
         },
         aggregatorAgendaSchema
       );
@@ -118,14 +142,14 @@ describe('utils - rules', () => {
           {
             field: 'categories-metropolitaines',
             values: [28],
-            automatic: false
+            automatic: false,
           },
           {
             field: 'state',
             values: { $set: 0 },
-            automatic: false
-          }
-        ]
+            automatic: false,
+          },
+        ],
       });
     });
 
@@ -140,9 +164,9 @@ describe('utils - rules', () => {
               id: '1',
               field: 'categories-metropolitaines',
               values: [28],
-              set: true
-            }
-          ]
+              set: true,
+            },
+          ],
         },
         aggregatorAgendaSchema
       );
@@ -160,14 +184,30 @@ describe('utils - rules', () => {
               id: '1',
               field: 'categories-metropolitaines',
               values: [28],
-              set: true
-            }
-          ]
+              set: true,
+            },
+          ],
         },
         aggregatorAgendaSchema
       );
 
       expect(rule.required).toEqual(false);
+    });
+    it('with text filter', () => {
+      const rule = valuesToRule({
+        withFilter: true,
+        withActions: false,
+        required: true,
+        actions: [],
+        type: 'text',
+        textField: 'organisateur',
+        textValue: '92ORG',
+      });
+      expect(rule).toEqual({
+        query: { text: { organisateur: '92ORG' } },
+        required: true,
+        actions: [],
+      });
     });
   });
 });

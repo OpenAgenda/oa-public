@@ -844,6 +844,7 @@
       "value": "Etiquettes"
     }
   ],
+  "aggregator-sources.DefineRules.textFilter": null,
   "aggregator-sources.DefineRules.toModerate": [
     {
       "type": 0,
@@ -1053,6 +1054,12 @@
       "value": "Appliquer la règle aux événements associés à des valeurs à choix dont les étiquettes correspondent"
     }
   ],
+  "aggregator-sources.RuleForm.helpTextChoice": [
+    {
+      "type": 0,
+      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant d'un champ textuel de la source."
+    }
+  ],
   "aggregator-sources.RuleForm.locationFilter": [
     {
       "type": 0,
@@ -1131,6 +1138,12 @@
       "value": "Filtre étiquette"
     }
   ],
+  "aggregator-sources.RuleForm.textFilter": [
+    {
+      "type": 0,
+      "value": "Filtre textuel"
+    }
+  ],
   "aggregator-sources.RuleForm.useActions": [
     {
       "type": 0,
@@ -1153,6 +1166,12 @@
     {
       "type": 0,
       "value": "La règle ne s'applique qu'aux événements qui correspondent au filtre défini."
+    }
+  ],
+  "aggregator-sources.RuleForm.value": [
+    {
+      "type": 0,
+      "value": "Valeur"
     }
   ],
   "aggregator-sources.RuleForm.values": [

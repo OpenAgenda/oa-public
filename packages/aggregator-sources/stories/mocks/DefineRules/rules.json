@@ -1,4 +1,12 @@
 [{
+    "query": {
+      "text": {
+        "organisateur": "92ORG"
+      }
+    },
+    "required": true,
+    "actions": []
+  },{
   "query": {
     "location": {
       "city": "Mondonville"

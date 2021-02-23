@@ -9,7 +9,7 @@
     },
     {
       "field": "title",
-      "fieldType": "abstract"
+      "fieldType": "text"
     },
     {
       "field": "image",
@@ -28,12 +28,17 @@
       "label": "Chapô",
       "sub": null,
       "placeholder": "Une courte description de votre événement",
-      "fieldType": "abstract"
+      "fieldType": "text"
     },
     {
       "field": "keywords",
       "display": false,
-      "fieldType": "abstract"
+      "fieldType": "text"
+    },
+    {
+      "field": "organisateur",
+      "label": "Oganisateur",
+      "fieldType": "text"
     },
     {
       "field": "longDescription",
@@ -42,7 +47,7 @@
       "placeholder": "Saisissez une description détaillée de votre événement.",
       "min": 250,
       "optional" : false,
-      "fieldType": "abstract"
+      "fieldType": "text"
     },
     {
       "field": "type-devenement",

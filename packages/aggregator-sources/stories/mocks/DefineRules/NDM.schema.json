@@ -8,6 +8,14 @@
       "fieldType": "abstract"
     },
     {
+      "field": "organisateur",
+      "fieldType": "text",
+      "label": {
+        "fr": "Organisateur",
+        "en": "Organizer"
+      }
+    },
+    {
       "field": "title",
       "fieldType": "abstract",
       "label": {

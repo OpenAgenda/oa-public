@@ -9,6 +9,7 @@ import messages from './messages';
 import ActionsFormPart from './ActionsFormPart';
 import AdditionalFieldFormPart from './AdditionalFieldFormPart';
 import LocationFormPart from './LocationFormPart';
+import TextFormPart from './TextFormPart';
 import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
 import TagsFormPart from './TagsFormPart';
@@ -23,7 +24,7 @@ export default function RuleForm({
   isAggregator,
   aggregatorAgendaSchema,
   sourceSchema,
-  displayTagFilter
+  displayTagFilter,
 }) {
   const intl = useIntl();
   const formState = useFormState();
@@ -92,7 +93,7 @@ export default function RuleForm({
               label={intl.formatMessage(messages.extendedFilter)}
               value="extended"
               classNameGroup={classNames('radio', {
-                disabled: disabledExtended
+                disabled: disabledChoice,
               })}
               disabled={disabledExtended}
               helpBlock={(
@@ -106,6 +107,30 @@ export default function RuleForm({
           {values.type === 'extended' ? (
             <div className="radio-sub-block">
               <AdditionalFieldFormPart
+                aggregatorAgendaSchema={aggregatorAgendaSchema}
+                sourceSchema={sourceSchema}
+              />
+              <RequiredFieldPart />
+            </div>
+          ) : null}
+
+          <Field
+            component={Radio}
+            name="type"
+            type="radio"
+            label={intl.formatMessage(messages.textFilter)}
+            value="text"
+            classNameGroup="radio"
+            helpBlock={(
+              <div className="radio-sub-block text-muted">
+                {intl.formatMessage(messages.helpFilterText)}
+              </div>
+            )}
+          />
+
+          {values.type === 'text' ? (
+            <div className="radio-sub-block">
+              <TextFormPart
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
               />

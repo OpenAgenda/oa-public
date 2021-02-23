@@ -14,18 +14,20 @@ export default ({ sourceSchema }) => {
   const form = useForm();
 
   const { values, initialValues } = form.getState();
+  console.log('initV choice:', initialValues);
+  console.log('v', values);
 
   const options = useMemoOne(
     () => sourceSchema.fields
       .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
       .map(({ field, label }) => ({
         value: field,
-        label: getMultiLanguageLabel(label, intl.locale)
+        label: getMultiLanguageLabel(label, intl.locale),
       })),
     [intl.locale, sourceSchema.fields]
   );
 
-  const fieldName = useMemoOne(() => values.field, [values]);
+  const fieldName = useMemoOne(() => values.choiceField, [values]);
   const prevFieldName = usePrevious(fieldName);
 
   const fieldSchema = useMemoOne(
@@ -43,7 +45,7 @@ export default ({ sourceSchema }) => {
     if (fieldSchema?.options) {
       return fieldSchema.options.map(v => ({
         value: v.id,
-        label: getMultiLanguageLabel(v.label, intl.locale)
+        label: getMultiLanguageLabel(v.label, intl.locale),
       }));
     }
   }, [fieldSchema, intl.locale]);
@@ -58,19 +60,19 @@ export default ({ sourceSchema }) => {
 
           <div className="col-sm-10">
             <ReactSelectField
-              name="field"
+              name="choiceField"
               placeholder={intl.formatMessage(messages.selectField)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
               options={options}
               menuPosition="fixed"
               isSearchable
-              initialValue={initialValues?.field}
+              initialValue={initialValues?.choiceField}
             />
           </div>
         </div>
       </div>
 
-      {values.field ? (
+      {values.choiceField ? (
         <div className="row">
           <div className="form-group form-group-v-aligned">
             <label className="control-label col-sm-2" htmlFor="extendedValues">
@@ -81,9 +83,9 @@ export default ({ sourceSchema }) => {
               <ReactSelectField
                 name="extendedValues"
                 initialValue={
-                  values.field !== undefined
-                  && values.field === initialValues?.field
-                    ? initialValues?.extendedValues
+                  values.choiceField !== undefined
+                  && values.choiceField === initialValues?.choiceField
+                    ? initialValues?.choiceValues
                     : undefined
                 }
                 placeholder={intl.formatMessage(messages.selectValue)}
