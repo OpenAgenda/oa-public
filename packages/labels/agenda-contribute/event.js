@@ -108,5 +108,29 @@ module.exports = {
   "confirmAdd": {
     "fr": "Confirmation",
     "en": "Confirm"
+  },
+  "noEditionRights": {
+    "fr": "Vous n'avez pas les droits d'édition sur cet événement.",
+    "en": "You do not have edition rights on this event."
+  },
+  "onlyAdditionalFieldsCanBeEdited": {
+    "fr": "Seuls les champs additionnels de l'agenda peuvent être édités ici.",
+    "en": "Only additional fields of the agenda can be edited here."
+  },
+  "requestEditionRights": {
+    "fr": "Demander les droits d'édition",
+    "en": "Request edition rights"
+  },
+  "onlyAdditionalFieldsCanBeEditedInfo": {
+    "fr": "Cet événement a été ajouté à l'agenda \"%agenda%\" par partage ou agrégation. Seuls les membres de l'agenda où l'événement a été saisi peuvent en modifier le contenu.",
+    "en": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content."
+  },
+  "requestEditionRightsInfo": {
+    "fr": "La demande sera adressée au propriétaire de l'événement",
+    "en": "The request will be addressed to the owner of the event"
+  },
+  "close": {
+    "fr": "Fermer",
+    "en": "Close"
   }
 }

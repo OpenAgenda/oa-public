@@ -56,7 +56,7 @@ function init(c) {
         mode: 'create',
         authorizations: null,
         fromAgenda: null,
-        agenda: _.pick(req.agenda, ['uid', 'title']),
+        agenda: _.pick(req.agenda, ['uid', 'title', 'slug']),
         ...req.config,
         mapboxKey: config.mapboxKey,
         maxFileSize: config.maxFileSize,

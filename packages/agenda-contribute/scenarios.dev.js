@@ -9,7 +9,7 @@ const defaultConfig = {
   referencesRes: '/refs',
   mode: 'create',
   redirects: {
-    updated: '/?redirect.updated=:eventUid',
+    back: '/?redirect.back=:eventUid',
     seeEvent: '/?redirect.eventCreated=:eventUid',
     createOtherEvent: '/?redirect.createOtherEvent',
     seeAllEvents: '/?redirect.seeAllEvents',
@@ -219,10 +219,10 @@ module.exports = [{
     slug: 'edit-a-draft-event-without-member',
     uid: 121010301013,
     id: 202020
- },
+  },
   config: Object.assign({}, defaultConfig, {
     base: '/edit-a-draft-event-without-member/contribute',
- }),
+  }),
   event: {
     uid: 903,
     draft: true,
@@ -273,23 +273,51 @@ module.exports = [{
   member: aValidMember,
   schemaExtensions: simpleSchemaExtensions
 }, {
-  link: '/an-event-form-with-additional-fields-cannot-edit-event/contribute/event',
+  link: '/an-event-form-with-additional-fields-cannot-edit-event/contribute/event/8989432893',
   agenda: {
     title: 'A contribute app with additional fields without authorization to edit event',
     description: 'From the agenda and from a network of agendas',
     slug: 'an-event-form-with-additional-fields-cannot-edit-event',
     uid: 193820139,
     id: 202021
- },
- config: { ...defaultConfig,
+  },
+  config: { ...defaultConfig,
     mode: 'edit',
     base: '/an-event-form-with-additional-fields-cannot-edit-event/contribute',
     authorizations: {
       canEditEvent: false
     }
- },
+  },
   member: aValidMember,
-  schemaExtensions: simpleSchemaExtensions
+  schemaExtensions: simpleSchemaExtensions,
+  event: {
+    uid: 8989432893,
+    title: { fr: 'Un événement' },
+    slug: 'un-event'
+  }
+}, {
+  link: '/an-event-form-without-additional-fields-cannot-edit-event/contribute/event/8989432893',
+  agenda: {
+    title: 'A contribute app without additional fields without authorization to edit event',
+    description: 'From the agenda and from a network of agendas',
+    slug: 'an-event-form-without-additional-fields-cannot-edit-event',
+    uid: 193020239,
+    id: 20202122
+  },
+  config: { ...defaultConfig,
+    mode: 'edit',
+    base: '/an-event-form-without-additional-fields-cannot-edit-event/contribute',
+    authorizations: {
+      canEditEvent: false
+    }
+  },
+  event: {
+    uid: 8989432893,
+    title: { fr: 'Un événement' },
+    slug: 'un-event'
+  },
+  member: aValidMember,
+  schemaExtensions: [],
 }, {
   link: '/slow-network-and-error/contribute/event/123',
   agenda: {

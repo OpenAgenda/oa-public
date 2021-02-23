@@ -11,6 +11,7 @@ module.exports = Object.assign(reducer, {
   created,
   updated: redirect,
   added: redirect,
+  close,
   deleteDraft,
   actionTypes
 });
@@ -36,26 +37,24 @@ function deleteDraft() {
   }
 }
 
+function close(values, response) {
+  return (dispatch, getState) => doRedirect(
+    getState().config.redirects
+  );
+}
 
 function redirect(values, response) {
-  return (dispatch, getState) => {
-    const {
-      redirects,
-      fromAgenda
-    } = getState().config;
+  return (dispatch, getState) => doRedirect(
+    getState().config.redirects,
+    response.body.event
+  );
+}
 
-    const event = response.body.event;
-
-    if (event?.draft) {
-      window.location.href = redirects?.draft;
-      return;
-    }
-
-    if (redirects?.updated) {
-      window.location.href = redirects.updated;
-    } else {
-      window.location.href = redirects.seeEvent.replace(':eventUid', event.uid);
-    }
+function doRedirect(redirects, event) {
+  if (redirects?.back) {
+    window.location.href = redirects.back;
+  } else {
+    window.location.href = redirects.seeEvent.replace(':eventUid', event.uid);
   }
 }
 

@@ -108,7 +108,7 @@ module.exports = Object.assign((parentApp, path = '') => {
   );
 
   parentApp.get('/:agendaSlug/contribute/event/:eventUid',
-    middlewares.defineUpdateRedirect
+    middlewares.defineBackRedirect
  );
 
   parentApp.all([
@@ -135,7 +135,7 @@ module.exports = Object.assign((parentApp, path = '') => {
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
       fileStore: { type: 's3', bucket },
       redirects: {
-        updated: req.updateRedirect,
+        back: req.backRedirect,
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
         duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
