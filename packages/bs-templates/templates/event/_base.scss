@@ -19,10 +19,6 @@
       position: relative;
     }
 
-    .sidebar {
-      margin-top: 10px;
-    }
-
   }
 
   .event-content {
@@ -158,15 +154,19 @@
       line-height: 30px;
       padding: 15px 0;
 
+      img {
+        margin: 0 4px 2px -2px;
+      }
+
       i {
-        font-size: 31px;
-        margin-right: 13px;
+        font-size: 26px;
+        margin-right: 8px;
         margin-top: -1px;
         vertical-align: middle;
       }
 
       &.btn {
-        padding: 6px 15px;
+        padding: 4px 12px;
       }
 
       &.disabled {
@@ -184,7 +184,13 @@
   }
 
   .share {
-    color: $oa-gray;
+    &.detail-item {
+
+      width: 80%;
+      margin-left: 40px;
+      padding: 0 4px;
+
+    }
 
     a {
       color: $oa-gray;
