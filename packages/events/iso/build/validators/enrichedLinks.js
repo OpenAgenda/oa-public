@@ -1,12 +1,12 @@
 'use strict';
 
-var _objectSpread = require("@babel/runtime-corejs3/helpers/objectSpread2");
+var _objectSpread = require("@babel/runtime-corejs3/helpers/objectSpread2").default;
 
-var _forEachInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/for-each");
+var _concatInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/concat");
 
 var _Array$isArray = require("@babel/runtime-corejs3/core-js/array/is-array");
 
-var _concatInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/concat");
+var _forEachInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/for-each");
 
 var schema = require('@openagenda/validators/schema');
 
