@@ -106,8 +106,8 @@ module.exports = {
     "en": "to the agenda"
   },
   "confirmAdd": {
-    "fr": "Confirmation",
-    "en": "Confirm"
+    "fr": "Ajouter l'événement",
+    "en": "Add the event"
   },
   "noEditionRights": {
     "fr": "Vous n'avez pas les droits d'édition sur cet événement.",
