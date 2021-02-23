@@ -810,6 +810,12 @@
       "value": "Labels"
     }
   ],
+  "aggregator-sources.DefineRules.textFilter": [
+    {
+      "type": 0,
+      "value": "Text field filter"
+    }
+  ],
   "aggregator-sources.DefineRules.toModerate": [
     {
       "type": 0,
@@ -1017,6 +1023,12 @@
       "value": "Apply the rule to events associated with optional values whose labels correspond."
     }
   ],
+  "aggregator-sources.RuleForm.helpTextChoice": [
+    {
+      "type": 0,
+      "value": "Apply the rule to events corresponding to one or more values coming from text fields of the source."
+    }
+  ],
   "aggregator-sources.RuleForm.locationFilter": [
     {
       "type": 0,
@@ -1135,6 +1147,12 @@
       "value": "required"
     }
   ],
+  "aggregator-sources.RuleForm.textFilter": [
+    {
+      "type": 0,
+      "value": "Text field filter"
+    }
+  ],
   "aggregator-sources.RuleForm.useActions": [
     {
       "type": 0,
@@ -1157,6 +1175,12 @@
     {
       "type": 0,
       "value": "The rule only applies to events that match the defined filter."
+    }
+  ],
+  "aggregator-sources.RuleForm.value": [
+    {
+      "type": 0,
+      "value": "Value:"
     }
   ],
   "aggregator-sources.RuleForm.values": [

@@ -11,7 +11,10 @@ export default function AddRuleSubmitButton({ handleSubmit, onCancel }) {
   const hasChoiceValues = Array.isArray(values.choiceValues)
     ? values.choiceValues.length
     : !['', null, undefined].includes(values.choiceValues);
-  const hasFilter = values.tagValues?.length || values.locationValues || hasChoiceValues;
+  const hasFilter = values.tagValues?.length
+    || values.locationValues
+    || values.textValue
+    || hasChoiceValues;
   const disabled = !hasFilter
     && !(
       values.withActions

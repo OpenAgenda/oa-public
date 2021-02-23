@@ -9,7 +9,7 @@ function getFilterType(rule) {
 
   const key = Object.keys(rule.query)[0];
 
-  return ['location', 'tags'].includes(key) ? key : 'choice';
+  return ['location', 'tags', 'text'].includes(key) ? key : 'choice';
 }
 
 function getFilterLocationType(rule) {
@@ -18,6 +18,10 @@ function getFilterLocationType(rule) {
 
 function getFilterField(rule) {
   return Object.keys(rule.query)[0];
+}
+
+function getTextFilterField(rule) {
+  return Object.keys(rule.query.text)[0];
 }
 
 const choiceFilter = ({
@@ -32,8 +36,8 @@ const choiceFilter = ({
       .map(o => getMultiLanguageLabel(o.label))
       .join(', '),
     detail: intl.formatMessage(messages.sourceAgendaChoiceFieldValueDetail, {
-      agendaTitle: sourceAgenda.title
-    })
+      agendaTitle: sourceAgenda.title,
+    }),
   };
 };
 
@@ -41,8 +45,8 @@ const tagsFilter = ({ intl, rule, sourceAgenda }) => ({
   label: intl.formatMessage(messages.tags),
   value: rule.query.tags.join(', '),
   detail: intl.formatMessage(messages.sourceAgendaTagsDetail, {
-    agendaTitle: sourceAgenda.title
-  })
+    agendaTitle: sourceAgenda.title,
+  }),
 });
 
 const locationFilter = ({ intl, rule }) => {
@@ -53,8 +57,19 @@ const locationFilter = ({ intl, rule }) => {
       .concat(rule.query.location[getFilterLocationType(rule)])
       .join(', '),
     detail: intl.formatMessage(messages.eventLocationDetail, {
-      geo: intl.formatMessage(messages[locationType])
-    })
+      geo: intl.formatMessage(messages[locationType]),
+    }),
+  };
+};
+
+const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
+  const textField = getTextFilterField(rule);
+  const field = pickSchemaField(sourceAgendaSchema, textField);
+  return {
+    label: getMultiLanguageLabel(field.label),
+    value: intl.formatMessage(messages.textFilterValue, {
+      value: rule.query.text[textField],
+    }), // `"${rule.query.text[textField]}"`,
   };
 };
 
@@ -66,6 +81,8 @@ export default ({
   switch (type) {
     case 'location':
       return locationFilter({ intl, rule });
+    case 'text':
+      return textFilter({ intl, rule, sourceAgendaSchema });
     case 'tags':
       return tagsFilter({ intl, rule, sourceAgenda });
     default:
@@ -73,7 +90,7 @@ export default ({
         intl,
         rule,
         sourceAgendaSchema,
-        sourceAgenda
+        sourceAgenda,
       });
   }
 };
