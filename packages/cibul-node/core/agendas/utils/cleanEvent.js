@@ -63,8 +63,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     paths,
     aggregated,
     member,
-    access,
-    bypassAdditionalFieldValidation
+    access
   } = {
     defaultLang: null,
     evaluateEvent: true,
@@ -76,7 +75,6 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     aggregated: false,
     member: null,
     access: 'public',
-    bypassAdditionalFieldValidation: false,
     ...(typeof options === 'boolean' ? { evaluateEvent: options } : options)
   };
   
@@ -93,7 +91,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
 
   log('processed languages: %j', languages);
 
-  const consolidatedSchema = bypassAdditionalFieldValidation ? { fields: [] } : eventSchema({
+  const consolidatedSchema = eventSchema({
     languages,
     schemaExtensions: _asArray(schemaExtensions),
     access: {

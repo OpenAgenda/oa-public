@@ -7,5 +7,6 @@ module.exports = {
   schemaExtensions: require('./schemaExtensions'),
   duplicateFromEvent: require('./duplicateFromEvent'),
   defineBackRedirect: require('./defineBackRedirect'),
-  verifyMemberAuthorization: require('./verifyMemberAuthorization')
+  verifyMemberAuthorization: require('./verifyMemberAuthorization'),
+  addAndRedirectIfNothingToEdit: require('./addAndRedirectIfNothingToEdit')
 }

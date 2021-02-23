@@ -14,6 +14,7 @@ const cleanEvent = require('../utils/cleanEvent');
 const getAgenda = require('../utils/getAgenda');
 
 const assignState = require('../utils/assignState');
+const extractUserUid = require('../utils/extractUserUid');
 
 module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
   const {
@@ -35,8 +36,7 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     batched,
     context,
     access,
-    returnPayload,
-    bypassAdditionalFieldValidation
+    returnPayload
   } = {
     aggregated: false,
     paths: null,
@@ -45,13 +45,14 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
     context: {},
     access: 'public',
     returnPayload: false,
-    bypassAdditionalFieldValidation: false,
     ...options
   };
 
-  const member = context.userUid ? await members.get({
+  const userUid = extractUserUid(data, options);
+
+  const member = userUid ? await members.get({
     agendaUid,
-    userUid: context.userUid
+    userUid
   }) : null;
   log(member ? '  loaded member %s' : '  member is unspecified', member?.id);
 
@@ -76,7 +77,6 @@ module.exports = async (core, agendaUid, eventUid, data, options = {}) => {
   const clean = await cleanEvent(services, agenda, data, {
     evaluateEvent: false,
     event,
-    bypassAdditionalFieldValidation,
     paths,
     aggregated,
     member,

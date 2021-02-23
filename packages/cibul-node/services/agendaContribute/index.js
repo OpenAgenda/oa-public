@@ -55,11 +55,11 @@ module.exports = Object.assign((parentApp, path = '') => {
       next();
     }
   ]);
-
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
     agendas.mw.loadBy({
       path: 'params.fromAgendaUid',
+      field: 'uid',
       target: 'fromAgenda'
     }),
     agendaNotFound('fromAgenda')
@@ -75,7 +75,8 @@ module.exports = Object.assign((parentApp, path = '') => {
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], [
     sessions.mw.ifUnlogged(_redirectToSignup),
     middlewares.member.bind(null, members),
@@ -83,12 +84,12 @@ module.exports = Object.assign((parentApp, path = '') => {
     middlewares.duplicateFromEvent
   ]);
 
-  parentApp.get([
+  parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step'
   ], middlewares.verifyMemberAuthorization);
 
-  parentApp.get([
+  parentApp.all([
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft',
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
@@ -104,7 +105,8 @@ module.exports = Object.assign((parentApp, path = '') => {
   );
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
-    setInReq({ mode: 'add' })
+    setInReq({ mode: 'add' }),
+    middlewares.addAndRedirectIfNothingToEdit
   );
 
   parentApp.get('/:agendaSlug/contribute/event/:eventUid',
@@ -115,7 +117,8 @@ module.exports = Object.assign((parentApp, path = '') => {
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], (req, res, next) => {
     req.config = {
       lang: req.lang,

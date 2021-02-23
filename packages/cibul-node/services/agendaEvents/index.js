@@ -14,7 +14,6 @@ const mw = {
   loadEvent: require('../members/middleware/loadEvent'),
   load: require('./middleware/load'),
   remove: require('./middleware/remove'),
-  add: require('./middleware/add'),
   requireCanEdit: require('./middleware/requireCanEdit'),
   changeState: require('./middleware/changeState'),
   changeFeatured: require('./middleware/changeFeatured'),
@@ -122,15 +121,6 @@ function plugApp(parentApp) {
     loadMw,
     members.mw.loadAndAuthorize('moderator'),
     mw.changeFeatured
-  );
-
-  parentApp.get('/:agendaSlug/events/:eventSlug/add/to/:targetAgendaSlug',
-    requireLoggedMw,
-    agendas.mw.loadBy({ path: 'params.targetAgendaSlug', field: 'slug', target: 'agenda' }),
-    agendas.mw.loadBy({ path: 'params.agendaSlug', field: 'slug', target: 'currentAgenda' }),
-    members.mw.loadAndAuthorize('contributor'),
-    mw.loadEvent.by({ agenda: 'currentAgenda' }),
-    mw.add
   );
 
   parentApp.post('/:agendaSlug/admin/events/states',

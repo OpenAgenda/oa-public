@@ -55,7 +55,7 @@ function init(c) {
       config: {
         mode: 'create',
         authorizations: null,
-        fromAgenda: null,
+        fromAgenda: _.pick(req.fromAgenda, ['uid', 'title', 'slug']) || null,
         agenda: _.pick(req.agenda, ['uid', 'title', 'slug']),
         ...req.config,
         mapboxKey: config.mapboxKey,
@@ -97,8 +97,12 @@ function init(c) {
     });
   });
 
-  app.post(
-    ['/event', '/event/:eventUid', '/event/:eventUid/draft'],
+  app.post([
+    '/event',
+    '/event/:eventUid',
+    '/event/:eventUid/draft',
+    '/event/:eventUid/from/:fromAgendaUid'
+  ],
     bodyParser.json(),
     _defineEventFileKey,
     _loadEventSchema,
@@ -117,7 +121,9 @@ function init(c) {
     log('info', 'setting event on agenda %s', req?.agenda?.slug);
 
     config.interfaces.setEvent(req.agenda, req.user, req.event, postedWithFiles, {
-      draft: req.draft
+      draft: req.draft,
+      mode: req.mode,
+      fromAgenda: req.fromAgenda
     }).then(result => {
       res.json(_.pick(result, [
         'event',

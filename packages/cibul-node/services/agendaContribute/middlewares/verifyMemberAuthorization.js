@@ -1,18 +1,17 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const getLabel = require( '@openagenda/labels/makeLabelGetter' )(
-  require( '@openagenda/labels/agenda-contribute/authorization' )
+const _ = require('lodash');
+const getLabel = require('@openagenda/labels/makeLabelGetter')(
+  require('@openagenda/labels/agenda-contribute/authorization')
 );
 const {
   isSuperiorTo
-} = require( '@openagenda/members' ).utils.compareRoles;
-const types = require( '@openagenda/agendas/service/validate/contributionTypes' );
+} = require('@openagenda/members').utils.compareRoles;
+const types = require('@openagenda/agendas/service/validate/contributionTypes');
 
-const log = require( '@openagenda/logs' )( 'services/agendaContribute/middlewares/verifyMemberAuthorization' );
+const log = require('@openagenda/logs')('services/agendaContribute/middlewares/verifyMemberAuthorization');
 
 module.exports = async (req, res, next) => {
-
   const {
     core
   } = req.app.services;
@@ -20,7 +19,7 @@ module.exports = async (req, res, next) => {
   if (await core.agendas(req.agenda).settings.isClosed()) {
     return next({
       code: 403,
-      message: getLabel( 'noAccessToClosedAgenda', req.lang )
+      message: getLabel('noAccessToClosedAgenda', req.lang)
     });
   } else if (await core.agendas(req.agenda).settings.isMembersOnly() && !req.member) {
     return res.redirect(302, `/${req.agenda.slug}/request-contribute/conversation/create`)
