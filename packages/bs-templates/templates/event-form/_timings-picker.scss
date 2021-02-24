@@ -269,7 +269,7 @@ $dayInWeek: 7;
   @include translate(-50%, -50%);
 }
 
-@mixin vertical-centre ($height) {
+@mixin vertical-center ($height) {
   height:$height;
   line-height:$height !important;
   display:inline-block;
@@ -804,7 +804,7 @@ $dayInWeek: 7;
 
 
     > * {
-      @include vertical-centre($header-height);
+      @include vertical-center($header-height);
     }
 
     >.rc-icon-wrapper {
@@ -857,7 +857,7 @@ $dayInWeek: 7;
       border-left:solid 1px $calendarBorderColor;
       font-size: 0.9em;
       text-align:center;
-      @include vertical-centre(26px);
+      @include vertical-center(26px);
       background:$tp-white;
       cursor:pointer;
       color:$black;
