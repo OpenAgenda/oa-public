@@ -3,14 +3,36 @@ import { hasFilter } from '../../../utils/rules';
 import getLocalValue from '../../../utils/getLocalValue';
 import messages from './messages';
 
-const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
+const eventTextFields = ['title', 'description', 'keywords', 'conditions'].map(
   field => ({
     field,
     label: formLabels[field],
   })
 );
 
-const pickSchemaField = (schema, field) => schema.fields.filter(f => f.field === field).pop();
+const attendanceModeField = {
+  field: 'attendanceMode',
+  label: formLabels.attendanceMode,
+  options: [
+    {
+      id: 1,
+      value: 'offlineAttendanceMode',
+      label: formLabels.offlineAttendanceMode,
+    },
+    {
+      id: 2,
+      value: 'onlineAttendanceMode',
+      label: formLabels.onlineAttendanceMode,
+    },
+    {
+      id: 3,
+      value: 'mixedAttendanceMode',
+      label: formLabels.mixedAttendanceMode,
+    },
+  ],
+};
+
+// const pickSchemaField = (schema, field) => schema.fields.filter(f => f.field === field).pop();
 const pickFieldInFields = (fields, field) => fields.filter(f => f.field === field).pop();
 
 function getFilterType(rule) {
@@ -37,7 +59,8 @@ const choiceFilter = ({
   intl, rule, sourceAgendaSchema, sourceAgenda
 }) => {
   const filterFieldName = getFilterField(rule);
-  const field = pickSchemaField(sourceAgendaSchema, filterFieldName);
+  const allFields = sourceAgendaSchema.fields.concat(attendanceModeField);
+  const field = pickFieldInFields(allFields, filterFieldName);
   return {
     label: getLocalValue(field.label),
     value: field.options
@@ -82,7 +105,7 @@ const locationFilter = ({ intl, rule }) => {
 
 const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
   const textField = getTextFilterField(rule);
-  const allFields = sourceAgendaSchema.fields.concat(eventFields);
+  const allFields = sourceAgendaSchema.fields.concat(eventTextFields);
   const field = pickFieldInFields(allFields, textField);
   const label = getLocalValue(field.label);
   return {

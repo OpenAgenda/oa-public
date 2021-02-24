@@ -6,8 +6,27 @@ import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useForm } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
+import formLabels from '@openagenda/labels/event/form';
 import getLocalValue from '../../utils/getLocalValue';
 import messages from './messages';
+
+const AttendanceOptions = [
+  {
+    id: 1,
+    value: 'offlineAttendanceMode',
+    label: formLabels.offlineAttendanceMode,
+  },
+  {
+    id: 2,
+    value: 'onlineAttendanceMode',
+    label: formLabels.onlineAttendanceMode,
+  },
+  {
+    id: 3,
+    value: 'mixedAttendanceMode',
+    label: formLabels.mixedAttendanceMode,
+  },
+];
 
 export default ({ sourceSchema }) => {
   const intl = useIntl();
@@ -18,6 +37,7 @@ export default ({ sourceSchema }) => {
   const options = useMemoOne(
     () => sourceSchema.fields
       .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+      .concat([{ field: 'attendanceMode', label: formLabels.attendanceMode }])
       .map(({ field, label }) => ({
         value: field,
         label: getLocalValue(label, intl.locale),
@@ -28,10 +48,14 @@ export default ({ sourceSchema }) => {
   const fieldName = useMemoOne(() => values.choiceField, [values]);
   const prevFieldName = usePrevious(fieldName);
 
-  const fieldSchema = useMemoOne(
-    () => sourceSchema.fields.find(v => v.field === fieldName),
-    [sourceSchema, fieldName]
-  );
+  const fieldSchema = useMemoOne(() => {
+    if (fieldName === 'attendanceMode') {
+      return {
+        options: AttendanceOptions,
+      };
+    }
+    return sourceSchema.fields.find(v => v.field === fieldName);
+  }, [sourceSchema, fieldName]);
 
   useIsomorphicLayoutEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
