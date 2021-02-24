@@ -6,7 +6,7 @@ import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useForm } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../utils/getLocalValue';
 import messages from './messages';
 
 export default ({ sourceSchema }) => {
@@ -14,15 +14,13 @@ export default ({ sourceSchema }) => {
   const form = useForm();
 
   const { values, initialValues } = form.getState();
-  console.log('initV choice:', initialValues);
-  console.log('v', values);
 
   const options = useMemoOne(
     () => sourceSchema.fields
       .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
       .map(({ field, label }) => ({
         value: field,
-        label: getMultiLanguageLabel(label, intl.locale),
+        label: getLocalValue(label, intl.locale),
       })),
     [intl.locale, sourceSchema.fields]
   );
@@ -45,7 +43,7 @@ export default ({ sourceSchema }) => {
     if (fieldSchema?.options) {
       return fieldSchema.options.map(v => ({
         value: v.id,
-        label: getMultiLanguageLabel(v.label, intl.locale),
+        label: getLocalValue(v.label, intl.locale),
       }));
     }
   }, [fieldSchema, intl.locale]);

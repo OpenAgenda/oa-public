@@ -1,8 +1,17 @@
+import formLabels from '@openagenda/labels/event/form';
 import { hasFilter } from '../../../utils/rules';
-import getMultiLanguageLabel from '../../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../../utils/getLocalValue';
 import messages from './messages';
 
+const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
+  field => ({
+    field,
+    label: formLabels[field],
+  })
+);
+
 const pickSchemaField = (schema, field) => schema.fields.filter(f => f.field === field).pop();
+const pickFieldInFields = (fields, field) => fields.filter(f => f.field === field).pop();
 
 function getFilterType(rule) {
   if (!hasFilter(rule)) return null;
@@ -30,10 +39,10 @@ const choiceFilter = ({
   const filterFieldName = getFilterField(rule);
   const field = pickSchemaField(sourceAgendaSchema, filterFieldName);
   return {
-    label: getMultiLanguageLabel(field.label),
+    label: getLocalValue(field.label),
     value: field.options
       .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
-      .map(o => getMultiLanguageLabel(o.label))
+      .map(o => getLocalValue(o.label))
       .join(', '),
 <<<<<<< HEAD
     detail: intl.formatMessage(
@@ -73,12 +82,14 @@ const locationFilter = ({ intl, rule }) => {
 
 const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
   const textField = getTextFilterField(rule);
-  const field = pickSchemaField(sourceAgendaSchema, textField);
+  const allFields = sourceAgendaSchema.fields.concat(eventFields);
+  const field = pickFieldInFields(allFields, textField);
+  const label = getLocalValue(field.label);
   return {
-    label: getMultiLanguageLabel(field.label),
+    label,
     value: intl.formatMessage(messages.textFilterValue, {
       value: rule.query.text[textField],
-    }), // `"${rule.query.text[textField]}"`,
+    }),
   };
 };
 

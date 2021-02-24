@@ -8,7 +8,6 @@ import Select from './Select';
 export default () => {
   const intl = useIntl();
   const { initialValues } = useFormState();
-  console.log('initV location:', initialValues);
 
   return (
     <>

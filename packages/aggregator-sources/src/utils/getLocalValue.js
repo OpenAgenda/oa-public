@@ -1,4 +1,4 @@
-export default function getMultiLanguageLabel(entry, lang) {
+export default function getLocalValue(entry, lang) {
   if (typeof entry !== 'object') {
     return entry;
   }
