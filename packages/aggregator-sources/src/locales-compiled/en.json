@@ -810,10 +810,18 @@
       "value": "Labels"
     }
   ],
-  "aggregator-sources.DefineRules.textFilter": [
+  "aggregator-sources.DefineRules.textFilterValue": [
     {
       "type": 0,
-      "value": "Text field filter"
+      "value": "contains \""
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "\""
     }
   ],
   "aggregator-sources.DefineRules.toModerate": [

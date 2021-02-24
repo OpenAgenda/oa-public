@@ -19,14 +19,14 @@ function getInitialState(initialRules) {
   const rules = initialRules
     ? initialRules.map(rule => ({
       id: _.uniqueId(), // for react key prop
-      ...rule
+      ...rule,
     }))
     : [];
 
   return {
     rules,
     mode: 'list',
-    modeOptions: {}
+    modeOptions: {},
   };
 }
 
@@ -41,12 +41,12 @@ export default function DefineRules({
   sourceAgenda,
   primaryAction,
   onSubmit,
-  onCancel
+  onCancel,
 }) {
   const intl = useIntl();
 
   const initialState = useMemo(() => getInitialState(initialRules), [
-    initialRules
+    initialRules,
   ]);
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -55,8 +55,8 @@ export default function DefineRules({
       type: 'setMode',
       payload: {
         mode,
-        options
-      }
+        options,
+      },
     }),
     [dispatch]
   );
@@ -81,8 +81,8 @@ export default function DefineRules({
       dispatch({
         type: 'addRule',
         payload: {
-          rule
-        }
+          rule,
+        },
       });
 
       setMode('list');
@@ -108,8 +108,8 @@ export default function DefineRules({
         type: 'updateRule',
         payload: {
           id: state.modeOptions.id,
-          rule
-        }
+          rule,
+        },
       });
 
       setMode('list');
@@ -120,8 +120,8 @@ export default function DefineRules({
     id => dispatch({
       type: 'removeRule',
       payload: {
-        id
-      }
+        id,
+      },
     }),
     [dispatch]
   );
@@ -162,8 +162,8 @@ export default function DefineRules({
       type: 'reorderRules',
       payload: {
         startIndex,
-        endIndex
-      }
+        endIndex,
+      },
     }),
     [dispatch]
   );
@@ -192,10 +192,6 @@ export default function DefineRules({
     }
     const ruleToUpdate = state.rules.find(
       rule => rule.id === state.modeOptions.id
-    );
-    console.log(
-      'HERE ',
-      ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type
     );
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type === 'tags';
   }, [state.mode, state.modeOptions.id]);
@@ -234,7 +230,7 @@ export default function DefineRules({
           onSubmit={addRule}
           mutators={{
             // potentially other mutators could be merged here
-            ...arrayMutators
+            ...arrayMutators,
           }}
           onCancel={setModeList}
           component={RuleForm}
@@ -260,7 +256,7 @@ export default function DefineRules({
           onSubmit={updateRule}
           mutators={{
             // potentially other mutators could be merged here
-            ...arrayMutators
+            ...arrayMutators,
           }}
           onCancel={setModeList}
           component={RuleForm}

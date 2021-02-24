@@ -1,5 +1,5 @@
 import React from 'react';
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../utils/getLocalValue';
 import messages from './messages';
 
 export default function validateActions(
@@ -45,10 +45,10 @@ export default function validateActions(
     return intl.formatMessage(messages.missingRequiredFields, {
       fields: intl.formatList(
         missingFields.map(v => (
-          <em key={v.field}>{getMultiLanguageLabel(v.label, intl.locale)}</em>
+          <em key={v.field}>{getLocalValue(v.label, intl.locale)}</em>
         ))
       ),
-      fieldsCount: missingFields.length
+      fieldsCount: missingFields.length,
     });
   }
 }

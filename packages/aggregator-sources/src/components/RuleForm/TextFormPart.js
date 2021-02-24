@@ -3,24 +3,31 @@ import { useIntl } from 'react-intl';
 import { Field, useForm } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
+import formLabels from '@openagenda/labels/event/form';
+import getLocalValue from '../../utils/getLocalValue';
 import messages from './messages';
+
+const eventFields = ['title', 'description', 'keywords', 'conditions'].map(
+  field => ({
+    field,
+    label: formLabels[field],
+  })
+);
 
 export default ({ sourceSchema }) => {
   const intl = useIntl();
   const form = useForm();
 
   const { values, initialValues } = form.getState();
-  console.log('initV text:', initialValues);
-  console.log('v:', values);
 
   const options = useMemoOne(
     () => sourceSchema.fields
-      .filter(v => ['text'].includes(v.fieldType))
+      .filter(v => ['text', 'textarea', 'markdown'].includes(v.fieldType))
+      .concat(eventFields)
       .map(({ field, label }) => ({
         value: field,
-        label: getMultiLanguageLabel(label, intl.locale)
-          ? getMultiLanguageLabel(label, intl.locale)
+        label: getLocalValue(label, intl.locale)
+          ? getLocalValue(label, intl.locale)
           : field,
       })),
     [intl.locale, sourceSchema.fields]
@@ -58,7 +65,12 @@ export default ({ sourceSchema }) => {
                   {intl.formatMessage(messages.value)}
                 </label>
                 <div className="col-sm-10">
-                  <input type="text" {...input} placeholder="substring" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    {...input}
+                    placeholder="substring"
+                  />
                 </div>
               </div>
             </div>

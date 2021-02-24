@@ -87,7 +87,7 @@
   "aggregator-sources.DefineRules.sourceAgendaTagsDetail": "Label of an additional field of the source \"{agendaTitle}\"",
   "aggregator-sources.DefineRules.state": "Status",
   "aggregator-sources.DefineRules.tags": "Labels",
-  "aggregator-sources.DefineRules.textFilter": "Text field filter",
+  "aggregator-sources.DefineRules.textFilterValue": "contains \"{value}\"",
   "aggregator-sources.DefineRules.toModerate": "To be moderated",
   "aggregator-sources.DefineRules.update": "Update",
   "aggregator-sources.DefineRules.updateARule": "Update a rule",

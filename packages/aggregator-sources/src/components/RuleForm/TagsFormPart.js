@@ -4,7 +4,7 @@ import { useFormState } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../utils/getLocalValue';
 import messages from './messages';
 
 export default ({ schema }) => {
@@ -19,7 +19,7 @@ export default ({ schema }) => {
         .flat()
         .map(v => ({
           value: v.label,
-          label: getMultiLanguageLabel(v.label)
+          label: getLocalValue(v.label),
         }))
       : []),
     [schema]

@@ -839,7 +839,20 @@
       "value": "Etiquettes"
     }
   ],
-  "aggregator-sources.DefineRules.textFilter": null,
+  "aggregator-sources.DefineRules.textFilterValue": [
+    {
+      "type": 0,
+      "value": "contient \""
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
   "aggregator-sources.DefineRules.toModerate": [
     {
       "type": 0,

@@ -1,5 +1,5 @@
 import React from 'react';
-import getMultiLanguageLabel from '../../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../../utils/getLocalValue';
 import messages from './messages';
 
 function isSet(action) {
@@ -62,8 +62,8 @@ function stateAction({ intl, action }) {
       </span>
     ),
     detail: intl.formatMessage(messages.actionStateDetail, {
-      state: stateLabel
-    })
+      state: stateLabel,
+    }),
   };
 }
 
@@ -74,13 +74,13 @@ export default ({
   const base = {
     type,
     key: getKey(action),
-    set: isSet(action)
+    set: isSet(action),
   };
 
   if (type === 'state') {
     return {
       ...base,
-      ...stateAction({ intl, action })
+      ...stateAction({ intl, action }),
     };
   }
 
@@ -93,11 +93,11 @@ export default ({
       ...base,
       label: action.field,
       value: 'undefined',
-      detail: null
+      detail: null,
     };
   }
 
-  const label = getMultiLanguageLabel(field.label);
+  const label = getLocalValue(field.label);
 
   if (action.automatic) {
     return {
@@ -108,7 +108,7 @@ export default ({
           {intl.formatMessage(messages.automatic)}
         </span>
       ),
-      detail: intl.formatMessage(messages.automaticDetail)
+      detail: intl.formatMessage(messages.automaticDetail),
     };
   }
 
@@ -117,12 +117,12 @@ export default ({
   return {
     ...base,
     label,
-    value: matchingOptions.map(o => getMultiLanguageLabel(o.label)).join(', '),
+    value: matchingOptions.map(o => getLocalValue(o.label)).join(', '),
     detail: intl.formatMessage(
       messages.aggregatorAgendaChoiceFieldValueDetail,
       {
-        agendaTitle: aggregatorAgenda.title
+        agendaTitle: aggregatorAgenda.title,
       }
-    )
+    ),
   };
 };

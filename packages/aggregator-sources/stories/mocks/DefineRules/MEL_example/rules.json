@@ -1,0 +1,10 @@
+[{
+  "query": {
+    "text": {
+      "title": "92ORG"
+    }
+  },
+  "required": true,
+  "actions": []
+  }
+]

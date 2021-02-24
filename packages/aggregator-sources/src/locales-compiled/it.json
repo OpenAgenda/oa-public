@@ -87,7 +87,7 @@
   "aggregator-sources.DefineRules.sourceAgendaTagsDetail": null,
   "aggregator-sources.DefineRules.state": null,
   "aggregator-sources.DefineRules.tags": null,
-  "aggregator-sources.DefineRules.textFilter": null,
+  "aggregator-sources.DefineRules.textFilterValue": null,
   "aggregator-sources.DefineRules.toModerate": null,
   "aggregator-sources.DefineRules.update": null,
   "aggregator-sources.DefineRules.updateARule": null,

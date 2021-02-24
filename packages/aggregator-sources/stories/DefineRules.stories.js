@@ -12,16 +12,46 @@ import sourceAgendaSchema from './mocks/DefineRules/NDM.schema.json';
 import steps from './mocks/DefineRules/steps.json';
 import rules from './mocks/DefineRules/rules.json';
 
+import melSchema from './mocks/DefineRules/MEL_example/MEL.schema.json';
+import melRules from './mocks/DefineRules/MEL_example/rules.json';
+import melRulesTags from './mocks/DefineRules/MEL_example/rulesWithTagRule.json';
+import melAggregatorAgenda from './mocks/DefineRules/MEL_example/melAgenda.json';
+
+const melSourceAgenda = {
+  uid: 85645563,
+  title: 'Office de Tourisme du Val de Deûle et Lys',
+  description: "Agenda de l'Office de Tourisme du Val de Deûle et Lys.",
+};
+
+const melSourceAgendaSchema = {
+  custom: {},
+  fields: [],
+};
+
+const melSourceAgendaSchemaAdditional = {
+  custom: {},
+  fields: [
+    {
+      field: 'organisateur',
+      fieldType: 'text',
+      label: {
+        fr: 'Organisateur',
+        en: 'Organizer',
+      },
+    },
+  ],
+};
+
 const sourceAgenda = {
   uid: 123,
   title: 'Nuit des musées 2020',
-  slug: 'mondonville'
+  slug: 'mondonville',
 };
 
 const aggregatorAgenda = {
   uid: 456,
   title: 'Mondonville',
-  slug: 'mondonville'
+  slug: 'mondonville',
 };
 
 const aggregator = {
@@ -29,12 +59,12 @@ const aggregator = {
     {
       query: {
         location: {
-          city: ['Mondonville']
-        }
+          city: ['Mondonville'],
+        },
       },
-      required: true
-    }
-  ]
+      required: true,
+    },
+  ],
 };
 
 storiesOf('DefineRules - add', module)
@@ -62,7 +92,7 @@ storiesOf('DefineRules - edit', module)
   .addDecorator(SourcesCanvasDecorator)
   .addDecorator(ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`))
   .addDecorator(IntlDecorator)
-  .add('Editing a source - empty rule list', () => (
+  .add('empty rule list', () => (
     <DefineRules
       displayInfo={false}
       aggregator={aggregator}
@@ -75,7 +105,7 @@ storiesOf('DefineRules - edit', module)
       onCancel={() => {}}
     />
   ))
-  .add('Editing a source - some rules exist', () => (
+  .add('some rules exist', () => (
     <DefineRules
       displayInfo={false}
       aggregator={aggregator}
@@ -84,6 +114,45 @@ storiesOf('DefineRules - edit', module)
       sourceAgenda={sourceAgenda}
       sourceSchema={sourceAgendaSchema}
       initialRules={rules}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  ))
+  .add('one rule with text filter, without additional text field', () => (
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={melAggregatorAgenda}
+      aggregatorAgendaSchema={melSchema}
+      sourceAgenda={melSourceAgenda}
+      sourceSchema={melSourceAgendaSchema}
+      initialRules={melRules}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  ))
+  .add('one rule with text filter, with additional text field', () => (
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={melAggregatorAgenda}
+      aggregatorAgendaSchema={melSchema}
+      sourceAgenda={melSourceAgenda}
+      sourceSchema={melSourceAgendaSchemaAdditional}
+      initialRules={melRules}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  ))
+  .add('one rule with text filter, one rule with tags filter', () => (
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={melAggregatorAgenda}
+      aggregatorAgendaSchema={melSchema}
+      sourceAgenda={melSourceAgenda}
+      sourceSchema={melSourceAgendaSchema}
+      initialRules={melRulesTags}
       onSubmit={() => {}}
       onCancel={() => {}}
     />

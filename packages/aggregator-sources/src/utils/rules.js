@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import getMultiLanguageLabel from './getMultiLanguageLabel';
+import getLocalValue from './getLocalValue';
 
 export function hasFilter(rule) {
   if (!rule.query) return false;
@@ -102,7 +102,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     Object.assign(result, {
       withFilter: true,
       type: 'tags',
-      tagValues: [].concat(query.tags).map(getMultiLanguageLabel),
+      tagValues: [].concat(query.tags).map(getLocalValue),
     });
 
     return result;
