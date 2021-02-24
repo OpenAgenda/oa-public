@@ -100,7 +100,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   });
 
   if (filterUnauthorizedData) {
-    filterUnauthorized(clean, authorizations);
+    filterUnauthorized(clean, data, authorizations);
   }
 
   if (!authorizations.canEditEvent && containsEventData(clean)) {

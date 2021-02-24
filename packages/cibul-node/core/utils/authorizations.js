@@ -102,16 +102,18 @@ module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, prom
   }
 }
 
-module.exports.filterUnauthorized = (data, authorizations) => {
-  if (!authorizations.canEditEvent && data.event) {
-    delete data.event;
+module.exports.filterUnauthorized = (clean, data, authorizations) => {
+  if (!authorizations.canEditEvent && clean.event) {
+    delete clean.event;
   }
 
-  if (!authorizations.canChangeState && data.agendaEvent?.state) {
-    delete data.agendaEvent.state;
+  if (!authorizations.canChangeState && data?.state !== undefined) {
+    delete clean.agendaEvent.state;
+    delete data.state;
   }
 
-  if (!authorizations.canPublish && parseInt(data.agendaEvent?.state) === 2) {
-    delete data.agendaEvent.state;
+  if (!authorizations.canPublish && parseInt(clean.agendaEvent?.state) === 2) {
+    delete clean.agendaEvent.state;
+    delete data.state;
   }
 }
