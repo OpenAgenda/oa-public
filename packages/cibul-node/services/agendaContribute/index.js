@@ -20,6 +20,12 @@ const base64 = require('@openagenda/utils/base64');
 
 let bucket;
 
+const agendaNotFound = ns => (req, res, next) => req[ns] ? next() : cmn.errorResponse(req, res, { code: 404 })
+const setInReq = obj => (req, res, next) => {
+  Object.assign(req, obj);
+  next();
+};
+
 module.exports = Object.assign((parentApp, path = '') => {
   const {
     agendas,
@@ -36,10 +42,11 @@ module.exports = Object.assign((parentApp, path = '') => {
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], [
     agendas.mw.load,
-    (req, res, next) => _.get(req, 'agenda') ? next() : cmn.errorResponse(req, res, { code: 404 }),
+    agendaNotFound('agenda'),
     agendas.mw.authorizeByIPAddress(),
     (req, res, next) => {
       if (!req.agenda.credentials.useContributeApp) {
@@ -48,17 +55,28 @@ module.exports = Object.assign((parentApp, path = '') => {
       next();
     }
   ]);
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    agendas.mw.loadBy({
+      path: 'params.fromAgendaUid',
+      field: 'uid',
+      target: 'fromAgenda'
+    }),
+    agendaNotFound('fromAgenda')
+  );
 
   parentApp.all([
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], middlewares.event);
 
   parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], [
     sessions.mw.ifUnlogged(_redirectToSignup),
     middlewares.member.bind(null, members),
@@ -66,31 +84,47 @@ module.exports = Object.assign((parentApp, path = '') => {
     middlewares.duplicateFromEvent
   ]);
 
-  parentApp.get([
+  parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step'
   ], middlewares.verifyMemberAuthorization);
 
-  parentApp.get([
+  parentApp.all([
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], middlewares.verifyMemberAuthorization.edit);
 
+  parentApp.all([
+    '/:agendaSlug/contribute/event',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
+  ], setInReq({ mode: 'create' }));
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid',
+    setInReq({ mode: 'edit' })
+  );
+  parentApp.all(
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
+    setInReq({ mode: 'add' }),
+    middlewares.addAndRedirectIfNothingToEdit
+  );
+
   parentApp.get('/:agendaSlug/contribute/event/:eventUid',
-    middlewares.defineUpdateRedirect
+    middlewares.defineBackRedirect
  );
 
   parentApp.all([
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], (req, res, next) => {
-
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
-      edit: _.get(req, 'event.uid') && !_.get(req, 'event.draft'),
+      mode: req.mode,
+      authorizations: req.authorizations,
       locationRes: {
         get: `/locations/:uid.json`,
         index: `/agendas/${req.agenda.uid}/locations.json?sample=1`,
@@ -98,13 +132,13 @@ module.exports = Object.assign((parentApp, path = '') => {
         geocode: `/locations/geocode`,
         reverse: `/locations/geocode/reverse`,
         insee: `/locations/insee`,
-        default: `/agendas/${req.agenda.uid}/locations`
+        default: `/agendas/${req.agenda.uid}/locations`,
       },
       referencesRes: `/agendas/${req.agenda.uid}/events`,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
       fileStore: { type: 's3', bucket },
       redirects: {
-        updated: req.updateRedirect,
+        back: req.backRedirect,
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
         duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
@@ -126,7 +160,6 @@ module.exports = Object.assign((parentApp, path = '') => {
     }
 
     next();
-
   });
 
   parentApp.use('/:agendaSlug/contribute', contribute.app);

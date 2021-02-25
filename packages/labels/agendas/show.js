@@ -17,7 +17,7 @@ module.exports = {
     "de": "teilen",
     "pl": "Udostępnij",
     "br": "Skignañ",
-    "es": "Compartir, repartir"
+    "es": "Compartir"
   },
   "addEvent": {
     "en": "Add an event",

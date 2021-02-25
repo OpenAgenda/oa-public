@@ -1,0 +1,350 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 263,
+  "fields": [
+    {
+      "field": "gratuit",
+      "label": "Gratuit",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 255,
+          "value": "evenement-accessible-gratuitement-a-tous",
+          "label": {
+            "en": "Evénement accessible gratuitement à tous"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "thematiques",
+      "label": "Thématiques",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 233,
+          "value": "culture",
+          "label": {
+            "en": "Culture"
+          },
+          "display": true
+        },
+        {
+          "id": 234,
+          "value": "sport",
+          "label": {
+            "en": "Sport"
+          },
+          "display": true
+        },
+        {
+          "id": 235,
+          "value": "traditiontauromachie",
+          "label": {
+            "en": "Tradition/tauromachie"
+          },
+          "display": true
+        },
+        {
+          "id": 236,
+          "value": "nature",
+          "label": {
+            "en": "Nature"
+          },
+          "display": true
+        },
+        {
+          "id": 237,
+          "value": "musee",
+          "label": {
+            "en": "Musée"
+          },
+          "display": true
+        },
+        {
+          "id": 238,
+          "value": "patrimoine",
+          "label": {
+            "en": "Patrimoine"
+          },
+          "display": true
+        },
+        {
+          "id": 240,
+          "value": "sante-bien-etre",
+          "label": {
+            "en": "Santé /Bien-être"
+          },
+          "display": true
+        },
+        {
+          "id": 256,
+          "value": "jeune-public",
+          "label": {
+            "en": "Jeune public"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "types-devenements",
+      "label": "Types d'événements",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 241,
+          "value": "concert",
+          "label": {
+            "en": "Concert"
+          },
+          "display": true
+        },
+        {
+          "id": 242,
+          "value": "theatre",
+          "label": {
+            "en": "Théâtre"
+          },
+          "display": true
+        },
+        {
+          "id": 243,
+          "value": "exposition",
+          "label": {
+            "en": "Exposition"
+          },
+          "display": true
+        },
+        {
+          "id": 244,
+          "value": "conference",
+          "label": {
+            "en": "Conférence"
+          },
+          "display": true
+        },
+        {
+          "id": 245,
+          "value": "visite-guidee",
+          "label": {
+            "en": "Visite guidée"
+          },
+          "display": true
+        },
+        {
+          "id": 246,
+          "value": "salon",
+          "label": {
+            "en": "Salon"
+          },
+          "display": true
+        },
+        {
+          "id": 247,
+          "value": "fete",
+          "label": {
+            "en": "Fête"
+          },
+          "display": true
+        },
+        {
+          "id": 248,
+          "value": "danse",
+          "label": {
+            "en": "Danse"
+          },
+          "display": true
+        },
+        {
+          "id": 249,
+          "value": "cinema",
+          "label": {
+            "en": "Cinéma"
+          },
+          "display": true
+        },
+        {
+          "id": 250,
+          "value": "lecture",
+          "label": {
+            "en": "Lecture"
+          },
+          "display": true
+        },
+        {
+          "id": 251,
+          "value": "spectacle",
+          "label": {
+            "en": "Spectacle"
+          },
+          "display": true
+        },
+        {
+          "id": 252,
+          "value": "dedicace",
+          "label": {
+            "en": "Dédicace"
+          },
+          "display": true
+        },
+        {
+          "id": 260,
+          "value": "stage",
+          "label": {
+            "en": "Stage"
+          },
+          "display": true
+        },
+        {
+          "id": 261,
+          "value": "projection",
+          "label": {
+            "en": "Projection"
+          },
+          "display": true
+        },
+        {
+          "id": 262,
+          "value": "festival",
+          "label": {
+            "en": "Festival"
+          },
+          "display": true
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "image",
+      "label": "Image de l'événement",
+      "info": "Chargez une image d'au moins 300 pixels de large",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "imageCredits",
+      "label": "Crédits de l'image",
+      "info": "Nom du photographe / structure pour laquelle la photo a été réalisée",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "languages",
+      "label": "Langues de saisie",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "title",
+      "label": "Titre",
+      "sub": "",
+      "placeholder": "Le titre de votre événement",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "label": "Description courte",
+      "sub": "",
+      "placeholder": "Une courte description de votre événement",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "label": "Mots clés",
+      "info": "Indiquez les mots qui définissent le mieux votre événement",
+      "sub": "Les mots clés sont utiles pour les fonctions de recherche",
+      "placeholder": "Séparez les mots clés par des tabulations ou des virgules",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "label": "Description longue",
+      "info": "Permet de donner plus de détails sur votre événement ou présenter votre structure",
+      "sub": "",
+      "placeholder": "Saisissez une description détaillée de votre événement.",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "conditions",
+      "label": "Tarifs",
+      "sub": "",
+      "placeholder": "Entrée libre, sur inscription, autre...",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "age",
+      "label": "Age du public ciblé",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "label": "Outils d'inscription",
+      "info": "Liens, emails ou numéros de téléphone",
+      "sub": "Séparez les items par des tabulations ou des virgules",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "label": "Accessibilité particulière",
+      "info": "Accessible aux personnes à mobilité réduite",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "location",
+      "label": "Lieu",
+      "sub": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "timings",
+      "label": "Horaires",
+      "info": "Indiquez un horaire de début et de fin (si possible) précis",
+      "placeholder": "20h - 22h",
+      "fieldType": "abstract"
+    }
+  ]
+}

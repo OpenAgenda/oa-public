@@ -6,18 +6,18 @@ const log = require('@openagenda/logs')('lib/validate');
 const stream = require('@openagenda/validators/stream');
 
 const fields = require('./fields');
-const timings2 = require('./validators/timings');
-const registration = require('./validators/registration');
-const accessibility = require('./validators/accessibility');
-const enrichedLinks = require('./validators/enrichedLinks');
-const age = require('./validators/age');
-const keywords = require('./validators/keywords');
+const timings = require('../iso/src/validators/timings');
+const registration = require('../iso/src/validators/registration');
+const accessibility = require('../iso/src/validators/accessibility');
+const enrichedLinks = require('../iso/src/validators/enrichedLinks');
+const age = require('../iso/src/validators/age');
+const keywords = require('../iso/src/validators/keywords');
 const compileForValidation = require('./compileForValidation');
 const ValidationError = require('./ValidationError');
 const date = require('@openagenda/validators/date');
 
 const eventCustomValidators = {
-  timings2, registration, accessibility, age, stream, keywords, enrichedLinks
+  timings, registration, accessibility, age, stream, keywords, enrichedLinks
 };
 
 const publicFields = fields.filter(f => (f.write || []).includes('public'));

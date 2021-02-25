@@ -184,6 +184,7 @@ module.exports = [{
   optional: true,
   write: ['internal', 'public'],
   read: ['internal', 'public'],
+  max: 255,
   db: {
     type: 'json'
   },
@@ -201,6 +202,7 @@ module.exports = [{
   fieldType: 'registration',
   write: ['internal', 'public'],
   read: ['internal', 'public'],
+  max: 2000,
   db: {
     type: 'json'
   }
@@ -221,7 +223,7 @@ module.exports = [{
   }
 }, {
   field: 'timings',
-  fieldType: 'timings2',
+  fieldType: 'timings',
   optional: false,
   read: ['internal', 'public'],
   write: ['internal', 'public'],

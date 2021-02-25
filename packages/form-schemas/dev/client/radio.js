@@ -46,6 +46,7 @@ class Main extends Component {
           field: 'anoptionalreadiofieldwithinfo',
           fieldType: 'radio',
           label: 'Make an informed choice, or not',
+          optional: true,
           options: [{
             id: 5,
             value: 'elephant',

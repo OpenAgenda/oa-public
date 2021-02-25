@@ -33,6 +33,11 @@ module.exports = {
       "extensions" : [ 'jpg' ],
       "optional" : false,
       "label" : "A required image"
-    } ]
+    }, {
+      "label": "Les crédits",
+      "field": "imageCredits",
+      "fieldType": "text",
+      "enableWith": "somerequiredimage"
+    }]
   }
 }

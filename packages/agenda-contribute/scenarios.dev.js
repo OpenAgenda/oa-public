@@ -7,24 +7,31 @@ const defaultConfig = {
   lang: 'fr',
   locationRes: '/locations',
   referencesRes: '/refs',
+  mode: 'create',
   redirects: {
-    updated: '/?redirect.updated=:eventUid',
+    back: '/?redirect.back=:eventUid',
     seeEvent: '/?redirect.eventCreated=:eventUid',
     createOtherEvent: '/?redirect.createOtherEvent',
     seeAllEvents: '/?redirect.seeAllEvents',
     contactAdministrators: '/?redirect.contactAdministrators',
     duplicateEvent: '/?redirect.duplicateEvent?eventUid=:eventUid',
     draft: '/?redirect.draft'
- },
+  },
+  authorizations: {
+    canEditEvent: true,
+    canCreateEvent: true,
+    canPublish: false,
+    canChangeState: false
+  },
   member: {
     dataIsRequired: true,
     schema: null
- },
+  },
   fileStore: {
     type: 's3',
     bucket: 'oadev'
- }
-}
+  }
+};
 
 const anExistingEvent = require('./dev/fixtures/event.json');
 const aValidMember = require('./dev/fixtures/member.json');
@@ -161,7 +168,7 @@ module.exports = [{
  },
   config: Object.assign({}, defaultConfig, {
     base: '/edit-an-event/contribute',
-    edit: true,
+    mode: 'edit',
     event: {
       message: '*Instructions appear in edition too*'
    }
@@ -177,7 +184,7 @@ module.exports = [{
       fr: 'Une petite description',
       en: 'A wee description'
    },
-    location: { uid: 50148047}
+    location: { uid: 93105902 }
  }
 }, {
   link: '/edit-a-draft-event/contribute/event/902/draft',
@@ -212,10 +219,10 @@ module.exports = [{
     slug: 'edit-a-draft-event-without-member',
     uid: 121010301013,
     id: 202020
- },
+  },
   config: Object.assign({}, defaultConfig, {
     base: '/edit-a-draft-event-without-member/contribute',
- }),
+  }),
   event: {
     uid: 903,
     draft: true,
@@ -251,19 +258,66 @@ module.exports = [{
  },
   member: aValidMember
 }, {
-  link: '/an-event-form-with-custom-fields/contribute/event',
+  link: '/an-event-form-with-additional-fields/contribute/event',
   agenda: {
-    title: 'A contribute app with custom fields',
+    title: 'A contribute app with additional fields',
     description: 'From the agenda and from a network of agendas',
-    slug: 'an-event-form-with-custom-fields',
+    slug: 'an-event-form-with-additional-fields',
     uid: 193820139,
     id: 202021
  },
-  config: Object.assign({}, defaultConfig, {
-    base: '/an-event-form-with-custom-fields/contribute'
- }),
+  config: { ...defaultConfig,
+    mode: 'edit',
+    base: '/an-event-form-with-additional-fields/contribute'
+ },
   member: aValidMember,
   schemaExtensions: simpleSchemaExtensions
+}, {
+  link: '/an-event-form-with-additional-fields-cannot-edit-event/contribute/event/8989432893',
+  agenda: {
+    title: 'A contribute app with additional fields without authorization to edit event',
+    description: 'From the agenda and from a network of agendas',
+    slug: 'an-event-form-with-additional-fields-cannot-edit-event',
+    uid: 193820139,
+    id: 202021
+  },
+  config: { ...defaultConfig,
+    mode: 'edit',
+    base: '/an-event-form-with-additional-fields-cannot-edit-event/contribute',
+    authorizations: {
+      canEditEvent: false
+    }
+  },
+  member: aValidMember,
+  schemaExtensions: simpleSchemaExtensions,
+  event: {
+    uid: 8989432893,
+    title: { fr: 'Un événement' },
+    slug: 'un-event'
+  }
+}, {
+  link: '/an-event-form-without-additional-fields-cannot-edit-event/contribute/event/8989432893',
+  agenda: {
+    title: 'A contribute app without additional fields without authorization to edit event',
+    description: 'From the agenda and from a network of agendas',
+    slug: 'an-event-form-without-additional-fields-cannot-edit-event',
+    uid: 193020239,
+    id: 20202122
+  },
+  config: { ...defaultConfig,
+    mode: 'edit',
+    base: '/an-event-form-without-additional-fields-cannot-edit-event/contribute',
+    authorizations: {
+      canEditEvent: false
+    }
+  },
+  event: {
+    uid: 8989432893,
+    title: { fr: 'Un événement' },
+    slug: 'un-event'
+  },
+  member: aValidMember,
+  schemaExtensions: [],
 }, {
   link: '/slow-network-and-error/contribute/event/123',
   agenda: {
@@ -275,11 +329,11 @@ module.exports = [{
  },
   config: Object.assign({}, defaultConfig, {
     base: '/slow-network-and-error/contribute',
-    edit: true,
+    mode: 'edit',
     event: {
       message: '*Instructions appear in edition too*'
-   }
- }),
+    }
+  }),
   event: anExistingEvent,
   delay: 3000,
   globalError: true
@@ -294,7 +348,7 @@ module.exports = [{
  },
   config: Object.assign({}, defaultConfig, {
     base: '/an-event-with-embed-codes/contribute',
-    edit: true,
+    mode: 'edit',
     event: {
       message: '*Instructions appear in edition too*'
    }
@@ -324,10 +378,33 @@ module.exports = [{
     uid: 12325,
     id: 292839
   },
-  config: Object.assign({}, defaultConfig, {
+  config: {
+    ...defaultConfig,
     base: '/with-defaults/contribute',
     member: {
       dataIsRequired: true
     }
-  })
+  }
+}, {
+  link: `/an-event-to-add/contribute/event/123/from/456`,
+  agenda: {
+    title: 'Adding an event',
+    description: 'An event that is added from one agenda to another',
+    slug: 'an-event-to-add',
+    uid: 89898989,
+    id: 77373
+  },
+  config: {
+    ...defaultConfig,
+    base: '/an-event-to-add/contribute',
+    mode: 'add',
+    event: {
+      message: '*Instructions appear in share too*'
+    },
+    fromAgenda: {
+      title: 'Métropole Européenne de Lille',
+      uid: 90190212
+    }
+  },
+  event: anExistingEvent
 }];

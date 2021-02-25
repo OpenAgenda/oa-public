@@ -19,14 +19,27 @@ module.exports = {
     "es": "exportación",
     "br": "Ezporzhiañ"
   },
-  "share": {
-    "en": "Share",
-    "fr": "Partager",
+  "otherShares": {
+    "en": "Other shares",
+    "fr": "Autres partages",
     "it": "Condividere",
     "de": "Teilen",
     "pl": "Udostępnij",
     "es": "Compartir, repartir",
     "br": "Skignañ"
+  },
+  "allShares": {
+    "en": "more",
+    "fr": "plus",
+    "it": "Condividere",
+    "de": "Teilen",
+    "pl": "Udostępnij",
+    "es": "mas",
+    "br": "Skignañ"
+  },
+  "shareOnOA": {
+    "en": "Share on OpenAgenda",
+    "fr": "Partager sur OpenAgenda"
   },
   "back": {
     "en": "Back",

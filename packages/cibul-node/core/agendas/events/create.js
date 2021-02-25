@@ -7,25 +7,28 @@ const log = require('@openagenda/logs')('core/agendas/events/create');
 
 const createPayload = require('../utils/createPayload');
 const doAdd = require('../utils/doAdd');
+const extractUserUid = require('../utils/extractUserUid');
+const loadAuthorizations = require('../../utils/authorizations');
 const processOEmbed = require('../utils/processOEmbed');
 const ValidationError = require('../../utils/ValidationError');
+const UnauthorizedError = require('../../utils/UnauthorizedError');
 
-const {
-  loadAgenda,
-  cleanEvent
-} = require('../utils/loadAgendaAndCleanEvent');
+const cleanEvent = require('../utils/cleanEvent');
+
+const getAgenda = require('../utils/getAgenda');
 
 const assignState = require('../utils/assignState');
 
-module.exports = async (services, agendaUid, data, options = {}) => {
+module.exports = async (core, agendaUid, data, options = {}) => {
   log('info', 'creating event on agenda %s', agendaUid);
 
   const {
+    services
+  } = core;
+
+  const {
     members,
-    events,
-    agendas,
-    formSchemas,
-    eventSearch
+    events
   } = services;
 
   const {
@@ -34,6 +37,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     draft,
     defaultLang,
     formSchemaDataFormat,
+    filterUnauthorizedData,
     returnPayload,
   } = {
     access: 'public', // read or write?
@@ -41,31 +45,41 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     draft: false,
     defaultLang: 'en',
     formSchemaDataFormat: false,
+    filterUnauthorizedData: false,
     returnPayload: false,
     ...options
   }
 
-  const contextUserUid = context.userUid || data.creatorUid;
+  const userUid = extractUserUid(data, options);
 
-  const member = await members.get({
-    agendaUid,
-    userUid: contextUserUid
-  });
+  const member = userUid ? await members.get({ agendaUid, userUid }) : null;
 
-  const agenda = await loadAgenda(services, agendaUid);
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
   log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
     draft,
     defaultLang,
+    filterUnauthorizedData,
     formSchemaDataFormat,
     member,
     access
   });
+  
   log('  cleaned data');
 
+  const authorizations = await loadAuthorizations(core, 'create', {
+    agenda,
+    member,
+    access
+  });
+
+  if (!authorizations.canCreateEvent) {
+    throw new UnauthorizedError('event', null, 'not authorized to create event');
+  }
+
   assignState(agenda, null, clean, data, {
-    access,
+    authorizations,
     draft
   });
   log('  associated state');
@@ -86,7 +100,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   try {
     const event = await events.create(clean.event, {
       context: {
-        userUid: contextUserUid,
+        userUid,
         agendaUid
       },
       detailed: true,
@@ -109,7 +123,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     throw e;
   }
 
-  const response = await doAdd(services, payload, ih(clean, {
+  const response = await doAdd(core, payload, ih(clean, {
     agendaEvent: {
       canEdit: { $set: true }
     },
@@ -117,30 +131,9 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     agendaId: { $set: agenda.id }
   }), {
     draft,
-    userUid: contextUserUid,
+    userUid,
     access
   });
 
   return returnPayload ? response : response.event;
-}
-
-function _extractOwnerAndCreator(data, contextUserUid) {
-  const extracted = {
-    ownerUid: null,
-    creatorUid: null
-  };
-
-  if (data.ownerUid) {
-    extracted.ownerUid = data.ownerUid;
-  } else if (contextUserUid) {
-    extracted.ownerUid = contextUserUid;
-  }
-
-  if (data.creatorUid) {
-    extracted.creatorUid = data.creatorUid;
-  } else {
-    extracted.creatorUid = extracted.ownerUid;
-  }
-
-  return extracted;
 }

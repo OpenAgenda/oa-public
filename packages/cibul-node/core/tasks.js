@@ -10,9 +10,9 @@ module.exports = services => {
   const queue = queues('core');
 
   return Object.assign((ons = {}) => {
-    queue.on( 'execute', ons.execute || log.bind( null, 'info' ) );
-    queue.on( 'error', ons.error || log.bind( null, 'error' ) );
-    queue.on( 'success', ons.success || log.bind( null, 'success' ) );
+    queue.on('execute', ons.execute || log.bind(null, 'info'));
+    queue.on('error', ons.error || log.bind(null, 'error'));
+    queue.on('success', ons.success || log.bind(null, 'success'));
 
     queue.run();
   }, {

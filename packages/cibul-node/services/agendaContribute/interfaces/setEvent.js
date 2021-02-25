@@ -5,38 +5,47 @@ const ih = require('immutability-helper');
 const log = require('@openagenda/logs')('services/agendaContribute/interfaces/setEvent');
 
 module.exports = async (services, agenda, user, current, data, options = {}) => {
+  // req.mode est dispo ici
   const {
-    core,
-    members
+    core
   } = services;
 
-  const { draft } = {
+  const { draft, mode, fromAgenda } = {
     draft: false,
+    mode: 'create',
+    fromAgenda: null,
     ...options
   };
 
-  const strippedOfState = _.omit(data, ['state']);
-
-  log(!current ? 'this is a create' : 'this is an update');
-
-  const coreOptions = {
-    draft,
-    context: {
-      userUid: user.uid
-    },
-    access: await _getMemberRoleSlug(members, agenda, user) || 'public'
-  };
-
   try {
-    if (!current) {
+    if (mode === 'create') {
       log(draft ? 'creating draft' : 'creating event');
       return {
-        event: await core.agendas(agenda.uid).events.create(strippedOfState, coreOptions)
+        event: await core.agendas(agenda.uid).events.create(data, {
+          draft,
+          userUid: user.uid,
+          filterUnauthorizedData: true
+        })
       };
-    } else {
-      log(draft ? 'updating draft' : 'updating event');
+    } else if (mode === 'edit') {
+      log(draft ? 'updating draft %s' : 'updating event %s', current.uid);
       return {
-        event: await core.agendas(agenda.uid).events.update(current.uid, strippedOfState, coreOptions),
+        event: await core.agendas(agenda.uid).events.patch(current.uid, data, {
+          draft,
+          userUid: user.uid,
+          filterUnauthorizedData: true
+        }),
+        success: true
+      };
+    } else if (mode === 'add') {
+      log('adding event %s to agenda %s', current.uid, agenda.uid);
+      return {
+        event: await core.agendas(agenda.uid).events.add(current.uid, data, {
+          draft,
+          userUid: user.uid,
+          filterUnauthorizedData: true,
+          sourceAgenda: fromAgenda
+        }),
         success: true
       };
     }
@@ -58,13 +67,4 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
       event: null
     }
   }
-}
-
-async function _getMemberRoleSlug(members, agenda, user) {
-  const member = await members.get({
-    agendaUid: agenda.uid,
-    userUid: user.uid
-  });
-
-  return member ? members.utils.getRoleSlug(member.role) : null;
 }

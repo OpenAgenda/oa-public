@@ -223,7 +223,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
       } catch (e) {
         error = e;
       }
-      expect(error.message).toBe('moderator is not authorized to publish events');
+      expect(error.message).toBe('not authorized to publish events');
     });
 
   });
@@ -240,7 +240,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
           access: 'moderator'
         });
       } catch (e) {
-        expect(e.message).toBe('Unauthorized');
+        expect(e.message).toBe('not authorized to edit event');
       }
     });
 
@@ -318,7 +318,8 @@ describe('core - functional (server): core.agendas().events.update()', function(
           end: new Date('2019-12-18T15:30:00')
         }]
       }, {
-        draft: false
+        draft: false,
+        access: 'administrator'
       });
 
       assert.equal(event.state, 1);
@@ -450,6 +451,8 @@ describe('core - functional (server): core.agendas().events.update()', function(
         }],
         'categories-agenda-metropolitain': 43,
         'thematiques-bordeaux-metropole' : [3]
+      }, {
+        access: 'administrator'
       });
 
       const {
@@ -474,7 +477,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
             minutes: 40
           }
         }]
-      });
+      }, { access: 'administrator' });
 
       expect((new Date(event.timings[0].begin)).getUTCHours()).toBe(17);
       expect((new Date(event.timings[0].begin)).getMinutes()).toBe(28);
@@ -690,5 +693,70 @@ describe('core - functional (server): core.agendas().events.update()', function(
     });
 
   });
+
+  describe('access by member authorization', () => {
+
+    test('change state as admin member', async () => {
+      const event = await core.agendas(64260763).events.patch(3969008, {
+        state: 1
+      }, {
+        userUid: 10866730 // helene
+      });
+
+      assert.equal(event.state, 1);
+    });
+
+    test('contributor cannot publish event if agenda default state is to be moderated', async () => {
+      try {
+        await core.agendas(64260763).events.patch(3969008, {
+          state: 2
+        }, {
+          userUid: 24372732 // chrissie
+        });
+      } catch (e) {
+        assert.equal(e.message, 'not authorized to publish events');
+        return;
+      }
+
+      assert.fail('should have caught an unauth error');
+    });
+
+    test('administrator of agenda without edit rights over event cannot edit event', async () => {
+      try {
+        const event = await core.agendas(89904399).events.patch(3969008, {
+          title: 'Un titre mis à jour'
+        }, {
+          userUid: 82253124 // Admin of MEL
+        });
+      } catch (e) {
+        assert.equal(e.message, 'not authorized to edit event');
+        return;
+      }
+
+      assert.fail('should have caught an unauth error');
+    });
+
+    test('administrator of agenda without edit rights can change featured value of event', async () => {
+      const event = await core.agendas(89904399).events.patch(3969008, {
+        featured: true
+      }, {
+        userUid: 82253124 // Admin of MEL
+      });
+
+      assert.equal(event.featured, true);
+    });
+
+    test('creator of event which is contributor in non-origin agenda without edit rights can edit event from non-origin agenda', async () => {
+      const event = await core.agendas(89904399).events.patch(3969008, {
+        title: { fr: 'Patché' }
+      }, {
+        userUid: 10866730
+      });
+
+      assert.equal(event.title.fr, 'Patché');
+    });
+    
+  });
+
 
 });

@@ -14,7 +14,7 @@ module.exports = (services, config) => {
 
   core.agendas = Agendas(core);
   core.networks = Networks(core);
-  core.users = Users(services);
+  core.users = Users(core);
 
   services.core = core;
 

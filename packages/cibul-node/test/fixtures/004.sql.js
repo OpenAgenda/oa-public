@@ -7,21 +7,12 @@ const {
   resetAndCreateTables
 } = require('./sql');
 
+const insertEventSet = require('./sql/eventSets');
+
 const raw = resetAndCreateTables();
 
 raw.push(knex('review').insert([{
-  id: 218,
-  uid: 17026855,
-  title: 'La Gargouille',
-  slug: 'la-gargouille',
-  description: 'Une petite description',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  private: 0,
-  credentials: '{}',
-  form_schema_id: 2,
+  ...require('./sql/agendas/218.json'),
   settings: JSON.stringify({
     contribution: {
       type: 1,
@@ -29,29 +20,12 @@ raw.push(knex('review').insert([{
     }
   })
 }, {
-  id: 219,
+  ...require('./sql/agendas/219.json'),
   uid: 17026800,
-  title: 'Le Fennec',
-  slug: 'le-fennec',
-  description: 'Une petite description',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  credentials: '{}',
-  form_schema_id: 3,
   settings: JSON.stringify({})
 }, {
-  id: 220,
+  ...require('./sql/agendas/220.json'),
   uid: 92983929,
-  title: 'Un agenda avec un champ contributeur',
-  slug: 'agenda-champ-contributeur',
-  description: 'Voilà',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  credentials: '{}',
   form_schema_id: 6,
   network_uid: 1234,
   settings: JSON.stringify({
@@ -60,85 +34,51 @@ raw.push(knex('review').insert([{
     }
   })
 }, {
-  id: 221,
+  ...require('./sql/agendas/221.json'),
   uid: 37026800,
-  title: 'Un agenda qui ne laisse pas les modérateurs publier',
-  slug: 'no-mod-publish',
-  description: 'Une petite description',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  credentials: '{}',
   settings: JSON.stringify({
     contribution: {
       canPublish: ['administrators']
     }
   })
-}]));
+}, 
+  require('./sql/agendas/officedutourismeroubaix.json'),
+  require('./sql/agendas/metropole-europeenne-de-lille.json')
+]));
 
 raw.push(knex('user').insert([
-  require('./sql/users/50304.json')
+  require('./sql/users/50304.json'),
+  require('./sql/users/helene.json'),
+  require('./sql/users/chrissie.json'),
+  require('./sql/users/thibaud.json')
 ]));
 
 raw.push(knex('api_key_set').insert([
   { ...require('./sql/apiKeySets/01.json'), user_id: 50304 }
 ]));
 
-raw.push(knex('network').insert([{
-  id: 1,
-  uid: 1234,
-  title: 'Un réseau avec un champ admin',
-  form_schema_id: 5,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-}]));
+raw.push(knex('network').insert([
+  require('./sql/networks/withadminfield.json'),
+  require('./sql/networks/mel.json')
+]));
 
-raw.push(knex('form_schema').insert([2, 5, 6].map(id => ({
+raw.push(knex('form_schema').insert([2, 5, 6, 41].map(id => ({
   id,
   store: fs.readFileSync(`${__dirname}/form-schemas/${id}.json`)
 }))));
 
-raw.push(knex('reviewer').insert([{
-  id: 71385,
-  user_id: 50304,
-  review_id: 218,
-  user_uid: 63170203,
-  agenda_uid: 17026855,
-  credential: 1,
-  created_at: '2017-10-30 14:21:07',
-  updated_at: '2017-10-30 14:21:07',
-  store: JSON.stringify({
-    custom_fields:{
-      organization: 'Le Chat Fume',
-      contact_number: '0688996549',
-      contact_name: "Th\\u00e9o Jouanneau",
-      contact_position: 'directeur artistique',
-      email: 'hello@lechatfume.fr'
-    }
-  }),
-  organization: 'le-chat-fume',
-  deleted_user: 0,
-  actions_counter: 1
-}]));
+raw.push(knex('reviewer').insert([
+  require('./sql/members/lechat.json'),
+  require('./sql/members/ln-adm-rbx.json'),
+  require('./sql/members/chr-ctb-rbx.json'),
+  require('./sql/members/tb-adm-mel.json'),
+  require('./sql/members/ln-ctb-mel.json')
+]));
 
-raw.push(knex('location').insert([{
-  id: 1,
-  uid: 123,
-  agenda_id: 218,
-  slug: 'la-boutique',
-  placename: 'La boutique',
-  address: '29 passage du Ponceau, Paris',
-  city: 'Paris',
-  country: 'FR',
-  latitude: 48.867688,
-  longitude: 2.351739,
-  store: JSON.stringify({
-    extId: 'fdsqfdsq'
-  }),
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-}]));
+raw.push(knex('location').insert([
+  require('./sql/locations/boutique.json'),
+  require('./sql/locations/bobine.json')
+]));
 
 const {
   review_category,
@@ -162,89 +102,62 @@ raw.push(knex('review_tag').insert([{
   id: 9661,
   slug: 'administration',
   review_id: 218,
-  tag: 'Administration',
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
+  tag: 'Administration'
 }, {
   id: 9662,
   slug: 'aeronautique',
   review_id: 218,
   tag: 'Aéronotique',
+}].map(rt => ({ ...rt,
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06'
-}]));
+}))));
 
 raw.push(knex('event').insert([{
   id: 1,
   uid: 19201989,
-  slug: 'un-event',
-  owner_id: 50304,
-  created_at: '2019-12-14 10:00:00',
-  updated_at: '2019-12-14 10:00:00'
+  slug: 'un-event'
 }, {
   id: 2,
   uid: 19390293,
-  slug: 'un-autre-event',
-  owner_id: 50304,
-  created_at: '2019-12-14 10:00:00',
-  updated_at: '2019-12-14 10:00:00'
+  slug: 'un-autre-event'
 }, {
   id: 3,
   uid: 19390294,
-  slug: 'et-un-autre-event',
+  slug: 'et-un-autre-event'
+}].map(e => ({ ...e, 
   owner_id: 50304,
   created_at: '2019-12-14 10:00:00',
   updated_at: '2019-12-14 10:00:00'
-}]));
+}))));
 
-raw.push(knex('event_location').insert([{
-  id: 1,
-  location_id: 1,
-  event_id: 1,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-}, {
-  id: 2,
-  location_id: 1,
-  event_id: 2,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-}, {
-  id: 3,
-  location_id: 1,
-  event_id: 3,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-}]));
+raw.push(knex('event_location').insert(
+  [1, 2, 3].map(id => ({
+    id,
+    event_id: id,
+    location_id: 1,
+    created_at: '2016-01-11 13:07:08',
+    updated_at: '2016-01-18 16:14:06'
+}))));
 
 raw.push(knex('occurrence').insert([{
   id: 1,
-  location_id: 1,
-  event_id: 1,
-  date: '2019-05-06',
-  time_start: '10:00:00',
-  time_end: '11:00:00',
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
+  date: '2019-05-06'
 }, {
   id: 2,
-  location_id: 1,
-  event_id: 2,
   date: '2019-12-18',
-  time_start: '10:00:00',
-  time_end: '11:00:00',
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
 }, {
   id: 3,
-  location_id: 1,
-  event_id: 3,
   date: '2019-12-18',
+}].map(o => ({
+  ...o,
+  event_id: o.id,
   time_start: '10:00:00',
   time_end: '11:00:00',
   created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06'
-}]));
+  updated_at: '2016-01-18 16:14:06',
+  location_id: 1,
+}))));
 
 raw.push(knex('event_2').insert([{
   id: 12,
@@ -504,5 +417,12 @@ raw.push(knex('custom').insert([{
   created_at: '2016-01-11 13:07:08',
   updated_at: '2016-01-18 16:14:06'
 }]));
+
+raw.push(knex('form_schema').insert([{
+  id: 374,
+  store: fs.readFileSync(`${__dirname}/form-schemas/374.json`)
+}]));
+
+insertEventSet(knex, raw, 'lesUnsLesAutres');
 
 module.exports = raw.join(';\n') + ';';

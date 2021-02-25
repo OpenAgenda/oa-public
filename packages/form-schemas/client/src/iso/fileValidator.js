@@ -37,14 +37,14 @@ const validateWithPath = schema({
   }
 });
 
-module.exports = validatorOptions => v => {
-  const optional = _.get( validatorOptions, 'optional', true );
+module.exports = (validatorOptions = {}) => v => {
+  const optional = validatorOptions?.optional === undefined ? true : validatorOptions?.optional;
 
   if (!optional && !v) {
-    throw [ {
+    throw [{
       code: 'required',
       message: 'A value is required',
-      field: _.get( validatorOptions, 'field', null )
+      field: validatorOptions?.field || null
     }];
   }
 
@@ -53,5 +53,11 @@ module.exports = validatorOptions => v => {
   } else if (validatorOptions?.allowURL && v?.url) {
     return validateWithURL(v);
   }
-  return validate(v);
+  const clean = validate(v);
+
+  if (!Object.keys(clean).filter(k => clean[k] !== null).length) {
+    return null;
+  }
+
+  return clean;
 }

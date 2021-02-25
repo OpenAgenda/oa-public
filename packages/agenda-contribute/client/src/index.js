@@ -37,7 +37,7 @@ const store = createStore(combineReducers({
     scrollableTypes: [
       reducers.event.actionTypes.UPDATE,
       reducers.event.actionTypes.CREATE,
-      reducers.member.actionTypes.UPDATE
+      reducers.member.actionTypes.ADD
     ],
     scrollToAnchor: 'stepper'
   })

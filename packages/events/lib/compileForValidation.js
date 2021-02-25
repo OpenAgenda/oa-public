@@ -11,7 +11,7 @@ const log = require('@openagenda/logs')('compileForValidation');
 const fields = require('./fields');
 const fieldNames = fields.filter(f => (f.write || []).includes('public')).map(f => f.field);
 
-const isDHM = require('./validators/dateHoursMinutesTiming').is;
+const isDHM = require('../iso/src/validators/dateHoursMinutesTiming').is;
 
 module.exports = async (current, data, options = {}) => {
   const {

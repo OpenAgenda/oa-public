@@ -19,7 +19,7 @@ const validate = schema({
 });
 
 module.exports = (dirty, options = {}) => {
-  const clean = validate(dirty);
+  const clean = validate(dirty instanceof Object ? dirty: { uid: dirty });
 
   if (options.pickOne) {
     const field = Object.keys(clean).filter(key => !!clean[key])[0];

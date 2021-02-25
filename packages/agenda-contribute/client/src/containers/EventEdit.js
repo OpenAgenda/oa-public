@@ -1,95 +1,84 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import EventForm from '@openagenda/event-form/build';
 
 import labels from '@openagenda/labels/agenda-contribute/event';
+import makeLabelGetter from '@openagenda/labels';
 
 import Instructions from '../components/Instructions';
+import RequestEditionRights from '../components/RequestEditionRights'
 import ButtonSpinner from '../components/ButtonSpinner';
+import Canvas from '../components/Canvas';
+import getHasAdditionalFields from '../lib/hasAdditionalFields';
 
 import reducers from '../reducers';
 
+import eventFormProps from '../lib/eventFormProps';
+
+const getLabel = makeLabelGetter(labels);
+
 export default connect(
   state => state,
-  dispatch => ( {
-    onUpdateSuccess: ( values, response ) => dispatch( reducers.event.updated( values, response ) ),
-    onDidMount: () => dispatch( reducers.landing.evaluate( 'edit' ) )
-  } )
-)( props => <EventEdit {...props} /> );
+  dispatch => ({
+    onUpdateSuccess: (values, response) => dispatch(reducers.event.updated(values, response)),
+    onClose: () => dispatch(reducers.event.close()),
+    onDidMount: () => dispatch(reducers.landing.evaluate('edit'))
+  })
+)(({
+  config,
+  event,
+  onUpdateSuccess,
+  onClose,
+  onDidMount,
+  member
+}) => {
 
+  const hasAdditionalFields = getHasAdditionalFields(config.schemaExtensions);
 
-class EventEdit extends Component {
-
-  componentDidMount() {
-
-    this.props.onDidMount( 'edit' );
-
-  }
-
-  renderTitle( lang ) {
-
-    const { event } = this.props;
-
-    const titleLanguages = _.keys( event.title );
-
-    const eventLanguage = titleLanguages.includes( lang ) ? lang : _.first( titleLanguages );
-
-    const title = [];
-
-    if ( event.draft ) title.push( labels.editDraftTitle[ lang ] );
-
-    if ( eventLanguage ) title.push( _.get( event, [ 'title', eventLanguage ] ) );
-
-    return <h3>{title.join( ': ' )}</h3>
-
-  }
-
-  render() {
-
-    const { config, event, onUpdateSuccess, onDidMount, member } = this.props;
-
-    return <div className="container">
-      <div className="row">
-        <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
-          <div className="text-center">
-            <div className="margin-v-lg">
-              {this.renderTitle( config.lang )}
-            </div>
-            <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
-            <div className="wsq">
-              <EventForm
-                role={_.get( member, 'role' )}
-                maxFileSize={config.maxFileSize}
-                schemaExtensions={config.schemaExtensions}
-                withErrors={false}
-                fileStore={config.fileStore}
-                locationRes={config.locationRes}
-                mapboxKey={config.mapboxKey}
-                referencesRes={config.referencesRes}
-                suggestionsRes={config.suggestionsRes}
-                lang={config.lang}
-                values={event}
-                onSubmitSuccess={onUpdateSuccess}
-                classNames={{
-                  fieldsCanvas: 'padding-all-md wsq padding-bottom-sm',
-                  bottomErrorsCanvas: 'error-summary padding-all-md',
-                }}
-                actionComponents={[ {
-                  position: 'bottom',
-                  Component: ( { onSubmit, loading } ) => <div className="wsq padding-all-md">
-                    <button disabled={loading} onClick={onSubmit} className="btn btn-primary btn-block">{labels.update[ config.lang ]}</button>
-                    { loading && <ButtonSpinner /> }
-                  </div>
-                } ]}
-              />
-            </div>
+  return <Canvas
+    mode="edit" 
+    onDidMount={onDidMount} 
+    lang={config.lang}
+    event={event}
+  >
+    <Instructions
+      className="margin-bottom-lg"
+      message={config?.event?.message}
+    />
+    <div className="wsq">
+      {config.authorizations.canEditEvent ? null : <div>
+        <RequestEditionRights
+          hasAdditionalFields={hasAdditionalFields}
+          agenda={config.agenda}
+          event={event}
+          lang={config.lang}
+        />
+      </div>}
+      {hasAdditionalFields || config.authorizations.canEditEvent ? <EventForm
+        includeEventFields={config.authorizations.canEditEvent}
+        {...eventFormProps({ member, config })}
+        values={event}
+        onSubmitSuccess={onUpdateSuccess}
+        actionComponents={[{
+          position: 'bottom',
+          Component: ({ onSubmit, loading }) => <div 
+            className="wsq padding-all-md"
+          >
+            <button
+              className="btn btn-primary btn-block"
+              disabled={loading}
+              onClick={onSubmit}
+            >{getLabel('update', config.lang)}</button>
+            {loading && <ButtonSpinner />}
           </div>
-        </div>
-      </div>
+        }]}
+      /> : <div className="padding-all-md text-center">
+        <button
+          className="btn btn-default"
+          onClick={onClose}
+        >{getLabel('close', config.lang)}</button>
+      </div>}
     </div>
-
-  }
-
-}
+  </Canvas>
+});

@@ -117,8 +117,11 @@ function cleanEvent(services, eInst, options, cb ) {
     updatedAt: eInst.updatedAt,
     createdAt: eInst.createdAt,
     range: {
-      fr: eInst.getRange( 'fr' ),
-      en: eInst.getRange( 'en' )
+      fr: eInst.getRange('fr'),
+      en: eInst.getRange('en'),
+      de: eInst.getRange('de'),
+      es: eInst.getRange('es'),
+      it: eInst.getRange('it')
     }
   };
 

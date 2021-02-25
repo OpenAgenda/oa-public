@@ -24,16 +24,6 @@ module.exports = app => {
   } = app.services;
 
   app.get(
-    '/:slug/events/:eventSlug/featured/:type',
-    sessions.mw.loadOrRedirect(),
-    cmn.loadAgenda,
-    legacyEventSvc.mw.load( 'eventSlug', 'slug' ),
-    members.mw.loadAndAuthorize('moderator'),
-    _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
-    _changeFeatured
-  );
-
-  app.get(
     '/agendas/:uid/events/:eventUid/custom',
     legacyAgendaSvc.mw.load( 'uid' ),
     sessions.mw.loadOrRedirect(),
@@ -314,56 +304,6 @@ function _xhrResponse( req, res, next ) {
     cmn.renderJson( req, res, { success: true } );
 
   } else {
-
-    next();
-
-  }
-
-}
-
-
-function _changeFeatured( req, res, next ) {
-  req.log('updating featured to %s', req.params.type);
-
-  const { core, sessions } = req.app.services;
-
-  core.agendas(req.agenda.uid).events.update(req.event.uid, {
-    featured: req.params.type === 'featured'
-  }, {
-    partial: true,
-    context: {
-      userUid: req.user.uid
-    }
-  }).then(() => {
-    sessions.setFlash(req, res, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ));
-    res.redirect( 302, cmn.getRedirect( req ) || `/${req.agenda.slug}/events/${req.event.slug}` );
-  }, next);
-}
-
-
-function _checkAuthorizedChanges( authorizedTypes ) {
-
-  return function ( req, res, next ) {
-
-    req.log( 'checking authorized changes for type %s', req.params.type );
-
-    let type = req.params.type;
-
-    if ( type == parseInt( type, 10 ) ) {
-
-      type = parseInt( type, 10 );
-
-    }
-
-    if ( authorizedTypes.indexOf( type ) == -1 ) {
-
-      req.log( 'type is not authorized: %s', req.params.type );
-
-      return next( { code: 403 } );
-
-    }
-
-    req.log( 'type is authorized: %s', req.params.type );
 
     next();
 

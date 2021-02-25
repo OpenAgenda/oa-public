@@ -1,74 +1,63 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('core/utils/assignState');
+const log = require('@openagenda/logs')('core/agendas/utils/assignState');
 const UnauthorizedError = require('../../utils/UnauthorizedError');
 
-const canPublish = (agenda, access) => (
-  agenda?.settings?.contribution?.canPublish
-  || ['administrators', 'moderators']
-).map(v => v.replace(/s$/, '')).includes(access);
+function defineState({ agenda, authorizations, isUndrafted, hasEvent }, requestedState) {
+  const {
+    canChangeState,
+    canPublish,
+    mustBeModerated
+  } = authorizations;
 
-function defineState(agenda, current, clean, data, { access, draft }) {
-  const isUndrafted = current?.draft && !draft;
-  const canChangeState = !['contributor', 'reader', 'public'].includes(access);
-  const explicitStateRequested = data.state !== undefined;
-  const agendaDefault = agenda?.settings?.contribution?.defaultState;
-
-  log('agenda default state set at %s, access to change state is %s for %s event',
-    agendaDefault,
-    canChangeState ? 'given' : 'not given',
-    isUndrafted ? 'undrafted' : (current ? 'existing' : 'new or added')
-  );
-
-  if (draft) {
-    log('is draft, no state to specify');
-    return undefined;
-  }
+  const agendaDefaultState = agenda?.settings?.contribution?.defaultState;
+  const explicitStateRequested = requestedState !== undefined;
 
   if (isUndrafted && !explicitStateRequested) {
     log('no explicit state requested');
-    return agendaDefault;
+    return agendaDefaultState;
   } else if (isUndrafted) {
     log('event is undrafted');
-    return canChangeState ? data.state : agendaDefault;
+    return canChangeState ? requestedState : agendaDefaultState;
   }
 
   if (
     explicitStateRequested
-    && (parseInt(data.state) === 2)
-    && !canPublish(agenda, access)
+    && (parseInt(requestedState) === 2)
+    && !canPublish
   ) {
-    throw new UnauthorizedError('agenda', agenda.uid, `${access} is not authorized to publish events`);
+    throw new UnauthorizedError('agenda', agenda.uid, `not authorized to publish events`);
   }
 
-  if (current && explicitStateRequested && canChangeState) {
-    return data.state;
+  if (hasEvent && explicitStateRequested && canChangeState) {
+    return requestedState;
   }
   // event exists, is added to agenda. It is a new addition. It should
   // be moderated.
-  if (current && !canChangeState) {
-    const shouldBeModerated = (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(access);
-    log('event %s to be moderated', shouldBeModerated ? 'needs' : 'does not need');
-    return shouldBeModerated ? 0 : undefined;
-  } else if (current) {
-    return explicitStateRequested ? data.state : undefined;
+  if (hasEvent && !canChangeState) {
+    log('event %s to be moderated', mustBeModerated ? 'needs' : 'does not need');
+    return mustBeModerated ? 0 : undefined;
+  } else if (hasEvent) {
+    return explicitStateRequested ? requestedState : undefined;
   }
 
-  return explicitStateRequested && canChangeState ? data.state : agendaDefault;
+  return explicitStateRequested && canChangeState ? requestedState : agendaDefaultState;
 }
 
-module.exports = (agenda, current, clean, data, { access, draft }) => {
-  const state = defineState(agenda, current, clean, data, {
-    access,
-    draft
-  });
+module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
+  const state = draft ? undefined : defineState({
+    agenda,
+    hasEvent: !!event,
+    authorizations,
+    isUndrafted: event?.draft,
+  }, data.state);
 
   log('assigning state: %s', state);
 
   if (state !== undefined) {
     clean.agendaEvent.state = state;
-  } else {
+  } else if (!draft) {
     clean.agendaEvent = _.omit(clean.agendaEvent, ['state']);
   }
 }

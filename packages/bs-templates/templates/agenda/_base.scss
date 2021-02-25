@@ -90,12 +90,17 @@
   }
 
   .event-action {
-    background: $oa-green;
+    vertical-align: middle;
+    background: $oa-blue;
     border: none;
     color: $oa-white;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 8px 18px 8px 14px;
     width: 100%;
+
+    img {
+      margin: -1px 2px 0 0;
+    }
 
     &:hover {
       opacity: 0.9;

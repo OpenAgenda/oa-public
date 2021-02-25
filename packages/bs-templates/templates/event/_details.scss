@@ -1,8 +1,6 @@
 #event {
 
   .detail-item {
-
-    padding: 10px 0 15px;
     position: relative;
 
     h3 {
@@ -15,7 +13,7 @@
 
       i {
         color: $oa-silver;
-        font-size: 31px;
+        font-size: 28px;
       }
 
     }
@@ -33,9 +31,6 @@
       color: $oa-silver;
     }
 
-    i {
-      color: $oa-silver;
-    }
 
     p {
       margin: 5px 0;

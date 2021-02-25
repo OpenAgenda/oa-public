@@ -2,13 +2,16 @@ import _ from 'lodash';
 import sa from 'superagent';
 
 const actionTypes = {
+  ADD: 'agenda-contribute/event/ADD',
   CREATE: 'agenda-contribute/event/CREATE',
   UPDATE: 'agenda-contribute/event/UPDATE'
-}
+};
 
 module.exports = Object.assign(reducer, {
   created,
-  updated,
+  updated: redirect,
+  added: redirect,
+  close,
   deleteDraft,
   actionTypes
 });
@@ -18,6 +21,7 @@ function reducer(state = {}, action = {}) {
   switch (action.type) {
     case actionTypes.CREATE:
     case actionTypes.UPDATE:
+    case actionTypes.ADD:
       return action.event;
   }
 
@@ -28,28 +32,29 @@ function reducer(state = {}, action = {}) {
 function deleteDraft() {
   return (dispatch, getState) => {
     sa.delete('').then(() => {
-      window.location.href = _.get(getState(), 'config.redirects.draft');
+      window.location.href = getState()?.config?.redirects?.draft;
     });
   }
 }
 
+function close(values, response) {
+  return (dispatch, getState) => doRedirect(
+    getState().config.redirects
+  );
+}
 
-function updated(values, response) {
-  return (dispatch, getState) => {
-    const state = getState();
+function redirect(values, response) {
+  return (dispatch, getState) => doRedirect(
+    getState().config.redirects,
+    response.body.event
+  );
+}
 
-    const event = _.get(response, 'body.event');
-
-    if (_.get(event, 'draft', false)) {
-      window.location.href = _.get(state, 'config.redirects.draft');
-      return;
-    }
-
-    if (_.get(state , 'config.redirects.updated')) {
-      window.location.href = _.get(state , 'config.redirects.updated');
-    } else {
-      window.location.href = _.get(state, 'config.redirects.seeEvent').replace(':eventUid', _.get(state, 'event.uid'));
-    }
+function doRedirect(redirects, event) {
+  if (redirects?.back) {
+    window.location.href = redirects.back;
+  } else {
+    window.location.href = redirects.seeEvent.replace(':eventUid', event.uid);
   }
 }
 
@@ -64,10 +69,10 @@ function created(values, response) {
 
     const { base } = state.config;
 
-    const event = _.get(response, 'body.event');
+    const event = response?.body?.event;
 
-    if (_.get(event, 'draft', false)) {
-      window.location.href = _.get(state, 'config.redirects.draft');
+    if (event?.draft) {
+      window.location.href = state.config.redirects.draft;
       return;
     }
 

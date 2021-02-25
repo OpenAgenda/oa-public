@@ -6812,6 +6812,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
+    "@babel/cli": ^7.12.1
+    "@babel/core": ^7.12.3
+    "@openagenda/babel-preset": ^1.4.1
     "@openagenda/eslint-config": "workspace:public/eslint-config"
     "@openagenda/files": ^3.1.0
     "@openagenda/form-schemas": ^1.9.1
@@ -6825,6 +6828,7 @@ __metadata:
     mocha: ^7.0.1
     moment-timezone: 0.5.31
     mysql: ^2.11.1
+    rimraf: ^3.0.1
     slugify: ^1.4.5
     uuid: ^3.4.0
   languageName: unknown

@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 const ValidationError = require('../../utils/ValidationError');
+const UnauthorizedError = require('../../utils/UnauthorizedError');
 
 const log = require('@openagenda/logs')('core/agendas/events/update');
 
@@ -12,19 +13,23 @@ const processOEmbed = require('../utils/processOEmbed');
 
 const createPayload = require('../utils/createPayload');
 const refreshAgenda = require('../utils/refreshAgenda');
+const extractUserUid = require('../utils/extractUserUid');
 const setCustom = require('../utils/setCustom');
 const merge = require('../utils/merge');
 
-const {
-  loadAgenda,
-  cleanEvent
-} = require('../utils/loadAgendaAndCleanEvent');
+const cleanEvent = require('../utils/cleanEvent');
 
-const verifyAgendaEventAuthorization = require('../utils/verifyAgendaEventAuthorization');
+const getAgenda = require('../utils/getAgenda');
+
+const loadAuthorizations = require('../../utils/authorizations');
+const filterUnauthorized = loadAuthorizations.filterUnauthorized;
+const containsEventData = require('../utils/containsEventData');
 
 const assignState = require('../utils/assignState');
 
-async function update(services, agendaUid, eventUid, data, options = {}) {
+const shouldHaveAgendaEvent = (operation, event) => (operation !== 'create') && !event.draft;
+
+async function update(core, agendaUid, eventUid, data, options = {}) {
   log('info', 'updating event %s on agenda %s', eventUid, agendaUid);
 
   const {
@@ -33,18 +38,20 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     agendaEvents,
     eventSearch,
     oembed,
+    members,
     aggregators,
     custom
-  } = services;
+  } = core.services;
 
-  const contextUserUid = _.get(options, 'context.userUid') || _.get(data, 'creatorUid');
-
+  const userUid = extractUserUid(data, options);
+  
   const {
     draft,
     partial,
     defaultLang,
     batched,
     access,
+    filterUnauthorizedData,
     returnPayload
   } = {
     draft: false,
@@ -53,81 +60,104 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     batched: false,
     access: 'public',
     returnPayload: false,
+    filterUnauthorizedData: false,
     ...options
   };
 
-  const agenda = await loadAgenda(services, agendaUid);
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+  
   log('  loaded agenda %s', agenda?.slug);
 
-  
   const event = await events.get(eventUid, {
     access: 'internal',
     detailed: true,
     throwOnNotFound: true
   });
-  log('  loaded event %s', event.slug);
   
-  const clean = await cleanEvent(services, agenda, data, {
+  log('  loaded event %s', event.slug);
+
+  const agendaEvent = shouldHaveAgendaEvent('update', event) ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true }) : null;
+  
+  const member = userUid ? await members.get({
+    agendaUid: agenda.uid,
+    userUid
+  }) : null;
+
+  const clean = await cleanEvent(core.services, agenda, data, {
     draft,
     optionalSecondaryFields: true,
     partial,
     access,
     defaultLang
   });
-  
-  if (!event.draft) {
-    await verifyAgendaEventAuthorization(services, agendaUid, eventUid, clean);
+
+  const authorizations = await loadAuthorizations(core, 'update', {
+    agenda,
+    event,
+    agendaEvent,
+    member,
+    access
+  });
+
+  if (filterUnauthorizedData) {
+    filterUnauthorized(clean, data, authorizations);
+  }
+
+  if (!authorizations.canEditEvent && containsEventData(clean)) {
+    throw new UnauthorizedError('event', event.uid, 'not authorized to edit event');
   }
 
   assignState(agenda, event, clean, data, {
-    access,
+    authorizations,
     draft
   });
 
-  const payload = createPayload(services, agenda);
+  const payload = createPayload(core.services, agenda);
 
-  if (clean.event.longDescription) {
+  if (containsEventData(clean)) {
+    if (clean.event.longDescription) {
+      try {
+        clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
+        log('retrieved %s links', clean.event.links.length);
+      } catch (e) {
+        log('error', 'could not retrieve oembeds', e);
+      }
+    }
+
     try {
-      clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
-      log('retrieved %s links', clean.event.links.length);
+      payload.setItem('event', await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
+        context: {
+          agendaUid,
+          userUid,
+          updateSearchIndex: false
+        },
+        detailed: true,
+        access: 'internal',
+        draft
+      }));
+
+      log('updated event %s', event.uid);
     } catch (e) {
-      log('error', 'could not retrieve oembeds', e);
+      if (e.toString() === 'ValidationError: Invalid data') {
+        log('info', 'invalid data', e);
+        throw new ValidationError(e.detail);
+      }
+      log('error', 'failed to update event', {
+        agendaUid: agenda.uid,
+        eventUid,
+        error: e
+      });
+      throw e;
     }
-  }
-
-  let result;
-
-  try {
-    payload.setItem('event', await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
-      context: {
-        agendaUid,
-        userUid: contextUserUid,
-        updateSearchIndex: false
-      },
-      detailed: true,
-      access: 'internal',
-      draft
-    }));
-
-    log('updated event %s', event.uid);
-  } catch (e) {
-    if (e.toString() === 'ValidationError: Invalid data') {
-      log('info', 'invalid data', e);
-      throw new ValidationError(e.detail);
-    }
-    log('error', 'failed to update event', {
-      agendaUid: agenda.uid,
-      eventUid,
-      error: e
-    });
-    throw e;
+  } else {
+    payload.setItem('event', event);
   }
 
   if (agenda.formSchemaId && clean.custom) {
     const result = await setCustom(
       custom,
       agenda.formSchemaId,
-      payload.getItem('event.uid'),
+      eventUid,
       clean.custom, {
         draft,
         agendaId: agenda.id,
@@ -144,7 +174,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     const result = await setCustom(
       custom,
       agenda.network.formSchemaId,
-      payload.getItem('event.uid'),
+      eventUid,
       clean.networkCustom, {
         agendaId: agenda.id,
         access
@@ -167,7 +197,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   if (clean.agendaEvent) {
     try {
-      result = await agendaEvents(agendaUid).set(payload.getItem('event.uid'), ih(clean.agendaEvent, {
+      const result = await agendaEvents(agendaUid).set(eventUid, ih(clean.agendaEvent, {
         create: {
           $set: { canEdit: true }
         }
@@ -176,25 +206,24 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
         context: {
           aggregated: false,
           legacy: false,
-          userUid: contextUserUid,
-          event: payload.getItem('event'),
+          userUid,
+          event,
           agenda,
           batched
         },
         decorate: ['member']
       });
       log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
+      payload.setItem('agendaEvent', result.before, result.set);
     } catch(e) {
       log('error', 'failed to update agendaEvent ref', e);
       throw e;
-    }
-
-    payload.setItem('agendaEvent', result.before, result.set);
+    }    
   }
 
   if (!draft) {
     try {
-      await legacy.tagsAndCustom.set(agenda.id, payload.getItem('event.uid'), [
+      await legacy.tagsAndCustom.set(agenda.id, eventUid, [
         agenda.formSchema,
         _.get(agenda, 'network.formSchema')
       ], [
@@ -236,13 +265,11 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
   return returnPayload ? response : response.event;
 }
 
-function patch(services, agendaUid, eventUid, data, options = {}) {
-  return update(services, agendaUid, eventUid, data, {
+function patch(core, agendaUid, eventUid, data, options = {}) {
+  return update(core, agendaUid, eventUid, data, {
     ...options,
     partial: true
   });
 }
 
 module.exports = Object.assign(update, { patch });
-
-

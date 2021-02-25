@@ -38,7 +38,13 @@ function init(c) {
     logger.setModuleConfig(c.logger);
   }
 
-  app.get(['/', '/:step', '/:step/:eventUid', '/:step/:eventUid/draft'], (req, res) => {
+  app.get([
+    '/',
+    '/:step',
+    '/:step/:eventUid',
+    '/:step/:eventUid/draft',
+    '/:step/:eventUid/from/:fromAgendaUid'
+  ], (req, res) => {
     log('info', 'sending app canvas for agenda %s', _.get(req, 'agenda.slug'));
 
     if (!req.config.member.schema) {
@@ -47,10 +53,14 @@ function init(c) {
 
     const frontAppInit = {
       config: {
+        mode: 'create',
+        authorizations: null,
+        fromAgenda: _.pick(req.fromAgenda, ['uid', 'title', 'slug']) || null,
+        agenda: _.pick(req.agenda, ['uid', 'title', 'slug']),
         ...req.config,
         mapboxKey: config.mapboxKey,
         maxFileSize: config.maxFileSize,
-        schemaExtensions: _.get(req, 'schemaExtensions', [])
+        schemaExtensions: _.get(req, 'schemaExtensions', []),
       },
       state: {
         member: req.member,
@@ -69,18 +79,15 @@ function init(c) {
   app.post('/member',
     bodyParser.json(),
     (req, res) => {
-
       log('info', 'setting member for agenda %s', _.get(req, 'agenda.slug'));
 
       config.interfaces.setMember(req.agenda, req.user, req.member, req.body)
-
-      .then(() => {
-        res.send('ok');
-      }, error => {
-        log('error', 'could not set member for agenda %s', _.get(req, 'agenda.slug'), error);
-
-        res.status(400).send('nok');
-      });
+        .then(() => {
+          res.send('ok');
+        }, error => {
+          log('error', 'could not set member for agenda %s', _.get(req, 'agenda.slug'), error);
+          res.status(400).send('nok');
+        });
     }
   );
 
@@ -90,8 +97,12 @@ function init(c) {
     });
   });
 
-  app.post(
-    ['/event', '/event/:eventUid', '/event/:eventUid/draft'],
+  app.post([
+    '/event',
+    '/event/:eventUid',
+    '/event/:eventUid/draft',
+    '/event/:eventUid/from/:fromAgendaUid'
+  ],
     bodyParser.json(),
     _defineEventFileKey,
     _loadEventSchema,
@@ -100,17 +111,19 @@ function init(c) {
     formSchemaMw.files.putInTemporary.bind(null, {}),
     // image is processed by event service, other files need to be put to s3
     formSchemaMw.files.uploadFilesToS3.bind(null, { ignore: ['image']}),
-  (req, res) => {
+  (req, res) => {;
     // this does not transform other fields than file fields
     const postedWithFiles = {
       ...JSON.parse(req.body.data),
       ...(req.fileFieldValues || {})
     };
 
-    log('info', 'setting event on agenda %s', _.get(req, 'agenda.slug'));
+    log('info', 'setting event on agenda %s', req?.agenda?.slug);
 
     config.interfaces.setEvent(req.agenda, req.user, req.event, postedWithFiles, {
-      draft: req.draft
+      draft: req.draft,
+      mode: req.mode,
+      fromAgenda: req.fromAgenda
     }).then(result => {
       res.json(_.pick(result, [
         'event',
@@ -118,7 +131,7 @@ function init(c) {
         'errors'
      ]));
     }, error => {
-      log('error', 'could not set event for agenda %s', _.get(req, 'agenda.slug'), error);
+      log('error', 'could not set event for agenda %s', req?.agenda?.slug, error);
 
       res.status(400);
     });

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 export default ( { message, className, boxed } ) => message ? <div className={ className || 'wsq' }>

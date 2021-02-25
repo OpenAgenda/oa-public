@@ -13,9 +13,14 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "build": "rimraf iso/build && babel iso/src -d iso/build -s",
+    "prepack": "yarn build"
   },
   "dependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@openagenda/babel-preset": "^1.4.1",
     "@openagenda/form-schemas": "^1.9.1",
     "@openagenda/logs": "^1.1.9",
     "@openagenda/validators": "^2.4.0",
@@ -33,6 +38,7 @@
     "@openagenda/eslint-config": "workspace:public/eslint-config",
     "@openagenda/files": "^3.1.0",
     "axios": "^0.19.2",
-    "mocha": "^7.0.1"
+    "mocha": "^7.0.1",
+    "rimraf": "^3.0.1"
   }
 }

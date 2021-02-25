@@ -1,75 +1,67 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const getLabel = require( '@openagenda/labels/makeLabelGetter' )(
-  require( '@openagenda/labels/agenda-contribute/authorization' )
+const _ = require('lodash');
+const getLabel = require('@openagenda/labels/makeLabelGetter')(
+  require('@openagenda/labels/agenda-contribute/authorization')
 );
 const {
   isSuperiorTo
-} = require( '@openagenda/members' ).utils.compareRoles;
-const types = require( '@openagenda/agendas/service/validate/contributionTypes' );
+} = require('@openagenda/members').utils.compareRoles;
+const types = require('@openagenda/agendas/service/validate/contributionTypes');
 
-const log = require( '@openagenda/logs' )( 'services/agendaContribute/middlewares/verifyMemberAuthorization' );
+const log = require('@openagenda/logs')('services/agendaContribute/middlewares/verifyMemberAuthorization');
 
-module.exports = ( req, res, next ) => {
-  const agendaContributionType = _.get( req, 'agenda.settings.contribution.type', 0 );
+module.exports = async (req, res, next) => {
+  const {
+    core
+  } = req.app.services;
 
-  if ( agendaContributionType === types.CLOSED ) {
-    return next( {
+  if (await core.agendas(req.agenda).settings.isClosed()) {
+    return next({
       code: 403,
-      message: getLabel( 'noAccessToClosedAgenda', req.lang )
-    } );
-  } else if ( agendaContributionType === types.MEMBERS_ONLY ) {
-    if ( !req.member ) {
-      return res.redirect( 302, `/${req.agenda.slug}/request-contribute/conversation/create` );
+      message: getLabel('noAccessToClosedAgenda', req.lang)
+    });
+  } else if (await core.agendas(req.agenda).settings.isMembersOnly() && !req.member) {
+    return res.redirect(302, `/${req.agenda.slug}/request-contribute/conversation/create`)
+  } else if (!req.member) {
+    req.authorizations = {
+      canCreateEvent: true
     }
+  } else {
+    req.authorizations = await core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations();
+  }
+
+  if (!req.authorizations.canCreateEvent) {
+    return next({
+      code: 403,
+      message: getLabel('noAccessToCreate', req.lang)
+    });
   }
 
   next();
 }
 
 
-module.exports.edit = (req, res, next) => {
+module.exports.edit = async (req, res, next) => {
   const {
-    agendaEvents
+    agendaEvents,
+    core
   } = req.app.services;
 
-  if ( req.event.draft ) {
-    return _draft( req, res, next );
-  }
+  core 
+    .users(req.user.uid)
+    .agendas(req.agenda.uid)
+    .getAuthorizations(req.event)
+    .then(authorizations => {
+      if (!['canChangeState', 'canPublish', 'canEditEvent'].filter(a => authorizations[a]).length) {
+        return next({
+          code: 403,
+          message: getLabel('noAccessToEdit', req.lang)
+        });
+      }
 
-  agendaEvents( req.agenda.uid ).get( req.event.uid ).then( ae => {
+      req.authorizations = authorizations;
 
-    if ( !ae ) return next( {
-      code: 404,
-      message: getLabel( 'eventNotLinkedToAgenda', req.lang )
-    } );
-
-    if ( isSuperiorTo( req.member.role, 'contributor' ) ) {
-      return next();
-    }
-
-    if ( ae.userUid === req.user.uid ) {
-      return next();
-    }
-
-    return next( {
-      code: 403,
-      message: getLabel( 'noAccessToEdit', req.lang )
-    } );
-  }, next );
-}
-
-function _draft( req, res, next ) {
-  log( 'event is draft' );
-
-  if ( req.user.uid !== req.event.creatorUid ) {
-    log('user is not draft owner', { userUid: req.user.uid, creatorUid: req.event.creatorUid });
-    return next( {
-      code: 403,
-      message: getLabel( 'noAccessToDraft', req.lang )
-    } );
-  }
-
-  return next();
+      next();
+    });
 }

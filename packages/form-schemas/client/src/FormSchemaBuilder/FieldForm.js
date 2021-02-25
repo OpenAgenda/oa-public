@@ -42,6 +42,8 @@ const schemas = fieldType => {
       return fieldSchemaTypes.textLike;
     case 'radio':
     case 'checkbox':
+    case 'select':
+    case 'multiselect':
       return fieldSchemaTypes.radioLike;
   }
 

@@ -68,6 +68,7 @@ dev.all(
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft',
+    '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ],
   require('./dev/loadUserMw'),
   require('./dev/loadAgendaMw'),
@@ -82,7 +83,8 @@ dev.all([
   '/:agendaSlug/contribute',
   '/:agendaSlug/contribute/:step',
   '/:agendaSlug/contribute/event/:eventUid',
-  '/:agendaSlug/contribute/event/:eventUid/draft'
+  '/:agendaSlug/contribute/event/:eventUid/draft',
+  '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
 ], require('./dev/loadConfigMw'));
 
 

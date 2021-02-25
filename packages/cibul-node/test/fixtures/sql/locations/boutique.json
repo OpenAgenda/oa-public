@@ -1,0 +1,14 @@
+{
+  "id": 1,
+  "uid": 123,
+  "agenda_id": 218,
+  "slug": "la-boutique",
+  "placename": "La boutique",
+  "address": "29 passage du Ponceau, Paris",
+  "city": "Paris",
+  "country": "FR",
+  "latitude": 48.867688,
+  "longitude": 2.351739,
+  "created_at": "2016-01-11 13:07:08",
+  "updated_at": "2016-01-18 16:14:06"
+}

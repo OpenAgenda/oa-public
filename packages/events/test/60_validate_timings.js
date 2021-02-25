@@ -2,9 +2,9 @@
 
 const assert = require('assert');
 
-const dateHoursMinutesTiming = require('../lib/validators/dateHoursMinutesTiming');
-const validateTiming = require('../lib/validators/timing');
-const validateTimings = require('../lib/validators/timings');
+const dateHoursMinutesTiming = require('../iso/src/validators/dateHoursMinutesTiming');
+const validateTiming = require('../iso/src/validators/timing');
+const validateTimings = require('../iso/src/validators/timings');
 const convertDateMinuteHourTimings = require('../lib/convertDateHoursMinutesTimings');
 
 describe('timings', () => {
