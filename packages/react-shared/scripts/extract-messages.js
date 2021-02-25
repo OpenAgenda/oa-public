@@ -9,16 +9,22 @@ const { sync: globSync } = require('glob');
 const { argv } = require('yargs');
 const dedent = require('dedent');
 const mkdirp = require('mkdirp');
+const tmp = require('tmp');
 const { extract, compile } = require('@formatjs/cli');
 
 const FILES = argv._[0] || 'src/**/*.js';
 const OUT_DIR = argv.outDir || 'src/locales';
 const COMPILED_DIR = argv.compiledDir || 'src/locales-compiled';
 const ID_INTERPOLATION_PATTERN = argv.idInterpolationPattern || '[sha512:contenthash:base64:6]';
+const COMPILE_ONLY = argv.compile || argv.c;
 const FORMAT = 'simple';
 
 const DEFAULT_LANG = argv.defaultLang || 'en';
 let LANGS = ['en', 'fr', 'de', 'it', 'es', 'br', 'io'];
+
+const FALLBACK_MAP = {
+  br: 'fr',
+};
 
 if (Array.isArray(argv.langs)) {
   LANGS = argv.langs;
@@ -26,41 +32,77 @@ if (Array.isArray(argv.langs)) {
   LANGS = argv.langs.split(',').map(v => v.trim());
 }
 
-async function extractLang(defaultMessages, lang) {
-  const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
-  let existantLocales;
+function getMessages(localesPath) {
+  let existingMessages;
 
   // local translations
   try {
-    existantLocales = JSON.parse(fs.readFileSync(localesPath, 'utf8'));
+    existingMessages = JSON.parse(fs.readFileSync(localesPath, 'utf8'));
   } catch (e) {
-    existantLocales = {};
+    existingMessages = {};
   }
+
+  return existingMessages;
+}
+
+function getFallbackedMessages(lang) {
+  const fallbackLang = FALLBACK_MAP[lang] || DEFAULT_LANG;
+  const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
+
+  if (fallbackLang !== lang) {
+    const fallbackMessages = getFallbackedMessages(fallbackLang);
+    const messages = getMessages(localesPath);
+
+    return _.reduce(
+      messages,
+      (accu, value, key) => {
+        if (value && value !== '') {
+          return {
+            ...accu,
+            [key]: value,
+          };
+        }
+
+        return accu;
+      },
+      fallbackMessages
+    );
+  }
+
+  return getMessages(localesPath);
+}
+
+async function extractLang(defaultMessages, lang) {
+  const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
+  const existingMessages = getMessages(localesPath);
 
   const messages = _.merge(
     {},
     lang === DEFAULT_LANG
       ? defaultMessages
       : _.mapValues(defaultMessages, () => ''),
-    _.pickBy(existantLocales, (value, key) => key in defaultMessages && value)
+    _.pickBy(existingMessages, (value, key) => key in defaultMessages && value)
   );
 
   fs.writeFileSync(localesPath, `${JSON.stringify(messages, null, 2)}\n`);
 }
 
 async function compileLang(lang) {
-  const localesPath = path.join(process.cwd(), OUT_DIR, `${lang}.json`);
   const compiledLocalesPath = path.join(
     process.cwd(),
     COMPILED_DIR,
     `${lang}.json`
   );
+  const messages = getFallbackedMessages(lang);
+  const tmpFile = tmp.fileSync();
   let compiledLocales = {};
+
+  fs.writeFileSync(tmpFile.name, `${JSON.stringify(messages, null, 2)}\n`);
 
   // local translations
   try {
     compiledLocales = JSON.parse(
-      await compile([localesPath], {
+      await compile([tmpFile.name], {
         ast: true,
         format: FORMAT,
       })
@@ -69,7 +111,8 @@ async function compileLang(lang) {
     compiledLocales = _.mapValues(compiledLocales, item => (Array.isArray(item) && item.length === 0 ? null : item));
   } catch (e) {
     console.log(`Error while compiling ${lang}`, e);
-    return;
+  } finally {
+    tmpFile.removeCallback();
   }
 
   fs.writeFileSync(
@@ -116,15 +159,17 @@ function createIndex(dir) {
   );
 
   // Extract
-  const extractResults = await Promise.allSettled(
-    LANGS.map(lang => extractLang(defaultMessages, lang))
-  );
+  if (!COMPILE_ONLY) {
+    const extractResults = await Promise.allSettled(
+      LANGS.map(lang => extractLang(defaultMessages, lang))
+    );
 
-  extractResults.forEach(result => {
-    if (result.status === 'rejected') {
-      console.log('Extract error:', result.reason);
-    }
-  });
+    extractResults.forEach(result => {
+      if (result.status === 'rejected') {
+        console.log('Extract error:', result.reason);
+      }
+    });
+  }
 
   // Compile
   const compileResults = await Promise.allSettled(
