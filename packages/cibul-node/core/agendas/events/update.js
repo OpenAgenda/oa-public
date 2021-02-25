@@ -273,5 +273,3 @@ function patch(core, agendaUid, eventUid, data, options = {}) {
 }
 
 module.exports = Object.assign(update, { patch });
-
-

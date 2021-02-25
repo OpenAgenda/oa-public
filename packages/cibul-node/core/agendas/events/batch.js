@@ -5,14 +5,22 @@ const log = require('@openagenda/logs')('core/agendas/events/batch');
 
 const tasks = require('../../tasks');
 const list = require('./list');
+const search = require('./search');
 const update = require('./update');
 const remove = require('./remove');
+const patch = update.patch;
 
-const batchable = ['update', 'remove'];
+const getTaskName = operation => 'batched' + _.capitalize(operation);
+
+const batchable = ['update', 'remove', 'patch'];
 
 module.exports = core => {
   core.tasks.register({
     agendaBatchList: agendaBatchList.bind(null, core),
+    agendaBatchSearch: agendaBatchSearch.bind(null, core),
+    batchedPatch: (agendaUid, eventUid, data, options = {}) => patch(
+      core, agendaUid, eventUid, data, { ...options, batched: true }
+    ),
     batchedUpdate: (agendaUid, eventUid, data, options = {}) => update(
       core, agendaUid, eventUid, data, { ...options, batched: true }
     ),
@@ -22,8 +30,31 @@ module.exports = core => {
   });
 
   return (agendaUid, operation, query, ...args) => {
-    return core.tasks.enqueue('agendaBatchList', agendaUid, operation, query, args);
+    const options = args[args.length -1];
+
+    const {
+      search
+    } = {
+      search: false,
+      ...options
+    };
+
+    return core.tasks.enqueue(search ? 'agendaBatchSearch' : 'agendaBatchList', agendaUid, operation, query, args);
   }
+}
+
+
+
+async function agendaBatchSearch(core, agendaUid, operation, query, ...args) {
+  const {
+    tasks
+  } = core;
+  const options = args[args.length -1];
+  const stream = await search(core, agendaUid, query, null, { ...options, stream: true });
+  for await (const event of stream) {
+    await tasks.enqueue.apply(null, [getTaskName(operation), agendaUid, event.uid].concat(args).flat());
+  }
+  log('done looping');
 }
 
 async function agendaBatchList(core, agendaUid, operation, query, ...args) {
@@ -46,7 +77,7 @@ async function agendaBatchList(core, agendaUid, operation, query, ...args) {
     });
 
     for (const event of events) {
-      await tasks.enqueue.apply(null, ['batched' + _.capitalize(operation), agendaUid, event.uid].concat(args).flat());
+      await tasks.enqueue.apply(null, [getTaskName(operation), agendaUid, event.uid].concat(args).flat());
     }
 
     lastId = events.length ? nextLastId : -1;

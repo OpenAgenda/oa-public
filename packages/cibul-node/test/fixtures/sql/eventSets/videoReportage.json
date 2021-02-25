@@ -1,0 +1,150 @@
+{
+    "legacyEvent": {
+      "id": 900804,
+      "slug": "festival-de-video-reportage-pour-les-jeunes-de-14-a-17-ans",
+      "url": null,
+      "image": "acc54611725246bba0adf529a449acfe.base.image.jpg",
+      "background_image": null,
+      "background_color": null,
+      "owner_id": 109471,
+      "is_published": 1,
+      "is_new": 0,
+      "created_at": "2021-02-12 16:21:48",
+      "updated_at": "2021-02-15 12:04:57",
+      "uid": 20774404,
+      "store": "{\"attendanceMode\":1,\"onlineAccessLink\":null,\"images\":{\"filename\":\"acc54611725246bba0adf529a449acfe.base.image.jpg\",\"size\":{\"width\":700,\"height\":525},\"variants\":[{\"filename\":\"acc54611725246bba0adf529a449acfe.full.image.jpg\",\"size\":{\"width\":4032,\"height\":3024},\"type\":\"full\"},{\"filename\":\"acc54611725246bba0adf529a449acfe.thumb.image.jpg\",\"size\":{\"width\":200,\"height\":200},\"type\":\"thumbnail\"}],\"base\":\"https://cibul.s3.amazonaws.com/\"},\"links\":[]}",
+      "eve_id": null,
+      "custom_fields": "{}",
+      "age_min": 14,
+      "age_max": 17,
+      "accessibility": "[]",
+      "type": null,
+      "origin_uid": 99501607,
+      "file_key": null,
+      "image_credits": "dr"
+    },
+    "eventLocation": {
+      "event_id": 900804,
+      "location_id": 1152256,
+      "created_at": "2021-02-12 16:21:48",
+      "updated_at": "2021-02-15 12:04:57",
+      "ticket_link": "b.guichard@ville-arles.fr, 0490493832",
+      "id": 922197
+    },
+    "occurrences": [
+      {
+        "id": 45048736,
+        "event_id": 900804,
+        "location_id": 1152256,
+        "date": "2021-02-22 00:00:00",
+        "time_start": "08:00:00",
+        "time_end": "17:00:00",
+        "created_at": "2021-02-15 12:04:57",
+        "updated_at": "2021-02-15 12:04:57"
+      },
+      {
+        "id": 45048737,
+        "event_id": 900804,
+        "location_id": 1152256,
+        "date": "2021-02-23 00:00:00",
+        "time_start": "08:00:00",
+        "time_end": "17:00:00",
+        "created_at": "2021-02-15 12:04:57",
+        "updated_at": "2021-02-15 12:04:57"
+      },
+      {
+        "id": 45048738,
+        "event_id": 900804,
+        "location_id": 1152256,
+        "date": "2021-02-24 00:00:00",
+        "time_start": "08:00:00",
+        "time_end": "17:00:00",
+        "created_at": "2021-02-15 12:04:57",
+        "updated_at": "2021-02-15 12:04:57"
+      },
+      {
+        "id": 45048739,
+        "event_id": 900804,
+        "location_id": 1152256,
+        "date": "2021-02-25 00:00:00",
+        "time_start": "08:00:00",
+        "time_end": "17:00:00",
+        "created_at": "2021-02-15 12:04:57",
+        "updated_at": "2021-02-15 12:04:57"
+      },
+      {
+        "id": 45048740,
+        "event_id": 900804,
+        "location_id": 1152256,
+        "date": "2021-02-26 00:00:00",
+        "time_start": "08:00:00",
+        "time_end": "17:00:00",
+        "created_at": "2021-02-15 12:04:57",
+        "updated_at": "2021-02-15 12:04:57"
+      }
+    ],
+    "agendaEvents": [
+      {
+        "id": 2519726,
+        "agenda_uid": 99501607,
+        "event_uid": 20774404,
+        "state": -1,
+        "featured": 1,
+        "created_at": "2021-02-12 16:21:48",
+        "updated_at": "2021-02-15 12:04:57",
+        "legacy_id": "12472.900804",
+        "user_uid": 53121966,
+        "can_edit": 1,
+        "source_agenda_uid": "[]",
+        "aggregated": 0
+      }
+    ],
+    "event": {
+      "id": 904567,
+      "uid": 20774404,
+      "owner_uid": 53121966,
+      "creator_uid": 53121966,
+      "agenda_uid": 99501607,
+      "location_uid": 34566591,
+      "slug": "festival-de-video-reportage-pour-les-jeunes-de-14-a-17-ans",
+      "title": "{\"fr\":\"Festival de vidéo-reportage pour les ados\"}",
+      "description": "{\"fr\":\"Du 22 février au 26 février, la Ville d'Arles organise pour les jeunes de 14 à 17 ans un festival de vidéo-reportage 100% en distanciel et gratuit\"}",
+      "long_description": "{\"fr\":\"La Ville d'Arles organise un festival de vidéoreportage avec le réalisateur Denis de Montgolfier pour les 14/17 ans du 22 au 26 février 2021 pendant les vacances scolaires, 100% en distanciel et gratuit.  \\nCe festival est proposé intégralement en distanciel pour répondre aux contraintes sanitaires actuelles.  \\nIl s'agit, à l'aide d'un smartphone, de réaliser des portraits vidéos afin de composer un véritable film.\"}",
+      "keywords": "{\"fr\":[\"reportage\",\"cinéma\",\"smartphone\",\"film\",\"\"]}",
+      "conditions": "{\"fr\":\"gratuit\"}",
+      "image": "{\"filename\":\"acc54611725246bba0adf529a449acfe.base.image.jpg\",\"size\":{\"width\":700,\"height\":525},\"variants\":[{\"filename\":\"acc54611725246bba0adf529a449acfe.full.image.jpg\",\"size\":{\"width\":4032,\"height\":3024},\"type\":\"full\"},{\"filename\":\"acc54611725246bba0adf529a449acfe.thumb.image.jpg\",\"size\":{\"width\":200,\"height\":200},\"type\":\"thumbnail\"}],\"base\":\"https://cibul.s3.amazonaws.com/\",\"credits\":\"dr\"}",
+      "draft": 0,
+      "private": 0,
+      "attendance_mode": 1,
+      "online_access_link": null,
+      "links": "[]",
+      "references": null,
+      "file_key": "a87e1c237af941c5b23ae53c72256107",
+      "timezone": "Europe/Paris",
+      "timings": "[{\"begin\":\"2021-02-22T08:00:00.000+01:00\",\"end\":\"2021-02-22T17:00:00.000+01:00\"},{\"begin\":\"2021-02-23T08:00:00.000+01:00\",\"end\":\"2021-02-23T17:00:00.000+01:00\"},{\"begin\":\"2021-02-24T08:00:00.000+01:00\",\"end\":\"2021-02-24T17:00:00.000+01:00\"},{\"begin\":\"2021-02-25T08:00:00.000+01:00\",\"end\":\"2021-02-25T17:00:00.000+01:00\"},{\"begin\":\"2021-02-26T08:00:00.000+01:00\",\"end\":\"2021-02-26T17:00:00.000+01:00\"}]",
+      "accessibility": "{\"hi\":false,\"ii\":false,\"vi\":false,\"mi\":false,\"pi\":false}",
+      "age": "{\"min\":14,\"max\":17}",
+      "registration": "[\"b.guichard@ville-arles.fr\",\"0490493832\"]",
+      "created_at": "2021-02-12 16:21:45",
+      "updated_at": "2021-02-15 12:04:56",
+      "deleted_at": null
+    },
+    "reviewArticles": [
+      {
+        "id": 2989696,
+        "review_id": 12472,
+        "user_id": 109471,
+        "event_id": 900804,
+        "content": null,
+        "created_at": "2021-02-12 16:21:48",
+        "updated_at": "2021-02-15 12:04:57",
+        "category": null,
+        "store": null,
+        "is_published": 1,
+        "category_id": null,
+        "facebook_id": null,
+        "state": 0,
+        "featured": 1
+      }
+    ]
+}

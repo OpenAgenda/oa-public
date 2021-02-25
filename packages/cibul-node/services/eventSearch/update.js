@@ -19,7 +19,9 @@ module.exports = (services, queue, eventSearch) => {
   return async ({ agenda, member, formSchema, event }) => {
     log('update', { agendaUid: agenda.uid, eventUid: event.uid });
 
-    tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
+    if (tracker) {
+      tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
+    }
 
     await updateAgendaIndex(eventSearch, {
       agenda,

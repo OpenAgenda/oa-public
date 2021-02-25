@@ -1,16 +1,12 @@
 'use strict';
 
 const _ = require('lodash');
-const knex = require('knex');
-const mysql = require('mysql');
-const { promisify } = require('util');
 
 const loadFixtures = require('./fixtures/load');
 
 const Services = require('../services/init');
 const Core = require('../core');
 
-const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 const assignClients = require('./utils/assignClients');
 
@@ -46,47 +42,70 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', functi
     });
 
     core = Core(services, testConfig);
+
+    await core.agendas(99501607).events.search.rebuild();
   });
 
   afterAll(async () => {
     core.services.knex.destroy();
-    await core.tasks.stop({ reset: true });
     testConfig.redisClient.quit();
   });
 
   describe('basic batch', () => {
-    let result;
-
     beforeAll(done => {
-      let called = false;
-      core.agendas(1).events.batch('update', {
+      core.agendas(99501607).events.batch('patch', {
         state: 0
       }, { state: 1 }, {
-        partial: true,
-        context: { userUid: 1 },
-        access: 'administrator'
+        userUid: 1
       });
 
       core.tasks({
-        execute: function(...args) {
-          //console.log('execute', args);
-        },
-        error: function(...args) {
-          //console.log('error', JSON.stringify(args));
-          done(args);
-        },
+        execute: function(...args) {},
+        error: function(...args) { done(args); },
         success: function(...args) {
-          if(args[0] === 'batchedUpdate') return done();
+          if(args[0] === 'batchedPatch') return done();
         }
       });
+    });
 
+    afterAll(async () => {
+      await core.tasks.stop({ reset: true });
     });
 
     it('event is updated through batch operation', async () => {
-      const event = await core.agendas(1).events.get(2);
+      const event = await core.agendas(99501607).events.get(89898798);
       expect(event.state).toBe(1);
     });
 
   });
+
+  describe('batch using search', () => {
+    beforeAll(done => {
+      core.agendas(99501607).events.batch('patch', {
+        city: 'Arles',
+        state: null
+      }, { state: 2 }, {
+        userUid: 1,
+        search: true
+      });
+
+      core.tasks({
+        execute: function(...args) {},
+        error: function(...args) { done(args); },
+        success: function(...args) {
+          if(args[0] === 'batchedPatch') return done();
+        }
+      });
+    });
+
+    afterAll(async () => {
+      await core.tasks.stop({ reset: true });
+    });
+
+    it('event is updated through batch operation with search', async () => {
+      const event = await core.agendas(99501607).events.get(20774404);
+      expect(event.state).toBe(2);
+    });
+  })
 
 });

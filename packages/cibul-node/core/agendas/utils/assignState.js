@@ -57,7 +57,7 @@ module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
 
   if (state !== undefined) {
     clean.agendaEvent.state = state;
-  } else {
+  } else if (!draft) {
     clean.agendaEvent = _.omit(clean.agendaEvent, ['state']);
   }
 }
