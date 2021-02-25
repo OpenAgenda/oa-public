@@ -239,7 +239,12 @@
       "value": "Fecha de finalización inválida"
     }
   ],
-  "rtp.multiRecurrencerForm.invalidFrequence": null,
+  "rtp.multiRecurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Invalid frequence"
+    }
+  ],
   "rtp.multiRecurrencerForm.invalidMonthlyIntervalType": [
     {
       "type": 0,
@@ -518,7 +523,12 @@
       "value": "Invalid end date"
     }
   ],
-  "rtp.recurrencerForm.invalidFrequence": null,
+  "rtp.recurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Invalid frequence"
+    }
+  ],
   "rtp.recurrencerForm.invalidMonthlyIntervalType": [
     {
       "type": 0,

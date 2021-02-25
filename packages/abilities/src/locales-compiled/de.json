@@ -1,7 +1,22 @@
 {
-  "Abilities.AbilitiesEditor.error": null,
-  "Abilities.AbilitiesForm.save": null,
-  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": null,
+  "Abilities.AbilitiesEditor.error": [
+    {
+      "type": 0,
+      "value": "There was an error."
+    }
+  ],
+  "Abilities.AbilitiesForm.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Administrator/moderator settings:"
+    }
+  ],
   "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
     {
       "type": 0,
@@ -20,7 +35,12 @@
       "value": "Meine Veranstaltereinstellungen"
     }
   ],
-  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": null,
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+    {
+      "type": 0,
+      "value": "Your global settings:"
+    }
+  ],
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
     {
       "type": 0,
@@ -33,8 +53,18 @@
       "value": "Infos über Veranstaltungen anderer User"
     }
   ],
-  "Abilities.RulesCheckbox.rules.receiveEventAddition": null,
-  "Abilities.RulesCheckbox.rules.receiveEventAggregation": null,
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+    {
+      "type": 0,
+      "value": "Receive event creations"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+    {
+      "type": 0,
+      "value": "Receive event aggregations"
+    }
+  ],
   "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
     {
       "type": 0,
@@ -71,7 +101,12 @@
       "value": "Erhalte Bestätigungen wenn jemand meine Veranstaltung hinzufügt"
     }
   ],
-  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": null,
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+    {
+      "type": 0,
+      "value": "Receive notifications when someone aggregates my events"
+    }
+  ],
   "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
     {
       "type": 0,
@@ -102,13 +137,28 @@
       "value": "Erhalte Nachrichten aus deiner Open-Agenda Inbox"
     }
   ],
-  "Abilities.RulesCheckbox.states.controlled": null,
-  "Abilities.RulesCheckbox.states.published": null,
+  "Abilities.RulesCheckbox.states.controlled": [
+    {
+      "type": 0,
+      "value": "controlled"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+    {
+      "type": 0,
+      "value": "published"
+    }
+  ],
   "Abilities.RulesCheckbox.states.refused": [
     {
       "type": 0,
       "value": "Erhalte Ablehnungsstatus"
     }
   ],
-  "Abilities.RulesCheckbox.states.toControl": null
+  "Abilities.RulesCheckbox.states.toControl": [
+    {
+      "type": 0,
+      "value": "to control"
+    }
+  ]
 }

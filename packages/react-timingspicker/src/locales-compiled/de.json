@@ -141,7 +141,12 @@
       "value": "timingsCount"
     }
   ],
-  "rtp.editForm.adjust": null,
+  "rtp.editForm.adjust": [
+    {
+      "type": 0,
+      "value": "Adjust"
+    }
+  ],
   "rtp.editForm.endNotAfterBegin": [
     {
       "type": 0,
@@ -220,7 +225,12 @@
       "value": "Jeden Monat an den gleichen Daten"
     }
   ],
-  "rtp.multiRecurrencerForm.everyMonthByWeekday": null,
+  "rtp.multiRecurrencerForm.everyMonthByWeekday": [
+    {
+      "type": 0,
+      "value": "Every month week by week"
+    }
+  ],
   "rtp.multiRecurrencerForm.forceSubmit": [
     {
       "type": 0,
@@ -239,7 +249,12 @@
       "value": "Ungültiges Enddatum"
     }
   ],
-  "rtp.multiRecurrencerForm.invalidFrequence": null,
+  "rtp.multiRecurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Invalid frequence"
+    }
+  ],
   "rtp.multiRecurrencerForm.invalidMonthlyIntervalType": [
     {
       "type": 0,
@@ -522,7 +537,12 @@
       "value": "Ungültiges Enddatum"
     }
   ],
-  "rtp.recurrencerForm.invalidFrequence": null,
+  "rtp.recurrencerForm.invalidFrequence": [
+    {
+      "type": 0,
+      "value": "Invalid frequence"
+    }
+  ],
   "rtp.recurrencerForm.invalidMonthlyIntervalType": [
     {
       "type": 0,

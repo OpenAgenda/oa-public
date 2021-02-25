@@ -1,20 +1,80 @@
 {
-  "react-layouts.AdminHeader.administration": null,
-  "react-layouts.AdminHeader.return": null,
+  "react-layouts.AdminHeader.administration": [
+    {
+      "type": 0,
+      "value": "Administration"
+    }
+  ],
+  "react-layouts.AdminHeader.return": [
+    {
+      "type": 0,
+      "value": "Go to the Agenda Homepage"
+    }
+  ],
   "react-layouts.AdminSections.newTab": [
     {
       "type": 0,
       "value": "Nuovo!"
     }
   ],
-  "react-layouts.MainLayout.createAgenda": null,
-  "react-layouts.MainLayout.general": null,
-  "react-layouts.MainLayout.help": null,
-  "react-layouts.MainLayout.myAgendas": null,
-  "react-layouts.MainLayout.myEvents": null,
-  "react-layouts.MainLayout.searchAgenda": null,
-  "react-layouts.MainLayout.settings": null,
-  "react-layouts.MainLayout.signin": null,
-  "react-layouts.MainLayout.signout": null,
-  "react-layouts.components.Search.search": null
+  "react-layouts.MainLayout.createAgenda": [
+    {
+      "type": 0,
+      "value": "Create an agenda"
+    }
+  ],
+  "react-layouts.MainLayout.general": [
+    {
+      "type": 0,
+      "value": "General"
+    }
+  ],
+  "react-layouts.MainLayout.help": [
+    {
+      "type": 0,
+      "value": "Help"
+    }
+  ],
+  "react-layouts.MainLayout.myAgendas": [
+    {
+      "type": 0,
+      "value": "My agendas"
+    }
+  ],
+  "react-layouts.MainLayout.myEvents": [
+    {
+      "type": 0,
+      "value": "My events"
+    }
+  ],
+  "react-layouts.MainLayout.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Search an agenda"
+    }
+  ],
+  "react-layouts.MainLayout.settings": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ],
+  "react-layouts.MainLayout.signin": [
+    {
+      "type": 0,
+      "value": "Signin"
+    }
+  ],
+  "react-layouts.MainLayout.signout": [
+    {
+      "type": 0,
+      "value": "Signout"
+    }
+  ],
+  "react-layouts.components.Search.search": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ]
 }
