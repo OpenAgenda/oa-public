@@ -23,10 +23,13 @@ module.exports = async (req, res, next) => {
     });
   } else if (await core.agendas(req.agenda).settings.isMembersOnly() && !req.member) {
     return res.redirect(302, `/${req.agenda.slug}/request-contribute/conversation/create`)
+  } else if (!req.member) {
+    req.authorizations = {
+      canCreateEvent: true
+    }
+  } else {
+    req.authorizations = await core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations();
   }
-
-  // this would use loadAuthorizations
-  req.authorizations = await core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations();
 
   if (!req.authorizations.canCreateEvent) {
     return next({
