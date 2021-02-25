@@ -4,7 +4,7 @@ services:
   node:
     command: >
       yarn concurrently -n "node,ria" \
-      "yarn workspace cibul-node start" \
+      "yarn workspace cibul-node ${NODE_YARN_COMMAND:-start}" \
       "DEV_SERVER_HOST=0.0.0.0 yarn workspace @openagenda/react-integration-app dev"
     restart: unless-stopped
     environment:
