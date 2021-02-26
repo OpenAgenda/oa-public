@@ -6699,6 +6699,7 @@ __metadata:
     "@openagenda/react-shared": ^2.1.1
     "@storybook/react": ^6.1.0
     babel-loader: ^8.2.1
+    classnames: ^2.2.6
     core-js: ^3.6.5
     eslint: ^6.8.0
     history: ^4.10.1
@@ -7882,6 +7883,7 @@ __metadata:
     redux: ^4.0.5
     rimraf: ^3.0.1
     shallowequal: ^1.1.0
+    tmp: ^0.2.1
     yargs: ^15.1.0
   peerDependencies:
     "@loadable/component": ^5.12.0
@@ -39824,6 +39826,15 @@ __metadata:
   dependencies:
     rimraf: ^2.6.3
   checksum: b505e9f4f5e8076a1789fa1cec50b42220fdb90dec3e44ff0598d74701e340333ef7c28a55ed2d59b24112e2668e98e92852352ad4dc20352250a7be5cc1a973
+  languageName: node
+  linkType: hard
+
+"tmp@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "tmp@npm:0.2.1"
+  dependencies:
+    rimraf: ^3.0.0
+  checksum: 13973825ff1c7aed3359bba97c146c860ebb5b1cbdca88387a2ff8bae704d2478b701cc3adc29b1461be292fed1e4ae56b378b6a0386bbab471ef32860e0a711
   languageName: node
   linkType: hard
 
