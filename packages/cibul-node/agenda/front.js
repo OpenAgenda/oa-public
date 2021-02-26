@@ -321,6 +321,9 @@ function show( req, res ) {
   agendas.get( { uid: req.agenda.uid }, { private: null, internal: true }, ( err, agenda ) => {
 
     req.templateData = ih( req.templateData, {
+      tiles: {
+        $set: config.tiles
+      },
       agenda: {
         $set: {
           uid: req.agenda.uid,

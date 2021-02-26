@@ -65,6 +65,7 @@ const config = {
     adminEmail: 'admin@openagenda.com',
     callToActionEmails: prod.sales && prod.sales.emails,
     contactResource: prod.sales && prod.sales.pipedriveForm,
+    tiles: prod.tiles || process.env.MAP_TILES,
     mapboxAccessToken: prod.sales && prod.mapbox.token,
     opencage: {
       key: process.env.OPENCAGE_KEY || prod.opencage && prod.opencage.key
