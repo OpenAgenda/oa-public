@@ -9,5 +9,5 @@ module.exports = async (service, event) => {
   return defineUnique(service, 'slug', previous => slugify(
     title,
     { lower: true, strict: true }
-  ) + (previous ? '_' + Math.ceil(Math.random() * 9999999) : ''));
+  ) + (previous ? '-' + Math.ceil(Math.random() * 9999999) : ''));
 }
