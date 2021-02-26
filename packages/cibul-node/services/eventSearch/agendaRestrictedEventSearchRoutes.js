@@ -43,7 +43,7 @@ module.exports = services => {
 
         res.set({
           'Content-Type': 'application/json',
-          'Content-disposition': `attachment; filename="${agenda.slug}.agenda.json"`
+          'Content-disposition': `inline; filename="${agenda.slug}.agenda.json"`
         });
 
         return res.json(result);

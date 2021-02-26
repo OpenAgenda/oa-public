@@ -9,6 +9,7 @@ const de = require('./de.json');
 const en = require('./en.json');
 const es = require('./es.json');
 const fr = require('./fr.json');
+const io = require('./io.json');
 const it = require('./it.json');
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
   en,
   es,
   fr,
-  it
+  io,
+  it,
 };

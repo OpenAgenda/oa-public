@@ -1,7 +1,7 @@
 import { useUIDSeed } from 'react-uid';
 import React, { useMemo } from 'react';
 import cn from 'classnames';
-import getLocaleValue from '../../utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/react-shared';
 
 export default function Checkbox({
   input,

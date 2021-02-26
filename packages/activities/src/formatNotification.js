@@ -7,6 +7,7 @@ const mapValues = require( 'lodash/mapValues' );
 const transform = require( 'lodash/transform' );
 const mapKeys = require( 'lodash/mapKeys' );
 
+const { getLocaleValue } = require('@openagenda/react-shared');
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const credentialLabels = require( '@openagenda/labels/contributors/credentials' );
 const stateLabels = require( '@openagenda/labels/event/states' );
@@ -76,16 +77,6 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
 
 const eventStateCodeToLabel = code =>
   [ 'refused', 'tocontrol', 'controlled', 'published' ][ code + 1 ];
-
-const getLocaleValue = ( labels, lang ) => {
-  if ( !labels || typeof labels !== 'object' ) {
-    return labels;
-  }
-
-  const keys = Object.keys( labels );
-
-  return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
-};
 
 
 module.exports = ( getUrl, labels, options = {} ) => {

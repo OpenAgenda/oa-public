@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { defineMessages, useIntl } from 'react-intl';
-import getLocaleValue from '../utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/react-shared';
 
 const messages = defineMessages({
   removeFilter: {

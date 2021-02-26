@@ -1,7 +1,7 @@
 'use strict';
 
+const { getLocaleValue } = require('@openagenda/react-shared');
 const config = require( '../../../config' );
-const getLocaleValue = require('./getLocaleValue');
 
 
 function _linkifyTime( time ) {

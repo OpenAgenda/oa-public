@@ -19,6 +19,7 @@ import { Waypoint } from 'react-waypoint';
 import { Field, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { useDebouncedCallback } from 'use-debounce';
+import cn from 'classnames';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
 import { useApiClient, useConstant, useModal } from '@openagenda/react-shared';
@@ -32,6 +33,9 @@ import RemoveModal from '../components/RemoveModal';
 import EventItem from '../components/EventItem';
 import SortSelector from '../components/SortSelector';
 import Actions from '../components/Actions';
+import DownloadLink from '../components/DownloadLink';
+import exportsMessages from '../messages/exports';
+import BatchedStateSelector from '../components/BatchedStateSelector';
 
 const searchSpinner = {
   width: 1,
@@ -62,7 +66,67 @@ const messages = defineMessages({
     id: 'EventAdminApp.Dashboard.sortedBy',
     defaultMessage: 'Sorted by:',
   },
+  selectAll: {
+    id: 'EventAdminApp.Dashboard.selectAll',
+    defaultMessage: 'Select all',
+  },
+  allSelected: {
+    id: 'EventAdminApp.Dashboard.allSelected',
+    defaultMessage: 'All <b>{size}</b> events on this page are selected.',
+  },
+  selectExtendedAll: {
+    id: 'EventAdminApp.Dashboard.selectExtendedAll',
+    defaultMessage:
+      'Select <b>{total}</b> events matching the current filters.',
+  },
+  extendedAllSelected: {
+    id: 'EventAdminApp.Dashboard.extendedAllSelected',
+    defaultMessage:
+      'The <b>{total}</b> events corresponding to the current filters are selected.',
+  },
+  cancelSelection: {
+    id: 'EventAdminApp.Dashboard.cancelSelection',
+    defaultMessage: 'Cancel selection',
+  },
+  groupedActions: {
+    id: 'EventAdminApp.Dashboard.groupedActions',
+    defaultMessage: 'Grouped actions',
+  },
+  state: {
+    id: 'EventAdminApp.Dashboard.state',
+    defaultMessage: 'State',
+  },
+  changeState: {
+    id: 'EventAdminApp.Dashboard.changeState',
+    defaultMessage: 'Change state:',
+  },
 });
+
+function addQueryPrefix(query, prefix = 'q.') {
+  const result = {};
+
+  for (const key in query) {
+    if (Object.prototype.hasOwnProperty.call(query, key)) {
+      result[`${prefix}${key}`] = query[key];
+    }
+  }
+
+  return result;
+}
+
+function removeQueryPrefix(query, prefix = 'q.') {
+  const result = {};
+
+  for (const key in query) {
+    if (Object.prototype.hasOwnProperty.call(query, key)) {
+      if (key.startsWith(prefix)) {
+        result[key.slice(prefix.length)] = query[key];
+      }
+    }
+  }
+
+  return result;
+}
 
 function SearchField({ input, disabled, isLoading }) {
   const intl = useIntl();
@@ -120,9 +184,11 @@ function FiltersPortal({
   const filtersContainer = useConstant(() => document.createElement('div'));
 
   useLayoutEffect(() => {
-    filtersContainerRef.current.appendChild(filtersContainer);
+    const filtersContainerElem = filtersContainerRef.current;
 
-    return () => filtersContainerRef.current.removeChild(filtersContainer);
+    filtersContainerElem.appendChild(filtersContainer);
+
+    return () => filtersContainerElem.removeChild(filtersContainer);
   }, [filtersContainer, filtersContainerRef]);
 
   return ReactDOM.createPortal(
@@ -142,6 +208,102 @@ function FiltersPortal({
   );
 }
 
+function GroupedActions({
+  agenda,
+  query,
+  selectedEvents,
+  extendedAllSelected,
+}) {
+  const intl = useIntl();
+
+  const usedQuery = extendedAllSelected ? query : { uid: [...selectedEvents] };
+  const queryString = qs.stringify(usedQuery, {
+    addQueryPrefix: true,
+    skipNulls: true,
+  });
+
+  // const selectedCount = extendedAllSelected ? total : selectedEvents.size;
+
+  return (
+    <>
+      <div className="dropdown">
+        <button
+          className="btn btn-link btn-link-inline btn-sm dropdown-toggle"
+          type="button"
+          id="grouped-actions-export"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="true"
+        >
+          {intl.formatMessage(exportsMessages.exportSelection)}
+          &nbsp;
+          <span className="caret" />
+        </button>
+        <ul className="dropdown-menu" aria-labelledby="grouped-actions-export">
+          <li>
+            <DownloadLink
+              href={`/agendas/${agenda.uid}/admin/events.v2.json${queryString}`}
+            >
+              {intl.formatMessage(exportsMessages.toJSON)}
+            </DownloadLink>
+          </li>
+          <li>
+            <DownloadLink
+              href={`/agendas/${agenda.uid}/admin/events.v2.csv${queryString}`}
+            >
+              {intl.formatMessage(exportsMessages.toCSV)}
+            </DownloadLink>
+          </li>
+          <li>
+            <DownloadLink
+              href={`/agendas/${agenda.uid}/admin/events.v2.xlsx${queryString}`}
+            >
+              {intl.formatMessage(exportsMessages.toXLSX)}
+            </DownloadLink>
+          </li>
+          <li>
+            <DownloadLink
+              href={`/agendas/${agenda.uid}/admin/events.v2.ics${queryString}`}
+            >
+              {intl.formatMessage(exportsMessages.toICS)}
+            </DownloadLink>
+          </li>
+          <li>
+            <DownloadLink
+              href={`/agendas/${agenda.uid}/admin/events.v2.md${queryString}`}
+            >
+              {intl.formatMessage(exportsMessages.toMD)}
+            </DownloadLink>
+          </li>
+          <li>
+            <DownloadLink
+              href={`/agendas/${agenda.uid}/admin/events.v2.txt${queryString}`}
+            >
+              {intl.formatMessage(exportsMessages.toTXT)}
+            </DownloadLink>
+          </li>
+          <li>
+            <DownloadLink
+              href={`/agendas/${agenda.uid}/admin/events.v2.rss${queryString}`}
+            >
+              {intl.formatMessage(exportsMessages.toRSS)}
+            </DownloadLink>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        {intl.formatMessage(messages.changeState)}{' '}
+        <BatchedStateSelector
+          agenda={agenda}
+          queryString={queryString}
+          placeholder={intl.formatMessage(messages.state)}
+        />
+      </div>
+    </>
+  );
+}
+
 function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const intl = useIntl();
   const apiClient = useApiClient();
@@ -151,9 +313,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const res = useSelector(state => state.res);
 
   const [query, setQuery] = useState(() => {
-    const baseQuery = qs.parse(history.location.search, {
+    const parsedSearch = qs.parse(history.location.search, {
       ignoreQueryPrefix: true,
     });
+    const baseQuery = removeQueryPrefix(parsedSearch);
 
     return _.pick(
       validateQuery(baseQuery, agendaSchema),
@@ -232,13 +395,21 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       ],
       keepPreviousData: true, // because query change,
       onSuccess: () => {
-        const search = qs.stringify(query, {
-          addQueryPrefix: true,
-          arrayFormat: 'brackets',
-          skipNulls: true,
+        const parsedSearch = qs.parse(history.location.search, {
+          ignoreQueryPrefix: true,
         });
+        const baseQuery = removeQueryPrefix(parsedSearch);
 
-        if (history.location.search !== search) {
+        if (!_.isEqual(query, baseQuery)) {
+          const search = qs.stringify(
+            { ...parsedSearch, ...addQueryPrefix(query) },
+            {
+              addQueryPrefix: true,
+              arrayFormat: 'brackets',
+              skipNulls: true,
+            }
+          );
+
           history.push({
             ...history.location,
             search,
@@ -255,6 +426,90 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const onFilterChange = useCallback(values => setQuery(values), []);
 
+  // Selection
+  const [selectedEvents, setSelectedEvents] = useState(() => new Set());
+  const isSelectedEvent = useCallback(uid => selectedEvents.has(uid), [
+    selectedEvents,
+  ]);
+  const selectEvent = useCallback(uid => {
+    setSelectedEvents(old => {
+      const result = new Set(old);
+
+      if (result.has(uid)) {
+        result.delete(uid);
+      } else {
+        result.add(uid);
+      }
+
+      return result;
+    });
+  }, []);
+
+  const [extendedAllSelected, setExtendedAllSelected] = useState(false);
+  const allSelected = useMemo(() => {
+    if (!data?.pages) {
+      return false;
+    }
+
+    const displayedEvents = data.pages.reduce(
+      (result, p) => result + p.events.length,
+      0
+    );
+
+    return selectedEvents.size === displayedEvents;
+  }, [data, selectedEvents.size]);
+
+  const selectAll = useCallback(() => {
+    setSelectedEvents(old => {
+      const result = new Set(old);
+
+      for (const page of data.pages) {
+        for (const event of page.events) {
+          if (allSelected) {
+            result.delete(event.uid);
+          } else {
+            result.add(event.uid);
+          }
+        }
+      }
+
+      return result;
+    });
+  }, [allSelected, data.pages]);
+  const selectExtendedAll = useCallback(
+    () => setExtendedAllSelected(old => {
+      if (old) {
+        // Cancel selection
+        setSelectedEvents(new Set());
+      }
+
+      return !old;
+    }),
+    []
+  );
+
+  const selectAllRef = useRef();
+
+  useLayoutEffect(() => {
+    if (!selectAllRef.current) {
+      return;
+    }
+    selectAllRef.current.indeterminate = selectedEvents.size && !allSelected;
+  }, [allSelected, selectedEvents.size]);
+
+  // Grouped actions
+  const [displayGroupedActions, setDisplayGroupedActions] = useState(false);
+  const toggleGroupedActions = useCallback(
+    () => setDisplayGroupedActions(prev => !prev),
+    []
+  );
+
+  useLayoutEffect(() => {
+    if (!selectedEvents.size) {
+      setDisplayGroupedActions(false);
+    }
+  }, [selectedEvents.size]);
+
   // for FiltersProvider
   const filtersFormRef = useRef();
   const [initialQuery] = useState(query);
@@ -270,17 +525,14 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   );
   const latestQuery = useLatest(query);
 
+  // Update query when location change
   useUpdateEffect(() => {
-    const search = qs.stringify(latestQuery.current, {
-      addQueryPrefix: true,
-      arrayFormat: 'brackets',
-      skipNulls: true,
+    const parsedSearch = qs.parse(history.location.search, {
+      ignoreQueryPrefix: true,
     });
+    const baseQuery = removeQueryPrefix(parsedSearch);
 
-    if (history.location.search !== search) {
-      const baseQuery = qs.parse(history.location.search, {
-        ignoreQueryPrefix: true,
-      });
+    if (!_.isEqual(baseQuery, latestQuery.current)) {
       const cleanQuery = _.pick(
         validateQuery(baseQuery, agendaSchema),
         Object.keys(baseQuery)
@@ -315,6 +567,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     throw error;
   }
 
+  const kind = 'warning';
+
   return (
     <FiltersProvider
       onSubmit={onFilterChange}
@@ -323,53 +577,148 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       intl={intl}
       ref={filtersFormRef}
     >
-      <header
-        css={css`
-          line-height: 26px;
-        `}
-      >
+      <header>
         <Actions agenda={agenda} query={query} />
 
-        <div className="clearfix">
-          <div
-            className="pull-left"
-            css={css`
-              width: 50%;
-            `}
-          >
-            <SearchFilter disabled={isFetching} isLoading={isFetching} />
-          </div>
+        <div className="clearfix" />
 
-          <div className="pull-right">
-            {intl.formatMessage(messages.sortedBy)}
-            &nbsp;
-            <SortSelector onFilterChange={onFilterChange} query={query} />
+        <div
+          className="pull-left"
+          css={css`
+            width: 50%;
+          `}
+        >
+          <SearchFilter disabled={isFetching} isLoading={isFetching} />
+        </div>
+
+        <div className="pull-right">
+          {intl.formatMessage(messages.sortedBy)}
+          &nbsp;
+          <SortSelector onFilterChange={onFilterChange} query={query} />
+        </div>
+
+        <div className="clearfix" />
+
+        <div
+          css={css`
+            line-height: 26px;
+          `}
+        >
+          {hasQuery
+            ? intl.formatMessage(messages.totalWithFilters, {
+              selection: data.pages[0].total,
+              total: filtersQuery.data.total,
+              strong: chunks => <strong>{chunks}</strong>,
+              filters: (
+                <span className="oa-filter-value-preview">
+                  <FiltersPreview
+                    query={query}
+                    agenda={agenda}
+                    standardsFilters={standardsFilters}
+                    additionalsFilters={additionalsFilters}
+                  />
+                </span>
+              ),
+            })
+            : intl.formatMessage(messages.totalEvents, {
+              total: filtersQuery.data.total,
+              strong: chunks => <strong>{chunks}</strong>,
+            })}
+        </div>
+
+        <div
+          css={css`
+            line-height: 20px;
+          `}
+        >
+          <div className="checkbox">
+            <label
+              htmlFor="select-all"
+              css={css`
+                font-weight: normal;
+              `}
+            >
+              <input
+                type="checkbox"
+                id="select-all"
+                onChange={selectAll}
+                checked={allSelected}
+                ref={selectAllRef}
+              />{' '}
+              {intl.formatMessage(messages.selectAll)}
+            </label>
           </div>
         </div>
 
-        {hasQuery
-          ? intl.formatMessage(messages.totalWithFilters, {
-            selection: data.pages[0].total,
-            total: filtersQuery.data.total,
-            strong: chunks => <strong>{chunks}</strong>,
-            filters: (
-              <span className="oa-filter-value-preview">
-                <FiltersPreview
-                  query={query}
-                  agenda={agenda}
-                  standardsFilters={standardsFilters}
-                  additionalsFilters={additionalsFilters}
-                />
-              </span>
-            ),
-          })
-          : intl.formatMessage(messages.totalEvents, {
-            total: filtersQuery.data.total,
-            strong: chunks => <strong>{chunks}</strong>,
-          })}
+        <div>
+          <button
+            type="button"
+            className={cn('btn btn-link btn-link-inline', {
+              dropup: displayGroupedActions,
+            })}
+            onClick={toggleGroupedActions}
+            disabled={!selectedEvents.size}
+          >
+            {intl.formatMessage(messages.groupedActions)}&nbsp;
+            <span className="caret" />
+          </button>
+
+          {displayGroupedActions ? (
+            <div className="margin-top-xs">
+              <GroupedActions
+                agenda={agenda}
+                query={query}
+                total={data.pages[0].total}
+                selectedEvents={selectedEvents}
+                extendedAllSelected={extendedAllSelected}
+              />
+            </div>
+          ) : null}
+        </div>
       </header>
 
-      <ul className="list-unstyled">
+      {allSelected && selectedEvents.size < data.pages[0].total ? (
+        <div className={`announcement bg-${kind} margin-top-sm`}>
+          <div className={`container-fluid text-${kind}`}>
+            <div className="row padding-top-sm padding-right-sm padding-left-md">
+              {!extendedAllSelected ? (
+                <p className="text-center">
+                  {intl.formatMessage(messages.allSelected, {
+                    size: selectedEvents.size,
+                    b: chunks => <b>{chunks}</b>,
+                  })}{' '}
+                  <button
+                    type="button"
+                    className="btn btn-link btn-link-inline"
+                    onClick={selectExtendedAll}
+                  >
+                    {intl.formatMessage(messages.selectExtendedAll, {
+                      total: data.pages[0].total,
+                      b: chunks => <b>{chunks}</b>,
+                    })}
+                  </button>
+                </p>
+              ) : (
+                <p className="text-center">
+                  {intl.formatMessage(messages.extendedAllSelected, {
+                    total: data.pages[0].total,
+                    b: chunks => <b>{chunks}</b>,
+                  })}{' '}
+                  <button
+                    type="button"
+                    className="btn btn-link btn-link-inline"
+                    onClick={selectExtendedAll}
+                  >
+                    {intl.formatMessage(messages.cancelSelection)}
+                  </button>
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      <ul className="list-unstyled padding-top-sm">
         {data.pages.map((page, pageIndex) => (
           <React.Fragment key={seed(page)}>
             {page.events.map(event => (
@@ -379,6 +728,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                 event={event}
                 pageIndex={pageIndex}
                 openRemoveModal={() => removeModal.open({ event })}
+                selected={isSelectedEvent(event.uid)}
+                selectEvent={selectEvent}
+                selectionMode={!!selectedEvents.size}
               />
             ))}
 

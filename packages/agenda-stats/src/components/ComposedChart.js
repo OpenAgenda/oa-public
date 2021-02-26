@@ -3,8 +3,8 @@ import React, { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
 import ContentLoader from 'react-content-loader';
+import { getLocaleValue } from '@openagenda/react-shared';
 import mergeMultiData from '../utils/mergeMultiData';
-import getLocaleValue from '../utils/getLocaleValue';
 import addRestItem from '../utils/addRestItem';
 import { getChartConfig } from '../common/defaultStatConfigs';
 import HorizontalBarChart from './basics/HorizontalBarChart';
@@ -19,27 +19,27 @@ const messages = defineMessages({
   tooltipContentEvents: {
     id: 'AgendaStats.ComposedChart.tooltipContentEvents',
     defaultMessage:
-      '{value, plural, =0 {# event} one {# event} other {# events}}'
+      '{value, plural, =0 {# event} one {# event} other {# events}}',
   },
   tooltipContentTimings: {
     id: 'AgendaStats.ComposedChart.tooltipContentTimings',
     defaultMessage:
-      '{value, plural, =0 {# timing} one {# timing} other {# timings}}'
+      '{value, plural, =0 {# timing} one {# timing} other {# timings}}',
   },
   tooltipContentCreatedAt: {
     id: 'AgendaStats.ComposedChart.tooltipContentCreatedAt',
     defaultMessage:
-      '{value, plural, =0 {# created event} one {# created event} other {# created events}}'
+      '{value, plural, =0 {# created event} one {# created event} other {# created events}}',
   },
   tooltipContentUpdatedAt: {
     id: 'AgendaStats.ComposedChart.tooltipContentUpdatedAt',
     defaultMessage:
-      '{value, plural, =0 {# updated event} one {# updated event} other {# updated events}}'
+      '{value, plural, =0 {# updated event} one {# updated event} other {# updated events}}',
   },
   noValue: {
     id: 'AgendaStats.ComposedChart.noValue',
-    defaultMessage: 'No value.'
-  }
+    defaultMessage: 'No value.',
+  },
 });
 
 function ChartLoading() {
@@ -69,7 +69,7 @@ function ComposedChart({
   stat,
   totalEvents,
   query,
-  loadStat
+  loadStat,
 }) {
   const { aggregation, state } = stat;
   const { data: rawData } = state;
@@ -84,7 +84,7 @@ function ComposedChart({
     dataKey,
     labelKey,
     restItem,
-    dataColors
+    dataColors,
   } = chartConfig;
 
   const data = useMemo(() => {
@@ -114,7 +114,7 @@ function ComposedChart({
         const label = _.get(v, k);
         const item = {
           ...v,
-          color: withDataColors ? dataColors[label] : null
+          color: withDataColors ? dataColors[label] : null,
         };
 
         _.set(item, k, getLocaleValue(label, intl.locale));
@@ -132,7 +132,7 @@ function ComposedChart({
     dataColors,
     dataKey,
     totalEvents,
-    intl
+    intl,
   ]);
 
   const ChartComponent = useMemo(() => {
@@ -251,7 +251,7 @@ function ComposedChart({
       chartConfig,
       totalEvents,
       query,
-      loadStat
+      loadStat,
     }
     : null;
 

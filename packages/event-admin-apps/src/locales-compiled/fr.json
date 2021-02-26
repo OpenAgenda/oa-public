@@ -1,57 +1,78 @@
 {
-  "EventAdminApp.Actions.export": [
+  "EventAdminApp.Actions.createAnEvent": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "Créer un événement"
     }
   ],
-  "EventAdminApp.Actions.exportDesc": null,
-  "EventAdminApp.Actions.toCSV": [
+  "EventAdminApp.BatchedStateSelector.confirmation": [
     {
       "type": 0,
-      "value": "en .csv"
+      "value": "Le changement de statut est en cours et peut prendre un certain temps."
     }
   ],
-  "EventAdminApp.Actions.toDOCX": [
+  "EventAdminApp.BatchedStateSelector.ok": [
     {
       "type": 0,
-      "value": "en .docx"
+      "value": "Fermer"
     }
   ],
-  "EventAdminApp.Actions.toICS": [
+  "EventAdminApp.BatchedStateSelector.title": [
     {
       "type": 0,
-      "value": "en .ics"
+      "value": "Confirmation"
     }
   ],
-  "EventAdminApp.Actions.toJSON": [
+  "EventAdminApp.Dashboard.allSelected": [
     {
       "type": 0,
-      "value": "en .json"
+      "value": "Les "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "size"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " événements de cette page sont sélectionnés."
     }
   ],
-  "EventAdminApp.Actions.toMD": [
+  "EventAdminApp.Dashboard.cancelSelection": [
     {
       "type": 0,
-      "value": "en .md"
+      "value": "Annuler la sélection"
     }
   ],
-  "EventAdminApp.Actions.toRSS": [
+  "EventAdminApp.Dashboard.changeState": [
     {
       "type": 0,
-      "value": "en .rss"
+      "value": "Modifier le statut:"
     }
   ],
-  "EventAdminApp.Actions.toTXT": [
+  "EventAdminApp.Dashboard.extendedAllSelected": [
     {
       "type": 0,
-      "value": "en .txt"
-    }
-  ],
-  "EventAdminApp.Actions.toXLSX": [
+      "value": "Les "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
     {
       "type": 0,
-      "value": "en .xlsx"
+      "value": " événements correspondant aux filtres actuels sont sélectionnés."
     }
   ],
   "EventAdminApp.Dashboard.filters": [
@@ -60,16 +81,54 @@
       "value": "Filtres"
     }
   ],
+  "EventAdminApp.Dashboard.groupedActions": [
+    {
+      "type": 0,
+      "value": "Actions groupées sur la sélection"
+    }
+  ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
     {
       "type": 0,
       "value": "Rechercher"
     }
   ],
+  "EventAdminApp.Dashboard.selectAll": [
+    {
+      "type": 0,
+      "value": "Tout sélectionner"
+    }
+  ],
+  "EventAdminApp.Dashboard.selectExtendedAll": [
+    {
+      "type": 0,
+      "value": "Sélectionner les "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " événements correspondant aux filtres actuels."
+    }
+  ],
   "EventAdminApp.Dashboard.sortedBy": [
     {
       "type": 0,
       "value": "Trié par:"
+    }
+  ],
+  "EventAdminApp.Dashboard.state": [
+    {
+      "type": 0,
+      "value": "Statut"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
@@ -325,6 +384,113 @@
     {
       "type": 0,
       "value": "Date de mise à jour"
+    }
+  ],
+  "EventAdminApp.messages.exports.export": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportDesc": [
+    {
+      "type": 0,
+      "value": "Export "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportSelection": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "EventAdminApp.messages.exports.toCSV": [
+    {
+      "type": 0,
+      "value": "en .csv"
+    }
+  ],
+  "EventAdminApp.messages.exports.toDOCX": [
+    {
+      "type": 0,
+      "value": "en .docx"
+    }
+  ],
+  "EventAdminApp.messages.exports.toICS": [
+    {
+      "type": 0,
+      "value": "en .ics"
+    }
+  ],
+  "EventAdminApp.messages.exports.toJSON": [
+    {
+      "type": 0,
+      "value": "en .json"
+    }
+  ],
+  "EventAdminApp.messages.exports.toMD": [
+    {
+      "type": 0,
+      "value": "en .md"
+    }
+  ],
+  "EventAdminApp.messages.exports.toRSS": [
+    {
+      "type": 0,
+      "value": "en .rss"
+    }
+  ],
+  "EventAdminApp.messages.exports.toTXT": [
+    {
+      "type": 0,
+      "value": "en .txt"
+    }
+  ],
+  "EventAdminApp.messages.exports.toXLSX": [
+    {
+      "type": 0,
+      "value": "en .xlsx"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

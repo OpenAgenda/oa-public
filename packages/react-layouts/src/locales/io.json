@@ -1,0 +1,15 @@
+{
+  "react-layouts.AdminHeader.administration": "crwdns886:0crwdne886:0",
+  "react-layouts.AdminHeader.return": "crwdns890:0crwdne890:0",
+  "react-layouts.AdminSections.newTab": "crwdns888:0crwdne888:0",
+  "react-layouts.MainLayout.createAgenda": "crwdns892:0crwdne892:0",
+  "react-layouts.MainLayout.general": "crwdns894:0crwdne894:0",
+  "react-layouts.MainLayout.help": "crwdns896:0crwdne896:0",
+  "react-layouts.MainLayout.myAgendas": "crwdns898:0crwdne898:0",
+  "react-layouts.MainLayout.myEvents": "crwdns900:0crwdne900:0",
+  "react-layouts.MainLayout.searchAgenda": "crwdns902:0crwdne902:0",
+  "react-layouts.MainLayout.settings": "crwdns904:0crwdne904:0",
+  "react-layouts.MainLayout.signin": "crwdns906:0crwdne906:0",
+  "react-layouts.MainLayout.signout": "crwdns908:0crwdne908:0",
+  "react-layouts.components.Search.search": "crwdns910:0crwdne910:0"
+}

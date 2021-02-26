@@ -1,20 +1,20 @@
 import React from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
-import getLocaleValue from '../../utils/getLocaleValue';
+import { getLocaleValue } from '@openagenda/react-shared';
 
 const messages = defineMessages({
   events: {
     id: 'AgendaStats.CustomTooltip.events',
-    defaultMessage: '{value, number} events'
-  }
+    defaultMessage: '{value, number} events',
+  },
 });
 
 export default function DefaultTooltipItem({
   message,
   entry,
   dataKey,
-  hideLabel
+  hideLabel,
 }) {
   const intl = useIntl();
   const label = getLocaleValue(
@@ -33,7 +33,7 @@ export default function DefaultTooltipItem({
         ) : null}
         {intl.formatMessage(message || messages.events, {
           value: entry.value,
-          dataKey: entry.dataKey
+          dataKey: entry.dataKey,
         })}
       </span>
     </li>

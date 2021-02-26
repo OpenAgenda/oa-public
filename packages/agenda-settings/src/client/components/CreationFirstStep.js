@@ -16,8 +16,8 @@ const MAX_SIZE = 1024 * 1024 * 20; // 20MB
   initialValues: {
     settings: {
       contribution: {
-        type: agendaSchema.settings.fields.contribution.fields.type.default.toString(),
-        defaultState: agendaSchema.settings.fields.contribution.fields.defaultState.default.toString()
+        type: agendaSchema.settings.fields.contribution.fields.type.default,
+        defaultState: agendaSchema.settings.fields.contribution.fields.defaultState.default
       }
     }
   }

@@ -1,11 +1,8 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const VError = require( 'verror' );
 
 const log = require( '@openagenda/logs' )( 'task' );
-
-const queues = require( '@openagenda/queues' );
 
 const config = require( './config' );
 
@@ -76,9 +73,6 @@ async function task() {
 async function enqueueTransfers( agendaId, jobName ) {
 
   log( 'enqueuing %s for agendaId %s', jobName, agendaId );
-
-  const { knex } = config;
-  const { schemas } = config.legacy;
 
   const formSchemaIds = await getFormSchemaIds( config.knex, agendaId );
 

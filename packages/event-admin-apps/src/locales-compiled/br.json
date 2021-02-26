@@ -1,39 +1,520 @@
 {
-  "EventAdminApp.Actions.export": null,
-  "EventAdminApp.Actions.exportDesc": null,
-  "EventAdminApp.Actions.toCSV": null,
-  "EventAdminApp.Actions.toDOCX": null,
-  "EventAdminApp.Actions.toICS": null,
-  "EventAdminApp.Actions.toJSON": null,
-  "EventAdminApp.Actions.toMD": null,
-  "EventAdminApp.Actions.toRSS": null,
-  "EventAdminApp.Actions.toTXT": null,
-  "EventAdminApp.Actions.toXLSX": null,
-  "EventAdminApp.Dashboard.filters": null,
-  "EventAdminApp.Dashboard.searchPlaceholder": null,
-  "EventAdminApp.Dashboard.sortedBy": null,
-  "EventAdminApp.Dashboard.totalEvents": null,
-  "EventAdminApp.Dashboard.totalWithFilters": null,
-  "EventAdminApp.EventItem.addedBy": null,
-  "EventAdminApp.EventItem.aggregatedFrom": null,
-  "EventAdminApp.EventItem.contact": null,
-  "EventAdminApp.EventItem.createdBy": null,
-  "EventAdminApp.EventItem.delete": null,
-  "EventAdminApp.EventItem.edit": null,
-  "EventAdminApp.EventItem.passed": null,
-  "EventAdminApp.EventItem.remove": null,
-  "EventAdminApp.EventItem.showLocation": null,
-  "EventAdminApp.FiltersPart.lessFilters": null,
-  "EventAdminApp.FiltersPart.moreFilters": null,
-  "EventAdminApp.RemoveModal.confirm": null,
-  "EventAdminApp.RemoveModal.deleteDesc": null,
-  "EventAdminApp.RemoveModal.deleteEvent": null,
-  "EventAdminApp.RemoveModal.removeDesc": null,
-  "EventAdminApp.RemoveModal.removeEvent": null,
-  "EventAdminApp.SortSelector.chronological": null,
-  "EventAdminApp.SortSelector.recentlyUpdated": null,
-  "EventAdminApp.messages.states.controlled": null,
-  "EventAdminApp.messages.states.published": null,
-  "EventAdminApp.messages.states.refused": null,
-  "EventAdminApp.messages.states.toModerate": null
+  "EventAdminApp.Actions.createAnEvent": [
+    {
+      "type": 0,
+      "value": "Créer un événement"
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.confirmation": [
+    {
+      "type": 0,
+      "value": "Le changement de statut est en cours et peut prendre un certain temps."
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.ok": [
+    {
+      "type": 0,
+      "value": "Fermer"
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.title": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "EventAdminApp.Dashboard.allSelected": [
+    {
+      "type": 0,
+      "value": "Les "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "size"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " événements de cette page sont sélectionnés."
+    }
+  ],
+  "EventAdminApp.Dashboard.cancelSelection": [
+    {
+      "type": 0,
+      "value": "Annuler la sélection"
+    }
+  ],
+  "EventAdminApp.Dashboard.changeState": [
+    {
+      "type": 0,
+      "value": "Modifier le statut:"
+    }
+  ],
+  "EventAdminApp.Dashboard.extendedAllSelected": [
+    {
+      "type": 0,
+      "value": "Les "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " événements correspondant aux filtres actuels sont sélectionnés."
+    }
+  ],
+  "EventAdminApp.Dashboard.filters": [
+    {
+      "type": 0,
+      "value": "Filtres"
+    }
+  ],
+  "EventAdminApp.Dashboard.groupedActions": [
+    {
+      "type": 0,
+      "value": "Actions groupées sur la sélection"
+    }
+  ],
+  "EventAdminApp.Dashboard.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "Rechercher"
+    }
+  ],
+  "EventAdminApp.Dashboard.selectAll": [
+    {
+      "type": 0,
+      "value": "Tout sélectionner"
+    }
+  ],
+  "EventAdminApp.Dashboard.selectExtendedAll": [
+    {
+      "type": 0,
+      "value": "Sélectionner les "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " événements correspondant aux filtres actuels."
+    }
+  ],
+  "EventAdminApp.Dashboard.sortedBy": [
+    {
+      "type": 0,
+      "value": "Trié par:"
+    }
+  ],
+  "EventAdminApp.Dashboard.state": [
+    {
+      "type": 0,
+      "value": "Statut"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalEvents": [
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalWithFilters": [
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "selection"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " / "
+    },
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    },
+    {
+      "type": 1,
+      "value": "filters"
+    }
+  ],
+  "EventAdminApp.EventItem.addedBy": [
+    {
+      "type": 0,
+      "value": "Ajouté par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.aggregatedFrom": [
+    {
+      "type": 0,
+      "value": "Aggrégé depuis "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.contact": [
+    {
+      "type": 0,
+      "value": "Contacter"
+    }
+  ],
+  "EventAdminApp.EventItem.createdBy": [
+    {
+      "type": 0,
+      "value": "Créé par "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.delete": [
+    {
+      "type": 0,
+      "value": "Supprimer"
+    }
+  ],
+  "EventAdminApp.EventItem.edit": [
+    {
+      "type": 0,
+      "value": "Modifier"
+    }
+  ],
+  "EventAdminApp.EventItem.passed": [
+    {
+      "type": 0,
+      "value": "Passé"
+    }
+  ],
+  "EventAdminApp.EventItem.remove": [
+    {
+      "type": 0,
+      "value": "Retirer de l'agenda"
+    }
+  ],
+  "EventAdminApp.EventItem.showLocation": [
+    {
+      "type": 0,
+      "value": "Voir le lieu"
+    }
+  ],
+  "EventAdminApp.FiltersPart.lessFilters": [
+    {
+      "type": 0,
+      "value": "Afficher moins de filtres"
+    }
+  ],
+  "EventAdminApp.FiltersPart.moreFilters": [
+    {
+      "type": 0,
+      "value": "Afficher plus de filtres"
+    }
+  ],
+  "EventAdminApp.RemoveModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirmer"
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteDesc": [
+    {
+      "type": 0,
+      "value": "Etes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda."
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteEvent": [
+    {
+      "type": 0,
+      "value": "Supprimer l'événement"
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeDesc": [
+    {
+      "type": 0,
+      "value": "Etes-vous sûr de vouloir retirer l'événement? Si oui, il sera également retiré des exports de l'agenda ainsi que des agendas agrégateurs connectés à vos contenus."
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeEvent": [
+    {
+      "type": 0,
+      "value": "Retirer l'événement"
+    }
+  ],
+  "EventAdminApp.SortSelector.chronological": [
+    {
+      "type": 0,
+      "value": "Ordre chronologique"
+    }
+  ],
+  "EventAdminApp.SortSelector.recentlyUpdated": [
+    {
+      "type": 0,
+      "value": "Date de mise à jour"
+    }
+  ],
+  "EventAdminApp.messages.exports.export": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportDesc": [
+    {
+      "type": 0,
+      "value": "Export "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportSelection": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "EventAdminApp.messages.exports.toCSV": [
+    {
+      "type": 0,
+      "value": "en .csv"
+    }
+  ],
+  "EventAdminApp.messages.exports.toDOCX": [
+    {
+      "type": 0,
+      "value": "en .docx"
+    }
+  ],
+  "EventAdminApp.messages.exports.toICS": [
+    {
+      "type": 0,
+      "value": "en .ics"
+    }
+  ],
+  "EventAdminApp.messages.exports.toJSON": [
+    {
+      "type": 0,
+      "value": "en .json"
+    }
+  ],
+  "EventAdminApp.messages.exports.toMD": [
+    {
+      "type": 0,
+      "value": "en .md"
+    }
+  ],
+  "EventAdminApp.messages.exports.toRSS": [
+    {
+      "type": 0,
+      "value": "en .rss"
+    }
+  ],
+  "EventAdminApp.messages.exports.toTXT": [
+    {
+      "type": 0,
+      "value": "en .txt"
+    }
+  ],
+  "EventAdminApp.messages.exports.toXLSX": [
+    {
+      "type": 0,
+      "value": "en .xlsx"
+    }
+  ],
+  "EventAdminApp.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Prêt à publier"
+    }
+  ],
+  "EventAdminApp.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Publié"
+    }
+  ],
+  "EventAdminApp.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Refusé"
+    }
+  ],
+  "EventAdminApp.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "À modérer"
+    }
+  ]
 }
