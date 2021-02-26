@@ -24,7 +24,8 @@
     "hasSearchQuery" : false,
     "includeActionLinks" : true,
     "private" : false,
-    "inbox" : {}
+    "inbox" : {},
+    "tiles": null
   },
   "js" : true
 }

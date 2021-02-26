@@ -55,13 +55,9 @@ maps.register('osm', (function(){
       });
 
       try {
-
         map.setView(options.center, options.zoom);
-
       } catch( e ) {
-
         console.log( 'test env map load fail' );
-
       }
 
       L.tileLayer(libOptions.url, {
@@ -69,7 +65,8 @@ maps.register('osm', (function(){
         maxZoom: 18,
         attribution: libOptions.attr,
         tileSize: 512,
-        zoomOffset: -1
+        zoomOffset: -1,
+        detectRetina: true
       }).addTo(map);
 
       return map;

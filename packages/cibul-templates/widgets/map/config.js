@@ -11,7 +11,6 @@ module.exports = {
   tilesAttribute: 'data-tiles',
   auto: false, // syncronize selection with map
   popup: false,
-  tiles: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   minZoom: 2,
   maxZoom: 16,
   clusterThreshold: 10,
@@ -25,24 +24,11 @@ module.exports = {
     }), {})
   }), {}),
   selectors: {
-    syncSection: '.js_map_sync',
     sync: '.js_sync_checkbox'
   },
   selectedLocation: false,
   selectedBounds: false,
   activeLocations: [],
-  icons: {
-    active: {
-      icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
-      anchor: [9, 25],
-      size: [18,25]
-    },
-    inactive: {
-      icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIconGray.png',
-      anchor: [9, 25],
-      size: [18,25]
-    }
-  },
   leafletCss: "//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css",
   leafletCssIE: "//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.ie.css",
   locations: {}

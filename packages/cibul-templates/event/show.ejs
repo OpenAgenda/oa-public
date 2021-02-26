@@ -138,7 +138,11 @@
 <% }); %>
             </ul>
           </div><!--
-          --><div class="map js_map" data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"></div>
+          --><div
+              class="map js_map"
+              data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"
+              data-tiles="<%= tiles %>"
+            ></div>
         </section>
 
 
