@@ -326,6 +326,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const hasQuery = useMemo(() => !!Object.keys(query).length, [query]);
 
+  const [selectedEvents, setSelectedEvents] = useState(() => new Set());
+  const [extendedAllSelected, setExtendedAllSelected] = useState(false);
+
   const standardsFilters = useFilters(agendaSchema, { standards: true });
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
 
@@ -395,6 +398,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       ],
       keepPreviousData: true, // because query change,
       onSuccess: () => {
+        // Cancel selection
+        setSelectedEvents(new Set());
+        setExtendedAllSelected(false);
+
         const parsedSearch = qs.parse(history.location.search, {
           ignoreQueryPrefix: true,
         });
@@ -431,7 +438,6 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   const onFilterChange = useCallback(values => setQuery(values), []);
 
   // Selection
-  const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const isSelectedEvent = useCallback(uid => selectedEvents.has(uid), [
     selectedEvents,
   ]);
@@ -449,7 +455,6 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     });
   }, []);
 
-  const [extendedAllSelected, setExtendedAllSelected] = useState(false);
   const allSelected = useMemo(() => {
     if (!data?.pages) {
       return false;
