@@ -1,70 +1,78 @@
 {
-  "EventAdminApp.Actions.export": [
+  "EventAdminApp.Actions.createAnEvent": [
     {
       "type": 0,
-      "value": "crwdns5952:0crwdne5952:0"
+      "value": "Create an event"
     }
   ],
-  "EventAdminApp.Actions.exportDesc": [
+  "EventAdminApp.BatchedStateSelector.confirmation": [
     {
       "type": 0,
-      "value": "crwdns5954:0total="
+      "value": "The state change is in progress and may take some time."
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.ok": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.title": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "EventAdminApp.Dashboard.allSelected": [
+    {
+      "type": 0,
+      "value": "All "
     },
     {
-      "type": 1,
-      "value": "total"
+      "children": [
+        {
+          "type": 1,
+          "value": "size"
+        }
+      ],
+      "type": 8,
+      "value": "b"
     },
     {
       "type": 0,
-      "value": "crwdne5954:0"
+      "value": " events on this page are selected."
     }
   ],
-  "EventAdminApp.Actions.toCSV": [
+  "EventAdminApp.Dashboard.cancelSelection": [
     {
       "type": 0,
-      "value": "crwdns5956:0crwdne5956:0"
+      "value": "Cancel selection"
     }
   ],
-  "EventAdminApp.Actions.toDOCX": [
+  "EventAdminApp.Dashboard.changeState": [
     {
       "type": 0,
-      "value": "crwdns5958:0crwdne5958:0"
+      "value": "Change state:"
     }
   ],
-  "EventAdminApp.Actions.toICS": [
+  "EventAdminApp.Dashboard.extendedAllSelected": [
     {
       "type": 0,
-      "value": "crwdns5960:0crwdne5960:0"
-    }
-  ],
-  "EventAdminApp.Actions.toJSON": [
+      "value": "The "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
     {
       "type": 0,
-      "value": "crwdns5962:0crwdne5962:0"
-    }
-  ],
-  "EventAdminApp.Actions.toMD": [
-    {
-      "type": 0,
-      "value": "crwdns5964:0crwdne5964:0"
-    }
-  ],
-  "EventAdminApp.Actions.toRSS": [
-    {
-      "type": 0,
-      "value": "crwdns5966:0crwdne5966:0"
-    }
-  ],
-  "EventAdminApp.Actions.toTXT": [
-    {
-      "type": 0,
-      "value": "crwdns5968:0crwdne5968:0"
-    }
-  ],
-  "EventAdminApp.Actions.toXLSX": [
-    {
-      "type": 0,
-      "value": "crwdns5970:0crwdne5970:0"
+      "value": " events corresponding to the current filters are selected."
     }
   ],
   "EventAdminApp.Dashboard.filters": [
@@ -73,16 +81,54 @@
       "value": "crwdns788:0crwdne788:0"
     }
   ],
+  "EventAdminApp.Dashboard.groupedActions": [
+    {
+      "type": 0,
+      "value": "Grouped actions on selection"
+    }
+  ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
     {
       "type": 0,
       "value": "crwdns790:0crwdne790:0"
     }
   ],
+  "EventAdminApp.Dashboard.selectAll": [
+    {
+      "type": 0,
+      "value": "Select all"
+    }
+  ],
+  "EventAdminApp.Dashboard.selectExtendedAll": [
+    {
+      "type": 0,
+      "value": "Select "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " events matching the current filters."
+    }
+  ],
   "EventAdminApp.Dashboard.sortedBy": [
     {
       "type": 0,
       "value": "crwdns5972:0crwdne5972:0"
+    }
+  ],
+  "EventAdminApp.Dashboard.state": [
+    {
+      "type": 0,
+      "value": "State"
     }
   ],
   "EventAdminApp.Dashboard.totalEvents": [
@@ -283,6 +329,80 @@
     {
       "type": 0,
       "value": "crwdns5976:0crwdne5976:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.export": [
+    {
+      "type": 0,
+      "value": "crwdns5952:0crwdne5952:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportDesc": [
+    {
+      "type": 0,
+      "value": "crwdns5954:0total="
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": "crwdne5954:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportSelection": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
+  "EventAdminApp.messages.exports.toCSV": [
+    {
+      "type": 0,
+      "value": "crwdns5956:0crwdne5956:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.toDOCX": [
+    {
+      "type": 0,
+      "value": "crwdns5958:0crwdne5958:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.toICS": [
+    {
+      "type": 0,
+      "value": "crwdns5960:0crwdne5960:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.toJSON": [
+    {
+      "type": 0,
+      "value": "crwdns5962:0crwdne5962:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.toMD": [
+    {
+      "type": 0,
+      "value": "crwdns5964:0crwdne5964:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.toRSS": [
+    {
+      "type": 0,
+      "value": "crwdns5966:0crwdne5966:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.toTXT": [
+    {
+      "type": 0,
+      "value": "crwdns5968:0crwdne5968:0"
+    }
+  ],
+  "EventAdminApp.messages.exports.toXLSX": [
+    {
+      "type": 0,
+      "value": "crwdns5970:0crwdne5970:0"
     }
   ],
   "EventAdminApp.messages.states.controlled": [

@@ -1,7 +1,6 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { useMutation, useQueryClient } from 'react-query';
-import { ReactSelectInput, useApiClient } from '@openagenda/react-shared';
+import { ReactSelectInput } from '@openagenda/react-shared';
 import { css } from '@emotion/react';
 import stateMessages from '../messages/states';
 
@@ -10,6 +9,7 @@ const { defaultStyles: defaultReactSelectStyles } = ReactSelectInput;
 const stateBadgeCss = css`
   height: 19px;
   width: 19px;
+  vertical-align: baseline;
 `;
 
 const stateSelectStyles = {
@@ -56,12 +56,16 @@ const stateSelectStyles = {
     ...defaultReactSelectStyles.menu(provided, state),
     minWidth: '150px',
   }),
+  placeholder: provided => ({
+    ...provided,
+    position: 'relative',
+    transform: 'none',
+    top: 0,
+  }),
 };
 
-export default function StateSelector({ agenda, event, pageIndex }) {
+export default function StateSelector({ value, onChange, ...otherProps }) {
   const intl = useIntl();
-  const apiClient = useApiClient();
-  const queryClient = useQueryClient();
 
   const stateOptions = useMemo(
     () => [
@@ -125,65 +129,20 @@ export default function StateSelector({ agenda, event, pageIndex }) {
     [intl]
   );
 
-  const state = useMemo(() => stateOptions.find(o => o.value === event.state), [
-    event.state,
+  const selectValue = useMemo(() => stateOptions.find(o => o.value === value), [
+    value,
     stateOptions,
-  ]);
-
-  const mutation = useMutation(
-    value => apiClient.post(`/${agenda.slug}/events/${event.slug}/state`, {
-      state: value,
-    }),
-    {
-      onSuccess: (result, value) => {
-        const query = queryClient
-          .getQueryCache()
-          .find(['event-admin-apps', 'events']);
-
-        const queryData = query.state.data;
-        const pageData = queryData.pages[pageIndex];
-        const eventIndex = pageData.events.findIndex(
-          v => v.slug === event.slug
-        );
-
-        const eventData = {
-          ...pageData.events[eventIndex],
-          state: value,
-        };
-
-        queryClient.setQueryData(query.queryKey, {
-          ...queryData,
-          pages: [
-            ...queryData.pages.slice(0, pageIndex),
-            {
-              ...pageData,
-              events: [
-                ...pageData.events.slice(0, eventIndex),
-                eventData,
-                ...pageData.events.slice(eventIndex + 1),
-              ],
-            },
-            ...queryData.pages.slice(pageIndex + 1),
-          ],
-        });
-      },
-    }
-  );
-
-  const onChange = useCallback(option => mutation.mutate(option.value), [
-    mutation,
   ]);
 
   return (
     <ReactSelectInput
       options={stateOptions}
-      value={state}
+      value={selectValue}
       onChange={onChange}
       styles={stateSelectStyles}
       isSearchable={false}
       isClearable={false}
-      isDisabled={mutation.isLoading}
-      isLoading={mutation.isLoading}
+      {...otherProps}
     />
   );
 }

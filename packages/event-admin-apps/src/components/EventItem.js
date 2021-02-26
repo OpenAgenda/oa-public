@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { css } from '@emotion/react';
 import { getLocaleValue } from '@openagenda/react-shared';
-import StateSelector from './StateSelector';
+import EventStateSelector from './EventStateSelector';
 
 const messages = defineMessages({
   createdBy: {
@@ -48,6 +48,9 @@ export default function EventItem({
   event,
   pageIndex,
   openRemoveModal,
+  selected,
+  selectEvent,
+  selectionMode,
 }) {
   const intl = useIntl();
 
@@ -63,8 +66,32 @@ export default function EventItem({
     return endOfLastTiming < now;
   }, [event]);
 
+  const [hovered, setHovered] = useState(false);
+
+  const onSelect = useCallback(() => selectEvent(event.uid), [
+    event.uid,
+    selectEvent,
+  ]);
+
+  const onMouseEnter = useCallback(
+    () => setTimeout(() => setHovered(true)),
+    []
+  );
+  const onMouseLeave = useCallback(
+    () => setTimeout(() => setHovered(false)),
+    []
+  );
+
   return (
-    <li key={event.uid} className="margin-top-md">
+    <li
+      key={event.uid}
+      className="padding-v-sm padding-right-md"
+      css={css`
+        position: relative;
+      `}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div>
         <a
           href={`/${agenda.slug}/events/${event.slug}`}
@@ -120,7 +147,7 @@ export default function EventItem({
       <div className="margin-top-xs">
         <ul className="list-inline">
           <li>
-            <StateSelector
+            <EventStateSelector
               agenda={agenda}
               event={event}
               pageIndex={pageIndex}
@@ -178,6 +205,19 @@ export default function EventItem({
             </li>
           )}
         </ul>
+
+        {hovered || selectionMode ? (
+          <div
+            css={css`
+              position: absolute;
+              top: 50%;
+              right: 4px;
+              transform: translateY(-50%);
+            `}
+          >
+            <input type="checkbox" onChange={onSelect} checked={selected} />
+          </div>
+        ) : null}
       </div>
     </li>
   );
