@@ -399,10 +399,14 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           ignoreQueryPrefix: true,
         });
         const baseQuery = removeQueryPrefix(parsedSearch);
+        const queryRest = Object.keys(parsedSearch).reduce(
+          (accu, key) => (key.startsWith('q.') ? accu : { ...accu, [key]: parsedSearch[key] }),
+          {}
+        );
 
         if (!_.isEqual(query, baseQuery)) {
           const search = qs.stringify(
-            { ...parsedSearch, ...addQueryPrefix(query) },
+            { ...queryRest, ...addQueryPrefix(query) },
             {
               addQueryPrefix: true,
               arrayFormat: 'brackets',
@@ -475,7 +479,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
       return result;
     });
-  }, [allSelected, data.pages]);
+  }, [allSelected, data]);
   const selectExtendedAll = useCallback(
     () => setExtendedAllSelected(old => {
       if (old) {
