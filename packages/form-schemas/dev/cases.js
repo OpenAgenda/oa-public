@@ -105,6 +105,11 @@ module.exports = {
     link: '/number',
     group: 'types'
   }, {
+    name: 'A set of text fields',
+    description: 'A field for typing some text',
+    link: '/text',
+    group: 'types'
+  }, {
     name: 'A link field',
     description: 'A field for typing a link/url',
     link: '/link',
