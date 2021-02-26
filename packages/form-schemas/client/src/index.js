@@ -88,9 +88,10 @@ export default class FormSchemaComponent extends Component {
   }
 
   onSubmit(e, options = {}) {
+    log('onSubmit');
     if (e) e.preventDefault();
 
-    const { draft } = _.assign({
+    const { draft } = Object.assign({
       draft: false
     }, options);
 
@@ -98,7 +99,10 @@ export default class FormSchemaComponent extends Component {
 
     const values = this.get('values');
 
-    const { clean, errors } = this.sanitize(values, { draft });
+    const {
+      clean,
+      errors
+    } = this.sanitize(values, { draft });
 
     if (_.keys(errors).length) {
       return this.set({ errors });
@@ -249,7 +253,9 @@ export default class FormSchemaComponent extends Component {
 
       return { clean, errors: [] };
     } catch (errors) {
-      if (!_.isArray(errors)) throw errors;
+      if (!Array.isArray(errors)) {
+        throw errors;
+      }
 
       // simpler to always keep errors as arrays.
       return {

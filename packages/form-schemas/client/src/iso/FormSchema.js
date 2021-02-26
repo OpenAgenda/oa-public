@@ -6,6 +6,8 @@ const _ = {
   pick: require('lodash/pick')
 }
 
+const isObject = require('./isObject');
+
 const ih = require('immutability-helper');
 
 const {
@@ -162,11 +164,10 @@ module.exports = class {
   }
 
   getValidate(accessType = null, accessLevel = null, options = {}) {
-    if (accessType instanceof Object) {
+    if (isObject(accessType)) {
       options = accessType;
       accessType = null;
     }
-
     return getSchema(
       this.data.fields,
       accessType,

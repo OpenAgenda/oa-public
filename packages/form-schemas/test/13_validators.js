@@ -108,7 +108,6 @@ describe('deriving validators', () => {
     });
   });
 
-
   it('FormSchema builds a schema based on list of field configurations', () => {
     const fields = [{
       field: 'atextfield',

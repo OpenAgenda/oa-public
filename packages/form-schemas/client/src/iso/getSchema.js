@@ -1,19 +1,7 @@
 'use strict';
 
-const debug = require('debug');
-
-const getValidatorFromField = require('./getValidatorFromField');
-
 const schema = require('@openagenda/validators/schema');
-
-const _ = {
-  keyBy: require('lodash/keyBy'),
-  omit: require('lodash/omit'),
-  set: require('lodash/set'),
-  get: require('lodash/get')
-};
-
-const log = debug('getSchema');
+const getSchemaArgs = require('./getSchemaArgs');
 
 schema.register({
   text: require('@openagenda/validators/text'),
@@ -28,37 +16,8 @@ schema.register({
   file: require('./fileValidator')
 });
 
-module.exports = (fields, accessType = null, accessLevel = null, options = {}) => {
-  const params = {
-    includeUnspecified: true,
-    custom: {},
-    draft: false,
-    ...options
-  };
-
-  log('options', options);
-
-  if (params.custom instanceof Object) {
-    schema.register(params.custom);
-  }
-
-  accessLevel = accessLevel === null ? [] : [].concat(accessLevel);
-
-  const schemaConfiguration = fields.filter(f => {
-    if (accessType === null) return true;
-
-    if (f[accessType] === null && params.includeUnspecified) return true;
-
-    return !!(_.get(f, accessType, []) || [])
-      .filter(t => accessLevel.includes(t))
-      .length;
-  })
-  .filter(f => f.fieldType !== 'abstract')
-  .map(f => {
-    const validatorConfiguration = getValidatorFromField(f, params);
-
-    return validatorConfiguration;
-  }).reduce((schemaConfiguration, f) => _.set(schemaConfiguration, f.field, f), {});
-
-  return schema(schemaConfiguration);
+module.exports = (fields, accessType, accessLevel, options) => {
+  return schema(
+    getSchemaArgs(fields, accessType, accessLevel, options)
+  );
 }
