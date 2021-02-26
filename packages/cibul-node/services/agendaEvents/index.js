@@ -17,7 +17,8 @@ const mw = {
   requireCanEdit: require('./middleware/requireCanEdit'),
   changeState: require('./middleware/changeState'),
   changeFeatured: require('./middleware/changeFeatured'),
-  toggleCancelled: require('./middleware/toggleCancelled')
+  toggleCancelled: require('./middleware/toggleCancelled'),
+  batch: require('./middleware/batch')
 }
 
 module.exports = Object.assign(plugApp, {
@@ -129,5 +130,13 @@ function plugApp(parentApp) {
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState.batched
+  );
+
+  parentApp.all('/:agendaSlug/admin/events/batch',
+    sessions.mw.loadOrRedirect(),
+    mw.loadAgenda,
+    agendas.mw.authorizeByIPAddress(),
+    members.mw.loadAndAuthorize('moderator'),
+    mw.batch
   );
 }
