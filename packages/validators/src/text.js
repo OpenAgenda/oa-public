@@ -11,12 +11,12 @@ export default config => {
     default: null,
     list: false,
     strict: false
-  }, config || {}),
+  }, config || {});
 
-  validator = Object.assign( validate, {
+  const validator = Object.assign(validate, {
     type: 'text',
     field: params.field
-  } );
+  });
 
   return params.list ? listify( validator, params ) : validator;
 
@@ -56,7 +56,9 @@ export default config => {
 
     if ( typeof value === 'undefined' || value === null || !clean.length ) {
 
-      if ( params.optional || params.default !== null ) return params.default;
+      if (params.optional || ![undefined, null].includes(params.default)) {
+        return params.default;
+      }
 
       throw [ {
         field: validate.field,

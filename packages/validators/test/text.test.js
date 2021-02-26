@@ -206,4 +206,23 @@ describe('text validator', () => {
 
   });
 
+  describe('fixes', () => {
+
+    it('if default is explicitely undefined, required is still required', () => {
+      const validate = validators.text({
+        optional: false,
+        default: undefined
+      });
+
+      try {
+        validate();
+      } catch (e) {
+        expect(e[0].code).toEqual('required');
+        return;
+      }
+
+      throw 'never here';
+    });
+  });
+
 });
