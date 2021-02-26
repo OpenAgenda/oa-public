@@ -95,7 +95,7 @@ function validateEvent(services, { formSchema, networkFormSchema, location }, da
     languages,
     schemaExtensions: _asArray(schemaExtensions),
     access: {
-      write: access
+      write: member ? services.members.utils.getRoleSlug(member.role) : access
     },
     excludeEventFields: !evaluateEvent
   });
