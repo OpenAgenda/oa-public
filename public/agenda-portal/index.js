@@ -80,9 +80,27 @@ module.exports = async options => {
     // cache,
     proxy: injectedProxy,
     jsonExportVersion,
-    assetsRoot,
-    middlewareHooks
+    assetsRoot
   } = config;
+
+  const middlewareHooks = {
+    list: {
+      preRender: (req, res, next) => next(),
+      ..._.get(config, 'middlewareHooks.list', {})
+    },
+    show: {
+      preRender: (req, res, next) => next(),
+      ..._.get(config, 'middlewareHooks.show', {})
+    },
+    preview: {
+      preRender: (req, res, next) => next(),
+      ..._.get(config, 'middlewareHooks.preview', {})
+    },
+    share: {
+      preRender: (req, res, next) => next(),
+      ..._.get(config, 'middlewareHooks.share', {})
+    }
+  };
 
   Object.assign(app.locals, config);
 
@@ -143,23 +161,44 @@ module.exports = async options => {
 
   app.use(loadResLocals);
 
-  app.get('/', mw.redirectLegacyEventQuery, mw.pageGlobals, mw.list, mw.index);
-  app.get('/p/:page', mw.pageGlobals, mw.list, mw.index);
+  app.get('/',
+    mw.redirectLegacyEventQuery,
+    mw.pageGlobals,
+    mw.list,
+    middlewareHooks.list.preRender,
+    mw.index
+  );
+  app.get('/p/:page',
+    mw.pageGlobals,
+    mw.list,
+    middlewareHooks.list.preRender,
+    mw.index
+  );
   app.get(
     '/preview',
     mw.pageGlobals.withOptions({ mainScript: 'preview.js', iframable: true }),
     mw.list,
+    middlewareHooks.preview.preRender,
     mw.preview
   );
   app.get(
     '/share',
     mw.pageGlobals.withOptions({ mainScript: 'share.js', iframable: true }),
     mw.list,
+    middlewareHooks.share.preRender,
     mw.share
   );
 
-  app.get('/events/p/:page', mw.list, mw.renderList);
-  app.get('/events', mw.list, mw.renderList);
+  app.get('/events/p/:page',
+    mw.list,
+    middlewareHooks.list.preRender,
+    mw.renderList
+  );
+  app.get('/events',
+    mw.list,
+    middlewareHooks.list.preRender,
+    mw.renderList
+  );
 
   app.get('/events/nav/:direction', mw.redirectToNeighbor);
 
@@ -168,7 +207,7 @@ module.exports = async options => {
     mw.pageGlobals,
     mw.navigationLinks,
     mw.event.get,
-    _.get(middlewareHooks, 'show.preRender', (req, res, next) => { next(); }),
+    middlewareHooks.show.preRender,
     mw.event.render
   );
 
