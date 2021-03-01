@@ -194,7 +194,7 @@ export default function DefineRules({
       rule => rule.id === state.modeOptions.id
     );
     return ruleToValues(ruleToUpdate, aggregatorAgendaSchema).type === 'tags';
-  }, [state.mode, state.modeOptions.id]);
+  }, [state.rules, state.mode, state.modeOptions.id, aggregatorAgendaSchema]);
 
   if (state.mode === 'list') {
     return (
