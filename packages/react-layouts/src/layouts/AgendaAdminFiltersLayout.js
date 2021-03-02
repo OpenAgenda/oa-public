@@ -1,8 +1,16 @@
 import React, { useRef } from 'react';
+import { css } from '@emotion/core';
 import ChildLayouts from '../components/ChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
 import AdminHeader from '../components/AdminHeader';
 import AdminSections from '../components/AdminSections';
+
+const breakpoints = {
+  xs: 480,
+  sm: 768,
+  md: 992,
+  lg: 1200,
+};
 
 function AgendaAdminFiltersLayout({
   childLayouts,
@@ -17,7 +25,14 @@ function AgendaAdminFiltersLayout({
 
   return (
     <div className="container-fluid agenda-admin agenda-admin-filters-layout">
-      <div className="row">
+      <div
+        className="row"
+        css={css`
+          @media (max-width: ${breakpoints.md - 1}px) {
+            padding: 0 30px;
+          }
+        `}
+      >
         <div className="col-md-offset-2 col-md-7 wsq">
           <AdminHeader agenda={agenda} />
         </div>
