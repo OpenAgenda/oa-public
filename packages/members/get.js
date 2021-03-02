@@ -31,14 +31,14 @@ function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
           'user_uid',
           'store',
           'deleted_user',
-          'actions_counter'
+          'actions_counter',
         ].concat(legacy ? ['user_id', 'review_id'] : [])
       )
       .where(where),
     options: {
       detailed,
-      legacy
-    }
+      legacy,
+    },
   };
 }
 
@@ -78,13 +78,15 @@ async function getByEmail(config, identifier, options = {}) {
 
   let member = fromDB(
     {
-      includeLegacyFields: cleanOptions.legacy
+      includeLegacyFields: cleanOptions.legacy,
     },
     await query.where('store', 'like', `%${identifier.email}%`)
   );
 
-  if (!member && _.get(config, 'interfaces.getUserUidByEmail')) {
-    const userUid = await config.interfaces.getUserUidByEmail(identifier.email);
+  if (!member && _.get(config, 'interfaces.getUserByEmail')) {
+    const userUid = await config.interfaces
+      .getUserByEmail(identifier.email)
+      .then(u => (u ? u.uid : null));
 
     member = userUid ? get(config, { ...identifier, userUid }, options) : null;
   }
@@ -97,5 +99,5 @@ async function getByEmail(config, identifier, options = {}) {
 }
 
 module.exports = Object.assign(get, {
-  byEmail: getByEmail
+  byEmail: getByEmail,
 });

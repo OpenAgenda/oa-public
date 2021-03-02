@@ -6,7 +6,7 @@ const config = require('../testconfig');
 const fixtures = require('./fixtures');
 const getUsersByUid = require('./fixtures/getUsersByUid');
 const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
-const getUserUidByEmail = require('./fixtures/getUserUidByEmail');
+const getUserByEmail = require('./fixtures/getUserByEmail');
 const Service = require('..');
 
 describe('members - functional - get', () => {
@@ -21,8 +21,8 @@ describe('members - functional - get', () => {
       interfaces: {
         getUsersByUid,
         getEventCountByUserUid,
-        getUserUidByEmail
-      }
+        getUserByEmail,
+      },
     });
   });
 
@@ -38,7 +38,7 @@ describe('members - functional - get', () => {
     test('fetched member includes user and agenda uids', () => {
       expect(_.pick(member, ['userUid', 'agendaUid'])).toEqual({
         agendaUid: 1,
-        userUid: 2
+        userUid: 2,
       });
     });
 
@@ -68,7 +68,7 @@ describe('members - functional - get', () => {
         contactNumber: '013072171',
         contactName: 'JC Ponceau',
         contactPosition: 'Responsable des pains',
-        email: 'jc@ponceau.fr'
+        email: 'jc@ponceau.fr',
       });
     });
 
@@ -97,14 +97,14 @@ describe('members - functional - get', () => {
       expect(otherMember.user).toEqual({
         id: 10293,
         uid: 1,
-        fullName: 'Janine Ponceau'
+        fullName: 'Janine Ponceau',
       });
     });
 
     test('getByEmail looks in record store for queried email', async () => {
       const otherMember = await svc.get.byEmail({
         agendaUid: 1,
-        email: 'janine@ponceau.fr'
+        email: 'janine@ponceau.fr',
       });
 
       expect(otherMember.id).toBe(1);
@@ -113,7 +113,7 @@ describe('members - functional - get', () => {
     test('getByEmail gets by email through interface when necessary', async () => {
       const otherMember = await svc.get.byEmail({
         agendaUid: 1,
-        email: 'truc@delinterface.fr'
+        email: 'truc@delinterface.fr',
       });
 
       expect(otherMember.id).toBe(4);

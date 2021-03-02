@@ -36,26 +36,29 @@ async function setByEmail(config, data, options = {}) {
   if (member && Object.keys(clean).length) {
     return {
       ...(await patch(config, member.id, clean, options)),
-      operation: 'patch'
+      operation: 'patch',
     };
   }
+
   if (member) {
     log('info', 'nothing done for member %s', member.id);
+
     return {
-      operation: null
+      operation: null,
     };
   }
+
   return {
     ...(await create(
       config,
       {
         agendaUid: data.agendaUid,
         ...clean,
-        custom: { email: data.email }
+        custom: { email: data.email },
       },
       options
     )),
-    operation: 'create'
+    operation: 'create',
   };
 }
 
@@ -75,13 +78,13 @@ function task(config) {
   const { queues, queueName } = {
     queues: null,
     queueName: defaultQueueName,
-    ...config
+    ...config,
   };
 
   const queue = queues(queueName);
 
   queue.register({
-    setByEmail: setByEmail.bind(null, config)
+    setByEmail: setByEmail.bind(null, config),
   });
 
   _logQueue(queue);
@@ -96,7 +99,7 @@ async function bulk(config, base, emails = [], options = {}) {
     queues: null,
     queueName: defaultQueueName,
     bulkThreshold: 10,
-    ...config
+    ...config,
   };
 
   const queue = queues(queueName);
@@ -107,7 +110,7 @@ async function bulk(config, base, emails = [], options = {}) {
 
   const result = {
     queued: queueJobs ? emails.length : 0,
-    processed: []
+    processed: [],
   };
 
   log(queueJobs ? 'queueing' : 'processing without queueing');
@@ -127,5 +130,5 @@ async function bulk(config, base, emails = [], options = {}) {
 
 module.exports = Object.assign(setByEmail, {
   task,
-  bulk
+  bulk,
 });

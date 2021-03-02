@@ -5,7 +5,7 @@ const fixtures = require('./fixtures');
 const queues = require('./mock/queues');
 const getUsersByUid = require('./fixtures/getUsersByUid');
 const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
-const getUserUidByEmail = require('./fixtures/getUserUidByEmail');
+const getUserByEmail = require('./fixtures/getUserByEmail');
 const Service = require('..');
 
 describe('members - functional - setByEmail', () => {
@@ -21,11 +21,11 @@ describe('members - functional - setByEmail', () => {
       interfaces: {
         getUsersByUid,
         getEventCountByUserUid,
-        getUserUidByEmail,
-        onRemove: () => {}
+        getUserByEmail,
+        onRemove: () => {},
       },
       queues,
-      bulkThreshold: 1
+      bulkThreshold: 1,
     });
   });
 
@@ -39,7 +39,7 @@ describe('members - functional - setByEmail', () => {
       beforeAll(async () => {
         member = await svc.get.byEmail({
           email: 'kevin@oa.com',
-          agendaUid: 1
+          agendaUid: 1,
         });
       });
 
@@ -48,7 +48,7 @@ describe('members - functional - setByEmail', () => {
           {
             agendaUid: 1,
             email: 'kevin@oa.com',
-            role: 2
+            role: 2,
           },
           { requireCustom: false }
         );
@@ -70,7 +70,7 @@ describe('members - functional - setByEmail', () => {
       beforeAll(async () => {
         member = await svc.get.byEmail({
           agendaUid: 1,
-          email: 'jc@ponceau.fr'
+          email: 'jc@ponceau.fr',
         });
       });
 
@@ -79,7 +79,7 @@ describe('members - functional - setByEmail', () => {
           {
             agendaUid: 1,
             email: 'jc@ponceau.fr',
-            role: 2
+            role: 2,
           },
           { requireCustom: false }
         );
@@ -101,7 +101,7 @@ describe('members - functional - setByEmail', () => {
         result = await svc.set.byEmail({
           email: 'truc@delinterface.fr',
           agendaUid: 1,
-          role: 2
+          role: 2,
         });
       });
 
@@ -132,11 +132,11 @@ describe('members - functional - setByEmail', () => {
         result = await svc.set.byEmail.bulk(
           {
             agendaUid: 123,
-            role: 1
+            role: 1,
           },
           ['albert@oa.com', 'alice@oa.com'],
           {
-            requireCustom: false
+            requireCustom: false,
           }
         );
       });
@@ -160,8 +160,8 @@ describe('members - functional - setByEmail', () => {
           args: [
             'setByEmail',
             { agendaUid: 123, role: 1, email: 'albert@oa.com' },
-            { requireCustom: false }
-          ]
+            { requireCustom: false },
+          ],
         });
       });
 
@@ -169,11 +169,11 @@ describe('members - functional - setByEmail', () => {
         const bulkResult = await svc.set.byEmail.bulk(
           {
             agendaUid: 123,
-            role: 1
+            role: 1,
           },
           ['bernard@oa.com'],
           {
-            requireCustom: false
+            requireCustom: false,
           }
         );
 
@@ -185,7 +185,7 @@ describe('members - functional - setByEmail', () => {
           'errors',
           'success',
           'member',
-          'operation'
+          'operation',
         ]);
       });
     });
