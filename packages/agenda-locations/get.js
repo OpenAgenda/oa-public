@@ -27,7 +27,6 @@ async function get(service, identifiers, options = {}) {
   });
 
   addSelect(k, 'public', { first: true, includeFields });
-
   const location = await k.then(l => (l
     ? fromDbEntryToItem(l, {
       includeFields,
