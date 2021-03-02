@@ -106,31 +106,35 @@ export default function Welcome() {
             </div>
           </form>
 
-          <p className="margin-top-md">{getLabel('openAgendasOfMoment')}</p>
+          {agendasQuery.data?.agendas?.length ? (
+            <>
+              <p className="margin-top-md">{getLabel('openAgendasOfMoment')}</p>
 
-          <ul className="list-group margin-top-sm">
-            {agendasQuery.isLoading && !agendasQuery.data?.agendas ? (
-              <div style={{ position: 'relative', height: '50px' }}>
-                <Spinner />
-              </div>
-            ) : null}
+              <ul className="list-group margin-top-sm">
+                {agendasQuery.isLoading && !agendasQuery.data?.agendas ? (
+                  <div style={{ position: 'relative', height: '50px' }}>
+                    <Spinner />
+                  </div>
+                ) : null}
 
-            {agendasQuery.data?.agendas
-              ? agendasQuery.data.agendas.map(agenda => (
-                <AgendaItem key={agenda.uid} agenda={agenda} />
-              ))
-              : null}
+                {agendasQuery.data?.agendas
+                  ? agendasQuery.data.agendas.map(agenda => (
+                    <AgendaItem key={agenda.uid} agenda={agenda} />
+                  ))
+                  : null}
 
-            <div className="margin-top-sm">
-              <a
-                href={`/agendas?sort=recentlyContributed.desc&official=1&contributionType=1&updatedAt.gte=${
-                  twoWeekAgo.toISOString().split('T')[0]
-                }`}
-              >
-                {getLabel('seeMore')}
-              </a>
-            </div>
-          </ul>
+                <div className="margin-top-sm">
+                  <a
+                    href={`/agendas?sort=recentlyContributed.desc&official=1&contributionType=1&updatedAt.gte=${
+                      twoWeekAgo.toISOString().split('T')[0]
+                    }`}
+                  >
+                    {getLabel('seeMore')}
+                  </a>
+                </div>
+              </ul>
+            </>
+          ) : null}
 
           <h4 className="margin-v-md">{getLabel('orCreateYourAgenda')}</h4>
 
