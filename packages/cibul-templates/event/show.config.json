@@ -17,6 +17,7 @@
     "event": {
       "owner": false
     },
+    "tiles": "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
     "hasCustomFields": false,
     "hasOwnershipTransfer": false,
     "mailto" : false,

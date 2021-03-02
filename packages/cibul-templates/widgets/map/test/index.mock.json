@@ -1,1 +1,19 @@
-{}
+{
+  "base": {
+  },
+  "default": {
+    "story": "default"
+  },
+  "coords": {
+    "story": "coords"
+  },
+  "latlng": {
+    "story": "latlng"
+  },
+  "event": {
+    "story": "event"
+  },
+  "tiles": {
+    "story": "tiles"
+  }
+}

@@ -5,16 +5,46 @@
 <% }) %>
   </head>
   <body style="text-align: center;">
-
+    <% include ./stories.ejs %>
     <div style="width:400px; margin: 2em auto;">
-
-      <div class="cbpgmp cibulMap"
-        data-cbctl="48959239/46744426|fr"
-        data-coords="48.9031855|2.2800919|12"
-        data-tiles="//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow"
-      ></div>
-
+      <% if (story === 'default') { %>
+        <p>Map with basic settings should encompass all locations</p>
+        <div class="cbpgmp cibulMap"
+          data-cbctl="48959239/46744426|fr"
+        ></div>
+      <% } else if (story === 'coords') { %>
+        <strong>Map with data-coords</strong>
+        <p>Map should load where coords specify</p>
+        <div class="cbpgmp cibulMap"
+          data-cbctl="48959239/46744426|fr"
+          data-coords="44.9855344|4.5955065|8"
+          data-style="default"
+        ></div>
+      <% } else if (story === 'latlng') { %>
+        <strong>Map with data-latitude and data-longitude</strong>
+        <p>Map should load where coords specify</p>
+        <div class="cbpgmp cibulMap"
+          data-cbctl="48959239/46744426|fr"
+          data-latitude="44.9855344"
+          data-longitude="4.5955065"
+          data-zoom="12"
+        ></div>
+      <% } else if (story === 'event') { %>
+        <strong>Map with data-event-uid</strong>
+        <p>Map focuses on location where explicited event is located</p>
+        <div class="cbpgmp cibulMap"
+          data-cbctl="48959239/46744426|fr"
+          data-event-uid="42184514"
+          data-zoom="15"
+        ></div>
+      <% } else if (story === 'tiles') { %>
+        <strong>Map with custom tiles</strong>
+        <p>Geoapify tiles provided through data-tiles</p>
+        <div class="cbpgmp cibulMap"
+          data-cbctl="48959239/46744426|fr"
+          data-tiles="https://maps.geoapify.com/v1/tile/positron/{z}/{x}/{y}@2x.png?apiKey=9f8da49724b645f486f281abbe690750"
+        ></div>
+      <% } %>
     </div>
-
   </body>
 </html>

@@ -7,9 +7,9 @@ params = {
     canvas: '.js_map'
   },
   attributes: {
-    coord: 'data-coord'
+    coord: 'data-coord',
+    tiles: 'data-tiles'
   },
-  tiles: '//api.mapbox.com/styles/v1/kaore/ckhn90pz00mut19pi1pt29nhi/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
   icon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
   scrollWheelZoom: false
 };
@@ -22,7 +22,7 @@ module.exports = function( options ) {
 
   coords = _readCoords( canvas ),
 
-  maps = mapLib({ url: params.tiles });
+  maps = mapLib({ url: canvas.getAttribute('data-tiles') });
 
   maps.createMap( canvas, {
     center: coords,

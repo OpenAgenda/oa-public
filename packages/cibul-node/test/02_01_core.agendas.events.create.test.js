@@ -90,7 +90,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
   describe('simple create', function() {
     let event;
 
-    const memberUserUid = 63170200;
+    const memberUserUid = 63170203;
 
     beforeAll(async () => {
       event = await core.agendas(17026855).events.create({
@@ -141,7 +141,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
       it('contributing member is associated to event', async () => {
         const ae = await core.services.agendaEvents(17026855).get(event.uid);
 
-        expect(ae.userUid).toBe(63170200);
+        expect(ae.userUid).toBe(63170203);
       });
 
       it('event owner is contributing member', async () => {
@@ -149,7 +149,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
           access: 'internal'
         });
 
-        expect(eventSvcEvent.ownerUid).toBe(63170200);
+        expect(eventSvcEvent.ownerUid).toBe(63170203);
       });
 
       it('agenda custom values are stored in agenda custom schema', async () => {

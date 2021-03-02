@@ -25,7 +25,10 @@
                     </section>
 
                     <section class="side-item side-map">
-                        <div class="side-content cbpgmp small-map" data-cbctl="<%= agenda.uid %>|<%= lang %>">
+                        <div
+                            class="side-content cbpgmp small-map"
+                            data-tiles="<%= tiles %>"
+                            data-cbctl="<%= agenda.uid %>|<%= lang %>">
                             <div class="map-sync js_map_sync">
                                 <input type="checkbox" id="map-sync" class="js_sync_checkbox">
                                 <label for="map-sync"><%= __( 'searchWhenMoveMap' ) %></label>

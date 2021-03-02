@@ -7,7 +7,7 @@ const extractLabelString = require('./extractLabelString');
 const getMatchingIndex = require('./getMatchingIndex');
 const legacyAccessType = require('./legacyAccessType');
 
-const includeTypes = ['radio', 'select', 'checkbox'];
+const includeTypes = ['radio', 'select', 'checkbox', 'multiselect'];
 const uniques = ['radio', 'select'];
 
 module.exports = (schema, currentTagSet = null) => {

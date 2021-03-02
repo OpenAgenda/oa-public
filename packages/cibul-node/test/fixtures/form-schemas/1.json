@@ -403,7 +403,7 @@
       ],
       "origin": "tags",
       "read": null,
-      "write": "contributor"
+      "write": ["moderator", "contributor"]
     },
     {
       "field": "bordeaux-metropole",
@@ -584,7 +584,7 @@
       ],
       "origin": "categories",
       "read": null,
-      "write": "contributor"
+      "write": ["moderator", "contributor"]
     }
   ],
   "nextOptionId": 61

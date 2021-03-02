@@ -1,18 +1,24 @@
-"use strict";
+'use strict';
 
-var domain = require( '../../domain' );
+const SYNC_SECTION_SELECTOR = '.js_map_sync';
+
+const attributeValues = require('./lib/attributeValues');
+const getEventLocationUid = require('./lib/getEventLocationUid');
+const loadIcons = require('./lib/loadIcons');
+const loadInitialState = require('./lib/loadInitialState');
+const applyLeafletStylesheet = require('./lib/applyLeafletStylesheet');
+const promisify = require('./lib/promisify');
+const styler = require('../lib/widgetStyler');
+const du = require('@openagenda/dom-utils');
+const utils = require('@openagenda/utils');
+
+import style from './lib/style.css';
 
 exports.setOnReady = setOnReady;
 
-var UID = 0,
+const domain = require('../../domain');
 
-LANG = 1,
-
-du = require( '../../js/lib/domUtils' ),
-
-utils = require( '@openagenda/utils' ),
-
-remote = require( '../../js/lib/remote/remote.mod.js' ),
+var remote = require( '../../js/lib/remote/remote.mod.js' ),
 
 wLib = require(  '../lib/widgetLib' ),
 
@@ -23,8 +29,6 @@ baseConfig = require( './config.js' ),
 history = require( './history' ),
 
 mapLib = require( '../../js/lib/maps/osm.maps.mod' ),
-
-utils = require( '@openagenda/utils' ),
 
 templates = {
   main: require( './main.ejs' ),
@@ -45,11 +49,7 @@ res = {
   }
 },
 
-styler = require( '../lib/widgetStyler' ),
-
 onReady; // cb to call when a widget is ready
-
-import style from './style.css';
 
 if ( [ 'tpl', 'development' ].indexOf( env ) !== -1 ) debug.enable( '*' );
 
@@ -84,8 +84,6 @@ function widget( elem, options ) {
 
   onBoundsChangeCallback,
 
-  firstEnabled = true,
-
   enabled = false,
 
   map,
@@ -94,7 +92,7 @@ function widget( elem, options ) {
 
   frozenAuto = false,
 
-  embedMode,
+  state,
 
   useClusters = false,
 
@@ -106,127 +104,85 @@ function widget( elem, options ) {
 
   processingQueue = false;
 
-  return ( function() {
+  return (async () => {
+    const attributes = attributeValues.get(elem);
+    state = loadInitialState(attributes);
+    applyLeafletStylesheet();
 
-    var uid = options.anchorConfig[ UID ],
+    log = debug(`map widget`);
 
-    mapAttributes;
+    log('initing %j', state);
 
-    log = debug( 'map widget ' + uid );
-
-    mapAttributes = _getMapInitAttributes();
-
-    embedMode = uid.split( '/' ).length == 2;
-
-    log( 'initing' );
-
-    controller = options.register( wLib.interface( 'map', uid, {
+    controller = options.register( wLib.interface('map', state.uid, {
       enable : enable,
       disable : disable,
       clear : clear,
       change : change,
       include : include,
       setOnBoundsChange : setOnBoundsChange
-    } ) );
+    }));
 
-    _initSettings( options.anchorConfig );
+    const getControlData = promisify(cb => controller.getControlData(data => cb(null, data)));
 
-    if ( mapAttributes ) {
-
-      // init map config is loaded in elem,
-      // map can be initialized before control
-      // data is in hand
-
-      _initMapLib( mapAttributes.tiles );
-
-      _createMap( mapAttributes );
-
-      baseBounds = m.getBounds( map );
-
+    if (state.explicitInitialPosition) {
+      map = await createMap();
     }
 
-    controller.getControlData( function( data ) {
+    const data = await getControlData();
 
-      log( 'control data fetched' );
+    log('control data fetched');
 
-      if ( !data.ebd || data.ebd.dcss.map ) styler( style );
-
-      if ( !m ) _initMapLib( data.ebd && data.ebd.mt ? data.ebd.mt : config.tiles );
-
-      _initLocations( data );
-
-      _initIcons( data );
-
-      // base bounds has been defined if config is set in
-      // widget attributes
-      if ( typeof baseBounds === 'undefined' ) _defineBaseBounds( data );
-
-      log( 'init complete, enable to render' );
-
-      _createMap( {
-        center: _defaultCenter()
-      }, function() {
-
-        _bindSync();
-
-        _boundsChangeBehavior();
-
-        _setMapToBaseBounds();
-
-        _initMarkers();
-
-        _initAutoSync( data );
-
-        controller.onWidgetReady( 'map', { uid } );
-
-        if ( onReady ) onReady();
-
-      } );
-
-
-    } );
-
-
-  } )();
-
-
-  /**
-   * extract optional map init data
-   *
-   * if tiles & coords are set as widget attributes
-   * they can be used for initing the map
-   * before the control data is available
-   */
-
-  function _getMapInitAttributes() {
-
-    var coords, zoom = 15, tiles;
-
-    if ( !elem.hasAttribute( config.coordAttribute ) || !elem.hasAttribute( config.tilesAttribute ) ) {
-
-      log( 'map attributes not set in widget elem. waiting for control data' );
-
-      return false;
-
-    }
-
-    tiles = elem.getAttribute( config.tilesAttribute );
-
-    coords = elem.getAttribute( config.coordAttribute ).split( '|' );
-
-    if ( coords.length == 3 ) {
-
-      zoom = parseInt( coords.pop(), 10 );
-
-    }
-
-    return {
-      center: coords.map( function( c ) { return parseFloat( c ); } ),
-      zoom: zoom,
-      tiles: tiles
+    if (!data.ebd || data.ebd.dcss.map) {
+      state.applyDefaultStyle = true;
     };
 
-  }
+    if (data?.ebd?.mt) {
+      state.tiles = data.ebd.mt;
+    }
+    state.icons = loadIcons(state, data);
+    
+    _initLocations(data);
+
+    if (state.focusOnEventUid) {
+      const locationUid = getEventLocationUid(data, state.focusOnEventUid);
+      state.center = locations[locationUid]?.coords;
+      state.explicitInitialPosition = true;
+      log('focusing on ', state.center);
+    }
+    
+    if (!state.center) {
+      const firstLocationUid = Object.keys(locations).shift();
+      state.center = locations[firstLocationUid].coords;
+    }
+
+    log( 'init complete, enable to render' );
+
+    map = await createMap();
+
+    if (state.focusOnEventUid) {
+    }
+
+    if (baseBounds === undefined) {
+      _defineBaseBounds(data);
+    }
+
+    _bindSync();
+
+    _boundsChangeBehavior();
+
+    _setMapToBaseBounds();
+
+    _initMarkers();
+
+    _initAutoSync( data );
+
+    controller.onWidgetReady('map', {
+      uid: state.uid
+    });
+
+    if ( onReady ) onReady();
+
+  })();
 
 
   function _initMarkers() {
@@ -243,8 +199,8 @@ function widget( elem, options ) {
 
       location.marker = m.createMarker( useClusters ? false : map, {
         position: location.coords,
-        icon: config.icons.inactive.icon,
-        anchor: config.icons.inactive.anchor
+        icon: state.icons.inactive.icon,
+        anchor: state.icons.inactive.anchor
       } );
 
       markers.push( location.marker );
@@ -384,8 +340,12 @@ function widget( elem, options ) {
       bounds = false;
 
       navHistory.add( reqParams, navHistory.current() );
+    
+    } else if (state.enablesCount === 0 && state.explicitInitialPosition) {
 
-    } else if ( firstEnabled && ( !utils.size( reqParams ) || _hasOnlyPassedParams( reqParams ) ) ) {
+      bounds = false;
+
+    } else if (state.enablesCount === 0 && ( !utils.size( reqParams ) || _hasOnlyPassedParams( reqParams ) ) ) {
 
       log( 'nav is init nav, no params are set or only passed events exist' );
 
@@ -403,6 +363,8 @@ function widget( elem, options ) {
 
     } else if ( activeBounds ) {
 
+      log('query params changed without geodata bounds are of active marker');
+
       // query params have changed and DO NOT contain geographical
       // parts. bounds should be that of the active markers
       bounds = activeBounds;
@@ -415,7 +377,7 @@ function widget( elem, options ) {
 
     }
 
-    firstEnabled = false;
+    state.enablesCount++;
 
     _updateBounds( bounds, function() {
 
@@ -473,8 +435,8 @@ function widget( elem, options ) {
 
       popupMarker = m.createMarker( map, {
         position: location.coords,
-        icon: config.icons.inactive.icon,
-        anchor: config.icons.inactive.anchor
+        icon: state.icons.inactive.icon,
+        anchor: state.icons.inactive.anchor
       } );
 
       popup = m.createPopup( map, templates.popup( popupData ), { marker: popupMarker });
@@ -591,7 +553,7 @@ function widget( elem, options ) {
 
   function _isAjax() {
 
-    if ( embedMode && ( window.env !== 'tpl' ) ) {
+    if (state.embedMode && ( window.env !== 'tpl' )) {
 
       return false;
 
@@ -787,7 +749,7 @@ function widget( elem, options ) {
 
     var active = ( enabled && ( activeLocations.indexOf( location.uid ) !== -1 ) );
 
-    m.setMarkerIcon( location.marker, config.icons[ active ? 'active' : 'inactive' ] );
+    m.setMarkerIcon( location.marker, state.icons[ active ? 'active' : 'inactive' ] );
 
     m.setMarkerZIndex( location.marker, active ? 1000 : -1000 );
 
@@ -800,40 +762,6 @@ function widget( elem, options ) {
 
 
 
-   // initialize map object
-
-  function _initSettings( anchorConfig ) {
-
-    if ( anchorConfig.length > 1 ) {
-
-      config.lang = anchorConfig[LANG];
-
-    }
-
-    if ( elem.hasAttribute( 'data-lang' ) ) {
-
-      config.lang = elem.getAttribute( 'data-lang' );
-
-    }
-
-    if (typeof document.createStyleSheet == "undefined") {
-
-      var link = document.createElement( 'link' );
-
-      link.setAttribute( 'rel', 'stylesheet' );
-      link.setAttribute( 'type', 'text/css' );
-      link.setAttribute( 'href', '//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css');
-
-      du.el( 'head' ).appendChild( link );
-
-    } else {
-
-      document.createStyleSheet( config.leafletCss );
-      document.createStyleSheet( config.leafletCssIE );
-
-    }
-
-  }
 
 
   function _initLocations( data ) {
@@ -855,29 +783,6 @@ function widget( elem, options ) {
       }
 
     });
-
-  }
-
-
-  function _initIcons( data ) {
-
-    if ( !data.ebd || !data.ebd.mi ) return;
-
-    if ( data.ebd.mi.a ) {
-
-      config.icons.active.icon = data.ebd.mi.a;
-      config.icons.active.anchor = [data.ebd.ms.a[0]/2, data.ebd.ms.a[1]];
-      config.icons.active.size = [data.ebd.ms.a[0], data.ebd.ms.a[1]];
-
-    }
-
-    if ( data.ebd.mi.i ) {
-
-      config.icons.inactive.icon = data.ebd.mi.i;
-      config.icons.inactive.anchor = [data.ebd.ms.i[0]/2, data.ebd.ms.i[1]];
-      config.icons.inactive.size = [data.ebd.ms.i[0], data.ebd.ms.i[1]];
-
-    }
 
   }
 
@@ -968,114 +873,77 @@ function widget( elem, options ) {
 
     // include all locations in base bounds
 
-    log( 'defining base bounds' );
-
-    for ( var l in locations ) {
-
-      if ( isPassed || !locations[ l ].passed ) {
-
-        if ( typeof baseBounds == 'undefined' ) {
-
-          baseBounds = m.createBounds( locations[ l ].coords );
-
-        } else {
-
-          m.extendBounds( baseBounds, locations[ l ].coords );
-
-        }
-
+    log('defining base bounds');
+    for (const locationUid in locations) {
+      const location = locations[locationUid];
+      if (!isPassed && location.passed) {
+        continue;
       }
-
+      if (baseBounds === undefined) {
+        baseBounds = m.createBounds(location.coords);
+      } else {
+        m.extendBounds(baseBounds, location.coords);
+      }
     }
 
-
-    // if bounds is still not defined, just pick first location
-
-    if ( typeof baseBounds == 'undefined' ) {
-
-      for ( l in locations ) break;
-
-      baseBounds = m.createBounds( locations[l].coords );
-
+    if (baseBounds === undefined) {
+      const firstLocationUid = Object.keys(locations).shift();
+      if (!firstLocationUid) {
+        return;
+      }
+      baseBounds = m.createBounds(locations[firstLocationUid].coords);
     }
-
-  }
-
-  function _initMapLib( tiles ) {
-
-    if ( m ) return;
-
-    if ( !tiles ) tiles = config.tiles;
-
-    log( 'using osm with tiles %s', tiles );
-
-    m = mapLib( { url: tiles });
-
   }
 
 
-  function _createMap( options, cb ) {
 
-    var mapParams = utils.extend( {
-      tiles: config.tiles,
-      center: false, // needed
-      zoom: 15
-    }, options );
+  async function createMap() {
+    log('createMap');
 
-    if ( map ) {
-
-      log( 'map is already created' );
-
-      if ( cb ) cb();
-
+    if (map) {
+      log('map is already created');
       return;
-
     }
 
-    var div = document.createElement( 'div' );
+    m = mapLib({
+      url: state.tiles
+    });
 
-    div.innerHTML = templates.main( {
-      labels : config.labels[ config.lang ]
+    if (state.applyDefaultStyle) {
+      styler(style);
+    }
+
+    const div = document.createElement( 'div' );
+
+    div.innerHTML = templates.main({
+      labels : config.labels[state.lang]
     } );
 
-    if ( du.el( elem, config.selectors.syncSection ) ) {
-
-      div.removeChild( du.el( div, config.selectors.syncSection ) );
-
-      div.appendChild( du.el( elem, config.selectors.syncSection ) );
-
+    if (du.el(elem, SYNC_SECTION_SELECTOR)) {
+      div.removeChild(du.el(div, SYNC_SECTION_SELECTOR));
+      div.appendChild(du.el( elem, SYNC_SECTION_SELECTOR));
     }
 
     elem.innerHTML = div.innerHTML;
 
-    m.createMap( du.el( elem, 'div'), { center: mapParams.center, zoom: mapParams.zoom, onReady: function( newMap ) {
+    const createMap = promisify((elem, options, cb) => {
+      m.createMap(elem, {
+        ...options,
+        onReady: newMap => cb(null, newMap)
+      });
+    });
 
-      map = newMap;
+    const map = await createMap(du.el(elem, 'div'), {
+      center: state.center,
+      zoom: state.zoom
+    });
 
-      log( 'created map' );
-
-      if ( cb ) cb();
-
-    }});
-
-  }
-
-  function _defaultCenter() {
-
-    var center = [ 48.8705187, 2.3821144 ];
-
-    if ( locations && utils.size( locations ) ) {
-
-      for ( var s in locations ) break;
-
-      center = locations[ s ].coords;
-
+    if (state.explicitInitialPosition) {
+      baseBounds = m.getBounds(map);
     }
 
-    return center;
-
+    return map;
   }
-
 
   function _boundsChangeBehavior() {
 

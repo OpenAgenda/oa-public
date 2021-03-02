@@ -1,7 +1,7 @@
 "use strict";
 
 const fs = require('fs');
-const should = require('should');
+const assert = require('assert');
 
 const getValidatorFromField = require('../iso/getValidatorFromField');
 const getSchema = require('../iso/getSchema');
@@ -9,36 +9,57 @@ const getSchema = require('../iso/getSchema');
 describe('deriving validators', () => {
 
   it('text field to validator', () => {
-    getValidatorFromField(_get('text.field')).should.eql(_get('text.validator'));
+    assert.deepEqual(
+      getValidatorFromField(_get('text.field')),
+      _get('text.validator')
+    );
   });
 
   it('radio field to choice validator', () => {
-    getValidatorFromField(_get('radio.field')).should.eql(_get('radio.validator'));
+    assert.deepEqual(
+      getValidatorFromField(_get('radio.field')),
+      _get('radio.validator')
+    );
   });
 
   it('integer field to validator', () => {
-    getValidatorFromField(_get('integer.field')).should.eql(_get('integer.validator'));
+    assert.deepEqual(
+      getValidatorFromField(_get('integer.field')),
+      _get('integer.validator')
+    );
   });
 
   it('select field to choice validator', () => {
-    getValidatorFromField(_get('select.field')).should.eql(_get('select.validator'));
+    assert.deepEqual(
+      getValidatorFromField(_get('select.field')),
+      _get('select.validator')
+    );
   });
 
   it('number field to validator', () => {
-    getValidatorFromField(_get('number.field')).should.eql(_get('number.validator'));
+    assert.deepEqual(
+      getValidatorFromField(_get('number.field')),
+      _get('number.validator')
+    );
   });
 
   it('multilingual text field to multilingual validator', () => {
-    getValidatorFromField(_get('multilingualText.field')).should.eql(_get('multilingual.validator'));
+    assert.deepEqual(
+      getValidatorFromField(_get('multilingualText.field')),
+      _get('multilingual.validator')
+    );
   });
 
   it('multilingual textarea field to multilingual validator', () => {
-    getValidatorFromField(_get('multilingualTextarea.field')).should.eql(_get('multilingual.validator'));
+    assert.deepEqual(
+      getValidatorFromField(_get('multilingualTextarea.field')),
+      _get('multilingual.validator')
+    );
   });
 
 
   it('FormSchema getSchema takes into account enableWith when defined', () => {
-    const fields = [ {
+    const fields = [{
       field: 'image',
       label: 'Champ image',
       fieldType: 'text'
@@ -48,7 +69,7 @@ describe('deriving validators', () => {
       fieldType: 'text',
       enableWith: 'image',
       optional: false
-    } ];
+    }];
 
     const s = getSchema(fields);
 
@@ -62,11 +83,11 @@ describe('deriving validators', () => {
       errored = true;
     }
 
-    errored.should.equal(false);
+    assert.equal(errored, false);
   });
 
   it('getSchema ignores abstract fields', () => {
-    const s = getSchema([ {
+    const s = getSchema([{
       field: 'atextfield',
       label: { fr: 'Un champ texte' },
       fieldType: 'abstract'
@@ -75,21 +96,20 @@ describe('deriving validators', () => {
       label: { fr: 'Un nombre' },
       fieldType: 'number',
       min: 2
-    } ]);
+    }]);
 
     const clean = s({
       atextfield: 'Some text',
       anotherfield: 13
     });
 
-    clean.should.eql({
+    assert.deepEqual(clean, {
       anotherfield: 13
     });
   });
 
-
   it('FormSchema builds a schema based on list of field configurations', () => {
-    const fields = [ {
+    const fields = [{
       field: 'atextfield',
       label: { fr: 'Un champ texte' },
       fieldType: 'text'
@@ -105,7 +125,7 @@ describe('deriving validators', () => {
         fr: 'Un choix'
       },
       fieldType: 'radio',
-      options: [ {
+      options: [{
         id: 1,
         value: 'option-1',
         label: { fr: 'Option 1' }
@@ -113,8 +133,8 @@ describe('deriving validators', () => {
         id: 2,
         value: 'option-2',
         label: { fr: 'Option 2' }
-      } ]
-    } ];
+      }]
+    }];
 
     const s = getSchema(fields);
 
@@ -123,7 +143,7 @@ describe('deriving validators', () => {
       andanotherfield: 1
     });
 
-    clean.should.eql({
+    assert.deepEqual(clean, {
       atextfield: 'Some text',
       anotherfield: 13,
       andanotherfield: 1
@@ -133,7 +153,5 @@ describe('deriving validators', () => {
 });
 
 function _get(name) {
-
   return JSON.parse(fs.readFileSync(__dirname + '/parse/' + name + '.json', 'utf-8'));
-
 }

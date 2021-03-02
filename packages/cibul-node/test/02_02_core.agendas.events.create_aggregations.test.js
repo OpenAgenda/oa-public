@@ -104,7 +104,8 @@ describe('02 - core - functional (server): core.agendas().events.create() - aggr
 
     beforeAll(done => {
       core.agendas(17026855).events.add(event.uid, {
-        'thematiques-metropolitaines': 3
+        'thematiques-metropolitaines': 3,
+        'categories-agenda-metropolitain': 42
       }, { context });
 
       core.services.tracker.on('aggregators.referenceEvent.done', stack => {

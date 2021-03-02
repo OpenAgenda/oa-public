@@ -88,6 +88,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     optionalSecondaryFields: true,
     partial,
     access,
+    member,
     defaultLang
   });
 
