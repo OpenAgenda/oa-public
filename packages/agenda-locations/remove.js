@@ -1,10 +1,10 @@
 'use strict';
 
 const log = require('@openagenda/logs')('remove');
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 
 const get = require('./get');
 const allow = require('./lib/AllowAction');
-const NotFoundError = require('./lib/NotFoundError');
 
 async function remove(service, current) {
   log('received %j payload', current.uid);

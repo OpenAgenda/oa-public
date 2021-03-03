@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
+const ValidationError = require('@openagenda/utils/errors/ValidationError');
 const schema = require('@openagenda/validators/schema');
 const stream = require('@openagenda/validators/stream');
 const email = require('@openagenda/validators/email');
@@ -29,8 +30,6 @@ schema.register({
 });
 
 const validateStream = stream({ optional: false });
-
-const ValidationError = require('./ValidationError');
 
 const fields = require('./fields.json').filter(field => field.write.includes('contributor'))
   .reduce(

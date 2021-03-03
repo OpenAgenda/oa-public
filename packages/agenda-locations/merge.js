@@ -2,7 +2,7 @@
 
 const log = require('@openagenda/logs')('merge');
 
-const BadRequestError = require('./lib/BadRequestError');
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 const list = require('./list');
 const get = require('./get');
 const update = require('./update');
