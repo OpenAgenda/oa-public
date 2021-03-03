@@ -59,7 +59,7 @@ export default ({ sourceSchema }) => {
 
   useIsomorphicLayoutEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
-      form.change('extendedValues', null);
+      form.change('choiceValues', null);
     }
   }, [prevFieldName, fieldName, form]);
 
@@ -97,13 +97,13 @@ export default ({ sourceSchema }) => {
       {values.choiceField ? (
         <div className="row">
           <div className="form-group form-group-v-aligned">
-            <label className="control-label col-sm-2" htmlFor="extendedValues">
+            <label className="control-label col-sm-2" htmlFor="choiceValues">
               {intl.formatMessage(messages.values)}
             </label>
 
             <div className="col-sm-10">
               <ReactSelectField
-                name="extendedValues"
+                name="choiceValues"
                 initialValue={
                   values.choiceField !== undefined
                   && values.choiceField === initialValues?.choiceField

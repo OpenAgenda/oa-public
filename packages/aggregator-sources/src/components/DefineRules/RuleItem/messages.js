@@ -126,8 +126,7 @@ export default defineMessages({
     defaultMessage: '{geo} where the event should take place',
   },
   aggregatorAgendaChoiceFieldValueDetail: {
-    id:
-      'aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail',
+    id: 'aggregator-sources.DefineRules.aggregatorAgendaChoiceFieldValueDetail',
     defaultMessage:
       'Field & Value of "{agendaTitle}" that will be associated with event',
   },

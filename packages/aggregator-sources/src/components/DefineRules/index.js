@@ -235,7 +235,7 @@ export default function DefineRules({
           onCancel={setModeList}
           component={RuleForm}
           SubmitButton={AddRuleSubmitButton}
-          disabledExtended={!sourceSchema?.fields?.length}
+          disabledChoice={!sourceSchema?.fields?.length}
           isAggregator={isAggregator}
           sourceSchema={sourceSchema}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
@@ -263,7 +263,7 @@ export default function DefineRules({
           displayTagFilter={displayTagFilter}
           initialValues={initialValues}
           SubmitButton={UpdateRuleSubmitButton}
-          disabledExtended={!sourceSchema?.fields?.length}
+          disabledChoice={!sourceSchema?.fields?.length}
           sourceSchema={sourceSchema}
           aggregatorAgendaSchema={aggregatorAgendaSchema}
         />
