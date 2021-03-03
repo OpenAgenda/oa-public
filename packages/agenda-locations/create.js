@@ -2,19 +2,17 @@
 
 const log = require('@openagenda/logs')('create');
 const slug = require('slugify');
-
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 const cleanOptions = require('./lib/cleanSetOptions');
 const defineUnique = require('./lib/defineUnique');
 const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
 const fromItemToDbEntry = require('./lib/fromItemToDbEntry');
-const NotFoundError = require('./lib/NotFoundError');
 const validate = require('./lib/validate');
 const allow = require('./lib/AllowAction');
 
 async function create(service, data, options = {}) {
   log('received %j payload', data.name);
 
-  // Kaoré: 1. il faut que tu passes soit les settings, soit le getSettings qu'il faut ici.
   await allow(service, 'create');
 
   const { context, includeImagePath, geocodeIfUndefined } = cleanOptions(

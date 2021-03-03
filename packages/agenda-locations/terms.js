@@ -1,9 +1,8 @@
 'use strict';
 
 const log = require('@openagenda/logs')('terms');
-
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 const addListQuery = require('./lib/addListQuery');
-const BadRequestError = require('./lib/BadRequestError');
 const fromDbEntryToItem = require('./lib/fromDbEntryToItem');
 const termFields = require('./lib/fields.json').filter(f => f.read.includes('terms'));
 const pickContextIdentifiers = require('./lib/pickContextIdentifiers');

@@ -6,7 +6,7 @@ const text = require('@openagenda/validators/text');
 
 schema.register({ integer, text });
 
-const BadRequestError = require('./BadRequestError');
+const BadRequestError = require('@openagenda/utils/errors/BadRequestError');
 
 const validate = schema({
   uid: {
