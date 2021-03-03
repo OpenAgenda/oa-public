@@ -120,7 +120,6 @@ module.exports = Object.assign(
 
       return {
         create: create.byAgendaUid.bind(null, svc, agendaUid),
-        // ... etc. svc est 'service' decoré d'un getSettings qui est prêt à l'emploi.
         update: update.byAgendaUid.bind(
           null,
           { service: svc, isPatch: false },
@@ -161,67 +160,3 @@ module.exports = Object.assign(
     },
   }
 );
-
-//   create: create.byAgendaUid.bind(null, service, agendaUid),
-//   update: update.byAgendaUid.bind(
-//     null,
-//     { service, isPatch: false },
-//     agendaUid
-//   ),
-//   patch: update.byAgendaUid.bind(
-//     null,
-//     { service, isPatch: true },
-//     agendaUid
-//   ),
-//   remove: remove.byAgendaUid.bind(null, service, agendaUid),
-//   list: list.byAgendaUid.bind(null, service, agendaUid),
-//   terms: terms.byAgendaUid.bind(null, service, agendaUid),
-//   merge: merge.byAgendaUid.bind(null, service, agendaUid),
-//   get: get.byAgendaUid.bind(null, service, agendaUid),
-//   settings: {
-//     get: settings.get.byAgendaUid.bind(null, service, agendaUid),
-//   },
-// });
-
-//   return Object.assign(agendaEndpoints, {
-//     get: get.bind(null, service),
-//     list: list.bind(null, service),
-//     utils: {
-//       getINSEECode: service.getINSEECode,
-//       countries,
-//     },
-//     imageTransformAndUpload: service.imageTransformAndUpload,
-//     agendas: agendaEndpoints,
-//     sets: setEndpoints,
-//   });
-// },
-// {
-//   utils: {
-//     countries,
-//     distance: geolib.getDistance,
-//   },
-// }
-
-// const setEndpoints = Object.assign(
-//   setUid => ({
-
-//     locations: {
-//       create: create.bySetUid.bind(null, service, setUid),
-//       get: get.bySetUid.bind(null, service, setUid),
-//       list: list.bySetUid.bind(null, service, setUid),
-//       merge: merge.bySetUid.bind(null, service, setUid),
-//       patch: update.bySetUid.bind(null, { service, isPatch: true }, setUid),
-//       terms: terms.bySetUid.bind(null, service, setUid),
-//       remove: remove.bySetUid.bind(null, service, setUid),
-//       update: update.bySetUid.bind(
-//         null,
-//         { service, isPatch: false },
-//         setUid
-//       ),
-//     },
-//     settings: {
-//       get: settings.get.bySetUid.bind(null, service, setUid),
-//     },
-//   }),
-//   service.sets
-// );
