@@ -64,7 +64,7 @@ function App({ route, user, lang }) {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nContext.Provider value={i18nContextValue}>
-        {user.isNew && !total ? (
+        {!total ? (
           <div className="container top-margined home">
             <div className="col-sm-8 col-sm-offset-2">
               <div className="row wsq">

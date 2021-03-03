@@ -107,7 +107,7 @@ function AgendaItem({ agenda, res, getLabel }) {
   );
 }
 
-function Agendas({ user }) {
+function Agendas() {
   const { getLabel } = useContext(I18nContext);
 
   const history = useHistory();
@@ -164,12 +164,12 @@ function Agendas({ user }) {
         onSearch={onAgendaSearch}
         fieldProps={fieldProps}
         render={({ state, form, nextPage }) => {
-          if (user.isNew && !state.total) {
-            return <Welcome />;
-          }
-
           if (state.firstLoading) {
             return <Spinner />;
+          }
+
+          if (!state.total) {
+            return <Welcome />;
           }
 
           return (
