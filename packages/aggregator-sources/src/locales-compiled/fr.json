@@ -1060,10 +1060,10 @@
       "value": "Appliquer la règle aux événements associés à des valeurs à choix dont les étiquettes correspondent"
     }
   ],
-  "aggregator-sources.RuleForm.helpTextChoice": [
+  "aggregator-sources.RuleForm.helpFilterText": [
     {
       "type": 0,
-      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant d'un champ textuel de la source."
+      "value": "Appliquer la règle aux événements correspondants à une valeur provenant d'un champ textuel de la source."
     }
   ],
   "aggregator-sources.RuleForm.locationFilter": [

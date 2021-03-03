@@ -114,7 +114,7 @@
   "aggregator-sources.RuleForm.helpFilterChoice": null,
   "aggregator-sources.RuleForm.helpFilterLocation": null,
   "aggregator-sources.RuleForm.helpFilterTag": null,
-  "aggregator-sources.RuleForm.helpTextChoice": null,
+  "aggregator-sources.RuleForm.helpFilterText": null,
   "aggregator-sources.RuleForm.locationFilter": null,
   "aggregator-sources.RuleForm.modeAdvanced": null,
   "aggregator-sources.RuleForm.modeSimple": null,

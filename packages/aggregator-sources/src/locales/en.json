@@ -114,7 +114,7 @@
   "aggregator-sources.RuleForm.helpFilterChoice": "Apply the rule to events corresponding to one or more values coming from additional fields of the source.",
   "aggregator-sources.RuleForm.helpFilterLocation": "Apply the rule to events corresponding to one or more cities, departments or regions.",
   "aggregator-sources.RuleForm.helpFilterTag": "Apply the rule to events associated with optional values whose labels correspond.",
-  "aggregator-sources.RuleForm.helpTextChoice": "Apply the rule to events corresponding to one or more values coming from text fields of the source.",
+  "aggregator-sources.RuleForm.helpFilterText": "Apply the rule to events corresponding to one value coming from text fields of the source.",
   "aggregator-sources.RuleForm.locationFilter": " {required, select, true {Required location filter} other {Location filter}}",
   "aggregator-sources.RuleForm.modeAdvanced": "Advanced mode",
   "aggregator-sources.RuleForm.modeSimple": "Simple mode",

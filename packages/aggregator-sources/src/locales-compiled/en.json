@@ -1031,7 +1031,7 @@
       "value": "Apply the rule to events associated with optional values whose labels correspond."
     }
   ],
-  "aggregator-sources.RuleForm.helpTextChoice": [
+  "aggregator-sources.RuleForm.helpFilterText": [
     {
       "type": 0,
       "value": "Apply the rule to events corresponding to one or more values coming from text fields of the source."
