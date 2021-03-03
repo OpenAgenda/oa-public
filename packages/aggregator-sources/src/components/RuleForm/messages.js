@@ -97,7 +97,7 @@ export default defineMessages({
       'Apply the rule to events corresponding to one or more values coming from choice fields of the source.',
   },
   helpFilterText: {
-    id: 'aggregator-sources.RuleForm.helpTextChoice',
+    id: 'aggregator-sources.RuleForm.helpFilterText',
     defaultMessage:
       'Apply the rule to events corresponding to one value coming from text fields of the source.',
   },
