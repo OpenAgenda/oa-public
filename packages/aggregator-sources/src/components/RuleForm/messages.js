@@ -49,6 +49,10 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.subdivision',
     defaultMessage: 'Geographical subdivision:',
   },
+  substring: {
+    id: 'aggregator-sources.RuleForm.substring',
+    defaultMessage: 'substring',
+  },
   field: {
     id: 'aggregator-sources.RuleForm.field',
     defaultMessage: 'Field:',

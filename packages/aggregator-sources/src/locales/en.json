@@ -127,6 +127,7 @@
   "aggregator-sources.RuleForm.selectValue": "Select a value",
   "aggregator-sources.RuleForm.selectValueAutomaticMode": "Values are assigned automatically",
   "aggregator-sources.RuleForm.subdivision": "Subdivision:",
+  "aggregator-sources.RuleForm.substring": "substring",
   "aggregator-sources.RuleForm.tagFilter": "{required, select, true {Required tag filter} other {Tag filter}}",
   "aggregator-sources.RuleForm.textFilter": "Text field filter",
   "aggregator-sources.RuleForm.useActions": "Define actions",

@@ -473,7 +473,7 @@
   "aggregator-sources.DefineRules.choiceFilter": [
     {
       "type": 0,
-      "value": "Filtre champ à choix "
+      "value": "Filtre à choix "
     },
     {
       "options": {
@@ -1052,7 +1052,7 @@
   "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
-      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant de champs à choix de la source."
+      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant d'un champ à choix de la source."
     }
   ],
   "aggregator-sources.RuleForm.helpFilterLocation": [
@@ -1143,6 +1143,12 @@
     {
       "type": 0,
       "value": "Sous-division:"
+    }
+  ],
+  "aggregator-sources.RuleForm.substring": [
+    {
+      "type": 0,
+      "value": "sous-chaîne"
     }
   ],
   "aggregator-sources.RuleForm.tagFilter": [

@@ -426,7 +426,7 @@
       "value": "Ajouter une règle"
     }
   ],
-  "aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail": [
+  "aggregator-sources.DefineRules.aggregatorAgendaChoiceFieldValueDetail": [
     {
       "type": 0,
       "value": "Champ et valeur de l'agenda \""
@@ -467,13 +467,13 @@
   "aggregator-sources.DefineRules.choice": [
     {
       "type": 0,
-      "value": "Source agenda field"
+      "value": "Champ de l'agenda source"
     }
   ],
   "aggregator-sources.DefineRules.choiceFilter": [
     {
       "type": 0,
-      "value": "Filtre champ à choix "
+      "value": "Filtre à choix "
     },
     {
       "options": {
@@ -1052,7 +1052,7 @@
   "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
-      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant de champs à choix de la source."
+      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant d'un champ à choix de la source."
     }
   ],
   "aggregator-sources.RuleForm.helpFilterLocation": [
@@ -1067,7 +1067,7 @@
       "value": "Appliquer la règle aux événements associés à des valeurs à choix dont les étiquettes correspondent"
     }
   ],
-  "aggregator-sources.RuleForm.helpTextChoice": [
+  "aggregator-sources.RuleForm.helpFilterText": [
     {
       "type": 0,
       "value": "Appliquer la règle aux événements correspondants à une valeur provenant d'un champ textuel de la source."
@@ -1143,6 +1143,12 @@
     {
       "type": 0,
       "value": "Sous-division:"
+    }
+  ],
+  "aggregator-sources.RuleForm.substring": [
+    {
+      "type": 0,
+      "value": "sous-chaîne"
     }
   ],
   "aggregator-sources.RuleForm.tagFilter": [
