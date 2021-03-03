@@ -91,15 +91,15 @@ export default defineMessages({
     defaultMessage:
       'Apply the rule to events corresponding to one or more cities, departments or regions.',
   },
-  helpFilterExtended: {
-    id: 'aggregator-sources.RuleForm.helpFilterExtended',
+  helpFilterChoice: {
+    id: 'aggregator-sources.RuleForm.helpFilterChoice',
     defaultMessage:
-      'Apply the rule to events corresponding to one or more values coming from additional fields of the source.',
+      'Apply the rule to events corresponding to one or more values coming from choice fields of the source.',
   },
   helpFilterText: {
     id: 'aggregator-sources.RuleForm.helpTextChoice',
     defaultMessage:
-      'Apply the rule to events corresponding to one or more values coming from text fields of the source.',
+      'Apply the rule to events corresponding to one value coming from text fields of the source.',
   },
   helpFilterTag: {
     id: 'aggregator-sources.RuleForm.helpFilterTag',

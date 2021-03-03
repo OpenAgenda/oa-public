@@ -74,15 +74,9 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.automatic',
     defaultMessage: 'Auto',
   },
-<<<<<<< HEAD
-  extended: {
-    id: 'aggregator-sources.DefineRules.extended',
-    defaultMessage: 'Source agenda field'
-=======
   choice: {
     id: 'aggregator-sources.DefineRules.choice',
     defaultMessage: 'Source agenda field',
->>>>>>> feat(aggregator-sources): added TextFilter
   },
   editForDetail: {
     id: 'aggregator-sources.DefineRules.editForDetail',
@@ -118,7 +112,7 @@ export default defineMessages({
     defaultMessage:
       'Value assocation is made based on labels of the field of the same name in the source agenda',
   },
-  sourceAgendaAdditionalFieldValueDetail: {
+  sourceAgendaChoiceFieldValueDetail: {
     id: 'aggregator-sources.DefineRules.sourceAgendaFieldValueDetail',
     defaultMessage: 'Field & Value of the source "{agendaTitle}"',
   },
@@ -131,7 +125,7 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.eventLocationDetail',
     defaultMessage: '{geo} where the event should take place',
   },
-  aggregatorAgendaAdditionalFieldValueDetail: {
+  aggregatorAgendaChoiceFieldValueDetail: {
     id:
       'aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail',
     defaultMessage:

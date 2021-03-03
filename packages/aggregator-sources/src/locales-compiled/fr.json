@@ -464,6 +464,35 @@
       "value": "Annuler"
     }
   ],
+  "aggregator-sources.DefineRules.choice": [
+    {
+      "type": 0,
+      "value": "Source agenda field"
+    }
+  ],
+  "aggregator-sources.DefineRules.choiceFilter": [
+    {
+      "type": 0,
+      "value": "Filtre champ à choix "
+    },
+    {
+      "options": {
+        "other": {
+          "value": []
+        },
+        "true": {
+          "value": [
+            {
+              "type": 0,
+              "value": "requis"
+            }
+          ]
+        }
+      },
+      "type": 5,
+      "value": "required"
+    }
+  ],
   "aggregator-sources.DefineRules.city": [
     {
       "type": 0,
@@ -536,35 +565,6 @@
     {
       "type": 0,
       "value": "La règle s'applique lorsque l'événement est localisé dans cette zone géographique"
-    }
-  ],
-  "aggregator-sources.DefineRules.extended": [
-    {
-      "type": 0,
-      "value": "Champ de l'agenda source"
-    }
-  ],
-  "aggregator-sources.DefineRules.extendedFilter": [
-    {
-      "type": 0,
-      "value": "Filtre champ additionnel "
-    },
-    {
-      "options": {
-        "other": {
-          "value": []
-        },
-        "true": {
-          "value": [
-            {
-              "type": 0,
-              "value": "requis"
-            }
-          ]
-        }
-      },
-      "type": 5,
-      "value": "required"
     }
   ],
   "aggregator-sources.DefineRules.filterDetail": [
@@ -999,6 +999,12 @@
       "value": "Les valeurs du champ seront définies automatiquement selon les valeurs lues sur la source."
     }
   ],
+  "aggregator-sources.RuleForm.choiceFilter": [
+    {
+      "type": 0,
+      "value": "Filtre champ à choix"
+    }
+  ],
   "aggregator-sources.RuleForm.city": [
     {
       "type": 0,
@@ -1037,22 +1043,16 @@
       "value": "Département"
     }
   ],
-  "aggregator-sources.RuleForm.extendedFilter": [
-    {
-      "type": 0,
-      "value": "Filtre champ additionnel"
-    }
-  ],
   "aggregator-sources.RuleForm.field": [
     {
       "type": 0,
       "value": "Champ:"
     }
   ],
-  "aggregator-sources.RuleForm.helpFilterExtended": [
+  "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
-      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant de champs additionnels de la source."
+      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant de champs à choix de la source."
     }
   ],
   "aggregator-sources.RuleForm.helpFilterLocation": [
@@ -1070,7 +1070,7 @@
   "aggregator-sources.RuleForm.helpTextChoice": [
     {
       "type": 0,
-      "value": "Appliquer la règle aux événements correspondants à une ou plusieurs valeurs provenant d'un champ textuel de la source."
+      "value": "Appliquer la règle aux événements correspondants à une valeur provenant d'un champ textuel de la source."
     }
   ],
   "aggregator-sources.RuleForm.locationFilter": [

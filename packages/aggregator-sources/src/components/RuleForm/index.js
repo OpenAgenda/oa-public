@@ -90,15 +90,15 @@ export default function RuleForm({
               component={Radio}
               name="type"
               type="radio"
-              label={intl.formatMessage(messages.extendedFilter)}
+              label={intl.formatMessage(messages.choiceFilter)}
               value="extended"
               classNameGroup={classNames('radio', {
-                disabled: disabledChoice,
+                disabled: disabledExtended,
               })}
               disabled={disabledExtended}
               helpBlock={(
                 <div className="radio-sub-block text-muted">
-                  {intl.formatMessage(messages.helpFilterExtended)}
+                  {intl.formatMessage(messages.helpFilterChoice)}
                 </div>
               )}
             />

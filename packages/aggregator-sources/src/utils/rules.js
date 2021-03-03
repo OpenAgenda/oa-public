@@ -221,11 +221,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
     case 'extended': {
       return {
         query: {
-<<<<<<< HEAD
-          [values.field]: values.extendedValues
-=======
           [values.choiceField]: values.choiceValues,
->>>>>>> feat(aggregator-sources): added TextFilter
         },
         required,
         actions,

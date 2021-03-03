@@ -119,7 +119,7 @@ export default ({
     label,
     value: matchingOptions.map(o => getLocalValue(o.label)).join(', '),
     detail: intl.formatMessage(
-      messages.aggregatorAgendaAdditionalFieldValueDetail,
+      messages.aggregatorAgendaChoiceFieldValueDetail,
       {
         agendaTitle: aggregatorAgenda.title,
       }

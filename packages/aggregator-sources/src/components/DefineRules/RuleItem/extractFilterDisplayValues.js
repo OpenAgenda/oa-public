@@ -32,7 +32,6 @@ const attendanceModeField = {
   ],
 };
 
-// const pickSchemaField = (schema, field) => schema.fields.filter(f => f.field === field).pop();
 const pickFieldInFields = (fields, field) => fields.filter(f => f.field === field).pop();
 
 function getFilterType(rule) {
@@ -67,18 +66,9 @@ const choiceFilter = ({
       .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
       .map(o => getLocalValue(o.label))
       .join(', '),
-<<<<<<< HEAD
-    detail: intl.formatMessage(
-      messages.sourceAgendaAdditionalFieldValueDetail,
-      {
-        agendaTitle: sourceAgenda.title
-      }
-    )
-=======
     detail: intl.formatMessage(messages.sourceAgendaChoiceFieldValueDetail, {
       agendaTitle: sourceAgenda.title,
     }),
->>>>>>> feat(aggregator-sources): added TextFilter
   };
 };
 
@@ -129,7 +119,7 @@ export default ({
     case 'tags':
       return tagsFilter({ intl, rule, sourceAgenda });
     default:
-      return additionalFilter({
+      return choiceFilter({
         intl,
         rule,
         sourceAgendaSchema,
