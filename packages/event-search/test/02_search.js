@@ -275,7 +275,18 @@ describe('02 - event search - functional: search', function() {
           search: 'Horreur'
         });
   
-        total.should.equal(1);
+        assert.equal(total, 1);
+      });
+
+      it('search on word with plural', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Horreurs'
+        });
+
+        assert.equal(total, 1);
       });
   
   
@@ -287,7 +298,7 @@ describe('02 - event search - functional: search', function() {
           search: 'Quimper'
         });
   
-        total.should.equal(1);
+        assert.equal(total, 1);
   
         events.map(e => e.slug).should.eql(['quimper_event']);
       });

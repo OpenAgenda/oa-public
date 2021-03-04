@@ -116,7 +116,7 @@
   },
   "_search_title": {
     "type": "text",
-    "analyzer": "simple"
+    "analyzer": "french"
   },
   "_search_additional_numbers": {
     "type": "nested",
