@@ -302,6 +302,8 @@
       "longDescription": {
         "fr": "Un événement dans une region"
       },
+      "attendanceMode": 2,
+      "onlineAccessLink": "https://webin.ar",
       "keywords": {
         "fr": [
           "lieu"
@@ -337,18 +339,7 @@
         "title": "Un agenda",
         "url": "http://www.site.com"
       },
-      "location": {
-        "uid": 65918542,
-        "name": "Musée de Valence - arts et archéologie",
-        "address": "4 place des Ormeaux, 26000 Valence",
-        "latitude": 44.931457,
-        "longitude": 4.889928,
-        "city": "Valence",
-        "department": "Drôme",
-        "region": "Auvergne-Rhône-Alpes",
-        "countryCode": "FR",
-        "timezone": "Europe/Paris"
-      },
+      "location": null,
       "member": {
         "name": "Virginie Thibaud Paris-sorbonne",
         "organization": "Université Paris-Sorbonne ",

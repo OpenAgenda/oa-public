@@ -59,6 +59,9 @@
   "featured": {
     "type": "boolean"
   },
+  "attendanceMode": {
+    "type": "integer"
+  },
   "member": {
     "properties": {
       "uid": {
