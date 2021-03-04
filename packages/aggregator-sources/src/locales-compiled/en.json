@@ -1016,7 +1016,7 @@
   "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
-      "value": "Apply the rule to events corresponding to one or more values coming from choice fields of the source."
+      "value": "Apply the rule to events corresponding to one or more values coming from additional fields of the source."
     }
   ],
   "aggregator-sources.RuleForm.helpFilterLocation": [
@@ -1034,7 +1034,7 @@
   "aggregator-sources.RuleForm.helpFilterText": [
     {
       "type": 0,
-      "value": "Apply the rule to events corresponding to one or more values coming from text fields of the source."
+      "value": "Apply the rule to events corresponding to one value coming from text fields of the source."
     }
   ],
   "aggregator-sources.RuleForm.locationFilter": [
@@ -1129,6 +1129,12 @@
     {
       "type": 0,
       "value": "Subdivision:"
+    }
+  ],
+  "aggregator-sources.RuleForm.substring": [
+    {
+      "type": 0,
+      "value": "substring"
     }
   ],
   "aggregator-sources.RuleForm.tagFilter": [

@@ -127,6 +127,7 @@
   "aggregator-sources.RuleForm.selectValue": "Sélectionner une valeur",
   "aggregator-sources.RuleForm.selectValueAutomaticMode": "Attribution automatique",
   "aggregator-sources.RuleForm.subdivision": "Sous-division:",
+  "aggregator-sources.RuleForm.substring": "sous-chaîne",
   "aggregator-sources.RuleForm.tagFilter": "Filtre étiquette",
   "aggregator-sources.RuleForm.textFilter": "Filtre textuel",
   "aggregator-sources.RuleForm.useActions": "Définir des actions",

@@ -391,10 +391,10 @@
       "value": "crwdns586:0crwdne586:0"
     }
   ],
-  "aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail": [
+  "aggregator-sources.DefineRules.aggregatorAgendaChoiceFieldValueDetail": [
     {
       "type": 0,
-      "value": "crwdns588:0"
+      "value": "Field & Value of \""
     },
     {
       "type": 1,
@@ -402,7 +402,7 @@
     },
     {
       "type": 0,
-      "value": "crwdne588:0"
+      "value": "\" that will be associated with event"
     }
   ],
   "aggregator-sources.DefineRules.allEvents": [
@@ -930,7 +930,7 @@
   "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
-      "value": "Apply the rule to events corresponding to one or more values coming from choice fields of the source."
+      "value": "Apply the rule to events corresponding to one or more values coming from additional fields of the source."
     }
   ],
   "aggregator-sources.RuleForm.helpFilterLocation": [
@@ -945,10 +945,10 @@
       "value": "crwdns718:0crwdne718:0"
     }
   ],
-  "aggregator-sources.RuleForm.helpTextChoice": [
+  "aggregator-sources.RuleForm.helpFilterText": [
     {
       "type": 0,
-      "value": "Apply the rule to events corresponding to one or more values coming from text fields of the source."
+      "value": "Apply the rule to events corresponding to one value coming from text fields of the source."
     }
   ],
   "aggregator-sources.RuleForm.locationFilter": [
@@ -1029,6 +1029,12 @@
     {
       "type": 0,
       "value": "crwdns742:0crwdne742:0"
+    }
+  ],
+  "aggregator-sources.RuleForm.substring": [
+    {
+      "type": 0,
+      "value": "substring"
     }
   ],
   "aggregator-sources.RuleForm.tagFilter": [

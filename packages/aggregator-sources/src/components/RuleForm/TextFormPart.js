@@ -69,7 +69,7 @@ export default ({ sourceSchema }) => {
                     type="text"
                     className="form-control"
                     {...input}
-                    placeholder="substring"
+                    placeholder={intl.formatMessage(messages.substring)}
                   />
                 </div>
               </div>
