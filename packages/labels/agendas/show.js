@@ -19,6 +19,10 @@ module.exports = {
     "br": "Skignañ",
     "es": "Compartir"
   },
+  "online": {
+    "en": "Online",
+    "fr": "En ligne"
+  },
   "addEvent": {
     "en": "Add an event",
     "fr": "Ajouter un événement",

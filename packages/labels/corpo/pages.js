@@ -1725,7 +1725,7 @@ module.exports = {
   },
   "contactDescription": {
     "en": "Give us a call or right a note, we will get back to you shortly",
-    "fr": "Appelez nous ou laissez nous un message, nous vous répondrons rapidement",
+    "fr": "Appelez-nous ou laissez nous un message, nous vous répondrons rapidement",
     "de": "Rufe uns an oder rechts eine Notiz, wir werden in Kürze bei Ihnen zurück",
     "es": "Llámenos o dejar un mensaje, vamos a responder con rapidez",
     "it": "Chiamateci o lasciateci un messaggio, vi risponderemo prontamente."
