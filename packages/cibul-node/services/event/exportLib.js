@@ -122,7 +122,10 @@ function cleanEvent(services, eInst, options, cb ) {
       de: eInst.getRange('de'),
       es: eInst.getRange('es'),
       it: eInst.getRange('it')
-    }
+    },
+    location: null,
+    attendanceMode: eInst.attendanceMode,
+    onlineAccessLink: eInst.onlineAccessLink || null
   };
 
   const l = eInst.locations.length ? eInst.locations[ 0 ] : false;
@@ -141,7 +144,7 @@ function cleanEvent(services, eInst, options, cb ) {
 
   }
 
-  if ( l ) {
+  if ( l && l.uid ) {
 
     _inject( c, l, legacyLocationFieldsMap );
 

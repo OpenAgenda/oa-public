@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 module.exports = (basename, data) => {
-  const dir = '/var/tmp/search/';
+  const dir = '/tmp/';
   const now = new Date();
   const _fZ = n => (n<10?'0':'')+n;
   fs.writeFileSync(
