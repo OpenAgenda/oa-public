@@ -227,7 +227,7 @@ function _mapFileCustomValues(mapItem) {
     });
   } else if (mapItem.field.fieldType === 'image') {
     return Object.assign(mapItem, {
-      value: mapItem.value.filename
+      value: mapItem?.value?.filename
     });
   }
 

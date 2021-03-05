@@ -58,7 +58,7 @@
       </section>
 
       <aside class="col-sm-4 col-aside sidebar">
-        <section class="detail-item">
+        <section class="detail-item margin-bottom-xs">
           <h3><i class="fa fa-share-alt"></i></h3>
           <div class="detail-item-content">
             <a rel="nofollow" class="btn btn-primary event-action" href="<%= event.importUri + ( event.importUri.indexOf( '?' ) === -1 ? '?' : '&' ) + 'action=agendas' %>">
@@ -78,11 +78,27 @@
           <a href="<%= event.importUri %>"><%= __('allShares') %></a>
         </section>
 <% } %>
-<% if ( !event.isUpcoming ) { %>
-        <section class="detail-item disabled margin-v-md">
-          <i class="fa fa-history"></i> <%= __('pastEvent') %>
+<% if (event.onlineAccessLink) { %>
+        <section class="detail-item margin-bottom-md">
+          <h3><i class="fa fa-link"></i></h3>
+          <a
+            target="_blank"
+            href="<%= event.onlineAccessLink %>"
+            class="btn btn-default"
+          ><%= __('onlineAccess') %></a>
         </section>
 <% } %>
+        <section class="detail-item margin-bottom-sm">
+          <h3><% if (event.isUpcoming) { %><i class="fa fa-clock-o"></i><% } else { %><i class="fa fa-history"></i><% } %></h3>
+          <p class="detail-item-content">
+            <span><%= event.dateRange %></span>
+            <% if (!event.isUpcoming) { %><span class="badge badge-outline-default margin-all-xs"><%= __('pastEvent') %></span><% } %>
+          </p>
+        </section>
+        <section class="detail-item display-none js_hours timings margin-bottom-md">
+          <ul class="months"></ul>
+        </section>
+
 <% if ( event.pricingInfo || event.registrationComponent ) { %>
         <section class="detail-item conditions margin-v-md">
           <h3><i class="fa fa-ticket"></i> <span>Conditions</span></h3>
@@ -92,17 +108,10 @@
               </div>
             <% } %>
             <% if (event.registrationComponent) { %>
-                    <%- event.registrationComponent %>
+              <%- event.registrationComponent %>
             <% } %>
         </section>
 <% } %>
-        <section class="detail-item">
-          <h3><i class="fa fa-clock-o"></i></h3>
-          <p class="detail-item-content"><%= event.dateRange %></p>
-        </section>
-        <section class="detail-item display-none js_hours timings margin-bottom-md">
-          <ul class="months"></ul>
-        </section>
 
 <% if ( event.accessibility && event.accessibility.length ) { %>
 <% event.accessibility.forEach( function( i ) { %>
@@ -122,7 +131,7 @@
 <% } %>
         </section>
 <% } %>
-
+<% if (hasLocation) { %>
         <section class="detail-item location-side margin-v-md">
           <h3><i class="fa fa-map-marker"></i></h3>
           <div class="detail-item-content">
@@ -144,7 +153,7 @@
               data-tiles="<%= tiles %>"
             ></div>
         </section>
-
+<% } %>
 
 
 <% if ( event.agendaReferences.length > 1 ) { %>
@@ -176,7 +185,7 @@
           <% include _hours.part.ejs %>
 <% } %>
         </section>
-
+        
         <% include ../bsLayout/footer.part.ejs %>
 
       </aside>
@@ -240,12 +249,13 @@
         <div class="js_references"></div>
 
 <% if (
-  event.location.description
+  hasLocation &&
+ (event.location.description
   || event.location.access
   || event.location.image
   || event.location.website
   || event.location.phone
-  || event.location.tags ) { %>
+  || event.location.tags )) { %>
     <div class="location-details">
       <h3><%= __( 'aboutTheVenue' ) %></h3>
       <div class="event-content">

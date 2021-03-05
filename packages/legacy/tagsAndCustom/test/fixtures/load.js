@@ -8,9 +8,11 @@ const { promisify } = require( 'util' );
 module.exports = async ( config, fixtures ) => {
 
   const con = mysql.createConnection( {
+    host: config.mysql.host,
     user: config.mysql.user,
     password: config.mysql.password,
-    multipleStatements: true
+    multipleStatements: true,
+    ssl: true
   } );
 
   const { sql } = fixtures;

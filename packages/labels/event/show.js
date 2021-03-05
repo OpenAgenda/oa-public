@@ -181,13 +181,17 @@ module.exports = {
     "br": "Krouet gant %owner%"
   },
   "pastEvent": {
-    "en": "Past event",
-    "fr": "Événement passé",
-    "it": "Evento passato",
-    "de": "vergangene Veranstaltung",
+    "en": "Past",
+    "fr": "Passé",
+    "it": "Passato",
+    "de": "Veranstaltung",
     "pl": "Wydarzenie przeszłe",
-    "es": "acontecimiento pasado",
+    "es": "pasado",
     "br": "Darvoud tremenet"
+  },
+  "onlineAccess": {
+    "en": "Access the event online",
+    "fr": "Accéder à l'événement en ligne"
   },
   "seeAllEvents": {
     "en": "see all the events",

@@ -21,8 +21,13 @@
         <ul class="metas">
           <li><i class="fa fa-clock-o"></i> <%= event.dateRange %></li>
           <li>
+<% if (event.attendanceMode == 2) { %>
+            <i class="fa fa-link"></i>
+            <%= __( 'online' ) %>
+<% } else { %>
             <i class="fa fa-map-marker"></i>
             <%= event.placeName %><% if ( ( typeof event.city !== 'undefined' ) && event.city ) { %>, <%= event.city %><% } %>
+<% } %>
           </li>
 <% if ( event.organization ) { %>
           <li data-slug="<%= event.organization.slug %>" class="org">

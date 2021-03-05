@@ -1,8 +1,8 @@
 CREATE TABLE reviewer (
   id BIGINT,
-  user_id BIGINT NOT NULL,
+  user_id BIGINT,
   review_id BIGINT NOT NULL,
-  credential BIGINT NOT NULL,
+  credential BIGINT,
   organization VARCHAR(255),
   store TEXT,
   PRIMARY KEY(id)

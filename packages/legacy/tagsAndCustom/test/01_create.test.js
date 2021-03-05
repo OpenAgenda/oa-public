@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
 
 const knexLib = require( 'knex' );
 

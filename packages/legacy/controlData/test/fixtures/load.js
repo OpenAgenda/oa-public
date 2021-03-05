@@ -7,11 +7,12 @@ const redis = require( 'redis' );
 const { promisify } = require( 'util' );
 
 module.exports = async ( config, fixtures ) => {
-
   const con = mysql.createConnection( {
     user: config.mysql.user,
     password: config.mysql.password,
-    multipleStatements: true
+    multipleStatements: true,
+    ssl: true,
+    host: config.mysql.host
   } );
 
   const redisClient = redis.createClient();
