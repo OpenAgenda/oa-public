@@ -140,7 +140,8 @@ module.exports = ({ labels, mapboxKey, locationRes, fileStore }) => [{
   fieldType: 'accessibility',
   optional: true,
   label: labels.accessibility
-}, /* {
+}, {
+  display: false,
   field: 'attendanceMode',
   fieldType: 'radio',
   label: labels.attendanceMode,
@@ -162,28 +163,29 @@ module.exports = ({ labels, mapboxKey, locationRes, fileStore }) => [{
     label: labels.mixedAttendanceMode,
     info: labels.mixedAttendanceModeInfo
   }]
-}, */{
+}, {
   field: 'location',
   fieldType: 'location',
   label: labels.location,
   sub: labels.locationSub,
   res: locationRes,
-  optional: false,
-  /*optionalWith: {
+  optionalWith: {
     field: 'attendanceMode',
-    value: [2]
-  },*/
+    value: 2
+  },
   disableChange: false,
   mapboxKey
-}, /*{
+}, {
+  display: false,
   field: 'onlineAccessLink',
   fieldType: 'link',
   label: labels.onlineAccessLink,
+  optional: false,
   enableWith: {
     field: 'attendanceMode',
     value: [2, 3]
   }
-}, */{
+}, {
   field: 'timings',
   fieldType: 'timings',
   optional: false,
