@@ -6,6 +6,8 @@ const _ = {
   isArray: require('lodash/isArray')
 }
 
+const withFieldValueMatches = require('./withFieldValueMatches');
+
 module.exports = {
   registerValidators,
   mapValuesToValidators,
@@ -38,35 +40,11 @@ function _extractValue(value, values, valuesWithDefaults, fieldOptions = {}) {
     return value;
   }
 
-  if (_withFieldValueMatches(fieldOptions, 'enableWith', valuesWithDefaults)) {
+  if (withFieldValueMatches(fieldOptions, 'enableWith', valuesWithDefaults)) {
     return value;
   }
 
   return null;
-}
-
-
-function _withFieldValueMatches(fieldOptions, withKey, values) {
-  const withParams = _.get(fieldOptions, withKey);
-
-  const withField = typeof withParams === 'string' ? withParams : withParams.field;
-  const value = values === undefined ? undefined : values[withField];
-
-  const evaluateRefFieldAsTruthy = typeof withParams === 'string';
-
-  if (evaluateRefFieldAsTruthy && (value instanceof Array) && !value.length) {
-    return false;
-  } else if (evaluateRefFieldAsTruthy && [undefined, null].includes(value)) {
-    return false;
-  } else if (evaluateRefFieldAsTruthy) {
-    return true;
-  }
-
-  if (value instanceof Array) {
-    return value.includes(withParams.value);
-  }
-
-  return [].concat(value).filter(v => [].concat(withParams.value).includes(v)).length;
 }
 
 function _makeValidator(type, field, options, values) {
@@ -81,7 +59,7 @@ function _makeValidator(type, field, options, values) {
   
   if (
     validatorOptions.enableWith && 
-    !_withFieldValueMatches(validatorOptions, 'enableWith', values)
+    !withFieldValueMatches(validatorOptions, 'enableWith', values)
   ) {
     validatorOptions.optional = true;
   }
@@ -91,7 +69,7 @@ function _makeValidator(type, field, options, values) {
   if (
     optionalIsUndefined &&
     validatorOptions.optionalWith && 
-    !_withFieldValueMatches(validatorOptions, 'optionalWith', values)
+    !withFieldValueMatches(validatorOptions, 'optionalWith', values)
   ) {
     validatorOptions.optional = false;
   } else if (
