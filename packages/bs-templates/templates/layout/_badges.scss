@@ -9,10 +9,22 @@
   border-color: $oa-warning;
 }
 
+.badge-outline-warning {
+  color: $oa-warning;
+  border: 1px solid $oa-warning;
+  background-color: transparent;
+}
+
 .badge-default, .label-default {
   color: $oa-gray;
   background-color: $oa-white;
   border: 1px solid $oa-gray-light;
+}
+
+.badge-outline-default {
+  color: $oa-gray;
+  border: 1px solid $oa-gray-light;
+  background-color: transparent;
 }
 
 .badge-muted {

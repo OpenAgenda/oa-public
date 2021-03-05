@@ -36,7 +36,7 @@
 
           <aside class="col-sm-4 col-aside sidebar">
 
-            <section class="detail-item">
+            <section class="detail-item margin-bottom-xs">
               <h3><i class="fa fa-share-alt"></i></h3>
               <div class="detail-item-content">
                 <a rel="nofollow" class="btn btn-primary event-action" href="/aev-iledefrance/events/portes-ouvertes-a-la-ferme/action">
@@ -53,6 +53,18 @@
               <a href="#" rel="nofollow"><i class="fa fa-envelope-o"></i></a>
             </section>
 
+            <section class="detail-item">
+              <h3><i class="fa fa-clock-o"></i></h3>
+              <p class="detail-item-content">6 mars - 2 octobre, les dimanches</p>
+            </section>
+            <section class="detail-item">
+              <h3><i class="fa fa-history"></i></h3>
+              <p class="detail-item-content"><span>6 mars - 2 octobre, les dimanches</span><span class="badge badge-outline-default margin-all-xs">passé</span></p>
+            </section>
+            <section class="detail-item margin-bottom-sm">
+              <% include _hours.js.ejs %>
+            </section>
+
             <section class="detail-item margin-bottom-md">
               <h3><i class="fa fa-ticket"></i></h3>
               <div class="detail-item-content">
@@ -60,12 +72,9 @@
               </div>
             </section>
 
-            <section class="detail-item">
-              <h3><i class="fa fa-clock-o"></i></h3>
-              <p class="detail-item-content">6 mars - 2 octobre, les dimanches</p>
-            </section>
             <section class="detail-item margin-bottom-md">
-              <% include _hours.js.ejs %>
+              <h3><i class="fa fa-link"></i></h3>
+              <a href="#" class="btn btn-default">Accéder à l'événement</a>
             </section>
 
             <section class="detail-item location-side margin-bottom-md">
