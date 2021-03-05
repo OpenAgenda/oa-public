@@ -19,6 +19,11 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
 
   const origin = _.find( reviews, { uid: event.agendaUid } );
 
+  const timings = event.timings.map( t => ( {
+    start: t.begin,
+    end: t.end
+  } ) );
+
   const e = {
     ..._.pick( legacyEvent, [
       'id',
@@ -41,7 +46,9 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
     ] ),
     age: _age( legacyEvent ),
     accessibility: _accessibility( legacyEvent ),
-    locations: [ {
+    locations: !location ? [{
+      timings
+    }] : [ {
       ..._.pick( location, [
         'id',
         'uid',
@@ -63,10 +70,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
         'longitude',
         'updatedAt'
       ] ),
-      timings: event.timings.map( t => ( {
-        start: t.begin,
-        end: t.end
-      } ) ),
+      timings,
       ..._.pick( location, [
         'agendaId',
         'store',
@@ -229,14 +233,16 @@ async function _fetch( knex, identifier ) {
       'imageCredits',
       'extId'
     ], 'location' )
-  } : null );
+  } : null ).then(l => {
+    if (!l) return null;
 
-  if ( !location ) throw new Error( 'no location record' );
+    ['description', 'access'].forEach(locationField => {
+      if (l[locationField] instanceof Array) {
+        l[locationField] = {};
+      }
+    });
 
-  ['description', 'access'].forEach(locationField => {
-    if (location[locationField] instanceof Array) {
-      location[locationField] = {};
-    }
+    return l;
   });
 
   const articles = _.uniqBy( await knex( 'review_article as ra' ).select( [
