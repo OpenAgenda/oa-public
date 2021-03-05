@@ -8,3 +8,4 @@ coverage/
 .cache/
 
 test/files/tmp.jpg
+iso/build
