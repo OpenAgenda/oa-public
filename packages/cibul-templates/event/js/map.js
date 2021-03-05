@@ -15,16 +15,19 @@ params = {
 };
 
 module.exports = function( options ) {
-
   cn.extend( params, options ? options : {} );
 
-  var canvas = cn.el( params.selectors.canvas ),
+  const canvas = cn.el(params.selectors.canvas);
 
-  coords = _readCoords( canvas ),
+  if (!canvas) return;
+  
+  const coords = _readCoords(canvas);
 
-  maps = mapLib({ url: canvas.getAttribute('data-tiles') });
+  const maps = mapLib({
+    url: canvas.getAttribute('data-tiles')
+  });
 
-  maps.createMap( canvas, {
+  maps.createMap(canvas, {
     center: coords,
     scrollwheel: params.scrollWheelZoom,
     onReady: function( map ) {
