@@ -21,7 +21,8 @@ onRefresh, // used for testing
 range = require( '@openagenda/date-range' );
 
 const getTimings = require('../lib/getTimings');
-
+const getClosestDate = require('../lib/getClosestDate');
+const extractAttendanceMode = require('../lib/extractAttendanceMode');
 module.exports = instanciate;
 
 module.exports.test = {
@@ -38,11 +39,14 @@ function instanciate( data ) {
     getFullImage: _imageGetter( 'getFullImage' ),
     transferOwnership: transferOwnership,
     refresh: refresh,
-    getRange: getRange,
+    getRange,
+    getClosestDate: getClosestDate.bind(null, instance),
     getIcs
   }),
 
   dsp = dispatcher( svcInstance, instance );
+
+  Object.assign(svcInstance, extractAttendanceMode(data));
 
   state( svcInstance, instance, [
     'setState',
@@ -108,7 +112,7 @@ function instanciate( data ) {
 
     }
 
-    let timezone = instance.getLocationDetails().timezone,
+    let timezone = instance.getLocationDetails()?.timezone || 'Europe/Paris',
 
     timings = getTimings(instance);
 

@@ -27,6 +27,24 @@ module.exports = function( eventService ) {
   }
 }
 
+async function loadMissing(req) {
+  if (!req.event) {
+    return;
+  }
+
+  const record = await req.app.services
+    .knex('event_2')
+    .first(['timings', 'online_access_link'])
+    .where('uid', req.event.uid);
+  
+  req.event.timings = JSON.parse(record.timings).map(t => ({
+    start: t.begin,
+    end: t.end
+  }));
+
+  req.event.onlineAccessLink = record.online_access_link;
+}
+
 
 /**
  * load event instance and set it in req.event
@@ -68,6 +86,8 @@ function loadEvent( paramName, fieldName, options ) {
     .done( async v => {
 
       req.event = v.event;
+
+      await loadMissing(req);
 
       // event is publicly available
       if ( !v.accessRequired ) {

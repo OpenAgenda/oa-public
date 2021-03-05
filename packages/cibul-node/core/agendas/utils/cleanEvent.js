@@ -1,16 +1,13 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
-const { promisify } = require('util');
 
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
-const log = require('@openagenda/logs')('core/agendas/utils/loadAgendaAndCleanEvent');
+const log = require('@openagenda/logs')('core/agendas/utils/cleanEvent');
 
 const eventSchema = require('@openagenda/event-form/src/schema');
 const extractLanguages = require('@openagenda/event-form/build/utils/extractLanguages');
-const getAgendaWithNetworkAndSchemas = require('./getAgendaWithNetworkAndSchemas');
 const ValidationError = require('../../utils/ValidationError');
 
 const invalidLocationUidErrorItem = uid => ({

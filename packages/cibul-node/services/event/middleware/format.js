@@ -7,6 +7,8 @@ const du = require( '@openagenda/dom-utils' );
 const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 const getTimings = require('../lib/getTimings');
+const getDates = require('../lib/getDates');
+const range = require( '@openagenda/date-range' );
 
 const {
   renderHTMLFromMarkdown
@@ -206,7 +208,7 @@ function _categories( v ) {
 
 function _dates( v ) {
 
-  v.formatted.dates = v.req.event.getDates();
+  v.formatted.dates = getDates(v.formatted.timings, v.formatted.timezone);
 
   v.formatted.dates.forEach( d => {
 
@@ -259,8 +261,12 @@ function _timings( v ) {
 
   }
 
-  return v;
+  v.formatted.dateRange = range(timings.map( t => ( {
+    start: new Date( t.start ),
+    end: new Date( t.end )
+  })), v.req.event.getCurrentLanguage(), v.formatted.timezone);
 
+  return v;
 }
 
 
@@ -344,7 +350,6 @@ function _main( v ) {
   const map = {
     uid: 'getUid',
     slug: 'getSlug',
-    dateRange: 'getRange',
     isUpcoming: 'isUpcoming',
     placeName: 'getLocationName',
     address: 'getAddress',
@@ -358,6 +363,8 @@ function _main( v ) {
     accessibility: 'getAccessibility',
     age: 'getAge'
   };
+
+  v.formatted.onlineAccessLink = v.req.event.onlineAccessLink;
 
   Object.assign(v.formatted, v.req.app.services.legacy.utils.formatCibulModelEvent(v.req.event, v.req.lang));
 
