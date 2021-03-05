@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import getMultiLanguageLabel from './getMultiLanguageLabel';
+import getLocalValue from './getLocalValue';
 
 export function hasFilter(rule) {
   if (!rule.query) return false;
@@ -24,7 +24,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     withFilter: false,
     withActions: false,
     required: Boolean(required),
-    actions: []
+    actions: [],
   };
 
   if (!query) {
@@ -46,7 +46,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
         result.actions.push({
           id: _.uniqueId(),
           field: 'state',
-          values: ids
+          values: ids,
         });
       }
 
@@ -63,13 +63,13 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
           ? {
             id: _.uniqueId(),
             field: fieldSchema.field,
-            automatic: action.automatic
+            automatic: action.automatic,
           }
           : {
             id: _.uniqueId(),
             field: fieldSchema.field,
             values: ids,
-            set: hasSet
+            set: hasSet,
           }
       );
     });
@@ -91,7 +91,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       withFilter: true,
       type: 'location',
       subdivision: key,
-      locationValues: [].concat(query.location[key])
+      locationValues: [].concat(query.location[key]),
     });
 
     return result;
@@ -102,21 +102,37 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     Object.assign(result, {
       withFilter: true,
       type: 'tags',
-      tagValues: [].concat(query.tags).map(getMultiLanguageLabel)
+      tagValues: [].concat(query.tags).map(getLocalValue),
     });
 
     return result;
   }
 
+  // Text
+  if (query.text) {
+    const [key] = Object.keys(query.text);
+    if (!key) {
+      return result;
+    }
+
+    Object.assign(result, {
+      withFilter: true,
+      type: 'text',
+      textField: key,
+      textValue: query.text[key],
+    });
+    return result;
+  }
+
   const [key] = Object.keys(query);
 
-  // Extended
+  // Choice filter
   if (key) {
     return Object.assign(result, {
       withFilter: true,
-      type: 'extended',
-      field: key,
-      extendedValues: query[key]
+      type: 'choice',
+      choiceField: key,
+      choiceValues: query[key],
     });
   }
 
@@ -126,7 +142,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 export function valuesToRule(values, aggregatorAgendaSchema) {
   const { withActions, withFilter, required } = {
     required: false,
-    ...values
+    ...values,
   };
 
   const actions = !withActions
@@ -136,7 +152,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
         return {
           field: 'state',
           values: { $set: action.values },
-          automatic: false
+          automatic: false,
         };
       }
 
@@ -152,7 +168,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
         return {
           field: action.field,
           values: null,
-          automatic: true
+          automatic: true,
         };
       }
 
@@ -161,7 +177,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       return {
         field: fieldSchema.field,
         values: action.set ? { $set: actionValues } : actionValues,
-        automatic: false
+        automatic: false,
       };
     });
 
@@ -169,7 +185,7 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
     return {
       query: {},
       required,
-      actions
+      actions,
     };
   }
 
@@ -178,27 +194,37 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
       return {
         query: {
           location: {
-            [values.subdivision]: values.locationValues
-          }
+            [values.subdivision]: values.locationValues,
+          },
         },
         required,
-        actions
+        actions,
       };
     case 'tags':
       return {
         query: {
-          tags: values.tagValues
+          tags: values.tagValues,
         },
         required,
-        actions
+        actions,
       };
-    case 'extended': {
+    case 'text':
       return {
         query: {
-          [values.field]: values.extendedValues
+          text: {
+            [values.textField]: values.textValue,
+          },
         },
         required,
-        actions
+        actions,
+      };
+    case 'choice': {
+      return {
+        query: {
+          [values.choiceField]: values.choiceValues,
+        },
+        required,
+        actions,
       };
     }
     default:

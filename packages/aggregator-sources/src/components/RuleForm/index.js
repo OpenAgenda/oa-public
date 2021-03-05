@@ -7,8 +7,9 @@ import classNames from 'classnames';
 import messages from './messages';
 
 import ActionsFormPart from './ActionsFormPart';
-import AdditionalFieldFormPart from './AdditionalFieldFormPart';
+import ChoiceFieldFormPart from './ChoiceFieldFormPart';
 import LocationFormPart from './LocationFormPart';
+import TextFormPart from './TextFormPart';
 import Radio from './Radio';
 import RequiredFieldPart from './RequiredFieldPart';
 import TagsFormPart from './TagsFormPart';
@@ -19,10 +20,11 @@ export default function RuleForm({
   onCancel,
   values,
   options,
-  disabledExtended,
+  disabledChoice,
   isAggregator,
   aggregatorAgendaSchema,
-  sourceSchema
+  sourceSchema,
+  displayTagFilter,
 }) {
   const intl = useIntl();
   const formState = useFormState();
@@ -88,23 +90,23 @@ export default function RuleForm({
               component={Radio}
               name="type"
               type="radio"
-              label={intl.formatMessage(messages.extendedFilter)}
-              value="extended"
+              label={intl.formatMessage(messages.choiceFilter)}
+              value="choice"
               classNameGroup={classNames('radio', {
-                disabled: disabledExtended
+                disabled: disabledChoice,
               })}
-              disabled={disabledExtended}
+              disabled={disabledChoice}
               helpBlock={(
                 <div className="radio-sub-block text-muted">
-                  {intl.formatMessage(messages.helpFilterExtended)}
+                  {intl.formatMessage(messages.helpFilterChoice)}
                 </div>
               )}
             />
           ) : null}
 
-          {values.type === 'extended' ? (
+          {values.type === 'choice' ? (
             <div className="radio-sub-block">
-              <AdditionalFieldFormPart
+              <ChoiceFieldFormPart
                 aggregatorAgendaSchema={aggregatorAgendaSchema}
                 sourceSchema={sourceSchema}
               />
@@ -116,15 +118,41 @@ export default function RuleForm({
             component={Radio}
             name="type"
             type="radio"
-            label={intl.formatMessage(messages.tagFilter)}
-            value="tags"
+            label={intl.formatMessage(messages.textFilter)}
+            value="text"
             classNameGroup="radio"
             helpBlock={(
               <div className="radio-sub-block text-muted">
-                {intl.formatMessage(messages.helpFilterTag)}
+                {intl.formatMessage(messages.helpFilterText)}
               </div>
             )}
           />
+
+          {values.type === 'text' ? (
+            <div className="radio-sub-block">
+              <TextFormPart
+                aggregatorAgendaSchema={aggregatorAgendaSchema}
+                sourceSchema={sourceSchema}
+              />
+              <RequiredFieldPart />
+            </div>
+          ) : null}
+
+          {displayTagFilter ? (
+            <Field
+              component={Radio}
+              name="type"
+              type="radio"
+              label={intl.formatMessage(messages.tagFilter)}
+              value="tags"
+              classNameGroup="radio"
+              helpBlock={(
+                <div className="radio-sub-block text-muted">
+                  {intl.formatMessage(messages.helpFilterTag)}
+                </div>
+              )}
+            />
+          ) : null}
 
           {values.type === 'tags' ? (
             <div className="radio-sub-block">

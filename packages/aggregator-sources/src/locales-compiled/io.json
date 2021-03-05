@@ -391,10 +391,10 @@
       "value": "crwdns586:0crwdne586:0"
     }
   ],
-  "aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail": [
+  "aggregator-sources.DefineRules.aggregatorAgendaChoiceFieldValueDetail": [
     {
       "type": 0,
-      "value": "crwdns588:0"
+      "value": "Field & Value of \""
     },
     {
       "type": 1,
@@ -402,7 +402,7 @@
     },
     {
       "type": 0,
-      "value": "crwdne588:0"
+      "value": "\" that will be associated with event"
     }
   ],
   "aggregator-sources.DefineRules.allEvents": [
@@ -427,6 +427,18 @@
     {
       "type": 0,
       "value": "crwdns596:0crwdne596:0"
+    }
+  ],
+  "aggregator-sources.DefineRules.choice": [
+    {
+      "type": 0,
+      "value": "Source agenda field"
+    }
+  ],
+  "aggregator-sources.DefineRules.choiceFilter": [
+    {
+      "type": 0,
+      "value": "Choice field filter"
     }
   ],
   "aggregator-sources.DefineRules.city": [
@@ -501,18 +513,6 @@
     {
       "type": 0,
       "value": "crwdne610:0"
-    }
-  ],
-  "aggregator-sources.DefineRules.extended": [
-    {
-      "type": 0,
-      "value": "crwdns612:0crwdne612:0"
-    }
-  ],
-  "aggregator-sources.DefineRules.extendedFilter": [
-    {
-      "type": 0,
-      "value": "crwdns614:0crwdne614:0"
     }
   ],
   "aggregator-sources.DefineRules.filterDetail": [
@@ -743,6 +743,20 @@
       "value": "crwdns666:0crwdne666:0"
     }
   ],
+  "aggregator-sources.DefineRules.textFilterValue": [
+    {
+      "type": 0,
+      "value": "contains \""
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
   "aggregator-sources.DefineRules.toModerate": [
     {
       "type": 0,
@@ -863,6 +877,12 @@
       "value": "crwdns698:0crwdne698:0"
     }
   ],
+  "aggregator-sources.RuleForm.choiceFilter": [
+    {
+      "type": 0,
+      "value": "Choice field filter"
+    }
+  ],
   "aggregator-sources.RuleForm.city": [
     {
       "type": 0,
@@ -901,30 +921,16 @@
       "value": "crwdns708:0crwdne708:0"
     }
   ],
-  "aggregator-sources.RuleForm.extendedFilter": [
-    {
-      "type": 0,
-      "value": "crwdns710:0required="
-    },
-    {
-      "type": 1,
-      "value": "required"
-    },
-    {
-      "type": 0,
-      "value": "crwdne710:0"
-    }
-  ],
   "aggregator-sources.RuleForm.field": [
     {
       "type": 0,
       "value": "crwdns712:0crwdne712:0"
     }
   ],
-  "aggregator-sources.RuleForm.helpFilterExtended": [
+  "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
-      "value": "crwdns714:0crwdne714:0"
+      "value": "Apply the rule to events corresponding to one or more values coming from additional fields of the source."
     }
   ],
   "aggregator-sources.RuleForm.helpFilterLocation": [
@@ -937,6 +943,12 @@
     {
       "type": 0,
       "value": "crwdns718:0crwdne718:0"
+    }
+  ],
+  "aggregator-sources.RuleForm.helpFilterText": [
+    {
+      "type": 0,
+      "value": "Apply the rule to events corresponding to one value coming from text fields of the source."
     }
   ],
   "aggregator-sources.RuleForm.locationFilter": [
@@ -1019,6 +1031,12 @@
       "value": "crwdns742:0crwdne742:0"
     }
   ],
+  "aggregator-sources.RuleForm.substring": [
+    {
+      "type": 0,
+      "value": "substring"
+    }
+  ],
   "aggregator-sources.RuleForm.tagFilter": [
     {
       "type": 0,
@@ -1031,6 +1049,12 @@
     {
       "type": 0,
       "value": "crwdne744:0"
+    }
+  ],
+  "aggregator-sources.RuleForm.textFilter": [
+    {
+      "type": 0,
+      "value": "Text field filter"
     }
   ],
   "aggregator-sources.RuleForm.useActions": [
@@ -1055,6 +1079,12 @@
     {
       "type": 0,
       "value": "crwdns752:0crwdne752:0"
+    }
+  ],
+  "aggregator-sources.RuleForm.value": [
+    {
+      "type": 0,
+      "value": "Value:"
     }
   ],
   "aggregator-sources.RuleForm.values": [

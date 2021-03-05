@@ -1,0 +1,20 @@
+[{
+  "query": {
+    "text": {
+      "title": "92ORG"
+    }
+  },
+  "required": true,
+  "actions": []
+  }, {
+    "query": {
+      "tags": [
+        "Événement d'intérêt intercommunal",
+        "Événement d’intérêt métropolitain"
+      ]
+    },
+    "required": true,
+    "actions": []
+  }
+
+]

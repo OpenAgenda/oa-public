@@ -6,8 +6,27 @@ import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import { useForm } from 'react-final-form';
 
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
+import formLabels from '@openagenda/labels/event/form';
+import getLocalValue from '../../utils/getLocalValue';
 import messages from './messages';
+
+const AttendanceOptions = [
+  {
+    id: 1,
+    value: 'offlineAttendanceMode',
+    label: formLabels.offlineAttendanceMode,
+  },
+  {
+    id: 2,
+    value: 'onlineAttendanceMode',
+    label: formLabels.onlineAttendanceMode,
+  },
+  {
+    id: 3,
+    value: 'mixedAttendanceMode',
+    label: formLabels.mixedAttendanceMode,
+  },
+];
 
 export default ({ sourceSchema }) => {
   const intl = useIntl();
@@ -18,24 +37,29 @@ export default ({ sourceSchema }) => {
   const options = useMemoOne(
     () => sourceSchema.fields
       .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+      .concat([{ field: 'attendanceMode', label: formLabels.attendanceMode }])
       .map(({ field, label }) => ({
         value: field,
-        label: getMultiLanguageLabel(label, intl.locale)
+        label: getLocalValue(label, intl.locale),
       })),
     [intl.locale, sourceSchema.fields]
   );
 
-  const fieldName = useMemoOne(() => values.field, [values]);
+  const fieldName = useMemoOne(() => values.choiceField, [values]);
   const prevFieldName = usePrevious(fieldName);
 
-  const fieldSchema = useMemoOne(
-    () => sourceSchema.fields.find(v => v.field === fieldName),
-    [sourceSchema, fieldName]
-  );
+  const fieldSchema = useMemoOne(() => {
+    if (fieldName === 'attendanceMode') {
+      return {
+        options: AttendanceOptions,
+      };
+    }
+    return sourceSchema.fields.find(v => v.field === fieldName);
+  }, [sourceSchema, fieldName]);
 
   useIsomorphicLayoutEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
-      form.change('extendedValues', null);
+      form.change('choiceValues', null);
     }
   }, [prevFieldName, fieldName, form]);
 
@@ -43,7 +67,7 @@ export default ({ sourceSchema }) => {
     if (fieldSchema?.options) {
       return fieldSchema.options.map(v => ({
         value: v.id,
-        label: getMultiLanguageLabel(v.label, intl.locale)
+        label: getLocalValue(v.label, intl.locale),
       }));
     }
   }, [fieldSchema, intl.locale]);
@@ -58,32 +82,32 @@ export default ({ sourceSchema }) => {
 
           <div className="col-sm-10">
             <ReactSelectField
-              name="field"
+              name="choiceField"
               placeholder={intl.formatMessage(messages.selectField)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
               options={options}
               menuPosition="fixed"
               isSearchable
-              initialValue={initialValues?.field}
+              initialValue={initialValues?.choiceField}
             />
           </div>
         </div>
       </div>
 
-      {values.field ? (
+      {values.choiceField ? (
         <div className="row">
           <div className="form-group form-group-v-aligned">
-            <label className="control-label col-sm-2" htmlFor="extendedValues">
+            <label className="control-label col-sm-2" htmlFor="choiceValues">
               {intl.formatMessage(messages.values)}
             </label>
 
             <div className="col-sm-10">
               <ReactSelectField
-                name="extendedValues"
+                name="choiceValues"
                 initialValue={
-                  values.field !== undefined
-                  && values.field === initialValues?.field
-                    ? initialValues?.extendedValues
+                  values.choiceField !== undefined
+                  && values.choiceField === initialValues?.choiceField
+                    ? initialValues?.choiceValues
                     : undefined
                 }
                 placeholder={intl.formatMessage(messages.selectValue)}

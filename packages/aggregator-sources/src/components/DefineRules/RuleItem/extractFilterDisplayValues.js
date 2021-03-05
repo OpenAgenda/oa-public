@@ -1,15 +1,45 @@
+import formLabels from '@openagenda/labels/event/form';
 import { hasFilter } from '../../../utils/rules';
-import getMultiLanguageLabel from '../../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../../utils/getLocalValue';
 import messages from './messages';
 
-const pickSchemaField = (schema, field) => schema.fields.filter(f => f.field === field).pop();
+const eventTextFields = ['title', 'description', 'keywords', 'conditions'].map(
+  field => ({
+    field,
+    label: formLabels[field],
+  })
+);
+
+const attendanceModeField = {
+  field: 'attendanceMode',
+  label: formLabels.attendanceMode,
+  options: [
+    {
+      id: 1,
+      value: 'offlineAttendanceMode',
+      label: formLabels.offlineAttendanceMode,
+    },
+    {
+      id: 2,
+      value: 'onlineAttendanceMode',
+      label: formLabels.onlineAttendanceMode,
+    },
+    {
+      id: 3,
+      value: 'mixedAttendanceMode',
+      label: formLabels.mixedAttendanceMode,
+    },
+  ],
+};
+
+const pickFieldInFields = (fields, field) => fields.filter(f => f.field === field).pop();
 
 function getFilterType(rule) {
   if (!hasFilter(rule)) return null;
 
   const key = Object.keys(rule.query)[0];
 
-  return ['location', 'tags'].includes(key) ? key : 'extended';
+  return ['location', 'tags', 'text'].includes(key) ? key : 'choice';
 }
 
 function getFilterLocationType(rule) {
@@ -20,23 +50,25 @@ function getFilterField(rule) {
   return Object.keys(rule.query)[0];
 }
 
-const additionalFilter = ({
+function getTextFilterField(rule) {
+  return Object.keys(rule.query.text)[0];
+}
+
+const choiceFilter = ({
   intl, rule, sourceAgendaSchema, sourceAgenda
 }) => {
   const filterFieldName = getFilterField(rule);
-  const field = pickSchemaField(sourceAgendaSchema, filterFieldName);
+  const allFields = sourceAgendaSchema.fields.concat(attendanceModeField);
+  const field = pickFieldInFields(allFields, filterFieldName);
   return {
-    label: getMultiLanguageLabel(field.label),
+    label: getLocalValue(field.label),
     value: field.options
       .filter(o => [].concat(rule.query[filterFieldName]).includes(o.id))
-      .map(o => getMultiLanguageLabel(o.label))
+      .map(o => getLocalValue(o.label))
       .join(', '),
-    detail: intl.formatMessage(
-      messages.sourceAgendaAdditionalFieldValueDetail,
-      {
-        agendaTitle: sourceAgenda.title
-      }
-    )
+    detail: intl.formatMessage(messages.sourceAgendaChoiceFieldValueDetail, {
+      agendaTitle: sourceAgenda.title,
+    }),
   };
 };
 
@@ -44,8 +76,8 @@ const tagsFilter = ({ intl, rule, sourceAgenda }) => ({
   label: intl.formatMessage(messages.tags),
   value: rule.query.tags.join(', '),
   detail: intl.formatMessage(messages.sourceAgendaTagsDetail, {
-    agendaTitle: sourceAgenda.title
-  })
+    agendaTitle: sourceAgenda.title,
+  }),
 });
 
 const locationFilter = ({ intl, rule }) => {
@@ -56,8 +88,21 @@ const locationFilter = ({ intl, rule }) => {
       .concat(rule.query.location[getFilterLocationType(rule)])
       .join(', '),
     detail: intl.formatMessage(messages.eventLocationDetail, {
-      geo: intl.formatMessage(messages[locationType])
-    })
+      geo: intl.formatMessage(messages[locationType]),
+    }),
+  };
+};
+
+const textFilter = ({ intl, rule, sourceAgendaSchema }) => {
+  const textField = getTextFilterField(rule);
+  const allFields = sourceAgendaSchema.fields.concat(eventTextFields);
+  const field = pickFieldInFields(allFields, textField);
+  const label = getLocalValue(field.label);
+  return {
+    label,
+    value: intl.formatMessage(messages.textFilterValue, {
+      value: rule.query.text[textField],
+    }),
   };
 };
 
@@ -69,14 +114,16 @@ export default ({
   switch (type) {
     case 'location':
       return locationFilter({ intl, rule });
+    case 'text':
+      return textFilter({ intl, rule, sourceAgendaSchema });
     case 'tags':
       return tagsFilter({ intl, rule, sourceAgenda });
     default:
-      return additionalFilter({
+      return choiceFilter({
         intl,
         rule,
         sourceAgendaSchema,
-        sourceAgenda
+        sourceAgenda,
       });
   }
 };

@@ -7,7 +7,7 @@ import { useIntl } from 'react-intl';
 import { useForm, Field } from 'react-final-form';
 import { useMemoOne, ReactSelectField } from '@openagenda/react-shared';
 
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../utils/getLocalValue';
 import stateMessages from '../../utils/stateMessages';
 import messages from './messages';
 import Radio from './Radio';
@@ -19,7 +19,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
 
   const action = useMemo(() => values.actions.find(v => v.id === id), [
     id,
-    values.actions
+    values.actions,
   ]);
   const fieldName = useMemoOne(() => action?.field, [action]);
   const prevFieldName = usePrevious(fieldName);
@@ -40,7 +40,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       )
       .concat({
         field: 'state',
-        label: intl.formatMessage(stateMessages.state)
+        label: intl.formatMessage(stateMessages.state),
       })
       .filter(
         v => v.field === fieldName
@@ -48,7 +48,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       )
       .map(v => ({
         value: v.field,
-        label: getMultiLanguageLabel(v.label, intl.locale)
+        label: getLocalValue(v.label, intl.locale),
       })),
     [aggregatorAgendaSchema.fields, intl, fieldName, values.actions]
   );
@@ -63,23 +63,23 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
       return [
         {
           value: 0,
-          label: intl.formatMessage(stateMessages.stateToControl)
+          label: intl.formatMessage(stateMessages.stateToControl),
         },
         {
           value: 1,
-          label: intl.formatMessage(stateMessages.stateControlled)
+          label: intl.formatMessage(stateMessages.stateControlled),
         },
         {
           value: 2,
-          label: intl.formatMessage(stateMessages.statePublished)
-        }
+          label: intl.formatMessage(stateMessages.statePublished),
+        },
       ];
     }
 
     if (fieldSchema?.options) {
       return fieldSchema.options.map(v => ({
         value: v.id,
-        label: getMultiLanguageLabel(v.label, intl.locale)
+        label: getLocalValue(v.label, intl.locale),
       }));
     }
   }, [fieldName, fieldSchema, intl]);
@@ -127,7 +127,7 @@ export default ({ id, name, aggregatorAgendaSchema }) => {
     name,
     prevFieldName,
     valuesOptions,
-    advancedMode
+    advancedMode,
   ]);
 
   return (

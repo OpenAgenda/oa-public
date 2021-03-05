@@ -19,6 +19,7 @@ export default storiesOf('RuleForm', module)
     <Form
       component={RuleForm}
       onSubmit={() => {}}
+      sourceSchema={villeDeLille}
       aggregatorAgendaSchema={{ fields: [] }}
     />
   ))
@@ -28,7 +29,7 @@ export default storiesOf('RuleForm', module)
       component={RuleForm}
       onSubmit={() => {}}
       mutators={{
-        ...arrayMutators
+        ...arrayMutators,
       }}
       sourceSchema={villeDeLille}
       aggregatorAgendaSchema={MEL}
@@ -40,7 +41,7 @@ export default storiesOf('RuleForm', module)
       component={RuleForm}
       onSubmit={() => {}}
       mutators={{
-        ...arrayMutators
+        ...arrayMutators,
       }}
       sourceSchema={villeDeLille}
       aggregatorAgendaSchema={MEL}

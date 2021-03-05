@@ -8,7 +8,7 @@ import { MoreInfo } from '@openagenda/react-components';
 
 import { useMemoOne } from '@openagenda/react-shared';
 import externalLinks from '../../utils/externalLinks';
-import getMultiLanguageLabel from '../../utils/getMultiLanguageLabel';
+import getLocalValue from '../../utils/getLocalValue';
 import readClipboard from '../../utils/readClipboard';
 import messages from './messages';
 import RuleItem from './RuleItem';
@@ -30,7 +30,7 @@ export default function List({
   setMode,
   SubmitButton,
   onSubmit,
-  onCancel
+  onCancel,
 }) {
   const intl = useIntl();
   const [error, setError] = useState(null);
@@ -58,9 +58,7 @@ export default function List({
 
   const requiredFieldList = useMemo(
     () => requiredFields.map(field => (
-      <em key={field.field}>
-        {getMultiLanguageLabel(field.label, intl.locale)}
-      </em>
+      <em key={field.field}>{getLocalValue(field.label, intl.locale)}</em>
     )),
     [intl.locale, requiredFields]
   );

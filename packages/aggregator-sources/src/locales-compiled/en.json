@@ -422,7 +422,7 @@
       "value": "Add a filter"
     }
   ],
-  "aggregator-sources.DefineRules.aggregatorAgendaAdditionalFieldValueDetail": [
+  "aggregator-sources.DefineRules.aggregatorAgendaChoiceFieldValueDetail": [
     {
       "type": 0,
       "value": "Field & Value of \""
@@ -458,6 +458,18 @@
     {
       "type": 0,
       "value": "Cancel"
+    }
+  ],
+  "aggregator-sources.DefineRules.choice": [
+    {
+      "type": 0,
+      "value": "Source agenda field"
+    }
+  ],
+  "aggregator-sources.DefineRules.choiceFilter": [
+    {
+      "type": 0,
+      "value": "Choice field filter"
     }
   ],
   "aggregator-sources.DefineRules.city": [
@@ -536,18 +548,6 @@
     {
       "type": 0,
       "value": " where the event should take place"
-    }
-  ],
-  "aggregator-sources.DefineRules.extended": [
-    {
-      "type": 0,
-      "value": "Source agenda field"
-    }
-  ],
-  "aggregator-sources.DefineRules.extendedFilter": [
-    {
-      "type": 0,
-      "value": "Additionnal field filter"
     }
   ],
   "aggregator-sources.DefineRules.filterDetail": [
@@ -810,6 +810,20 @@
       "value": "Labels"
     }
   ],
+  "aggregator-sources.DefineRules.textFilterValue": [
+    {
+      "type": 0,
+      "value": "contains \""
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
   "aggregator-sources.DefineRules.toModerate": [
     {
       "type": 0,
@@ -949,6 +963,12 @@
       "value": "The values of the field will be defined automatically according to the values read from the source."
     }
   ],
+  "aggregator-sources.RuleForm.choiceFilter": [
+    {
+      "type": 0,
+      "value": "Choice field filter"
+    }
+  ],
   "aggregator-sources.RuleForm.city": [
     {
       "type": 0,
@@ -987,37 +1007,13 @@
       "value": "Department"
     }
   ],
-  "aggregator-sources.RuleForm.extendedFilter": [
-    {
-      "options": {
-        "other": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Additionnal field filter"
-            }
-          ]
-        },
-        "true": {
-          "value": [
-            {
-              "type": 0,
-              "value": "Required additionnal field filter"
-            }
-          ]
-        }
-      },
-      "type": 5,
-      "value": "required"
-    }
-  ],
   "aggregator-sources.RuleForm.field": [
     {
       "type": 0,
       "value": "Field:"
     }
   ],
-  "aggregator-sources.RuleForm.helpFilterExtended": [
+  "aggregator-sources.RuleForm.helpFilterChoice": [
     {
       "type": 0,
       "value": "Apply the rule to events corresponding to one or more values coming from additional fields of the source."
@@ -1033,6 +1029,12 @@
     {
       "type": 0,
       "value": "Apply the rule to events associated with optional values whose labels correspond."
+    }
+  ],
+  "aggregator-sources.RuleForm.helpFilterText": [
+    {
+      "type": 0,
+      "value": "Apply the rule to events corresponding to one value coming from text fields of the source."
     }
   ],
   "aggregator-sources.RuleForm.locationFilter": [
@@ -1129,6 +1131,12 @@
       "value": "Subdivision:"
     }
   ],
+  "aggregator-sources.RuleForm.substring": [
+    {
+      "type": 0,
+      "value": "substring"
+    }
+  ],
   "aggregator-sources.RuleForm.tagFilter": [
     {
       "options": {
@@ -1153,6 +1161,12 @@
       "value": "required"
     }
   ],
+  "aggregator-sources.RuleForm.textFilter": [
+    {
+      "type": 0,
+      "value": "Text field filter"
+    }
+  ],
   "aggregator-sources.RuleForm.useActions": [
     {
       "type": 0,
@@ -1175,6 +1189,12 @@
     {
       "type": 0,
       "value": "The rule only applies to events that match the defined filter."
+    }
+  ],
+  "aggregator-sources.RuleForm.value": [
+    {
+      "type": 0,
+      "value": "Value:"
     }
   ],
   "aggregator-sources.RuleForm.values": [
