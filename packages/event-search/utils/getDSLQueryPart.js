@@ -86,6 +86,10 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_mustPart('terms', 'state', cleanQuery.state));
   }
 
+  if (_.get(cleanQuery, 'attendanceMode', []).length) {
+    parts.push(_mustPart('terms', 'attendanceMode', cleanQuery.attendanceMode));
+  }
+
   additionalFields.forEach(field => {
     if (!cleanQuery[field.field]) return;
 

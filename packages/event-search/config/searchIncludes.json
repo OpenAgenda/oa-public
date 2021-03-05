@@ -14,7 +14,9 @@
     "location.address",
     "location.latitude",
     "location.longitude",
-    "timezone"
+    "timezone",
+    "attendanceMode",
+    "onlineAccessLink"
   ],
   "detailed" : [
     "description",

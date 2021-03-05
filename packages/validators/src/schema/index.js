@@ -1,14 +1,9 @@
-import utils from '@openagenda/utils';
+import _ from 'lodash';
 import listify from '../listify';
 import schemaUtils from './utils';
 import cleanSchema from './clean';
+import withFieldValueMatches from './withFieldValueMatches';
 
-const _ = {
-  assign: require( 'lodash/assign' ),
-  isArray: require( 'lodash/isArray' ),
-  isObject: require( 'lodash/isObject' ),
-  keys: require( 'lodash/keys' )
-}
 
 const defaults = {
   fields: {}
@@ -16,13 +11,13 @@ const defaults = {
 
 let registeredValidators = { schema };
 
-module.exports = _.assign( schema, { register } );
+module.exports = _.assign(schema, { register });
 
-function schema( options ) {
+function schema(options) {
 
-  if ( !options ) {
+  if (!options) {
 
-    throw new Error( 'schema params missing at creation' );
+    throw new Error('schema params missing at creation');
 
   }
 
@@ -30,61 +25,61 @@ function schema( options ) {
     { field: null, list: false },
     defaults,
     options.fields ? options : { fields: options, root: true }
-  );
+ );
 
-  if ( params.root ) {
+  if (params.root) {
 
-    _.assign( params, cleanSchema( params.fields ) );
-
-  }
-
-  if ( params.field ) {
-
-    _.assign( validate, { field: params.field } );
+    _.assign(params, cleanSchema(params.fields));
 
   }
 
-  const defaultValue = schemaUtils.getDefault( params.fields );
+  if (params.field) {
+
+    _.assign(validate, { field: params.field });
+
+  }
+
+  const defaultValue = schemaUtils.getDefault(params.fields);
 
   /**
    * exposed endpoints
    */
-  return _.assign( params.list ? listify( validate, params ) : validate, {
+  return _.assign(params.list ? listify(validate, params) : validate, {
     part,
     defaultValue, // .default is not tolerated by ie8
     default: defaultValue,
     fields: params.fields,
     type: 'schema',
     struct: params.root ? options : params.fields, // legacy
-  } );
+  });
 
-  function validate( value ) {
+  function validate(value) {
 
-    const flattened = schemaUtils.mapValuesToValidators( params.fields, value, defaultValue );
+    const flattened = schemaUtils.mapValuesToValidators(params.fields, value, defaultValue);
 
     let errors = [], clean = {};
 
-    flattened.forEach( flat => {
+    flattened.forEach(flat => {
 
       try {
 
-        clean[ flat.field ] = flat.validator( flat.value );
+        clean[flat.field] = flat.validator(flat.value);
 
-      } catch ( errs ) {
+      } catch (errs) {
 
-        if ( !_.isArray( errs ) ) throw errs;
+        if (!_.isArray(errs)) throw errs;
 
-        errors = errors.concat( errs.map( e => {
+        errors = errors.concat(errs.map(e => {
 
-          return params.field ? _.assign( {}, e, { field: params.field + '.' + e.field } ) : e;
+          return params.field ? _.assign({}, e, { field: params.field + '.' + e.field }) : e;
 
-        } ) );
+        }));
 
       }
 
-    } );
+    });
 
-    if ( errors.length ) {
+    if (errors.length) {
 
       throw errors;
 
@@ -95,92 +90,77 @@ function schema( options ) {
   }
 
 
-  function part( path, value ) {
+  function part(path, value, contextValues) {
 
-    if ( _.isArray( path ) ) {
-
-      return parts( path, value );
-
+    if (Array.isArray(path)) {
+      return parts(path, value);
     }
 
     // only the values to be evaluated are provided
-    if ( _.isObject( path ) ) {
+    if (_.isObject(path)) {
+      const schemaFields = _.keys(params.fields);
 
-      const schemaFields = _.keys( params.fields );
-
-      return parts( _.keys( path ).filter( field => schemaFields.includes( field ) ), path );
-
+      return parts(_.keys(path).filter(field => schemaFields.includes(field)), path);
     }
 
     let cursor = params.fields,
 
-    branches = path.split( '.' ),
+    branches = path.split('.'),
 
     leaf = branches.pop();
 
     // dig down
-    branches.forEach( b => {
+    branches.forEach(b => {
 
-      cursor = cursor[ b ].fields;
+      cursor = cursor[b].fields;
 
-    } );
+    });
 
-    cursor = cursor[ leaf ];
+    cursor = cursor[leaf];
 
     const type = cursor && cursor.type;
 
-    if ( !type ) {
-
+    if (!type) {
       throw {
         code: 'field.notdefined',
         message: 'field isn\'t defined',
         field: leaf
       };
-
     }
 
-    const validator = registeredValidators[ type ]( cursor );
+    if (cursor.enableWith && !withFieldValueMatches(cursor, 'enableWith', contextValues)) {
+      return;
+    }
 
-    return validator( value );
+    const validator = registeredValidators[type](cursor);
 
+    return validator(value);
   }
 
+  function parts(paths, value) {
+    const clean = {};
+    const errors = [];
 
-  function parts( paths, value ) {
-
-    let clean = {}, errors = [];
-
-    paths.forEach( p => {
-
+    paths.forEach(p => {
       try {
-
-        utils.deep.set( clean, p, part( p, utils.deep( value, p ) ) );
-
-      } catch( errs ) {
-
-        errors = errors.concat( errs );
-
+        _.set(clean, p, part(p, _.get(value, p), value));
+      } catch(errs) {
+        [].concat(errs).forEach(err => errors.push(err));
       }
+    });
 
-    } );
-
-    if ( errors.length ) throw errors;
+    if (errors.length) throw errors;
 
     return clean;
-
   }
 
 }
 
 
-function register( v ) {
+function register(v) {
+  Object.keys(v).forEach(k => {
+    registeredValidators[k] = v[k];
+  });
 
-  Object.keys( v ).forEach( k => {
-
-    registeredValidators[ k ] = v[ k ];
-
-  } );
-
-  schemaUtils.registerValidators( registeredValidators );
-
+  schemaUtils.registerValidators(registeredValidators);
 }

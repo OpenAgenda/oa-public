@@ -59,6 +59,9 @@
   "featured": {
     "type": "boolean"
   },
+  "attendanceMode": {
+    "type": "integer"
+  },
   "member": {
     "properties": {
       "uid": {
@@ -113,7 +116,7 @@
   },
   "_search_title": {
     "type": "text",
-    "analyzer": "simple"
+    "analyzer": "french"
   },
   "_search_additional_numbers": {
     "type": "nested",

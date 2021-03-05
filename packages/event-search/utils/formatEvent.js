@@ -116,6 +116,14 @@ module.exports = (event, formSchema = null) => {
     }
   }
 
+  transform.attendanceMode = {
+    $set: event.attendanceMode || 1
+  };
+
+  transform.onlineAccessLink = {
+    $set: event.onlineAccessLink || null
+  }
+
   transform['_search_languages'] = {
     $set: ['title', 'description','longDescription']
       .filter(f => !!event[f])

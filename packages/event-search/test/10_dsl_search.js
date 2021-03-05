@@ -199,7 +199,6 @@ describe('10 - event-search - unit: dsl search', function() {
 
 
     it( 'match on title, description and keywords fields', async () => {
-
       let dsl = {
         query: {
           multi_match: {
@@ -211,8 +210,11 @@ describe('10 - event-search - unit: dsl search', function() {
 
       let { events, total } = await post('test', dsl);
 
-      events.map(e => e.slug).should.eql(['multi_2', 'multi_1', 'multi_3']);
-
+      events.map(e => e.slug).should.eql([
+        'multi_1',
+        'multi_2',
+        'multi_3'
+      ]);
     } );
 
     it('filtering by state in agenda', async () => {

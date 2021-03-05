@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 const fs = require('fs');
+const assert = require('assert');
 const should = require('should');
 
 const config = require('../testconfig');
@@ -33,293 +34,331 @@ describe('02 - event search - functional: search', function() {
       });
     });
 
-    it('an event can be retrieved by uid', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ uid: 6 });
-
-      total.should.equal(1);
-
-      events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
-    });
-
-    it('several events can be retrieved by uid at once', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ uid: [6, 11] });
-
-      total.should.equal(2);
-
-      events.map(e => e.slug).should.eql([
-        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
-        'serres-la-claranda-cafe-citoyen'
-     ]);
-    });
-
-    it('an event can be retrieved with its slug', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        slug: 'decouverte-du-handball-et-valorisation-du-mondial-de-handball'
+    describe('filtering', () => {
+      it('an event can be retrieved by uid', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ uid: 6 });
+  
+        total.should.equal(1);
+  
+        events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
       });
-
-      events[0].uid.should.equal(6);
-    });
-
-    it('several events can be retrieved by slug at once', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        slug: [
+  
+      it('several events can be retrieved by uid at once', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ uid: [6, 11] });
+  
+        total.should.equal(2);
+  
+        events.map(e => e.slug).should.eql([
           'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
           'serres-la-claranda-cafe-citoyen'
-       ]
+      ]);
+      });
+  
+      it('an event can be retrieved with its slug', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          slug: 'decouverte-du-handball-et-valorisation-du-mondial-de-handball'
+        });
+  
+        events[0].uid.should.equal(6);
+      });
+  
+      it('several events can be retrieved by slug at once', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          slug: [
+            'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+            'serres-la-claranda-cafe-citoyen'
+        ]
+        });
+  
+        total.should.equal(2);
+        events.map(e => e.uid).should.eql([6, 11]);
       });
 
-      total.should.equal(2);
-      events.map(e => e.uid).should.eql([6, 11]);
-    });
 
-    it('by default, only fields defined in service/config base fields are returned', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        uid: 6
+      it('country code search', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ countryCode: 'CH' });
+
+        total.should.equal(1)
+
+        events.map(e => e.slug).should.eql(['evenement_suisse']);
       });
 
-      const postParseFields = ['contributor', 'lastTiming', 'nextTiming'];
 
-      const expectedFields = service.getConfig().baseSearchIncludes.concat(postParseFields).map(f => f.split('.')[0]);
+      it('keyword search', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ keyword: 'word' });
 
-      _.keys(events[0])
-        .filter(field => !expectedFields.includes(field))
-        .should.eql([]);
-    });
+        total.should.equal(1);
 
-    it('by default, event timings are converted to local timezone', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        uid: 6
-      }, null, {
-        detailed: true
+        events.map(e => e.slug).should.eql(['keyword_event']);
       });
 
-      events[0].timings[0].begin.should.equal('2016-10-24T14:00:00+02:00');
-    });
 
-    it('by default, undetailed search returns location name, address, latitude and longitude', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        uid: 6
+      it('keywords search', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ keyword: ['autre', 'clé'] });
+
+        total.should.equal(1);
+
+        events.map(e => e.slug).should.eql(['keyword_event_2']);
       });
 
-      _.keys(events[0].location).sort().should.eql(['address', 'latitude', 'longitude', 'name']);
-    });
 
-    it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ uid: 6 }, null, {
-        monolingual: 'fr',
-        detailed: true
+      it('lang search', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ lang: 'de' });
+
+        total.should.equal(1);
+
+        events.map(e => e.slug).should.eql(['german_event']);
       });
 
-      [
-        'title',
-        'description',
-        'dateRange',
-        'country',
-        'longDescription'
-     ].map(f => events[0][f]).forEach(data => {
-        (typeof data).should.equal('string');
+
+      it('region search', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          region: 'Ile-de-France'
+        }, { size: 100 }, { detailed: true });
+
+        const regions = _.uniq(events.map(e => e.location.region));
+
+        assert.equal(regions.length, 1);
+
+        assert.equal(regions[0], 'Ile-de-France');
+      });
+
+      it('regions search', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          region: ['Ile-de-France', 'New York']
+        }, { size: 100 }, { detailed: true });
+
+        const regions = _.uniq(events.map(e => e.location.region));
+
+        assert.deepEqual(regions, ['Ile-de-France', 'New York']);
       });
     });
 
-    it('all fields are returned when detailed option is true', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ uid: 6 }, null, {
-        detailed: true
+    describe('result', () => {
+      it('by default, only fields defined in service/config base fields are returned', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          uid: 6
+        });
+  
+        const postParseFields = ['contributor', 'lastTiming', 'nextTiming'];
+  
+        const expectedFields = service.getConfig().baseSearchIncludes.concat(postParseFields).map(f => f.split('.')[0]);
+  
+        _.keys(events[0])
+          .filter(field => !expectedFields.includes(field))
+          .should.eql([]);
+      });
+  
+      it('by default, event timings are converted to local timezone', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          uid: 6
+        }, null, {
+          detailed: true
+        });
+  
+        events[0].timings[0].begin.should.equal('2016-10-24T14:00:00+02:00');
+      });
+  
+      it('by default, undetailed search returns location name, address, latitude and longitude', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          uid: 6
+        });
+  
+        _.keys(events[0].location).sort().should.eql(['address', 'latitude', 'longitude', 'name']);
+      });
+  
+      it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ uid: 6 }, null, {
+          monolingual: 'fr',
+          detailed: true
+        });
+  
+        [
+          'title',
+          'description',
+          'dateRange',
+          'country',
+          'longDescription'
+      ].map(f => events[0][f]).forEach(data => {
+          (typeof data).should.equal('string');
+        });
+      });
+  
+      it('all fields are returned when detailed option is true', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({ uid: 6 }, null, {
+          detailed: true
+        });
+
+        Object.keys(events[0]).should.eql([
+          'longDescription',  'country',
+          'private',          'keywords',
+          'accessibility',    'dateRange',
+          'timezone',         'originAgenda',
+          'description',      'title',
+          'onlineAccessLink', 'uid',
+          'createdAt',        'draft',
+          'timings',          'member',
+          'state',            'slug',
+          'updatedAt',        'image',
+          'attendanceMode',   'creatorUid',
+          'registration',     'location',
+          'age',              'lastTiming',
+          'nextTiming'
+        ]);
+      });
+    });
+
+    describe('search searches', () => {
+      it('open search one or more words', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Mississipi'
+        });
+  
+        total.should.equal(3);
+  
+        events.map(e => e.slug).should.eql(['multi_1', 'multi_2', 'multi_3']);
+      });
+  
+      it('search on word with apostrophe', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Horreur'
+        });
+  
+        assert.equal(total, 1);
       });
 
-      Object.keys(events[0]).should.eql([
-        'longDescription',
-        'country',
-        'image',
-        'private',
-        'keywords',
-        'accessibility',
-        'dateRange',
-        'timezone',
-        'originAgenda',
-        'description',
-        'title',
-        'uid',
-        'createdAt',
-        'creatorUid',
-        'draft',
-        'timings',
-        'member',
-        'registration',
-        'location',
-        'state',
-        'slug',
-        'age',
-        'updatedAt',
-        'lastTiming',
-        'nextTiming'
-     ]);
+      it('search on word with plural', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Horreurs'
+        });
+
+        assert.equal(total, 1);
+      });
+  
+  
+      it('open search on a city name', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Quimper'
+        });
+  
+        assert.equal(total, 1);
+  
+        events.map(e => e.slug).should.eql(['quimper_event']);
+      });
+  
+      it('open search on country name in french', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Suisse'
+        });
+  
+        total.should.equal(1)
+  
+        events.map(e => e.slug).should.eql(['evenement_suisse']);
+      });
+  
+      it('open search on country name in english', async () => {
+        const {
+          events,
+          total
+        } = await service('simple_search').search({
+          search: 'Switzerland'
+        });
+  
+        total.should.equal(1)
+  
+        events.map(e => e.slug).should.eql(['evenement_suisse']);
+      });
     });
 
-    it('open search one or more words', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        search: 'Mississipi'
+    describe('attendanceMode', () => {
+
+      it('attendanceMode value is 1 (offline) by default', async () => {
+        const {
+          events
+        } = await service('simple_search').search();
+
+        assert.equal(events[0].attendanceMode, 1);
       });
 
-      total.should.equal(3);
+      it('events can by filtered by attendanceMode', async () => {
+        const {
+          events
+        } = await service('simple_search').search({
+          attendanceMode: [2, 3]
+        });
 
-      events.map(e => e.slug).should.eql(['multi_1', 'multi_2', 'multi_3']);
-    });
-
-    it('search on word with apostrophe', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        search: 'Horreur'
+        assert.equal(events[0].attendanceMode, 2);
       });
 
-      total.should.equal(1);
-    });
+      it('onlineAccessLink is present for attendanceMode of 2 and 3', async () => {
+        const {
+          events
+        } = await service('simple_search').search({
+          attendanceMode: [2, 3]
+        });
 
-
-    it('open search on a city name', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        search: 'Quimper'
+        assert.equal(events[0].onlineAccessLink, 'https://webin.ar');
       });
-
-      total.should.equal(1);
-
-      events.map(e => e.slug).should.eql(['quimper_event']);
-    });
-
-    it('open search on country name in french', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        search: 'Suisse'
-      });
-
-      total.should.equal(1)
-
-      events.map(e => e.slug).should.eql(['evenement_suisse']);
-    });
-
-    it('open search on country name in english', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        search: 'Switzerland'
-      });
-
-      total.should.equal(1)
-
-      events.map(e => e.slug).should.eql(['evenement_suisse']);
-    });
-
-
-    it('country code search', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ countryCode: 'CH' });
-
-      total.should.equal(1)
-
-      events.map(e => e.slug).should.eql(['evenement_suisse']);
-    });
-
-
-    it('keyword search', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ keyword: 'word' });
-
-      total.should.equal(1);
-
-      events.map(e => e.slug).should.eql(['keyword_event']);
-    });
-
-
-    it('keywords search', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ keyword: ['autre', 'clé'] });
-
-      total.should.equal(1);
-
-      events.map(e => e.slug).should.eql(['keyword_event_2']);
-    });
-
-
-    it('lang search', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({ lang: 'de' });
-
-      total.should.equal(1);
-
-      events.map(e => e.slug).should.eql(['german_event']);
-    });
-
-
-    it('region search', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        region: 'Auvergne-Rhône-Alpes'
-      });
-
-      total.should.equal(1);
-
-      events.map(e => e.slug).should.eql(['rhone_region_event']);
-    });
-
-
-    it('regions search', async () => {
-      const {
-        events,
-        total
-      } = await service('simple_search').search({
-        region: ['Auvergne-Rhône-Alpes', 'New York']
-      });
-
-      total.should.equal(2);
-
-      events.map(e => e.slug).should.eql(['new_york_event', 'rhone_region_event']);
     });
 
     describe('local time', async () => {
@@ -399,7 +438,6 @@ describe('02 - event search - functional: search', function() {
       });
 
     });
-
 
     describe('date', () => {
 
@@ -682,11 +720,11 @@ describe('02 - event search - functional: search', function() {
        ]
       }, {}, { detailed: true });
 
-      events.map(e => _.pick(e, ['location.city']).location.city).should.eql([
-        'Valence',
+      events.map(e => _.pick(e, ['location.city']).location?.city).should.eql([
         'Quimper',
         'New York',
-        'Grandson'
+        'Grandson',
+        undefined // online event
      ]);
     });
 
@@ -701,11 +739,11 @@ describe('02 - event search - functional: search', function() {
        ]
       }, {}, { detailed: true });
 
-      events.map(e => _.pick(e, ['location.city']).location.city).should.eql([
+      events.map(e => _.pick(e, ['location.city']).location?.city).should.eql([
         'Grandson',
         'New York',
         'Quimper',
-        'Valence'
+        undefined // online event
      ]);
     });
 

@@ -1478,4 +1478,69 @@ describe('schema validator', () => {
 
   });
 
+  it('enableWith is evaluated by partial validation - not matching', () => {
+    schema.register({
+      choice: validators.choice,
+      link: validators.link
+    });
+
+    const validate = schema({
+      attendanceMode: {
+        default: 1,
+        type: 'choice',
+        unique: true,
+        options: [1, 2, 3]
+      },
+      onlineAccessLink: {
+        optional: false,
+        enableWith: {
+          field: 'attendanceMode',
+          value: [2, 3]
+        },
+        type: 'link'
+      }
+    });
+
+    expect(validate.part({
+      attendanceMode: 1,
+      onlineAccessLink: undefined
+    })).toEqual({
+      attendanceMode: 1,
+      onlineAccessLink: undefined
+    });
+
+  });
+
+  it('enableWith is evaluated by partial validation - matching', () => {
+    schema.register({
+      choice: validators.choice,
+      link: validators.link
+    });
+
+    const validate = schema({
+      attendanceMode: {
+        default: 1,
+        type: 'choice',
+        unique: true,
+        options: [1, 2, 3]
+      },
+      onlineAccessLink: {
+        optional: false,
+        enableWith: {
+          field: 'attendanceMode',
+          value: [2, 3]
+        },
+        type: 'link'
+      }
+    });
+
+    expect(validate.part({
+      attendanceMode: 2,
+      onlineAccessLink: 'https://openagenda.com'
+    })).toEqual({
+      attendanceMode: 2,
+      onlineAccessLink: 'https://openagenda.com'
+    });
+  });
+
 });

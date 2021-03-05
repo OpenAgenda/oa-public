@@ -78,6 +78,11 @@ const validate = schema({
     options: [null, -1, 0, 1, 2],
     default: 2
   },
+  attendanceMode: {
+    optional: true,
+    type: 'choice',
+    options: [1, 2, 3]
+  },
   geo: {
     fields: {
       northEast: {

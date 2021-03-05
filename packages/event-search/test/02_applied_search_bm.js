@@ -935,8 +935,8 @@ describe('02 - event search - functional: Applied search', function() {
         }, { size: 2 });
 
         events.map(e => e.slug).should.eql([
-          'sieste-musicale-101-28',
-          'sieste-musicale-basta'
+          'sieste-musicale-basta',
+          'sieste-musicale-marathon-musical-du-combat-du-siecle'
         ]);
       });
 
@@ -959,8 +959,8 @@ describe('02 - event search - functional: Applied search', function() {
         }, { size: 2 });
 
         events.map(e => e.slug).should.eql([
-          'sieste-musicale-101-28',
-          'sieste-musicale-basta'
+          'sieste-musicale-basta',
+          'sieste-musicale-marathon-musical-du-combat-du-siecle'
         ]);
       });
 
