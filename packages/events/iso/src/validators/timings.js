@@ -44,7 +44,11 @@ module.exports = (options = {}) => dirty => {
     try {
       cleanTimings.push(validateSingle(timing));
     } catch(timingErrors) {
-      timingErrors.forEach(e => errors.push({ ...e, index }));
+      timingErrors.forEach(e => errors.push({
+        ...baseError,
+        ...e,
+        index
+      }));
     }
   });
 
