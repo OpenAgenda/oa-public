@@ -1,7 +1,4 @@
-import ih from 'immutability-helper';
-import React from 'react';
 import { storiesOf } from '@storybook/react';
-import createReactClass from 'create-react-class';
 import agendaTestSettings from './fixtures/agendaTestSettings.json';
 import locationSet from './fixtures/locationSet.json';
 
@@ -192,14 +189,24 @@ storiesOf('Location form component', module)
   .add('Search mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       mode: 'search',
     })
   )
   .add('Search mode with confirm required', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       confirmRequired: true,
       mode: 'search',
     })
@@ -207,7 +214,12 @@ storiesOf('Location form component', module)
   .add('Creation mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: undefined,
       enableGeocode: true,
       detailedInfo: true,
@@ -217,7 +229,12 @@ storiesOf('Location form component', module)
   .add('Show mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: location,
       enableGeocode: true,
       mode: 'show',
@@ -226,7 +243,12 @@ storiesOf('Location form component', module)
   .add('Confirm mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: location,
       enableGeocode: true,
       mode: 'confirm',
@@ -235,7 +257,12 @@ storiesOf('Location form component', module)
   .add('Creation mode with geolocation disabled', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: undefined,
       enableGeocode: false,
     })

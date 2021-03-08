@@ -81,14 +81,6 @@ class AgendaAdminLocations extends Component {
     this.getCountryLabel = this.getCountryLabel.bind(this);
     this.displayActionModal = this.displayActionModal.bind(this);
 
-    if (!props.settings.access) {
-      props.settings.access = {
-        create: true,
-        update: true,
-        merge: true,
-        delete: true
-      };
-    }
     log(props.settings);
   }
 
