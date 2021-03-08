@@ -75,10 +75,20 @@
         <li class="list-group-item js_admin_item js_role_event_editor">
           <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><label><%= __( 'duplicate' ) %></label><span><%= __('duplicateInfo') %></span></a>
         </li>
-        <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
-          <a class="item active" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow">
+        <li class="list-group-item w25">
+          <a class="item active js_cancel display-none" href="<%= `/${slug}/events/${event.slug}/toggle-cancelled?redirect=${redirect}` %>" rel="nofollow">
             <label><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></label>
             <span><%= __(isCancelled ? 'uncancelInfo' : 'cancelInfo') %></span>
+          </a>
+          <a class="item js_disabled_cancel display-none" title="<%= __('cannotCancel') %>" rel="nofollow">
+            <label><%= __(isCancelled ? 'uncancelEvent' : 'cancelEvent') %></label>
+            <span><%= __(isCancelled ? 'uncancelInfo' : 'cancelInfo') %></span>
+          </a>
+        </li>
+        <li class="list-group-item js_request_edition_rights display-none">
+          <a class="item active" href="<%= `/${slug}/admin/events/${event.slug}/edition-request?redirect=${redirect}` %>" rel="nofollow">
+            <label><%= __('requestEditionRights') %></label>
+            <span><%= __('requestEditionRightsInfo') %></span>
           </a>
         </li>
         <li class="list-group-item js_role_agenda_moderator js_role_event_editor w25">
