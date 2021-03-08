@@ -123,6 +123,13 @@ window.asap( options => {
 
     }
 
+    if (roles.includes(ROLES.EVENTEDITOR)) {
+      du.removeClass(du.el('.js_cancel'), 'display-none');
+    } else {
+      du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
+      du.removeClass(du.el('.js_disabled_cancel'), 'display-none');
+    }
+
     if ( roles.length && params.hasCustomFields ) {
 
       prv.load( params.agendaUid, params.uid, params.lang );
