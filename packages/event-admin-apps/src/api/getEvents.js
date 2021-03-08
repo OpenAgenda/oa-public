@@ -1,5 +1,7 @@
 import qs from 'qs';
 
+const PAGE_SIZE = 20;
+
 export default async function getEvents(
   apiClient,
   jsonExportRes,
@@ -21,7 +23,7 @@ export default async function getEvents(
     // oaq: { passed: 1 },
     // size: 0,
     aggregations,
-    searchAfter: pageParam,
+    from: pageParam ? pageParam * PAGE_SIZE : undefined,
     ...query,
   };
 

@@ -5,6 +5,12 @@
       "value": "Créer un événement"
     }
   ],
+  "EventAdminApp.Actions.select": [
+    {
+      "type": 0,
+      "value": "Sélectionner"
+    }
+  ],
   "EventAdminApp.BatchedStateSelector.confirmation": [
     {
       "type": 0,
@@ -87,6 +93,18 @@
       "value": "Actions groupées sur la sélection"
     }
   ],
+  "EventAdminApp.Dashboard.next": [
+    {
+      "type": 0,
+      "value": "Suivant"
+    }
+  ],
+  "EventAdminApp.Dashboard.previous": [
+    {
+      "type": 0,
+      "value": "Précédent"
+    }
+  ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
     {
       "type": 0,
@@ -117,6 +135,49 @@
     {
       "type": 0,
       "value": " événements correspondant aux filtres actuels."
+    }
+  ],
+  "EventAdminApp.Dashboard.selectedEvents": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événement"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "EventAdminApp.Dashboard.sortedBy": [
@@ -246,6 +307,18 @@
     {
       "type": 1,
       "value": "filters"
+    }
+  ],
+  "EventAdminApp.Dashboard.unselect": [
+    {
+      "type": 0,
+      "value": "Désélectionner"
+    }
+  ],
+  "EventAdminApp.Dashboard.yourSelection": [
+    {
+      "type": 0,
+      "value": "Votre séléction:"
     }
   ],
   "EventAdminApp.EventItem.addedBy": [
@@ -395,7 +468,7 @@
   "EventAdminApp.messages.exports.exportDesc": [
     {
       "type": 0,
-      "value": "Export "
+      "value": "Exporter "
     },
     {
       "offset": 0,
@@ -407,7 +480,7 @@
             },
             {
               "type": 0,
-              "value": " event"
+              "value": " événement"
             }
           ]
         },
@@ -418,7 +491,7 @@
             },
             {
               "type": 0,
-              "value": " event"
+              "value": " événement"
             }
           ]
         },
@@ -429,7 +502,7 @@
             },
             {
               "type": 0,
-              "value": " events"
+              "value": " événements"
             }
           ]
         }
