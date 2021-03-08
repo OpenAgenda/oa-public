@@ -220,6 +220,10 @@ module.exports = {
     "es": "Confirmar",
     "br": "Kadarnaat"
   },
+  "cannotCancel": {
+    "en": "You do not have edition rights over this event.",
+    "fr": "Vous n'avez pas les droits d'édition sur cet événement."
+  },
   "cancel": {
     "en": "Cancel",
     "fr": "Annuler",
@@ -257,6 +261,14 @@ module.exports = {
   "uncancelInfo": {
     "fr": "Retire la mention d'annulation du titre",
     "en": "Removes the cancellation mention in the title"
+  },
+  "requestEditionRights": {
+    "fr": "Demander les droits d'édition",
+    "en": "Request edition rights"
+  },
+  "requestEditionRightsInfo": {
+    "fr": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
+    "en": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
   },
   "eventState": {
     "en": "Event state",

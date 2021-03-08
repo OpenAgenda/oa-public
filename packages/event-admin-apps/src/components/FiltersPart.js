@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import {
   DateRangeFilter,
   Filters,
@@ -22,7 +22,11 @@ const messages = defineMessages({
 });
 
 function FiltersPart({
-  agenda, standardsFilters, additionalsFilters, query
+  agenda,
+  standardsFilters,
+  additionalsFilters,
+  query,
+  page,
 }) {
   const intl = useIntl();
   const apiClient = useApiClient();
@@ -45,9 +49,9 @@ function FiltersPart({
     }
   );
 
-  const { data, isFetching } = useInfiniteQuery(
-    ['event-admin-apps', 'events', query],
-    ({ pageParam }) => getEvents(
+  const { data, isFetching } = useQuery(
+    ['event-admin-apps', 'events', { query, page }],
+    () => getEvents(
       apiClient,
       res.jsonExport,
       agenda,
@@ -59,17 +63,17 @@ function FiltersPart({
         // sort: 'updatedAt.desc',
         detailed: true,
       },
-      pageParam
+      page
     ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isFetching'],
-      keepPreviousData: true, // because query change
+      keepPreviousData: true, // because query and page change
     }
   );
 
   const { aggregations: filterAggs } = filtersQuery.data;
-  const { aggregations } = data.pages[0];
+  const { aggregations } = data;
 
   const [moreFilters, setMoreFilters] = useState(() => {
     const names = additionalsFilters.map(v => v.name);

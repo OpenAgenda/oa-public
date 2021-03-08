@@ -1,16 +1,17 @@
 import _ from 'lodash';
-import React, { useContext, useMemo, useCallback } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import { hot } from 'react-hot-loader/root';
-import { useHistory, Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { useIsomorphicLayoutEffect } from 'react-use';
 import qs from 'qs';
-import { Spinner, Image } from '@openagenda/react-components';
+import { Image, Spinner } from '@openagenda/react-components';
 import I18nContext from '../contexts/I18nContext';
 import { setTab } from '../reducers/menu';
 import Welcome from '../components/Welcome';
 import AgendasSearch from '../components/AgendasSearch';
+import Wrapper from './Wrapper';
 
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php/' : '/';
 
@@ -157,23 +158,31 @@ function Agendas() {
   );
 
   return (
-    <div className="content">
-      <AgendasSearch
-        res={res.agendas.list}
-        initialState={initialState}
-        onSearch={onAgendaSearch}
-        fieldProps={fieldProps}
-        render={({ state, form, nextPage }) => {
-          if (state.firstLoading) {
-            return <Spinner />;
-          }
-
-          if (!state.total) {
-            return <Welcome />;
-          }
-
+    <AgendasSearch
+      res={res.agendas.list}
+      initialState={initialState}
+      onSearch={onAgendaSearch}
+      fieldProps={fieldProps}
+      render={({ state, form, nextPage }) => {
+        if (state.firstLoading) {
           return (
-            <div>
+            <Wrapper>
+              <Spinner />
+            </Wrapper>
+          );
+        }
+
+        if (!state.total) {
+          return (
+            <Wrapper>
+              <Welcome />
+            </Wrapper>
+          );
+        }
+
+        return (
+          <Wrapper tab="agendas" className="home-agendas">
+            <div className="content">
               <div className="header">
                 <div className="hidden-xs pull-right">
                   <Link
@@ -221,10 +230,10 @@ function Agendas() {
 
               <Waypoint onEnter={nextPage} />
             </div>
-          );
-        }}
-      />
-    </div>
+          </Wrapper>
+        );
+      }}
+    />
   );
 }
 

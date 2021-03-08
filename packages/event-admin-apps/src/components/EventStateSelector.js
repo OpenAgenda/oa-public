@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import StateSelector from './StateSelector';
 
-export default function EventStateSelector({ agenda, event, pageIndex }) {
+export default function EventStateSelector({ agenda, event }) {
   const apiClient = useApiClient();
   const queryClient = useQueryClient();
 
@@ -18,29 +18,21 @@ export default function EventStateSelector({ agenda, event, pageIndex }) {
           .find(['event-admin-apps', 'events']);
 
         const queryData = query.state.data;
-        const pageData = queryData.pages[pageIndex];
-        const eventIndex = pageData.events.findIndex(
+        const eventIndex = queryData.events.findIndex(
           v => v.slug === event.slug
         );
 
         const eventData = {
-          ...pageData.events[eventIndex],
+          ...queryData.events[eventIndex],
           state: value,
         };
 
         queryClient.setQueryData(query.queryKey, {
           ...queryData,
-          pages: [
-            ...queryData.pages.slice(0, pageIndex),
-            {
-              ...pageData,
-              events: [
-                ...pageData.events.slice(0, eventIndex),
-                eventData,
-                ...pageData.events.slice(eventIndex + 1),
-              ],
-            },
-            ...queryData.pages.slice(pageIndex + 1),
+          events: [
+            ...queryData.events.slice(0, eventIndex),
+            eventData,
+            ...queryData.events.slice(eventIndex + 1),
           ],
         });
       },

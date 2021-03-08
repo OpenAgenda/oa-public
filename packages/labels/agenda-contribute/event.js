@@ -126,8 +126,8 @@ module.exports = {
     "en": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content."
   },
   "requestEditionRightsInfo": {
-    "fr": "La demande sera adressée au propriétaire de l'événement",
-    "en": "The request will be addressed to the owner of the event"
+    "fr": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
+    "en": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
   },
   "close": {
     "fr": "Fermer",

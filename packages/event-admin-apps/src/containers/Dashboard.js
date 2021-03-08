@@ -10,19 +10,21 @@ import React, {
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import { useHistory } from 'react-router';
-import { useInfiniteQuery, useQuery, useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import { useLatest, useUpdateEffect } from 'react-use';
-import { useUIDSeed } from 'react-uid';
 import { useSelector } from 'react-redux';
-import { Waypoint } from 'react-waypoint';
 import { Field, useForm } from 'react-final-form';
 import { OnChange } from 'react-final-form-listeners';
 import { useDebouncedCallback } from 'use-debounce';
-import cn from 'classnames';
 import { css } from '@emotion/react';
 import { Spinner } from '@openagenda/react-components';
-import { useApiClient, useConstant, useModal } from '@openagenda/react-shared';
+import {
+  a11yButtonActionHandler,
+  useApiClient,
+  useConstant,
+  useModal,
+} from '@openagenda/react-shared';
 import { FiltersProvider } from '@openagenda/react-filters';
 import validateQuery from '@openagenda/event-search/utils/validateQuery';
 import FiltersPart from '../components/FiltersPart';
@@ -98,7 +100,28 @@ const messages = defineMessages({
   },
   changeState: {
     id: 'EventAdminApp.Dashboard.changeState',
-    defaultMessage: 'Change state:',
+    defaultMessage: 'Change state',
+  },
+  yourSelection: {
+    id: 'EventAdminApp.Dashboard.yourSelection',
+    defaultMessage: 'Your selection:',
+  },
+  selectedEvents: {
+    id: 'EventAdminApp.Dashboard.selectedEvents',
+    defaultMessage:
+      '{count, number} {count, plural, =0 {event} one {event} other {events}}',
+  },
+  unselect: {
+    id: 'EventAdminApp.Dashboard.unselect',
+    defaultMessage: 'Unselect',
+  },
+  previous: {
+    id: 'EventAdminApp.Dashboard.previous',
+    defaultMessage: 'Previous',
+  },
+  next: {
+    id: 'EventAdminApp.Dashboard.next',
+    defaultMessage: 'Next',
   },
 });
 
@@ -178,6 +201,7 @@ function FiltersPortal({
   standardsFilters,
   additionalsFilters,
   query,
+  page,
 }) {
   const intl = useIntl();
 
@@ -202,6 +226,7 @@ function FiltersPortal({
         standardsFilters={standardsFilters}
         additionalsFilters={additionalsFilters}
         query={query}
+        page={page}
       />
     </div>,
     filtersContainer
@@ -211,6 +236,7 @@ function FiltersPortal({
 function GroupedActions({
   agenda,
   query,
+  total,
   selectedEvents,
   extendedAllSelected,
 }) {
@@ -222,18 +248,17 @@ function GroupedActions({
     skipNulls: true,
   });
 
-  // const selectedCount = extendedAllSelected ? total : selectedEvents.size;
+  const selectedCount = extendedAllSelected ? total : selectedEvents.size;
 
   return (
     <>
-      <div className="dropdown">
+      <span className="dropdown margin-right-md">
         <button
           className="btn btn-link btn-link-inline btn-sm dropdown-toggle"
           type="button"
           id="grouped-actions-export"
           data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="true"
+          disabled={!selectedCount}
         >
           {intl.formatMessage(exportsMessages.exportSelection)}
           &nbsp;
@@ -290,16 +315,14 @@ function GroupedActions({
             </DownloadLink>
           </li>
         </ul>
-      </div>
+      </span>
 
-      <div>
-        {intl.formatMessage(messages.changeState)}{' '}
-        <BatchedStateSelector
-          agenda={agenda}
-          queryString={queryString}
-          placeholder={intl.formatMessage(messages.state)}
-        />
-      </div>
+      <BatchedStateSelector
+        agenda={agenda}
+        queryString={queryString}
+        placeholder={intl.formatMessage(messages.changeState)}
+        isDisabled={!selectedCount}
+      />
     </>
   );
 }
@@ -312,11 +335,15 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const res = useSelector(state => state.res);
 
-  const [query, setQuery] = useState(() => {
-    const parsedSearch = qs.parse(history.location.search, {
+  const parsedLocationSearch = useMemo(
+    () => qs.parse(history.location.search, {
       ignoreQueryPrefix: true,
-    });
-    const baseQuery = removeQueryPrefix(parsedSearch);
+    }),
+    [history.location.search]
+  );
+
+  const [query, setQuery] = useState(() => {
+    const baseQuery = removeQueryPrefix(parsedLocationSearch);
 
     return _.pick(
       validateQuery(baseQuery, agendaSchema),
@@ -326,8 +353,11 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const hasQuery = useMemo(() => !!Object.keys(query).length, [query]);
 
+  const [page, setPage] = useState(() => (parsedLocationSearch.page ? parsedLocationSearch.page - 1 : 0));
+
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
+  const [selectMode, setSelectMode] = useState(false);
 
   const standardsFilters = useFilters(agendaSchema, { standards: true });
   const additionalsFilters = useFilters(agendaSchema, { additionals: true });
@@ -365,15 +395,10 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   );
 
   const {
-    data,
-    isLoading,
-    isFetching,
-    error,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useInfiniteQuery(
-    ['event-admin-apps', 'events', query],
-    ({ pageParam }) => getEvents(
+    data, isLoading, isFetching, error, isFetchingNextPage
+  } = useQuery(
+    ['event-admin-apps', 'events', { query, page }],
+    () => getEvents(
       apiClient,
       res.jsonExport,
       agenda,
@@ -385,7 +410,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         // sort: 'updatedAt.desc',
         detailed: true,
       },
-      pageParam
+      page
     ),
     {
       staleTime: 1000,
@@ -396,24 +421,27 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         'error',
         'isFetchingNextPage',
       ],
-      keepPreviousData: true, // because query change,
+      keepPreviousData: true, // because query and page change
       onSuccess: () => {
         // Cancel selection
         setSelectedEvents(new Set());
         setExtendedAllSelected(false);
 
-        const parsedSearch = qs.parse(history.location.search, {
-          ignoreQueryPrefix: true,
-        });
-        const baseQuery = removeQueryPrefix(parsedSearch);
-        const queryRest = Object.keys(parsedSearch).reduce(
-          (accu, key) => (key.startsWith('q.') ? accu : { ...accu, [key]: parsedSearch[key] }),
+        const baseQuery = removeQueryPrefix(parsedLocationSearch);
+        const queryRest = Object.keys(parsedLocationSearch).reduce(
+          (accu, key) => (key.startsWith('q.')
+            ? accu
+            : { ...accu, [key]: parsedLocationSearch[key] }),
           {}
         );
 
-        if (!_.isEqual(query, baseQuery)) {
+        if (!_.isEqual(query, baseQuery) || page !== queryRest.page) {
           const search = qs.stringify(
-            { ...queryRest, ...addQueryPrefix(query) },
+            {
+              ...queryRest,
+              page: page ? page + 1 : null,
+              ...addQueryPrefix(query),
+            },
             {
               addQueryPrefix: true,
               arrayFormat: 'brackets',
@@ -456,29 +484,22 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   }, []);
 
   const allSelected = useMemo(() => {
-    if (!data?.pages) {
+    if (!data?.events) {
       return false;
     }
 
-    const displayedEvents = data.pages.reduce(
-      (result, p) => result + p.events.length,
-      0
-    );
-
-    return selectedEvents.size === displayedEvents;
+    return selectedEvents.size === data.events.length;
   }, [data, selectedEvents.size]);
 
   const selectAll = useCallback(() => {
     setSelectedEvents(old => {
       const result = new Set(old);
 
-      for (const page of data.pages) {
-        for (const event of page.events) {
-          if (allSelected) {
-            result.delete(event.uid);
-          } else {
-            result.add(event.uid);
-          }
+      for (const event of data.events) {
+        if (allSelected) {
+          result.delete(event.uid);
+        } else {
+          result.add(event.uid);
         }
       }
 
@@ -496,6 +517,39 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     }),
     []
   );
+  const enableSelectMode = useCallback(() => setSelectMode(true), []);
+  const disableSelectMode = useCallback(() => {
+    setSelectMode(false);
+    // Cancel selection
+    setSelectedEvents(new Set());
+    setExtendedAllSelected(false);
+  }, []);
+
+  const hasSelection = useMemo(
+    () => selectedEvents.size || extendedAllSelected,
+    [extendedAllSelected, selectedEvents.size]
+  );
+
+  const previousPage = useMemo(
+    () => a11yButtonActionHandler(e => {
+      if (e) {
+        e.preventDefault();
+      }
+
+      setPage(old => Math.max(old - 1, 0));
+    }),
+    []
+  );
+  const nextPage = useMemo(
+    () => a11yButtonActionHandler(e => {
+      if (e) {
+        e.preventDefault();
+      }
+
+      setPage(old => old + 1);
+    }),
+    []
+  );
 
   const selectAllRef = useRef();
 
@@ -505,19 +559,6 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     }
     selectAllRef.current.indeterminate = selectedEvents.size && !allSelected;
   }, [allSelected, selectedEvents.size]);
-
-  // Grouped actions
-  const [displayGroupedActions, setDisplayGroupedActions] = useState(false);
-  const toggleGroupedActions = useCallback(
-    () => setDisplayGroupedActions(prev => !prev),
-    []
-  );
-
-  useLayoutEffect(() => {
-    if (!selectedEvents.size) {
-      setDisplayGroupedActions(false);
-    }
-  }, [selectedEvents.size]);
 
   // for FiltersProvider
   const filtersFormRef = useRef();
@@ -536,10 +577,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   // Update query when location change
   useUpdateEffect(() => {
-    const parsedSearch = qs.parse(history.location.search, {
-      ignoreQueryPrefix: true,
-    });
-    const baseQuery = removeQueryPrefix(parsedSearch);
+    const baseQuery = removeQueryPrefix(parsedLocationSearch);
 
     if (!_.isEqual(baseQuery, latestQuery.current)) {
       const cleanQuery = _.pick(
@@ -556,9 +594,8 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     history.location,
     latestQuery,
     standardsFilters,
+    parsedLocationSearch,
   ]);
-
-  const seed = useUIDSeed();
 
   if (isLoading || filtersQuery.isLoading) {
     return (
@@ -587,7 +624,48 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       ref={filtersFormRef}
     >
       <header>
-        <Actions agenda={agenda} query={query} />
+        <Actions
+          agenda={agenda}
+          query={query}
+          selectMode={hasSelection || selectMode}
+          toggleSelectMode={enableSelectMode}
+        />
+
+        {hasSelection || selectMode ? (
+          <div
+            className="margin-bottom-sm"
+            css={css`
+              border-left: 3px solid #41acdd;
+              padding: 5px;
+            `}
+          >
+            <span className="margin-right-sm">
+              <b>{intl.formatMessage(messages.yourSelection)}</b>
+              &nbsp;
+              {intl.formatMessage(messages.selectedEvents, {
+                count: extendedAllSelected ? data.total : selectedEvents.size,
+              })}
+            </span>
+
+            <button
+              className="btn btn-link btn-link-inline text-danger"
+              type="button"
+              onClick={disableSelectMode}
+            >
+              {intl.formatMessage(messages.unselect)}
+            </button>
+
+            <div className="margin-top-xs">
+              <GroupedActions
+                agenda={agenda}
+                query={query}
+                total={data.total}
+                selectedEvents={selectedEvents}
+                extendedAllSelected={extendedAllSelected}
+              />
+            </div>
+          </div>
+        ) : null}
 
         <div className="clearfix" />
 
@@ -608,43 +686,74 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
         <div className="clearfix" />
 
-        <div
-          css={css`
-            line-height: 26px;
-          `}
-        >
-          {hasQuery
-            ? intl.formatMessage(messages.totalWithFilters, {
-              selection: data.pages[0].total,
-              total: filtersQuery.data.total,
-              strong: chunks => <strong>{chunks}</strong>,
-              filters: (
-                <span className="oa-filter-value-preview">
-                  <FiltersPreview
-                    query={query}
-                    agenda={agenda}
-                    standardsFilters={standardsFilters}
-                    additionalsFilters={additionalsFilters}
-                  />
-                </span>
-              ),
-            })
-            : intl.formatMessage(messages.totalEvents, {
-              total: filtersQuery.data.total,
-              strong: chunks => <strong>{chunks}</strong>,
-            })}
-        </div>
+        <div className="margin-bottom-sm">
+          <div className="pull-right">
+            <nav aria-label="...">
+              <ul
+                className="pager"
+                css={css`
+                  margin: 0;
+                `}
+              >
+                <li className="margin-right-xs">
+                  <span
+                    tabIndex={0}
+                    role="button"
+                    onClick={previousPage}
+                    onKeyPress={previousPage}
+                  >
+                    {intl.formatMessage(messages.previous)}
+                  </span>
+                </li>
+                <li>
+                  <span
+                    tabIndex={0}
+                    role="button"
+                    onClick={nextPage}
+                    onKeyPress={nextPage}
+                  >
+                    {intl.formatMessage(messages.next)}
+                  </span>
+                </li>
+              </ul>
+            </nav>
+          </div>
 
-        <div
-          css={css`
-            line-height: 20px;
-          `}
-        >
-          <div className="checkbox">
+          <div className="padding-top-xs">
+            <span className="margin-right-md">
+              {hasQuery
+                ? intl.formatMessage(messages.totalWithFilters, {
+                  selection: data.total,
+                  total: filtersQuery.data.total,
+                  strong: chunks => <strong>{chunks}</strong>,
+                  filters: (
+                    <span className="oa-filter-value-preview">
+                      <FiltersPreview
+                        agenda={agenda}
+                        query={query}
+                        page={page}
+                        standardsFilters={standardsFilters}
+                        additionalsFilters={additionalsFilters}
+                      />
+                    </span>
+                  ),
+                })
+                : intl.formatMessage(messages.totalEvents, {
+                  total: filtersQuery.data.total,
+                  strong: chunks => <strong>{chunks}</strong>,
+                })}
+            </span>
+
             <label
+              className="checkbox-inline"
               htmlFor="select-all"
               css={css`
                 font-weight: normal;
+
+                // Does not work directly on input
+                input {
+                  margin-top: 2px;
+                }
               `}
             >
               <input
@@ -658,35 +767,9 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
             </label>
           </div>
         </div>
-
-        <div>
-          <button
-            type="button"
-            className={cn('btn btn-link btn-link-inline', {
-              dropup: displayGroupedActions,
-            })}
-            onClick={toggleGroupedActions}
-            disabled={!selectedEvents.size}
-          >
-            {intl.formatMessage(messages.groupedActions)}&nbsp;
-            <span className="caret" />
-          </button>
-
-          {displayGroupedActions ? (
-            <div className="margin-top-xs">
-              <GroupedActions
-                agenda={agenda}
-                query={query}
-                total={data.pages[0].total}
-                selectedEvents={selectedEvents}
-                extendedAllSelected={extendedAllSelected}
-              />
-            </div>
-          ) : null}
-        </div>
       </header>
 
-      {allSelected && selectedEvents.size < data.pages[0].total ? (
+      {allSelected && selectedEvents.size < data.total ? (
         <div className={`announcement bg-${kind} margin-top-sm`}>
           <div className={`container-fluid text-${kind}`}>
             <div className="row padding-top-sm padding-right-sm padding-left-md">
@@ -702,7 +785,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                     onClick={selectExtendedAll}
                   >
                     {intl.formatMessage(messages.selectExtendedAll, {
-                      total: data.pages[0].total,
+                      total: data.total,
                       b: chunks => <b>{chunks}</b>,
                     })}
                   </button>
@@ -710,7 +793,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
               ) : (
                 <p className="text-center">
                   {intl.formatMessage(messages.extendedAllSelected, {
-                    total: data.pages[0].total,
+                    total: data.total,
                     b: chunks => <b>{chunks}</b>,
                   })}{' '}
                   <button
@@ -727,35 +810,28 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         </div>
       ) : null}
 
-      <ul className="list-unstyled padding-top-sm">
-        {data.pages.map((page, pageIndex) => (
-          <React.Fragment key={seed(page)}>
-            {page.events.map(event => (
-              <EventItem
-                key={event.uid}
-                agenda={agenda}
-                event={event}
-                pageIndex={pageIndex}
-                openRemoveModal={() => removeModal.open({ event })}
-                selected={isSelectedEvent(event.uid)}
-                selectEvent={selectEvent}
-                selectionMode={!!selectedEvents.size}
-              />
-            ))}
-
-            {removeModal.isOpen ? (
-              <RemoveModal
-                agenda={agenda}
-                event={removeModal.data.event}
-                onRemove={onRemove}
-                onClose={removeModal.close}
-              />
-            ) : null}
-          </React.Fragment>
+      <ul className="list-unstyled">
+        {data.events.map(event => (
+          <EventItem
+            key={event.uid}
+            agenda={agenda}
+            event={event}
+            openRemoveModal={() => removeModal.open({ event })}
+            selected={isSelectedEvent(event.uid)}
+            selectEvent={selectEvent}
+            selectionMode={selectMode || !!selectedEvents.size}
+          />
         ))}
-      </ul>
 
-      <Waypoint onEnter={fetchNextPage} />
+        {removeModal.isOpen ? (
+          <RemoveModal
+            agenda={agenda}
+            event={removeModal.data.event}
+            onRemove={onRemove}
+            onClose={removeModal.close}
+          />
+        ) : null}
+      </ul>
 
       {isFetchingNextPage ? (
         <div className="padding-v-md" style={{ position: 'relative' }}>
@@ -769,6 +845,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         standardsFilters={standardsFilters}
         additionalsFilters={additionalsFilters}
         query={query}
+        page={page}
       />
     </FiltersProvider>
   );
