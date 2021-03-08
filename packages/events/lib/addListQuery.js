@@ -86,4 +86,10 @@ module.exports = (k, query, options = {}) => {
   if (search) {
     k.where('title', 'like', `%${search}%`);
   }
+
+  if (options.deleted === true) {
+    k.whereNotNull('deleted_at');
+  } else if (options.deleted === false) {
+    k.whereNull('deleted_at');
+  }
 };
