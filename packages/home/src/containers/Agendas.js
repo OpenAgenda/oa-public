@@ -182,52 +182,54 @@ function Agendas() {
 
         return (
           <Wrapper tab="agendas" className="home-agendas">
-            <div className="header">
-              <div className="hidden-xs pull-right">
-                <Link
-                  to={res.agendas.create}
-                  className="btn btn-primary"
-                  type="button"
-                >
-                  {getLabel('createAgenda')}
-                </Link>
+            <div className="content">
+              <div className="header">
+                <div className="hidden-xs pull-right">
+                  <Link
+                    to={res.agendas.create}
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    {getLabel('createAgenda')}
+                  </Link>
+                </div>
               </div>
+
+              {form}
+
+              <div>
+                {state.agendas.length
+                  ? state.agendas.map(agenda => (
+                    <AgendaItem
+                      key={agenda.uid}
+                      agenda={agenda}
+                      res={res}
+                      getLabel={getLabel}
+                    />
+                  ))
+                  : null}
+              </div>
+
+              {!state.firstLoading && !state.agendas.length ? (
+                <div className="text-center text-muted margin-top-md">
+                  <Link
+                    to={res.agendas.create}
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    {getLabel('createAgenda')}
+                  </Link>
+                </div>
+              ) : null}
+
+              {state.nextLoading ? (
+                <div className="padding-v-md" style={{ position: 'relative' }}>
+                  <Spinner />
+                </div>
+              ) : null}
+
+              <Waypoint onEnter={nextPage} />
             </div>
-
-            {form}
-
-            <div>
-              {state.agendas.length
-                ? state.agendas.map(agenda => (
-                  <AgendaItem
-                    key={agenda.uid}
-                    agenda={agenda}
-                    res={res}
-                    getLabel={getLabel}
-                  />
-                ))
-                : null}
-            </div>
-
-            {!state.firstLoading && !state.agendas.length ? (
-              <div className="text-center text-muted margin-top-md">
-                <Link
-                  to={res.agendas.create}
-                  className="btn btn-primary"
-                  type="button"
-                >
-                  {getLabel('createAgenda')}
-                </Link>
-              </div>
-            ) : null}
-
-            {state.nextLoading ? (
-              <div className="padding-v-md" style={{ position: 'relative' }}>
-                <Spinner />
-              </div>
-            ) : null}
-
-            <Waypoint onEnter={nextPage} />
           </Wrapper>
         );
       }}
