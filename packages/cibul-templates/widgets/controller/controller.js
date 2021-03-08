@@ -288,12 +288,12 @@ module.exports = function(uid) {
 
     if (proxy && proxy.update) proxy.update(updatedParams, originWidget, isExclusive);
 
-    if (window.oa && window.oa.onWidgetUpdate) {
-      window.oa.onWidgetUpdate(originWidget, updatedParams, currentRequestParams);
-    }
-
     if (syncHref) {
       _updateHrefQuery(currentRequestParams);
+    }
+
+    if (window?.oa?.onWidgetUpdate) {
+      window.oa.onWidgetUpdate(originWidget, updatedParams, currentRequestParams);
     }
 
     _forEachWidget('change', currentRequestParams, originWidget);
