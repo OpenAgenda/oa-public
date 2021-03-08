@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { useApiClient } from '@openagenda/react-shared';
 import {
   Filters,
@@ -52,9 +52,10 @@ function MultiChoicePreview({
   );
 }
 
-export default function FilterPreview({
+export default function FiltersPreview({
   agenda,
   query,
+  page,
   standardsFilters,
   additionalsFilters,
 }) {
@@ -79,9 +80,9 @@ export default function FilterPreview({
     }
   );
 
-  const { isFetching } = useInfiniteQuery(
-    ['event-admin-apps', 'events', query],
-    ({ pageParam }) => getEvents(
+  const { isFetching } = useQuery(
+    ['event-admin-apps', 'events', { query, page }],
+    () => getEvents(
       apiClient,
       res.jsonExport,
       agenda,
@@ -93,12 +94,12 @@ export default function FilterPreview({
         // sort: 'updatedAt.desc',
         detailed: true,
       },
-      pageParam
+      page
     ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['isFetching'],
-      keepPreviousData: true, // because query change
+      keepPreviousData: true, // because query and page change
     }
   );
 

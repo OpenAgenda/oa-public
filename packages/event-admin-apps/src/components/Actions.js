@@ -11,9 +11,18 @@ const messages = defineMessages({
     id: 'EventAdminApp.Actions.createAnEvent',
     defaultMessage: 'Create an event',
   },
+  select: {
+    id: 'EventAdminApp.Actions.select',
+    defaultMessage: 'Select',
+  },
 });
 
-export default function Actions({ agenda, query }) {
+export default function Actions({
+  agenda,
+  query,
+  selectMode,
+  toggleSelectMode,
+}) {
   const intl = useIntl();
   const [displayDocxModal, setDisplayDocxModal] = useState(false);
 
@@ -35,7 +44,7 @@ export default function Actions({ agenda, query }) {
 
   return (
     <div className="actions margin-bottom-sm">
-      <span className="dropdown">
+      <span className="dropdown margin-right-sm">
         <button
           className="btn btn-link btn-link-inline dropdown-toggle"
           type="button"
@@ -111,9 +120,18 @@ export default function Actions({ agenda, query }) {
         </ul>
       </span>
 
-      <a href={`/${agenda.slug}/contribute`} className="margin-left-sm">
+      <a href={`/${agenda.slug}/contribute`} className="margin-right-sm">
         {intl.formatMessage(messages.createAnEvent)}
       </a>
+
+      <button
+        className="btn btn-link btn-link-inline"
+        type="button"
+        onClick={toggleSelectMode}
+        disabled={selectMode}
+      >
+        {intl.formatMessage(messages.select)}
+      </button>
 
       {/* <button type="button" className="btn btn-link btn-link-inline" onClick={toggleExports}> */}
       {/*   {intl.formatMessage(exportsMessages.export)} */}

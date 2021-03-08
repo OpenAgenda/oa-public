@@ -5,6 +5,12 @@
       "value": "Create an event"
     }
   ],
+  "EventAdminApp.Actions.select": [
+    {
+      "type": 0,
+      "value": "Select"
+    }
+  ],
   "EventAdminApp.BatchedStateSelector.confirmation": [
     {
       "type": 0,
@@ -87,6 +93,18 @@
       "value": "Grouped actions on selection"
     }
   ],
+  "EventAdminApp.Dashboard.next": [
+    {
+      "type": 0,
+      "value": "Next"
+    }
+  ],
+  "EventAdminApp.Dashboard.previous": [
+    {
+      "type": 0,
+      "value": "Previous"
+    }
+  ],
   "EventAdminApp.Dashboard.searchPlaceholder": [
     {
       "type": 0,
@@ -117,6 +135,49 @@
     {
       "type": 0,
       "value": " events matching the current filters."
+    }
+  ],
+  "EventAdminApp.Dashboard.selectedEvents": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
     }
   ],
   "EventAdminApp.Dashboard.sortedBy": [
@@ -189,6 +250,18 @@
     {
       "type": 0,
       "value": "crwdne794:0"
+    }
+  ],
+  "EventAdminApp.Dashboard.unselect": [
+    {
+      "type": 0,
+      "value": "Unselect"
+    }
+  ],
+  "EventAdminApp.Dashboard.yourSelection": [
+    {
+      "type": 0,
+      "value": "Your selection:"
     }
   ],
   "EventAdminApp.EventItem.addedBy": [
