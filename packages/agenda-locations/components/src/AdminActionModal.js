@@ -28,7 +28,6 @@ class AdminActionModal extends Component {
 
   constructor(props) {
     super(props);
-    log(props);
 
     const modalType = isExternal(props.data, props.settings) ? 'external' : 'unauthorized';
 

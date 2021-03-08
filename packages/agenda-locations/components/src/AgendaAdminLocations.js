@@ -81,7 +81,6 @@ class AgendaAdminLocations extends Component {
     this.getCountryLabel = this.getCountryLabel.bind(this);
     this.displayActionModal = this.displayActionModal.bind(this);
 
-    log(props.settings);
   }
 
   onSearchChange(field, newSearchValue) {
@@ -118,7 +117,6 @@ class AgendaAdminLocations extends Component {
   onLocationEdit(location, locationIndex) {
     const { settings } = this.props;
 
-    log('onEdit', location);
     if (settings.access.update.authorized && !settings.access.update.external) {
       this.actions.editLocation(location, locationIndex);
     } else {
@@ -129,7 +127,6 @@ class AgendaAdminLocations extends Component {
   onLocationSelect(location, locationIndex) {
     const { merge } = this.state;
 
-    log('onSelect', location);
     if (merge) {
       this.actions.toggleMergeItem(location);
     } else {
@@ -206,7 +203,6 @@ class AgendaAdminLocations extends Component {
   }
 
   displayActionModal(accessType, location) {
-    log('displayActionModal', accessType);
     this.setState({
       modal: {
         type: 'actions',
@@ -220,13 +216,11 @@ class AgendaAdminLocations extends Component {
 
   confirmRemove(location) {
     const { res, settings } = this.props;
-    log('confirm remove param location: %j', location);
     if (settings.access.delete.authorized && !settings.access.delete.external) {
       get(
         res.get.replace(':locationUid', location.uid),
         { detailed: 1 },
         (err, freshLocation) => {
-          log('confirm remove for %j', freshLocation);
           if (err) {
             return log(err);
           }
@@ -287,7 +281,6 @@ class AgendaAdminLocations extends Component {
 
   renderRemoveLocationModal() {
     const { modal } = this.state;
-    log(modal.data.location);
     const { agenda, res } = this.props;
     const { eventCount, agendaEventCount } = modal.data.location;
 
