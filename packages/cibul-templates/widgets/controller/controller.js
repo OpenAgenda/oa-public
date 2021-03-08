@@ -1,20 +1,20 @@
 "use strict";
 
-const domain = require( '../../domain' );
-const base64 = require( '@openagenda/utils/base64' );
+const domain = require('../../domain');
+const base64 = require('@openagenda/utils/base64');
 
-const debug = require( 'debug' );
-const qs = require( 'qs' );
+const debug = require('debug');
+const qs = require('qs');
 
-const cn = require( '../../js/lib/common/common.mod.js' );
+const cn = require('../../js/lib/common/common.mod.js');
 
-const remote = require( '../../js/lib/remote/remote.mod.js' );
+const remote = require('../../js/lib/remote/remote.mod.js');
 
-const filters = require( './filters' );
+const filters = require('./filters');
 
-const geoLib = require( './geolocate' );
+const geoLib = require('./geolocate');
 
-const controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' );
+const controlDataFetch = require('../../js/lib/controlDataFetch/controlDataFetch');
 
 const env = window.env ? window.env : 'production';
 
@@ -33,11 +33,11 @@ const defaults = {
   }
 };
 
-const params = cn.extend( defaults.all, defaults[ env ] ? defaults[ env ] : {} );
+const params = cn.extend(defaults.all, defaults[env] ? defaults[env] : {});
 
-module.exports = function( uid ) {
+module.exports = function(uid) {
 
-  var log = debug( 'controller ' + uid ),
+  var log = debug('controller ' + uid),
 
   ctl = false,   // full agenda data in js form
 
@@ -45,17 +45,15 @@ module.exports = function( uid ) {
 
   widgets = [], // collection of interfaces to widgets handled by controller
 
-  sendRequest = false,  // callback given by link widget to notify of request params updates
-
   ctlRequests = [], // stack of callbacks to call when control data is available
 
   currentRequestParams = {}, // current agenda request parameters
 
-  whatUids = false, what, scope, passed, // those are for the same feature ( aggregated search )
+  whatUids = false, what, scope, passed, // those are for the same feature (aggregated search)
 
   enabled = false, firstSweepCompleted = false,
 
-  embedMode = ( ( uid + '' ).indexOf('/') !== -1 ), // embedMode is true if widget is for agenda embed
+  embedMode = ((uid + '').indexOf('/') !== -1), // embedMode is true if widget is for agenda embed
 
   proxy = false,
 
@@ -67,42 +65,38 @@ module.exports = function( uid ) {
 
   return (function() {
 
-    log( 'controller loaded in %s environment', env );
+    log('controller loaded in %s environment', env);
 
-    log( 'controller is configured in %s mode', embedMode ? 'embed' : 'agenda' );
+    log('controller is configured in %s mode', embedMode ? 'embed' : 'agenda');
 
     _redirectLegacySearch();
 
-    controlDataFetch( {
+    controlDataFetch({
       jsonp: !_isAjax(),
-      uid: ( uid + '' ).split( '/' )[ 0 ],
-      embedUid: embedMode ? ( uid + '' ).split( '/' )[ 1 ] : false
-    }, function( err, data ) {
+      uid: (uid + '').split('/')[0],
+      embedUid: embedMode ? (uid + '').split('/')[1] : false
+    }, function(err, data) {
 
-      if ( err || !data ) {
+      if (err || !data) {
+        log('problem while fetching data %s', err);
 
-        log( 'problem while fetching data %s', err );
-
-        if ( !data ) {
-
-          log( 'not data could be retrieved' );
-
+        if (!data) {
+          log('not data could be retrieved');
         }
 
         return;
-
       }
 
-      log( 'successfully fetched control data' );
+      log('successfully fetched control data');
 
-      ctl = _initControlData( data );
+      ctl = _initControlData(data);
 
       syncHref = !!ctl.sh;
 
       if (typeof _readHrefQuery().geolocate !== 'undefined') {
         geoLib(ctl, _readHrefQuery('geolocate'), function(err, cornerParams) {
           if (err) {
-            console.log( '>>>>>> GEOLOCATION ERROR: ', JSON.stringify(err));
+            console.log('>>>>>> GEOLOCATION ERROR: ', JSON.stringify(err));
             _init();
           } else {
             _init(cornerParams);
@@ -132,41 +126,34 @@ module.exports = function( uid ) {
   })();
 
 
-  function _init( initParams ) {
-    var change = _initCurrentRequestParams( initParams );
+  function _init(initParams) {
+    const change = _initCurrentRequestParams(initParams);
 
-    _processWidgetCtlRequests( false );
+    _processWidgetCtlRequests(false);
 
     ready = true;
 
     // hack to allow some widgets to run getControlData callback once all
     // is declared ready,
-    _processWidgetCtlRequests( true );
+    _processWidgetCtlRequests(true);
 
-    log( 'controller will sync with href ? %s', syncHref ? 'yes' : 'no' );
+    log('controller will sync with href ? %s', syncHref ? 'yes' : 'no');
 
-    if ( syncHref ) {
+    if (syncHref) {
+      if (change) _forEachWidget('change', currentRequestParams);
 
-      if ( change ) _forEachWidget( 'change', currentRequestParams );
-
-      cn.addEvent( window, 'popstate', _handlePop );
-
+      cn.addEvent(window, 'popstate', _handlePop);
     }
 
-    _fetchWhatUids( function() {
-
+    _fetchWhatUids(() => {
       sweep();
-
     });
-
   }
 
   function _handlePop() {
+    if (!syncHref) return;
 
-    if ( !syncHref ) return;
-
-    update( _readHrefQuery( 'oaq' ) );
-
+    update(_readHrefQuery('oaq'));
   }
 
 
@@ -174,34 +161,25 @@ module.exports = function( uid ) {
    * register a widget - run by widget to establish link with controller
    */
 
-  function register( options ) {
-
-    var widgetParams = cn.extend( {
+  function register(options) {
+    var widgetParams = cn.extend({
       name : false  // required. name of the widget
-    }, options );
+    }, options);
 
-    log( 'registering widget %s', widgetParams.name );
+    log('registering widget %s', widgetParams.name);
 
-    widgets.push( widgetParams );
+    widgets.push(widgetParams);
 
-    if ( firstSweepCompleted && widgetParams.include ) {
+    if (firstSweepCompleted && widgetParams.include) {
+      setTimeout(function() {
+        _trasverseInclude(widgetParams);
 
-      setTimeout( function() {
-
-        _trasverseInclude( widgetParams );
-
-        if ( enabled ) {
-
-          widgetParams.enable( currentRequestParams );
-
+        if (enabled) {
+          widgetParams.enable(currentRequestParams);
         }
-
-      }, 100 );
-
-    } else if ( enabled ) {
-
-      widgetParams.enable( currentRequestParams );
-
+      }, 100);
+    } else if (enabled) {
+      widgetParams.enable(currentRequestParams);
     }
 
     return {
@@ -217,22 +195,16 @@ module.exports = function( uid ) {
   }
 
 
-  function getWidget( name ) {
+  function getWidget(name) {
+    let widgetParams = false;
 
-    var widgetParams = false;
-
-    cn.forEach( widgets, function( widget ) {
-
-      if ( widget.name == name ) {
-
+    cn.forEach(widgets, function(widget) {
+      if (widget.name == name) {
         widgetParams = widget;
-
       }
-
     });
 
     return widgetParams;
-
   }
 
 
@@ -240,67 +212,47 @@ module.exports = function( uid ) {
    * hand over control data when ready.
    */
 
-  function getControlData( postReady, cb ) {
-
-    if ( !cb ) {
-
+  function getControlData(postReady, cb) {
+    if (!cb) {
       cb = postReady;
 
       postReady = false;
-
     }
 
-    if ( ctl ) {
+    if (ctl) {
+      log('control data available, handing over');
 
-      log( 'control data available, handing over' );
-
-      cb( ctl );
-
+      cb(ctl);
     } else {
+      log('control data not yet available, stacking request');
 
-      log( 'control data not yet available, stacking request' );
-
-      ctlRequests.push( [ postReady, cb ] );
-
+      ctlRequests.push([postReady, cb]);
     }
-
   }
 
 
   function getCurrentQuery() {
-
-    return cn.extend( {}, currentRequestParams );
-
+    return cn.extend({}, currentRequestParams);
   }
 
 
-  function setProxy( p ) {
-
+  function setProxy(p) {
     proxy = p;
-
   }
 
   function disableSyncHref() {
-
     syncHref = false;
-
   }
 
   function disablePassedAutoLoad() {
-
     passedAutoLoad = false;
-
   }
 
 
-  function onWidgetReady( origin, data = {} ) {
-
-    if ( window.oa && window.oa.onWidgetReady ) {
-
-      window.oa.onWidgetReady( origin, data );
-
+  function onWidgetReady(origin, data = {}) {
+    if (window.oa && window.oa.onWidgetReady) {
+      window.oa.onWidgetReady(origin, data);
     }
-
   }
 
   /**
@@ -309,67 +261,57 @@ module.exports = function( uid ) {
    * called by widget when some agenda request parameters were updated
    */
 
-  function update( originWidget, updatedParams, isExclusive ) {
+  function update(originWidget, updatedParams, isExclusive) {
 
-    if ( arguments.length == 1 ) {
-
+    if (arguments.length == 1) {
       updatedParams = originWidget;
 
       originWidget = {};
-
     }
 
-    log( 'updating with %s (%sexclusive) from %s', JSON.stringify( updatedParams ), isExclusive ? 'is ' : 'not ', originWidget );
+    log('updating with %s (%sexclusive) from %s', JSON.stringify(updatedParams), isExclusive ? 'is ' : 'not ', originWidget);
 
-    var newParams = isExclusive ? updatedParams : _clean( cn.extend( {}, currentRequestParams, {
+    var newParams = isExclusive ? updatedParams : _clean(cn.extend({}, currentRequestParams, {
       uid: null,
       event: null
-    }, updatedParams ) );
+    }, updatedParams));
 
-    if ( !isDifferent( newParams ) ) return;
+    if (!isDifferent(newParams)) return;
 
     currentRequestParams = newParams;
 
-    if ( !ready ) {
-
-      log( 'control data not yet received' );
+    if (!ready) {
+      log('control data not yet received');
 
       return;
-
     }
 
-    if ( proxy && proxy.update ) proxy.update( updatedParams, originWidget, isExclusive );
+    if (proxy && proxy.update) proxy.update(updatedParams, originWidget, isExclusive);
 
-    if ( window.oa && window.oa.onWidgetUpdate ) {
-
-      window.oa.onWidgetUpdate( originWidget, updatedParams, currentRequestParams );
-
+    if (window.oa && window.oa.onWidgetUpdate) {
+      window.oa.onWidgetUpdate(originWidget, updatedParams, currentRequestParams);
     }
 
-    if ( syncHref ) {
-
-      _updateHrefQuery( currentRequestParams );
-
+    if (syncHref) {
+      _updateHrefQuery(currentRequestParams);
     }
 
-    _forEachWidget( 'change', currentRequestParams, originWidget );
+    _forEachWidget('change', currentRequestParams, originWidget);
 
-    _fetchWhatUids( function() {
-
-      sweep( originWidget );
-
+    _fetchWhatUids(() => {
+      sweep(originWidget);
     });
 
   }
 
 
-  function _fetchWhatUids( cb ) {
+  function _fetchWhatUids(cb) {
 
-    if ( what === currentRequestParams.what
+    if (what === currentRequestParams.what
 
     && scope === currentRequestParams.scope
 
-    && passed === currentRequestParams.passed ) return cb();
+    && passed === currentRequestParams.passed) return cb();
 
     whatUids = false;
 
@@ -379,22 +321,22 @@ module.exports = function( uid ) {
 
     passed = currentRequestParams.passed;
 
-    if ( !what ) return cb();
+    if (!what) return cb();
 
     var searchQuery = { what: what };
 
-    if ( scope ) searchQuery.scope = scope;
+    if (scope) searchQuery.scope = scope;
 
-    if ( passed ) searchQuery.passed = passed;
+    if (passed) searchQuery.passed = passed;
 
     remote.getJsonp(
-      params.search.replace( '{uid}', uid ) +
-      '?' + qs.stringify( { oaq: searchQuery } ), {
+      params.search.replace('{uid}', uid) +
+      '?' + qs.stringify({ oaq: searchQuery }), {
       data: {},
       timeout: 10000
-    }, function( responseType, data ) {
+    }, function(responseType, data) {
 
-      if ( responseType == 'success' ) {
+      if (responseType == 'success') {
 
         whatUids = data;
 
@@ -402,7 +344,7 @@ module.exports = function( uid ) {
 
       cb();
 
-    } );
+    });
 
   }
 
@@ -411,15 +353,15 @@ module.exports = function( uid ) {
    * disable all widgets except caller
    */
 
-  function requestModal( name, cb ) {
+  function requestModal(name, cb) {
 
     modalTaken = true;
 
-    _forEachWidget( 'disable', name );
+    _forEachWidget('disable', name);
 
     enabled = false;
 
-    if ( cb ) cb();
+    if (cb) cb();
 
   }
 
@@ -432,22 +374,22 @@ module.exports = function( uid ) {
 
     modalTaken = false;
 
-    _forEachWidget( 'enable', currentRequestParams );
+    _forEachWidget('enable', currentRequestParams);
 
     enabled = true;
 
   }
 
 
-  function _initCurrentRequestParams( overridingParams ) {
+  function _initCurrentRequestParams(overridingParams) {
 
     var today = new Date(), hrefParams, change = false;
 
-    if ( typeof overridingParams !== 'undefined' ) {
+    if (typeof overridingParams !== 'undefined') {
 
       currentRequestParams = overridingParams;
 
-      if ( syncHref ) _updateHrefQuery( currentRequestParams );
+      if (syncHref) _updateHrefQuery(currentRequestParams);
 
       change = true;
 
@@ -456,11 +398,11 @@ module.exports = function( uid ) {
     }
 
 
-    if ( syncHref ) {
+    if (syncHref) {
 
-      hrefParams = _clean( _readHrefQuery( 'oaq' ) );
+      hrefParams = _clean(_readHrefQuery('oaq'));
 
-      if ( isDifferent( hrefParams ) ) {
+      if (isDifferent(hrefParams)) {
 
         currentRequestParams = hrefParams;
 
@@ -470,14 +412,14 @@ module.exports = function( uid ) {
 
     }
 
-    if ( ctl.lo ) {
+    if (ctl.lo) {
 
       // bit of a transitional hack (2015-03-06) - remove ctl.p in other widgets before anything here
-      ctl.p = today > new Date( ctl.lo.end );
+      ctl.p = today > new Date(ctl.lo.end);
 
     }
 
-    const reloadWithPassed = ctl.p && passedAutoLoad && ( typeof currentRequestParams.passed == 'undefined' || typeof currentRequestParams.order == 'undefined' ) && !currentRequestParams.from && !currentRequestParams.to;
+    const reloadWithPassed = ctl.p && passedAutoLoad && (typeof currentRequestParams.passed == 'undefined' || typeof currentRequestParams.order == 'undefined') && !currentRequestParams.from && !currentRequestParams.to;
 
     if (reloadWithPassed) {
       change = true;
@@ -509,19 +451,19 @@ module.exports = function( uid ) {
    * run method of each widget at the optional exception of...
    */
 
-  function _forEachWidget( methodName, methodParams, except ) {
+  function _forEachWidget(methodName, methodParams, except) {
 
-    if ( ( arguments.length == 2 ) && ( typeof methodParams == 'string' ) ) {
+    if ((arguments.length == 2) && (typeof methodParams == 'string')) {
 
       except = methodParams;
 
       methodParams = {}
 
-    } else if ( arguments.length == 2 ) {
+    } else if (arguments.length == 2) {
 
       except = false;
 
-    } else if ( arguments.length == 1 ) {
+    } else if (arguments.length == 1) {
 
       methodParams = {};
 
@@ -529,20 +471,16 @@ module.exports = function( uid ) {
 
     }
 
-    log( 'running %s for all widgets with %s except for %s', methodName, JSON.stringify( methodParams ), except ? except : 'no one' );
+    log('running %s for all widgets with %s except for %s', methodName, JSON.stringify(methodParams), except ? except : 'no one');
 
-    for ( var i = widgets.length - 1; i >= 0; i-- ) {
+    for (var i = widgets.length - 1; i >= 0; i--) {
 
-      if ( widgets[i].name !== except ) {
+      if (widgets[i].name !== except) {
 
-        if ( widgets[i][ methodName ] ) {
-
-          widgets[i][ methodName ]( methodParams );
-
+        if (widgets[i][methodName]) {
+          widgets[i][methodName](methodParams);
         } else {
-
-          log( '%s not set for widget "%s"', methodName, widgets[i].name );
-
+          log('%s not set for widget "%s"', methodName, widgets[i].name);
         }
 
       }
@@ -552,22 +490,22 @@ module.exports = function( uid ) {
   }
 
 
-  function _processWidgetCtlRequests( postReady ) {
+  function _processWidgetCtlRequests(postReady) {
 
     var toProcess = ctlRequests.length;
 
     var stackedCallback, restacked = [];
 
     // send control data to whoever requested it during registration process
-    while ( stackedCallback = ctlRequests.pop() ) {
+    while (stackedCallback = ctlRequests.pop()) {
 
-      if ( stackedCallback[ 0 ] === postReady ) {
+      if (stackedCallback[0] === postReady) {
 
-        stackedCallback[ 1 ]( ctl );
+        stackedCallback[1](ctl);
 
       } else {
 
-        restacked.push( stackedCallback );
+        restacked.push(stackedCallback);
 
       }
 
@@ -578,7 +516,7 @@ module.exports = function( uid ) {
   }
 
 
-  function _initControlData( data ) {
+  function _initControlData(data) {
 
     // distribute location data throughout events
 
@@ -586,28 +524,28 @@ module.exports = function( uid ) {
 
     today = _stringifyDate();
 
-    cn.forEach( data.l, function( l ) {
+    cn.forEach(data.l, function(l) {
 
-      locations[ l.u ] = { lt: l.lt, lg: l.lg };
+      locations[l.u] = { lt: l.lt, lg: l.lg };
 
     });
 
     data.geolocate = typeof _readHrefQuery().geolocate !== 'undefined';
 
-    cn.forEach( data.ev, function( e ) {
+    cn.forEach(data.ev, function(e) {
 
-      if ( e.l ) {
+      if (e.l) {
 
-        if ( typeof locations[ e.l ] !== 'undefined' ) {
+        if (typeof locations[e.l] !== 'undefined') {
 
-          e.lt = locations[ e.l ].lt;
+          e.lt = locations[e.l].lt;
 
-          e.lg = locations[ e.l ].lg;
+          e.lg = locations[e.l].lg;
 
         } else {
 
-          console.log( 'invalid location for event' );
-          console.log( e );
+          console.log('invalid location for event');
+          console.log(e);
 
         }
 
@@ -620,7 +558,7 @@ module.exports = function( uid ) {
 
       for (var i = e.d.length - 1; i >= 0; i--) {
 
-        if ( e.d[ i ] >= today ) {
+        if (e.d[i] >= today) {
 
           e.p = false;
 
@@ -641,7 +579,7 @@ module.exports = function( uid ) {
 
   function _isAjax() {
 
-    if ( embedMode && ( window.env !== 'tpl' ) ) {
+    if (embedMode && (window.env !== 'tpl')) {
 
       return false;
 
@@ -653,68 +591,68 @@ module.exports = function( uid ) {
 
 
   /**
-   * uses the control data ( agenda js data ) to determine which
+   * uses the control data (agenda js data) to determine which
    * events are included and which are not
    */
 
-  function sweep( originWidget ) {
+  function sweep(originWidget) {
 
     var includedCount = 0;
 
-    if ( typeof currentRequestParams == 'undefined' ) currentRequestParams = {};
+    if (typeof currentRequestParams == 'undefined') currentRequestParams = {};
 
-    if ( !ready ) {
+    if (!ready) {
 
-      log( 'controller not ready, sweep aborted' );
+      log('controller not ready, sweep aborted');
 
       return;
 
     }
 
-    log( 'doing sweep with params %s', JSON.stringify( currentRequestParams ) );
+    log('doing sweep with params %s', JSON.stringify(currentRequestParams));
 
     // clear all the widgets!
-    _forEachWidget( 'clear' );
+    _forEachWidget('clear');
 
-    _forEachWidget( 'disable', originWidget );
+    _forEachWidget('disable', originWidget);
 
     // let clear & disable happen
-    setTimeout( function() {
+    setTimeout(function() {
 
       includedCount = _trasverseInclude();
 
       enabled = true;
       firstSweepCompleted = true;
 
-      log( 'sweep result %d out of %d', includedCount, cn.size( ctl.ev ) );
+      log('sweep result %d out of %d', includedCount, cn.size(ctl.ev));
 
-      // enable all the widgets ( if modal is not taken )
-      if ( !modalTaken ) {
+      // enable all the widgets (if modal is not taken)
+      if (!modalTaken) {
 
-        _forEachWidget( 'enable', currentRequestParams );
+        _forEachWidget('enable', currentRequestParams);
 
       }
 
-    }, 10 );
+    }, 10);
 
   }
 
 
-  function _trasverseInclude( targetWidget ) {
+  function _trasverseInclude(targetWidget) {
 
     var counter = 0;
 
     // go through each event, determine if should be included
     // .. in which case include in widgets
-    for ( var i in ctl.ev ) {
+    for (var i in ctl.ev) {
 
-      if ( _applyFilters( ctl.ev[i], currentRequestParams ) ) {
+      if (_applyFilters(ctl.ev[i], currentRequestParams)) {
 
         counter++;
 
-        ctl.ev[ i ].passed = _isPassed( ctl.ev[ i ] );
+        ctl.ev[i].passed = _isPassed(ctl.ev[i]);
 
-        _include( ctl.ev[i], currentRequestParams, targetWidget );
+        _include(ctl.ev[i], currentRequestParams, targetWidget);
 
       }
 
@@ -729,19 +667,19 @@ module.exports = function( uid ) {
    * have there been any changes in parameters?
    */
 
-  function isDifferent( data ) {
+  function isDifferent(data) {
 
-    for ( var i in currentRequestParams ) {
+    for (var i in currentRequestParams) {
 
-      if ( typeof data[i] == 'undefined' || data[i] !== currentRequestParams[i] ) return true;
+      if (typeof data[i] == 'undefined' || data[i] !== currentRequestParams[i]) return true;
 
     }
 
-    for ( i in data ) {
+    for (i in data) {
 
-      if ( typeof currentRequestParams[i] == 'undefined' ) return true;
+      if (typeof currentRequestParams[i] == 'undefined') return true;
 
-      if ( data[i] !== currentRequestParams[i] ) return true;
+      if (data[i] !== currentRequestParams[i]) return true;
 
     }
 
@@ -754,19 +692,19 @@ module.exports = function( uid ) {
    * as part of sweep, tell widgets event item passed through filters
    */
 
-  function _include( item, p, targetWidget ) {
+  function _include(item, p, targetWidget) {
 
-    if ( targetWidget ) {
+    if (targetWidget) {
 
-      targetWidget.include( item, p );
+      targetWidget.include(item, p);
 
     } else {
 
-      for ( var i = widgets.length - 1; i >= 0; i-- ) {
+      for (var i = widgets.length - 1; i >= 0; i--) {
 
-        if ( widgets[ i ].include ) {
+        if (widgets[i].include) {
 
-          widgets[i].include( item, p );
+          widgets[i].include(item, p);
 
         }
 
@@ -778,11 +716,11 @@ module.exports = function( uid ) {
   }
 
 
-  function _applyFilters( item, reqParams ) {
+  function _applyFilters(item, reqParams) {
 
-    for ( var i in filters ) {
+    for (var i in filters) {
 
-      if ( !filters[i]( item, reqParams, whatUids ) ) return false;
+      if (!filters[i](item, reqParams, whatUids)) return false;
 
     }
 
@@ -791,47 +729,47 @@ module.exports = function( uid ) {
   }
 
 
-  function _clean( data ) {
+  function _clean(data) {
 
     var cleanData = {}, tags;
 
-    for ( var k in data ) {
+    for (var k in data) {
 
-      if ( data[ k ] !== null ) {
+      if (data[k] !== null) {
 
-        if ( [ 'neLat', 'neLng', 'swLat', 'swLng' ].indexOf( k ) !== -1 ) {
+        if (['neLat', 'neLng', 'swLat', 'swLng'].indexOf(k) !== -1) {
 
-          cleanData[ k ] = parseFloat( data[ k ] );
+          cleanData[k] = parseFloat(data[k]);
 
-        } else if ( k == 'tags' ) {
+        } else if (k == 'tags') {
 
-          if ( cn.isArray( data[ k ] ) && data[ k ].length ) {
+          if (cn.isArray(data[k]) && data[k].length) {
 
-            tags = data[ k ].filter( function( t ) {
+            tags = data[k].filter(function(t) {
 
               return t.length;
 
             });
 
-            if ( tags.length ) cleanData[ k ] = tags;
+            if (tags.length) cleanData[k] = tags;
 
           }
 
-        } else if ( k == 'what' ) {
+        } else if (k == 'what') {
 
-          if ( data[ k ].length ) {
+          if (data[k].length) {
 
-            cleanData[ k ] = data[ k ];
+            cleanData[k] = data[k];
 
           }
 
-        } else if ( k === 'uid' ) {
+        } else if (k === 'uid') {
 
-          cleanData[ k ] = parseInt( data[ k ] );
+          cleanData[k] = parseInt(data[k]);
 
         } else {
 
-          cleanData[ k ] = data[ k ];
+          cleanData[k] = data[k];
 
         }
 
@@ -844,13 +782,13 @@ module.exports = function( uid ) {
   }
 
 
-  function _isPassed( eItem ) {
+  function _isPassed(eItem) {
 
-    var today = _stringifyDate( new Date() );
+    var today = _stringifyDate(new Date());
 
-    for ( var i = eItem.d.length - 1; i >= 0; i-- ) {
+    for (var i = eItem.d.length - 1; i >= 0; i--) {
 
-      if ( eItem.d[ i ] >= today ) return false;
+      if (eItem.d[i] >= today) return false;
 
     };
 
@@ -858,29 +796,29 @@ module.exports = function( uid ) {
 
   }
 
-  function _updateHrefQuery( updatedQuery ) {
+  function _updateHrefQuery(updatedQuery) {
 
-    log( 'attempting to update href query' );
+    log('attempting to update href query');
 
     var href = window.location.href, dashPart = false, query = false, queryPart;
 
-    if ( href.split( '#' ).length > 1 ) {
+    if (href.split('#').length > 1) {
 
-      dashPart = href.split( '#' )[ 0 ];
+      dashPart = href.split('#')[0];
 
     }
 
-    href = href.split( '?' )[ 0 ];
+    href = href.split('?')[0];
 
-    if ( ( typeof window.history == 'undefined' ) || ( typeof window.history.pushState == 'undefined' ) ) {
+    if ((typeof window.history == 'undefined') || (typeof window.history.pushState == 'undefined')) {
 
-      log( 'window.history is not available' );
+      log('window.history is not available');
 
     } else {
 
       query = _readHrefQuery();
 
-      if ( cn.size( updatedQuery ) ) {
+      if (cn.size(updatedQuery)) {
 
         query.oaq = updatedQuery;
 
@@ -890,21 +828,21 @@ module.exports = function( uid ) {
 
       }
 
-      if ( cn.size( query ) ) {
+      if (cn.size(query)) {
 
-        href = href + '?' + qs.stringify( query );
+        href = href + '?' + qs.stringify(query);
 
       }
 
-      if ( dashPart ) {
+      if (dashPart) {
 
         href = href + '#' + dashPart;
 
       }
 
-      if ( ( typeof window.history !== 'undefined' ) && ( typeof window.history.pushState !== 'undefined' ) ) {
+      if ((typeof window.history !== 'undefined') && (typeof window.history.pushState !== 'undefined')) {
 
-        window.history.pushState( updatedQuery, null, href );
+        window.history.pushState(updatedQuery, null, href);
 
       }
 
@@ -932,25 +870,25 @@ module.exports = function( uid ) {
     }
   }
 
-  function _readHrefQuery( key ) {
+  function _readHrefQuery(key) {
 
     var query = {}, queryParts;
 
     try {
 
-      queryParts = window.location.href.split('#')[0].split( '?' ).slice( 1 );
+      queryParts = window.location.href.split('#')[0].split('?').slice(1);
 
-      if ( queryParts.length ) {
+      if (queryParts.length) {
 
-        query = qs.parse( queryParts[ 0 ] );
+        query = qs.parse(queryParts[0]);
 
       }
 
-      return key ? ( query[ key ] ? query[ key ] : {} ) : query;
+      return key ? (query[key] ? query[key] : {}) : query;
 
-    } catch( e ) {
+    } catch(e) {
 
-      log( 'had some trouble reading href query: %s', e );
+      log('had some trouble reading href query: %s', e);
 
     }
 
@@ -960,29 +898,29 @@ module.exports = function( uid ) {
 
   function _redirectLegacySearch() {
 
-    var queryParts = window.location.href.split( '#' )[ 0 ].split( '?' ).slice( 1 );
+    var queryParts = window.location.href.split('#')[0].split('?').slice(1);
 
-    if ( !queryParts.length ) return;
+    if (!queryParts.length) return;
 
-    if ( queryParts[ 0 ].replace( '%5B', '[' ).replace( '%5D', ']' ).indexOf( 'search[' ) !== -1 ) {
+    if (queryParts[0].replace('%5B', '[').replace('%5D', ']').indexOf('search[') !== -1) {
 
-      window.location.href = window.location.href.replace( /search\[/g, 'oaq[' ).replace( /search%5B/g, 'oaq%5B' );
+      window.location.href = window.location.href.replace(/search\[/g, 'oaq[').replace(/search%5B/g, 'oaq%5B');
 
     }
 
   }
 
-  function _stringifyDate( d ) {
+  function _stringifyDate(d) {
 
-    if ( !d ) d = new Date();
+    if (!d) d = new Date();
 
-    return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+    return [d.getFullYear(), _fZ(d.getMonth() + 1), _fZ(d.getDate())].join('-');
 
   }
 
-  function _fZ( str ) {
+  function _fZ(str) {
 
-    if ( ( str + '' ).length == 1 ) {
+    if ((str + '').length == 1) {
 
       return '0' + str;
 
