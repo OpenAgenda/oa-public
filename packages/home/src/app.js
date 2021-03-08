@@ -30,6 +30,7 @@ export default function (options) {
   const { apiRoot, prefix, rootPrefix } = initialState.settings;
 
   const getApp = () => createApp({
+    name: 'home',
     ...options,
     initialState,
     apiRoot,
