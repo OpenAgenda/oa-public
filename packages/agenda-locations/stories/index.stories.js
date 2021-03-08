@@ -124,57 +124,6 @@ storiesOf('Access', module)
     })
   );
 
-storiesOf('Access', module)
-
-  .add('All access', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
-        create: defaultAccess,
-        update: defaultAccess,
-        merge: defaultAccess,
-        delete: defaultAccess
-      }},
-      set: locationSet,
-    })
-  )
-  .add('No Access', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
-        create: {...defaultAccess, authorized: false},
-        update: {...defaultAccess, authorized: false},
-        merge: {...defaultAccess, authorized: false},
-        delete: {...defaultAccess, authorized: false}
-      }},
-      set: locationSet,
-    })
-  )
-  .add('Update Only', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
-        create: {...defaultAccess, authorized: false},
-        update: defaultAccess,
-        merge: {...defaultAccess, authorized: false},
-        delete: {...defaultAccess, authorized: false}
-      }},
-      set: locationSet,
-    })
-  )
-  .add('Update Link, CCN', () =>
-    adminStory({
-      res,
-      settings: {...agendaTestSettings, access: {
-        create: defaultAccess,
-        update : {authorized: true, external: true, link: 'https://cartes.culture.gouv.fr/lieux/{extId}?jwtToken=token', serviceLabel: 'CultureChezNous' },
-        merge: {...defaultAccess, authorized: false},
-        delete: {...defaultAccess, authorized: false}
-      }},
-      set: locationSet,
-    })
-  );
-
 storiesOf('Merge form', module)
   .add('On distinguera plus tard', () => mergeStory({
     ...mergePropsFixtures,

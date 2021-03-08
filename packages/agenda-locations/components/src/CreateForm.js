@@ -1,8 +1,6 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import formLabels from '@openagenda/labels/agenda-locations/form';
-
 import createLabels from '@openagenda/labels/agenda-locations/create';
 import LocationForm from './LocationForm';
 import CreateFormHeader from './CreateFormHeader';
