@@ -22,9 +22,7 @@ export default function Wrapper({ className, tab, children }) {
           </ul>
         ) : null}
 
-        <div className="row wsq">
-          <div className="content">{children}</div>
-        </div>
+        <div className="row wsq">{children}</div>
       </div>
     </div>
   );
