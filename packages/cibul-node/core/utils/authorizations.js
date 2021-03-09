@@ -21,6 +21,8 @@ async function fromMember(core, agenda, event, member) {
   const memberRole = getRoleSlug(member.role);
   const agendaIsClosed = await core.agendas(agenda).settings.isClosed();
 
+  log('fromMember with %s role %s', memberRole, agendaIsClosed ? ' on closed agenda' : '');
+
   return {
     mustBeModerated: (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(memberRole),
     canChangeState: compareRoles.isSuperiorToOrEqual(member?.role, 'moderator', { throwIfUnknown: false }),
@@ -69,6 +71,8 @@ module.exports = (core, operation, {
 }
 
 module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, promisedAccess = null) => {
+  log('getForUserOnAgenda');
+  
   const {
     services
   } = core;

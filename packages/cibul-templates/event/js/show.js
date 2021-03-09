@@ -63,7 +63,6 @@ window.asap(options => {
 
   const params = utils.extend({
     agendaUid: null,
-    moderatorCanPublish: false,
     hasCustomFields: false,
     hasOwnershipTransfer: false,
     res: {
@@ -74,9 +73,7 @@ window.asap(options => {
   log = debug('event');
 
   if (window.env === 'tpl') {
-
     params.res.detailedSession = 'detailedsession.json';
-
   }
 
 
@@ -96,28 +93,12 @@ window.asap(options => {
 
     const prv = privateData();
 
-    if (params.moderatorCanPublish) {
-      du.addClass(du.el('.js_moderator_can_publish'), 'js_role_agenda_moderator');
-    }
-
     displayReferences(params.agendaUid, params.uid);
 
     if (params.hasOwnershipTransfer) {
       ownershipTransfer({
         lang: params.lang
       });
-    }
-
-    // ugly hack to display state if state control is not presented
-    if (!roles.some(r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN)) {
-      du.removeClass(du.el('.js_current_state'), 'display-none');
-    }
-
-    if (roles.includes(ROLES.EVENTEDITOR)) {
-      du.removeClass(du.el('.js_cancel'), 'display-none');
-    } else {
-      du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
-      du.removeClass(du.el('.js_disabled_cancel'), 'display-none');
     }
 
     if (roles.length && params.hasCustomFields) {

@@ -77,6 +77,23 @@ module.exports = options => {
         });
       }
 
+      if (data.authorizations?.canEditEvent) {
+        du.removeClass(du.el('.js_cancel'), 'display-none');
+      } else {
+        du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
+        du.removeClass(du.el('.js_disabled_cancel'), 'display-none');
+      }
+
+      if (data.authorizations?.canChangeState) {
+        du.removeClass(du.el('.js_can_change_state'), 'display-none');
+      } else {
+        du.removeClass(du.el('.js_cannot_change_state'), 'display-none');
+      }
+
+      if (data.authorizations?.canPublish) {
+        du.removeClass(du.el('.js_can_publish_event'), 'display-none');
+      }
+      
       const tagGroups = _.get(data, 'tagGroups', []).filter(g => g.access !== 'public');
 
       displayPrivateTags(tagGroups);

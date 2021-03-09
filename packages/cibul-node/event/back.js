@@ -194,13 +194,11 @@ module.exports = app => {
 
 
 function _monolingual(events, multilingualFields, preferredLang = 'en') {
-
   return events.map(ev => _.keys(ev)
     .reduce((e, k) => _.set(e, k, multilingualFields.includes(k) ?
       _.get(ev, [k, preferredLang], ev[k][_.first(_.keys(ev[k]))])
       : ev[k])
     , {}));
-
 }
 
 
@@ -227,6 +225,7 @@ async function getPrivateEventData(req, res, next) {
       custom,
       labels
     },
+    authorizations: await req.app.services.core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations(req.event),
     contributor: {
       data: contributor,
       labels: {
