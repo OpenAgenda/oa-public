@@ -30,9 +30,9 @@ module.exports = function profileImage() {
             {
               field: 'image',
               code: 'image.invalid',
-              message: 'invalid image'
-            }
-          ]
+              message: 'invalid image',
+            },
+          ],
         });
       }
     } else if (image === null) {
@@ -48,9 +48,9 @@ module.exports = function profileImage() {
             {
               field: 'image',
               code: 'image.remove',
-              message: 'invalid image'
-            }
-          ]
+              message: 'invalid image',
+            },
+          ],
         });
       }
     } else {

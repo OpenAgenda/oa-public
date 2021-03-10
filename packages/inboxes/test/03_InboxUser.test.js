@@ -15,7 +15,7 @@ describe('InboxUser', () => {
     service = await initAndLoad(
       {
         ...testconfig,
-        mysql: { ...testconfig.mysql, database }
+        mysql: { ...testconfig.mysql, database },
       },
       []
     );
@@ -35,7 +35,7 @@ describe('InboxUser', () => {
     await seed(
       {
         ...testconfig,
-        mysql: { ...testconfig.mysql, database }
+        mysql: { ...testconfig.mysql, database },
       },
       tables
     );
@@ -50,38 +50,38 @@ describe('InboxUser', () => {
     test('create an inbox user', async () => {
       const inboxUser = await new Inbox({
         type: 'agenda',
-        identifier: 48959239
+        identifier: 48959239,
       }).users.add({ userUid: 12341234 });
 
       expect(inboxUser.toJSON()).toEqual({
         id: 10,
         inboxId: 1,
         userUid: 12341234,
-        leftAt: null
+        leftAt: null,
       });
     });
 
     test('create an already existant inbox user', async () => {
       const inboxUser = await new Inbox({
         type: 'agenda',
-        identifier: 48959239
+        identifier: 48959239,
       }).users.add({ userUid: 23456789 });
 
       expect(inboxUser.toJSON()).toEqual({
         id: 1,
         inboxId: 1,
         userUid: 23456789,
-        leftAt: null
+        leftAt: null,
       });
     });
 
     test('create an inbox user - inbox not found', async () => {
       await expect(
         new Inbox({ type: 'agenda', identifier: 12341234 }).users.add({
-          userUid: 99999999
+          userUid: 99999999,
         })
       ).rejects.toMatchObject({
-        message: "Inbox { type: 'agenda', identifier: 12341234 } not found"
+        message: "Inbox { type: 'agenda', identifier: 12341234 } not found",
       });
     });
 
@@ -102,7 +102,7 @@ describe('InboxUser', () => {
           id: 1,
           inboxId: 1,
           userUid: 23456789,
-          leftAt: null
+          leftAt: null,
         });
       });
 
@@ -113,7 +113,7 @@ describe('InboxUser', () => {
           id: 1,
           inboxId: 1,
           userUid: 23456789,
-          leftAt: null
+          leftAt: null,
         });
       });
 
@@ -128,7 +128,7 @@ describe('InboxUser', () => {
           avatar:
             'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
-          uid: 23456789
+          uid: 23456789,
         });
       });
 
@@ -147,21 +147,21 @@ describe('InboxUser', () => {
           id: 1,
           inboxId: 1,
           userUid: 23456789,
-          leftAt: null
+          leftAt: null,
         });
       });
 
       test('get an inbox user by identifiers', async () => {
         const inboxUser = await new InboxUser({
           inboxId: 2,
-          userUid: 99999999
+          userUid: 99999999,
         }).get();
 
         expect(inboxUser.toJSON()).toEqual({
           id: 2,
           inboxId: 2,
           userUid: 99999999,
-          leftAt: null
+          leftAt: null,
         });
       });
 
@@ -172,10 +172,10 @@ describe('InboxUser', () => {
           jse_info: {
             errors: {
               inboxId: {
-                code: 'required'
-              }
-            }
-          }
+                code: 'required',
+              },
+            },
+          },
         });
       });
     });
@@ -190,14 +190,14 @@ describe('InboxUser', () => {
           id: 3,
           inboxId: 4,
           userUid: 56484348,
-          leftAt: null
+          leftAt: null,
         },
         {
           id: 4,
           inboxId: 4,
           userUid: 89216486,
-          leftAt: new Date('2017-09-28T18:22:04.000Z')
-        }
+          leftAt: new Date('2017-09-28T18:22:04.000Z'),
+        },
       ]);
     });
 
@@ -209,14 +209,14 @@ describe('InboxUser', () => {
           id: 3,
           inboxId: 4,
           userUid: 56484348,
-          leftAt: null
-        }
+          leftAt: null,
+        },
       ]);
     });
 
     test('list inbox users of some inboxes', async () => {
       const inboxUsers = await new InboxUsers().list({
-        inboxId: [1, 2]
+        inboxId: [1, 2],
       });
 
       expect(inboxUsers.toJSON()).toEqual([
@@ -224,26 +224,26 @@ describe('InboxUser', () => {
           id: 1,
           inboxId: 1,
           userUid: 23456789,
-          leftAt: null
+          leftAt: null,
         },
         {
           id: 2,
           inboxId: 2,
           userUid: 99999999,
-          leftAt: null
+          leftAt: null,
         },
         {
           id: 8,
           inboxId: 1,
           userUid: 32132112,
-          leftAt: null
-        }
+          leftAt: null,
+        },
       ]);
     });
 
     test('list inbox users attached to a user', async () => {
       const inboxUsers = await new InboxUsers().list({
-        userUid: 99999999
+        userUid: 99999999,
       });
 
       expect(inboxUsers.toJSON()).toEqual([
@@ -251,14 +251,14 @@ describe('InboxUser', () => {
           id: 2,
           inboxId: 2,
           userUid: 99999999,
-          leftAt: null
+          leftAt: null,
         },
         {
           id: 5,
           inboxId: 5,
           userUid: 99999999,
-          leftAt: null
-        }
+          leftAt: null,
+        },
       ]);
     });
 
@@ -267,10 +267,10 @@ describe('InboxUser', () => {
         jse_info: {
           errors: {
             inboxId: {
-              code: 'required'
-            }
-          }
-        }
+              code: 'required',
+            },
+          },
+        },
       });
     });
   });
@@ -283,7 +283,7 @@ describe('InboxUser', () => {
       expect(_.omit(user.toJSON(), 'leftAt')).toEqual({
         id: 3,
         inboxId: 4,
-        userUid: 56484348
+        userUid: 56484348,
       });
     });
   });

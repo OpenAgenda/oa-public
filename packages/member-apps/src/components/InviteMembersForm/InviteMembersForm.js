@@ -7,13 +7,13 @@ import {
   renderField,
   renderTextarea,
   renderSelect,
-  renderMarkdownInput
+  renderMarkdownInput,
 } from '../../utils/form';
 import I18nContext from '../../contexts/I18nContext';
 import validate from './validate';
 
 @connect(state => ({
-  inviteLoading: state.members.inviteLoading
+  inviteLoading: state.members.inviteLoading,
 }))
 export default class InviteMembersForm extends Component {
   static contextType = I18nContext;
@@ -31,7 +31,7 @@ export default class InviteMembersForm extends Component {
       onSubmit, userCredential, agenda, inviteLoading
     } = this.props;
     const {
-      credentials: { invitationMessage }
+      credentials: { invitationMessage },
     } = agenda;
 
     return (
@@ -93,7 +93,7 @@ export default class InviteMembersForm extends Component {
                 <div className="text-center">
                   <button
                     className={classNames('btn btn-primary', {
-                      disabled: inviteLoading
+                      disabled: inviteLoading,
                     })}
                     type="submit"
                   >

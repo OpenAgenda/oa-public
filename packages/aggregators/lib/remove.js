@@ -14,17 +14,15 @@ module.exports = async (knex, agendaUid) => {
     throw new Error('Aggregator not found');
   }
 
-  const result = await knex('aggregator')
-    .delete()
-    .where({
-      review_id: agendaId
-    });
+  const result = await knex('aggregator').delete().where({
+    review_id: agendaId,
+  });
 
   const success = result === 1;
 
   log(success ? 'success' : 'failed');
 
   return {
-    success
+    success,
   };
 };

@@ -11,24 +11,24 @@ import * as modalsActions from '../reducers/modals';
 const messages = defineMessages({
   officialAgenda: {
     id: 'aggregator-sources.SourcesList.officialAgenda',
-    defaultMessage: 'Official agenda'
+    defaultMessage: 'Official agenda',
   },
   update: {
     id: 'aggregator-sources.SourcesList.update',
-    defaultMessage: 'Update'
+    defaultMessage: 'Update',
   },
   remove: {
     id: 'aggregator-sources.SourcesList.remove',
-    defaultMessage: 'Remove'
+    defaultMessage: 'Remove',
   },
   seeAgenda: {
     id: 'aggregator-sources.SourcesList.seeAgenda',
-    defaultMessage: 'See agenda'
+    defaultMessage: 'See agenda',
   },
   copy: {
     id: 'aggregator-sources.SourcesList.copy',
-    defaultMessage: 'Copy'
-  }
+    defaultMessage: 'Copy',
+  },
 });
 
 function SourceItem({ source }) {
@@ -39,7 +39,7 @@ function SourceItem({ source }) {
   const res = useSelector(state => state.res);
 
   const rulesJSON = useMemo(() => JSON.stringify(source.rules, null, 2), [
-    source.rules
+    source.rules,
   ]);
 
   const showModalRemove = useCallback(
@@ -106,7 +106,7 @@ function SourceItem({ source }) {
               className="btn btn-link-inline"
             >
               {intl.formatMessage(messages.update, {
-                rulesCount: source.rules.length
+                rulesCount: source.rules.length,
               })}
             </button>{' '}
             <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>

@@ -25,7 +25,7 @@ class TempStorage {
     this.providers = providers;
     this.options = options;
 
-    this.getFilename = (tmpFilename || getFilename);
+    this.getFilename = tmpFilename || getFilename;
 
     if (typeof tmpDestination === 'string') {
       mkdirp.sync(tmpDestination);
@@ -33,7 +33,7 @@ class TempStorage {
         cb(null, tmpDestination);
       };
     } else {
-      this.getDestination = (tmpDestination || getDestination);
+      this.getDestination = tmpDestination || getDestination;
     }
   }
 
@@ -68,7 +68,7 @@ class TempStorage {
             destination,
             filename,
             path: finalPath,
-            size: outStream.bytesWritten
+            size: outStream.bytesWritten,
           });
 
           cb();

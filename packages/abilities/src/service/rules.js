@@ -25,7 +25,7 @@ export function format(rules) {
     inverted: rule.inverted || false,
     conditions: rule.conditions ? JSON.stringify(rule.conditions) : null,
     fields: joinIfArray(rule.fields) || null,
-    reason: rule.reason || null
+    reason: rule.reason || null,
   });
 
   return Array.isArray(rules) ? rules.map(_format) : _format(rules);
@@ -44,7 +44,7 @@ export function parse(rules) {
         ? JSON.parse(rule.conditions)
         : rule.conditions || null,
     fields: splitIfNeeded(rule.fields) || null,
-    reason: rule.reason || null
+    reason: rule.reason || null,
   });
 
   return Array.isArray(rules) ? rules.map(_parse) : _parse(rules);

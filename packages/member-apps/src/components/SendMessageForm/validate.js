@@ -4,7 +4,7 @@ import email from '@openagenda/validators/email';
 
 schema.register({
   text,
-  email
+  email,
 });
 
 export default function validate(values) {
@@ -14,12 +14,12 @@ export default function validate(values) {
     schema({
       message: {
         type: 'text',
-        optional: false
+        optional: false,
       },
       replyTo: {
         type: 'email',
-        optional: true
-      }
+        optional: true,
+      },
     })(values);
   } catch (e) {
     Object.assign(errors, ...e.map(v => ({ [v.field]: v.code })));

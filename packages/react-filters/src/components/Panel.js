@@ -6,7 +6,7 @@ export default function Panel({
   collapsed = true,
   setCollapsed,
   header,
-  children
+  children,
 }) {
   // default state when used without setCollapsed
   const internalState = useState(collapsed);
@@ -40,7 +40,7 @@ export default function Panel({
           <i
             className={cn('fa fa-lg', {
               'fa-angle-up': !value,
-              'fa-angle-down': value
+              'fa-angle-down': value,
             })}
             aria-hidden="true"
           />
@@ -49,7 +49,7 @@ export default function Panel({
       <div
         className={cn('oa-collapse-content', {
           'oa-collapse-content-active': !value,
-          'oa-collapse-content-inactive': value
+          'oa-collapse-content-inactive': value,
         })}
         role="tabpanel"
       >

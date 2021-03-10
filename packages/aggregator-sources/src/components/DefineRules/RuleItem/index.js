@@ -12,7 +12,7 @@ export default function RuleItem({
   sourceAgenda,
   sourceAgendaSchema,
   aggregatorAgenda,
-  aggregatorAgendaSchema
+  aggregatorAgendaSchema,
 }) {
   const intl = useIntl();
 

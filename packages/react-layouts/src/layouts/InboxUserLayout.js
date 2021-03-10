@@ -6,7 +6,7 @@ function InboxUserLayout({
   children,
   extraProps,
   onError,
-  FallbackComponent
+  FallbackComponent,
 }) {
   return (
     <div className="container top-margined">

@@ -30,7 +30,7 @@ export default class EditMemberForm extends Component {
           contactNumber: custom.contactNumber,
           contactName: custom.contactName,
           contactPosition: custom.contactPosition,
-          role: member.role
+          role: member.role,
         }}
         render={({ handleSubmit }) => (
           <I18nContext.Consumer>

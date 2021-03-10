@@ -23,8 +23,8 @@ describe('members - functional - remove', () => {
         getEventCountByUserUid,
         onRemove: (...args) => {
           onRemoveArguments = args;
-        }
-      }
+        },
+      },
     });
   });
 
@@ -33,8 +33,8 @@ describe('members - functional - remove', () => {
       { userUid: 2, agendaUid: 1 },
       {
         context: {
-          user: { uid: 1920 }
-        }
+          user: { uid: 1920 },
+        },
       }
     );
   });
@@ -66,13 +66,13 @@ describe('members - functional - remove', () => {
           contactNumber: '013072171',
           contactName: 'JC Ponceau',
           contactPosition: 'Responsable des pains',
-          email: 'jc@ponceau.fr'
+          email: 'jc@ponceau.fr',
         },
-        actionsCounter: 5
+        actionsCounter: 5,
       },
       {
-        user: { uid: 1920 }
-      }
+        user: { uid: 1920 },
+      },
     ]);
   });
 });

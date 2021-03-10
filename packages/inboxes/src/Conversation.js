@@ -13,7 +13,7 @@ import validate from './utils/validate';
 import {
   identifiersSchema,
   createSchema,
-  updateSchema
+  updateSchema,
 } from './validators/conversationSchemas';
 import populateDetails from './db/populateDetails';
 import populateParticipants from './db/populateParticipants';
@@ -24,7 +24,7 @@ const log = logger('inboxes/Conversation');
 const ajv = new Ajv({
   allErrors: true,
   jsonPointers: true,
-  errorDataPath: 'property'
+  errorDataPath: 'property',
 });
 ajvErrors(ajv);
 ajvKeywords(ajv, ['instanceof']);
@@ -42,19 +42,17 @@ export default class Conversation {
     this.messages = new Messages({
       conversation: this,
       inbox: this.inbox,
-      userUid: this.userUid
+      userUid: this.userUid,
     });
   }
 
   static async link(svc, { inboxId, conversationId }) {
     const { knex, schemas } = svc.config;
 
-    const link = await knex(schemas.inboxConversation)
-      .select()
-      .where({
-        inbox_id: inboxId,
-        conversation_id: conversationId
-      });
+    const link = await knex(schemas.inboxConversation).select().where({
+      inbox_id: inboxId,
+      conversation_id: conversationId,
+    });
 
     if (link.length) {
       return null;
@@ -62,7 +60,7 @@ export default class Conversation {
 
     return knex(schemas.inboxConversation).insert({
       inbox_id: inboxId,
-      conversation_id: conversationId
+      conversation_id: conversationId,
     });
   }
 
@@ -72,7 +70,7 @@ export default class Conversation {
     return knex(schemas.inboxConversation)
       .where({
         inbox_id: inboxId,
-        conversation_id: conversationId
+        conversation_id: conversationId,
       })
       .del();
   }
@@ -83,7 +81,7 @@ export default class Conversation {
 
     const params = _.merge(
       {
-        createInboxUserOnNull: false
+        createInboxUserOnNull: false,
       },
       options
     );
@@ -123,7 +121,7 @@ export default class Conversation {
 
     const protectedData = {
       store: { params: data.params || {} },
-      ..._.pick(data, 'type', 'typeIdentifier')
+      ..._.pick(data, 'type', 'typeIdentifier'),
     };
 
     const finalData = _.omit(
@@ -138,12 +136,12 @@ export default class Conversation {
     const [insertedId] = await knex(schemas.conversation).insert({
       ...mapper.toDb(conversationFieldsMap, 'insert', finalData, options),
       ...mapper.toDb(conversationFieldsMap, 'insert', protectedData, {
-        protected: false
+        protected: false,
       }),
       creator_inbox_user_id: inboxUser.data.id,
       created_at: createdAt,
       updated_at: createdAt,
-      file_key: uuid().replace(/-/g, '')
+      file_key: uuid().replace(/-/g, ''),
     });
 
     this.identifiers = { id: insertedId };
@@ -152,7 +150,7 @@ export default class Conversation {
 
     await Conversation.link(this.svc, {
       inboxId: this.inbox.data.id,
-      conversationId: this.identifiers.id
+      conversationId: this.identifiers.id,
     });
 
     await Promise.all(
@@ -160,7 +158,7 @@ export default class Conversation {
         if (this.inbox.data.id !== destinationInbox.data.id) {
           await Conversation.link(this.svc, {
             inboxId: destinationInbox.data.id,
-            conversationId: this.identifiers.id
+            conversationId: this.identifiers.id,
           });
         }
       })
@@ -170,10 +168,10 @@ export default class Conversation {
       await this.messages.create(
         {
           body: data.message,
-          userUid: inboxUser.data.userUid
+          userUid: inboxUser.data.userUid,
         },
         {
-          createdAt
+          createdAt,
         }
       );
     }
@@ -360,14 +358,14 @@ export default class Conversation {
       ..._.omit(data, 'params'),
       store: {
         ...this.data.store,
-        params: _.merge({}, this.data.store.params || {}, data.params || {})
-      }
+        params: _.merge({}, this.data.store.params || {}, data.params || {}),
+      },
     };
 
     await knex(schemas.conversation)
       .update({
         ...mapper.toDb(conversationFieldsMap, 'update', finalData, options),
-        updated_at: new Date()
+        updated_at: new Date(),
       })
       .leftJoin(
         schemas.inboxConversation,
@@ -425,12 +423,12 @@ export default class Conversation {
       if (code === defaultAction.code) {
         return {
           closedAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
         };
       }
       if (action.resolve === false) {
         return {
-          updatedAt: new Date()
+          updatedAt: new Date(),
         };
       }
       return {
@@ -442,17 +440,17 @@ export default class Conversation {
           resolvedWith: code,
           resolvedBy: {
             inboxUserId: _inboxUser.data.id,
-            userUid: _inboxUser.data.userUid
-          }
-        }
+            userUid: _inboxUser.data.userUid,
+          },
+        },
       };
     })();
 
     await knex(schemas.conversation)
       .update({
         ...mapper.toDb(conversationFieldsMap, 'update', data, {
-          protected: false
-        })
+          protected: false,
+        }),
       })
       .leftJoin(
         schemas.inboxConversation,
@@ -472,7 +470,7 @@ export default class Conversation {
       throw new VError(
         {
           cause: e,
-          info: { conversation: this, code }
+          info: { conversation: this, code },
         },
         'Error in onAction interface'
       );
@@ -505,7 +503,7 @@ export default class Conversation {
     const { InboxUser } = this.svc;
 
     const inboxUser = await new InboxUser(identifiers, { inbox }).get({
-      createOnNull
+      createOnNull,
     });
 
     if (!inboxUser.data) {

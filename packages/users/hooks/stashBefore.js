@@ -32,9 +32,9 @@ module.exports = function stashBefore(prop, additionalParams = {}) {
         : {
           provider: context.params.provider,
           authenticated: context.params.authenticated,
-          user: context.params.user
+          user: context.params.user,
         }),
-      ...additionalParams
+      ...additionalParams,
     };
 
     params.query = params.query || {};

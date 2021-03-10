@@ -12,7 +12,7 @@ const ONE_DAY = 60 * 60 * 24;
 
 const weekStartsDay = {
   en: 0,
-  fr: 1
+  fr: 1,
 };
 
 function widthToBreakpoint(breakpoints, width) {
@@ -66,10 +66,10 @@ export default class TimingsPicker extends Component {
     breakpoints: {
       xs: 590,
       sm: 640,
-      md: 768
+      md: 768,
     },
     locale: 'en',
-    locales: null
+    locales: null,
   };
 
   schedulerRef = React.createRef();
@@ -81,7 +81,7 @@ export default class TimingsPicker extends Component {
       activeWeek: null,
       breakpoint: null,
       weekStartsOn: 0,
-      locales: null
+      locales: null,
     };
   }
 
@@ -117,7 +117,7 @@ export default class TimingsPicker extends Component {
       derivedState.locales = props.locales;
       derivedState.messages = {
         ...locales[props.locale],
-        ...(props.locales && props.locales[props.locale])
+        ...(props.locales && props.locales[props.locale]),
       };
     }
 
@@ -125,7 +125,7 @@ export default class TimingsPicker extends Component {
       derivedState.value = (props.value || state.value || []).map(v => ({
         begin:
           typeof v.begin === 'string' ? dateFns.parseISO(v.begin) : v.begin,
-        end: typeof v.end === 'string' ? dateFns.parseISO(v.end) : v.end
+        end: typeof v.end === 'string' ? dateFns.parseISO(v.end) : v.end,
       }));
     }
 
@@ -143,7 +143,7 @@ export default class TimingsPicker extends Component {
     const newActiveWeek = fn(activeWeek);
 
     this.setState({
-      activeWeek: newActiveWeek
+      activeWeek: newActiveWeek,
     });
 
     if (typeof onChangeActiveWeek === 'function') {
@@ -215,7 +215,7 @@ export default class TimingsPicker extends Component {
       allowedTimings,
       classNamePrefix,
       editOnClick,
-      locale
+      locale,
     } = this.props;
     const {
       value,
@@ -223,14 +223,14 @@ export default class TimingsPicker extends Component {
       activeWeek,
       weekStartsOn,
       breakpoint,
-      valueToHighlight
+      valueToHighlight,
     } = this.state;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>
         <div
           className={classNames(`${classNamePrefix}calendar`, {
-            [classNamePrefix + breakpoint]: breakpoint
+            [classNamePrefix + breakpoint]: breakpoint,
           })}
         >
           <ReactResizeDetector

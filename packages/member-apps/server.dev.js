@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   req.user = {
     id: 2,
-    lang: req.query.lang || 'fr'
+    lang: req.query.lang || 'fr',
   }; // 2 == administrator, 4387 == contributor
   req.identifiers = { userId: req.user.id };
   req.agenda = { id: 4608 };
@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   req.agenda = {
     uid: 1938,
-    title: 'Un agenda'
+    title: 'Un agenda',
   };
   next();
 });
@@ -54,7 +54,7 @@ app.use((req, res, next) => {
     id: 1,
     userUid: 123,
     agendaUid: 1234,
-    custom: {}
+    custom: {},
   };
   next();
 });
@@ -63,16 +63,16 @@ app.use((req, res, next) => {
   req.roles = [
     {
       code: 1,
-      slug: 'contributor'
+      slug: 'contributor',
     },
     {
       code: 2,
-      slug: 'administrator'
+      slug: 'administrator',
     },
     {
       code: 3,
-      slug: 'moderator'
-    }
+      slug: 'moderator',
+    },
   ];
   next();
 });
@@ -94,7 +94,7 @@ app.get('/members.json', (req, res) => {
 
   res.json({
     members,
-    total
+    total,
   });
 });
 
@@ -102,8 +102,8 @@ app.get('/stats', (req, res) => res.json({
   total: 17,
   totalPerRole: {
     contributor: 14,
-    administrator: 3
-  }
+    administrator: 3,
+  },
 }));
 
 app.delete(
@@ -122,9 +122,9 @@ app.patch(
       role: 2,
       custom: {
         contactName: 'Server result member name',
-        organization: 'Members Org'
+        organization: 'Members Org',
       },
-      errors: []
+      errors: [],
     };
     next();
   },

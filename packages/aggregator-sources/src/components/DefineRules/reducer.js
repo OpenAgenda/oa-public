@@ -6,7 +6,7 @@ export default (state, action) => {
       return {
         ...state,
         mode: action.payload.mode,
-        modeOptions: action.payload.options
+        modeOptions: action.payload.options,
       };
     }
     case 'addRule': {
@@ -16,9 +16,9 @@ export default (state, action) => {
           ...state.rules,
           {
             id: _.uniqueId(), // for react key prop
-            ...action.payload.rule
-          }
-        ]
+            ...action.payload.rule,
+          },
+        ],
       };
     }
     case 'updateRule': {
@@ -27,15 +27,15 @@ export default (state, action) => {
         rules: state.rules.map(rule => (rule.id === action.payload.id
           ? {
             id: action.payload.id,
-            ...action.payload.rule
+            ...action.payload.rule,
           }
-          : rule))
+          : rule)),
       };
     }
     case 'removeRule': {
       return {
         ...state,
-        rules: state.rules.filter(rule => rule.id !== action.payload.id)
+        rules: state.rules.filter(rule => rule.id !== action.payload.id),
       };
     }
     case 'reorderRules': {
@@ -44,7 +44,7 @@ export default (state, action) => {
       rules.splice(action.payload.endIndex, 0, itemToMove);
       return {
         ...state,
-        rules
+        rules,
       };
     }
     default:

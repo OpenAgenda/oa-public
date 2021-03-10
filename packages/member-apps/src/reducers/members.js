@@ -35,7 +35,7 @@ const SEND_MESSAGE_FAIL = 'member-apps/members/SEND_MESSAGE_FAIL';
 
 const initialState = {
   loaded: false,
-  credFilters: []
+  credFilters: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -43,7 +43,7 @@ export default function reducer(state = initialState, action) {
     case LOAD:
       return {
         ...state,
-        loadLoading: true
+        loadLoading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -54,7 +54,7 @@ export default function reducer(state = initialState, action) {
         credFilters: [].concat(action.query.credentials || []),
         page: 1,
         error: null,
-        loadLoading: false
+        loadLoading: false,
       };
     case LOAD_FAIL:
       return {
@@ -63,17 +63,17 @@ export default function reducer(state = initialState, action) {
         total: null,
         page: 1,
         error: action.error,
-        loadLoading: false
+        loadLoading: false,
       };
     case GET_STATS_SUCCESS:
       return {
         ...state,
-        stats: action.result
+        stats: action.result,
       };
     case LIST:
       return {
         ...state,
-        listLoading: true
+        listLoading: true,
       };
     case LIST_SUCCESS:
       return {
@@ -82,7 +82,7 @@ export default function reducer(state = initialState, action) {
         total: action.result.total,
         page: 1,
         error: null,
-        listLoading: false
+        listLoading: false,
       };
     case LIST_FAIL:
       return {
@@ -91,12 +91,12 @@ export default function reducer(state = initialState, action) {
         total: null,
         page: 1,
         error: action.error,
-        listLoading: false
+        listLoading: false,
       };
     case NEXT_PAGE:
       return {
         ...state,
-        nextLoading: true
+        nextLoading: true,
       };
     case NEXT_PAGE_SUCCESS:
       return {
@@ -105,58 +105,58 @@ export default function reducer(state = initialState, action) {
         total: action.result.total,
         page: action.page,
         error: null,
-        nextLoading: false
+        nextLoading: false,
       };
     case NEXT_PAGE_FAIL:
       return {
         ...state,
         error: action.error,
-        nextLoading: false
+        nextLoading: false,
       };
     case UPDATE:
       return {
         ...state,
-        updateLoading: true
+        updateLoading: true,
       };
     case UPDATE_SUCCESS: {
       const data = state.data.map(sh => (sh.id === action.id
         ? {
           ...sh,
           role: action.result.role || sh.role,
-          custom: { ...sh.custom, ...action.result.custom }
+          custom: { ...sh.custom, ...action.result.custom },
         }
         : sh));
       return {
         ...state,
         data,
         updateError: null,
-        updateLoading: false
+        updateLoading: false,
       };
     }
     case UPDATE_FAIL:
       return {
         ...state,
         updateError: action.error,
-        updateLoading: false
+        updateLoading: false,
       };
     case INVITE:
       return {
         ...state,
-        inviteLoading: true
+        inviteLoading: true,
       };
     case INVITE_SUCCESS:
       return {
         ...state,
         inviteError: null,
         inviteLoading: false,
-        showInviteResult: true
+        showInviteResult: true,
       };
     case INVITE_FAIL:
       return {
         ...state,
         inviteError: action.error,
         inviteLoading: false,
-        showInviteResult: true
+        showInviteResult: true,
       };
     case REMOVE_SUCCESS: {
       const index = state.data.findIndex(sh => sh.id === action.id);
@@ -171,31 +171,31 @@ export default function reducer(state = initialState, action) {
           total: state.stats.total - 1,
           totalPerRole: {
             ...state.stats.totalPerRole,
-            [role]: state.stats.totalPerRole[role] - 1
-          }
-        }
+            [role]: state.stats.totalPerRole[role] - 1,
+          },
+        },
       };
     }
     case CLEAN_INVITE_RESULT:
       return {
         ...state,
         inviteError: false,
-        showInviteResult: false
+        showInviteResult: false,
       };
     case ADD_CRED_FILTER:
       return {
         ...state,
-        credFilters: [...state.credFilters, action.role]
+        credFilters: [...state.credFilters, action.role],
       };
     case REMOVE_CRED_FILTER:
       return {
         ...state,
-        credFilters: state.credFilters.filter(role => role !== action.role)
+        credFilters: state.credFilters.filter(role => role !== action.role),
       };
     case CLEAN_CRED_FILTERS:
       return {
         ...state,
-        credFilters: []
+        credFilters: [],
       };
     default:
       return state;
@@ -214,9 +214,9 @@ export function load(agenda, query = {}) {
       const { res } = getState();
 
       return client.get(res.list.replace(':slug', agenda.slug), {
-        params: query
+        params: query,
       });
-    }
+    },
   };
 }
 
@@ -227,7 +227,7 @@ export function getStats(agenda) {
       const { res } = getState();
 
       return client.get(res.stats.replace(':slug', agenda.slug));
-    }
+    },
   };
 }
 
@@ -238,9 +238,9 @@ export function list(agenda, query = {}) {
       const { res } = getState();
 
       return client.get(res.list.replace(':slug', agenda.slug), {
-        params: query
+        params: query,
       });
-    }
+    },
   };
 }
 
@@ -254,10 +254,10 @@ export function nextPage(agenda, query, page) {
       return client.get(res.list.replace(':slug', agenda.slug), {
         params: {
           ...query,
-          page
-        }
+          page,
+        },
       });
-    }
+    },
   };
 }
 
@@ -272,10 +272,10 @@ export function update(agenda, id, values) {
         res.update.replace(':slug', agenda.slug).replace(':id', id),
         {
           custom: _.omit(values, 'role'),
-          role: values.role
+          role: values.role,
         }
       );
-    }
+    },
   };
 }
 
@@ -293,10 +293,10 @@ export function invite(agenda, data) {
         emails,
         role: data.role,
         context: {
-          message: data.message
-        }
+          message: data.message,
+        },
       });
-    }
+    },
   };
 }
 
@@ -305,7 +305,7 @@ export function resendInvitation(agenda, id) {
     types: [
       RESEND_INVITATION,
       RESEND_INVITATION_SUCCESS,
-      RESEND_INVITATION_FAIL
+      RESEND_INVITATION_FAIL,
     ],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
@@ -314,13 +314,13 @@ export function resendInvitation(agenda, id) {
         res.resend.replace(':slug', agenda.slug).replace(':id', id),
         {}
       );
-    }
+    },
   };
 }
 
 export function cleanInviteResult() {
   return {
-    type: CLEAN_INVITE_RESULT
+    type: CLEAN_INVITE_RESULT,
   };
 }
 
@@ -334,7 +334,7 @@ export function remove(agenda, id) {
       return client.delete(
         res.remove.replace(':slug', agenda.slug).replace(':id', id)
       );
-    }
+    },
   };
 }
 
@@ -345,28 +345,28 @@ export function sendMessage(agenda, data, query) {
       const { res } = getState();
 
       return client.post(res.sendMessage.replace(':slug', agenda.slug), data, {
-        params: query
+        params: query,
       });
-    }
+    },
   };
 }
 
 export function addCredFilter(role) {
   return {
     type: ADD_CRED_FILTER,
-    role
+    role,
   };
 }
 
 export function removeCredFilter(role) {
   return {
     type: REMOVE_CRED_FILTER,
-    role
+    role,
   };
 }
 
 export function cleanCredFilters() {
   return {
-    type: CLEAN_CRED_FILTERS
+    type: CLEAN_CRED_FILTERS,
   };
 }

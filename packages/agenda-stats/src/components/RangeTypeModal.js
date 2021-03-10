@@ -6,8 +6,8 @@ import { Modal, Spinner } from '@openagenda/react-components';
 const messages = defineMessages({
   modalTitle: {
     id: 'AgendaStats.RangeTypeModal.modalTitle',
-    defaultMessage: 'Choose type of period range'
-  }
+    defaultMessage: 'Choose type of period range',
+  },
 });
 
 const Radio = ({ id, input, children }) => (
@@ -30,7 +30,7 @@ function RangeTypeForm({
             values={{
               b: txt => <b>{txt}</b>,
               startDate: range.startDate,
-              endDate: range.endDate
+              endDate: range.endDate,
             }}
           />
         </p>
@@ -96,7 +96,7 @@ export default function RangeTypeModal({
   range,
   initialValues,
   onSubmit,
-  onClose
+  onClose,
 }) {
   const intl = useIntl();
 
@@ -105,7 +105,7 @@ export default function RangeTypeModal({
       title={intl.formatMessage(messages.modalTitle)}
       onClose={onClose}
       classNames={{
-        overlay: 'popup-overlay big'
+        overlay: 'popup-overlay big',
       }}
       disableBodyScroll
     >

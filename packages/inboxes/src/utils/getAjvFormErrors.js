@@ -44,7 +44,7 @@ export default function getAjvFormErrors(errors) {
     ) {
       result[path] = Object.assign(err, {
         message: err.message,
-        code: getErrorCode(err)
+        code: getErrorCode(err),
       });
     }
 

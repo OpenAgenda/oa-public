@@ -11,24 +11,24 @@ export default function reducer(state = initialState, action) {
         ...state,
         [action.name]: {
           ...action.options,
-          visible: true
-        }
+          visible: true,
+        },
       };
     case SET:
       return {
         ...state,
         [action.name]: {
           ...state[action.name],
-          ...action.options
-        }
+          ...action.options,
+        },
       };
     case CLOSE:
       return {
         ...state,
         [action.name]: {
           ...state[action.name],
-          visible: false
-        }
+          visible: false,
+        },
       };
     default:
       return state;
@@ -39,7 +39,7 @@ export function showModal(name, options = {}) {
   return {
     type: SHOW,
     name,
-    options
+    options,
   };
 }
 
@@ -47,13 +47,13 @@ export function setModal(name, options = {}) {
   return {
     type: SET,
     name,
-    options
+    options,
   };
 }
 
 export function closeModal(name) {
   return {
     type: CLOSE,
-    name
+    name,
   };
 }

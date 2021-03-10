@@ -6,7 +6,7 @@ import I18nContext from '../contexts/I18nContext';
 const searchSpinner = {
   width: 1,
   length: 3,
-  radius: 4
+  radius: 4,
 };
 
 export function renderField({
@@ -20,7 +20,7 @@ export function renderField({
   displayError,
   displayFeedback = true,
   errorOnDirty,
-  meta
+  meta,
 }) {
   const { touched, error, dirty } = meta;
   let errorDisplayed;
@@ -60,9 +60,9 @@ export function renderField({
           )}
           {max && (
             <div
-              className={`text-right ${(max - value.length < 0
-                && 'text-danger')
-                || ''}`}
+              className={`text-right ${
+                (max - value.length < 0 && 'text-danger') || ''
+              }`}
             >
               {max - value.length}
             </div>
@@ -95,7 +95,7 @@ export function renderCheckbox({
     id,
     placeholder,
     className,
-    spellCheck
+    spellCheck,
   };
 
   const content = (
@@ -123,7 +123,7 @@ export function renderTextarea({
     className,
     rows,
     cols,
-    spellCheck
+    spellCheck,
   };
 
   const content = (
@@ -160,7 +160,7 @@ export function renderSearchInput({
     type,
     placeholder,
     className,
-    spellCheck
+    spellCheck,
   };
   const onChange = e => {
     props.input.onChange(e.target.value);
@@ -196,7 +196,7 @@ export function renderMarkdownInput({
     placeholder,
     label,
     className,
-    loadComponent
+    loadComponent,
   };
 
   const content = <MarkdownComponent {...props.input} {...inputAttrs} />;

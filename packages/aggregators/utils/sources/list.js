@@ -18,7 +18,7 @@ module.exports = async (
 
   const { detailed } = {
     detailed: false,
-    ...options
+    ...options,
   };
 
   const cleanQuery = validateListQuery(
@@ -29,14 +29,14 @@ module.exports = async (
     .select([
       'ags.id as sourceId',
       'r.uid as agendaUid',
-      'ags.store as sourceStore'
+      'ags.store as sourceStore',
     ])
     .leftJoin('review as r', 'ags.review_id', 'r.id')
     .where('ags.aggregator_id', aggregatorId)
     .then(rows => rows.map(r => ({
       id: r.sourceId,
       agendaUid: r.agendaUid,
-      rules: extractRules('sourceStore', r.sourceId, r.sourceStore)
+      rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
     })));
 
   if ((detailed || cleanQuery.search) && sources.length) {

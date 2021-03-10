@@ -11,7 +11,7 @@ import validate from './utils/validate';
 const ajv = new Ajv({
   allErrors: true,
   jsonPointers: true,
-  errorDataPath: 'property'
+  errorDataPath: 'property',
 });
 ajvErrors(ajv);
 

@@ -16,101 +16,102 @@ const messages = defineMessages({
   modalTitle: {
     id: 'aggregator-sources.AddSourceModal.modalTitle',
     defaultMessage:
-      'Add a source{agenda, select, undefined {} other {: {agenda}}}'
+      'Add a source{agenda, select, undefined {} other {: {agenda}}}',
   },
   submitButton: {
     id: 'aggregator-sources.AddSourceModal.submitButton',
-    defaultMessage: 'Add source'
+    defaultMessage: 'Add source',
   },
   removeConfirmMessage: {
     id: 'aggregator-sources.AddSourceModal.removeConfirmMessage',
-    defaultMessage: 'Are you sure you want to delete this agenda from sources ?'
+    defaultMessage:
+      'Are you sure you want to delete this agenda from sources ?',
   },
   official: {
     id: 'aggregator-sources.AddSourceModal.official',
-    defaultMessage: 'Official'
+    defaultMessage: 'Official',
   },
   private: {
     id: 'aggregator-sources.AddSourceModal.private',
-    defaultMessage: 'Private'
+    defaultMessage: 'Private',
   },
   alreadyInSources: {
     id: 'aggregator-sources.AddSourceModal.alreadyInSources',
-    defaultMessage: 'Already in sources'
+    defaultMessage: 'Already in sources',
   },
   selectAgenda: {
     id: 'aggregator-sources.AddSourceModal.selectAgenda',
-    defaultMessage: 'Select an agenda'
+    defaultMessage: 'Select an agenda',
   },
   selectThisAgenda: {
     id: 'aggregator-sources.AddSourceModal.selectThisAgenda',
-    defaultMessage: 'Select this agenda'
+    defaultMessage: 'Select this agenda',
   },
   defineRules: {
     id: 'aggregator-sources.AddSourceModal.defineRules',
-    defaultMessage: 'Define rules'
+    defaultMessage: 'Define rules',
   },
   or: {
     id: 'aggregator-sources.AddSourceModal.or',
-    defaultMessage: 'or'
+    defaultMessage: 'or',
   },
   enterALink: {
     id: 'aggregator-sources.AddSourceModal.enterALink',
-    defaultMessage: 'Enter an agenda link'
+    defaultMessage: 'Enter an agenda link',
   },
   makeASearch: {
     id: 'aggregator-sources.AddSourceModal.makeASearch',
-    defaultMessage: 'Make a search'
+    defaultMessage: 'Make a search',
   },
   showAgendaAction: {
     id: 'aggregator-sources.AddSourceModal.showAgendaAction',
-    defaultMessage: 'Show agenda'
+    defaultMessage: 'Show agenda',
   },
   searchAgenda: {
     id: 'aggregator-sources.AddSourceModal.searchAgenda',
-    defaultMessage: 'Search an agenda'
+    defaultMessage: 'Search an agenda',
   },
   selectStep: {
     id: 'aggregator-sources.AddSourceModal.selectStep',
-    defaultMessage: 'Agenda'
+    defaultMessage: 'Agenda',
   },
   defineRulesStep: {
     id: 'aggregator-sources.AddSourceModal.defineRulesStep',
-    defaultMessage: 'Rules'
+    defaultMessage: 'Rules',
   },
   confirmationStep: {
     id: 'aggregator-sources.AddSourceModal.confirmationStep',
-    defaultMessage: 'Confirmation'
+    defaultMessage: 'Confirmation',
   },
   evaluateMessage: {
     id: 'aggregator-sources.AddSourceModal.evaluateMessage',
     defaultMessage:
-      'The agenda {source} is about to be added to the sources of {aggregator} {ruleCount, plural, =0 {without rules} one {with 1 rule} other {with {ruleCount} rules}}.'
+      'The agenda {source} is about to be added to the sources of {aggregator} {ruleCount, plural, =0 {without rules} one {with 1 rule} other {with {ruleCount} rules}}.',
   },
   evaluateOption0: {
     id: 'aggregator-sources.AddSourceModal.evaluateOption0',
-    defaultMessage: 'Aggregate only upcoming events'
+    defaultMessage: 'Aggregate only upcoming events',
   },
   evaluateOption1: {
     id: 'aggregator-sources.AddSourceModal.evaluateOption1',
-    defaultMessage: 'Aggregate all events'
+    defaultMessage: 'Aggregate all events',
   },
   cancel: {
     id: 'aggregator-sources.AddSourceModal.cancel',
-    defaultMessage: 'Cancel'
+    defaultMessage: 'Cancel',
   },
   noAgendas: {
     id: 'aggregator-sources.AddSourceModal.noAgendas',
-    defaultMessage: 'No result'
+    defaultMessage: 'No result',
   },
   chooseAnotherSource: {
     id: 'aggregator-sources.AddSourceModal.chooseAnotherSource',
-    defaultMessage: 'Choose another source'
-  }
+    defaultMessage: 'Choose another source',
+  },
 });
 
 const modalClassnames = {
-  overlay: 'popup-overlay big'
+  overlay: 'popup-overlay big',
 };
 
 const Radio = ({ id, input, children }) => (
@@ -248,7 +249,7 @@ export default function AddSourceModal({
   aggregatorAgendaSchema,
   preselectedAgenda,
   onSubmit,
-  onClose
+  onClose,
 }) {
   const intl = useIntl();
   const apiClient = useApiClient();
@@ -332,7 +333,7 @@ export default function AddSourceModal({
         display: true,
         active: isActive,
         activable: isActivable,
-        passed: isPassed
+        passed: isPassed,
       },
       {
         key: 'defineRules',
@@ -340,7 +341,7 @@ export default function AddSourceModal({
         display: true,
         active: isActive,
         activable: isActivable,
-        passed: isPassed
+        passed: isPassed,
       },
       {
         key: 'confirmation',
@@ -348,8 +349,8 @@ export default function AddSourceModal({
         display: true,
         active: isActive,
         activable: isActivable,
-        passed: isPassed
-      }
+        passed: isPassed,
+      },
     ],
     [intl, isActivable, isActive, isPassed]
   );
@@ -374,7 +375,7 @@ export default function AddSourceModal({
       className: 'form-control',
       autoComplete: 'off',
       autoFocus: true,
-      intl
+      intl,
     }),
     [intl]
   );
@@ -382,7 +383,7 @@ export default function AddSourceModal({
   return (
     <Modal
       title={intl.formatMessage(messages.modalTitle, {
-        agenda: selectedAgenda?.title
+        agenda: selectedAgenda?.title,
       })}
       onClose={onClose}
       classNames={modalClassnames}
@@ -551,7 +552,7 @@ export default function AddSourceModal({
                     {intl.formatMessage(messages.evaluateMessage, {
                       aggregator: <b>{aggregatorAgenda.title}</b>,
                       source: <b>{selectedAgenda.title}</b>,
-                      ruleCount: rules.length
+                      ruleCount: rules.length,
                     })}
                   </p>
 

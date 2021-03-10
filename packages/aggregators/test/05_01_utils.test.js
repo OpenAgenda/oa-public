@@ -18,7 +18,7 @@ const fixtures = {
   eventBeforeChange: require('./fixtures/eventBeforeChange'),
   eventNowChange: require('./fixtures/eventNowChange'),
   simpleSourceSchema: require('./fixtures/simpleSourceSchema.json'),
-  simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json')
+  simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json'),
 };
 /* eslint-enable */
 
@@ -26,7 +26,7 @@ describe('05 - utils', () => {
   describe('convertFieldOptionIdsToLabels', () => {
     test('provides the list of labels corresponding to the option ids provided', () => {
       const field = _.find(fixtures.jepOToJEP.aggregatorSchema.fields, {
-        field: 'conditions-de-participation'
+        field: 'conditions-de-participation',
       });
       const labels = convertFieldOptionIdsToLabels(field, [14]);
 
@@ -41,19 +41,19 @@ describe('05 - utils', () => {
         tags: ['Atelier / Démonstration / Savoir-faire'],
         'types-devenement': 3,
         'conditions-de-participation': [14],
-        'diffusion-sur-le-pass-culture': [1]
+        'diffusion-sur-le-pass-culture': [1],
       });
 
       expect(picked).toEqual({
         'types-devenement': 3,
         'conditions-de-participation': [14],
-        'diffusion-sur-le-pass-culture': [1]
+        'diffusion-sur-le-pass-culture': [1],
       });
     });
 
     test('state is returned when set', () => {
       const picked = pickReferenceValues(fixtures.jepOToJEP.aggregatorSchema, {
-        state: 1
+        state: 1,
       });
 
       expect(picked).toEqual({ state: 1 });
@@ -110,21 +110,21 @@ describe('05 - utils', () => {
     test('transform object is parsed to list of actions', () => {
       const clean = cleanRule({
         query: {
-          tags: 'Animation Jeune public'
+          tags: 'Animation Jeune public',
         },
         transform: {
           tags: {
-            $push: ['Animation']
-          }
+            $push: ['Animation'],
+          },
         },
-        required: false
+        required: false,
       });
 
       expect(clean.actions).toEqual([
         {
           field: 'tags',
-          values: { $push: ['Animation'] }
-        }
+          values: { $push: ['Animation'] },
+        },
       ]);
     });
 
@@ -132,19 +132,19 @@ describe('05 - utils', () => {
       const clean = cleanRule({
         query: {
           location: {
-            city: "Angles-sur-l'Anglin"
-          }
+            city: "Angles-sur-l'Anglin",
+          },
         },
         value: {
-          state: 2
-        }
+          state: 2,
+        },
       });
 
       expect(clean.actions).toEqual([
         {
           field: 'state',
-          values: { $set: 2 }
-        }
+          values: { $set: 2 },
+        },
       ]);
     });
 
@@ -153,25 +153,25 @@ describe('05 - utils', () => {
         query: {
           location: [
             {
-              city: 'Lille'
+              city: 'Lille',
             },
             {
-              city: 'Anstaing'
+              city: 'Anstaing',
             },
             {
-              city: 'Armentières'
+              city: 'Armentières',
             },
             {
-              city: 'Aubers'
+              city: 'Aubers',
             },
             {
-              city: 'Baisieux'
+              city: 'Baisieux',
             },
             {
-              city: 'La Bassée'
-            }
-          ]
-        }
+              city: 'La Bassée',
+            },
+          ],
+        },
       });
 
       expect(clean.query.location.city).toEqual([
@@ -180,7 +180,7 @@ describe('05 - utils', () => {
         'Armentières',
         'Aubers',
         'Baisieux',
-        'La Bassée'
+        'La Bassée',
       ]);
     });
   });
@@ -192,9 +192,9 @@ describe('05 - utils', () => {
           insert: async () => [1],
           first: () => ({
             where: () => ({
-              then: () => ({ id: 1 })
-            })
-          })
+              then: () => ({ id: 1 }),
+            }),
+          }),
         }),
         /* mock aggregator agenda */ { id: 1 },
         /* mock source agenda */ { id: 2 }, // mock
@@ -202,19 +202,19 @@ describe('05 - utils', () => {
           {
             query: {
               location: {
-                city: ['Lille']
-              }
+                city: ['Lille'],
+              },
             },
             actions: [
               {
                 field: 'state',
                 values: {
-                  $set: 1
+                  $set: 1,
                 },
-                automatic: false
-              }
-            ]
-          }
+                automatic: false,
+              },
+            ],
+          },
         ]
       );
 

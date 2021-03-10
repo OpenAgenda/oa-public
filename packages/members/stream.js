@@ -17,7 +17,7 @@ class Stream extends Readable {
       options,
       after: null,
       buffer: [],
-      transform: _.get(options, 'transform')
+      transform: _.get(options, 'transform'),
     };
   }
 

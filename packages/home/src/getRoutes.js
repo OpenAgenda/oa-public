@@ -12,8 +12,8 @@ export default function (prefix = '', rootPrefix = prefix) {
       component: App,
       routes: [
         { path: `${prefix}/`, exact: true, component: Agendas },
-        { path: `${prefix}/events`, component: Events }
-      ]
-    }
+        { path: `${prefix}/events`, component: Events },
+      ],
+    },
   ];
 }

@@ -6,7 +6,7 @@ const _ = require('lodash');
 const knex = require('knex');
 
 const mysqlKnex = knex({
-  client: 'mysql'
+  client: 'mysql',
 });
 const mysql = require('mysql');
 
@@ -21,7 +21,7 @@ function _parseSQL(fx) {
 async function _load(config, files) {
   const getCon = (omitDB = false) => mysql.createConnection({
     ..._.omit(config, omitDB ? ['database'] : []),
-    multipleStatements: true
+    multipleStatements: true,
   });
 
   const con = getCon(true);
@@ -30,7 +30,7 @@ async function _load(config, files) {
     .map(f => ({
       path: f,
       type: f.split('.').pop(),
-      content: fs.readFileSync(`${__dirname}/${f}`, 'utf-8')
+      content: fs.readFileSync(`${__dirname}/${f}`, 'utf-8'),
     }))
     .map(fx => (fx.type === 'sql' ? _parseSQL : _parseJSON)(fx))
     .join(';\n')};`;
@@ -46,7 +46,7 @@ async function _load(config, files) {
   };
 
   return {
-    query
+    query,
   };
 }
 
@@ -55,13 +55,13 @@ module.exports = dbConfig => {
     client: 'mysql',
     connection: {
       ...dbConfig,
-      database: 'oatest_aggregators'
-    }
+      database: 'oatest_aggregators',
+    },
   });
 
   return {
     destroyClient: () => client.destroy(),
     client,
-    load: files => _load(dbConfig, files)
+    load: files => _load(dbConfig, files),
   };
 };

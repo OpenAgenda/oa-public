@@ -9,16 +9,16 @@ import dateRanges from '../dateRanges';
 const messages = defineMessages({
   rangeModalTitle: {
     id: 'AgendaStats.RangeModal.modalTitle',
-    defaultMessage: 'Choose period'
+    defaultMessage: 'Choose period',
   },
   submit: {
     id: 'AgendaStats.RangeModal.submit',
-    defaultMessage: 'Submit'
+    defaultMessage: 'Submit',
   },
   cancel: {
     id: 'AgendaStats.RangeModal.cancel',
-    defaultMessage: 'Cancel'
-  }
+    defaultMessage: 'Cancel',
+  },
 });
 
 export default function RangeModal({ initialValues, onSubmit, onClose }) {
@@ -53,7 +53,7 @@ export default function RangeModal({ initialValues, onSubmit, onClose }) {
       title={intl.formatMessage(messages.rangeModalTitle)}
       onClose={onClose}
       classNames={{
-        overlay: 'popup-overlay big'
+        overlay: 'popup-overlay big',
       }}
       disableBodyScroll
     >

@@ -2,5 +2,5 @@
 
 module.exports = {
   testEnvironment: 'node',
-  transform: {}
+  transform: {},
 };

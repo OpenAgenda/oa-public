@@ -24,7 +24,7 @@ export default async function populateAttachments(svc, entities) {
 
     entity.attachments = attachments.map(attachment => ({
       ...attachment,
-      path: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${attachment.filename}`
+      path: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${attachment.filename}`,
     }));
 
     return entity;

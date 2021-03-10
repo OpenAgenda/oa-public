@@ -10,10 +10,7 @@ const keysSvc = require('@openagenda/keys/test/service');
 const keysConfig = require('@openagenda/keys/service/config');
 const Files = require('@openagenda/files');
 const crypto = require('../utils/crypto');
-const {
-  service: config,
-  dependencies: dConfig
-} = require('../testconfig');
+const { service: config, dependencies: dConfig } = require('../testconfig');
 const Service = require('..');
 
 const database = `${config.mysql.database}_service`;
@@ -30,7 +27,7 @@ const getConfig = options => ({
   imagePath: config.imagePath,
   schemas: config.schemas,
   Files: Files(dConfig.files),
-  ...options
+  ...options,
 });
 
 // function copySync(src, dest) {
@@ -46,7 +43,7 @@ beforeEach(async () => {
   knex = knexLib({
     client: 'mysql',
     connection: { ...config.mysql, database },
-    schemas: config.schemas
+    schemas: config.schemas,
   });
 
   await keysSvc.initAndLoad(
@@ -54,7 +51,7 @@ beforeEach(async () => {
       ...config,
       knex,
       mysql: { ...config.mysql, database },
-      migrations: null
+      migrations: null,
     },
     []
   );
@@ -67,10 +64,10 @@ beforeEach(async () => {
 
   await knex.migrate.latest({
     directory: path.join(__dirname, '../../keys/migrations'),
-    tableName: 'knex_migrations_keys'
+    tableName: 'knex_migrations_keys',
   });
   await knex.migrate.latest({
-    directory: path.join(__dirname, '../migrations')
+    directory: path.join(__dirname, '../migrations'),
   });
   await knex.seed.run({ directory: path.join(__dirname, '../seeds/dev') });
 });
@@ -102,12 +99,12 @@ describe('methods', () => {
       name: conf.schemas.userToken,
       id: 'id',
       paginate: conf.paginate,
-      interfaces: conf.interfaces
+      interfaces: conf.interfaces,
     });
 
     service = new Service({
       ...conf,
-      getTokensService: () => tokensService
+      getTokensService: () => tokensService,
     });
   });
 
@@ -166,7 +163,7 @@ describe('methods', () => {
     it('returns apiKey and secretKey', async () => {
       const user = await service.get(99999999, {
         provider: 'rest',
-        detailed: true
+        detailed: true,
       });
 
       expect(user.apiKey).toBe('317e316466a629c8dacd4aa81f39c930');
@@ -178,21 +175,21 @@ describe('methods', () => {
     it('find with a search query', async () => {
       const { total, data: users } = await service.find({
         query: {
-          $search: 'latouche'
-        }
+          $search: 'latouche',
+        },
       });
 
       expect(total).toBe(1);
       expect(users[0]).toMatchObject({
-        fullName: 'Gaetan Latouche'
+        fullName: 'Gaetan Latouche',
       });
     });
 
     it('does not find anything', async () => {
       const { total, data: users } = await service.find({
         query: {
-          $search: 'fdsqfdsqfdsqfdsq'
-        }
+          $search: 'fdsqfdsqfdsqfdsq',
+        },
       });
 
       expect(total).toBe(0);
@@ -203,9 +200,9 @@ describe('methods', () => {
       const { total, data: users } = await service.find({
         query: {
           uid: {
-            $in: [54505079, 27639980]
-          }
-        }
+            $in: [54505079, 27639980],
+          },
+        },
       });
 
       expect(total).toBe(2);
@@ -217,9 +214,9 @@ describe('methods', () => {
     it('find with detailed param', async () => {
       const { data: users } = await service.find({
         query: {
-          $search: 'latouche'
+          $search: 'latouche',
         },
-        detailed: true
+        detailed: true,
       });
 
       expect(users[0]).toHaveProperty('isRemoved');
@@ -229,31 +226,31 @@ describe('methods', () => {
     it('find with removed param at true', async () => {
       const { total, data: users } = await service.find({
         removed: true,
-        detailed: true
+        detailed: true,
       });
 
       expect(total).toBe(1);
       expect(users[0]).toMatchObject({
-        isRemoved: true
+        isRemoved: true,
       });
     });
 
     it('find with removed param at false', async () => {
       const { total, data: users } = await service.find({
         removed: false,
-        detailed: true
+        detailed: true,
       });
 
       expect(total).toBe(25);
       expect(users[0]).toMatchObject({
-        isRemoved: false
+        isRemoved: false,
       });
     });
 
     it('find with removed param at null', async () => {
       const { total } = await service.find({
         removed: null,
-        detailed: true
+        detailed: true,
       });
 
       expect(total).toBe(26);
@@ -266,8 +263,8 @@ describe('methods', () => {
 
       const user = await service.findOne({
         query: {
-          email
-        }
+          email,
+        },
       });
 
       expect(user.email).toBe(email);
@@ -278,9 +275,9 @@ describe('methods', () => {
 
       const user = await service.findOne({
         query: {
-          key
+          key,
         },
-        detailed: true
+        detailed: true,
       });
 
       expect(user.apiKey).toBe(key);
@@ -293,7 +290,7 @@ describe('methods', () => {
         service.create({
           fullName: 'Jean-Eude',
           email: 'gaetan@cibul.net',
-          password: 'pa**word'
+          password: 'pa**word',
         })
       ).rejects.toThrow('Already exist');
     });
@@ -304,7 +301,7 @@ describe('methods', () => {
           fullName: 'Jean-Eude',
           email: 'jean-eude@oa.com',
           password: 'pa**word',
-          isActivated: true
+          isActivated: true,
         },
         { detailed: true }
       );
@@ -345,7 +342,7 @@ describe('methods', () => {
           fullName: 'Jean-Eude',
           email,
           password: 'pa**word',
-          isActivated: true
+          isActivated: true,
         },
         { detailed: true }
       );
@@ -364,7 +361,7 @@ describe('methods', () => {
           fullName: 'Jean-Eude',
           email,
           password: 'pa**word',
-          isActivated: true
+          isActivated: true,
         },
         { detailed: true, internal: true }
       );
@@ -388,9 +385,9 @@ describe('methods', () => {
         errors: [
           {
             field: 'culture',
-            code: 'string.toolong'
-          }
-        ]
+            code: 'string.toolong',
+          },
+        ],
       });
     });
 
@@ -418,7 +415,7 @@ describe('methods', () => {
       const removedUser = await service.get(17133001, {
         removed: null,
         detailed: true,
-        internal: true
+        internal: true,
       });
 
       expect(removedUser.email).toBeNull();
@@ -430,7 +427,7 @@ describe('methods', () => {
   describe('requestChangeEmail', () => {
     it('basic requestChangeEmail', async () => {
       await service.requestChangeEmail(kaoreUid, {
-        newEmail: 'jean-meaurice@hotmail.fr'
+        newEmail: 'jean-meaurice@hotmail.fr',
       });
 
       const internalUser = await service.get(kaoreUid, { internal: true });
@@ -442,7 +439,7 @@ describe('methods', () => {
     it('attempt to requestChangeEmail with an already taken email', async () => {
       await expect(
         service.requestChangeEmail(kaoreUid, {
-          newEmail: 'romain.lange@gmail.com'
+          newEmail: 'romain.lange@gmail.com',
         })
       ).rejects.toThrow('Already exist');
     });
@@ -450,30 +447,30 @@ describe('methods', () => {
     it('attempt to requestChangeEmail with a bad email', async () => {
       await expect(
         service.requestChangeEmail(kaoreUid, {
-          newEmail: 'romain.langegmail.com'
+          newEmail: 'romain.langegmail.com',
         })
       ).rejects.toMatchObject({
         errors: [
           {
             field: 'newEmail',
-            code: 'email.invalid'
-          }
-        ]
+            code: 'email.invalid',
+          },
+        ],
       });
     });
 
     it('attempt to requestChangeEmail with a bad email (ends with ;)', async () => {
       await expect(
         service.requestChangeEmail(kaoreUid, {
-          newEmail: 'romain.lange@gmail.com;'
+          newEmail: 'romain.lange@gmail.com;',
         })
       ).rejects.toMatchObject({
         errors: [
           {
             field: 'newEmail',
-            code: 'email.invalid'
-          }
-        ]
+            code: 'email.invalid',
+          },
+        ],
       });
     });
   });
@@ -482,8 +479,8 @@ describe('methods', () => {
     it('basic confirmChangeEmail', async () => {
       const user = await service.confirmChangeEmail(kaoreUid, {
         query: {
-          token: 'e4a0f1c97b2f4ca7966f069e7b090c0d'
-        }
+          token: 'e4a0f1c97b2f4ca7966f069e7b090c0d',
+        },
       });
 
       const internalUser = await service.get(kaoreUid, { internal: true });
@@ -497,8 +494,8 @@ describe('methods', () => {
       await expect(
         service.confirmChangeEmail(17133001, {
           query: {
-            token: '87071649646742ee8dce48e4eb1dc0b0'
-          }
+            token: '87071649646742ee8dce48e4eb1dc0b0',
+          },
         })
       ).rejects.toThrow('Already exist');
     });
@@ -507,8 +504,8 @@ describe('methods', () => {
       await expect(
         service.confirmChangeEmail(17133001, {
           query: {
-            token: '87071649646742ee8dce48e4eb1dccbd'
-          }
+            token: '87071649646742ee8dce48e4eb1dccbd',
+          },
         })
       ).rejects.toThrow('Bad token');
     });
@@ -519,7 +516,7 @@ describe('methods', () => {
       const password = 'lab***adudule';
 
       await service.changePassword(17133001, {
-        password
+        password,
       });
 
       const result = await knex(config.schemas.user)
@@ -533,15 +530,15 @@ describe('methods', () => {
     it('change password - validation fail', async () => {
       await expect(
         service.changePassword(17133001, {
-          password: null
+          password: null,
         })
       ).rejects.toMatchObject({
         errors: [
           {
             field: 'password',
-            code: 'required'
-          }
-        ]
+            code: 'required',
+          },
+        ],
       });
     });
 
@@ -549,7 +546,7 @@ describe('methods', () => {
       const password = 'lab***adudule';
 
       const result = await service.changePassword(78945612, {
-        password
+        password,
       });
 
       expect(result).toBeNull();
@@ -561,7 +558,7 @@ describe('methods', () => {
       const user = await service.generateApiKey(17133001, {
         publicKey: true,
         secretKey: true,
-        detailed: true
+        detailed: true,
       });
 
       expect(user.apiSecret).toBeTruthy();
@@ -596,10 +593,10 @@ describe('methods', () => {
       const user = await service.refresh(
         17133001,
         {
-          lastSignin: true
+          lastSignin: true,
         },
         {
-          detailed: true
+          detailed: true,
         }
       );
 
@@ -610,10 +607,10 @@ describe('methods', () => {
       const user = await service.refresh(
         17133001,
         {
-          lastInboxCheck: true
+          lastInboxCheck: true,
         },
         {
-          detailed: true
+          detailed: true,
         }
       );
 
@@ -624,10 +621,10 @@ describe('methods', () => {
       const user = await service.refresh(
         17133001,
         {
-          lastNotified: true
+          lastNotified: true,
         },
         {
-          detailed: true
+          detailed: true,
         }
       );
 
@@ -639,8 +636,8 @@ describe('methods', () => {
     it('check a good password', async () => {
       const validPassword = await service.verifyPassword('cibulon', {
         query: {
-          email: 'gaetan@cibul.net'
-        }
+          email: 'gaetan@cibul.net',
+        },
       });
 
       expect(validPassword).toBe(true);
@@ -650,14 +647,14 @@ describe('methods', () => {
   describe('hook-less methods', () => {
     it('update store manually', async () => {
       const rawUser = await service._get(17133001, {
-        query: { $select: ['store'] }
+        query: { $select: ['store'] },
       });
 
       const store = rawUser.store ? JSON.parse(rawUser.store) : {};
       store.registrationCaptchaScore = 0.9;
 
       const updatedUser = await service._patch(17133001, {
-        store: JSON.stringify(store)
+        store: JSON.stringify(store),
       });
       const updatedStore = JSON.parse(updatedUser.store);
 

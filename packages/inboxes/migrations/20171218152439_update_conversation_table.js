@@ -4,9 +4,7 @@ exports.up = async knex => {
   const { schemas } = knex.client.config;
 
   await knex.schema.alterTable(schemas.conversation, t => {
-    t.timestamp('closed_at')
-      .nullable()
-      .defaultTo(null);
+    t.timestamp('closed_at').nullable().defaultTo(null);
   });
 };
 

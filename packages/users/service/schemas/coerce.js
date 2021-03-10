@@ -3,30 +3,30 @@
 module.exports = {
   isActivated: {
     type: 'boolean',
-    optional: true
+    optional: true,
   },
   isBlacklisted: {
     type: 'boolean',
-    optional: true
+    optional: true,
   },
   isRemoved: {
     type: 'boolean',
-    optional: true
+    optional: true,
   },
   isBasic: {
     type: 'boolean',
-    optional: true
+    optional: true,
   },
   isNew: {
     type: 'boolean',
-    optional: true
+    optional: true,
   },
   apiKey: {
     type: 'text',
-    optional: true
+    optional: true,
   },
   apiSecret: {
     type: 'text',
-    optional: true
-  }
+    optional: true,
+  },
 };

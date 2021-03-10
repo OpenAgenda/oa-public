@@ -3,7 +3,7 @@ function completeAggregation(stat) {
     key: `${stat.aggregation.type}-${stat.id}`,
     interval: stat.state.interval,
     size: stat.state.size,
-    ...stat.aggregation
+    ...stat.aggregation,
   };
 }
 

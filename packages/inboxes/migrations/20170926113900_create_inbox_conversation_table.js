@@ -9,16 +9,8 @@ exports.up = knex => {
       table.charset('utf8');
       table.collate('utf8_general_ci');
 
-      table
-        .bigInteger('inbox_id')
-        .unsigned()
-        .notNullable()
-        .index();
-      table
-        .bigInteger('conversation_id')
-        .unsigned()
-        .notNullable()
-        .index();
+      table.bigInteger('inbox_id').unsigned().notNullable().index();
+      table.bigInteger('conversation_id').unsigned().notNullable().index();
 
       table
         .foreign('conversation_id')

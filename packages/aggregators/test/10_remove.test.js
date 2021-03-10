@@ -16,16 +16,16 @@ describe('10 - remove', () => {
       '../../model.sql',
       'aggregator.data.json',
       'review.create.sql',
-      'review.data.json'
+      'review.data.json',
     ]);
 
     svc = createInstance({
       knex: f.client,
       queues: () => Object.assign(tracker.bind(null, 'queue'), {
         register: tracker('register'),
-        on: tracker('on')
+        on: tracker('on'),
       }),
-      interfaces: {}
+      interfaces: {},
     });
   });
 

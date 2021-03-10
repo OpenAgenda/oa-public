@@ -18,7 +18,7 @@ function getMulterMw(svc, fields) {
 
           return {
             ...field,
-            maxCount: 1
+            maxCount: 1,
           };
         })
       );
@@ -66,7 +66,12 @@ function filterFakeFiles(fields) {
         body[field.name] = value.reduce((accu, file, index) => {
           const originalPath = originalValue && originalValue[index] && originalValue[index].path;
 
-          if (typeof file === 'object' && file !== null && 'path' in file && file.path !== originalPath) {
+          if (
+            typeof file === 'object'
+            && file !== null
+            && 'path' in file
+            && file.path !== originalPath
+          ) {
             if (Object.keys(file).length > 1) {
               delete file.path;
               accu.push(file);
@@ -82,7 +87,12 @@ function filterFakeFiles(fields) {
         if (body[field.name].length === 0) {
           delete body[field.name];
         }
-      } else if (typeof value === 'object' && value !== null && 'path' in value && value.path !== (originalValue && originalValue.path)) {
+      } else if (
+        typeof value === 'object'
+        && value !== null
+        && 'path' in value
+        && value.path !== (originalValue && originalValue.path)
+      ) {
         if (Object.keys(value).length === 1) {
           delete body[field.name];
         } else {
@@ -125,10 +135,7 @@ module.exports = function makeMiddleware(svc) {
 
     const router = Router({ mergeParams: true });
 
-    router.use(
-      getMulterMw(svc, fields),
-      uniqueFields(fields)
-    );
+    router.use(getMulterMw(svc, fields), uniqueFields(fields));
 
     if (cleanup) {
       router.use(svc.cleanup());

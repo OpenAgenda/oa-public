@@ -4,9 +4,9 @@ export const identifiersSchema = {
   additionalProperties: false,
   properties: {
     id: {
-      type: 'integer'
-    }
-  }
+      type: 'integer',
+    },
+  },
 };
 
 export const createSchema = {
@@ -15,14 +15,14 @@ export const createSchema = {
   additionalProperties: false,
   properties: {
     conversationId: {
-      type: 'integer'
+      type: 'integer',
     },
     inboxUserId: {
-      type: 'integer'
+      type: 'integer',
     },
     body: {
       type: 'string',
-      maxLength: 3000
-    }
-  }
+      maxLength: 3000,
+    },
+  },
 };

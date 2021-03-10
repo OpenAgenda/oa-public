@@ -11,7 +11,7 @@ function withJestSleep(ms = 1) {
   return element => (process.env.STORYBOOK_MODE === 'test'
     ? {
       element,
-      jestWaitTime: ms
+      jestWaitTime: ms,
     }
     : element);
 }
@@ -29,7 +29,7 @@ storiesOf('AbilitiesEditor', module)
         // get + patch
         formIndex: `http://${getHostname()}:${
           process.env.STORYBOOK_API_PORT
-        }/abilities/form-index`
+        }/abilities/form-index`,
       }}
     />
   ))
@@ -42,7 +42,7 @@ storiesOf('AbilitiesEditor', module)
         // get + patch
         formIndex: `http://${getHostname()}:${
           process.env.STORYBOOK_API_PORT
-        }/abilities/form-index`
+        }/abilities/form-index`,
       }}
       HeaderComponent={() => <div>Un header bidon</div>}
     />
@@ -56,7 +56,7 @@ storiesOf('AbilitiesEditor', module)
         // get + patch
         formIndex: `http://${getHostname()}:${
           process.env.STORYBOOK_API_PORT
-        }/abilities/form-index`
+        }/abilities/form-index`,
       }}
       searchChildKey="entity.agendaTitle"
       HeaderComponent={() => (

@@ -12,9 +12,7 @@ exports.up = async knex => {
   let convs;
 
   while (
-    (convs = await knex(schemas.conversation)
-      .select()
-      .where({ file_key: '' }))
+    (convs = await knex(schemas.conversation).select().where({ file_key: '' }))
   ) {
     if (!convs.length) break;
 
@@ -26,9 +24,7 @@ exports.up = async knex => {
   }
 
   await knex.schema.alterTable(schemas.conversation, t => {
-    t.string('file_key')
-      .unique()
-      .alter();
+    t.string('file_key').unique().alter();
   });
 };
 

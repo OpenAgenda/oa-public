@@ -3,16 +3,12 @@
 const AWS = require('aws-sdk');
 
 module.exports = function createS3Provider(cfg) {
-  const {
-    accessKeyId,
-    secretAccessKey,
-    defaultBucket
-  } = cfg;
+  const { accessKeyId, secretAccessKey, defaultBucket } = cfg;
 
   const s3 = new AWS.S3({
     accessKeyId,
     secretAccessKey,
-    apiVersion: '2006-03-01'
+    apiVersion: '2006-03-01',
   });
 
   return {
@@ -23,7 +19,7 @@ module.exports = function createS3Provider(cfg) {
         Body: stream,
         ACL: 'public-read',
         ...params,
-        Bucket: params.bucket || defaultBucket
+        Bucket: params.bucket || defaultBucket,
       };
 
       // Return a ManagedUpload (https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3/ManagedUpload.html)
@@ -34,10 +30,10 @@ module.exports = function createS3Provider(cfg) {
 
       const s3Params = {
         Delete: {
-          Objects: keys.map(Key => ({ Key }))
+          Objects: keys.map(Key => ({ Key })),
         },
         ...params,
-        Bucket: params.bucket || defaultBucket
+        Bucket: params.bucket || defaultBucket,
       };
 
       return s3.deleteObjects(s3Params).promise();
@@ -46,10 +42,12 @@ module.exports = function createS3Provider(cfg) {
       const s3Params = {
         Key: filename,
         ...params,
-        Bucket: params.bucket || defaultBucket
+        Bucket: params.bucket || defaultBucket,
       };
 
-      return s3.headObject(s3Params).promise()
+      return s3
+        .headObject(s3Params)
+        .promise()
         .then(
           () => true,
           err => {
@@ -60,6 +58,6 @@ module.exports = function createS3Provider(cfg) {
             throw err;
           }
         );
-    }
+    },
   };
 };

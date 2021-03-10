@@ -7,15 +7,9 @@ exports.up = knex => {
     table.charset('utf8');
     table.collate('utf8_general_ci');
 
-    table
-      .bigIncrements('id')
-      .unsigned()
-      .primary();
+    table.bigIncrements('id').unsigned().primary();
     table.string('type').notNullable();
-    table
-      .bigInteger('identifier')
-      .unsigned()
-      .notNullable();
+    table.bigInteger('identifier').unsigned().notNullable();
   });
 };
 

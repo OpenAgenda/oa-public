@@ -11,7 +11,7 @@ module.exports = async (
     aggregatorLimit,
     sourceAgenda,
     sourceRules,
-    formSchema
+    formSchema,
   }
 ) => {
   const log = Log(
@@ -40,7 +40,7 @@ module.exports = async (
         aggregatorLimit,
         batched: true,
         formSchema,
-        sourceRules
+        sourceRules,
       });
     }
 

@@ -6,7 +6,7 @@ import {
   CartesianGrid,
   Bar,
   BarChart,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from 'recharts';
 import defaultDataColors from '../../common/defaultDataColors';
 import CustomTooltip from './CustomTooltip';
@@ -20,7 +20,7 @@ export default function HorizontalBarChart({
   dataKey,
   labelKey,
   renderTooltipItem,
-  categoryTick
+  categoryTick,
 }) {
   return (
     <ResponsiveContainer width="100%" height={300}>

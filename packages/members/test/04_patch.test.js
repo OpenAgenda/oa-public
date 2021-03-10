@@ -24,8 +24,8 @@ describe('members - functional - patch', () => {
         getEventCountByUserUid,
         onPatch: (before, after, context) => {
           onPatchArguments = { before, after, context };
-        }
-      }
+        },
+      },
     });
   });
 
@@ -43,13 +43,13 @@ describe('members - functional - patch', () => {
             contactNumber: '06 50 91 60 26',
             contactName: 'Gaetan',
             contactPosition: 'Support',
-            email: 'kaore@openagenda.com'
-          }
+            email: 'kaore@openagenda.com',
+          },
         },
         {
           context: {
-            lang: 'fr'
-          }
+            lang: 'fr',
+          },
         }
       );
     });
@@ -62,7 +62,7 @@ describe('members - functional - patch', () => {
         contactNumber: '06 50 91 60 26',
         contactName: 'Gaetan',
         contactPosition: 'Support',
-        email: 'kaore@openagenda.com'
+        email: 'kaore@openagenda.com',
       });
     });
 
@@ -84,9 +84,9 @@ describe('members - functional - patch', () => {
         lang: 'fr',
         sender: {
           memberName: null,
-          userUid: null
+          userUid: null,
         },
-        message: null
+        message: null,
       });
     });
   });

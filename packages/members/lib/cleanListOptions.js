@@ -6,23 +6,23 @@ const pass = require('@openagenda/validators/pass');
 
 schema.register({
   boolean,
-  pass
+  pass,
 });
 
 module.exports = schema({
   detailed: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   total: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   legacy: {
     type: 'boolean',
-    default: false
+    default: false,
   },
   userOptions: {
-    type: 'pass'
-  }
+    type: 'pass',
+  },
 });

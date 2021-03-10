@@ -4,7 +4,7 @@ const schema = require('@openagenda/validators/schema');
 const pass = require('@openagenda/validators/pass');
 
 schema.register({
-  pass
+  pass,
 });
 
 module.exports = schema({
@@ -12,7 +12,7 @@ module.exports = schema({
     user: {
       // user triggering the remove
       type: 'pass',
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });

@@ -55,7 +55,7 @@ export default (
   for (let i = 0; i <= daysNumber; i++) {
     selection.push({
       begin: dateFns.addDays(derivedBegin, i),
-      end: dateFns.subDays(derivedEnd, daysNumber - i)
+      end: dateFns.subDays(derivedEnd, daysNumber - i),
     });
   }
 

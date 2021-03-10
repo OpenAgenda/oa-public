@@ -9,28 +9,28 @@ import useChartTitle from '../hooks/useChartTitle';
 const messages = defineMessages({
   submit: {
     id: 'AgendaStats.OrderModal.submit',
-    defaultMessage: 'Modify'
+    defaultMessage: 'Modify',
   },
   modalTitle: {
     id: 'AgendaStats.OrderModal.modalTitle',
-    defaultMessage: 'Change order'
+    defaultMessage: 'Change order',
   },
   separator: {
     id: 'AgendaStats.OrderModal.separator',
-    defaultMessage: 'Separator'
+    defaultMessage: 'Separator',
   },
   width: {
     id: 'AgendaStats.OrderModal.width',
-    defaultMessage: 'Width:'
+    defaultMessage: 'Width:',
   },
   oneColumn: {
     id: 'AgendaStats.OrderModal.oneColumn',
-    defaultMessage: 'One column'
+    defaultMessage: 'One column',
   },
   oneLine: {
     id: 'AgendaStats.OrderModal.oneLine',
-    defaultMessage: 'One line'
-  }
+    defaultMessage: 'One line',
+  },
 });
 
 function Chart({ stat }) {
@@ -92,7 +92,7 @@ export default function OrderModal({ onSubmit, onClose }) {
       title={intl.formatMessage(messages.modalTitle)}
       onClose={onClose}
       classNames={{
-        overlay: 'popup-overlay big'
+        overlay: 'popup-overlay big',
       }}
       disableBodyScroll
     >

@@ -20,7 +20,7 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
     lang,
     apiRoot,
     prefix: '',
-    perPageLimit: 20
+    perPageLimit: 20,
   },
   res: {
     list: '/sources.json',
@@ -32,8 +32,8 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
     agendaSearch: '/agendas.json',
     slugSearch: '/:slug',
     getAggregator: '/:slug/admin/aggregator',
-    setAggregator: '/:slug/admin/aggregator'
-  }
+    setAggregator: '/:slug/admin/aggregator',
+  },
 });
 
 export default storiesOf('Main', module)
@@ -42,8 +42,8 @@ export default storiesOf('Main', module)
     createApp({
       history: createMemoryHistory(),
       initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
-      })
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+      }),
     }),
     {
       extraProps: {
@@ -53,18 +53,18 @@ export default storiesOf('Main', module)
           slug: 'la-gargouille',
           title: 'La gargouille',
           credentials: {
-            aggregator: true
-          }
-        }
-      }
+            aggregator: true,
+          },
+        },
+      },
     }
   ))
   .add('Empty list', () => {
     mock.onGet('/sources.json').reply(200, {
       sources: [],
       aggregator: {
-        limit: 12
-      }
+        limit: 12,
+      },
     });
     mock
       .onGet(/^\/([^/]+?)\/?admin\/aggregator$/)
@@ -77,8 +77,8 @@ export default storiesOf('Main', module)
       createApp({
         history: createMemoryHistory(),
         initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
-        })
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+        }),
       }),
       {
         extraProps: {
@@ -88,10 +88,10 @@ export default storiesOf('Main', module)
             slug: 'la-gargouille',
             title: 'La gargouille',
             credentials: {
-              aggregator: true
-            }
-          }
-        }
+              aggregator: true,
+            },
+          },
+        },
       }
     );
   })
@@ -110,8 +110,8 @@ export default storiesOf('Main', module)
       createApp({
         history: createMemoryHistory(),
         initialState: getDefaultState({
-          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
-        })
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+        }),
       }),
       {
         extraProps: {
@@ -121,10 +121,10 @@ export default storiesOf('Main', module)
             slug: 'la-gargouille',
             title: 'La gargouille',
             credentials: {
-              aggregator: true
-            }
-          }
-        }
+              aggregator: true,
+            },
+          },
+        },
       }
     );
   });

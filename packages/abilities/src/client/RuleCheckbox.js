@@ -7,88 +7,88 @@ import { shouldUpdate, shallowEqual } from 'recompose';
 const stateMessages = defineMessages({
   '-1': {
     id: 'Abilities.RulesCheckbox.states.refused',
-    defaultMessage: 'refused'
+    defaultMessage: 'refused',
   },
   0: {
     id: 'Abilities.RulesCheckbox.states.toControl',
-    defaultMessage: 'to control'
+    defaultMessage: 'to control',
   },
   1: {
     id: 'Abilities.RulesCheckbox.states.controlled',
-    defaultMessage: 'controlled'
+    defaultMessage: 'controlled',
   },
   2: {
     id: 'Abilities.RulesCheckbox.states.published',
-    defaultMessage: 'published'
-  }
+    defaultMessage: 'published',
+  },
 });
 
 const ruleMessages = defineMessages({
   receiveInvitation: {
     id: 'Abilities.RulesCheckbox.rules.receiveInvitation',
-    defaultMessage: 'Receive invitations'
+    defaultMessage: 'Receive invitations',
   },
   receiveNotificationsSummary: {
     id: 'Abilities.RulesCheckbox.rules.receiveNotificationsSummary',
-    defaultMessage: 'Receive summaries of notifications'
+    defaultMessage: 'Receive summaries of notifications',
   },
   receiveMemberMessage: {
     id: 'Abilities.RulesCheckbox.rules.receiveMemberMessage',
-    defaultMessage: 'Receive messages sent via the "Write to them" feature'
+    defaultMessage: 'Receive messages sent via the "Write to them" feature',
   },
   receiveUserInboxMessage: {
     id: 'Abilities.RulesCheckbox.rules.receiveUserInboxMessage',
-    defaultMessage: 'Receive messages from my inbox'
+    defaultMessage: 'Receive messages from my inbox',
   },
   receiveAgendaInboxMessage: {
     id: 'Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage',
-    defaultMessage: 'Receive messages from agenda inbox'
+    defaultMessage: 'Receive messages from agenda inbox',
   },
   receiveEvent: {
     id: 'Abilities.RulesCheckbox.rules.receiveEvent',
-    defaultMessage: 'Receive events sent by other users'
+    defaultMessage: 'Receive events sent by other users',
   },
   receiveMyEventChangeState: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventChangeState',
     defaultMessage:
-      'Receive notifications when someone change state of my events'
+      'Receive notifications when someone change state of my events',
   },
   receiveMyEventUpdate: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventUpdate',
-    defaultMessage: 'Receive notifications when someone update my events'
+    defaultMessage: 'Receive notifications when someone update my events',
   },
   receiveMyEventAggregation: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventAggregation',
-    defaultMessage: 'Receive notifications when someone aggregate my events'
+    defaultMessage: 'Receive notifications when someone aggregate my events',
   },
   receiveEventChangeState: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventChangeState',
-    defaultMessage: 'Receive states changes for {state}'
+    defaultMessage: 'Receive states changes for {state}',
   },
   receiveMyEventCreation: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventCreation',
-    defaultMessage: 'Receive event creation confirmations'
+    defaultMessage: 'Receive event creation confirmations',
   },
   receiveEventCreation: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventCreation',
-    defaultMessage: 'Receive event creations'
+    defaultMessage: 'Receive event creations',
   },
   receiveEventUpdate: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventUpdate',
-    defaultMessage: 'Receive event updates'
+    defaultMessage: 'Receive event updates',
   },
   receiveEventAggregation: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventAggregation',
-    defaultMessage: 'Receive event aggregations'
+    defaultMessage: 'Receive event aggregations',
   },
   receiveEventAddition: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventAddition',
-    defaultMessage: 'Receive event creations'
+    defaultMessage: 'Receive event creations',
   },
   receiveMyEventAddition: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventAddition',
-    defaultMessage: 'Receive notifications when someone add my events'
-  }
+    defaultMessage: 'Receive notifications when someone add my events',
+  },
 });
 
 const RuleLabel = shouldUpdate(

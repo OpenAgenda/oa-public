@@ -7,20 +7,9 @@ exports.up = knex => {
     table.charset('utf8');
     table.collate('utf8_general_ci');
 
-    table
-      .bigIncrements('id')
-      .unsigned()
-      .primary();
-    table
-      .bigInteger('inbox_id')
-      .unsigned()
-      .notNullable()
-      .index();
-    table
-      .bigInteger('user_uid')
-      .unsigned()
-      .notNullable()
-      .index();
+    table.bigIncrements('id').unsigned().primary();
+    table.bigInteger('inbox_id').unsigned().notNullable().index();
+    table.bigInteger('user_uid').unsigned().notNullable().index();
     table.timestamp('left_at').nullable();
 
     table

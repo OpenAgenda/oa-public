@@ -4,8 +4,8 @@ import { useIntl, defineMessages } from 'react-intl';
 const messages = defineMessages({
   help: {
     id: 'react-layouts.MainLayout.help',
-    defaultMessage: 'Help'
-  }
+    defaultMessage: 'Help',
+  },
 });
 
 function HelpLink() {

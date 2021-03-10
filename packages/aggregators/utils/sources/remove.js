@@ -9,10 +9,8 @@ module.exports = async (knex, aggregatorAgenda, sourceAgenda) => {
     throw new Error('Aggregator not found');
   }
 
-  return knex('aggregator_source')
-    .delete()
-    .where({
-      review_id: sourceAgenda.id,
-      aggregator_id: aggregator.id
-    });
+  return knex('aggregator_source').delete().where({
+    review_id: sourceAgenda.id,
+    aggregator_id: aggregator.id,
+  });
 };

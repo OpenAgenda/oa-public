@@ -34,8 +34,8 @@ app.get(
   abilitiesSvc.middleware.getFormIndex({
     namespaces: {
       entityName: 'query.entityName',
-      identifier: 'query.identifier'
-    }
+      identifier: 'query.identifier',
+    },
   })
 );
 
@@ -46,8 +46,8 @@ app.patch(
     namespaces: {
       entityName: 'query.entityName',
       identifier: 'query.identifier',
-      data: 'body'
-    }
+      data: 'body',
+    },
   })
 );
 

@@ -24,7 +24,7 @@ const imageExts = new Set([
   'jpx',
   'heic',
   'cur',
-  'dcm'
+  'dcm',
 ]);
 
 async function getStreamInfo(data) {
@@ -37,7 +37,7 @@ async function getStreamInfo(data) {
   return {
     stream,
     fileType,
-    isImage
+    isImage,
   };
 }
 
@@ -51,10 +51,7 @@ function extractStreamAndContext(data) {
   if (!isStream(file) && file.path) {
     const stream = fs.createReadStream(file.path);
     const {
-      fieldname,
-      originalname,
-      encoding,
-      mimetype
+      fieldname, originalname, encoding, mimetype
     } = file;
 
     const context = {
@@ -62,7 +59,7 @@ function extractStreamAndContext(data) {
       originalname,
       encoding,
       mimetype,
-      ...fileContext
+      ...fileContext,
     };
 
     return [stream, context];
@@ -79,8 +76,8 @@ function getFileVariants(options) {
     return [
       {
         key,
-        ...restOptions
-      }
+        ...restOptions,
+      },
     ];
   }
 
@@ -91,7 +88,7 @@ function getFileVariants(options) {
     result.push({
       key,
       ...restOptions,
-      ...variant
+      ...variant,
     });
   }
 
@@ -120,7 +117,14 @@ function abortAllVariants(registry, error) {
   return Promise.all(promises);
 }
 
-module.exports = async function processFile(cfg, providers, data, options, context, returnRegistry) {
+module.exports = async function processFile(
+  cfg,
+  providers,
+  data,
+  options,
+  context,
+  returnRegistry
+) {
   // Get file's stream and context
   const [fileStream, fileContext] = extractStreamAndContext(data);
 
@@ -132,7 +136,9 @@ module.exports = async function processFile(cfg, providers, data, options, conte
   const provider = providers[providerKey];
 
   if (!provider) {
-    throw new Error(`Provider '${providerKey}' is not configured or does not exist`);
+    throw new Error(
+      `Provider '${providerKey}' is not configured or does not exist`
+    );
   }
 
   const promises = [];
@@ -144,12 +150,13 @@ module.exports = async function processFile(cfg, providers, data, options, conte
     const ctx = {
       originalname: fileStream.path,
       providerParams: {
-        ContentType: typeof variant.transform === 'function'
-          ? 'application/octet-stream'
-          : (info.fileType.mime || context.mimetype)
+        ContentType:
+          typeof variant.transform === 'function'
+            ? 'application/octet-stream'
+            : info.fileType.mime || context.mimetype,
       },
       ...context,
-      ...fileContext
+      ...fileContext,
     };
 
     const response = {
@@ -157,7 +164,7 @@ module.exports = async function processFile(cfg, providers, data, options, conte
       key: variant.key,
       provider: providerKey,
       revert: () => provider.remove(response.filename),
-      abort: error => abortUpload(response, error)
+      abort: error => abortUpload(response, error),
     };
 
     variantsRegistry.set(variant, response);
@@ -176,7 +183,11 @@ module.exports = async function processFile(cfg, providers, data, options, conte
 
           response.existedBefore = await provider.exists(response.filename);
 
-          const managedUpload = provider.upload(variantStream, response.filename, ctx.providerParams);
+          const managedUpload = provider.upload(
+            variantStream,
+            response.filename,
+            ctx.providerParams
+          );
 
           response.abort = error => {
             managedUpload.abort();
@@ -197,7 +208,7 @@ module.exports = async function processFile(cfg, providers, data, options, conte
 
           throw new VError({
             cause: error,
-            info: response
+            info: response,
           });
         })
         .finally(() => {
@@ -206,27 +217,24 @@ module.exports = async function processFile(cfg, providers, data, options, conte
     );
   }
 
-  const ret = (
-    !Array.isArray(options.variants)
-      ? promises[0]
-      : Promise.all(promises)
-  )
-    .finally(() => {
-      info.stream.destroy();
-      fileStream.destroy();
-    });
+  const ret = (!Array.isArray(options.variants)
+    ? promises[0]
+    : Promise.all(promises)
+  ).finally(() => {
+    info.stream.destroy();
+    fileStream.destroy();
+  });
 
   if (returnRegistry) {
     return {
       promise: ret,
-      registry: variantsRegistry
+      registry: variantsRegistry,
     };
   }
 
-  return ret
-    .catch(async error => {
-      await abortAllVariants(variantsRegistry, error);
+  return ret.catch(async error => {
+    await abortAllVariants(variantsRegistry, error);
 
-      throw error;
-    });
+    throw error;
+  });
 };

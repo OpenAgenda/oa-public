@@ -9,7 +9,7 @@ const {
   fastJoin,
   paramsFromClient,
   setNow,
-  isProvider
+  isProvider,
 } = require('feathers-hooks-common');
 const { hooks, withParams } = require('@feathersjs/hooks');
 const errors = require('@feathersjs/errors');
@@ -50,7 +50,7 @@ const {
   stashBefore,
   validate,
   validateCreate,
-  verifyPassword
+  verifyPassword,
 } = require('../hooks');
 const resolvers = require('./resolvers');
 const patchSchema = require('./schemas/patch');
@@ -64,14 +64,14 @@ schema.register({
   text: validators.text,
   email: validators.email,
   boolean: validators.boolean,
-  pass: validators.pass
+  pass: validators.pass,
 });
 
 function softDelete() {
   return _softDelete('isRemoved', {
     provider: undefined,
     detailed: true,
-    includeImagePath: false
+    includeImagePath: false,
   });
 }
 
@@ -82,7 +82,7 @@ const afterAll = [
   includeImagePathParamHook(),
   coerce(coerceSchema),
   fastJoin({ joins: resolvers }),
-  parseStore()
+  parseStore(),
 ];
 
 class Users extends Service {
@@ -97,10 +97,10 @@ class Users extends Service {
         '$notlike',
         '$ilike',
         '$and',
-        '$search'
+        '$search',
         // '$disableSoftDelete',
         // '$disableStashBefore'
-      ])
+      ]),
     };
 
     const { gm } = config.Files;
@@ -124,7 +124,7 @@ class Users extends Service {
               .gravity('Center')
               .crop(600, 600)
               .stream('jpg');
-          }
+          },
         },
         {
           getFilename: (info, context) => `user.profile.${context.uid}_o.jpg`,
@@ -135,7 +135,7 @@ class Users extends Service {
               .autoOrient()
               .noProfile()
               .stream('jpg');
-          }
+          },
         },
         {
           getFilename: (info, context) => `user.profile.${context.uid}_sm.jpg`,
@@ -149,9 +149,9 @@ class Users extends Service {
               .gravity('Center')
               .crop(300, 300)
               .stream('jpg');
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
   }
 
@@ -243,8 +243,8 @@ class Users extends Service {
     const token = await tokensSvc.findOne({
       query: {
         token: data.token,
-        ...(user ? { userId: user.id } : {})
-      }
+        ...(user ? { userId: user.id } : {}),
+      },
     });
 
     if (!token) {
@@ -253,7 +253,7 @@ class Users extends Service {
 
     if (!user) {
       user = await this.findOne({
-        query: { id: token.userId }
+        query: { id: token.userId },
       });
 
       if (!user) {
@@ -288,10 +288,10 @@ hooks(Users.prototype, {
         softDelete(),
         snakeCaseQuery(),
         searchByKey(),
-        searchKeyword()
+        searchKeyword(),
       ],
-      after: [...afterAll, populateAccountTypes()]
-    })
+      after: [...afterAll, populateAccountTypes()],
+    }),
   },
   get: {
     context: withParams('id', ['params', {}]),
@@ -302,10 +302,10 @@ hooks(Users.prototype, {
         removedParamHook(),
         detailedParamHook(),
         softDelete(),
-        snakeCaseQuery()
+        snakeCaseQuery(),
       ],
-      after: [...afterAll, populateAccountTypes()]
-    })
+      after: [...afterAll, populateAccountTypes()],
+    }),
   },
   create: {
     context: withParams('data', ['params', {}]),
@@ -326,7 +326,7 @@ hooks(Users.prototype, {
         formatStore(),
         softDelete(),
         snakeCase(),
-        snakeCaseQuery()
+        snakeCaseQuery(),
       ],
       after: [
         ...afterAll,
@@ -337,13 +337,13 @@ hooks(Users.prototype, {
           context => context.result && context.result.isActivated,
           callInterface('onActivation'),
           fastJoin({ joins: resolvers })
-        )
-      ]
-    })
+        ),
+      ],
+    }),
   },
   update: {
     context: withParams('id', 'data', ['params', {}]),
-    middleware: []
+    middleware: [],
   },
   patch: {
     context: withParams('id', 'data', ['params', {}]),
@@ -361,7 +361,7 @@ hooks(Users.prototype, {
         softDelete(),
         formatStore(),
         snakeCase(),
-        snakeCaseQuery()
+        snakeCaseQuery(),
       ],
       after: [
         ...afterAll,
@@ -370,9 +370,9 @@ hooks(Users.prototype, {
           context => !context.params.before.isActivated && context.result.isActivated,
           callInterface('onActivation'),
           fastJoin({ joins: resolvers })
-        )
-      ]
-    })
+        ),
+      ],
+    }),
   },
   remove: {
     context: withParams('id', ['params', {}]),
@@ -383,9 +383,9 @@ hooks(Users.prototype, {
         softDelete(),
         callInterface('beforeRemove'),
         snakeCase(),
-        snakeCaseQuery()
-      ]
-    })
+        snakeCaseQuery(),
+      ],
+    }),
   },
   requestChangeEmail: {
     context: withParams('id', 'data', ['params', {}]),
@@ -400,10 +400,10 @@ hooks(Users.prototype, {
         setInStore('newEmailToken', 'newEmailToken'),
         setInStore('newEmail', 'data.newEmail'),
         keep('store'),
-        formatStore()
+        formatStore(),
       ],
-      after: [...afterAll, populateAccountTypes()]
-    })
+      after: [...afterAll, populateAccountTypes()],
+    }),
   },
   confirmChangeEmail: {
     context: withParams('id', ['params', {}]),
@@ -415,10 +415,10 @@ hooks(Users.prototype, {
         checkUnicity('email', 'params.before.store.newEmail'),
         // changeEmailFromStore(),
         discardQuery('token'),
-        keep()
+        keep(),
       ],
-      after: [...afterAll]
-    })
+      after: [...afterAll],
+    }),
   },
   changePassword: {
     context: withParams('id', 'data', ['params', {}]),
@@ -433,10 +433,10 @@ hooks(Users.prototype, {
           compareFields('password', 'confirmation')
         ),
         hashPassword('data.password', 'params.before.salt'),
-        keep('password')
+        keep('password'),
       ],
-      after: [...afterAll, populateAccountTypes()]
-    })
+      after: [...afterAll, populateAccountTypes()],
+    }),
   },
   generateApiKey: {
     context: withParams('id', ['params', {}]),
@@ -451,14 +451,14 @@ hooks(Users.prototype, {
         ),
         softDelete(),
         generateApiKey(),
-        keep()
+        keep(),
       ],
       after: [
         ...afterAll,
         populateAccountTypes(),
-        callInterface('onGenerateApiKey')
-      ]
-    })
+        callInterface('onGenerateApiKey'),
+      ],
+    }),
   },
   setNewFlag: {
     context: withParams('id', 'data', ['params', {}]),
@@ -467,10 +467,10 @@ hooks(Users.prototype, {
         softDelete(),
         validate(setNewFlagSchema),
         keep('isNew'),
-        snakeCase()
+        snakeCase(),
       ],
-      after: [...afterAll, populateAccountTypes()]
-    })
+      after: [...afterAll, populateAccountTypes()],
+    }),
   },
   refresh: {
     context: withParams('id', 'data', ['params', {}]),
@@ -481,11 +481,11 @@ hooks(Users.prototype, {
         iff(ctx => _.has(ctx.data, 'lastInboxCheck'), setNow('lastInboxCheck')),
         iff(ctx => _.has(ctx.data, 'lastNotified'), setNow('lastNotified')),
         keep('lastSignin', 'lastInboxCheck', 'lastNotified'),
-        snakeCase()
+        snakeCase(),
       ],
-      after: [...afterAll, populateAccountTypes()]
-    })
-  }
+      after: [...afterAll, populateAccountTypes()],
+    }),
+  },
 });
 
 module.exports = Users;

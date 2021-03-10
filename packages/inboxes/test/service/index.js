@@ -8,14 +8,14 @@ const allowedTables = [
   'inboxUser',
   'conversation',
   'inboxConversation',
-  'message'
+  'message',
 ];
 const defaultFiles = [
   'inbox',
   'inboxUser',
   'conversation',
   'inboxConversation',
-  'message'
+  'message',
 ];
 
 export function initAndLoad(config, files, options) {
@@ -47,14 +47,9 @@ export function initAndLoad(config, files, options) {
         allowedTables
           .map(tableName => ({
             table: config.schemas[tableName],
-            src: `${__dirname}/${tableName}.data.sql`
+            src: `${__dirname}/${tableName}.data.sql`,
           }))
-          .filter(f => cleanFiles.includes(
-            f.src
-              .split('/')
-              .pop()
-              .split('.')[0]
-          )),
+          .filter(f => cleanFiles.includes(f.src.split('/').pop().split('.')[0])),
         { reset: false },
         error => {
           if (error) return reject(error);
@@ -73,14 +68,9 @@ export function seed(config, files = defaultFiles, options = { reset: false }) {
       allowedTables
         .map(tableName => ({
           table: config.schemas[tableName],
-          src: `${__dirname}/${tableName}.data.sql`
+          src: `${__dirname}/${tableName}.data.sql`,
         }))
-        .filter(f => files.includes(
-          f.src
-            .split('/')
-            .pop()
-            .split('.')[0]
-        )),
+        .filter(f => files.includes(f.src.split('/').pop().split('.')[0])),
       options,
       err => {
         if (err) return reject(err);

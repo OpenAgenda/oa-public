@@ -6,7 +6,7 @@ import {
   renderInput,
   renderTextarea,
   renderMarkdownInput,
-  renderCheckbox
+  renderCheckbox,
 } from '../../utils/form';
 import I18nContext from '../../contexts/I18nContext';
 import validate from './validate';

@@ -34,7 +34,7 @@ function getEditableRules(ability, entity) {
 
     return _.assign(_.pick(rule, 'tag'), rulesLib.parse(rule), {
       inverted: !isAble,
-      relevantRule: relevantRule ? rulesLib.parse(relevantRule) : relevantRule
+      relevantRule: relevantRule ? rulesLib.parse(relevantRule) : relevantRule,
     });
   });
 }
@@ -47,9 +47,7 @@ function batchUpdate({ table, column }, collection) {
       .update(item)
       .transacting(trx));
 
-    return Promise.all(queries)
-      .then(trx.commit)
-      .catch(trx.rollback);
+    return Promise.all(queries).then(trx.commit).catch(trx.rollback);
   });
 }
 
@@ -110,11 +108,11 @@ export async function getFormIndex(ability, options = {}) {
             );
 
             const entity = _.find(entities[entityName], {
-              [config.entityMapping[entityName]]: identifier
+              [config.entityMapping[entityName]]: identifier,
             });
             const builder = createBuilder(entityName, identifier);
             const rules = await defineFn(entity, builder, {
-              rules: entitiesRules
+              rules: entitiesRules,
             });
             const entityAbility = createAbility(entityName, identifier, rules);
 
@@ -124,7 +122,7 @@ export async function getFormIndex(ability, options = {}) {
                 id: undefined,
                 entityName,
                 identifier,
-                entity
+                entity,
               }))
             );
           },
@@ -164,13 +162,13 @@ export async function updateFormIndex(ability, data) {
           result.toUpdate.push({
             ...rule,
             id: rule.relevantRule.id,
-            inverted: !!dataRule.inverted
+            inverted: !!dataRule.inverted,
           });
         }
       } else {
         result.toCreate.push({
           ...rule,
-          inverted: !!dataRule.inverted
+          inverted: !!dataRule.inverted,
         });
       }
 
@@ -190,7 +188,7 @@ export async function updateFormIndex(ability, data) {
       ? config.knex
         .batchInsert(config.schemas.rule, rulesLib.format(toCreate))
         .returning('id')
-      : null
+      : null,
   ]);
 
   return ability.getFormIndex();
@@ -236,14 +234,16 @@ const service = {
   updateFormIndex,
   rules: rulesLib,
   createAbility,
-  createBuilder
+  createBuilder,
 };
 
 service.middleware = {
   getFormIndex: middleware.getFormIndex.bind(null, service),
-  updateFormIndex: middleware.updateFormIndex.bind(null, service)
+  updateFormIndex: middleware.updateFormIndex.bind(null, service),
 };
 
 export default service;
-export { middleware, rulesLib as rules, createAbility, createBuilder };
+export {
+  middleware, rulesLib as rules, createAbility, createBuilder
+};
 export { default as config, init } from './config';

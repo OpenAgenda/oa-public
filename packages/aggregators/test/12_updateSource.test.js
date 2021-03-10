@@ -15,15 +15,15 @@ describe('12 - updateSource', () => {
       {
         updateSourceEntry: tracker('updateSourceEntry', {
           aggregator: aggregatorAgenda,
-          source: sourceAgenda
+          source: sourceAgenda,
         }),
         getSourceEntry: tracker('getSourceEntry', {
           id: 1,
           aggregatorId: 2,
-          agenda: sourceAgenda
+          agenda: sourceAgenda,
         }),
         enqueueLoadSourceEvaluates: tracker('enqueueLoadSourceEvaluates'),
-        getMergedSchema: tracker('getMergedSchema')
+        getMergedSchema: tracker('getMergedSchema'),
       },
       aggregatorAgenda,
       1,
@@ -42,7 +42,7 @@ describe('12 - updateSource', () => {
     expect(tracker.calls[1].args[1]).toEqual({
       id: 1,
       aggregatorId: 2,
-      agenda: sourceAgenda
+      agenda: sourceAgenda,
     });
   });
 
@@ -52,10 +52,10 @@ describe('12 - updateSource', () => {
 
   test('fix: enqueueLoadSourceEvaluates is given the aggregator and source rules', () => {
     expect(tracker.calls[3].args[0].sourceRules).toEqual([
-      { query: { categorie: 2 } }
+      { query: { categorie: 2 } },
     ]);
     expect(tracker.calls[3].args[0].aggregatorRules).toEqual([
-      { actions: [{ state: 1 }] }
+      { actions: [{ state: 1 }] },
     ]);
   });
 });

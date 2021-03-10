@@ -15,15 +15,15 @@ describe('08 - removeEvent', () => {
       {
         getEventReference: tracker('getEventReference', {
           sourceAgendaUid: [sourceAgendaUid],
-          aggregated: true
+          aggregated: true,
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
-        unreferenceEvent: tracker('unreferenceEvent', { success: true })
+        unreferenceEvent: tracker('unreferenceEvent', { success: true }),
       },
       {
         aggregatorAgendaUid,
         sourceAgendaUid,
-        eventUid
+        eventUid,
       }
     );
 
@@ -33,7 +33,7 @@ describe('08 - removeEvent', () => {
     expect(unreferenceCall.args).toEqual([
       aggregatorAgendaUid,
       eventUid,
-      { batched: undefined }
+      { batched: undefined },
     ]);
   });
 
@@ -43,15 +43,15 @@ describe('08 - removeEvent', () => {
       {
         getEventReference: tracker('getEventReference', {
           sourcePaths: [[71413881], [54674789]],
-          aggregated: true
+          aggregated: true,
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
-        unreferenceEvent: tracker('unreferenceEvent', { success: true })
+        unreferenceEvent: tracker('unreferenceEvent', { success: true }),
       },
       {
         aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1
+        eventUid: 1,
       }
     );
 
@@ -64,15 +64,15 @@ describe('08 - removeEvent', () => {
       {
         getEventReference: tracker('getEventReference', {
           sourcePaths: [71413881],
-          aggregated: false
+          aggregated: false,
         }),
         updateSourcePaths: tracker('updateSourcePaths'),
-        unreferenceEvent: tracker('unreferenceEvent', { success: true })
+        unreferenceEvent: tracker('unreferenceEvent', { success: true }),
       },
       {
         aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1
+        eventUid: 1,
       }
     );
 
@@ -85,20 +85,20 @@ describe('08 - removeEvent', () => {
       {
         getEventReference: tracker('getEventReference', {
           sourceAgendaUid: [71413881],
-          aggregated: true
+          aggregated: true,
         }),
         unsetSourceUidOnExistingReference: tracker(
           'unsetSourceUidOnExistingReference'
         ),
         unreferenceEvent: tracker('unreferenceEvent', {
           success: false,
-          errors: ['error1']
-        })
+          errors: ['error1'],
+        }),
       },
       {
         aggregatorAgendaUid: 123,
         sourceAgendaUid: 71413881,
-        eventUid: 1
+        eventUid: 1,
       }
     );
 

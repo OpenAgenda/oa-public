@@ -4,12 +4,12 @@ import { defineMessages } from 'react-intl';
 const messages = defineMessages({
   others: {
     id: 'AgendaStats.utils.addRestItem.others',
-    defaultMessage: 'Others'
+    defaultMessage: 'Others',
   },
   noValue: {
     id: 'AgendaStats.utils.addRestItem.noValue',
-    defaultMessage: 'No value'
-  }
+    defaultMessage: 'No value',
+  },
 });
 
 export default function addRestItem(

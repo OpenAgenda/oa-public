@@ -8,6 +8,6 @@ module.exports = function formatStore() {
     ...record,
     store: _.isObject(record.store)
       ? JSON.stringify(record.store || {})
-      : record.store
+      : record.store,
   }));
 };

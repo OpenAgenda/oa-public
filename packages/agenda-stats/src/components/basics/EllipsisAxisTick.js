@@ -3,7 +3,7 @@ import React, {
   useRef,
   useState,
   useEffect,
-  useCallback
+  useCallback,
 } from 'react';
 import { usePrevious } from 'react-use';
 import { Text } from 'recharts';
@@ -18,7 +18,7 @@ export default function EllipsisAxisTick({ maxLines = 2, payload, ...rest }) {
       width: rest.width - 3,
       style: rest.style,
       scaleToFit: rest.scaleToFit,
-      children: rest.children
+      children: rest.children,
     }),
     [rest.children, rest.scaleToFit, rest.style, rest.width]
   );
@@ -44,7 +44,7 @@ export default function EllipsisAxisTick({ maxLines = 2, payload, ...rest }) {
       wordsByLines = textRef.current.getWordsByLines(
         {
           ...measureProps,
-          children: tempText + tempSuffix
+          children: tempText + tempSuffix,
         },
         true
       );

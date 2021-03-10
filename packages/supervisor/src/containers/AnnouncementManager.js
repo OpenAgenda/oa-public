@@ -41,7 +41,7 @@ export default function AnnouncementManager({ user }) {
   const initialValues = useMemo(
     () => ({
       content: user.announcement?.content,
-      kind: user.announcement?.kind ?? 'primary'
+      kind: user.announcement?.kind ?? 'primary',
     }),
     [user]
   );
@@ -49,7 +49,7 @@ export default function AnnouncementManager({ user }) {
     async data => {
       await apiClient.post('/supervisor/announcement', {
         id: user.announcement?.id || new Date().toISOString(),
-        ...data
+        ...data,
       });
       window.location.reload();
     },
@@ -58,7 +58,7 @@ export default function AnnouncementManager({ user }) {
 
   const form = useConstant(() => createForm({
     initialValues,
-    onSubmit
+    onSubmit,
   }));
 
   const onRemove = useCallback(async () => {

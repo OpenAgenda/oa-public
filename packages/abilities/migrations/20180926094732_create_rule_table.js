@@ -10,19 +10,9 @@ exports.up = async knex => {
       table.charset('utf8');
       table.collate('utf8_general_ci');
 
-      table
-        .bigIncrements('id')
-        .unsigned()
-        .primary();
-      table
-        .string('entity_name')
-        .notNullable()
-        .index();
-      table
-        .bigInteger('identifier')
-        .unsigned()
-        .notNullable()
-        .index();
+      table.bigIncrements('id').unsigned().primary();
+      table.string('entity_name').notNullable().index();
+      table.bigInteger('identifier').unsigned().notNullable().index();
 
       table.string('actions').notNullable();
       table.string('subject').notNullable();

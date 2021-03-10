@@ -3,52 +3,52 @@ import { defineMessages } from 'react-intl';
 const form = defineMessages({
   typeSelectPlaceholder: {
     id: 'AgendaStats.form.typeSelectPlaceholder',
-    defaultMessage: 'Select an element to add'
+    defaultMessage: 'Select an element to add',
   },
   widthSelectPlaceholder: {
     id: 'AgendaStats.form.widthSelectPlaceholder',
-    defaultMessage: 'Select'
+    defaultMessage: 'Select',
   },
   update: {
     id: 'AgendaStats.form.update',
-    defaultMessage: 'Update'
+    defaultMessage: 'Update',
   },
   remove: {
     id: 'AgendaStats.form.remove',
-    defaultMessage: 'Remove'
+    defaultMessage: 'Remove',
   },
   charts: {
     id: 'AgendaStats.form.charts',
-    defaultMessage: 'Charts'
+    defaultMessage: 'Charts',
   },
   others: {
     id: 'AgendaStats.form.others',
-    defaultMessage: 'Others'
+    defaultMessage: 'Others',
   },
   separator: {
     id: 'AgendaStats.form.separator',
-    defaultMessage: 'Separator'
+    defaultMessage: 'Separator',
   },
   cancel: {
     id: 'AgendaStats.form.cancel',
-    defaultMessage: 'Cancel'
+    defaultMessage: 'Cancel',
   },
   add: {
     id: 'AgendaStats.form.add',
-    defaultMessage: 'Add'
+    defaultMessage: 'Add',
   },
   oneColumn: {
     id: 'AgendaStats.form.oneColumn',
-    defaultMessage: '1 column'
+    defaultMessage: '1 column',
   },
   oneLine: {
     id: 'AgendaStats.form.oneLine',
-    defaultMessage: '1 line'
+    defaultMessage: '1 line',
   },
   componentWidth: {
     id: 'AgendaStats.form.componentWidth',
-    defaultMessage: 'Component width:'
-  }
+    defaultMessage: 'Component width:',
+  },
 });
 
 export default form;

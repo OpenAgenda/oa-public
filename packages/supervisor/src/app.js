@@ -7,9 +7,9 @@ const defaults = {
     settings: {
       lang: 'fr',
       prefix: '/supervisor',
-      apiRoot: `localhost:${process.env.PORT || 3000}`
-    }
-  }
+      apiRoot: `localhost:${process.env.PORT || 3000}`,
+    },
+  },
 };
 
 export default function (options) {
@@ -22,7 +22,7 @@ export default function (options) {
     initialState,
     apiRoot,
     prefix,
-    getRoutes
+    getRoutes,
   });
 
   const result = getApp();

@@ -8,25 +8,25 @@ import RangeTypeModal from './RangeTypeModal';
 const messages = defineMessages({
   sameDayRange: {
     id: 'AgendaStats.RangeTypeFilter.sameDayRange',
-    defaultMessage: 'The {startDate, date}'
+    defaultMessage: 'The {startDate, date}',
   },
   range: {
     id: 'AgendaStats.RangeTypeFilter.range',
-    defaultMessage: 'From {startDate, date} to {endDate, date}'
+    defaultMessage: 'From {startDate, date} to {endDate, date}',
   },
   submit: {
     id: 'AgendaStats.RangeTypeFilter.submit',
-    defaultMessage: 'Update'
+    defaultMessage: 'Update',
   },
   //
   typeDate: {
     id: 'AgendaStats.RangeTypeFilter.typeDate',
-    defaultMessage: 'By timing'
+    defaultMessage: 'By timing',
   },
   typeCreatedAt: {
     id: 'AgendaStats.RangeTypeFilter.typeCreatedAt',
-    defaultMessage: 'By creation'
-  }
+    defaultMessage: 'By creation',
+  },
 });
 
 export default function RangeTypeFilter({ agenda }) {

@@ -5,7 +5,7 @@ import BsField from './BsField';
 const searchSpinner = {
   width: 1,
   length: 3,
-  radius: 4
+  radius: 4,
 };
 
 export default function SearchInput({
@@ -25,7 +25,7 @@ export default function SearchInput({
     className,
     spellCheck,
     autoFocus,
-    autoComplete
+    autoComplete,
   };
   const onChange = useCallback(
     e => {

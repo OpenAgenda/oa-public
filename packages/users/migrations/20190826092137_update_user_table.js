@@ -11,9 +11,7 @@ exports.up = async knex => {
   }
 
   return knex.schema.table(schemas.user, t => {
-    t.string(columnName)
-      .nullable()
-      .unique();
+    t.string(columnName).nullable().unique();
   });
 };
 

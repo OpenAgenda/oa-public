@@ -12,7 +12,7 @@ async function _getTotal(knex, k, includeTotal = false, detailed = false) {
   if (!includeTotal) {
     return {
       total: null,
-      totalPerRole: null
+      totalPerRole: null,
     };
   }
 
@@ -21,7 +21,7 @@ async function _getTotal(knex, k, includeTotal = false, detailed = false) {
   if (!detailed) {
     return query.count('id as total').then(r => ({
       total: _.get(r, '0.total'),
-      totalPerRole: null
+      totalPerRole: null,
     }));
   }
   return query
@@ -34,11 +34,11 @@ async function _getTotal(knex, k, includeTotal = false, detailed = false) {
           getRoleSlug(row.role),
           _.get(totalPerRole, getRoleSlug(row.role), 0) + row.total
         ),
-        total: total + row.total
+        total: total + row.total,
       }),
       {
         total: 0,
-        totalPerRole: {}
+        totalPerRole: {},
       }
     ));
 }
@@ -55,7 +55,7 @@ module.exports = async (
     detailed,
     total: includeTotal,
     legacy,
-    userOptions
+    userOptions,
   } = cleanListOptions(options);
 
   const k = knex(schema);
@@ -74,7 +74,7 @@ module.exports = async (
   const members = await k.then(rows => rows.map(
     fromDB.bind(null, {
       includeLegacyFields: legacy,
-      orderField
+      orderField,
     })
   ));
 
@@ -120,7 +120,7 @@ module.exports = async (
     ? {
       [legacy ? 'stakeholders' : 'members']: members,
       ...(total ? { total } : {}),
-      ...(totalPerRole ? { totalPerRole } : {})
+      ...(totalPerRole ? { totalPerRole } : {}),
     }
     : members;
 };

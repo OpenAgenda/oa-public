@@ -12,8 +12,8 @@ module.exports = {
     accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
     secretAccessKey: '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',
     region: 'eu-west-1', // optional
-    defaultBucket: 'oadev'
+    defaultBucket: 'oadev',
   },
 
-  defaultProvider: 's3'
+  defaultProvider: 's3',
 };

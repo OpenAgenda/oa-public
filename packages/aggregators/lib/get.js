@@ -11,7 +11,7 @@ module.exports = async (
 ) => {
   const { detailed } = {
     detailed: false,
-    ...options
+    ...options,
   };
 
   const agendaId = await getAgendaId(knex, agendaUid);
@@ -34,6 +34,6 @@ module.exports = async (
   return {
     ...aggregator,
     aggregatedCount,
-    limitIsReached: limit.isReached(aggregator.limit, aggregatedCount)
+    limitIsReached: limit.isReached(aggregator.limit, aggregatedCount),
   };
 };

@@ -22,9 +22,9 @@ export default function mergeMultiData(data, fromDataKey, dataKey) {
           ...res.slice(0, foundIndex - 1),
           {
             ...res[foundIndex],
-            [afterKey]: next[beforeKey]
+            [afterKey]: next[beforeKey],
           },
-          ...res.slice(foundIndex)
+          ...res.slice(foundIndex),
         ];
       }
 
@@ -34,8 +34,8 @@ export default function mergeMultiData(data, fromDataKey, dataKey) {
         ...res,
         {
           ...nextRest,
-          [afterKey]: value
-        }
+          [afterKey]: value,
+        },
       ];
     }, result);
   }

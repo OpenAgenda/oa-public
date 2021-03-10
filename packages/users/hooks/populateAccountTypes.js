@@ -15,15 +15,15 @@ module.exports = function populateAccountTypes() {
     return alterItems(async record => {
       const entity = await getOriginal(service.get).call(service, record.uid, {
         query: {
-          $select: ['password', 'facebook_uid', 'twitter_id', 'google_id']
-        }
+          $select: ['password', 'facebook_uid', 'twitter_id', 'google_id'],
+        },
       });
 
       return Object.assign(record, {
         hasSocialAccount: Boolean(
           entity.facebook_uid || entity.twitter_id || entity.google_id
         ),
-        hasLocalAccount: Boolean(entity.password)
+        hasLocalAccount: Boolean(entity.password),
       });
     })(context);
   };

@@ -2,7 +2,7 @@ import { differenceInCalendarDays } from 'date-fns';
 
 const BREAKPOINTS_BY_WIDTH = {
   1: [31, 183],
-  2: [61, 366]
+  2: [61, 366],
 };
 
 export default function rangeToCalendarInterval(range, chartWidth = 1) {

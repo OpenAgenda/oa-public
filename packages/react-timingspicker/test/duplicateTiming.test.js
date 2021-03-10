@@ -17,17 +17,17 @@ describe('unit - duplicateTiming', () => {
       duplicateTiming(
         {
           begin: new Date('2019-09-15T09:30:00.000Z'),
-          end: new Date('2019-09-15T11:30:00.000Z')
+          end: new Date('2019-09-15T11:30:00.000Z'),
         },
         {
-          frequence: 'weekly'
+          frequence: 'weekly',
         }
       )
     ).toEqual([
       {
         begin: new Date('2019-09-15T09:30:00.000Z'),
-        end: new Date('2019-09-15T11:30:00.000Z')
-      }
+        end: new Date('2019-09-15T11:30:00.000Z'),
+      },
     ]);
   });
 
@@ -36,31 +36,31 @@ describe('unit - duplicateTiming', () => {
       duplicateTiming(
         {
           begin: new Date('2019-09-15T09:30:00.000Z'),
-          end: new Date('2019-09-15T11:30:00.000Z')
+          end: new Date('2019-09-15T11:30:00.000Z'),
         },
         {
           frequence: 'weekly',
           endType: 'until',
-          until: '2019-10-08T21:59:59.999Z'
+          until: '2019-10-08T21:59:59.999Z',
         }
       )
     ).toEqual([
       {
         begin: new Date('2019-09-15T09:30:00.000Z'),
-        end: new Date('2019-09-15T11:30:00.000Z')
+        end: new Date('2019-09-15T11:30:00.000Z'),
       },
       {
         begin: new Date('2019-09-22T09:30:00.000Z'),
-        end: new Date('2019-09-22T11:30:00.000Z')
+        end: new Date('2019-09-22T11:30:00.000Z'),
       },
       {
         begin: new Date('2019-09-29T09:30:00.000Z'),
-        end: new Date('2019-09-29T11:30:00.000Z')
+        end: new Date('2019-09-29T11:30:00.000Z'),
       },
       {
         begin: new Date('2019-10-06T09:30:00.000Z'),
-        end: new Date('2019-10-06T11:30:00.000Z')
-      }
+        end: new Date('2019-10-06T11:30:00.000Z'),
+      },
     ]);
   });
 
@@ -69,27 +69,27 @@ describe('unit - duplicateTiming', () => {
       duplicateTiming(
         {
           begin: new Date('2019-09-15T09:30:00.000Z'),
-          end: new Date('2019-09-15T11:30:00.000Z')
+          end: new Date('2019-09-15T11:30:00.000Z'),
         },
         {
           frequence: 'weekly',
           endType: 'count',
-          count: 3
+          count: 3,
         }
       )
     ).toEqual([
       {
         begin: new Date('2019-09-15T09:30:00.000Z'),
-        end: new Date('2019-09-15T11:30:00.000Z')
+        end: new Date('2019-09-15T11:30:00.000Z'),
       },
       {
         begin: new Date('2019-09-22T09:30:00.000Z'),
-        end: new Date('2019-09-22T11:30:00.000Z')
+        end: new Date('2019-09-22T11:30:00.000Z'),
       },
       {
         begin: new Date('2019-09-29T09:30:00.000Z'),
-        end: new Date('2019-09-29T11:30:00.000Z')
-      }
+        end: new Date('2019-09-29T11:30:00.000Z'),
+      },
     ]);
   });
 });

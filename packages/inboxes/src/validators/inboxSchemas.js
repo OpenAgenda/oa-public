@@ -6,15 +6,15 @@ export function getIdentifiersSchema(identifiers) {
       additionalProperties: false,
       properties: {
         id: {
-          type: 'integer'
+          type: 'integer',
         },
         type: {
-          type: 'string'
+          type: 'string',
         },
         identifier: {
-          type: 'integer'
-        }
-      }
+          type: 'integer',
+        },
+      },
     };
   }
 
@@ -24,12 +24,12 @@ export function getIdentifiersSchema(identifiers) {
     additionalProperties: false,
     properties: {
       type: {
-        type: 'string'
+        type: 'string',
       },
       identifier: {
-        type: 'integer'
-      }
-    }
+        type: 'integer',
+      },
+    },
   };
 }
 
@@ -39,10 +39,10 @@ export const createSchema = {
   additionalProperties: false,
   properties: {
     type: {
-      type: 'string'
+      type: 'string',
     },
     identifier: {
-      type: 'integer'
-    }
-  }
+      type: 'integer',
+    },
+  },
 };

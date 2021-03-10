@@ -23,24 +23,24 @@ const FormSpy = shouldUpdate(
 const descriptionMessages = defineMessages({
   firstEntityUser: {
     id: 'Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser',
-    defaultMessage: 'Your global settings:'
+    defaultMessage: 'Your global settings:',
   },
   firstEntityContributor: {
     id: 'Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor',
-    defaultMessage: 'Your contributor settings:'
+    defaultMessage: 'Your contributor settings:',
   },
   firstEntityAdminmod: {
     id: 'Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod',
-    defaultMessage: 'Your administrator or moderator settings:'
+    defaultMessage: 'Your administrator or moderator settings:',
   },
   childEntityContributor: {
     id: 'Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor',
-    defaultMessage: 'Contributor settings:'
+    defaultMessage: 'Contributor settings:',
   },
   childEntityAdminmod: {
     id: 'Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod',
-    defaultMessage: 'Administrator or moderator settings:'
-  }
+    defaultMessage: 'Administrator or moderator settings:',
+  },
 });
 
 function getEntityTitle(ability) {
@@ -82,7 +82,7 @@ const SaveButton = ({
     onClick={form.submit}
     className={cn('btn', {
       'btn-primary': !submitSucceeded,
-      'btn-success': submitSucceeded
+      'btn-success': submitSucceeded,
     })}
     disabled={submitting || pristine}
   >
@@ -141,7 +141,7 @@ export default class AbilitiesForm extends Component {
     handleSubmit: PropTypes.func,
     HeaderComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
     searchChildKey: PropTypes.string,
-    filterInputPlaceholder: PropTypes.string
+    filterInputPlaceholder: PropTypes.string,
   };
 
   static defaultProps = {
@@ -150,7 +150,7 @@ export default class AbilitiesForm extends Component {
     handleSubmit: null,
     HeaderComponent: null,
     searchChildKey: null,
-    filterInputPlaceholder: ''
+    filterInputPlaceholder: '',
   };
 
   debouncedSearch = _.debounce(value => {
@@ -165,7 +165,7 @@ export default class AbilitiesForm extends Component {
       firstEntityAbility: null,
       childAbilities: null,
       search: '',
-      debouncedSearch: ''
+      debouncedSearch: '',
     };
   }
 
@@ -180,7 +180,7 @@ export default class AbilitiesForm extends Component {
         const entityProps = _.pick(rule, [
           'entityName',
           'identifier',
-          'entity'
+          'entity',
         ]);
         const found = _.find(result, entityProps);
 
@@ -189,7 +189,7 @@ export default class AbilitiesForm extends Component {
         } else {
           result.push({
             ...entityProps,
-            rules: [rule]
+            rules: [rule],
           });
         }
 
@@ -198,7 +198,7 @@ export default class AbilitiesForm extends Component {
 
       const firstEntityAbility = _.find(rulesPerEntity, {
         entityName,
-        identifier
+        identifier,
       });
       const childAbilities = _.groupBy(
         _.reject(rulesPerEntity, { entityName, identifier }),
@@ -215,7 +215,7 @@ export default class AbilitiesForm extends Component {
             distance: 100,
             maxPatternLength: 32,
             minMatchCharLength: 1,
-            keys: [searchChildKey]
+            keys: [searchChildKey],
           })
         )
         : null;
@@ -224,7 +224,7 @@ export default class AbilitiesForm extends Component {
         ruleKeys,
         firstEntityAbility,
         childAbilities,
-        fuseChildAbilities
+        fuseChildAbilities,
       };
     }
 
@@ -239,7 +239,7 @@ export default class AbilitiesForm extends Component {
 
     const {
       mutators: { setFieldData },
-      batch
+      batch,
     } = form;
     const formState = form.getState();
     const allValues = formState.values;
@@ -248,7 +248,7 @@ export default class AbilitiesForm extends Component {
       rules,
       _.matches({
         entityName,
-        identifier
+        identifier,
       })
     );
 
@@ -260,7 +260,7 @@ export default class AbilitiesForm extends Component {
         );
 
         setFieldData(rule.key, {
-          indeterminate: isIndeterminate(allValues, rule, relatedRules)
+          indeterminate: isIndeterminate(allValues, rule, relatedRules),
         });
       }
     });
@@ -280,13 +280,13 @@ export default class AbilitiesForm extends Component {
     const {
       mutators: { setFieldData },
       batch,
-      getFieldState
+      getFieldState,
     } = form;
     const [firstEntityRules, otherRules] = _.partition(
       rules,
       _.matches({
         entityName,
-        identifier
+        identifier,
       })
     );
 
@@ -321,14 +321,14 @@ export default class AbilitiesForm extends Component {
       handleSubmit,
       HeaderComponent,
       searchChildKey,
-      filterInputPlaceholder
+      filterInputPlaceholder,
     } = this.props;
     const {
       firstEntityAbility,
       childAbilities,
       fuseChildAbilities,
       search,
-      debouncedSearch
+      debouncedSearch,
     } = this.state;
 
     const saveButton = (
@@ -336,7 +336,7 @@ export default class AbilitiesForm extends Component {
         subscription={{
           submitting: true,
           pristine: true,
-          submitSucceeded: true
+          submitSucceeded: true,
         }}
         component={SaveButton}
       />

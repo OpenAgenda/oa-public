@@ -9,7 +9,7 @@ export default ({
     intl,
     rule,
     sourceAgendaSchema,
-    sourceAgenda
+    sourceAgenda,
   });
 
   return (

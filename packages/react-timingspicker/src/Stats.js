@@ -8,7 +8,7 @@ export default class Stats extends Component {
 
     this.state = {
       first: null,
-      last: null
+      last: null,
     };
   }
 
@@ -30,7 +30,7 @@ export default class Stats extends Component {
 
     return {
       first: new Date(first),
-      last: new Date(last)
+      last: new Date(last),
     };
   }
 
@@ -50,7 +50,7 @@ export default class Stats extends Component {
                   defaultMessage="{timingsCount, plural, =0 {No defined timings} one {# defined timing} other {# defined timings}} {timingsCount, plural, =0 {} other {at {when, date, short}}}"
                   values={{
                     timingsCount: value.length,
-                    when: first
+                    when: first,
                   }}
                 />
               ) : (
@@ -60,7 +60,7 @@ export default class Stats extends Component {
                   values={{
                     timingsCount: value.length,
                     from: first,
-                    to: last
+                    to: last,
                   }}
                 />
               )}

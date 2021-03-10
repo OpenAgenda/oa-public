@@ -14,9 +14,9 @@ module.exports = function compareFields(
         errors: [
           {
             field: field2,
-            code: errorCode
-          }
-        ]
+            code: errorCode,
+          },
+        ],
       });
     }
   };

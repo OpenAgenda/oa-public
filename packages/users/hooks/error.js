@@ -29,7 +29,7 @@ module.exports = () => async function errorHook(context, next) {
       log.error(
         `Error in service method '${context.method}'${errorStack}\n`,
         inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
-          colors: debug.useColors()
+          colors: debug.useColors(),
         })
       );
     }

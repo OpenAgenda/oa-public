@@ -10,8 +10,8 @@ export function getFormIndex(service, options) {
     {
       namespaces: {
         entityName: 'query.entityName',
-        identifier: 'query.identifier'
-      }
+        identifier: 'query.identifier',
+      },
     },
     options
   );
@@ -43,8 +43,8 @@ export function updateFormIndex(service, options) {
       namespaces: {
         entityName: 'query.entityName',
         identifier: 'query.identifier',
-        data: 'body'
-      }
+        data: 'body',
+      },
     },
     options
   );

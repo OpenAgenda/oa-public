@@ -5,16 +5,16 @@ import { ReactSelectInput } from '@openagenda/react-shared';
 const messages = defineMessages({
   day: {
     id: 'AgendaStats.IntervalSelect.day',
-    defaultMessage: 'day'
+    defaultMessage: 'day',
   },
   week: {
     id: 'AgendaStats.IntervalSelect.week',
-    defaultMessage: 'week'
+    defaultMessage: 'week',
   },
   month: {
     id: 'AgendaStats.IntervalSelect.month',
-    defaultMessage: 'month'
-  }
+    defaultMessage: 'month',
+  },
 });
 
 const intervalSelectStyles = {
@@ -22,12 +22,12 @@ const intervalSelectStyles = {
     ...provided,
     maxWidth: '150px',
     width: '150px',
-    display: 'inline-block'
+    display: 'inline-block',
   }),
   option: provided => ({
     ...provided,
-    textAlign: 'left'
-  })
+    textAlign: 'left',
+  }),
 };
 
 export default function IntervalSelect({ value, onChange }) {
@@ -37,7 +37,7 @@ export default function IntervalSelect({ value, onChange }) {
     () => [
       { value: 'day', label: intl.formatMessage(messages.day) },
       { value: 'week', label: intl.formatMessage(messages.week) },
-      { value: 'month', label: intl.formatMessage(messages.month) }
+      { value: 'month', label: intl.formatMessage(messages.month) },
     ],
     [intl]
   );

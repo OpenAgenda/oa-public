@@ -12,7 +12,7 @@ const {
   generateToken,
   snakeCase,
   snakeCaseQuery,
-  transformTokenType
+  transformTokenType,
 } = require('../hooks');
 const { wrap } = require('../utils/wrappers');
 
@@ -45,17 +45,17 @@ hooks(Tokens.prototype, {
         disallow('external'),
         transformTokenType('params.query'),
         snakeCase(),
-        snakeCaseQuery()
+        snakeCaseQuery(),
       ],
-      after: [camelCase(), camelCaseQuery(), createTokenIfNotExist()]
-    })
+      after: [camelCase(), camelCaseQuery(), createTokenIfNotExist()],
+    }),
   },
   get: {
     context: withParams('id', ['params', {}]),
     middleware: wrap({
       before: [disallow('external'), snakeCase(), snakeCaseQuery()],
-      after: [camelCase(), camelCaseQuery(), createTokenIfNotExist()]
-    })
+      after: [camelCase(), camelCaseQuery(), createTokenIfNotExist()],
+    }),
   },
   create: {
     context: withParams('data', ['params', {}]),
@@ -65,32 +65,32 @@ hooks(Tokens.prototype, {
         generateToken('data.token'),
         transformTokenType('data'),
         snakeCase(),
-        snakeCaseQuery()
+        snakeCaseQuery(),
       ],
-      after: [camelCase(), camelCaseQuery(), callInterface('sendToken')]
-    })
+      after: [camelCase(), camelCaseQuery(), callInterface('sendToken')],
+    }),
   },
   update: {
     context: withParams('id', 'data', ['params', {}]),
     middleware: wrap({
       before: [disallow('external')],
-      after: [camelCase(), camelCaseQuery()]
-    })
+      after: [camelCase(), camelCaseQuery()],
+    }),
   },
   patch: {
     context: withParams('id', 'data', ['params', {}]),
     middleware: wrap({
       before: [disallow('external')],
-      after: [camelCase(), camelCaseQuery()]
-    })
+      after: [camelCase(), camelCaseQuery()],
+    }),
   },
   remove: {
     context: withParams('id', ['params', {}]),
     middleware: wrap({
       before: [disallow('external')],
-      after: [camelCase(), camelCaseQuery()]
-    })
-  }
+      after: [camelCase(), camelCaseQuery()],
+    }),
+  },
 });
 
 module.exports = Tokens;

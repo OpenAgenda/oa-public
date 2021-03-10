@@ -9,12 +9,12 @@ module.exports = function generateApiKey() {
     async function _generate(type) {
       await keys.remove({
         type,
-        identifier: context.id
+        identifier: context.id,
       });
 
       await keys.create({
         type,
-        identifier: context.id
+        identifier: context.id,
       });
     }
 

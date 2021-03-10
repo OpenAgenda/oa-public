@@ -9,11 +9,11 @@ module.exports = {
     password: 'grut',
     user: 'root',
     charset: 'utf8mb4',
-    timezone: 'UTC'
+    timezone: 'UTC',
   },
   migrations: {
     tableName: 'inbox_migrations',
-    directory: path.resolve(__dirname, 'migrations')
+    directory: path.resolve(__dirname, 'migrations'),
   },
   schemas: {
     inbox: 'inbox',
@@ -21,40 +21,40 @@ module.exports = {
     conversation: 'conversation',
     inboxConversation: 'inbox_conversation',
     message: 'message',
-    messageAttachment: 'message_attachment'
+    messageAttachment: 'message_attachment',
   },
   defaultAction: {
     code: 'defaultAction',
     label: {
       fr: 'Fermer',
-      en: 'Close'
+      en: 'Close',
     },
-    kind: 'success'
+    kind: 'success',
   },
   types: {
     contribution_request: {
       description: {
         fr: "La contribution sur cet agenda n'est possible que sur invitation",
-        en: 'Contribution on this agenda is possible only for invited users'
+        en: 'Contribution on this agenda is possible only for invited users',
       },
       actions: [
         {
           code: 'accept',
           label: {
             fr: 'Accepter',
-            en: 'Accept'
+            en: 'Accept',
           },
-          kind: 'success'
+          kind: 'success',
         },
         {
           code: 'refuse',
           label: {
             fr: 'Refuser',
-            en: 'Refuse'
+            en: 'Refuse',
           },
-          kind: 'danger'
-        }
-      ]
+          kind: 'danger',
+        },
+      ],
     },
     edition_request: {
       actions: [
@@ -62,21 +62,21 @@ module.exports = {
           code: 'accept',
           label: {
             fr: 'Accepter',
-            en: 'Accept'
+            en: 'Accept',
           },
-          kind: 'success'
+          kind: 'success',
         },
         {
           code: 'refuse',
           label: {
             fr: 'Refuser',
-            en: 'Refuse'
+            en: 'Refuse',
           },
-          kind: 'danger'
-        }
-      ]
+          kind: 'danger',
+        },
+      ],
     },
-    event: {}
+    event: {},
   },
   interfaces: {
     getInboxesDetails(inboxesToBeDetailed) {
@@ -86,7 +86,7 @@ module.exports = {
         avatar:
           inboxToBeDetailed.type === 'user'
             ? 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
-            : 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            : 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
       }));
     },
     getUsersDetails(usersToBeDetailed) {
@@ -94,7 +94,7 @@ module.exports = {
         uid: userToBeDetailed.userUid, // uid is required for re-map
         name: 'Jean-Roger Benbambou',
         avatar:
-          'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+          'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
       }));
     },
     filterAction(inbox, conversation /* action */) {
@@ -107,6 +107,6 @@ module.exports = {
           return true;
       }
     },
-    onAction(/* conversation, action */) {}
-  }
+    onAction(/* conversation, action */) {},
+  },
 };

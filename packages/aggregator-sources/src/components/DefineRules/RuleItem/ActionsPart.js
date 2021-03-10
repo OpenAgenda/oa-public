@@ -30,7 +30,7 @@ export default ({
           intl,
           aggregatorAgendaSchema,
           aggregatorAgenda,
-          action
+          action,
         });
 
         return (

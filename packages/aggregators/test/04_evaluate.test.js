@@ -18,7 +18,7 @@ describe('04 - evaluate', () => {
           referenceEvent: (a, e, d, o) => {
             args = [a, e, d, o];
             return { success: true };
-          }
+          },
         },
         data
       );
@@ -45,14 +45,14 @@ describe('04 - evaluate', () => {
           public: [26],
           organisateur: [33],
           participation: null,
-          'evenement-ponctuel': null
+          'evenement-ponctuel': null,
         });
       });
 
       test('fourth contains the aggregation paths', () => {
         expect(args[3].paths).toEqual([
           [120, 19023, data.agenda.uid],
-          [92893, 90193, data.agenda.uid]
+          [92893, 90193, data.agenda.uid],
         ]);
       });
     });
@@ -69,7 +69,7 @@ describe('04 - evaluate', () => {
           updateSourcePaths: (a, e, p) => {
             args = [a, e, p];
             return { success: true };
-          }
+          },
         },
         data
       );
@@ -88,7 +88,7 @@ describe('04 - evaluate', () => {
         expect(args[2]).toEqual([
           [1293, 7878697],
           [120, 19023, data.agenda.uid],
-          [92893, 90193, data.agenda.uid]
+          [92893, 90193, data.agenda.uid],
         ]);
       });
     });
@@ -107,7 +107,7 @@ describe('04 - evaluate', () => {
           },
           referenceEvent: () => {
             called = 'referenceEvent';
-          }
+          },
         },
         data
       );
@@ -129,11 +129,11 @@ describe('04 - evaluate', () => {
           updateSourcePaths: (a, e, p) => {
             args = [a, e, p];
             return { success: true };
-          }
+          },
         },
         {
           ...data,
-          sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+          sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
         }
       );
     });
@@ -153,11 +153,11 @@ describe('04 - evaluate', () => {
           getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.3'),
           enqueueRemove(a) {
             args = a;
-          }
+          },
         },
         {
           ...data,
-          sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+          sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
         }
       );
     });
@@ -168,7 +168,7 @@ describe('04 - evaluate', () => {
         'eventUid',
         'aggregatorAgendaUid',
         'reference',
-        'batched'
+        'batched',
       ]);
     });
   });
@@ -179,11 +179,11 @@ describe('04 - evaluate', () => {
         getAggregatedCount: () => 365,
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-        updateSourcePaths: () => ({ success: true })
+        updateSourcePaths: () => ({ success: true }),
       },
       {
         ...data,
-        sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+        sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
       }
     );
 
@@ -196,12 +196,12 @@ describe('04 - evaluate', () => {
         getAggregatedCount: () => 1000,
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-        updateSourcePaths: () => ({ success: true })
+        updateSourcePaths: () => ({ success: true }),
       },
       {
         ...data,
         aggregatorLimit: 1000,
-        sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+        sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
       }
     );
 
@@ -214,17 +214,17 @@ describe('04 - evaluate', () => {
         getAggregatedCount: () => 42000,
         getMergedSchema: async () => getJSON('fixtures/evaluate/getMergedSchema'),
         getEventReference: async () => getJSON('fixtures/evaluate/getEventReference.2'),
-        updateSourcePaths: () => ({ success: true })
+        updateSourcePaths: () => ({ success: true }),
       },
       {
         ...data,
         aggregatorLimit: -1,
-        sourceRules: getJSON('/fixtures/evaluate/sourceRules') // rule for other town
+        sourceRules: getJSON('/fixtures/evaluate/sourceRules'), // rule for other town
       }
     );
 
     expect(result).toEqual({
-      success: true
+      success: true,
     });
   });
 });

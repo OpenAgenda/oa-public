@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case LOAD_SUCCESS:
       return {
@@ -38,65 +38,65 @@ export default function reducer(state = initialState, action) {
         loaded: true,
         data: action.result.sources.reverse(),
         error: null,
-        loading: false
+        loading: false,
       };
     case LOAD_FAIL:
       return {
         ...state,
         data: [],
         error: action.error,
-        loading: false
+        loading: false,
       };
     case LOAD_AGGREGATOR_SUCCESS:
       return {
         ...state,
-        aggregator: action.result
+        aggregator: action.result,
       };
     case LOAD_AGGREGATOR_FAIL:
       return {
         ...state,
-        aggregator: null
+        aggregator: null,
       };
     case CREATE_AGGREGATOR_SUCCESS:
       return {
         ...state,
-        aggregator: action.result
+        aggregator: action.result,
       };
     case LIST:
       return {
         ...state,
-        listLoading: true
+        listLoading: true,
       };
     case LIST_SUCCESS:
       return {
         ...state,
         data: action.result.sources.reverse(),
         error: null,
-        listLoading: false
+        listLoading: false,
       };
     case LIST_FAIL:
       return {
         ...state,
         data: [],
         error: action.error,
-        listLoading: false
+        listLoading: false,
       };
     case REMOVE:
       return {
         ...state,
-        removeLoading: true
+        removeLoading: true,
       };
     case REMOVE_SUCCESS:
       return {
         ...state,
         removeError: null,
-        removeLoading: false
+        removeLoading: false,
       };
     case REMOVE_FAIL:
       return {
         ...state,
         removeError: action.error,
-        removeLoading: false
+        removeLoading: false,
       };
     default:
       return state;
@@ -114,7 +114,7 @@ export function load(slug, query) {
       const { res } = getState();
 
       return client.get(res.list.replace(':slug', slug), { params: query });
-    }
+    },
   };
 }
 
@@ -125,7 +125,7 @@ export function loadAggregator(slug) {
       const { res } = getState();
 
       return client.get(res.getAggregator.replace(':slug', slug));
-    }
+    },
   };
 }
 
@@ -134,13 +134,13 @@ export function createAggregator(slug) {
     types: [
       CREATE_AGGREGATOR,
       CREATE_AGGREGATOR_SUCCESS,
-      CREATE_AGGREGATOR_FAIL
+      CREATE_AGGREGATOR_FAIL,
     ],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
       return client.post(res.setAggregator.replace(':slug', slug), {});
-    }
+    },
   };
 }
 
@@ -151,9 +151,9 @@ export function list(query) {
       const { res } = getState();
 
       return client.get(res.list.replace(':slug', params.slug), {
-        params: query
+        params: query,
       });
-    }
+    },
   };
 }
 
@@ -167,15 +167,15 @@ export function add(agendaUid, { rules, evaluate }) {
         res.add.replace(':slug', params.slug),
         {
           agendaUid,
-          rules
+          rules,
         },
         {
           params: {
-            evaluate
-          }
+            evaluate,
+          },
         }
       );
-    }
+    },
   };
 }
 
@@ -190,7 +190,7 @@ export function update(id, { rules }) {
         .replace(':sourceId', id);
 
       return client.put(url, { rules });
-    }
+    },
   };
 }
 
@@ -207,10 +207,10 @@ export function remove(id, { evaluate }) {
 
       return client.delete(url, {
         params: {
-          evaluate
-        }
+          evaluate,
+        },
       });
-    }
+    },
   };
 }
 
@@ -219,7 +219,7 @@ export function setAggregatorRules(rules) {
     types: [
       SET_AGGREGATOR_RULES,
       SET_AGGREGATOR_RULES_SUCCESS,
-      SET_AGGREGATOR_RULES_FAIL
+      SET_AGGREGATOR_RULES_FAIL,
     ],
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
@@ -227,8 +227,8 @@ export function setAggregatorRules(rules) {
       const url = res.setAggregator.replace(':slug', params.slug);
 
       return client.post(url, {
-        rules
+        rules,
       });
-    }
+    },
   };
 }

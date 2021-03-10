@@ -12,12 +12,12 @@ storiesOf('App', module)
       allowedTimings={[
         {
           begin: '2019-05-15',
-          end: '2019-05-16'
+          end: '2019-05-16',
         },
         {
           begin: '2019-05-17',
-          end: '2019-05-24'
-        }
+          end: '2019-05-24',
+        },
       ]}
     />
   ))
@@ -26,8 +26,8 @@ storiesOf('App', module)
       value={[
         {
           begin: '2019-10-31T10:30',
-          end: '2019-10-31T22:30'
-        }
+          end: '2019-10-31T22:30',
+        },
       ]}
     />
   ))
@@ -36,8 +36,8 @@ storiesOf('App', module)
       value={[
         {
           begin: '2019-08-10T04:30',
-          end: '2019-08-10T22:30'
-        }
+          end: '2019-08-10T22:30',
+        },
       ]}
       locale="fr"
     />
@@ -47,12 +47,12 @@ storiesOf('App', module)
       allowedTimings={[
         {
           begin: '2019-05-15',
-          end: '2019-05-16'
+          end: '2019-05-16',
         },
         {
           begin: '2019-05-17',
-          end: '2019-05-24'
-        }
+          end: '2019-05-24',
+        },
       ]}
       locale="fr"
     />
@@ -61,8 +61,8 @@ storiesOf('App', module)
     <TimingsPicker
       locales={{
         fr: {
-          'rtp.defineTiming': 'Clique et glisse !'
-        }
+          'rtp.defineTiming': 'Clique et glisse !',
+        },
       }}
       locale="fr"
     />
@@ -72,8 +72,8 @@ storiesOf('App', module)
       value={[
         {
           begin: '2019-03-31T00:30:00',
-          end: '2019-03-31T02:30:00'
-        }
+          end: '2019-03-31T02:30:00',
+        },
       ]}
     />
   ))

@@ -7,7 +7,7 @@
 const ons = {
   register: () => {},
   run: () => {},
-  queue: () => {}
+  queue: () => {},
 };
 
 function queue(...args) {
@@ -30,9 +30,9 @@ module.exports = Object.assign(
   () => Object.assign(queue, {
     run,
     register,
-    on: () => {}
+    on: () => {},
   }),
   {
-    mockOn: on
+    mockOn: on,
   }
 );

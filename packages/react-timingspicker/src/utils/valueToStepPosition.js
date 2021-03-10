@@ -30,12 +30,12 @@ export default (
   return {
     begin: {
       top: beginStepsToTop,
-      left: beginLeft
+      left: beginLeft,
     },
     end: {
       top: endStepsToTop,
-      left: endLeft
+      left: endLeft,
     },
-    steps
+    steps,
   };
 };

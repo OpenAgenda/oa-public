@@ -4,12 +4,12 @@ module.exports = {
   password: {
     optional: false,
     type: 'text',
-    min: 4
+    min: 4,
   },
   confirmation: {
-    type: 'text'
+    type: 'text',
   },
   oldPassword: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };

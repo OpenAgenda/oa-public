@@ -15,16 +15,16 @@ import StatEditModal from './StatEditModal';
 const messages = defineMessages({
   remove: {
     id: 'AgendaStats.ChartWrapper.remove',
-    defaultMessage: 'Remove'
+    defaultMessage: 'Remove',
   },
   update: {
     id: 'AgendaStats.ChartWrapper.update',
-    defaultMessage: 'Update'
+    defaultMessage: 'Update',
   },
   withSelector: {
     id: 'AgendaStats.ChartWrapper.withSelector',
-    defaultMessage: '{message} by {selector}'
-  }
+    defaultMessage: '{message} by {selector}',
+  },
 });
 
 function ContentWrapper({ editMode, children }) {
@@ -57,8 +57,8 @@ function ChartWrapper(
       ...prevStat,
       state: {
         ...prevStat.state,
-        size: (prevStat.state.data?.length || 0) + 5
-      }
+        size: (prevStat.state.data?.length || 0) + 5,
+      },
     })),
     [loadStat, stat.id]
   );
@@ -101,8 +101,8 @@ function ChartWrapper(
       ...prevStat,
       state: {
         ...prevStat.state,
-        interval
-      }
+        interval,
+      },
     })).finally(() => setLoading(false));
   }, [interval, loadStat, previousInterval, stat.id, stat.state.interval]);
 
@@ -142,7 +142,7 @@ function ChartWrapper(
                     </span>
                   ) : null}
                 </>
-              )
+              ),
             })
             : titleMessage}
         </h3>

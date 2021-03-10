@@ -8,7 +8,7 @@ import fieldsMap from './db/inboxUserFieldsMap';
 import validate from './utils/validate';
 import {
   getIdentifiersSchema,
-  createSchema
+  createSchema,
 } from './validators/inboxUserSchemas';
 import populateDetails from './db/populateDetails';
 
@@ -17,7 +17,7 @@ const log = logger('inboxes/InboxUser');
 const ajv = new Ajv({
   allErrors: true,
   jsonPointers: true,
-  errorDataPath: 'property'
+  errorDataPath: 'property',
 });
 ajvErrors(ajv);
 
@@ -37,13 +37,13 @@ export default class InboxUser {
 
     const finalData = {
       ...data,
-      inboxId: this.inbox.data.id
+      inboxId: this.inbox.data.id,
     };
 
     validate(ajv, createSchema, finalData);
 
     const inboxUser = await new InboxUser(this.svc, finalData, {
-      inbox: this.inbox
+      inbox: this.inbox,
     }).get(options);
 
     if (inboxUser.data) {
@@ -79,7 +79,7 @@ export default class InboxUser {
     const params = _.merge(
       {
         detailed: false,
-        createOnNull: false
+        createOnNull: false,
       },
       options
     );
@@ -112,7 +112,7 @@ export default class InboxUser {
           this.svc,
           {
             inboxUser: this.data,
-            inboxUserId: this.data.id
+            inboxUserId: this.data.id,
           },
           this.inbox
         )

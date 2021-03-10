@@ -12,7 +12,7 @@ module.exports = (schema, ...values) => values.reduce(
           f => f.field === field && f.fieldType !== 'abstract'
         );
       })
-      .reduce((accu, field) => ({ ...accu, [field]: next[field] }), {})
+      .reduce((accu, field) => ({ ...accu, [field]: next[field] }), {}),
   }),
   {}
 );

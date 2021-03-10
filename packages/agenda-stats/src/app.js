@@ -7,10 +7,10 @@ const defaults = {
     settings: {
       lang: 'fr',
       prefix: '/agendaStats',
-      apiRoot: `localhost:${process.env.PORT || 3000}`
+      apiRoot: `localhost:${process.env.PORT || 3000}`,
     },
-    res: {}
-  }
+    res: {},
+  },
 };
 
 export default function (options) {
@@ -24,7 +24,7 @@ export default function (options) {
     initialState,
     apiRoot,
     prefix,
-    getRoutes
+    getRoutes,
   });
 
   const result = getApp();

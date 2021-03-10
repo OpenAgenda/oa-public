@@ -73,5 +73,5 @@ module.exports = {
   transformTokenType,
   validate,
   validateCreate,
-  verifyPassword
+  verifyPassword,
 };

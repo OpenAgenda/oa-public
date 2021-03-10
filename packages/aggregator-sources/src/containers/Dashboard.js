@@ -4,7 +4,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
-  useRef
+  useRef,
 } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { useHistory, useParams } from 'react-router-dom';
@@ -35,63 +35,63 @@ const fuseOptions = {
   distance: 100,
   maxPatternLength: 32,
   minMatchCharLength: 1,
-  keys: ['agenda.title']
+  keys: ['agenda.title'],
 };
 
 const messages = defineMessages({
   aggregatorExplanation: {
     id: 'aggregator-sources.Dashboard.aggregatorExplanation',
     defaultMessage:
-      'This feature allows you to automatically fetch the events added to the agendas of your choice.'
+      'This feature allows you to automatically fetch the events added to the agendas of your choice.',
   },
   createAggregator: {
     id: 'aggregator-sources.Dashboard.createAggregator',
-    defaultMessage: 'Activate agenda aggregation'
+    defaultMessage: 'Activate agenda aggregation',
   },
   sourcesHelp: {
     id: 'aggregator-sources.Dashboard.sourcesHelp',
-    defaultMessage: 'Click here to find out more about aggregations'
+    defaultMessage: 'Click here to find out more about aggregations',
   },
   sourceAgendas: {
     id: 'aggregator-sources.Dashboard.sourceAgendas',
-    defaultMessage: 'Source agendas'
+    defaultMessage: 'Source agendas',
   },
   sourcesExplanation: {
     id: 'aggregator-sources.Dashboard.sourcesExplanation',
     defaultMessage:
-      'The events published by the agendas listed here are automatically added to the [{title}]({link}) agenda.'
+      'The events published by the agendas listed here are automatically added to the [{title}]({link}) agenda.',
   },
   searchAgenda: {
     id: 'aggregator-sources.Dashboard.searchAgenda',
-    defaultMessage: 'Search an agenda'
+    defaultMessage: 'Search an agenda',
   },
   numberOfResults: {
     id: 'aggregator-sources.Dashboard.numberOfResults',
-    defaultMessage: 'Number of results'
+    defaultMessage: 'Number of results',
   },
   noResult: {
     id: 'aggregator-sources.Dashboard.noResult',
-    defaultMessage: 'No result found'
+    defaultMessage: 'No result found',
   },
   noSources: {
     id: 'aggregator-sources.Dashboard.noSources',
     defaultMessage:
-      'Your agenda is not yet linked to any sources. Add a first source agenda!'
+      'Your agenda is not yet linked to any sources. Add a first source agenda!',
   },
   addASource: {
     id: 'aggregator-sources.Dashboard.addASource',
-    defaultMessage: 'Add a source'
+    defaultMessage: 'Add a source',
   },
   aggregationCountWarning: {
     id: 'aggregator-sources.Dashboard.aggregationCountWarning',
     defaultMessage:
-      'Well done, you have aggregated {eventCount, number} events on this calendar!\nThe {version, select, free {free}} version allows you to create automatic aggregations up to {limit} events/year.\n<support-link>Contact technical support</support-link> to increase this threshold.'
-  }
+      'Well done, you have aggregated {eventCount, number} events on this calendar!\nThe {version, select, free {free}} version allows you to create automatic aggregations up to {limit} events/year.\n<support-link>Contact technical support</support-link> to increase this threshold.',
+  },
 });
 
 function Dashboard({
   agenda: aggregatorAgenda,
-  agendaSchema: aggregatorAgendaSchema
+  agendaSchema: aggregatorAgendaSchema,
 }) {
   const history = useHistory();
   const params = useParams();
@@ -100,7 +100,7 @@ function Dashboard({
     [history.location.search]
   );
   const initialValues = useMemo(() => ({ search: query.search || '' }), [
-    query
+    query,
   ]);
   const [value, setValue] = useState(
     query.search !== '' ? query.search : undefined
@@ -121,7 +121,7 @@ function Dashboard({
   const modals = useSelector(state => state.modals);
 
   const fuse = useMemo(() => new Fuse(agendaSources || [], fuseOptions), [
-    agendaSources
+    agendaSources,
   ]);
 
   const filteredSources = useMemo(() => {
@@ -140,7 +140,7 @@ function Dashboard({
       // dispatch(sourcesActions.list({ search: v })).finally(() => {
       history.push({
         ...history.location,
-        search: qs.stringify({ ...query, search: v || undefined })
+        search: qs.stringify({ ...query, search: v || undefined }),
       });
       // });
     },
@@ -247,7 +247,7 @@ function Dashboard({
     (async () => {
       const [_agenda, schema] = await Promise.all([
         apiClient.get(res.getAgenda.replace(':slug', query.addSource)),
-        apiClient.get(`/${query.addSource}/settings/schema`)
+        apiClient.get(`/${query.addSource}/settings/schema`),
       ]).catch(() => []);
 
       _agenda.schema = schema;
@@ -260,7 +260,7 @@ function Dashboard({
 
       history.replace({
         ...history.location,
-        search: qs.stringify({ ...query, addSource: undefined })
+        search: qs.stringify({ ...query, addSource: undefined }),
       });
     })();
   }, [
@@ -270,7 +270,7 @@ function Dashboard({
     loaded,
     query,
     apiClient,
-    history
+    history,
   ]);
 
   useEffect(() => {
@@ -290,7 +290,7 @@ function Dashboard({
 
       history.replace({
         ...history.location,
-        search: qs.stringify({ ...query, removeSource: undefined })
+        search: qs.stringify({ ...query, removeSource: undefined }),
       });
     })();
   }, [
@@ -300,7 +300,7 @@ function Dashboard({
     loaded,
     query,
     agendaSources,
-    history
+    history,
   ]);
 
   if (loading) {
@@ -338,7 +338,7 @@ function Dashboard({
               >
                 {chunks}
               </a>
-            )
+            ),
           })}
         </div>
       ) : null}
@@ -392,7 +392,7 @@ function Dashboard({
               className="text-muted"
               source={intl.formatMessage(messages.sourcesExplanation, {
                 title: aggregatorAgenda.title,
-                link: res.showAgenda.replace(':slug', aggregatorAgenda.slug)
+                link: res.showAgenda.replace(':slug', aggregatorAgenda.slug),
               })}
             />
           </div>

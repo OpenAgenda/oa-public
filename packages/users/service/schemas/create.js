@@ -4,33 +4,33 @@ module.exports = {
   fullName: {
     type: 'text',
     min: 2,
-    optional: false
+    optional: false,
   },
   username: {
-    type: 'text'
+    type: 'text',
   },
   culture: {
     type: 'text',
     min: 2,
     max: 2,
-    default: 'fr'
+    default: 'fr',
   },
   email: {
     type: 'email',
-    optional: false
+    optional: false,
   },
   password: {
     type: 'text',
     min: 4,
-    optional: false
+    optional: false,
   },
   twitterId: {
-    type: 'text'
+    type: 'text',
   },
   googleId: {
-    type: 'text'
+    type: 'text',
   },
   facebookUid: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };

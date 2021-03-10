@@ -7,7 +7,7 @@ module.exports = async (
     removeSourceEntry,
     getSourceEntry,
     enqueueLoadSourceRemoves,
-    getAgendaSourceId
+    getAgendaSourceId,
   },
   aggregatorAgenda,
   sourceIdOrAgenda,
@@ -15,7 +15,7 @@ module.exports = async (
 ) => {
   const { evaluate } = {
     evaluate: false,
-    ...options
+    ...options,
   };
 
   const sourceId = typeof sourceIdOrAgenda === 'object'
@@ -39,7 +39,7 @@ module.exports = async (
     log('source removed, evaluating');
     return enqueueLoadSourceRemoves({
       aggregatorAgendaUid: aggregatorAgenda.uid,
-      sourceAgendaUid: source.agenda.uid
+      sourceAgendaUid: source.agenda.uid,
     });
   }
   log('source removed, not evaluating');

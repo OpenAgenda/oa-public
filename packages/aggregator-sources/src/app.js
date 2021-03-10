@@ -7,18 +7,18 @@ const defaults = {
     settings: {
       prefix: '/aggregatorSources',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
-      perPageLimit: 20
+      perPageLimit: 20,
     },
     res: {
       list: '/sources.json',
       showAgenda: '#',
       remove: '#',
-      search: '#'
+      search: '#',
     },
     agenda: {},
     sources: {},
-    modals: {}
-  }
+    modals: {},
+  },
 };
 
 export default function (options) {
@@ -32,7 +32,7 @@ export default function (options) {
     apiRoot,
     prefix,
     getRoutes,
-    legacyApiClient: true
+    legacyApiClient: true,
   });
 
   const result = getApp();

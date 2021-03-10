@@ -37,7 +37,7 @@ function getVisibleAppsByLayout(apps, pathname, firstOnly) {
           key: layoutName,
           layout,
           childLayouts,
-          apps: { [appName]: app }
+          apps: { [appName]: app },
         });
       }
     }
@@ -50,7 +50,7 @@ const AppsDisplayer = React.memo(
   function AppsDisplayer({ layout: FirstLayout, apps, ...props }) {
     const Comp = componentProps => Object.keys(apps).map(name => React.createElement(apps[name].Content, {
       key: name,
-      ...componentProps
+      ...componentProps,
     }));
 
     return <FirstLayout {...props}>{Comp}</FirstLayout>;
@@ -100,7 +100,7 @@ function Layout({ firstOnly = true, apps, ...props }) {
 
     return {
       locale: usedLocale,
-      messages: locales[usedLocale]
+      messages: locales[usedLocale],
     };
   }, [userLang]);
 

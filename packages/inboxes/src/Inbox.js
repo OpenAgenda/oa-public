@@ -13,7 +13,7 @@ const log = logger('inboxes/Inbox');
 const ajv = new Ajv({
   allErrors: true,
   jsonPointers: true,
-  errorDataPath: 'property'
+  errorDataPath: 'property',
 });
 ajvErrors(ajv);
 
@@ -35,8 +35,8 @@ export default class Inbox {
     return {
       conversations: new Conversations({
         userUid,
-        inbox: new Inbox(svc, { type: 'user', identifier: userUid })
-      })
+        inbox: new Inbox(svc, { type: 'user', identifier: userUid }),
+      }),
     };
   }
 

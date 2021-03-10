@@ -17,7 +17,7 @@ export default ({
       placeholder,
       className,
       spellCheck,
-      autoFocus
+      autoFocus,
     }),
     [placeholder, className, spellCheck, autoFocus]
   );

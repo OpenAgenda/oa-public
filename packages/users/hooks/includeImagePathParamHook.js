@@ -15,7 +15,7 @@ module.exports = function includeImagePathParamHook() {
       image:
         record.image && config.imagePath
           ? config.imagePath + record.image
-          : record.image
+          : record.image,
     }))(context);
   };
 };

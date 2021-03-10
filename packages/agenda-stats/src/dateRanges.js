@@ -9,7 +9,7 @@ import {
   startOfYear,
   endOfYear,
   isSameDay,
-  differenceInCalendarDays
+  differenceInCalendarDays,
 } from 'date-fns';
 import * as dateFnsLocales from 'date-fns/locale';
 import { defineMessages } from 'react-intl';
@@ -17,36 +17,36 @@ import { defineMessages } from 'react-intl';
 const messages = defineMessages({
   currentWeek: {
     id: 'AgendaStats.dateRanges.currentWeek',
-    defaultMessage: 'Current week'
+    defaultMessage: 'Current week',
   },
   lastWeek: {
     id: 'AgendaStats.dateRanges.lastWeek',
-    defaultMessage: 'Last week'
+    defaultMessage: 'Last week',
   },
   currentMonth: {
     id: 'AgendaStats.dateRanges.currentMonth',
-    defaultMessage: 'Current month'
+    defaultMessage: 'Current month',
   },
   lastMonth: {
     id: 'AgendaStats.dateRanges.lastMonth',
-    defaultMessage: 'Last month'
+    defaultMessage: 'Last month',
   },
   currentYear: {
     id: 'AgendaStats.dateRanges.currentYear',
-    defaultMessage: 'Current year'
+    defaultMessage: 'Current year',
   },
   lastYear: {
     id: 'AgendaStats.dateRanges.lastYear',
-    defaultMessage: 'Last year'
+    defaultMessage: 'Last year',
   },
   daysUpToToday: {
     id: 'AgendaStats.dateRanges.daysUpToToday',
-    defaultMessage: 'days up to today'
+    defaultMessage: 'days up to today',
   },
   daysStartingToday: {
     id: 'AgendaStats.dateRanges.daysStartingToday',
-    defaultMessage: 'days starting today'
-  }
+    defaultMessage: 'days starting today',
+  },
 });
 
 const staticRangeHandler = {
@@ -56,7 +56,7 @@ const staticRangeHandler = {
       isSameDay(range.startDate, definedRange.startDate)
       && isSameDay(range.endDate, definedRange.endDate)
     );
-  }
+  },
 };
 
 export function createStaticRanges(ranges) {
@@ -78,7 +78,7 @@ export default function dateRanges(intl) {
     startOfYear: startOfYear(new Date()),
     endOfYear: endOfYear(new Date()),
     startOfLastYear: startOfYear(addYears(new Date(), -1)),
-    endOfLastYear: endOfYear(addYears(new Date(), -1))
+    endOfLastYear: endOfYear(addYears(new Date(), -1)),
   };
 
   return {
@@ -87,44 +87,44 @@ export default function dateRanges(intl) {
         label: intl.formatMessage(messages.currentWeek),
         range: () => ({
           startDate: defineds.startOfWeek,
-          endDate: defineds.endOfWeek
-        })
+          endDate: defineds.endOfWeek,
+        }),
       },
       {
         label: intl.formatMessage(messages.lastWeek),
         range: () => ({
           startDate: defineds.startOfLastWeek,
-          endDate: defineds.endOfLastWeek
-        })
+          endDate: defineds.endOfLastWeek,
+        }),
       },
       {
         label: intl.formatMessage(messages.currentMonth),
         range: () => ({
           startDate: defineds.startOfMonth,
-          endDate: defineds.endOfMonth
-        })
+          endDate: defineds.endOfMonth,
+        }),
       },
       {
         label: intl.formatMessage(messages.lastMonth),
         range: () => ({
           startDate: defineds.startOfLastMonth,
-          endDate: defineds.endOfLastMonth
-        })
+          endDate: defineds.endOfLastMonth,
+        }),
       },
       {
         label: intl.formatMessage(messages.currentYear),
         range: () => ({
           startDate: defineds.startOfYear,
-          endDate: defineds.endOfYear
-        })
+          endDate: defineds.endOfYear,
+        }),
       },
       {
         label: intl.formatMessage(messages.lastYear),
         range: () => ({
           startDate: defineds.startOfLastYear,
-          endDate: defineds.endOfLastYear
-        })
-      }
+          endDate: defineds.endOfLastYear,
+        }),
+      },
     ]),
     inputRanges: [
       {
@@ -135,7 +135,7 @@ export default function dateRanges(intl) {
               defineds.startOfToday,
               (Math.max(Number(value), 1) - 1) * -1
             ),
-            endDate: defineds.endOfToday
+            endDate: defineds.endOfToday,
           };
         },
         getCurrentValue(range) {
@@ -144,7 +144,7 @@ export default function dateRanges(intl) {
           return (
             differenceInCalendarDays(defineds.endOfToday, range.startDate) + 1
           );
-        }
+        },
       },
       {
         label: intl.formatMessage(messages.daysStartingToday),
@@ -152,7 +152,7 @@ export default function dateRanges(intl) {
           const today = new Date();
           return {
             startDate: today,
-            endDate: addDays(today, Math.max(Number(value), 1) - 1)
+            endDate: addDays(today, Math.max(Number(value), 1) - 1),
           };
         },
         getCurrentValue(range) {
@@ -161,8 +161,8 @@ export default function dateRanges(intl) {
           return (
             differenceInCalendarDays(range.endDate, defineds.startOfToday) + 1
           );
-        }
-      }
-    ]
+        },
+      },
+    ],
   };
 }

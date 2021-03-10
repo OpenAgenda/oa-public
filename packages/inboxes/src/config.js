@@ -12,14 +12,14 @@ function getKnexConfig(c) {
       pool: _.pick(c.knex.client.pool, 'min', 'max'),
       schemas: {
         ...c.knex.client.config.schemas,
-        ...c.schemas
-      }
+        ...c.schemas,
+      },
     };
   } else {
     knexConfig = {
       client: 'mysql',
       connection: c.mysql,
-      schemas: c.schemas
+      schemas: c.schemas,
     };
   }
 
@@ -27,7 +27,7 @@ function getKnexConfig(c) {
     knexConfig.migrations = {
       ...(c.knex ? c.knex.client.config.migrations : {}),
       ...c.migrations,
-      directory: path.resolve(path.dirname(__dirname), 'migrations')
+      directory: path.resolve(path.dirname(__dirname), 'migrations'),
     };
   }
 
@@ -36,7 +36,7 @@ function getKnexConfig(c) {
 
 export default async function makeConfig(c) {
   const config = {
-    knex: null
+    knex: null,
   };
 
   if (c.logger) {
@@ -58,7 +58,7 @@ export default async function makeConfig(c) {
       'defaultImagePath',
       'domain',
       'aws',
-      'mw'
+      'mw',
     ])
   );
 

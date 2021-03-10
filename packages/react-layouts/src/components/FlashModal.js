@@ -8,7 +8,7 @@ export default function FlashModal() {
   const location = useLocation();
 
   const removeMessage = useCallback(() => setFlashMessage(null), [
-    setFlashMessage
+    setFlashMessage,
   ]);
 
   // On location change

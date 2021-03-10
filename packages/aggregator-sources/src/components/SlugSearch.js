@@ -9,8 +9,8 @@ import SearchInput from './SearchInput';
 const messages = defineMessages({
   enterLink: {
     id: 'aggregator-sources.SlugSearch.enterLink',
-    defaultMessage: 'Enter an agenda page link'
-  }
+    defaultMessage: 'Enter an agenda page link',
+  },
 });
 
 export default function SlugSearch({ res, render }) {
@@ -66,7 +66,7 @@ export default function SlugSearch({ res, render }) {
 
   const form = useMemo(() => <Form onSubmit={onSearch} render={renderForm} />, [
     onSearch,
-    renderForm
+    renderForm,
   ]);
 
   return render({ state, form });

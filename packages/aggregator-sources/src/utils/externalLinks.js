@@ -7,5 +7,5 @@ export default {
     'https://openagenda.zendesk.com/hc/fr/articles/360013395679#copypaste',
   aggregationPresentationPic: lang => `https://oastatic.s3.eu-central-1.amazonaws.com/aggregation-${
     lang === 'fr' ? 'fr' : 'en'
-  }.png`
+  }.png`,
 };

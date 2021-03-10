@@ -10,8 +10,8 @@ import formMessages from './messages/form';
 const messages = defineMessages({
   modalTitle: {
     id: 'AgendaStats.StatEditModal.modalTitle',
-    defaultMessage: 'Edit the chart: {chartTitle}'
-  }
+    defaultMessage: 'Edit the chart: {chartTitle}',
+  },
 });
 
 function StatEditForm({ handleSubmit, onCancel }) {
@@ -20,12 +20,12 @@ function StatEditForm({ handleSubmit, onCancel }) {
     () => [
       {
         label: intl.formatMessage(formMessages.oneColumn),
-        value: 1
+        value: 1,
       },
       {
         label: intl.formatMessage(formMessages.oneLine),
-        value: 2
-      }
+        value: 2,
+      },
     ],
     [intl]
   );
@@ -72,7 +72,7 @@ export default function StatEditModal({ stat, onSubmit, onClose }) {
   const chartTitle = useChartTitle(stat);
   const initialValues = useMemo(
     () => ({
-      width: stat.chart.width || 1
+      width: stat.chart.width || 1,
     }),
     [stat.chart.width]
   );

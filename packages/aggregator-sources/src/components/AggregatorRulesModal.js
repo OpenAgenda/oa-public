@@ -6,12 +6,12 @@ import DefineRules from './DefineRules';
 const messages = defineMessages({
   modalTitle: {
     id: 'aggregator-sources.AggregatorRulesModal.modalTitle',
-    defaultMessage: 'Aggregator rules'
-  }
+    defaultMessage: 'Aggregator rules',
+  },
 });
 
 const modalClassnames = {
-  overlay: 'popup-overlay big'
+  overlay: 'popup-overlay big',
 };
 
 export default function AggregatorRulesModal({
@@ -19,7 +19,7 @@ export default function AggregatorRulesModal({
   aggregatorAgenda,
   aggregatorAgendaSchema,
   onSubmit,
-  onClose
+  onClose,
 }) {
   const intl = useIntl();
 

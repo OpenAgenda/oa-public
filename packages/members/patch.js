@@ -30,7 +30,7 @@ async function patch(config, identifiers, data, options = {}) {
   } catch (errors) {
     return {
       success: false,
-      errors
+      errors,
     };
   }
 
@@ -47,9 +47,7 @@ async function patch(config, identifiers, data, options = {}) {
 
   log('patching', clean);
 
-  await knex(schema)
-    .update(toDB(clean))
-    .where('id', member.id);
+  await knex(schema).update(toDB(clean)).where('id', member.id);
 
   const patched = await get(config, member.id, { legacy: true });
 
@@ -64,7 +62,7 @@ async function patch(config, identifiers, data, options = {}) {
   return {
     success: true,
     errors: [],
-    member: patched
+    member: patched,
   };
 }
 
@@ -72,10 +70,10 @@ async function actionsIncrement(config, identifiers) {
   const member = await get(config, identifiers);
 
   return patch(config, identifiers, {
-    actionsCounter: _.get(member, 'actionsCounter', 0) + 1
+    actionsCounter: _.get(member, 'actionsCounter', 0) + 1,
   });
 }
 
 module.exports = Object.assign(patch, {
-  actionsIncrement
+  actionsIncrement,
 });

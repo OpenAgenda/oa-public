@@ -31,7 +31,7 @@ describe('06 - addSource', () => {
           getMergedSchema: _async('fixtures/addSource/formSchema'),
           enqueueLoadSourceEvaluates: async data => {
             enqueuedData = data;
-          }
+          },
         },
         { uid: 123, slug: 'ndm2020' },
         { uid: 456, slug: 'ndm2020-idf' },
@@ -69,7 +69,7 @@ describe('06 - addSource', () => {
           },
           enqueueEvaluate: data => {
             enqueuedForEvaluate.push(data);
-          }
+          },
         },
         _getJSON('fixtures/addSource/loadSourceEvaluates')
       );
@@ -84,7 +84,7 @@ describe('06 - addSource', () => {
         'aggregatorLimit',
         'batched',
         'formSchema',
-        'sourceRules'
+        'sourceRules',
       ]);
     });
 

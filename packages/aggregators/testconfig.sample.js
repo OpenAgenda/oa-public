@@ -6,6 +6,6 @@ module.exports = {
     host: 'localhost',
     user: 'root',
     password: 'grut',
-    timezone: 'UTC'
-  }
+    timezone: 'UTC',
+  },
 };

@@ -29,13 +29,13 @@ function transformResult(resultKey) {
 
           return {
             ...accu,
-            [key]: [accu[key], current]
+            [key]: [accu[key], current],
           };
         }
 
         return {
           ...accu,
-          [key]: current
+          [key]: current,
         };
       }, {});
     }
@@ -84,13 +84,13 @@ function cleanup() {
 
 module.exports = cfg => {
   const providers = {
-    s3: cfg.s3 ? s3(cfg.s3) : null
+    s3: cfg.s3 ? s3(cfg.s3) : null,
   };
 
   function filesManager(options) {
     async function upload(data, context) {
       const isMultiple = Array.isArray(options);
-      const keyedData = !isFile(data) && (typeof data === 'object' && !Array.isArray(data));
+      const keyedData = !isFile(data) && typeof data === 'object' && !Array.isArray(data);
 
       if (isMultiple && !keyedData) {
         throw new Error('Cannot process multiple files without keyed data');
@@ -100,16 +100,20 @@ module.exports = cfg => {
       const filesRegistry = new Map();
 
       async function addFile(file, fileOptions) {
-        const {
-          promise,
-          registry
-        } = await processFile(cfg, providers, file, fileOptions, context, true);
+        const { promise, registry } = await processFile(
+          cfg,
+          providers,
+          file,
+          fileOptions,
+          context,
+          true
+        );
 
         promises.push(promise);
         filesRegistry.set(fileOptions, registry);
       }
 
-      for (const fileOptions of (Array.isArray(options) ? options : [options])) {
+      for (const fileOptions of Array.isArray(options) ? options : [options]) {
         const fileData = keyedData ? data[fileOptions.key] : data;
 
         if (keyedData && !data[fileOptions.key]) {
@@ -132,19 +136,18 @@ module.exports = cfg => {
         }
       }
 
-      return Promise.all(promises)
-        .then(
-          transformResult(!isMultiple && !keyedData ? options.key : null),
-          async error => {
-            await abortAllUploads(filesRegistry);
+      return Promise.all(promises).then(
+        transformResult(!isMultiple && !keyedData ? options.key : null),
+        async error => {
+          await abortAllUploads(filesRegistry);
 
-            throw error;
-          }
-        );
+          throw error;
+        }
+      );
     }
 
     upload.multer = multer({
-      storage: new TempStorage({ cfg, providers, options })
+      storage: new TempStorage({ cfg, providers, options }),
     });
 
     upload.cleanup = cleanup;

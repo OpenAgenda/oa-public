@@ -9,26 +9,12 @@ exports.up = knex => {
       table.charset('utf8');
       table.collate('utf8_general_ci');
 
-      table
-        .bigIncrements('id')
-        .unsigned()
-        .primary();
-      table
-        .bigInteger('message_id')
-        .unsigned()
-        .notNullable()
-        .index();
-      table
-        .bigInteger('inbox_user_id')
-        .unsigned()
-        .notNullable()
-        .index();
+      table.bigIncrements('id').unsigned().primary();
+      table.bigInteger('message_id').unsigned().notNullable().index();
+      table.bigInteger('inbox_user_id').unsigned().notNullable().index();
       table.string('original_name').collate('utf8mb4_unicode_ci');
       table.string('filename').collate('utf8mb4_unicode_ci');
-      table
-        .timestamp('created_at')
-        .notNullable()
-        .defaultTo(knex.fn.now());
+      table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
 
       table
         .foreign('message_id')

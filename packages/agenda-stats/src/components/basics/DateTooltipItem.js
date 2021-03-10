@@ -7,16 +7,16 @@ import getWeekNumber from '../../utils/getWeekNumber';
 const messages = defineMessages({
   day: {
     id: 'AgendaStats.DateTooltipItem.tooltipDay',
-    defaultMessage: '{value, time, ::yyyyMMMMddeeeee}'
+    defaultMessage: '{value, time, ::yyyyMMMMddeeeee}',
   },
   week: {
     id: 'AgendaStats.DateTooltipItem.tooltipWeek',
-    defaultMessage: '{value, time, ::yyyyMMdd}'
+    defaultMessage: '{value, time, ::yyyyMMdd}',
   },
   month: {
     id: 'AgendaStats.DateTooltipItem.tooltipMonth',
-    defaultMessage: '{value, time, ::yyyyMMMM}'
-  }
+    defaultMessage: '{value, time, ::yyyyMMMM}',
+  },
 });
 
 export default function DateTooltipItem({
@@ -24,7 +24,7 @@ export default function DateTooltipItem({
   entry,
   dataKey,
   interval,
-  hideLabel
+  hideLabel,
 }) {
   const intl = useIntl();
 
@@ -70,7 +70,7 @@ export default function DateTooltipItem({
                 weekEnd,
                 weekNumber,
                 yearOfWeekNumber,
-                br: <br />
+                br: <br />,
               })}
             </b>
             <br />
@@ -78,7 +78,7 @@ export default function DateTooltipItem({
         ) : null}
         {intl.formatMessage(message, {
           value: entry.value,
-          dataKey: entry.dataKey
+          dataKey: entry.dataKey,
         })}
       </span>
     </li>

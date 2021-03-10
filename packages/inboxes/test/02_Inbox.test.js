@@ -14,7 +14,7 @@ describe('Inbox', () => {
     service = await initAndLoad(
       {
         ...testconfig,
-        mysql: { ...testconfig.mysql, database }
+        mysql: { ...testconfig.mysql, database },
       },
       []
     );
@@ -34,7 +34,7 @@ describe('Inbox', () => {
     await seed(
       {
         ...testconfig,
-        mysql: { ...testconfig.mysql, database }
+        mysql: { ...testconfig.mysql, database },
       },
       tables
     );
@@ -58,10 +58,10 @@ describe('Inbox', () => {
         jse_info: {
           errors: {
             id: {
-              code: 'type.integer'
-            }
-          }
-        }
+              code: 'type.integer',
+            },
+          },
+        },
       });
     });
 
@@ -73,13 +73,13 @@ describe('Inbox', () => {
         jse_info: {
           errors: {
             type: {
-              code: 'type.string'
+              code: 'type.string',
             },
             identifier: {
-              code: 'type.integer'
-            }
-          }
-        }
+              code: 'type.integer',
+            },
+          },
+        },
       });
     });
   });
@@ -88,26 +88,26 @@ describe('Inbox', () => {
     test('create an inbox', async () => {
       const inbox = await new Inbox().create({
         type: 'agenda',
-        identifier: 1245685
+        identifier: 1245685,
       });
 
       expect(inbox.toJSON()).toEqual({
         id: 9,
         type: 'agenda',
-        identifier: 1245685
+        identifier: 1245685,
       });
     });
 
     test('create an inbox that already exist', async () => {
       const inbox = await new Inbox().create({
         type: 'user',
-        identifier: 45645678
+        identifier: 45645678,
       });
 
       expect(inbox.toJSON()).toEqual({
         id: 3,
         type: 'user',
-        identifier: 45645678
+        identifier: 45645678,
       });
     });
 
@@ -119,10 +119,10 @@ describe('Inbox', () => {
         jse_info: {
           errors: {
             type: {
-              code: 'type.string'
-            }
-          }
-        }
+              code: 'type.string',
+            },
+          },
+        },
       });
     });
 
@@ -134,10 +134,10 @@ describe('Inbox', () => {
         jse_info: {
           errors: {
             identifier: {
-              code: 'required'
-            }
-          }
-        }
+              code: 'required',
+            },
+          },
+        },
       });
     });
   });
@@ -146,7 +146,7 @@ describe('Inbox', () => {
     test('remove an inbox', async () => {
       const inbox = await new Inbox({
         type: 'agenda',
-        identifier: 48959239
+        identifier: 48959239,
       }).remove();
 
       expect(inbox.data).toBe(null);
@@ -157,13 +157,13 @@ describe('Inbox', () => {
     test('get an inbox by identifiers', async () => {
       const inbox = await new Inbox({
         type: 'agenda',
-        identifier: 48959239
+        identifier: 48959239,
       }).get();
 
       expect(inbox.toJSON()).toEqual({
         id: 1,
         type: 'agenda',
-        identifier: 48959239
+        identifier: 48959239,
       });
     });
 
@@ -173,7 +173,7 @@ describe('Inbox', () => {
       expect(inbox.toJSON()).toEqual({
         id: 1,
         type: 'agenda',
-        identifier: 48959239
+        identifier: 48959239,
       });
     });
 
@@ -189,7 +189,7 @@ describe('Inbox', () => {
       expect(inbox.toJSON()).toEqual({
         id: 9,
         type: 'user',
-        identifier: 678910
+        identifier: 678910,
       });
     });
   });
@@ -201,7 +201,7 @@ describe('Inbox', () => {
       expect(inbox.toJSON()).toEqual({
         id: 1,
         type: 'agenda',
-        identifier: 48959239
+        identifier: 48959239,
       });
     });
 
