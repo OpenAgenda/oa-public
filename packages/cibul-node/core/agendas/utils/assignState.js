@@ -15,7 +15,7 @@ function defineState({ agenda, authorizations, isUndrafted, hasEvent }, requeste
   const explicitStateRequested = requestedState !== undefined;
 
   if (isUndrafted && !explicitStateRequested) {
-    log('no explicit state requested');
+    log('no explicit state requested%s', isUndrafted ? ', event is undrafted' : '');
     return agendaDefaultState;
   } else if (isUndrafted) {
     log('event is undrafted');
@@ -50,7 +50,7 @@ module.exports = (agenda, event, clean, data, { draft, authorizations }) => {
     agenda,
     hasEvent: !!event,
     authorizations,
-    isUndrafted: event?.draft,
+    isUndrafted: event?.draft && !draft,
   }, data.state);
 
   log('assigning state: %s', state);

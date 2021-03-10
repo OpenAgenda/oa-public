@@ -9,8 +9,7 @@ const canPublish = (agenda, access) => (
 
 async function fromMember(core, agenda, event, member) {
   const {
-    members,
-    agendas
+    members
   } = core.services;
 
   const {

@@ -39,14 +39,6 @@ module.exports = async ({ config, services }, ae, context) => {
     return;
   }
 
-  if ( context.userUid ) {
-    try {
-      user = await usersSvc.get( context.userUid );
-    } catch ( err ) {
-      log( 'error', err );
-    }
-  }
-
   if (!context.aggregated) {
     if (ae.agendaUid === event.agendaUid) {
       // Creation

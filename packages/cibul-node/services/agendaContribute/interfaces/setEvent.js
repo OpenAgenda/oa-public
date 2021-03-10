@@ -4,18 +4,21 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 const log = require('@openagenda/logs')('services/agendaContribute/interfaces/setEvent');
 
-module.exports = async (services, agenda, user, current, data, options = {}) => {
-  // req.mode est dispo ici
+module.exports = async (services, req, data) => {
   const {
     core
   } = services;
 
-  const { draft, mode, fromAgenda } = {
-    draft: false,
-    mode: 'create',
-    fromAgenda: null,
-    ...options
-  };
+  const {
+    draft,
+    mode,
+    event: current,
+    fromAgenda,
+    agenda,
+    user
+  } = req;
+
+  log('setEvent with draft %s, mode %s, fromAgenda %s', draft ? 'true' : 'false', mode, fromAgenda ? fromAgenda?.uid : 'not set');
 
   try {
     if (mode === 'create') {
@@ -28,7 +31,7 @@ module.exports = async (services, agenda, user, current, data, options = {}) => 
         })
       };
     } else if (mode === 'edit') {
-      log(draft ? 'updating draft %s' : 'updating event %s', current.uid);
+      log('updating event %s', current.uid);
       return {
         event: await core.agendas(agenda.uid).events.patch(current.uid, data, {
           draft,

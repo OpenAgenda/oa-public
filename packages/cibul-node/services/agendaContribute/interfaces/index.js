@@ -5,4 +5,4 @@ module.exports = services => ({
   setEvent: require('./setEvent').bind(null, services),
   generateUniqueFileKey: require('./generateUniqueFileKey'),
   deleteDraftEvent: require('./deleteDraftEvent').bind(null, services)
-})
+});
