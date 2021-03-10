@@ -20,7 +20,7 @@ if (module.hot) {
 const iframeHandler = require('./lib/iframe.child')({
   onParentNavUpdate: updatedHref => {
     window.location.href = updatedHref;
-  }
+  },
 });
 
 function spin() {
@@ -31,7 +31,7 @@ function spin() {
     radius: 10,
     opacity: 6,
     color: '#333',
-    bgColor: 'white'
+    bgColor: 'white',
   }); // show the spinner
 }
 
@@ -54,7 +54,7 @@ function loadListContent(url, data, cb) {
     success(result) {
       spin.stop();
       cb(null, result);
-    }
+    },
   });
 }
 
@@ -89,9 +89,7 @@ function progressiveLoad(pageProps, canvasSelector) {
           .innerHTML.trim();
 
         if (eventItemsHTML.length) {
-          $(canvasSelector)
-            .first()
-            .append(eventItemsHTML);
+          $(canvasSelector).first().append(eventItemsHTML);
 
           if (pageProps.iframable) {
             handleIFrameLinkEvents($, iframeHandler);
@@ -149,14 +147,14 @@ $(() => {
       null,
       {
         origin: 'onReloadWithPassed',
-        pageProps
+        pageProps,
       },
       null
     ),
     onWidgetUpdate: onWidgetController.bind(null, {
       origin: 'onWidgetUpdate',
-      pageProps
-    })
+      pageProps,
+    }),
   };
 
   log('page ready', pageProps);

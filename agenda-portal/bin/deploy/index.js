@@ -28,12 +28,12 @@ module.exports = async (preloaded = {}) => {
   );
   env.PORTAL_LANG = preloaded.PORTAL_LANG
     || (await term('Which is the main language of the portal?', {
-      default: 'fr'
+      default: 'fr',
     }));
   env.PORTAL_KEY = preloaded.PORTAL_KEY || (await term('OpenAgenda account public key'));
   env.PORTAL_PORT = preloaded.PORTAL_PORT
     || (await term('which port do you wish to use for development?', {
-      default: 3000
+      default: 3000,
     }));
   env.PORTAL_IFRAMABLE = preloaded.PORTAL_IFRAMABLE;
   if (env.PORTAL_IFRAMABLE === undefined) {

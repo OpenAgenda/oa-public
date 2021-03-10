@@ -1,5 +1,3 @@
 'use strict';
 
-module.exports = range => {
-  return (range || '').split(',').shift();
-}
+module.exports = range => (range || '').split(',').shift();

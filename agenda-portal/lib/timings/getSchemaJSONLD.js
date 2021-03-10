@@ -31,13 +31,13 @@ module.exports = (event, timing) => {
         ? {
           offers: {
             '@type': 'Offer',
-            url: event.registration.filter(r => r.type === 'link')[0].value
-          }
+            url: event.registration.filter(r => r.type === 'link')[0].value,
+          },
         }
         : {}),
       ...(event.age
         ? {
-          typicalAgeRange: [event.age.min, event.age.max].join('-')
+          typicalAgeRange: [event.age.min, event.age.max].join('-'),
         }
         : {}),
       location: {
@@ -49,14 +49,14 @@ module.exports = (event, timing) => {
           addressLocality: event.location.city,
           addressRegion: event.location.region,
           postalCode: event.location.postalCode,
-          addressCountry: event.location.countryCode
+          addressCountry: event.location.countryCode,
         },
         geo: {
           '@type': 'GeoCoordinates',
           latitude: event.location.latitude,
-          longitude: event.location.longitude
-        }
-      }
+          longitude: event.location.longitude,
+        },
+      },
     },
     null,
     2

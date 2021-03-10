@@ -8,11 +8,7 @@ const { getValue: getBeginValue } = require('./begin');
 
 function _appendLabel(timing, { lang }) {
   return Object.assign(timing, {
-    label: _.capitalize(
-      moment(getBeginValue(timing))
-        .locale(lang)
-        .fromNow()
-    )
+    label: _.capitalize(moment(getBeginValue(timing)).locale(lang).fromNow()),
   });
 }
 
@@ -27,7 +23,7 @@ module.exports = (event, { lang }) => {
 
   const update = {
     lastTiming: { $set: _appendLabel(last, { lang }) },
-    nextTiming: { $set: null }
+    nextTiming: { $set: null },
   };
 
   if (last && new Date(last.end) < now) {

@@ -76,7 +76,7 @@ module.exports = {
     output = _utf8_decode(output);
 
     return output;
-  }
+  },
 };
 
 function _utf8_decode(utftext) {

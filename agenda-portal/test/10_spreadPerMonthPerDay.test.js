@@ -14,8 +14,8 @@ describe('10 - spreadPerMonthPerDay', () => {
         [
           {
             start: new Date('2018-12-01T00:00:00+0100'),
-            end: new Date('2018-12-01T01:00:00+0100')
-          }
+            end: new Date('2018-12-01T01:00:00+0100'),
+          },
         ],
         'Europe/Paris',
         'fr'
@@ -37,16 +37,16 @@ describe('10 - spreadPerMonthPerDay', () => {
     const timings = [
       {
         start: new Date('2018-10-10T10:00:00+0200'),
-        end: new Date('2018-10-10T11:00:00+0200')
+        end: new Date('2018-10-10T11:00:00+0200'),
       },
       {
         start: new Date('2018-11-15T10:00:00+0200'),
-        end: new Date('2018-11-15T15:00:00+0200')
+        end: new Date('2018-11-15T15:00:00+0200'),
       },
       {
         start: new Date('2018-12-01T00:00:00+0100'),
-        end: new Date('2018-12-01T01:00:00+0100')
-      }
+        end: new Date('2018-12-01T01:00:00+0100'),
+      },
     ];
 
     const spreadTimings = fs

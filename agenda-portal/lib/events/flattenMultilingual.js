@@ -11,7 +11,7 @@ module.exports = (fields, preferredlang, obj) => ih(
         obj[field],
         preferredlang,
         _.get(obj[field], _.first(_.keys(obj[field])))
-      )
+      ),
     }),
     {}
   )

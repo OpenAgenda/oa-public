@@ -21,7 +21,7 @@ module.exports = str => {
     31, // Information separator
     8232,
     8233,
-    769 // U+0301
+    769, // U+0301
   ];
 
   for (let i = 0; i < charsToClean.length; i++) {

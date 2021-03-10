@@ -20,18 +20,18 @@ const defaultConfig = {
     maxMessages: Infinity,
     maxConnections: 20,
     rateLimit: 14, // 14 emails/second max
-    rateDelta: 1000
+    rateDelta: 1000,
   },
   defaults: {},
   translations: {
     labels: {},
-    makeLabelGetter
+    makeLabelGetter,
   },
   queueName: 'mails',
   disableVerify: false,
   onTaskError(method, args, error) {
     log.error('Error on sending email in task', { args, error });
-  }
+  },
 };
 
 async function createConfig(c = {}) {
@@ -45,7 +45,7 @@ async function createConfig(c = {}) {
   if (config.Queues) {
     config.queues = {
       prepareMails: await config.Queues(`pre-${config.queueName}`),
-      sendMails: await config.Queues(config.queueName)
+      sendMails: await config.Queues(config.queueName),
     };
   }
 
@@ -53,7 +53,7 @@ async function createConfig(c = {}) {
     error: (data, ...rest) => logTransporter.error(...rest, data),
     warn: (data, ...rest) => logTransporter.warn(...rest, data),
     info: (data, ...rest) => logTransporter.info(...rest, data),
-    debug: (data, ...rest) => logTransporter.debug(...rest, data)
+    debug: (data, ...rest) => logTransporter.debug(...rest, data),
   };
 
   // Transporter
@@ -61,7 +61,7 @@ async function createConfig(c = {}) {
     {
       ...config.transport,
       logger: transportLogger,
-      rateLimit: undefined
+      rateLimit: undefined,
     },
     config.defaults
   );

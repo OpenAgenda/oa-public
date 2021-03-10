@@ -13,5 +13,5 @@ module.exports = {
   cloudimage,
   spreadRegistration,
   loadEnvironment,
-  I18N
+  I18N,
 };

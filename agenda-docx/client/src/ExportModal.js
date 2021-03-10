@@ -17,81 +17,81 @@ export default class ExportModal extends Component {
     labels: {
       modalLink: {
         en: 'Microsoft Word',
-        fr: 'Microsoft Word'
+        fr: 'Microsoft Word',
       },
       modalTitle: {
         en: 'Word export',
-        fr: 'Export word'
+        fr: 'Export word',
       },
       download: {
         en: 'Download the available file',
-        fr: 'Téléchargez le fichier disponible'
+        fr: 'Téléchargez le fichier disponible',
       },
       lastUpdate: {
         en: 'Last update',
-        fr: 'Dernière mise à jour'
+        fr: 'Dernière mise à jour',
       },
       noFileAvailable: {
         en: 'No file is available for download yet',
-        fr: "Aucun fichier n'est encore disponible au téléchargement"
+        fr: "Aucun fichier n'est encore disponible au téléchargement",
       },
       queued: {
         en:
           'Your request has been queued and your file will be available shortly. Please check this menu again in a short while',
         fr:
-          'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.'
+          'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.',
       },
       launch: {
         en: 'Generate a new word file',
-        fr: 'Générez un nouveau fichier word'
+        fr: 'Générez un nouveau fichier word',
       },
       launchFromTemplate: {
         en: 'Generate a new word file from the template:',
-        fr: 'Générez un nouveau fichier word à partir du gabarit :'
+        fr: 'Générez un nouveau fichier word à partir du gabarit :',
       },
       downloadInfo: {
         en:
           'Update the table of content the first time you open the file with a right click on the table of content segment followed with a click on "Update"',
         fr:
-          'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"'
+          'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"',
       },
       or: {
         en: 'Or',
-        fr: 'Ou'
+        fr: 'Ou',
       },
       from: {
         en: 'from',
-        fr: 'du'
+        fr: 'du',
       },
       to: {
         en: 'to',
-        fr: 'au'
+        fr: 'au',
       },
       template: {
         en: 'Template:',
-        fr: 'Gabarit :'
+        fr: 'Gabarit :',
       },
       generate: {
         en: 'Generate',
-        fr: 'Générer'
+        fr: 'Générer',
       },
       toAfterFromError: {
         en: 'The start date must be before the end date.',
-        fr: 'La date de début doit être avant la date de fin.'
+        fr: 'La date de début doit être avant la date de fin.',
       },
       fromBeforeToError: {
         en: 'The end date must be after the start date.',
-        fr: 'La date de fin doit être après la date de début.'
+        fr: 'La date de fin doit être après la date de début.',
       },
       limitDates: {
         en: 'Limit dates',
-        fr: 'Limiter les dates'
+        fr: 'Limiter les dates',
       },
       eventsLimit: {
         en: 'The export can include a maximum of 1000 events per document.',
-        fr: "L'export peut intégrer au maximum 1000 événements par document."
-      }
-    }
+        fr: "L'export peut intégrer au maximum 1000 événements par document.",
+      },
+    },
   };
 
   constructor(props) {
@@ -102,7 +102,7 @@ export default class ExportModal extends Component {
       service: null,
       loading: false,
       labels: flattenLabels(props.labels, props.locale),
-      limitDates: false
+      limitDates: false,
     };
 
     this.open = this.open.bind(this);
@@ -148,19 +148,13 @@ export default class ExportModal extends Component {
 
     if (from) {
       request.query({
-        from: from
-          .toISOString()
-          .split('T')
-          .shift()
+        from: from.toISOString().split('T').shift(),
       });
     }
 
     if (to) {
       request.query({
-        to: to
-          .toISOString()
-          .split('T')
-          .shift()
+        to: to.toISOString().split('T').shift(),
       });
     }
 
@@ -180,7 +174,7 @@ export default class ExportModal extends Component {
           templateName:
             service.templates && service.templates.length
               ? service.templates[0].name
-              : undefined
+              : undefined,
         }}
         render={({ handleSubmit, invalid }) => (
           <form onSubmit={handleSubmit}>
@@ -221,9 +215,7 @@ export default class ExportModal extends Component {
                           }
                           value={
                             input.value
-                              ? moment(input.value)
-                                .locale(locale)
-                                .format('LL')
+                              ? moment(input.value).locale(locale).format('LL')
                               : input.value
                           }
                           autoComplete="off"
@@ -259,9 +251,7 @@ export default class ExportModal extends Component {
                           }
                           value={
                             input.value
-                              ? moment(input.value)
-                                .locale(locale)
-                                .format('LL')
+                              ? moment(input.value).locale(locale).format('LL')
                               : input.value
                           }
                           autoComplete="off"
@@ -354,10 +344,7 @@ export default class ExportModal extends Component {
     }
 
     return (
-      <Modal
-        title={labels.modalTitle}
-        onClose={onClose}
-      >
+      <Modal title={labels.modalTitle} onClose={onClose}>
         <div className="text-center margin-v-md">
           {hasFile ? (
             <div>

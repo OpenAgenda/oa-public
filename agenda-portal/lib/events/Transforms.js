@@ -19,14 +19,14 @@ function _preEventTransform(options, event, req, res) {
       res.locals.lang
     ),
     _.partialRight(relativeTimings, { lang: res.locals.lang }),
-    links.bind(null, res.locals)
+    links.bind(null, res.locals),
   ].reduce((e, fn) => fn(e), event);
 }
 
 function _postEventTransform({ eventHook }, event, req, res) {
   return [
     applySchemaJSONLD,
-    eventHook ? _.partialRight(eventHook, res.locals) : e => e
+    eventHook ? _.partialRight(eventHook, res.locals) : e => e,
   ].reduce((e, fn) => fn(e), event);
 }
 
@@ -38,7 +38,12 @@ module.exports = options => {
     listItem: (event, req, res, listContext) => {
       const transformed = preTransform(event, req, res);
 
-      return applyContextLink(req, res, listContext, postTransform(transformed, req, res));
+      return applyContextLink(
+        req,
+        res,
+        listContext,
+        postTransform(transformed, req, res)
+      );
     },
     show: (event, req, res) => {
       const transformed = preTransform(event, req, res);
@@ -59,6 +64,6 @@ module.exports = options => {
       }
 
       return postTransform(transformed, req, res);
-    }
+    },
   };
 };

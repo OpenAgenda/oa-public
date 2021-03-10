@@ -11,7 +11,7 @@ module.exports = ({ offset, limit, total }) => {
   const pages = _.times(Math.ceil(total / limit), index => ({
     page: index + 1,
     offset: index * limit,
-    current: index + 1 === current
+    current: index + 1 === current,
   })).filter(p => Math.abs(p.page - current) < maxPages / 2);
 
   if (!pages.length) return [];

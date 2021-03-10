@@ -8,9 +8,9 @@ const updateRelativePath = (state, relative) => {
   window.location.hash = relative;
 };
 
-const appendAttributeValueToQuery = (iframe, current, key, attrKey) => {
-  return `${current + (current.indexOf('?') === -1 ? '?' : '&')}${key}=${iframe.getAttribute(attrKey)}`;
-};
+const appendAttributeValueToQuery = (iframe, current, key, attrKey) => `${
+  current + (current.indexOf('?') === -1 ? '?' : '&')
+}${key}=${iframe.getAttribute(attrKey)}`;
 
 function onMessage(state, { message }) {
   if (message.code === 'ready' && !state.iFrameReady) {
@@ -18,7 +18,7 @@ function onMessage(state, { message }) {
     if (window.location.hash.length) {
       state.iframe.iFrameResizer.sendMessage({
         code: 'nav',
-        nav: getHash()
+        nav: getHash(),
       });
     }
   } else if (message.nav) {
@@ -32,8 +32,10 @@ function onMessage(state, { message }) {
     }
   } else if (message.code === 'fromSelection') {
     log('received selection slug', message.eventSlug);
-    window.location.href = `${(state.target || '#undefined-data-target-url')
-      + (state.targetIsIframe ? '#' : '')}/events/${message.eventSlug}`;
+    window.location.href = `${
+      (state.target || '#undefined-data-target-url')
+      + (state.targetIsIframe ? '#' : '')
+    }/events/${message.eventSlug}`;
   } else if (message.link) {
     window.location.href = message.link;
   }
@@ -68,14 +70,14 @@ module.exports = (iframe, options = {}) => {
     monitorHash,
     scrollOffsetSelector,
     targetSelector,
-    targetIsIframeSelector
+    targetIsIframeSelector,
   } = {
     selector: 'data-oa-portal',
     monitorHash: false,
     targetSelector: 'data-target-url',
     scrollOffsetSelector: 'data-scroll-offset',
     targetIsIframeSelector: 'data-target-iframe',
-    ...options
+    ...options,
   };
 
   log('loading', selector);
@@ -94,12 +96,22 @@ module.exports = (iframe, options = {}) => {
   // This iframe parent should track base and
 
   if (iframe.getAttribute('data-count')) {
-    relative = appendAttributeValueToQuery(iframe, relative, 'limit', 'data-count');
+    relative = appendAttributeValueToQuery(
+      iframe,
+      relative,
+      'limit',
+      'data-count'
+    );
   }
 
   if (iframe.getAttribute('data-lang')) {
     log('adding %s lang to relative path', iframe.getAttribute('data-lang'));
-    relative = appendAttributeValueToQuery(iframe, relative, 'lang', 'data-lang');
+    relative = appendAttributeValueToQuery(
+      iframe,
+      relative,
+      'lang',
+      'data-lang'
+    );
   }
 
   const state = {
@@ -114,7 +126,7 @@ module.exports = (iframe, options = {}) => {
     targetIsIframe: iframe.hasAttribute(targetIsIframeSelector),
     iframeScrollOffset: iframe.hasAttribute(scrollOffsetSelector)
       ? parseInt(iframe.getAttribute(scrollOffsetSelector), 10)
-      : 0
+      : 0,
   };
 
   if (base) {
@@ -124,7 +136,7 @@ module.exports = (iframe, options = {}) => {
   iframeResize(
     {
       log: false,
-      onMessage: onMessage.bind(null, state)
+      onMessage: onMessage.bind(null, state),
     },
     iframe
   );

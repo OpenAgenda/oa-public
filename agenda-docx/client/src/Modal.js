@@ -9,7 +9,7 @@ export default class Modal extends Component {
     visible: PropTypes.bool,
     onClose: PropTypes.func,
     disableBodyScroll: PropTypes.bool,
-    classNames: PropTypes.objectOf(PropTypes.string)
+    classNames: PropTypes.objectOf(PropTypes.string),
   };
 
   static defaultProps = {
@@ -19,15 +19,15 @@ export default class Modal extends Component {
     disableBodyScroll: false,
     onClose: null,
     classNames: {
-      overlay: 'popup-overlay'
-    }
+      overlay: 'popup-overlay',
+    },
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      clickOnModal: false
+      clickOnModal: false,
     };
 
     this.modalRef = React.createRef();

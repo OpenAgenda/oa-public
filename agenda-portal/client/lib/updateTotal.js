@@ -26,11 +26,7 @@ export default total => {
     attr = 'data-label-plural';
   }
 
-  $('.js_total').html(
-    $('.js_total')
-      .attr(attr)
-      .replace('%total%', cleanTotal)
-  );
+  $('.js_total').html($('.js_total').attr(attr).replace('%total%', cleanTotal));
 
   return result;
 };

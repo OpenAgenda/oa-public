@@ -14,7 +14,7 @@ const compiler = webpack(webpackConfig);
 
 dev.use(
   webpackDevMiddleware(compiler, {
-    publicPath: '/js'
+    publicPath: '/js',
   })
 );
 

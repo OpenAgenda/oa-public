@@ -10,7 +10,7 @@ describe('unit - files', () => {
   } = AgendaFiles({
     s3: config.s3,
     bucket: config.s3.bucket,
-    uid: 'test02'
+    uid: 'test02',
   });
 
   test('set a json file, get it back, delete it', async () => {

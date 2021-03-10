@@ -12,7 +12,9 @@ const mjml2html = mjml.__esModule ? mjml.default : mjml;
 const readFile = promisify(fs.readFile);
 
 async function render(config, templateName, data = {}, opts = {}) {
-  const templateDir = templateName ? path.join(config.templatesDir || '', templateName) : null;
+  const templateDir = templateName
+    ? path.join(config.templatesDir || '', templateName)
+    : null;
   const lang = data.lang || opts.lang;
 
   let __ = data.__ || opts.__;
@@ -24,7 +26,7 @@ async function render(config, templateName, data = {}, opts = {}) {
   const templateData = {
     ...data,
     lang,
-    __
+    __,
   };
 
   let html = null;
@@ -51,14 +53,14 @@ async function render(config, templateName, data = {}, opts = {}) {
     if (rawHtml) {
       const preHtml = ejs.render(rawHtml, templateData, {
         ...opts,
-        filename: templateDir ? path.join(templateDir, 'index.mjml') : ''
+        filename: templateDir ? path.join(templateDir, 'index.mjml') : '',
       });
       const { html: renderedHtml, errors } = mjml2html(preHtml);
 
       if (errors && errors.length) {
         throw new VError(
           {
-            info: { errors }
+            info: { errors },
           },
           `Invalid MJML (template: '${templateName})'`
         );
@@ -88,7 +90,7 @@ async function render(config, templateName, data = {}, opts = {}) {
     if (rawText) {
       text = ejs.render(rawText, templateData, {
         ...opts,
-        filename: templateDir ? path.join(templateDir, 'text.ejs') : ''
+        filename: templateDir ? path.join(templateDir, 'text.ejs') : '',
       });
     }
   }
@@ -116,10 +118,7 @@ async function render(config, templateName, data = {}, opts = {}) {
     if (rawSubject) {
       subject = ejs.render(rawSubject, templateData, {
         ...opts,
-        filename: templateDir ? path.join(
-          templateDir,
-          'subject.ejs'
-        ) : null
+        filename: templateDir ? path.join(templateDir, 'subject.ejs') : null,
       });
     }
   }
@@ -127,7 +126,7 @@ async function render(config, templateName, data = {}, opts = {}) {
   return {
     html,
     text,
-    subject
+    subject,
   };
 }
 

@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     .list(
       res.locals.agendaUid,
       _.assign({}, req.query, {
-        page: parseInt(_.get(req, 'params.page', 1), 10)
+        page: parseInt(_.get(req, 'params.page', 1), 10),
       })
     )
     .then(({
@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
       const pages = paginate({
         offset,
         limit,
-        total
+        total,
       });
 
       req.data = _.assign(req.data || {}, {
@@ -31,10 +31,10 @@ module.exports = (req, res, next) => {
         total,
         events: events.map((e, index) => transform(e, req, res, {
           total,
-          index: offset + index
+          index: offset + index,
         })),
         pages,
-        hasPages: pages.length > 1
+        hasPages: pages.length > 1,
       });
 
       next();

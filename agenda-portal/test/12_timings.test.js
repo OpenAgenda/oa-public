@@ -10,13 +10,13 @@ describe('12 - timing helper functions', () => {
       applyTimezone(
         {
           start: '2019-06-30T10:00:00Z',
-          end: '2019-06-30T12:00:00Z'
+          end: '2019-06-30T12:00:00Z',
         },
         'Europe/Paris'
       )
     ).toEqual({
       start: '2019-06-30T12:00:00+02:00',
-      end: '2019-06-30T14:00:00+02:00'
+      end: '2019-06-30T14:00:00+02:00',
     });
   });
 
@@ -31,28 +31,28 @@ describe('12 - timing helper functions', () => {
       getLabels(
         {
           start: '2019-06-30T10:00:00Z',
-          end: '2019-06-30T12:00:00Z'
+          end: '2019-06-30T12:00:00Z',
         },
         'Europe/Paris',
         'fr'
       )
     ).toEqual({
       start: { day: 'dimanche 30', time: '12:00' },
-      end: { day: 'dimanche 30', time: '14:00' }
+      end: { day: 'dimanche 30', time: '14:00' },
     });
 
     expect(
       getLabels(
         {
           start: '2019-06-30T10:00:00Z',
-          end: '2019-06-30T12:00:00Z'
+          end: '2019-06-30T12:00:00Z',
         },
         'Europe/Paris',
         'en'
       )
     ).toEqual({
       start: { day: 'Sunday 30', time: '12:00 PM' },
-      end: { day: 'Sunday 30', time: '2:00 PM' }
+      end: { day: 'Sunday 30', time: '2:00 PM' },
     });
   });
 });

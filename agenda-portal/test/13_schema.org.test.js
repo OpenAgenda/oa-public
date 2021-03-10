@@ -11,12 +11,12 @@ describe('13 - schema.org', () => {
     registration: [
       {
         type: 'link',
-        value: 'https://www.voulez-vous.fr/'
+        value: 'https://www.voulez-vous.fr/',
       },
       {
         type: 'email',
-        value: 'contact@brigaud.fr'
-      }
+        value: 'contact@brigaud.fr',
+      },
     ],
     image:
       'https://cibul.s3.amazonaws.com/73a0e0e58db448ffbd6e21dee5151642.base.image.jpg',
@@ -29,14 +29,14 @@ describe('13 - schema.org', () => {
       countryCode: 'FR',
       latitude: 47.685759,
       longitude: 2.630589,
-      timezone: 'Europe/Paris'
+      timezone: 'Europe/Paris',
     },
     timings: [
       {
         start: '2019-06-15T06:30:00.000Z',
-        end: '2019-06-15T07:30:00.000Z'
-      }
-    ]
+        end: '2019-06-15T07:30:00.000Z',
+      },
+    ],
   };
 
   const timing = event.timings[0];

@@ -69,7 +69,7 @@ function _term(message, options = {}) {
       'What is the path to the input docx template ?',
       {
         // default: '/home/bertho/Téléchargements/template4.docx'
-        default: `${__dirname}/input.docx`
+        default: `${__dirname}/input.docx`,
       }
     );
 
@@ -77,14 +77,14 @@ function _term(message, options = {}) {
       'Where should the generated file be placed?',
       {
         // default: '/home/bertho/Téléchargements'
-        default: '/var/tmp/docx'
+        default: '/var/tmp/docx',
       }
     );
 
     const agendaUid = await _term('What is the uid of the agenda to export?', {
       // default: 59272362 // chatellerault
       // default: 1298686 // jnarchi-2018-auvergne-rhone-alpes
-      default: 63106080 // jep 2018 guyane
+      default: 63106080, // jep 2018 guyane
     });
 
     console.log('generating output...');
@@ -98,7 +98,7 @@ function _term(message, options = {}) {
       query: {
         // from: '2017-12-31T23:00:00.000Z',
         // to: '2018-12-31T22:59:59.999Z'
-      }
+      },
     });
 
     console.log('output generated at %s', outputPath);

@@ -11,7 +11,7 @@ export default class OaSdk {
     this.params = _.merge(
       {
         publicKey: null,
-        secretKey: null
+        secretKey: null,
       },
       options
     );
@@ -38,7 +38,7 @@ export default class OaSdk {
       .accept('json')
       .send({
         'grant-type': 'authorization_code',
-        code: secretKey || this.params.secretKey
+        code: secretKey || this.params.secretKey,
       })
       .then(parseJsonResponse);
 

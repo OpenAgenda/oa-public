@@ -9,30 +9,30 @@ function _accessibility(acc, lang) {
     label: {
       hi: {
         en: 'Hearing impairment',
-        fr: 'Handicap auditif'
+        fr: 'Handicap auditif',
       },
       sl: {
         en: 'Sign language',
-        fr: 'Langage des signes'
+        fr: 'Langage des signes',
       },
       mi: {
         en: 'Motor impairment',
-        fr: 'Handicap moteur'
+        fr: 'Handicap moteur',
       },
       pi: {
         en: 'Psychic impairment',
-        fr: 'Handicap psychique'
+        fr: 'Handicap psychique',
       },
       vi: {
         en: 'Visual impairment',
-        fr: 'Handicap visuel'
+        fr: 'Handicap visuel',
       },
       ii: {
         en: 'Intellectual impairment',
-        fr: 'Handicap intellectuel'
-      }
+        fr: 'Handicap intellectuel',
+      },
     }[a][lang],
-    code: a
+    code: a,
   }));
 }
 
@@ -46,7 +46,7 @@ function _customData(event) {
 function _countryLabel(code, lang) {
   const label = _.get(countries, _.toUpper(code), {
     fr: 'Code pays non défini',
-    en: 'Undefined country code'
+    en: 'Undefined country code',
   });
 
   const defaultLang = _.first(_.keys(label));
@@ -160,7 +160,7 @@ module.exports = (event, options) => {
       'range',
       'conditions',
       'location.description',
-      'location.access'
+      'location.access',
     ],
     lang,
     event
@@ -180,7 +180,7 @@ module.exports = (event, options) => {
       'country',
       _countryLabel(_.get(event, 'location.countryCode', null), lang)
     ),
-    hasAccessibility: !!event.accessibility.length
+    hasAccessibility: !!event.accessibility.length,
   });
 
   const thematiqueSlug = Object.keys(event.custom).find(v => v.startsWith('thematique-'));

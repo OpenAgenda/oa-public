@@ -41,14 +41,12 @@ const mw = {
   redirect,
   share: renderSelection('share'),
   showPage,
-  navigationLinks
+  navigationLinks,
 };
 
 const baseAssetsPath = `${__dirname}/assets`;
 
-const {
-  I18N
-} = utils;
+const { I18N } = utils;
 
 let devApp = null; // used for @openagenda/agenda-portal dev only
 
@@ -62,7 +60,7 @@ module.exports = async options => {
     assetsRoot: null,
     jsonExportVersion: 1,
     defaultTimezone: 'Europe/Paris',
-    ...options
+    ...options,
   };
 
   const {
@@ -80,26 +78,26 @@ module.exports = async options => {
     // cache,
     proxy: injectedProxy,
     jsonExportVersion,
-    assetsRoot
+    assetsRoot,
   } = config;
 
   const middlewareHooks = {
     list: {
       preRender: (req, res, next) => next(),
-      ..._.get(config, 'middlewareHooks.list', {})
+      ..._.get(config, 'middlewareHooks.list', {}),
     },
     show: {
       preRender: (req, res, next) => next(),
-      ..._.get(config, 'middlewareHooks.show', {})
+      ..._.get(config, 'middlewareHooks.show', {}),
     },
     preview: {
       preRender: (req, res, next) => next(),
-      ..._.get(config, 'middlewareHooks.preview', {})
+      ..._.get(config, 'middlewareHooks.preview', {}),
     },
     share: {
       preRender: (req, res, next) => next(),
-      ..._.get(config, 'middlewareHooks.share', {})
-    }
+      ..._.get(config, 'middlewareHooks.share', {}),
+    },
   };
 
   Object.assign(app.locals, config);
@@ -115,18 +113,19 @@ module.exports = async options => {
     hbs.registerHelper('i18n', I18N(i18n).handlebarsHelper);
   }
 
-  const proxy = injectedProxy || Proxy({
-    jsonExportVersion,
-    key,
-    defaultLimit: eventsPerPage,
-    defaultFilter,
-    defaultTimezone
-  });
+  const proxy = injectedProxy
+    || Proxy({
+      jsonExportVersion,
+      key,
+      defaultLimit: eventsPerPage,
+      defaultFilter,
+      defaultTimezone,
+    });
 
   app.set('proxy', proxy);
 
   app.set('transforms', {
-    event: _.pick(EventTransforms(app.locals), ['listItem', 'show'])
+    event: _.pick(EventTransforms(app.locals), ['listItem', 'show']),
   });
 
   // routes
@@ -161,14 +160,16 @@ module.exports = async options => {
 
   app.use(loadResLocals);
 
-  app.get('/',
+  app.get(
+    '/',
     mw.redirectLegacyEventQuery,
     mw.pageGlobals,
     mw.list,
     middlewareHooks.list.preRender,
     mw.index
   );
-  app.get('/p/:page',
+  app.get(
+    '/p/:page',
     mw.pageGlobals,
     mw.list,
     middlewareHooks.list.preRender,
@@ -189,16 +190,13 @@ module.exports = async options => {
     mw.share
   );
 
-  app.get('/events/p/:page',
+  app.get(
+    '/events/p/:page',
     mw.list,
     middlewareHooks.list.preRender,
     mw.renderList
   );
-  app.get('/events',
-    mw.list,
-    middlewareHooks.list.preRender,
-    mw.renderList
-  );
+  app.get('/events', mw.list, middlewareHooks.list.preRender, mw.renderList);
 
   app.get('/events/nav/:direction', mw.redirectToNeighbor);
 
@@ -225,7 +223,7 @@ module.exports = async options => {
 
   return {
     app,
-    baseAssetsPath
+    baseAssetsPath,
   };
 };
 

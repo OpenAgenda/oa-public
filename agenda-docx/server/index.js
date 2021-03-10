@@ -15,7 +15,7 @@ function getState(agendaUid) {
   return AgendaFiles({
     s3: config.s3,
     bucket: config.s3.bucket,
-    uid: agendaUid
+    uid: agendaUid,
   }).getJSON('state.json', defaultState);
 }
 
@@ -32,5 +32,5 @@ module.exports = {
   app,
   task,
   getState,
-  dist: express.static(`${__dirname}/../client/dist`)
+  dist: express.static(`${__dirname}/../client/dist`),
 };

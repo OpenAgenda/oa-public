@@ -8,11 +8,11 @@ describe('unit - queue', () => {
           namespace: 'testoadocx',
           redis: {
             port: 6389,
-            host: 'localhost'
-          }
+            host: 'localhost',
+          },
         })
       ).rejects.toMatchObject({
-        jse_shortmsg: 'oa-docx init - Could not connect to redis'
+        jse_shortmsg: 'oa-docx init - Could not connect to redis',
       });
     });
   });
@@ -23,8 +23,8 @@ describe('unit - queue', () => {
         namespace: 'testoadocx',
         redis: {
           port: 6379,
-          host: 'localhost'
-        }
+          host: 'localhost',
+        },
       });
     });
 

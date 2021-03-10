@@ -61,11 +61,11 @@ describe.skip('locations', () => {
       name: 'Gare Meuse TGV',
       address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines',
       latitude: 48.9736458,
-      longitude: 5.2723537
+      longitude: 5.2723537,
     });
 
     expect(location).toMatchObject({
-      uid: expect.any(Number)
+      uid: expect.any(Number),
     });
   });
 
@@ -76,16 +76,16 @@ describe.skip('locations', () => {
     await expect(
       oa.locations.create(testconfig.agendaUid, {
         name: 'Gare Meuse TGV',
-        address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines'
+        address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines',
       })
     ).rejects.toMatchObject({
       response: {
         body: {
           error: 'invalid_request',
           error_description:
-            'latitude: Latitude is required, longitude: Longitude is required'
-        }
-      }
+            'latitude: Latitude is required, longitude: Longitude is required',
+        },
+      },
     });
   });
 });
@@ -99,25 +99,23 @@ describe('events', () => {
       slug: `a-title-${_.random(10 ** 6)}`,
       title: {
         fr: 'Un titre',
-        en: 'A title'
+        en: 'A title',
       },
       description: {
         fr: 'On va faire un truc',
-        en: 'We make a truc'
+        en: 'We make a truc',
       },
       locationUid: 78372099,
       timings: [
         {
           begin: moment(),
-          end: moment().add(1, 'hour')
+          end: moment().add(1, 'hour'),
         },
         {
           begin: moment().add(1, 'day'),
-          end: moment()
-            .add(1, 'day')
-            .add(1, 'hour')
-        }
-      ]
+          end: moment().add(1, 'day').add(1, 'hour'),
+        },
+      ],
     });
 
     expect(success).toBeTruthy();
@@ -133,24 +131,22 @@ describe('events', () => {
       slug: `a-title-${_.random(10 ** 6)}`,
       title: {
         fr: 'Un titre',
-        en: 'A title'
+        en: 'A title',
       },
       description: {
         fr: 'On va faire un truc',
-        en: 'We make a truc'
+        en: 'We make a truc',
       },
       locationUid: 78372099,
       timings: [
         {
           begin: moment(),
-          end: moment().add(1, 'hour')
+          end: moment().add(1, 'hour'),
         },
         {
           begin: moment().add(1, 'day'),
-          end: moment()
-            .add(1, 'day')
-            .add(1, 'hour')
-        }
+          end: moment().add(1, 'day').add(1, 'hour'),
+        },
       ],
       keywords: {
         fr: [
@@ -158,9 +154,9 @@ describe('events', () => {
           'Toulouse Centre',
           'Culture',
           'Exposition',
-          'Tout public'
-        ]
-      }
+          'Tout public',
+        ],
+      },
     });
 
     expect(success).toBeTruthy();
@@ -179,21 +175,19 @@ describe('events', () => {
         slug: `a-title-${_.random(10 ** 6)}`,
         description: {
           fr: 'On va faire un truc',
-          en: 'We make a truc'
+          en: 'We make a truc',
         },
         locationUid: 78372099,
         timings: [
           {
             begin: moment(),
-            end: moment().add(1, 'hour')
+            end: moment().add(1, 'hour'),
           },
           {
             begin: moment().add(1, 'day'),
-            end: moment()
-              .add(1, 'day')
-              .add(1, 'hour')
-          }
-        ]
+            end: moment().add(1, 'day').add(1, 'hour'),
+          },
+        ],
       })
     ).rejects.toMatchObject({
       response: {
@@ -205,7 +199,7 @@ describe('events', () => {
               lang: 'fr',
               message: 'a string is required',
               origin: '',
-              step: 'validation'
+              step: 'validation',
             },
             {
               code: 'required',
@@ -213,18 +207,18 @@ describe('events', () => {
               lang: 'en',
               message: 'a string is required',
               origin: '',
-              step: 'validation'
-            }
-          ]
-        }
-      }
+              step: 'validation',
+            },
+          ],
+        },
+      },
     });
   });
 
   it('get an event', async () => {
     const oa = new OaSdk({
       publicKey: testconfig.publicKey,
-      secretKey: testconfig.secretKey
+      secretKey: testconfig.secretKey,
     });
 
     await oa.connect();
@@ -235,25 +229,23 @@ describe('events', () => {
         slug: `a-title-${_.random(10 ** 6)}`,
         title: {
           fr: 'Un titre',
-          en: 'A title'
+          en: 'A title',
         },
         description: {
           fr: 'On va faire un truc',
-          en: 'We make a truc'
+          en: 'We make a truc',
         },
         locationUid: 78372099,
         timings: [
           {
             begin: moment(),
-            end: moment().add(1, 'hour')
+            end: moment().add(1, 'hour'),
           },
           {
             begin: moment().add(1, 'day'),
-            end: moment()
-              .add(1, 'day')
-              .add(1, 'hour')
-          }
-        ]
+            end: moment().add(1, 'day').add(1, 'hour'),
+          },
+        ],
       }
     );
 
@@ -272,25 +264,23 @@ describe('events', () => {
       slug: `a-title-${_.random(10 ** 6)}`,
       title: {
         fr: 'Un titre',
-        en: 'A title'
+        en: 'A title',
       },
       description: {
         fr: 'On va faire un truc',
-        en: 'We make a truc'
+        en: 'We make a truc',
       },
       locationUid: 78372099,
       timings: [
         {
           begin: moment(),
-          end: moment().add(1, 'hour')
+          end: moment().add(1, 'hour'),
         },
         {
           begin: moment().add(1, 'day'),
-          end: moment()
-            .add(1, 'day')
-            .add(1, 'hour')
-        }
-      ]
+          end: moment().add(1, 'day').add(1, 'hour'),
+        },
+      ],
     });
 
     const { event: updatedEvent } = await oa.events.update(
@@ -300,9 +290,9 @@ describe('events', () => {
         slug: event.slug,
         title: {
           fr: 'Titre mise à jour',
-          en: 'Updated title'
+          en: 'Updated title',
         },
-        timings: event.timings
+        timings: event.timings,
       }
     );
 

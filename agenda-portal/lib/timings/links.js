@@ -10,6 +10,6 @@ module.exports = ({ event, req }, timing) => {
     link: `${event.link}/t/${code}${req.query.nc ? `?nc=${req.query.nc}` : ''}`,
     permalink: `${event.permalink}/t/${code}${
       req.query.nc ? `?nc=${req.query.nc}` : ''
-    }`
+    }`,
   };
 };

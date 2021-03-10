@@ -42,7 +42,7 @@ export default class Events {
       .set('access-token', this.sdk.accessToken)
       .set('nonce', this.sdk.getNonce())
       .field({
-        data: JSON.stringify(data)
+        data: JSON.stringify(data),
       })
       .then(parseJsonResponse)
       .then(v => v.body);
@@ -58,7 +58,7 @@ export default class Events {
       .set('access-token', this.sdk.accessToken)
       .set('nonce', this.sdk.getNonce())
       .field({
-        data: JSON.stringify(data)
+        data: JSON.stringify(data),
       })
       .then(parseJsonResponse)
       .then(v => v.body);

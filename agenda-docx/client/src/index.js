@@ -10,7 +10,7 @@ const props = {
   locale: anchor.getAttribute('data-locale') || 'fr',
   agendaUid: anchor.getAttribute('data-agenda-uid'),
   labels: anchor.getAttribute('data-labels') || undefined,
-  res: anchor.getAttribute('data-res') || '#res'
+  res: anchor.getAttribute('data-res') || '#res',
 };
 
 render(<Main {...props} />, anchor);

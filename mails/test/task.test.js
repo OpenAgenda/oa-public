@@ -30,27 +30,27 @@ describe('task', () => {
         secure: false, // true for 465, false for other ports
         auth: {
           user: account.user, // generated ethereal user
-          pass: account.pass // generated ethereal password
+          pass: account.pass, // generated ethereal password
         },
         maxConnections: 1,
         maxMessages: Infinity,
         rateLimit: 1,
-        rateDelta: 300
+        rateDelta: 300,
       },
       defaults: {
         queue: true,
         data: {
-          domain: 'https://openagenda.com'
-        }
+          domain: 'https://openagenda.com',
+        },
       },
       Queues: Queues.v2({
         redis: redis.createClient({
           host: 'localhost',
-          port: 6379
+          port: 6379,
         }),
-        prefix: 'mails:'
+        prefix: 'mails:',
       }),
-      queueName: 'mailsTest-task'
+      queueName: 'mailsTest-task',
     });
 
     await mails.config.queues.prepareMails.clear();
@@ -74,7 +74,7 @@ describe('task', () => {
       'user4@openagenda.com',
       'user5@openagenda.com',
       'user6@openagenda.com',
-      'kaore@openagenda.com'
+      'kaore@openagenda.com',
     ];
 
     const start = Date.now();
@@ -83,9 +83,9 @@ describe('task', () => {
     const { results, errors } = await mails.send({
       template: 'helloWorld',
       data: {
-        username: 'unknown'
+        username: 'unknown',
       },
-      to: recipients
+      to: recipients,
     });
 
     expect(results).toHaveLength(9);
@@ -112,7 +112,7 @@ describe('task', () => {
 
     const { results, errors } = await mails.send({
       template: 'helloWorld',
-      to: 'kevin.bertho@@gmail'
+      to: 'kevin.bertho@@gmail',
     });
 
     expect(spy.mock.calls).toHaveLength(0);

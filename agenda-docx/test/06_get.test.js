@@ -18,13 +18,13 @@ describe('get', () => {
             tags: [
               {
                 label: 'Un',
-                slug: 'un'
+                slug: 'un',
               },
               {
                 label: 'Deux',
-                slug: 'deux'
-              }
-            ]
+                slug: 'deux',
+              },
+            ],
           },
           {
             name: 'other',
@@ -32,13 +32,13 @@ describe('get', () => {
             tags: [
               {
                 label: 'Deux',
-                slug: 'deux'
+                slug: 'deux',
               },
               {
                 label: 'Trois',
-                slug: 'trois'
-              }
-            ]
+                slug: 'trois',
+              },
+            ],
           },
           {
             name: 'unNom',
@@ -46,16 +46,16 @@ describe('get', () => {
             tags: [
               {
                 label: 'Un',
-                slug: 'un'
+                slug: 'un',
               },
               {
                 label: 'Trois',
-                slug: 'trois'
-              }
-            ]
-          }
-        ]
-      }
+                slug: 'trois',
+              },
+            ],
+          },
+        ],
+      },
     };
 
     expect(
@@ -63,26 +63,26 @@ describe('get', () => {
     ).toEqual([
       {
         name: 'unNom',
-        prop: 12
+        prop: 12,
       },
       {
         name: 'unNom',
-        prop: 6
-      }
+        prop: 6,
+      },
     ]);
 
     expect(get(object, 'un.test[name="unNom"].prop')).toEqual([12, 6]);
 
     expect(get(object, 'un.test[name="other"].tags[].label')).toEqual([
       'Deux',
-      'Trois'
+      'Trois',
     ]);
 
     expect(get(object, 'un.test[name="unNom"].tags[].label')).toEqual([
       'Un',
       'Deux',
       'Un',
-      'Trois'
+      'Trois',
     ]);
 
     expect(get(object, 'un.test[0].name')).toEqual('unNom');

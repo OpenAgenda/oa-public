@@ -23,7 +23,7 @@ function redirectToNeighbor(req, res, next) {
     return next();
   }
 
-  const context = navigation.parseContext(req.query.nc)
+  const context = navigation.parseContext(req.query.nc);
 
   const { search, index, lang } = context;
 
@@ -36,7 +36,7 @@ function redirectToNeighbor(req, res, next) {
       _.assign(
         { oaq: search },
         {
-          offset: Math.max(0, newIndex)
+          offset: Math.max(0, newIndex),
         }
       ),
       1
@@ -44,13 +44,13 @@ function redirectToNeighbor(req, res, next) {
     .then(({ total, events }) => {
       const update = {
         total: { $set: total },
-        index: { $set: newIndex }
+        index: { $set: newIndex },
       };
 
       const updatedContext = navigation.stringifyContext(ih(context, update));
 
       const queryPart = {
-        nc: updatedContext
+        nc: updatedContext,
       };
 
       if (lang) {
@@ -59,9 +59,9 @@ function redirectToNeighbor(req, res, next) {
 
       res.redirect(
         302,
-        `${req.app.locals.root}/events/${
-          _.first(events).slug
-        }?${qs.stringify(queryPart)}`
+        `${req.app.locals.root}/events/${_.first(events).slug}?${qs.stringify(
+          queryPart
+        )}`
       );
     }, next);
 }
@@ -72,7 +72,7 @@ function redirectToNeighbor(req, res, next) {
 
 function navigationLinks(req, res, next) {
   Object.assign(req.data, {
-    navigation: navigation(req.app.locals, req.query.nc)
+    navigation: navigation(req.app.locals, req.query.nc),
   });
 
   next();
@@ -80,5 +80,5 @@ function navigationLinks(req, res, next) {
 
 module.exports = {
   redirectToNeighbor,
-  navigationLinks
+  navigationLinks,
 };

@@ -15,8 +15,8 @@ const getEtherealTransport = () => ({
   secure: false, // true for 465, false for other ports
   auth: {
     user: account.user, // generated ethereal user
-    pass: account.pass // generated ethereal password
-  }
+    pass: account.pass, // generated ethereal password
+  },
 });
 
 beforeAll(async () => {
@@ -33,13 +33,13 @@ describe('sendMail', () => {
       mails = await createMails({
         templatesDir,
         transport: {
-          jsonTransport: true
+          jsonTransport: true,
         },
         defaults: {
           data: {
-            domain: 'https://openagenda.com'
-          }
-        }
+            domain: 'https://openagenda.com',
+          },
+        },
       });
     });
 
@@ -47,16 +47,16 @@ describe('sendMail', () => {
       const { results, errors } = await mails.send({
         template: 'helloWorld',
         data: {
-          username: 'bertho'
+          username: 'bertho',
         },
         to: [
           'kevin.bertho@gmail.com, kevin.berthommier@openagenda.com',
           {
             address: '"Kaoré" <kaore@openagenda.com>',
-            data: { username: 'kaore' }
-          }
+            data: { username: 'kaore' },
+          },
         ],
-        queue: false
+        queue: false,
       });
 
       expect(results).toHaveLength(3);
@@ -77,10 +77,10 @@ describe('sendMail', () => {
       const { errors } = await mails.send({
         template: 'helloWorld',
         data: {
-          username: 'bertho'
+          username: 'bertho',
         },
         to: 'kevin.bertho@@gmail',
-        queue: false
+        queue: false,
       });
 
       expect(errors).toMatchSnapshot();
@@ -89,7 +89,7 @@ describe('sendMail', () => {
     it("send a mail with an error don't send anything", async () => {
       const { errors } = await mails.send({
         template: 'helloWorld',
-        to: 'kevin.bertho@@gmail'
+        to: 'kevin.bertho@@gmail',
       });
 
       expect(errors).toMatchSnapshot();
@@ -100,15 +100,15 @@ describe('sendMail', () => {
         template: 'helloWorld',
         data: {
           domain: 'https://google.com',
-          username: 'bertho'
+          username: 'bertho',
         },
         to: {
           address: 'kevin.bertho@gmail.com',
           data: {
-            domain: 'https://bertho.io'
-          }
+            domain: 'https://bertho.io',
+          },
         },
-        queue: false
+        queue: false,
       });
 
       const message = JSON.parse(results[0].message);
@@ -120,7 +120,7 @@ describe('sendMail', () => {
       mails.send({
         template: 'unknow',
         to: 'kevin.bertho@gmail.com',
-        queue: false
+        queue: false,
       })
     ).rejects.toThrow("Email template 'unknow' does not exist"));
 
@@ -128,22 +128,25 @@ describe('sendMail', () => {
       const res = await mails.send({
         to: {
           address: 'admin@openagenda.com',
-          name: ''
+          name: '',
         },
         subject: 'Nouvel inscrit à la newsletter',
-        text: '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. <%- root %>',
+        text:
+          '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. <%- root %>',
         data: {
           root: 'https://openagenda.com',
           emailSettingsLink: 'https://openagenda.com/settings/emails',
-          isRegisteredUser: false
+          isRegisteredUser: false,
         },
-        queue: false
+        queue: false,
       });
 
       const message = JSON.parse(res.results[0].message);
 
       expect(message.subject).toBe('Nouvel inscrit à la newsletter');
-      expect(message.text).toBe('"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. https://openagenda.com');
+      expect(message.text).toBe(
+        '"dominiquemuslewski@chaumesenretz.fr" a été ajouté à la newsletter. https://openagenda.com'
+      );
     });
   });
 
@@ -155,9 +158,9 @@ describe('sendMail', () => {
         defaults: {
           from: 'no-reply@openagenda.com',
           data: {
-            domain: 'https://openagenda.com'
-          }
-        }
+            domain: 'https://openagenda.com',
+          },
+        },
       });
 
       await mails.init();
@@ -167,13 +170,13 @@ describe('sendMail', () => {
       const { results, errors } = await mails.send({
         template: 'helloWorld',
         data: {
-          username: 'Bertho'
+          username: 'Bertho',
         },
         to: [
           '"Kévin Berthommier" <kevin.bertho@gmail.com>, kevin.berthommier@openagenda.com',
-          { address: 'kaore@openagenda.com', data: { username: 'Kaore' } }
+          { address: 'kaore@openagenda.com', data: { username: 'Kaore' } },
         ],
-        queue: false
+        queue: false,
       });
 
       expect(errors).toHaveLength(0);
@@ -198,10 +201,10 @@ describe('sendMail', () => {
           {
             address: 'kevin.bertho@gmail.com',
             name: 'Kévin Berthommier',
-            data: { username: 'Bertho' }
-          }
+            data: { username: 'Bertho' },
+          },
         ],
-        queue: false
+        queue: false,
       });
 
       expect(errors).toHaveLength(0);
@@ -224,38 +227,38 @@ describe('sendMail', () => {
       mails = await createMails({
         templatesDir,
         transport: {
-          jsonTransport: true
+          jsonTransport: true,
         },
         defaults: {
           data: {
-            domain: 'https://openagenda.com'
+            domain: 'https://openagenda.com',
           },
-          lang: 'en'
+          lang: 'en',
         },
         translations: {
           labels: {
             'helloWorld-i18n': {
               hello: {
                 fr: 'Salut %username%',
-                en: 'Hello %username%'
+                en: 'Hello %username%',
               },
               goToOA: {
                 fr: 'Aller sur OpenAgenda',
-                en: 'Go to OpenAgenda'
-              }
-            }
+                en: 'Go to OpenAgenda',
+              },
+            },
           },
-          makeLabelGetter
-        }
+          makeLabelGetter,
+        },
       });
 
       const { results, errors } = await mails.send({
         template: 'helloWorld-i18n',
         to: {
           address: 'kevin.bertho@gmail.com',
-          data: { username: 'bertho' }
+          data: { username: 'bertho' },
         },
-        queue: false
+        queue: false,
       });
 
       expect(errors).toHaveLength(0);
@@ -273,29 +276,29 @@ describe('sendMail', () => {
       mails = await createMails({
         templatesDir,
         transport: {
-          jsonTransport: true
+          jsonTransport: true,
         },
         defaults: {
           data: {
-            domain: 'https://openagenda.com'
+            domain: 'https://openagenda.com',
           },
-          lang: 'en'
+          lang: 'en',
         },
         translations: {
           labels: {
             'helloWorld-i18n': {
               hello: {
                 fr: 'Salut %username%',
-                en: 'Hello %username%'
+                en: 'Hello %username%',
               },
               goToOA: {
                 fr: 'Aller sur OpenAgenda',
-                en: 'Go to OpenAgenda'
-              }
-            }
+                en: 'Go to OpenAgenda',
+              },
+            },
           },
-          makeLabelGetter
-        }
+          makeLabelGetter,
+        },
       });
 
       const { results, errors } = await mails.send({
@@ -303,9 +306,9 @@ describe('sendMail', () => {
         to: {
           address: 'kevin.bertho@gmail.com',
           data: { username: 'bertho' },
-          lang: 'fr'
+          lang: 'fr',
         },
-        queue: false
+        queue: false,
       });
 
       expect(errors).toHaveLength(0);

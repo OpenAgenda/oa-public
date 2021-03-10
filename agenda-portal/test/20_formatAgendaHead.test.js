@@ -16,7 +16,7 @@ describe('20 - lib/utils - formatAgendaHead', () => {
       fieldName: 'type-devenement',
       optionId: 34,
       schemaId: 9661,
-      slug: 'animation'
+      slug: 'animation',
     });
   });
 });

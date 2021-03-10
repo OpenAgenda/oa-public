@@ -13,7 +13,7 @@ module.exports = (agendaUid, settings, legacySettings) => {
       field.options.map(o => ({
         fieldName: field.field,
         optionId: o.id,
-        schemaId: field.schemaId
+        schemaId: field.schemaId,
       }))
     );
   }, []);
@@ -26,7 +26,7 @@ module.exports = (agendaUid, settings, legacySettings) => {
             o => t.schemaOptionId === [o.schemaId, o.optionId].join('.')
           )
           .pop(),
-        slug: t.slug
+        slug: t.slug,
       }))
     ),
     []
@@ -35,6 +35,6 @@ module.exports = (agendaUid, settings, legacySettings) => {
   return {
     uid: agendaUid,
     ...legacySettings,
-    slugSchemaOptionIdMap
+    slugSchemaOptionIdMap,
   };
 };

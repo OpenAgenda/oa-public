@@ -3,28 +3,25 @@
 const _ = require('lodash');
 
 function middleware(options, req, res, next) {
-  const {
-    mainScript,
-    iframable
-  } = {
+  const { mainScript, iframable } = {
     mainScript: 'main.js',
     iframable: req.app.locals.iframable,
-    ...(options || {})
+    ...(options || {}),
   };
 
   const stylesheets = [`${req.app.locals.assetsRoot}/main.css`].map(s => ({
-    href: s
+    href: s,
   }));
 
   const topScripts = [
     'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js',
-    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'
+    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js',
   ];
 
   const bottomScripts = [
     `${req.app.locals.assetsRoot}/js/${mainScript}`,
     'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js',
-    `${req.app.locals.assetsRoot}/jquery.spin.js`
+    `${req.app.locals.assetsRoot}/jquery.spin.js`,
   ];
 
   if (iframable) {
@@ -41,13 +38,13 @@ function middleware(options, req, res, next) {
     stylesheets,
     scripts: {
       top: topScripts.map(src => ({ src })),
-      bottom: bottomScripts.map(src => ({ src }))
-    }
+      bottom: bottomScripts.map(src => ({ src })),
+    },
   });
 
   next();
 }
 
 module.exports = Object.assign(middleware.bind(null, {}), {
-  withOptions: options => middleware.bind(null, options)
+  withOptions: options => middleware.bind(null, options),
 });

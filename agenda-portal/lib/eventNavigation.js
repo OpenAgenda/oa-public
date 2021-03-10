@@ -26,7 +26,7 @@ function _listLink({ root, eventsPerPage }, context) {
   }
 
   return `${root}${page > 1 ? `/p/${page}` : ''}${qs.stringify(queryPart, {
-    addQueryPrefix: true
+    addQueryPrefix: true,
   })}`;
 }
 
@@ -37,7 +37,7 @@ function navigation({ root, eventsPerPage }, contextStr) {
     next: null,
     total: null,
     position: null,
-    available: false
+    available: false,
   };
 
   if (!contextStr) return nav;
@@ -88,5 +88,5 @@ function applyContextLink(req, res, listContext, event) {
 module.exports = Object.assign(navigation, {
   applyContextLink,
   parseContext,
-  stringifyContext
+  stringifyContext,
 });

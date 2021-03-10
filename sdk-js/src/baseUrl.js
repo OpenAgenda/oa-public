@@ -6,7 +6,7 @@ const baseUrl = {
   v2:
     process.env.NODE_ENV !== 'development'
       ? 'https://api.openagenda.com/v2'
-      : 'https://dapi.openagenda.com/v2'
+      : 'https://dapi.openagenda.com/v2',
 };
 
 export default baseUrl;

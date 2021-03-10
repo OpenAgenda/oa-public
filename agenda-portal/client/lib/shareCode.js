@@ -9,7 +9,9 @@ export default pageProps => {
 
   const { iframeParent, root: rootPage } = pageProps;
 
-  const shareURL = `${iframeParent || rootPage}/share${query ? `?${query}` : ''}`;
+  const shareURL = `${iframeParent || rootPage}/share${
+    query ? `?${query}` : ''
+  }`;
 
   return `<iframe data-oa-frame allowtransparency="allowtransparency" frameborder="0" data-target-url="${rootPage}" src="${shareURL}"></iframe><script type="text/javascript" src="${rootPage}/js/oaFrameController.js"></script>`;
 };

@@ -12,8 +12,8 @@ describe('labels', () => {
   it('handlebars helper allows to get translated label', () => {
     const data = {
       root: {
-        lang: 'fr'
-      }
+        lang: 'fr',
+      },
     };
 
     expect(i18n.handlebarsHelper('next', { data })).toEqual('Suivant');

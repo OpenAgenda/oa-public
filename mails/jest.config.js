@@ -3,5 +3,5 @@
 module.exports = {
   displayName: '@openagenda/mails',
 
-  testEnvironment: 'node'
+  testEnvironment: 'node',
 };

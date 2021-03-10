@@ -18,7 +18,7 @@ describe('unit - generate document', () => {
       agendaUid: 47800929,
       language: 'fr',
       localTmpPath: config.localTmpPath,
-      templatePath: `${__dirname}/../input.docx`
+      templatePath: `${__dirname}/../input.docx`,
     });
 
     docPath = result.outputPath;
@@ -36,7 +36,7 @@ describe('unit - generate document', () => {
       agendaUid: 47800929,
       language: 'fr',
       localTmpPath: config.localTmpPath,
-      templateContent
+      templateContent,
     });
 
     docPath = result.outputPath;

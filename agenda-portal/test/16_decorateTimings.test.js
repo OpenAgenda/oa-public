@@ -12,22 +12,22 @@ describe('16 - utils - decorateTimings', () => {
     const decorated = decorateTimings(
       {
         begin: '2020-05-08T18:00:00+0200',
-        end: '2020-05-08T20:00:00+02000'
+        end: '2020-05-08T20:00:00+02000',
       },
       'Europe/Paris',
       [
         {
           src: 'begin',
           dst: 'year',
-          format: 'YYYY'
-        }
+          format: 'YYYY',
+        },
       ]
     );
 
     expect(decorated).toEqual({
       begin: '2020-05-08T18:00:00+0200',
       end: '2020-05-08T20:00:00+02000',
-      year: '2020'
+      year: '2020',
     });
   });
 
@@ -35,15 +35,15 @@ describe('16 - utils - decorateTimings', () => {
     const decorated = decorateTimings(
       {
         begin: '2020-05-08T18:00:00+0200',
-        end: '2020-05-08T20:00:00+02000'
+        end: '2020-05-08T20:00:00+02000',
       },
       'Europe/Paris',
       [
         {
           src: 'begin',
           dst: 'formatted',
-          format: 'dd. D.M - HH[h]mm'
-        }
+          format: 'dd. D.M - HH[h]mm',
+        },
       ]
     );
 

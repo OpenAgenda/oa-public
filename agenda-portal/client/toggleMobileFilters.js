@@ -5,10 +5,7 @@ document.querySelectorAll('[data-sidebar-toggle]').forEach(el => {
 });
 
 document.querySelectorAll('.collapsable').forEach(el => {
-  el.querySelector('.collapsable-trigger').addEventListener(
-    'click',
-    () => {
-      el.classList.toggle('collapsed');
-    }
-  );
+  el.querySelector('.collapsable-trigger').addEventListener('click', () => {
+    el.classList.toggle('collapsed');
+  });
 });

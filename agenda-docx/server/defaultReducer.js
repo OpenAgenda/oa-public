@@ -2,7 +2,7 @@
 
 module.exports = [
   {
-    childrenKey: 'regions'
+    childrenKey: 'regions',
   },
   {
     key: 'location.region',
@@ -12,9 +12,9 @@ module.exports = [
     hoist: [
       {
         source: 'location.country',
-        target: 'country'
-      }
-    ]
+        target: 'country',
+      },
+    ],
   },
   {
     key: 'location.department',
@@ -24,9 +24,9 @@ module.exports = [
     hoist: [
       {
         source: 'location.region',
-        target: 'region'
-      }
-    ]
+        target: 'region',
+      },
+    ],
   },
   {
     key: 'location.city',
@@ -36,13 +36,13 @@ module.exports = [
     hoist: [
       {
         source: 'location.department',
-        target: 'department'
+        target: 'department',
       },
       {
         source: 'location.region',
-        target: 'region'
-      }
-    ]
+        target: 'region',
+      },
+    ],
   },
   {
     key: 'location.name',
@@ -53,28 +53,28 @@ module.exports = [
     hoist: [
       {
         source: 'location.address',
-        target: 'address'
+        target: 'address',
       },
       {
         source: 'location.description',
-        target: 'description'
+        target: 'description',
       },
       {
         source: 'location.access',
-        target: 'access'
+        target: 'access',
       },
       {
         source: 'location.tags',
-        target: 'tags'
+        target: 'tags',
       },
       {
         source: 'location.phone',
-        target: 'phone'
+        target: 'phone',
       },
       {
         source: 'location.website',
-        target: 'website'
-      }
-    ]
-  }
+        target: 'website',
+      },
+    ],
+  },
 ];
