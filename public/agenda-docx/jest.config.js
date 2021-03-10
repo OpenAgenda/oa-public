@@ -3,5 +3,5 @@
 module.exports = {
   displayName: '@openagenda/agenda-docx',
 
-  testEnvironment: 'node'
+  testEnvironment: 'node',
 };

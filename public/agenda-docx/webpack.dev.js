@@ -10,15 +10,15 @@ module.exports = {
     'core-js/stable',
     'regenerator-runtime/runtime',
     'webpack-hot-middleware/client',
-    './client/src/index.js'
+    './client/src/index.js',
   ],
   output: {
     filename: 'index.js',
-    publicPath: '/js/'
+    publicPath: '/js/',
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
   module: {
     rules: [
@@ -26,28 +26,28 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: require.resolve('babel-loader')
-        }
+          loader: require.resolve('babel-loader'),
+        },
       },
       {
         test: /\.css$/,
-        use: [require.resolve('style-loader'), require.resolve('css-loader')]
+        use: [require.resolve('style-loader'), require.resolve('css-loader')],
       },
       {
         test: /\.scss$/,
         use: [
           require.resolve('style-loader'),
           require.resolve('css-loader'),
-          require.resolve('sass-loader')
-        ]
-      }
-    ]
+          require.resolve('sass-loader'),
+        ],
+      },
+    ],
   },
   resolve: {
     symlinks: false,
-    plugins: [PnpWebpackPlugin]
+    plugins: [PnpWebpackPlugin],
   },
   resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)]
-  }
+    plugins: [PnpWebpackPlugin.moduleLoader(module)],
+  },
 };

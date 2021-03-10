@@ -17,7 +17,7 @@ async function runFilterTask(config, params) {
       if (!allowed) {
         log.info('Sending filtered', {
           recipient: params.to,
-          template: params.template
+          template: params.template,
         });
         return;
       }
@@ -41,7 +41,7 @@ async function runFilterTask(config, params) {
       disableHtml,
       disableText,
       disableSubject,
-      lang: defaultLang
+      lang: defaultLang,
     });
 
     Object.assign(params, result);
@@ -72,5 +72,5 @@ async function runSendTask(config, params) {
 
 module.exports = {
   runFilterTask,
-  runSendTask
+  runSendTask,
 };

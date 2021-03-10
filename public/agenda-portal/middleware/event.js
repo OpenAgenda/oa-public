@@ -7,7 +7,7 @@ module.exports.get = async (req, res, next) => {
   const transform = req.app.get('transforms').event.show;
 
   const event = await proxy.get(res.locals.agendaUid, {
-    slug: req.params.slug
+    slug: req.params.slug,
   });
 
   if (!event) return next();
@@ -29,4 +29,4 @@ module.exports.render = (req, res, next) => {
   }
 
   res.render('event', req.data);
-}
+};

@@ -7,7 +7,7 @@ describe('functional - getState', () => {
   const { setJSON } = AgendaFiles({
     s3: config.s3,
     bucket: config.s3.bucket,
-    uid: 'test04'
+    uid: 'test04',
   });
 
   beforeAll(() => {
@@ -16,7 +16,7 @@ describe('functional - getState', () => {
 
   beforeAll(async () => {
     await setJSON('state.json', {
-      what: 'a valid state'
+      what: 'a valid state',
     });
   });
 

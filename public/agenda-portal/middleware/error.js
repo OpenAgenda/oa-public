@@ -16,7 +16,7 @@ module.exports = (err, req, res, next) => {
     res.status(500).render(
       'error',
       _.assign(req.data || {}, {
-        message: process.env.NODE_ENV === 'development' ? message : null
+        message: process.env.NODE_ENV === 'development' ? message : null,
       })
     );
   });

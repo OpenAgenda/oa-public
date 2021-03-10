@@ -19,7 +19,7 @@ function reduceByDeep(items, deepReduceByOptions = []) {
     }
 
     return {
-      [reduceByOptions.childrenKey]: result
+      [reduceByOptions.childrenKey]: result,
     };
   }
 

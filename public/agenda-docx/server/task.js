@@ -12,7 +12,7 @@ async function loop(data) {
   const files = agendaFiles({
     s3: config.s3,
     bucket: config.s3.bucket,
-    uid: data.uid
+    uid: data.uid,
   });
 
   const state = await files.getJSON('state.json', defaultState);
@@ -39,7 +39,7 @@ async function loop(data) {
       templatePath: `${__dirname}/../input.docx`,
       templateContent,
       reducer: template && template.reducer ? template.reducer : state.reducer,
-      query: _.pick(data, 'from', 'to')
+      query: _.pick(data, 'from', 'to'),
     });
 
     const filename = cleanString(`${agenda.title}.docx`);
@@ -49,7 +49,7 @@ async function loop(data) {
     state.file = {
       name: filename,
       path,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
   } catch (e) {
     console.log('error', e);

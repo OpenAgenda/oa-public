@@ -14,25 +14,25 @@ module.exports = (mainSASSFilePath, assetsPath) => new Promise((rs, rj) => {
       entry: mainSASSFilePath,
       output: {
         path: assetsPath,
-        filename: unusedFile
+        filename: unusedFile,
       },
       module: {
         rules: [
           {
             test: /\.s[ac]ss$/i,
-            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-          }
-        ]
+            use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+          },
+        ],
       },
       plugins: [
         new MiniCssExtractPlugin({
           filename: '[name].css',
-          chunkFilename: '[id].css'
-        })
+          chunkFilename: '[id].css',
+        }),
       ],
       optimization: {
-        minimizer: [new OptimizeCSSAssetsPlugin()]
-      }
+        minimizer: [new OptimizeCSSAssetsPlugin()],
+      },
     },
     err => {
       if (err) {

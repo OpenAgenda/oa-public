@@ -12,7 +12,7 @@ async function removeAgendaFile(client, bucket, uid, name) {
 
   const result = await deleteObject({
     Bucket: bucket,
-    Key: [uid, name].join('/')
+    Key: [uid, name].join('/'),
   });
 
   return result;
@@ -23,7 +23,7 @@ async function getAgendaFile(client, bucket, uid, name) {
 
   const result = await getObject({
     Bucket: bucket,
-    Key: [uid, name].join('/')
+    Key: [uid, name].join('/'),
   });
 
   return result.Body;
@@ -36,11 +36,11 @@ async function setAgendaFile(client, bucket, uid, localFilePath, name = null) {
     ACL: 'public-read', // because that is what I need now
     Bucket: bucket,
     Key: [uid, name].join('/'),
-    Body: fs.createReadStream(localFilePath)
+    Body: fs.createReadStream(localFilePath),
   });
 
   return {
-    path: result.Location
+    path: result.Location,
   };
 }
 
@@ -69,7 +69,7 @@ async function setAgendaJSON(client, bucket, uid, name, obj) {
     Bucket: bucket,
     Key: [uid, name].join('/'),
     Body: JSON.stringify(obj, null, 2),
-    ContentType: 'application/json'
+    ContentType: 'application/json',
   });
 }
 
@@ -77,7 +77,7 @@ module.exports = ({ s3, uid }) => {
   const client = new AWS.S3(
     _.extend(
       {
-        apiVersion: '2006-03-01'
+        apiVersion: '2006-03-01',
       },
       _.pick(s3, ['accessKeyId', 'secretAccessKey', 'region'])
     )
@@ -88,6 +88,6 @@ module.exports = ({ s3, uid }) => {
     getJSON: getAgendaJSON.bind(null, client, s3.bucket, uid),
     get: getAgendaFile.bind(null, client, s3.bucket, uid),
     set: setAgendaFile.bind(null, client, s3.bucket, uid),
-    remove: removeAgendaFile.bind(null, client, s3.bucket, uid)
+    remove: removeAgendaFile.bind(null, client, s3.bucket, uid),
   };
 };

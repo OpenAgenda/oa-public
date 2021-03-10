@@ -2,17 +2,15 @@
 
 const fs = require('fs');
 
-const {
-  createIntl,
-  createIntlCache
-} = require('@formatjs/intl');
+const { createIntl, createIntlCache } = require('@formatjs/intl');
 
-const loadFromFiles = path => fs.readdirSync(path)
+const loadFromFiles = path => fs
+  .readdirSync(path)
   .map(file => file.split('.'))
   .filter(parts => parts[parts.length - 1] === 'json')
   .map(parts => ({
     locale: parts[0],
-    messages: JSON.parse(fs.readFileSync(`${path}/${parts.join('.')}`))
+    messages: JSON.parse(fs.readFileSync(`${path}/${parts.join('.')}`)),
   }));
 
 const createIntlByLocale = path => {
@@ -21,26 +19,30 @@ const createIntlByLocale = path => {
   return loadFromFiles(path)
     .map(localeMessages => ({
       locale: localeMessages.locale,
-      intl: createIntl(localeMessages, cache)
+      intl: createIntl(localeMessages, cache),
     }))
     .map(({ intl, locale }) => ({
       formatMessage: (code, values) => intl.formatMessage({ id: code }, values),
-      locale
+      locale,
     }))
-    .reduce((byLocale, { formatMessage, locale }) => ({
-      ...byLocale,
-      [locale]: formatMessage
-    }), {});
+    .reduce(
+      (byLocale, { formatMessage, locale }) => ({
+        ...byLocale,
+        [locale]: formatMessage,
+      }),
+      {}
+    );
 };
 
 const handlebarsHelper = (intlByLocale, code, { hash: values, data }) => (
-  intlByLocale[data.root.lang] || intlByLocale[Object.keys(intlByLocale).shift()]
+  intlByLocale[data.root.lang]
+    || intlByLocale[Object.keys(intlByLocale).shift()]
 )(code, values);
 
 module.exports = path => {
   const intlByLocale = createIntlByLocale(path);
 
   return {
-    handlebarsHelper: handlebarsHelper.bind(null, intlByLocale)
+    handlebarsHelper: handlebarsHelper.bind(null, intlByLocale),
   };
 };

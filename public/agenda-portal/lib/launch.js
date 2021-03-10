@@ -27,7 +27,7 @@ async function _production(app /* , port */) {
   const { sass, assets } = _.assign(
     {
       sass: `${__dirname}/../sass/main.scss`,
-      assets: `${__dirname}/../assets`
+      assets: `${__dirname}/../assets`,
     },
     app.locals
   );

@@ -12,19 +12,19 @@ module.exports = sassFilePath => {
       rules: [
         {
           test: /\.s[ac]ss$/i,
-          use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
-        }
-      ]
+          use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        },
+      ],
     },
     plugins: [
       new MiniCssExtractPlugin({
         filename: '[name].css',
-        chunkFilename: '[id].css'
-      })
-    ]
+        chunkFilename: '[id].css',
+      }),
+    ],
   });
 
   return webpackDevMiddleware(compiler, {
-    publicPath: '/'
+    publicPath: '/',
   });
 };

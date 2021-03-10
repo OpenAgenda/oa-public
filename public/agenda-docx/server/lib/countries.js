@@ -3,966 +3,966 @@
 module.exports = {
   AD: {
     en: 'Andorra',
-    fr: 'Andorre'
+    fr: 'Andorre',
   },
   AE: {
     en: 'United Arab Emirates',
-    fr: 'Emirats Arabes Unis'
+    fr: 'Emirats Arabes Unis',
   },
   AF: {
     en: 'Afghanistan',
-    fr: 'Afghanistan'
+    fr: 'Afghanistan',
   },
   AG: {
     en: 'Antigua and Barbuda',
-    fr: 'Antigua et Barbuda'
+    fr: 'Antigua et Barbuda',
   },
   AI: {
     en: 'Anguilla',
-    fr: 'Anguilla'
+    fr: 'Anguilla',
   },
   AL: {
     en: 'Albania',
-    fr: 'Albanie'
+    fr: 'Albanie',
   },
   AM: {
     en: 'Armenia',
-    fr: 'Arménie'
+    fr: 'Arménie',
   },
   AN: {
     en: 'Netherlands Antilles',
-    fr: 'Antilles Néerlandaises'
+    fr: 'Antilles Néerlandaises',
   },
   AO: {
     en: 'Angola',
-    fr: 'Angola'
+    fr: 'Angola',
   },
   AQ: {
     en: 'Antarctica',
-    fr: 'Antartique'
+    fr: 'Antartique',
   },
   AR: {
     en: 'Argentina',
-    fr: 'Argentine'
+    fr: 'Argentine',
   },
   AS: {
     en: 'American Samoa',
-    fr: 'Samoa Américaines'
+    fr: 'Samoa Américaines',
   },
   AT: {
     en: 'Austria',
-    fr: 'Autriche'
+    fr: 'Autriche',
   },
   AU: {
     en: 'Australia',
-    fr: 'Australie'
+    fr: 'Australie',
   },
   AW: {
     en: 'Aruba',
-    fr: 'Aruba'
+    fr: 'Aruba',
   },
   AZ: {
     en: 'Azerbaijan',
-    fr: 'Azerbaïdjan'
+    fr: 'Azerbaïdjan',
   },
   BA: {
     en: 'Bosnia and Herzegovina',
-    fr: 'Bosnie Herzégovine'
+    fr: 'Bosnie Herzégovine',
   },
   BB: {
     en: 'Barbados',
-    fr: 'Barbados'
+    fr: 'Barbados',
   },
   BD: {
     en: 'Bangladesh',
-    fr: 'Bengladesh'
+    fr: 'Bengladesh',
   },
   BE: {
     en: 'Belgium',
-    fr: 'Belgique'
+    fr: 'Belgique',
   },
   BF: {
     en: 'Burkina Faso',
-    fr: 'Burkina Faso'
+    fr: 'Burkina Faso',
   },
   BG: {
     en: 'Bulgaria',
-    fr: 'Bulgarie'
+    fr: 'Bulgarie',
   },
   BH: {
     en: 'Bahrain',
-    fr: 'Barheïn'
+    fr: 'Barheïn',
   },
   BI: {
     en: 'Burundi',
-    fr: 'Burundi'
+    fr: 'Burundi',
   },
   BJ: {
     en: 'Benin',
-    fr: 'Bénin'
+    fr: 'Bénin',
   },
   BL: {
     en: 'Saint-Barthélemy',
-    fr: 'Saint-Barthélemy'
+    fr: 'Saint-Barthélemy',
   },
   BM: {
     en: 'Bermuda',
-    fr: 'Bermudes'
+    fr: 'Bermudes',
   },
   BN: {
     en: 'Brunei Darussalam',
-    fr: 'Bruneï'
+    fr: 'Bruneï',
   },
   BO: {
     en: 'Bolivia',
-    fr: 'Bolivie'
+    fr: 'Bolivie',
   },
   BR: {
     en: 'Brazil',
-    fr: 'Brésil'
+    fr: 'Brésil',
   },
   BS: {
     en: 'Bahamas',
-    fr: 'Bahamas'
+    fr: 'Bahamas',
   },
   BT: {
     en: 'Bhutan',
-    fr: 'Boutan'
+    fr: 'Boutan',
   },
   BV: {
     en: 'Bouvet Island',
-    fr: 'Bouvet Island'
+    fr: 'Bouvet Island',
   },
   BW: {
     en: 'Botswana',
-    fr: 'Botswana'
+    fr: 'Botswana',
   },
   BY: {
     en: 'Belarus',
-    fr: 'Biélorussie'
+    fr: 'Biélorussie',
   },
   BZ: {
     en: 'Belize',
-    fr: 'Bélize'
+    fr: 'Bélize',
   },
   CA: {
     en: 'Canada',
-    fr: 'Canada'
+    fr: 'Canada',
   },
   CC: {
     en: 'Cocos (Keeling) Islands',
-    fr: 'Iles Coco'
+    fr: 'Iles Coco',
   },
   CD: {
     en: 'Democratic Republic of Congo',
-    fr: 'République Démocratique du Congo'
+    fr: 'République Démocratique du Congo',
   },
   CF: {
     en: 'Central African Republic',
-    fr: 'Républiqe d’Afrique Centrale'
+    fr: 'Républiqe d’Afrique Centrale',
   },
   CG: {
     en: 'Congo',
-    fr: 'Congo'
+    fr: 'Congo',
   },
   CH: {
     en: 'Switzerland',
-    fr: 'Suisse'
+    fr: 'Suisse',
   },
   CI: {
     en: "Cote D'Ivoire",
-    fr: "Cote D'Ivoire"
+    fr: "Cote D'Ivoire",
   },
   CK: {
     en: 'Cook Islands',
-    fr: 'Iles Cook'
+    fr: 'Iles Cook',
   },
   CL: {
     en: 'Chile',
-    fr: 'Chili'
+    fr: 'Chili',
   },
   CM: {
     en: 'Cameroon',
-    fr: 'Cameroun'
+    fr: 'Cameroun',
   },
   CN: {
     en: 'China',
-    fr: 'Chine'
+    fr: 'Chine',
   },
   CO: {
     en: 'Colombia',
-    fr: 'Colombie'
+    fr: 'Colombie',
   },
   CR: {
     en: 'Costa Rica',
-    fr: 'Costa Rica'
+    fr: 'Costa Rica',
   },
   ME: {
     en: 'Montenegro',
-    fr: 'Monténegro'
+    fr: 'Monténegro',
   },
   MF: {
     en: 'Saint-Martin ( French Part )',
-    fr: 'Saint-Martin ( Partie Française )'
+    fr: 'Saint-Martin ( Partie Française )',
   },
   RS: {
     en: 'Serbia',
-    fr: 'Serbie'
+    fr: 'Serbie',
   },
   CU: {
     en: 'Cuba',
-    fr: 'Cuba'
+    fr: 'Cuba',
   },
   CV: {
     en: 'Cape Verde',
-    fr: 'Cap Vert'
+    fr: 'Cap Vert',
   },
   CX: {
     en: 'Christmas Island',
-    fr: 'Iles Christmas'
+    fr: 'Iles Christmas',
   },
   CY: {
     en: 'Cyprus',
-    fr: 'Chypre'
+    fr: 'Chypre',
   },
   CZ: {
     en: 'Czech Republic',
-    fr: 'République Tchèque'
+    fr: 'République Tchèque',
   },
   DE: {
     en: 'Germany',
-    fr: 'Allemagne'
+    fr: 'Allemagne',
   },
   DJ: {
     en: 'Djibouti',
-    fr: 'Djibouti'
+    fr: 'Djibouti',
   },
   DK: {
     en: 'Denmark',
-    fr: 'Danemark'
+    fr: 'Danemark',
   },
   DM: {
     en: 'Dominica',
-    fr: 'Dominique'
+    fr: 'Dominique',
   },
   DO: {
     en: 'Dominican Republic',
-    fr: 'République Dominicaine'
+    fr: 'République Dominicaine',
   },
   DZ: {
     en: 'Algeria',
-    fr: 'Algérie'
+    fr: 'Algérie',
   },
   EC: {
     en: 'Ecuador',
-    fr: 'Equateur'
+    fr: 'Equateur',
   },
   EE: {
     en: 'Estonia',
-    fr: 'Estonie'
+    fr: 'Estonie',
   },
   EG: {
     en: 'Egypt',
-    fr: 'Egypte'
+    fr: 'Egypte',
   },
   EH: {
     en: 'Western Sahara',
-    fr: 'Sahara occidental'
+    fr: 'Sahara occidental',
   },
   ER: {
     en: 'Eritrea',
-    fr: 'Erythrée'
+    fr: 'Erythrée',
   },
   ES: {
     en: 'Spain',
-    fr: 'Espagne'
+    fr: 'Espagne',
   },
   ET: {
     en: 'Ethiopia',
-    fr: 'Ethiopie'
+    fr: 'Ethiopie',
   },
   FI: {
     en: 'Finland',
-    fr: 'Finlande'
+    fr: 'Finlande',
   },
   FJ: {
     en: 'Fiji',
-    fr: 'Fiji'
+    fr: 'Fiji',
   },
   FK: {
     en: 'Falkland Islands (Malvinas)',
-    fr: 'Iles Malouines'
+    fr: 'Iles Malouines',
   },
   FM: {
     en: '(Micronesia), Federated States of',
-    fr: 'Micronésie'
+    fr: 'Micronésie',
   },
   FO: {
     en: 'Faroe Islands',
-    fr: 'Iles Féroée'
+    fr: 'Iles Féroée',
   },
   FR: {
     en: 'France (Metropolitan)',
-    fr: 'France (Métropole)'
+    fr: 'France (Métropole)',
   },
   GA: {
     en: 'Gabon',
-    fr: 'Gabon'
+    fr: 'Gabon',
   },
   GB: {
     en: 'United Kingdom',
-    fr: 'Royaume Uni'
+    fr: 'Royaume Uni',
   },
   GD: {
     en: 'Grenada',
-    fr: 'Grenade'
+    fr: 'Grenade',
   },
   GE: {
     en: 'Georgia',
-    fr: 'Géorgie'
+    fr: 'Géorgie',
   },
   GF: {
     en: 'French Guiana',
-    fr: 'Guyane Française'
+    fr: 'Guyane Française',
   },
   GH: {
     en: 'Ghana',
-    fr: 'Guana'
+    fr: 'Guana',
   },
   GI: {
     en: 'Gibraltar',
-    fr: 'Gibraltar'
+    fr: 'Gibraltar',
   },
   GL: {
     en: 'Greenland',
-    fr: 'Groënland'
+    fr: 'Groënland',
   },
   GM: {
     en: 'Gambia',
-    fr: 'Gambie'
+    fr: 'Gambie',
   },
   GN: {
     en: 'Guinea',
-    fr: 'Guinée'
+    fr: 'Guinée',
   },
   GP: {
     en: 'Guadeloupe',
-    fr: 'Guadeloupe'
+    fr: 'Guadeloupe',
   },
   GQ: {
     en: 'Equatorial Guinea',
-    fr: 'Guinée Equatoriale'
+    fr: 'Guinée Equatoriale',
   },
   GR: {
     en: 'Greece',
-    fr: 'Grèce'
+    fr: 'Grèce',
   },
   GS: {
     en: 'South Georgia and the South Sandwich Islands',
-    fr: 'Géorgie du Sud-et-les Îles Sandwich du Sud'
+    fr: 'Géorgie du Sud-et-les Îles Sandwich du Sud',
   },
   GT: {
     en: 'Guatemala',
-    fr: 'Guatemala'
+    fr: 'Guatemala',
   },
   GU: {
     en: 'Guam',
-    fr: 'Guam'
+    fr: 'Guam',
   },
   GW: {
     en: 'Guinea-Bissau',
-    fr: 'Guinée-Bissau'
+    fr: 'Guinée-Bissau',
   },
   GY: {
     en: 'Guyana',
-    fr: 'Guyane'
+    fr: 'Guyane',
   },
   HK: {
     en: 'Hong Kong',
-    fr: 'Hong Kong'
+    fr: 'Hong Kong',
   },
   HM: {
     en: 'Heard Island and Mcdonald Islands',
-    fr: 'Iles Heard et Mac Donald'
+    fr: 'Iles Heard et Mac Donald',
   },
   HN: {
     en: 'Honduras',
-    fr: 'Honduras'
+    fr: 'Honduras',
   },
   HR: {
     en: 'Croatia',
-    fr: 'Croatie'
+    fr: 'Croatie',
   },
   HT: {
     en: 'Haiti',
-    fr: 'Haïti'
+    fr: 'Haïti',
   },
   HU: {
     en: 'Hungary',
-    fr: 'Hongrie'
+    fr: 'Hongrie',
   },
   ID: {
     en: 'Indonesia',
-    fr: 'Indonésie'
+    fr: 'Indonésie',
   },
   IE: {
     en: 'Ireland',
-    fr: 'Irlande'
+    fr: 'Irlande',
   },
   IL: {
     en: 'Israel',
-    fr: 'Israël'
+    fr: 'Israël',
   },
   IN: {
     en: 'India',
-    fr: 'Inde'
+    fr: 'Inde',
   },
   IO: {
-    en: 'British Indian Ocean Territory'
+    en: 'British Indian Ocean Territory',
   },
   IQ: {
     en: 'Iraq',
-    fr: 'Irak'
+    fr: 'Irak',
   },
   IR: {
     en: 'Iran',
-    fr: 'Iran'
+    fr: 'Iran',
   },
   IS: {
     en: 'Iceland',
-    fr: 'Islande'
+    fr: 'Islande',
   },
   IT: {
     en: 'Italy',
-    fr: 'Italie'
+    fr: 'Italie',
   },
   JM: {
     en: 'Jamaica',
-    fr: 'Jamaïque'
+    fr: 'Jamaïque',
   },
   JO: {
     en: 'Jordan',
-    fr: 'Jordanie'
+    fr: 'Jordanie',
   },
   JP: {
     en: 'Japan',
-    fr: 'Japon'
+    fr: 'Japon',
   },
   KE: {
     en: 'Kenya',
-    fr: 'Kénya'
+    fr: 'Kénya',
   },
   KG: {
     en: 'Kyrgyzstan',
-    fr: 'Kirghizistan'
+    fr: 'Kirghizistan',
   },
   KH: {
     en: 'Cambodia',
-    fr: 'Cambodge'
+    fr: 'Cambodge',
   },
   KI: {
     en: 'Kiribati',
-    fr: 'Kiribati'
+    fr: 'Kiribati',
   },
   KM: {
     en: 'Comoros',
-    fr: 'Comorres'
+    fr: 'Comorres',
   },
   KN: {
     en: 'Saint Kitts and Nevis',
-    fr: 'Saint Kitts et Nevis'
+    fr: 'Saint Kitts et Nevis',
   },
   KP: {
     en: 'North Korea',
-    fr: 'Corée du Nord'
+    fr: 'Corée du Nord',
   },
   KR: {
     en: 'South Korea',
-    fr: 'Corée du Sud'
+    fr: 'Corée du Sud',
   },
   KW: {
     en: 'Kuwait',
-    fr: 'Koweït'
+    fr: 'Koweït',
   },
   KY: {
     en: 'Cayman Islands',
-    fr: 'Iles Caïman'
+    fr: 'Iles Caïman',
   },
   KZ: {
     en: 'Kazakhstan',
-    fr: 'Kazakhstan'
+    fr: 'Kazakhstan',
   },
   LA: {
     en: "Lao People's Democratic Republic",
-    fr: 'Laos'
+    fr: 'Laos',
   },
   LB: {
     en: 'Lebanon',
-    fr: 'Liban'
+    fr: 'Liban',
   },
   LC: {
     en: 'Saint Lucia',
-    fr: 'Sainte Lucie'
+    fr: 'Sainte Lucie',
   },
   LI: {
     en: 'Liechtenstein',
-    fr: 'Liechtenstein'
+    fr: 'Liechtenstein',
   },
   LK: {
     en: 'Sri Lanka',
-    fr: 'Sri Lanka'
+    fr: 'Sri Lanka',
   },
   LR: {
     en: 'Liberia',
-    fr: 'Liberia'
+    fr: 'Liberia',
   },
   LS: {
     en: 'Lesotho',
-    fr: 'Lesotho'
+    fr: 'Lesotho',
   },
   LT: {
     en: 'Lithuania',
-    fr: 'Lituanie'
+    fr: 'Lituanie',
   },
   LU: {
     en: 'Luxembourg',
-    fr: 'Luxembourg'
+    fr: 'Luxembourg',
   },
   LV: {
     en: 'Latvia',
-    fr: 'Lettonie'
+    fr: 'Lettonie',
   },
   LY: {
     en: 'Libyan Arab Jamahiriya',
-    fr: 'Libye'
+    fr: 'Libye',
   },
   MA: {
     en: 'Morocco',
-    fr: 'Maroc'
+    fr: 'Maroc',
   },
   MC: {
     en: 'Monaco',
-    fr: 'Monaco'
+    fr: 'Monaco',
   },
   MD: {
     en: '(Moldova), Republic of',
-    fr: 'Moldavie'
+    fr: 'Moldavie',
   },
   MG: {
     en: 'Madagascar',
-    fr: 'Madagascar'
+    fr: 'Madagascar',
   },
   MH: {
     en: 'Marshall Islands',
-    fr: 'Iles Marshall'
+    fr: 'Iles Marshall',
   },
   MK: {
     en: 'Macedonia',
-    fr: 'Macédoine'
+    fr: 'Macédoine',
   },
   ML: {
     en: 'Mali',
-    fr: 'Mali'
+    fr: 'Mali',
   },
   MM: {
     en: 'Myanmar',
-    fr: 'Birmanie'
+    fr: 'Birmanie',
   },
   MN: {
     en: 'Mongolia',
-    fr: 'Mongolie'
+    fr: 'Mongolie',
   },
   MO: {
     en: 'Macao',
-    fr: 'Macao'
+    fr: 'Macao',
   },
   MP: {
     en: 'Northern Mariana Islands',
-    fr: 'Îles Mariannes du Nord'
+    fr: 'Îles Mariannes du Nord',
   },
   MQ: {
     en: 'Martinique',
-    fr: 'Martinique'
+    fr: 'Martinique',
   },
   MR: {
     en: 'Mauritania',
-    fr: 'Mauritanie'
+    fr: 'Mauritanie',
   },
   MS: {
-    en: 'Montserrat'
+    en: 'Montserrat',
   },
   MT: {
     en: 'Malta',
-    fr: 'Malte'
+    fr: 'Malte',
   },
   MU: {
     en: 'Mauritius',
-    fr: 'Ile Maurice'
+    fr: 'Ile Maurice',
   },
   MV: {
     en: 'Maldives',
-    fr: 'Maldives'
+    fr: 'Maldives',
   },
   MW: {
     en: 'Malawi',
-    fr: 'Malawi'
+    fr: 'Malawi',
   },
   MX: {
     en: 'Mexico',
-    fr: 'Mexique'
+    fr: 'Mexique',
   },
   MY: {
     en: 'Malaysia',
-    fr: 'Malaisie'
+    fr: 'Malaisie',
   },
   MZ: {
     en: 'Mozambique',
-    fr: 'Mozambique'
+    fr: 'Mozambique',
   },
   NA: {
     en: 'Namibia',
-    fr: 'Namibie'
+    fr: 'Namibie',
   },
   NC: {
     en: 'New Caledonia',
-    fr: 'Nouvelle Calédonie'
+    fr: 'Nouvelle Calédonie',
   },
   NE: {
     en: 'Niger',
-    fr: 'Niger'
+    fr: 'Niger',
   },
   NF: {
     en: 'Norfolk Island',
-    fr: 'Île Norfolk'
+    fr: 'Île Norfolk',
   },
   NG: {
     en: 'Nigeria',
-    fr: 'Nigeria'
+    fr: 'Nigeria',
   },
   NI: {
     en: 'Nicaragua',
-    fr: 'Nicaragua'
+    fr: 'Nicaragua',
   },
   NL: {
     en: 'Netherlands',
-    fr: 'Pays-Bas'
+    fr: 'Pays-Bas',
   },
   NO: {
     en: 'Norway',
-    fr: 'Norvège'
+    fr: 'Norvège',
   },
   NP: {
     en: 'Nepal',
-    fr: 'Népal'
+    fr: 'Népal',
   },
   NR: {
     en: 'Nauru',
-    fr: 'Nauru'
+    fr: 'Nauru',
   },
   NU: {
     en: 'Niue',
-    fr: 'Niue'
+    fr: 'Niue',
   },
   NZ: {
     en: 'New Zealand',
-    fr: 'Nouvelle Zélande'
+    fr: 'Nouvelle Zélande',
   },
   OM: {
     en: 'Oman',
-    fr: 'Oman'
+    fr: 'Oman',
   },
   PA: {
     en: 'Panama',
-    fr: 'Panama'
+    fr: 'Panama',
   },
   PE: {
     en: 'Peru',
-    fr: 'Pérou'
+    fr: 'Pérou',
   },
   PF: {
     en: 'French Polynesia',
-    fr: 'Polynésie Française'
+    fr: 'Polynésie Française',
   },
   PG: {
     en: 'Papua New Guinea',
-    fr: 'Papouasie Nouvelle Guinée'
+    fr: 'Papouasie Nouvelle Guinée',
   },
   PH: {
     en: 'Philippines',
-    fr: 'Philippines'
+    fr: 'Philippines',
   },
   PK: {
     en: 'Pakistan',
-    fr: 'Pakistan'
+    fr: 'Pakistan',
   },
   PL: {
     en: 'Poland',
-    fr: 'Pologne'
+    fr: 'Pologne',
   },
   PM: {
     en: 'Saint Pierre and Miquelon',
-    fr: 'Saint Pierre et Miquelon'
+    fr: 'Saint Pierre et Miquelon',
   },
   PN: {
     en: 'Pitcairn',
-    fr: 'Pitcairn'
+    fr: 'Pitcairn',
   },
   PR: {
     en: 'Puerto Rico',
-    fr: 'Puerto Rico'
+    fr: 'Puerto Rico',
   },
   PS: {
     en: 'Palestine',
-    fr: 'Palestine'
+    fr: 'Palestine',
   },
   PT: {
     en: 'Portugal',
-    fr: 'Portugal'
+    fr: 'Portugal',
   },
   PW: {
     en: 'Palau',
-    fr: 'Palau'
+    fr: 'Palau',
   },
   PY: {
     en: 'Paraguay',
-    fr: 'Paraguay'
+    fr: 'Paraguay',
   },
   QA: {
     en: 'Qatar',
-    fr: 'Quatar'
+    fr: 'Quatar',
   },
   RE: {
     en: 'Reunion',
-    fr: 'Réunion'
+    fr: 'Réunion',
   },
   RO: {
     en: 'Romania',
-    fr: 'Roumanie'
+    fr: 'Roumanie',
   },
   RU: {
     en: 'Russia',
-    fr: 'Russie'
+    fr: 'Russie',
   },
   RW: {
     en: 'Rwanda',
-    fr: 'Ruanda'
+    fr: 'Ruanda',
   },
   SA: {
     en: 'Saudi Arabia',
-    fr: 'Arabie Saoudite'
+    fr: 'Arabie Saoudite',
   },
   SB: {
     en: 'Solomon Islands',
-    fr: 'Iles Salomon'
+    fr: 'Iles Salomon',
   },
   SC: {
     en: 'Seychelles',
-    fr: 'Seychelles'
+    fr: 'Seychelles',
   },
   SD: {
     en: 'Sudan',
-    fr: 'Soudan'
+    fr: 'Soudan',
   },
   SE: {
     en: 'Sweden',
-    fr: 'Suède'
+    fr: 'Suède',
   },
   SG: {
     en: 'Singapore',
-    fr: 'Singapour'
+    fr: 'Singapour',
   },
   SH: {
     en: 'Saint Helena',
-    fr: 'Sainte Hélène'
+    fr: 'Sainte Hélène',
   },
   SI: {
     en: 'Slovenia',
-    fr: 'Slovénie'
+    fr: 'Slovénie',
   },
   SJ: {
     en: 'Svalbard and Jan Mayen',
-    fr: 'Svalbard et Jan Mayen'
+    fr: 'Svalbard et Jan Mayen',
   },
   SK: {
     en: 'Slovakia',
-    fr: 'Slovaquie'
+    fr: 'Slovaquie',
   },
   SL: {
     en: 'Sierra Leone',
-    fr: 'Sierra Leone'
+    fr: 'Sierra Leone',
   },
   SM: {
     en: 'San Marino',
-    fr: 'San Marin'
+    fr: 'San Marin',
   },
   SN: {
     en: 'Senegal',
-    fr: 'Sénégal'
+    fr: 'Sénégal',
   },
   SO: {
     en: 'Somalia',
-    fr: 'Somalie'
+    fr: 'Somalie',
   },
   SR: {
     en: 'Suriname',
-    fr: 'Suriname'
+    fr: 'Suriname',
   },
   ST: {
     en: 'Sao Tome and Principe',
-    fr: 'Sao Tomé et Principe'
+    fr: 'Sao Tomé et Principe',
   },
   SV: {
     en: 'El Salvador',
-    fr: 'Salvador'
+    fr: 'Salvador',
   },
   SY: {
     en: 'Syria',
-    fr: 'Syrie'
+    fr: 'Syrie',
   },
   SZ: {
     en: 'Swaziland',
-    fr: 'Swaziland'
+    fr: 'Swaziland',
   },
   TC: {
     en: 'Turks and Caicos Islands',
-    fr: 'Îles Turques-et-Caïques'
+    fr: 'Îles Turques-et-Caïques',
   },
   TD: {
     en: 'Chad',
-    fr: 'Tchad'
+    fr: 'Tchad',
   },
   TF: {
     en: 'French Southern Territories',
-    fr: 'Territoires Français du Sud'
+    fr: 'Territoires Français du Sud',
   },
   TG: {
     en: 'Togo',
-    fr: 'Togo'
+    fr: 'Togo',
   },
   TH: {
     en: 'Thailand',
-    fr: 'Thaïlande'
+    fr: 'Thaïlande',
   },
   TJ: {
     en: 'Tajikistan',
-    fr: 'Tadjikistan'
+    fr: 'Tadjikistan',
   },
   TK: {
     en: 'Tokelau',
-    fr: 'Tokelau'
+    fr: 'Tokelau',
   },
   TL: {
     en: 'Timor-Leste',
-    fr: 'Timor oriental'
+    fr: 'Timor oriental',
   },
   TM: {
     en: 'Turkmenistan',
-    fr: 'Turkmenistan'
+    fr: 'Turkmenistan',
   },
   TN: {
     en: 'Tunisia',
-    fr: 'Tunisie'
+    fr: 'Tunisie',
   },
   TO: {
     en: 'Tonga',
-    fr: 'Tonga'
+    fr: 'Tonga',
   },
   TR: {
-    en: 'Turkey'
+    en: 'Turkey',
   },
   TT: {
-    en: 'Trinidad and Tobago'
+    en: 'Trinidad and Tobago',
   },
   TV: {
     en: 'Tuvalu',
-    fr: 'Turquie'
+    fr: 'Turquie',
   },
   TW: {
     en: 'Taiwan',
-    fr: 'Taiwan'
+    fr: 'Taiwan',
   },
   TZ: {
     en: 'Tanzania',
-    fr: 'Tanzanie'
+    fr: 'Tanzanie',
   },
   UA: {
     en: 'Ukraine',
-    fr: 'Ukraine'
+    fr: 'Ukraine',
   },
   UG: {
     en: 'Uganda',
-    fr: 'Ouganda'
+    fr: 'Ouganda',
   },
   US: {
     en: 'United States',
-    fr: 'Etats-Unis'
+    fr: 'Etats-Unis',
   },
   UY: {
     en: 'Uruguay',
-    fr: 'Uruguay'
+    fr: 'Uruguay',
   },
   UZ: {
     en: 'Uzbekistan',
-    fr: 'Ouzbekistan'
+    fr: 'Ouzbekistan',
   },
   VA: {
     en: 'Vatican',
-    fr: 'Vatican'
+    fr: 'Vatican',
   },
   VC: {
     en: 'Saint Vincent and the Grenadines',
-    fr: 'Saint Vincent et les Grenadines'
+    fr: 'Saint Vincent et les Grenadines',
   },
   VE: {
     en: 'Venezuela',
-    fr: 'Venezuela'
+    fr: 'Venezuela',
   },
   VG: {
     en: 'British Virgin Islands',
-    fr: 'Iles Vierges britanniques'
+    fr: 'Iles Vierges britanniques',
   },
   VI: {
     en: 'U.S. Virgin Islands',
-    fr: 'Iles Vierges américaines'
+    fr: 'Iles Vierges américaines',
   },
   VN: {
     en: 'Viet Nam',
-    fr: 'Vietnam'
+    fr: 'Vietnam',
   },
   VU: {
     en: 'Vanuatu',
-    fr: 'Vanuatu'
+    fr: 'Vanuatu',
   },
   WF: {
     en: 'Wallis and Futuna',
-    fr: 'Wallis et Futuna'
+    fr: 'Wallis et Futuna',
   },
   WS: {
     en: 'Samoa',
-    fr: 'Samoa Américaines'
+    fr: 'Samoa Américaines',
   },
   XK: {
     en: 'Kosovo',
-    fr: 'Kosovo'
+    fr: 'Kosovo',
   },
   YE: {
     en: 'Yemen',
-    fr: 'Yemen'
+    fr: 'Yemen',
   },
   YT: {
     en: 'Mayotte',
-    fr: 'Mayotte'
+    fr: 'Mayotte',
   },
   ZA: {
     en: 'South Africa',
-    fr: 'Afrique du Sud'
+    fr: 'Afrique du Sud',
   },
   ZM: {
     en: 'Zambia',
-    fr: 'Zambie'
+    fr: 'Zambie',
   },
   ZW: {
     en: 'Zimbabwe',
-    fr: 'Zimbabwe'
-  }
+    fr: 'Zimbabwe',
+  },
 };

@@ -37,7 +37,7 @@ describe('22 - deploy script', () => {
       PORTAL_LANG: 'fr',
       PORTAL_KEY: 'myoaaccountkey',
       PORTAL_PORT: '3000',
-      PORTAL_IFRAMABLE: '1'
+      PORTAL_IFRAMABLE: '1',
     });
   });
 

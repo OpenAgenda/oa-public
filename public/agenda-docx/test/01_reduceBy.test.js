@@ -11,7 +11,7 @@ const items = [
       name: 'Gaité Lyrique',
       city: 'Paris',
       region: 'Ile de France',
-      country: 'France'
+      country: 'France',
     },
     tagGroups: [
       {
@@ -21,15 +21,15 @@ const items = [
         tags: [
           {
             label: 'Exposition',
-            slug: 'exposition'
+            slug: 'exposition',
           },
           {
             label: 'Concert',
-            slug: 'concert'
-          }
-        ]
-      }
-    ]
+            slug: 'concert',
+          },
+        ],
+      },
+    ],
   },
   {
     title: 'two',
@@ -37,7 +37,7 @@ const items = [
       name: 'Le Select',
       city: 'Paris',
       region: 'Ile de France',
-      country: 'France'
+      country: 'France',
     },
     tagGroups: [
       {
@@ -47,15 +47,15 @@ const items = [
         tags: [
           {
             label: 'Exposition',
-            slug: 'exposition'
+            slug: 'exposition',
           },
           {
             label: 'Sortie',
-            slug: 'Sortie'
-          }
-        ]
-      }
-    ]
+            slug: 'Sortie',
+          },
+        ],
+      },
+    ],
   },
   {
     title: 'three',
@@ -63,7 +63,7 @@ const items = [
       name: 'Chez Papy',
       city: 'Paris',
       region: 'Ile de France',
-      country: 'France'
+      country: 'France',
     },
     tagGroups: [
       {
@@ -73,15 +73,15 @@ const items = [
         tags: [
           {
             label: 'Concert',
-            slug: 'concert'
+            slug: 'concert',
           },
           {
             label: 'Sortie',
-            slug: 'Sortie'
-          }
-        ]
-      }
-    ]
+            slug: 'Sortie',
+          },
+        ],
+      },
+    ],
   },
   {
     title: 'four',
@@ -89,7 +89,7 @@ const items = [
       name: "L'Ossuaire de Douaumont",
       city: 'Verdun',
       region: 'Grand-Est',
-      country: 'France'
+      country: 'France',
     },
     tagGroups: [
       {
@@ -99,16 +99,16 @@ const items = [
         tags: [
           {
             label: 'Exposition',
-            slug: 'exposition'
+            slug: 'exposition',
           },
           {
             label: 'Sortie',
-            slug: 'Sortie'
-          }
-        ]
-      }
-    ]
-  }
+            slug: 'Sortie',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 describe('unit - reduceBy', () => {
@@ -119,9 +119,9 @@ describe('unit - reduceBy', () => {
       hoist: [
         {
           source: 'location.city',
-          target: 'city'
-        }
-      ]
+          target: 'city',
+        },
+      ],
     };
 
     const reduced = reduceBy(items, 'location.name', reducer);
@@ -134,7 +134,7 @@ describe('unit - reduceBy', () => {
   test('deep', () => {
     const reducer = [
       {
-        childrenKey: 'regions'
+        childrenKey: 'regions',
       },
       {
         key: 'location.region',
@@ -144,9 +144,9 @@ describe('unit - reduceBy', () => {
         hoist: [
           {
             source: 'location.country',
-            target: 'country'
-          }
-        ]
+            target: 'country',
+          },
+        ],
       },
       {
         key: 'location.city',
@@ -156,9 +156,9 @@ describe('unit - reduceBy', () => {
         hoist: [
           {
             source: 'location.region',
-            target: 'region'
-          }
-        ]
+            target: 'region',
+          },
+        ],
       },
       {
         key: 'location.name',
@@ -168,10 +168,10 @@ describe('unit - reduceBy', () => {
         hoist: [
           {
             source: 'location.city',
-            target: 'city'
-          }
-        ]
-      }
+            target: 'city',
+          },
+        ],
+      },
     ];
 
     const reduced = reduceByDeep(items, reducer);
@@ -186,7 +186,7 @@ describe('unit - reduceBy', () => {
   test('multiple values', () => {
     const reducer = {
       targetKey: 'typeEvenement',
-      sortBy: 'typeEvenement'
+      sortBy: 'typeEvenement',
     };
 
     const reduced = reduceBy(
@@ -205,13 +205,13 @@ describe('unit - reduceBy', () => {
   test('multiple deep values', () => {
     const reducer = [
       {
-        childrenKey: 'eventTypes'
+        childrenKey: 'eventTypes',
       },
       {
         key: 'tagGroups[slug="type-devenement"].tags[].label',
         targetKey: 'typeEvenement',
         sortBy: 'typeEvenement',
-        childrenKey: 'regions'
+        childrenKey: 'regions',
       },
       {
         key: 'location.region',
@@ -221,9 +221,9 @@ describe('unit - reduceBy', () => {
         hoist: [
           {
             source: 'location.country',
-            target: 'country'
-          }
-        ]
+            target: 'country',
+          },
+        ],
       },
       {
         key: 'location.city',
@@ -233,9 +233,9 @@ describe('unit - reduceBy', () => {
         hoist: [
           {
             source: 'location.region',
-            target: 'region'
-          }
-        ]
+            target: 'region',
+          },
+        ],
       },
       {
         key: 'location.name',
@@ -245,10 +245,10 @@ describe('unit - reduceBy', () => {
         hoist: [
           {
             source: 'location.city',
-            target: 'city'
-          }
-        ]
-      }
+            target: 'city',
+          },
+        ],
+      },
     ];
 
     const reduced = reduceByDeep(items, reducer);

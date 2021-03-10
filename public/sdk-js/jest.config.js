@@ -3,5 +3,5 @@
 module.exports = {
   displayName: '@openagenda/sdk-js',
 
-  testEnvironment: 'node'
+  testEnvironment: 'node',
 };

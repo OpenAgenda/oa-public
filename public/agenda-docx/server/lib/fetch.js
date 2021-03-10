@@ -35,7 +35,7 @@ function _fetch(agendaUid, offset, limit, query) {
     .get(`https://openagenda.com/agendas/${agendaUid}/events.json`, {
       offset,
       limit,
-      oaq: query
+      oaq: query,
     })
     .then(result => result.body.events);
 }
@@ -71,5 +71,5 @@ async function fetchAndStoreEvents(destFolder, agendaUid, query) {
 module.exports = {
   fetchAndStoreEvents,
   loadEventsFromFile,
-  loadAgendaDetails
+  loadAgendaDetails,
 };

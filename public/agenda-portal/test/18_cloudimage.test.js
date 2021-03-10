@@ -5,14 +5,14 @@ const cloudimage = require('../utils/cloudimage');
 const BASE = 'https://{youraccountkey}.cloudimg.io/v7/';
 
 const event = {
-  image: 'https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg'
+  image: 'https://cibul.s3.amazonaws.com/event_sauvages_818_239409.jpg',
 };
 
 const eventV2ExportFormat = {
   image: {
     base: 'https://cibul.s3.amazonaws.com/',
-    filename: 'event_sauvages_818_239409.jpg'
-  }
+    filename: 'event_sauvages_818_239409.jpg',
+  },
 };
 
 describe('18 - utils - cloudimage', () => {
@@ -35,7 +35,7 @@ describe('18 - utils - cloudimage', () => {
   test('pass cloudimage query as third arg', () => {
     const link = cloudimage(BASE, event, {
       width: 400,
-      grey: 1
+      grey: 1,
     });
 
     expect(link).toBe(

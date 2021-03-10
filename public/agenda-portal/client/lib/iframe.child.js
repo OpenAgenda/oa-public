@@ -34,7 +34,7 @@ function sendNavUpdate(state) {
 
   parent.sendMessage({
     code: 'nav',
-    nav: _getCurrentNav()
+    nav: _getCurrentNav(),
   });
 }
 
@@ -53,7 +53,7 @@ function sendExternalLinkClick(state, link) {
 
   parent.sendMessage({
     code: 'external',
-    link
+    link,
   });
 }
 
@@ -67,7 +67,7 @@ function sendInternalLinkClick(state, link) {
 
   parent.sendMessage({
     code: 'internal',
-    link
+    link,
   });
 }
 
@@ -81,13 +81,13 @@ function sendEventPreviewClick(state, eventSlug) {
 
   parent.sendMessage({
     code: 'fromSelection',
-    eventSlug
+    eventSlug,
   });
 }
 
 module.exports = (options = {}) => {
   const state = {
-    parent: null
+    parent: null,
   };
   const { onParentNavUpdate } = options;
 
@@ -97,15 +97,15 @@ module.exports = (options = {}) => {
       state.parent = window.parentIFrame;
       state.parent.sendMessage({
         code: 'ready',
-        nav: _getCurrentNav()
+        nav: _getCurrentNav(),
       });
-    }
+    },
   };
 
   return {
     sendNavUpdate: sendNavUpdate.bind(null, state),
     sendExternalLinkClick: sendExternalLinkClick.bind(null, state),
     sendInternalLinkClick: sendInternalLinkClick.bind(null, state),
-    sendEventPreviewClick: sendEventPreviewClick.bind(null, state)
+    sendEventPreviewClick: sendEventPreviewClick.bind(null, state),
   };
 };

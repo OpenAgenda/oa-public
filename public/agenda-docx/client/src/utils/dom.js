@@ -228,7 +228,7 @@ export function getScrollOffsets(w) {
   if (typeof w.pageXOffset !== 'undefined') {
     return {
       x: w.pageXOffset,
-      y: w.pageYOffset
+      y: w.pageYOffset,
     };
   }
 
@@ -237,13 +237,13 @@ export function getScrollOffsets(w) {
   if (document.compatMode == 'CSS1Compat') {
     return {
       x: d.documentElement.scrollLeft,
-      y: d.documentElement.scrollTop
+      y: d.documentElement.scrollTop,
     };
   }
 
   // For browsers in Quirks mode
   return {
     x: d.body.scrollLeft,
-    y: d.body.scrollTop
+    y: d.body.scrollTop,
   };
 }

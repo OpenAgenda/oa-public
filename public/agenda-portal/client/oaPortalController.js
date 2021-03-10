@@ -7,6 +7,6 @@ const iframes = document.querySelectorAll(`[${selector}]`);
 for (const iframe of iframes) {
   handleIFrame(iframe, {
     selector,
-    monitorHash: true
+    monitorHash: true,
   });
 }

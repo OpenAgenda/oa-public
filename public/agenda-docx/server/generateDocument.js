@@ -20,7 +20,7 @@ const writeFile = promisify(fs.writeFile, fs);
 const {
   fetchAndStoreEvents,
   loadEventsFromFile,
-  loadAgendaDetails
+  loadAgendaDetails,
 } = require('./lib/fetch');
 
 module.exports = async ({
@@ -30,7 +30,7 @@ module.exports = async ({
   templateContent,
   reducer = defaultReducer,
   language,
-  query = {}
+  query = {},
 } = {}) => {
   log('generating document for agenda %s', agendaUid);
 
@@ -38,7 +38,7 @@ module.exports = async ({
 
   const eventsFilePath = await fetchAndStoreEvents(localTmpPath, agendaUid, {
     ...query,
-    passed: 1
+    passed: 1,
   });
 
   const events = await loadEventsFromFile(eventsFilePath);
@@ -66,9 +66,9 @@ module.exports = async ({
     agenda: {
       title,
       description,
-      url
+      url,
     },
-    ...reduced
+    ...reduced,
   });
 
   reduced = null;
@@ -96,7 +96,7 @@ module.exports = async ({
           .replace(/\$index/g, indexes[indexes.length - 1])
           .replace(/(‘|’|“|”)/g, "'")
       )(scope);
-    }
+    },
   });
 
   doc.setOptions({ parser });
@@ -104,7 +104,7 @@ module.exports = async ({
   doc.render();
 
   const buf = doc.getZip().generate({
-    type: 'nodebuffer'
+    type: 'nodebuffer',
     // compression: 'DEFLATE'
   });
 
@@ -115,7 +115,7 @@ module.exports = async ({
     agenda: {
       title,
       description,
-      url
-    }
+      url,
+    },
   };
 };

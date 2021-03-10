@@ -30,7 +30,7 @@ module.exports = ({
   defaultLimit,
   defaultFilter,
   defaultTimezone,
-  jsonExportVersion
+  jsonExportVersion,
 }) => {
   async function _fetch(agendaUid, res, query, forcedLimit = null) {
     const oaq = parseSearchQuery(_.get(query, 'oaq'), { defaultFilter });
@@ -54,16 +54,16 @@ module.exports = ({
           timezone: defaultTimezone,
           slugSchemaOptionIdMap: await cachedHead(key, agendaUid).then(
             a => a.slugSchemaOptionIdMap
-          )
+          ),
         }),
         size: limit,
-        offset
+        offset,
       }
       : {
         key,
         oaq,
         limit,
-        offset
+        offset,
       };
 
     log('fetching', params);
@@ -75,7 +75,7 @@ module.exports = ({
     return axios
       .get(`https://openagenda.com/agendas/${agendaUid}/${res}`, {
         params,
-        paramsSerializer: unserialized => qs.stringify(unserialized, { arrayFormat: 'brackets' })
+        paramsSerializer: unserialized => qs.stringify(unserialized, { arrayFormat: 'brackets' }),
       })
       .then(({ data }) => data);
   }
@@ -88,14 +88,14 @@ module.exports = ({
         ? {
           ...(uid ? { uid } : {}),
           ...(slug ? { slug } : {}),
-          detailed: 1
+          detailed: 1,
         }
         : {
           oaq: {
             passed: 1,
             ...(uid ? { uids: [uid] } : {}),
-            ...(slug ? { slug } : {})
-          }
+            ...(slug ? { slug } : {}),
+          },
         }
     ).then(r => r.events
       .filter(e => {
@@ -130,6 +130,6 @@ module.exports = ({
     },
     clearCache,
     get,
-    defaultLimit
+    defaultLimit,
   };
 };

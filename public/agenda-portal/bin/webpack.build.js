@@ -17,17 +17,17 @@ module.exports = {
   entry: jsEntryFiles.reduce(
     (entries, filename) => ({
       ...entries,
-      [filename.split('.').shift()]: [`./client/${filename}`]
+      [filename.split('.').shift()]: [`./client/${filename}`],
     }),
     {}
   ),
   output: {
     path: `${__dirname}/../assets/js`,
-    filename: '[name].js'
+    filename: '[name].js',
   },
   plugins: [
     new LodashModuleReplacementPlugin({ paths: true }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
   ],
   module: {
     rules: [
@@ -35,16 +35,16 @@ module.exports = {
         test: /\.js$/,
         exclude: new RegExp('node_modules/(?!(@openagenda/agenda-portal))'),
         use: {
-          loader: require.resolve('babel-loader')
-        }
-      }
-    ]
+          loader: require.resolve('babel-loader'),
+        },
+      },
+    ],
   },
   resolve: {
     symlinks: false,
-    plugins: [PnpWebpackPlugin]
+    plugins: [PnpWebpackPlugin],
   },
   resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)]
-  }
+    plugins: [PnpWebpackPlugin.moduleLoader(module)],
+  },
 };

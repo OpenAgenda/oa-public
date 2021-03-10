@@ -9,5 +9,5 @@ module.exports = {
   },
   confirm(message, options = {}) {
     return new PromptConfirm(Object.assign(options, { message })).run();
-  }
+  },
 };

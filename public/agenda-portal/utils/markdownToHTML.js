@@ -7,6 +7,6 @@ module.exports = md => sanitizeHtml(marked(md || ''), {
   allowedTags: false,
   allowedAttributes: {
     h1: [],
-    a: ['href']
-  }
+    a: ['href'],
+  },
 });

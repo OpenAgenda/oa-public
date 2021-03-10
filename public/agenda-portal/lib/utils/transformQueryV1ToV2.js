@@ -19,14 +19,14 @@ module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
 
     v2.date = {
       gte: fromAtDayStart.format(),
-      lte: toAtDayEnd.format()
+      lte: toAtDayEnd.format(),
     };
   } else if (v1.passed !== undefined) {
     const passed = parseInt(v1.passed, 10);
 
     v2.date = {
       [passed ? 'lte' : 'gte']: 'today',
-      timezone
+      timezone,
     };
   }
 
@@ -39,7 +39,7 @@ module.exports = (v1, { timezone, slugSchemaOptionIdMap }) => {
         .reduce(
           (additionalFieldFilters, { fieldName, optionId }) => ({
             ...additionalFieldFilters,
-            [fieldName]: optionId
+            [fieldName]: optionId,
           }),
           {}
         )

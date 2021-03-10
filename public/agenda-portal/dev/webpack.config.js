@@ -16,14 +16,14 @@ module.exports = {
       ...entries,
       [filename.split('.').shift()]: [
         'webpack-hot-middleware/client',
-        `./client/${filename}`
-      ]
+        `./client/${filename}`,
+      ],
     }),
     {}
   ),
   output: {
     publicPath: '/js/',
-    filename: '[name].js'
+    filename: '[name].js',
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
   module: {
@@ -32,16 +32,16 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: require.resolve('babel-loader')
-        }
-      }
-    ]
+          loader: require.resolve('babel-loader'),
+        },
+      },
+    ],
   },
   resolve: {
     symlinks: false,
-    plugins: [PnpWebpackPlugin]
+    plugins: [PnpWebpackPlugin],
   },
   resolveLoader: {
-    plugins: [PnpWebpackPlugin.moduleLoader(module)]
-  }
+    plugins: [PnpWebpackPlugin.moduleLoader(module)],
+  },
 };

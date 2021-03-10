@@ -23,7 +23,7 @@ export default class Locations {
       .field({
         access_token: this.sdk.accessToken,
         nonce: this.sdk.getNonce(),
-        data: JSON.stringify({ ...data, agenda_uid: agendaUid })
+        data: JSON.stringify({ ...data, agenda_uid: agendaUid }),
       })
       .then(parseJsonResponse)
       .then(v => v.body);

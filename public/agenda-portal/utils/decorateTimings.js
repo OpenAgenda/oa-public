@@ -10,7 +10,7 @@ const decorateTiming = (timing, timezone, formats = []) => formats.reduce(
     [dst]: moment
       .tz(t[src], timezone)
       .locale(locale || 'fr')
-      .format(format)
+      .format(format),
   }),
   timing
 );

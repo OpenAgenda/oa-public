@@ -15,7 +15,7 @@ app.param('agendaUid', (req, res, next, uid) => {
   req.agendaFiles = agendaFiles({
     s3: config.s3,
     bucket: config.s3.bucket,
-    uid
+    uid,
   });
 
   next();
@@ -30,7 +30,7 @@ app.post('/:agendaUid/queue', async (req, res) => {
 
   const updatedState = ih(state, {
     queued: { $set: true },
-    lastQueuedAt: { $set: JSON.stringify(new Date()) }
+    lastQueuedAt: { $set: JSON.stringify(new Date()) },
   });
 
   await req.agendaFiles.setJSON('state.json', updatedState);
@@ -39,7 +39,7 @@ app.post('/:agendaUid/queue', async (req, res) => {
     uid: req.params.agendaUid,
     templateName: req.query.templateName,
     from: req.query.from,
-    to: req.query.to
+    to: req.query.to,
   });
 
   res.json(updatedState);

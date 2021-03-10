@@ -55,7 +55,7 @@ function _getRedisClient(name = 'default') {
       'rpush',
       'lpop',
       'blpop',
-      'del'
+      'del',
     ]);
 
     clients[name].on('error', _respond);
@@ -119,5 +119,5 @@ module.exports = _.extend(enqueue, {
   waitAndPop,
   total,
   clear,
-  init
+  init,
 });

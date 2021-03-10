@@ -8,7 +8,7 @@ module.exports = (items, path, opts = {}) => {
   const options = _.defaults(opts, {
     hoist: [],
     childrenKey: 'items',
-    targetKey: path
+    targetKey: path,
   });
 
   const byKey = {};

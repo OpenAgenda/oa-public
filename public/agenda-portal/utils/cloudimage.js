@@ -14,6 +14,6 @@ module.exports = (cloudimageLink, event, query = {}) => {
   }
 
   return `${cloudimageLink}${imageLink}${qs.stringify(query, {
-    addQueryPrefix: true
+    addQueryPrefix: true,
   })}`;
 };

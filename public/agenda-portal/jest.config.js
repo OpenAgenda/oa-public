@@ -3,5 +3,5 @@
 module.exports = {
   displayName: '@openagenda/agenda-portal',
 
-  testEnvironment: 'node'
+  testEnvironment: 'node',
 };

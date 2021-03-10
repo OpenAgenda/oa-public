@@ -9,7 +9,7 @@ module.exports = (req, path, value) => {
       'iframeParent',
       'lang',
       'uid',
-      'root'
+      'root',
     ]);
   }
 
