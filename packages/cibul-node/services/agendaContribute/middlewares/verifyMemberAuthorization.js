@@ -22,14 +22,12 @@ module.exports = async (req, res, next) => {
       message: getLabel('noAccessToClosedAgenda', req.lang)
     });
   } else if (await core.agendas(req.agenda).settings.isMembersOnly() && !req.member) {
-    return res.redirect(302, `/${req.agenda.slug}/request-contribute/conversation/create`)
+    return res.redirect(302, `/${req.agenda.slug}/request-contribute/conversation/create`);
   } else if (!req.member) {
-    req.authorizations = {
-      canCreateEvent: true
-    }
-  } else {
-    req.authorizations = await core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations();
+    req.member = await core.agendas(req.agenda).members.create(req.user.uid, 'contributor');
   }
+    
+  req.authorizations = await core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations();
 
   if (!req.authorizations.canCreateEvent) {
     return next({
