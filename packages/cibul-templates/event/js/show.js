@@ -76,6 +76,7 @@ window.asap(options => {
     params.res.detailedSession = 'detailedsession.json';
   }
 
+  displayReferences(params.agendaUid, params.uid);
 
   _defineRoles(params, (err, roles) => {
     log('roles: [%s]', roles.join(','));
@@ -93,17 +94,13 @@ window.asap(options => {
 
     const prv = privateData();
 
-    displayReferences(params.agendaUid, params.uid);
-
     if (params.hasOwnershipTransfer) {
       ownershipTransfer({
         lang: params.lang
       });
     }
 
-    if (roles.length && params.hasCustomFields) {
-      prv.load(params.agendaUid, params.uid, params.lang);
-    }
+    prv.load(params.agendaUid, params.uid, params.lang);
 
     if (roles.includes(ROLES.EVENTEDITOR)) {
       prv.activities(params.agendaUid, params.uid, params.lang);
