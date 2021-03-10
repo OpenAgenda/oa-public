@@ -18,14 +18,13 @@ function evaluate(step, requested = false) {
     const {
       base,
       member: memberConfig,
-      mode
+      mode,
+      draft
     } = state.config;
 
-    const draftEvent = state?.event?.draft || false;
+    log('evaluating mode %s on step %s with a %s event', mode, step, draft ? 'draft' : 'non draft');
 
-    log('evaluating mode %s on step %s', mode, step);
-
-    if (['edit', 'add'].includes(mode) && !draftEvent) {
+    if (['edit', 'add'].includes(mode) && !draft) {
       if (mode === step) {
         log('landing in %s step', step);
         return;
@@ -41,19 +40,21 @@ function evaluate(step, requested = false) {
 
     // we are handling a new or a draft event
 
-    const requestedRoute = base + '/' + step + (step === 'event' && draftEvent ? `/${state?.event?.uid}/draft` : '');
+    const requestedRoute = base + '/' + step + (step === 'event' && draft ? `/${state?.event?.uid}/draft` : '');
 
     const authorizedRoutes = [base + '/member'];
 
     if (!memberConfig.dataIsRequired || isMemberValid(memberConfig.schema, state.member) || state?.member?.role === 'administrator') {
       authorizedRoutes.push(base + (
-        draftEvent ? `/event/${state?.event?.uid}/draft` : '/event'
+        draft ? `/event/${state?.event?.uid}/draft` : '/event'
      ));
     }
 
-    if (state?.event?.uid && !draftEvent) {
+    if (state?.event?.uid && step === 'confirmation') {
       authorizedRoutes.push(base + '/confirmation');
     }
+
+    log('requested %s vs authorized %s', requestedRoute, authorizedRoutes.join(', '));
 
     if (!step || !authorizedRoutes.includes(requestedRoute)) {
       history.replace(authorizedRoutes.pop());

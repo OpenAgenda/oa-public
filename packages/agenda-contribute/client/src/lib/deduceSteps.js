@@ -1,7 +1,11 @@
 "use strict";
 
+const debug = require('debug');
+
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
+
+const log = debug('deduceSteps');
 
 const isMemberValid = require( './isMemberValid' );
 
@@ -55,10 +59,14 @@ module.exports = ( current, state ) => {
 
   }
 
-  return ih( state, {
+  const stateWithDeducedSteps = ih(state, {
     steps: {
-      $set: codes.map( step => _.assign( { step }, steps[ step ] ) )
+      $set: codes.map(step => _.assign({ step }, steps[step]))
     }
-  } );
+  });
+
+  log(stateWithDeducedSteps);
+
+  return stateWithDeducedSteps;
 
 }

@@ -49,11 +49,11 @@ export default connect(
     actionComponents={[{
       position: 'bottom',
       Component: ({ onSubmit, loading }) => <div className="wsq padding-all-md">
-        {event?.draft && <button 
+        {event?.draft ? <button 
           className="btn btn-danger btn-block margin-bottom-md"
           disabled={loading} 
           onClick={e => onDraftDelete()} 
-        >{labels.deleteDraft[config.lang]}</button>}
+        >{labels.deleteDraft[config.lang]}</button> : null}
         <button
           className="btn btn-default btn-block margin-bottom-md"
           disabled={loading}
