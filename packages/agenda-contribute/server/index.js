@@ -106,7 +106,6 @@ function init(c) {
     bodyParser.json(),
     _defineEventFileKey,
     _loadEventSchema,
-    _readRequestedDraftState,
     formSchemaMw.files.cleanFileValues.bind(null, {}),
     formSchemaMw.files.putInTemporary.bind(null, {}),
     // image is processed by event service, other files need to be put to s3
@@ -120,11 +119,7 @@ function init(c) {
 
     log('info', 'setting event on agenda %s', req?.agenda?.slug);
 
-    config.interfaces.setEvent(req.agenda, req.user, req.event, postedWithFiles, {
-      draft: req.draft,
-      mode: req.mode,
-      fromAgenda: req.fromAgenda
-    }).then(result => {
+    config.interfaces.setEvent(req, postedWithFiles).then(result => {
       res.json(_.pick(result, [
         'event',
         'success',
@@ -138,16 +133,6 @@ function init(c) {
   });
 
 }
-
-
-function _readRequestedDraftState(req, res, next) {
-  log('reading requested draft state for event');
-
-  req.draft = ['true', '1'].includes(_.get(req, 'query.draft', '0'));
-
-  next();
-}
-
 
 function _loadEventSchema(req, res, next) {
   log('loading event schema with extensions');

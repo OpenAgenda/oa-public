@@ -32,36 +32,29 @@
     },
     "adminNav": {},
     "states": {
-      "draft": {
-        "label": "draft",
-        "type": null,
-        "agendaOnly": false,
-        "hideAction": true,
-        "classNames": "js_role_event_editor js_role_agenda_moderator js_role_agenda_admin"
-      },
       "refused" : {
         "label" : "refused",
         "type": -1,
         "agendaOnly" : true,
-        "classNames" : "js_role_agenda_admin js_role_agenda_moderator"
+        "classNames" : ""
       },
       "tocontrol": {
         "label": "toComplete",
         "type": 0,
         "agendaOnly": true,
-        "classNames": "js_role_agenda_admin js_role_agenda_moderator"
+        "classNames": ""
       },
       "controlled": {
         "label": "readyForPublishing",
         "type": 1,
         "agendaOnly": true,
-        "classNames": "js_role_agenda_admin js_role_agenda_moderator"
+        "classNames": ""
       },
       "published": {
         "label": "published",
         "type": 2,
         "agendaOnly": false,
-        "classNames": "js_role_event_editor js_role_agenda_admin js_moderator_can_publish"
+        "classNames": "js_can_publish_event display-none"
       }
     },
     "showRequestLocation" : true

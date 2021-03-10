@@ -1,19 +1,19 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
-const w = require( 'when' );
+const _ = require('lodash');
+const { promisify } = require('util');
+const w = require('when');
 
-const contributorLabels = require( '@openagenda/labels/event/contributors' );
-const eventReferences = require( '@openagenda/agenda-event-references' );
-const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
+const contributorLabels = require('@openagenda/labels/event/contributors');
+const eventReferences = require('@openagenda/agenda-event-references');
+const __ = require('@openagenda/labels')(require('@openagenda/labels/event/states'));
 
-const cmn = require( '../lib/commons-app' );
-const legacyEventSvc = require( '../services/event' );
-const legacyAgendaSvc = require( '../services/agenda' );
-const activitiesSvc = require( '../services/activities' );
+const cmn = require('../lib/commons-app');
+const legacyEventSvc = require('../services/event');
+const legacyAgendaSvc = require('../services/agenda');
+const activitiesSvc = require('../services/activities');
 
-const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
+const getAgendaTags = promisify(require('@openagenda/agenda-tags').get);
 const { getRoleSlug } = require('@openagenda/members').utils;
 
 module.exports = app => {
@@ -25,7 +25,7 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/events/:eventUid/custom',
-    legacyAgendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
     sessions.mw.loadOrRedirect(),
     members.mw.load,
     (req, res, next) => {
@@ -34,52 +34,52 @@ module.exports = app => {
           custom: true
         },
         returnPayload: true,
-        access: req.member ? members.utils.getRoleSlug( req.member.role ) : 'nobody',
-      } ).then( result => res.json({
+        access: req.member ? members.utils.getRoleSlug(req.member.role) : 'nobody',
+      }).then(result => res.json({
         event: result.event,
         schema: result.formSchema
       }));
     }
-  );
+ );
 
   app.get(
     '/agendas/:uid/events/:eventUid/private',
-    legacyAgendaSvc.mw.load( 'uid' ),
-    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
     sessions.mw.loadOrRedirect(),
     members.mw.load,
-    ( req, res, next ) => {
+    (req, res, next) => {
       if (!req.member || !members.utils.compareRoles.isSuperiorToOrEqual('contributor')) {
-        return res.sendStatus( 403 );
+        return res.sendStatus(403);
       }
       next();
     },
     legacyEventSvc.mw.format,
-    legacyAgendaSvc.mw.decorateEvent( true ),
+    legacyAgendaSvc.mw.decorateEvent(true),
     getPrivateEventData
-  );
+ );
 
   app.get(
     '/agendas/:uid/events/:eventUid/references',
-    legacyAgendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
     sessions.mw.load(),
     members.mw.loadOr((req, res) => {
       res.json({ references: null });
     }),
-    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
     legacyEventSvc.mw.components.getReferences,
-    ( req, res, next ) => {
-      res.json( {
+    (req, res, next) => {
+      res.json({
         references: req.referencesRender,
-        events: _monolingual( _.get( req, 'references', [] ), [ 'title', 'dateRange', 'description' ], req.lang )
-      } );
+        events: _monolingual(_.get(req, 'references', []), ['title', 'dateRange', 'description'], req.lang)
+      });
     }
-  );
+ );
 
   app.get(
     '/agendas/:uid/events',
     sessions.mw.loadOrRedirect(),
-    legacyAgendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
     members.mw.load,
     (req, res, next) => {
       req.agendaId = req.agenda.id;
@@ -89,13 +89,13 @@ module.exports = app => {
       next();
     },
     eventReferences.mw.events,
-    (req, res) => res.json( _.pick( req, [ 'events' ] ) )
-  );
+    (req, res) => res.json(_.pick(req, ['events']))
+ );
 
   app.get([
     '/agendas/:uid/events/suggestions',
     '/agendas/:uid/events/:eventUid/suggestions'
-  ], sessions.mw.loadOrRedirect(),
+ ], sessions.mw.loadOrRedirect(),
     (req, res, next) => {
       req.agenda = { uid: req.params.uid };
       next();
@@ -144,169 +144,106 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
-    legacyAgendaSvc.mw.load( 'uid' ),
-    legacyEventSvc.mw.load( 'eventUid', 'uid' ),
+    legacyAgendaSvc.mw.load('uid'),
+    legacyEventSvc.mw.load('eventUid', 'uid'),
     members.mw.loadAndAuthorize('moderator', {
       or: (req, res) => res.json({ count: 0})
     }),
-    ( req, res, next ) => {
+    (req, res, next) => {
 
       const limit = 20;
 
-      const feed = activitiesSvc.feed( {
+      const feed = activitiesSvc.feed({
         entityType: 'agenda',
         entityUid: req.agenda.uid
-      } );
+      });
 
-      feed.get().then( data => {
+      feed.get().then(data => {
 
-        if ( !data ) return res.json( {} );
+        if (!data) return res.json({});
 
         feed.activities.list(
           { object: 'event:' + req.event.uid },
           req.query.fromId || 0,
           limit
-        )
+       )
 
-          .then( activities => {
+          .then(activities => {
 
             const lastPage = activities.length < limit;
 
-            res.json( {
+            res.json({
               activities,
               count: activities.length,
               nextUrl: lastPage
                 ? null
-                : `/agendas/${req.agenda.uid}/events/${req.event.uid}/activities?fromId=${activities[ activities.length - 1 ].id}`
-            } );
+                : `/agendas/${req.agenda.uid}/events/${req.event.uid}/activities?fromId=${activities[activities.length - 1].id}`
+            });
 
-          } )
+          })
 
-          .catch( next );
+          .catch(next);
 
-      } );
+      });
 
     }
-  );
+ );
 
 }
 
 
 
-function _monolingual( events, multilingualFields, preferredLang = 'en' ) {
-
-  return events.map( ev => _.keys( ev )
-    .reduce( ( e, k ) => _.set( e, k, multilingualFields.includes( k ) ?
-      _.get( ev, [ k, preferredLang ], ev[ k ][ _.first( _.keys( ev[ k ] ) ) ] )
-      : ev[ k ] )
-    , {} ) );
-
+function _monolingual(events, multilingualFields, preferredLang = 'en') {
+  return events.map(ev => _.keys(ev)
+    .reduce((e, k) => _.set(e, k, multilingualFields.includes(k) ?
+      _.get(ev, [k, preferredLang], ev[k][_.first(_.keys(ev[k]))])
+      : ev[k])
+    , {}));
 }
 
 
-function getPrivateEventData( req, res, next ) {
+async function getPrivateEventData(req, res, next) {
+  const custom = req.formatted.custom
+    .filter(_filterByRole.bind(null, req.member.role))
+    .filter(c => c.access !== 'public');
 
-  w( {
-    req,
-    res,
-    custom: req.formatted.custom
-      .filter( _filterByRole.bind( null, req.member.role ) )
-      .filter( c => c.access !== 'public' ),
-    labels: req.formatted.customLabels,
-    contributor: false
-  } )
+  const labels = req.formatted.customLabels;
 
-    // get tag groups info
-    .then( async v => {
+  const tagSet = await getAgendaTags(req.agenda.id) || null;
+  const tags = tagSet ? await promisify(req.event.getAgendaTags)(req.agenda.id) : null;
 
-      v.tagSet = ( await getAgendaTags( v.req.agenda.id ) ) || null;
+  const tagGroups = tagSet ? tagSet.groups.map(g => ({
+    name: g.name,
+    access: g.access || 'public',
+    tags: g.tags.filter(t => tags.map(t => t.id).includes(t.id))
+  })).filter(_filterByRole.bind(null, req.member.role)) : [];
 
-      if ( !v.tagSet ) return v;
+  const contributor = _.omit(await promisify(req.event.getContributorInfo)(), ['organizationSlug']);
 
-      const tags = await promisify( v.req.event.getAgendaTags )( v.req.agenda.id );
-
-      v.tagGroups = v.tagSet.groups.map( g => ( {
-        name: g.name,
-        access: g.access || 'public',
-        tags: g.tags.filter( t => tags.map( t => t.id ).includes( t.id ) )
-      } ) ).filter( _filterByRole.bind( null, req.member.role ) );
-
-      return v;
-
-    } )
-
-    // get contributor info
-    .then( v => {
-
-      const d = w.defer();
-
-      req.event.getContributorInfo( ( err, contributorInfo ) => {
-
-        if ( err ) return d.reject( err );
-
-        if ( contributorInfo && contributorInfo.organizationSlug ) {
-
-          contributorInfo.organizationSlug = undefined;
-
-        }
-
-        v.contributor = contributorInfo || {};
-
-        d.resolve( v );
-
-      } );
-
-      return d.promise;
-
-    } )
-
-    .done( v => {
-
-      cmn.renderJson( req, res, {
-        custom: {
-          custom: v.custom,
-          labels: v.labels
-        },
-        contributor: {
-          data: v.contributor,
-          labels: {
-            organization: contributorLabels.organization[ req.lang ],
-            contactNumber: contributorLabels.contactNumber[ req.lang ],
-            contactName: contributorLabels.contactName[ req.lang ],
-            contactPosition: contributorLabels.contactPosition[ req.lang ]
-          }
-        },
-        tagGroups: v.tagGroups
-      } );
-
-    }, next );
+  cmn.renderJson(req, res, {
+    custom: {
+      custom,
+      labels
+    },
+    authorizations: await req.app.services.core.users(req.user.uid).agendas(req.agenda.uid).getAuthorizations(req.event),
+    contributor: {
+      data: contributor,
+      labels: {
+        organization: contributorLabels.organization[req.lang],
+        contactNumber: contributorLabels.contactNumber[req.lang],
+        contactName: contributorLabels.contactName[req.lang],
+        contactPosition: contributorLabels.contactPosition[req.lang]
+      }
+    },
+    tagGroups
+  });
 
 }
 
-
-function _filterByRole( role, item ) {
-
-  if ( item.access === 'administrator' ) {
-
-    return [ 'administrator', 'moderator' ].includes( getRoleSlug(role) );
-
+function _filterByRole(role, item) {
+  if (item.access === 'administrator') {
+    return ['administrator', 'moderator'].includes(getRoleSlug(role));
   }
 
   return true;
-
-}
-
-
-function _xhrResponse( req, res, next ) {
-
-  if ( req.xhr ) {
-
-    cmn.renderJson( req, res, { success: true } );
-
-  } else {
-
-    next();
-
-  }
-
 }

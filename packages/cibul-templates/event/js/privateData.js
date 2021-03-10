@@ -10,7 +10,7 @@ import remote from '../../js/lib/remote/remote.mod.js';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
 
-const getInboxesLabel = makeLabelGetter( inboxesLabels );
+const getInboxesLabel = makeLabelGetter(inboxesLabels);
 
 const defaults = {
   uid: false,
@@ -29,28 +29,27 @@ const defaults = {
     development: '/agendas/{agendaUid}/events/{eventUid}/activities',
     tpl: '/server/testdata/eventactivitiesdata.json'
   },
-  customTemplate: require( '../custom.part.ejs' ),
+  customTemplate: require('../custom.part.ejs'),
   className: 'private'
 };
 
 let log;
 
+module.exports = options => {
 
-module.exports = function ( options ) {
-
-  var params = _.extend( {
+  var params = _.extend({
     roles: []
-  }, defaults, options ? options : {} );
+  }, defaults, options ? options : {});
 
-  if ( window.env ) params.env = window.env;
+  if (window.env) params.env = window.env;
 
-  if ( [ 'development', 'tpl' ].indexOf( params.env ) !== -1 ) {
+  if (['development', 'tpl'].indexOf(params.env) !== -1) {
 
-    debug.enable( '*' );
+    debug.enable('*');
 
   }
 
-  log = debug( 'customData' );
+  log = debug('customData');
 
   return {
     load: load,
@@ -58,86 +57,86 @@ module.exports = function ( options ) {
     inbox
   }
 
-  function load( agendaUid, eventUid, lang ) {
+  function load(agendaUid, eventUid, lang) {
+    _fetch(_defineRes(agendaUid, eventUid, lang), (err, data) => {
 
-    var res = _defineRes( agendaUid, eventUid, lang );
-
-    _fetch( res, function ( err, data ) {
-
-      if ( err ) {
-
-        log( 'error', err );
+      if (err) {
+        log('error', err);
 
         return;
-
       }
 
-      if ( _.keys( data.custom.custom ).length ) {
-
-        du.el( params.selector ).insertAdjacentHTML( 'beforeend', _renderCustom( data.custom ) );
-
+      if (_.keys(data.custom.custom).length) {
+        du.el(params.selector).insertAdjacentHTML('beforeend', _renderCustom(data.custom));
       }
 
-      if ( data.contributor && _.keys( data.contributor ).length ) {
-
-        displayContributor( {
+      if (data.contributor && _.keys(data.contributor).length) {
+        displayContributor({
           contributor: data.contributor,
-          canvas: du.el( params.contributorsSelector )
-        } );
-
+          canvas: du.el(params.contributorsSelector)
+        });
       }
 
-      const tagGroups = _.get( data, 'tagGroups', [] ).filter( g => g.access !== 'public' );
+      if (data.authorizations?.canEditEvent) {
+        du.removeClass(du.el('.js_cancel'), 'display-none');
+      } else {
+        du.removeClass(du.el('.js_request_edition_rights'), 'display-none');
+        du.removeClass(du.el('.js_disabled_cancel'), 'display-none');
+      }
 
-      displayPrivateTags( tagGroups );
+      if (data.authorizations?.canChangeState) {
+        du.removeClass(du.el('.js_can_change_state'), 'display-none');
+      } else {
+        du.removeClass(du.el('.js_cannot_change_state'), 'display-none');
+      }
 
-    } );
+      if (data.authorizations?.canPublish) {
+        du.removeClass(du.el('.js_can_publish_event'), 'display-none');
+      }
+      
+      const tagGroups = _.get(data, 'tagGroups', []).filter(g => g.access !== 'public');
+
+      displayPrivateTags(tagGroups);
+    });
 
   }
 
-  function displayActivities( agendaUid, eventUid, lang ) {
-
-    activities( {
-      canvas: du.el( params.activitiesSelector ),
-      res: params.activitiesUrl[ params.env ].replace( '{agendaUid}', agendaUid ).replace( '{eventUid}', eventUid ),
+  function displayActivities(agendaUid, eventUid, lang) {
+    activities({
+      canvas: du.el(params.activitiesSelector),
+      res: params.activitiesUrl[params.env].replace('{agendaUid}', agendaUid).replace('{eventUid}', eventUid),
       fetch: _fetch,
       lang
-    } );
-
+    });
   }
 
-  function displayPrivateTags( tagGroups ) {
-
-    tagGroups.forEach( g => {
-
-      du.el( '.js_tag_groups' ).insertAdjacentHTML( 'beforeend', `<div class="tags">
+  function displayPrivateTags(tagGroups) {
+    tagGroups.forEach(g => {
+      du.el('.js_tag_groups').insertAdjacentHTML('beforeend', `<div class="tags">
         <label><i class="fa fa-unlock-alt margin-right-xs"></i><span>${g.name}</span></label>:
         <ul>
-          ${g.tags.map( t => '<li>' + t.label + '</li>' )}
+          ${g.tags.map(t => '<li>' + t.label + '</li>')}
         </ul>
-      </div>` );
-
-    } );
-
+      </div>`);
+    });
   }
 
-  function inbox( params, { roles, ROLES } ) {
-
-    if ( !document.querySelector( '.js_inbox_event_canvas' ) ) {
+  function inbox(params, { roles, ROLES }) {
+    if (!document.querySelector('.js_inbox_event_canvas')) {
       return;
     }
 
-    const simpleUser = !roles.some( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN );
+    const simpleUser = !roles.some(r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN);
     const resBasePath = simpleUser ? '/home' : '/agendas/:agendaUid';
 
     const user = sessions.getUser();
 
     // userRole === 'adminContributor' || 'adminmod' || 'contributor' || 'simpleUser'
     const userRole = (() => {
-      if ( simpleUser && user.uid === params.ownerUid ) {
+      if (simpleUser && user.uid === params.ownerUid) {
         return 'contributor';
       }
-      if ( user.uid === params.ownerUid ) {
+      if (user.uid === params.ownerUid) {
         return 'adminContributor'
       }
       return simpleUser ? 'simpleUser' : 'adminmod';
@@ -146,10 +145,10 @@ module.exports = function ( options ) {
     // eventConvDescAdminmod
     // eventConvDescContributor
     // eventConvDescSimpleUser
-    const creationDescriptionLabel = getInboxesLabel( 'eventConvDesc' + _.upperFirst( userRole ), params.lang );
+    const creationDescriptionLabel = getInboxesLabel('eventConvDesc' + _.upperFirst(userRole), params.lang);
 
     const destinationInbox = (() => {
-      switch ( userRole ) {
+      switch (userRole) {
         case 'adminContributor': // admin contributor
           return;
         case 'adminmod': // admin (not contributor) -> contributor
@@ -163,49 +162,49 @@ module.exports = function ( options ) {
             identifier: params.agendaUid
           };
         case 'simpleUser': // user lambda -> admins/modos + contributor
-          return [ {
+          return [{
             type: 'agenda',
             identifier: params.agendaUid
           }, {
             type: 'user',
             identifier: params.ownerUid
-          } ];
+          }];
       }
     })();
 
-    loadInbox( {
+    loadInbox({
       jsFilePath: '/js/inboxesEvent.js',
       functionName: 'renderInboxEvent',
       initialState: {
         settings: {
           context: 'event',
           prefix: '',
-          focusFistConversation: [ 'contributor', 'simpleUser' ].includes( userRole ), // force to display the first conversation if exists
+          focusFistConversation: ['contributor', 'simpleUser'].includes(userRole), // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
           allowCreateConversation: true, // display (or not) creation button
-          allClosedForCreate: [ 'contributor', 'simpleUser' ].includes( userRole ),
+          allClosedForCreate: ['contributor', 'simpleUser'].includes(userRole),
           maskEventTitle: true, // useless on event page
           // maskCreationSubtitle: true, // useless on event page
           creationSubtitle: getInboxesLabel(
             userRole === 'adminmod' ? 'contactContributor' : 'contactAdministrators',
             params.lang
-          ),
+         ),
           creationButtonLabel: getInboxesLabel(
             userRole === 'adminmod' ? 'contactContributor' : 'contactAdministrators',
             params.lang
-          ),
+         ),
           creationDescriptionLabel,
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
             destinationInbox,
             params: {
-              agendaTitle: _.unescape( params.agendaTitle ),
-              eventTitle: _.unescape( params.title ),
+              agendaTitle: _.unescape(params.agendaTitle),
+              eventTitle: _.unescape(params.title),
               agendaUid: params.agendaUid
             }
           },
-          ContentWrapper: ( { children } ) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
+          ContentWrapper: ({ children }) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
           lang: params.lang,
         },
         res: {
@@ -236,66 +235,48 @@ module.exports = function ( options ) {
       }
     }, () => {
 
-      const canvasElem = document.querySelector( '.js_inbox_event_canvas' );
+      const canvasElem = document.querySelector('.js_inbox_event_canvas');
 
-      canvasElem.classList.remove( 'display-none' );
+      canvasElem.classList.remove('display-none');
 
-    } );
+    });
 
   }
 
-  function _fetch( res, cb ) {
+  function _fetch(res, cb) {
+    log('fetching %s', res);
 
-    log( 'fetching %s', res );
-
-    remote.get( res, { timeout: 30000 }, function ( responseType, data ) {
-
-      if ( responseType == 'success' ) {
-
-        cb( null, data );
-
+    remote.get(res, { timeout: 30000 }, (responseType, data) => {
+      if (responseType == 'success') {
+        cb(null, data);
       } else {
-
-        cb( data.responseType );
-
+        cb(data.responseType);
       }
-
-    }, true );
-
+    }, true);
   }
 
-  function _defineRes( agendaUid, eventUid, lang ) {
+  function _defineRes(agendaUid, eventUid, lang) {
+    let res = params.url[params.env];
 
-    var res = params.url[ params.env ];
+    res = res.replace('{eventUid}', eventUid)
+      .replace('{agendaUid}', agendaUid);
 
-    res = res.replace( '{eventUid}', eventUid )
-      .replace( '{agendaUid}', agendaUid );
-
-    if ( lang ) res += '?lang=' + lang;
+    if (lang) res += '?lang=' + lang;
 
     return res;
-
   }
 
-  function _renderContributor( data ) {
-
-    return params.contributorHead + params.contributorTemplate( data );
-
-  }
-
-  function _renderCustom( data ) {
-
-    return params.customTemplate( _.extend( {
+  function _renderCustom(data) {
+    return params.customTemplate(_.extend({
       private: '<div class="private-label"><i class="fa fa-unlock-alt"></i> <span>Information privée</span></div>',
-      _i: ( image, staticFile ) => {
-
-        if ( staticFile ) return '//cibulstatic.s3.amazonaws.com/' + image;
+      _i: (image, staticFile) => {
+        if (staticFile) {
+          return '//cibulstatic.s3.amazonaws.com/' + image;
+        }
 
         return '//cibul.s3.amazonaws.com/' + image;
-
       }
-    }, data ) );
-
+    }, data));
   }
 
 }

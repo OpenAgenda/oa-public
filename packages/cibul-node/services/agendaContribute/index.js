@@ -3,7 +3,6 @@
 const _ = require('lodash');
 const qs = require('qs');
 
-const agendas = require('@openagenda/agendas');
 const contribute = require('@openagenda/agenda-contribute');
 
 const layout = require('../lib/layouts').agenda;
@@ -15,6 +14,7 @@ const cmn = require('../../lib/commons-app');
 const middlewares = require('./middlewares');
 const interfaces = require('./interfaces');
 const memberSchema = require('./lib/memberSchema');
+const isDraftRequested = require('./lib/isDraftRequested');
 
 const base64 = require('@openagenda/utils/base64');
 
@@ -95,21 +95,40 @@ module.exports = Object.assign((parentApp, path = '') => {
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], middlewares.verifyMemberAuthorization.edit);
 
-  parentApp.all([
+  parentApp.get(
     '/:agendaSlug/contribute/event',
-    '/:agendaSlug/contribute/event/:eventUid/draft'
-  ], setInReq({ mode: 'create' }));
+    setInReq({ mode: 'create' })
+  );
+  parentApp.post(
+    '/:agendaSlug/contribute/event',
+    setInReq({ mode: 'create' }),
+    isDraftRequested({ draft: true })
+  );
+    
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid',
     setInReq({ mode: 'edit' })
   );
+  
+  parentApp.get(
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    setInReq({ mode: 'create', draft: true })
+  );
+
   parentApp.all(
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid',
     setInReq({ mode: 'add' }),
     middlewares.addAndRedirectIfNothingToEdit
   );
 
-  parentApp.get('/:agendaSlug/contribute/event/:eventUid',
+  parentApp.post(
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+    setInReq({ mode: 'edit' }),
+    isDraftRequested({ draft: true })
+  );
+
+  parentApp.get(
+    '/:agendaSlug/contribute/event/:eventUid',
     middlewares.defineBackRedirect
  );
 
@@ -121,6 +140,7 @@ module.exports = Object.assign((parentApp, path = '') => {
     '/:agendaSlug/contribute/event/:eventUid/from/:fromAgendaUid'
   ], (req, res, next) => {
     req.config = {
+      draft: !!(req.event?.draft || req.draft),
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
       mode: req.mode,
