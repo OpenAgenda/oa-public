@@ -58,7 +58,13 @@
   "EventAdminApp.Dashboard.changeState": [
     {
       "type": 0,
-      "value": "Modifier le statut:"
+      "value": "Modifier le statut"
+    }
+  ],
+  "EventAdminApp.Dashboard.clearFilters": [
+    {
+      "type": 0,
+      "value": "Effacer les filtres"
     }
   ],
   "EventAdminApp.Dashboard.extendedAllSelected": [
@@ -303,10 +309,6 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "total"
-    },
-    {
-      "type": 1,
-      "value": "filters"
     }
   ],
   "EventAdminApp.Dashboard.unselect": [
@@ -387,6 +389,12 @@
       "value": "Modifier"
     }
   ],
+  "EventAdminApp.EventItem.onlineEvent": [
+    {
+      "type": 0,
+      "value": "Événement en ligne"
+    }
+  ],
   "EventAdminApp.EventItem.passed": [
     {
       "type": 0,
@@ -403,6 +411,12 @@
     {
       "type": 0,
       "value": "Voir le lieu"
+    }
+  ],
+  "EventAdminApp.EventItem.showOnlineLocation": [
+    {
+      "type": 0,
+      "value": "Accéder à l'événement en ligne"
     }
   ],
   "EventAdminApp.FiltersPart.lessFilters": [

@@ -58,7 +58,13 @@
   "EventAdminApp.Dashboard.changeState": [
     {
       "type": 0,
-      "value": "Change state:"
+      "value": "Change state"
+    }
+  ],
+  "EventAdminApp.Dashboard.clearFilters": [
+    {
+      "type": 0,
+      "value": "Clear filters"
     }
   ],
   "EventAdminApp.Dashboard.extendedAllSelected": [
@@ -332,6 +338,12 @@
       "value": "crwdns806:0crwdne806:0"
     }
   ],
+  "EventAdminApp.EventItem.onlineEvent": [
+    {
+      "type": 0,
+      "value": "Online event"
+    }
+  ],
   "EventAdminApp.EventItem.passed": [
     {
       "type": 0,
@@ -348,6 +360,12 @@
     {
       "type": 0,
       "value": "crwdns812:0crwdne812:0"
+    }
+  ],
+  "EventAdminApp.EventItem.showOnlineLocation": [
+    {
+      "type": 0,
+      "value": "Access the online event"
     }
   ],
   "EventAdminApp.FiltersPart.lessFilters": [

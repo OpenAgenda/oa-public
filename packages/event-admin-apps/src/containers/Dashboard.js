@@ -38,6 +38,7 @@ import Actions from '../components/Actions';
 import DownloadLink from '../components/DownloadLink';
 import exportsMessages from '../messages/exports';
 import BatchedStateSelector from '../components/BatchedStateSelector';
+import Pager from '../components/Pager';
 
 const searchSpinner = {
   width: 1,
@@ -54,7 +55,7 @@ const messages = defineMessages({
   totalWithFilters: {
     id: 'EventAdminApp.Dashboard.totalWithFilters',
     defaultMessage:
-      '<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}{filters}',
+      '<strong>{selection, number}</strong> / <strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}',
   },
   filters: {
     id: 'EventAdminApp.Dashboard.filters',
@@ -123,6 +124,10 @@ const messages = defineMessages({
     id: 'EventAdminApp.Dashboard.next',
     defaultMessage: 'Next',
   },
+  clearFilters: {
+    id: 'EventAdminApp.Dashboard.clearFilters',
+    defaultMessage: 'Clear filters',
+  },
 });
 
 function addQueryPrefix(query, prefix = 'q.') {
@@ -155,22 +160,20 @@ function SearchField({ input, disabled, isLoading }) {
   const intl = useIntl();
 
   return (
-    <div className="form-group">
-      <div className="input-icon-right">
-        <input
-          placeholder={intl.formatMessage(messages.searchPlaceholder)}
-          className="form-control"
-          // disabled={disabled}
-          {...input}
-        />
-        <button type="submit" className="btn" disabled={disabled}>
-          {isLoading ? (
-            <Spinner options={searchSpinner} />
-          ) : (
-            <i className="fa fa-search" aria-hidden="true" />
-          )}
-        </button>
-      </div>
+    <div className="input-icon-right">
+      <input
+        placeholder={intl.formatMessage(messages.searchPlaceholder)}
+        className="form-control"
+        // disabled={disabled}
+        {...input}
+      />
+      <button type="submit" className="btn" disabled={disabled}>
+        {isLoading ? (
+          <Spinner options={searchSpinner} />
+        ) : (
+          <i className="fa fa-search" aria-hidden="true" />
+        )}
+      </button>
     </div>
   );
 }
@@ -254,7 +257,7 @@ function GroupedActions({
     <>
       <span className="dropdown margin-right-md">
         <button
-          className="btn btn-link btn-link-inline btn-sm dropdown-toggle"
+          className="btn btn-link btn-link-inline dropdown-toggle"
           type="button"
           id="grouped-actions-export"
           data-toggle="dropdown"
@@ -262,7 +265,7 @@ function GroupedActions({
         >
           {intl.formatMessage(exportsMessages.exportSelection)}
           &nbsp;
-          <span className="caret" />
+          <i className="fa fa-lg fa-angle-down" />
         </button>
         <ul className="dropdown-menu" aria-labelledby="grouped-actions-export">
           <li>
@@ -414,13 +417,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     ),
     {
       staleTime: 1000,
-      notifyOnChangeProps: [
-        'data',
-        'isLoading',
-        'isFetching',
-        'error',
-        'isFetchingNextPage',
-      ],
+      notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
       onSuccess: () => {
         // Cancel selection
@@ -506,6 +503,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
       return result;
     });
   }, [allSelected, data]);
+
   const selectExtendedAll = useCallback(
     () => setExtendedAllSelected(old => {
       if (old) {
@@ -517,6 +515,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
     }),
     []
   );
+
   const enableSelectMode = useCallback(() => setSelectMode(true), []);
   const disableSelectMode = useCallback(() => {
     setSelectMode(false);
@@ -575,16 +574,17 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   );
   const latestQuery = useLatest(query);
 
+  const clearFilters = useCallback(() => filtersFormRef.current.reset({}), []);
+
   // Update query when location change
   useUpdateEffect(() => {
     const baseQuery = removeQueryPrefix(parsedLocationSearch);
+    const cleanQuery = _.pick(
+      validateQuery(baseQuery, agendaSchema),
+      Object.keys(baseQuery)
+    );
 
-    if (!_.isEqual(baseQuery, latestQuery.current)) {
-      const cleanQuery = _.pick(
-        validateQuery(baseQuery, agendaSchema),
-        Object.keys(baseQuery)
-      );
-
+    if (!_.isEqual(cleanQuery, latestQuery.current)) {
       filtersFormRef.current.initialize(cleanQuery);
     }
   }, [
@@ -631,12 +631,60 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           toggleSelectMode={enableSelectMode}
         />
 
+        <div
+          className="pull-left"
+          css={css`
+            width: 50%;
+          `}
+        >
+          <SearchFilter disabled={isFetching} isLoading={isFetching} />
+        </div>
+
+        <div className="pull-right">
+          {intl.formatMessage(messages.sortedBy)}
+          &nbsp;
+          <SortSelector onFilterChange={onFilterChange} query={query} />
+        </div>
+
+        <div className="clearfix" />
+
+        {hasQuery ? (
+          <div
+            className="hidden-sm margin-top-sm"
+            css={css`
+              line-height: 24px;
+
+              .badge {
+                margin-right: 4px;
+              }
+            `}
+          >
+            <FiltersPreview
+              agenda={agenda}
+              query={query}
+              page={page}
+              standardsFilters={standardsFilters}
+              additionalsFilters={additionalsFilters}
+            />
+            <button
+              type="button"
+              className="btn-link btn-link-inline"
+              css={css`
+                line-height: 16px;
+              `}
+              onClick={clearFilters}
+            >
+              {intl.formatMessage(messages.clearFilters)}
+            </button>
+          </div>
+        ) : null}
+
         {hasSelection || selectMode ? (
           <div
-            className="margin-bottom-sm"
+            className="margin-v-md"
             css={css`
               border-left: 3px solid #41acdd;
-              padding: 5px;
+              padding: 5px 5px 5px 12px;
             `}
           >
             <span className="margin-right-sm">
@@ -667,56 +715,58 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           </div>
         ) : null}
 
-        <div className="clearfix" />
+        {allSelected && selectedEvents.size < data.total ? (
+          <div className={`announcement bg-${kind} margin-bottom-md`}>
+            <div className={`container-fluid text-${kind}`}>
+              <div className="row padding-top-sm padding-right-sm padding-left-md">
+                {!extendedAllSelected ? (
+                  <p className="text-center">
+                    {intl.formatMessage(messages.allSelected, {
+                      size: selectedEvents.size,
+                      b: chunks => <b>{chunks}</b>,
+                    })}{' '}
+                    <button
+                      type="button"
+                      className="btn btn-link btn-link-inline"
+                      onClick={selectExtendedAll}
+                    >
+                      {intl.formatMessage(messages.selectExtendedAll, {
+                        total: data.total,
+                        b: chunks => <b>{chunks}</b>,
+                      })}
+                    </button>
+                  </p>
+                ) : (
+                  <p className="text-center">
+                    {intl.formatMessage(messages.extendedAllSelected, {
+                      total: data.total,
+                      b: chunks => <b>{chunks}</b>,
+                    })}{' '}
+                    <button
+                      type="button"
+                      className="btn btn-link btn-link-inline"
+                      onClick={selectExtendedAll}
+                    >
+                      {intl.formatMessage(messages.cancelSelection)}
+                    </button>
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : null}
 
-        <div
-          className="pull-left"
-          css={css`
-            width: 50%;
-          `}
-        >
-          <SearchFilter disabled={isFetching} isLoading={isFetching} />
-        </div>
-
-        <div className="pull-right">
-          {intl.formatMessage(messages.sortedBy)}
-          &nbsp;
-          <SortSelector onFilterChange={onFilterChange} query={query} />
-        </div>
-
-        <div className="clearfix" />
-
-        <div className="margin-bottom-sm">
+        <div className="margin-top-sm margin-bottom-md">
           <div className="pull-right">
-            <nav aria-label="...">
-              <ul
-                className="pager"
-                css={css`
-                  margin: 0;
-                `}
-              >
-                <li className="margin-right-xs">
-                  <span
-                    tabIndex={0}
-                    role="button"
-                    onClick={previousPage}
-                    onKeyPress={previousPage}
-                  >
-                    {intl.formatMessage(messages.previous)}
-                  </span>
-                </li>
-                <li>
-                  <span
-                    tabIndex={0}
-                    role="button"
-                    onClick={nextPage}
-                    onKeyPress={nextPage}
-                  >
-                    {intl.formatMessage(messages.next)}
-                  </span>
-                </li>
-              </ul>
-            </nav>
+            <Pager
+              events={data.events}
+              page={page}
+              previousPage={previousPage}
+              nextPage={nextPage}
+              css={css`
+                margin: 0;
+              `}
+            />
           </div>
 
           <div className="padding-top-xs">
@@ -726,17 +776,6 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
                   selection: data.total,
                   total: filtersQuery.data.total,
                   strong: chunks => <strong>{chunks}</strong>,
-                  filters: (
-                    <span className="oa-filter-value-preview">
-                      <FiltersPreview
-                        agenda={agenda}
-                        query={query}
-                        page={page}
-                        standardsFilters={standardsFilters}
-                        additionalsFilters={additionalsFilters}
-                      />
-                    </span>
-                  ),
                 })
                 : intl.formatMessage(messages.totalEvents, {
                   total: filtersQuery.data.total,
@@ -769,47 +808,6 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         </div>
       </header>
 
-      {allSelected && selectedEvents.size < data.total ? (
-        <div className={`announcement bg-${kind} margin-top-sm`}>
-          <div className={`container-fluid text-${kind}`}>
-            <div className="row padding-top-sm padding-right-sm padding-left-md">
-              {!extendedAllSelected ? (
-                <p className="text-center">
-                  {intl.formatMessage(messages.allSelected, {
-                    size: selectedEvents.size,
-                    b: chunks => <b>{chunks}</b>,
-                  })}{' '}
-                  <button
-                    type="button"
-                    className="btn btn-link btn-link-inline"
-                    onClick={selectExtendedAll}
-                  >
-                    {intl.formatMessage(messages.selectExtendedAll, {
-                      total: data.total,
-                      b: chunks => <b>{chunks}</b>,
-                    })}
-                  </button>
-                </p>
-              ) : (
-                <p className="text-center">
-                  {intl.formatMessage(messages.extendedAllSelected, {
-                    total: data.total,
-                    b: chunks => <b>{chunks}</b>,
-                  })}{' '}
-                  <button
-                    type="button"
-                    className="btn btn-link btn-link-inline"
-                    onClick={selectExtendedAll}
-                  >
-                    {intl.formatMessage(messages.cancelSelection)}
-                  </button>
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      ) : null}
-
       <ul className="list-unstyled">
         {data.events.map(event => (
           <EventItem
@@ -822,16 +820,25 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
             selectionMode={selectMode || !!selectedEvents.size}
           />
         ))}
-
-        {removeModal.isOpen ? (
-          <RemoveModal
-            agenda={agenda}
-            event={removeModal.data.event}
-            onRemove={onRemove}
-            onClose={removeModal.close}
-          />
-        ) : null}
       </ul>
+
+      <div className="margin-top-md">
+        <Pager
+          events={data.events}
+          page={page}
+          previousPage={previousPage}
+          nextPage={nextPage}
+        />
+      </div>
+
+      {removeModal.isOpen ? (
+        <RemoveModal
+          agenda={agenda}
+          event={removeModal.data.event}
+          onRemove={onRemove}
+          onClose={removeModal.close}
+        />
+      ) : null}
 
       {isFetchingNextPage ? (
         <div className="padding-v-md" style={{ position: 'relative' }}>

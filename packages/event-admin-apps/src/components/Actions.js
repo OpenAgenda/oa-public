@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import qs from 'qs';
+import { css } from '@emotion/react';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import DocxExportModal from '@openagenda/agenda-docx/client/build/ExportModal';
 import exportsMessages from '../messages/exports';
@@ -20,8 +21,8 @@ const messages = defineMessages({
 export default function Actions({
   agenda,
   query,
-  selectMode,
-  toggleSelectMode,
+  // selectMode,
+  // toggleSelectMode,
 }) {
   const intl = useIntl();
   const [displayDocxModal, setDisplayDocxModal] = useState(false);
@@ -37,13 +38,21 @@ export default function Actions({
     []
   );
 
-  const queryString = qs.stringify(query, {
-    addQueryPrefix: true,
-    skipNulls: true,
-  });
+  const queryString = qs.stringify(
+    { size: -1, ...query },
+    {
+      addQueryPrefix: true,
+      skipNulls: true,
+    }
+  );
 
   return (
-    <div className="actions margin-bottom-sm">
+    <div
+      className="actions margin-bottom-md"
+      css={css`
+        line-height: 16px;
+      `}
+    >
       <span className="dropdown margin-right-sm">
         <button
           className="btn btn-link btn-link-inline dropdown-toggle"
@@ -55,7 +64,7 @@ export default function Actions({
         >
           {intl.formatMessage(exportsMessages.export)}
           &nbsp;
-          <span className="caret" />
+          <i className="fa fa-lg fa-angle-down" />
         </button>
         <ul className="dropdown-menu" aria-labelledby="actions-export">
           <li>
@@ -120,18 +129,18 @@ export default function Actions({
         </ul>
       </span>
 
-      <a href={`/${agenda.slug}/contribute`} className="margin-right-sm">
+      <a href={`/${agenda.slug}/contribute`}>
         {intl.formatMessage(messages.createAnEvent)}
       </a>
 
-      <button
+      {/* <button
         className="btn btn-link btn-link-inline"
         type="button"
         onClick={toggleSelectMode}
         disabled={selectMode}
       >
         {intl.formatMessage(messages.select)}
-      </button>
+      </button> */}
 
       {/* <button type="button" className="btn btn-link btn-link-inline" onClick={toggleExports}> */}
       {/*   {intl.formatMessage(exportsMessages.export)} */}
