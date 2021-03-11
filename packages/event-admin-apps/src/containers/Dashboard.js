@@ -760,17 +760,19 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
         <div className="margin-top-sm margin-bottom-md">
           <div className="pull-right">
-            <Pager
-              page={page}
-              pageSize={PAGE_SIZE}
-              total={data.total}
-              rangeSize={data.events.length}
-              previousPage={previousPage}
-              nextPage={nextPage}
-              css={css`
-                margin: 0;
-              `}
-            />
+            {data.total > PAGE_SIZE ? (
+              <Pager
+                page={page}
+                pageSize={PAGE_SIZE}
+                total={data.total}
+                rangeSize={data.events.length}
+                previousPage={previousPage}
+                nextPage={nextPage}
+                css={css`
+                  margin: 0;
+                `}
+              />
+            ) : null}
           </div>
 
           <div className="padding-top-xs">
@@ -826,16 +828,18 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         ))}
       </ul>
 
-      <div className="margin-top-md">
-        <Pager
-          page={page}
-          pageSize={PAGE_SIZE}
-          total={data.total}
-          rangeSize={data.events.length}
-          previousPage={previousPage}
-          nextPage={nextPage}
-        />
-      </div>
+      {data.total > PAGE_SIZE ? (
+        <div className="margin-top-md">
+          <Pager
+            page={page}
+            pageSize={PAGE_SIZE}
+            total={data.total}
+            rangeSize={data.events.length}
+            previousPage={previousPage}
+            nextPage={nextPage}
+          />
+        </div>
+      ) : null}
 
       {removeModal.isOpen ? (
         <RemoveModal
