@@ -37,6 +37,7 @@ async function agendasList(req, res, next) {
 
     res.send({
       total,
+      isMember: members.length > 0,
       agendas: agendas.map(agenda => _.assign(_.omit(agenda, ['credentials']), {
         member: members.find(s => s.agendaUid === agenda.uid),
         useContributeApp: _.get(agenda, 'credentials.useContributeApp', false),
@@ -57,7 +58,7 @@ function eventsList(req, res, next) {
 
   req.log('fetching events owned by user %s', req.user.uid);
 
-  eventsSvc.list({ 
+  eventsSvc.list({
     ownerUid: req.user.uid,
     search: req.query.search
   }, {
