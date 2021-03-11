@@ -1,10 +1,11 @@
 'use strict';
 
-module.exports = field => ({
+module.exports = (field, aggOptions = {}) => ({
   formatDSL: (query, options = {}) => ({
     terms: {
-      field: ['location', field].join('.'),
-      size: options.size
+      field,
+      size: options.size,
+      ...aggOptions
     }
   }),
   formatResult: result => result.buckets.map(b => ({
