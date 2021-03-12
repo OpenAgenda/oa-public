@@ -17,6 +17,7 @@
   "ReactFilters.dateRanges.today": "Today",
   "ReactFilters.dateRanges.tomorrow": "Tomorrow",
   "ReactFilters.dateRanges.upcoming": "Upcoming",
+  "ReactFilters.messages.filterTitles.attendanceMode": "Attendance mode",
   "ReactFilters.messages.filterTitles.city": "City",
   "ReactFilters.messages.filterTitles.createdAt": "Creation date",
   "ReactFilters.messages.filterTitles.department": "Department",

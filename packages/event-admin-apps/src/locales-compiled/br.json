@@ -473,6 +473,24 @@
       "value": "Date de mise à jour"
     }
   ],
+  "EventAdminApp.messages.attendanceModes.mixed": [
+    {
+      "type": 0,
+      "value": "Mixte"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.offline": [
+    {
+      "type": 0,
+      "value": "Hors ligne"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.online": [
+    {
+      "type": 0,
+      "value": "En ligne"
+    }
+  ],
   "EventAdminApp.messages.exports.export": [
     {
       "type": 0,

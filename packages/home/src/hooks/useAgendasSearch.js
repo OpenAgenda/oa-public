@@ -27,6 +27,7 @@ function reducer(state, action) {
         firstLoading: false,
         listError: null,
         total: action.payload.data.total,
+        isMember: action.payload.data.isMember,
         page: 1,
       };
     case 'listFail':
@@ -37,6 +38,7 @@ function reducer(state, action) {
         firstLoading: false,
         listError: action.payload.error,
         total: null,
+        isMember: null,
         page: 1,
       };
     case 'nextPage':
@@ -51,6 +53,7 @@ function reducer(state, action) {
         nextPageLoading: false,
         nextPageError: null,
         total: action.payload.data.total,
+        isMember: action.payload.data.isMember,
         page: action.payload.page,
       };
     case 'nextPageFail':

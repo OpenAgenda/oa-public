@@ -172,6 +172,12 @@
       "value": "À venir"
     }
   ],
+  "ReactFilters.messages.filterTitles.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Mode de participation"
+    }
+  ],
   "ReactFilters.messages.filterTitles.city": [
     {
       "type": 0,

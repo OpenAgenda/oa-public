@@ -1,8 +1,7 @@
 import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import cn from 'classnames';
-
-const PAGE_SIZE = 20;
+import { css } from '@emotion/react';
 
 const messages = defineMessages({
   previous: {
@@ -16,42 +15,71 @@ const messages = defineMessages({
 });
 
 export default function Pager({
-  events,
   page,
+  pageSize,
+  total,
+  rangeSize,
   previousPage,
   nextPage,
   className,
 }) {
   const intl = useIntl();
 
+  const lastPage = Math.floor(
+    total % pageSize !== 0 ? total / pageSize + 1 : total / pageSize
+  );
+
+  const previousDisabled = page === 1;
+  const nextDisabled = page === lastPage;
+
   return (
     <nav>
       <ul className={cn('pager', className)}>
         <li
-          className="margin-right-xs"
+          className={cn('margin-right-xs', { disabled: previousDisabled })}
           title={intl.formatMessage(messages.previous)}
         >
-          <span
-            tabIndex={0}
-            role="button"
-            onClick={previousPage}
-            onKeyPress={previousPage}
-          >
-            <i className="fa fa-lg fa-angle-left" />
-          </span>
+          {previousDisabled ? (
+            <span
+              css={css`
+                color: lightgray !important;
+              `}
+            >
+              <i className="fa fa-lg fa-angle-left" />
+            </span>
+          ) : (
+            <span
+              tabIndex={0}
+              role="button"
+              onClick={previousPage}
+              onKeyPress={previousPage}
+            >
+              <i className="fa fa-lg fa-angle-left" />
+            </span>
+          )}
         </li>
         <li className="margin-right-xs">
-          {page * PAGE_SIZE + 1} – {page * PAGE_SIZE + events.length}
+          {(page - 1) * pageSize + 1} – {(page - 1) * pageSize + rangeSize}
         </li>
         <li title={intl.formatMessage(messages.next)}>
-          <span
-            tabIndex={0}
-            role="button"
-            onClick={nextPage}
-            onKeyPress={nextPage}
-          >
-            <i className="fa fa-lg fa-angle-right" />
-          </span>
+          {nextDisabled ? (
+            <span
+              css={css`
+                color: lightgray !important;
+              `}
+            >
+              <i className="fa fa-lg fa-angle-right" />
+            </span>
+          ) : (
+            <span
+              tabIndex={0}
+              role="button"
+              onClick={nextPage}
+              onKeyPress={nextPage}
+            >
+              <i className="fa fa-lg fa-angle-right" />
+            </span>
+          )}
         </li>
       </ul>
     </nav>

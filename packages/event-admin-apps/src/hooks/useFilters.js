@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useUIDSeed } from 'react-uid';
 import { dateRanges } from '@openagenda/react-filters';
 import stateMessages from '../messages/states';
+import attendanceModeMessages from '../messages/attendanceModes';
 
 const AGGREGATION_SIZE = 20000;
 
@@ -40,6 +41,24 @@ export default function useFilters(
     [intl]
   );
 
+  const attendanceModeOptions = useMemo(
+    () => [
+      {
+        label: intl.formatMessage(attendanceModeMessages.offline),
+        value: 1,
+      },
+      {
+        label: intl.formatMessage(attendanceModeMessages.online),
+        value: 2,
+      },
+      {
+        label: intl.formatMessage(attendanceModeMessages.mixed),
+        value: 3,
+      },
+    ],
+    [intl]
+  );
+
   return useMemo(() => {
     const { staticRanges, inputRanges } = dateRanges(intl);
 
@@ -69,6 +88,14 @@ export default function useFilters(
           options: stateOptions,
           aggregation: {
             type: 'states',
+          },
+        },
+        {
+          name: 'attendanceMode',
+          type: 'radio',
+          options: attendanceModeOptions,
+          aggregation: {
+            type: 'attendanceModes',
           },
         },
         {
@@ -126,5 +153,13 @@ export default function useFilters(
       ...v,
       id: seed(v),
     }));
-  }, [additionals, agendaSchema.fields, intl, seed, standards, stateOptions]);
+  }, [
+    additionals,
+    agendaSchema.fields,
+    intl,
+    seed,
+    standards,
+    stateOptions,
+    attendanceModeOptions,
+  ]);
 }

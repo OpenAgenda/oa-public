@@ -422,6 +422,24 @@
       "value": "crwdns5976:0crwdne5976:0"
     }
   ],
+  "EventAdminApp.messages.attendanceModes.mixed": [
+    {
+      "type": 0,
+      "value": "Mixed"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.offline": [
+    {
+      "type": 0,
+      "value": "Offline"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
   "EventAdminApp.messages.exports.export": [
     {
       "type": 0,

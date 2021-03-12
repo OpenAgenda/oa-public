@@ -40,6 +40,8 @@ import exportsMessages from '../messages/exports';
 import BatchedStateSelector from '../components/BatchedStateSelector';
 import Pager from '../components/Pager';
 
+const PAGE_SIZE = 20;
+
 const searchSpinner = {
   width: 1,
   length: 3,
@@ -356,7 +358,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
   const hasQuery = useMemo(() => !!Object.keys(query).length, [query]);
 
-  const [page, setPage] = useState(() => (parsedLocationSearch.page ? parsedLocationSearch.page - 1 : 0));
+  const [page, setPage] = useState(() => (parsedLocationSearch.page ? parseInt(parsedLocationSearch.page, 10) : 1));
 
   const [selectedEvents, setSelectedEvents] = useState(() => new Set());
   const [extendedAllSelected, setExtendedAllSelected] = useState(false);
@@ -398,7 +400,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
   );
 
   const {
-    data, isLoading, isFetching, error, isFetchingNextPage
+    data, isLoading, isFetching, error
   } = useQuery(
     ['event-admin-apps', 'events', { query, page }],
     () => getEvents(
@@ -436,7 +438,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           const search = qs.stringify(
             {
               ...queryRest,
-              page: page ? page + 1 : null,
+              page: page > 1 ? page : null,
               ...addQueryPrefix(query),
             },
             {
@@ -535,7 +537,7 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         e.preventDefault();
       }
 
-      setPage(old => Math.max(old - 1, 0));
+      setPage(old => Math.max(old - 1, 1));
     }),
     []
   );
@@ -758,15 +760,19 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
 
         <div className="margin-top-sm margin-bottom-md">
           <div className="pull-right">
-            <Pager
-              events={data.events}
-              page={page}
-              previousPage={previousPage}
-              nextPage={nextPage}
-              css={css`
-                margin: 0;
-              `}
-            />
+            {data.total > PAGE_SIZE ? (
+              <Pager
+                page={page}
+                pageSize={PAGE_SIZE}
+                total={data.total}
+                rangeSize={data.events.length}
+                previousPage={previousPage}
+                nextPage={nextPage}
+                css={css`
+                  margin: 0;
+                `}
+              />
+            ) : null}
           </div>
 
           <div className="padding-top-xs">
@@ -822,14 +828,18 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
         ))}
       </ul>
 
-      <div className="margin-top-md">
-        <Pager
-          events={data.events}
-          page={page}
-          previousPage={previousPage}
-          nextPage={nextPage}
-        />
-      </div>
+      {data.total > PAGE_SIZE ? (
+        <div className="margin-top-md">
+          <Pager
+            page={page}
+            pageSize={PAGE_SIZE}
+            total={data.total}
+            rangeSize={data.events.length}
+            previousPage={previousPage}
+            nextPage={nextPage}
+          />
+        </div>
+      ) : null}
 
       {removeModal.isOpen ? (
         <RemoveModal
@@ -838,12 +848,6 @@ function Dashboard({ agenda, agendaSchema, filtersContainerRef }) {
           onRemove={onRemove}
           onClose={removeModal.close}
         />
-      ) : null}
-
-      {isFetchingNextPage ? (
-        <div className="padding-v-md" style={{ position: 'relative' }}>
-          <Spinner />
-        </div>
       ) : null}
 
       <FiltersPortal

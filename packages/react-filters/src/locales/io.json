@@ -17,6 +17,7 @@
   "ReactFilters.dateRanges.today": "crwdns866:0crwdne866:0",
   "ReactFilters.dateRanges.tomorrow": "crwdns868:0crwdne868:0",
   "ReactFilters.dateRanges.upcoming": "crwdns870:0crwdne870:0",
+  "ReactFilters.messages.filterTitles.attendanceMode": "",
   "ReactFilters.messages.filterTitles.city": "crwdns872:0crwdne872:0",
   "ReactFilters.messages.filterTitles.createdAt": "crwdns874:0crwdne874:0",
   "ReactFilters.messages.filterTitles.department": "crwdns876:0crwdne876:0",

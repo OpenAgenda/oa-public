@@ -23,7 +23,7 @@ export default async function getEvents(
     // oaq: { passed: 1 },
     // size: 0,
     aggregations,
-    from: pageParam ? pageParam * PAGE_SIZE : undefined,
+    from: pageParam > 1 ? (pageParam - 1) * PAGE_SIZE : undefined,
     ...query,
   };
 

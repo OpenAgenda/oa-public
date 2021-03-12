@@ -172,7 +172,7 @@ function Agendas() {
           );
         }
 
-        if (!state.total) {
+        if (!state.isMember) {
           return (
             <Wrapper>
               <Welcome />
