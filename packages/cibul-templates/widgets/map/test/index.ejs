@@ -1,5 +1,8 @@
 <html>
   <head>
+<% if (controlData) { %>
+    <script type="text/javascript">window.testControlData = '<%= controlData %>'</script>
+<% } %>
 <% js.forEach( function( jsPath ) { %>
   <script type="text/javascript" src="<%= jsPath %>"></script>
 <% }) %>
@@ -9,13 +12,15 @@
     <div style="width:400px; margin: 2em auto;">
       <% if (story === 'default') { %>
         <p>Map with basic settings should encompass all locations</p>
-        <div class="cbpgmp cibulMap"
+        <div class="cibulMap"
+          data-oamp
           data-cbctl="48959239/46744426|fr"
         ></div>
       <% } else if (story === 'autoOn') { %>
         <strong>Map with data-auto on</strong>
         <p>Map should refresh filter on move</p>
-        <div class="cbpgmp cibulMap"
+        <div class="cibulMap"
+          data-oamp
           data-cbctl="48959239/46744426|fr"
           data-auto="true"
         ></div>
@@ -61,6 +66,19 @@
         <div>--------------------</div>
         <div class="row filters cbpgft" data-cbctl="48959239/46744426|fr"></div>
         <script type="text/javascript" src="//openagenda.com/js/embed/oaActiveFilters.js"></script>
+      <% } else if (story === 'bisounours') { %>
+        <script type="text/javascript">window.testControlData = 'fdsqfdsq.json'</script>
+        <strong>Bah voilà</strong>
+        <div
+          class="cibulMap"
+          data-tiles="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          data-oamp
+          data-cbctl="13988937"
+          data-lang="fr"
+          data-auto="true" 
+          data-event-uid=7949707
+          data-zoom=12>
+        </div>
       <% } %>
     </div>
   </body>

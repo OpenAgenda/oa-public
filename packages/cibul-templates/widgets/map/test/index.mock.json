@@ -1,5 +1,6 @@
 {
   "base": {
+    "controlData": null
   },
   "default": {
     "story": "default"
@@ -18,6 +19,10 @@
   },
   "tiles": {
     "story": "tiles"
+  },
+  "bisounours": {
+    "controlData": "controldata-bisounours.json",
+    "story": "bisounours"
   },
   "autoWithActiveFilters": {
     "story": "autoWithActiveFilters"

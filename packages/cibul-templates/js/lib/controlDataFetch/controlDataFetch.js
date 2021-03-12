@@ -20,7 +20,7 @@ res = {
     embed : '//d.openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata'
   },
   tpl: {
-    agenda : '/server/testdata/controldata-pepite.json',
+    agenda : '/server/testdata/' + ( window.testControlData ? window.testControlData : 'controldata-pepite.json' ),
     embed : '/server/testdata/' + ( window.testControlData ? window.testControlData : 'embedcontroldata-pepite.json' )
   }
 },
