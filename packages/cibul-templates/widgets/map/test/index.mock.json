@@ -4,6 +4,9 @@
   "default": {
     "story": "default"
   },
+  "autoOn": {
+    "story": "autoOn"
+  },
   "coords": {
     "story": "coords"
   },
@@ -15,5 +18,8 @@
   },
   "tiles": {
     "story": "tiles"
+  },
+  "autoWithActiveFilters": {
+    "story": "autoWithActiveFilters"
   }
 }

@@ -4,7 +4,6 @@ const SYNC_SECTION_SELECTOR = '.js_map_sync';
 
 const attributeValues = require('./lib/attributeValues');
 const getEventLocationUid = require('./lib/getEventLocationUid');
-const loadIcons = require('./lib/loadIcons');
 const loadInitialState = require('./lib/loadInitialState');
 const applyLeafletStylesheet = require('./lib/applyLeafletStylesheet');
 const promisify = require('./lib/promisify');
@@ -111,7 +110,7 @@ function widget( elem, options ) {
 
     log = debug(`map widget`);
 
-    log('initing %j', state);
+    log('initializing %j', state);
 
     controller = options.register( wLib.interface('map', state.uid, {
       enable : enable,
@@ -130,17 +129,10 @@ function widget( elem, options ) {
 
     const data = await getControlData();
 
-    log('control data fetched');
-
-    if (!data.ebd || data.ebd.dcss.map) {
-      state.applyDefaultStyle = true;
-    };
-
-    if (data?.ebd?.mt) {
-      state.tiles = data.ebd.mt;
-    }
-    state.icons = loadIcons(state, data);
+    loadInitialState.fromControlData(state, data);
     
+    log('control data fetched, state updated %j', state);
+
     _initLocations(data);
 
     if (state.focusOnEventUid) {
@@ -159,22 +151,17 @@ function widget( elem, options ) {
 
     map = await createMap();
 
-    if (state.focusOnEventUid) {
-    }
-
     if (baseBounds === undefined) {
       _defineBaseBounds(data);
     }
 
-    _bindSync();
+    _bindAutoRefresh(state);
 
-    _boundsChangeBehavior();
+    _boundsChangeBehavior(state);
 
     _setMapToBaseBounds();
 
-    _initMarkers();
-
-    _initAutoSync( data );
+    _initMarkers(state);
 
     controller.onWidgetReady('map', {
       uid: state.uid
@@ -185,7 +172,7 @@ function widget( elem, options ) {
   })();
 
 
-  function _initMarkers() {
+  function _initMarkers(state) {
 
     var markers = [];
 
@@ -205,7 +192,7 @@ function widget( elem, options ) {
 
       markers.push( location.marker );
 
-      _setOnMarkerClick( location );
+      _setOnMarkerClick(state, location);
 
       _refreshMarker( location );
 
@@ -233,40 +220,36 @@ function widget( elem, options ) {
 
 
   function _resetClusterController( reqParams ) {
+    log('resetClusterController');
 
     var current = navHistory.get();
 
     if ( current.uid !== reqParams.uid ) {
+      log('  event has been opened or closed');
 
       // if there is a change in opened event,
       // cluster must be reset only if markerCount changed
       if ( clusterGroup.markerCount < activeLocations.length ) {
-
+        log('  markers count has changed, should reset (group: %s, active locations: %s)', clusterGroup.markerCount, activeLocations.length);
         return true;
-
       }
-
     } else {
+      log('  event has not been opened or closed');
 
       // if is not a map filter change, reset cluster
-      if ( _nonMapQueryChange( reqParams ) ) return true;
-
+      if ( _nonMapQueryChange( reqParams ) ) {
+        log('  filters unrelated to map have changed, should reset');
+        return true;
+      }
     }
 
 
-    // if it is a lateral movement of map, must be reset
-    // else, it means bits of maps are now shown that were not shown before.
-
-    if ( current.neLat < reqParams.neLat ) return true;
-
-    if ( current.neLng < reqParams.neLng ) return true;
-
-    if ( current.swLat > reqParams.swLat ) return true;
-
-    if ( current.swLng > reqParams.swLng ) return true;
+    if (current.neLat !== reqParams.neLat) return true;
+    if (current.neLng !== reqParams.neLng) return true;
+    if (current.swLat !== reqParams.swLat) return true;
+    if (current.swLng !== reqParams.swLng) return true;
 
     return false;
-
   }
 
 
@@ -315,27 +298,27 @@ function widget( elem, options ) {
 
     initCluster = true;
 
-    log( 'enabling map' );
+    log('enable with %j', reqParams);
 
     enabled = true;
 
-    log( 'defining bounds from navigation history and update' );
+    log('  defining bounds from navigation history and update');
 
     if ( navHistory.matchCurrent( reqParams ) ) {
 
-      log( 'history implies no new change. Bounds do not move' );
+      log('  history implies no new change. Bounds do not move');
 
       bounds = false;
 
     } else if ( navHistory.matchPrev( reqParams ) ) {
 
-      log( 'nav update shows history back. Moving bounds to previous state' );
+      log('  nav update shows history back. Moving bounds to previous state');
 
       bounds = navHistory.back();
 
     } else if ( reqParams.neLat && navHistory.current() ) {
 
-      log( 'nav update includes bound definition. Bounds do not change' );
+      log('  nav update includes bound definition. Bounds do not change');
 
       bounds = false;
 
@@ -347,7 +330,7 @@ function widget( elem, options ) {
 
     } else if (state.enablesCount === 0 && ( !utils.size( reqParams ) || _hasOnlyPassedParams( reqParams ) ) ) {
 
-      log( 'nav is init nav, no params are set or only passed events exist' );
+      log('  nav is init nav, no params are set or only passed events exist');
 
       bounds = baseBounds;
 
@@ -355,7 +338,7 @@ function widget( elem, options ) {
 
     } else if ( reqParams.uid ) {
 
-      log( 'nav update includes event selection. Bounds are defined around event' );
+      log('  nav update includes event selection. Bounds are defined around event');
 
       bounds = m.createBounds( locations[ activeLocations[ 0 ] ].coords );
 
@@ -363,7 +346,7 @@ function widget( elem, options ) {
 
     } else if ( activeBounds ) {
 
-      log('query params changed without geodata bounds are of active marker');
+      log('  query params changed without geodata bounds are of active marker');
 
       // query params have changed and DO NOT contain geographical
       // parts. bounds should be that of the active markers
@@ -494,23 +477,28 @@ function widget( elem, options ) {
   function change() {}
 
   function include( eventItem, reqParams ) {
+    log('include: event %s with location %s', eventItem.u, eventItem?.l);
 
-    if ( activeLocations.indexOf( eventItem.l ) !== -1 ) return;
-
-    if ( !eventItem.l || !locations[ eventItem.l ] ) return;
-
-    activeLocations.push(  eventItem.l );
-
-    if ( eventItem.passed ) {
-
-      passedLocations.push(  eventItem.l );
-
+    if (activeLocations.indexOf(eventItem?.l) !== -1) {
+      log('  location not in active locations');
+      return;
     }
 
-    locations[ eventItem.l ].count += 1;
+    if (!eventItem.l || !locations[eventItem.l]) {
+      log(  'location not in referenced locations');
+      return;
+    }
 
-    _includeInActiveBounds( locations[ eventItem.l ] );
+    log('  adding to active locations');
+    activeLocations.push(eventItem.l);
 
+    if (eventItem.passed) {
+      passedLocations.push(eventItem.l);
+    }
+
+    locations[eventItem.l].count += 1;
+
+    _includeInActiveBounds(locations[eventItem.l]);
   }
 
 
@@ -564,7 +552,7 @@ function widget( elem, options ) {
   }
 
 
-  function _setOnMarkerClick( location ) {
+  function _setOnMarkerClick(state, location) {
 
     m.setOnMarkerClick( location.marker, function() {
 
@@ -581,7 +569,7 @@ function widget( elem, options ) {
 
         if ( neighborhoodBounds ) {
 
-          return ( config.auto ? _selectBounds : _fitBounds )( neighborhoodBounds, true );
+          return ( state.auto ? _selectBounds : _fitBounds )( neighborhoodBounds, true );
 
         }
 
@@ -667,7 +655,7 @@ function widget( elem, options ) {
 
     resetCluster = typeof resetCluster == 'undefined' ? false : resetCluster;
 
-    log( 'refreshing map: %s', enabled ? 'enabled' : 'not enabled' );
+    log('refreshing map: %s with %s active locations', enabled ? 'enabled' : 'not enabled', activeLocations?.length);
 
     if ( selectedLocation ) {
 
@@ -697,24 +685,20 @@ function widget( elem, options ) {
     }
 
 
-    activeLocations.forEach( function( l ) {
+    activeLocations.forEach(l => {
+      markers.push( _refreshMarker(locations[l]));
+    });
 
-      markers.push( _refreshMarker( locations[ l ] ) );
-
-    } );
-
-
-    if ( enabled && useClusters && clusterGroup && resetCluster ) {
-
-      _addClusterLayers( clusterGroup, markers );
+    if (enabled && useClusters && clusterGroup && resetCluster) {
+      _addClusterLayers(clusterGroup, markers);
 
       clusterGroup.markerCount = activeLocations.length;
-
     }
 
   }
 
   function _addClusterLayers( clusterGroup, markers ) {
+    log('addClusterLayers with %s markers', markers?.length || 0);
 
     var extract = markers.splice( 0, 4000 );
 
@@ -745,19 +729,19 @@ function widget( elem, options ) {
   }
 
 
-  function _refreshMarker( location ) {
+  function _refreshMarker(location) {
+    const active = (enabled && (activeLocations.indexOf(location.uid) !== -1));
+    
+    log('refreshMarker of location %s - %s (in %s mode)', location.uid, active ? 'active' : 'inactive', enabled ? 'enabled' : 'disabled');
 
-    var active = ( enabled && ( activeLocations.indexOf( location.uid ) !== -1 ) );
+    m.setMarkerIcon(location.marker, state.icons[active ? 'active' : 'inactive']);
 
-    m.setMarkerIcon( location.marker, state.icons[ active ? 'active' : 'inactive' ] );
-
-    m.setMarkerZIndex( location.marker, active ? 1000 : -1000 );
+    m.setMarkerZIndex(location.marker, active ? 1000 : -1000);
 
     // for count display of marker cluster
     location.marker.options.count = active ? 1 : 0;
 
     return location.marker;
-
   }
 
 
@@ -813,27 +797,6 @@ function widget( elem, options ) {
       _initAllInclusiveBounds( data.p );
 
     }
-
-  }
-
-
-  function _initAutoSync( data ) {
-
-    var auto = false;
-
-    if ( data.ebd && data.ebd.ma ) auto = data.ebd.ma;
-
-    if ( elem.hasAttribute( 'data-auto' ) ) {
-      auto = elem.getAttribute( 'data-auto' ) === 'true';
-    }
-
-    // if geolocation is used, controller sets it to true
-    // and preempts default config
-    if ( data.geolocate ) auto = true;
-
-    config.auto = auto;
-
-    if ( config.auto ) _activateSync();
 
   }
 
@@ -945,7 +908,7 @@ function widget( elem, options ) {
     return map;
   }
 
-  function _boundsChangeBehavior() {
+  function _boundsChangeBehavior(state) {
 
     m.setOnBoundsChangeEnd( map, function() {
 
@@ -953,15 +916,15 @@ function widget( elem, options ) {
 
       if ( selectedEvent ) return;
 
-      log( 'bounds changed, automatic marker selection is %s and widget is %s', config.auto ? 'on' : 'off', enabled ? 'enabled' : 'disabled' );
+      log('bounds changed, automatic marker selection is %s and widget is %s', state.auto ? 'on' : 'off', enabled ? 'enabled' : 'disabled');
 
-      if ( enabled && config.auto && !frozenAuto ) {
+      if (enabled && state.auto && !frozenAuto) {
 
         _selectBounds();
 
       }
 
-      if ( onBoundsChangeCallback ) {
+      if (onBoundsChangeCallback) {
 
         log( 'giving bounds to onChangeCallback' );
 
@@ -1148,15 +1111,19 @@ function widget( elem, options ) {
   }
 
 
-  function _bindSync() {
+  function _bindAutoRefresh(state) {
 
+    if (state.auto) {
+      du.el( elem, config.selectors.sync ).checked = true;
+    }
+    
     du.addEvent( du.el( elem, config.selectors.sync ), 'change', function( e ) {
 
-      config.auto = !config.auto;
+      state.auto = !state.auto;
 
-      log( 'sync of bounds filter with moving map: %s', config.auto ? 'on' : 'off' );
+      log( 'sync of bounds filter with moving map: %s', state.auto ? 'on' : 'off' );
 
-      if ( config.auto ) {
+      if ( state.auto ) {
 
         _selectBounds();
 
@@ -1176,23 +1143,6 @@ function widget( elem, options ) {
 
   }
 
-
-  function _deactivateSync() {
-
-    config.auto = false;
-
-    du.el( elem, config.selectors.sync ).checked = false;
-
-  }
-
-
-  function _activateSync() {
-
-    du.el( elem, config.selectors.sync ).checked = true;
-
-    config.auto = true;
-
-  }
 
 
   function _getNeighborBounds( location ) {
