@@ -230,7 +230,7 @@ module.exports = {
     "it": "Testo multilingue"
   },
   "checkboxFieldType": {
-    "fr": "Cases à cocher multiples",
+    "fr": "Liste de cases à cocher, à choix multiples",
     "en": "Multiple checkbox selection",
     "es": "Selección múltiple elección",
     "it": "Selezione a scelta multipla"
@@ -248,13 +248,13 @@ module.exports = {
     "en": "Input field with dropdown and autocomplete allowing the selection of multiple values from a list"
   },
   "radioFieldType": {
-    "fr": "Sélection à choix unique",
+    "fr": "Liste de cases à cocher, à choix unique",
     "en": "Single choice selection",
     "es": "Selección de una sola elección",
     "it": "Selezione a scelta singola"
   },
   "radioFieldTypeInfo": {
-    "fr": "Liste de cases à cocher ne permettant la sélection que d'une unique valeur",
+    "fr": "Adapté pour la sélection d'une valeur, une seule, parmi plusieurs options",
     "en": "List of choices allowing the selection of a unique value"
   },
   "selectFieldType": {
@@ -262,7 +262,7 @@ module.exports = {
     "en": "Single selection dropdown select"
   },
   "selectFieldTypeInfo": {
-    "fr": "Champ de saisie avec menu déroulant et auto-completion permettant la sélection d'une valeur parmi une liste",
+    "fr": "Adapté à une longue liste de choix. Cela affiche un champ de saisie avec menu déroulant et auto-completion pour trouver et sélectionner rapidement une valeur",
     "en": "Input field with dropdown and autocomplete allowing the selection of single value from a list"
   },
   "booleanFieldType": {
