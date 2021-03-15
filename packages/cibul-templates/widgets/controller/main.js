@@ -21,6 +21,7 @@ if ( !window.cibul ) {
   getCallbacks = {};
 
   window.cibul = {};
+  window.oa = window.cibul;
 
   /**
    * called by a widget to register itself to the right controller

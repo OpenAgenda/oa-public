@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('debug')('initialState');
+const loadIcons = require('./loadIcons');
 
 module.exports = attr => {
   const state = {
@@ -9,6 +9,7 @@ module.exports = attr => {
     lang: 'en',
     center: [48.8705187, 2.3821144],
     zoom: 15,
+    auto: false,
     tiles: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
     embedMode: false,
     explicitInitialPosition: false,
@@ -49,6 +50,9 @@ module.exports = attr => {
   if (attr.coords && attr.coords.length === 3) {
     state.zoom = parseFloat(attr.coords[2]);
   }
+  if (['1', 'on', 'true', true].includes(attr.auto)) {
+    state.auto = true;
+  }
   if (attr.latitude && attr.longitude) {
     state.center = [parseFloat(attr.latitude), parseFloat(attr.longitude)];
     state.explicitInitialPosition = true;
@@ -67,4 +71,24 @@ module.exports = attr => {
   }
 
   return state;
+};
+
+module.exports.fromControlData = (state, data) => {
+  if (!data.ebd || data.ebd.dcss.map) {
+    state.applyDefaultStyle = true;
+  };
+
+  if (data?.ebd?.mt) {
+    state.tiles = data.ebd.mt;
+  }
+
+  state.icons = loadIcons(state, data);
+
+  if (data.ebd && data.ebd.ma) {
+    state.auto = true;
+  }
+
+  if (data.geolocate) {
+    state.auto = true;
+  }
 }

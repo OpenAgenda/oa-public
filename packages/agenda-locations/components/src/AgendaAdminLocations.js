@@ -8,7 +8,7 @@ import get from '@openagenda/utils/get';
 import labels from '@openagenda/labels/agenda-locations/list';
 import { Modal, MoreInfo } from '@openagenda/react-components';
 import SearchField from '@openagenda/react-form-components/build/SearchField';
-import utils from '@openagenda/utils';
+import debug from 'debug';
 
 import actions from './actions';
 import CreateForm from './CreateForm';
@@ -18,10 +18,41 @@ import LocationItem from './LocationItem';
 import SetHeader from './SetHeader';
 import MergeForm from './MergeForm';
 import UpdateForm from './UpdateForm';
+import AdminActionModal from './AdminActionModal';
+
+const log = debug('AgendaAdminLocations');
 
 const loaded = {};
 
 class AgendaAdminLocations extends Component {
+  static defaultProps = {
+    lang: 'fr',
+    enableGeocode: true,
+    set: null,
+    settings: {
+      access: {
+        create: true,
+        update: true,
+        merge: true,
+        delete: true
+      }
+    },
+  };
+
+  static propTypes = {
+    lang: PropTypes.string,
+    enableGeocode: PropTypes.bool,
+    // set details
+    set: PropTypes.object,
+    // optional settings of agenda (such as tags requirements)
+    settings: PropTypes.object,
+    // server endpoints
+    res: PropTypes.object.isRequired,
+    // general agenda info (title, slug,)
+    agenda: PropTypes.object.isRequired,
+
+  };
+
   constructor(props) {
     super(props);
 
@@ -42,12 +73,19 @@ class AgendaAdminLocations extends Component {
     });
 
     this.state = state;
+    // Binding
+    this.getLabel = this.getLabel.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+    this.renderHead = this.renderHead.bind(this);
+    this.getCountryLabel = this.getCountryLabel.bind(this);
+    this.displayActionModal = this.displayActionModal.bind(this);
+
   }
 
   onSearchChange(field, newSearchValue) {
-    if (arguments.length == 1) {
-      newSearchValue = field;
-      field = 'search';
+    if (arguments.length === 1) {
+      this.onSearchChange('search', field);
     }
 
     this.actions.queryChange(
@@ -55,67 +93,11 @@ class AgendaAdminLocations extends Component {
     );
   }
 
-  getCountryLabel(code) {
-    if (loaded[code] === undefined) {
-      loaded[code] = countries.getLabel(code);
-    }
-
-    return loaded[code] !== null ? loaded[code][this.props.lang] : null;
-  }
-
-  getLabel(name, values) {
-    const label = labels[name];
-
-    let str = _.get(label, this.props.lang, label[_.first(_.keys(label))]);
-
-    if (values) {
-      let k;
-      for (k in values) {
-        str = str.replace('%' + k + '%', values[k]);
-      }
-    }
-
-    return str;
-  }
-
-  renderItem(item, itemActions, itemIndex) {
-    return (
-      <LocationItem
-        merge={this.state.merge}
-        key={item.uid}
-        location={item}
-        seeEventsRes={this.props.res.seeEvents.replace(
-          ':agendaSlug',
-          this.props.agenda.slug
-        )}
-        onSelect={
-          this.state.merge
-            ? this.actions.toggleMergeItem.bind(null, item)
-            : this.actions.editLocation.bind(null, item, itemIndex)
-        }
-        onEdit={this.actions.editLocation.bind(null, item, itemIndex)}
-        onRemove={this.confirmRemove.bind(this, item, itemIndex)}
-        getLabel={this.getLabel.bind(this)}
-        getCountryLabel={this.getCountryLabel.bind(this)}
-      />
-    );
-  }
-
-  confirmRemove(location, index) {
-    get(
-      this.props.res.get.replace(':locationUid', location.uid),
-      { detailed: 1 },
-      (err, location) => {
-        if (err) return console.error(err);
-        this.actions.displayRemoveConfirmModal(location);
-      }
-    );
-  }
-
   onRemoveLocation(location, index) {
+    const { res } = this.props;
     xhr(
       {
-        uri: this.props.res.remove.replace(':locationUid', location.uid),
+        uri: res.remove.replace(':locationUid', location.uid),
         method: 'delete',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -124,34 +106,94 @@ class AgendaAdminLocations extends Component {
       },
       (err, result) => {
         if (err || result.statusCode !== 200) {
-          log('error', err || result.statusCode);
-        } else {
-          if (JSON.parse(result.body).location) {
-            this.actions.removedLocation(index);
-          }
+          debug('error', err || result.statusCode);
+        } else if (JSON.parse(result.body).location) {
+          this.actions.removedLocation(index);
         }
       }
     );
   }
 
+  onLocationEdit(location, locationIndex) {
+    const { settings } = this.props;
+
+    if (settings.access.update.authorized && !settings.access.update.external) {
+      this.actions.editLocation(location, locationIndex);
+    } else {
+      this.displayActionModal('edit', location);
+    }
+  }
+
+  onLocationSelect(location, locationIndex) {
+    const { merge } = this.state;
+
+    if (merge) {
+      this.actions.toggleMergeItem(location);
+    } else {
+      this.onLocationEdit(location, locationIndex);
+    }
+  }
+
+  getLabel(name, values) {
+    const label = labels[name];
+    const { lang } = this.props;
+
+    let str = _.get(label, lang, label[_.first(_.keys(label))]);
+
+    if (values) {
+      let k;
+      for (k in values) {
+        if (Object.prototype.hasOwnProperty.call(values, k)) {
+          str = str.replace(`%${k}%`, values[k]);
+        }
+      }
+    }
+    return str;
+  }
+
+  getCountryLabel(code) {
+    const { lang } = this.props;
+    if (loaded[code] === undefined) {
+      loaded[code] = countries.getLabel(code);
+    }
+
+    return loaded[code] !== null ? loaded[code][lang] : null;
+  }
+
+  getMode() {
+    const { form, merge } = this.state;
+    if (!form) {
+      return 'list';
+    }
+    if (form.alternatives && merge) {
+      return 'merge';
+    }
+    if (form.location) {
+      return 'update';
+    }
+    return 'create';
+  }
+
   launchMerge() {
-    if (!this.state.merge || !this.state.merge.locationUids.length) return;
+    const { res } = this.props;
+    const { merge } = this.state;
+    if (!merge || !merge.locationUids.length) return;
 
     get(
-      this.props.res.index,
+      res.index,
       {
-        uids: this.state.merge.locationUids,
+        uids: merge.locationUids,
       },
       (err, result) => {
         if (err) {
-          log('error', err);
+          debug('error', err);
           return;
         }
 
-        const items = result.items;
+        const { items } = result;
 
-        if (items.length !== this.state.merge.locationUids.length) {
-          log('error', 'not all locations to be merged could be found');
+        if (items.length !== merge.locationUids.length) {
+          debug('error', 'not all locations to be merged could be found');
           return;
         }
 
@@ -160,39 +202,110 @@ class AgendaAdminLocations extends Component {
     );
   }
 
+  displayActionModal(accessType, location) {
+    this.setState({
+      modal: {
+        type: 'actions',
+        data: {
+          accessType,
+          location
+        },
+      }
+    });
+  }
+
+  confirmRemove(location) {
+    const { res, settings } = this.props;
+    if (settings.access.delete.authorized && !settings.access.delete.external) {
+      get(
+        res.get.replace(':locationUid', location.uid),
+        { detailed: 1 },
+        (err, freshLocation) => {
+          if (err) {
+            return log(err);
+          }
+          this.actions.displayRemoveConfirmModal(freshLocation);
+        }
+      );
+    } else {
+      this.displayActionModal('remove', location);
+    }
+  }
+
+  renderItem(item, itemActions, itemIndex) {
+    const { res, agenda, settings } = this.props;
+    const { merge } = this.state;
+
+    const editLocation = this.onLocationEdit.bind(this, item, itemIndex);
+    const confirmRemove = this.confirmRemove.bind(this, item, itemIndex);
+    const onSelect = this.onLocationSelect.bind(this, item, itemIndex);
+
+    return (
+      <LocationItem
+        merge={merge ? merge : undefined}
+        key={item.uid}
+        location={item}
+        settings={settings}
+        seeEventsRes={res.seeEvents.replace(
+          ':agendaSlug',
+          agenda.slug
+        )}
+        onSelect={onSelect}
+        onEdit={editLocation}
+        onRemove={confirmRemove}
+        getLabel={this.getLabel}
+        getCountryLabel={this.getCountryLabel}
+      />
+    );
+  }
+
   renderHead() {
+    const { locations, total } = this.state;
     return (
       <div className="head">
         {Object.keys(this.actions.getQuery()).length ? (
           <Filters
-            locations={this.state.locations}
-            query={this.actions.getQuery()}
-            getLabel={this.getLabel.bind(this)}
+            locations={locations}
+            getLabel={this.getLabel}
             onQueryChange={this.actions.queryChange}
+            query={this.actions.getQuery()}
           />
         ) : null}
-        {this.state.total ? (
-          <p>{this.getLabel('total', { count: this.state.total })}</p>
+        {total ? (
+          <p>{this.getLabel('total', { count: total })}</p>
         ) : null}
-        {this.state.total === 0 ? <p>{this.getLabel('totalzero')}</p> : null}
+        {total === 0 ? <p>{this.getLabel('totalzero')}</p> : null}
       </div>
     );
   }
 
   renderRemoveLocationModal() {
-    const eventCount = this.state.modal.data.location.eventCount;
+    const { modal } = this.state;
+    const { agenda, res } = this.props;
+    const { eventCount, agendaEventCount } = modal.data.location;
 
-    const seeEventsLink = this.props.res.seeEvents
-      .replace(':agendaSlug', this.props.agenda.slug)
-      .replace(':locationUid', this.state.modal.data.location.uid);
+    const seeEventsLink = res.seeEvents
+      .replace(':agendaSlug', agenda.slug)
+      .replace(':locationUid', modal.data.location.uid);
 
-    const isRemoved = this.state.modal.data.isRemoved;
+    const { isRemoved } = modal.data;
 
-    const modalStates = isRemoved
-      ? 'removed'
-      : eventCount
-      ? 'withEvents'
-      : 'noEvents';
+    let withEventsText = (
+      <span>
+        <p className="text-center">
+          {this.getLabel('cannotRemoveStart', { eventCount })}
+          <a href={seeEventsLink}>
+            {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveLinkUnique' : 'cannotRemoveLink', { agendaEventCount })}
+          </a>
+          {this.getLabel(agendaEventCount === 1 ? 'cannotRemoveEndUnique' : 'cannotRemoveEnd')}
+        </p>
+      </span>
+    );
+
+    let modalStates = isRemoved ? 'removed' : null;
+    if (!modalStates) {
+      modalStates = eventCount ? 'withEvents' : 'noEvents';
+    }
 
     return (
       <Modal
@@ -208,12 +321,13 @@ class AgendaAdminLocations extends Component {
                     {this.getLabel('removeComplete')}
                   </p>
                   <div className="text-center">
-                    <a
+                    <button
+                      type="button"
                       className="btn btn-primary"
                       onClick={this.actions.closeModal}
                     >
                       {this.getLabel('closeModal')}
-                    </a>
+                    </button>
                   </div>
                 </div>
               );
@@ -224,34 +338,59 @@ class AgendaAdminLocations extends Component {
                     {this.getLabel('confirmRemoveMessage')}
                   </p>
                   <div className="text-center">
-                    <a
+                    <button
+                      type="button"
+                      className="btn btn-danger"
                       onClick={this.onRemoveLocation.bind(
                         this,
-                        this.state.modal.data.location,
-                        this.state.modal.data.index
+                        modal.data.location,
+                        modal.data.index
                       )}
-                      className="btn btn-danger"
-                    >
-                      {this.getLabel('confirmRemove')}
-                    </a>
+                    >{this.getLabel('confirmRemove')}
+                    </button>
                   </div>
                 </div>
               );
             case 'withEvents':
+              if (eventCount === agendaEventCount) {
+                withEventsText = (
+                  <span>
+                    <p className="text-center">
+                      {this.getLabel('cannotRemoveStart=')}
+                      <a href={seeEventsLink}>
+                        {this.getLabel(eventCount === 1 ? 'cannotRemoveLinkUnique=' : 'cannotRemoveLink=', { eventCount })}
+                      </a>
+                      {this.getLabel(eventCount === 1 ? 'cannotRemoveEndUnique=' : 'cannotRemoveEnd=')}
+                    </p>
+                  </span>
+                );
+              }
               return (
                 <div>
-                  <p className="text-center">
-                    {this.getLabel('cannotRemove', { eventCount })}
-                  </p>
+                  {withEventsText}
                   <div className="text-center">
-                    <a className="btn btn-primary" href={seeEventsLink}>
-                      {this.getLabel('seeEvents', {
-                        count: l.agendaEventCount,
-                      })}
-                    </a>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={this.actions.closeModal}
+                    >
+                      {this.getLabel('cancel')}
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-primary margin-h-sm"
+                      onClick={this.onRemoveLocation.bind(
+                        this,
+                        modal.data.location,
+                        modal.data.index
+                      )}
+                    >
+                      {this.getLabel('confirm')}
+                    </button>
                   </div>
                 </div>
               );
+            default:
           }
         })()}
       </Modal>
@@ -259,11 +398,13 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeMenu() {
+    const { merge } = this.state;
     return (
       <div className="merge-menu">
         <p>
           {this.getLabel('mergedescription')}
           <button
+            type="button"
             onClick={this.launchMerge.bind(this)}
             className="btn btn-primary margin-left-sm"
           >
@@ -271,20 +412,22 @@ class AgendaAdminLocations extends Component {
           </button>
         </p>
 
-        {this.state.merge.locationUids.length ? (
+        {merge.locationUids.length ? (
           <span className="info">
             {this.getLabel('mergeselection', {
-              count: this.state.merge.locationUids.length,
+              count: merge.locationUids.length,
             })}
-            <a
+            <button
+              type="button"
+              className="btn btn-link"
               onClick={this.onSearchChange.bind(
                 this,
                 'uids',
-                this.state.merge.locationUids
+                merge.locationUids
               )}
             >
               {this.getLabel('seemergelist')}
-            </a>
+            </button>
           </span>
         ) : (
           <span className="info">{this.getLabel('mergenoselection')}</span>
@@ -294,44 +437,44 @@ class AgendaAdminLocations extends Component {
   }
 
   renderMergeAction() {
-    if (this.state.merge) {
+    const { merge } = this.state;
+    const { settings } = this.props;
+    if (merge) {
       return (
         <button
+          type="button"
           className="btn btn-danger"
           onClick={this.actions.toggleMerge.bind(null, false)}
         >
           {this.getLabel('cancelmerge')}
         </button>
       );
-    } else {
-      return (
-        <button
-          className="btn btn-default"
-          onClick={this.actions.toggleMerge.bind(null, true)}
-        >
-          {this.getLabel('merge')}
-        </button>
-      );
     }
-  }
-
-  getMode() {
-    if (!this.state.form) {
-      return 'list';
-    }
-
-    if (this.state.form.alternatives && this.state.merge) {
-      return 'merge';
-    }
-
-    if (this.state.form.location) {
-      return 'update';
-    }
-
-    return 'create';
+    return (
+      <button
+        type="button"
+        className={settings.access.merge.authorized ? 'btn btn-default' : 'btn btn-default disabled'}
+        onClick={() => {
+          if (!settings.access.merge.authorized || settings.access.merge.external) {
+            this.displayActionModal('merge');
+          } else {
+            this.actions.toggleMerge.bind(null, true)();
+          }
+        }}
+      >
+        {this.getLabel('merge')}
+      </button>
+    );
   }
 
   render() {
+    const {
+      set, lang, res, settings
+    } = this.props;
+    const {
+      merge, locations, page, total, modal
+    } = this.state;
+
     switch (this.getMode()) {
       case 'merge':
         return (
@@ -351,21 +494,29 @@ class AgendaAdminLocations extends Component {
             <UpdateForm {...this.props} actions={this.actions} />
           </div>
         );
+      default:
     }
 
     return (
       <div className="agenda-admin-locations">
         <div>
-          {this.props.set ? (
-            <SetHeader set={this.props.set} lang={this.props.lang} />
+          {set ? (
+            <SetHeader set={set} lang={lang} />
           ) : null}
           <div className="row list-actions">
             <div className="col col-sm-12">
               <div className="form-inline">
                 <div className="form-group">
                   <button
-                    className="btn btn-primary"
-                    onClick={this.actions.newLocation.bind(null)}
+                    type="button"
+                    className={settings.access.create.authorized ? 'btn btn-primary' : 'btn btn-primary disabled'}
+                    onClick={() => {
+                      if (!settings.access.create.authorized || settings.access.create.external) {
+                        this.displayActionModal('create');
+                      } else {
+                        this.actions.newLocation.bind(null)();
+                      }
+                    }}
                   >
                     {this.getLabel('create')}
                   </button>
@@ -373,10 +524,10 @@ class AgendaAdminLocations extends Component {
                 <div className="form-group">
                   {this.renderMergeAction()}
                   <div className="btn-group margin-left-sm">
-                    <a href={this.props.res.csv} className="btn btn-default">
+                    <a href={res.csv} className="btn btn-default">
                       <span>csv</span>
                     </a>
-                    <a href={this.props.res.xlsx} className="btn btn-default">
+                    <a href={res.xlsx} className="btn btn-default">
                       <span>xlsx</span>
                     </a>
                   </div>
@@ -392,21 +543,21 @@ class AgendaAdminLocations extends Component {
                     value={this.actions.getQuery().search}
                     label={this.getLabel('search')}
                     placeholder={this.getLabel('search')}
-                    onChange={this.onSearchChange.bind(this)}
+                    onChange={this.onSearchChange}
                   />
                 </div>
                 <div className="checkbox">
-                  <label>
+                  <label htmlFor="checkbox">
                     <input
                       type="checkbox"
                       onChange={this.onSearchChange.bind(
                         this,
                         'state',
-                        parseInt(this.actions.getQuery().state) === 0
+                        parseInt(this.actions.getQuery().state, 10) === 0
                           ? undefined
                           : 0
                       )}
-                      checked={parseInt(this.actions.getQuery().state) === 0}
+                      checked={parseInt(this.actions.getQuery().state, 10) === 0}
                     />{' '}
                     {this.getLabel('toverify')}
                   </label>
@@ -422,26 +573,36 @@ class AgendaAdminLocations extends Component {
           </div>
           <div className="row list">
             <div className="col col-sm-12">
-              {this.state.merge ? this.renderMergeMenu() : null}
+              {merge ? this.renderMergeMenu() : null}
               <List
-                res={this.props.res.index}
+                res={res.index}
                 query={this.actions.getQuery()}
-                renderItem={this.renderItem.bind(this)}
-                renderHead={this.renderHead.bind(this)}
-                items={this.state.locations}
-                page={this.state.page}
-                total={this.state.total}
+                renderItem={this.renderItem}
+                renderHead={this.renderHead}
+                items={locations}
+                page={page}
+                total={total}
                 onItemsUpdate={this.actions.updateLocationList}
               />
             </div>
           </div>
-          {this.state.modal
+          {modal
             ? (() => {
-                switch (this.state.modal.type) {
-                  case 'removeLocation':
-                    return this.renderRemoveLocationModal();
-                }
-              })()
+              switch (modal.type) {
+                case 'removeLocation':
+                  return this.renderRemoveLocationModal();
+                case 'actions':
+                  return (
+                    <AdminActionModal
+                      data={modal.data}
+                      settings={settings}
+                      close={this.actions.closeModal}
+                      getLabel={this.getLabel}
+                    />
+                  );
+                default:
+              }
+            })()
             : null}
         </div>
       </div>
@@ -449,27 +610,4 @@ class AgendaAdminLocations extends Component {
   }
 }
 
-AgendaAdminLocations.propTypes = {
-  lang: PropTypes.string,
-  // general agenda info (title, slug,)
-  agenda: PropTypes.object,
-  // optional settings of agenda (such as tags requirements)
-  settings: PropTypes.object,
-  // server endpoints
-  res: PropTypes.object,
-  // set details
-  set: PropTypes.object,
-};
-
-AgendaAdminLocations.defaultProps = {
-  lang: 'fr',
-  set: null,
-  enableGeocode: true,
-  settings: {},
-};
-
 export default AgendaAdminLocations;
-
-function log() {
-  console.log.apply(console, arguments);
-}

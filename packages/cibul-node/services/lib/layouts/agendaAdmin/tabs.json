@@ -33,13 +33,6 @@
     "section": "manage"
   },
   {
-    "name": "facebook",
-    "section": "export",
-    "roles": [
-      "administrator"
-    ]
-  },
-  {
     "name": "web",
     "section": "export",
     "php": true,

@@ -5,6 +5,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const redis = require('redis');
 
+const UnauthorizedError = require('../../utils/errors/UnauthorizedError');
 const Files = require('@openagenda/files');
 const {
   service: config,
@@ -15,6 +16,28 @@ const fixtures = require('./fixtures');
 
 const payload = require('./fixtures/createData.json');
 const Service = require('..');
+const initSettings = require('./fixtures/agendaTestSettings');
+
+const defaultAccess = {
+  authorized: true,
+  external: false,
+  serviceLabel: null,
+  link: null
+};
+
+const initSettingsDA = {...initSettings, access: {
+  create: defaultAccess,
+  delete: defaultAccess,
+  merge: defaultAccess,
+  update: defaultAccess
+}}
+
+const initSettingsCantCreate = {...initSettings, access: {
+  create: {...defaultAccess, authorized: false},
+  delete: {...defaultAccess, authorized: false},
+  merge: defaultAccess,
+  update: defaultAccess
+}}
 
 describe('agenda-locations - functional - create', function () {
   this.timeout(10000);
@@ -50,6 +73,7 @@ describe('agenda-locations - functional - create', function () {
             city: 'Vannes',
           },
         ],
+        getAgendaLocationSettings: async (uid) => initSettingsDA
       },
       Files: Files(dConfig.files),
     });
@@ -214,6 +238,87 @@ describe('agenda-locations - functional - create', function () {
         insee: '41173',
         countryCode: 'FR',
       });
+    });
+  });
+});
+
+
+describe('agenda-locations - functional - create - no rights', function () {
+  this.timeout(10000);
+
+  const f = fixtures(config.mysql);
+
+  let svc;
+
+  before(async () => {
+    await f.load();
+
+    svc = Service({
+      knex: f.client,
+      redis: redis.createClient(),
+      interfaces: {
+        getAgendaDetailsByUid: async (uid, fields = []) => _.pick(
+          {
+            id: {
+              7196947: 25221,
+            }[uid],
+            locationSetUid: {
+              7196947: 1903811,
+            }[uid],
+          },
+          fields
+        ),
+        geocode: async address => [
+          {
+            latitude: 47.6576571,
+            longitude: -2.7834928,
+            department: 'Morbihan',
+            region: 'La région',
+            city: 'Vannes',
+          },
+        ],
+        getAgendaLocationSettings: async (uid) => initSettingsCantCreate
+      },
+      Files: Files(dConfig.files),
+    });
+  });
+
+  describe('test allow byAgendaUid', () => {
+    let thrownError;
+
+    before(async () => {
+      try {
+        await svc(7196947).create(payload);
+      }
+      catch(error) {
+        thrownError = error
+      }
+    });
+    it('allow should throw Error', () => {
+      assert.equal(thrownError.name, 'UnauthorizedError');
+    });
+  });
+
+  describe('test allow bySetUid', () => {
+    let thrownError;
+
+    before(async () => {
+      try {
+        await svc.sets(1903811).locations.create(
+          {
+            name: 'Bruchon',
+            address: 'Bruchon, Lamastre',
+            countryCode: 'FR',
+          },
+          { geocodeIfUndefined: true }
+        );
+      } catch(error) {
+        thrownError = error
+      }
+    });
+
+    it('allow should throw Error', () => {
+      assert.equal(thrownError.name, 'UnauthorizedError');
     });
   });
 });

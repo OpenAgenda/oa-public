@@ -110,7 +110,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', functi
 
     beforeAll(async () => {
       result = await core.agendas({
-        uid: 9955517
+        uid: 17026855
       }).locations.remove(9955517);
     });
 

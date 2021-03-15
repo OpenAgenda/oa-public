@@ -1,24 +1,37 @@
-import ih from 'immutability-helper';
-import React from 'react';
 import { storiesOf } from '@storybook/react';
-import createReactClass from 'create-react-class';
-import agendaTestSettings from './agendaTestSettings.json';
-import locationSet from './locationSet.json';
+import agendaTestSettings from './fixtures/agendaTestSettings.json';
+import locationSet from './fixtures/locationSet.json';
+
+import debug from 'debug';
 
 import adminStory from './admin.story';
 import selectorStory from './selector.story';
 import termStore from './term.story';
+import mergeStory from './merge.story';
+
+import mergePropsFixtures from './fixtures/mergeProps.json';
+import mergeFormStateFixtures from './fixtures/mergeFormState.json';
 
 import '../components/src/verifiedLocationsCounter';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-import location from './location.json';
+import location from './fixtures/location.json';
+
+debug.enable('*');
 
 const getHostname = () =>
   typeof window !== 'undefined' ? window.location.hostname : 'localhost';
 
 const apiRoot = `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`;
+
+const defaultAccess = {
+  authorized: true,
+  external: false,
+  serviceLabel: null,
+  link: null
+};
+
 const res = {
   index: `${apiRoot}/`,
   geocode: `${apiRoot}/geocode`,
@@ -39,29 +52,110 @@ storiesOf('Administration app', module)
   .add('Main', () =>
     adminStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
     })
   )
   .add('with location set', () =>
     adminStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       set: locationSet,
     })
   );
+
+storiesOf('Access', module)
+
+  .add('All access', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
+      set: locationSet,
+    })
+  )
+  .add('No Access', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: {...defaultAccess, authorized: false},
+        update: {...defaultAccess, authorized: false},
+        merge: {...defaultAccess, authorized: false},
+        delete: {...defaultAccess, authorized: false}
+      }},
+      set: locationSet,
+    })
+  )
+  .add('Update Only', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: {...defaultAccess, authorized: false},
+        update: defaultAccess,
+        merge: {...defaultAccess, authorized: false},
+        delete: {...defaultAccess, authorized: false}
+      }},
+      set: locationSet,
+    })
+  )
+  .add('Update Link, CCN', () =>
+    adminStory({
+      res,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update : {authorized: true, external: true, link: 'https://cartes.culture.gouv.fr/lieux/{extId}?jwtToken=token', serviceLabel: 'CultureChezNous' },
+        merge: {...defaultAccess, authorized: false},
+        delete: {...defaultAccess, authorized: false}
+      }},
+      set: locationSet,
+    })
+  );
+
+storiesOf('Merge form', module)
+  .add('On distinguera plus tard', () => mergeStory({
+    ...mergePropsFixtures,
+    actions: {
+      getState: () => ({
+        form: mergeFormStateFixtures
+      })
+    }
+  }));
 
 storiesOf('Location form component', module)
   .add('Search mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       mode: 'search',
     })
   )
   .add('Search mode with confirm required', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       confirmRequired: true,
       mode: 'search',
     })
@@ -69,7 +163,12 @@ storiesOf('Location form component', module)
   .add('Creation mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: undefined,
       enableGeocode: true,
       detailedInfo: true,
@@ -79,7 +178,12 @@ storiesOf('Location form component', module)
   .add('Show mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: location,
       enableGeocode: true,
       mode: 'show',
@@ -88,7 +192,12 @@ storiesOf('Location form component', module)
   .add('Confirm mode', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: location,
       enableGeocode: true,
       mode: 'confirm',
@@ -97,7 +206,12 @@ storiesOf('Location form component', module)
   .add('Creation mode with geolocation disabled', () =>
     selectorStory({
       res,
-      settings: agendaTestSettings,
+      settings: {...agendaTestSettings, access: {
+        create: defaultAccess,
+        update: defaultAccess,
+        merge: defaultAccess,
+        delete: defaultAccess
+      }},
       initialLocation: undefined,
       enableGeocode: false,
     })

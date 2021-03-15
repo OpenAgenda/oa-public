@@ -1,5 +1,4 @@
 import React from 'react';
-
 import AdminApp from '../components/src/AgendaAdminLocations';
 
 export default ({ settings, res, set }) => (

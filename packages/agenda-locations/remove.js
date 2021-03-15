@@ -1,12 +1,14 @@
 'use strict';
 
 const log = require('@openagenda/logs')('remove');
+const NotFoundError = require('@openagenda/utils/errors/NotFoundError');
 
 const get = require('./get');
-const NotFoundError = require('./lib/NotFoundError');
+const allow = require('./lib/AllowAction');
 
 async function remove(service, current) {
   log('received %j payload', current.uid);
+  await allow(service, 'delete', current.uid);
 
   if (service.interfaces.beforeRemove) {
     await service.interfaces.beforeRemove(current);

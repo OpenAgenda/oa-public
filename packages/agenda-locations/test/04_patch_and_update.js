@@ -16,6 +16,29 @@ const fixtures = require('./fixtures');
 const payload = require('./fixtures/updateData.json');
 const Service = require('..');
 
+const initSettings = require('./fixtures/agendaTestSettings');
+
+const defaultAccess = {
+  authorized: true,
+  external: false,
+  serviceLabel: null,
+  link: null
+};
+
+const initSettingsDA = {...initSettings, access: {
+  create: defaultAccess,
+  delete: defaultAccess,
+  merge: defaultAccess,
+  update: defaultAccess
+}}
+
+const initSettingsCantUpdate = {...initSettings, access: {
+  create: {...defaultAccess, authorized: false},
+  delete: {...defaultAccess, authorized: false},
+  merge: defaultAccess,
+  update: {...defaultAccess, authorized: false}
+}}
+
 describe('agenda-locations - functional - patch & update', function () {
   this.timeout(10000);
 
@@ -35,6 +58,7 @@ describe('agenda-locations - functional - patch & update', function () {
           }[uid],
         }),
         geocode: async address => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async uid => initSettingsDA
       },
       Files: Files(dConfig.files),
     });
@@ -78,8 +102,9 @@ describe('agenda-locations - functional - patch & update', function () {
     });
   });
 
-  describe('patching image', () => {
+  describe('patching image', function(){
     let entry;
+    this.timeout(20000);
 
     before(async () => {
       await svc().patch(94482437, {
@@ -222,6 +247,63 @@ describe('agenda-locations - functional - patch & update', function () {
 
       assert.equal(updated.latitude, 10);
       assert.equal(updated.longitude, 11);
+    });
+  });
+});
+
+describe('agenda-locations - functional - patch & update - no rights', function () {
+  this.timeout(10000);
+
+  const f = fixtures(config.mysql);
+
+  let svc;
+
+  before(async () => {
+    await f.load();
+
+    svc = Service({
+      knex: f.client,
+      interfaces: {
+        getAgendaDetailsByUid: async uid => ({
+          id: {
+            7196947: 25221,
+          }[uid],
+        }),
+        geocode: async address => [{ latitude: 10, longitude: 11 }],
+        getAgendaLocationSettings: async uid => initSettingsCantUpdate
+      },
+      Files: Files(dConfig.files),
+    });
+  });
+  describe('test allow byAgendaUid', () => {
+    let thrownError;
+
+    before(async ()=>{
+      try {
+        await svc(7196947).update(95301591, payload);
+      }
+      catch(error){
+        thrownError = error
+      }
+    })
+    it('allow should throw Error', () => {
+      assert.equal(thrownError.name, 'UnauthorizedError');;
+    });
+  });describe('test allow bySetUid', () => {
+    let thrownError;
+
+    before(async ()=>{
+      try {
+        await svc.sets(1903811).locations.patch(60763722, {
+          extId: 'ard_leg_1200',
+        });
+      }
+      catch(error){
+        thrownError = error
+      }
+    })
+    it('allow should throw Error', () => {
+      assert.equal(thrownError.name, 'UnauthorizedError');;
     });
   });
 });

@@ -1,91 +1,87 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import TermSelector from './TermSelector';
 import Select from 'react-select';
+import TermSelector from './TermSelector';
 
-module.exports = createReactClass({
-  propTypes: {
-    value: PropTypes.object,
+class TermSelectorPicker extends React.Component {
+  static defaultProps = {
+    lang: 'en',
+  };
 
+  static propTypes = {
+    value: PropTypes.object.isRequired,
     lang: PropTypes.string,
-
     fields: PropTypes.object,
 
     // field showing by default
     defaultField: PropTypes.string,
-
     res: PropTypes.string,
 
     // labels for the field listed
     labels: PropTypes.object,
+    onChange: PropTypes.func.isRequired,
+  };
 
-    onChange: PropTypes.func,
-  },
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
 
-  /**
-   * get field currently selected
-   * should be the last ( smallest ) of possibles
-   * that has a value set
-   */
-  getField: function () {
-    var possibles = Object.keys(this.props.fields);
+  onChange(value) {
+    const { onChange } = this.props;
+    const clean = {};
 
-    for (var i = possibles.length - 1; i >= 0; i--) {
-      if (this.props.value[possibles[i]] !== undefined) {
+    this.getFieldValue()
+      .split(',')
+      .forEach(f => {
+        clean[f] = (value || {})[f] || '';
+      });
+
+    onChange(clean);
+  }
+
+  onChangeField(field) {
+    const { onChange } = this.props;
+    const value = {};
+    value[field] = null;
+
+    onChange(value);
+  }
+
+  getField() {
+    const { fields, value, defaultField } = this.props;
+    const possibles = Object.keys(fields);
+
+    for (let i = possibles.length - 1; i >= 0; i--) {
+      if (value[possibles[i]] !== undefined) {
         return possibles[i];
       }
     }
 
-    return this.props.defaultField || possibles[possibles.length - 1];
-  },
+    return defaultField || possibles[possibles.length - 1];
+  }
 
-  getFieldValue: function () {
-    return this.props.fields[this.getField()];
-  },
+  getFieldValue() {
+    const { fields } = this.props;
+    return fields[this.getField()];
+  }
 
-  getDefaultProps: function () {
-    return {
-      lang: 'en',
-    };
-  },
+  getFieldOptions() {
+    const { fields, labels, lang } = this.props;
 
-  getFieldOptions: function () {
-    var self = this;
-
-    return Object.keys(this.props.fields)
-    .map(function (f) {
-      let label = self.props.labels[f];
-
-      return {
-        value: f,
-        label: _.get(label, self.props.lang, label[_.first(_.keys(label))]),
-      };
-    });
-  },
-
-  onChangeField: function (field) {
-    var value = {};
-
-    value[field] = null;
-
-    this.props.onChange(value);
-  },
-
-  onChange: function (value) {
-    var clean = {};
-
-    this.getFieldValue()
-      .split(',')
-      .forEach(function (f) {
-        clean[f] = (value || {})[f] || '';
+    return Object.keys(fields)
+      .map(f => {
+        const label = labels[f];
+        return {
+          value: f,
+          label: _.get(label, lang, label[_.first(_.keys(label))]),
+        };
       });
+  }
 
-    this.props.onChange(clean);
-  },
-
-  render: function () {
+  render() {
+    const { lang, res, value: pValue } = this.props;
     const selectStyles = {
       container: provided => ({
         ...provided,
@@ -112,18 +108,20 @@ module.exports = createReactClass({
           value={value}
           options={options}
           onChange={value => this.onChangeField(value ? value.value : value)}
-          autoBlur={true}
+          autoBlur
           clearable={false}
           searchable={false}
         />
         <TermSelector
-          res={this.props.res}
-          lang={this.props.lang}
+          res={res}
+          lang={lang}
           field={this.getFieldValue()}
-          value={this.props.value[this.getField()]}
+          value={pValue[this.getField()]}
           onChange={this.onChange}
         />
       </div>
     );
-  },
-});
+  }
+}
+
+export default TermSelectorPicker;

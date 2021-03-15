@@ -81,9 +81,13 @@ describe('agenda-locations - functional - list', function () {
       assert.deepEqual(
         items.map(i => i.uid),
         [
+          60763722,
           60763721,
+          7630650,
           7630649,
+          51665986,
           51665985,
+          30433086,
           30433085,
           87316763,
           32049550,
@@ -96,11 +100,7 @@ describe('agenda-locations - functional - list', function () {
           80369196,
           60725900,
           7749634,
-          24334735,
-          54251470,
-          12084144,
-          56924239,
-          56511938,
+          24334735
         ]
       );
     });
@@ -131,7 +131,7 @@ describe('agenda-locations - functional - list', function () {
         { limit: 2, useAfter: true }
       );
 
-      assert.equal(after, 973787);
+      assert.equal(after, 976778);
     });
 
     it('after in previous call can be used to fetch next round of results', async () => {
@@ -142,7 +142,7 @@ describe('agenda-locations - functional - list', function () {
 
       const { items } = await svc(7196947).list({}, { limit: 1, after });
 
-      assert.equal(items[0].uid, 30433085);
+      assert.equal(items[0].uid, 7630649);
     });
   });
 
@@ -343,21 +343,20 @@ describe('agenda-locations - functional - list', function () {
 
       assert.deepEqual(
         items.map(i => _.pick(i, ['uid', 'eventCount', 'agendaEventCount'])),
-        [
+        [{
+            agendaEventCount: 0,
+            eventCount: 0,
+            uid: 60763722,
+          },
           {
             uid: 60763721,
             eventCount: 12,
             agendaEventCount: 8,
           },
           {
-            uid: 7630649,
+            uid: 7630650,
             eventCount: 0,
             agendaEventCount: 0,
-          },
-          {
-            uid: 51665985,
-            eventCount: 9,
-            agendaEventCount: 2,
           },
         ]
       );
@@ -366,7 +365,7 @@ describe('agenda-locations - functional - list', function () {
     it('if total option is provided, list returns an { items, total } object', async () => {
       const { items, total } = await svc(7196947).list({}, {}, { total: true });
 
-      assert.equal(total, 364);
+      assert.equal(total, 368);
     });
   });
 });

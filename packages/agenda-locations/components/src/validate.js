@@ -1,21 +1,33 @@
-'use strict';
+import groupTags from '@openagenda/react-form-components/validators/groupTags';
+import set from '@openagenda/validators/set';
+import text from '@openagenda/validators/text';
+import link from '@openagenda/validators/link';
+import phone from '@openagenda/validators/phone';
+import email from '@openagenda/validators/email';
+import timezone from '@openagenda/validators/text';
+import list from '@openagenda/validators/list';
+import number from '@openagenda/validators/number';
+import latitude from '@openagenda/validators/latitude';
+import longitude from '@openagenda/validators/longitude';
+import pass from '@openagenda/validators/pass';
+import multilingual from '@openagenda/validators/multilingual';
+import regex from '@openagenda/validators/regex';
 
 const validators = {
-  groupTags: require('@openagenda/react-form-components/validators/groupTags'),
-  set: require('@openagenda/validators/set'),
-  text: require('@openagenda/validators/text'),
-  link: require('@openagenda/validators/link'),
-  phone: require('@openagenda/validators/phone'),
-  email: require('@openagenda/validators/email'),
-  timezone: require('@openagenda/validators/text'),
-  list: require('@openagenda/validators/list'),
-  number: require('@openagenda/validators/number'),
-  latitude: require('@openagenda/validators/latitude'),
-  longitude: require('@openagenda/validators/longitude'),
-  pass: require('@openagenda/validators/pass'),
-  multilingual: require('@openagenda/validators/multilingual'),
-  regex: require('@openagenda/validators/regex'),
-  pass: require('@openagenda/validators/pass'),
+  groupTags,
+  set,
+  text,
+  link,
+  phone,
+  email,
+  timezone,
+  list,
+  number,
+  latitude,
+  longitude,
+  pass,
+  multilingual,
+  regex,
 };
 
 const STATES = {
@@ -91,10 +103,29 @@ const baseValidators = [
   validators.pass({ field: 'suggestions' }),
 ];
 
-module.exports = utils.extend(validate, { field });
+/**
+ * establish full list of location validators
+ * based on settings
+ */
 
-function validate(data, settings, partial) {
+function _getValidators(settings) {
+  const locationValidators = baseValidators.concat([]);
+
+  if (settings.forceTags) {
+    locationValidators.push(validators.pass({ field: 'tags' }));
+  } else if (settings.tagSet) {
+    locationValidators.push(
+      validators.groupTags(utils.extend({ field: 'tags' }, settings.tagSet))
+    );
+  }
+
+  return locationValidators;
+}
+
+function validate(data, pSettings, pPartial) {
   let locationValidators = [];
+  let settings = pSettings;
+  let partial = pPartial;
 
   // clean arguments
 
@@ -131,33 +162,8 @@ function field(name) {
   return baseValidators.filter(v => v.field === name)[0];
 }
 
-/**
- * establish full list of location validators
- * based on settings
- */
-
-function _getValidators(settings) {
-  const locationValidators = baseValidators.concat([]);
-
-  if (settings.forceTags) {
-    locationValidators.push(validators.pass({ field: 'tags' }));
-  } else if (settings.tagSet) {
-    locationValidators.push(
-      validators.groupTags(utils.extend({ field: 'tags' }, settings.tagSet))
-    );
-  }
-
-  return locationValidators;
-}
-
 function _customImageValidator(options) {
   const v = validators.text(options);
-
-  return utils.extend(imageValidate, {
-    field: options.field,
-    type: 'text',
-  });
-
   function imageValidate(value) {
     const clean = v(value);
 
@@ -165,4 +171,11 @@ function _customImageValidator(options) {
 
     return clean.split('/').pop();
   }
+
+  return utils.extend(imageValidate, {
+    field: options.field,
+    type: 'text',
+  });
 }
+
+module.exports = utils.extend(validate, { field });

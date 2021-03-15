@@ -5898,6 +5898,7 @@ __metadata:
     core-js: ^3.6.5
     cors: ^2.8.5
     create-react-class: ^15.5.2
+    debug: 4.1.0
     errorhandler: ^1.5.0
     eslint: ^7.17.0
     express: ^4.17.1
@@ -17175,6 +17176,15 @@ __metadata:
   dependencies:
     ms: ^2.1.1
   checksum: 3601a6ce96e4698ed3edf0ee6e67ef0317adfcdae2f66a43b23d1b14e8888b422337429b16dbbcba6801e7bfa6cbb8de3128fbacfb8ae1cd9bd7615ea6baf970
+  languageName: node
+  linkType: hard
+
+"debug@npm:4.1.0":
+  version: 4.1.0
+  resolution: "debug@npm:4.1.0"
+  dependencies:
+    ms: ^2.1.1
+  checksum: 8e58f1b5c9fd0a581f4445a41f41192409d94f310b45004c1d21160c784edf381e4ec24b3215b88181444654586c284d955f92294fc69bf03d81be39a96db7b6
   languageName: node
   linkType: hard
 

@@ -1,6 +1,4 @@
-'use strict';
-
-const utils = require('@openagenda/utils');
+import utils from '@openagenda/utils';
 
 const suggestables = [
   'name',
@@ -22,14 +20,6 @@ const suggestables = [
   'links',
   'timezone',
 ];
-
-module.exports = {
-  prepareAlternatives,
-  suggestedTagsDiffer,
-  getSameAsSuggestedTagIds,
-  fieldHasAlternative,
-  getLangAlternatives,
-};
 
 function getLangAlternatives(fieldName, alternatives) {
   return alternatives.reduce((langs, alternative) => {
@@ -55,19 +45,6 @@ function fieldHasAlternative(fieldName, alternatives) {
 }
 
 /**
- * return ids of tags that have the same value ( checked or unchecked )
- * in location and alternatives
- */
-function getSameAsSuggestedTagIds(tagSet, location, alternatives) {
-  const tags = tagSet.groups.reduce((tags, group) => tags.concat(group.tags), []);
-
-  return tags
-    .filter(t => !suggestedTagsDiffer(t, location, alternatives).length)
-
-    .map(t => t.id);
-}
-
-/**
  * tell wether tag differs in at least one alternative
  */
 function suggestedTagsDiffer(tag, location, alternatives) {
@@ -85,9 +62,23 @@ function suggestedTagsDiffer(tag, location, alternatives) {
 }
 
 /**
+ * return ids of tags that have the same value ( checked or unchecked )
+ * in location and alternatives
+ */
+function getSameAsSuggestedTagIds(tagSet, location, alternatives) {
+  const tags = tagSet.groups.reduce((tags, group) => tags.concat(group.tags), []);
+
+  return tags
+    .filter(t => !suggestedTagsDiffer(t, location, alternatives).length)
+
+    .map(t => t.id);
+}
+
+/**
  * prepare alternatives for display in location form
  */
-function prepareAlternatives(location, props, labels, suggestionIndex) {
+function prepareAlternatives(location, props, labels, paramSuggestionIndex) {
+  let suggestionIndex = paramSuggestionIndex;
   if (typeof suggestionIndex === 'undefined') {
     suggestionIndex = 0;
   }
@@ -160,9 +151,10 @@ function prepareAlternatives(location, props, labels, suggestionIndex) {
       baseLocation[f] = utils.extend({}, location[f]);
 
       for (const l in userSuggestion.location[f]) {
-        alternative.location[f][l] = location[f] ? location[f][l] : undefined;
-
-        baseLocation[f][l] = userSuggestion.location[f][l];
+        if (Object.prototype.hasOwnProperty.call(userSuggestion.location[f], l)) {
+          alternative.location[f][l] = location[f] ? location[f][l] : undefined;
+          baseLocation[f][l] = userSuggestion.location[f][l];
+        }
       }
     } else {
       baseLocation[f] = location[f];
@@ -174,3 +166,11 @@ function prepareAlternatives(location, props, labels, suggestionIndex) {
     alternatives: [alternative],
   };
 }
+
+module.exports = {
+  prepareAlternatives,
+  suggestedTagsDiffer,
+  getSameAsSuggestedTagIds,
+  fieldHasAlternative,
+  getLangAlternatives,
+};
