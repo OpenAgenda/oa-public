@@ -81,7 +81,7 @@ const onLocationChangeFinish = () => NProgress.done();
 
 const layoutStore = createLayoutStore(initialState.layout, history);
 
-const reduxMiddleware = createReduxMiddleware(layoutStore);
+const reduxMiddleware = createReduxMiddleware(layoutStore, queryClient);
 
 const apps = [
   ['home', createHomeApp, MainLayout],

@@ -80,9 +80,7 @@ function MainLayout({
   const dispatch = useDispatch();
 
   const loadLayoutData = useCallback(() => {
-    if (!userLoaded) {
-      dispatch(mainActions.getUser());
-    }
+    dispatch(mainActions.getUser());
   }, [dispatch, userLoaded]);
 
   const checkInboxNews = useCallback(
@@ -149,13 +147,17 @@ function MainLayout({
 
     if (!freshSessionUser) {
       // reload page if user is disconnected
-      window.location.reload();
+      return window.location.reload();
     }
+
+    loadLayoutData().catch(() => null);
   }, 5000);
 
   useEffect(() => {
-    loadLayoutData();
-  }, [loadLayoutData]);
+    if (!userLoaded) {
+      loadLayoutData();
+    }
+  }, [loadLayoutData, userLoaded]);
 
   useEffect(() => {
     if (!inboxLoaded) {

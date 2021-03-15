@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import { matchPath, useHistory, useLocation } from 'react-router-dom';
 import { useQuery } from 'react-query';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import { useApiClient } from '@openagenda/react-shared';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import ChildLayouts from '../components/ChildLayouts';
@@ -52,31 +53,19 @@ function AgendaAdminDataLayout({
     verifyLocationCount();
   }, [verifyLocationCount]);
 
-  // useIsomorphicLayoutEffect(() => {
-  //   if (loadError) {
-  //     if (loadError?.response?.status === 403) {
-  //       window.location.href = `/${params.slug}/unauthorized`;
-  //     } else if (user) {
-  //       history.replace('/home');
-  //     } else {
-  //       window.location.href = '/';
-  //     }
-  //   }
-  // }, [history, loadError, params.slug, user]);
-
-  if (error) {
-    if (error?.response?.status === 403) {
-      window.location.href = `/${params.slug}/unauthorized`;
-    } else if (user) {
-      history.replace('/home');
-    } else {
-      window.location.href = '/';
+  useIsomorphicLayoutEffect(() => {
+    if (error) {
+      if (error?.response?.status === 403) {
+        window.location.href = `/${params.slug}/unauthorized`;
+      } else if (user) {
+        history.replace('/home');
+      } else {
+        window.location.href = '/';
+      }
     }
+  }, [history, error, params.slug, user]);
 
-    return <Loading />;
-  }
-
-  if (isLoading) {
+  if (isLoading || error) {
     return <Loading />;
   }
 
