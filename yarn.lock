@@ -6819,7 +6819,7 @@ __metadata:
     "@openagenda/labels": ^2.3.0
     "@openagenda/react-components": ^2.3.10
     "@openagenda/react-form-components": ^2.1.14
-    "@openagenda/react-timingspicker": ^1.2.1
+    "@openagenda/react-timingspicker": ^1.2.2
     "@openagenda/validators": ^2.4.0
     babel-jest: ^26.6.3
     babel-loader: ^8.2.1
@@ -7983,7 +7983,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-timingspicker@^1.2.1, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
+"@openagenda/react-timingspicker@^1.2.2, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-timingspicker@workspace:public/react-timingspicker"
   dependencies:
