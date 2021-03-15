@@ -56,7 +56,7 @@ describe('events - functional - list', function() {
         total
       } = await svc.list({ ownerUid: 96815475 }, {}, { total: true });
 
-      assert.equal(total, 250);
+      assert.equal(total, 248);
     });
 
     it('by search', async () => {
@@ -64,7 +64,7 @@ describe('events - functional - list', function() {
         total
       } = await svc.list({ search: 'Salon' }, {}, { total: true });
 
-      assert.equal(total, 11);
+      assert.equal(total, 10);
     });
 
     it('by createdAt', async () => {
@@ -118,6 +118,14 @@ describe('events - functional - list', function() {
 
   describe('options', () => {
 
+    it('events marked as deleted do not show in list results', async () => {
+      const events = await svc.list({ uid: 46091044 }, {
+        limit: 1
+      });
+
+      assert.equal(events.length, 0);
+    });
+
     it('includeFields', async () => {
       const events = await svc.list({}, {
         limit: 1
@@ -165,7 +173,7 @@ describe('events - functional - list', function() {
         total
       } = await svc.list({}, {}, { total: true, draft: null });
 
-      assert.equal(total, 673);
+      assert.equal(total, 662);
       assert.equal(items.length, 20);
     });
 

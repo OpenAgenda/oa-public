@@ -22,7 +22,8 @@ export default connect(
   state => deduceSteps('confirmation', state),
   dispatch => ({
     onRedirectAction: type => e => dispatch(reducers.confirmation.redirect(type)),
-    onDidMount: step => dispatch(reducers.landing.evaluate(step))
+    onSelectStep: step => dispatch(reducers.landing.evaluate(step, true)),
+    onDidMount: () => dispatch(reducers.landing.evaluate('confirmation'))
   })
 )(({ config, onRedirectAction, onDidMount, steps }) => <CanvasWithStepper {...config} step="confirmation" onDidMount={onDidMount} onSelectStep={()=>{}} steps={steps} title={labels.moderationRecap[config.lang]}>
 

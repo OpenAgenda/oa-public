@@ -18,7 +18,7 @@ export default function ChildLayouts({
   const props = {
     extraProps: { ...extraProps, ...newExtraProps },
     onError,
-    FallbackComponent
+    FallbackComponent,
   };
 
   return layouts?.[0] && ReactIs.isValidElementType(layouts[0])
@@ -26,7 +26,7 @@ export default function ChildLayouts({
       layouts[0],
       {
         ...props,
-        childLayouts: layouts.slice(1)
+        childLayouts: layouts.slice(1),
       },
       children
     )

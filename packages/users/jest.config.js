@@ -4,5 +4,5 @@ module.exports = {
   displayName: '@openagenda/users',
   transform: {},
 
-  testEnvironment: 'node'
+  testEnvironment: 'node',
 };

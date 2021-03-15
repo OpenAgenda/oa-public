@@ -10,16 +10,16 @@ export default function reducer(state = initialState, action) {
         ...state,
         [action.name]: {
           ...action.options,
-          visible: true
-        }
+          visible: true,
+        },
       };
     case CLOSE:
       return {
         ...state,
         [action.name]: {
           ...state[action.name],
-          visible: false
-        }
+          visible: false,
+        },
       };
     default:
       return state;
@@ -30,13 +30,13 @@ export function showModal(name, options = {}) {
   return {
     type: SHOW,
     name,
-    options
+    options,
   };
 }
 
 export function closeModal(name) {
   return {
     type: CLOSE,
-    name
+    name,
   };
 }

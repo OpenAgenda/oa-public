@@ -3,9 +3,9 @@
 module.exports = {
   newEmail: {
     optional: false,
-    type: 'email'
+    type: 'email',
   },
   password: {
-    type: 'text'
-  }
+    type: 'text',
+  },
 };

@@ -11,9 +11,9 @@ module.exports = function reduxMiddleware(layoutStore) {
               thumbnail: action.result.image
                 ? `${action.result.image}?d=${new Date().getTime()}`
                 : null,
-              ...action.result
-            }
-          }
+              ...action.result,
+            },
+          },
         });
         break;
       }
@@ -21,8 +21,8 @@ module.exports = function reduxMiddleware(layoutStore) {
         layoutStore.dispatch({
           type: 'react-layouts/agendaAdmin/UPDATE_AGENDA',
           payload: {
-            agenda: action.result.agenda
-          }
+            agenda: action.result.agenda,
+          },
         });
         break;
       }

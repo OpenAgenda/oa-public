@@ -38,7 +38,7 @@ export default async function populateParticipants(svc, entities) {
   return entities.map(v => (result[v.id]
     ? {
       ...v,
-      inboxes: result[v.id].map(w => w.inbox)
+      inboxes: result[v.id].map(w => w.inbox),
     }
     : v));
 }

@@ -21,8 +21,8 @@ describe('members - functional - create', () => {
       interfaces: {
         getUsersByUid,
         getAgendasByUid,
-        getEventCountByUserUid
-      }
+        getEventCountByUserUid,
+      },
     });
   });
 
@@ -39,8 +39,8 @@ describe('members - functional - create', () => {
         contactName: 'Gaetan',
         contactNumber: '01 23 45 67 89',
         email: 'support@openagenda.com',
-        contactPosition: 'Support'
-      }
+        contactPosition: 'Support',
+      },
     });
 
     expect(_.omit(member, ['id', 'createdAt', 'updatedAt'])).toEqual({
@@ -53,12 +53,12 @@ describe('members - functional - create', () => {
         contactName: 'Gaetan',
         contactNumber: '01 23 45 67 89',
         contactPosition: 'Support',
-        email: 'support@openagenda.com'
+        email: 'support@openagenda.com',
       },
       invited: false,
       deletedUser: false,
       actionsCounter: 0,
-      role: 1
+      role: 1,
     });
   });
 
@@ -70,7 +70,7 @@ describe('members - functional - create', () => {
         {
           userUid: 1,
           agendaUid: 1,
-          role: 1
+          role: 1,
         },
         { requireCustom: false }
       );
@@ -84,7 +84,7 @@ describe('members - functional - create', () => {
   test('by default, custom data is required for create', async () => {
     const result = await svc.create({
       userUid: 1,
-      role: 2
+      role: 2,
     });
 
     expect(result.errors).toHaveLength(5);
@@ -94,7 +94,7 @@ describe('members - functional - create', () => {
     const result = await svc.create(
       {
         userUid: 1,
-        role: 1
+        role: 1,
       },
       { requireCustom: false }
     );
@@ -106,7 +106,7 @@ describe('members - functional - create', () => {
     const result = await svc.create(
       {
         agendaUid: 123,
-        role: 1
+        role: 1,
       },
       { requireCustom: false }
     );
@@ -119,7 +119,7 @@ describe('members - functional - create', () => {
       {
         agendaUid: 123,
         userUid: 193,
-        role: 1
+        role: 1,
       },
       { requireCustom: false }
     );

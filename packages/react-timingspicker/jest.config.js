@@ -3,5 +3,5 @@
 module.exports = {
   displayName: '@openagenda/react-timingspicker',
 
-  testEnvironment: 'node'
+  testEnvironment: 'node',
 };

@@ -11,34 +11,34 @@ function withFetcher(name, fetch, { fetchOnMount = false } = {}) {
         [`${name}Fetcher`]: {
           data: null,
           loading: fetchOnMount,
-          error: null
-        }
+          error: null,
+        },
       },
       {
         [`receive${_.upperFirst(name)}Data`]: () => data => ({
           [`${name}Fetcher`]: {
             data,
             loading: false,
-            error: null
-          }
+            error: null,
+          },
         }),
         [`receive${_.upperFirst(name)}Error`]: ({
-          [`${name}Fetcher`]: { data }
+          [`${name}Fetcher`]: { data },
         }) => error => ({
           [`${name}Fetcher`]: {
             data,
             loading: false,
-            error: error || true
-          }
+            error: error || true,
+          },
         }),
         [`start${_.upperFirst(name)}Fetch`]: ({
-          [`${name}Fetcher`]: prevState
+          [`${name}Fetcher`]: prevState,
         }) => () => ({
           [`${name}Fetcher`]: {
             ...prevState,
-            loading: true
-          }
-        })
+            loading: true,
+          },
+        }),
       }
     ),
     withHandlers({
@@ -48,7 +48,7 @@ function withFetcher(name, fetch, { fetchOnMount = false } = {}) {
           props[`receive${_.upperFirst(name)}Data`],
           props[`receive${_.upperFirst(name)}Error`]
         );
-      }
+      },
     }),
     // mapProps( props => _.omit( props, [
     //   `receive${_.upperFirst( name )}Data`,
@@ -59,7 +59,7 @@ function withFetcher(name, fetch, { fetchOnMount = false } = {}) {
       ? lifecycle({
         componentDidMount() {
           this.props[`fetch${_.upperFirst(name)}`]();
-        }
+        },
       })
       : _.identity
   );

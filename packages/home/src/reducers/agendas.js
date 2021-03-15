@@ -17,8 +17,8 @@ export default function reducer(state = initialState, action) {
         ...state,
         [action.key]: {
           ...state[action.key],
-          loading: true
-        }
+          loading: true,
+        },
       };
     case LOAD_SUCCESS:
       return {
@@ -30,8 +30,8 @@ export default function reducer(state = initialState, action) {
           total: action.result.total,
           page: 1,
           error: null,
-          loading: false
-        }
+          loading: false,
+        },
       };
     case LOAD_FAIL:
       return {
@@ -42,16 +42,16 @@ export default function reducer(state = initialState, action) {
           total: null,
           page: 1,
           error: action.error,
-          loading: false
-        }
+          loading: false,
+        },
       };
     case LIST:
       return {
         ...state,
         [action.key]: {
           ...state[action.key],
-          listLoading: true
-        }
+          listLoading: true,
+        },
       };
     case LIST_SUCCESS:
       return {
@@ -62,8 +62,8 @@ export default function reducer(state = initialState, action) {
           total: action.result.total,
           page: 1,
           error: null,
-          listLoading: false
-        }
+          listLoading: false,
+        },
       };
     case LIST_FAIL:
       return {
@@ -74,16 +74,16 @@ export default function reducer(state = initialState, action) {
           total: null,
           page: 1,
           error: action.error,
-          listLoading: false
-        }
+          listLoading: false,
+        },
       };
     case NEXT_PAGE:
       return {
         ...state,
         [action.key]: {
           ...state[action.key],
-          nextLoading: true
-        }
+          nextLoading: true,
+        },
       };
     case NEXT_PAGE_SUCCESS:
       return {
@@ -94,8 +94,8 @@ export default function reducer(state = initialState, action) {
           total: action.result.total,
           page: action.page,
           error: null,
-          nextLoading: false
-        }
+          nextLoading: false,
+        },
       };
     case NEXT_PAGE_FAIL:
       return {
@@ -103,8 +103,8 @@ export default function reducer(state = initialState, action) {
         [action.key]: {
           ...state[action.key],
           error: action.error,
-          nextLoading: false
-        }
+          nextLoading: false,
+        },
       };
     default:
       return state;
@@ -127,7 +127,7 @@ export function load(key, query) {
       const { res } = getState();
 
       return client.get(res.agendas.list, { params: query });
-    }
+    },
   };
 }
 
@@ -139,7 +139,7 @@ export function list(key, query) {
       const { res } = getState();
 
       return client.get(res.agendas.list, { params: query });
-    }
+    },
   };
 }
 
@@ -152,6 +152,6 @@ export function nextPage(key, query, page) {
       const { res } = getState();
 
       return client.get(res.agendas.list, { params: { ...query, page } });
-    }
+    },
   };
 }

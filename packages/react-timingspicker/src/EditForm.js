@@ -14,32 +14,32 @@ const timeMask = [/\d/, /\d/, ':', /\d/, /\d/];
 const messages = defineMessages({
   title: {
     id: 'rtp.editForm.title',
-    defaultMessage: 'Edit timing'
+    defaultMessage: 'Edit timing',
   },
   invalidTime: {
     id: 'rtp.editForm.invalidTime',
-    defaultMessage: 'Invalid time'
+    defaultMessage: 'Invalid time',
   },
   startTime: {
     id: 'rtp.editForm.startTime',
-    defaultMessage: 'Start time'
+    defaultMessage: 'Start time',
   },
   endTime: {
     id: 'rtp.editForm.endTime',
-    defaultMessage: 'End time'
+    defaultMessage: 'End time',
   },
   adjust: {
     id: 'rtp.editForm.adjust',
-    defaultMessage: 'Adjust'
+    defaultMessage: 'Adjust',
   },
   endNotAfterBegin: {
     id: 'rtp.editForm.endNotAfterBegin',
-    defaultMessage: 'End should be after begin'
+    defaultMessage: 'End should be after begin',
   },
   openRecurrencerModal: {
     id: 'rtp.editForm.openRecurrencerModal',
-    defaultMessage: 'Define a recurring timing'
-  }
+    defaultMessage: 'Define a recurring timing',
+  },
 });
 
 function validateTime(value) {
@@ -94,12 +94,12 @@ class EditForm extends Component {
       end: dateFns.setHours(
         dateFns.setMinutes(valueToEdit.end, parseInt(endMinutes, 10)),
         parseInt(endHours, 10)
-      )
+      ),
     };
 
     if (!dateFns.isAfter(newValue.end, newValue.begin)) {
       return {
-        [FORM_ERROR]: new Error('endNotAfterBegin')
+        [FORM_ERROR]: new Error('endNotAfterBegin'),
       };
     }
 
@@ -114,7 +114,7 @@ class EditForm extends Component {
     classNamePrefix,
     intl,
     openRecurrencerModal,
-    closeModal
+    closeModal,
   }) => (
     <form onSubmit={handleSubmit}>
       <h3>{intl.formatMessage(messages.title)}</h3>
@@ -175,7 +175,7 @@ class EditForm extends Component {
       classNamePrefix,
       intl,
       openRecurrencerModal,
-      closeModal
+      closeModal,
     } = this.props;
 
     return (

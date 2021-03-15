@@ -7,7 +7,7 @@ describe('members - unit - validate', () => {
     const clean = validate({
       role: 1,
       agendaUid: 1,
-      userUid: 1
+      userUid: 1,
     });
 
     expect(clean).toEqual({
@@ -18,7 +18,7 @@ describe('members - unit - validate', () => {
       custom: undefined,
       deletedUser: false,
       actionsCounter: 0,
-      role: 1
+      role: 1,
     });
   });
 
@@ -26,7 +26,7 @@ describe('members - unit - validate', () => {
     const clean = validate.withCustom(false)({
       role: 1,
       agendaUid: 1,
-      userUid: 1
+      userUid: 1,
     });
 
     expect(clean).toEqual({
@@ -39,11 +39,11 @@ describe('members - unit - validate', () => {
         contactName: null,
         contactNumber: null,
         contactPosition: null,
-        email: null
+        email: null,
       },
       deletedUser: false,
       actionsCounter: 0,
-      role: 1
+      role: 1,
     });
   });
 
@@ -51,7 +51,7 @@ describe('members - unit - validate', () => {
     const validateCustom = validate.custom(false);
 
     const clean = validateCustom({
-      organization: 'OA'
+      organization: 'OA',
     });
 
     expect(clean).toEqual({
@@ -59,7 +59,7 @@ describe('members - unit - validate', () => {
       contactNumber: null,
       contactPosition: null,
       email: null,
-      organization: 'OA'
+      organization: 'OA',
     });
   });
 });

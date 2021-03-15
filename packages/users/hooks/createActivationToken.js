@@ -9,11 +9,11 @@ module.exports = function createActivationToken() {
         {
           type: 'activateAccount',
           userId: context.result.id,
-          email: context.result.email
+          email: context.result.email,
         },
         {
           optionals: context.params.tokenOptionals,
-          user: context.result
+          user: context.result,
         }
       );
     }

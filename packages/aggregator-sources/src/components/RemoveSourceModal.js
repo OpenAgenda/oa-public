@@ -7,20 +7,20 @@ import { Modal } from '@openagenda/react-components';
 const messages = defineMessages({
   removeASource: {
     id: 'aggregator-sources.RemoveSourceModal.removeASource',
-    defaultMessage: 'Remove a source'
+    defaultMessage: 'Remove a source',
   },
   removeSource: {
     id: 'aggregator-sources.RemoveSourceModal.removeSource',
-    defaultMessage: 'Remove source'
+    defaultMessage: 'Remove source',
   },
   cancel: {
     id: 'aggregator-sources.RemoveSourceModal.cancel',
-    defaultMessage: 'Cancel'
-  }
+    defaultMessage: 'Cancel',
+  },
 });
 
 const modalClassnames = {
-  overlay: 'popup-overlay big'
+  overlay: 'popup-overlay big',
 };
 
 const Radio = ({ id, input, children }) => (
@@ -34,7 +34,7 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
   const intl = useIntl();
 
   const data = useSelector(state => state.modals.removeSource) || {
-    source: {}
+    source: {},
   };
 
   const confirmRemove = useCallback(
@@ -62,7 +62,7 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
                   defaultMessage="Events that will be published on the agenda {agenda} will no longer be aggregated.{br} Are you sure you want to delete this agenda from sources ?"
                   values={{
                     agenda: <b>{data.source.title}</b>,
-                    br: <br />
+                    br: <br />,
                   }}
                 />
               </p>

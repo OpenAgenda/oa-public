@@ -40,7 +40,7 @@ class DaysSelector extends Component {
     cellHeight: 40, // in pixels
     timingLimit: ONE_DAY, // maximum allow duration of a timing
     value: null,
-    onChange: null
+    onChange: null,
   };
 
   bodyRef = React.createRef();
@@ -59,7 +59,7 @@ class DaysSelector extends Component {
 
       resizePositionStart: null,
       valueToResize: null,
-      selectionResizing: null
+      selectionResizing: null,
     };
   }
 
@@ -90,7 +90,7 @@ class DaysSelector extends Component {
             end:
               typeof timing.end === 'string'
                 ? dateFns.parseISO(timing.end)
-                : timing.end
+                : timing.end,
           }))
           .sort((a, b) => dateFns.compareAsc(a.begin, b.begin))
           .reduce((accu, allowedTiming) => {
@@ -116,7 +116,7 @@ class DaysSelector extends Component {
 
             accu.push({
               begin: allowedTiming.begin,
-              end: allowedTiming.end
+              end: allowedTiming.end,
             });
 
             return accu;
@@ -129,19 +129,19 @@ class DaysSelector extends Component {
               if (dateFns.isBefore(allowedTiming.begin, weekStart)) {
                 accu.push({
                   begin: allowedTiming.begin,
-                  end: weekStart
+                  end: weekStart,
                 });
               } else {
                 accu.push({
                   begin: weekStart,
-                  end: allowedTiming.begin
+                  end: allowedTiming.begin,
                 });
               }
             } else if (dateFns.isAfter(allowedTiming.begin, array[i - 1].end)) {
               // next begin is after previous end
               accu.push({
                 begin: array[i - 1].end,
-                end: allowedTiming.begin
+                end: allowedTiming.begin,
               });
             }
 
@@ -152,7 +152,7 @@ class DaysSelector extends Component {
               // end to week end
               accu.push({
                 begin: allowedTiming.end,
-                end: weekEnd
+                end: weekEnd,
               });
             }
 
@@ -226,7 +226,7 @@ class DaysSelector extends Component {
     const newValue = [...value, ...valuesToAdd];
 
     this.setState({
-      value: newValue
+      value: newValue,
     });
 
     if (typeof onChange === 'function') {
@@ -276,8 +276,8 @@ class DaysSelector extends Component {
     const selection = [
       {
         begin: selectionStart,
-        end: normalizeEndOfTiming(end)
-      }
+        end: normalizeEndOfTiming(end),
+      },
     ];
 
     this.setState(
@@ -286,8 +286,8 @@ class DaysSelector extends Component {
         selection,
         mousePosition: {
           clientX: e.clientX,
-          clientY: e.clientY
-        }
+          clientY: e.clientY,
+        },
       },
       () => {
         this.autoScrollInterval = setInterval(this.autoScroll, 1000 / 60);
@@ -297,7 +297,7 @@ class DaysSelector extends Component {
     window.addEventListener('pointermove', this.onSelectionMouseMove, false);
     window.addEventListener('pointerup', this.onSelectionMouseUp, {
       once: true,
-      capture: false
+      capture: false,
     });
   };
 
@@ -321,15 +321,15 @@ class DaysSelector extends Component {
 
     const selection = splitSelection(this.props, {
       begin,
-      end: normalizeEndOfTiming(end)
+      end: normalizeEndOfTiming(end),
     });
 
     this.setState({
       selection,
       mousePosition: {
         clientX: e.clientX,
-        clientY: e.clientY
-      }
+        clientY: e.clientY,
+      },
     });
   };
 
@@ -341,7 +341,7 @@ class DaysSelector extends Component {
       onChange,
       editOnClick,
       openEditModal,
-      selectableStep
+      selectableStep,
     } = this.props;
     const { value, selectionStart, reducedAllowedTimings } = this.state;
 
@@ -358,7 +358,7 @@ class DaysSelector extends Component {
 
     const selection = splitSelection(this.props, {
       begin,
-      end: normalizeEndOfTiming(end)
+      end: normalizeEndOfTiming(end),
     }).filter(item => !isDisabledTiming(item, value, reducedAllowedTimings));
 
     clearInterval(this.autoScrollInterval);
@@ -366,14 +366,14 @@ class DaysSelector extends Component {
     this.setState({
       selectionStart: null,
       selection: null,
-      mousePosition: null
+      mousePosition: null,
     });
 
     if (selection.length) {
       const newValue = [...(value || []), ...selection];
 
       this.setState({
-        value: newValue
+        value: newValue,
       });
 
       if (typeof onSelect === 'function') {
@@ -419,12 +419,12 @@ class DaysSelector extends Component {
         selectionMoving: valueToMove,
         firstMousePosition: {
           clientX: e.clientX,
-          clientY: e.clientY
+          clientY: e.clientY,
         },
         mousePosition: {
           clientX: e.clientX,
-          clientY: e.clientY
-        }
+          clientY: e.clientY,
+        },
       },
       () => {
         this.autoScrollInterval = setInterval(this.autoScroll, 1000 / 60);
@@ -434,7 +434,7 @@ class DaysSelector extends Component {
     window.addEventListener('pointermove', this.onDragMouseMove, false);
     window.addEventListener('pointerup', this.onDragMouseUp, {
       once: true,
-      capture: false
+      capture: false,
     });
   };
 
@@ -461,13 +461,13 @@ class DaysSelector extends Component {
       ),
       left: Math.round(
         cursorCurrentStepPosition.left - cursorStartStepPosition.left
-      )
+      ),
     };
     const valueStepPosition = valueToStepPosition(this.props, valueToMove);
 
     const newValuePosition = {
       top: valueStepPosition.begin.top + diff.top,
-      left: valueStepPosition.begin.left + diff.left
+      left: valueStepPosition.begin.left + diff.left,
     };
 
     const newPositionStart = dateFns.addDays(
@@ -491,8 +491,8 @@ class DaysSelector extends Component {
       selectionMoving,
       mousePosition: {
         clientX: e.clientX,
-        clientY: e.clientY
-      }
+        clientY: e.clientY,
+      },
     });
   };
 
@@ -511,7 +511,7 @@ class DaysSelector extends Component {
       value,
       cursorStartStepPosition,
       valueToMove,
-      reducedAllowedTimings
+      reducedAllowedTimings,
     } = this.state;
 
     clearInterval(this.autoScrollInterval);
@@ -521,7 +521,7 @@ class DaysSelector extends Component {
       valueToMove: null,
       selectionMoving: null,
       firstMousePosition: null,
-      mousePosition: null
+      mousePosition: null,
     });
 
     if (!cursorStartStepPosition) {
@@ -539,12 +539,12 @@ class DaysSelector extends Component {
     const stepPosition = this.eventToStepPosition(e);
     const diff = {
       top: Math.round(stepPosition.top - cursorStartStepPosition.top),
-      left: Math.round(stepPosition.left - cursorStartStepPosition.left)
+      left: Math.round(stepPosition.left - cursorStartStepPosition.left),
     };
     const valueStepPosition = valueToStepPosition(this.props, valueToMove);
     const newValuePosition = {
       top: valueStepPosition.begin.top + diff.top,
-      left: valueStepPosition.begin.left + diff.left
+      left: valueStepPosition.begin.left + diff.left,
     };
     const newPositionStart = dateFns.addDays(
       dateFns.addSeconds(
@@ -580,7 +580,7 @@ class DaysSelector extends Component {
       const newValue = [...filteredValue, selectionMoving];
 
       this.setState({
-        value: newValue
+        value: newValue,
       });
 
       if (typeof onMove === 'function') {
@@ -620,8 +620,8 @@ class DaysSelector extends Component {
         selectionResizing: valueToResize,
         mousePosition: {
           clientX: e.clientX,
-          clientY: e.clientY
-        }
+          clientY: e.clientY,
+        },
       },
       () => {
         this.autoScrollInterval = setInterval(this.autoScroll, 1000 / 60);
@@ -631,7 +631,7 @@ class DaysSelector extends Component {
     window.addEventListener('pointermove', this.onResizeMouseMove, false);
     window.addEventListener('pointerup', this.onResizeMouseUp, {
       once: true,
-      capture: false
+      capture: false,
     });
   };
 
@@ -652,7 +652,7 @@ class DaysSelector extends Component {
     const stepPosition = this.eventToStepPosition(e);
     const diff = {
       top: Math.round(stepPosition.top - resizePositionStart.top),
-      left: Math.round(stepPosition.left - resizePositionStart.left)
+      left: Math.round(stepPosition.left - resizePositionStart.left),
     };
     const valueStepPosition = valueToStepPosition(this.props, valueToResize);
     const newPositionStart = dateFns.addDays(
@@ -672,7 +672,7 @@ class DaysSelector extends Component {
         )
           ? valueStepPosition.begin.top + 1
           : valueStepPosition.begin.top,
-        left: valueStepPosition.begin.left
+        left: valueStepPosition.begin.left,
       },
       newPositionStart,
       true
@@ -684,8 +684,8 @@ class DaysSelector extends Component {
       selectionResizing,
       mousePosition: {
         clientX: e.clientX,
-        clientY: e.clientY
-      }
+        clientY: e.clientY,
+      },
     });
   };
 
@@ -699,7 +699,7 @@ class DaysSelector extends Component {
       value,
       resizePositionStart,
       valueToResize,
-      reducedAllowedTimings
+      reducedAllowedTimings,
     } = this.state;
 
     if (!resizePositionStart) {
@@ -709,7 +709,7 @@ class DaysSelector extends Component {
     const stepPosition = this.eventToStepPosition(e);
     const diff = {
       top: Math.round(stepPosition.top - resizePositionStart.top),
-      left: Math.round(stepPosition.left - resizePositionStart.left)
+      left: Math.round(stepPosition.left - resizePositionStart.left),
     };
     const valueStepPosition = valueToStepPosition(this.props, valueToResize);
     const newPositionStart = dateFns.addDays(
@@ -730,7 +730,7 @@ class DaysSelector extends Component {
           )
             ? valueStepPosition.begin.top + 1
             : valueStepPosition.begin.top,
-          left: valueStepPosition.begin.left
+          left: valueStepPosition.begin.left,
         },
         newPositionStart,
         true
@@ -747,7 +747,7 @@ class DaysSelector extends Component {
       resizePositionStart: null,
       valueToResize: null,
       selectionResizing: null,
-      mousePosition: null
+      mousePosition: null,
     });
 
     if (
@@ -759,7 +759,7 @@ class DaysSelector extends Component {
       const newValue = [...filteredValue, ...selection];
 
       this.setState({
-        value: newValue
+        value: newValue,
       });
 
       if (typeof onResize === 'function') {
@@ -804,7 +804,7 @@ class DaysSelector extends Component {
     );
 
     this.setState({
-      value: newValue
+      value: newValue,
     });
 
     if (typeof onRemove === 'function') {
@@ -843,7 +843,7 @@ class DaysSelector extends Component {
     return timings.reduce(
       (result, item) => [
         ...result,
-        { ...item, disabled: isDisabledTiming(item, disabled, enabled) }
+        { ...item, disabled: isDisabledTiming(item, disabled, enabled) },
       ],
       []
     );
@@ -855,7 +855,7 @@ class DaysSelector extends Component {
       weekStartsOn,
       step,
       cellHeight,
-      classNamePrefix
+      classNamePrefix,
     } = this.props;
     const startOfActiveWeek = dateFns.startOfWeek(activeWeek, { weekStartsOn });
     const columns = [];
@@ -891,7 +891,7 @@ class DaysSelector extends Component {
   renderTimings = ({
     value: rawValue,
     disabled: disabledTimings,
-    Component: TimingComponent
+    Component: TimingComponent,
   }) => {
     if (!rawValue) {
       return null;
@@ -962,7 +962,7 @@ class DaysSelector extends Component {
             top: j === 0 ? top : 0,
             left,
             height: top + height === maxTop ? height - 1 : height,
-            disabled
+            disabled,
           })
         );
         actual = dateFns.addDays(actual, 1);
@@ -979,7 +979,7 @@ class DaysSelector extends Component {
       cellHeight,
       step,
       selectableStep,
-      timingFormat
+      timingFormat,
     } = this.props;
     const {
       disallowedTimings,
@@ -988,7 +988,7 @@ class DaysSelector extends Component {
       valueToMove,
       selectionMoving,
       valueToResize,
-      selectionResizing
+      selectionResizing,
     } = this.state;
 
     return (
@@ -997,7 +997,7 @@ class DaysSelector extends Component {
           ref={this.bodyRef}
           className={classNames(`${classNamePrefix}body`, {
             [`${classNamePrefix}timing-moving`]: valueToMove,
-            [`${classNamePrefix}timing-resizing`]: valueToResize
+            [`${classNamePrefix}timing-resizing`]: valueToResize,
           })}
         >
           {this.renderDays()}
@@ -1015,10 +1015,10 @@ class DaysSelector extends Component {
                   top: `${top}px`,
                   left: `${left}%`,
                   width: `${100 / 7}%`,
-                  height: `${height}px`
+                  height: `${height}px`,
                 }}
               />
-            )
+            ),
           })}
 
           {this.renderTimings({
@@ -1031,7 +1031,7 @@ class DaysSelector extends Component {
               left,
               height,
               first,
-              last
+              last,
             }) => (
               <div
                 key={`value-${key}`}
@@ -1039,7 +1039,7 @@ class DaysSelector extends Component {
                   [`${classNamePrefix}value-timing-thin`]:
                     first
                     && last
-                    && height <= (cellHeight * selectableStep) / step
+                    && height <= (cellHeight * selectableStep) / step,
                 })}
                 role="button"
                 touch-action="none"
@@ -1062,7 +1062,7 @@ class DaysSelector extends Component {
                       && end === valueToResize.end
                     )
                       ? 'inline-block'
-                      : 'none'
+                      : 'none',
                 }}
               >
                 {first && (
@@ -1089,7 +1089,7 @@ class DaysSelector extends Component {
                   />
                 )}
               </div>
-            )
+            ),
           })}
 
           {this.renderTimings({
@@ -1104,7 +1104,7 @@ class DaysSelector extends Component {
               height,
               disabled,
               first,
-              last
+              last,
             }) => (
               <div
                 key={`selection-${key}`}
@@ -1113,14 +1113,14 @@ class DaysSelector extends Component {
                   [`${classNamePrefix}selection-timing-thin`]:
                     first
                     && last
-                    && height <= (cellHeight * selectableStep) / step
+                    && height <= (cellHeight * selectableStep) / step,
                 })}
                 style={{
                   position: 'absolute',
                   top: `${top}px`,
                   left: `${left}%`,
                   width: `${100 / 7}%`,
-                  height: `${height}px`
+                  height: `${height}px`,
                 }}
               >
                 {disabled ? null : (
@@ -1142,7 +1142,7 @@ class DaysSelector extends Component {
                   </>
                 )}
               </div>
-            )
+            ),
           })}
 
           {this.renderTimings({
@@ -1165,7 +1165,7 @@ class DaysSelector extends Component {
               height,
               disabled,
               first,
-              last
+              last,
             }) => (
               <div
                 key={`selection-moving-${key}`}
@@ -1176,7 +1176,7 @@ class DaysSelector extends Component {
                     [`${classNamePrefix}selection-moving-timing-thin`]:
                       first
                       && last
-                      && height <= (cellHeight * selectableStep) / step
+                      && height <= (cellHeight * selectableStep) / step,
                   }
                 )}
                 style={{
@@ -1184,7 +1184,7 @@ class DaysSelector extends Component {
                   top: `${top}px`,
                   left: `${left}%`,
                   width: `${100 / 7}%`,
-                  height: `${height}px`
+                  height: `${height}px`,
                 }}
               >
                 {disabled ? null : (
@@ -1208,7 +1208,7 @@ class DaysSelector extends Component {
                   </>
                 )}
               </div>
-            )
+            ),
           })}
 
           {this.renderTimings({
@@ -1231,7 +1231,7 @@ class DaysSelector extends Component {
               height,
               disabled,
               first,
-              last
+              last,
             }) => (
               <div
                 key={`selection-resizing-${key}`}
@@ -1242,7 +1242,7 @@ class DaysSelector extends Component {
                     [`${classNamePrefix}selection-resizing-timing-thin`]:
                       first
                       && last
-                      && height <= (cellHeight * selectableStep) / step
+                      && height <= (cellHeight * selectableStep) / step,
                   }
                 )}
                 style={{
@@ -1250,7 +1250,7 @@ class DaysSelector extends Component {
                   top: `${top}px`,
                   left: `${left}%`,
                   width: `${100 / 7}%`,
-                  height: `${height}px`
+                  height: `${height}px`,
                 }}
               >
                 {disabled ? null : (
@@ -1274,7 +1274,7 @@ class DaysSelector extends Component {
                   </>
                 )}
               </div>
-            )
+            ),
           })}
         </div>
       </>

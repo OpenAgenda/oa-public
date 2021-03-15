@@ -80,7 +80,7 @@ class Scheduler extends Component {
     timingFormat: 'HH:mm',
     cellHeight: 40,
     timingLimit: ONE_DAY,
-    editOnClick: true
+    editOnClick: true,
   };
 
   schedulerRef = React.createRef();
@@ -105,17 +105,17 @@ class Scheduler extends Component {
       showRecurrencerModal: false,
       showMultiRecurrencerModal: false,
       modalStyle: {
-        overlay: {}
+        overlay: {},
       },
       beforeSchedulerOverflows: null,
       beforeSchedulerPaddingRight: null,
       schedulerScroll: {
         x: null,
-        y: null
+        y: null,
       },
       valueToEdit: null,
       valueToDuplicate: null,
-      editInitialValues: null
+      editInitialValues: null,
     };
   }
 
@@ -173,21 +173,21 @@ class Scheduler extends Component {
     const beforeSchedulerOverflows = {
       overflow: schedulerStyle.overflow,
       overflowX: schedulerStyle.overflowX,
-      overflowY: schedulerStyle.overflowY
+      overflowY: schedulerStyle.overflowY,
     };
 
     Object.assign(schedulerStyle, {
       overflowY: 'hidden',
-      paddingRight: `${scrollbarWidth}px`
+      paddingRight: `${scrollbarWidth}px`,
     });
 
     this.setState({
       schedulerScroll: {
         x: schedulerEl.scrollLeft,
-        y: schedulerEl.scrollTop
+        y: schedulerEl.scrollTop,
       },
       beforeSchedulerOverflows,
-      beforeSchedulerPaddingRight
+      beforeSchedulerPaddingRight,
     });
 
     this.schedulerRef.current.addEventListener(
@@ -200,20 +200,20 @@ class Scheduler extends Component {
   stopLockScroll = () => {
     const {
       beforeSchedulerOverflows,
-      beforeSchedulerPaddingRight
+      beforeSchedulerPaddingRight,
     } = this.state;
     const schedulerEl = this.schedulerRef.current;
 
     Object.assign(schedulerEl.style, beforeSchedulerOverflows, {
-      paddingRight: beforeSchedulerPaddingRight
+      paddingRight: beforeSchedulerPaddingRight,
     });
 
     this.setState({
       schedulerScroll: {
         x: 0,
-        y: 0
+        y: 0,
       },
-      beforeSchedulerOverflows: null
+      beforeSchedulerOverflows: null,
     });
 
     schedulerEl.removeEventListener('scroll', this.lockSchedulerScroll, false);
@@ -221,13 +221,13 @@ class Scheduler extends Component {
 
   lockSchedulerScroll = () => {
     const {
-      schedulerScroll: { x, y }
+      schedulerScroll: { x, y },
     } = this.state;
     const schedulerEl = this.schedulerRef.current;
 
     const diff = {
       x: schedulerEl.scrollLeft - x,
-      y: schedulerEl.scrollTop - y
+      y: schedulerEl.scrollTop - y,
     };
 
     if (diff.x === 0 && diff.y === 0) {
@@ -246,7 +246,7 @@ class Scheduler extends Component {
     const {
       showEditModal,
       showRecurrencerModal,
-      showMultiRecurrencerModal
+      showMultiRecurrencerModal,
     } = this.state;
 
     if (showEditModal) {
@@ -269,8 +269,8 @@ class Scheduler extends Component {
         valueToEdit,
         editInitialValues: {
           begin: dateFns.format(valueToEdit.begin, 'HH:mm'),
-          end: dateFns.format(valueToEdit.end, 'HH:mm')
-        }
+          end: dateFns.format(valueToEdit.end, 'HH:mm'),
+        },
       },
       () => {
         document.addEventListener('click', this.handleOutsideClick, true);
@@ -294,7 +294,7 @@ class Scheduler extends Component {
         showEditModal: false,
         valueToEdit: null,
         showRecurrencerModal: true,
-        valueToDuplicate: valueToEdit
+        valueToDuplicate: valueToEdit,
       });
     });
   };
@@ -312,7 +312,7 @@ class Scheduler extends Component {
       valueToEdit: null,
       showRecurrencerModal: false,
       valueToDuplicate: null,
-      showMultiRecurrencerModal: true
+      showMultiRecurrencerModal: true,
     });
   };
 
@@ -323,7 +323,7 @@ class Scheduler extends Component {
 
     this.setState({
       showEditModal: false,
-      valueToEdit: null
+      valueToEdit: null,
     });
   };
 
@@ -336,7 +336,7 @@ class Scheduler extends Component {
 
     this.setState({
       showRecurrencerModal: false,
-      valueToDuplicate: null
+      valueToDuplicate: null,
     });
   };
 
@@ -348,7 +348,7 @@ class Scheduler extends Component {
     this.stopLockScroll();
 
     this.setState({
-      showMultiRecurrencerModal: false
+      showMultiRecurrencerModal: false,
     });
   };
 
@@ -387,7 +387,7 @@ class Scheduler extends Component {
 
     return duplicateTiming(valueToDuplicate, {
       weekStartsOn,
-      ...values
+      ...values,
     }).filter(v => v.begin.getTime() !== valueToDuplicate.begin.getTime());
   };
 
@@ -397,7 +397,7 @@ class Scheduler extends Component {
 
     return valuesToDuplicate.map(valueToDuplicate => duplicateTiming(valueToDuplicate, {
       weekStartsOn,
-      ...values
+      ...values,
     }).filter(v => v.begin.getTime() !== valueToDuplicate.begin.getTime()));
   };
 
@@ -469,7 +469,7 @@ class Scheduler extends Component {
       editOnClick,
       breakpoint,
       classNamePrefix,
-      intl
+      intl,
     } = this.props;
     const {
       modalStyle,
@@ -479,7 +479,7 @@ class Scheduler extends Component {
       schedulerScroll,
       editInitialValues,
       valueToEdit,
-      valueToDuplicate
+      valueToDuplicate,
     } = this.state;
 
     modalStyle.overlay.top = `${schedulerScroll.y}px`;

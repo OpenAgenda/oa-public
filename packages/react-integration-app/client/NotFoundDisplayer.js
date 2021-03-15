@@ -8,7 +8,7 @@ export default class NotFoundDisplayer extends Component {
     super(props);
 
     this.state = {
-      display: this.isNotFound()
+      display: this.isNotFound(),
     };
   }
 

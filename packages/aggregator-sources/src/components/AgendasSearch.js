@@ -12,15 +12,15 @@ function AgendasSearch({ res, render, fieldProps }) {
     ({ search, page }) => apiClient.get(res, {
       params: {
         search: search === '' ? undefined : search,
-        page
-      }
+        page,
+      },
     }),
     [apiClient, res]
   );
 
   const { state, list, nextPage } = useAgendasSearch({
     request: agendasSearchRequest,
-    perPageLimit: 20
+    perPageLimit: 20,
   });
 
   const debouncedList = useMemo(() => _.debounce(list, 400), [list]);
@@ -56,7 +56,7 @@ function AgendasSearch({ res, render, fieldProps }) {
 
   const form = useMemo(() => <Form onSubmit={onSearch} render={renderForm} />, [
     onSearch,
-    renderForm
+    renderForm,
   ]);
 
   return render({ state, form, nextPage: throttledNextPage });

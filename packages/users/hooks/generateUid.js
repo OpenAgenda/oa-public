@@ -7,8 +7,8 @@ module.exports = function generateUid() {
     const result = await context.self.find({
       query: {
         uid,
-        $limit: 0
-      }
+        $limit: 0,
+      },
     });
 
     if (result.total) {

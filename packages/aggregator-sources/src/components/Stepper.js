@@ -24,7 +24,7 @@ function Step({
   style,
   index,
   steps,
-  additionals
+  additionals,
 }) {
   const activable = useMemoOne(
     () => getStepPropertyValue(step, 'activable', index, steps, ...additionals),
@@ -61,7 +61,7 @@ function Step({
     () => classNames('step', _className, {
       active,
       activable,
-      passed
+      passed,
     }),
     [_className, activable, active, passed]
   );

@@ -9,7 +9,7 @@ export default function createBuilder(entityName, identifier) {
 
     Object.assign(_.last(this.rules), {
       entityName,
-      identifier
+      identifier,
     });
 
     return result;

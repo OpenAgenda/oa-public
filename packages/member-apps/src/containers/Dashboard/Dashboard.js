@@ -95,7 +95,7 @@ function OrderField({ action, input, title }) {
       inviteError: state.members.inviteError,
       stats: state.members.stats || {},
       perPageLimit: state.settings.perPageLimit,
-      modals: state.modals
+      modals: state.modals,
     };
   },
   { ...membersActions, ...modalsActions }
@@ -155,7 +155,7 @@ class Dashboard extends Component {
 
   roleLabel = role => {
     const {
-      i18n: { getLabel }
+      i18n: { getLabel },
     } = this.props;
 
     return getLabel(getRoleSlug(role));
@@ -173,7 +173,7 @@ class Dashboard extends Component {
       nextLoading,
       members,
       perPageLimit,
-      nextPage
+      nextPage,
     } = this.props;
     if (
       !members
@@ -202,7 +202,7 @@ class Dashboard extends Component {
 
     return list(agenda, query).then(() => history.push({
       ...location,
-      search: qs.stringify(query, { arrayFormat: 'brackets' })
+      search: qs.stringify(query, { arrayFormat: 'brackets' }),
     }));
   };
 
@@ -215,7 +215,7 @@ class Dashboard extends Component {
       eventCount,
       user,
       deletedUser,
-      owner
+      owner,
     } = member;
     const {
       res,
@@ -224,7 +224,7 @@ class Dashboard extends Component {
       location,
       agenda,
       role: userCredential,
-      i18n
+      i18n,
     } = this.props;
     const { getLabel } = i18n;
 
@@ -261,7 +261,9 @@ class Dashboard extends Component {
                   'badge-info': memberType === 'invited',
                   'badge-default': memberType === 'inactive',
                   'badge-success': memberType === 'active',
-                  'badge-warning': ['deleted', 'noContrib'].includes(memberType)
+                  'badge-warning': ['deleted', 'noContrib'].includes(
+                    memberType
+                  ),
                 })}
               >
                 {/* {stakeholderType === 'active' && getLabel( 'active' )} */}
@@ -384,7 +386,7 @@ class Dashboard extends Component {
           <strong>{nbr || 0}</strong> {getLabel(label)}{' '}
           <i
             className={classNames('fa fa-times', {
-              invisible: !active
+              invisible: !active,
             })}
           />
         </a>
@@ -418,7 +420,7 @@ class Dashboard extends Component {
       agenda,
       member,
       query,
-      i18n
+      i18n,
     } = this.props;
     const { getLabel, lang } = i18n;
 
@@ -426,7 +428,7 @@ class Dashboard extends Component {
       administrator: totalAdministrator,
       moderator: totalModerator,
       contributor: totalContributor,
-      reader: totalReader
+      reader: totalReader,
     } = stats.totalPerRole || {};
 
     const editModal = modals.editMember || {};
@@ -470,7 +472,7 @@ class Dashboard extends Component {
                   onClick={() => openRequestForm({
                     lang,
                     subject: 'moderators',
-                    agenda: agenda.slug
+                    agenda: agenda.slug,
                   })}
                 >
                   <i className="golden-icon" /> {getLabel('nameModerators')}
@@ -497,7 +499,7 @@ class Dashboard extends Component {
           initialValues={{
             search: query.search || '',
             sortBy: 'id',
-            sortOrder: 'asc'
+            sortOrder: 'asc',
           }}
           onSubmit={this.search}
           subscription={{ values: true }}
@@ -550,17 +552,18 @@ class Dashboard extends Component {
 
         <div className="margin-v-md">
           {getLabel('total')}: <strong>{stats.total || 0}</strong>
-          {// if there is a search or filter(s)
-          (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
-          || (((credFilters && credFilters.length)
-            || (!!search && search === query.search))
-            && !listLoading) ? (
-              <span className="margin-left-sm">
-                {getLabel('result')}: <strong>{total}</strong>{' '}
-                {getLabel(total <= 1 ? 'member' : 'members').toLowerCase()}
-              </span>
-            ) : null
-}
+          {
+            // if there is a search or filter(s)
+            (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
+            || (((credFilters && credFilters.length)
+              || (!!search && search === query.search))
+              && !listLoading) ? (
+                <span className="margin-left-sm">
+                  {getLabel('result')}: <strong>{total}</strong>{' '}
+                  {getLabel(total <= 1 ? 'member' : 'members').toLowerCase()}
+                </span>
+              ) : null
+          }
           {total > 0 ? (
             <button
               type="button"
@@ -570,14 +573,14 @@ class Dashboard extends Component {
                   return showModal('writeToMembers', {
                     query: {
                       search: query.search || undefined,
-                      role: credFilters
-                    }
+                      role: credFilters,
+                    },
                   });
                 }
                 return openRequestForm({
                   lang,
                   subject: 'writeToAll',
-                  agenda: agenda.slug
+                  agenda: agenda.slug,
                 });
               }}
             >
@@ -678,7 +681,7 @@ class Dashboard extends Component {
               cleanInviteResult();
             }}
             classNames={{
-              overlay: 'popup-overlay big'
+              overlay: 'popup-overlay big',
             }}
             disableBodyScroll
           >
@@ -735,7 +738,7 @@ class Dashboard extends Component {
             visible={writeToMembersModal.visible || false}
             onClose={() => closeModal('writeToMembers')}
             classNames={{
-              overlay: 'popup-overlay big'
+              overlay: 'popup-overlay big',
             }}
           >
             {!writeToMembersModal.confirmation ? (

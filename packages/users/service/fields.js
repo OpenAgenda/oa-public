@@ -11,7 +11,7 @@ module.exports = {
     'image',
     'isNew',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
   ],
   detailed: [
     'facebookUid',
@@ -23,6 +23,6 @@ module.exports = {
     'lastNotified',
     'lastSignin',
     'lastInboxCheck',
-    'comexposiumId'
-  ]
+    'comexposiumId',
+  ],
 };

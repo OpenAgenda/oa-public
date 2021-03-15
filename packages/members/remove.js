@@ -16,9 +16,7 @@ module.exports = async (config, identifiers, options = {}) => {
 
   if (!member) throw new Error('Not found');
 
-  await knex(schema)
-    .delete()
-    .where('id', member.id);
+  await knex(schema).delete().where('id', member.id);
 
   if (_.get(interfaces, 'onRemove')) {
     try {
@@ -29,6 +27,6 @@ module.exports = async (config, identifiers, options = {}) => {
   }
 
   return {
-    success: true
+    success: true,
   };
 };

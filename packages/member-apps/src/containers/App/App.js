@@ -11,17 +11,17 @@ import modalsReducer from '../../reducers/modals';
 @provideHooks({
   inject: ({ store }) => store.inject({
     members: membersReducer,
-    modals: modalsReducer
-  })
+    modals: modalsReducer,
+  }),
 })
 @connect(state => ({
   res: state.res,
-  lang: state.settings.lang
+  lang: state.settings.lang,
 }))
 export default class App extends Component {
   i18nContextValue = {
     lang: this.props.lang,
-    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang)
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang),
   };
 
   render() {

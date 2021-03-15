@@ -9,7 +9,7 @@ export default function CustomTooltip({
   itemSorter,
   wrapperClassName,
   contentStyle,
-  dataKey
+  dataKey,
 }) {
   if (!payload?.length) {
     return null;
@@ -26,7 +26,7 @@ export default function CustomTooltip({
         index,
         array,
         dataKey,
-        key: `${index}-${entry.payload.key}`
+        key: `${index}-${entry.payload.key}`,
       };
 
       const itemRenderer = renderItem || DefaultTooltipItem;

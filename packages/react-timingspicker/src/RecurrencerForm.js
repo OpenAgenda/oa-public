@@ -17,115 +17,115 @@ import formatNumber from './utils/formatNumber';
 
 const numberMask = createNumberMask({
   prefix: '',
-  integerLimit: 3
+  integerLimit: 3,
 });
 
 const messages = defineMessages({
   title: {
     id: 'rtp.recurrencerForm.title',
-    defaultMessage: 'Define a recurring timing'
+    defaultMessage: 'Define a recurring timing',
   },
   day: {
     id: 'rtp.recurrencerForm.day',
-    defaultMessage: 'day'
+    defaultMessage: 'day',
   },
   week: {
     id: 'rtp.recurrencerForm.week',
-    defaultMessage: 'week'
+    defaultMessage: 'week',
   },
   month: {
     id: 'rtp.recurrencerForm.month',
-    defaultMessage: 'month'
+    defaultMessage: 'month',
   },
   submit: {
     id: 'rtp.recurrencerForm.submit',
-    defaultMessage: 'Apply'
+    defaultMessage: 'Apply',
   },
   repeatEvery: {
     id: 'rtp.recurrencerForm.repeatEvery',
-    defaultMessage: 'Repeat every'
+    defaultMessage: 'Repeat every',
   },
   repeatThe: {
     id: 'rtp.recurrencerForm.repeatThe',
-    defaultMessage: 'Repeat the'
+    defaultMessage: 'Repeat the',
   },
   the: {
     id: 'rtp.recurrencerForm.the',
-    defaultMessage: 'The'
+    defaultMessage: 'The',
   },
   after: {
     id: 'rtp.recurrencerForm.after',
-    defaultMessage: 'After'
+    defaultMessage: 'After',
   },
   ends: {
     id: 'rtp.recurrencerForm.ends',
-    defaultMessage: 'Ends'
+    defaultMessage: 'Ends',
   },
   everyMonthByDate: {
     id: 'rtp.recurrencerForm.everyMonthByDate',
     defaultMessage:
-      'Every {dayNumber, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} of the month'
+      'Every {dayNumber, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} of the month',
   },
   everyMonthByWeekday: {
     id: 'rtp.recurrencerForm.everyMonthByWeekday',
     defaultMessage:
-      'Every {weekNumber, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} {weekday} of the month'
+      'Every {weekNumber, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} {weekday} of the month',
   },
   invalidFrequence: {
     id: 'rtp.recurrencerForm.invalidFrequence',
-    defaultMessage: 'Invalid frequence'
+    defaultMessage: 'Invalid frequence',
   },
   intervalTooSmall: {
     id: 'rtp.recurrencerForm.intervalTooSmall',
-    defaultMessage: 'Interval must be greater than 0'
+    defaultMessage: 'Interval must be greater than 0',
   },
   invalidDate: {
     id: 'rtp.recurrencerForm.invalidDate',
-    defaultMessage: 'Invalid end date'
+    defaultMessage: 'Invalid end date',
   },
   endBeforeStart: {
     id: 'rtp.recurrencerForm.endBeforeStart',
-    defaultMessage: 'The end date must be after the begin'
+    defaultMessage: 'The end date must be after the begin',
   },
   countTooSmall: {
     id: 'rtp.recurrencerForm.countTooSmall',
-    defaultMessage: 'Count must be greater than 0'
+    defaultMessage: 'Count must be greater than 0',
   },
   invalidMonthlyIntervalType: {
     id: 'rtp.recurrencerForm.invalidMonthlyIntervalType',
-    defaultMessage: 'Invalid monthly interval type'
+    defaultMessage: 'Invalid monthly interval type',
   },
   someDisabledValues: {
     id: 'rtp.recurrencerForm.someDisabledValues',
-    defaultMessage: 'Some values are disabled'
+    defaultMessage: 'Some values are disabled',
   },
   forceSubmit: {
     id: 'rtp.recurrencerForm.forceSubmit',
-    defaultMessage: 'Create anyway'
+    defaultMessage: 'Create anyway',
   },
   dailyCount: {
     id: 'rtp.recurrencerForm.dailyCount',
-    defaultMessage: '{count, plural, one {day} other {days} }'
+    defaultMessage: '{count, plural, one {day} other {days} }',
   },
   weeklyCount: {
     id: 'rtp.recurrencerForm.weeklyCount',
-    defaultMessage: '{count, plural, one {week} other {weeks} }'
+    defaultMessage: '{count, plural, one {week} other {weeks} }',
   },
   monthlyCount: {
     id: 'rtp.recurrencerForm.monthlyCount',
-    defaultMessage: '{count, plural, one {month} other {months} }'
+    defaultMessage: '{count, plural, one {month} other {months} }',
   },
   confirmation: {
     id: 'rtp.recurrencerForm.confirmation',
-    defaultMessage: 'Recurring timings have been added.'
-  }
+    defaultMessage: 'Recurring timings have been added.',
+  },
 });
 
 class RecurrencerForm extends Component {
   subscription = {
     values: true,
     submitError: true,
-    dirtySinceLastSubmit: true
+    dirtySinceLastSubmit: true,
   };
 
   constructor(props) {
@@ -138,9 +138,9 @@ class RecurrencerForm extends Component {
       frequenceOptions: [
         { value: 'daily', label: intl.formatMessage(messages.day) },
         { value: 'weekly', label: intl.formatMessage(messages.week) },
-        { value: 'monthly', label: intl.formatMessage(messages.month) }
+        { value: 'monthly', label: intl.formatMessage(messages.month) },
       ],
-      monthlyIntervalTypeOptions: []
+      monthlyIntervalTypeOptions: [],
     };
   }
 
@@ -153,7 +153,7 @@ class RecurrencerForm extends Component {
       || weekStartsOn !== state.weekStartsOn
     ) {
       const weekdayName = intl.formatDate(valueToDuplicate.begin, {
-        weekday: 'long'
+        weekday: 'long',
       });
       const weekNumber = getWeekOfMonth(valueToDuplicate.begin);
 
@@ -163,17 +163,17 @@ class RecurrencerForm extends Component {
       derivedState.monthlyIntervalTypeOptions = [
         {
           label: intl.formatMessage(messages.everyMonthByDate, {
-            dayNumber: valueToDuplicate.begin.getDate()
+            dayNumber: valueToDuplicate.begin.getDate(),
           }),
-          value: 'date'
+          value: 'date',
         },
         {
           label: intl.formatMessage(messages.everyMonthByWeekday, {
             weekNumber,
-            weekday: weekdayName
+            weekday: weekdayName,
           }),
-          value: 'weekday'
-        }
+          value: 'weekday',
+        },
       ];
 
       derivedState.initialValues = {
@@ -183,7 +183,7 @@ class RecurrencerForm extends Component {
         endType: 'until',
         until: dateFns.endOfDay(dateFns.addMonths(valueToDuplicate.begin, 1)),
         count: 2,
-        monthlyIntervalType: 'date'
+        monthlyIntervalType: 'date',
       };
     }
 
@@ -249,7 +249,7 @@ class RecurrencerForm extends Component {
     valueToDuplicate,
     weekStartsOn,
     closeModal,
-    onDayPickerHide
+    onDayPickerHide,
   }) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
     const formState = form.getState();
@@ -414,17 +414,17 @@ class RecurrencerForm extends Component {
                 />{' '}
                 {values.frequence === 'daily'
                   ? intl.formatMessage(messages.dailyCount, {
-                    count: values.count
+                    count: values.count,
                   })
                   : null}
                 {values.frequence === 'weekly'
                   ? intl.formatMessage(messages.weeklyCount, {
-                    count: values.count
+                    count: values.count,
                   })
                   : null}
                 {values.frequence === 'monthly'
                   ? intl.formatMessage(messages.monthlyCount, {
-                    count: values.count
+                    count: values.count,
                   })
                   : null}
               </label>

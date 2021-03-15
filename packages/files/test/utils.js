@@ -8,7 +8,9 @@ function escapeRegExp(string) {
 }
 
 function s3UrlMatching(filename) {
-  return expect.stringMatching(new RegExp(`${s3UrlRegexStr}${escapeRegExp(`/${filename}`)}`));
+  return expect.stringMatching(
+    new RegExp(`${s3UrlRegexStr}${escapeRegExp(`/${filename}`)}`)
+  );
 }
 
 module.exports = s3UrlRegexStr;

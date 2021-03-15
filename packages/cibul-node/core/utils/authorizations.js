@@ -9,8 +9,7 @@ const canPublish = (agenda, access) => (
 
 async function fromMember(core, agenda, event, member) {
   const {
-    members,
-    agendas
+    members
   } = core.services;
 
   const {
@@ -20,6 +19,8 @@ async function fromMember(core, agenda, event, member) {
 
   const memberRole = getRoleSlug(member.role);
   const agendaIsClosed = await core.agendas(agenda).settings.isClosed();
+
+  log('fromMember with %s role %s', memberRole, agendaIsClosed ? ' on closed agenda' : '');
 
   return {
     mustBeModerated: (agenda?.settings?.contribution?.moderateOnChangeBy || []).includes(memberRole),
@@ -69,6 +70,8 @@ module.exports = (core, operation, {
 }
 
 module.exports.getForUserOnAgenda = async (core, userUid, agendaUid, event, promisedAccess = null) => {
+  log('getForUserOnAgenda');
+  
   const {
     services
   } = core;

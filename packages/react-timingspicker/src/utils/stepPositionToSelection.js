@@ -10,7 +10,7 @@ export default (
   { activeWeek, weekStartsOn, selectableStep },
   {
     top, // cursor position: count of selectable steps from start of day?
-    left // cursor position: count of steps from begin of week
+    left, // cursor position: count of steps from begin of week
   },
   selectionStart = 0,
   ignoreRound = false

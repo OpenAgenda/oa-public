@@ -19,7 +19,7 @@ async function fixtures({ user, password, database }, schemas) {
     multipleStatements: true,
     user,
     password,
-    database
+    database,
   });
 
   for (const [schema, path] of Object.entries(schemas)) {
@@ -33,5 +33,5 @@ async function fixtures({ user, password, database }, schemas) {
 
 module.exports = {
   create,
-  fixtures
+  fixtures,
 };

@@ -31,7 +31,7 @@ describe('updateFormIndex', () => {
         actions: 'receive',
         subject: 'event',
         conditions: null,
-        inverted: false
+        inverted: false,
       },
       {
         entityName: 'user',
@@ -39,7 +39,7 @@ describe('updateFormIndex', () => {
         actions: 'receive',
         subject: 'eventUpdate',
         conditions: null,
-        inverted: true
+        inverted: true,
       },
       {
         entityName: 'member',
@@ -47,8 +47,8 @@ describe('updateFormIndex', () => {
         actions: 'receive',
         subject: 'eventUpdate',
         conditions: null,
-        inverted: false
-      }
+        inverted: false,
+      },
     ];
 
     const ability = await abilities.get('user', 99999999);

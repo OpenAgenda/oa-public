@@ -7,26 +7,12 @@ exports.up = knex => {
     table.charset('utf8');
     table.collate('utf8_general_ci');
 
-    table
-      .bigIncrements('id')
-      .unsigned()
-      .primary();
+    table.bigIncrements('id').unsigned().primary();
     table.string('type').notNullable();
-    table
-      .bigInteger('type_identifier')
-      .unsigned()
-      .nullable()
-      .index();
+    table.bigInteger('type_identifier').unsigned().nullable().index();
     table.text('store', 'longtext');
-    table
-      .bigInteger('creator_inbox_user_id')
-      .unsigned()
-      .notNullable()
-      .index();
-    table
-      .timestamp('created_at')
-      .notNullable()
-      .defaultTo(knex.fn.now());
+    table.bigInteger('creator_inbox_user_id').unsigned().notNullable().index();
+    table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updated_at').nullable();
     table.timestamp('resolved_at').nullable();
 

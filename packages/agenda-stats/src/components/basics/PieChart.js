@@ -4,7 +4,7 @@ import {
   Pie,
   Tooltip,
   Cell,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from 'recharts';
 import defaultDataColors from '../../common/defaultDataColors';
 import CustomTooltip from './CustomTooltip';
@@ -12,10 +12,10 @@ import CustomTooltip from './CustomTooltip';
 const tooltipWrapperStyle = { zIndex: 1000 };
 
 const labelProps = {
-  fill: '#666'
+  fill: '#666',
 };
 const labelLineProps = {
-  stroke: '#666'
+  stroke: '#666',
 };
 
 export default function PieChart({
@@ -24,7 +24,7 @@ export default function PieChart({
   dataKey,
   labelKey,
   renderTooltipItem,
-  dataColors
+  dataColors,
 }) {
   const colors = dataColors || defaultDataColors;
 

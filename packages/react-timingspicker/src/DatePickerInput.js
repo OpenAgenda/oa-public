@@ -39,7 +39,7 @@ export default function DatePickerInput({
     locale: intl.locale,
     months: [],
     weekdaysLong: [],
-    weekdaysShort: []
+    weekdaysShort: [],
   };
 
   const startDate = dateFns.startOfWeek(new Date());

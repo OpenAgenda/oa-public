@@ -4,40 +4,40 @@ const defaultStatConfigs = {
   // Charts
   regions: {
     aggregation: {
-      type: 'regions'
+      type: 'regions',
     },
     chart: {
       type: 'vertical',
       loadMore: true,
       dataKey: 'eventCount',
-      labelKey: 'key'
-    }
+      labelKey: 'key',
+    },
   },
   departments: {
     aggregation: {
-      type: 'departments'
+      type: 'departments',
     },
     chart: {
       type: 'vertical',
       loadMore: true,
       dataKey: 'eventCount',
-      labelKey: 'key'
-    }
+      labelKey: 'key',
+    },
   },
   cities: {
     aggregation: {
-      type: 'cities'
+      type: 'cities',
     },
     chart: {
       type: 'vertical',
       loadMore: true,
       dataKey: 'eventCount',
-      labelKey: 'key'
-    }
+      labelKey: 'key',
+    },
   },
   timings: {
     aggregation: {
-      type: 'timings'
+      type: 'timings',
     },
     chart: {
       type: 'horizontal',
@@ -45,8 +45,8 @@ const defaultStatConfigs = {
       dataKey: 'timingCount',
       labelKey: 'key',
       tooltip: 'date',
-      categoryTick: 'date'
-    }
+      categoryTick: 'date',
+    },
   },
   createdAt: {
     aggregation: { type: 'createdAt' },
@@ -56,8 +56,8 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'key',
       tooltip: 'date',
-      categoryTick: 'date'
-    }
+      categoryTick: 'date',
+    },
   },
   updatedAt: {
     aggregation: { type: 'updatedAt' },
@@ -67,51 +67,51 @@ const defaultStatConfigs = {
       dataKey: 'eventCount',
       labelKey: 'key',
       tooltip: 'date',
-      categoryTick: 'date'
-    }
+      categoryTick: 'date',
+    },
   },
   members: {
     aggregation: {
-      type: 'members'
+      type: 'members',
     },
     chart: {
       type: 'vertical',
       dataKey: 'eventCount',
-      labelKey: 'member.name'
-    }
+      labelKey: 'member.name',
+    },
   },
   originAgendas: {
     aggregation: {
-      type: 'originAgendas'
+      type: 'originAgendas',
     },
     chart: {
       type: 'vertical',
       dataKey: 'eventCount',
-      labelKey: 'agenda.title'
-    }
+      labelKey: 'agenda.title',
+    },
   },
   keywords: {
     aggregation: {
-      type: 'keywords'
+      type: 'keywords',
     },
     chart: {
       type: 'vertical',
       dataKey: 'eventCount',
       labelKey: 'key',
-      loadMore: true
-    }
+      loadMore: true,
+    },
   },
   states: {
     aggregation: {
-      type: 'states'
+      type: 'states',
     },
     chart: {
       type: 'pie',
       dataKey: 'eventCount',
       labelKey: 'key',
       tooltip: 'state',
-      dataColors: defaultStateColors
-    }
+      dataColors: defaultStateColors,
+    },
   },
   additionalFields: ({ fieldSchema }) => {
     const isCheckbox = fieldSchema.fieldType === 'checkbox' && fieldSchema.options.length === 1;
@@ -119,22 +119,22 @@ const defaultStatConfigs = {
     return {
       aggregation: {
         type: 'additionalFields',
-        field: fieldSchema.field
+        field: fieldSchema.field,
       },
       chart: {
         type: isCheckbox ? 'pie' : 'vertical',
         dataKey: 'eventCount',
         labelKey: 'label',
         restItem: isCheckbox,
-        dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null
+        dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null,
       },
       state: {
-        fieldSchema
-      }
+        fieldSchema,
+      },
     };
   },
   // Others
-  separator: { separator: true }
+  separator: { separator: true },
 };
 
 export default function getDefaultStatConfig(aggType, fieldSchema) {
@@ -144,7 +144,7 @@ export default function getDefaultStatConfig(aggType, fieldSchema) {
     : defaultStatConfigs[aggType];
 
   return {
-    ...result
+    ...result,
   };
 }
 
@@ -157,13 +157,13 @@ export function getStatConfig(stat) {
   return {
     aggregation: {
       ...defaultConfig?.aggregation,
-      ...stat.aggregation
+      ...stat.aggregation,
     },
     chart: {
       ...defaultConfig?.chart,
-      ...stat.chart
+      ...stat.chart,
     },
-    ...stat
+    ...stat,
   };
 }
 
@@ -175,6 +175,6 @@ export function getChartConfig(stat) {
 
   return {
     ...defaultConfig?.chart,
-    ...stat.chart
+    ...stat.chart,
   };
 }

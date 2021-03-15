@@ -18,12 +18,12 @@ export default storiesOf('AggregatorRules', module)
         {
           query: {
             location: {
-              city: 'Mondonville'
-            }
+              city: 'Mondonville',
+            },
           },
           required: true,
-          actions: []
-        }
+          actions: [],
+        },
       ]}
       schema={{ fields: [] }}
       showModal={() => {}}

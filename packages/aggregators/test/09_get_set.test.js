@@ -16,7 +16,7 @@ describe('09 - set and get', () => {
       '../../model.sql',
       'aggregator.data.json',
       'review.create.sql',
-      'review.data.json'
+      'review.data.json',
     ]);
   });
 
@@ -25,11 +25,11 @@ describe('09 - set and get', () => {
       knex: f.client,
       queues: () => Object.assign(tracker.bind(null, 'queue'), {
         register: tracker('register'),
-        on: tracker('on')
+        on: tracker('on'),
       }),
       interfaces: {
-        getAggregatedCount: () => 12 // interface arg is agenda uid
-      }
+        getAggregatedCount: () => 12, // interface arg is agenda uid
+      },
     });
   });
 
@@ -44,24 +44,24 @@ describe('09 - set and get', () => {
         actions: [
           {
             field: 'state',
-            values: { $set: 2 }
-          }
+            values: { $set: 2 },
+          },
         ],
-        required: false
-      }
+        required: false,
+      },
     ]);
   });
 
   test('update', async () => {
     const result = await svc.set(998, {
-      rules: []
+      rules: [],
     });
     expect(result.operation).toBe('update');
   });
 
   test('create', async () => {
     const result = await svc.set(222, {
-      rules: []
+      rules: [],
     });
     expect(result.operation).toBe('create');
   });
@@ -71,14 +71,11 @@ describe('09 - set and get', () => {
       333,
       { limit: 2 },
       {
-        patch: true
+        patch: true,
       }
     );
 
-    const entry = await f
-      .client('aggregator')
-      .first('*')
-      .where('review_id', 3);
+    const entry = await f.client('aggregator').first('*').where('review_id', 3);
 
     expect(entry.limit).toBe(1);
   });
@@ -89,14 +86,11 @@ describe('09 - set and get', () => {
       { limit: 2 },
       {
         patch: true,
-        protected: false
+        protected: false,
       }
     );
 
-    const entry = await f
-      .client('aggregator')
-      .first('*')
-      .where('review_id', 4);
+    const entry = await f.client('aggregator').first('*').where('review_id', 4);
 
     expect(entry.limit).toBe(2);
   });
@@ -118,7 +112,7 @@ describe('09 - set and get', () => {
       { limit: 2 },
       {
         patch: true,
-        protected: false
+        protected: false,
       }
     );
 

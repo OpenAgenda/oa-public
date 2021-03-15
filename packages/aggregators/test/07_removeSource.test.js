@@ -19,9 +19,9 @@ describe('07 - removeSource', () => {
           getSourceEntry: tracker('getSourceEntry', {
             id: 1,
             aggregatorId: 2,
-            agenda: sourceAgenda
+            agenda: sourceAgenda,
           }),
-          enqueueLoadSourceRemoves: tracker('enqueueLoadSourceRemoves')
+          enqueueLoadSourceRemoves: tracker('enqueueLoadSourceRemoves'),
         },
         aggregatorAgenda,
         1,
@@ -43,7 +43,7 @@ describe('07 - removeSource', () => {
       expect(tracker.calls[2].name).toBe('enqueueLoadSourceRemoves');
       expect(tracker.calls[2].args[0]).toEqual({
         aggregatorAgendaUid: aggregatorAgenda.uid,
-        sourceAgendaUid: sourceAgenda.uid
+        sourceAgendaUid: sourceAgenda.uid,
       });
     });
   });
@@ -66,7 +66,7 @@ describe('07 - removeSource', () => {
 
             return json;
           }),
-          enqueueRemove: tracker('enqueueRemove')
+          enqueueRemove: tracker('enqueueRemove'),
         },
         123,
         456

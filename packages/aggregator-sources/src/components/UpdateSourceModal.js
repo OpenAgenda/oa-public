@@ -7,20 +7,20 @@ import DefineRules from './DefineRules';
 const messages = defineMessages({
   updateASource: {
     id: 'aggregator-sources.UpdateSourceModal.updateASource',
-    defaultMessage: 'Aggregation rules'
+    defaultMessage: 'Aggregation rules',
   },
   updateSource: {
     id: 'aggregator-sources.UpdateSourceModal.updateSource',
-    defaultMessage: 'Update'
+    defaultMessage: 'Update',
   },
   cancel: {
     id: 'aggregator-sources.UpdateSourceModal.cancel',
-    defaultMessage: 'Cancel'
-  }
+    defaultMessage: 'Cancel',
+  },
 });
 
 const modalClassnames = {
-  overlay: 'popup-overlay big'
+  overlay: 'popup-overlay big',
 };
 
 export default function UpdateSourceModal({
@@ -28,17 +28,17 @@ export default function UpdateSourceModal({
   onClose,
   aggregator,
   aggregatorAgenda,
-  aggregatorAgendaSchema
+  aggregatorAgendaSchema,
 }) {
   const intl = useIntl();
 
   const data = useSelector(state => state.modals.updateSource) || {
-    source: {}
+    source: {},
   };
 
   const handleSubmit = useCallback(rules => onSubmit(data.source, rules), [
     onSubmit,
-    data.source
+    data.source,
   ]);
 
   return (

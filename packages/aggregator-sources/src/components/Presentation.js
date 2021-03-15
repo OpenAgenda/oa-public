@@ -5,21 +5,21 @@ import links from '../utils/externalLinks';
 const messages = defineMessages({
   startUse: {
     id: 'aggregator-sources.Dashboard.startUse',
-    defaultMessage: 'Start'
+    defaultMessage: 'Start',
   },
   findOutMore: {
     id: 'aggregator-sources.Dashboard.findOutMore',
-    defaultMessage: 'Find out more'
+    defaultMessage: 'Find out more',
   },
   aggregationHeadline: {
     id: 'aggregator-sources.Dashboard.aggregationHeadline',
-    defaultMessage: 'Connect source agendas and automatize event publications'
+    defaultMessage: 'Connect source agendas and automatize event publications',
   },
   aggregationDesc: {
     id: 'aggregator-sources.Dashboard.aggregationDesc',
     defaultMessage:
-      'Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!'
-  }
+      'Use the event Aggregation function to automatically resume events published on other OpenAgenda calendars. Combine up to 365 events per year with the free version!',
+  },
 });
 
 export default ({ onCreate, intl }) => (

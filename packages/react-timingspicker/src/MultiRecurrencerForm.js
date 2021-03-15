@@ -15,113 +15,113 @@ import formatNumber from './utils/formatNumber';
 
 const numberMask = createNumberMask({
   prefix: '',
-  integerLimit: 3
+  integerLimit: 3,
 });
 
 const messages = defineMessages({
   title: {
     id: 'rtp.multiRecurrencerForm.title',
-    defaultMessage: 'Define a recurring timing'
+    defaultMessage: 'Define a recurring timing',
   },
   day: {
     id: 'rtp.multiRecurrencerForm.day',
-    defaultMessage: 'day'
+    defaultMessage: 'day',
   },
   week: {
     id: 'rtp.multiRecurrencerForm.week',
-    defaultMessage: 'week'
+    defaultMessage: 'week',
   },
   month: {
     id: 'rtp.multiRecurrencerForm.month',
-    defaultMessage: 'month'
+    defaultMessage: 'month',
   },
   submit: {
     id: 'rtp.multiRecurrencerForm.submit',
-    defaultMessage: 'Apply'
+    defaultMessage: 'Apply',
   },
   repeatEvery: {
     id: 'rtp.multiRecurrencerForm.repeatEvery',
-    defaultMessage: 'Repeat every'
+    defaultMessage: 'Repeat every',
   },
   repeatThe: {
     id: 'rtp.multiRecurrencerForm.repeatThe',
-    defaultMessage: 'Repeat the'
+    defaultMessage: 'Repeat the',
   },
   the: {
     id: 'rtp.multiRecurrencerForm.the',
-    defaultMessage: 'The'
+    defaultMessage: 'The',
   },
   after: {
     id: 'rtp.multiRecurrencerForm.after',
-    defaultMessage: 'After'
+    defaultMessage: 'After',
   },
   occurrences: {
     id: 'rtp.multiRecurrencerForm.occurrences',
-    defaultMessage: 'occurrences'
+    defaultMessage: 'occurrences',
   },
   ends: {
     id: 'rtp.multiRecurrencerForm.ends',
-    defaultMessage: 'Ends'
+    defaultMessage: 'Ends',
   },
   everyMonthByDate: {
     id: 'rtp.multiRecurrencerForm.everyMonthByDate',
-    defaultMessage: 'Every month on the same dates'
+    defaultMessage: 'Every month on the same dates',
   },
   everyMonthByWeekday: {
     id: 'rtp.multiRecurrencerForm.everyMonthByWeekday',
-    defaultMessage: 'Every month week by week'
+    defaultMessage: 'Every month week by week',
   },
   invalidFrequence: {
     id: 'rtp.multiRecurrencerForm.invalidFrequence',
-    defaultMessage: 'Invalid frequence'
+    defaultMessage: 'Invalid frequence',
   },
   intervalTooSmall: {
     id: 'rtp.multiRecurrencerForm.intervalTooSmall',
-    defaultMessage: 'Interval must be greater than 0'
+    defaultMessage: 'Interval must be greater than 0',
   },
   invalidDate: {
     id: 'rtp.multiRecurrencerForm.invalidDate',
-    defaultMessage: 'Invalid end date'
+    defaultMessage: 'Invalid end date',
   },
   endBeforeStart: {
     id: 'rtp.multiRecurrencerForm.endBeforeStart',
-    defaultMessage: 'The end date must be after the begin'
+    defaultMessage: 'The end date must be after the begin',
   },
   countTooSmall: {
     id: 'rtp.multiRecurrencerForm.countTooSmall',
-    defaultMessage: 'Count must be greater than 0'
+    defaultMessage: 'Count must be greater than 0',
   },
   invalidMonthlyIntervalType: {
     id: 'rtp.multiRecurrencerForm.invalidMonthlyIntervalType',
-    defaultMessage: 'Invalid monthly interval type'
+    defaultMessage: 'Invalid monthly interval type',
   },
   someDisabledValues: {
     id: 'rtp.multiRecurrencerForm.someDisabledValues',
-    defaultMessage: 'Some values are disabled'
+    defaultMessage: 'Some values are disabled',
   },
   forceSubmit: {
     id: 'rtp.multiRecurrencerForm.forceSubmit',
-    defaultMessage: 'Create anyway'
+    defaultMessage: 'Create anyway',
   },
   weeklyCount: {
     id: 'rtp.multiRecurrencerForm.weeklyCount',
-    defaultMessage: '{count, plural, one {week} other {weeks} }'
+    defaultMessage: '{count, plural, one {week} other {weeks} }',
   },
   monthlyCount: {
     id: 'rtp.multiRecurrencerForm.monthlyCount',
-    defaultMessage: '{count, plural, one {month} other {months} }'
+    defaultMessage: '{count, plural, one {month} other {months} }',
   },
   confirmation: {
     id: 'rtp.multiRecurrencerForm.confirmation',
-    defaultMessage: 'Recurring timings have been added.'
-  }
+    defaultMessage: 'Recurring timings have been added.',
+  },
 });
 
 class MultiRecurrencerForm extends Component {
   subscription = {
     values: true,
     submitError: true,
-    dirtySinceLastSubmit: true
+    dirtySinceLastSubmit: true,
   };
 
   constructor(props) {
@@ -133,18 +133,18 @@ class MultiRecurrencerForm extends Component {
       initialValues: null,
       frequenceOptions: [
         { value: 'weekly', label: intl.formatMessage(messages.week) },
-        { value: 'monthly', label: intl.formatMessage(messages.month) }
+        { value: 'monthly', label: intl.formatMessage(messages.month) },
       ],
       monthlyIntervalTypeOptions: [
         {
           label: intl.formatMessage(messages.everyMonthByDate),
-          value: 'date'
+          value: 'date',
         },
         {
           label: intl.formatMessage(messages.everyMonthByWeekday),
-          value: 'weekday'
-        }
-      ]
+          value: 'weekday',
+        },
+      ],
     };
   }
 
@@ -161,7 +161,7 @@ class MultiRecurrencerForm extends Component {
         endType: 'until',
         until: dateFns.endOfWeek(dateFns.addMonths(activeWeek, 1)),
         count: 2,
-        monthlyIntervalType: 'weekday'
+        monthlyIntervalType: 'weekday',
       };
     }
 
@@ -230,7 +230,7 @@ class MultiRecurrencerForm extends Component {
     intl,
     weekStartsOn,
     closeModal,
-    onDayPickerHide
+    onDayPickerHide,
   }) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
     const formState = form.getState();
@@ -376,12 +376,12 @@ class MultiRecurrencerForm extends Component {
                 />{' '}
                 {values.frequence === 'weekly'
                   ? intl.formatMessage(messages.weeklyCount, {
-                    count: values.count
+                    count: values.count,
                   })
                   : null}
                 {values.frequence === 'monthly'
                   ? intl.formatMessage(messages.monthlyCount, {
-                    count: values.count
+                    count: values.count,
                   })
                   : null}
               </label>

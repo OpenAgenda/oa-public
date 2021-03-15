@@ -15,7 +15,7 @@ exports.seed = async knex => {
       inverted: false,
       conditions: null,
       fields: null,
-      reason: null
+      reason: null,
     },
     {
       entity_name: 'member',
@@ -25,7 +25,7 @@ exports.seed = async knex => {
       inverted: true,
       conditions: null,
       fields: null,
-      reason: null
+      reason: null,
     },
     {
       entity_name: 'member',
@@ -35,7 +35,7 @@ exports.seed = async knex => {
       inverted: false,
       conditions: '{"verb":"agenda.eventPublished"}',
       fields: null,
-      reason: null
+      reason: null,
     },
     {
       entity_name: 'agenda',
@@ -45,7 +45,7 @@ exports.seed = async knex => {
       inverted: true,
       conditions: '{"verb":"agenda.eventPublished"}',
       fields: null,
-      reason: null
+      reason: null,
     },
     {
       entity_name: 'member',
@@ -55,7 +55,7 @@ exports.seed = async knex => {
       inverted: false,
       conditions: null,
       fields: null,
-      reason: null
-    }
+      reason: null,
+    },
   ]);
 };

@@ -6,7 +6,7 @@ export default function ({ entityName, identifier, getRules }) {
     const {
       mutators: { setFieldData },
       getState,
-      getFieldState
+      getFieldState,
     } = form;
 
     return createDecorator({
@@ -17,7 +17,7 @@ export default function ({ entityName, identifier, getRules }) {
           rules,
           _.matches({
             entityName,
-            identifier
+            identifier,
           })
         );
         const concernedRule = rules.find(v => v.key === field);
@@ -79,7 +79,7 @@ export default function ({ entityName, identifier, getRules }) {
         }
 
         return {};
-      }
+      },
     })(form);
   };
 }

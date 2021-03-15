@@ -20,14 +20,14 @@ module.exports = async ({ queue, knex }, action, data) => {
         sourceRules: ag.sourceRules,
         aggregatorRules: ag.aggregatorRules,
         aggregatorLimit,
-        ...data
+        ...data,
       });
     } else {
       await queue('removeEvent', {
         aggregatorAgendaUid: ag.agendaUid,
         sourceAgendaUid: agenda.uid,
         eventUid: event.uid,
-        ...data
+        ...data,
       });
     }
   }

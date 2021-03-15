@@ -40,11 +40,11 @@ export function user(namespace) {
             namespaces: {
               query: {
                 typeIdentifier: 'query.typeIdentifier',
-                type: 'query.type'
+                type: 'query.type',
               },
-              total: 'query.total'
+              total: 'query.total',
             },
-            limit: 20
+            limit: 20,
           },
           options
         );
@@ -55,7 +55,7 @@ export function user(namespace) {
             typeIdentifier: parseInt(
               _.get(req, namespaces.query.typeIdentifier),
               10
-            )
+            ),
           });
           const limit = getLimit(svc.config.mw.limit, params.limit);
           const total = _.get(req, namespaces.total, false);
@@ -74,11 +74,11 @@ export function user(namespace) {
             conversations: conversations.data || null,
             total: conversations.total || null,
             totalOpened: conversations.totalOpened || null,
-            totalClosed: conversations.totalClosed || null
+            totalClosed: conversations.totalClosed || null,
           });
         });
-      }
-    }
+      },
+    },
   };
 }
 
@@ -91,9 +91,9 @@ export const inboxUser = {
         namespaces: {
           type: 'type',
           identifier: 'identifier',
-          userUid: 'user.uid'
+          userUid: 'user.uid',
         },
-        fallbackGetter: null
+        fallbackGetter: null,
       },
       options
     );
@@ -101,7 +101,7 @@ export const inboxUser = {
     return wrap(async (req, res) => {
       const inboxIdentifiers = {
         type: _.get(req, namespaces.type),
-        identifier: parseInt(_.get(req, namespaces.identifier), 10)
+        identifier: parseInt(_.get(req, namespaces.identifier), 10),
       };
       const userUid = parseInt(_.get(req, namespaces.userUid), 10);
 
@@ -113,24 +113,24 @@ export const inboxUser = {
           ...inboxUserEntity.toJSON(),
           ...(
             await svc.config.interfaces.getUsersDetails([inboxUserEntity.data])
-          )[0]
+          )[0],
         };
       } else if (fallbackGetter) {
         inboxUserEntity = await fallbackGetter({
           req,
           inbox: inbox.data,
-          userUid
+          userUid,
         });
       }
 
       inbox = {
         ...inbox.toJSON(),
-        ...(await svc.config.interfaces.getInboxesDetails([inbox.data]))[0]
+        ...(await svc.config.interfaces.getInboxesDetails([inbox.data]))[0],
       };
 
       res.send({ inbox, inboxUser: inboxUserEntity });
     });
-  }
+  },
 };
 
 export const conversations = {
@@ -147,8 +147,8 @@ export const conversations = {
           message: 'body.message',
           creatorInboxUser: 'creatorInboxUser',
           options: 'options',
-          userUid: 'user.uid'
-        }
+          userUid: 'user.uid',
+        },
       },
       options
     );
@@ -159,30 +159,30 @@ export const conversations = {
         type: _.get(req, namespaces.conversationType),
         params: _.get(req, namespaces.params),
         creatorInboxUser: _.get(req, namespaces.creatorInboxUser),
-        message: _.get(req, namespaces.message)
+        message: _.get(req, namespaces.message),
       };
 
       const optionalData = _.pickBy({
-        typeIdentifier: _.get(req, namespaces.conversationTypeIdentifier)
+        typeIdentifier: _.get(req, namespaces.conversationTypeIdentifier),
       });
 
       const conversationEntities = await new Conversations(svc, {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
         inbox: await new Inbox(svc, {
           type: _.get(req, namespaces.type),
-          identifier: parseInt(_.get(req, namespaces.identifier), 10)
-        })
+          identifier: parseInt(_.get(req, namespaces.identifier), 10),
+        }),
       });
 
       log.info('Middleware - conversation create', {
         ...data,
-        ...optionalData
+        ...optionalData,
       });
 
       const conversation = await conversationEntities.create(
         {
           ...data,
-          ...optionalData
+          ...optionalData,
         },
         _.get(req, namespaces.options)
       );
@@ -199,11 +199,11 @@ export const conversations = {
           identifier: 'identifier',
           query: {
             typeIdentifier: 'query.typeIdentifier',
-            type: 'query.type'
+            type: 'query.type',
           },
-          total: 'query.total'
+          total: 'query.total',
         },
-        limit: 20
+        limit: 20,
       },
       options
     );
@@ -214,14 +214,14 @@ export const conversations = {
         typeIdentifier: parseInt(
           _.get(req, namespaces.query.typeIdentifier),
           10
-        )
+        ),
       });
       const limit = getLimit(svc.config.mw.limit, params.limit);
       const total = _.get(req, namespaces.total, false);
 
       const conversationEntities = await new Inbox(svc, {
         type: _.get(req, namespaces.type),
-        identifier: parseInt(_.get(req, namespaces.identifier), 10)
+        identifier: parseInt(_.get(req, namespaces.identifier), 10),
       }).conversations.list(
         query,
         (req.query.page > 0 ? req.query.page - 1 : 0) * limit,
@@ -233,7 +233,7 @@ export const conversations = {
         conversations: conversationEntities.data || null,
         total: conversationEntities.total || null,
         totalOpened: conversationEntities.totalOpened || null,
-        totalClosed: conversationEntities.totalClosed || null
+        totalClosed: conversationEntities.totalClosed || null,
       });
     });
   },
@@ -246,8 +246,8 @@ export const conversations = {
           identifier: 'identifier',
           conversationId: 'conversation.id',
           userUid: 'user.uid',
-          code: 'code'
-        }
+          code: 'code',
+        },
       },
       options
     );
@@ -258,12 +258,12 @@ export const conversations = {
           userUid: parseInt(_.get(req, namespaces.userUid), 10),
           inbox: new Inbox(svc, {
             type: _.get(req, namespaces.type),
-            identifier: parseInt(_.get(req, namespaces.identifier), 10)
-          })
+            identifier: parseInt(_.get(req, namespaces.identifier), 10),
+          }),
         }).get(parseInt(_.get(req, namespaces.conversationId), 10));
 
         await conversation.action(_.get(req, namespaces.code), {
-          userUid: parseInt(_.get(req, namespaces.userUid), 10)
+          userUid: parseInt(_.get(req, namespaces.userUid), 10),
         });
 
         return res.send({ conversation });
@@ -282,8 +282,8 @@ export const conversations = {
           type: 'type',
           identifier: 'identifier',
           conversationId: 'conversation.id',
-          userUid: 'user.uid'
-        }
+          userUid: 'user.uid',
+        },
       },
       options
     );
@@ -293,8 +293,8 @@ export const conversations = {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
         inbox: new Inbox(svc, {
           type: _.get(req, namespaces.type),
-          identifier: parseInt(_.get(req, namespaces.identifier), 10)
-        })
+          identifier: parseInt(_.get(req, namespaces.identifier), 10),
+        }),
       }).get(parseInt(_.get(req, namespaces.conversationId), 10));
 
       await conversation.update(
@@ -304,7 +304,7 @@ export const conversations = {
 
       res.send({ conversation });
     });
-  }
+  },
 };
 
 export const messages = {
@@ -315,9 +315,9 @@ export const messages = {
           type: 'type',
           identifier: 'identifier',
           conversationId: 'conversation.id',
-          userUid: 'user.uid'
+          userUid: 'user.uid',
         },
-        limit: 20
+        limit: 20,
       },
       options
     );
@@ -329,8 +329,8 @@ export const messages = {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
         inbox: new Inbox(svc, {
           type: _.get(req, namespaces.type),
-          identifier: parseInt(_.get(req, namespaces.identifier), 10)
-        })
+          identifier: parseInt(_.get(req, namespaces.identifier), 10),
+        }),
       }).get(parseInt(_.get(req, namespaces.conversationId), 10));
 
       const messageEntities = await conversation.messages.list(
@@ -351,8 +351,8 @@ export const messages = {
           conversationId: 'conversation.id',
           userUid: 'user.uid',
           body: 'body.body',
-          options: 'options'
-        }
+          options: 'options',
+        },
       },
       options
     );
@@ -362,14 +362,14 @@ export const messages = {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
         inbox: new Inbox(svc, {
           type: _.get(req, namespaces.type),
-          identifier: parseInt(_.get(req, namespaces.identifier), 10)
-        })
+          identifier: parseInt(_.get(req, namespaces.identifier), 10),
+        }),
       }).get(parseInt(_.get(req, namespaces.conversationId), 10));
 
       const message = await conversation.messages.create(
         {
           body: _.get(req, namespaces.body),
-          userUid: _.get(req, namespaces.userUid)
+          userUid: _.get(req, namespaces.userUid),
         },
         _.get(req, namespaces.options)
       );
@@ -386,7 +386,7 @@ export const messages = {
           identifier: 'identifier',
           conversationId: 'conversation.id',
           messageId: 'message.id',
-          userUid: 'user.uid'
+          userUid: 'user.uid',
         },
         uppyOptions: {
           providerOptions: {
@@ -395,17 +395,17 @@ export const messages = {
               key: svc.config.aws.accessKeyId,
               secret: svc.config.aws.secretAccessKey,
               bucket: svc.config.aws.bucket,
-              region: svc.config.aws.region
-            }
+              region: svc.config.aws.region,
+            },
           },
           server: {
             host: svc.config.domain,
-            protocol: 'https'
+            protocol: 'https',
           },
           sendSelfEndpoint: svc.config.domain,
           secret: '***SECRET***',
-          debug: false
-        }
+          debug: false,
+        },
       },
       options
     );
@@ -417,8 +417,8 @@ export const messages = {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
         inbox: new Inbox(svc, {
           type: _.get(req, namespaces.type),
-          identifier: parseInt(_.get(req, namespaces.identifier), 10)
-        })
+          identifier: parseInt(_.get(req, namespaces.identifier), 10),
+        }),
       }).get(parseInt(_.get(req, namespaces.conversationId), 10));
 
       const message = await conversation.messages.get(messageId);
@@ -452,8 +452,8 @@ export const messages = {
           messageId: 'message.id',
           userUid: 'user.uid',
           filename: 'filename',
-          originalName: 'originalName'
-        }
+          originalName: 'originalName',
+        },
       },
       options
     );
@@ -465,8 +465,8 @@ export const messages = {
         userUid: parseInt(_.get(req, namespaces.userUid), 10),
         inbox: new Inbox(svc, {
           type: _.get(req, namespaces.type),
-          identifier: parseInt(_.get(req, namespaces.identifier), 10)
-        })
+          identifier: parseInt(_.get(req, namespaces.identifier), 10),
+        }),
       }).get(parseInt(_.get(req, namespaces.conversationId), 10));
 
       const message = await conversation.messages.get(messageId);
@@ -481,7 +481,7 @@ export const messages = {
 
       await conversation.messages.addAttachment(messageId, {
         originalName,
-        filename
+        filename,
       });
 
       res.send({ message: await message.get() });
@@ -493,8 +493,8 @@ export const messages = {
       {
         namespaces: {
           id: 'attachment.id',
-          filename: 'attachment.filename'
-        }
+          filename: 'attachment.filename',
+        },
       },
       options
     );
@@ -508,7 +508,7 @@ export const messages = {
         .first()
         .where({
           id: parseInt(_.get(req, namespaces.id, null), 10),
-          filename
+          filename,
         })
         .then(v => _.mapKeys(v, (value, key) => _.camelCase(key)));
 
@@ -516,7 +516,7 @@ export const messages = {
         const { data, headers } = await axios({
           method: 'get',
           url: `https://s3.${svc.config.aws.region}.amazonaws.com/${svc.config.aws.bucket}/${filename}`,
-          responseType: 'stream'
+          responseType: 'stream',
         });
 
         res.set(
@@ -544,5 +544,5 @@ export const messages = {
         );
       }
     });
-  }
+  },
 };

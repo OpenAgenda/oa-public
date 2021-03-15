@@ -33,7 +33,7 @@ function task({ queue }) {
     stopAndClear: async () => {
       await queue.clear();
       await queue.stop();
-    }
+    },
   };
 }
 
@@ -54,25 +54,25 @@ module.exports = ({
       getMergedSchema: interfaces.getMergedSchema,
       getEventReference: interfaces.getEventReference,
       updateSourcePaths: interfaces.updateSourcePaths,
-      enqueueRemove: queue.bind(null, 'removeEvent')
+      enqueueRemove: queue.bind(null, 'removeEvent'),
     }),
     removeEvent: removeEvent.bind(
       null,
       _.pick(interfaces, [
         'getEventReference',
         'updateSourcePaths',
-        'unreferenceEvent'
+        'unreferenceEvent',
       ])
     ),
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {
       listEventReferences: interfaces.listEventReferences,
       loadEvent: interfaces.loadEvent,
-      enqueueEvaluate: queue.bind(null, 'evaluateEvent')
+      enqueueEvaluate: queue.bind(null, 'evaluateEvent'),
     }),
     loadSourceRemoves: loadSourceRemoves.bind(null, {
       listEventReferences: interfaces.listEventReferences,
-      enqueueRemove: queue.bind(null, 'removeEvent')
-    })
+      enqueueRemove: queue.bind(null, 'removeEvent'),
+    }),
   });
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -82,14 +82,14 @@ module.exports = ({
   return {
     get: get.bind(null, {
       knex,
-      getAggregatedCount: interfaces.getAggregatedCount
+      getAggregatedCount: interfaces.getAggregatedCount,
     }),
     set: set.bind(null, knex),
     remove: remove.bind(null, knex),
     sources: {
       list: listSources.bind(null, {
         knex,
-        getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch
+        getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch,
       }),
       add: addSource.bind(null, {
         knex,
@@ -97,7 +97,7 @@ module.exports = ({
         enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
         addSourceEntry: addSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
-        getMergedSchema: interfaces.getMergedSchema
+        getMergedSchema: interfaces.getMergedSchema,
       }),
       update: updateSource.bind(null, {
         interfaces,
@@ -107,24 +107,24 @@ module.exports = ({
         getMergedSchema: interfaces.getMergedSchema,
         getSourceEntry: getSourceEntry.bind(null, {
           knex,
-          getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch
-        })
+          getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch,
+        }),
       }),
       remove: removeSource.bind(null, {
         interfaces,
         enqueueLoadSourceRemoves: queue.bind(null, 'loadSourceRemoves'),
         getSourceEntry: getSourceEntry.bind(null, {
           knex,
-          getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch
+          getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch,
         }),
         removeSourceEntry: removeSourceEntry.bind(null, knex),
-        getAgendaSourceId: getAgendaSourceId.bind(null, knex)
-      })
+        getAgendaSourceId: getAgendaSourceId.bind(null, knex),
+      }),
     },
     notify: notify.bind(null, {
       getAgendaSourceId: getAgendaSourceId.bind(null, knex),
-      queue
+      queue,
     }),
-    task: task.bind(null, { queue })
+    task: task.bind(null, { queue }),
   };
 };

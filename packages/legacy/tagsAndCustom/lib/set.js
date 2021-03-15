@@ -220,10 +220,10 @@ function _mapFileCustomValues(mapItem) {
 
   if (mapItem.field.fieldType === 'file') {
     return Object.assign(mapItem, {
-      value: {
+      value: mapItem.value ? {
         name: mapItem.value.originalName,
         uploaded: mapItem.value.filename
-      }
+      } : null
     });
   } else if (mapItem.field.fieldType === 'image') {
     return Object.assign(mapItem, {

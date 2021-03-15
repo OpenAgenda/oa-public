@@ -20,7 +20,11 @@ function Announcement({ kind = 'info', content, onClose }) {
             </button>
           </div>
 
-          <ReactMarkdown linkTarget={getTarget} source={content} plugins={reactMdPlugins} />
+          <ReactMarkdown
+            linkTarget={getTarget}
+            source={content}
+            plugins={reactMdPlugins}
+          />
         </div>
       </div>
     </div>

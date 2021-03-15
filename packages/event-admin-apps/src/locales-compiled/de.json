@@ -58,7 +58,13 @@
   "EventAdminApp.Dashboard.changeState": [
     {
       "type": 0,
-      "value": "Change state:"
+      "value": "Change state"
+    }
+  ],
+  "EventAdminApp.Dashboard.clearFilters": [
+    {
+      "type": 0,
+      "value": "Clear filters"
     }
   ],
   "EventAdminApp.Dashboard.extendedAllSelected": [
@@ -303,10 +309,6 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "total"
-    },
-    {
-      "type": 1,
-      "value": "filters"
     }
   ],
   "EventAdminApp.Dashboard.unselect": [
@@ -401,6 +403,12 @@
       "value": "Edit"
     }
   ],
+  "EventAdminApp.EventItem.onlineEvent": [
+    {
+      "type": 0,
+      "value": "Online event"
+    }
+  ],
   "EventAdminApp.EventItem.passed": [
     {
       "type": 0,
@@ -417,6 +425,12 @@
     {
       "type": 0,
       "value": "Show location"
+    }
+  ],
+  "EventAdminApp.EventItem.showOnlineLocation": [
+    {
+      "type": 0,
+      "value": "Access the online event"
     }
   ],
   "EventAdminApp.FiltersPart.lessFilters": [
@@ -471,6 +485,24 @@
     {
       "type": 0,
       "value": "Recently updated"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.mixed": [
+    {
+      "type": 0,
+      "value": "Mixed"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.offline": [
+    {
+      "type": 0,
+      "value": "Offline"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.online": [
+    {
+      "type": 0,
+      "value": "Online"
     }
   ],
   "EventAdminApp.messages.exports.export": [

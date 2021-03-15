@@ -13,8 +13,8 @@ module.exports = function validateCreate() {
       ? {
         isActivated: {
           type: 'boolean',
-          default: false
-        }
+          default: false,
+        },
       }
       : {}),
     // Allow password to be optional for a social registration
@@ -23,9 +23,9 @@ module.exports = function validateCreate() {
         password: {
           type: 'text',
           min: 4,
-          optional: true
-        }
+          optional: true,
+        },
       }
-      : {})
+      : {}),
   })(context);
 };

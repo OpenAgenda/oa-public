@@ -10,7 +10,7 @@ module.exports = async (
 ) => {
   const { detailed } = {
     detailed: false,
-    ...options
+    ...options,
   };
 
   const source = await knex('aggregator_source as ags')
@@ -18,7 +18,7 @@ module.exports = async (
       'ags.id as sourceId',
       'r.uid as agendaUid',
       'ags.store as sourceStore',
-      'ags.aggregator_id as aggregatorId'
+      'ags.aggregator_id as aggregatorId',
     ])
     .leftJoin('review as r', 'ags.review_id', 'r.id')
     .where('ags.id', sourceId)
@@ -27,7 +27,7 @@ module.exports = async (
         id: r.sourceId,
         agendaUid: r.agendaUid,
         rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
-        aggregatorId: r.aggregatorId
+        aggregatorId: r.aggregatorId,
       }
       : null));
 

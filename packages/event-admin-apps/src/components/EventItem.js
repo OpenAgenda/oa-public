@@ -41,6 +41,14 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.passed',
     defaultMessage: 'Passed',
   },
+  onlineEvent: {
+    id: 'EventAdminApp.EventItem.onlineEvent',
+    defaultMessage: 'Online event',
+  },
+  showOnlineLocation: {
+    id: 'EventAdminApp.EventItem.showOnlineLocation',
+    defaultMessage: 'Access the online event',
+  },
 });
 
 export default function EventItem({
@@ -65,6 +73,9 @@ export default function EventItem({
 
     return endOfLastTiming < now;
   }, [event]);
+
+  const hasOfflineLocation = event.attendanceMode === 1 || event.attendanceMode === 3;
+  const hasOnlineLocation = event.attendanceMode === 2 || event.attendanceMode === 3;
 
   const [hovered, setHovered] = useState(false);
 
@@ -109,9 +120,18 @@ export default function EventItem({
         </a>
       </div>
 
-      <div className="margin-top-xs">
-        {event.location.name}, {getLocaleValue(event.dateRange, intl.locale)}
-      </div>
+      {hasOfflineLocation ? (
+        <div className="margin-top-xs">
+          {event.location.name}, {getLocaleValue(event.dateRange, intl.locale)}
+        </div>
+      ) : null}
+
+      {event.attendanceMode === 2 ? (
+        <div className="margin-top-xs">
+          {intl.formatMessage(messages.onlineEvent)},{' '}
+          {getLocaleValue(event.dateRange, intl.locale)}
+        </div>
+      ) : null}
 
       {event.member?.name ? (
         <>
@@ -172,13 +192,30 @@ export default function EventItem({
             </a>
           </li>
 
-          {event.member && event.originAgenda?.uid === agenda.uid ? (
+          {event.member
+          && event.originAgenda?.uid === agenda.uid
+          && hasOfflineLocation ? (
             <li>
               <a
                 className="btn btn-link btn-link-inline"
                 href={`/${agenda.slug}/admin/locations?uids[]=${event.location.uid}`}
               >
                 {intl.formatMessage(messages.showLocation)}
+              </a>
+            </li>
+            ) : null}
+
+          {hasOnlineLocation ? (
+            <li>
+              <a
+                className="btn btn-link btn-link-inline"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={event.onlineAccessLink}
+              >
+                {intl.formatMessage(messages.showOnlineLocation)}
+                &nbsp;
+                <i className="fa fa-external-link" />
               </a>
             </li>
           ) : null}

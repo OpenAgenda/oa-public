@@ -30,23 +30,63 @@ module.exports = services => {
 
     try {
       if (format === 'json') {
-        const { agenda, result } = await core
-          .agendas(req.params.agendaUid)
-          .events.search({
-            state: null,
-            ...req.query
-          }, req.query, {
-            ...req.query,
-            access,
-            returnAgenda: true
+        // stream
+        if (Number(req.query.size) === -1) {
+          const {
+            agenda,
+            result: stream
+          } = await core
+            .agendas(req.params.agendaUid)
+            .events.search({
+              state: null,
+              ...req.query
+            }, null, {
+              ...req.query,
+              access,
+              returnAgenda: true,
+              stream: true
+            });
+
+          res.set({
+            'Content-Type': 'application/json',
+            'Content-disposition': `inline; filename="${agenda.slug}.agenda.json"`
           });
 
-        res.set({
-          'Content-Type': 'application/json',
-          'Content-disposition': `inline; filename="${agenda.slug}.agenda.json"`
-        });
+          let isFirst = true;
 
-        return res.json(result);
+          for await (const event of stream) {
+            if (!isFirst) {
+              res.write(',');
+            } else {
+              res.write(`{"total": ${stream._total},"events":[`);
+              isFirst = false;
+            }
+
+            res.write(JSON.stringify(event));
+          }
+
+          res.write(`]}`);
+
+          return res.end();
+        } else {
+          const { agenda, result } = await core
+            .agendas(req.params.agendaUid)
+            .events.search({
+              state: null,
+              ...req.query
+            }, req.query, {
+              ...req.query,
+              access,
+              returnAgenda: true
+            });
+
+          res.set({
+            'Content-Type': 'application/json',
+            'Content-disposition': `inline; filename="${agenda.slug}.agenda.json"`
+          });
+
+          return res.json(result);
+        }
       }
 
       if (['csv', 'xlsx', 'ics', 'md', 'txt', 'rss'].includes(format)) {
@@ -64,7 +104,10 @@ module.exports = services => {
           result: stream
         } = await core
           .agendas(req.params.agendaUid)
-          .events.search(req.query, null, { detailed: true, returnAgenda: true, stream: true });
+          .events.search({
+            state: null,
+            ...req.query
+          }, null, { detailed: true, returnAgenda: true, stream: true });
 
         switch (format) {
           case 'csv': {

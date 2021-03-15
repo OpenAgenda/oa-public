@@ -25,14 +25,14 @@ const initialState = {};
 function addId(stat) {
   return {
     ...stat,
-    id: typeof stat.id !== 'undefined' ? stat.id : uuidv4()
+    id: typeof stat.id !== 'undefined' ? stat.id : uuidv4(),
   };
 }
 
 function addState(stat) {
   return {
     ...stat,
-    state: typeof stat.state !== 'undefined' ? stat.state : {}
+    state: typeof stat.state !== 'undefined' ? stat.state : {},
   };
 }
 
@@ -57,17 +57,14 @@ function addInterval(query) {
       ...stat,
       state: {
         ...stat.state,
-        interval
-      }
+        interval,
+      },
     };
   };
 }
 
 function decorateStats(stats, query = {}) {
-  return stats
-    .map(addId)
-    .map(addState)
-    .map(addInterval(query));
+  return stats.map(addId).map(addState).map(addInterval(query));
 }
 
 export default function reducer(state = initialState, action) {
@@ -85,10 +82,10 @@ export default function reducer(state = initialState, action) {
             ...v,
             state: {
               ...v.state,
-              loading: true
-            }
+              loading: true,
+            },
           };
-        })
+        }),
       };
     case LOAD_SUCCESS:
       return {
@@ -110,19 +107,19 @@ export default function reducer(state = initialState, action) {
               loaded: true,
               data: Array.isArray(v.aggregation)
                 ? v.aggregation.map(getData)
-                : getData(v.aggregation)
-            }
+                : getData(v.aggregation),
+            },
           };
         }),
         query: action.query,
         error: null,
-        loading: false
+        loading: false,
       };
     case LOAD_FAIL:
       return {
         ...state,
         error: action.error,
-        loading: false
+        loading: false,
       };
     case LOAD_STAT: {
       const statIndex = state.data.findIndex(v => v.id === action.statId);
@@ -130,8 +127,8 @@ export default function reducer(state = initialState, action) {
         ...action.stat,
         state: {
           ...action.stat.state,
-          loading: true
-        }
+          loading: true,
+        },
       };
 
       return {
@@ -139,8 +136,8 @@ export default function reducer(state = initialState, action) {
         data: [
           ...state.data.slice(0, statIndex),
           newStat,
-          ...state.data.slice(statIndex + 1)
-        ]
+          ...state.data.slice(statIndex + 1),
+        ],
       };
     }
     case LOAD_STAT_FAIL: {
@@ -149,8 +146,8 @@ export default function reducer(state = initialState, action) {
         ...action.stat,
         state: {
           ...action.stat.state,
-          loading: false
-        }
+          loading: false,
+        },
       };
 
       return {
@@ -158,8 +155,8 @@ export default function reducer(state = initialState, action) {
         data: [
           ...state.data.slice(0, statIndex),
           newStat,
-          ...state.data.slice(statIndex + 1)
-        ]
+          ...state.data.slice(statIndex + 1),
+        ],
       };
     }
     case LOAD_STAT_SUCCESS: {
@@ -174,8 +171,8 @@ export default function reducer(state = initialState, action) {
           loading: false,
           data: Array.isArray(action.stat.aggregation)
             ? action.stat.aggregation.map(getData)
-            : getData(action.stat.aggregation)
-        }
+            : getData(action.stat.aggregation),
+        },
       };
 
       return {
@@ -183,8 +180,8 @@ export default function reducer(state = initialState, action) {
         data: [
           ...state.data.slice(0, statIndex),
           newStat,
-          ...state.data.slice(statIndex + 1)
-        ]
+          ...state.data.slice(statIndex + 1),
+        ],
       };
     }
     case SET_EDIT_MODE: {
@@ -194,7 +191,7 @@ export default function reducer(state = initialState, action) {
         data: !action.editing ? _.clone(state.dataBeforeEdit) : state.data,
         dataBeforeEdit: action.editing
           ? _.clone(state.data)
-          : state.dataBeforeEdit
+          : state.dataBeforeEdit,
       };
     }
     case CANCEL_EDIT: {
@@ -202,19 +199,19 @@ export default function reducer(state = initialState, action) {
         ...state,
         editing: false,
         data: _.clone(state.dataBeforeEdit),
-        dataBeforeEdit: null
+        dataBeforeEdit: null,
       };
     }
     case REMOVE_STAT: {
       return {
         ...state,
-        data: state.data.filter(stat => stat.id !== action.statId)
+        data: state.data.filter(stat => stat.id !== action.statId),
       };
     }
     case ADD_STAT: {
       return {
         ...state,
-        data: [...state.data, action.stat]
+        data: [...state.data, action.stat],
       };
     }
     case UPDATE_STAT: {
@@ -224,8 +221,8 @@ export default function reducer(state = initialState, action) {
         ...actualStat,
         chart: {
           ...actualStat.chart,
-          ...action.values
-        }
+          ...action.values,
+        },
       };
 
       return {
@@ -233,21 +230,21 @@ export default function reducer(state = initialState, action) {
         data: [
           ...state.data.slice(0, statIndex),
           newStat,
-          ...state.data.slice(statIndex + 1)
-        ]
+          ...state.data.slice(statIndex + 1),
+        ],
       };
     }
     case SAVE_SUCCESS: {
       return {
         ...state,
         editing: false,
-        dataBeforeEdit: null
+        dataBeforeEdit: null,
       };
     }
     case REORDER_STATS: {
       return {
         ...state,
-        data: action.statIds.map(id => state.data.find(v => v.id === id))
+        data: action.statIds.map(id => state.data.find(v => v.id === id)),
       };
     }
     default:
@@ -264,15 +261,15 @@ export function load(agenda, stats, filters, query) {
         filter => filter.type !== 'dateRange'
           && !stats.find(stat => _.isMatch(stat.aggregation, {
             type: filter.name,
-            ...filter.aggregation
+            ...filter.aggregation,
           }))
       )
       .map(filter => ({
         id: filter.id,
         aggregation: {
           type: filter.name,
-          ...filter.aggregation
-        }
+          ...filter.aggregation,
+        },
       }));
 
     const allStats = stats.concat(filterAggregations);
@@ -284,7 +281,7 @@ export function load(agenda, stats, filters, query) {
       oaq: { passed: 1 },
       size: 0,
       aggregations,
-      ...query
+      ...query,
     };
 
     return dispatch({
@@ -297,7 +294,7 @@ export function load(agenda, stats, filters, query) {
         return client.get(url, { params });
       },
       stats: decoratedStats,
-      query
+      query,
     });
   };
 }
@@ -314,7 +311,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
       oaq: { passed: 1 },
       size: 0,
       aggregations: statsToAggregations(decoratedStats),
-      ...stats.query
+      ...stats.query,
     };
 
     return dispatch({
@@ -327,7 +324,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
         return client.get(url, { params });
       },
       statId,
-      stat: decoratedStats[0]
+      stat: decoratedStats[0],
     });
   };
 }
@@ -335,7 +332,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
 export function setEditMode(editing) {
   return {
     type: SET_EDIT_MODE,
-    editing
+    editing,
   };
 }
 
@@ -357,10 +354,10 @@ export function save(agenda) {
             id: v.id,
             aggregation: v.aggregation,
             chart: v.chart,
-            separator: v.separator
+            separator: v.separator,
           }))
         );
-      }
+      },
     });
   };
 }
@@ -368,7 +365,7 @@ export function save(agenda) {
 export function removeStat(statId) {
   return {
     type: REMOVE_STAT,
-    statId
+    statId,
   };
 }
 
@@ -378,7 +375,7 @@ export function addStat(stat) {
 
     return dispatch({
       type: ADD_STAT,
-      stat: decorateStats([stat], query)[0]
+      stat: decorateStats([stat], query)[0],
     });
   };
 }
@@ -387,13 +384,13 @@ export function updateStat(statId, values) {
   return {
     type: UPDATE_STAT,
     statId,
-    values
+    values,
   };
 }
 
 export function reorderStats(statIds) {
   return {
     type: REORDER_STATS,
-    statIds
+    statIds,
   };
 }

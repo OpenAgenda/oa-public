@@ -5,11 +5,11 @@ const style = {
   minHeight: 300,
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
 };
 const options = {
   scale: 1,
-  width: 1
+  width: 1,
 };
 
 export default function Loading() {

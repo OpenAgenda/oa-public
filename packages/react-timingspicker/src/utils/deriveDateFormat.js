@@ -7,7 +7,7 @@ export default function deriveDateFormat(intl) {
     day: '2-digit',
     // hour:  '2-digit',
     // minute: '2-digit',
-    hour12: false
+    hour12: false,
   });
 
   return intlString

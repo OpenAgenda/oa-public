@@ -15,7 +15,7 @@ export default function Root({
   req,
   staticContext,
   extractor,
-  helmetContext
+  helmetContext,
 }) {
   const Content = useCallback(
     () => (
@@ -43,7 +43,7 @@ export default function Root({
         triggerHooks,
         req,
         staticContext,
-        extractor
+        extractor,
       })}
     </HelmetProvider>
     // </React.StrictMode>

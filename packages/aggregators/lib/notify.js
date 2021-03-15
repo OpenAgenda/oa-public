@@ -32,7 +32,7 @@ module.exports = async ({ getAgendaSourceId, queue }, type, data) => {
       'agenda.uid',
       'agenda.slug',
       'event.uid',
-      'event.slug'
+      'event.slug',
     ])
   );
 

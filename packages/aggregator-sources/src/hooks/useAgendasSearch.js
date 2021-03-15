@@ -7,7 +7,7 @@ const defaultInitialState = {
   listLoading: false,
   nextPageLoading: false,
   listError: null,
-  nextPageError: null
+  nextPageError: null,
 };
 
 function reducer(state, action) {
@@ -17,7 +17,7 @@ function reducer(state, action) {
         ...state,
         listLoading: true,
         firstLoading: [null, true].includes(state.firstLoading),
-        searchValue: action.payload.search
+        searchValue: action.payload.search,
       };
     case 'listSuccess':
       return {
@@ -27,7 +27,7 @@ function reducer(state, action) {
         firstLoading: false,
         listError: null,
         total: action.payload.data.total,
-        page: 1
+        page: 1,
       };
     case 'listFail':
       return {
@@ -37,12 +37,12 @@ function reducer(state, action) {
         firstLoading: false,
         listError: action.payload.error,
         total: null,
-        page: 1
+        page: 1,
       };
     case 'nextPage':
       return {
         ...state,
-        nextPageLoading: true
+        nextPageLoading: true,
       };
     case 'nextPageSuccess':
       return {
@@ -51,14 +51,14 @@ function reducer(state, action) {
         nextPageLoading: false,
         nextPageError: null,
         total: action.payload.data.total,
-        page: action.payload.page
+        page: action.payload.page,
       };
     case 'nextPageFail':
       return {
         ...state,
         agendas: [],
         nextPageLoading: false,
-        nextPageError: action.payload.error
+        nextPageError: action.payload.error,
       };
     default:
       return state;
@@ -68,12 +68,12 @@ function reducer(state, action) {
 export default function useAgendasSearch({
   request,
   perPageLimit,
-  initialState
+  initialState,
 }) {
   const _initialState = useMemo(
     () => ({
       ...defaultInitialState,
-      ...initialState
+      ...initialState,
     }),
     [initialState]
   );
@@ -84,26 +84,26 @@ export default function useAgendasSearch({
       dispatch({
         type: 'list',
         payload: {
-          search
-        }
+          search,
+        },
       });
 
       return Promise.resolve(
         request({
-          search
+          search,
         })
       ).then(
         data => dispatch({
           type: 'listSuccess',
           payload: {
-            data
-          }
+            data,
+          },
         }),
         error => dispatch({
           type: 'listFail',
           payload: {
-            error
-          }
+            error,
+          },
         })
       );
     },
@@ -126,28 +126,28 @@ export default function useAgendasSearch({
     dispatch({
       type: 'nextPage',
       payload: {
-        page: newPage
-      }
+        page: newPage,
+      },
     });
 
     return Promise.resolve(
       request({
         search: state.searchValue,
-        page: newPage
+        page: newPage,
       })
     ).then(
       data => dispatch({
         type: 'nextPageSuccess',
         payload: {
           data,
-          page: newPage
-        }
+          page: newPage,
+        },
       }),
       error => dispatch({
         type: 'nextPageFail',
         payload: {
-          error
-        }
+          error,
+        },
       })
     );
   }, [
@@ -158,12 +158,12 @@ export default function useAgendasSearch({
     state.total,
     state.searchValue,
     perPageLimit,
-    request
+    request,
   ]);
 
   return {
     state,
     list,
-    nextPage
+    nextPage,
   };
 }

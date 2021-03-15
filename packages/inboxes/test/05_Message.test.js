@@ -8,7 +8,7 @@ const tables = [
   'inboxUser',
   'conversation',
   'inboxConversation',
-  'message'
+  'message',
 ];
 
 describe('Message', () => {
@@ -19,7 +19,7 @@ describe('Message', () => {
     service = await initAndLoad(
       {
         ...testconfig,
-        mysql: { ...testconfig.mysql, database }
+        mysql: { ...testconfig.mysql, database },
       },
       []
     );
@@ -39,7 +39,7 @@ describe('Message', () => {
     await seed(
       {
         ...testconfig,
-        mysql: { ...testconfig.mysql, database }
+        mysql: { ...testconfig.mysql, database },
       },
       tables
     );
@@ -56,7 +56,7 @@ describe('Message', () => {
 
       const message = await conversation.messages.create({
         body: 'Salut toi, mets moi admin, et vite ! 🎉',
-        userUid: 23456789
+        userUid: 23456789,
       });
 
       expect(_.omit(message.toJSON(), 'createdAt', 'id')).toEqual({
@@ -71,7 +71,7 @@ describe('Message', () => {
           avatar:
             'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
-          uid: 23456789
+          uid: 23456789,
         },
         inbox: {
           id: 1,
@@ -79,15 +79,15 @@ describe('Message', () => {
           identifier: 48959239,
           name: 'La gargouille',
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          uid: 48959239
-        }
+          uid: 48959239,
+        },
       });
     });
 
     test('create a message - by user endpoint', async () => {
       const conversation = await Inbox.user(99999999).conversations.get(1);
       const message = await conversation.messages.create({
-        body: 'Salut toi, mets moi admin, et vite !'
+        body: 'Salut toi, mets moi admin, et vite !',
       });
 
       expect(_.omit(message.toJSON(), 'createdAt', 'id')).toEqual({
@@ -102,7 +102,7 @@ describe('Message', () => {
           avatar:
             'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
-          uid: 99999999
+          uid: 99999999,
         },
         inbox: {
           id: 2,
@@ -111,8 +111,8 @@ describe('Message', () => {
           name: "L'admin",
           avatar:
             'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-          uid: 99999999
-        }
+          uid: 99999999,
+        },
       });
     });
 
@@ -121,16 +121,16 @@ describe('Message', () => {
 
       await expect(
         conversation.messages.create({
-          body: 'Salut toi, mets moi admin, et vite !'
+          body: 'Salut toi, mets moi admin, et vite !',
         })
       ).rejects.toMatchObject({
         jse_info: {
           errors: {
             userUid: {
-              code: 'required'
-            }
-          }
-        }
+              code: 'required',
+            },
+          },
+        },
       });
     });
 
@@ -140,10 +140,10 @@ describe('Message', () => {
       await expect(
         conversation.messages.create({
           body: 'Salut toi, mets moi admin, et vite !',
-          userUid: 23456790
+          userUid: 23456790,
         })
       ).rejects.toMatchObject({
-        message: 'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }'
+        message: 'InboxUser { userUid: 23456790 } not found in Inbox { id: 1 }',
       });
     });
 
@@ -153,7 +153,7 @@ describe('Message', () => {
       const message = await conversation.messages.create(
         {
           body: 'Salut toi, mets moi admin, et vite !',
-          userUid: 78945621
+          userUid: 78945621,
         },
         { createInboxUserOnNull: true }
       );
@@ -171,7 +171,7 @@ describe('Message', () => {
           uid: 78945621,
           name: 'Jean-Roger Benbambou',
           avatar:
-            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+            'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
         },
         inbox: {
           id: 1,
@@ -179,8 +179,8 @@ describe('Message', () => {
           identifier: 48959239,
           uid: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
-        }
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+        },
       });
     });
   });
@@ -203,7 +203,7 @@ describe('Message', () => {
           avatar:
             'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           leftAt: null,
-          uid: 23456789
+          uid: 23456789,
         },
         inbox: {
           id: 1,
@@ -211,8 +211,8 @@ describe('Message', () => {
           identifier: 48959239,
           name: 'La gargouille',
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          uid: 48959239
-        }
+          uid: 48959239,
+        },
       });
     });
   });
@@ -237,8 +237,8 @@ describe('Message', () => {
             name: "L'admin",
             avatar:
               'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          }
+            uid: 99999999,
+          },
         },
         {
           id: 1,
@@ -253,7 +253,7 @@ describe('Message', () => {
             avatar:
               'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
-            uid: 23456789
+            uid: 23456789,
           },
           inbox: {
             id: 1,
@@ -261,9 +261,9 @@ describe('Message', () => {
             identifier: 48959239,
             name: 'La gargouille',
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 48959239
-          }
-        }
+            uid: 48959239,
+          },
+        },
       ]);
     });
 
@@ -287,7 +287,7 @@ describe('Message', () => {
             avatar:
               'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             leftAt: null,
-            uid: 99999999
+            uid: 99999999,
           },
           inbox: {
             id: 2,
@@ -296,8 +296,8 @@ describe('Message', () => {
             name: "L'admin",
             avatar:
               'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
-            uid: 99999999
-          }
+            uid: 99999999,
+          },
         },
         {
           id: 1,
@@ -310,9 +310,9 @@ describe('Message', () => {
             identifier: 48959239,
             name: 'La gargouille',
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-            uid: 48959239
-          }
-        }
+            uid: 48959239,
+          },
+        },
       ]);
     });
   });

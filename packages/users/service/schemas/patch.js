@@ -3,16 +3,16 @@
 module.exports = {
   fullName: {
     optional: true,
-    type: 'text'
+    type: 'text',
   },
   culture: {
     optional: true,
     type: 'text',
     min: 2,
-    max: 2
+    max: 2,
   },
   image: {
     optional: true,
-    type: 'pass'
-  }
+    type: 'pass',
+  },
 };

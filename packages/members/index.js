@@ -17,7 +17,7 @@ const utils = {
   roles,
   compareRoles,
   getRoleCode,
-  getRoleSlug
+  getRoleSlug,
 };
 
 module.exports = (options = {}) => {
@@ -27,7 +27,7 @@ module.exports = (options = {}) => {
     interfaces: {},
     bulkThreshold: 10,
     queues: null,
-    ...options
+    ...options,
   };
 
   if (config.logger) {
@@ -36,24 +36,24 @@ module.exports = (options = {}) => {
 
   return {
     get: Object.assign(get.bind(null, config), {
-      byEmail: get.byEmail.bind(null, config)
+      byEmail: get.byEmail.bind(null, config),
     }),
     list: list.bind(null, config),
     create: create.bind(null, config),
     patch: Object.assign(patch.bind(null, config), {
       actions: {
-        increment: patch.actionsIncrement.bind(null, config)
-      }
+        increment: patch.actionsIncrement.bind(null, config),
+      },
     }),
     remove: remove.bind(null, config),
     stream: stream.bind(null, config),
     set: {
       byEmail: Object.assign(setByEmail.bind(null, config), {
-        bulk: setByEmail.bulk.bind(null, config)
-      })
+        bulk: setByEmail.bulk.bind(null, config),
+      }),
     },
     task: setByEmail.task.bind(null, config),
-    utils
+    utils,
   };
 };
 

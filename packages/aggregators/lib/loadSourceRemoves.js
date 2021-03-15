@@ -27,7 +27,7 @@ module.exports = async (
         aggregatorAgendaUid,
         sourceAgendaUid,
         eventUid,
-        batched: true
+        batched: true,
       });
     }
 

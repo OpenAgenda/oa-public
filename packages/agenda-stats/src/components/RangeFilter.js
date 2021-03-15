@@ -9,16 +9,16 @@ import RangeModal from './RangeModal';
 const messages = defineMessages({
   sameDayRange: {
     id: 'AgendaStats.RangeFilter.sameDayRange',
-    defaultMessage: 'The {startDate, date}'
+    defaultMessage: 'The {startDate, date}',
   },
   range: {
     id: 'AgendaStats.RangeFilter.range',
-    defaultMessage: 'From {startDate, date} to {endDate, date}'
+    defaultMessage: 'From {startDate, date} to {endDate, date}',
   },
   update: {
     id: 'AgendaStats.RangeFilter.update',
-    defaultMessage: 'Update'
-  }
+    defaultMessage: 'Update',
+  },
 });
 
 export default function RangeFilter({ agenda }) {

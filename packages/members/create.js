@@ -19,12 +19,12 @@ module.exports = async ({ knex, schema, interfaces }, data, options = {}) => {
   try {
     Object.assign(clean, validate.withCustom(requireCustom)(data), {
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
   } catch (errors) {
     return {
       success: false,
-      errors
+      errors,
     };
   }
 
@@ -67,6 +67,6 @@ module.exports = async ({ knex, schema, interfaces }, data, options = {}) => {
   return {
     errors: [],
     success: true,
-    member: clean
+    member: clean,
   };
 };

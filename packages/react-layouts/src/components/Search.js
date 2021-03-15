@@ -4,8 +4,8 @@ import { useIntl, defineMessages } from 'react-intl';
 const messages = defineMessages({
   search: {
     id: 'react-layouts.components.Search.search',
-    defaultMessage: 'Search'
-  }
+    defaultMessage: 'Search',
+  },
 });
 
 function Search() {

@@ -33,5 +33,5 @@ function verifyPassword(hashedPassword, password, salt) {
 module.exports = {
   randomHash,
   hashPassword,
-  verifyPassword
+  verifyPassword,
 };

@@ -28,9 +28,9 @@ export default async function createService(conf) {
         defineJob: tasks.sync.defineJob.bind(null, svc),
         processJob: tasks.sync.processJob.bind(null, svc),
         syncUser: tasks.sync.syncUser.bind(null, svc),
-        syncAgenda: tasks.sync.syncAgenda.bind(null, svc)
-      })
-    }
+        syncAgenda: tasks.sync.syncAgenda.bind(null, svc),
+      }),
+    },
   });
 
   // bind statics

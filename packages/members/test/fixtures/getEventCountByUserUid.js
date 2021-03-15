@@ -3,6 +3,6 @@
 module.exports = async () => [
   {
     userUid: 1,
-    count: 12
-  }
+    count: 12,
+  },
 ];

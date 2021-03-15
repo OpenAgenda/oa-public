@@ -25,7 +25,7 @@ export default async function populateDetails(svc, entities, inbox) {
         // check if the current user is in the entity inbox
         const inboxUser = inbox.data.type === 'user'
           ? await new Inbox(row.inboxUser.inboxId).users.get({
-            userUid: inbox.data.identifier
+            userUid: inbox.data.identifier,
           })
           : null;
 
@@ -41,7 +41,7 @@ export default async function populateDetails(svc, entities, inbox) {
         // check if the current user is in the creator inbox of entity
         const creatorInboxUser = inbox.data.type === 'user'
           ? await new Inbox(row.creatorInboxUser.inboxId).users.get({
-            userUid: inbox.data.identifier
+            userUid: inbox.data.identifier,
           })
           : null;
 

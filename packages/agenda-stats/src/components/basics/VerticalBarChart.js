@@ -7,7 +7,7 @@ import {
   CartesianGrid,
   Bar,
   BarChart,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from 'recharts';
 import defaultDataColors from '../../common/defaultDataColors';
 // import addRestItem from '../../utils/addRestItem';
@@ -22,7 +22,7 @@ export default function VerticalBarChart({
   dataKey,
   labelKey,
   renderTooltipItem,
-  categoryTick
+  categoryTick,
 }) {
   return (
     <ResponsiveContainer width="100%" height={42 + data.length * 32}>

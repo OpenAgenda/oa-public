@@ -37,11 +37,8 @@ function wrap({ async = [], before = [], after = [] } = {}) {
     ...[].concat(async),
     firstHook,
     ...[].concat(before).map(toBeforeHook),
-    ...[]
-      .concat(after)
-      .reverse()
-      .map(toAfterHook),
-    lastHook
+    ...[].concat(after).reverse().map(toAfterHook),
+    lastHook,
   ];
 }
 
@@ -50,5 +47,5 @@ module.exports = {
   beforeWrapper,
   afterWrapper,
   toBeforeHook,
-  toAfterHook
+  toAfterHook,
 };

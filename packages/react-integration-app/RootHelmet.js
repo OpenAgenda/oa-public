@@ -13,15 +13,15 @@ module.exports = () => el(
   el('meta', { name: 'title', content: 'Openagenda' }),
   el('meta', {
     name: 'description',
-    content: 'Communicate efficiently on your events'
+    content: 'Communicate efficiently on your events',
   }),
   el('meta', {
     name: 'keywords',
-    content: 'openagenda, events, agendas, open data, networked'
+    content: 'openagenda, events, agendas, open data, networked',
   }),
   el('meta', { name: 'robots', content: 'index, follow' }),
   el('meta', {
     name: 'viewport',
-    content: 'width=device-width, initial-scale=1'
+    content: 'width=device-width, initial-scale=1',
   })
 );

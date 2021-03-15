@@ -5,36 +5,36 @@ const fieldsMap = [
     db: 'id',
     obj: 'id',
     protected: true, // field is protected to modifications
-    internal: true // field is visible only with this option set to true
+    internal: true, // field is visible only with this option set to true
     // json: true // format/parse this field as json
   },
   {
     db: 'type',
-    obj: 'type'
+    obj: 'type',
   },
   {
     db: 'identifier',
-    obj: 'identifier'
+    obj: 'identifier',
   },
   {
     db: 'deleted_at',
     obj: 'deletedAt',
-    protected: true
+    protected: true,
   },
   {
     db: 'store',
     obj: 'store',
-    json: true
+    json: true,
   },
   {
     db: 'unused',
-    obj: 'unused'
+    obj: 'unused',
   },
   {
     db: 'detailed_field',
     obj: 'detailedField',
-    detailed: true
-  }
+    detailed: true,
+  },
 ];
 
 describe('database mapper util', () => {
@@ -48,13 +48,13 @@ describe('database mapper util', () => {
           deletedAt: true,
           store: { settings: 42 },
           notAllowedProperty: 'Scheiße',
-          detailedField: 'test'
+          detailedField: 'test',
         })
       ).toEqual({
         type: 'agenda',
         identifier: 48,
         store: '{"settings":42}',
-        detailed_field: 'test'
+        detailed_field: 'test',
       });
     });
 
@@ -69,10 +69,10 @@ describe('database mapper util', () => {
             identifier: 48,
             deletedAt: true,
             store: { settings: 42 },
-            detailedField: 'test'
+            detailedField: 'test',
           },
           {
-            protected: false
+            protected: false,
           }
         )
       ).toEqual({
@@ -81,7 +81,7 @@ describe('database mapper util', () => {
         identifier: 48,
         deleted_at: true,
         store: '{"settings":42}',
-        detailed_field: 'test'
+        detailed_field: 'test',
       });
     });
 
@@ -94,13 +94,13 @@ describe('database mapper util', () => {
           deleted_at: true,
           store: '{"settings":42}',
           not_allowed_property: 'Scheiße',
-          detailedField: 'test'
+          detailedField: 'test',
         })
       ).toEqual({
         type: 'agenda',
         identifier: 48,
         deletedAt: true,
-        store: { settings: 42 }
+        store: { settings: 42 },
       });
     });
 
@@ -114,10 +114,10 @@ describe('database mapper util', () => {
             identifier: 48,
             deleted_at: true,
             store: '{"settings":42}',
-            detailed_field: 'test'
+            detailed_field: 'test',
           },
           {
-            internal: true
+            internal: true,
           }
         )
       ).toEqual({
@@ -125,7 +125,7 @@ describe('database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deletedAt: true,
-        store: { settings: 42 }
+        store: { settings: 42 },
       });
     });
   });
@@ -139,13 +139,13 @@ describe('database mapper util', () => {
           identifier: 48,
           deletedAt: true,
           store: { settings: 42 },
-          detailedField: 'test'
+          detailedField: 'test',
         })
       ).toEqual({
         type: 'agenda',
         identifier: 48,
         store: '{"settings":42}',
-        detailed_field: 'test'
+        detailed_field: 'test',
       });
     });
 
@@ -160,10 +160,10 @@ describe('database mapper util', () => {
             identifier: 48,
             deletedAt: true,
             store: { settings: 42 },
-            detailedField: 'test'
+            detailedField: 'test',
           },
           {
-            protected: false
+            protected: false,
           }
         )
       ).toEqual({
@@ -172,7 +172,7 @@ describe('database mapper util', () => {
         identifier: 48,
         deleted_at: true,
         store: '{"settings":42}',
-        detailed_field: 'test'
+        detailed_field: 'test',
       });
     });
   });
@@ -186,13 +186,13 @@ describe('database mapper util', () => {
           identifier: 48,
           deletedAt: true,
           store: { settings: 42 },
-          detailedField: 'test'
+          detailedField: 'test',
         })
       ).toEqual({
         type: 'agenda',
         identifier: 48,
         deleted_at: true,
-        store: '{"settings":42}'
+        store: '{"settings":42}',
       });
     });
 
@@ -207,10 +207,10 @@ describe('database mapper util', () => {
             identifier: 48,
             deletedAt: true,
             store: { settings: 42 },
-            detailedField: 'test'
+            detailedField: 'test',
           },
           {
-            internal: true
+            internal: true,
           }
         )
       ).toEqual({
@@ -218,7 +218,7 @@ describe('database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deleted_at: true,
-        store: '{"settings":42}'
+        store: '{"settings":42}',
       });
     });
 
@@ -233,10 +233,10 @@ describe('database mapper util', () => {
             identifier: 48,
             deletedAt: true,
             store: { settings: 42 },
-            detailedField: 'test'
+            detailedField: 'test',
           },
           {
-            detailed: true
+            detailed: true,
           }
         )
       ).toEqual({
@@ -244,7 +244,7 @@ describe('database mapper util', () => {
         identifier: 48,
         deleted_at: true,
         store: '{"settings":42}',
-        detailed_field: 'test'
+        detailed_field: 'test',
       });
     });
 
@@ -254,7 +254,7 @@ describe('database mapper util', () => {
         'identifier',
         'deleted_at',
         'store',
-        'unused'
+        'unused',
       ]);
     });
 
@@ -270,7 +270,7 @@ describe('database mapper util', () => {
         'identifier',
         'deletedAt',
         'store',
-        'unused'
+        'unused',
       ]);
     });
 

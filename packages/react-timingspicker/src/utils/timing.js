@@ -20,5 +20,5 @@ function top({ selectableStep, step, cellHeight }, { begin }) {
 }
 
 export default {
-  top
+  top,
 };

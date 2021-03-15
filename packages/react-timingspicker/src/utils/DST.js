@@ -64,5 +64,5 @@ export default {
   hasSwitched,
   isObserved,
   offsetTop,
-  applyOffset
+  applyOffset,
 };

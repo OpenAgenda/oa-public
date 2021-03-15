@@ -18,18 +18,18 @@ describe('11 - list sources', () => {
       'aggregator.data.json',
       'review.create.sql',
       'review.data.json',
-      'aggregator_source.data.json'
+      'aggregator_source.data.json',
     ]);
 
     svc = createInstance({
       knex: f.client,
       queues: () => Object.assign(async () => {}, {
         register: () => {},
-        on: () => {}
+        on: () => {},
       }),
       interfaces: {
-        getAgendasByUidsAndSearch
-      }
+        getAgendasByUidsAndSearch,
+      },
     });
   });
 
@@ -56,11 +56,11 @@ describe('11 - list sources', () => {
         actions: [
           {
             field: 'state',
-            values: { $set: 2 }
-          }
+            values: { $set: 2 },
+          },
         ],
-        required: false
-      }
+        required: false,
+      },
     ]);
   });
 });

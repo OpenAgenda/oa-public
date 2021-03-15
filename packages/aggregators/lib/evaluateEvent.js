@@ -14,7 +14,7 @@ module.exports = async (
     getEventReference, // fetch current ref on aggregator
     updateSourcePaths,
     referenceEvent,
-    enqueueRemove
+    enqueueRemove,
   },
   data
 ) => {
@@ -24,7 +24,7 @@ module.exports = async (
     aggregatorAgendaUid,
     batched,
     formSchema: sourceAgendaFormSchema,
-    aggregatorLimit
+    aggregatorLimit,
   } = data;
 
   const log = Log(
@@ -42,7 +42,12 @@ module.exports = async (
     );
 
     if (limit.isReached(aggregatorLimit, aggregatedCount)) {
-      log('info', 'Limit %s has been reached reached on aggregator agenda uid %s. Not processed', aggregatorLimit, aggregatorAgendaUid);
+      log(
+        'info',
+        'Limit %s has been reached reached on aggregator agenda uid %s. Not processed',
+        aggregatorLimit,
+        aggregatorAgendaUid
+      );
       return;
     }
   }
@@ -88,7 +93,7 @@ module.exports = async (
 
   if (reference && !shouldAggregate) {
     log('Is referenced, but should not be through current source', {
-      step: 'alreadyReferenced'
+      step: 'alreadyReferenced',
     });
     updatedPaths = paths.getFiltered(reference.sourcePaths, sourceAgenda.uid);
   } else if (reference) {
@@ -109,7 +114,7 @@ module.exports = async (
       eventUid: event.uid,
       aggregatorAgendaUid,
       reference,
-      batched
+      batched,
     });
   }
   if (updatedPaths) {
@@ -125,7 +130,7 @@ module.exports = async (
     {
       batched,
       paths: paths.getAmended([], event.sourcePaths, sourceAgenda.uid),
-      sourceAgenda
+      sourceAgenda,
     }
   );
 
@@ -137,6 +142,6 @@ module.exports = async (
 
   return {
     success,
-    operation: 'aggregation'
+    operation: 'aggregation',
   };
 };

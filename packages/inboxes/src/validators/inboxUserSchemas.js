@@ -5,15 +5,15 @@ export function getIdentifiersSchema(identifiers) {
     additionalProperties: false,
     properties: {
       id: {
-        type: 'integer'
+        type: 'integer',
       },
       inboxId: {
-        type: 'integer'
+        type: 'integer',
       },
       userUid: {
-        type: 'integer'
-      }
-    }
+        type: 'integer',
+      },
+    },
   };
 }
 
@@ -25,12 +25,12 @@ export function getListSchema(query) {
     properties: {
       inboxId: {
         items: { type: 'integer' },
-        uniqueItems: true
+        uniqueItems: true,
       },
       userUid: {
-        type: 'integer'
-      }
-    }
+        type: 'integer',
+      },
+    },
   };
 }
 
@@ -40,10 +40,10 @@ export const createSchema = {
   additionalProperties: false,
   properties: {
     inboxId: {
-      type: 'integer'
+      type: 'integer',
     },
     userUid: {
-      type: 'integer'
-    }
-  }
+      type: 'integer',
+    },
+  },
 };

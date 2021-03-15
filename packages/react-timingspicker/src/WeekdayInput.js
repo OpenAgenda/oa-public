@@ -4,7 +4,7 @@ import WeekdayPicker from './WeekdayPicker';
 
 export default class WeekdayInput extends Component {
   static defaultProps = {
-    visible: true
+    visible: true,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -20,7 +20,7 @@ export default class WeekdayInput extends Component {
 
       const weekdays = {
         long: [],
-        short: []
+        short: [],
       };
       const startDate = dateFns.startOfWeek(new Date(), { weekStartsOn });
 
@@ -51,7 +51,7 @@ export default class WeekdayInput extends Component {
       const { weekdays } = this.state;
 
       return weekdays.short[weekday];
-    }
+    },
   };
 
   modifiers = {
@@ -59,14 +59,14 @@ export default class WeekdayInput extends Component {
       const { selected } = this.state;
 
       return selected.includes(weekday);
-    }
+    },
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      selected: []
+      selected: [],
     };
   }
 

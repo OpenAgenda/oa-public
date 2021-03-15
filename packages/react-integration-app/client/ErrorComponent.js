@@ -7,19 +7,19 @@ const defaultMessages = {
     sorry: 'Sorry, an error has occurred.',
     goToHome: 'Go to home',
     contactSupport: 'Contact support',
-    retry: 'Retry'
+    retry: 'Retry',
   },
   fr: {
     oops: 'Oups !',
     sorry: "Désolé, une erreur s'est produite.",
     goToHome: "Aller à l'accueil",
     contactSupport: 'Contacter le support',
-    retry: 'Réessayer'
-  }
+    retry: 'Réessayer',
+  },
 };
 
 const preStyle = {
-  display: 'inline-block'
+  display: 'inline-block',
 };
 
 export default function ErrorComponent({
@@ -27,7 +27,7 @@ export default function ErrorComponent({
   retry,
   componentStack,
   lang = 'en',
-  messages = defaultMessages
+  messages = defaultMessages,
 }) {
   return (
     <IntlProvider messages={messages[lang]} locale={lang} key={lang}>

@@ -10,7 +10,7 @@ export default function (prefix = '') {
     {
       path: prefix,
       component: App,
-      routes: [{ path: `${prefix}/`, exact: true, component: Dashboard }]
-    }
+      routes: [{ path: `${prefix}/`, exact: true, component: Dashboard }],
+    },
   ];
 }

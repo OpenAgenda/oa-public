@@ -7,7 +7,7 @@ function _cleanQuery(dirty) {
     if (key === 'location' && dirty.location instanceof Array) {
       const geoKey = Object.keys(dirty.location[0])[0];
       result.location = {
-        [geoKey]: dirty.location.map(l => l[geoKey])
+        [geoKey]: dirty.location.map(l => l[geoKey]),
       };
     } else {
       result[key] = dirty[key];
@@ -22,7 +22,7 @@ function clean(dirty) {
   const rule = {
     query: _cleanQuery(dirty.query),
     actions: [],
-    required: dirty.required === undefined ? true : !!dirty.required
+    required: dirty.required === undefined ? true : !!dirty.required,
   };
 
   const actions = [];
@@ -39,14 +39,14 @@ function clean(dirty) {
         const field = Object.keys(a).pop();
         actions.push({
           field,
-          values: a[field]
+          values: a[field],
         });
       }
     });
   } else if (dirty[actionKey] instanceof Object) {
     Object.keys(dirty[actionKey]).forEach(f => actions.push({
       field: f,
-      values: dirty[actionKey][f]
+      values: dirty[actionKey][f],
     }));
   }
 
@@ -55,7 +55,7 @@ function clean(dirty) {
   if (dirty.value && dirty.value.state !== undefined) {
     rule.actions.push({
       field: 'state',
-      values: { $set: dirty.value.state }
+      values: { $set: dirty.value.state },
     });
   }
 

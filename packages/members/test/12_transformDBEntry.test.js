@@ -13,8 +13,8 @@ describe('members - unit - transformDBEntry', () => {
         contactName: 'Gaetan',
         contactNumber: '01 23 45 67 89',
         email: 'support@openagenda.com',
-        contactPosition: 'Support'
-      }
+        contactPosition: 'Support',
+      },
     });
 
     expect(entry).toEqual({
@@ -23,7 +23,7 @@ describe('members - unit - transformDBEntry', () => {
       credential: 1,
       store:
         '{"custom_fields":{"organization":"OpenAgenda","contact_name":"Gaetan","contact_number":"01 23 45 67 89","contact_position":"Support","email":"support@openagenda.com"}}',
-      organization: 'openagenda'
+      organization: 'openagenda',
     });
   });
 });

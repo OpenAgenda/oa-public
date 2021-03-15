@@ -192,6 +192,12 @@
       "value": "crwdns870:0crwdne870:0"
     }
   ],
+  "ReactFilters.messages.filterTitles.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Attendance mode"
+    }
+  ],
   "ReactFilters.messages.filterTitles.city": [
     {
       "type": 0,

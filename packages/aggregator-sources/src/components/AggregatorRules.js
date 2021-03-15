@@ -7,16 +7,16 @@ const messages = defineMessages({
   rulesSummary: {
     id: 'aggregator-sources.RulesSummary.rulesSummary',
     defaultMessage:
-      '{count, plural, =0 {No general rule is defined} =1 {1 general rule is defined} other {# general rules are defined}}'
+      '{count, plural, =0 {No general rule is defined} =1 {1 general rule is defined} other {# general rules are defined}}',
   },
   add: {
     id: 'aggregator-sources.add',
-    defaultMessage: 'Add'
+    defaultMessage: 'Add',
   },
   edit: {
     id: 'aggregator-sources.edit',
-    defaultMessage: 'Edit'
-  }
+    defaultMessage: 'Edit',
+  },
 });
 
 export default function AggregatorRules({ rules, showModal }) {
@@ -26,7 +26,7 @@ export default function AggregatorRules({ rules, showModal }) {
     <div className="padding-top-sm padding-bottom-xs">
       <span>
         {intl.formatMessage(messages.rulesSummary, {
-          count: rules ? rules.length : 0
+          count: rules ? rules.length : 0,
         })}
       </span>
       <button

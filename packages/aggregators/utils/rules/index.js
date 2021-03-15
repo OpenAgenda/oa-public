@@ -24,7 +24,7 @@ function evaluateRules(
     if (ruleActions === false) {
       return {
         stop: true,
-        actions: []
+        actions: [],
       };
     }
     if (ruleActions) {
@@ -34,7 +34,7 @@ function evaluateRules(
 
   return {
     stop: false,
-    actions
+    actions,
   };
 }
 
@@ -49,13 +49,13 @@ function forceExplicitActionOperation(action, forceOperation = null) {
   if (forceOperation) {
     return {
       ...action,
-      values: { [forceOperation]: actionValues }
+      values: { [forceOperation]: actionValues },
     };
   }
   if (!currentOperation) {
     return {
       ...action,
-      values: { $push: actionValues }
+      values: { $push: actionValues },
     };
   }
 
@@ -96,7 +96,7 @@ function extractAutomaticValues(
       return optionLabels.reduce(
         (accu, label) => ({
           ...accu,
-          [label]: option.id
+          [label]: option.id,
         }),
         result
       );
@@ -143,7 +143,7 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
 
         return {
           ...result,
-          [aggregatorSchemaField.field]: data[fieldName]
+          [aggregatorSchemaField.field]: data[fieldName],
         };
       },
       {}
@@ -176,9 +176,9 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
         return {
           [actionOperation === '$set'
             ? actionOperation
-            : fieldOperation]: updatedFieldTransformValues
+            : fieldOperation]: updatedFieldTransformValues,
         };
-      }, {})
+      }, {}),
     }),
     {}
   );

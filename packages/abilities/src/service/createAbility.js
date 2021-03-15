@@ -24,7 +24,7 @@ function getSubjectName(subject) {
 export default function createAbility(entityName, identifier, rules) {
   const ability = new Ability(rulesLib.parse(rules), {
     subjectName: getSubjectName,
-    RuleType: Rule
+    RuleType: Rule,
   });
 
   function checkWrapper(func, action, subjectName, conditionsOrSubject, field) {
@@ -36,7 +36,7 @@ export default function createAbility(entityName, identifier, rules) {
       subject[SUBJECT_NAME] = subjectName;
     } else if (subject === undefined) {
       subject = {
-        [SUBJECT_NAME]: subjectName
+        [SUBJECT_NAME]: subjectName,
       };
     }
 

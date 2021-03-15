@@ -7,13 +7,13 @@ exports.up = async knex => {
 
   const insertedId = await knex(schemas.inbox).insert({
     type: 'support',
-    identifier: 1
+    identifier: 1,
   });
 
   await knex(schemas.inboxUser).insert(
     adminUids.map(v => ({
       inbox_id: insertedId,
-      user_uid: v
+      user_uid: v,
     }))
   );
 };
@@ -21,10 +21,8 @@ exports.up = async knex => {
 exports.down = async knex => {
   const { schemas } = knex.client.config;
 
-  await knex(schemas.inbox)
-    .del()
-    .where({
-      type: 'support',
-      identifier: 1
-    });
+  await knex(schemas.inbox).del().where({
+    type: 'support',
+    identifier: 1,
+  });
 };

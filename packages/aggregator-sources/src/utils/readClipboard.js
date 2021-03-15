@@ -34,7 +34,7 @@ function createInput() {
     'min-height': '1px',
     'max-height': '1px',
     'min-width': '1px',
-    'max-width': '1px'
+    'max-width': '1px',
   });
 
   return input;

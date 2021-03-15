@@ -8,7 +8,7 @@ module.exports = function verifyPassword(field = 'password') {
     const validPassword = await context.self.verifyPassword(
       { password: _.get(context.data, field) },
       {
-        query: { uid: context.id }
+        query: { uid: context.id },
       }
     );
 
@@ -17,9 +17,9 @@ module.exports = function verifyPassword(field = 'password') {
         errors: [
           {
             field,
-            code: 'password.badpassword'
-          }
-        ]
+            code: 'password.badpassword',
+          },
+        ],
       });
     }
   };

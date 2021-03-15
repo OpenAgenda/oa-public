@@ -21,17 +21,17 @@ module.exports = async (
     review_id: sourceAgenda.id,
     aggregator_id: aggregator.id,
     store: JSON.stringify({
-      rules: cleanSourceRules
+      rules: cleanSourceRules,
     }),
     created_at: new Date(),
-    updated_at: new Date()
+    updated_at: new Date(),
   });
 
   return {
     aggregator,
     source: {
       id: insertIds[0],
-      rules: cleanSourceRules
-    }
+      rules: cleanSourceRules,
+    },
   };
 };

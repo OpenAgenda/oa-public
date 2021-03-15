@@ -8,7 +8,7 @@ function RequiredUser({
   children,
   extraProps,
   onError,
-  FallbackComponent
+  FallbackComponent,
 }) {
   const history = useHistory();
   const location = useLocation();

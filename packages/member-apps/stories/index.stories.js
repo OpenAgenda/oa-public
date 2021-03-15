@@ -12,7 +12,7 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
     lang,
     apiRoot,
     prefix: '',
-    perPageLimit: 20
+    perPageLimit: 20,
   },
   res: {
     app: '#',
@@ -24,7 +24,7 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
     showContributor: '#',
     writeToMember: '#', // old chat
     sendMessage: '/send-message',
-    sendAMessage: '/send-a-message/:id'
+    sendAMessage: '/send-a-message/:id',
   },
   agenda: {
     title: '[Archives] Rendez-vous aux Jardins 2016 [Officiel]',
@@ -35,31 +35,31 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
       moderators: false,
       tags: false,
       embedsHead: false,
-      embedsTemplates: false
+      embedsTemplates: false,
     },
     roles: [
       {
         code: 1,
-        slug: 'contributor'
+        slug: 'contributor',
       },
       {
         code: 2,
-        slug: 'administrator'
-      }
-    ]
+        slug: 'administrator',
+      },
+    ],
   },
   member: {
     actionsCounter: 0,
     createdAt: '2015-12-08T16:30:34.000Z',
     role: 2,
     custom: {
-      contactName: 'Romain Lange - OpenAgenda'
+      contactName: 'Romain Lange - OpenAgenda',
     },
     deletedUser: false,
     id: 6478,
     linkStore: null,
-    updatedAt: '2015-12-08T16:30:34.000Z'
-  }
+    updatedAt: '2015-12-08T16:30:34.000Z',
+  },
 });
 
 storiesOf('App', module)
@@ -68,8 +68,8 @@ storiesOf('App', module)
     const { element } = createApp({
       history: createMemoryHistory(),
       initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`
-      })
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`,
+      }),
     });
 
     return element;

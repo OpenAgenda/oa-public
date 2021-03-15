@@ -7,12 +7,12 @@ import BorderBox from './BorderBox';
 const messages = defineMessages({
   separator: {
     id: 'AgendaStats.Separator.separator',
-    defaultMessage: 'Separator'
+    defaultMessage: 'Separator',
   },
   remove: {
     id: 'AgendaStats.Separator.remove',
-    defaultMessage: 'Remove'
-  }
+    defaultMessage: 'Remove',
+  },
 });
 
 export default function Separator({ stat, editMode }) {

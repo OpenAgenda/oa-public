@@ -18,7 +18,7 @@ module.exports = async (knex, agendaUid, data, options = {}) => {
   const entry = db.toEntry({
     ...clean,
     updatedAt: new Date(),
-    ...(exists ? {} : { agendaId, createdAt: new Date() })
+    ...(exists ? {} : { agendaId, createdAt: new Date() }),
   });
 
   if (!exists) {
@@ -26,9 +26,7 @@ module.exports = async (knex, agendaUid, data, options = {}) => {
     await knex('aggregator').insert(entry);
   } else {
     log('updating');
-    await knex('aggregator')
-      .update(entry)
-      .where('review_id', agendaId);
+    await knex('aggregator').update(entry).where('review_id', agendaId);
   }
 
   if (exists) {
@@ -40,6 +38,6 @@ module.exports = async (knex, agendaUid, data, options = {}) => {
   }
 
   return {
-    operation: 'create'
+    operation: 'create',
   };
 };

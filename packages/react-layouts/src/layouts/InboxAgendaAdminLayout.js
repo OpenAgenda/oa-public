@@ -6,7 +6,7 @@ function InboxAgendaAdminLayout({
   children,
   extraProps,
   onError,
-  FallbackComponent
+  FallbackComponent,
 }) {
   return (
     <div className="inbox inbox-agenda-admin">

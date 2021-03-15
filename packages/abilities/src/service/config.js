@@ -14,14 +14,14 @@ function getKnexConfig(c) {
       pool: _.pick(c.knex.client.pool, 'min', 'max'),
       schemas: {
         ...c.knex.client.config.schemas,
-        ...c.schemas
-      }
+        ...c.schemas,
+      },
     };
   } else {
     knexConfig = {
       client: 'mysql',
       connection: c.mysql,
-      schemas: c.schemas
+      schemas: c.schemas,
     };
   }
 
@@ -29,7 +29,7 @@ function getKnexConfig(c) {
     knexConfig.migrations = {
       ...(c.knex ? c.knex.client.config.migrations : {}),
       ...c.migrations,
-      directory: path.join(__dirname, '..', '..', 'migrations')
+      directory: path.join(__dirname, '..', '..', 'migrations'),
     };
   }
 
@@ -52,7 +52,7 @@ export function init(c = {}) {
 export function migrate(options) {
   return config.knex.migrate.latest({
     directory: path.join(__dirname, '..', '..', 'migrations'),
-    ...options
+    ...options,
   });
 }
 
@@ -69,7 +69,7 @@ export function seed(options) {
 
   return config.knex.seed.run({
     directory,
-    ...options
+    ...options,
   });
 }
 
@@ -77,7 +77,7 @@ _.extend(config, {
   init,
   migrate,
   seed,
-  getConfig: () => config
+  getConfig: () => config,
 });
 
 export default config;

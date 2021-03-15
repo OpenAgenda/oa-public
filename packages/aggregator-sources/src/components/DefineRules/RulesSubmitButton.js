@@ -5,16 +5,16 @@ import { defineMessages, useIntl } from 'react-intl';
 const messages = defineMessages({
   cancel: {
     id: 'aggregator-sources.AggregatorRulesModal.cancel',
-    defaultMessage: 'Cancel'
+    defaultMessage: 'Cancel',
   },
   save: {
     id: 'aggregator-sources.AggregatorRulesModal.save',
-    defaultMessage: 'Save'
+    defaultMessage: 'Save',
   },
   next: {
     id: 'aggregator-sources.AggregatorRulesModal.next',
-    defaultMessage: 'Next'
-  }
+    defaultMessage: 'Next',
+  },
 });
 
 export default options => ({ handleSubmit, onCancel }) => {

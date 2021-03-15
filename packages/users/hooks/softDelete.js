@@ -26,7 +26,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
           provider: context.params.provider,
           _populate: 'skip',
           authenticated: context.params.authenticated,
-          user: context.params.user
+          user: context.params.user,
         };
 
       params.query.$disableSoftDelete = true;
@@ -70,8 +70,9 @@ module.exports = function softDelete(field, additionalParams = {}) {
 
             context.data[deleteField] = 1;
             context.data.isActivated = 0;
-            context.data.username = `*removed-${date.getFullYear()}-${date.getMonth()
-              + 1}-${date.getDate()}-${before.id}`;
+            context.data.username = `*removed-${date.getFullYear()}-${
+              date.getMonth() + 1
+            }-${date.getDate()}-${before.id}`;
             context.data.email = null;
 
             await setInStore('email', 'params.before.email')(context);

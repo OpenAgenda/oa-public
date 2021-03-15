@@ -29,7 +29,7 @@ function orderBy(k, after, column, orderDirection) {
       k.orderByRaw(`field(\`${column}\`,${rolesOrdered.join(',')})`);
       k.orderBy({
         column: 'id',
-        order: 'asc'
+        order: 'asc',
       });
     } else {
       k.orderByRaw(`field(\`${column}\`,${rolesOrdered.join(',')})`);
@@ -38,12 +38,12 @@ function orderBy(k, after, column, orderDirection) {
     k.orderBy([
       {
         column,
-        order: orderDirection
+        order: orderDirection,
       },
       {
         column: 'id',
-        order: 'asc'
-      }
+        order: 'asc',
+      },
     ]);
   } else {
     k.orderBy(column, orderDirection);
@@ -82,6 +82,6 @@ module.exports = (k, nav) => {
   k.limit(limit);
 
   return {
-    orderField
+    orderField,
   };
 };

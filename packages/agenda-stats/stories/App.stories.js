@@ -12,9 +12,9 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
   settings: {
     lang,
     apiRoot,
-    prefix: ''
+    prefix: '',
   },
-  res: {}
+  res: {},
 });
 
 export default storiesOf('App', module)
@@ -23,16 +23,16 @@ export default storiesOf('App', module)
     createApp({
       history: createMemoryHistory(),
       initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
-      })
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`,
+      }),
     }),
     {
       extraProps: {
         agenda: {
           uid: 48959239,
           slug: 'la-gargouille',
-          title: 'La gargouille'
-        }
-      }
+          title: 'La gargouille',
+        },
+      },
     }
   ));

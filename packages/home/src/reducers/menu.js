@@ -1,7 +1,7 @@
 const SET_TAB = 'home/menu/SET_TAB';
 
 const initialState = {
-  tab: null
+  tab: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function reducer(state = initialState, action) {
     case SET_TAB:
       return {
         ...state,
-        tab: action.tab
+        tab: action.tab,
       };
     default:
       return state;
@@ -19,6 +19,6 @@ export default function reducer(state = initialState, action) {
 export function setTab(tab) {
   return {
     type: SET_TAB,
-    tab
+    tab,
   };
 }

@@ -6,7 +6,7 @@ export default function (prefix = '') {
   return [
     {
       path: prefix,
-      component: App
-    }
+      component: App,
+    },
   ];
 }

@@ -1,5 +1,5 @@
 const initialState = {
-  hasInboxNews: false
+  hasInboxNews: false,
 };
 
 // Action types
@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
     case GET_USER:
       return {
         ...state,
-        userLoading: true
+        userLoading: true,
       };
     case GET_USER_SUCCESS:
       return {
@@ -24,18 +24,18 @@ export default (state = initialState, action) => {
         userLoaded: true,
         user: action.result.data,
         userError: null,
-        userLoading: false
+        userLoading: false,
       };
     case GET_USER_FAIL:
       return {
         ...state,
         userError: action.error,
-        userLoading: false
+        userLoading: false,
       };
     case CHECK_INBOX_NEWS:
       return {
         ...state,
-        inboxNewsLoading: true
+        inboxNewsLoading: true,
       };
     case CHECK_INBOX_NEWS_SUCCESS:
       return {
@@ -43,18 +43,18 @@ export default (state = initialState, action) => {
         inboxLoaded: true,
         hasInboxNews: action.result.data.hasNew,
         inboxNewsError: null,
-        inboxNewsLoading: false
+        inboxNewsLoading: false,
       };
     case CHECK_INBOX_NEWS_FAIL:
       return {
         ...state,
         inboxNewsError: action.error,
-        inboxNewsLoading: false
+        inboxNewsLoading: false,
       };
     case UPDATE_USER:
       return {
         ...state,
-        user: action.payload.user
+        user: action.payload.user,
       };
     default:
       return state;
@@ -71,11 +71,11 @@ export function getUser() {
       return client.get(res.main.getUser, {
         params: {
           $client: {
-            includeImagePath: true
-          }
-        }
+            includeImagePath: true,
+          },
+        },
       });
-    }
+    },
   };
 }
 
@@ -86,6 +86,6 @@ export function checkInboxNews() {
       const { res } = getState();
 
       return client.get(res.main.checkInboxNews);
-    }
+    },
   };
 }

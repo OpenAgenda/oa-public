@@ -9,8 +9,8 @@ import AddChartForm from './AddChartForm';
 const messages = defineMessages({
   addChart: {
     id: 'AgendaStats.ChartAdder.addChart',
-    defaultMessage: 'Add a chart'
-  }
+    defaultMessage: 'Add a chart',
+  },
 });
 
 export default function ChartAdder({ agenda, agendaSchema, stats }) {
@@ -37,12 +37,12 @@ export default function ChartAdder({ agenda, agendaSchema, stats }) {
 
         statConfig = {
           aggregation: {
-            type: aggType
+            type: aggType,
           },
           chart: {
-            width: values.width
+            width: values.width,
           },
-          state: {}
+          state: {},
         };
 
         if (isAdditionalField) {

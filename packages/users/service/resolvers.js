@@ -14,7 +14,7 @@ module.exports = {
 
     const result = await config.interfaces.keys.get({
       type: 'userPublic',
-      identifier: user.uid
+      identifier: user.uid,
     });
 
     user.apiKey = result ? result.key : null;
@@ -32,9 +32,9 @@ module.exports = {
 
     const result = await config.interfaces.keys.get({
       type: 'userPrivate',
-      identifier: user.uid
+      identifier: user.uid,
     });
 
     user.apiSecret = result ? result.key : null;
-  }
+  },
 };

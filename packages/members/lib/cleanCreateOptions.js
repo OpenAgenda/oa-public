@@ -8,33 +8,33 @@ const integer = require('@openagenda/validators/integer');
 schema.register({
   boolean,
   text,
-  integer
+  integer,
 });
 
 module.exports = schema({
   requireCustom: {
     type: 'boolean',
-    default: true
+    default: true,
   },
   context: {
     lang: {
       type: 'text',
       default: null,
-      max: 2
+      max: 2,
     },
     sender: {
       userUid: {
         type: 'integer',
-        default: null
+        default: null,
       },
       memberName: {
         type: 'text',
-        default: null
-      }
+        default: null,
+      },
     },
     message: {
       type: 'text',
-      default: null
-    }
-  }
+      default: null,
+    },
+  },
 });

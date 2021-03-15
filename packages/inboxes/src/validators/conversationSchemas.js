@@ -4,9 +4,9 @@ export const identifiersSchema = {
   additionalProperties: false,
   properties: {
     id: {
-      type: 'integer'
-    }
-  }
+      type: 'integer',
+    },
+  },
 };
 
 export const createSchema = {
@@ -15,18 +15,18 @@ export const createSchema = {
   additionalProperties: false,
   properties: {
     type: {
-      type: 'string'
+      type: 'string',
     },
     typeIdentifier: {
-      type: 'integer'
+      type: 'integer',
     },
     params: {
-      type: 'object'
+      type: 'object',
     },
     message: {
-      type: 'string'
-    }
-  }
+      type: 'string',
+    },
+  },
 };
 
 export const listSchema = {
@@ -34,12 +34,12 @@ export const listSchema = {
   additionalProperties: false,
   properties: {
     type: {
-      type: 'string'
+      type: 'string',
     },
     typeIdentifier: {
-      type: 'integer'
-    }
-  }
+      type: 'integer',
+    },
+  },
 };
 
 export const updateSchema = {
@@ -47,16 +47,16 @@ export const updateSchema = {
   additionalProperties: false,
   properties: {
     updatedAt: {
-      instanceof: 'Date'
+      instanceof: 'Date',
     },
     resolvedAt: {
-      instanceof: 'Date'
+      instanceof: 'Date',
     },
     closedAt: {
-      oneOf: [{ type: 'null' }, { instanceof: 'Date' }]
+      oneOf: [{ type: 'null' }, { instanceof: 'Date' }],
     },
     params: {
-      type: 'object'
-    }
-  }
+      type: 'object',
+    },
+  },
 };

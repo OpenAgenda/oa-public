@@ -17,7 +17,7 @@ import { listSchema } from './validators/conversationSchemas';
 const ajv = new Ajv({
   allErrors: true,
   jsonPointers: true,
-  errorDataPath: 'property'
+  errorDataPath: 'property',
 });
 ajvErrors(ajv);
 ajvKeywords(ajv, ['instanceof']);
@@ -34,7 +34,7 @@ export default class Conversations {
 
     return new Conversation(null, {
       inbox: this.inbox,
-      userUid: this.userUid
+      userUid: this.userUid,
     }).create(data, options);
   }
 
@@ -43,7 +43,7 @@ export default class Conversations {
 
     return new Conversation(identifiers, {
       inbox: this.inbox,
-      userUid: this.userUid
+      userUid: this.userUid,
     }).get(options);
   }
 
@@ -52,7 +52,7 @@ export default class Conversations {
 
     return new Conversation(identifiers, {
       inbox: this.inbox,
-      userUid: this.userUid
+      userUid: this.userUid,
     }).update(data, inboxUser, options);
   }
 
@@ -61,7 +61,7 @@ export default class Conversations {
 
     return new Conversation(identifiers, {
       inbox: this.inbox,
-      userUid: this.userUid
+      userUid: this.userUid,
     }).action(code, inboxUser);
   }
 
@@ -76,7 +76,7 @@ export default class Conversations {
 
     const params = _.assign(
       {
-        total: false
+        total: false,
       },
       options
     );
@@ -238,7 +238,7 @@ export default class Conversations {
         total: this.total,
         totalOpened: this.totalOpened,
         totalClosed: this.totalClosed,
-        data: this.data || null
+        data: this.data || null,
       };
     }
 

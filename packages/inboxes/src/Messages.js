@@ -22,7 +22,7 @@ export default class Messages {
     return new Message(null, {
       inbox: this.inbox,
       conversation: this.conversation,
-      userUid: this.userUid
+      userUid: this.userUid,
     }).create(data, options);
   }
 
@@ -32,7 +32,7 @@ export default class Messages {
     return new Message(identifiers, {
       inbox: this.inbox,
       conversation: this.conversation,
-      userUid: this.userUid
+      userUid: this.userUid,
     }).get(options);
   }
 
@@ -42,7 +42,7 @@ export default class Messages {
     return new Message(identifiers, {
       inbox: this.inbox,
       conversation: this.conversation,
-      userUid: this.userUid
+      userUid: this.userUid,
     }).addAttachment(data);
   }
 

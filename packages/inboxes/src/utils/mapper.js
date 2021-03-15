@@ -1,13 +1,13 @@
 const defaultOptions = {
   internal: false,
   protected: true,
-  detailed: false
+  detailed: false,
 };
 
 function filterFields(fieldsMap, type, options) {
   const params = {
     ...defaultOptions,
-    ...options
+    ...options,
   };
 
   return fieldsMap.filter(field => {
@@ -77,5 +77,5 @@ export function listFields(
 export default {
   toObj,
   toDb,
-  listFields
+  listFields,
 };

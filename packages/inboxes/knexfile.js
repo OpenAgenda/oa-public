@@ -6,5 +6,5 @@ module.exports = {
   client: 'mysql',
   connection: config.mysql,
   migrations: config.migrations,
-  schemas: config.schemas
+  schemas: config.schemas,
 };

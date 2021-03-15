@@ -24,7 +24,7 @@ export default async function populateLatestMessage(svc, entities, inbox) {
 
     return {
       ...row,
-      latestMessage: _.find(messages.data, { id }) || null
+      latestMessage: _.find(messages.data, { id }) || null,
     };
   });
 }

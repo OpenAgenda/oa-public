@@ -10,13 +10,13 @@ function AgendasSearch({
   render,
   initialState = {},
   onSearch,
-  fieldProps
+  fieldProps,
 }) {
   const apiClient = useApiClient();
 
   const initialValues = useMemo(
     () => ({
-      search: initialState.searchValue
+      search: initialState.searchValue,
     }),
     [initialState.searchValue]
   );
@@ -25,8 +25,8 @@ function AgendasSearch({
     ({ search, page }) => apiClient.get(res, {
       params: {
         search: search === '' ? undefined : search,
-        page
-      }
+        page,
+      },
     }),
     [apiClient, res]
   );
@@ -34,7 +34,7 @@ function AgendasSearch({
   const { state, list, nextPage } = useAgendasSearch({
     request: agendasSearchRequest,
     perPageLimit: 20,
-    initialState
+    initialState,
   });
 
   const debouncedList = useMemo(() => _.debounce(list, 400), [list]);

@@ -11,7 +11,7 @@ export default function BsField({
   visible = true,
   errorOnDirty,
   meta: { touched, error, dirty },
-  intl
+  intl,
 }) {
   const displayError = errorOnDirty ? dirty || touched : touched;
 
@@ -44,7 +44,7 @@ export default function BsField({
       {max && (
         <div
           className={classNames('text-right', {
-            'text-danger': max - value.length < 0
+            'text-danger': max - value.length < 0,
           })}
         >
           {max - value.length}

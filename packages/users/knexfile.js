@@ -9,7 +9,7 @@ module.exports = {
   connection: testconfig.mysql,
   schemas: testconfig.schemas,
   seeds: {
-    directory: './seeds/dev'
+    directory: './seeds/dev',
   },
-  testconfig
+  testconfig,
 };

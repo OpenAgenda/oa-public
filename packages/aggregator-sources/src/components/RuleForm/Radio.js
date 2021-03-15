@@ -22,7 +22,7 @@ export default ({
       className,
       spellCheck,
       autoFocus,
-      disabled
+      disabled,
     }),
     [id, placeholder, className, spellCheck, autoFocus, disabled]
   );

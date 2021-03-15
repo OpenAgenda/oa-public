@@ -1,23 +1,24 @@
 'use strict';
 
-const geo = require('./geo');
+const terms = require('./terms');
 const timestamp = require('./timestamp');
 
 const aggregationTypes = {
   additionalFields: require('./additionalFields'),
   additionalFieldMetrics: require('./additionalFieldMetrics'),
-  cities: geo('city'),
+  cities: terms('location.city'),
   eventsByDateRanges: require('./eventsByDateRanges'),
-  departments: geo('department'),
+  departments: terms('location.department'),
   keywords: require('./keywords'),
   languages: require('./languages'),
   members: require('./members'),
   timespan: require('./timespan'),
   originAgendas: require('./originAgendas'),
   pastAndUpcoming: require('./pastAndUpcoming'),
-  regions: geo('region'),
+  regions: terms('location.region'),
   sourceAgendas: require('./sourceAgendas'),
-  states: require('./states'),
+  states: terms('state', { order: { _key: 'desc' } }),
+  attendanceModes: terms('attendanceMode', { order: { _key: 'desc' } }),
   timings: require('./timings'),
   createdAt: timestamp('createdAt'),
   updatedAt: timestamp('_exclusiveUpdatedAt'),

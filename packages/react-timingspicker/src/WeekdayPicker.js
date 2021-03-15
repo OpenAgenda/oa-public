@@ -4,7 +4,7 @@ const keys = {
   LEFT: 37,
   RIGHT: 39,
   ENTER: 13,
-  SPACE: 32
+  SPACE: 32,
 };
 
 const WEEKDAYS_LONG = [
@@ -14,13 +14,13 @@ const WEEKDAYS_LONG = [
   'Wednesday',
   'Thursday',
   'Friday',
-  'Saturday'
+  'Saturday',
 ];
 const WEEKDAYS_SHORT = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const defaultLocaleUtils = {
   formatWeekdayLong: weekday => WEEKDAYS_LONG[weekday],
-  formatWeekdayShort: weekday => WEEKDAYS_SHORT[weekday]
+  formatWeekdayShort: weekday => WEEKDAYS_SHORT[weekday],
 };
 
 export default class WeekdayPicker extends Component {
@@ -29,7 +29,7 @@ export default class WeekdayPicker extends Component {
     ariaModifier: 'selected',
     locale: 'en',
     localeUtils: defaultLocaleUtils,
-    tabIndex: 0
+    tabIndex: 0,
   };
 
   // static propTypes = {
@@ -176,7 +176,7 @@ export default class WeekdayPicker extends Component {
       localeUtils,
       modifiers: modifierFunctions,
       classNamePrefix,
-      ariaModifier
+      ariaModifier,
     } = this.props;
 
     let className = `${classNamePrefix}WeekdayPicker-Weekday`;
@@ -201,7 +201,7 @@ export default class WeekdayPicker extends Component {
       onWeekdayMouseEnter,
       onWeekdayMouseLeave,
       onWeekdayTouchTap,
-      tabIndex: tabIndexProp
+      tabIndex: tabIndexProp,
     } = this.props;
 
     let tabIndex = null;
@@ -251,7 +251,7 @@ export default class WeekdayPicker extends Component {
       classNamePrefix,
       onWeekdayClick,
       onWeekdayTouchTap,
-      className: classNameProp
+      className: classNameProp,
     } = this.props;
     let className = `${classNamePrefix}WeekdayPicker`;
 

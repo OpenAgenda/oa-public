@@ -7,7 +7,7 @@ module.exports = async (
     updateSourceEntry,
     getSourceEntry,
     getMergedSchema,
-    enqueueLoadSourceEvaluates
+    enqueueLoadSourceEvaluates,
   },
   aggregatorAgenda,
   sourceId,
@@ -18,7 +18,7 @@ module.exports = async (
 
   const { evaluate } = {
     evaluate: false,
-    ...options
+    ...options,
   };
 
   const source = await getSourceEntry(sourceId, { detailed: true });
@@ -41,7 +41,7 @@ module.exports = async (
       aggregatorRules: aggregator.rules,
       sourceAgenda: source.agenda,
       sourceRules,
-      formSchema: await getMergedSchema(source.agenda.uid)
+      formSchema: await getMergedSchema(source.agenda.uid),
     });
   }
 

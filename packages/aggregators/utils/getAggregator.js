@@ -14,7 +14,7 @@ module.exports = (knex, agenda, idOnly = false) => knex('aggregator')
       return {
         id: agg.id,
         rules: extractRules('aggregator', agg.id, agg.store),
-        limit: agg.limit
+        limit: agg.limit,
       };
     }
 

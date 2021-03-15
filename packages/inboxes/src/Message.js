@@ -17,7 +17,7 @@ const log = logger('conversation/Message');
 const ajv = new Ajv({
   allErrors: true,
   jsonPointers: true,
-  errorDataPath: 'property'
+  errorDataPath: 'property',
 });
 ajvErrors(ajv);
 
@@ -38,7 +38,7 @@ export default class Message {
     const params = _.merge(
       {
         createInboxUserOnNull: false,
-        createdAt: null
+        createdAt: null,
       },
       options
     );
@@ -55,7 +55,7 @@ export default class Message {
     const finalData = {
       ..._.pick(data, 'body'),
       conversationId: this.conversation.data.id,
-      inboxUserId: inboxUser.id
+      inboxUserId: inboxUser.id,
     };
 
     validate(ajv, createSchema, finalData);
@@ -64,15 +64,15 @@ export default class Message {
 
     const [insertedId] = await knex(schemas.message).insert({
       ...mapper.toDb(messageFieldsMap, 'insert', finalData, {
-        protected: false
+        protected: false,
       }),
-      created_at: createdAt
+      created_at: createdAt,
     });
 
     this.identifiers = { id: insertedId };
 
     await this.conversation.update({ updatedAt: createdAt }, inboxUser.id, {
-      protected: false
+      protected: false,
     });
 
     await this.get(options);
@@ -183,7 +183,7 @@ export default class Message {
       inbox_user_id: inboxUser.id,
       original_name: data.originalName,
       filename: data.filename,
-      created_at: new Date()
+      created_at: new Date(),
     });
 
     return this;

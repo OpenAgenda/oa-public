@@ -15,7 +15,7 @@ module.exports = (schema, tags = []) => {
         labels:
             typeof o.label === 'string'
               ? [o.label]
-              : Object.keys(o.label).map(l => o.label[l])
+              : Object.keys(o.label).map(l => o.label[l]),
       }))
     ),
     []
@@ -31,7 +31,7 @@ module.exports = (schema, tags = []) => {
       [o.field.field]:
         o.field.fieldType === 'radio'
           ? o.id
-          : (values[o.field.field] || []).concat(o.id)
+          : (values[o.field.field] || []).concat(o.id),
     }),
     {}
   );

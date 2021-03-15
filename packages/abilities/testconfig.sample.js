@@ -6,145 +6,145 @@ const editableRules = {
   agenda: () => [
     {
       actions: 'receive',
-      subject: 'eventCreation'
+      subject: 'eventCreation',
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: -1 // refused
-      }
+        state: -1, // refused
+      },
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 0 // tocontrol
-      }
+        state: 0, // tocontrol
+      },
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 1 // controlled
-      }
+        state: 1, // controlled
+      },
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 2 // published
-      }
+        state: 2, // published
+      },
     },
     {
       actions: 'receive',
-      subject: 'eventUpdate'
+      subject: 'eventUpdate',
     },
     {
       actions: 'receive',
-      subject: 'eventAggregation'
-    }
+      subject: 'eventAggregation',
+    },
   ],
   user: () => [
     {
       actions: 'receive',
-      subject: 'invitation'
+      subject: 'invitation',
     },
     {
       actions: 'receive',
-      subject: 'notificationsSummary'
+      subject: 'notificationsSummary',
     },
     {
       actions: 'receive',
-      subject: 'event'
+      subject: 'event',
     },
     {
       actions: 'receive',
-      subject: 'eventCreation'
-    },
-    {
-      actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: -1 // refused
-      }
+      subject: 'eventCreation',
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 0 // tocontrol
-      }
+        state: -1, // refused
+      },
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 1 // controlled
-      }
+        state: 0, // tocontrol
+      },
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 2 // published
-      }
+        state: 1, // controlled
+      },
     },
     {
       actions: 'receive',
-      subject: 'eventUpdate'
+      subject: 'stateChange',
+      conditions: {
+        state: 2, // published
+      },
     },
     {
       actions: 'receive',
-      subject: 'eventAggregation'
-    }
+      subject: 'eventUpdate',
+    },
+    {
+      actions: 'receive',
+      subject: 'eventAggregation',
+    },
   ],
   member: () => [
     {
       actions: 'receive',
-      subject: 'event'
+      subject: 'event',
     },
     {
       actions: 'receive',
-      subject: 'eventCreation'
-    },
-    {
-      actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: -1 // refused
-      }
+      subject: 'eventCreation',
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 0 // tocontrol
-      }
+        state: -1, // refused
+      },
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 1 // controlled
-      }
+        state: 0, // tocontrol
+      },
     },
     {
       actions: 'receive',
       subject: 'stateChange',
       conditions: {
-        state: 2 // published
-      }
+        state: 1, // controlled
+      },
     },
     {
       actions: 'receive',
-      subject: 'eventUpdate'
+      subject: 'stateChange',
+      conditions: {
+        state: 2, // published
+      },
     },
     {
       actions: 'receive',
-      subject: 'eventAggregation'
-    }
-  ]
+      subject: 'eventUpdate',
+    },
+    {
+      actions: 'receive',
+      subject: 'eventAggregation',
+    },
+  ],
 };
 
 module.exports = {
@@ -152,21 +152,21 @@ module.exports = {
     host: '127.0.0.1',
     database: 'oa_test_abilities',
     password: 'grut',
-    user: 'root'
+    user: 'root',
   },
   schemas: {
-    rule: 'rule'
+    rule: 'rule',
   },
   entityMapping: {
     agenda: 'uid',
     member: 'id',
-    user: 'uid'
+    user: 'uid',
   },
   interfaces: {
     getEntity: {
       agenda: uid => ({
         uid,
-        title: "Titre de l'agenda"
+        title: "Titre de l'agenda",
       }),
       member: id => ({
         // needs agendaTitle
@@ -174,17 +174,17 @@ module.exports = {
         agendaUid: 456789,
         agendaTitle: "Titre de l'agenda",
         crendential: 1,
-        userUid: 99999999
+        userUid: 99999999,
       }),
       user: uid => ({
         uid,
-        fullName: 'Bertho'
-      })
+        fullName: 'Bertho',
+      }),
     },
     listEntities: {
       agenda: uids => uids.map(uid => ({
         uid,
-        title: "Titre de l'agenda"
+        title: "Titre de l'agenda",
       })),
       member: ids => ids.map(id => ({
         // needs all agendaTitle
@@ -192,12 +192,12 @@ module.exports = {
         agendaUid: 456789,
         agendaTitle: "Titre de l'agenda",
         crendential: 1,
-        userUid: 99999999
+        userUid: 99999999,
       })),
       user: uids => uids.map(uid => ({
         uid,
-        fullName: 'Bertho'
-      }))
+        fullName: 'Bertho',
+      })),
     },
     defaultFor: {
       user({ can, cannot, rules }) {
@@ -206,7 +206,7 @@ module.exports = {
         cannot('receive', 'activity', { verb: 'spam' });
 
         return rules;
-      }
+      },
     },
     defineFor: {
       // agenda = agenda
@@ -247,7 +247,7 @@ module.exports = {
           .concat(defaultRules)
           .concat(builder.rules) // the rules defined with can/cannot in this block
           .concat(memberRules);
-      }
+      },
     },
     completeFormIndex: {
       user: async (ability, options) => {
@@ -264,11 +264,11 @@ module.exports = {
         return {
           user: ability.identifier,
           // agenda: agendas.map( v => v.uid ),
-          member: members.map(v => v.id)
+          member: members.map(v => v.id),
         };
       },
-      agenda: async ability => ({ agenda: ability.identifier })
+      agenda: async ability => ({ agenda: ability.identifier }),
     },
-    editableRules
-  }
+    editableRules,
+  },
 };

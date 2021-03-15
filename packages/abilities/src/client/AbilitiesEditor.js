@@ -25,8 +25,8 @@ function getInitialValues(rules) {
     .get(res.formIndex, {
       params: {
         entityName,
-        identifier
-      }
+        identifier,
+      },
     })
     .then(({ data }) => data.map(v => {
       v.key = `rule${_.uniqueId()}`;
@@ -45,7 +45,7 @@ export default class AbilitiesEditor extends Component {
   static defaultProps = {
     locale: 'en',
     filterInput: false,
-    filterInputPlaceholder: ''
+    filterInputPlaceholder: '',
   };
 
   constructor(props) {
@@ -61,7 +61,7 @@ export default class AbilitiesEditor extends Component {
       getRules: () => {
         const { abilitiesFetcher } = this.props;
         return abilitiesFetcher.data;
-      }
+      },
     });
   }
 
@@ -73,11 +73,11 @@ export default class AbilitiesEditor extends Component {
       identifier,
       receiveAbilitiesData,
       receiveAbilitiesError,
-      abilitiesFetcher: { data: rules }
+      abilitiesFetcher: { data: rules },
     } = this.props;
 
     const formIndex = rules.map(rule => Object.assign(_.omit(rule, 'key', 'entity', 'relevantRule'), {
-      inverted: !values[rule.key]
+      inverted: !values[rule.key],
     }));
 
     if (typeof onSubmit === 'function') {
@@ -88,8 +88,8 @@ export default class AbilitiesEditor extends Component {
       let { data } = await axios.patch(res.formIndex, formIndex, {
         params: {
           entityName,
-          identifier
-        }
+          identifier,
+        },
       });
 
       if (_.isArray(data)) {
@@ -112,7 +112,7 @@ export default class AbilitiesEditor extends Component {
       abilitiesFetcher: { loading, data: rules, error },
       HeaderComponent,
       searchChildKey,
-      filterInputPlaceholder
+      filterInputPlaceholder,
     } = this.props;
 
     if (loading) {

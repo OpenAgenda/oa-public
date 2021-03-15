@@ -10,7 +10,7 @@ export default function DateAxisTick({ interval, payload, ...rest }) {
       return {
         day: 'numeric',
         month: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
       };
     }
 
@@ -18,14 +18,14 @@ export default function DateAxisTick({ interval, payload, ...rest }) {
       return {
         day: 'numeric',
         month: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
       };
     }
 
     if (interval === 'month') {
       return {
         month: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
       };
     }
   }, [interval]);

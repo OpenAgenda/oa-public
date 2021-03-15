@@ -64,7 +64,7 @@ export default function duplicateTiming(timing, options) {
     until,
     byweekday,
     bymonthday,
-    bysetpos
+    bysetpos,
   });
 
   const begins = rule.all().map(convertUTCDateToLocalDate);
@@ -72,6 +72,6 @@ export default function duplicateTiming(timing, options) {
 
   return begins.map(v => ({
     begin: v,
-    end: new Date(v.getTime() + duration)
+    end: new Date(v.getTime() + duration),
   }));
 }

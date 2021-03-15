@@ -8,17 +8,17 @@ const defaults = {
       lang: 'fr',
       prefix: '/members',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
-      perPageLimit: 20
+      perPageLimit: 20,
     },
     res: {
       list: '/sources.json',
-      stats: '#'
+      stats: '#',
     },
     agenda: {
       title: 'La gargouille',
-      slug: 'la-gargouille'
-    }
-  }
+      slug: 'la-gargouille',
+    },
+  },
 };
 
 export default function (options) {
@@ -32,7 +32,7 @@ export default function (options) {
     apiRoot,
     prefix,
     getRoutes,
-    legacyApiClient: true
+    legacyApiClient: true,
   });
 
   const result = getApp();

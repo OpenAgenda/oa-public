@@ -8,12 +8,12 @@ import { Spinner } from '@openagenda/react-components';
 const messages = defineMessages({
   loadMore: {
     id: 'AgendaStats.LoadMore.loadMore',
-    defaultMessage: 'Load more'
+    defaultMessage: 'Load more',
   },
   nothingMore: {
     id: 'AgendaStats.LoadMore.nothingMore',
-    defaultMessage: 'There is nothing more'
-  }
+    defaultMessage: 'There is nothing more',
+  },
 });
 
 export default function LoadMore({ stat, total, loadMore }) {

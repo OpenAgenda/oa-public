@@ -41,4 +41,8 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.state',
     defaultMessage: 'State',
   },
+  attendanceMode: {
+    id: 'ReactFilters.messages.filterTitles.attendanceMode',
+    defaultMessage: 'Attendance mode',
+  },
 });

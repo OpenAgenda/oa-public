@@ -8,8 +8,8 @@ export default function validate(ajv, schemaId, data) {
     throw new VError({
       name: 'ValidationError',
       info: {
-        errors: getFormErrors(ajv.errors.slice())
-      }
+        errors: getFormErrors(ajv.errors.slice()),
+      },
     });
   }
 

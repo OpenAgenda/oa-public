@@ -9,35 +9,35 @@ const cleanRule = require('../utils/rules/clean');
 schema.register({
   integer,
   pass,
-  boolean
+  boolean,
 });
 
 const ruleFields = {
   query: {
     optional: true,
-    type: 'pass'
+    type: 'pass',
   },
   actions: {
     optional: true,
-    type: 'pass'
+    type: 'pass',
   },
   required: {
     optional: true,
     type: 'boolean',
-    default: false
-  }
+    default: false,
+  },
 };
 
 const validate = schema({
   limit: {
     type: 'integer',
     optional: true,
-    default: null
+    default: null,
   },
   rules: {
     list: true,
-    fields: ruleFields
-  }
+    fields: ruleFields,
+  },
 });
 
 const validateRule = schema(ruleFields);
@@ -46,7 +46,7 @@ module.exports = (data, options = {}) => {
   const { patch, protected: isProtected } = {
     patch: false,
     protected: true,
-    ...options
+    ...options,
   };
 
   let rules;
@@ -59,7 +59,7 @@ module.exports = (data, options = {}) => {
 
   const result = (patch ? validate.part : validate)({
     ...data,
-    ...(rules ? { rules } : {})
+    ...(rules ? { rules } : {}),
   });
 
   if (isProtected) {

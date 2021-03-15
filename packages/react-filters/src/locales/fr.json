@@ -17,6 +17,7 @@
   "ReactFilters.dateRanges.today": "Aujourd'hui",
   "ReactFilters.dateRanges.tomorrow": "Demain",
   "ReactFilters.dateRanges.upcoming": "À venir",
+  "ReactFilters.messages.filterTitles.attendanceMode": "Mode de participation",
   "ReactFilters.messages.filterTitles.city": "Ville",
   "ReactFilters.messages.filterTitles.createdAt": "Date de création",
   "ReactFilters.messages.filterTitles.department": "Département",

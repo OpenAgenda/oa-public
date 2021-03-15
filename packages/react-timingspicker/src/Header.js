@@ -19,7 +19,7 @@ function getYearOptions(activeYear) {
 
       return {
         value: year,
-        label: year
+        label: year,
       };
     });
 }
@@ -33,7 +33,7 @@ class Header extends Component {
       selectedMonth: null,
       selectedYear: null,
       monthOptions: [],
-      yearOptions: []
+      yearOptions: [],
     };
   }
 
@@ -62,7 +62,7 @@ class Header extends Component {
       monthOptions,
       yearOptions: getYearOptions(year),
       selectedMonth,
-      selectedYear
+      selectedYear,
     };
   }
 
@@ -84,7 +84,7 @@ class Header extends Component {
       monthOptions,
       yearOptions,
       selectedMonth,
-      selectedYear
+      selectedYear,
     } = this.state;
 
     return (

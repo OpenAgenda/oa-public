@@ -3,6 +3,6 @@
 module.exports = {
   isNew: {
     optional: false,
-    type: 'boolean'
-  }
+    type: 'boolean',
+  },
 };

@@ -23,7 +23,7 @@ export default hot(
   provideHooks({
     inject: ({ store }) => store.inject({
       modals: modalsReducer,
-      sources: sourcesReducer
-    })
+      sources: sourcesReducer,
+    }),
   })(App)
 );

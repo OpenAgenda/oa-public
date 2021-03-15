@@ -11,8 +11,8 @@ const serviceShape = {
   Conversations: expect.any(Function),
   Conversation: expect.any(Function),
   tasks: {
-    sync: expect.any(Function)
-  }
+    sync: expect.any(Function),
+  },
 };
 
 describe('service', () => {
@@ -29,7 +29,7 @@ describe('service', () => {
         {
           ...testconfig,
           mysql: { ...testconfig.mysql, database },
-          logger: { namespace: 'test:' }
+          logger: { namespace: 'test:' },
         },
         []
       );
@@ -44,7 +44,7 @@ describe('service', () => {
         {
           ...testconfig,
           mysql: { ...testconfig.mysql, database },
-          migrations: null
+          migrations: null,
         },
         []
       );
@@ -57,7 +57,7 @@ describe('service', () => {
     test('init with knex instance', async () => {
       const knex = knexLib({
         client: 'mysql',
-        connection: { ...testconfig.mysql, database }
+        connection: { ...testconfig.mysql, database },
       });
 
       const service = initAndLoad(
@@ -66,8 +66,8 @@ describe('service', () => {
           mysql: { ...testconfig.mysql, database },
           knex,
           migrations: {
-            tableName: 'test_migrations'
-          }
+            tableName: 'test_migrations',
+          },
         },
         []
       );
