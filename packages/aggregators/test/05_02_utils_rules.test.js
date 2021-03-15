@@ -798,7 +798,7 @@ describe('05_02 - utils - rules', () => {
             {
               query: {
                 text: {
-                  organisateur: '92ORG',
+                  title: '92ORG',
                 },
               },
             },
@@ -806,7 +806,7 @@ describe('05_02 - utils - rules', () => {
           null,
           null,
           {
-            organisateur: '92ORG',
+            title: '092ORG',
           }
         )
       ).toEqual({});
